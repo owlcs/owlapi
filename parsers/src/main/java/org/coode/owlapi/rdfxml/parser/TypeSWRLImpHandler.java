@@ -43,8 +43,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Feb-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Feb-2007
  */
 public class TypeSWRLImpHandler extends BuiltInTypeHandler {
 
@@ -59,7 +59,8 @@ public class TypeSWRLImpHandler extends BuiltInTypeHandler {
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
-        consumeTriple(subject, predicate, object);
-        getConsumer().addSWRLRule(subject);
+        IRI remapIRI = getConsumer().remapIRI(subject);
+        consumeTriple(remapIRI, predicate, object);
+        getConsumer().addSWRLRule(remapIRI);
     }
 }

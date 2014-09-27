@@ -64,6 +64,7 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -2256,7 +2257,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     public void statementWithLiteralValue(String subject, String predicate,
             String object, String lang, String datatype) throws SAXException {
         incrementTripleCount();
-        IRI subjectIRI = getIRI(subject);
+        IRI subjectIRI = getIRI(remapOnlyIfRemapped(subject));
         IRI predicateIRI = getIRI(predicate);
         predicateIRI = getSynonym(predicateIRI);
         handleStreaming(subjectIRI, predicateIRI, object, datatype, lang);
@@ -3482,6 +3483,35 @@ public class OWLRDFConsumer implements RDFConsumer {
     /** The single valued lit triples by predicate. */
     private Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory
             .createMap();
+    private final Map<IRI, IRI> remappedIRIs = CollectionFactory.createMap();
+    private final Map<String, IRI> remappedIRIStrings = CollectionFactory
+            .createMap();
+
+    @Override
+    public IRI remapIRI(IRI i) {
+        if (anonymousNodeChecker.isAnonymousNode(i)) {
+            // blank nodes do not need to be remapped in this method
+            return i;
+        }
+        IRI computeIfAbsent = remappedIRIs.get(i);
+        if (computeIfAbsent == null) {
+            computeIfAbsent = IRI.create(NodeID.nextAnonymousIRI());
+            remappedIRIs.put(i, computeIfAbsent);
+        }
+        remappedIRIStrings.put(i.toString(), computeIfAbsent);
+        return computeIfAbsent;
+    }
+
+    @Override
+    public String remapOnlyIfRemapped(String i) {
+        if (anonymousNodeChecker.isAnonymousNode(i)
+                || anonymousNodeChecker.isAnonymousSharedNode(i)) {
+            // blank nodes do not need to be remapped in this method
+            return i;
+        }
+        IRI iri = remappedIRIStrings.get(i);
+        return iri == null ? i : iri.toString();
+    }
 
     /**
      * Adds the triple.

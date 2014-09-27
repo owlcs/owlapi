@@ -45,6 +45,7 @@
  */
 package org.semanticweb.owlapi.rdf.syntax;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.xml.sax.SAXException;
 
 /** Receives notifications about triples generated during the parsing process. */
@@ -139,4 +140,25 @@ public interface RDFConsumer {
      *         sax exception
      */
     void addModelAttribte(String key, String value) throws SAXException;
+
+    /**
+     * for iris that need to be mapped to blank nodes, e.g., SWRL rules with an
+     * IRI - the IRI should be dropped for such constructs.
+     * 
+     * @param i
+     *        iri to remap if not blank
+     * @return blank iri remapping i
+     */
+    IRI remapIRI(IRI i);
+
+    /**
+     * for iris that have been remapped to blank nodes, e.g., SWRL rules: the
+     * triple subject swrl:body object, for example, needs the subject to be
+     * remapped consistently.
+     * 
+     * @param i
+     *        iri to remap if not blank
+     * @return blank iri remapping i, or i if i has not been remapped earlier.
+     */
+    String remapOnlyIfRemapped(String i);
 }
