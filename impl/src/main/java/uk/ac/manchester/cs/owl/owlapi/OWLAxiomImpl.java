@@ -38,7 +38,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
-    private OWLAxiom nnf;
     @Nonnull
     private final List<OWLAnnotation> annotations;
 
@@ -140,10 +139,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     @Override
     public OWLAxiom getNNF() {
-        if (nnf == null) {
-            NNF con = new NNF(new OWLDataFactoryImpl());
-            nnf = accept(con);
-        }
+        NNF con = new NNF(new OWLDataFactoryImpl());
+        OWLAxiom nnf = accept(con);
         return verifyNotNull(nnf);
     }
 }
