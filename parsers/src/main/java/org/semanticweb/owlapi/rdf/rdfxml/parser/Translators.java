@@ -2068,39 +2068,40 @@ public class Translators {
          *        rule to translate
          */
         public void translateRule(@Nonnull IRI mainNode) {
+            IRI remappedNode = consumer.remapIRI(mainNode);
             Set<OWLAnnotation> annotations = new HashSet<>();
-            Set<IRI> predicates = consumer.getPredicatesBySubject(mainNode);
+            Set<IRI> predicates = consumer.getPredicatesBySubject(remappedNode);
             for (IRI i : predicates) {
                 assert i != null;
                 if (consumer.isAnnotationProperty(i)) {
                     OWLAnnotationProperty p = consumer.getDataFactory()
                             .getOWLAnnotationProperty(i);
-                    OWLLiteral literal = consumer.getLiteralObject(mainNode, i,
-                            true);
+                    OWLLiteral literal = consumer.getLiteralObject(
+                            remappedNode, i, true);
                     while (literal != null) {
                         annotations.add(consumer.getDataFactory()
                                 .getOWLAnnotation(p, literal));
-                        literal = consumer.getLiteralObject(mainNode, i, true);
+                        literal = consumer.getLiteralObject(remappedNode, i,
+                                true);
                     }
                 }
             }
             @Nonnull
             Set<SWRLAtom> consequent = CollectionFactory.emptySet();
-            // XXX annotations on rules are not parsed correctly
-            IRI ruleHeadIRI = consumer.getResourceObject(mainNode,
+            IRI ruleHeadIRI = consumer.getResourceObject(remappedNode,
                     SWRLVocabulary.HEAD.getIRI(), true);
             if (ruleHeadIRI != null) {
                 consequent = listTranslator.translateToSet(ruleHeadIRI);
             }
             @Nonnull
             Set<SWRLAtom> antecedent = CollectionFactory.emptySet();
-            IRI ruleBodyIRI = consumer.getResourceObject(mainNode,
+            IRI ruleBodyIRI = consumer.getResourceObject(remappedNode,
                     SWRLVocabulary.BODY.getIRI(), true);
             if (ruleBodyIRI != null) {
                 antecedent = listTranslator.translateToSet(ruleBodyIRI);
             }
             SWRLRule rule = null;
-            if (!consumer.isAnonymousNode(mainNode)) {
+            if (!consumer.isAnonymousNode(remappedNode)) {
                 rule = consumer.getDataFactory().getSWRLRule(antecedent,
                         consequent, annotations);
             } else {

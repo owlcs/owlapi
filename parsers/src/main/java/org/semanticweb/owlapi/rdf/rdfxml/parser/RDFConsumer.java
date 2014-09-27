@@ -133,4 +133,27 @@ public interface RDFConsumer {
     void
             includeModel(@Nullable String logicalURI,
                     @Nullable String physicalURI);
+
+    /**
+     * for iris that need to be mapped to blank nodes, e.g., SWRL rules with an
+     * IRI - the IRI should be dropped for such constructs.
+     * 
+     * @param i
+     *        iri to remap if not blank
+     * @return blank iri remapping i
+     */
+    @Nonnull
+    IRI remapIRI(@Nonnull IRI i);
+
+    /**
+     * for iris that have been remapped to blank nodes, e.g., SWRL rules: the
+     * triple subject swrl:body object, for example, needs the subject to be
+     * remapped consistently.
+     * 
+     * @param i
+     *        iri to remap if not blank
+     * @return blank iri remapping i, or i if i has not been remapped earlier.
+     */
+    @Nonnull
+    String remapOnlyIfRemapped(@Nonnull String i);
 }

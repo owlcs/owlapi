@@ -1615,7 +1615,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String language, @Nullable String datatype) {
         tripleLogger.logTriple(subject, predicate, object, language, datatype);
-        IRI subjectIRI = getIRI(subject);
+        IRI subjectIRI = getIRI(remapOnlyIfRemapped(subject));
         IRI predicateIRI = getIRI(predicate);
         predicateIRI = getSynonym(predicateIRI);
         handlerAccessor.handleStreaming(subjectIRI, predicateIRI, object,
@@ -2530,6 +2530,37 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     /** Predicate, subject, object */
     private final Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory
             .createMap();
+    private final Map<IRI, IRI> remappedIRIs = CollectionFactory.createMap();
+    private final Map<String, IRI> remappedIRIStrings = CollectionFactory
+            .createMap();
+
+    @Override
+    @Nonnull
+    public IRI remapIRI(@Nonnull IRI i) {
+        if (nodeCheckerDelegate.isAnonymousNode(i)) {
+            // blank nodes do not need to be remapped in this method
+            return i;
+        }
+        IRI computeIfAbsent = remappedIRIs.get(i);
+        if (computeIfAbsent == null) {
+            computeIfAbsent = IRI.create(NodeID.nextAnonymousIRI());
+            remappedIRIs.put(i, computeIfAbsent);
+        }
+        remappedIRIStrings.put(i.toString(), computeIfAbsent);
+        return computeIfAbsent;
+    }
+
+    @Override
+    @Nonnull
+    public String remapOnlyIfRemapped(@Nonnull String i) {
+        if (nodeCheckerDelegate.isAnonymousNode(i)
+                || nodeCheckerDelegate.isAnonymousSharedNode(i)) {
+            // blank nodes do not need to be remapped in this method
+            return i;
+        }
+        IRI iri = remappedIRIStrings.get(i);
+        return iri == null ? i : iri.toString();
+    }
 
     protected void addTriple(IRI subject, IRI predicate, IRI object) {
         Map<IRI, IRI> subjObjMap = singleValuedResTriplesByPredicate
