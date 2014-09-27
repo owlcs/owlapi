@@ -919,6 +919,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(SWRLRule rule) {
         sb.append("DLSafeRule(");
+        writeAnnotations(rule);
         sb.append(" Body(");
         render(rule.getBody());
         sb.append(')');

@@ -363,12 +363,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     public void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String reificationID) {
-        consumer.statementWithResourceValue(subject, predicate, object);
+        String remappedSubject = consumer.remapOnlyIfRemapped(subject);
+        consumer.statementWithResourceValue(remappedSubject, predicate, object);
         if (reificationID != null) {
             consumer.statementWithResourceValue(reificationID, RDF_TYPE,
                     RDF_STATEMENT);
             consumer.statementWithResourceValue(reificationID, RDF_SUBJECT,
-                    subject);
+                    remappedSubject);
             consumer.statementWithResourceValue(reificationID, RDF_PREDICATE,
                     predicate);
             consumer.statementWithResourceValue(reificationID, RDF_OBJECT,

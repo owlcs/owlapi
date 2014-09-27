@@ -3406,8 +3406,9 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
-            consumeTriple(subject, predicate, object);
-            consumer.addSWRLRule(subject);
+            IRI remapIRI = consumer.remapIRI(subject);
+            consumeTriple(remapIRI, predicate, object);
+            consumer.addSWRLRule(remapIRI);
         }
     }
 
