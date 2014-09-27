@@ -12,22 +12,22 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.NNF;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -38,7 +38,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
-    private OWLAxiom nnf;
     @Nonnull
     private final List<OWLAnnotation> annotations;
 
@@ -49,8 +48,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     }
 
     /**
-     * @param annotations
-     *        annotations on the axiom
+     * @param annotations annotations on the axiom
      */
     @SuppressWarnings("unchecked")
     public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
@@ -127,8 +125,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      * A convenience method for implementation that returns a set containing the
      * annotations on this axiom plus the annotations in the specified set.
      * 
-     * @param annos
-     *        The annotations to add to the annotations on this axiom
+     * @param annos The annotations to add to the annotations on this axiom
      * @return The annotations
      */
     @Nonnull
@@ -156,10 +153,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     @Override
     public OWLAxiom getNNF() {
-        if (nnf == null) {
             NNF con = new NNF(new OWLDataFactoryImpl());
-            nnf = accept(con);
-        }
+        OWLAxiom nnf = accept(con);
         return verifyNotNull(nnf);
     }
 }
