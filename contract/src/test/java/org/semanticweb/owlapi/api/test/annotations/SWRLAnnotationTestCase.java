@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -141,8 +142,7 @@ public class SWRLAnnotationTestCase {
                 + "    <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\"\n"
                 + "    >:i62, :i61</rdfs:comment>\n" + "  </swrl:Imp>\n"
                 + "</rdf:RDF>";
-        OWLOntology ontology = loadOntologyFromString(new StringDocumentSource(
-                input, IRI.create("test"), new RDFXMLDocumentFormat(), null));
+        OWLOntology ontology = loadOntology(input);
         assertTrue(ontology
                 .getAxioms(AxiomType.SWRL_RULE)
                 .toString()
@@ -200,13 +200,11 @@ public class SWRLAnnotationTestCase {
                 + "    <swrla:isRuleEnabled rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</swrla:isRuleEnabled>\n"
                 + "    <rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">:i62, :i61</rdfs:comment>\n"
                 + "  </swrl:Imp>\n" + "</rdf:RDF>";
-        OWLOntology ontology = loadOntologyFromString(new StringDocumentSource(
-                input, IRI.create("test"), new RDFXMLDocumentFormat(), null));
+        OWLOntology ontology = loadOntology(input);
         assertTrue(ontology
                 .getAxioms(AxiomType.SWRL_RULE)
                 .toString()
                 .contains(
                         "DLSafeRule(Annotation(<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> \"true\"^^xsd:boolean) Annotation(rdfs:comment \":i62, :i61\"^^xsd:string)  Body() Head(ObjectPropertyAtom(<#drives> <#i61> <#i62>)) )"));
     }
-
 }

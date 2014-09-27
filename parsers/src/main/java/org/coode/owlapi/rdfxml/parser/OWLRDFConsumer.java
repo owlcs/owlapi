@@ -2268,7 +2268,7 @@ public class OWLRDFConsumer implements RDFConsumer {
             String object) throws SAXException {
         try {
             incrementTripleCount();
-            IRI subjectIRI = getIRI(subject);
+            IRI subjectIRI = getIRI(remapOnlyIfRemapped(subject));
             IRI predicateIRI = getIRI(predicate);
             predicateIRI = getSynonym(predicateIRI);
             IRI objectIRI = getSynonym(getIRI(object));
