@@ -12,6 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +23,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -104,8 +109,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         a mapping to a prefix in the specified prefix manager.
      */
     @Nonnull
-    OWLClass getOWLClass(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager);
+    default OWLClass getOWLClass(@Nonnull String abbreviatedIRI,
+            @Nonnull PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "iri cannot be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLClass(prefixManager.getIRI(abbreviatedIRI));
+    }
 
     /**
      * Gets an OWLObjectProperty that has an IRI that is obtained by expanding
@@ -133,8 +142,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         a mapping to a prefix in the specified prefix manager.
      */
     @Nonnull
-    OWLObjectProperty getOWLObjectProperty(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager);
+    default OWLObjectProperty
+            getOWLObjectProperty(@Nonnull String abbreviatedIRI,
+                    @Nonnull PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "curi canno be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLObjectProperty(prefixManager.getIRI(abbreviatedIRI));
+    }
 
     /**
      * Gets the inverse of an object property.
@@ -173,8 +187,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         a mapping to a prefix in the specified prefix manager.
      */
     @Nonnull
-    OWLDataProperty getOWLDataProperty(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager);
+    default OWLDataProperty getOWLDataProperty(@Nonnull String abbreviatedIRI,
+            @Nonnull PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "curi canno be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLDataProperty(prefixManager.getIRI(abbreviatedIRI));
+    }
 
     /**
      * Gets an OWLNamedIndividual that has an IRI that is obtained by expanding
@@ -202,8 +220,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         a mapping to a prefix in the specified prefix manager.
      */
     @Nonnull
-    OWLNamedIndividual getOWLNamedIndividual(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager);
+    default OWLNamedIndividual
+            getOWLNamedIndividual(@Nonnull String abbreviatedIRI,
+                    @Nonnull PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "curi canno be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLNamedIndividual(prefixManager.getIRI(abbreviatedIRI));
+    }
 
     /**
      * Gets an OWLAnnotationProperty that has an IRI that is obtained by
@@ -231,9 +254,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         a mapping to a prefix in the specified prefix manager.
      */
     @Nonnull
-    OWLAnnotationProperty
+    default OWLAnnotationProperty
             getOWLAnnotationProperty(@Nonnull String abbreviatedIRI,
-                    @Nonnull PrefixManager prefixManager);
+                    @Nonnull PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLAnnotationProperty(prefixManager.getIRI(abbreviatedIRI));
+    }
 
     /**
      * Gets an annotation property that has an IRI corresponding to
@@ -344,8 +371,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         a mapping to a prefix in the specified prefix manager.
      */
     @Nonnull
-    OWLDatatype getOWLDatatype(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager);
+    default OWLDatatype getOWLDatatype(@Nonnull String abbreviatedIRI,
+            @Nonnull PrefixManager prefixManager) {
+        checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
+        checkNotNull(prefixManager, "prefixManager cannot be null");
+        return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
+    }
 
     /**
      * A convenience method that obtains the datatype that represents integers.
@@ -423,8 +454,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         of "abc" and a language tag of "en".
      */
     @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWL2Datatype datatype);
+    default OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
+            @Nonnull OWL2Datatype datatype) {
+        checkNotNull(lexicalValue, "lexicalValue cannot be null");
+        checkNotNull(datatype, "datatype cannot be null");
+        return getOWLLiteral(lexicalValue, getOWLDatatype(datatype.getIRI()));
+    }
 
     /**
      * Convenience method that obtains a literal typed as an integer.
@@ -529,7 +564,10 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return A data one of that enumerates the specified set of values
      */
     @Nonnull
-    OWLDataOneOf getOWLDataOneOf(@Nonnull OWLLiteral... values);
+    default OWLDataOneOf getOWLDataOneOf(@Nonnull OWLLiteral... values) {
+        checkIterableNotNull(values, "values cannot be null", true);
+        return getOWLDataOneOf(CollectionFactory.createSet(values));
+    }
 
     /**
      * Gets an OWLDataComplementOf <a href=
@@ -588,9 +626,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         restrictions
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeRestriction(
+    default OWLDatatypeRestriction getOWLDatatypeRestriction(
             @Nonnull OWLDatatype dataType,
-            @Nonnull OWLFacetRestriction... facetRestrictions);
+            @Nonnull OWLFacetRestriction... facetRestrictions) {
+        checkIterableNotNull(facetRestrictions,
+                "facetRestrictions cannot be null", true);
+        return getOWLDatatypeRestriction(dataType,
+                CollectionFactory.createSet(facetRestrictions));
+    }
 
     /**
      * Creates a datatype restriction on xsd:integer with a minInclusive facet
@@ -875,7 +918,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an OWLDataUnionOf on the specified dataranges
      */
     @Nonnull
-    OWLDataUnionOf getOWLDataUnionOf(@Nonnull OWLDataRange... dataRanges);
+    default OWLDataUnionOf getOWLDataUnionOf(
+            @Nonnull OWLDataRange... dataRanges) {
+        checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
+        return getOWLDataUnionOf(CollectionFactory.createSet(dataRanges));
+    }
 
     /**
      * @param dataRanges
@@ -892,8 +939,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an OWLDataIntersectionOf on the specified dataranges
      */
     @Nonnull
-    OWLDataIntersectionOf getOWLDataIntersectionOf(
-            @Nonnull OWLDataRange... dataRanges);
+    default OWLDataIntersectionOf getOWLDataIntersectionOf(
+            @Nonnull OWLDataRange... dataRanges) {
+        checkIterableNotNull(dataRanges, "dataRange cannot be nulls", true);
+        return getOWLDataIntersectionOf(CollectionFactory.createSet(dataRanges));
+    }
 
     // Class Expressions
     /**
@@ -913,8 +963,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an OWLObjectIntersectionOf on the specified operands
      */
     @Nonnull
-    OWLObjectIntersectionOf getOWLObjectIntersectionOf(
-            @Nonnull OWLClassExpression... operands);
+    default OWLObjectIntersectionOf getOWLObjectIntersectionOf(
+            @Nonnull OWLClassExpression... operands) {
+        checkIterableNotNull(operands, "operands cannot be null", true);
+        return getOWLObjectIntersectionOf(CollectionFactory.createSet(operands));
+    }
 
     // Data restrictions
     /**
@@ -1062,7 +1115,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a OneOf expression on specified individuals
      */
     @Nonnull
-    OWLObjectOneOf getOWLObjectOneOf(@Nonnull OWLIndividual... individuals);
+    default OWLObjectOneOf getOWLObjectOneOf(
+            @Nonnull OWLIndividual... individuals) {
+        checkIterableNotNull(individuals, "individuals cannot be null", true);
+        return getOWLObjectOneOf(CollectionFactory.createSet(individuals));
+    }
 
     // Object restrictions
     /**
@@ -1209,8 +1266,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a class union over the specified arguments
      */
     @Nonnull
-    OWLObjectUnionOf getOWLObjectUnionOf(
-            @Nonnull OWLClassExpression... operands);
+    default OWLObjectUnionOf getOWLObjectUnionOf(
+            @Nonnull OWLClassExpression... operands) {
+        checkIterableNotNull(operands, "operands cannot be null", true);
+        return getOWLObjectUnionOf(CollectionFactory.createSet(operands));
+    }
 
     // Axioms
     /**
@@ -1295,8 +1355,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         annotations
      */
     @Nonnull
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
-            @Nonnull OWLClassExpression... classExpressions);
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
+            @Nonnull OWLClassExpression... classExpressions) {
+        checkIterableNotNull(classExpressions,
+                "classExpressions cannot be null", true);
+        Set<OWLClassExpression> clses = new HashSet<>();
+        clses.addAll(Arrays.asList(classExpressions));
+        return getOWLEquivalentClassesAxiom(clses);
+    }
 
     /**
      * @param clsA
@@ -1340,8 +1406,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a disjoint class axiom with no annotations
      */
     @Nonnull
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
-            @Nonnull OWLClassExpression... classExpressions);
+    default OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
+            @Nonnull OWLClassExpression... classExpressions) {
+        checkIterableNotNull(classExpressions,
+                "classExpressions cannot be null", true);
+        Set<OWLClassExpression> clses = new HashSet<>();
+        clses.addAll(Arrays.asList(classExpressions));
+        return getOWLDisjointClassesAxiom(clses);
+    }
 
     /**
      * @param classExpressions
@@ -1463,8 +1535,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an equivalent properties axiom with specified properties
      */
     @Nonnull
-    OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
-            @Nonnull OWLObjectPropertyExpression... properties);
+    default OWLEquivalentObjectPropertiesAxiom
+            getOWLEquivalentObjectPropertiesAxiom(
+                    @Nonnull OWLObjectPropertyExpression... properties) {
+        checkIterableNotNull(properties, "properties cannot be null", true);
+        return getOWLEquivalentObjectPropertiesAxiom(CollectionFactory
+                .createSet(properties));
+    }
 
     /**
      * @param propertyA
@@ -1509,8 +1586,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a disjoint object properties axiom with specified properties
      */
     @Nonnull
-    OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
-            @Nonnull OWLObjectPropertyExpression... properties);
+    default OWLDisjointObjectPropertiesAxiom
+            getOWLDisjointObjectPropertiesAxiom(
+                    @Nonnull OWLObjectPropertyExpression... properties) {
+        checkIterableNotNull(properties, "properties cannot be null", true);
+        return getOWLDisjointObjectPropertiesAxiom(CollectionFactory
+                .createSet(properties));
+    }
 
     /**
      * @param properties
@@ -1812,8 +1894,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an equivalent data properties axiom
      */
     @Nonnull
-    OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
-            @Nonnull OWLDataPropertyExpression... properties);
+    default OWLEquivalentDataPropertiesAxiom
+            getOWLEquivalentDataPropertiesAxiom(
+                    @Nonnull OWLDataPropertyExpression... properties) {
+        checkIterableNotNull(properties, "properties cannot be null", true);
+        return getOWLEquivalentDataPropertiesAxiom(CollectionFactory
+                .createSet(properties));
+    }
 
     /**
      * @param propertyA
@@ -1848,8 +1935,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a disjoint data properties axiom with specified properties
      */
     @Nonnull
-    OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
-            @Nonnull OWLDataPropertyExpression... dataProperties);
+    default OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
+            @Nonnull OWLDataPropertyExpression... dataProperties) {
+        checkIterableNotNull(dataProperties, "properties cannot be null", true);
+        return getOWLDisjointDataPropertiesAxiom(CollectionFactory
+                .createSet(dataProperties));
+    }
 
     /**
      * @param properties
@@ -1968,8 +2059,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a hasKey axiom on given arguments
      */
     @Nonnull
-    OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
-            @Nonnull OWLPropertyExpression... properties);
+    default OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
+            @Nonnull OWLPropertyExpression... properties) {
+        checkNotNull(ce, "classExpression cannot be null");
+        checkIterableNotNull(properties, "properties cannot be null", true);
+        return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
+    }
 
     /**
      * @param ce
@@ -2026,8 +2121,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a same individuals axiom with specified individuals
      */
     @Nonnull
-    OWLSameIndividualAxiom getOWLSameIndividualAxiom(
-            @Nonnull OWLIndividual... individual);
+    default OWLSameIndividualAxiom getOWLSameIndividualAxiom(
+            @Nonnull OWLIndividual... individual) {
+        checkIterableNotNull(individual, "individuals cannot be null", true);
+        Set<OWLIndividual> inds = new HashSet<>();
+        inds.addAll(Arrays.asList(individual));
+        return getOWLSameIndividualAxiom(inds);
+    }
 
     /**
      * @param individuals
@@ -2057,8 +2157,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a different individuals axiom with specified individuals
      */
     @Nonnull
-    OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
-            @Nonnull OWLIndividual... individuals);
+    default OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
+            @Nonnull OWLIndividual... individuals) {
+        checkIterableNotNull(individuals, "individuals cannot be null", true);
+        return getOWLDifferentIndividualsAxiom(CollectionFactory
+                .createSet(individuals));
+    }
 
     /**
      * @param individuals

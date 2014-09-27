@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import java.util.Collection;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
@@ -149,5 +151,39 @@ public final class OWLAPIPreconditions {
             throw new IllegalArgumentException(message);
         }
         return verifyNotNull(object.get());
+    }
+
+    /**
+     * @param o
+     *        collection to check for nullness and null elements, and optionally
+     *        for emptiness
+     * @param name
+     *        message for error
+     * @param emptyAllowed
+     *        true if the input can be empty
+     */
+    public static void checkIterableNotNull(@Nonnull Collection<?> o,
+            String name, boolean emptyAllowed) {
+        checkNotNull(o, name);
+        if (!emptyAllowed && o.isEmpty()) {
+            throw new IllegalArgumentException(name + " or empty");
+        }
+    }
+
+    /**
+     * @param o
+     *        array to check for nullness and null elements, and optionally for
+     *        emptiness
+     * @param name
+     *        message for error
+     * @param emptyAllowed
+     *        true if the input can be empty
+     */
+    public static void checkIterableNotNull(@Nonnull Object[] o, String name,
+            boolean emptyAllowed) {
+        checkNotNull(o, name);
+        if (!emptyAllowed && o.length == 0) {
+            throw new IllegalArgumentException(name + " or empty");
+        }
     }
 }
