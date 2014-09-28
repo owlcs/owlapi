@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.api.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,6 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -171,8 +173,11 @@ public class Builder {
     }
 
     public OWLHasKeyAxiom hasKey() {
-        return df.getOWLHasKeyAxiom(ce,
-                Sets.newHashSet(df.getOWLObjectProperty(iri), op, dp), as);
+        Set<OWLPropertyExpression> set = new HashSet<>();
+        set.add(df.getOWLObjectProperty(iri));
+        set.add(op);
+        set.add(dp);
+        return df.getOWLHasKeyAxiom(ce, set, as);
     }
 
     public OWLSymmetricObjectPropertyAxiom symm() {

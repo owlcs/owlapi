@@ -109,6 +109,7 @@ public class DelegatingObjectVisitorExTestCase extends TestBase {
 
     @Test
     public void testAssertion() {
+        @SuppressWarnings("unchecked")
         OWLObjectVisitorEx<Object> test = mock(OWLObjectVisitorEx.class);
         DelegatingObjectVisitorEx<Object> testsubject = new DelegatingObjectVisitorEx<>(
                 test);
