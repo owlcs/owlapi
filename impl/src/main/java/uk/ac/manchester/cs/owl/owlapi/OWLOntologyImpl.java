@@ -59,9 +59,14 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
     }
 
     @Override
-    public ChangeApplied applyChange(@Nonnull OWLOntologyChange change) {
+    public ChangeApplied applyDirectChange(@Nonnull OWLOntologyChange change) {
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         return change.accept(changeFilter);
+    }
+
+    @Override
+    public ChangeApplied applyChange(OWLOntologyChange change) {
+        return getOWLOntologyManager().applyChange(change);
     }
 
     @Nonnull

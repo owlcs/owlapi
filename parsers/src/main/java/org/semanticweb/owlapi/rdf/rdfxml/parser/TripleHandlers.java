@@ -3204,13 +3204,11 @@ public class TripleHandlers {
             if (!isAnonymous(subject) && consumer.getOntologies().isEmpty()) {
                 // Set IRI if it is not null before this point, and make sure to
                 // preserve the version IRI if it also existed before this point
-                if (!consumer.getOntology().getOntologyID().getOntologyIRI()
-                        .isPresent()) {
+                OWLOntology o = consumer.getOntology();
+                if (!o.getOntologyID().getOntologyIRI().isPresent()) {
                     OWLOntologyID id = new OWLOntologyID(Optional.of(subject),
-                            consumer.getOntology().getOntologyID()
-                                    .getVersionIRI());
-                    consumer.applyChange(new SetOntologyID(consumer
-                            .getOntology(), id));
+                            o.getOntologyID().getVersionIRI());
+                    o.applyChange(new SetOntologyID(o, id));
                 }
             }
             consumer.addOntology(subject);

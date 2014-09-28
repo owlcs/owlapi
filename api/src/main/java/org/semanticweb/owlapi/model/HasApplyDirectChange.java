@@ -12,30 +12,36 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.5
  */
-public interface HasAddAxioms {
+public interface HasApplyDirectChange {
 
     /**
-     * A convenience method that adds a set of axioms to an ontology. The
-     * appropriate AddAxiom change objects are automatically generated.
+     * A convenience method that applies just one change to this ontology. Note:
+     * ontology ID changes should not be passed directly to this method but
+     * applied through OWLOntologyManager. This is because the manager needs to
+     * update its internal structures for id changes.
      * 
-     * @param ont
-     *        The ontology to which the axioms should be added.
-     * @param axioms
-     *        The axioms to be added.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to add the axioms.
+     * @param change
+     *        The change to be applied
+     * @return ChangeApplied.SUCCESSFULLY if the change is applied with success,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException
+     *         If the change could not be applied. See subclasses of ontology
+     *         change exception for more specific details.
+     * @throws OWLOntologyRenameException
+     *         If one or more of the changes is an instance of
+     *         {@link org.semanticweb.owlapi.model.SetOntologyID} where the new
+     *         {@link org.semanticweb.owlapi.model.OWLOntologyID} already
+     *         belongs to an ontology managed by this manager.
      */
     @Nonnull
-    List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Collection<? extends OWLAxiom> axioms);
+    ChangeApplied applyDirectChange(@Nonnull OWLOntologyChange change);
 }

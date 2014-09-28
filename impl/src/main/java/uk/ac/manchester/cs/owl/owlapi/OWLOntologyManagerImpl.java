@@ -451,7 +451,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         checkForOntologyIDChange(change);
         ChangeApplied appliedChange = ((OWLMutableOntology) ont)
-                .applyChange(change);
+                .applyDirectChange(change);
         checkForImportsChange(change);
         if (appliedChange == ChangeApplied.UNSUCCESSFULLY) {
             return Collections.emptyList();
@@ -494,7 +494,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Set<? extends OWLAxiom> axioms) {
+            @Nonnull Collection<? extends OWLAxiom> axioms) {
         List<AddAxiom> changes = new ArrayList<>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
             changes.add(new AddAxiom(ont, ax));

@@ -46,7 +46,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
         OWLAxiomCollectionBooleanArgs, OWLAxiomCollectionNoArgs, OWLSignature,
         OWLSignatureBooleanArgs, OWLAxiomIndex, HasApplyChange,
         HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms,
-        HasDirectRemoveAxiom, HasDirectRemoveAxioms {
+        HasDirectRemoveAxiom, HasDirectRemoveAxioms, HasApplyDirectChange {
 
     // Default implementation of these mutating methods is to do nothing.
     // Adding them to this interface allows access without casting, since
@@ -55,6 +55,12 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     @Override
     @Nonnull
     default ChangeApplied applyChange(@Nonnull OWLOntologyChange change) {
+        return ChangeApplied.UNSUCCESSFULLY;
+    }
+
+    @Override
+    @Nonnull
+    default ChangeApplied applyDirectChange(@Nonnull OWLOntologyChange change) {
         return ChangeApplied.UNSUCCESSFULLY;
     }
 

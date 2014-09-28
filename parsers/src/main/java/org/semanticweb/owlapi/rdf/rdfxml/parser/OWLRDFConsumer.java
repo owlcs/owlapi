@@ -64,7 +64,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -116,8 +115,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     /** The configuration. */
     @Nonnull
     private final OWLOntologyLoaderConfiguration configuration;
-    /** The owl ontology manager. */
-    private final OWLOntologyManager owlOntologyManager;
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
@@ -240,9 +237,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             @Nonnull AnonymousNodeChecker checker,
             @Nonnull OWLOntologyLoaderConfiguration configuration) {
         nodeCheckerDelegate = checker;
-        owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
-        dataFactory = owlOntologyManager.getOWLDataFactory();
+        dataFactory = ontology.getOWLOntologyManager().getOWLDataFactory();
         this.configuration = configuration;
         handlerAccessor = new HandlerAccessor(this);
         translatorAccessor = new TranslatorAccessor(this);
@@ -679,7 +675,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
                 parsedAnnotationAxioms.add((OWLAnnotationAxiom) axiom);
             }
         } else {
-            owlOntologyManager.addAxiom(ontology, axiom);
+            ontology.addAxiom(axiom);
         }
         lastAddedAxiom = axiom;
     }
@@ -751,23 +747,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     /**
-     * Apply change.
-     * 
-     * @param change
-     *        the change
-     */
-    protected void applyChange(@Nonnull OWLOntologyChange change) {
-        owlOntologyManager.applyChange(change);
-    }
-
-    /**
      * Sets the ontology id.
      * 
      * @param ontologyID
      *        the new ontology id
      */
     protected void setOntologyID(@Nonnull OWLOntologyID ontologyID) {
-        applyChange(new SetOntologyID(ontology, ontologyID));
+        ontology.applyChange(new SetOntologyID(ontology, ontologyID));
     }
 
     /**
@@ -777,7 +763,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the annotation
      */
     protected void addOntologyAnnotation(@Nonnull OWLAnnotation annotation) {
-        applyChange(new AddOntologyAnnotation(ontology, annotation));
+        ontology.applyChange(new AddOntologyAnnotation(ontology, annotation));
     }
 
     /**
@@ -787,7 +773,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the declaration
      */
     protected void addImport(@Nonnull OWLImportsDeclaration declaration) {
-        applyChange(new AddImport(ontology, declaration));
+        ontology.applyChange(new AddImport(ontology, declaration));
     }
 
     /**
@@ -1091,7 +1077,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return the oWL ontology manager
      */
     public OWLOntologyManager getOWLOntologyManager() {
-        return owlOntologyManager;
+        return ontology.getOWLOntologyManager();
     }
 
     /**
@@ -1497,15 +1483,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     private void addAnnotationAxioms() {
-        for (OWLAxiom axiom : parsedAnnotationAxioms) {
-            owlOntologyManager.addAxiom(ontology, axiom);
-        }
+        ontology.addAxioms(parsedAnnotationAxioms);
     }
 
     private void removeAxiomsScheduledForRemoval() {
-        for (OWLAxiom axiom : axiomsToBeRemoved) {
-            owlOntologyManager.removeAxiom(ontology, axiom);
-        }
+        ontology.removeAxioms(axiomsToBeRemoved);
     }
 
     /**
@@ -1549,7 +1531,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
             OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRIToSet,
                     versionIRI);
-            applyChange(new SetOntologyID(ontology, ontologyID));
+            ontology.applyChange(new SetOntologyID(ontology, ontologyID));
         }
     }
 
