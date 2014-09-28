@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -456,7 +457,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     @Nonnull
     default OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
             @Nonnull OWL2Datatype datatype) {
-        checkNotNull(lexicalValue, "lexicalValue cannot be null");
         checkNotNull(datatype, "datatype cannot be null");
         return getOWLLiteral(lexicalValue, getOWLDatatype(datatype.getIRI()));
     }
@@ -649,8 +649,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code minInclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(
-            int minInclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(
+            int minInclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
+                OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:integer with a maxInclusive facet
@@ -666,8 +669,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code maxInclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(
-            int maxInclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(
+            int maxInclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
+                OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:integer with min and max inclusive
@@ -688,8 +694,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code maxInclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(
-            int minInclusive, int maxInclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(
+            int minInclusive, int maxInclusive) {
+        return getOWLDatatypeRestriction(
+                getIntegerOWLDatatype(),
+                getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE,
+                        getOWLLiteral(minInclusive)),
+                getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:integer with a minExclusive facet
@@ -705,8 +717,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code minExclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(
-            int minExclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(
+            int minExclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
+                OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:integer with a maxExclusive facet
@@ -722,8 +737,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code maxExclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(
-            int maxExclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(
+            int maxExclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
+                OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:integer with min and max exclusive
@@ -744,8 +762,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code maxExclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(
-            int minExclusive, int maxExclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(
+            int minExclusive, int maxExclusive) {
+        return getOWLDatatypeRestriction(
+                getIntegerOWLDatatype(),
+                getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE,
+                        getOWLLiteral(minExclusive)),
+                getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:double with a minInclusive facet
@@ -761,8 +785,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code minInclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(
-            double minInclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(
+            double minInclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
+                OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:double with a maxInclusive facet
@@ -778,8 +805,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code maxInclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(
-            double maxInclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(
+            double maxInclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
+                OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:double with min and max inclusive
@@ -800,8 +830,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code maxInclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(
-            double minInclusive, double maxInclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(
+            double minInclusive, double maxInclusive) {
+        return getOWLDatatypeRestriction(
+                getDoubleOWLDatatype(),
+                getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE,
+                        getOWLLiteral(minInclusive)),
+                getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:double with a minExclusive facet
@@ -817,8 +853,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code minExclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(
-            double minExclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(
+            double minExclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
+                OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:double with a maxExclusive facet
@@ -834,8 +873,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code maxExclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(
-            double maxExclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(
+            double maxExclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
+                OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
+    }
 
     /**
      * Creates a datatype restriction on xsd:double with min and max exclusive
@@ -856,8 +898,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         value specified by the {@code maxExclusive} parameter.
      */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(
-            double minExclusive, double maxExclusive);
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(
+            double minExclusive, double maxExclusive) {
+        return getOWLDatatypeRestriction(
+                getDoubleOWLDatatype(),
+                getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE,
+                        getOWLLiteral(minExclusive)),
+                getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
+    }
 
     /**
      * @param facet
@@ -878,8 +926,10 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an OWLFacetRestriction on specified facet and value
      */
     @Nonnull
-    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
-            int facetValue);
+    default OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
+            int facetValue) {
+        return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
+    }
 
     /**
      * @param facet
@@ -889,8 +939,10 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an OWLFacetRestriction on specified facet and value
      */
     @Nonnull
-    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
-            double facetValue);
+    default OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
+            double facetValue) {
+        return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
+    }
 
     /**
      * @param facet
@@ -900,8 +952,10 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an OWLFacetRestriction on specified facet and value
      */
     @Nonnull
-    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
-            float facetValue);
+    default OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
+            float facetValue) {
+        return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
+    }
 
     /**
      * @param dataRanges
@@ -1281,7 +1335,10 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return The declaration axiom for the specified entity.
      */
     @Nonnull
-    OWLDeclarationAxiom getOWLDeclarationAxiom(@Nonnull OWLEntity owlEntity);
+    default OWLDeclarationAxiom getOWLDeclarationAxiom(
+            @Nonnull OWLEntity owlEntity) {
+        return getOWLDeclarationAxiom(owlEntity, Collections.emptySet());
+    }
 
     /**
      * Gets a declaration with zero or more annotations for an entity
@@ -1306,9 +1363,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a subclass axiom with no annotations
      */
     @Nonnull
-    OWLSubClassOfAxiom getOWLSubClassOfAxiom(
+    default OWLSubClassOfAxiom getOWLSubClassOfAxiom(
             @Nonnull OWLClassExpression subClass,
-            @Nonnull OWLClassExpression superClass);
+            @Nonnull OWLClassExpression superClass) {
+        return getOWLSubClassOfAxiom(subClass, superClass,
+                Collections.emptySet());
+    }
 
     /**
      * @param subClass
@@ -1332,8 +1392,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         annotations
      */
     @Nonnull
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
-            @Nonnull Set<? extends OWLClassExpression> classExpressions);
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
+            @Nonnull Set<? extends OWLClassExpression> classExpressions) {
+        return getOWLEquivalentClassesAxiom(classExpressions,
+                Collections.emptySet());
+    }
 
     /**
      * @param classExpressions
@@ -1359,9 +1422,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLClassExpression... classExpressions) {
         checkIterableNotNull(classExpressions,
                 "classExpressions cannot be null", true);
-        Set<OWLClassExpression> clses = new HashSet<>();
-        clses.addAll(Arrays.asList(classExpressions));
-        return getOWLEquivalentClassesAxiom(clses);
+        return getOWLEquivalentClassesAxiom(CollectionFactory
+                .createSet(classExpressions));
     }
 
     /**
@@ -1373,8 +1435,10 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         annotations (special case with only two operands)
      */
     @Nonnull
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
-            @Nonnull OWLClassExpression clsA, @Nonnull OWLClassExpression clsB);
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
+            @Nonnull OWLClassExpression clsA, @Nonnull OWLClassExpression clsB) {
+        return getOWLEquivalentClassesAxiom(clsA, clsB, Collections.emptySet());
+    }
 
     /**
      * @param clsA
@@ -1387,9 +1451,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         annotations (special case with only two operands)
      */
     @Nonnull
-    OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
+    default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
             @Nonnull OWLClassExpression clsA, @Nonnull OWLClassExpression clsB,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<? extends OWLAnnotation> annotations) {
+        return getOWLEquivalentClassesAxiom(
+                CollectionFactory.createSet(clsA, clsB), annotations);
+    }
 
     /**
      * @param classExpressions
@@ -1397,8 +1464,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a disjoint class axiom with no annotations
      */
     @Nonnull
-    OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
-            @Nonnull Set<? extends OWLClassExpression> classExpressions);
+    default OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
+            @Nonnull Set<? extends OWLClassExpression> classExpressions) {
+        return getOWLDisjointClassesAxiom(classExpressions,
+                Collections.emptySet());
+    }
 
     /**
      * @param classExpressions
@@ -1410,9 +1480,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLClassExpression... classExpressions) {
         checkIterableNotNull(classExpressions,
                 "classExpressions cannot be null", true);
-        Set<OWLClassExpression> clses = new HashSet<>();
-        clses.addAll(Arrays.asList(classExpressions));
-        return getOWLDisjointClassesAxiom(clses);
+        return getOWLDisjointClassesAxiom(CollectionFactory
+                .createSet(classExpressions));
     }
 
     /**
@@ -1435,8 +1504,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a disjoint union axiom
      */
     @Nonnull
-    OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(@Nonnull OWLClass owlClass,
-            @Nonnull Set<? extends OWLClassExpression> classExpressions);
+    default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(
+            @Nonnull OWLClass owlClass,
+            @Nonnull Set<? extends OWLClassExpression> classExpressions) {
+        return getOWLDisjointUnionAxiom(owlClass, classExpressions,
+                Collections.emptySet());
+    }
 
     /**
      * @param owlClass
@@ -1461,9 +1534,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a subproperty axiom
      */
     @Nonnull
-    OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
+    default OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
             @Nonnull OWLObjectPropertyExpression subProperty,
-            @Nonnull OWLObjectPropertyExpression superProperty);
+            @Nonnull OWLObjectPropertyExpression superProperty) {
+        return getOWLSubObjectPropertyOfAxiom(subProperty, superProperty,
+                Collections.emptySet());
+    }
 
     /**
      * @param subProperty
@@ -1488,9 +1564,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a subproperty chain axiom
      */
     @Nonnull
-    OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
+    default OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
             @Nonnull List<? extends OWLObjectPropertyExpression> chain,
-            @Nonnull OWLObjectPropertyExpression superProperty);
+            @Nonnull OWLObjectPropertyExpression superProperty) {
+        return getOWLSubPropertyChainOfAxiom(chain, superProperty,
+                Collections.emptySet());
+    }
 
     /**
      * @param chain
@@ -1513,8 +1592,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an equivalent properties axiom with specified properties
      */
     @Nonnull
-    OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
-            @Nonnull Set<? extends OWLObjectPropertyExpression> properties);
+    default
+            OWLEquivalentObjectPropertiesAxiom
+            getOWLEquivalentObjectPropertiesAxiom(
+                    @Nonnull Set<? extends OWLObjectPropertyExpression> properties) {
+        return getOWLEquivalentObjectPropertiesAxiom(properties,
+                Collections.emptySet());
+    }
 
     /**
      * @param properties
@@ -1551,9 +1635,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an equivalent properties axiom with specified properties
      */
     @Nonnull
-    OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
-            @Nonnull OWLObjectPropertyExpression propertyA,
-            @Nonnull OWLObjectPropertyExpression propertyB);
+    default OWLEquivalentObjectPropertiesAxiom
+            getOWLEquivalentObjectPropertiesAxiom(
+                    @Nonnull OWLObjectPropertyExpression propertyA,
+                    @Nonnull OWLObjectPropertyExpression propertyB) {
+        return getOWLEquivalentObjectPropertiesAxiom(propertyA, propertyB,
+                Collections.emptySet());
+    }
 
     /**
      * @param propertyA
@@ -1566,10 +1654,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         annotations
      */
     @Nonnull
-    OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
-            @Nonnull OWLObjectPropertyExpression propertyA,
-            @Nonnull OWLObjectPropertyExpression propertyB,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+    default OWLEquivalentObjectPropertiesAxiom
+            getOWLEquivalentObjectPropertiesAxiom(
+                    @Nonnull OWLObjectPropertyExpression propertyA,
+                    @Nonnull OWLObjectPropertyExpression propertyB,
+                    @Nonnull Set<? extends OWLAnnotation> annotations) {
+        return getOWLEquivalentObjectPropertiesAxiom(
+                CollectionFactory.createSet(propertyA, propertyB), annotations);
+    }
 
     /**
      * @param properties
@@ -1577,8 +1669,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a disjoint object properties axiom with specified properties
      */
     @Nonnull
-    OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
-            @Nonnull Set<? extends OWLObjectPropertyExpression> properties);
+    default
+            OWLDisjointObjectPropertiesAxiom
+            getOWLDisjointObjectPropertiesAxiom(
+                    @Nonnull Set<? extends OWLObjectPropertyExpression> properties) {
+        return getOWLDisjointObjectPropertiesAxiom(properties,
+                Collections.emptySet());
+    }
 
     /**
      * @param properties
@@ -1615,9 +1712,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an inverse object property axiom
      */
     @Nonnull
-    OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
+    default OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
             @Nonnull OWLObjectPropertyExpression forwardProperty,
-            @Nonnull OWLObjectPropertyExpression inverseProperty);
+            @Nonnull OWLObjectPropertyExpression inverseProperty) {
+        return getOWLInverseObjectPropertiesAxiom(forwardProperty,
+                inverseProperty, Collections.emptySet());
+    }
 
     /**
      * @param forwardProperty
@@ -1642,9 +1742,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an object property domain axiom
      */
     @Nonnull
-    OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
+    default OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression classExpression);
+            @Nonnull OWLClassExpression classExpression) {
+        return getOWLObjectPropertyDomainAxiom(property, classExpression,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1669,9 +1772,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an object property range axiom
      */
     @Nonnull
-    OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(
+    default OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression range);
+            @Nonnull OWLClassExpression range) {
+        return getOWLObjectPropertyRangeAxiom(property, range,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1694,8 +1800,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a functional object property axiom
      */
     @Nonnull
-    OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property);
+    default OWLFunctionalObjectPropertyAxiom
+            getOWLFunctionalObjectPropertyAxiom(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return getOWLFunctionalObjectPropertyAxiom(property,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1715,9 +1825,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an inverse functional object property axiom
      */
     @Nonnull
-    OWLInverseFunctionalObjectPropertyAxiom
+    default OWLInverseFunctionalObjectPropertyAxiom
             getOWLInverseFunctionalObjectPropertyAxiom(
-                    @Nonnull OWLObjectPropertyExpression property);
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return getOWLInverseFunctionalObjectPropertyAxiom(property,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1738,8 +1851,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a reflexive object property axiom
      */
     @Nonnull
-    OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property);
+    default OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(
+            @Nonnull OWLObjectPropertyExpression property) {
+        return getOWLReflexiveObjectPropertyAxiom(property,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1759,8 +1875,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an irreflexive object property axiom
      */
     @Nonnull
-    OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property);
+    default OWLIrreflexiveObjectPropertyAxiom
+            getOWLIrreflexiveObjectPropertyAxiom(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return getOWLIrreflexiveObjectPropertyAxiom(property,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1780,8 +1900,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a symmetric property axiom
      */
     @Nonnull
-    OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property);
+    default OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(
+            @Nonnull OWLObjectPropertyExpression property) {
+        return getOWLSymmetricObjectPropertyAxiom(property,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1801,8 +1924,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an asymmetric object property axiom on the specified argument
      */
     @Nonnull
-    OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression propertyExpression);
+    default OWLAsymmetricObjectPropertyAxiom
+            getOWLAsymmetricObjectPropertyAxiom(
+                    @Nonnull OWLObjectPropertyExpression propertyExpression) {
+        return getOWLAsymmetricObjectPropertyAxiom(propertyExpression,
+                Collections.emptySet());
+    }
 
     /**
      * @param propertyExpression
@@ -1823,8 +1950,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a transitive object property axiom on the specified argument
      */
     @Nonnull
-    OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property);
+    default OWLTransitiveObjectPropertyAxiom
+            getOWLTransitiveObjectPropertyAxiom(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return getOWLTransitiveObjectPropertyAxiom(property,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1848,9 +1979,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a subproperty axiom
      */
     @Nonnull
-    OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
+    default OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
             @Nonnull OWLDataPropertyExpression subProperty,
-            @Nonnull OWLDataPropertyExpression superProperty);
+            @Nonnull OWLDataPropertyExpression superProperty) {
+        return getOWLSubDataPropertyOfAxiom(subProperty, superProperty,
+                Collections.emptySet());
+    }
 
     /**
      * @param subProperty
@@ -1873,8 +2007,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an equivalent data properties axiom
      */
     @Nonnull
-    OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
-            @Nonnull Set<? extends OWLDataPropertyExpression> properties);
+    default
+            OWLEquivalentDataPropertiesAxiom
+            getOWLEquivalentDataPropertiesAxiom(
+                    @Nonnull Set<? extends OWLDataPropertyExpression> properties) {
+        return getOWLEquivalentDataPropertiesAxiom(properties,
+                Collections.emptySet());
+    }
 
     /**
      * @param properties
@@ -1910,9 +2049,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an equivalent data properties axiom
      */
     @Nonnull
-    OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
-            @Nonnull OWLDataPropertyExpression propertyA,
-            @Nonnull OWLDataPropertyExpression propertyB);
+    default OWLEquivalentDataPropertiesAxiom
+            getOWLEquivalentDataPropertiesAxiom(
+                    @Nonnull OWLDataPropertyExpression propertyA,
+                    @Nonnull OWLDataPropertyExpression propertyB) {
+        return getOWLEquivalentDataPropertiesAxiom(propertyA, propertyB,
+                Collections.emptySet());
+    }
 
     /**
      * @param propertyA
@@ -1924,10 +2067,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an equivalent data properties axiom with annotations
      */
     @Nonnull
-    OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
-            @Nonnull OWLDataPropertyExpression propertyA,
-            @Nonnull OWLDataPropertyExpression propertyB,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+    default OWLEquivalentDataPropertiesAxiom
+            getOWLEquivalentDataPropertiesAxiom(
+                    @Nonnull OWLDataPropertyExpression propertyA,
+                    @Nonnull OWLDataPropertyExpression propertyB,
+                    @Nonnull Set<? extends OWLAnnotation> annotations) {
+        return getOWLEquivalentDataPropertiesAxiom(
+                CollectionFactory.createSet(propertyA, propertyB), annotations);
+    }
 
     /**
      * @param dataProperties
@@ -1948,8 +2095,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a disjoint data properties axiom with specified properties
      */
     @Nonnull
-    OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
-            @Nonnull Set<? extends OWLDataPropertyExpression> properties);
+    default OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
+            @Nonnull Set<? extends OWLDataPropertyExpression> properties) {
+        return getOWLDisjointDataPropertiesAxiom(properties,
+                Collections.emptySet());
+    }
 
     /**
      * @param properties
@@ -1972,9 +2122,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a data property domain axiom
      */
     @Nonnull
-    OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
+    default OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLClassExpression domain);
+            @Nonnull OWLClassExpression domain) {
+        return getOWLDataPropertyDomainAxiom(property, domain,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -1999,9 +2152,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a data property range axiom
      */
     @Nonnull
-    OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
+    default OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLDataRange owlDataRange);
+            @Nonnull OWLDataRange owlDataRange) {
+        return getOWLDataPropertyRangeAxiom(property, owlDataRange,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2024,8 +2180,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a functional data property axiom
      */
     @Nonnull
-    OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(
-            @Nonnull OWLDataPropertyExpression property);
+    default OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(
+            @Nonnull OWLDataPropertyExpression property) {
+        return getOWLFunctionalDataPropertyAxiom(property,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2048,8 +2207,10 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a hasKey axiom on given arguments
      */
     @Nonnull
-    OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
-            @Nonnull Set<? extends OWLPropertyExpression> properties);
+    default OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
+            @Nonnull Set<? extends OWLPropertyExpression> properties) {
+        return getOWLHasKeyAxiom(ce, properties, Collections.emptySet());
+    }
 
     /**
      * @param ce
@@ -2061,7 +2222,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     @Nonnull
     default OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
             @Nonnull OWLPropertyExpression... properties) {
-        checkNotNull(ce, "classExpression cannot be null");
         checkIterableNotNull(properties, "properties cannot be null", true);
         return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
     }
@@ -2088,8 +2248,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a datatype definition axiom
      */
     @Nonnull
-    OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(
-            @Nonnull OWLDatatype datatype, @Nonnull OWLDataRange dataRange);
+    default OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(
+            @Nonnull OWLDatatype datatype, @Nonnull OWLDataRange dataRange) {
+        return getOWLDatatypeDefinitionAxiom(datatype, dataRange,
+                Collections.emptySet());
+    }
 
     /**
      * @param datatype
@@ -2112,8 +2275,10 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a same individuals axiom with specified individuals
      */
     @Nonnull
-    OWLSameIndividualAxiom getOWLSameIndividualAxiom(
-            @Nonnull Set<? extends OWLIndividual> individuals);
+    default OWLSameIndividualAxiom getOWLSameIndividualAxiom(
+            @Nonnull Set<? extends OWLIndividual> individuals) {
+        return getOWLSameIndividualAxiom(individuals, Collections.emptySet());
+    }
 
     /**
      * @param individual
@@ -2148,8 +2313,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a different individuals axiom with specified individuals
      */
     @Nonnull
-    OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
-            @Nonnull Set<? extends OWLIndividual> individuals);
+    default OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
+            @Nonnull Set<? extends OWLIndividual> individuals) {
+        return getOWLDifferentIndividualsAxiom(individuals,
+                Collections.emptySet());
+    }
 
     /**
      * @param individuals
@@ -2185,9 +2353,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a class assertion axiom
      */
     @Nonnull
-    OWLClassAssertionAxiom getOWLClassAssertionAxiom(
+    default OWLClassAssertionAxiom getOWLClassAssertionAxiom(
             @Nonnull OWLClassExpression classExpression,
-            @Nonnull OWLIndividual individual);
+            @Nonnull OWLIndividual individual) {
+        return getOWLClassAssertionAxiom(classExpression, individual,
+                Collections.emptySet());
+    }
 
     /**
      * @param classExpression
@@ -2214,9 +2385,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an object property assertion
      */
     @Nonnull
-    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
+    default OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLIndividual individual, @Nonnull OWLIndividual object);
+            @Nonnull OWLIndividual individual, @Nonnull OWLIndividual object) {
+        return getOWLObjectPropertyAssertionAxiom(property, individual, object,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2245,11 +2419,14 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a negative property assertion axiom on given arguments
      */
     @Nonnull
-    OWLNegativeObjectPropertyAssertionAxiom
+    default OWLNegativeObjectPropertyAssertionAxiom
             getOWLNegativeObjectPropertyAssertionAxiom(
                     @Nonnull OWLObjectPropertyExpression property,
                     @Nonnull OWLIndividual subject,
-                    @Nonnull OWLIndividual object);
+                    @Nonnull OWLIndividual object) {
+        return getOWLNegativeObjectPropertyAssertionAxiom(property, subject,
+                object, Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2281,9 +2458,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a data property assertion
      */
     @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object);
+            @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, object,
+                Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2312,9 +2492,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a data property assertion
      */
     @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, int value);
+            @Nonnull OWLIndividual subject, int value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject,
+                getOWLLiteral(value), Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2326,9 +2509,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a data property assertion
      */
     @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, double value);
+            @Nonnull OWLIndividual subject, double value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject,
+                getOWLLiteral(value), Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2340,9 +2526,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a data property assertion
      */
     @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, float value);
+            @Nonnull OWLIndividual subject, float value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject,
+                getOWLLiteral(value), Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2354,9 +2543,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a data property assertion
      */
     @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, boolean value);
+            @Nonnull OWLIndividual subject, boolean value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject,
+                getOWLLiteral(value), Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2368,9 +2560,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a data property assertion
      */
     @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, @Nonnull String value);
+            @Nonnull OWLIndividual subject, @Nonnull String value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject,
+                getOWLLiteral(value), Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2382,10 +2577,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a negative property assertion axiom on given arguments
      */
     @Nonnull
-    OWLNegativeDataPropertyAssertionAxiom
+    default OWLNegativeDataPropertyAssertionAxiom
             getOWLNegativeDataPropertyAssertionAxiom(
                     @Nonnull OWLDataPropertyExpression property,
-                    @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object);
+                    @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object) {
+        return getOWLNegativeDataPropertyAssertionAxiom(property, subject,
+                object, Collections.emptySet());
+    }
 
     /**
      * @param property
@@ -2417,8 +2615,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return The annotation on the specified property with the specified value
      */
     @Nonnull
-    OWLAnnotation getOWLAnnotation(@Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationValue value);
+    default OWLAnnotation getOWLAnnotation(
+            @Nonnull OWLAnnotationProperty property,
+            @Nonnull OWLAnnotationValue value) {
+        return getOWLAnnotation(property, value, Collections.emptySet());
+    }
 
     /**
      * Gets an annotation
@@ -2447,10 +2648,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an annotation assertion axiom
      */
     @Nonnull
-    OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
+    default OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
             @Nonnull OWLAnnotationProperty property,
             @Nonnull OWLAnnotationSubject subject,
-            @Nonnull OWLAnnotationValue value);
+            @Nonnull OWLAnnotationValue value) {
+        return getOWLAnnotationAssertionAxiom(property, subject, value,
+                Collections.emptySet());
+    }
 
     /**
      * @param subject
@@ -2529,8 +2733,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an annotation property domain assertion
      */
     @Nonnull
-    OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(
-            @Nonnull OWLAnnotationProperty prop, @Nonnull IRI domain);
+    default OWLAnnotationPropertyDomainAxiom
+            getOWLAnnotationPropertyDomainAxiom(
+                    @Nonnull OWLAnnotationProperty prop, @Nonnull IRI domain) {
+        return getOWLAnnotationPropertyDomainAxiom(prop, domain,
+                Collections.emptySet());
+    }
 
     /**
      * @param prop
@@ -2554,8 +2762,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an annotation property range assertion
      */
     @Nonnull
-    OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(
-            @Nonnull OWLAnnotationProperty prop, @Nonnull IRI range);
+    default OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(
+            @Nonnull OWLAnnotationProperty prop, @Nonnull IRI range) {
+        return getOWLAnnotationPropertyRangeAxiom(prop, range,
+                Collections.emptySet());
+    }
 
     /**
      * @param prop
@@ -2579,9 +2790,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return a sub annotation property axiom with specified properties
      */
     @Nonnull
-    OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
+    default OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
             @Nonnull OWLAnnotationProperty sub,
-            @Nonnull OWLAnnotationProperty sup);
+            @Nonnull OWLAnnotationProperty sup) {
+        return getOWLSubAnnotationPropertyOfAxiom(sub, sup,
+                Collections.emptySet());
+    }
 
     /**
      * @param sub
