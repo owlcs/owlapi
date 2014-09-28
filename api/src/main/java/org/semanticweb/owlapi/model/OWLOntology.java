@@ -13,11 +13,15 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.OutputStream;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
@@ -40,7 +44,52 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 public interface OWLOntology extends OWLObject, HasAnnotations,
         HasDirectImports, HasImportsClosure, HasOntologyID, OWLAxiomCollection,
         OWLAxiomCollectionBooleanArgs, OWLAxiomCollectionNoArgs, OWLSignature,
-        OWLSignatureBooleanArgs, OWLAxiomIndex {
+        OWLSignatureBooleanArgs, OWLAxiomIndex, HasApplyChange,
+        HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms,
+        HasDirectRemoveAxiom, HasDirectRemoveAxioms {
+
+    // Default implementation of these mutating methods is to do nothing.
+    // Adding them to this interface allows access without casting, since
+    // OWLOntology is the de facto standard used in the code and
+    // OWLMutableOntology hardly appears.
+    @Override
+    @Nonnull
+    default ChangeApplied applyChange(@Nonnull OWLOntologyChange change) {
+        return ChangeApplied.UNSUCCESSFULLY;
+    }
+
+    @Override
+    @Nonnull
+    default List<OWLOntologyChange> applyChanges(
+            @Nonnull List<? extends OWLOntologyChange> changes) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    @Nonnull
+    default ChangeApplied addAxiom(@Nonnull OWLAxiom axiom) {
+        return ChangeApplied.UNSUCCESSFULLY;
+    }
+
+    @Override
+    @Nonnull
+    default List<OWLOntologyChange> addAxioms(
+            @Nonnull Collection<? extends OWLAxiom> axioms) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    @Nonnull
+    default ChangeApplied removeAxiom(@Nonnull OWLAxiom axiom) {
+        return ChangeApplied.UNSUCCESSFULLY;
+    }
+
+    @Override
+    @Nonnull
+    default List<OWLOntologyChange> removeAxioms(
+            @Nonnull Collection<? extends OWLAxiom> axioms) {
+        return Collections.emptyList();
+    }
 
     /**
      * accept for named object visitor

@@ -21,14 +21,12 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  *         Research Group
  * @since 3.5
  */
-public interface HasRemoveAxiom {
+public interface HasDirectRemoveAxiom {
 
     /**
-     * A convenience method that removes a single axiom from an ontology. The
+     * A convenience method that removes a single axiom from this object. The
      * appropriate RemoveAxiom change object is automatically generated.
      * 
-     * @param ont
-     *        The ontology to remove the axiom from.
      * @param axiom
      *        The axiom to be removed
      * @return A list of ontology changes that represent the changes that
@@ -37,6 +35,5 @@ public interface HasRemoveAxiom {
      *         if there was a problem removing the axiom
      */
     @Nonnull
-    ChangeApplied
-            removeAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom);
+    ChangeApplied removeAxiom(@Nonnull OWLAxiom axiom);
 }

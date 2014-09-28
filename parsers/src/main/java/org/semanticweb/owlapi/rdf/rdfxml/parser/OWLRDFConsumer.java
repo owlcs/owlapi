@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
@@ -606,27 +606,18 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         // We cache IRIs of various entities here.
         // We also mop up any triples that weren't parsed and consumed in the
         // imports closure.
-        for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
-            for (OWLAnnotationProperty prop : ont
-                    .getAnnotationPropertiesInSignature(EXCLUDED)) {
-                annotationPropertyIRIs.add(prop.getIRI());
-            }
-            for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {
-                dataPropertyExpressionIRIs.add(prop.getIRI());
-            }
-            for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
-                objectPropertyExpressionIRIs.add(prop.getIRI());
-            }
-            for (OWLClass cls : ont.getClassesInSignature()) {
-                classExpressionIRIs.add(cls.getIRI());
-            }
-            for (OWLDatatype datatype : ont.getDatatypesInSignature()) {
-                dataRangeIRIs.add(datatype.getIRI());
-            }
-            for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
-                individualIRIs.add(ind.getIRI());
-            }
-        }
+        ontology.getAnnotationPropertiesInSignature(INCLUDED).stream()
+                .forEach(e -> annotationPropertyIRIs.add(e.getIRI()));
+        ontology.getDataPropertiesInSignature(INCLUDED).stream()
+                .forEach(e -> dataPropertyExpressionIRIs.add(e.getIRI()));
+        ontology.getObjectPropertiesInSignature(INCLUDED).stream()
+                .forEach(e -> objectPropertyExpressionIRIs.add(e.getIRI()));
+        ontology.getClassesInSignature(INCLUDED).stream()
+                .forEach(e -> classExpressionIRIs.add(e.getIRI()));
+        ontology.getDatatypesInSignature(INCLUDED).stream()
+                .forEach(e -> dataRangeIRIs.add(e.getIRI()));
+        ontology.getIndividualsInSignature(INCLUDED).stream()
+                .forEach(e -> individualIRIs.add(e.getIRI()));
     }
 
     @Override

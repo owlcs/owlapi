@@ -16,8 +16,9 @@ import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -83,8 +84,22 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
     }
 
     @Override
-    public List<OWLOntologyChange> addAxioms(Set<? extends OWLAxiom> axioms) {
-        return getOWLOntologyManager().addAxioms(this, axioms);
+    public List<OWLOntologyChange> addAxioms(
+            Collection<? extends OWLAxiom> axioms) {
+        // XXX improve interface
+        return getOWLOntologyManager().addAxioms(this, new HashSet<>(axioms));
+    }
+
+    @Override
+    public ChangeApplied removeAxiom(OWLAxiom axiom) {
+        return getOWLOntologyManager().removeAxiom(this, axiom);
+    }
+
+    @Override
+    public List<OWLOntologyChange> removeAxioms(
+            Collection<? extends OWLAxiom> axioms) {
+        return getOWLOntologyManager()
+                .removeAxioms(this, new HashSet<>(axioms));
     }
 
     protected class OWLOntologyChangeFilter implements

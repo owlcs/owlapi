@@ -115,14 +115,14 @@ public enum Namespaces {
 
     /**
      * @return A short, human-readable, prefix name that matches, and expands to
-     *         the full IRI. Not {@code null}.
+     *         the full IRI.
      */
     @Nonnull
     public String getPrefixName() {
         return prefix;
     }
 
-    /** @return The prefix IRI which matches the prefix name. Not {@code null}. */
+    /** @return The prefix IRI which matches the prefix name. */
     @Nonnull
     public String getPrefixIRI() {
         return ns;

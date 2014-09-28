@@ -12,31 +12,30 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.List;
 
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+import javax.annotation.Nonnull;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.5
  */
-public interface HasRemoveAxiom {
+public interface HasDirectRemoveAxioms {
 
     /**
-     * A convenience method that removes a single axiom from an ontology. The
-     * appropriate RemoveAxiom change object is automatically generated.
+     * A convenience method that removes a set of axioms from this object. The
+     * appropriate RemoveAxiom change objects are automatically generated.
      * 
-     * @param ont
-     *        The ontology to remove the axiom from.
-     * @param axiom
-     *        The axiom to be removed
-     * @return A list of ontology changes that represent the changes that
-     *         actually took place.
+     * @param axioms
+     *        The axioms to be removed.
+     * @return A list of ontology changes that represent the changes which took
+     *         place in order to remove the axioms.
      * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axiom
+     *         if there was a problem removing the axioms
      */
     @Nonnull
-    ChangeApplied
-            removeAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom);
+    List<OWLOntologyChange> removeAxioms(
+            @Nonnull Collection<? extends OWLAxiom> axioms);
 }

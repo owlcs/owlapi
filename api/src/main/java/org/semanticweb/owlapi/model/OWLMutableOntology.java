@@ -13,9 +13,10 @@
 package org.semanticweb.owlapi.model;
 
 /**
+ * Marker interface for ontologies where mutating actions must have an effect.
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLMutableOntology extends OWLOntology, HasApplyChange,
-        HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms {}
+public interface OWLMutableOntology extends OWLOntology {}

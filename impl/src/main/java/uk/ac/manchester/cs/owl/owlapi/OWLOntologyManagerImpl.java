@@ -503,9 +503,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange> removeAxiom(@Nonnull OWLOntology ont,
+    public ChangeApplied removeAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
-        return removeAxioms(ont, CollectionFactory.createSet(axiom));
+        List<OWLOntologyChange> removeAxioms = removeAxioms(ont,
+                CollectionFactory.createSet(axiom));
+        if (removeAxioms.isEmpty()) {
+            return ChangeApplied.UNSUCCESSFULLY;
+        }
+        return ChangeApplied.SUCCESSFULLY;
     }
 
     @Override
