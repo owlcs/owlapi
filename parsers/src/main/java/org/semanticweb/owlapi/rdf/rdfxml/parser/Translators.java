@@ -359,7 +359,7 @@ public class Translators {
             }
             try {
                 return Integer.parseInt(literal.getLiteral().trim());
-            } catch (NumberFormatException e) {
+            } catch (@SuppressWarnings("unused") NumberFormatException e) {
                 return 0;
             }
         }

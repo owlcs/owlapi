@@ -931,7 +931,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             try {
                 int i = Integer.parseInt(tok);
                 return dataFactory.getOWLLiteral(i);
-            } catch (NumberFormatException e) {
+            } catch (@SuppressWarnings("unused") NumberFormatException e) {
                 // Ignore - not interested
             }
             if (tok.endsWith("f") || tok.endsWith("F")) {
@@ -941,7 +941,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                             .replace("inf", "Infinity"));
                     return dataFactory.getOWLLiteral(asFloat(f),
                             OWL2Datatype.XSD_FLOAT);
-                } catch (NumberFormatException e) {
+                } catch (@SuppressWarnings("unused") NumberFormatException e) {
                     // Ignore - not interested
                 }
             }
@@ -949,7 +949,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 // ensure it's a valid double, or skip
                 Double.parseDouble(tok);
                 return dataFactory.getOWLLiteral(tok, OWL2Datatype.XSD_DECIMAL);
-            } catch (NumberFormatException e) {
+            } catch (@SuppressWarnings("unused") NumberFormatException e) {
                 // Ignore - not interested
             }
             if (LITERAL_TRUE.matches(tok)) {
@@ -986,7 +986,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         String i = consumeToken();
         try {
             return Integer.parseInt(i);
-        } catch (NumberFormatException e) {
+        } catch (@SuppressWarnings("unused") NumberFormatException e) {
             throw new ExceptionBuilder().withInt().build();
         }
     }

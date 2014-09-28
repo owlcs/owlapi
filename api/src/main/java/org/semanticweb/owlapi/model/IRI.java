@@ -326,7 +326,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     private static String cache(@Nonnull String s) {
         try {
             return PREFIX_CACHE.get(s);
-        } catch (ExecutionException e) {
+        } catch (@SuppressWarnings("unused") ExecutionException e) {
             return s;
         }
     }

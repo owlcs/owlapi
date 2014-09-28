@@ -287,7 +287,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 try {
                     bytes = compress(s);
                     l = null;
-                } catch (IOException e) {
+                } catch (@SuppressWarnings("unused") IOException e) {
                     // some problem happened - defaulting to no compression
                     l = s;
                     bytes = null;

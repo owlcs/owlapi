@@ -117,7 +117,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     private int jjMoveStringLiteralDfa1_0(long active0, long active1) {
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 0);
         }
         switch (curChar) {
@@ -225,7 +225,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 1);
         }
         switch (curChar) {
@@ -360,7 +360,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 2);
         }
         switch (curChar) {
@@ -476,7 +476,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 3);
         }
         switch (curChar) {
@@ -555,7 +555,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 4);
         }
         switch (curChar) {
@@ -622,7 +622,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 5);
         }
         switch (curChar) {
@@ -737,7 +737,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 6);
         }
         switch (curChar) {
@@ -847,7 +847,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 7);
         }
         switch (curChar) {
@@ -896,7 +896,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 8);
         }
         switch (curChar) {
@@ -972,7 +972,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 9);
         }
         switch (curChar) {
@@ -1031,7 +1031,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 10);
         }
         switch (curChar) {
@@ -1074,7 +1074,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 11);
         }
         switch (curChar) {
@@ -1115,7 +1115,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 12);
         }
         switch (curChar) {
@@ -1186,7 +1186,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 13);
         }
         switch (curChar) {
@@ -1221,7 +1221,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 14);
         }
         switch (curChar) {
@@ -1258,7 +1258,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 15);
         }
         switch (curChar) {
@@ -1289,7 +1289,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 16);
         }
         switch (curChar) {
@@ -1314,7 +1314,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 17);
         }
         switch (curChar) {
@@ -1335,7 +1335,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 18);
         }
         switch (curChar) {
@@ -1360,7 +1360,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 19);
         }
         switch (curChar) {
@@ -1393,7 +1393,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 20);
         }
         switch (curChar) {
@@ -1414,7 +1414,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 21);
         }
         switch (curChar) {
@@ -1435,7 +1435,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         try {
             curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
+        } catch (@SuppressWarnings("unused") java.io.IOException e) {
             return jjMoveNfa_0(2, 22);
         }
         switch (curChar) {
@@ -1871,7 +1871,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
             }
             try {
                 curChar = input_stream.readChar();
-            } catch (java.io.IOException e) {
+            } catch (@SuppressWarnings("unused") java.io.IOException e) {
                 break;
             }
         }
@@ -1883,7 +1883,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
             for (i = toRet - Math.min(curPos, seenUpto); i-- > 0;) {
                 try {
                     curChar = input_stream.readChar();
-                } catch (java.io.IOException e) {
+                } catch (@SuppressWarnings("unused") java.io.IOException e) {
                     throw new RuntimeException(
                             "Internal Error : Please send a bug report.");
                 }
@@ -2069,7 +2069,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         EOFLoop: for (;;) {
             try {
                 curChar = input_stream.BeginToken();
-            } catch (java.io.IOException e) {
+            } catch (@SuppressWarnings("unused") java.io.IOException e) {
                 jjmatchedKind = 0;
                 matchedToken = jjFillToken();
                 return matchedToken;
@@ -2127,7 +2127,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
                     try {
                         curChar = input_stream.readChar();
                         continue;
-                    } catch (java.io.IOException e1) {}
+                    } catch (@SuppressWarnings("unused") java.io.IOException e1) {}
                 }
                 int error_line = input_stream.getEndLine();
                 int error_column = input_stream.getEndColumn();
@@ -2136,7 +2136,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
                 try {
                     input_stream.readChar();
                     input_stream.backup(1);
-                } catch (java.io.IOException e1) {
+                } catch (@SuppressWarnings("unused") java.io.IOException e1) {
                     EOFSeen = true;
                     error_after = curPos <= 1 ? "" : input_stream.GetImage();
                     if (curChar == '\n' || curChar == '\r') {

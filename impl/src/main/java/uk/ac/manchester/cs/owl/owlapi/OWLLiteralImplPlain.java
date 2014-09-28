@@ -166,7 +166,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
             } else {
                 hashCode += getLiteral().hashCode() * 65536;
             }
-        } catch (NumberFormatException e) {
+        } catch (@SuppressWarnings("unused") NumberFormatException e) {
             // it is possible that a literal does not have a value that's valid
             // for its datatype; not very useful for a consistent ontology but
             // some W3C reasoner tests use them

@@ -198,7 +198,7 @@ public class AutoIRIMapper extends DefaultHandler implements
             parser.parse(is, this);
         } catch (ParserConfigurationException e) {
             throw new OWLRuntimeException(e);
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             // if we can't parse a file, then we can't map it
         }
     }
@@ -227,14 +227,14 @@ public class AutoIRIMapper extends DefaultHandler implements
                     break;
                 }
             }
-        } catch (IOException e) {
+        } catch (@SuppressWarnings("unused") IOException e) {
             // if we can't parse a file, then we can't map it
         } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
-            } catch (IOException e2) {
+            } catch (@SuppressWarnings("unused") IOException e2) {
                 // not to do here
             }
         }

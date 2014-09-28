@@ -35,6 +35,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
@@ -50,6 +52,8 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 class OWLXMLParserHandler extends DefaultHandler {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(OWLXMLParserHandler.class);
     private final OWLOntologyManager owlOntologyManager;
     @Nonnull
     private final OWLOntology ontology;
@@ -87,14 +91,14 @@ class OWLXMLParserHandler extends DefaultHandler {
     public void setDocumentLocator(Locator locator) {
         super.setDocumentLocator(locator);
         this.locator = locator;
-        URI base = null;
         try {
             String systemId = locator.getSystemId();
             if (systemId != null) {
-                base = new URI(systemId);
+                bases.push(new URI(systemId));
             }
-        } catch (URISyntaxException e) {}
-        bases.push(base);
+        } catch (URISyntaxException e) {
+            LOGGER.warn("Invalid system id uri", e);
+        }
     }
 
     /**
