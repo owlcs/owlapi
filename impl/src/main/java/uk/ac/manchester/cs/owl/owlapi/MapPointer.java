@@ -320,4 +320,14 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
         return t;
     }
+
+    /**
+     * Trims the capacity of the map entries . An application can use this
+     * operation to minimize the storage of the map pointer instance.
+     */
+    public void trimToSize() {
+        if (initialized) {
+            map.values().stream().forEach((s) -> s.trimToSize());
+        }
+    }
 }

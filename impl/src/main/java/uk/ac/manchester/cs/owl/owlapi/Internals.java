@@ -320,6 +320,59 @@ public class Internals implements Serializable {
         axiomsForSerialization = null;
     }
 
+    /**
+     * Trims the capacity of the axiom indexes . An application can use this
+     * operation to minimize the storage of the internals instance.
+     */
+    public void trimToSize() {
+        axiomsByType.trimToSize();
+        owlClassReferences.trimToSize();
+        owlObjectPropertyReferences.trimToSize();
+        owlDataPropertyReferences.trimToSize();
+        owlIndividualReferences.trimToSize();
+        owlAnonymousIndividualReferences.trimToSize();
+        owlDatatypeReferences.trimToSize();
+        owlAnnotationPropertyReferences.trimToSize();
+        declarationsByEntity.trimToSize();
+        classAssertionAxiomsByClass.trimToSize();
+        annotationAssertionAxiomsBySubject.trimToSize();
+        subClassAxiomsBySubPosition.trimToSize();
+        subClassAxiomsBySuperPosition.trimToSize();
+        objectSubPropertyAxiomsBySubPosition.trimToSize();
+        objectSubPropertyAxiomsBySuperPosition.trimToSize();
+        dataSubPropertyAxiomsBySubPosition.trimToSize();
+        dataSubPropertyAxiomsBySuperPosition.trimToSize();
+        classAxiomsByClass.trimToSize();
+        equivalentClassesAxiomsByClass.trimToSize();
+        disjointClassesAxiomsByClass.trimToSize();
+        disjointUnionAxiomsByClass.trimToSize();
+        hasKeyAxiomsByClass.trimToSize();
+        equivalentObjectPropertyAxiomsByProperty.trimToSize();
+        disjointObjectPropertyAxiomsByProperty.trimToSize();
+        objectPropertyDomainAxiomsByProperty.trimToSize();
+        objectPropertyRangeAxiomsByProperty.trimToSize();
+        functionalObjectPropertyAxiomsByProperty.trimToSize();
+        inverseFunctionalPropertyAxiomsByProperty.trimToSize();
+        symmetricPropertyAxiomsByProperty.trimToSize();
+        asymmetricPropertyAxiomsByProperty.trimToSize();
+        reflexivePropertyAxiomsByProperty.trimToSize();
+        irreflexivePropertyAxiomsByProperty.trimToSize();
+        transitivePropertyAxiomsByProperty.trimToSize();
+        inversePropertyAxiomsByProperty.trimToSize();
+        equivalentDataPropertyAxiomsByProperty.trimToSize();
+        disjointDataPropertyAxiomsByProperty.trimToSize();
+        dataPropertyDomainAxiomsByProperty.trimToSize();
+        dataPropertyRangeAxiomsByProperty.trimToSize();
+        functionalDataPropertyAxiomsByProperty.trimToSize();
+        classAssertionAxiomsByIndividual.trimToSize();
+        objectPropertyAssertionsByIndividual.trimToSize();
+        dataPropertyAssertionsByIndividual.trimToSize();
+        negativeObjectPropertyAssertionAxiomsByIndividual.trimToSize();
+        negativeDataPropertyAssertionAxiomsByIndividual.trimToSize();
+        differentIndividualsAxiomsByIndividual.trimToSize();
+        sameIndividualsAxiomsByIndividual.trimToSize();
+    }
+
     private void writeObject(ObjectOutputStream stream) throws IOException {
         axiomsForSerialization = new ArrayList<>();
         Iterables.addAll(axiomsForSerialization, axiomsByType.getAllValues());
