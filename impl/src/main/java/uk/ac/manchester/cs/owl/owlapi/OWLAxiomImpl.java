@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,7 +55,11 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
-            this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
+            if (annotations.size() == 1) {
+                this.annotations = Collections.singletonList(annotations.iterator().next());
+            } else {
+                this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
+            }
         } else {
             this.annotations = emptyList();
         }
