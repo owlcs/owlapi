@@ -43,7 +43,6 @@ import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -127,11 +126,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 Iterator<Statement> statementsIterator = tripleSource
                         .getStatementIterator();
                 handler.startRDF();
-                for (Entry<String, String> nextNamespace : namespaces
-                        .entrySet()) {
-                    handler.handleNamespace(nextNamespace.getKey(),
-                            nextNamespace.getValue());
-                }
+                namespaces.forEach((k, v) -> handler.handleNamespace(k, v));
                 while (statementsIterator.hasNext()) {
                     handler.handleStatement(statementsIterator.next());
                 }

@@ -119,9 +119,7 @@ public class AxiomSubjectProviderExTestCase extends TestBase {
         map.put(b.assDPlain(), "<urn:test#i>");
         map.put(b.dDom(), "<urn:test#dp>");
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLAxiom, String> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

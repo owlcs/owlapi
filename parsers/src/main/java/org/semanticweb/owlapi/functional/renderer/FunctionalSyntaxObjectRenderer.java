@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -133,10 +132,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writePrefixes() {
-        for (Map.Entry<String, String> e : prefixManager
-                .getPrefixName2PrefixMap().entrySet()) {
-            writePrefix(e.getKey(), e.getValue());
-        }
+        prefixManager.getPrefixName2PrefixMap().forEach(
+                (k, v) -> writePrefix(k, v));
     }
 
     private void write(@Nonnull OWLXMLVocabulary v) {

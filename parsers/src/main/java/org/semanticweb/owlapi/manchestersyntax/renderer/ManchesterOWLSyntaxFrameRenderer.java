@@ -455,14 +455,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         ManchesterOWLSyntaxPrefixNameShortFormProvider prov = (ManchesterOWLSyntaxPrefixNameShortFormProvider) sfp;
         Map<String, String> prefixMap = prov.getPrefixName2PrefixMap();
-        for (Map.Entry<String, String> e : prefixMap.entrySet()) {
+        prefixMap.forEach((k, v) -> {
             write(PREFIX.toString());
             write(": ");
-            write(e.getKey());
+            write(k);
             write(" ");
-            writeFullURI(e.getValue());
+            writeFullURI(v);
             writeNewLine();
-        }
+        });
         if (!prefixMap.isEmpty()) {
             writeNewLine();
             writeNewLine();

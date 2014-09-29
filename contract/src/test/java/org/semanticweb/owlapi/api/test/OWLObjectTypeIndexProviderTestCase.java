@@ -211,9 +211,7 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
         map.put(visitorMock(OWLLiteralImpl.class), 4008);
         map.put(visitorMock(SWRLDataRangeAtomImpl.class), 6002);
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLObject, Integer> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

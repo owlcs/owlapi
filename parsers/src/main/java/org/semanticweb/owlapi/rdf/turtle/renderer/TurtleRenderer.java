@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -97,15 +96,14 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private void writeNamespaces() {
-        for (Map.Entry<String, String> e : pm.getPrefixName2PrefixMap()
-                .entrySet()) {
+        pm.getPrefixName2PrefixMap().forEach((k, v) -> {
             write("@prefix ");
-            write(e.getKey());
+            write(k);
             write(" ");
-            writeAsURI(e.getValue());
+            writeAsURI(v);
             write(" .");
             writeNewLine();
-        }
+        });
     }
 
     int bufferLength = 0;

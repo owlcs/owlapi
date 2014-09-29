@@ -144,9 +144,7 @@ public class OWLClassExpressionCollectorTestCase extends TestBase {
         map.put(b.dDom(), new String[] { CI });
         map.put(b.bigRule(), new String[] { CI });
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLAxiom, String[]> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

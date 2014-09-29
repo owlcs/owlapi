@@ -150,9 +150,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public void copyPrefixesFrom(Map<String, String> from) {
-        for (Map.Entry<String, String> e : from.entrySet()) {
-            setPrefix(e.getKey(), e.getValue());
-        }
+        from.forEach((k, v) -> setPrefix(k, v));
     }
 
     @Override
@@ -204,15 +202,13 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     @Override
     public void unregisterNamespace(String namespace) {
         List<String> toRemove = new ArrayList<>();
-        for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
-            if (e.getValue().equals(namespace)) {
-                toRemove.add(e.getKey());
+        prefix2NamespaceMap.forEach((k, v) -> {
+            if (v.equals(namespace)) {
+                toRemove.add(k);
             }
-        }
+        });
         reverseprefix2NamespaceMap.remove(namespace);
-        for (String s : toRemove) {
-            prefix2NamespaceMap.remove(s);
-        }
+        prefix2NamespaceMap.keySet().removeAll(toRemove);
     }
 
     @Override

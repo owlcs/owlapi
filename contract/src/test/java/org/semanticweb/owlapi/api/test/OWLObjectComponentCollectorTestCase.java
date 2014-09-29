@@ -280,9 +280,7 @@ public class OWLObjectComponentCollectorTestCase extends TestBase {
                 IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI, classvar2,
                 IRII, I, rule, DTI, II, DPI });
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLAxiom, String[]> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

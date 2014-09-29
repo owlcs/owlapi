@@ -187,9 +187,7 @@ public class OWLEntityCollectorTestCase extends TestBase {
         map.put(b.dDom(),
                 "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#dp>]");
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLAxiom, String> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

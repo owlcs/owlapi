@@ -118,9 +118,7 @@ public class HornAxiomVisitorExTestCase extends TestBase {
         map.put(b.hasKey(), Boolean.FALSE);
         map.put(b.bigRule(), Boolean.FALSE);
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLObject, Boolean> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

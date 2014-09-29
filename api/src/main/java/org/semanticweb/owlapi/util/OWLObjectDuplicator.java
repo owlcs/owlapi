@@ -66,18 +66,14 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
                 "dataFactory cannot be null");
         checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
         replacementMap = new HashMap<>();
-        for (Map.Entry<IRI, IRI> e : iriReplacementMap.entrySet()) {
-            @Nonnull
-            IRI iri = e.getKey();
-            IRI repIRI = e.getValue();
-            replacementMap.put(dataFactory.getOWLClass(iri), repIRI);
-            replacementMap.put(dataFactory.getOWLObjectProperty(iri), repIRI);
-            replacementMap.put(dataFactory.getOWLDataProperty(iri), repIRI);
-            replacementMap.put(dataFactory.getOWLNamedIndividual(iri), repIRI);
-            replacementMap.put(dataFactory.getOWLDatatype(iri), repIRI);
-            replacementMap.put(dataFactory.getOWLAnnotationProperty(iri),
-                    repIRI);
-        }
+        iriReplacementMap.forEach((k, v) -> {
+            replacementMap.put(dataFactory.getOWLClass(k), v);
+            replacementMap.put(dataFactory.getOWLObjectProperty(k), v);
+            replacementMap.put(dataFactory.getOWLDataProperty(k), v);
+            replacementMap.put(dataFactory.getOWLNamedIndividual(k), v);
+            replacementMap.put(dataFactory.getOWLDatatype(k), v);
+            replacementMap.put(dataFactory.getOWLAnnotationProperty(k), v);
+        });
     }
 
     /**

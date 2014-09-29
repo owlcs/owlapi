@@ -145,9 +145,7 @@ public class StructuralTransformationTestCase extends TestBase {
         map.put(b.ec(),
                 "[SubClassOf(owl:Thing <urn:test#c>), SubClassOf(owl:Thing <urn:test#iri>)]");
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLAxiom, String> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

@@ -187,9 +187,7 @@ public class VisitorsTestCase {
         map.put(b.hasKey(),
                 "HasKey(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> (<urn:test#iri> <urn:test#op> ) (<urn:test#dp> ))");
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLObject, String> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 

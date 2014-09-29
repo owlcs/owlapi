@@ -118,9 +118,7 @@ public class MaximumModalDepthFinderTestCase extends TestBase {
         map.put(b.bigRule(), 0);
         map.put(b.onto(), 0);
         Collection<Object[]> toReturn = new ArrayList<>();
-        for (Map.Entry<OWLObject, Integer> e : map.entrySet()) {
-            toReturn.add(new Object[] { e.getKey(), e.getValue() });
-        }
+        map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
     }
 
