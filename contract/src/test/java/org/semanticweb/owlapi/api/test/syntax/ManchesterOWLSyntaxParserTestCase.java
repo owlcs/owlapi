@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
@@ -59,6 +60,27 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class ManchesterOWLSyntaxParserTestCase extends TestBase {
+
+    @Test
+    public void shouldRoundtripAnnotationAssertionsWithAnnotations()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "Prefix: o: <urn:test#>\nOntology: <urn:test>\n AnnotationProperty: o:bob\n Annotations:\n rdfs:label \"bob-label\"@en";
+        OWLOntology o = loadOntologyFromString(input);
+        assertEquals("Prefix: o: <urn:test#>"
+                + "Prefix: dc: <http://purl.org/dc/elements/1.1/>"
+                + "Prefix: owl: <http://www.w3.org/2002/07/owl#>"
+                + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>"
+                + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>"
+                + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "Ontology: <urn:test>" + "AnnotationProperty: rdfs:label"
+                + "AnnotationProperty: o:bob" + "Annotations: "
+                + "rdfs:label \"bob-label\"@en" + "Datatype: rdf:PlainLiteral",
+                saveOntology(o).toString().replace("\n", "")
+                        .replace("    ", ""));
+        OWLOntology o2 = roundTrip(o);
+        equal(o, o2);
+    }
 
     @Test
     public void shouldRoundTrip() throws Exception {
