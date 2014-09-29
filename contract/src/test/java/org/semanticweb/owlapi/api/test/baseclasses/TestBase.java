@@ -142,8 +142,8 @@ public abstract class TestBase {
                 if (fixed) {
                     String x = getClass().getSimpleName()
                             + " roundTripOntology() Failing to match axioms: \n"
-                            + sb + topOfStackTrace();
-                    System.out.println(x);
+                            + sb ;
+                    //System.out.println(x);
                     fail(x);
                     return false;
                 } else {
