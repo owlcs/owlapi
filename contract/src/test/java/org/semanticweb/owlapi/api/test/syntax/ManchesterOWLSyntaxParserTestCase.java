@@ -13,10 +13,12 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -48,6 +50,33 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefi
 
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserTestCase {
+
+    @Test
+    public void shouldRoundtripAnnotationAssertionsWithAnnotations()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "Prefix: o: <urn:test#>\nOntology: <urn:test>\n AnnotationProperty: o:bob\n Annotations:\n rdfs:label \"bob-label\"@en";
+        OWLOntology o = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
+        StringDocumentTarget target = new StringDocumentTarget();
+        o.getOWLOntologyManager().saveOntology(o, target);
+        assertEquals("Prefix: o: <urn:test#>"
+                + "Prefix: dc: <http://purl.org/dc/elements/1.1/>"
+                + "Prefix: owl: <http://www.w3.org/2002/07/owl#>"
+                + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>"
+                + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>"
+                + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "Ontology: <urn:test>" + "AnnotationProperty: rdfs:label"
+                + "AnnotationProperty: o:bob" + "Annotations: "
+                + "rdfs:label \"bob-label\"@en" + "Datatype: rdf:PlainLiteral",
+                target.toString().replace("\n", "").replace("    ", ""));
+        OWLOntology o2 = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(target.toString()));
+        assertEquals(o.getAxioms(AxiomType.ANNOTATION_ASSERTION),
+                o2.getAxioms(AxiomType.ANNOTATION_ASSERTION));
+    }
 
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
