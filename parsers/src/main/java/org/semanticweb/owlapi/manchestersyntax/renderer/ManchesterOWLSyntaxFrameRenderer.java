@@ -1180,18 +1180,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     public Set<OWLAxiom> write(@Nonnull OWLAnnotationProperty property) {
         Set<OWLAxiom> axioms = new HashSet<>();
         axioms.addAll(writeEntityStart(ANNOTATION_PROPERTY, property));
-        if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
-            for (OWLOntology ont : ontologies) {
-                Collection<OWLAnnotation> annos = sortedCollection();
-                for (OWLAnnotationAssertionAxiom ax : ont
-                        .getAnnotationAssertionAxioms(property.getIRI())) {
-                    if (isDisplayed(ax)) {
-                        annos.add(ax.getAnnotation());
-                    }
-                }
-                writeSection(ANNOTATIONS, annos, ",", true, ont);
-            }
-        }
         if (!isFiltered(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
             for (OWLOntology ont : ontologies) {
                 Collection<OWLAnnotationProperty> props = sortedCollection();
