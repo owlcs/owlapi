@@ -31,36 +31,4 @@ public class AnonymousTroublesomeConversionTestCase extends
         return "extraBlankNodes.owl";
     }
 
-    @Override
-    @Test
-    public void testRDFXML() {
-        // XXX roundtripping fails because of errors in the check code
-        // super.testRDFXML();
-    }
-
-    @Override
-    @Test
-    public void testRDFJSON() {
-        // XXX roundtripping fails because of errors in the check code
-        // super.testRDFJSON();
-    }
-
-    @Override
-    @Test
-    public void testTurtle() {
-        // XXX roundtripping fails because of errors in the check code
-        // super.testTurtle();
-    }
-
-    @Override
-    @Test
-    public void testFunctionalSyntax() {}
-
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() {}
-
-    @Override
-    @Test
-    public void testOWLXML() {}
 }
