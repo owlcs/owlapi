@@ -274,9 +274,11 @@ public abstract class TestBase {
             PrefixDocumentFormat toPrefixFormat = (PrefixDocumentFormat) format;
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
         }
+        boolean addMissingTypes = true;
         if (format instanceof AbstractRDFDocumentFormat) {
-            ((AbstractRDFDocumentFormat) format).setAddMissingTypes(false);
+            format.setAddMissingTypes(addMissingTypes);
         }
+
         m.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()
