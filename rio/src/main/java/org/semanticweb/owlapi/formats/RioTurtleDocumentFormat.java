@@ -42,7 +42,7 @@ import org.openrdf.rio.RDFFormat;
  * @since 4.0.0
  */
 public class RioTurtleDocumentFormat extends
-        org.semanticweb.owlapi.formats.RioRDFDocumentFormat {
+        RioRDFPrefixDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
 
