@@ -70,11 +70,5 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
     }
     
 
-    @Override
-    @Test
-    public void testRDFJSON() {
-        // RDFJSON is an RDFDocumentFormat, but not a PrefixDocumentFormat
-        // This case is not allowed for in the current heirarchy
-    }
-    
+
 }
