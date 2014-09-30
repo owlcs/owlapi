@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
  */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
 
-    /** default constructor. */
+    /** Default constructor. */
     public OWLDatatypeNode() {}
 
     /**

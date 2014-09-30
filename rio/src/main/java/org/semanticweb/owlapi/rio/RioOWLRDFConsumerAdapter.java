@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
 public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
         RDFHandler {
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(RioOWLRDFConsumerAdapter.class);
 
     /**
@@ -115,7 +115,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
             objectString = st.getObject().stringValue();
         }
         if (st.getObject() instanceof Resource) {
-            logger.trace("statement with resource value");
+            LOGGER.trace("statement with resource value");
             statementWithResourceValue(subjectString, st.getPredicate()
                     .stringValue(), objectString);
         } else {
@@ -127,7 +127,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
             if (literalObject.getDatatype() != null) {
                 literalDatatype = literalObject.getDatatype().stringValue();
             }
-            logger.trace("statement with literal value");
+            LOGGER.trace("statement with literal value");
             statementWithLiteralValue(subjectString, st.getPredicate()
                     .stringValue(), objectString, literalLanguage,
                     literalDatatype);

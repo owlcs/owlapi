@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationPropertyRangeAxiom */
+/** Builder class for OWLAnnotationPropertyRangeAxiom. */
 public class BuilderAnnotationPropertyRange
         extends
         BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
@@ -40,7 +40,7 @@ public class BuilderAnnotationPropertyRange
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

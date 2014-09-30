@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 
-/** Builder class for SWRLDataRangeAtom */
+/** Builder class for SWRLDataRangeAtom. */
 public class BuilderSWRLDataRangeAtom extends
         BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
 
@@ -30,7 +30,7 @@ public class BuilderSWRLDataRangeAtom extends
     private OWLDataRange predicate;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

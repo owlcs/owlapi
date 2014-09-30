@@ -4,12 +4,12 @@ package org.semanticweb.owlapi.model.parameters;
 public enum Navigation {
     /**
      * search for entities in sub position (for subclasses, subproperties
-     * axioms)
+     * axioms).
      */
     IN_SUB_POSITION,
     /**
      * search for entities in super position (for subclasses, subproperties
-     * axioms)
+     * axioms).
      */
     IN_SUPER_POSITION
 }

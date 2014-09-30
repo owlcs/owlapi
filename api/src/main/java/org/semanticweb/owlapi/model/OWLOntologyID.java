@@ -78,7 +78,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     /**
-     * replace an optional with a blank node iri with an absent optional
+     * Replace an optional with a blank node iri with an absent optional.
      * 
      * @param i
      *        Optional to check

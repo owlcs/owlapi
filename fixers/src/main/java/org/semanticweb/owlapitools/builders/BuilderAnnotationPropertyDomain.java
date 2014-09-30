@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationPropertyDomainAxiom */
+/** Builder class for OWLAnnotationPropertyDomainAxiom. */
 public class BuilderAnnotationPropertyDomain
         extends
         BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
@@ -40,7 +40,7 @@ public class BuilderAnnotationPropertyDomain
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

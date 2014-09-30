@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
 
     /**
-     * Gets the {@link OWLDatatype} that is assigned a definition
+     * Gets the {@link OWLDatatype} that is assigned a definition.
      * 
      * @return The datatype
      */
@@ -34,7 +34,7 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
     OWLDatatype getDatatype();
 
     /**
-     * Gets the datarange that defines the datatype
+     * Gets the datarange that defines the datatype.
      * 
      * @return The defining datarange
      */

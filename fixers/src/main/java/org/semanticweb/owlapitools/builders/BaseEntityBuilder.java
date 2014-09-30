@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
- * abstract builder for entities
+ * Abstract builder for entities.
  * 
  * @author ignazio
  * @param <T>

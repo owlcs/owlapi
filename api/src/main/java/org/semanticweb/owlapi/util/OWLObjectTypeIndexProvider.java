@@ -111,21 +111,21 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
     //@formatter:off
-    /** ENTITY_TYPE_INDEX_BASE           */ public static final int ENTITY_TYPE_INDEX_BASE              = 1000;
-    /** IRI                              */ public static final int IRI                                 = 0;
-    /** ONTOLOGY                         */ public static final int ONTOLOGY                            = 1;
-    /** OWL_CLASS                        */ public static final int OWL_CLASS                           = ENTITY_TYPE_INDEX_BASE + 1;
-    /** OBJECT_PROPERTY                  */ public static final int OBJECT_PROPERTY                     = ENTITY_TYPE_INDEX_BASE + 2;
-    /** OBJECT_PROPERTY_INVERSE          */ public static final int OBJECT_PROPERTY_INVERSE             = ENTITY_TYPE_INDEX_BASE + 3;
-    /** DATA_PROPERTY                    */ public static final int DATA_PROPERTY                       = ENTITY_TYPE_INDEX_BASE + 4;
-    /** INDIVIDUAL                       */ public static final int INDIVIDUAL                          = ENTITY_TYPE_INDEX_BASE + 5;
-    /** ANNOTATION_PROPERTY              */ public static final int ANNOTATION_PROPERTY                 = ENTITY_TYPE_INDEX_BASE + 6;
-    /** ANON_INDIVIDUAL                  */ public static final int ANON_INDIVIDUAL                     = ENTITY_TYPE_INDEX_BASE + 7;
-    /** AXIOM_TYPE_INDEX_BASE            */ public static final int AXIOM_TYPE_INDEX_BASE               = 2000;
-    /** DATA_TYPE_INDEX_BASE             */ public static final int DATA_TYPE_INDEX_BASE                = 4000;
-    /** ANNOTATION_TYPE_INDEX_BASE       */ public static final int ANNOTATION_TYPE_INDEX_BASE          = 5000;
-    /** RULE_OBJECT_TYPE_INDEX_BASE      */ public static final int RULE_OBJECT_TYPE_INDEX_BASE         = 6000;
-    /** CLASS_EXPRESSION_TYPE_INDEX_BASE */ public static final int CLASS_EXPRESSION_TYPE_INDEX_BASE    = 3000;
+    /** ENTITY_TYPE_INDEX_BASE.           */ public static final int ENTITY_TYPE_INDEX_BASE              = 1000;
+    /** IRI.                              */ public static final int IRI                                 = 0;
+    /** ONTOLOGY.                         */ public static final int ONTOLOGY                            = 1;
+    /** OWL_CLASS.                        */ public static final int OWL_CLASS                           = ENTITY_TYPE_INDEX_BASE + 1;
+    /** OBJECT_PROPERTY.                  */ public static final int OBJECT_PROPERTY                     = ENTITY_TYPE_INDEX_BASE + 2;
+    /** OBJECT_PROPERTY_INVERSE.          */ public static final int OBJECT_PROPERTY_INVERSE             = ENTITY_TYPE_INDEX_BASE + 3;
+    /** DATA_PROPERTY.                    */ public static final int DATA_PROPERTY                       = ENTITY_TYPE_INDEX_BASE + 4;
+    /** INDIVIDUAL.                       */ public static final int INDIVIDUAL                          = ENTITY_TYPE_INDEX_BASE + 5;
+    /** ANNOTATION_PROPERTY.              */ public static final int ANNOTATION_PROPERTY                 = ENTITY_TYPE_INDEX_BASE + 6;
+    /** ANON_INDIVIDUAL.                  */ public static final int ANON_INDIVIDUAL                     = ENTITY_TYPE_INDEX_BASE + 7;
+    /** AXIOM_TYPE_INDEX_BASE.            */ public static final int AXIOM_TYPE_INDEX_BASE               = 2000;
+    /** DATA_TYPE_INDEX_BASE.             */ public static final int DATA_TYPE_INDEX_BASE                = 4000;
+    /** ANNOTATION_TYPE_INDEX_BASE.       */ public static final int ANNOTATION_TYPE_INDEX_BASE          = 5000;
+    /** RULE_OBJECT_TYPE_INDEX_BASE.      */ public static final int RULE_OBJECT_TYPE_INDEX_BASE         = 6000;
+    /** CLASS_EXPRESSION_TYPE_INDEX_BASE. */ public static final int CLASS_EXPRESSION_TYPE_INDEX_BASE    = 3000;
 //@formatter:on
     private int type;
 

@@ -89,7 +89,7 @@ public class Filters {
 
         /**
          * Override this method to select what part of the axiom should be
-         * compared with the input key
+         * compared with the input key.
          * 
          * @param axiom
          *        axiom to check

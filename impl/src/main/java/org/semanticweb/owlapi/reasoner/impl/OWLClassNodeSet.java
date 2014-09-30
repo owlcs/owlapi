@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /**
- * A node set of OWL classes
+ * A node set of OWL classes.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.reasoner.Node;
  */
 public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
 
-    /** default constructor. */
+    /** Default constructor. */
     public OWLClassNodeSet() {}
 
     /**

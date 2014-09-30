@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** Builder class for OWLTransitiveObjectPropertyAxiom */
+/** Builder class for OWLTransitiveObjectPropertyAxiom. */
 public class BuilderTransitiveObjectProperty
         extends
         BaseObjectPropertyBuilder<OWLTransitiveObjectPropertyAxiom, BuilderTransitiveObjectProperty> {
@@ -33,7 +33,7 @@ public class BuilderTransitiveObjectProperty
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

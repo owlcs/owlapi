@@ -200,7 +200,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotation values from annotations
+     * Retrieve annotation values from annotations.
      * 
      * @param annotations
      *        annotations
@@ -213,7 +213,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve annotation values from annotations
+     * Retrieve annotation values from annotations.
      * 
      * @param annotations
      *        annotations

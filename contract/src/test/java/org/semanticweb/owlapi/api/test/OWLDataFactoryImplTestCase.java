@@ -52,7 +52,8 @@ public class OWLDataFactoryImplTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> parameters() {
-        return Arrays.asList(new Object[] { new OWLDataFactoryImpl(false, false) },
+        return Arrays.asList(
+                new Object[] { new OWLDataFactoryImpl(false, false) },
                 new Object[] { new OWLDataFactoryImpl(true, false) });
     }
 

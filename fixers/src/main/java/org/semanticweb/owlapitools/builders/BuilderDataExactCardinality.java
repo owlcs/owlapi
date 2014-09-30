@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLDataExactCardinality */
+/** Builder class for OWLDataExactCardinality. */
 public class BuilderDataExactCardinality extends
         BaseDataBuilder<OWLDataExactCardinality, BuilderDataExactCardinality> {
 
@@ -34,7 +34,7 @@ public class BuilderDataExactCardinality extends
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

@@ -19,12 +19,12 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** Builder class for OWLSubClassOfAxiom */
+/** Builder class for OWLSubClassOfAxiom. */
 public class BuilderSubClass extends
         BaseSubBuilder<OWLSubClassOfAxiom, BuilderSubClass, OWLClassExpression> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

@@ -16,13 +16,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * Search options
+ * Search options.
  * 
  * @author ignazio
  * @since 4.0.0
  */
 public enum AxiomAnnotations {
-    /** search for axioms ignoring annotations */
+    /** Search for axioms ignoring annotations. */
     IGNORE_AXIOM_ANNOTATIONS {
 
         @Override
@@ -30,7 +30,7 @@ public enum AxiomAnnotations {
             return o.containsAxiomIgnoreAnnotations(ax);
         }
     },
-    /** search for axioms taking annotations into account */
+    /** Search for axioms taking annotations into account. */
     CONSIDER_AXIOM_ANNOTATIONS {
 
         @Override

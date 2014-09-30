@@ -92,7 +92,7 @@ public class RDFTranslator extends
         return new RDFResourceIRI(iri);
     }
 
-    /** clear the graph */
+    /** Clear the graph. */
     public void reset() {
         graph = new RDFGraph();
     }

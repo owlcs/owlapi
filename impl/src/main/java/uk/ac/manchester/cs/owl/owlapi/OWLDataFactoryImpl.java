@@ -53,7 +53,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     //@formatter:on
     protected OWLDataFactoryInternals data;
 
-    /** default constructor */
+    /** Default constructor. */
     public OWLDataFactoryImpl() {
         this(true, false);
     }

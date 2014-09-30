@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/** oboformat parser */
+/** OBOformat parser. */
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final long serialVersionUID = 40000L;

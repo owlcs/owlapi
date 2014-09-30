@@ -85,7 +85,7 @@ import com.google.common.base.Optional;
  */
 class OBOConsumer implements OBOParserHandler {
 
-    private static final Logger logger = Logger.getLogger(OBOConsumer.class
+    private static final Logger LOGGER = Logger.getLogger(OBOConsumer.class
             .getName());
     private static final String IMPORT_TAG_NAME = "import";
     @Nonnull
@@ -429,7 +429,7 @@ class OBOConsumer implements OBOParserHandler {
                 }
             }
         } catch (UnloadableImportException e) {
-            logger.severe(e.getMessage());
+            LOGGER.severe(e.getMessage());
         }
     }
 

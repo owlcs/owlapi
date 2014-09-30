@@ -71,13 +71,13 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
     protected final Internals ints = new Internals();
 
     /**
-     * Trims the capacity of the axiom indexes . An application can use this operation to minimize the storage of
-     * the index instance.
-
+     * Trims the capacity of the axiom indexes . An application can use this
+     * operation to minimize the storage of the index instance.
      */
     public void trimToSize() {
         ints.trimToSize();
     }
+
     @Override
     public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity subject) {
         return getAxioms(OWLDeclarationAxiom.class, subject, EXCLUDED,

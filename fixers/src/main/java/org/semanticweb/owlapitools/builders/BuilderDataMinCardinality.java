@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 
-/** Builder class for OWLDataMinCardinality */
+/** Builder class for OWLDataMinCardinality. */
 public class BuilderDataMinCardinality extends
         BaseDataBuilder<OWLDataMinCardinality, BuilderDataMinCardinality> {
 
@@ -34,7 +34,7 @@ public class BuilderDataMinCardinality extends
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

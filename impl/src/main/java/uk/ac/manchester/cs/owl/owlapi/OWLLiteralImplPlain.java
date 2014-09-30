@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import com.google.common.base.Optional;
 
 /**
- * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL
+ * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
@@ -80,7 +80,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public int parseInteger() throws NumberFormatException {
+    public int parseInteger() {
         return Integer.parseInt(getLiteral());
     }
 

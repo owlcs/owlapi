@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.util.StringLengthComparator;
 import com.google.common.collect.Lists;
 
 /**
- * Developed as part of the CO-ODE project http://www.co-ode.org
+ * Developed as part of the CO-ODE project http://www.co-ode.org .
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
@@ -265,7 +265,7 @@ public class XMLWriterImpl implements XMLWriter {
         writer.flush();
     }
 
-    /** xml element */
+    /** XML element. */
     public class XMLElement {
 
         private final String name;
@@ -377,7 +377,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         /**
-         * write end element
+         * Write end element.
          * 
          * @throws IOException
          *         io error

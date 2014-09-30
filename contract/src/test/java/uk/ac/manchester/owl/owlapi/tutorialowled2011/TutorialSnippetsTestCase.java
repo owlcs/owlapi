@@ -550,7 +550,7 @@ public class TutorialSnippetsTestCase {
 
     /**
      * Visits existential restrictions and collects the properties which are
-     * restricted
+     * restricted.
      */
     private static class RestrictionVisitor implements
             OWLClassExpressionVisitor {
@@ -739,7 +739,7 @@ public class TutorialSnippetsTestCase {
     }
 
     /**
-     * Prints out the properties that instances of a class expression must have
+     * Prints out the properties that instances of a class expression must have.
      * 
      * @param o
      *        The ontology

@@ -31,5 +31,5 @@ public interface PrefixDocumentFormat extends OWLDocumentFormat, PrefixManager {
      * @param m
      *        prefix manager to use
      */
-    public void setPrefixManager(@Nonnull PrefixManager m);
+    void setPrefixManager(@Nonnull PrefixManager m);
 }

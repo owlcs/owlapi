@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 
-/** Builder class for SWRLObjectPropertyAtom */
+/** Builder class for SWRLObjectPropertyAtom. */
 public class BuilderSWRLObjectPropertyAtom
         extends
         BaseObjectPropertyBuilder<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
@@ -30,7 +30,7 @@ public class BuilderSWRLObjectPropertyAtom
     private SWRLIArgument arg0;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

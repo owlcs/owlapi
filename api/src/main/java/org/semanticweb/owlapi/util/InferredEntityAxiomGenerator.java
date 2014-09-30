@@ -72,7 +72,7 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
 
     /**
      * Gets the entities from the specified ontology that this generator
-     * processes
+     * processes.
      * 
      * @param ont
      *        The ontology from which entities are to be retrieved.

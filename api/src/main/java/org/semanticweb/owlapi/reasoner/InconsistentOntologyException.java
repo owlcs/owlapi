@@ -27,7 +27,7 @@ public class InconsistentOntologyException extends OWLReasonerRuntimeException {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public InconsistentOntologyException() {
         super("Inconsistent ontology");
     }

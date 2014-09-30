@@ -18,12 +18,12 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 
-/** Builder class for OWLObjectInverseOf */
+/** Builder class for OWLObjectInverseOf. */
 public class BuilderObjectInverseOf extends
         BaseObjectPropertyBuilder<OWLObjectInverseOf, BuilderObjectInverseOf> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

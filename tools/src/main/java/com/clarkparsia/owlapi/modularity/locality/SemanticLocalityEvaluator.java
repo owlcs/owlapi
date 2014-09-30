@@ -171,7 +171,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         /**
          * Takes an OWLClassExpression and a signature replaces by bottom the
-         * entities not in the signature
+         * entities not in the signature.
          * 
          * @param desc
          *        the desc

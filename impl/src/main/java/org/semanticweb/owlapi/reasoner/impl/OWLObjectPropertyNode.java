@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class OWLObjectPropertyNode extends
         DefaultNode<OWLObjectPropertyExpression> {
 
-    /** default constructor */
+    /** Default constructor. */
     public OWLObjectPropertyNode() {}
 
     /**

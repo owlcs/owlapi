@@ -47,7 +47,7 @@ public class RioN3StorerFactory extends AbstractRioStorerFactory implements
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public RioN3StorerFactory() {
         super(new N3DocumentFormatFactory());
     }

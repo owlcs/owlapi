@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * Specifies that a datatype is not declared
+ * Specifies that a datatype is not declared.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group

@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
-/** Builder class for OWLObjectPropertyAssertionAxiom */
+/** Builder class for OWLObjectPropertyAssertionAxiom. */
 public class BuilderObjectPropertyAssertion
         extends
         BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
@@ -33,7 +33,7 @@ public class BuilderObjectPropertyAssertion
     private OWLIndividual value = null;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

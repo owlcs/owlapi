@@ -36,8 +36,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
 /**
- * owlapi module for dynamic loading - uses ServiceLoader to add extra bindings
- * for OWLParser, OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper
+ * OWLAPI module for dynamic loading - uses ServiceLoader to add extra bindings
+ * for OWLParser, OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper.
  */
 @OwlapiModule
 public class OWLAPIServiceLoaderModule extends AbstractModule {
@@ -71,6 +71,8 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
     /**
      * @param type
      *        type to load
+     * @param <T>
+     *        return type
      * @return itrable over T implementations
      */
     protected <T> Iterable<T> load(Class<T> type) {

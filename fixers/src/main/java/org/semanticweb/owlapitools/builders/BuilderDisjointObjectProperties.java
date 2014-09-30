@@ -19,13 +19,13 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Builder class for OWLDisjointObjectPropertiesAxiom */
+/** Builder class for OWLDisjointObjectPropertiesAxiom. */
 public class BuilderDisjointObjectProperties
         extends
         BaseSetBuilder<OWLDisjointObjectPropertiesAxiom, BuilderDisjointObjectProperties, OWLObjectPropertyExpression> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

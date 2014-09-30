@@ -2,7 +2,7 @@ package org.obolibrary.oboformat.model;
 
 import javax.annotation.Nonnull;
 
-/** qualifier value */
+/** Qualifier value. */
 public class QualifierValue implements Comparable<QualifierValue> {
 
     @Nonnull

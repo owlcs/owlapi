@@ -19,13 +19,13 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Builder class for OWLEquivalentObjectPropertiesAxiom */
+/** Builder class for OWLEquivalentObjectPropertiesAxiom. */
 public class BuilderEquivalentObjectProperties
         extends
         BaseSetBuilder<OWLEquivalentObjectPropertiesAxiom, BuilderEquivalentObjectProperties, OWLObjectPropertyExpression> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

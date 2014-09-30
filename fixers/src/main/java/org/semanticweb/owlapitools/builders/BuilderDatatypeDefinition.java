@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 
-/** Builder class for OWLDatatypeDefinitionAxiom */
+/** Builder class for OWLDatatypeDefinitionAxiom. */
 public class BuilderDatatypeDefinition extends
         BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
 
@@ -33,7 +33,7 @@ public class BuilderDatatypeDefinition extends
     private OWLDatatype type = null;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

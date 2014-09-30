@@ -132,7 +132,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
     private StringBuilder buffer;
     private OWLObject focusedObject;
 
-    /** default constructor */
+    /** Default constructor. */
     public DLSyntaxObjectRenderer() {
         shortFormProvider = new SimpleShortFormProvider();
         iriShortFormProvider = new SimpleIRIShortFormProvider();

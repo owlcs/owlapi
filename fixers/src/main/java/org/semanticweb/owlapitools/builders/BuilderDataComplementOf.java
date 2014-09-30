@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** Builder class for OWLDataComplementOf */
+/** Builder class for OWLDataComplementOf. */
 public class BuilderDataComplementOf extends
         BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
 
@@ -39,7 +39,7 @@ public class BuilderDataComplementOf extends
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

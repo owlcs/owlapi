@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * Builder class for OWLSubAnnotationPropertyOfAxiom
+ * Builder class for OWLSubAnnotationPropertyOfAxiom.
  * 
  * @param <T>
  *        type built

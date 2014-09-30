@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * Builder class for OWLDataAllValuesFrom
+ * Builder class for OWLDataAllValuesFrom.
  * 
  * @param <T>
  *        type built

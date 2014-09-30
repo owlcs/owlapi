@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
- * Default implementation of {@link OWLOntologyBuilder}
+ * Default implementation of {@link OWLOntologyBuilder}.
  * 
  * @author ignazio
  * @since 4.0.0

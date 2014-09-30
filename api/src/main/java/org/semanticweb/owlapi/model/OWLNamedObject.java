@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 public interface OWLNamedObject extends OWLObject, HasIRI {
 
     /**
-     * Accepts a visitor
+     * Accepts a visitor.
      * 
      * @param visitor
      *        The visitor
@@ -33,7 +33,7 @@ public interface OWLNamedObject extends OWLObject, HasIRI {
     void accept(@Nonnull OWLNamedObjectVisitor visitor);
 
     /**
-     * Accepts a visitor
+     * Accepts a visitor.
      * 
      * @param <O>
      *        visitor return type

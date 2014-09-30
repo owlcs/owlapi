@@ -18,13 +18,13 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 
-/** Builder class for OWLInverseFunctionalObjectPropertyAxiom */
+/** Builder class for OWLInverseFunctionalObjectPropertyAxiom. */
 public class BuilderInverseFunctionalObjectProperty
         extends
         BaseObjectPropertyBuilder<OWLInverseFunctionalObjectPropertyAxiom, BuilderInverseFunctionalObjectProperty> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

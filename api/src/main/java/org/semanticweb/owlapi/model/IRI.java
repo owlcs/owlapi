@@ -34,7 +34,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
 /**
- * Represents International Resource Identifiers
+ * Represents International Resource Identifiers.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -55,7 +55,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     /**
-     * Determines if this IRI is absolute
+     * Determines if this IRI is absolute.
      * 
      * @return {@code true} if this IRI is absolute or {@code false} if this IRI
      *         is not absolute
@@ -128,7 +128,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     /**
      * Determines if this IRI is equal to the IRI that {@code owl:Thing} is
-     * named with
+     * named with.
      * 
      * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
@@ -140,7 +140,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     /**
      * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is
-     * named with
+     * named with.
      * 
      * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Nothing&gt; and otherwise
@@ -152,7 +152,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     /**
      * Determines if this IRI is equal to the IRI that is named
-     * {@code rdf:PlainLiteral}
+     * {@code rdf:PlainLiteral}.
      * 
      * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
@@ -189,7 +189,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     /**
-     * Obtained this IRI surrounded by angled brackets
+     * Obtained this IRI surrounded by angled brackets.
      * 
      * @return This IRI surrounded by &lt; and &gt;
      */

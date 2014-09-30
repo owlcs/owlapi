@@ -21,14 +21,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Builder class for SWRLVariable */
+/** Builder class for SWRLVariable. */
 public class BuilderSWRLVariable extends
         BaseBuilder<SWRLVariable, BuilderSWRLVariable> {
 
     private IRI iri;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

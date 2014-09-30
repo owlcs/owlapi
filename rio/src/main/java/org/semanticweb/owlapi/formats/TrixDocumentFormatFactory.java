@@ -16,7 +16,7 @@ public class TrixDocumentFormatFactory extends
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public TrixDocumentFormatFactory() {
         super(RDFFormat.TRIX);
     }

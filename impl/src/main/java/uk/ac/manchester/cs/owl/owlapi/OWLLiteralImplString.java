@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import com.google.common.base.Optional;
 
 /**
- * An OWLLiteral with xsd:string datatype and no language tag
+ * An OWLLiteral with xsd:string datatype and no language tag.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
@@ -68,7 +68,7 @@ public class OWLLiteralImplString implements OWLLiteral {
     }
 
     @Override
-    public int parseInteger() throws NumberFormatException {
+    public int parseInteger() {
         return Integer.parseInt(getLiteral());
     }
 

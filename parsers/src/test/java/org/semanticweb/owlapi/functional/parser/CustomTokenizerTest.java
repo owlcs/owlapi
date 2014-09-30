@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("javadoc")
 public class CustomTokenizerTest {
 
-    static final Logger logger = LoggerFactory.getLogger(CustomTokenizer.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(CustomTokenizer.class);
 
     @Test
     public void testParseStringLiteral() {

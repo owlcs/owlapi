@@ -125,7 +125,7 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     }
 
     /**
-     * Accepts a visitor
+     * Accepts a visitor.
      * 
      * @param visitor
      *        The visitor
@@ -133,7 +133,7 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     public abstract void accept(@Nonnull OWLOntologyChangeVisitor visitor);
 
     /**
-     * Accepts a visitor
+     * Accepts a visitor.
      * 
      * @param visitor
      *        The visitor

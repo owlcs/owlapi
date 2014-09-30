@@ -95,14 +95,14 @@ public class Translators {
 
         /**
          * A translator for lists of class expressions (such lists are used in
-         * intersections, unions etc.)
+         * intersections, unions etc.).
          */
         private final OptimisedListTranslator<OWLClassExpression> classExpressionListTranslator;
         /** The class expression translators. */
         private final List<ClassExpressionTranslator> classExpressionTranslators = new ArrayList<>();
         /**
          * A translator for individual lists (such lists are used in object
-         * oneOf constructs)
+         * oneOf constructs).
          */
         private final OptimisedListTranslator<OWLIndividual> individualListTranslator;
         /** The object property list translator. */

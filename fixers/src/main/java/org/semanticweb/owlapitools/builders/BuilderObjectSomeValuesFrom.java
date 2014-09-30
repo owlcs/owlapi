@@ -18,12 +18,12 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
-/** Builder class for OWLObjectSomeValuesFrom */
+/** Builder class for OWLObjectSomeValuesFrom. */
 public class BuilderObjectSomeValuesFrom extends
         BaseObjectBuilder<OWLObjectSomeValuesFrom, BuilderObjectSomeValuesFrom> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

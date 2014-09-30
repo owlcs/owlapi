@@ -51,7 +51,7 @@ public class OWLFunctionalSyntaxOWLParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public OWLFunctionalSyntaxOWLParserFactory() {
         super(new FunctionalSyntaxDocumentFormatFactory());
     }

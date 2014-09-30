@@ -30,7 +30,7 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
         HasProperty<OWLAnnotationProperty> {
 
     /**
-     * Gets the property that this annotation acts along
+     * Gets the property that this annotation acts along.
      * 
      * @return The annotation property
      */
@@ -64,7 +64,7 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
     boolean isDeprecatedIRIAnnotation();
 
     /**
-     * Gets the annotations on this annotation
+     * Gets the annotations on this annotation.
      * 
      * @return A (possibly empty) set of annotations that annotate this
      *         annotation

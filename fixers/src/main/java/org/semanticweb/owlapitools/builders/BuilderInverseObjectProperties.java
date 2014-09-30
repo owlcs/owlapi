@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Builder class for OWLInverseObjectPropertiesAxiom */
+/** Builder class for OWLInverseObjectPropertiesAxiom. */
 public class BuilderInverseObjectProperties
         extends
         BaseObjectPropertyBuilder<OWLInverseObjectPropertiesAxiom, BuilderInverseObjectProperties> {
@@ -31,7 +31,7 @@ public class BuilderInverseObjectProperties
     private OWLObjectPropertyExpression inverseProperty = null;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

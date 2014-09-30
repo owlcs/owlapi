@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-/** Builder class for OWLObjectUnionOf */
+/** Builder class for OWLObjectUnionOf. */
 public class BuilderUnionOf extends
         BaseSetBuilder<OWLObjectUnionOf, BuilderUnionOf, OWLClassExpression> {
 
@@ -33,7 +33,7 @@ public class BuilderUnionOf extends
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

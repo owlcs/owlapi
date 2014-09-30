@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnnotationProperty */
+/** Builder class for OWLAnnotationProperty. */
 public class BuilderAnnotationProperty extends
         BaseEntityBuilder<OWLAnnotationProperty, BuilderAnnotationProperty> {
 
@@ -32,7 +32,7 @@ public class BuilderAnnotationProperty extends
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

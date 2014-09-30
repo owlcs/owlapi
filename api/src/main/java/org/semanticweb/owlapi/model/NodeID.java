@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 
 /**
- * Represents the Node ID for anonymous individuals
+ * Represents the Node ID for anonymous individuals.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -115,7 +115,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
     }
 
     /**
-     * Gets a NodeID with a specific identifier string
+     * Gets a NodeID with a specific identifier string.
      * 
      * @param id
      *        The String that identifies the node. If the String doesn't start

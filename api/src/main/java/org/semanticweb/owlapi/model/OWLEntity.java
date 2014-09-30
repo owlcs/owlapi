@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
 
     /**
-     * Gets the entity type for this entity
+     * Gets the entity type for this entity.
      * 
      * @return The entity type
      */
@@ -34,7 +34,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     EntityType<?> getEntityType();
 
     /**
-     * Tests to see if this entity is of the specified type
+     * Tests to see if this entity is of the specified type.
      * 
      * @param entityType
      *        The entity type
@@ -75,7 +75,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     boolean isBuiltIn();
 
     /**
-     * A convenience method that determines if this entity is an OWLClass
+     * A convenience method that determines if this entity is an OWLClass.
      * 
      * @return {@code true} if this entity is an OWLClass, otherwise
      *         {@code false}
@@ -97,7 +97,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
 
     /**
      * A convenience method that determines if this entity is an
-     * OWLObjectProperty
+     * OWLObjectProperty.
      * 
      * @return {@code true} if this entity is an OWLObjectProperty, otherwise
      *         {@code false}
@@ -117,7 +117,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     OWLObjectProperty asOWLObjectProperty();
 
     /**
-     * A convenience method that determines if this entity is an OWLDataProperty
+     * A convenience method that determines if this entity is an
+     * OWLDataProperty.
      * 
      * @return {@code true} if this entity is an OWLDataProperty, otherwise
      *         {@code false}
@@ -138,7 +139,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
 
     /**
      * A convenience method that determines if this entity is an
-     * OWLNamedIndividual
+     * OWLNamedIndividual.
      * 
      * @return {@code true} if this entity is an OWLNamedIndividual, otherwise
      *         {@code false}
@@ -158,7 +159,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     OWLNamedIndividual asOWLNamedIndividual();
 
     /**
-     * A convenience method that determines if this entity is an OWLDatatype
+     * A convenience method that determines if this entity is an OWLDatatype.
      * 
      * @return {@code true} if this entity is an OWLDatatype, otherwise
      *         {@code false}
@@ -179,7 +180,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
 
     /**
      * A convenience method that determines if this entity is an
-     * OWLAnnotationProperty
+     * OWLAnnotationProperty.
      * 
      * @return {@code true} if this entity is an OWLAnnotationProperty,
      *         otherwise {@code false}

@@ -41,7 +41,7 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
         super(entities);
     }
 
-    /** default constructor. */
+    /** Default constructor. */
     public OWLClassNode() {}
 
     @Override

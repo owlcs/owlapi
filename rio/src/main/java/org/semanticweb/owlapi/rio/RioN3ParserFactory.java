@@ -47,7 +47,7 @@ public class RioN3ParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public RioN3ParserFactory() {
         super(new N3DocumentFormatFactory());
     }

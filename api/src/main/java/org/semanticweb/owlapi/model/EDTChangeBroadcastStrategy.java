@@ -58,8 +58,7 @@ public class EDTChangeBroadcastStrategy implements
     }
 
     /**
-     * XXX bit of a roundabout way to wrap an exception as a runtime exception,
-     * for unwrapping later on
+     * Wrap an exception as a runtime exception, for unwrapping later on.
      */
     private static class BroadcastException extends RuntimeException {
 

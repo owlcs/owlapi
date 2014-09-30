@@ -21,27 +21,27 @@ import javax.annotation.Nonnull;
  */
 public enum DLSyntax {
     //@formatter:off
-    /** SUBCLASS */         SUBCLASS("\u2291"), 
-    /** EQUIVALENT_TO */    EQUIVALENT_TO("\u2261"), 
-    /** NOT */              NOT("\u00AC"), 
-    /** DISJOINT_WITH */    DISJOINT_WITH(SUBCLASS + " " + NOT), 
-    /** EXISTS */           EXISTS("\u2203"), 
-    /** FORALL */           FORALL("\u2200"), 
-    /** IN */               IN("\u2208"), 
-    /** MIN */              MIN("\u2265"), 
-    /** EQUAL */            EQUAL("="), 
-    /** NOT_EQUAL */        NOT_EQUAL("\u2260"), 
-    /** MAX */              MAX("\u2264"), 
-    /** INVERSE */          INVERSE("\u207B"),  // Superscript minus
-    /** AND */              AND("\u2293"), 
-    /** TOP */              TOP("\u22A4"), 
-    /** BOTTOM */           BOTTOM("\u22A5"), 
-    /** OR */               OR("\u2294"), 
-    /** COMP */             COMP("\u2218"), 
-    /** WEDGE */            WEDGE("\u22C0"), 
-    /** IMPLIES */          IMPLIES("\u2190"), 
-    /** COMMA */            COMMA(","), 
-    /** SELF */             SELF("self");
+    /** SUBCLASS. */         SUBCLASS("\u2291"), 
+    /** EQUIVALENT_TO. */    EQUIVALENT_TO("\u2261"), 
+    /** NOT. */              NOT("\u00AC"), 
+    /** DISJOINT_WITH. */    DISJOINT_WITH(SUBCLASS + " " + NOT), 
+    /** EXISTS. */           EXISTS("\u2203"), 
+    /** FORALL. */           FORALL("\u2200"), 
+    /** IN. */               IN("\u2208"), 
+    /** MIN. */              MIN("\u2265"), 
+    /** EQUAL. */            EQUAL("="), 
+    /** NOT_EQUAL. */        NOT_EQUAL("\u2260"), 
+    /** MAX. */              MAX("\u2264"), 
+    /** INVERSE. */          INVERSE("\u207B"),  // Superscript minus
+    /** AND. */              AND("\u2293"), 
+    /** TOP. */              TOP("\u22A4"), 
+    /** BOTTOM. */           BOTTOM("\u22A5"), 
+    /** OR. */               OR("\u2294"), 
+    /** COMP. */             COMP("\u2218"), 
+    /** WEDGE. */            WEDGE("\u22C0"), 
+    /** IMPLIES. */          IMPLIES("\u2190"), 
+    /** COMMA. */            COMMA(","), 
+    /** SELF. */             SELF("self");
     //@formatter:on
     @Nonnull
     private final String unicodeSymbol;

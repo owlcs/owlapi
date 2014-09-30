@@ -176,6 +176,7 @@ public class TurtleTestCase extends TestBase {
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i,
                 Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
     }
+
     @Test
     public void shouldParseScientificNotationWithMinus()
             throws OWLOntologyCreationException {

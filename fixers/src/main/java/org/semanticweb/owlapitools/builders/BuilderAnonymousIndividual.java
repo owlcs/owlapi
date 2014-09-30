@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAnonymousIndividual */
+/** Builder class for OWLAnonymousIndividual. */
 public class BuilderAnonymousIndividual extends
         BaseBuilder<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
 
@@ -38,7 +38,7 @@ public class BuilderAnonymousIndividual extends
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

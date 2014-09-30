@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 public interface OWLFacetRestriction extends OWLObject {
 
     /**
-     * Gets the retricted facet
+     * Gets the retricted facet.
      * 
      * @return The restricted facet
      */
@@ -36,7 +36,7 @@ public interface OWLFacetRestriction extends OWLObject {
     OWLFacet getFacet();
 
     /**
-     * Gets the value that restricts the facet
+     * Gets the value that restricts the facet.
      * 
      * @return the restricting value
      */

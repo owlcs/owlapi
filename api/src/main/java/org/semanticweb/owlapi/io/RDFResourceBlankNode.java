@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
-/** Anonymous node implementation */
+/** Anonymous node implementation. */
 public class RDFResourceBlankNode extends RDFResource {
 
     private static final long serialVersionUID = 40000L;
@@ -27,7 +27,7 @@ public class RDFResourceBlankNode extends RDFResource {
     private final IRI resource;
 
     /**
-     * Create an RDFResource that is anonymous
+     * Create an RDFResource that is anonymous.
      * 
      * @param resource
      *        The IRI of the resource
@@ -37,7 +37,7 @@ public class RDFResourceBlankNode extends RDFResource {
     }
 
     /**
-     * Create an RDFResource that is anonymous
+     * Create an RDFResource that is anonymous.
      * 
      * @param anonId
      *        the number at the end of the anon IRI

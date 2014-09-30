@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
- * A builder interface for building owl objects
+ * A builder interface for building owl objects.
  * 
  * @author ignazio
  * @param <T>

@@ -18,14 +18,14 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 
-/** Builder class for OWLObjectMaxCardinality */
+/** Builder class for OWLObjectMaxCardinality. */
 public class BuilderObjectMaxCardinality extends
         BaseObjectBuilder<OWLObjectMaxCardinality, BuilderObjectMaxCardinality> {
 
     private int cardinality = -1;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

@@ -35,22 +35,22 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class LatexObjectVisitor implements OWLObjectVisitor {
 
     //@formatter:off
-    /** AND */         @Nonnull  private static final String AND     = "\\ensuremath{\\sqcap}";
-    /** OR */          @Nonnull  public static final String OR       = "\\ensuremath{\\sqcup}";
-    /** NOT */         @Nonnull  public static final String NOT      = "\\ensuremath{\\lnot}";
-    /** ALL */         @Nonnull  public static final String ALL      = "\\ensuremath{\\forall}";
-    /** SOME */        @Nonnull  public static final String SOME     = "\\ensuremath{\\exists}";
-    /** HASVALUE */    @Nonnull  public static final String HASVALUE = "\\ensuremath{hasValue}";
-    /** MIN */         @Nonnull  public static final String MIN      = "\\ensuremath{\\geq}";
-    /** MAX */         @Nonnull  public static final String MAX      = "\\ensuremath{\\leq}";
-    /** EQUAL */       @Nonnull  public static final String EQUAL    = "\\ensuremath{=}";
-    /** SUBCLASS */    @Nonnull  public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
-    /** EQUIV */       @Nonnull  public static final String EQUIV    = "\\ensuremath{\\equiv}";
-    /** NOT_EQUIV */   @Nonnull  public static final String NOT_EQUIV= "\\ensuremath{\\not\\equiv}";
-    /** TOP */         @Nonnull  public static final String TOP      = "\\ensuremath{\\top}";
-    /** BOTTOM */      @Nonnull  public static final String BOTTOM   = "\\ensuremath{\\bot}";
-    /** SELF */        @Nonnull  public static final String SELF     = "\\ensuremath{\\Self}";
-    /** CIRC */        @Nonnull  public static final String CIRC     = "\\ensuremath{\\circ}";
+    /** AND. */         @Nonnull  private static final String AND     = "\\ensuremath{\\sqcap}";
+    /** OR. */          @Nonnull  public static final String OR       = "\\ensuremath{\\sqcup}";
+    /** NOT. */         @Nonnull  public static final String NOT      = "\\ensuremath{\\lnot}";
+    /** ALL. */         @Nonnull  public static final String ALL      = "\\ensuremath{\\forall}";
+    /** SOME. */        @Nonnull  public static final String SOME     = "\\ensuremath{\\exists}";
+    /** HASVALUE. */    @Nonnull  public static final String HASVALUE = "\\ensuremath{hasValue}";
+    /** MIN. */         @Nonnull  public static final String MIN      = "\\ensuremath{\\geq}";
+    /** MAX. */         @Nonnull  public static final String MAX      = "\\ensuremath{\\leq}";
+    /** EQUAL. */       @Nonnull  public static final String EQUAL    = "\\ensuremath{=}";
+    /** SUBCLASS. */    @Nonnull  public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
+    /** EQUIV. */       @Nonnull  public static final String EQUIV    = "\\ensuremath{\\equiv}";
+    /** NOT_EQUIV. */   @Nonnull  public static final String NOT_EQUIV= "\\ensuremath{\\not\\equiv}";
+    /** TOP. */         @Nonnull  public static final String TOP      = "\\ensuremath{\\top}";
+    /** BOTTOM. */      @Nonnull  public static final String BOTTOM   = "\\ensuremath{\\bot}";
+    /** SELF. */        @Nonnull  public static final String SELF     = "\\ensuremath{\\Self}";
+    /** CIRC. */        @Nonnull  public static final String CIRC     = "\\ensuremath{\\circ}";
     //@formatter:on
     private OWLObject subject;
     private final LatexWriter writer;

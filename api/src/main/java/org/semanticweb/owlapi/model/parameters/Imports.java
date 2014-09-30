@@ -25,13 +25,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * An enumeration for human readable values to include/exclude imports from
- * searches
+ * searches.
  * 
  * @author ignazio
  * @since 4.0.0
  */
 public enum Imports {
-    /** imports are included */
+    /** Imports are included. */
     INCLUDED {
 
         @Override
@@ -45,7 +45,7 @@ public enum Imports {
             return stream(o).anyMatch(step);
         }
     },
-    /** imports are excluded */
+    /** Imports are excluded. */
     EXCLUDED {
 
         @Override
@@ -100,6 +100,8 @@ public enum Imports {
      *        included, according to the enum value.
      * @param mapper
      *        mapper to apply
+     * @param <T>
+     *        return type
      * @return collection of values
      */
     public
@@ -115,6 +117,8 @@ public enum Imports {
      *        root ontology
      * @param mapper
      *        mapper to use
+     * @param <T>
+     *        return type
      * @return all elements mapped from the root ontology and optionally the
      *         imports closure
      */

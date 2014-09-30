@@ -57,7 +57,8 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
     OWLNamedIndividual asOWLNamedIndividual();
 
     /**
-     * Obtains this individual an anonymous individual if it is indeed anonymous
+     * Obtains this individual an anonymous individual if it is indeed
+     * anonymous.
      * 
      * @return The individual as an anonymous individual
      * @throws OWLRuntimeException

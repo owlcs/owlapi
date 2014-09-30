@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 import javax.annotation.Nonnull;
 
 /**
- * Developed as part of the CO-ODE project http://www.co-ode.org
+ * Developed as part of the CO-ODE project http://www.co-ode.org .
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group

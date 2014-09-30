@@ -49,7 +49,7 @@ public class ManchesterSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public ManchesterSyntaxStorerFactory() {
         super(new ManchesterSyntaxDocumentFormatFactory());
     }

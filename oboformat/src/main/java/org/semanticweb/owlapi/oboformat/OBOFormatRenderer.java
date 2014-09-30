@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** renderer for obo */
+/** Renderer for obo. */
 public class OBOFormatRenderer implements OWLRenderer {
 
     @Override
@@ -58,7 +58,7 @@ public class OBOFormatRenderer implements OWLRenderer {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(
                     ontology.getOWLOntologyManager());
             final OBODoc result = translator.convert(ontology);
-            boolean hasImports = ontology.getImports().isEmpty() == false;
+            boolean hasImports = !ontology.getImports().isEmpty();
             NameProvider nameProvider;
             if (hasImports) {
                 // if the ontology has imports

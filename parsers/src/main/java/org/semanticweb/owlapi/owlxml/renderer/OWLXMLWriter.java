@@ -187,7 +187,7 @@ public class OWLXMLWriter {
         }
     }
 
-    /** write end element */
+    /** Write end element. */
     public void writeEndElement() {
         try {
             writer.writeEndElement();
@@ -198,7 +198,7 @@ public class OWLXMLWriter {
 
     /**
      * Writes a datatype attributed (used on Literal elements). The full
-     * datatype IRI is written out
+     * datatype IRI is written out.
      * 
      * @param datatype
      *        The datatype

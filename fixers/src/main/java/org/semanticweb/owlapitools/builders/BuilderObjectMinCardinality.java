@@ -18,14 +18,14 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 
-/** Builder class for OWLObjectMinCardinality */
+/** Builder class for OWLObjectMinCardinality. */
 public class BuilderObjectMinCardinality extends
         BaseObjectBuilder<OWLObjectMinCardinality, BuilderObjectMinCardinality> {
 
     private int cardinality = -1;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

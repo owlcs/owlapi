@@ -16,7 +16,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** xref expander */
+/** Xref expander. */
 public class XrefExpander {
 
     protected static final Logger LOG = LoggerFactory
@@ -175,7 +175,7 @@ public class XrefExpander {
         treatMap.put(db, rule);
     }
 
-    /** expand xrefs */
+    /** Expand xrefs. */
     public void expandXrefs() {
         for (Frame f : sourceOBODoc.getTermFrames()) {
             String id = f.getTagValue(OboFormatTag.TAG_ID, String.class);
@@ -198,11 +198,11 @@ public class XrefExpander {
         return parts[0];
     }
 
-    /** rule */
+    /** Rule. */
     public abstract class Rule {
 
         protected String xref;
-        /** id space */
+        /** Id space. */
         public String idSpace;
 
         /**
@@ -233,7 +233,7 @@ public class XrefExpander {
         }
     }
 
-    /** equivalence expansion */
+    /** Equivalence expansion. */
     public class EquivalenceExpansion extends Rule {
 
         @Override
@@ -243,7 +243,7 @@ public class XrefExpander {
         }
     }
 
-    /** subclass expansion */
+    /** Subclass expansion. */
     public class HasSubClassExpansion extends Rule {
 
         @Override
@@ -253,7 +253,7 @@ public class XrefExpander {
         }
     }
 
-    /** genus diff expansion */
+    /** Genus diff expansion. */
     public class GenusDifferentiaExpansion extends Rule {
 
         protected final String rel;
@@ -281,7 +281,7 @@ public class XrefExpander {
         }
     }
 
-    /** reverse genus differentia expansion */
+    /** Reverse genus differentia expansion. */
     public class ReverseGenusDifferentiaExpansion extends Rule {
 
         protected final String rel;
@@ -309,7 +309,7 @@ public class XrefExpander {
         }
     }
 
-    /** is a expansion */
+    /** Is a expansion. */
     public class IsaExpansion extends Rule {
 
         @Override
@@ -319,7 +319,7 @@ public class XrefExpander {
         }
     }
 
-    /** relationship expansion */
+    /** Relationship expansion. */
     public class RelationshipExpansion extends Rule {
 
         protected final String rel;

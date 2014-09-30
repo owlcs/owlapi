@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 public interface OWLAnnotationSubjectVisitorEx<O> {
 
     /**
-     * visit IRI type
+     * Visit IRI type.
      * 
      * @param iri
      *        object to visit
@@ -34,7 +34,7 @@ public interface OWLAnnotationSubjectVisitorEx<O> {
     O visit(@Nonnull IRI iri);
 
     /**
-     * visit OWLAnonymousIndividual type
+     * Visit OWLAnonymousIndividual type.
      * 
      * @param individual
      *        object to visit

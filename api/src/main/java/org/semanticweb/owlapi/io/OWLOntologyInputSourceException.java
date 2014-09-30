@@ -23,7 +23,7 @@ public class OWLOntologyInputSourceException extends OWLException {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public OWLOntologyInputSourceException() {}
 
     /**

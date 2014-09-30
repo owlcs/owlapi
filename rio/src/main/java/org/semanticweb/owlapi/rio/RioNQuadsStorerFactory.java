@@ -47,7 +47,7 @@ public class RioNQuadsStorerFactory extends AbstractRioStorerFactory implements
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public RioNQuadsStorerFactory() {
         super(new NQuadsDocumentFormatFactory());
     }

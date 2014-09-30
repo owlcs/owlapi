@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLClass */
+/** Builder class for OWLClass. */
 public class BuilderClass extends BaseEntityBuilder<OWLClass, BuilderClass> {
 
     /**
@@ -31,7 +31,7 @@ public class BuilderClass extends BaseEntityBuilder<OWLClass, BuilderClass> {
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

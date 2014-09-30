@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** Builder class for OWLDataIntersectionOf */
+/** Builder class for OWLDataIntersectionOf. */
 public class BuilderDataIntersectionOf
         extends
         BaseSetBuilder<OWLDataIntersectionOf, BuilderDataIntersectionOf, OWLDataRange> {
@@ -34,7 +34,7 @@ public class BuilderDataIntersectionOf
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

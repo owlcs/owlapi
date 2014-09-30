@@ -51,7 +51,7 @@ public class DocumentSources {
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern
             .compile(".*owl|rdf|xml|mos");
     @Nonnull
-    private static final String requestTypes = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
+    private static final String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
 
     /**
      * Select the available input source and, if it is not already a Reader,
@@ -157,7 +157,7 @@ public class DocumentSources {
             URL originalURL = documentIRI.toURI().toURL();
             String originalProtocol = originalURL.getProtocol();
             URLConnection conn = originalURL.openConnection();
-            conn.addRequestProperty("Accept", requestTypes);
+            conn.addRequestProperty("Accept", REQUESTTYPES);
             if (config.isAcceptingHTTPCompression()) {
                 conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
             }
@@ -179,7 +179,7 @@ public class DocumentSources {
                         // then different protocols: redirect won't follow
                         // automatically
                         conn = newURL.openConnection();
-                        conn.addRequestProperty("Accept", requestTypes);
+                        conn.addRequestProperty("Accept", REQUESTTYPES);
                         if (config.isAcceptingHTTPCompression()) {
                             conn.setRequestProperty("Accept-Encoding",
                                     "gzip, deflate");

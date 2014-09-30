@@ -47,7 +47,7 @@ public class RioTrigParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public RioTrigParserFactory() {
         super(new TrigDocumentFormatFactory());
     }

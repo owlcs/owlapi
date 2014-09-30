@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 public interface OWLOntologyChangeVisitorEx<O> {
 
     /**
-     * visit AddAxiom type
+     * Visit AddAxiom type.
      * 
      * @param change
      *        change to visit
@@ -34,7 +34,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
     O visit(@Nonnull AddAxiom change);
 
     /**
-     * visit RemoveAxiom type
+     * Visit RemoveAxiom type.
      * 
      * @param change
      *        change to visit
@@ -44,7 +44,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
     O visit(@Nonnull RemoveAxiom change);
 
     /**
-     * visit SetOntologyID type
+     * Visit SetOntologyID type.
      * 
      * @param change
      *        change to visit
@@ -54,7 +54,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
     O visit(@Nonnull SetOntologyID change);
 
     /**
-     * visit AddImport type
+     * Visit AddImport type.
      * 
      * @param change
      *        change to visit
@@ -64,7 +64,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
     O visit(@Nonnull AddImport change);
 
     /**
-     * visit RemoveImport type
+     * Visit RemoveImport type.
      * 
      * @param change
      *        change to visit
@@ -74,7 +74,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
     O visit(@Nonnull RemoveImport change);
 
     /**
-     * visit AddOntologyAnnotation type
+     * Visit AddOntologyAnnotation type.
      * 
      * @param change
      *        change to visit
@@ -84,7 +84,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
     O visit(@Nonnull AddOntologyAnnotation change);
 
     /**
-     * visit RemoveOntologyAnnotation type
+     * Visit RemoveOntologyAnnotation type.
      * 
      * @param change
      *        change to visit

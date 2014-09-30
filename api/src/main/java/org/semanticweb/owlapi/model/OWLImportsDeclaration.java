@@ -27,7 +27,7 @@ public interface OWLImportsDeclaration extends
         Comparable<OWLImportsDeclaration>, HasIRI, Serializable {
 
     /**
-     * Gets the import IRI
+     * Gets the import IRI.
      * 
      * @return The import IRI that points to the ontology to be imported. The
      *         imported ontology might have this IRI as its ontology IRI but

@@ -67,7 +67,7 @@ public class LatexWriter {
         writer.write("\\}");
     }
 
-    /** flush the writer */
+    /** Flush the writer. */
     public void flush() {
         writer.flush();
     }

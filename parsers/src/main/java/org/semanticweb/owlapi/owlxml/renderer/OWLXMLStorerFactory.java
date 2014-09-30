@@ -49,7 +49,7 @@ public class OWLXMLStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public OWLXMLStorerFactory() {
         super(new OWLXMLDocumentFormatFactory());
     }

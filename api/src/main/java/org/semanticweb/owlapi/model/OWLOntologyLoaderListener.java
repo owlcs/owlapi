@@ -47,7 +47,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
      */
     void finishedLoadingOntology(@Nonnull LoadingFinishedEvent event);
 
-    /** loading event */
+    /** Loading event. */
     class LoadingEvent {
 
         private final OWLOntologyID ontologyID;
@@ -94,7 +94,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
         }
     }
 
-    /** loading start event */
+    /** Loading start event. */
     class LoadingStartedEvent extends LoadingEvent {
 
         public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI,

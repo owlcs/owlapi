@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Builder class for OWLDeclarationAxiom */
+/** Builder class for OWLDeclarationAxiom. */
 public class BuilderDeclaration extends
         BaseBuilder<OWLDeclarationAxiom, BuilderDeclaration> {
 
@@ -30,7 +30,7 @@ public class BuilderDeclaration extends
     private OWLEntity entity = null;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

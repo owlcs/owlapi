@@ -49,7 +49,7 @@ public class LatexStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public LatexStorerFactory() {
         super(new LatexDocumentFormatFactory());
     }

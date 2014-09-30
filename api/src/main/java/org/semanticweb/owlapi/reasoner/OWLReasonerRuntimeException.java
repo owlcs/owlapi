@@ -23,7 +23,7 @@ public class OWLReasonerRuntimeException extends OWLRuntimeException {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public OWLReasonerRuntimeException() {}
 
     /**

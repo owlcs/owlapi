@@ -105,7 +105,7 @@ public abstract class OWLProfileViolation {
     }
 
     /**
-     * visitor accept method
+     * Visitor accept method.
      * 
      * @param visitor
      *        visitor

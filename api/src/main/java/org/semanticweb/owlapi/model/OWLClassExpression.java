@@ -30,7 +30,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
         SWRLPredicate {
 
     /**
-     * Gets the class expression type for this class expression
+     * Gets the class expression type for this class expression.
      * 
      * @return The class expression type
      */
@@ -153,7 +153,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
     Set<OWLClassExpression> asDisjunctSet();
 
     /**
-     * Accepts a visit from an {@code OWLExpressionVisitor}
+     * Accepts a visit from an {@code OWLExpressionVisitor}.
      * 
      * @param visitor
      *        The visitor that wants to visit

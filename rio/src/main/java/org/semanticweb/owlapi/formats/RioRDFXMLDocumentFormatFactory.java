@@ -16,7 +16,7 @@ public class RioRDFXMLDocumentFormatFactory extends
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public RioRDFXMLDocumentFormatFactory() {
         super(RDFFormat.RDFXML);
     }

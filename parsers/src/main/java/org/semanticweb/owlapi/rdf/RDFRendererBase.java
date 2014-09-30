@@ -95,10 +95,10 @@ public abstract class RDFRendererBase {
     private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
     @Nonnull
     private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
-    /** general axioms */
+    /** General axioms. */
     @Nonnull
     private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
-    /** rules banner */
+    /** Rules banner. */
     @Nonnull
     private static final String RULES_BANNER_TEXT = "Rules";
     @Nonnull

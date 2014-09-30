@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * Indicates that a class expression in an axiom is not in the profile
+ * Indicates that a class expression in an axiom is not in the profile.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group

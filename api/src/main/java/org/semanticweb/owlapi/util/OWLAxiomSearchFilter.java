@@ -20,7 +20,8 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * Search filter for axioms of various types, matching a pass condition on a key
+ * Search filter for axioms of various types, matching a pass condition on a
+ * key.
  */
 public interface OWLAxiomSearchFilter extends Serializable {
 

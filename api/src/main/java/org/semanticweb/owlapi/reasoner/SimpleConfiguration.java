@@ -32,7 +32,7 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
     private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
     private long timeOut = Long.MAX_VALUE;
 
-    /** default constructor */
+    /** Default constructor. */
     public SimpleConfiguration() {}
 
     /**

@@ -18,8 +18,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
  * @since 3.2.3
  */
 public enum Mode {
-    /** Strict parsing mode */
+    /** Strict parsing mode. */
     STRICT,
-    /** Lax parsing mode */
+    /** Lax parsing mode. */
     LAX
 }

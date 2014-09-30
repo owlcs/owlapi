@@ -160,9 +160,7 @@ public class OWLAPIOwl2Obo {
      * The discard untranslatable.
      */
     protected boolean discardUntranslatable = false;
-    /**
-     * mute untranslatable axiom warnings
-     */
+    /** Mute untranslatable axiom warnings. */
     private boolean muteUntranslatableAxioms = false;
 
     protected final void init() {

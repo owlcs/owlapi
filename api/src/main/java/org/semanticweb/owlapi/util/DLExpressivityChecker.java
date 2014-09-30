@@ -600,25 +600,25 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         constructs.add(I);
     }
 
-    /** Construct enum */
+    /** Construct enum. */
     public enum Construct {
         //@formatter:off
-        /** AL */       AL("AL"),
-        /** U */        U("U"),
-        /** C */        C("C"),
-        /** E */        E("E"),
-        /** N */        N("N"),
-        /** Q */        Q("Q"),
-        /** H */        H("H"),
-        /** I */        I("I"),
-        /** O */        O("O"),
-        /** F */        F("F"),
-        /** TRAN */     TRAN("+"),
-        /** D */        D("(D)"),
-        /** R */        R("R"),
-        /** S */        S("S"),
-        /** EL */       EL("EL"),
-        /** EL++ */     ELPLUSPLUS("EL++");
+        /** AL. */       AL("AL"),
+        /** U. */        U("U"),
+        /** C. */        C("C"),
+        /** E. */        E("E"),
+        /** N. */        N("N"),
+        /** Q. */        Q("Q"),
+        /** H. */        H("H"),
+        /** I. */        I("I"),
+        /** O. */        O("O"),
+        /** F. */        F("F"),
+        /** TRAN. */     TRAN("+"),
+        /** D. */        D("(D)"),
+        /** R. */        R("R"),
+        /** S. */        S("S"),
+        /** EL. */       EL("EL"),
+        /** EL++. */     ELPLUSPLUS("EL++");
         //@formatter:on
         Construct(String s) {
             this.s = s;

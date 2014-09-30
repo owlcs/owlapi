@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 
 /**
- * Base builder class, providing annotations storage
+ * Base builder class, providing annotations storage.
  * 
  * @author ignazio
  * @param <T>

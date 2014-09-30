@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 
-/** Diff */
+/** Diff. */
 public class Diff {
 
     String type;

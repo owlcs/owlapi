@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
 import com.google.common.collect.Iterators;
 
 /**
- * A collection that is sorted by HasPriority annotation on its members
+ * A collection that is sorted by HasPriority annotation on its members.
  * 
  * @author ignazio
  * @param <T>
@@ -58,7 +58,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
 
     /**
      * Remove all elements, replace with the arguments and sort according to
-     * priority
+     * priority.
      * 
      * @param c
      *        list of elements to set
@@ -70,7 +70,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     }
 
     /**
-     * add the arguments and sort according to priority
+     * Add the arguments and sort according to priority.
      * 
      * @param c
      *        list of elements to add
@@ -84,7 +84,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     }
 
     /**
-     * add the arguments and sort according to priority
+     * Add the arguments and sort according to priority.
      * 
      * @param c
      *        list of elements to add
@@ -97,7 +97,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     }
 
     /**
-     * remove the arguments
+     * Remove the arguments.
      * 
      * @param c
      *        list of elements to remove
@@ -110,7 +110,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     }
 
     /**
-     * remove all elements from the collection
+     * Rmove all elements from the collection.
      */
     public void clear() {
         delegate.clear();

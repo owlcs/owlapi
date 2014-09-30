@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * Developed as part of the CO-ODE project http://www.co-ode.org
+ * Developed as part of the CO-ODE project http://www.co-ode.org .
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
@@ -187,7 +187,7 @@ public class XMLWriterNamespaceManager {
     }
 
     /**
-     * Search for a prefix other than "" for the default namespace
+     * Search for a prefix other than "" for the default namespace.
      * 
      * @return the first prefix found for the default namespace that is not ""
      */

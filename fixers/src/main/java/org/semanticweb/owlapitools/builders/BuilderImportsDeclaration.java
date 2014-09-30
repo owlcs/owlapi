@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/** Builder class for OWLImportsDeclaration */
+/** Builder class for OWLImportsDeclaration. */
 public class BuilderImportsDeclaration implements
         Builder<OWLImportsDeclaration> {
 
@@ -36,7 +36,7 @@ public class BuilderImportsDeclaration implements
     private IRI iri;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object
@@ -50,7 +50,7 @@ public class BuilderImportsDeclaration implements
     }
 
     /**
-     * default constructor
+     * Default constructor.
      * 
      * @param df
      *        data factory

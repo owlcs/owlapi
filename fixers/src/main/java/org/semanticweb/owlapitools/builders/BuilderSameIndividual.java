@@ -19,13 +19,13 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 
-/** Builder class for OWLSameIndividualAxiom */
+/** Builder class for OWLSameIndividualAxiom. */
 public class BuilderSameIndividual
         extends
         BaseSetBuilder<OWLSameIndividualAxiom, BuilderSameIndividual, OWLIndividual> {
 
     /**
-     * builder initialized from an existing object
+     * builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

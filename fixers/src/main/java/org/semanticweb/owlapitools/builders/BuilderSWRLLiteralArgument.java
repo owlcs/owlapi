@@ -21,14 +21,14 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 
-/** Builder class for SWRLLiteralArgument */
+/** Builder class for SWRLLiteralArgument. */
 public class BuilderSWRLLiteralArgument extends
         BaseBuilder<SWRLLiteralArgument, BuilderSWRLLiteralArgument> {
 
     private OWLLiteral literal;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

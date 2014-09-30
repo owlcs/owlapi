@@ -247,7 +247,7 @@ public class OWLObjectWalker<O extends OWLObject> {
     }
 
     /**
-     * Allow the structure walker to set the current axiom
+     * Allow the structure walker to set the current axiom.
      * 
      * @param axiom
      *        the axiom to set
@@ -257,7 +257,7 @@ public class OWLObjectWalker<O extends OWLObject> {
     }
 
     /**
-     * Allow the structure walker to set the current annotation
+     * Allow the structure walker to set the current annotation.
      * 
      * @param node
      *        the annotation to set

@@ -134,7 +134,7 @@ public interface PrefixManager extends Serializable {
     void setDefaultPrefix(@Nonnull String defaultPrefix);
 
     /**
-     * Adds a prefix name to prefix mapping
+     * Adds a prefix name to prefix mapping.
      * 
      * @param prefixName
      *        name The prefix name (must end with a colon)
@@ -144,7 +144,7 @@ public interface PrefixManager extends Serializable {
     void setPrefix(@Nonnull String prefixName, @Nonnull String prefix);
 
     /**
-     * Copies the prefix from another prefix manager into this one
+     * Copies the prefix from another prefix manager into this one.
      * 
      * @param from
      *        The manager that the prefixes should be copied from
@@ -152,7 +152,7 @@ public interface PrefixManager extends Serializable {
     void copyPrefixesFrom(@Nonnull PrefixManager from);
 
     /**
-     * Copies the prefix from another prefix manager into this one
+     * Copies the prefix from another prefix manager into this one.
      * 
      * @param from
      *        The map containing the prefixes
@@ -160,13 +160,13 @@ public interface PrefixManager extends Serializable {
     void copyPrefixesFrom(@Nonnull Map<String, String> from);
 
     /**
-     * Removes a previously registerd prefix namespace mapping
+     * Removes a previously registerd prefix namespace mapping.
      * 
      * @param namespace
      *        The namespace to be removed.
      */
     void unregisterNamespace(@Nonnull String namespace);
 
-    /** clear the map */
+    /** Clear the map. */
     void clear();
 }

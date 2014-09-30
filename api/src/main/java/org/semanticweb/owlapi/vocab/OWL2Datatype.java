@@ -58,41 +58,43 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
 
 
+
+
 //@formatter:off
-    /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
-    /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
-    /** RDF_PLAIN_LITERAL */        RDF_PLAIN_LITERAL        (RDF,  "PlainLiteral", Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
-    /** OWL_REAL */                 OWL_REAL                 (OWL,  "real",         Category.CAT_NUMBER,                      false, ".*"),
-    /** OWL_RATIONAL */             OWL_RATIONAL             (OWL,  "rational",     Category.CAT_NUMBER,                      false, "(\\+|-)?([0-9]+)(\\s)*(/)(\\s)*([0-9]+)"),
-    /** XSD_STRING */               XSD_STRING               (STRING,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
-    /** XSD_NORMALIZED_STRING */    XSD_NORMALIZED_STRING    (NORMALIZED_STRING,    Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "([^\\r\\n\\t])*"),
-    /** XSD_TOKEN */                XSD_TOKEN                (TOKEN,                Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "([^\\s])(\\s([^\\s])|([^\\s]))*"),
-    /** XSD_LANGUAGE */             XSD_LANGUAGE             (LANGUAGE,             Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, true,  "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*"),
-    /** XSD_NAME */                 XSD_NAME                 (NAME,                 Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ":|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD](:|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
-    /** XSD_NCNAME */               XSD_NCNAME               (NCNAME,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]([A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
-    /** XSD_NMTOKEN */              XSD_NMTOKEN              (NMTOKEN,              Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
-    /** XSD_DECIMAL */              XSD_DECIMAL              (DECIMAL,              Category.CAT_NUMBER,  false, "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)"),
-    /** XSD_INTEGER */              XSD_INTEGER              (INTEGER,              Category.CAT_NUMBER,  false, "(\\+|-)?([0-9]+)"),
-    /** XSD_NON_NEGATIVE_INTEGER */ XSD_NON_NEGATIVE_INTEGER (NON_NEGATIVE_INTEGER, Category.CAT_NUMBER,  false, "((\\+)?([0-9]+))|-(0+)"),
-    /** XSD_NON_POSITIVE_INTEGER */ XSD_NON_POSITIVE_INTEGER (NON_POSITIVE_INTEGER, Category.CAT_NUMBER,  false, "-([0-9]+)|(\\+(0+))"),
-    /** XSD_POSITIVE_INTEGER */     XSD_POSITIVE_INTEGER     (POSITIVE_INTEGER,     Category.CAT_NUMBER,  false, "(\\+)?([0-9]+)"),
-    /** XSD_NEGATIVE_INTEGER */     XSD_NEGATIVE_INTEGER     (NEGATIVE_INTEGER,     Category.CAT_NUMBER,  false, "-([0-9]+)"),
-    /** XSD_LONG */                 XSD_LONG                 (LONG,                 Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
-    /** XSD_INT */                  XSD_INT                  (INT,                  Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
-    /** XSD_SHORT */                XSD_SHORT                (SHORT,                Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
-    /** XSD_BYTE */                 XSD_BYTE                 (BYTE,                 Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
-    /** XSD_UNSIGNED_LONG */        XSD_UNSIGNED_LONG        (UNSIGNED_LONG,        Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
-    /** XSD_UNSIGNED_INT */         XSD_UNSIGNED_INT         (UNSIGNED_INT,         Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
-    /** XSD_UNSIGNED_SHORT */       XSD_UNSIGNED_SHORT       (UNSIGNED_SHORT,       Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
-    /** XSD_UNSIGNED_BYTE */        XSD_UNSIGNED_BYTE        (UNSIGNED_BYTE,        Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
-    /** XSD_DOUBLE */               XSD_DOUBLE               (DOUBLE,               Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
-    /** XSD_FLOAT */                XSD_FLOAT                (FLOAT,                Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
-    /** XSD_BOOLEAN */              XSD_BOOLEAN              (BOOLEAN,              Category.CAT_BOOLEAN, true,  "true|false|1|0"),
-    /** XSD_HEX_BINARY */           XSD_HEX_BINARY           (HEX_BINARY,           Category.CAT_BINARY,  false, "([0-9a-fA-F]{2})*"),
-    /** XSD_BASE_ */                XSD_BASE_64_BINARY       (BASE_64_BINARY,       Category.CAT_BINARY,  false, "((([A-Za-z0-9+/] ?){4})*(([A-Za-z0-9+/] ?){3}[A-Za-z0-9+/]|([A-Za-z0-9+/] ?){2}[AEIMQUYcgkosw048] ?=|[A-Za-z0-9+/] ?[AQgw] ?= ?=))?"),
-    /** XSD_ANY_URI */              XSD_ANY_URI              (ANY_URI,              Category.CAT_URI,     false, ".*"),
-    /** XSD_DATE_TIME */            XSD_DATE_TIME            (DATE_TIME,            Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
-    /** XSD_DATE_TIME_STAMP */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
+    /** RDF_XML_LITERAL. */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
+    /** RDFS_LITERAL. */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
+    /** RDF_PLAIN_LITERAL. */        RDF_PLAIN_LITERAL        (RDF,  "PlainLiteral", Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** OWL_REAL. */                 OWL_REAL                 (OWL,  "real",         Category.CAT_NUMBER,                      false, ".*"),
+    /** OWL_RATIONAL. */             OWL_RATIONAL             (OWL,  "rational",     Category.CAT_NUMBER,                      false, "(\\+|-)?([0-9]+)(\\s)*(/)(\\s)*([0-9]+)"),
+    /** XSD_STRING. */               XSD_STRING               (STRING,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** XSD_NORMALIZED_STRING. */    XSD_NORMALIZED_STRING    (NORMALIZED_STRING,    Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "([^\\r\\n\\t])*"),
+    /** XSD_TOKEN. */                XSD_TOKEN                (TOKEN,                Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "([^\\s])(\\s([^\\s])|([^\\s]))*"),
+    /** XSD_LANGUAGE. */             XSD_LANGUAGE             (LANGUAGE,             Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, true,  "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*"),
+    /** XSD_NAME. */                 XSD_NAME                 (NAME,                 Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ":|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD](:|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
+    /** XSD_NCNAME. */               XSD_NCNAME               (NCNAME,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]([A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
+    /** XSD_NMTOKEN. */              XSD_NMTOKEN              (NMTOKEN,              Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** XSD_DECIMAL. */              XSD_DECIMAL              (DECIMAL,              Category.CAT_NUMBER,  false, "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)"),
+    /** XSD_INTEGER. */              XSD_INTEGER              (INTEGER,              Category.CAT_NUMBER,  false, "(\\+|-)?([0-9]+)"),
+    /** XSD_NON_NEGATIVE_INTEGER. */ XSD_NON_NEGATIVE_INTEGER (NON_NEGATIVE_INTEGER, Category.CAT_NUMBER,  false, "((\\+)?([0-9]+))|-(0+)"),
+    /** XSD_NON_POSITIVE_INTEGER. */ XSD_NON_POSITIVE_INTEGER (NON_POSITIVE_INTEGER, Category.CAT_NUMBER,  false, "-([0-9]+)|(\\+(0+))"),
+    /** XSD_POSITIVE_INTEGER. */     XSD_POSITIVE_INTEGER     (POSITIVE_INTEGER,     Category.CAT_NUMBER,  false, "(\\+)?([0-9]+)"),
+    /** XSD_NEGATIVE_INTEGER. */     XSD_NEGATIVE_INTEGER     (NEGATIVE_INTEGER,     Category.CAT_NUMBER,  false, "-([0-9]+)"),
+    /** XSD_LONG. */                 XSD_LONG                 (LONG,                 Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_INT. */                  XSD_INT                  (INT,                  Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_SHORT. */                XSD_SHORT                (SHORT,                Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_BYTE. */                 XSD_BYTE                 (BYTE,                 Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_UNSIGNED_LONG. */        XSD_UNSIGNED_LONG        (UNSIGNED_LONG,        Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_INT. */         XSD_UNSIGNED_INT         (UNSIGNED_INT,         Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_SHORT. */       XSD_UNSIGNED_SHORT       (UNSIGNED_SHORT,       Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_BYTE. */        XSD_UNSIGNED_BYTE        (UNSIGNED_BYTE,        Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_DOUBLE. */               XSD_DOUBLE               (DOUBLE,               Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
+    /** XSD_FLOAT. */                XSD_FLOAT                (FLOAT,                Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
+    /** XSD_BOOLEAN. */              XSD_BOOLEAN              (BOOLEAN,              Category.CAT_BOOLEAN, true,  "true|false|1|0"),
+    /** XSD_HEX_BINARY. */           XSD_HEX_BINARY           (HEX_BINARY,           Category.CAT_BINARY,  false, "([0-9a-fA-F]{2})*"),
+    /** XSD_BASE_. */                XSD_BASE_64_BINARY       (BASE_64_BINARY,       Category.CAT_BINARY,  false, "((([A-Za-z0-9+/] ?){4})*(([A-Za-z0-9+/] ?){3}[A-Za-z0-9+/]|([A-Za-z0-9+/] ?){2}[AEIMQUYcgkosw048] ?=|[A-Za-z0-9+/] ?[AQgw] ?= ?=))?"),
+    /** XSD_ANY_URI. */              XSD_ANY_URI              (ANY_URI,              Category.CAT_URI,     false, ".*"),
+    /** XSD_DATE_TIME. */            XSD_DATE_TIME            (DATE_TIME,            Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
+    /** XSD_DATE_TIME_STAMP. */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
     @Nonnull
     private static final Set<IRI> ALL_IRIS = init();
@@ -292,14 +294,14 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     /** Category enum. */
     public enum Category {
         //@formatter:off
-        /** NUMBER                      */ CAT_NUMBER                     ("Number",                        MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE), 
-        /** STRING_WITH_LANGUAGE_TAG    */ CAT_STRING_WITH_LANGUAGE_TAG   ("String with a language tag",    MIN_LENGTH,    MAX_LENGTH,    LENGTH,        PATTERN,      LANG_RANGE), 
-        /** STRING_WITHOUT_LANGUAGE_TAG */ CAT_STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", MIN_LENGTH,    MAX_LENGTH,    LENGTH,        PATTERN), 
-        /** BINARY                      */ CAT_BINARY                     ("Binary data",                   MIN_LENGTH,    MAX_LENGTH,    LENGTH), 
-        /** URI                         */ CAT_URI                        ("URI",                           MIN_LENGTH,    MAX_LENGTH,    PATTERN), 
-        /** TIME                        */ CAT_TIME                       ("Time instant",                  MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE),
-        /** BOOLEAN                     */ CAT_BOOLEAN                    ("Boolean value"), 
-        /** UNIVERSAL                   */ CAT_UNIVERSAL                  ("Universal literal");
+        /** NUMBER.                      */ CAT_NUMBER                     ("Number",                        MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE), 
+        /** STRING_WITH_LANGUAGE_TAG.    */ CAT_STRING_WITH_LANGUAGE_TAG   ("String with a language tag",    MIN_LENGTH,    MAX_LENGTH,    LENGTH,        PATTERN,      LANG_RANGE), 
+        /** STRING_WITHOUT_LANGUAGE_TAG. */ CAT_STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", MIN_LENGTH,    MAX_LENGTH,    LENGTH,        PATTERN), 
+        /** BINARY.                      */ CAT_BINARY                     ("Binary data",                   MIN_LENGTH,    MAX_LENGTH,    LENGTH), 
+        /** URI.                         */ CAT_URI                        ("URI",                           MIN_LENGTH,    MAX_LENGTH,    PATTERN), 
+        /** TIME.                        */ CAT_TIME                       ("Time instant",                  MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE),
+        /** BOOLEAN.                     */ CAT_BOOLEAN                    ("Boolean value"), 
+        /** UNIVERSAL.                   */ CAT_UNIVERSAL                  ("Universal literal");
         //@formatter:on
         private final String name;
         private final Set<OWLFacet> facets;

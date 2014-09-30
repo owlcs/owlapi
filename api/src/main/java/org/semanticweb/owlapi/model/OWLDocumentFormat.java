@@ -64,8 +64,8 @@ public interface OWLDocumentFormat extends Serializable {
      *         signature of one of the imported ontologies, {@code true} if none
      *         of the previous conditions are met.
      */
-    public static boolean isMissingType(@Nonnull OWLEntity entity,
-            OWLOntology ontology) {
+    static boolean
+            isMissingType(@Nonnull OWLEntity entity, OWLOntology ontology) {
         // We don't need to declare built in entities
         if (entity.isBuiltIn()) {
             return false;
@@ -101,7 +101,7 @@ public interface OWLDocumentFormat extends Serializable {
      *        declarations will be added.
      * @return collection of IRIS used in illegal punnings
      */
-    public static Collection<IRI> determineIllegalPunnings(boolean add,
+    static Collection<IRI> determineIllegalPunnings(boolean add,
             Collection<OWLEntity> signature, Collection<IRI> punnedEntities) {
         if (!add) {
             return Collections.emptySet();
@@ -199,7 +199,7 @@ public interface OWLDocumentFormat extends Serializable {
      * @return An object containing the meta data about loading. .
      */
     @Nonnull
-    public OWLOntologyLoaderMetaData getOntologyLoaderMetaData();
+    OWLOntologyLoaderMetaData getOntologyLoaderMetaData();
 
     /**
      * Sets the meta data for the ontology loader.

@@ -1791,7 +1791,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         return mainNodeAnnotations;
     }
 
-    public OWLAnnotationValue getAnnotationValue(IRI resVal) {
+    private OWLAnnotationValue getAnnotationValue(IRI resVal) {
         OWLAnnotationValue val;
         if (isAnonymousNode(resVal)) {
             val = df.getOWLAnonymousIndividual(resVal.toString());

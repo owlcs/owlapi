@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-/** Clause */
+/** Clause. */
 public class Clause {
 
     protected String tag;
@@ -58,7 +58,7 @@ public class Clause {
     }
 
     /**
-     * default constructor
+     * Default constructor.
      * 
      * @deprecated use Clause(String). Using this constructor makes the hashcode
      *             variable.

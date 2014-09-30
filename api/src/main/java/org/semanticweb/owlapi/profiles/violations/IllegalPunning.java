@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * Punning between properties is not allowed
+ * Punning between properties is not allowed.
  * 
  * @author ignazio
  */

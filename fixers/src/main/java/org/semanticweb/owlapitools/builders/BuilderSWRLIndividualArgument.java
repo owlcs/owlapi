@@ -21,14 +21,14 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 
-/** Builder class for SWRLIndividualArgument */
+/** Builder class for SWRLIndividualArgument. */
 public class BuilderSWRLIndividualArgument extends
         BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
 
     private OWLIndividual individual;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** Builder class for OWLDataHasValue */
+/** Builder class for OWLDataHasValue. */
 public class BuilderDataHasValue extends
         BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue> {
 
@@ -39,7 +39,7 @@ public class BuilderDataHasValue extends
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

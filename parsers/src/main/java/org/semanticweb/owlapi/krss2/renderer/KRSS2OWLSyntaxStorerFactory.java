@@ -47,7 +47,7 @@ public class KRSS2OWLSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public KRSS2OWLSyntaxStorerFactory() {
         super(new KRSS2DocumentFormatFactory());
     }

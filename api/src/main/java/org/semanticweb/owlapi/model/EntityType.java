@@ -38,7 +38,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
         HasShortForm, HasPrefixedName, HasIRI {
 
     private static final long serialVersionUID = 40000L;
-    /** class entity */
+    /** Class entity. */
     @Nonnull
     public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>(
             "Class", "Class", "Classes", OWL_CLASS) {
@@ -50,7 +50,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
             return df.getOWLClass(i);
         }
     };
-    /** object property entity */
+    /** Object property entity. */
     @Nonnull
     public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
             "ObjectProperty", "Object property", "Object properties",
@@ -63,7 +63,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
             return df.getOWLObjectProperty(i);
         }
     };
-    /** data property entity */
+    /** Data property entity. */
     @Nonnull
     public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>(
             "DataProperty", "Data property", "Data properties",
@@ -76,7 +76,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
             return df.getOWLDataProperty(i);
         }
     };
-    /** annotation property entity */
+    /** Annotation property entity. */
     @Nonnull
     public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
             "AnnotationProperty", "Annotation property",
@@ -89,7 +89,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
             return df.getOWLAnnotationProperty(i);
         }
     };
-    /** named individual entity */
+    /** Named individual entity. */
     @Nonnull
     public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
             "NamedIndividual", "Named individual", "Named individuals",
@@ -102,7 +102,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
             return df.getOWLNamedIndividual(i);
         }
     };
-    /** datatype entity */
+    /** Datatype entity. */
     @Nonnull
     public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>(
             "Datatype", "Datatype", "Datatypes", RDFS_DATATYPE) {
@@ -185,6 +185,8 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
     /**
      * @param visitor
      *        visitor to accept
+     * @param <T>
+     *        return type
      * @return visitor return value
      */
     public <T> Optional<T> accept(EntityTypeVisitorEx<T> visitor) {

@@ -30,17 +30,17 @@ public enum DataRangeType
         HasShortForm,
         HasPrefixedName,
         HasIRI {
-    /** Represents {@link org.semanticweb.owlapi.model.OWLDatatype} */
+    /** Represents {@link org.semanticweb.owlapi.model.OWLDatatype}. */
     DATATYPE("Datatype"),
-    /** Represents {@link OWLDataOneOf} */
+    /** Represents {@link OWLDataOneOf}. */
     DATA_ONE_OF("DataOneOf"),
-    /** Represents {@link OWLDatatypeRestriction} */
+    /** Represents {@link OWLDatatypeRestriction}. */
     DATATYPE_RESTRICTION("DatatypeRestriction"),
-    /** Represents {@link OWLDataComplementOf} */
+    /** Represents {@link OWLDataComplementOf}. */
     DATA_COMPLEMENT_OF("DataComplementOf"),
-    /** Represents {@link OWLDataUnionOf} */
+    /** Represents {@link OWLDataUnionOf}. */
     DATA_UNION_OF("DataUnionOf"),
-    /** Represents {@link OWLDataIntersectionOf} */
+    /** Represents {@link OWLDataIntersectionOf}. */
     DATA_INTERSECTION_OF("DataIntersectionOf");
 
     @Nonnull

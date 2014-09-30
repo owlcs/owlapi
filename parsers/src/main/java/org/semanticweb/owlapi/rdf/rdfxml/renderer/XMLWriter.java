@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * Developed as part of the CO-ODE project http://www.co-ode.org
+ * Developed as part of the CO-ODE project http://www.co-ode.org .
  * 
  * @author Matthew Horridge, The Univeristy Of Manchester, Medical Informatics
  *         Group
@@ -126,7 +126,7 @@ public interface XMLWriter {
     void writeAttribute(@Nonnull IRI attr, String val) throws IOException;
 
     /**
-     * Writes a text element
+     * Writes a text element.
      * 
      * @param text
      *        The text to be written

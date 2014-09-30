@@ -41,7 +41,7 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
     OWL2Datatype getBuiltInDatatype();
 
     /**
-     * Determines if this datatype has the IRI {@code xsd:string}
+     * Determines if this datatype has the IRI {@code xsd:string}.
      * 
      * @return {@code true} if this datatype has the IRI {@code xsd:string},
      *         otherwise {@code false}.
@@ -49,7 +49,7 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
     boolean isString();
 
     /**
-     * Determines if this datatype has the IRI {@code xsd:integer}
+     * Determines if this datatype has the IRI {@code xsd:integer}.
      * 
      * @return {@code true} if this datatype has the IRI {@code xsd:integer},
      *         otherwise {@code false}.
@@ -57,7 +57,7 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
     boolean isInteger();
 
     /**
-     * Determines if this datatype has the IRI {@code xsd:float}
+     * Determines if this datatype has the IRI {@code xsd:float}.
      * 
      * @return {@code true} if this datatype has the IRI {@code xsd:float},
      *         otherwise {@code false}.
@@ -65,7 +65,7 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
     boolean isFloat();
 
     /**
-     * Determines if this datatype has the IRI {@code xsd:double}
+     * Determines if this datatype has the IRI {@code xsd:double}.
      * 
      * @return {@code true} if this datatype has the IRI {@code xsd:double},
      *         otherwise {@code false}.
@@ -73,7 +73,7 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
     boolean isDouble();
 
     /**
-     * Determines if this datatype has the IRI {@code xsd:boolean}
+     * Determines if this datatype has the IRI {@code xsd:boolean}.
      * 
      * @return {@code true} if this datatype has the IRI {@code xsd:boolean},
      *         otherwise {@code false}.
@@ -81,7 +81,7 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
     boolean isBoolean();
 
     /**
-     * Determines if this datatype has the IRI {@code rdf:PlainLiteral}
+     * Determines if this datatype has the IRI {@code rdf:PlainLiteral}.
      * 
      * @return {@code true} if this datatype has the IRI
      *         {@code rdf:PlainLiteral} otherwise {@code false}

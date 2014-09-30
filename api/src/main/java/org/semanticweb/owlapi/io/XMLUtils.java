@@ -26,18 +26,18 @@ import javax.annotation.Nullable;
  */
 public final class XMLUtils {
 
-    /** &amp;lt; shortcut */
+    /** &amp;lt; shortcut. */
     public static final String LT = "&lt;";
-    /** &amp;gt; shortcut */
+    /** &amp;gt; shortcut. */
     public static final String GT = "&gt;";
-    /** &amp;quot; shortcut */
+    /** &amp;quot; shortcut. */
     public static final String QUOT = "&quot;";
-    /** &amp;amp; shortcut */
+    /** &amp;amp; shortcut. */
     public static final String AMP = "&amp;";
-    /** &amp;apos; shortcut */
+    /** &amp;apos; shortcut. */
     public static final String APOS = "&apos;";
     // For some point in the future
-    /** owl processing instruction */
+    /** OWL processing instruction. */
     public static final String OWL_PROCESSING_INSTRUCTION_NAME = "owl";
 
     private XMLUtils() {}

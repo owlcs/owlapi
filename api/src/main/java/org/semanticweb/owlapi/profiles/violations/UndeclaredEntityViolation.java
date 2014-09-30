@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * Entity not declared
+ * Entity not declared.
  * 
  * @author ignazio
  */

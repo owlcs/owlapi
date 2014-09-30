@@ -18,13 +18,13 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 
-/** Builder class for OWLReflexiveObjectPropertyAxiom */
+/** Builder class for OWLReflexiveObjectPropertyAxiom. */
 public class BuilderReflexiveObjectProperty
         extends
         BaseObjectPropertyBuilder<OWLReflexiveObjectPropertyAxiom, BuilderReflexiveObjectProperty> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

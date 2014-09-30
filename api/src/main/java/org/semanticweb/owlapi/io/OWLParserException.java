@@ -27,7 +27,7 @@ public class OWLParserException extends OWLRuntimeException {
     private final int lineNumber;
     private final int columnNumber;
 
-    /** default constructor */
+    /** Default constructor. */
     public OWLParserException() {
         lineNumber = -1;
         columnNumber = -1;

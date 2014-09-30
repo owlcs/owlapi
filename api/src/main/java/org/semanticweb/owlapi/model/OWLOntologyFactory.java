@@ -39,8 +39,8 @@ public interface OWLOntologyFactory extends Serializable {
      *        The document IRI of the ontology
      * @param handler
      *        The ontology creation handler that will be notified when the
-     *        ontology has been created. @return The newly created ontology
-     * @return The created ontology
+     *        ontology has been created.
+     * @return The newly created ontology
      * @throws OWLOntologyCreationException
      *         if the ontology could not be created.
      */

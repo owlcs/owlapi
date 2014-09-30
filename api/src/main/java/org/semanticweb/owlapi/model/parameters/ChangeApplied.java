@@ -13,17 +13,14 @@
 package org.semanticweb.owlapi.model.parameters;
 
 /**
- * An enum for change application success
+ * An enum for change application success.
  * 
  * @author ignazio
  * @since 4.0.0
  */
 public enum ChangeApplied {
-    /**
-     * change applied successfully
-     */
-    SUCCESSFULLY, /**
-     * chnge not applied
-     */
+    /** Change applied successfully. */
+    SUCCESSFULLY,
+    /** chnge not applied. */
     UNSUCCESSFULLY
 }

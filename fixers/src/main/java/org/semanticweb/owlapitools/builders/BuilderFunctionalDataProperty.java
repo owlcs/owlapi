@@ -18,13 +18,13 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 
-/** Builder class for OWLFunctionalDataPropertyAxiom */
+/** Builder class for OWLFunctionalDataPropertyAxiom. */
 public class BuilderFunctionalDataProperty
         extends
         BaseDataPropertyBuilder<OWLFunctionalDataPropertyAxiom, BuilderFunctionalDataProperty> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

@@ -46,39 +46,39 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * what action to take if the ontology header is missing.
      */
     public enum MissingOntologyHeaderStrategy {
-        /** include triples */
+        /** Include triples. */
         INCLUDE_GRAPH,
-        /** keep import structure */
+        /** Keep import structure. */
         IMPORT_GRAPH
     }
 
-    /** true if http compression should be used */
+    /** True if http compression should be used. */
     private boolean acceptHTTPCompression = true;
-    /** timeout for connections */
+    /** Timeout for connections. */
     private int connectionTimeout = 20000;
-    /** true if redirects should be followed across protocols */
+    /** True if redirects should be followed across protocols. */
     private boolean followRedirects = true;
-    /** set of imports to ignore */
+    /** Set of imports to ignore. */
     @Nonnull
     private final Set<IRI> ignoredImports = new HashSet<>();
-    /** true if annotations should be loaded, false if skipped */
+    /** True if annotations should be loaded, false if skipped. */
     private boolean loadAnnotations = true;
-    /** missing imports handling strategy */
+    /** Missing imports handling strategy. */
     @Nonnull
     private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
-    /** default missing ontology strategy. */
+    /** Default missing ontology strategy. */
     @Nonnull
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
-    /** flag to enable stack traces on parsing exceptions. */
+    /** Flag to enable stack traces on parsing exceptions. */
     private boolean reportStackTraces = true;
     /**
-     * number of retries to attempt when retrieving an ontology form a remote
+     * Number of retries to attempt when retrieving an ontology form a remote
      * URL. Defaults to 5.
      */
     private int retriesToAttempt = 5;
-    /** true if strict parsing should be used */
+    /** True if strict parsing should be used. */
     private boolean strict = false;
-    /** true if Dublin Core */
+    /** True if Dublin Core. */
     private boolean treatDublinCoreAsBuiltIn = true;
 
     /**

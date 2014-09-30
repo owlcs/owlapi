@@ -28,7 +28,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     /**
      * Gets the class expression, instances of which, this axiom acts as the key
-     * for
+     * for.
      * 
      * @return The class expression
      */
@@ -36,7 +36,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     OWLClassExpression getClassExpression();
 
     /**
-     * Gets the set of property expressions that form the key
+     * Gets the set of property expressions that form the key.
      * 
      * @return The set of property expression that form the key
      */

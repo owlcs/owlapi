@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Builder class for OWLAsymmetricObjectPropertyAxiom */
+/** Builder class for OWLAsymmetricObjectPropertyAxiom. */
 public class BuilderAsymmetricObjectProperty
         extends
         BaseObjectPropertyBuilder<OWLAsymmetricObjectPropertyAxiom, BuilderAsymmetricObjectProperty> {
@@ -33,7 +33,7 @@ public class BuilderAsymmetricObjectProperty
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

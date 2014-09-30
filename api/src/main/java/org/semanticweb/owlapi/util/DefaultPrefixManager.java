@@ -79,7 +79,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     /**
-     * default constructor setting the comparator to string lenght comparator
+     * Default constructor setting the comparator to string lenght comparator.
      */
     public DefaultPrefixManager() {
         this(null, null, null);

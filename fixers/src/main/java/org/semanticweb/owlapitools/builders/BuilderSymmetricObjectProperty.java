@@ -18,13 +18,13 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 
-/** Builder class for OWLSymmetricObjectPropertyAxiom */
+/** Builder class for OWLSymmetricObjectPropertyAxiom. */
 public class BuilderSymmetricObjectProperty
         extends
         BaseObjectPropertyBuilder<OWLSymmetricObjectPropertyAxiom, BuilderSymmetricObjectProperty> {
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

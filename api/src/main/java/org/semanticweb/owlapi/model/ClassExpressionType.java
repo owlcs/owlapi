@@ -31,41 +31,41 @@ public enum ClassExpressionType
         HasShortForm,
         HasPrefixedName,
         HasIRI {
-    /** Represents {@link OWLClass} */
+    /** Represents {@link OWLClass}. */
     OWL_CLASS("Class"),
-    /** Represents {@link OWLObjectSomeValuesFrom} */
+    /** Represents {@link OWLObjectSomeValuesFrom}. */
     OBJECT_SOME_VALUES_FROM("ObjectSomeValuesFrom"),
-    /** Represents {@link OWLObjectAllValuesFrom} */
+    /** Represents {@link OWLObjectAllValuesFrom}. */
     OBJECT_ALL_VALUES_FROM("ObjectAllValuesFrom"),
-    /** Represents {@link OWLObjectMinCardinality} */
+    /** Represents {@link OWLObjectMinCardinality}. */
     OBJECT_MIN_CARDINALITY("ObjectMinCardinality"),
-    /** Represents {@link OWLObjectMaxCardinality} */
+    /** Represents {@link OWLObjectMaxCardinality}. */
     OBJECT_MAX_CARDINALITY("ObjectMaxCardinality"),
-    /** Represents {@link OWLObjectExactCardinality} */
+    /** Represents {@link OWLObjectExactCardinality}. */
     OBJECT_EXACT_CARDINALITY("ObjectExactCardinality"),
-    /** Represents {@link OWLObjectHasValue} */
+    /** Represents {@link OWLObjectHasValue}. */
     OBJECT_HAS_VALUE("ObjectHasValue"),
-    /** Represents {@link org.semanticweb.owlapi.model.OWLObjectHasSelf} */
+    /** Represents {@link org.semanticweb.owlapi.model.OWLObjectHasSelf}. */
     OBJECT_HAS_SELF("ObjectHasSelf"),
-    /** Represents {@link OWLDataSomeValuesFrom} */
+    /** Represents {@link OWLDataSomeValuesFrom}. */
     DATA_SOME_VALUES_FROM("DataSomeValuesFrom"),
-    /** Represents {@link OWLDataAllValuesFrom} */
+    /** Represents {@link OWLDataAllValuesFrom}. */
     DATA_ALL_VALUES_FROM("DataAllValuesFrom"),
-    /** Represents {@link OWLDataMinCardinality} */
+    /** Represents {@link OWLDataMinCardinality}. */
     DATA_MIN_CARDINALITY("DataMinCardinality"),
-    /** Represents {@link OWLDataMaxCardinality} */
+    /** Represents {@link OWLDataMaxCardinality}. */
     DATA_MAX_CARDINALITY("DataMaxCardinality"),
-    /** Represents {@link OWLDataExactCardinality} */
+    /** Represents {@link OWLDataExactCardinality}. */
     DATA_EXACT_CARDINALITY("DataExactCardinality"),
-    /** Represents {@link OWLDataHasValue} */
+    /** Represents {@link OWLDataHasValue}. */
     DATA_HAS_VALUE("DataHasValue"),
-    /** Represents {@link org.semanticweb.owlapi.model.OWLObjectIntersectionOf} */
+    /** Represents {@link org.semanticweb.owlapi.model.OWLObjectIntersectionOf}. */
     OBJECT_INTERSECTION_OF("ObjectIntersectionOf"),
-    /** Represents {@link org.semanticweb.owlapi.model.OWLObjectUnionOf} */
+    /** Represents {@link org.semanticweb.owlapi.model.OWLObjectUnionOf}. */
     OBJECT_UNION_OF("ObjectUnionOf"),
-    /** Represents {@link org.semanticweb.owlapi.model.OWLObjectComplementOf} */
+    /** Represents {@link org.semanticweb.owlapi.model.OWLObjectComplementOf}. */
     OBJECT_COMPLEMENT_OF("ObjectComplementOf"),
-    /** Represents {@link OWLObjectComplementOf} */
+    /** Represents {@link OWLObjectComplementOf}. */
     OBJECT_ONE_OF("ObjectOneOf");
 
     @Nonnull

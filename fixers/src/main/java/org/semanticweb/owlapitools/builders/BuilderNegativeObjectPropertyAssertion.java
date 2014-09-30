@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
-/** Builder class for OWLNegativeObjectPropertyAssertionAxiom */
+/** Builder class for OWLNegativeObjectPropertyAssertionAxiom. */
 public class BuilderNegativeObjectPropertyAssertion
         extends
         BaseObjectPropertyBuilder<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
@@ -33,7 +33,7 @@ public class BuilderNegativeObjectPropertyAssertion
     private OWLIndividual value = null;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

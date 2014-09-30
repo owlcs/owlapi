@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 
-/** Builder class for OWLNegativeDataPropertyAssertionAxiom */
+/** Builder class for OWLNegativeDataPropertyAssertionAxiom. */
 public class BuilderNegativeDataPropertyAssertion
         extends
         BaseDataPropertyBuilder<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
@@ -34,7 +34,7 @@ public class BuilderNegativeDataPropertyAssertion
     private OWLLiteral value = null;
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

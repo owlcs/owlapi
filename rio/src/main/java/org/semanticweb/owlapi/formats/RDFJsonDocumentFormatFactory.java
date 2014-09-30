@@ -47,7 +47,7 @@ public class RDFJsonDocumentFormatFactory extends
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public RDFJsonDocumentFormatFactory() {
         super(RDFFormat.RDFJSON);
     }

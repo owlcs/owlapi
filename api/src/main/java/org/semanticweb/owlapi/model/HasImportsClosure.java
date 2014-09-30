@@ -17,7 +17,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- * An interface to objects that provide an imports closure of themselves
+ * An interface to objects that provide an imports closure of themselves.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group

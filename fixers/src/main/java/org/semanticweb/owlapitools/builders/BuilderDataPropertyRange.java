@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 
-/** Builder class for OWLDataPropertyRangeAxiom */
+/** Builder class for OWLDataPropertyRangeAxiom. */
 public class BuilderDataPropertyRange extends
         BaseDataBuilder<OWLDataPropertyRangeAxiom, BuilderDataPropertyRange> {
 
@@ -32,7 +32,7 @@ public class BuilderDataPropertyRange extends
     }
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

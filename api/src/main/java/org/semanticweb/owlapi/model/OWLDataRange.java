@@ -31,7 +31,7 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
         SWRLPredicate {
 
     /**
-     * Determines if this data range is a datatype (int, float, ...)
+     * Determines if this data range is a datatype (int, float, ...).
      * 
      * @return {@code true} if this datarange is a datatype, or {@code false} if
      *         it is not a datatype and is some other data range such as a data
@@ -59,7 +59,7 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
     OWLDatatype asOWLDatatype();
 
     /**
-     * Gets the type of this data range
+     * Gets the type of this data range.
      * 
      * @return The data range type
      */

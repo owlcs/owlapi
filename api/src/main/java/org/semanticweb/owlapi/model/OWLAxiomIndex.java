@@ -128,9 +128,8 @@ public interface OWLAxiomIndex {
      * @param filter
      *        the filter to match
      * @param key
-     *        the key. Its type is generic and it is used only by the filter. @return
-     *        true if there is at least one result matching the filter.
-     * @return true if key is contained
+     *        the key. Its type is generic and it is used only by the filter.
+     * @return true if there is at least one result matching the filter.
      */
     boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key);
 

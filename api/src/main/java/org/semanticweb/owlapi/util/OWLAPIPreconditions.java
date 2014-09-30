@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 
 import com.google.common.base.Optional;
 
-/** a set of personalized preconditions */
+/** A set of personalized preconditions. */
 public final class OWLAPIPreconditions {
 
     private OWLAPIPreconditions() {}
@@ -66,7 +66,7 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * check for null and throw NullPointerException if null
+     * Check for null and throw NullPointerException if null.
      * 
      * @param object
      *        reference to check
@@ -82,7 +82,7 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * check for null and throw NullPointerException if null
+     * Check for null and throw NullPointerException if null.
      * 
      * @param object
      *        reference to check
@@ -103,7 +103,7 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * check for negative value and throw IllegalArgumentException if negative
+     * Check for negative value and throw IllegalArgumentException if negative.
      * 
      * @param object
      *        value to check
@@ -115,7 +115,7 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * check for negative value and throw IllegalArgumentException if negative
+     * Check for negative value and throw IllegalArgumentException if negative.
      * 
      * @param object
      *        value to check
@@ -132,7 +132,7 @@ public final class OWLAPIPreconditions {
     }
 
     /**
-     * check for absent and throw IllegalArgumentException if null or absent
+     * Check for absent and throw IllegalArgumentException if null or absent.
      * 
      * @param object
      *        reference to check

@@ -40,7 +40,7 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
     @Nonnull
     private PrefixManager nsm;
 
-    /** default constructor */
+    /** Default constructor. */
     public PrefixDocumentFormatImpl() {
         this(new DefaultPrefixManager());
     }

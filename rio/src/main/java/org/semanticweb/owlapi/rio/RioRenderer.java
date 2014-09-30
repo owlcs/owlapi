@@ -71,7 +71,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RioRenderer extends RDFRendererBase {
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(RioRenderer.class);
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
@@ -139,9 +139,9 @@ public class RioRenderer extends RDFRendererBase {
         } catch (RDFHandlerException e) {
             throw new IOException(e);
         }
-        if (logger.isTraceEnabled()) {
-            logger.trace("pendingNodes={}", pendingNodes.size());
-            logger.trace("renderedStatements={}", renderedStatements.size());
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("pendingNodes={}", pendingNodes.size());
+            LOGGER.trace("renderedStatements={}", renderedStatements.size());
         }
         pendingNodes.clear();
         renderedStatements.clear();
@@ -153,7 +153,7 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     /**
-     * Renders the triples whose subject is the specified node
+     * Renders the triples whose subject is the specified node.
      * 
      * @param node
      *        The node
@@ -166,10 +166,10 @@ public class RioRenderer extends RDFRendererBase {
         pendingNodes.add(node);
         final Collection<RDFTriple> triples = graph.getTriplesForSubject(node,
                 true);
-        if (logger.isTraceEnabled()) {
-            logger.trace("triples.size()={}", triples.size());
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("triples.size()={}", triples.size());
             if (!triples.isEmpty()) {
-                logger.trace("triples={}", triples);
+                LOGGER.trace("triples={}", triples);
             }
         }
         for (final RDFTriple triple : triples) {
@@ -185,8 +185,8 @@ public class RioRenderer extends RDFRendererBase {
                             render((RDFResource) triple.getObject());
                         }
                     }
-                } else if (logger.isTraceEnabled()) {
-                    logger.trace(
+                } else if (LOGGER.isTraceEnabled()) {
+                    LOGGER.trace(
                             "not printing duplicate statement, or recursing on its object: {}",
                             triple);
                 }

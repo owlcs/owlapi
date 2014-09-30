@@ -51,7 +51,7 @@ public class RDFXMLParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public RDFXMLParserFactory() {
         super(new RDFXMLDocumentFormatFactory());
     }

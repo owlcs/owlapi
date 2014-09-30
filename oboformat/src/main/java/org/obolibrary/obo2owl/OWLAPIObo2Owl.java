@@ -127,12 +127,6 @@ public class OWLAPIObo2Owl {
         init(manager);
     }
 
-    /**
-     * Init
-     * 
-     * @param m
-     *        the manager
-     */
     protected void init(OWLOntologyManager m) {
         // use the given manager and its factory
         manager = m;

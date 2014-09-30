@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 public interface HasIRI {
 
     /**
-     * Gets the IRI of this object
+     * Gets the IRI of this object.
      * 
      * @return The IRI of this object
      */

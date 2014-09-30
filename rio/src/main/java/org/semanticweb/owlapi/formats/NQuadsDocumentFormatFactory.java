@@ -16,7 +16,7 @@ public class NQuadsDocumentFormatFactory extends
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public NQuadsDocumentFormatFactory() {
         super(RDFFormat.NQUADS);
     }

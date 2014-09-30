@@ -52,8 +52,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     @Nonnull
-    protected static final Locator nullDocumentLocator = new LocatorImpl();
-    protected static final SAXParserFactory parserFactory = SAXParsers
+    protected static final Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
+    protected static final SAXParserFactory PARSERFACTORY = SAXParsers
             .initFactory();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
     protected final Map<String, IRI> uriCache = new HashMap<>();
@@ -100,7 +100,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         if (documentLocator != null) {
             return verifyNotNull(documentLocator);
         }
-        return nullDocumentLocator;
+        return NULLDOCUMENTLOCATOR;
     }
 
     /**
@@ -130,7 +130,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             }
             consumer = inputConsumer;
             inputConsumer.startModel(getBaseIRI());
-            parserFactory.newSAXParser().parse(source, this);
+            PARSERFACTORY.newSAXParser().parse(source, this);
             inputConsumer.endModel();
         } catch (ParserConfigurationException e) {
             throw new SAXException("Parser configuration exception", e);
@@ -447,7 +447,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     /**
-     * If conditon b is true, throw an exception with provided message
+     * If conditon b is true, throw an exception with provided message.
      * 
      * @param b
      *        condition to verify

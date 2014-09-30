@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * abstract builder for entities
+ * Abstract builder for entities.
  * 
  * @author ignazio
  * @param <T>

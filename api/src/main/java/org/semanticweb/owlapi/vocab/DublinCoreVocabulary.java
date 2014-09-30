@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static java.util.stream.Collectors.toSet;
 
-import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -23,10 +23,6 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -39,21 +35,21 @@ public enum DublinCoreVocabulary
         HasIRI,
         HasPrefixedName {
 //@formatter:off
-    /** http://purl.org/dc/elements/1.1/contributor */ CONTRIBUTOR("contributor"),
-    /** http://purl.org/dc/elements/1.1/coverage */    COVERAGE   ("coverage"   ),
-    /** http://purl.org/dc/elements/1.1/creator */     CREATOR    ("creator"    ),
-    /** http://purl.org/dc/elements/1.1/date */        DATE       ("date"       ),
-    /** http://purl.org/dc/elements/1.1/description */ DESCRIPTION("description"),
-    /** http://purl.org/dc/elements/1.1/format */      FORMAT     ("format"     ),
-    /** http://purl.org/dc/elements/1.1/identifier */  IDENTIFIER ("identifier" ),
-    /** http://purl.org/dc/elements/1.1/language */    LANGUAGE   ("language"   ),
-    /** http://purl.org/dc/elements/1.1/publisher */   PUBLISHER  ("publisher"  ),
-    /** http://purl.org/dc/elements/1.1/relation */    RELATION   ("relation"   ),
-    /** http://purl.org/dc/elements/1.1/rights */      RIGHTS     ("rights"     ),
-    /** http://purl.org/dc/elements/1.1/source */      SOURCE     ("source"     ),
-    /** http://purl.org/dc/elements/1.1/subject */     SUBJECT    ("subject"    ),
-    /** http://purl.org/dc/elements/1.1/title */       TITLE      ("title"      ),
-    /** http://purl.org/dc/elements/1.1/type */        TYPE       ("type"       );
+    /** http://purl.org/dc/elements/1.1/contributor. */ CONTRIBUTOR("contributor"),
+    /** http://purl.org/dc/elements/1.1/coverage. */    COVERAGE   ("coverage"   ),
+    /** http://purl.org/dc/elements/1.1/creator. */     CREATOR    ("creator"    ),
+    /** http://purl.org/dc/elements/1.1/date. */        DATE       ("date"       ),
+    /** http://purl.org/dc/elements/1.1/description. */ DESCRIPTION("description"),
+    /** http://purl.org/dc/elements/1.1/format. */      FORMAT     ("format"     ),
+    /** http://purl.org/dc/elements/1.1/identifier. */  IDENTIFIER ("identifier" ),
+    /** http://purl.org/dc/elements/1.1/language. */    LANGUAGE   ("language"   ),
+    /** http://purl.org/dc/elements/1.1/publisher. */   PUBLISHER  ("publisher"  ),
+    /** http://purl.org/dc/elements/1.1/relation. */    RELATION   ("relation"   ),
+    /** http://purl.org/dc/elements/1.1/rights. */      RIGHTS     ("rights"     ),
+    /** http://purl.org/dc/elements/1.1/source. */      SOURCE     ("source"     ),
+    /** http://purl.org/dc/elements/1.1/subject. */     SUBJECT    ("subject"    ),
+    /** http://purl.org/dc/elements/1.1/title. */       TITLE      ("title"      ),
+    /** http://purl.org/dc/elements/1.1/type. */        TYPE       ("type"       );
 //@formatter:on
     @Nonnull
     private final String shortName;
@@ -61,7 +57,7 @@ public enum DublinCoreVocabulary
     private final String qname;
     @Nonnull
     private final IRI iri;
-    /** Dublin Core name space */
+    /** Dublin Core name space. */
     @Nonnull
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
 
@@ -86,16 +82,9 @@ public enum DublinCoreVocabulary
         return iri;
     }
 
-    /** all IRIs */
-    public static final Set<IRI> ALL_URIS = Sets.newHashSet(Iterables
-            .transform(Arrays.asList(values()),
-                    new Function<DublinCoreVocabulary, IRI>() {
-
-                        @Override
-                        public IRI apply(DublinCoreVocabulary arg0) {
-                            return verifyNotNull(arg0).getIRI();
-                        }
-                    }));
+    /** All IRIs. */
+    public static final Set<IRI> ALL_URIS = Stream.of(values())
+            .map(x -> x.getIRI()).collect(toSet());
 
     @Override
     public String toString() {

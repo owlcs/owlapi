@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
  */
 public class ManchesterOWLSyntaxTokenizer {
 
-    /** EOF */
+    /** EOF. */
     @Nonnull
     public static final String EOF = "|EOF|";
 
@@ -215,7 +215,7 @@ public class ManchesterOWLSyntaxTokenizer {
         return ch;
     }
 
-    /** token */
+    /** Token. */
     public static class Token {
 
         @Nonnull

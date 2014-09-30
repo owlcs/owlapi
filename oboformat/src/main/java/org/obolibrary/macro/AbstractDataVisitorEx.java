@@ -16,9 +16,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * data visitor
- */
+/** Data visitor. */
 public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
 
     final OWLDataFactory dataFactory;

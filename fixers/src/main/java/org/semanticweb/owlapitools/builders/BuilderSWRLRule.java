@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Builder class for SWRLRule */
+/** Builder class for SWRLRule. */
 public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
     @Nonnull
@@ -32,7 +32,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     private final Set<SWRLAtom> head = new HashSet<>();
 
     /**
-     * builder initialized from an existing object
+     * Builder initialized from an existing object.
      * 
      * @param expected
      *        the existing object

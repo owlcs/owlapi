@@ -33,7 +33,7 @@ import com.google.common.base.Optional;
 
 /**
  * Changes the URI of an ontology and ensures that ontologies which import the
- * ontology have their imports statements updated
+ * ontology have their imports statements updated.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group

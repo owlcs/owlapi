@@ -127,7 +127,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     private ShortFormProvider shortFormProvider;
     private IRIShortFormProvider iriShortFormProvider;
 
-    /** default constructor */
+    /** Default constructor. */
     public SimpleRenderer() {
         sb = new StringBuilder();
         resetShortFormProvider();

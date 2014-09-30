@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 
-/** quantified object restriction */
+/** Quantified object restriction. */
 public abstract class OWLQuantifiedObjectRestrictionImpl extends
         OWLQuantifiedRestrictionImpl<OWLClassExpression> implements
         OWLObjectRestriction {

@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** macro expansion gci visitor */
+/** Macro expansion gci visitor. */
 public class MacroExpansionGCIVisitor {
 
     protected static final Logger LOG = LoggerFactory

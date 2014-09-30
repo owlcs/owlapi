@@ -2,7 +2,7 @@ package org.obolibrary.oboformat.model;
 
 import javax.annotation.Nonnull;
 
-/** Xref */
+/** Xref. */
 public class Xref {
 
     @Nonnull

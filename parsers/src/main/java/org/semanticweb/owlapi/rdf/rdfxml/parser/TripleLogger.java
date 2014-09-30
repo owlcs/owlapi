@@ -38,7 +38,7 @@ public class TripleLogger {
     }
 
     /**
-     * log triples at debug level and increment triple count
+     * Log triples at debug level and increment triple count.
      * 
      * @param s
      *        subject
@@ -53,8 +53,8 @@ public class TripleLogger {
     }
 
     /**
-     * log triples at debug level, including language and datatype, and
-     * increment triple count
+     * Log triples at debug level, including language and datatype, and
+     * increment triple count.
      * 
      * @param s
      *        subject

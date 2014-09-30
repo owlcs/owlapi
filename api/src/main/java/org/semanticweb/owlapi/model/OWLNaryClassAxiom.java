@@ -44,7 +44,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom,
 
     /**
      * Determines if this class axiom contains the specified class expression as
-     * an operand
+     * an operand.
      * 
      * @param ce
      *        The class expression to test for

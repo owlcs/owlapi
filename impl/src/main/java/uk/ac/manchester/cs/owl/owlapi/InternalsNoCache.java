@@ -30,7 +30,11 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** no cache used @author ignazio */
+/**
+ * No cache used.
+ * 
+ * @author ignazio
+ */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     private static final long serialVersionUID = 40000L;

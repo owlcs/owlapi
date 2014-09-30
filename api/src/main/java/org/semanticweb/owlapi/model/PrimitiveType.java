@@ -23,14 +23,14 @@ import javax.annotation.Nonnull;
  */
 public enum PrimitiveType implements Serializable, HasShortForm {
     //@formatter:off
-    /** CLASS               */  CLASS               (EntityType.CLASS), 
-    /** OBJECT_PROPERTY     */  OBJECT_PROPERTY     (EntityType.OBJECT_PROPERTY), 
-    /** DATA_PROPERTY       */  DATA_PROPERTY       (EntityType.DATA_PROPERTY), 
-    /** ANNOTATION_PROPERTY */  ANNOTATION_PROPERTY (EntityType.ANNOTATION_PROPERTY), 
-    /** DATATYPE            */  DATATYPE            (EntityType.DATATYPE), 
-    /** NAMED_INDIVIDUAL    */  NAMED_INDIVIDUAL    (EntityType.NAMED_INDIVIDUAL), 
-    /** LITERAL             */  LITERAL             ("Literal", "Literal", "Literals"), 
-    /** IRI                 */  IRI                 ("IRI", "IRI", "IRIs");
+    /** CLASS.               */  CLASS               (EntityType.CLASS), 
+    /** OBJECT_PROPERTY.     */  OBJECT_PROPERTY     (EntityType.OBJECT_PROPERTY), 
+    /** DATA_PROPERTY.       */  DATA_PROPERTY       (EntityType.DATA_PROPERTY), 
+    /** ANNOTATION_PROPERTY. */  ANNOTATION_PROPERTY (EntityType.ANNOTATION_PROPERTY), 
+    /** DATATYPE.            */  DATATYPE            (EntityType.DATATYPE), 
+    /** NAMED_INDIVIDUAL.    */  NAMED_INDIVIDUAL    (EntityType.NAMED_INDIVIDUAL), 
+    /** LITERAL.             */  LITERAL             ("Literal", "Literal", "Literals"), 
+    /** IRI.                 */  IRI                 ("IRI", "IRI", "IRIs");
     //@formatter:on
     @Nonnull
     private final String shortForm;

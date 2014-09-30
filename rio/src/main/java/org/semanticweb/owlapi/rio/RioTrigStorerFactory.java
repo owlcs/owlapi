@@ -47,7 +47,7 @@ public class RioTrigStorerFactory extends AbstractRioStorerFactory implements
 
     private static final long serialVersionUID = 40000L;
 
-    /** default constructor */
+    /** Default constructor. */
     public RioTrigStorerFactory() {
         super(new TrigDocumentFormatFactory());
     }

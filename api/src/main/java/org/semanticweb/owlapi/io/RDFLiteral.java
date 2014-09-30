@@ -38,7 +38,7 @@ public class RDFLiteral extends RDFNode {
     private int hashCode;
 
     /**
-     * Constructor for plain literal wrappers
+     * Constructor for plain literal wrappers.
      * 
      * @param literal
      *        lexical form

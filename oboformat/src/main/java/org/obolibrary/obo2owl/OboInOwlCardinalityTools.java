@@ -355,7 +355,7 @@ public final class OboInOwlCardinalityTools {
         }
     }
 
-    /** default handler */
+    /** Default handler. */
     @Nonnull
     public static final AnnotationCardinalityConfictHandler DEFAULT_HANDLER = new AnnotationCardinalityConfictHandler() {
 

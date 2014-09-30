@@ -41,7 +41,7 @@ public class NamespaceUtil implements Serializable {
     private final Map<String, String> standardNamespacePrefixMappings = new HashMap<>();
     private final AtomicInteger candidateIndex = new AtomicInteger(1);
 
-    /** default constructor */
+    /** Default constructor. */
     public NamespaceUtil() {
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE,
                 "dc");

@@ -835,7 +835,7 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     @Nonnull
     private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
-    private static final Pattern valuePattern = Pattern
+    private static final Pattern VALUEPATTERN = Pattern
             .compile("\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
     private static final int VALUE_GROUP = 1;
     private static final int SCOPE_GROUP = 2;
@@ -853,7 +853,7 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     @Override
     public void handle(String currentId, String value, String qualifierBlock,
             String comment) {
-        Matcher matcher = valuePattern.matcher(value);
+        Matcher matcher = VALUEPATTERN.matcher(value);
         if (matcher.matches()) {
             OWLDataFactory df = getDataFactory();
             OWLAnnotationProperty property = getSynonymAnnotationProperty(matcher);
