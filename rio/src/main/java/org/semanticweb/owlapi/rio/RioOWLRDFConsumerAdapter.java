@@ -42,6 +42,8 @@ import org.openrdf.model.Literal;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.rio.RDFHandler;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -87,7 +89,12 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
 
     @Override
     public void handleNamespace(String prefix, String uri) {
-        getOntologyFormat().setPrefix(prefix + ':', uri);
+        RDFDocumentFormat format = getOntologyFormat();
+        if (format instanceof PrefixDocumentFormat) {
+            PrefixDocumentFormat prefixDocumentFormat = (PrefixDocumentFormat) format;
+            prefixDocumentFormat.setPrefix(prefix + ':', uri);
+
+        }
     }
 
     @Override

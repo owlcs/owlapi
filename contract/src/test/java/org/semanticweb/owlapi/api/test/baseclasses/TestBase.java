@@ -307,10 +307,12 @@ public abstract class TestBase {
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLDocumentFormat fromFormat = m.getOntologyFormat(ont);
-        if (fromFormat instanceof PrefixDocumentFormat
-                && format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) fromFormat;
-            PrefixDocumentFormat toPrefixFormat = (PrefixDocumentFormat) format;
+        if (fromFormat.isPrefixOWLOntologyFormat()
+                && format.isPrefixOWLOntologyFormat()) {
+            PrefixDocumentFormat fromPrefixFormat = fromFormat
+                    .asPrefixOWLOntologyFormat();
+            PrefixDocumentFormat toPrefixFormat = format
+                    .asPrefixOWLOntologyFormat();
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
         }
         format.setAddMissingTypes(true);

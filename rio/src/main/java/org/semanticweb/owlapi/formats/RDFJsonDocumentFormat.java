@@ -41,7 +41,7 @@ import org.openrdf.rio.RDFFormat;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RDFJsonDocumentFormat extends RioRDFDocumentFormat {
+public class RDFJsonDocumentFormat extends RioRDFNonPrefixDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
 

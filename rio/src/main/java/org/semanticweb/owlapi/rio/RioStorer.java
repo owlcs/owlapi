@@ -54,6 +54,7 @@ import org.openrdf.rio.Rio;
 import org.openrdf.rio.UnsupportedRDFormatException;
 import org.openrdf.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
+import org.semanticweb.owlapi.formats.RioRDFPrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -232,12 +233,12 @@ public class RioStorer extends AbstractOWLStorer {
         // example, it could store the triples in memory without serialising
         // them to any particular format.
         if (rioHandler == null) {
-            if (!(format instanceof RioRDFDocumentFormat)) {
+            if (!(format instanceof RioRDFPrefixDocumentFormat)) {
                 throw new OWLOntologyStorageException(
                         "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
                                 + format);
             }
-            final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
+            final RioRDFPrefixDocumentFormat rioFormat = (RioRDFPrefixDocumentFormat) format;
             if (format.isTextual()) {
                 Writer writer = new BufferedWriter(new OutputStreamWriter(
                         outputStream, StandardCharsets.UTF_8));

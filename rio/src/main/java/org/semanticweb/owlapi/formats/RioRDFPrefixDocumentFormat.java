@@ -35,20 +35,80 @@
  */
 package org.semanticweb.owlapi.formats;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.List;
+
 import org.openrdf.rio.RDFFormat;
+import org.openrdf.rio.RDFParserRegistry;
+import org.semanticweb.owlapi.model.MIMETypeAware;
 
 /**
+ * This format is designed to encapsulate any Sesame Rio RDFFormat within
+ * RDFOntologyFormat, and more generally OWLOntologyFormat. <br>
+ * 
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class BinaryRDFDocumentFormat extends RioRDFPrefixDocumentFormat {
+public class RioRDFPrefixDocumentFormat extends
+        AbstractRDFPrefixDocumentFormat implements
+        MIMETypeAware,RioRDFDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
+    private transient RDFFormat format;
+    private final String formatName;
+
+    private void readObject(ObjectInputStream in) throws IOException,
+            ClassNotFoundException {
+        in.defaultReadObject();
+        for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
+            if (f.getName().equals(formatName)) {
+                format = f;
+                return;
+            }
+        }
+    }
 
     /**
-     * RDF format for {@link RDFFormat#BINARY} documents.
+     * Constructor for super-classes to specify which {@link RDFFormat} they
+     * support.
+     * 
+     * @param format
+     *        The {@link RDFFormat} that this instance supports.
      */
-    public BinaryRDFDocumentFormat() {
-        super(RDFFormat.BINARY);
+    public RioRDFPrefixDocumentFormat(RDFFormat format) {
+        this.format = format;
+        formatName = this.format.getName();
+    }
+
+    @Override
+    public String getKey() {
+        String name = format.getName();
+        assert name != null;
+        return name;
+    }
+
+    /**
+     * @return Rio format for this format
+     */
+    public RDFFormat getRioFormat() {
+        return format;
+    }
+
+    @Override
+    public String getDefaultMIMEType() {
+        return format.getDefaultMIMEType();
+    }
+
+    @Override
+    public List<String> getMIMETypes() {
+        List<String> mimeTypes = format.getMIMETypes();
+        assert mimeTypes != null;
+        return mimeTypes;
+    }
+
+    @Override
+    public boolean handlesMimeType(String mimeType) {
+        return format.hasMIMEType(mimeType);
     }
 }

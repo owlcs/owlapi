@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat;
+import org.semanticweb.owlapi.formats.AbstractRDFPrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -1604,7 +1604,7 @@ public class TripleHandlers {
                 if (importedOntology != null) {
                     OWLDocumentFormat importedOntologyFormat = man
                             .getOntologyFormat(importedOntology);
-                    if (importedOntologyFormat instanceof AbstractRDFDocumentFormat
+                    if (importedOntologyFormat instanceof AbstractRDFPrefixDocumentFormat
                             && importedOntology.isAnonymous()) {
                         if (consumer.getConfiguration()
                                 .getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {

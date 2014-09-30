@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.2.0
  */
-public class TurtleDocumentFormat extends AbstractRDFDocumentFormat {
+public class TurtleDocumentFormat extends AbstractRDFPrefixDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
 
