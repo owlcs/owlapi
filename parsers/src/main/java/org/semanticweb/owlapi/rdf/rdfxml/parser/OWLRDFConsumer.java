@@ -2359,7 +2359,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @param iterator
      *        the iterator
      */
-    protected void iterateResourceTriples(ResourceTripleIterator iterator) {
+    protected void iterateResources(ResourceTripleIterator iterator) {
         new ArrayList<>(resTriplesBySubject.entrySet()).stream().forEach(
                 e -> new ArrayList<>(e.getValue().entrySet()).stream().forEach(
                         p -> new ArrayList<>(p.getValue()).stream().forEach(
@@ -2373,7 +2373,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @param iterator
      *        the iterator
      */
-    protected void iterateLiteralTriples(LiteralTripleIterator iterator) {
+    protected void iterateLiterals(LiteralTripleIterator iterator) {
         new ArrayList<>(litTriplesBySubject.entrySet()).stream().forEach(
                 e -> new ArrayList<>(e.getValue().entrySet()).stream().forEach(
                         p -> new ArrayList<>(p.getValue()).stream().forEach(
