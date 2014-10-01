@@ -30,6 +30,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.ref.SoftReference;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -47,6 +48,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
  *        value
  */
 public class MapPointer<K, V extends OWLAxiom> {
+    private static final float DEFAULT_LOAD_FACTOR = 0.75F;
+    private static final int DEFAULT_INITIAL_CAPACITY = 2;
     private static Logger logger = LoggerFactory.getLogger(MapPointer.class);
 
     @Nullable
@@ -56,13 +59,13 @@ public class MapPointer<K, V extends OWLAxiom> {
     private boolean initialized;
     @Nonnull
     protected final Internals i;
-    private SoftReference<Set<IRI>> iris;
-    private int size = 0;
-    private final THashMap<K, THashSet<V>> map = new THashMap<>(17, 0.75F);
 
-    private THashSet<V> set() {
-        return new THashSet<>(2, 0.75F);
-    }
+    private SoftReference<Set<IRI>> iris;
+
+    private int size = 0;
+
+    private final THashMap<K, Set<V>> map = new THashMap<>(17, 0.75F);
+
 
     /**
      * @param t
@@ -274,12 +277,23 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private boolean putInternal(K k, V v) {
-        THashSet<V> t = map.get(k);
-        if (t == null) {
-            t = set();
-            map.put(k, t);
+        Set<V> set = map.get(k);
+
+        if( set == null) {
+            set = Collections.singleton(v);
+            map.put(k,set);
+            size++;
+            return true;
         }
-        boolean added = t.add(v);
+        if(set.size() == 1) {
+           if(set.contains(v)) {
+               return false;
+           } else {
+               set = makeSet(set);
+               map.put(k,set);
+           }
+        }
+        boolean added = set.add(v);
         if (added) {
             size++;
         }
@@ -287,7 +301,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private boolean containsEntry(K k, V v) {
-        THashSet<V> t = map.get(k);
+        Set<V> t = map.get(k);
         if (t == null) {
             return false;
         }
@@ -295,9 +309,18 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private boolean removeInternal(K k, V v) {
-        THashSet<V> t = map.get(k);
+        Set<V> t = map.get(k);
         if (t == null) {
             return false;
+        }
+        if(t.size() == 1) {
+            if(t.contains(v)) {
+                map.remove(k);
+                size--;
+                return true;
+            } else {
+                return false;
+            }
         }
         boolean removed = t.remove(v);
         if (removed) {
@@ -308,6 +331,22 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
         return removed;
     }
+    private Set<V> makeSet() {
+        return makeSet(DEFAULT_INITIAL_CAPACITY);
+    }
+
+    private Set<V> makeSet(int initialCapacity) {
+        return makeSet(initialCapacity, DEFAULT_LOAD_FACTOR);
+    }
+    private THashSet<V> makeSet(int initialCapacity, float loadFactor) {
+        return new THashSet<>(initialCapacity, loadFactor);
+    }
+
+    private Set<V> makeSet(Collection<V> collection) {
+        Set<V> result = makeSet();
+        result.addAll(collection);
+        return result;
+    }
 
     @SuppressWarnings("null")
     @Nonnull
@@ -317,7 +356,7 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     @Nonnull
     private Set<V> get(K k) {
-        THashSet<V> t = map.get(k);
+        Set<V> t = map.get(k);
         if (t == null) {
             return CollectionFactory.emptySet();
         }
@@ -327,13 +366,41 @@ public class MapPointer<K, V extends OWLAxiom> {
      * Trims the capacity of the map entries . An application can use this operation to minimize the storage of the map pointer instance.
 
      */
+    private static long totalInUse = 0;
+    private static long totalAllocated = 0;
 
     public void trimToSize() {
         if (initialized) {
-            for (Map.Entry<K, THashSet<V>> entry : map.entrySet()) {
-                THashSet<V> set = entry.getValue();
-                set.trimToSize();
+            for (Map.Entry<K, Set<V>> entry : map.entrySet()) {
+                Set<V> set = entry.getValue();
+                if (set instanceof THashSet) {
+                    THashSet<V> vs = (THashSet<V>) set;
+                    vs.trimToSize();
+                    synchronized (MapPointer.class) {
+                        totalInUse += set.size();
+                        totalAllocated += vs.capacity();
+                    }
+
+                } else {
+                    synchronized (MapPointer.class) {
+                        totalInUse += 1;
+                        totalAllocated += 1;
+                    }
+
+                }
+
             }
         }
+    }
+    synchronized static void resetCounts() {
+        totalAllocated=0;
+        totalInUse=0;
+    }
+    synchronized static long getTotalInUse() {
+        return totalInUse;
+    }
+
+    synchronized static long getTotalAllocated() {
+        return totalAllocated;
     }
 }
