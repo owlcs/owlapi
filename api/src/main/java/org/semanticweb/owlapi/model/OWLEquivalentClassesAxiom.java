@@ -65,4 +65,12 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      *         class.
      */
     boolean containsOWLThing();
+
+    @Nonnull
+    @Override
+    Set<OWLEquivalentClassesAxiom> asPairwiseAxioms();
+
+    @Override
+    @Nonnull
+    Set<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
 }

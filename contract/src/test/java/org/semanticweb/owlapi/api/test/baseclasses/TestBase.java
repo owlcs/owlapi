@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,6 +43,9 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -136,61 +140,103 @@ public abstract class TestBase {
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
-        axioms1 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont1.getAxioms());
-        axioms2 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont2.getAxioms());
-        PlainLiteralTypeFoldingAxiomSet a = new PlainLiteralTypeFoldingAxiomSet(axioms1);
-        PlainLiteralTypeFoldingAxiomSet b = new PlainLiteralTypeFoldingAxiomSet(axioms2);
+        axioms1 = new AnonymousIndividualsNormaliser(df)
+                .getNormalisedAxioms(ont1.getAxioms());
+        axioms2 = new AnonymousIndividualsNormaliser(df)
+                .getNormalisedAxioms(ont2.getAxioms());
+        PlainLiteralTypeFoldingAxiomSet a = new PlainLiteralTypeFoldingAxiomSet(
+                axioms1);
+        PlainLiteralTypeFoldingAxiomSet b = new PlainLiteralTypeFoldingAxiomSet(
+                axioms2);
         if (!a.equals(b)) {
-            int counter = 0;
-            StringBuilder sb = new StringBuilder();
-            Set<OWLAxiom> leftOnly = new HashSet<>();
-            Set<OWLAxiom> rightOnly = new HashSet<>();
-            for (OWLAxiom ax : a) {
-                if (!b.contains(ax)) {
-                    if (!isIgnorableAxiom(ax, false)) {
-                        leftOnly.add(ax);
-                        sb.append("Rem axiom: ");
-                        sb.append(ax);
-                        sb.append('\n');
-                        counter++;
+            AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(
+                    df);
+            axioms1 = normaliser1.getNormalisedAxioms(axioms1);
+            AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(
+                    df);
+            axioms2 = normaliser2.getNormalisedAxioms(axioms2);
+            if (!axioms1.equals(axioms2)) {
+                // remove axioms that differ only because of n-ary equivalence
+                // axioms
+                // http://www.w3.org/TR/owl2-mapping-to-rdf/#Axioms_that_are_Translated_to_Multiple_Triples
+                for (OWLAxiom ax : new ArrayList<>(axioms1)) {
+                    if (ax instanceof OWLEquivalentClassesAxiom) {
+                        if (((OWLEquivalentClassesAxiom) ax)
+                                .getClassExpressions().size() > 2) {
+                            axioms1.remove(ax);
+                            axioms2.removeAll(((OWLEquivalentClassesAxiom) ax)
+                                    .splitToAnnotatedPairs());
+                        }
+                    } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
+                        if (((OWLEquivalentDataPropertiesAxiom) ax)
+                                .getProperties().size() > 2) {
+                            axioms1.remove(ax);
+                            axioms2.removeAll(((OWLEquivalentDataPropertiesAxiom) ax)
+                                    .splitToAnnotatedPairs());
+                        }
+                    } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
+                        if (((OWLEquivalentObjectPropertiesAxiom) ax)
+                                .getProperties().size() > 2) {
+                            axioms1.remove(ax);
+                            axioms2.removeAll(((OWLEquivalentObjectPropertiesAxiom) ax)
+                                    .splitToAnnotatedPairs());
+                        }
                     }
                 }
             }
-            for (OWLAxiom ax : b) {
-                if (!a.contains(ax)) {
-                    if (!isIgnorableAxiom(ax, true)) {
-                        rightOnly.add(ax);
-                        sb.append("Add axiom: ");
-                        sb.append(ax);
-                        sb.append('\n');
-                        counter++;
+            if (!axioms1.equals(axioms2)) {
+                int counter = 0;
+                StringBuilder sb = new StringBuilder();
+                Set<OWLAxiom> leftOnly = new HashSet<>();
+                Set<OWLAxiom> rightOnly = new HashSet<>();
+                for (OWLAxiom ax : a) {
+                    if (!b.contains(ax)) {
+                        if (!isIgnorableAxiom(ax, false)) {
+                            leftOnly.add(ax);
+                            sb.append("Rem axiom: ");
+                            sb.append(ax);
+                            sb.append('\n');
+                            counter++;
+                        }
                     }
                 }
-            }
-            if (counter > 0) {
-                // a test fails on OpenJDK implementations because of ordering
-                // testing here if blank node ids are the only difference
-                boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly,
-                        rightOnly);
-                if (fixed) {
-                    if (logger.isTraceEnabled()) {
-                        String x = getClass().getSimpleName()
+                for (OWLAxiom ax : b) {
+                    if (!a.contains(ax)) {
+                        if (!isIgnorableAxiom(ax, true)) {
+                            rightOnly.add(ax);
+                            sb.append("Add axiom: ");
+                            sb.append(ax);
+                            sb.append('\n');
+                            counter++;
+                        }
+                    }
+                }
+                if (counter > 0) {
+                    // a test fails on OpenJDK implementations because of
+                    // ordering
+                    // testing here if blank node ids are the only difference
+                    boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly,
+                            rightOnly);
+                    if (fixed) {
+                        if (logger.isTraceEnabled()) {
+                            String x = getClass().getSimpleName()
+                                    + " roundTripOntology() Failing to match axioms: \n"
+                                    + sb + topOfStackTrace();
+                            logger.trace(x);
+                        }
+                        fail(getClass().getSimpleName()
                                 + " roundTripOntology() Failing to match axioms: \n"
-                                + sb + topOfStackTrace();
-                        logger.trace(x);
+                                + sb);
+                        return false;
+                    } else {
+                        return true;
                     }
-                    fail(getClass().getSimpleName()
-                            + " roundTripOntology() Failing to match axioms: \n"
-                            + sb);
-                    return false;
                 } else {
                     return true;
                 }
-            } else {
-                return true;
             }
         }
-        //assertEquals(axioms1, axioms2);
+        // assertEquals(axioms1, axioms2);
         return true;
     }
 

@@ -12,6 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 /**
  * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Data_Properties"
@@ -22,4 +26,13 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLDisjointDataPropertiesAxiom extends
-        OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {}
+        OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
+
+    @Nonnull
+    @Override
+    Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
+
+    @Override
+    @Nonnull
+    Set<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs();
+}

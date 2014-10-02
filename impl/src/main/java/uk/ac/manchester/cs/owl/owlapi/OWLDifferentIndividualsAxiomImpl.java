@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -81,6 +82,22 @@ public class OWLDifferentIndividualsAxiomImpl extends
                 result.add(new OWLDifferentIndividualsAxiomImpl(new HashSet<>(
                         Arrays.asList(indI, indJ)), NO_ANNOTATIONS));
             }
+        }
+        return result;
+    }
+
+    @Override
+    public Set<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs() {
+        List<OWLIndividual> individuals = getIndividualsAsList();
+        if (individuals.size() == 2) {
+            return Collections.singleton(this);
+        }
+        Set<OWLDifferentIndividualsAxiom> result = new HashSet<>();
+        for (int i = 0; i < individuals.size() - 1; i++) {
+            OWLIndividual indI = individuals.get(i);
+            OWLIndividual indJ = individuals.get(i + 1);
+            result.add(new OWLDifferentIndividualsAxiomImpl(new HashSet<>(
+                    Arrays.asList(indI, indJ)), getAnnotations()));
         }
         return result;
     }

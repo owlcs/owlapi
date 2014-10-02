@@ -19,6 +19,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -94,6 +95,23 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
             OWLClassExpression ceJ = classExpressions.get(i + 1);
             result.add(new OWLEquivalentClassesAxiomImpl(new HashSet<>(Arrays
                     .asList(ceI, ceJ)), NO_ANNOTATIONS));
+        }
+        return result;
+    }
+
+    @Override
+    public Set<OWLEquivalentClassesAxiom> splitToAnnotatedPairs() {
+        List<OWLClassExpression> individuals = new ArrayList<>(
+                getClassExpressions());
+        if (individuals.size() == 2) {
+            return Collections.singleton(this);
+        }
+        Set<OWLEquivalentClassesAxiom> result = new HashSet<>();
+        for (int i = 0; i < individuals.size() - 1; i++) {
+            OWLClassExpression indI = individuals.get(i);
+            OWLClassExpression indJ = individuals.get(i + 1);
+            result.add(new OWLEquivalentClassesAxiomImpl(new HashSet<>(Arrays
+                    .asList(indI, indJ)), getAnnotations()));
         }
         return result;
     }

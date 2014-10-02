@@ -32,7 +32,10 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
     /**
      * Gets this axiom as a set of pairwise axioms. Note that annotations on
      * this axiom will not be copied to each axiom returned in the set of
-     * pairwise axioms.
+     * pairwise axioms.<br>
+     * Note: This will contain all pairs, i.e., for the set "a, b, c" the pairs
+     * "a, b", "a, c", "b, c" will be returned. For some applications, only
+     * "a, b", "b, c" are required.
      * 
      * @return This axiom as a set of pairwise axioms.
      */
@@ -48,4 +51,19 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
      */
     @Nonnull
     <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor);
+
+    /**
+     * Splits this axiom to pairs, including annotations. This method implements
+     * the process described at http://www.w3.org/TR/owl2-mapping-to-rdf/#
+     * Axioms_that_are_Translated_to_Multiple_Triples which is used, for
+     * example, in serializing EquivalentProperty axioms with three operands.
+     * Note that annotations on this axiom will be copied to each axiom returned
+     * in the set of pairwise axioms. Note: This will contain only the
+     * "An, An+1" pairs, i.e., for the set "a, b, c" the pairs "a, b" and "b, c"
+     * will be returned, but not "a, c".
+     * 
+     * @return This axiom as a set of pairwise axioms, annotations included.
+     */
+    @Nonnull
+    Set<? extends OWLNaryAxiom<C>> splitToAnnotatedPairs();
 }
