@@ -31,23 +31,4 @@ public class PrimerFunctionalSyntaxRoundTrippingTestCase extends
         return "primer.functionalsyntax.txt";
     }
 
-    @Override
-    @Test
-    public void testRDFXML() {}
-
-    @Override
-    @Test
-    public void testRDFJSON() {}
-
-    @Override
-    @Test
-    public void testOWLXML() {}
-
-    @Override
-    @Test
-    public void testTurtle() {}
-
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() {}
 }

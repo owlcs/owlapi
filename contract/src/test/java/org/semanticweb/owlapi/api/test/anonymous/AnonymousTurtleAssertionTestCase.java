@@ -31,19 +31,5 @@ public class AnonymousTurtleAssertionTestCase extends
         return "testBlankNodesAssertions.ttl";
     }
 
-    @Override
-    @Test
-    public void testFunctionalSyntax() {}
 
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() {}
-
-    @Override
-    @Test
-    public void testOWLXML() {}
-
-    @Override
-    @Test
-    public void testRDFXML() {}
 }

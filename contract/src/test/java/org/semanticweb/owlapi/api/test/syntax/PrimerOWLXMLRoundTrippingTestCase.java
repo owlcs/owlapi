@@ -30,24 +30,4 @@ public class PrimerOWLXMLRoundTrippingTestCase extends
     protected String getFileName() {
         return "primer.owlxml.xml";
     }
-
-    @Override
-    @Test
-    public void testRDFXML() {}
-
-    @Override
-    @Test
-    public void testRDFJSON() {}
-
-    @Override
-    @Test
-    public void testFunctionalSyntax() {}
-
-    @Override
-    @Test
-    public void testTurtle() {}
-
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() {}
 }

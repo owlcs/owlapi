@@ -35,21 +35,5 @@ public class EquivalentDataPropertiesNaryAnnotatedTestCase extends
                 DataProperty(iri("q")), DataProperty(iri("r")));
     }
 
-    @Override
-    @Test
-    public void testRDFXML() {
-        // Can't serialise nary equivalent data properties in RDF
-    }
 
-    @Override
-    @Test
-    public void testRDFJSON() {
-        // Can't serialise nary equivalent data properties in RDF
-    }
-
-    @Override
-    @Test
-    public void testTurtle() {
-        // Can't serialise nary equivalent data properties in RDF
-    }
 }
