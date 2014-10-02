@@ -83,24 +83,22 @@ public abstract class TestBase {
         }
         assertEquals("Annotations supposed to be the same",
                 ont1.getAnnotations(), ont2.getAnnotations());
-        Set<OWLAxiom> axioms1 = ont1.getAxioms();
-        Set<OWLAxiom> axioms2 = ont2.getAxioms();
+        Set<OWLAxiom> axioms1;
+        Set<OWLAxiom> axioms2;
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
-        AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(
-                df);
-        axioms1 = normaliser1.getNormalisedAxioms(axioms1);
-        AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(
-                df);
-        axioms2 = normaliser2.getNormalisedAxioms(axioms2);
-        if (!axioms1.equals(axioms2)) {
+        axioms1 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont1.getAxioms());
+        axioms2 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont2.getAxioms());
+        PlainLiteralTypeFoldingAxiomSet a = new PlainLiteralTypeFoldingAxiomSet(axioms1);
+        PlainLiteralTypeFoldingAxiomSet b = new PlainLiteralTypeFoldingAxiomSet(axioms2);
+        if (!a.equals(b)) {
             int counter = 0;
             StringBuilder sb = new StringBuilder();
             Set<OWLAxiom> leftOnly = new HashSet<>();
             Set<OWLAxiom> rightOnly = new HashSet<>();
-            for (OWLAxiom ax : axioms1) {
-                if (!axioms2.contains(ax)) {
+            for (OWLAxiom ax : a) {
+                if (!b.contains(ax)) {
                     if (!isIgnorableAxiom(ax, false)) {
                         leftOnly.add(ax);
                         sb.append("Rem axiom: ");
@@ -110,8 +108,8 @@ public abstract class TestBase {
                     }
                 }
             }
-            for (OWLAxiom ax : axioms2) {
-                if (!axioms1.contains(ax)) {
+            for (OWLAxiom ax : b) {
+                if (!a.contains(ax)) {
                     if (!isIgnorableAxiom(ax, true)) {
                         rightOnly.add(ax);
                         sb.append("Add axiom: ");
@@ -140,7 +138,7 @@ public abstract class TestBase {
                 return true;
             }
         }
-        assertEquals(axioms1, axioms2);
+        //assertEquals(axioms1, axioms2);
         return true;
     }
 
