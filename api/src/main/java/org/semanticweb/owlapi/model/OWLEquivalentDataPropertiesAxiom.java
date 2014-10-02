@@ -32,6 +32,10 @@ public interface OWLEquivalentDataPropertiesAxiom extends
     @Override
     Set<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms();
 
+    @Override
+    @Nonnull
+    Set<OWLEquivalentDataPropertiesAxiom> splitToAnnotatedPairs();
+
     @Nonnull
     @Override
     OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations();

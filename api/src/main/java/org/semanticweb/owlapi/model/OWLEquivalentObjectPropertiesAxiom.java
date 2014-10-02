@@ -33,6 +33,10 @@ public interface OWLEquivalentObjectPropertiesAxiom extends
     @Override
     Set<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
 
+    @Override
+    @Nonnull
+    Set<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs();
+
     /** @return the axioms equivalent to the equivalent object property axiom */
     @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();

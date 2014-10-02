@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -107,6 +108,22 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
                 result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays
                         .asList(list.get(i), list.get(j))), NO_ANNOTATIONS));
             }
+        }
+        return result;
+    }
+
+    @Override
+    public Set<OWLDisjointClassesAxiom> splitToAnnotatedPairs() {
+        List<OWLClassExpression> ops = getClassExpressionsAsList();
+        if (ops.size() == 2) {
+            return Collections.singleton(this);
+        }
+        Set<OWLDisjointClassesAxiom> result = new HashSet<>();
+        for (int i = 0; i < ops.size() - 1; i++) {
+            OWLClassExpression indI = ops.get(i);
+            OWLClassExpression indJ = ops.get(i + 1);
+            result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays
+                    .asList(indI, indJ)), getAnnotations()));
         }
         return result;
     }

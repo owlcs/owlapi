@@ -12,7 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import com.google.common.base.Optional;
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
@@ -26,16 +36,23 @@ import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import javax.annotation.Nonnull;
-import java.net.URL;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -71,6 +88,7 @@ public abstract class TestBase {
     protected Optional<IRI> absent() {
         return Optional.absent();
     }
+
     @Nonnull
     protected <S> Set<S> singleton(S s) {
         return Collections.singleton(s);
@@ -94,6 +112,35 @@ public abstract class TestBase {
         AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(
                 df);
         axioms2 = normaliser2.getNormalisedAxioms(axioms2);
+        if (!axioms1.equals(axioms2)) {
+            // remove axioms that differ only because of n-ary equivalence
+            // axioms
+            // http://www.w3.org/TR/owl2-mapping-to-rdf/#Axioms_that_are_Translated_to_Multiple_Triples
+            for (OWLAxiom ax : new ArrayList<>(axioms1)) {
+                if (ax instanceof OWLEquivalentClassesAxiom) {
+                    if (((OWLEquivalentClassesAxiom) ax).getClassExpressions()
+                            .size() > 2) {
+                        axioms1.remove(ax);
+                        axioms2.removeAll(((OWLEquivalentClassesAxiom) ax)
+                                .splitToAnnotatedPairs());
+                    }
+                } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
+                    if (((OWLEquivalentDataPropertiesAxiom) ax).getProperties()
+                            .size() > 2) {
+                        axioms1.remove(ax);
+                        axioms2.removeAll(((OWLEquivalentDataPropertiesAxiom) ax)
+                                .splitToAnnotatedPairs());
+                    }
+                } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
+                    if (((OWLEquivalentObjectPropertiesAxiom) ax)
+                            .getProperties().size() > 2) {
+                        axioms1.remove(ax);
+                        axioms2.removeAll(((OWLEquivalentObjectPropertiesAxiom) ax)
+                                .splitToAnnotatedPairs());
+                    }
+                }
+            }
+        }
         if (!axioms1.equals(axioms2)) {
             int counter = 0;
             StringBuilder sb = new StringBuilder();
@@ -129,8 +176,8 @@ public abstract class TestBase {
                 if (fixed) {
                     String x = getClass().getSimpleName()
                             + " roundTripOntology() Failing to match axioms: \n"
-                            + sb ;
-                    //System.out.println(x);
+                            + sb;
+                    // System.out.println(x);
                     fail(x);
                     return false;
                 } else {
@@ -257,15 +304,16 @@ public abstract class TestBase {
         OWLDocumentFormat fromFormat = m.getOntologyFormat(ont);
         if (fromFormat.isPrefixOWLOntologyFormat()
                 && format.isPrefixOWLOntologyFormat()) {
-            PrefixDocumentFormat fromPrefixFormat = fromFormat.asPrefixOWLOntologyFormat();
-            PrefixDocumentFormat toPrefixFormat = format.asPrefixOWLOntologyFormat();
+            PrefixDocumentFormat fromPrefixFormat = fromFormat
+                    .asPrefixOWLOntologyFormat();
+            PrefixDocumentFormat toPrefixFormat = format
+                    .asPrefixOWLOntologyFormat();
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
         }
         boolean addMissingTypes = true;
         if (format instanceof RDFDocumentFormat) {
             format.setAddMissingTypes(addMissingTypes);
         }
-
         m.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()

@@ -70,6 +70,10 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     @Override
     Set<OWLEquivalentClassesAxiom> asPairwiseAxioms();
 
+    @Override
+    @Nonnull
+    Set<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
+
     @Nonnull
     @Override
     OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();

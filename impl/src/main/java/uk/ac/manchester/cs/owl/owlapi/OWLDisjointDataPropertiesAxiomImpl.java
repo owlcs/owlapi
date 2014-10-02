@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -79,6 +80,22 @@ public class OWLDisjointDataPropertiesAxiomImpl extends
                         new HashSet<>(Arrays.asList(list.get(i), list.get(j))),
                         NO_ANNOTATIONS));
             }
+        }
+        return result;
+    }
+
+    @Override
+    public Set<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs() {
+        List<OWLDataPropertyExpression> ops = new ArrayList<>(getProperties());
+        if (ops.size() == 2) {
+            return Collections.singleton(this);
+        }
+        Set<OWLDisjointDataPropertiesAxiom> result = new HashSet<>();
+        for (int i = 0; i < ops.size() - 1; i++) {
+            OWLDataPropertyExpression indI = ops.get(i);
+            OWLDataPropertyExpression indJ = ops.get(i + 1);
+            result.add(new OWLDisjointDataPropertiesAxiomImpl(new HashSet<>(
+                    Arrays.asList(indI, indJ)), getAnnotations()));
         }
         return result;
     }

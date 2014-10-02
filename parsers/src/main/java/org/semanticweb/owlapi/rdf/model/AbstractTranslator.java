@@ -329,20 +329,14 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 RDFS_SUBCLASS_OF.getIRI(), axiom.getSuperClass());
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         if (axiom.getClassExpressions().size() == 2) {
-            addPairwiseClassExpressions(axiom, axiom.getClassExpressions(),
+            addPairwise(axiom, axiom.getClassExpressions(),
                     OWL_EQUIVALENT_CLASS.getIRI());
         } else {
-            // see http://www.w3.org/TR/2009/REC-owl2-mapping-to-rdf-20091027/
-            List<OWLClassExpression> list = axiom.getClassExpressionsAsList();
-            int count = list.size();
-            for (int i = 0; i + 1 < count; i++) {
-                assert list.get(i) != null;
-                addTriple(list.get(i), OWL_EQUIVALENT_CLASS.getIRI(),
-                        list.get(i + 1));
+            for (OWLEquivalentClassesAxiom ax : axiom.splitToAnnotatedPairs()) {
+                ax.accept(this);
             }
         }
     }
@@ -382,8 +376,15 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
-        addPairwise(axiom, axiom.getProperties(),
-                OWL_EQUIVALENT_PROPERTY.getIRI());
+        if (axiom.getProperties().size() == 2) {
+            addPairwise(axiom, axiom.getProperties(),
+                    OWL_EQUIVALENT_PROPERTY.getIRI());
+        } else {
+            for (OWLEquivalentObjectPropertiesAxiom ax : axiom
+                    .splitToAnnotatedPairs()) {
+                ax.accept(this);
+            }
+        }
     }
 
     @Override
@@ -468,8 +469,15 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
-        addPairwise(axiom, axiom.getProperties(),
-                OWL_EQUIVALENT_PROPERTY.getIRI());
+        if (axiom.getProperties().size() == 2) {
+            addPairwise(axiom, axiom.getProperties(),
+                    OWL_EQUIVALENT_PROPERTY.getIRI());
+        } else {
+            for (OWLEquivalentDataPropertiesAxiom ax : axiom
+                    .splitToAnnotatedPairs()) {
+                ax.accept(this);
+            }
+        }
     }
 
     @Override

@@ -31,6 +31,10 @@ public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
     @Override
     Set<OWLDisjointClassesAxiom> asPairwiseAxioms();
 
+    @Override
+    @Nonnull
+    Set<OWLDisjointClassesAxiom> splitToAnnotatedPairs();
+
     @Nonnull
     @Override
     OWLDisjointClassesAxiom getAxiomWithoutAnnotations();

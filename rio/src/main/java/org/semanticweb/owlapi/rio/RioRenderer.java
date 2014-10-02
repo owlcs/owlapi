@@ -124,7 +124,7 @@ public class RioRenderer extends RDFRendererBase {
         renderedStatements.clear();
         try {
             writer.startRDF();
-        } catch (@Nonnull final RDFHandlerException e) {
+        } catch (RDFHandlerException e) {
             throw new IOException(e);
         }
         // Namespaces
@@ -136,7 +136,7 @@ public class RioRenderer extends RDFRendererBase {
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
         try {
             writer.endRDF();
-        } catch (@Nonnull final RDFHandlerException e) {
+        } catch (RDFHandlerException e) {
             throw new IOException(e);
         }
         if (logger.isTraceEnabled()) {
@@ -190,7 +190,7 @@ public class RioRenderer extends RDFRendererBase {
                             "not printing duplicate statement, or recursing on its object: {}",
                             triple);
                 }
-            } catch (@Nonnull final RDFHandlerException e) {
+            } catch (RDFHandlerException e) {
                 throw new IOException(e);
             }
         }
@@ -225,7 +225,7 @@ public class RioRenderer extends RDFRendererBase {
     private void writeComment(final String comment) throws IOException {
         try {
             writer.handleComment(comment);
-        } catch (@Nonnull final RDFHandlerException e) {
+        } catch (RDFHandlerException e) {
             throw new IOException(e);
         }
     }
@@ -262,7 +262,7 @@ public class RioRenderer extends RDFRendererBase {
             }
             try {
                 writer.handleNamespace(prefixName, prefix);
-            } catch (@Nonnull final RDFHandlerException e) {
+            } catch (RDFHandlerException e) {
                 throw new IOException(e);
             }
         }

@@ -42,4 +42,8 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     @Nonnull
     @Override
     Set<OWLSameIndividualAxiom> asPairwiseAxioms();
+
+    @Override
+    @Nonnull
+    Set<OWLSameIndividualAxiom> splitToAnnotatedPairs();
 }

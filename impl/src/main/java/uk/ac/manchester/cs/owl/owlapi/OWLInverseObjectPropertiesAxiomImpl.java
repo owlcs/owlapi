@@ -75,6 +75,11 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     }
 
     @Override
+    public Set<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs() {
+        return asPairwiseAxioms();
+    }
+
+    @Override
     public OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;

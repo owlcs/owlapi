@@ -32,6 +32,10 @@ public interface OWLDisjointDataPropertiesAxiom extends
     @Override
     Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
 
+    @Override
+    @Nonnull
+    Set<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs();
+
     @Nonnull
     @Override
     OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();
