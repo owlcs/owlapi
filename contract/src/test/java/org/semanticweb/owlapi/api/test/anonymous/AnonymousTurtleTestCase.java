@@ -30,27 +30,5 @@ public class AnonymousTurtleTestCase extends AbstractFileRoundTrippingTestCase {
         return "testBlankNodes.ttl";
     }
 
-    @Override
-    @Test
-    public void testTurtle() {
-        // XXX roundtripping is broken but the results seem semantically
-        // equivalent
-        // super.testTurtle();
-    }
 
-    @Override
-    @Test
-    public void testFunctionalSyntax() {}
-
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() {}
-
-    @Override
-    @Test
-    public void testOWLXML() {}
-
-    @Override
-    @Test
-    public void testRDFXML() {}
 }

@@ -31,19 +31,4 @@ public class PrimerRDFXMLRoundTrippingTestCase extends
         return "primer.rdfxml.xml";
     }
 
-    @Override
-    @Test
-    public void testOWLXML() {}
-
-    @Override
-    @Test
-    public void testFunctionalSyntax() {}
-
-    @Override
-    @Test
-    public void testTurtle() {}
-
-    @Override
-    @Test
-    public void testManchesterOWLSyntax() {}
 }
