@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -21,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 
 @SuppressWarnings("javadoc")
@@ -38,7 +40,7 @@ public class PrimerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldManchBeEquivalent() {
+    public void shouldManchBeEquivalent() throws OWLOntologyCreationException {
         OWLOntology manch = loadOntologyFromString(MANCHESTER,
                 IRI.create("urn:primer#manchester"),
                 new ManchesterSyntaxDocumentFormat());
@@ -47,7 +49,9 @@ public class PrimerTestCase extends TestBase {
         // the input adopts a trick to semantically get around this, by
         // asserting a new named class equivalent to the right hand side of the
         // GCI and subclass of the left hand side
-        // Rectifying this to be able to assert equality
+        // Rectifying this to be able to assert equality, and using a different
+        // ontology
+        // so that the equality test does not skip gcis because of the format
         OWLClass x = df.getOWLClass(IRI
                 .create("http://example.com/owl/families/X"));
         Set<OWLClassAxiom> axioms = manch.getAxioms(x, EXCLUDED);
@@ -73,7 +77,10 @@ public class PrimerTestCase extends TestBase {
                 df.getOWLSubClassOfAxiom(
                         df.getOWLObjectIntersectionOf(female, oneOf),
                         superClass));
-        equal(func, manch);
+        OWLOntology replacement = OWLManager.createOWLOntologyManager()
+                .createOntology(manch.getAxioms(),
+                        manch.getOntologyID().getOntologyIRI().get());
+        equal(func, replacement);
     }
 
     @Test

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -30,6 +31,7 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
@@ -56,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.google.common.base.Optional;
@@ -116,8 +119,23 @@ public abstract class TestBase {
                 .getNormalisedAxioms(ont1.getAxioms());
         axioms2 = new AnonymousIndividualsNormaliser(df)
                 .getNormalisedAxioms(ont2.getAxioms());
-        applyEquivalentsRoundtrip(axioms1, axioms2, ont2
-                .getOWLOntologyManager().getOntologyFormat(ont2));
+        OWLDocumentFormat ontologyFormat = ont2.getOWLOntologyManager()
+                .getOntologyFormat(ont2);
+        applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
+        if (ontologyFormat instanceof ManchesterSyntaxDocumentFormat) {
+            // drop GCIs from the expected axioms, they won't be there
+            Iterator<OWLAxiom> it = axioms1.iterator();
+            while (it.hasNext()) {
+                OWLAxiom next = it.next();
+                if (next instanceof OWLSubClassOfAxiom) {
+                    if (((OWLSubClassOfAxiom) next).getSubClass().isAnonymous()
+                            && ((OWLSubClassOfAxiom) next).getSuperClass()
+                                    .isAnonymous()) {
+                        it.remove();
+                    }
+                }
+            }
+        }
         PlainLiteralTypeFoldingAxiomSet a = new PlainLiteralTypeFoldingAxiomSet(
                 axioms1);
         PlainLiteralTypeFoldingAxiomSet b = new PlainLiteralTypeFoldingAxiomSet(
