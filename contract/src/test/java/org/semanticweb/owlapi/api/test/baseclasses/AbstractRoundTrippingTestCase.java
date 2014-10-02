@@ -82,27 +82,21 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
-    @Ignore
     public void testTrig() throws Exception {
-        // XXX to be revised
         roundTripOntology(ont, new TrigDocumentFormat());
     }
 
     @Test
-    @Ignore
     public void testJSONLD() throws Exception {
-        // XXX to be revised
         roundTripOntology(ont, new RDFJsonLDDocumentFormat());
     }
 
     @Test
-    @Ignore
     public void testNTriples() throws Exception {
         roundTripOntology(ont, new NTriplesDocumentFormat());
     }
 
     @Test
-    @Ignore("NQuad rendering appears to not be roundtrippable")
     public void testNQuads() throws Exception {
         roundTripOntology(ont, new NQuadsDocumentFormat());
     }

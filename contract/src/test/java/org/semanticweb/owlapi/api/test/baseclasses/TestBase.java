@@ -12,43 +12,30 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-
-import java.net.URL;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
+import com.google.common.base.Optional;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 
-import com.google.common.base.Optional;
+import javax.annotation.Nonnull;
+import java.net.URL;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -96,24 +83,22 @@ public abstract class TestBase {
         }
         assertEquals("Annotations supposed to be the same",
                 ont1.getAnnotations(), ont2.getAnnotations());
-        Set<OWLAxiom> axioms1 = ont1.getAxioms();
-        Set<OWLAxiom> axioms2 = ont2.getAxioms();
+        Set<OWLAxiom> axioms1;
+        Set<OWLAxiom> axioms2;
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
-        AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(
-                df);
-        axioms1 = normaliser1.getNormalisedAxioms(axioms1);
-        AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(
-                df);
-        axioms2 = normaliser2.getNormalisedAxioms(axioms2);
-        if (!axioms1.equals(axioms2)) {
+        axioms1 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont1.getAxioms());
+        axioms2 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont2.getAxioms());
+        PlainLiteralTypeFoldingAxiomSet a = new PlainLiteralTypeFoldingAxiomSet(axioms1);
+        PlainLiteralTypeFoldingAxiomSet b = new PlainLiteralTypeFoldingAxiomSet(axioms2);
+        if (!a.equals(b)) {
             int counter = 0;
             StringBuilder sb = new StringBuilder();
             Set<OWLAxiom> leftOnly = new HashSet<>();
             Set<OWLAxiom> rightOnly = new HashSet<>();
-            for (OWLAxiom ax : axioms1) {
-                if (!axioms2.contains(ax)) {
+            for (OWLAxiom ax : a) {
+                if (!b.contains(ax)) {
                     if (!isIgnorableAxiom(ax, false)) {
                         leftOnly.add(ax);
                         sb.append("Rem axiom: ");
@@ -123,8 +108,8 @@ public abstract class TestBase {
                     }
                 }
             }
-            for (OWLAxiom ax : axioms2) {
-                if (!axioms1.contains(ax)) {
+            for (OWLAxiom ax : b) {
+                if (!a.contains(ax)) {
                     if (!isIgnorableAxiom(ax, true)) {
                         rightOnly.add(ax);
                         sb.append("Add axiom: ");
@@ -142,8 +127,8 @@ public abstract class TestBase {
                 if (fixed) {
                     String x = getClass().getSimpleName()
                             + " roundTripOntology() Failing to match axioms: \n"
-                            + sb + topOfStackTrace();
-                    System.out.println(x);
+                            + sb ;
+                    //System.out.println(x);
                     fail(x);
                     return false;
                 } else {
@@ -153,7 +138,7 @@ public abstract class TestBase {
                 return true;
             }
         }
-        assertEquals(axioms1, axioms2);
+        //assertEquals(axioms1, axioms2);
         return true;
     }
 
@@ -268,15 +253,17 @@ public abstract class TestBase {
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLDocumentFormat fromFormat = m.getOntologyFormat(ont);
-        if (fromFormat instanceof PrefixDocumentFormat
-                && format instanceof PrefixDocumentFormat) {
-            PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) fromFormat;
-            PrefixDocumentFormat toPrefixFormat = (PrefixDocumentFormat) format;
+        if (fromFormat.isPrefixOWLOntologyFormat()
+                && format.isPrefixOWLOntologyFormat()) {
+            PrefixDocumentFormat fromPrefixFormat = fromFormat.asPrefixOWLOntologyFormat();
+            PrefixDocumentFormat toPrefixFormat = format.asPrefixOWLOntologyFormat();
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
         }
-        if (format instanceof AbstractRDFDocumentFormat) {
-            ((AbstractRDFDocumentFormat) format).setAddMissingTypes(false);
+        boolean addMissingTypes = true;
+        if (format instanceof RDFDocumentFormat) {
+            format.setAddMissingTypes(addMissingTypes);
         }
+
         m.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()

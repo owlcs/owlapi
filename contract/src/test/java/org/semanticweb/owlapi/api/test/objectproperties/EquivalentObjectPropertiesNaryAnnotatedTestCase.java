@@ -34,22 +34,4 @@ public class EquivalentObjectPropertiesNaryAnnotatedTestCase extends
         return EquivalentObjectProperties(annos, ObjectProperty(iri("p")),
                 ObjectProperty(iri("q")), ObjectProperty(iri("r")));
     }
-
-    @Override
-    @Test
-    public void testTurtle() {
-        // Can't serialise nary equivalent properties axioms in RDF
-    }
-
-    @Override
-    @Test
-    public void testRDFXML() {
-        // Can't serialise nary equivalent properties axioms in RDF
-    }
-
-    @Override
-    @Test
-    public void testRDFJSON() {
-        // Can't serialise nary equivalent properties axioms in RDF
-    }
 }
