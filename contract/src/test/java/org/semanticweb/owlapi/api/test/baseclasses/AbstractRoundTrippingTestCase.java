@@ -75,19 +75,23 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     public void testManchesterOWLSyntax() throws Exception {
         roundTripOntology(ont, new ManchesterSyntaxDocumentFormat());
     }
-@Test
+
+    @Test
     public void testTrig() throws Exception {
         roundTripOntology(ont, new TrigDocumentFormat());
     }
-@Test
+
+    @Test
     public void testJSONLD() throws Exception {
         roundTripOntology(ont, new RDFJsonLDDocumentFormat());
     }
-@Test
+
+    @Test
     public void testNTriples() throws Exception {
         roundTripOntology(ont, new NTriplesDocumentFormat());
     }
-@Test
+
+    @Test
     public void testNQuads() throws Exception {
         roundTripOntology(ont, new NQuadsDocumentFormat());
     }
