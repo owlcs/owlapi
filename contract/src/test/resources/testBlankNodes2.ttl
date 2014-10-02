@@ -8,36 +8,36 @@
 
 xsd:date rdf:type rdfs:Datatype .
 
-<urn:ApplNo> rdf:type owl:DatatypeProperty .
+<urn:foo:ApplNo> rdf:type owl:DatatypeProperty .
 
-<urn:PED> rdf:type owl:DatatypeProperty .
+<urn:foo:PED> rdf:type owl:DatatypeProperty .
 
-<urn:PN> rdf:type owl:DatatypeProperty .
+<urn:foo:PN> rdf:type owl:DatatypeProperty .
 
-<urn:P> rdf:type owl:DatatypeProperty .
+<urn:foo:P> rdf:type owl:DatatypeProperty .
 
 [
-<urn:P> "007"^^xsd:int ; 
-<urn:ApplNo> "0"^^xsd:int ; 
-<urn:PN> "6A"^^xsd:string ; 
-<urn:PED> "Jul 6, 2020"^^xsd:date ] .
+<urn:foo:P> "007"^^xsd:int ; 
+<urn:foo:ApplNo> "0"^^xsd:int ; 
+<urn:foo:PN> "6A"^^xsd:string ; 
+<urn:foo:PED> "Jul 6, 2020"^^xsd:date ] .
    
 
 [
-<urn:P> "007"^^xsd:int ; 
-<urn:ApplNo> "0"^^xsd:int ; 
-<urn:PN> "6PED"^^xsd:string ; 
-<urn:PED> "Jan 6, 2021"^^xsd:date ] .
+<urn:foo:P> "007"^^xsd:int ; 
+<urn:foo:ApplNo> "0"^^xsd:int ; 
+<urn:foo:PN> "6PED"^^xsd:string ; 
+<urn:foo:PED> "Jan 6, 2021"^^xsd:date ] .
    
 
 [
-<urn:P> "008"^^xsd:int ; 
-<urn:ApplNo> "0"^^xsd:int ; 
-<urn:PN> "6A"^^xsd:string ; 
-<urn:PED> "Jul 6, 2020"^^xsd:date ] .
+<urn:foo:P> "008"^^xsd:int ; 
+<urn:foo:ApplNo> "0"^^xsd:int ; 
+<urn:foo:PN> "6A"^^xsd:string ; 
+<urn:foo:PED> "Jul 6, 2020"^^xsd:date ] .
    
 [
-<urn:P> "008"^^xsd:int ;
-<urn:ApplNo> "0"^^xsd:int ; 
-<urn:PN> "6PED"^^xsd:string ; 
-<urn:PED> "Jan 6, 2021"^^xsd:date ] .
+<urn:foo:P> "008"^^xsd:int ;
+<urn:foo:ApplNo> "0"^^xsd:int ; 
+<urn:foo:PN> "6PED"^^xsd:string ; 
+<urn:foo:PED> "Jan 6, 2021"^^xsd:date ] .
