@@ -56,9 +56,5 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
         return singleton(ax);
     }
 
-    @Override
-    public void testRDFJSON() {
-        // XXX test disabled temporarily while investigating the cause
-        // super.testRDFJSON();
-    }
+
 }
