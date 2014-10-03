@@ -33,7 +33,7 @@ public class VersionInfo {
         if (v != null) {
             version = v;
         } else {
-            version = "4.0.0-RC2";
+            version = "4.0.1-SNAPSHOT";
         }
     }
 
