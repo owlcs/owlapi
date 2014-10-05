@@ -48,6 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
@@ -59,6 +61,8 @@ import com.google.common.base.Optional;
 @SuppressWarnings({ "javadoc" })
 public abstract class TestBase {
 
+    private static final Logger logger = LoggerFactory
+            .getLogger(TestBase.class);
     @Nonnull
     protected final File RESOURCES = resources();
 
@@ -171,11 +175,15 @@ public abstract class TestBase {
                 boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly,
                         rightOnly);
                 if (fixed) {
-                    String x = getClass().getSimpleName()
+                    if (logger.isTraceEnabled()) {
+                        String x = getClass().getSimpleName()
+                                + " roundTripOntology() Failing to match axioms: \n"
+                                + sb + topOfStackTrace();
+                        logger.trace(x);
+                    }
+                    fail(getClass().getSimpleName()
                             + " roundTripOntology() Failing to match axioms: \n"
-                            + sb + topOfStackTrace();
-                    System.out.println(x);
-                    fail(x);
+                            + sb);
                     return false;
                 } else {
                     return true;
