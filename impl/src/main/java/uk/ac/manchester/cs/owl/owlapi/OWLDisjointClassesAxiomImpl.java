@@ -116,7 +116,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
     public Set<OWLDisjointClassesAxiom> splitToAnnotatedPairs() {
         List<OWLClassExpression> ops = getClassExpressionsAsList();
         if (ops.size() == 2) {
-            return Collections.singleton(this);
+            return Collections.<OWLDisjointClassesAxiom> singleton(this);
         }
         Set<OWLDisjointClassesAxiom> result = new HashSet<>();
         for (int i = 0; i < ops.size() - 1; i++) {

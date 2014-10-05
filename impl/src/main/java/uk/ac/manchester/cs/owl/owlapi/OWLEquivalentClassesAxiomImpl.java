@@ -104,7 +104,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         List<OWLClassExpression> individuals = new ArrayList<>(
                 getClassExpressions());
         if (individuals.size() == 2) {
-            return Collections.singleton(this);
+            return Collections.<OWLEquivalentClassesAxiom> singleton(this);
         }
         Set<OWLEquivalentClassesAxiom> result = new HashSet<>();
         for (int i = 0; i < individuals.size() - 1; i++) {

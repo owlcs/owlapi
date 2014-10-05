@@ -87,7 +87,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     public Set<OWLSameIndividualAxiom> splitToAnnotatedPairs() {
         List<OWLIndividual> individuals = getIndividualsAsList();
         if (individuals.size() == 2) {
-            return Collections.singleton(this);
+            return Collections.<OWLSameIndividualAxiom> singleton(this);
         }
         Set<OWLSameIndividualAxiom> result = new HashSet<>();
         for (int i = 0; i < individuals.size() - 1; i++) {

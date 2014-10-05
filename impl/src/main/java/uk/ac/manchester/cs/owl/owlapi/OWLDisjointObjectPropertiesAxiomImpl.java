@@ -92,7 +92,8 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
     public Set<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs() {
         List<OWLObjectPropertyExpression> ops = new ArrayList<>(getProperties());
         if (ops.size() == 2) {
-            return Collections.singleton(this);
+            return Collections
+                    .<OWLDisjointObjectPropertiesAxiom> singleton(this);
         }
         Set<OWLDisjointObjectPropertiesAxiom> result = new HashSet<>();
         for (int i = 0; i < ops.size() - 1; i++) {

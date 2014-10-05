@@ -90,7 +90,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
     public Set<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs() {
         List<OWLObjectPropertyExpression> ops = new ArrayList<>(getProperties());
         if (ops.size() == 2) {
-            return Collections.singleton(this);
+            return Collections
+                    .<OWLEquivalentObjectPropertiesAxiom> singleton(this);
         }
         Set<OWLEquivalentObjectPropertiesAxiom> result = new HashSet<>();
         for (int i = 0; i < ops.size() - 1; i++) {
