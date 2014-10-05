@@ -20,15 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -116,7 +108,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
     public Set<OWLDisjointClassesAxiom> splitToAnnotatedPairs() {
         List<OWLClassExpression> ops = getClassExpressionsAsList();
         if (ops.size() == 2) {
-            return Collections.singleton(this);
+            return Collections.singleton((OWLDisjointClassesAxiom)this);
         }
         Set<OWLDisjointClassesAxiom> result = new HashSet<>();
         for (int i = 0; i < ops.size() - 1; i++) {
