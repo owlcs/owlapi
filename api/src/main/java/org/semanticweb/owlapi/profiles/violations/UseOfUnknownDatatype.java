@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import com.google.common.base.Optional;
+
 /**
  * Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype
  * map, the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't
@@ -55,7 +57,7 @@ public class UseOfUnknownDatatype extends OWLProfileViolation {
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

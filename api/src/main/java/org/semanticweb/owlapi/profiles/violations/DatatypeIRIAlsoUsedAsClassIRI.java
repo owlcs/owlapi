@@ -27,6 +27,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import com.google.common.base.Optional;
+
 /**
  * Specifies that an IRI that is used for a datatype is also used for a class
  * IRI.
@@ -60,7 +62,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

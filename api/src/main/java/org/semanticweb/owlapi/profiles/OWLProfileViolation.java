@@ -30,6 +30,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
+import com.google.common.base.Optional;
+
 /**
  * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
  * part of the axiom that violates the profile rather than the complete axiom.
@@ -120,7 +122,7 @@ public abstract class OWLProfileViolation {
      * @return visitor return value
      */
     @Nonnull
-    public abstract <O> O accept(
+    public abstract <O> Optional<O> accept(
             @Nonnull OWLProfileViolationVisitorEx<O> visitor);
 
     @Nonnull

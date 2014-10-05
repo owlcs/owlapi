@@ -23,6 +23,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import com.google.common.base.Optional;
+
 /**
  * Indicates that a class expression in an axiom is not in the profile.
  * 
@@ -55,7 +57,7 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation {
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

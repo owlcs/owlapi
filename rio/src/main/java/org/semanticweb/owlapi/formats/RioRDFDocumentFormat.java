@@ -7,5 +7,6 @@ import org.openrdf.rio.RDFFormat;
  */
 public interface RioRDFDocumentFormat extends RDFDocumentFormat {
 
+    /** @return Rio format for this format */
     RDFFormat getRioFormat();
 }

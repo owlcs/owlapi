@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
-import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;

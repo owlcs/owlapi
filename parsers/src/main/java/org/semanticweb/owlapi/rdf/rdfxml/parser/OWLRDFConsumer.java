@@ -29,7 +29,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
@@ -506,8 +505,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     public void setOntologyFormat(RDFDocumentFormat format) {
         ontologyFormat = format;
         if (ontologyFormat.isPrefixOWLOntologyFormat()) {
-            tripleLogger.setPrefixManager(ontologyFormat.asPrefixOWLOntologyFormat());
-
+            tripleLogger.setPrefixManager(ontologyFormat
+                    .asPrefixOWLOntologyFormat());
         }
     }
 

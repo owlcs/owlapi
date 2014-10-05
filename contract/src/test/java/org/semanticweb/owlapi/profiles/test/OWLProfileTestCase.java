@@ -175,8 +175,9 @@ public class OWLProfileTestCase {
             violation.accept(new OWLProfileViolationVisitorEx<String>() {
 
                 @Override
-                public String doDefault(@Nonnull OWLProfileViolation object) {
-                    return object.toString();
+                public Optional<String> doDefault(
+                        @Nonnull OWLProfileViolation object) {
+                    return Optional.of(object.toString());
                 }
             });
         }

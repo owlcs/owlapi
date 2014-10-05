@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -59,7 +61,7 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation {
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

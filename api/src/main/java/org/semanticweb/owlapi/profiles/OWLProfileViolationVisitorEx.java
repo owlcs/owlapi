@@ -61,6 +61,8 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -78,7 +80,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      */
     @Deprecated
     @Nonnull
-    default T getDefaultReturnValue(@Nonnull OWLProfileViolation object) {
+    default Optional<T> getDefaultReturnValue(
+            @Nonnull OWLProfileViolation object) {
         return doDefault(object);
     }
 
@@ -90,9 +93,9 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return The default return value
      */
     @Nonnull
-    default T doDefault(
+    default Optional<T> doDefault(
             @SuppressWarnings("unused") @Nonnull OWLProfileViolation object) {
-        return null;
+        return Optional.absent();
     }
 
     /**
@@ -101,7 +104,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull IllegalPunning v) {
+    default Optional<T> visit(@Nonnull IllegalPunning v) {
         return doDefault(v);
     }
 
@@ -111,7 +114,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull CycleInDatatypeDefinition v) {
+    default Optional<T> visit(@Nonnull CycleInDatatypeDefinition v) {
         return doDefault(v);
     }
 
@@ -121,7 +124,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfBuiltInDatatypeInDatatypeDefinition v) {
+    default Optional<T> visit(
+            @Nonnull UseOfBuiltInDatatypeInDatatypeDefinition v) {
         return doDefault(v);
     }
 
@@ -131,7 +135,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull DatatypeIRIAlsoUsedAsClassIRI v) {
+    default Optional<T> visit(@Nonnull DatatypeIRIAlsoUsedAsClassIRI v) {
         return doDefault(v);
     }
 
@@ -141,7 +145,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(
+    default Optional<T> visit(
             @Nonnull UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom v) {
         return doDefault(v);
     }
@@ -152,7 +156,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonSimplePropertyInCardinalityRestriction v) {
+    default Optional<T> visit(
+            @Nonnull UseOfNonSimplePropertyInCardinalityRestriction v) {
         return doDefault(v);
     }
 
@@ -162,7 +167,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonSimplePropertyInDisjointPropertiesAxiom v) {
+    default Optional<T> visit(
+            @Nonnull UseOfNonSimplePropertyInDisjointPropertiesAxiom v) {
         return doDefault(v);
     }
 
@@ -172,7 +178,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonSimplePropertyInFunctionalPropertyAxiom v) {
+    default Optional<T> visit(
+            @Nonnull UseOfNonSimplePropertyInFunctionalPropertyAxiom v) {
         return doDefault(v);
     }
 
@@ -184,7 +191,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      */
     @Nonnull
     default
-            T
+            Optional<T>
             visit(@Nonnull UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
         return doDefault(v);
     }
@@ -195,8 +202,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T
-            visit(@Nonnull UseOfNonSimplePropertyInIrreflexivePropertyAxiom v) {
+    default Optional<T> visit(
+            @Nonnull UseOfNonSimplePropertyInIrreflexivePropertyAxiom v) {
         return doDefault(v);
     }
 
@@ -206,7 +213,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonSimplePropertyInObjectHasSelf v) {
+    default Optional<T> visit(@Nonnull UseOfNonSimplePropertyInObjectHasSelf v) {
         return doDefault(v);
     }
 
@@ -216,7 +223,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfPropertyInChainCausesCycle v) {
+    default Optional<T> visit(@Nonnull UseOfPropertyInChainCausesCycle v) {
         return doDefault(v);
     }
 
@@ -226,7 +233,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfReservedVocabularyForAnnotationPropertyIRI v) {
+    default Optional<T> visit(
+            @Nonnull UseOfReservedVocabularyForAnnotationPropertyIRI v) {
         return doDefault(v);
     }
 
@@ -236,7 +244,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfReservedVocabularyForClassIRI v) {
+    default Optional<T> visit(@Nonnull UseOfReservedVocabularyForClassIRI v) {
         return doDefault(v);
     }
 
@@ -246,7 +254,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfReservedVocabularyForDataPropertyIRI v) {
+    default Optional<T> visit(
+            @Nonnull UseOfReservedVocabularyForDataPropertyIRI v) {
         return doDefault(v);
     }
 
@@ -256,7 +265,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfReservedVocabularyForIndividualIRI v) {
+    default Optional<T>
+            visit(@Nonnull UseOfReservedVocabularyForIndividualIRI v) {
         return doDefault(v);
     }
 
@@ -266,7 +276,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfReservedVocabularyForObjectPropertyIRI v) {
+    default Optional<T> visit(
+            @Nonnull UseOfReservedVocabularyForObjectPropertyIRI v) {
         return doDefault(v);
     }
 
@@ -276,7 +287,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfReservedVocabularyForOntologyIRI v) {
+    default Optional<T> visit(@Nonnull UseOfReservedVocabularyForOntologyIRI v) {
         return doDefault(v);
     }
 
@@ -286,7 +297,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfReservedVocabularyForVersionIRI v) {
+    default Optional<T> visit(@Nonnull UseOfReservedVocabularyForVersionIRI v) {
         return doDefault(v);
     }
 
@@ -296,7 +307,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(
+    default Optional<T> visit(
             @Nonnull UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom v) {
         return doDefault(v);
     }
@@ -307,7 +318,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfUndeclaredAnnotationProperty v) {
+    default Optional<T> visit(@Nonnull UseOfUndeclaredAnnotationProperty v) {
         return doDefault(v);
     }
 
@@ -317,7 +328,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfUndeclaredClass v) {
+    default Optional<T> visit(@Nonnull UseOfUndeclaredClass v) {
         return doDefault(v);
     }
 
@@ -327,7 +338,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfUndeclaredDataProperty v) {
+    default Optional<T> visit(@Nonnull UseOfUndeclaredDataProperty v) {
         return doDefault(v);
     }
 
@@ -337,7 +348,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfUndeclaredDatatype v) {
+    default Optional<T> visit(@Nonnull UseOfUndeclaredDatatype v) {
         return doDefault(v);
     }
 
@@ -347,7 +358,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfUndeclaredObjectProperty v) {
+    default Optional<T> visit(@Nonnull UseOfUndeclaredObjectProperty v) {
         return doDefault(v);
     }
 
@@ -357,7 +368,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull InsufficientPropertyExpressions v) {
+    default Optional<T> visit(@Nonnull InsufficientPropertyExpressions v) {
         return doDefault(v);
     }
 
@@ -367,7 +378,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull InsufficientIndividuals v) {
+    default Optional<T> visit(@Nonnull InsufficientIndividuals v) {
         return doDefault(v);
     }
 
@@ -377,7 +388,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull InsufficientOperands v) {
+    default Optional<T> visit(@Nonnull InsufficientOperands v) {
         return doDefault(v);
     }
 
@@ -387,7 +398,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull EmptyOneOfAxiom v) {
+    default Optional<T> visit(@Nonnull EmptyOneOfAxiom v) {
         return doDefault(v);
     }
 
@@ -397,7 +408,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull LastPropertyInChainNotInImposedRange v) {
+    default Optional<T> visit(@Nonnull LastPropertyInChainNotInImposedRange v) {
         return doDefault(v);
     }
 
@@ -407,7 +418,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull OntologyIRINotAbsolute v) {
+    default Optional<T> visit(@Nonnull OntologyIRINotAbsolute v) {
         return doDefault(v);
     }
 
@@ -417,7 +428,8 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfDefinedDatatypeInDatatypeRestriction v) {
+    default Optional<T> visit(
+            @Nonnull UseOfDefinedDatatypeInDatatypeRestriction v) {
         return doDefault(v);
     }
 
@@ -427,7 +439,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfIllegalClassExpression v) {
+    default Optional<T> visit(@Nonnull UseOfIllegalClassExpression v) {
         return doDefault(v);
     }
 
@@ -437,7 +449,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfIllegalDataRange v) {
+    default Optional<T> visit(@Nonnull UseOfIllegalDataRange v) {
         return doDefault(v);
     }
 
@@ -447,7 +459,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfUnknownDatatype v) {
+    default Optional<T> visit(@Nonnull UseOfUnknownDatatype v) {
         return doDefault(v);
     }
 
@@ -457,7 +469,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfObjectPropertyInverse v) {
+    default Optional<T> visit(@Nonnull UseOfObjectPropertyInverse v) {
         return doDefault(v);
     }
 
@@ -467,7 +479,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonSuperClassExpression v) {
+    default Optional<T> visit(@Nonnull UseOfNonSuperClassExpression v) {
         return doDefault(v);
     }
 
@@ -477,7 +489,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonSubClassExpression v) {
+    default Optional<T> visit(@Nonnull UseOfNonSubClassExpression v) {
         return doDefault(v);
     }
 
@@ -487,7 +499,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonEquivalentClassExpression v) {
+    default Optional<T> visit(@Nonnull UseOfNonEquivalentClassExpression v) {
         return doDefault(v);
     }
 
@@ -497,7 +509,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonAtomicClassExpression v) {
+    default Optional<T> visit(@Nonnull UseOfNonAtomicClassExpression v) {
         return doDefault(v);
     }
 
@@ -507,7 +519,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull LexicalNotInLexicalSpace v) {
+    default Optional<T> visit(@Nonnull LexicalNotInLexicalSpace v) {
         return doDefault(v);
     }
 
@@ -517,7 +529,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull OntologyVersionIRINotAbsolute v) {
+    default Optional<T> visit(@Nonnull OntologyVersionIRINotAbsolute v) {
         return doDefault(v);
     }
 
@@ -527,7 +539,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfAnonymousIndividual v) {
+    default Optional<T> visit(@Nonnull UseOfAnonymousIndividual v) {
         return doDefault(v);
     }
 
@@ -537,7 +549,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfIllegalAxiom v) {
+    default Optional<T> visit(@Nonnull UseOfIllegalAxiom v) {
         return doDefault(v);
     }
 
@@ -547,7 +559,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfIllegalFacetRestriction v) {
+    default Optional<T> visit(@Nonnull UseOfIllegalFacetRestriction v) {
         return doDefault(v);
     }
 
@@ -557,7 +569,7 @@ public interface OWLProfileViolationVisitorEx<T> {
      * @return visitor return value
      */
     @Nonnull
-    default T visit(@Nonnull UseOfNonAbsoluteIRI v) {
+    default Optional<T> visit(@Nonnull UseOfNonAbsoluteIRI v) {
         return doDefault(v);
     }
 }

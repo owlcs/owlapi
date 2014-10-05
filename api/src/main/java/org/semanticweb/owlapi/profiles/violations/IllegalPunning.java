@@ -23,6 +23,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import com.google.common.base.Optional;
+
 /**
  * Punning between properties is not allowed.
  * 
@@ -60,7 +62,7 @@ public class IllegalPunning extends OWLProfileViolation {
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

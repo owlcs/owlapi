@@ -19,8 +19,9 @@ import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 
 /**
- * An Abstract Document Format for Prefix aware RDF formats.
- * Renamed from AbstractDFDocumentFormat
+ * An Abstract Document Format for Prefix aware RDF formats. Renamed from
+ * AbstractDFDocumentFormat
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
@@ -39,10 +40,7 @@ public abstract class AbstractRDFPrefixDocumentFormat extends
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();
     }
 
-    /**
-     * @param error
-     *        error to add to the error set
-     */
+    @Override
     public void addError(RDFResourceParseError error) {
         errors.add(error);
     }

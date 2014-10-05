@@ -616,6 +616,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return ontologyFormatsByOntology.get(ontologyID);
     }
 
+    @Nonnull
     @Override
     public OWLOntology createOntology(@Nonnull OWLOntologyID ontologyID)
             throws OWLOntologyCreationException {
@@ -682,23 +683,29 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public OWLOntology copyOntology(OWLOntology toCopy, OntologyCopy settings)
-            throws OWLOntologyCreationException {
+    public OWLOntology copyOntology(@Nonnull OWLOntology toCopy,
+            @Nonnull OntologyCopy settings) throws OWLOntologyCreationException {
         checkNotNull(toCopy);
         checkNotNull(settings);
         OWLOntology toReturn = null;
-        if (settings == OntologyCopy.MOVE) {
-            toReturn = toCopy;
-            ontologiesByID.put(toReturn.getOntologyID(), toReturn);
-        } else if (settings == OntologyCopy.SHALLOW
-                || settings == OntologyCopy.DEEP) {
-            toReturn = createOntology(toCopy.getOntologyID());
-            for (AxiomType<?> type : AxiomType.AXIOM_TYPES) {
-                addAxioms(toReturn, toCopy.getAxioms(type));
-            }
-            for (OWLAnnotation a : toCopy.getAnnotations()) {
-                applyChange(new AddOntologyAnnotation(toReturn, a));
-            }
+        switch (settings) {
+            case MOVE:
+                toReturn = toCopy;
+                ontologiesByID.put(toReturn.getOntologyID(), toReturn);
+                break;
+            case SHALLOW:
+            case DEEP:
+                toReturn = createOntology(toCopy.getOntologyID());
+                for (AxiomType<?> type : AxiomType.AXIOM_TYPES) {
+                    addAxioms(toReturn, toCopy.getAxioms(type));
+                }
+                for (OWLAnnotation a : toCopy.getAnnotations()) {
+                    applyChange(new AddOntologyAnnotation(toReturn, a));
+                }
+                break;
+            default:
+                throw new OWLRuntimeException("settings value not understood: "
+                        + settings);
         }
         // toReturn now initialized
         OWLOntologyManager m = toCopy.getOWLOntologyManager();
