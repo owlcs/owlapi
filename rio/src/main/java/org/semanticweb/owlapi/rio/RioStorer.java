@@ -233,12 +233,12 @@ public class RioStorer extends AbstractOWLStorer {
         // example, it could store the triples in memory without serialising
         // them to any particular format.
         if (rioHandler == null) {
-            if (!(format instanceof RioRDFPrefixDocumentFormat)) {
+            if (!(format instanceof RioRDFDocumentFormat)) {
                 throw new OWLOntologyStorageException(
                         "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
                                 + format);
             }
-            final RioRDFPrefixDocumentFormat rioFormat = (RioRDFPrefixDocumentFormat) format;
+            final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
             if (format.isTextual()) {
                 Writer writer = new BufferedWriter(new OutputStreamWriter(
                         outputStream, StandardCharsets.UTF_8));
