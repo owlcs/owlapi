@@ -336,17 +336,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             addPairwise(axiom, axiom.getClassExpressions(),
                     OWL_EQUIVALENT_CLASS.getIRI());
         } else {
-<<<<<<< version5
-            // see http://www.w3.org/TR/2009/REC-owl2-mapping-to-rdf-20091027/
-            List<OWLClassExpression> list = axiom.getClassExpressionsAsList();
-            int count = list.size();
-            for (int i = 0; i + 1 < count; i++) {
-                addTriple(list.get(i), OWL_EQUIVALENT_CLASS.getIRI(),
-                        list.get(i + 1));
-=======
             for (OWLEquivalentClassesAxiom ax : axiom.splitToAnnotatedPairs()) {
                 ax.accept(this);
->>>>>>> a8be4a9 Address some of the roundtrip issues in #299
             }
         }
     }

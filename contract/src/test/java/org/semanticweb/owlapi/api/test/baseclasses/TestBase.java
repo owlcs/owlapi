@@ -161,25 +161,34 @@ public abstract class TestBase {
                 // http://www.w3.org/TR/owl2-mapping-to-rdf/#Axioms_that_are_Translated_to_Multiple_Triples
                 for (OWLAxiom ax : new ArrayList<>(axioms1)) {
                     if (ax instanceof OWLEquivalentClassesAxiom) {
-                        if (((OWLEquivalentClassesAxiom) ax)
-                                .getClassExpressions().size() > 2) {
-                            axioms1.remove(ax);
-                            axioms2.removeAll(((OWLEquivalentClassesAxiom) ax)
-                                    .splitToAnnotatedPairs());
+                        OWLEquivalentClassesAxiom ax2 = (OWLEquivalentClassesAxiom) ax;
+                        if (ax2.getClassExpressions().size() > 2) {
+                            Set<OWLEquivalentClassesAxiom> pairs = ax2
+                                    .splitToAnnotatedPairs();
+                            if (axioms2.containsAll(pairs)) {
+                                axioms1.remove(ax);
+                                axioms2.removeAll(pairs);
+                            }
                         }
                     } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
-                        if (((OWLEquivalentDataPropertiesAxiom) ax)
-                                .getProperties().size() > 2) {
-                            axioms1.remove(ax);
-                            axioms2.removeAll(((OWLEquivalentDataPropertiesAxiom) ax)
-                                    .splitToAnnotatedPairs());
+                        OWLEquivalentDataPropertiesAxiom ax2 = (OWLEquivalentDataPropertiesAxiom) ax;
+                        if (ax2.getProperties().size() > 2) {
+                            Set<OWLEquivalentDataPropertiesAxiom> pairs = ax2
+                                    .splitToAnnotatedPairs();
+                            if (axioms2.containsAll(pairs)) {
+                                axioms1.remove(ax);
+                                axioms2.removeAll(pairs);
+                            }
                         }
                     } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
-                        if (((OWLEquivalentObjectPropertiesAxiom) ax)
-                                .getProperties().size() > 2) {
-                            axioms1.remove(ax);
-                            axioms2.removeAll(((OWLEquivalentObjectPropertiesAxiom) ax)
-                                    .splitToAnnotatedPairs());
+                        OWLEquivalentObjectPropertiesAxiom ax2 = (OWLEquivalentObjectPropertiesAxiom) ax;
+                        if (ax2.getProperties().size() > 2) {
+                            Set<OWLEquivalentObjectPropertiesAxiom> pairs = ax2
+                                    .splitToAnnotatedPairs();
+                            if (axioms2.containsAll(pairs)) {
+                                axioms1.remove(ax);
+                                axioms2.removeAll(pairs);
+                            }
                         }
                     }
                 }
