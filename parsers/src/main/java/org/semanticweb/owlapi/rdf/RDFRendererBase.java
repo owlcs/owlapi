@@ -472,7 +472,7 @@ public abstract class RDFRendererBase {
         return generalAxioms;
     }
 
-    private void renderOntologyHeader() throws IOException {
+    protected void renderOntologyHeader() throws IOException {
         graph = new RDFGraph();
         OWLOntologyID ontID = ontology.getOntologyID();
         RDFResource ontologyHeaderNode = createOntologyHeaderNode();

@@ -74,7 +74,7 @@ import com.google.common.base.Optional;
 @SuppressWarnings({ "javadoc" })
 public abstract class TestBase {
 
-    private static final Logger logger = LoggerFactory
+    protected static final Logger logger = LoggerFactory
             .getLogger(TestBase.class);
     @Nonnull
     protected final File RESOURCES = resources();
@@ -426,7 +426,7 @@ public abstract class TestBase {
             @Nonnull OWLDocumentFormat format)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
-        OWLDocumentFormat fromFormat = m.getOntologyFormat(ont);
+        OWLDocumentFormat fromFormat = ont.getFormat();
         if (fromFormat.isPrefixOWLOntologyFormat()
                 && format.isPrefixOWLOntologyFormat()) {
             PrefixDocumentFormat fromPrefixFormat = fromFormat
@@ -436,6 +436,11 @@ public abstract class TestBase {
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
         }
         format.setAddMissingTypes(true);
+        if (logger.isTraceEnabled()) {
+            StringDocumentTarget targetForDebug = new StringDocumentTarget();
+            m.saveOntology(ont, format, targetForDebug);
+            logger.trace(targetForDebug.toString());
+        }
         m.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()
@@ -444,6 +449,13 @@ public abstract class TestBase {
                                 "string:ontology", format, null),
                         new OWLOntologyLoaderConfiguration()
                                 .setReportStackTraces(true));
+        if (logger.isTraceEnabled()) {
+            logger.trace("TestBase.roundTripOntology() ontology parsed");
+            Set<OWLAxiom> axioms = ont2.getAxioms();
+            for (OWLAxiom ax : axioms) {
+                logger.trace(ax.toString());
+            }
+        }
         equal(ont, ont2);
         return ont2;
     }

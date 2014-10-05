@@ -17,10 +17,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,8 +31,14 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -39,6 +47,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class RDFGraph implements Serializable {
 
+    private static final Set<IRI> skippedPredicates = Sets
+            .newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<>();
@@ -46,6 +56,8 @@ public class RDFGraph implements Serializable {
     private final Set<RDFResourceBlankNode> rootAnonymousNodes = new HashSet<>();
     @Nonnull
     private final Set<RDFTriple> triples = new HashSet<>();
+    @Nonnull
+    private final Map<RDFNode, RDFNode> remappedNodes = new HashMap<>();
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any
@@ -87,12 +99,61 @@ public class RDFGraph implements Serializable {
             boolean sort) {
         Set<RDFTriple> set = triplesBySubject.get(subject);
         if (set == null) {
+            // check if the node is remapped
+            RDFNode rdfNode = remappedNodes.get(subject);
+            if (rdfNode == null) {
             return Collections.emptyList();
+        }
+            // else return the triples for the remapped node
+            return getTriplesForSubject(rdfNode, sort);
         }
         if (!sort) {
             return set;
         }
         return CollectionFactory.sortOptionallyComparables(set);
+    }
+
+    /**
+     * @return for each triple with a blank node object that is shared with
+     *         other triples, compute a remapping of the node.
+     */
+    public Map<RDFTriple, RDFResourceBlankNode>
+            computeRemappingForSharedNodes() {
+        Map<RDFTriple, RDFResourceBlankNode> toReturn = new HashMap<>();
+        Map<RDFNode, List<RDFTriple>> sharers = new HashMap<>();
+        for (RDFTriple t : triples) {
+            if (t.getObject().isAnonymous()
+                    && notInSkippedPredicates(t.getPredicate())) {
+                List<RDFTriple> list = sharers.get(t.getObject());
+                if (list == null) {
+                    list = new ArrayList<>(2);
+                    sharers.put(t.getObject(), list);
+                }
+                list.add(t);
+            }
+        }
+        for (Map.Entry<RDFNode, List<RDFTriple>> e : sharers.entrySet()) {
+            if (e.getValue().size() > 1) {
+                // found reused blank nodes
+                for (RDFTriple t : e.getValue()) {
+                    RDFResourceBlankNode bnode = new RDFResourceBlankNode(
+                            IRI.create(NodeID.nextAnonymousIRI()));
+                    remappedNodes.put(bnode, e.getKey());
+                    toReturn.put(t, bnode);
+                }
+            }
+        }
+        return toReturn;
+    }
+
+    /**
+     * @param predicate
+     *        predicate to check for inclusion
+     * @return true if the predicate IRI is not in the set of predicates that
+     *         should be skipped from blank node reuse analysis.
+     */
+    private static boolean notInSkippedPredicates(RDFResourceIRI predicate) {
+        return !skippedPredicates.contains(predicate.getIRI());
     }
 
     /** @return root anonymous nodes */
