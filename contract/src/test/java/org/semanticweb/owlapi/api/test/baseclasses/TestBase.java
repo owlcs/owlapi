@@ -60,6 +60,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
 
@@ -71,6 +73,8 @@ import com.google.common.base.Optional;
 @SuppressWarnings({ "javadoc", "null" })
 public abstract class TestBase {
 
+    protected static final Logger logger = LoggerFactory
+            .getLogger(TestBase.class);
     @Nonnull
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
@@ -400,7 +404,11 @@ public abstract class TestBase {
         if (format instanceof RDFDocumentFormat) {
             format.setAddMissingTypes(addMissingTypes);
         }
-        // m.saveOntology(ont, format, new SystemOutDocumentTarget());
+        if (logger.isTraceEnabled()) {
+            StringDocumentTarget targetForDebug = new StringDocumentTarget();
+            m.saveOntology(ont, format, targetForDebug);
+            logger.trace(targetForDebug.toString());
+        }
         m.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()
@@ -411,11 +419,13 @@ public abstract class TestBase {
                                 format, null),
                         new OWLOntologyLoaderConfiguration()
                                 .setReportStackTraces(true));
-        // System.out.println("TestBase.roundTripOntology() ontology parsed");
-        // Set<OWLAxiom> axioms = ont2.getAxioms();
-        // for (OWLAxiom ax : axioms) {
-        // System.out.println(ax);
-        // }
+        if (logger.isTraceEnabled()) {
+            logger.trace("TestBase.roundTripOntology() ontology parsed");
+            Set<OWLAxiom> axioms = ont2.getAxioms();
+            for (OWLAxiom ax : axioms) {
+                logger.trace(ax.toString());
+            }
+        }
         equal(ont, ont2);
         return ont2;
     }

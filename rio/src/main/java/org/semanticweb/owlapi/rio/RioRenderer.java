@@ -38,6 +38,7 @@ package org.semanticweb.owlapi.rio;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -49,6 +50,7 @@ import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -56,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
@@ -80,6 +83,7 @@ public class RioRenderer extends RDFRendererBase {
     @Nonnull
     private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
+    private Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
 
     /**
      * @param ontology
@@ -152,6 +156,18 @@ public class RioRenderer extends RDFRendererBase {
         writeComment("");
     }
 
+    @Override
+    protected void renderOntologyHeader() throws IOException {
+        super.renderOntologyHeader();
+        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
+    }
+
+    @Override
+    protected void createGraph(Set<? extends OWLObject> objects) {
+        super.createGraph(objects);
+        triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
+    }
+
     /**
      * Renders the triples whose subject is the specified node
      * 
@@ -173,22 +189,39 @@ public class RioRenderer extends RDFRendererBase {
             }
         }
         for (final RDFTriple triple : triples) {
+            RDFTriple tripleToRender = triple;
+            RDFResourceBlankNode remappedNode = null;
+            if (triplesWithRemappedNodes != null) {
+                remappedNode = triplesWithRemappedNodes.get(tripleToRender);
+            }
+            if (remappedNode != null) {
+                tripleToRender = new RDFTriple(tripleToRender.getSubject(),
+                        tripleToRender.getPredicate(), remappedNode);
+            }
+            if (!node.equals(tripleToRender.getSubject())) {
+                // the node will not match the triple subject if the node itself
+                // is a remapped blank node
+                // in which case the triple subject needs remapping as well
+                tripleToRender = new RDFTriple(node,
+                        tripleToRender.getPredicate(),
+                        tripleToRender.getObject());
+            }
             try {
-                if (!renderedStatements.contains(triple)) {
-                    renderedStatements.add(triple);
+                if (!renderedStatements.contains(tripleToRender)) {
+                    renderedStatements.add(tripleToRender);
                     // then we go back and get context-sensitive statements and
                     // actually pass those to the RDFHandler
                     for (Statement statement : RioUtils.tripleAsStatements(
-                            triple, contexts)) {
+                            tripleToRender, contexts)) {
                         writer.handleStatement(statement);
-                        if (triple.getObject() instanceof RDFResource) {
-                            render((RDFResource) triple.getObject());
+                        if (tripleToRender.getObject() instanceof RDFResource) {
+                            render((RDFResource) tripleToRender.getObject());
                         }
                     }
                 } else if (logger.isTraceEnabled()) {
                     logger.trace(
                             "not printing duplicate statement, or recursing on its object: {}",
-                            triple);
+                            tripleToRender);
                 }
             } catch (RDFHandlerException e) {
                 throw new IOException(e);
