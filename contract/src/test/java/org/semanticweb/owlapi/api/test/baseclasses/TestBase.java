@@ -30,7 +30,6 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.FileDocumentSource;
@@ -306,9 +305,7 @@ public abstract class TestBase {
             PrefixDocumentFormat toPrefixFormat = (PrefixDocumentFormat) format;
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
         }
-        if (format instanceof AbstractRDFDocumentFormat) {
-            ((AbstractRDFDocumentFormat) format).setAddMissingTypes(false);
-        }
+        format.setAddMissingTypes(true);
         m.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()
