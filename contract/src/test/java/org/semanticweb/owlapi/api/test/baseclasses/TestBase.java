@@ -19,6 +19,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,26 +33,31 @@ import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,44 +161,8 @@ public abstract class TestBase {
             AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(
                     df);
             axioms2 = normaliser2.getNormalisedAxioms(axioms2);
-            if (!axioms1.equals(axioms2)) {
-                // remove axioms that differ only because of n-ary equivalence
-                // axioms
-                // http://www.w3.org/TR/owl2-mapping-to-rdf/#Axioms_that_are_Translated_to_Multiple_Triples
-                for (OWLAxiom ax : new ArrayList<>(axioms1)) {
-                    if (ax instanceof OWLEquivalentClassesAxiom) {
-                        OWLEquivalentClassesAxiom ax2 = (OWLEquivalentClassesAxiom) ax;
-                        if (ax2.getClassExpressions().size() > 2) {
-                            Set<OWLEquivalentClassesAxiom> pairs = ax2
-                                    .splitToAnnotatedPairs();
-                            if (axioms2.containsAll(pairs)) {
-                                axioms1.remove(ax);
-                                axioms2.removeAll(pairs);
-                            }
-                        }
-                    } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
-                        OWLEquivalentDataPropertiesAxiom ax2 = (OWLEquivalentDataPropertiesAxiom) ax;
-                        if (ax2.getProperties().size() > 2) {
-                            Set<OWLEquivalentDataPropertiesAxiom> pairs = ax2
-                                    .splitToAnnotatedPairs();
-                            if (axioms2.containsAll(pairs)) {
-                                axioms1.remove(ax);
-                                axioms2.removeAll(pairs);
-                            }
-                        }
-                    } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
-                        OWLEquivalentObjectPropertiesAxiom ax2 = (OWLEquivalentObjectPropertiesAxiom) ax;
-                        if (ax2.getProperties().size() > 2) {
-                            Set<OWLEquivalentObjectPropertiesAxiom> pairs = ax2
-                                    .splitToAnnotatedPairs();
-                            if (axioms2.containsAll(pairs)) {
-                                axioms1.remove(ax);
-                                axioms2.removeAll(pairs);
-                            }
-                        }
-                    }
-                }
-            }
+            applyEquivalentsRoundtrip(axioms1, axioms2, ont2
+                    .getOWLOntologyManager().getOntologyFormat(ont2));
             if (!axioms1.equals(axioms2)) {
                 int counter = 0;
                 StringBuilder sb = new StringBuilder();
@@ -247,6 +217,93 @@ public abstract class TestBase {
         }
         // assertEquals(axioms1, axioms2);
         return true;
+    }
+
+    /**
+     * equivalent entity axioms with more than two entities are broken up by RDF
+     * syntaxes. Ensure they are still recognized as correct roundtripping
+     */
+    public void applyEquivalentsRoundtrip(Set<OWLAxiom> axioms1,
+            Set<OWLAxiom> axioms2, OWLDocumentFormat destination) {
+        if (!axioms1.equals(axioms2)) {
+            // remove axioms that differ only because of n-ary equivalence
+            // axioms
+            // http://www.w3.org/TR/owl2-mapping-to-rdf/#Axioms_that_are_Translated_to_Multiple_Triples
+            for (OWLAxiom ax : new ArrayList<>(axioms1)) {
+                if (ax instanceof OWLEquivalentClassesAxiom) {
+                    OWLEquivalentClassesAxiom ax2 = (OWLEquivalentClassesAxiom) ax;
+                    if (ax2.getClassExpressions().size() > 2) {
+                        Set<OWLEquivalentClassesAxiom> pairs = ax2
+                                .splitToAnnotatedPairs();
+                        if (removeIfContainsAll(axioms2, pairs, destination)) {
+                            axioms1.remove(ax);
+                            axioms2.removeAll(pairs);
+                        }
+                    }
+                } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
+                    OWLEquivalentDataPropertiesAxiom ax2 = (OWLEquivalentDataPropertiesAxiom) ax;
+                    if (ax2.getProperties().size() > 2) {
+                        Set<OWLEquivalentDataPropertiesAxiom> pairs = ax2
+                                .splitToAnnotatedPairs();
+                        if (removeIfContainsAll(axioms2, pairs, destination)) {
+                            axioms1.remove(ax);
+                            axioms2.removeAll(pairs);
+                        }
+                    }
+                } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
+                    OWLEquivalentObjectPropertiesAxiom ax2 = (OWLEquivalentObjectPropertiesAxiom) ax;
+                    if (ax2.getProperties().size() > 2) {
+                        Set<OWLEquivalentObjectPropertiesAxiom> pairs = ax2
+                                .splitToAnnotatedPairs();
+                        if (removeIfContainsAll(axioms2, pairs, destination)) {
+                            axioms1.remove(ax);
+                            axioms2.removeAll(pairs);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean
+            removeIfContainsAll(Collection<OWLAxiom> axioms,
+                    Collection<? extends OWLAxiom> others,
+                    OWLDocumentFormat destination) {
+        if (axioms.containsAll(others)) {
+            axioms.removeAll(others);
+            return true;
+        }
+        // some syntaxes attach xsd:string to annotation values that did not
+        // have it previously
+        if (!(destination instanceof RDFJsonLDDocumentFormat)) {
+            return false;
+        }
+        Set<OWLAxiom> toRemove = new HashSet<>();
+        for (OWLAxiom ax : others) {
+            OWLAxiom reannotated = ax.getAxiomWithoutAnnotations()
+                    .getAnnotatedAxiom(reannotate(ax.getAnnotations()));
+            toRemove.add(reannotated);
+        }
+        axioms.removeAll(toRemove);
+        return true;
+    }
+
+    private Set<OWLAnnotation> reannotate(Set<OWLAnnotation> anns) {
+        OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING
+                .getIRI());
+        Set<OWLAnnotation> toReturn = new HashSet<>();
+        for (OWLAnnotation a : anns) {
+            Optional<OWLLiteral> asLiteral = a.getValue().asLiteral();
+            if (asLiteral.isPresent() && asLiteral.get().isRDFPlainLiteral()) {
+                OWLAnnotation replacement = df.getOWLAnnotation(
+                        a.getProperty(), df.getOWLLiteral(asLiteral.get()
+                                .getLiteral(), stringType));
+                toReturn.add(replacement);
+            } else {
+                toReturn.add(a);
+            }
+        }
+        return toReturn;
     }
 
     @Nonnull
