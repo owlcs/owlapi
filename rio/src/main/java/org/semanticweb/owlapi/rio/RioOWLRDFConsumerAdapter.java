@@ -108,7 +108,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
             // it is not mandatory for BNode.stringValue() to return a string
             // prefixed with the turtle blank node syntax, so we check here to
             // make sure
-            subjectString = "#genid-nodeid-" + subjectString;
+            subjectString = "_:genid-nodeid-" + subjectString;
         } else {
             subjectString = st.getSubject().stringValue();
         }
@@ -117,7 +117,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
             // it is not mandatory for BNode.stringValue() to return a string
             // prefixed with the turtle blank node syntax, so we check here to
             // make sure
-            objectString = "#genid-nodeid-" + objectString;
+            objectString = "_:genid-nodeid-" + objectString;
         } else {
             objectString = st.getObject().stringValue();
         }
