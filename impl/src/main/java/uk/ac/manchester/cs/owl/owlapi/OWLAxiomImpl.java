@@ -55,7 +55,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
-            this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
+            if (annotations.size() == 1) {
+                this.annotations = Collections.singletonList(annotations
+                        .iterator().next());
+            } else {
+                this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
+            }
         } else {
             this.annotations = Collections.emptyList();
         }
