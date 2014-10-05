@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
 /**

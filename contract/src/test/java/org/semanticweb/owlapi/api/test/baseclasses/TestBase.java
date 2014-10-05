@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -32,6 +33,7 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -57,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -150,69 +153,76 @@ public abstract class TestBase {
                 .getNormalisedAxioms(ont1.getAxioms());
         axioms2 = new AnonymousIndividualsNormaliser(df)
                 .getNormalisedAxioms(ont2.getAxioms());
+        OWLDocumentFormat ontologyFormat = ont2.getOWLOntologyManager()
+                .getOntologyFormat(ont2);
+        applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
+        if (ontologyFormat instanceof ManchesterSyntaxDocumentFormat) {
+            // drop GCIs from the expected axioms, they won't be there
+            Iterator<OWLAxiom> it = axioms1.iterator();
+            while (it.hasNext()) {
+                OWLAxiom next = it.next();
+                if (next instanceof OWLSubClassOfAxiom) {
+                    if (((OWLSubClassOfAxiom) next).getSubClass().isAnonymous()
+                            && ((OWLSubClassOfAxiom) next).getSuperClass()
+                                    .isAnonymous()) {
+                        it.remove();
+                    }
+                }
+            }
+        }
         PlainLiteralTypeFoldingAxiomSet a = new PlainLiteralTypeFoldingAxiomSet(
                 axioms1);
         PlainLiteralTypeFoldingAxiomSet b = new PlainLiteralTypeFoldingAxiomSet(
                 axioms2);
         if (!a.equals(b)) {
-            AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(
-                    df);
-            axioms1 = normaliser1.getNormalisedAxioms(axioms1);
-            AnonymousIndividualsNormaliser normaliser2 = new AnonymousIndividualsNormaliser(
-                    df);
-            axioms2 = normaliser2.getNormalisedAxioms(axioms2);
-            applyEquivalentsRoundtrip(axioms1, axioms2, ont2
-                    .getOWLOntologyManager().getOntologyFormat(ont2));
-            if (!axioms1.equals(axioms2)) {
-                int counter = 0;
-                StringBuilder sb = new StringBuilder();
-                Set<OWLAxiom> leftOnly = new HashSet<>();
-                Set<OWLAxiom> rightOnly = new HashSet<>();
-                for (OWLAxiom ax : a) {
-                    if (!b.contains(ax)) {
-                        if (!isIgnorableAxiom(ax, false)) {
-                            leftOnly.add(ax);
-                            sb.append("Rem axiom: ");
-                            sb.append(ax);
-                            sb.append('\n');
-                            counter++;
-                        }
+            int counter = 0;
+            StringBuilder sb = new StringBuilder();
+            Set<OWLAxiom> leftOnly = new HashSet<>();
+            Set<OWLAxiom> rightOnly = new HashSet<>();
+            for (OWLAxiom ax : a) {
+                if (!b.contains(ax)) {
+                    if (!isIgnorableAxiom(ax, false)) {
+                        leftOnly.add(ax);
+                        sb.append("Rem axiom: ");
+                        sb.append(ax);
+                        sb.append('\n');
+                        counter++;
                     }
                 }
-                for (OWLAxiom ax : b) {
-                    if (!a.contains(ax)) {
-                        if (!isIgnorableAxiom(ax, true)) {
-                            rightOnly.add(ax);
-                            sb.append("Add axiom: ");
-                            sb.append(ax);
-                            sb.append('\n');
-                            counter++;
-                        }
+            }
+            for (OWLAxiom ax : b) {
+                if (!a.contains(ax)) {
+                    if (!isIgnorableAxiom(ax, true)) {
+                        rightOnly.add(ax);
+                        sb.append("Add axiom: ");
+                        sb.append(ax);
+                        sb.append('\n');
+                        counter++;
                     }
                 }
-                if (counter > 0) {
-                    // a test fails on OpenJDK implementations because of
-                    // ordering
-                    // testing here if blank node ids are the only difference
-                    boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly,
-                            rightOnly);
-                    if (fixed) {
-                        if (logger.isTraceEnabled()) {
-                            String x = getClass().getSimpleName()
-                                    + " roundTripOntology() Failing to match axioms: \n"
-                                    + sb + topOfStackTrace();
-                            logger.trace(x);
-                        }
-                        fail(getClass().getSimpleName()
+            }
+            if (counter > 0) {
+                // a test fails on OpenJDK implementations because of
+                // ordering
+                // testing here if blank node ids are the only difference
+                boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly,
+                        rightOnly);
+                if (fixed) {
+                    if (logger.isTraceEnabled()) {
+                        String x = getClass().getSimpleName()
                                 + " roundTripOntology() Failing to match axioms: \n"
-                                + sb);
-                        return false;
-                    } else {
-                        return true;
+                                + sb + topOfStackTrace();
+                        logger.trace(x);
                     }
+                    fail(getClass().getSimpleName()
+                            + " roundTripOntology() Failing to match axioms: \n"
+                            + sb);
+                    return false;
                 } else {
                     return true;
                 }
+            } else {
+                return true;
             }
         }
         // assertEquals(axioms1, axioms2);
