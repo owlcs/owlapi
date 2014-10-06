@@ -103,6 +103,11 @@ public class SmallSet<T> extends AbstractSet<T> {
             int cp = 1;
 
             @Override
+            public void remove() {
+                throw new UnsupportedOperationException("remove");
+            }
+
+            @Override
             public boolean hasNext() {
                 switch (cp) {
                     case 1:
@@ -145,6 +150,7 @@ public class SmallSet<T> extends AbstractSet<T> {
                 throw new IllegalStateException("Iterator pointing past end of virtual array");
             }
         };
+
 
 
     }
