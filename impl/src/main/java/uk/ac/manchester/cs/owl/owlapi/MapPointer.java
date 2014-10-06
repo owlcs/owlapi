@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
+import uk.ac.manchester.cs.owl.owlapi.util.collections.SmallSet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -286,11 +287,18 @@ public class MapPointer<K, V extends OWLAxiom> {
             return true;
         }
         if(set.size() == 1) {
-           if(set.contains(v)) {
-               return false;
-           } else {
-               set = makeSet(set);
-               map.put(k,set);
+            if (set.contains(v)) {
+                return false;
+            } else {
+                set = new SmallSet<>(set);
+                map.put(k, set);
+            }
+        } else if (set.size() == 3) {
+            if (set.contains(v)) {
+                return false;
+            } else {
+                set = makeSet(set);
+                map.put(k,set);
            }
         }
         boolean added = set.add(v);
@@ -380,7 +388,10 @@ public class MapPointer<K, V extends OWLAxiom> {
                         totalInUse += set.size();
                         totalAllocated += vs.capacity();
                     }
-
+                } else if (set instanceof SmallSet<?>) {
+                    SmallSet<?> smallSet = (SmallSet<?>) set;
+                    totalInUse += set.size();
+                    totalAllocated += 3;
                 } else {
                     synchronized (MapPointer.class) {
                         totalInUse += 1;
