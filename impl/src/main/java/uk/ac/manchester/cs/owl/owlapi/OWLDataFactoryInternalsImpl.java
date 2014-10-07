@@ -12,19 +12,22 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.lang.ref.WeakReference;
-
-import javax.annotation.Nonnull;
-
+import com.google.common.collect.Interner;
+import com.google.common.collect.Interners;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.WeakIndexCache;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.lang.ref.WeakReference;
 
 /** @author ignazio */
 public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
@@ -67,6 +70,9 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
 
     @Nonnull
+    transient final private Interner<String> languageTagInterner;
+
+    @Nonnull
     protected final <V extends OWLEntity> BuildableWeakIndexCache<V>
             buildCache() {
         return new BuildableWeakIndexCache<>();
@@ -84,6 +90,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         datatypesByURI = buildCache();
         individualsByURI = buildCache();
         annotationPropertiesByURI = buildCache();
+        languageTagInterner = Interners.newWeakInterner();
     }
 
     @SuppressWarnings("unchecked")
@@ -186,5 +193,18 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
         return annotationPropertiesByURI.cache(iri,
                 Buildable.OWLANNOTATIONPROPERTY);
+    }
+
+    /*
+       Use a guava weak String interner for language tags.
+     */
+
+    @Override
+    public OWLLiteral getOWLLiteral(String literal, @Nullable String lang) {
+        if (lang == null) {
+            lang = "";
+        }
+        lang = languageTagInterner.intern(lang.trim().toLowerCase());
+        return super.getOWLLiteral(literal, lang);
     }
 }
