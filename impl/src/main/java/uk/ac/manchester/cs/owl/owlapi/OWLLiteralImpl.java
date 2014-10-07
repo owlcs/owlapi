@@ -54,7 +54,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
+public class OWLLiteralImpl extends OWLObjectImplWithEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;

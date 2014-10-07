@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
+public class OWLFacetRestrictionImpl extends OWLObjectImplWithEntityAndAnonCaching implements
         OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;

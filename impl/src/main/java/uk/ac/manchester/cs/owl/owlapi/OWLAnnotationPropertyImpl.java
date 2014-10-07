@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
+public class OWLAnnotationPropertyImpl extends OWLObjectImplWithEntityAndAnonCaching implements
         OWLAnnotationProperty {
 
     private static final long serialVersionUID = 40000L;

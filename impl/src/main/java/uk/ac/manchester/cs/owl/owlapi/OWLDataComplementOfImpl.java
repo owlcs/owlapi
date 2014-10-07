@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataComplementOfImpl extends OWLObjectImpl implements
+public class OWLDataComplementOfImpl extends OWLObjectImplWithEntityAndAnonCaching implements
         OWLDataComplementOf {
 
     private static final long serialVersionUID = 40000L;

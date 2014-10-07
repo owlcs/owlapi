@@ -12,8 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import org.semanticweb.owlapi.io.ToStringRenderer;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.HashCode;
+import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
@@ -25,33 +33,14 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.io.ToStringRenderer;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.HashCode;
-import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImpl implements OWLObject, Serializable {
+public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObject, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
@@ -60,9 +49,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
             .emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
-    @Nullable
-    private transient WeakReference<Set<OWLEntity>> signature = null;
-    private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
     @Nonnull
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
@@ -70,42 +56,16 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private void readObject(java.io.ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
-        signature = null;
-        anons = null;
     }
 
-    @Override
-    public Set<OWLEntity> getSignature() {
-        Set<OWLEntity> set = null;
-        if (signature != null) {
-            set = verifyNotNull(signature).get();
-        }
-        if (set == null) {
-            set = new HashSet<>();
-            Set<OWLAnonymousIndividual> anon = new HashSet<>();
-            OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(
-                    set, anon);
-            accept(collector);
-            signature = new WeakReference<>(set);
-            anons = new WeakReference<>(anon);
-        }
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(set);
-    }
+
 
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
         return getSignature().contains(owlEntity);
     }
 
-    @Override
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        if (signature == null || verifyNotNull(signature).get() == null) {
-            getSignature();
-        }
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(anons.get());
-    }
+
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
@@ -199,8 +159,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
-        if (o instanceof OWLObjectImpl) {
-            otherTypeIndex = ((OWLObjectImpl) o).index();
+        if (o instanceof OWLObjectImplWithoutEntityAndAnonCaching) {
+            otherTypeIndex = ((OWLObjectImplWithoutEntityAndAnonCaching) o).index();
         } else {
             otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }

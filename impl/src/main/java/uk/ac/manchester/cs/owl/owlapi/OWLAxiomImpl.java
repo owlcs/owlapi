@@ -35,7 +35,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
+public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
