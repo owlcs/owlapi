@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLIndividualImpl extends OWLObjectImplWithEntityAndAnonCaching implements
+public abstract class OWLIndividualImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
         OWLIndividual {
 
     private static final long serialVersionUID = 40000L;

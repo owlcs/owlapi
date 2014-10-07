@@ -12,56 +12,28 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.util.Collection;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 
 import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
+import java.util.Collection;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <P>
- *        property type
  */
-public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImplWithEntityAndAnonCaching implements OWLUnaryPropertyAxiom<P> {
+public abstract class OWLIndividualAxiomImplWithoutEntityAndAnonCaching extends OWLLogicalAxiomImplWithoutEntityAndAnonCaching
+        implements OWLIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final P property;
 
     /**
-     * @param property
-     *        property
      * @param annotations
-     *        annotations
+     *        annotations on the axiom
      */
-    public OWLUnaryPropertyAxiomImpl(@Nonnull P property,
+    public OWLIndividualAxiomImplWithoutEntityAndAnonCaching(
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.property = checkNotNull(property, "property cannot be null");
-    }
-
-    @Override
-    public P getProperty() {
-        return property;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLUnaryPropertyAxiom)) {
-                return false;
-            }
-            return ((OWLUnaryPropertyAxiom<?>) obj).getProperty().equals(
-                    property);
-        }
-        return false;
     }
 }

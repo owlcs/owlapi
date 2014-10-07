@@ -59,7 +59,6 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
     }
 
 
-
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
         return getSignature().contains(owlEntity);

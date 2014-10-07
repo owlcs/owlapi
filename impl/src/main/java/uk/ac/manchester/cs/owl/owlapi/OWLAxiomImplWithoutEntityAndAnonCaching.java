@@ -35,7 +35,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching implements OWLAxiom,
+public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
@@ -52,7 +52,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching
      * @param annotations annotations on the axiom
      */
     @SuppressWarnings("unchecked")
-    public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
+    public OWLAxiomImplWithoutEntityAndAnonCaching(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
             if (annotations.size() == 1) {
@@ -150,8 +150,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching
         }
         OWLAxiom other = (OWLAxiom) obj;
         // for OWLAxiomImpl comparisons, do not create wrapper objects
-        if (other instanceof OWLAxiomImpl) {
-            return annotations.equals(((OWLAxiomImpl) other).annotations);
+        if (other instanceof OWLAxiomImplWithoutEntityAndAnonCaching) {
+            return annotations.equals(((OWLAxiomImplWithoutEntityAndAnonCaching) other).annotations);
         }
         return getAnnotations().equals(other.getAnnotations());
     }

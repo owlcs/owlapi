@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
+public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
         OWLAnnotationPropertyRangeAxiom {
 
     private static final long serialVersionUID = 40000L;
