@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
+public class OWLAnnotationImpl extends OWLObjectImplWithEntityAndAnonCaching implements OWLAnnotation {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
