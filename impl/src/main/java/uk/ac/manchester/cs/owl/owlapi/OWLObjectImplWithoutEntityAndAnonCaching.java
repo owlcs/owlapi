@@ -21,10 +21,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -32,8 +30,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -59,11 +55,54 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
     }
 
 
+    abstract public void addSignatureEntitiesToSet(Set<OWLEntity> entities);
+    abstract public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons);
+
+
+
+    @Nonnull
+    @Override
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        Set<OWLAnonymousIndividual> result = new HashSet<>();
+        addAnonymousIndividualsToSet(result);
+        return result;
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLEntity> getSignature() {
+        Set<OWLEntity> result = new HashSet<>();
+        addSignatureEntitiesToSet(result);
+        return result;
+    }
+
+    protected static void addEntitiesFromAnnotationsToSet(Collection<OWLAnnotation> annotations, Set<OWLEntity> entities) {
+        for (OWLAnnotation annotation : annotations) {
+            if (annotation instanceof OWLAnnotationImpl) {
+                OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
+                owlAnnotation.addSignatureEntitiesToSet(entities);
+            } else {
+                entities.addAll(annotation.getSignature());
+            }
+        }
+    }
+
+    protected static void addAnonymousIndividualsFromAnnotationsToSet(Collection<OWLAnnotation> annotations, Set<OWLAnonymousIndividual> anons) {
+        for (OWLAnnotation annotation : annotations) {
+            if (annotation instanceof OWLAnnotationImpl) {
+                OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
+                owlAnnotation.addAnonymousIndividualsToSet(anons);
+            } else {
+                anons.addAll(annotation.getAnonymousIndividuals());
+            }
+        }
+    }
+
+
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
         return getSignature().contains(owlEntity);
     }
-
 
 
     @Override
