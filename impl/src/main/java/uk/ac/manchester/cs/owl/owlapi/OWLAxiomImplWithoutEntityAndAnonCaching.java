@@ -15,7 +15,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.NNF;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -161,5 +163,21 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends OWLObjectI
             NNF con = new NNF(new OWLDataFactoryImpl());
         OWLAxiom nnf = accept(con);
         return verifyNotNull(nnf);
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLEntity> getSignature() {
+        Set<OWLEntity> signature = super.getSignature();
+        addEntitiesFromAnnotationsToSet(annotations, signature);
+        return signature;
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        Set<OWLAnonymousIndividual> anons = super.getAnonymousIndividuals();
+        addAnonymousIndividualsFromAnnotationsToSet(annotations,anons );
+        return anons;
     }
 }
