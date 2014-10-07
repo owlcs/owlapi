@@ -25,8 +25,10 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -67,6 +69,38 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
                 checkNotNull(second, "second cannot be null"))), annotations);
         this.first = first;
         this.second = second;
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        if (first instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) first;
+            prop.addSignatureEntitiesToSet(entities);
+        } else {
+            entities.addAll(first.getSignature());
+        }
+        if (second instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) second;
+            prop.addSignatureEntitiesToSet(entities);
+        } else {
+            entities.addAll(second.getSignature());
+        }
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        if (first instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) first;
+            prop.addAnonymousIndividualsToSet(anons);
+        } else {
+            anons.addAll(first.getAnonymousIndividuals());
+        }
+        if (second instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) second;
+            prop.addAnonymousIndividualsToSet(anons);
+        } else {
+            anons.addAll(second.getAnonymousIndividuals());
+        }
     }
 
     @Override

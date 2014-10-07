@@ -20,12 +20,14 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -39,7 +41,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLDataOneOf {
+public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
+        implements OWLDataOneOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -58,6 +61,16 @@ public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching i
         this.values = new TreeSet<>(checkNotNull(values,
                 "values cannot be null"));
     }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        for (OWLLiteral value : values) {
+            entities.add(value.getDatatype());
+        }
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public DataRangeType getDataRangeType() {

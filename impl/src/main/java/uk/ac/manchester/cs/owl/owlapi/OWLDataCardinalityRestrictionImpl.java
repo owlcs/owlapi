@@ -14,11 +14,15 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -39,6 +43,20 @@ public abstract class OWLDataCardinalityRestrictionImpl extends
             @Nonnull OWLDataRange filler) {
         super(cardinality, filler);
         this.property = checkNotNull(property, "property cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        OWLDataRange filler = getFiller();
+        addSignatureEntitiesToSetForValue(entities, filler);
+        addSignatureEntitiesToSetForValue(entities, property);
+        }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        OWLDataRange filler = getFiller();
+        addAnonymousIndividualsToSetForValue(anons, filler);
+
     }
 
     @Override

@@ -25,8 +25,11 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
+import org.semanticweb.owlapi.model.HasAnonymousIndividuals;
+import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -58,6 +61,52 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     @Nonnull
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
+
+    abstract public void addSignatureEntitiesToSet(Set<OWLEntity> entities);
+
+    abstract public void addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons);
+
+    @Nonnull
+    @Override
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        Set<OWLAnonymousIndividual> result = new HashSet<>();
+        addAnonymousIndividualsToSet(result);
+        return result;
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLEntity> getSignature() {
+        Set<OWLEntity> result = new HashSet<>();
+        addSignatureEntitiesToSet(result);
+        return result;
+    }
+
+    protected static void addEntitiesFromAnnotationsToSet(
+            Collection<OWLAnnotation> annotations, Set<OWLEntity> entities) {
+        for (OWLAnnotation annotation : annotations) {
+            if (annotation instanceof OWLAnnotationImpl) {
+                OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
+                owlAnnotation.addSignatureEntitiesToSet(entities);
+            } else {
+                entities.addAll(annotation.getSignature());
+            }
+        }
+    }
+
+    protected static void addAnonymousIndividualsFromAnnotationsToSet(
+            Collection<OWLAnnotation> annotations,
+            Set<OWLAnonymousIndividual> anons) {
+        for (OWLAnnotation annotation : annotations) {
+            if (annotation instanceof OWLAnnotationImpl) {
+                OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
+                owlAnnotation.addAnonymousIndividualsToSet(anons);
+            } else {
+                anons.addAll(annotation.getAnonymousIndividuals());
+            }
+        }
+    }
 
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
@@ -134,6 +183,27 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     public Set<OWLClassExpression> getNestedClassExpressions() {
         OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
         return accept(collector);
+    }
+
+    protected void addSignatureEntitiesToSetForValue(Set<OWLEntity> entities,
+            HasSignature canHasSignature) {
+        if (canHasSignature instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport nonCachedSignatureImplSupport = (HasIncrementalSignatureGenerationSupport) canHasSignature;
+            nonCachedSignatureImplSupport.addSignatureEntitiesToSet(entities);
+        } else {
+            entities.addAll(canHasSignature.getSignature());
+        }
+    }
+
+    protected void addAnonymousIndividualsToSetForValue(
+            Set<OWLAnonymousIndividual> anons,
+            HasAnonymousIndividuals canHasAnons) {
+        if (canHasAnons instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport nonCachedSignatureImplSupport = (HasIncrementalSignatureGenerationSupport) canHasAnons;
+            nonCachedSignatureImplSupport.addAnonymousIndividualsToSet(anons);
+        } else {
+            anons.addAll(canHasAnons.getAnonymousIndividuals());
+        }
     }
 
     @Override

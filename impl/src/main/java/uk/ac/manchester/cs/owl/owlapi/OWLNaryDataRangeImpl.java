@@ -19,8 +19,10 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -30,8 +32,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class OWLNaryDataRangeImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLNaryDataRange {
+public abstract class OWLNaryDataRangeImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLNaryDataRange {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -60,5 +62,19 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImplWithoutEntityAnd
     @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a datatype");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        for (OWLDataRange operand : operands) {
+            addSignatureEntitiesToSetForValue(entities, operand);
+            }
+        }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        for (OWLDataRange operand : operands) {
+            addAnonymousIndividualsToSetForValue(anons, operand);
+        }
     }
 }

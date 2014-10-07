@@ -14,9 +14,13 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -30,7 +34,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements SWRLVariable {
+public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching
+        implements SWRLVariable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -44,6 +49,12 @@ public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching i
     protected SWRLVariableImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {}
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public IRI getIRI() {

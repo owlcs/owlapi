@@ -24,8 +24,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -35,8 +37,9 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching
-        implements OWLAnnotationPropertyDomainAxiom {
+public class OWLAnnotationPropertyDomainAxiomImpl extends
+        OWLAxiomImplWithoutEntityAndAnonCaching implements
+        OWLAnnotationPropertyDomainAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -59,6 +62,14 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImplWithoutEnt
         this.domain = checkNotNull(domain, "domain cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
     }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        entities.add(property);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations() {

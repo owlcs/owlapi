@@ -14,9 +14,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
@@ -24,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -35,8 +39,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataComplementOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLDataComplementOf {
+public class OWLDataComplementOfImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLDataComplementOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -53,6 +57,16 @@ public class OWLDataComplementOfImpl extends OWLObjectImplWithoutEntityAndAnonCa
      */
     public OWLDataComplementOfImpl(@Nonnull OWLDataRange dataRange) {
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        addSignatureEntitiesToSetForValue(entities, dataRange);
+        }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        addAnonymousIndividualsToSetForValue(anons, dataRange);
     }
 
     @Override
