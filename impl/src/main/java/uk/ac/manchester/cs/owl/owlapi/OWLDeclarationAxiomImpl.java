@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
+public class OWLDeclarationAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
         OWLDeclarationAxiom {
 
     private static final long serialVersionUID = 40000L;

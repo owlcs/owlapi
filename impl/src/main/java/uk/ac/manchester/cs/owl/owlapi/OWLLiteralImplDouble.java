@@ -34,7 +34,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplDouble extends OWLObjectImplWithEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplDouble extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final double literal;

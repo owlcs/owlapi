@@ -36,7 +36,7 @@ import com.google.common.base.Optional;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
  */
-public class OWLLiteralImplPlain extends OWLObjectImplWithEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
     @Nonnull

@@ -17,15 +17,15 @@ import java.util.Collection;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLIndividualAxiomImpl extends OWLLogicalAxiomImpl
-        implements OWLIndividualAxiom {
+public abstract class OWLPropertyAxiomImplWithEntityAndAnonCaching extends OWLLogicalAxiomImplWithEntityAndAnonCaching
+        implements OWLPropertyAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -33,7 +33,7 @@ public abstract class OWLIndividualAxiomImpl extends OWLLogicalAxiomImpl
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLIndividualAxiomImpl(
+    protected OWLPropertyAxiomImplWithEntityAndAnonCaching(
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
     }

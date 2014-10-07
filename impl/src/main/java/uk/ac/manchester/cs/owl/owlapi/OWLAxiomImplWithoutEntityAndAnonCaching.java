@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.Collections.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
@@ -23,6 +24,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -34,7 +36,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching implements OWLAxiom,
+public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
@@ -52,7 +55,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching
      *        annotations on the axiom
      */
     @SuppressWarnings("unchecked")
-    public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
+    public OWLAxiomImplWithoutEntityAndAnonCaching(
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
             if (annotations.size() == 1) {
@@ -62,7 +66,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching
                 this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
             }
         } else {
-            this.annotations = Collections.emptyList();
+            this.annotations = emptyList();
         }
     }
 
@@ -76,7 +80,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         if (annotations.isEmpty()) {
-            return Collections.emptySet();
+            return emptySet();
         }
         return copy(annotations);
     }
@@ -93,7 +97,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching
     public Set<OWLAnnotation> getAnnotations(
             OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
-            return Collections.emptySet();
+            return emptySet();
         } else {
             Set<OWLAnnotation> result = new HashSet<>();
             for (OWLAnnotation anno : annotations) {
@@ -109,6 +113,21 @@ public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching
     public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
         return getAxiomWithoutAnnotations().equals(
                 axiom.getAxiomWithoutAnnotations());
+    }
+
+    @Override
+    public boolean isOfType(AxiomType<?>... axiomTypes) {
+        for (AxiomType<?> type : axiomTypes) {
+            if (getAxiomType().equals(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isOfType(Set<AxiomType<?>> types) {
+        return types.contains(getAxiomType());
     }
 
     /**
@@ -136,8 +155,9 @@ public abstract class OWLAxiomImpl extends OWLObjectImplWithEntityAndAnonCaching
         }
         OWLAxiom other = (OWLAxiom) obj;
         // for OWLAxiomImpl comparisons, do not create wrapper objects
-        if (other instanceof OWLAxiomImpl) {
-            return annotations.equals(((OWLAxiomImpl) other).annotations);
+        if (other instanceof OWLAxiomImplWithoutEntityAndAnonCaching) {
+            return annotations
+                    .equals(((OWLAxiomImplWithoutEntityAndAnonCaching) other).annotations);
         }
         return getAnnotations().equals(other.getAnnotations());
     }

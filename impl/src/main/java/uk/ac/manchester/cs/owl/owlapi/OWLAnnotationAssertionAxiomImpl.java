@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
+public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
         OWLAnnotationAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;

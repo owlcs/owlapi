@@ -12,81 +12,39 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <P>
- *        property type
  */
-public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImplWithEntityAndAnonCaching implements OWLSubPropertyAxiom<P> {
+public abstract class OWLLogicalAxiomImplWithEntityAndAnonCaching extends OWLAxiomImplWithEntityAndAnonCaching implements
+        OWLLogicalAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final P subProperty;
-    @Nonnull
-    private final P superProperty;
 
     /**
-     * @param subProperty
-     *        subProperty
-     * @param superProperty
-     *        superProperty
      * @param annotations
-     *        annotations
+     *        annotations on the axiom
      */
-    public OWLSubPropertyAxiomImpl(@Nonnull P subProperty,
-            @Nonnull P superProperty,
+    protected OWLLogicalAxiomImplWithEntityAndAnonCaching(
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subProperty = checkNotNull(subProperty,
-                "subProperty cannot be null");
-        this.superProperty = checkNotNull(superProperty,
-                "superProperty cannot be null");
     }
 
     @Override
-    public P getSubProperty() {
-        return subProperty;
+    public boolean isLogicalAxiom() {
+        return true;
     }
 
     @Override
-    public P getSuperProperty() {
-        return superProperty;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLSubPropertyAxiom)) {
-                return false;
-            }
-            OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) obj;
-            return other.getSubProperty().equals(subProperty)
-                    && other.getSuperProperty().equals(superProperty);
-        }
+    public boolean isAnnotationAxiom() {
         return false;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) object;
-        int diff = subProperty.compareTo(other.getSubProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return superProperty.compareTo(other.getSuperProperty());
     }
 }

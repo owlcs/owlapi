@@ -35,7 +35,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplNoCompression extends OWLObjectImplWithEntityAndAnonCaching implements
+public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAnonCaching implements
         OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
