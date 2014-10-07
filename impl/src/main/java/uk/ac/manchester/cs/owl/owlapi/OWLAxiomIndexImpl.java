@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.search.Filters;
  * @author ignazio
  * @since 4.0.0
  */
-public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
+public abstract class OWLAxiomIndexImpl extends OWLObjectImplWithEntityAndAnonCaching implements
         OWLAxiomIndex {
 
     private static final long serialVersionUID = 40000L;

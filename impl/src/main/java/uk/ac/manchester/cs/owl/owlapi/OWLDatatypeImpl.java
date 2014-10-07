@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
+public class OWLDatatypeImpl extends OWLObjectImplWithEntityAndAnonCaching implements OWLDatatype {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

@@ -209,10 +209,10 @@ public class OWLLiteralImplString implements OWLLiteral {
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
-        if (o instanceof OWLObjectImpl) {
-            otherTypeIndex = ((OWLObjectImpl) o).index();
+        if (o instanceof OWLObjectImplWithEntityAndAnonCaching) {
+            otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o).index();
         } else {
-            otherTypeIndex = OWLObjectImpl.OWLOBJECT_TYPEINDEX_PROVIDER
+            otherTypeIndex = OWLObjectImplWithEntityAndAnonCaching.OWLOBJECT_TYPEINDEX_PROVIDER
                     .getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;

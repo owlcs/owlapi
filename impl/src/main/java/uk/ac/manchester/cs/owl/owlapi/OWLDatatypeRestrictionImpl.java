@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
+public class OWLDatatypeRestrictionImpl extends OWLObjectImplWithEntityAndAnonCaching implements
         OWLDatatypeRestriction {
 
     private static final long serialVersionUID = 40000L;

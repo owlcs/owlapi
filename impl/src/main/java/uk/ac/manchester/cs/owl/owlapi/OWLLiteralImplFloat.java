@@ -34,7 +34,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
+public class OWLLiteralImplFloat extends OWLObjectImplWithEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final float literal;
