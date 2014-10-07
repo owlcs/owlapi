@@ -139,7 +139,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
 
     @Override
     public boolean isBuiltIn() {
-        return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS
+        return OWLRDFVocabulary.BUILT_IN_AP_IRIS
                 .contains(getIRI());
     }
 

@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -46,18 +47,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @since 2.2.0
  */
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //@formatter:off
@@ -289,6 +278,15 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Override
     public String getPrefixedName() {
         return prefixedName;
+    }
+
+    /**
+     * @param e
+     *        entity to check
+     * @return true if the entity and the enum value have the same IRI
+     */
+    public boolean matches(OWLEntity e) {
+        return e.getIRI().equals(iri);
     }
 
     /** Category enum. */

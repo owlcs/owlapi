@@ -187,7 +187,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         dataTypeNames.add(OWLRDFVocabulary.RDFS_LITERAL.getPrefixedName());
         dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getShortForm());
         dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getPrefixedName());
-        for (IRI iri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
+        for (IRI iri : OWLRDFVocabulary.BUILT_IN_AP_IRIS) {
             String string = iri.toString();
             String ns = XMLUtils.getNCNamePrefix(string);
             String fragment = XMLUtils.getNCNameSuffix(string);

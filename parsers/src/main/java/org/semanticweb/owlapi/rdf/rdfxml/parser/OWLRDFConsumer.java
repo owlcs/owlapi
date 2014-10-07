@@ -269,7 +269,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         this.configuration = configuration;
         handlerAccessor = new HandlerAccessor(this);
         translatorAccessor = new TranslatorAccessor(this);
-        for (IRI iri : BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
+        for (IRI iri : BUILT_IN_AP_IRIS) {
             annPropertyIRIs.add(iri);
         }
         for (OWL2Datatype dt : OWL2Datatype.values()) {
@@ -409,61 +409,49 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             synonymMap.put(IRI.create(OWL2.getPrefixIRI(), v.getShortForm()),
                     v.getIRI());
         }
-        synonymMap.put(
-                DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION,
+        synonymMap.put(OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI(),
                 OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
-        synonymMap.put(
-                DeprecatedVocabulary.OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION,
+        synonymMap.put(OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIRI(),
                 OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         // Intermediate OWL 2 spec
-        synonymMap.put(DeprecatedVocabulary.OWL_SUBJECT,
-                OWL_ANNOTATED_SOURCE.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_PREDICATE,
-                OWL_ANNOTATED_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT,
-                OWL_ANNOTATED_TARGET.getIRI());
+        synonymMap.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
+        synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
+        synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
         // Preliminary OWL 1.1 Vocab
         synonymMap.put(IRI.create(OWL.getPrefixIRI(), "cardinalityType"),
                 OWL_ON_CLASS.getIRI());
         synonymMap.put(IRI.create(OWL.getPrefixIRI(), "dataComplementOf"),
                 OWL_COMPLEMENT_OF.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_ANTI_SYMMETRIC_PROPERTY,
+        synonymMap.put(OWL_ANTI_SYMMETRIC_PROPERTY.getIRI(),
                 OWL_ASYMMETRIC_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_FUNCTIONAL_DATA_PROPERTY,
+        synonymMap.put(OWL_FUNCTIONAL_DATA_PROPERTY.getIRI(),
                 OWL_FUNCTIONAL_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY,
+        synonymMap.put(OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI(),
                 OWL_FUNCTIONAL_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_SUB_DATA_PROPERTY_OF,
+        synonymMap.put(OWL_SUB_DATA_PROPERTY_OF.getIRI(),
                 RDFS_SUB_PROPERTY_OF.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_SUB_OBJECT_PROPERTY_OF,
+        synonymMap.put(OWL_SUB_OBJECT_PROPERTY_OF.getIRI(),
                 RDFS_SUB_PROPERTY_OF.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_PROPERTY_RANGE,
-                RDFS_RANGE.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_DATA_PROPERTY_RANGE,
-                RDFS_RANGE.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_PROPERTY_DOMAIN,
+        synonymMap.put(OWL_OBJECT_PROPERTY_RANGE.getIRI(), RDFS_RANGE.getIRI());
+        synonymMap.put(OWL_DATA_PROPERTY_RANGE.getIRI(), RDFS_RANGE.getIRI());
+        synonymMap.put(OWL_OBJECT_PROPERTY_DOMAIN.getIRI(),
                 RDFS_DOMAIN.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_DATA_PROPERTY_DOMAIN,
-                RDFS_DOMAIN.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_DISJOINT_DATA_PROPERTIES,
+        synonymMap.put(OWL_DATA_PROPERTY_DOMAIN.getIRI(), RDFS_DOMAIN.getIRI());
+        synonymMap.put(OWL_DISJOINT_DATA_PROPERTIES.getIRI(),
                 OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_DISJOINT_OBJECT_PROPERTIES,
+        synonymMap.put(OWL_DISJOINT_OBJECT_PROPERTIES.getIRI(),
                 OWL_PROPERTY_DISJOINT_WITH.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_EQUIVALENT_DATA_PROPERTIES,
+        synonymMap.put(OWL_EQUIVALENT_DATA_PROPERTIES.getIRI(),
                 OWL_EQUIVALENT_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_EQUIVALENT_OBJECT_PROPERTIES,
+        synonymMap.put(OWL_EQUIVALENT_OBJECT_PROPERTIES.getIRI(),
                 OWL_EQUIVALENT_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT_RESTRICTION,
+        synonymMap.put(OWL_OBJECT_RESTRICTION.getIRI(),
                 OWL_RESTRICTION.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_DATA_RESTRICTION,
-                OWL_RESTRICTION.getIRI());
+        synonymMap.put(OWL_DATA_RESTRICTION.getIRI(), OWL_RESTRICTION.getIRI());
         synonymMap.put(OWL_DATA_RANGE.getIRI(), RDFS_DATATYPE.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_SUBJECT,
-                OWL_ANNOTATED_SOURCE.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_PREDICATE,
-                OWL_ANNOTATED_PROPERTY.getIRI());
-        synonymMap.put(DeprecatedVocabulary.OWL_OBJECT,
-                OWL_ANNOTATED_TARGET.getIRI());
+        synonymMap.put(OWL_SUBJECT.getIRI(), OWL_ANNOTATED_SOURCE.getIRI());
+        synonymMap.put(OWL_PREDICATE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI());
+        synonymMap.put(OWL_OBJECT.getIRI(), OWL_ANNOTATED_TARGET.getIRI());
     }
 
     private void addLegacyMapping(OWLRDFVocabulary v) {
@@ -2126,7 +2114,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      */
     protected static boolean isGeneralPredicate(IRI predicate) {
         return !predicate.isReservedVocabulary()
-                || BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(predicate)
+                || BUILT_IN_AP_IRIS.contains(predicate)
                 || SWRL.inNamespace(predicate) || SWRLB.inNamespace(predicate);
     }
 

@@ -240,7 +240,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * seeAlso , isDefinedBy , incompatibleWith , deprecated.
      */
     @Nonnull
-    public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS = asIRISet(
+    public static final Set<IRI> BUILT_IN_AP_IRIS = asIRISet(
             RDFS_LABEL, RDFS_COMMENT, OWL_VERSION_INFO,
             OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION, RDFS_SEE_ALSO,
             RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED);
