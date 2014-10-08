@@ -16,10 +16,14 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
+
+import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -39,6 +43,35 @@ public abstract class OWLDataCardinalityRestrictionImpl extends
             @Nonnull OWLDataRange filler) {
         super(cardinality, filler);
         this.property = checkNotNull(property, "property cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        OWLDataRange filler = getFiller();
+        if (filler instanceof NonCachedSignatureImplSupport) {
+            NonCachedSignatureImplSupport filler1 = (NonCachedSignatureImplSupport) filler;
+            filler1.addSignatureEntitiesToSet(entities);
+        }  else {
+            entities.addAll(filler.getSignature());
+        }
+        if (property instanceof NonCachedSignatureImplSupport) {
+            NonCachedSignatureImplSupport property1 = (NonCachedSignatureImplSupport) property;
+            property1.addSignatureEntitiesToSet(entities);
+        } else {
+            entities.addAll(property.getSignature());
+        }
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        OWLDataRange filler = getFiller();
+        if (filler instanceof NonCachedSignatureImplSupport) {
+            NonCachedSignatureImplSupport filler1 = (NonCachedSignatureImplSupport) filler;
+            filler1.addAnonymousIndividualsToSet(anons);
+        }  else {
+            anons.addAll(filler.getAnonymousIndividuals());
+        }
+
     }
 
     @Override
