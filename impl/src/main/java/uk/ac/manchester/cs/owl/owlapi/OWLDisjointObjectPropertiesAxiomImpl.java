@@ -22,14 +22,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -52,6 +45,30 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
             @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(properties, annotations);
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        for (OWLObjectPropertyExpression oWLObjectPropertyExpression : getProperties()) {
+            if (oWLObjectPropertyExpression instanceof NonCachedSignatureImplSupport) {
+                NonCachedSignatureImplSupport pe = (NonCachedSignatureImplSupport) oWLObjectPropertyExpression;
+                pe.addSignatureEntitiesToSet(entities);
+            } else {
+                entities.addAll(oWLObjectPropertyExpression.getSignature());
+            }
+        }
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        for (OWLObjectPropertyExpression oWLObjectPropertyExpression : getProperties()) {
+            if (oWLObjectPropertyExpression instanceof NonCachedSignatureImplSupport) {
+                NonCachedSignatureImplSupport dataPropertyExpression = (NonCachedSignatureImplSupport) oWLObjectPropertyExpression;
+                dataPropertyExpression.addAnonymousIndividualsToSet(anons);
+            } else {
+                anons.addAll(oWLObjectPropertyExpression.getAnonymousIndividuals());
+            }
+        }
     }
 
     @Nonnull
