@@ -23,6 +23,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -53,6 +55,25 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImplW
         super(annotations);
         checkNotNull(individuals, "individuals cannot be null");
         this.individuals = (List<OWLIndividual>) sortOptionally(individuals);
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        for (OWLIndividual individual : individuals) {
+            if(individual.isNamed()) {
+                entities.add(individual.asOWLNamedIndividual());
+            }
+        }
+
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        for (OWLIndividual individual : individuals) {
+            if(individual.isAnonymous()) {
+                anons.add(individual.asOWLAnonymousIndividual());
+            }
+        }
     }
 
     @Override

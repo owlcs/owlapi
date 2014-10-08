@@ -36,7 +36,7 @@ import java.util.TreeSet;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObject, Serializable {
+public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObject, NonCachedSignatureImplSupport,Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
@@ -53,11 +53,6 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
             throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
     }
-
-
-    abstract public void addSignatureEntitiesToSet(Set<OWLEntity> entities);
-    abstract public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons);
-
 
 
     @Nonnull
