@@ -49,20 +49,16 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        OWLDataRange filler = getFiller();
-        addSignatureEntitiesToSetForValue(entities, filler);
-        if (property instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport property1 = (NonCachedSignatureImplSupport) property;
-            property1.addSignatureEntitiesToSet(entities);
-        }
+        addSignatureEntitiesToSetForValue(entities, getFiller());
+        addSignatureEntitiesToSetForValue(entities,property);
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        OWLDataRange filler = getFiller();
-        addAnonymousIndividualsToSetForValue(anons, filler);
-        if (property instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport property1 = (NonCachedSignatureImplSupport) property;
+        addAnonymousIndividualsToSetForValue(anons, getFiller());
+        addAnonymousIndividualsToSetForValue(anons,property);
+        if (property instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport property1 = (HasIncrementalSignatureGenerationSupport) property;
             property1.addAnonymousIndividualsToSet(anons);
         }
     }
