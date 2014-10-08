@@ -54,24 +54,14 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         for (OWLClassExpression operand : operands) {
-            if (operand instanceof NonCachedSignatureImplSupport) {
-                NonCachedSignatureImplSupport op = (NonCachedSignatureImplSupport) operand;
-                op.addSignatureEntitiesToSet(entities);
-            }  else {
-                entities.addAll(operand.getSignature());
-            }
+            addSignatureEntitiesToSetForValue(entities, operand);
         }
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         for (OWLClassExpression operand : operands) {
-            if (operand instanceof NonCachedSignatureImplSupport) {
-                NonCachedSignatureImplSupport op = (NonCachedSignatureImplSupport) operand;
-                op.addAnonymousIndividualsToSet(anons);
-            }  else {
-                anons.addAll(operand.getAnonymousIndividuals());
-            }
+            addAnonymousIndividualsToSetForValue(anons, operand);
         }
 
     }

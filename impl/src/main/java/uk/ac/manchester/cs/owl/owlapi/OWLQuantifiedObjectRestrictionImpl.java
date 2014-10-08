@@ -54,34 +54,14 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        if (getProperty() instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport prop = (NonCachedSignatureImplSupport) getProperty();
-            prop.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(getProperty().getSignature());
-        }
-        if (getFiller() instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport filler = (NonCachedSignatureImplSupport) getFiller();
-            filler.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(getFiller().getSignature());
-        }
+        addSignatureEntitiesToSetForValue(entities, getProperty());
+        addSignatureEntitiesToSetForValue(entities, getFiller());
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        if (getProperty() instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport prop = (NonCachedSignatureImplSupport) getProperty();
-            prop.addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(getProperty().getAnonymousIndividuals());
-        }
-        if (getFiller() instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport filler = (NonCachedSignatureImplSupport) getFiller();
-            filler.addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(getFiller().getAnonymousIndividuals());
-        }
+        addAnonymousIndividualsToSetForValue(anons, getProperty());
+        addAnonymousIndividualsToSetForValue(anons, getFiller());
     }
 
     @Override

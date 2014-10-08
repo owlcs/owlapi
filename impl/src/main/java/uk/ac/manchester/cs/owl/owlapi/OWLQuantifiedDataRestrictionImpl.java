@@ -50,12 +50,7 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         OWLDataRange filler = getFiller();
-        if (filler instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport filler1 = (NonCachedSignatureImplSupport) filler;
-            filler1.addSignatureEntitiesToSet(entities);
-        }  else {
-            entities.addAll(filler.getSignature());
-        }
+        addSignatureEntitiesToSetForValue(entities, filler);
         if (property instanceof NonCachedSignatureImplSupport) {
             NonCachedSignatureImplSupport property1 = (NonCachedSignatureImplSupport) property;
             property1.addSignatureEntitiesToSet(entities);
@@ -65,12 +60,7 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         OWLDataRange filler = getFiller();
-        if (filler instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport filler1 = (NonCachedSignatureImplSupport) filler;
-            filler1.addAnonymousIndividualsToSet(anons);
-        }  else {
-            anons.addAll(filler.getAnonymousIndividuals());
-        }
+        addAnonymousIndividualsToSetForValue(anons, filler);
         if (property instanceof NonCachedSignatureImplSupport) {
             NonCachedSignatureImplSupport property1 = (NonCachedSignatureImplSupport) property;
             property1.addAnonymousIndividualsToSet(anons);

@@ -54,22 +54,12 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImplWithoutEntityAnd
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
-        if (dataRange instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport range = (NonCachedSignatureImplSupport) dataRange;
-            range.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(dataRange.getSignature());
-        }
+        addSignatureEntitiesToSetForValue(entities, dataRange);
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        if (dataRange instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport range = (NonCachedSignatureImplSupport) dataRange;
-            range.addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(dataRange.getAnonymousIndividuals());
-        }
+        addAnonymousIndividualsToSetForValue(anons, dataRange);
     }
 
     @Override

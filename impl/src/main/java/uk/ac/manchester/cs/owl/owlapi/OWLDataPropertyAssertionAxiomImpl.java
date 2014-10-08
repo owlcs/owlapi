@@ -53,19 +53,9 @@ public class OWLDataPropertyAssertionAxiomImpl
             entities.add(getSubject().asOWLNamedIndividual());
         }
 
-        if (getProperty() instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport property = (NonCachedSignatureImplSupport) getProperty();
-            property.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(getProperty().getSignature());
-        }
+        addSignatureEntitiesToSetForValue(entities, getProperty());
 
-        if (getObject() instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport object = (NonCachedSignatureImplSupport) getObject();
-            object.addSignatureEntitiesToSet(entities);
-        }   else {
-            entities.addAll(getObject().getSignature());
-        }
+        addSignatureEntitiesToSetForValue(entities, getObject());
 
     }
 
@@ -75,19 +65,9 @@ public class OWLDataPropertyAssertionAxiomImpl
             anons.add(getSubject().asOWLAnonymousIndividual());
         }
 
-        if (getProperty() instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport property = (NonCachedSignatureImplSupport) getProperty();
-            property.addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(getProperty().getAnonymousIndividuals());
-        }
+        addAnonymousIndividualsToSetForValue(anons, getProperty());
 
-        if (getObject() instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport object = (NonCachedSignatureImplSupport) getObject();
-            object.addAnonymousIndividualsToSet(anons);
-        }   else {
-            anons.addAll(getObject().getAnonymousIndividuals());
-        }
+        addAnonymousIndividualsToSetForValue(anons, getObject());
     }
 
     @Nonnull

@@ -68,12 +68,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImplWithoutEntityAnd
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         for (OWLDataRange operand : operands) {
-            if (operand instanceof NonCachedSignatureImplSupport) {
-                NonCachedSignatureImplSupport op = (NonCachedSignatureImplSupport) operand;
-                op.addSignatureEntitiesToSet(entities);
-            }  else {
-                entities.addAll(operand.getSignature());
-            }
+            addSignatureEntitiesToSetForValue(entities, operand);
         }
 
     }
@@ -81,12 +76,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImplWithoutEntityAnd
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         for (OWLDataRange operand : operands) {
-            if (operand instanceof NonCachedSignatureImplSupport) {
-                NonCachedSignatureImplSupport op = (NonCachedSignatureImplSupport) operand;
-                op.addAnonymousIndividualsToSet(anons);
-            }  else {
-                anons.addAll(operand.getAnonymousIndividuals());
-            }
+            addAnonymousIndividualsToSetForValue(anons, operand);
         }
     }
 }

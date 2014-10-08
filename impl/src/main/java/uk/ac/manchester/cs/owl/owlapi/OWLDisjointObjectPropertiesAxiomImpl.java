@@ -47,29 +47,6 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
         super(properties, annotations);
     }
 
-    @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        for (OWLObjectPropertyExpression oWLObjectPropertyExpression : getProperties()) {
-            if (oWLObjectPropertyExpression instanceof NonCachedSignatureImplSupport) {
-                NonCachedSignatureImplSupport pe = (NonCachedSignatureImplSupport) oWLObjectPropertyExpression;
-                pe.addSignatureEntitiesToSet(entities);
-            } else {
-                entities.addAll(oWLObjectPropertyExpression.getSignature());
-            }
-        }
-    }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (OWLObjectPropertyExpression oWLObjectPropertyExpression : getProperties()) {
-            if (oWLObjectPropertyExpression instanceof NonCachedSignatureImplSupport) {
-                NonCachedSignatureImplSupport dataPropertyExpression = (NonCachedSignatureImplSupport) oWLObjectPropertyExpression;
-                dataPropertyExpression.addAnonymousIndividualsToSet(anons);
-            } else {
-                anons.addAll(oWLObjectPropertyExpression.getAnonymousIndividuals());
-            }
-        }
-    }
 
     @Nonnull
     @Override

@@ -172,6 +172,24 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
         return accept(collector);
     }
 
+    protected void addSignatureEntitiesToSetForValue(Set<OWLEntity> entities, HasSignature canHasSignature) {
+        if (canHasSignature instanceof NonCachedSignatureImplSupport) {
+            NonCachedSignatureImplSupport nonCachedSignatureImplSupport = (NonCachedSignatureImplSupport) canHasSignature;
+            nonCachedSignatureImplSupport.addSignatureEntitiesToSet(entities);
+        }  else {
+            entities.addAll(canHasSignature.getSignature());
+        }
+    }
+
+    protected void addAnonymousIndividualsToSetForValue(Set<OWLAnonymousIndividual> anons, HasAnonymousIndividuals canHasAnons) {
+        if (canHasAnons instanceof NonCachedSignatureImplSupport) {
+            NonCachedSignatureImplSupport nonCachedSignatureImplSupport = (NonCachedSignatureImplSupport) canHasAnons;
+            nonCachedSignatureImplSupport.addAnonymousIndividualsToSet(anons);
+        }  else {
+            anons.addAll(canHasAnons.getAnonymousIndividuals());
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         return obj == this || obj instanceof OWLObject;
