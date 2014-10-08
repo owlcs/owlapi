@@ -36,7 +36,7 @@ import java.util.TreeSet;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObject, NonCachedSignatureImplSupport,Serializable {
+public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObject, HasIncrementalSignatureGenerationSupport,Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
@@ -173,18 +173,18 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
     }
 
     protected void addSignatureEntitiesToSetForValue(Set<OWLEntity> entities, HasSignature canHasSignature) {
-        if (canHasSignature instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport nonCachedSignatureImplSupport = (NonCachedSignatureImplSupport) canHasSignature;
-            nonCachedSignatureImplSupport.addSignatureEntitiesToSet(entities);
+        if (canHasSignature instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport hasIncrementalSignatureGenerationSupport = (HasIncrementalSignatureGenerationSupport) canHasSignature;
+            hasIncrementalSignatureGenerationSupport.addSignatureEntitiesToSet(entities);
         }  else {
             entities.addAll(canHasSignature.getSignature());
         }
     }
 
     protected void addAnonymousIndividualsToSetForValue(Set<OWLAnonymousIndividual> anons, HasAnonymousIndividuals canHasAnons) {
-        if (canHasAnons instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport nonCachedSignatureImplSupport = (NonCachedSignatureImplSupport) canHasAnons;
-            nonCachedSignatureImplSupport.addAnonymousIndividualsToSet(anons);
+        if (canHasAnons instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport hasIncrementalSignatureGenerationSupport = (HasIncrementalSignatureGenerationSupport) canHasAnons;
+            hasIncrementalSignatureGenerationSupport.addAnonymousIndividualsToSet(anons);
         }  else {
             anons.addAll(canHasAnons.getAnonymousIndividuals());
         }

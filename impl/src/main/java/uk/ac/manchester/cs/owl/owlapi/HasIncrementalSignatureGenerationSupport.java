@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Created by ses on 10/7/14.
  */
-public interface NonCachedSignatureImplSupport {
+public interface HasIncrementalSignatureGenerationSupport {
     void addSignatureEntitiesToSet(Set<OWLEntity> entities);
 
     void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons);
