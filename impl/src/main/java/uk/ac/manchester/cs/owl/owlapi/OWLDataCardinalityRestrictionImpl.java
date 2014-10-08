@@ -48,29 +48,14 @@ public abstract class OWLDataCardinalityRestrictionImpl extends
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         OWLDataRange filler = getFiller();
-        if (filler instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport filler1 = (NonCachedSignatureImplSupport) filler;
-            filler1.addSignatureEntitiesToSet(entities);
-        }  else {
-            entities.addAll(filler.getSignature());
-        }
-        if (property instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport property1 = (NonCachedSignatureImplSupport) property;
-            property1.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(property.getSignature());
-        }
+        addSignatureEntitiesToSetForValue(entities, filler);
+        addSignatureEntitiesToSetForValue(entities, property);
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         OWLDataRange filler = getFiller();
-        if (filler instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport filler1 = (NonCachedSignatureImplSupport) filler;
-            filler1.addAnonymousIndividualsToSet(anons);
-        }  else {
-            anons.addAll(filler.getAnonymousIndividuals());
-        }
+        addAnonymousIndividualsToSetForValue(anons, filler);
 
     }
 

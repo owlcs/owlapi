@@ -17,9 +17,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
@@ -48,6 +51,18 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         super(predicate);
         this.arg0 = checkNotNull(arg0, "arg0 cannot be null");
         this.arg1 = checkNotNull(arg1, "arg1 cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+         addSignatureEntitiesToSetForValue(entities, arg0);
+         addSignatureEntitiesToSetForValue(entities, arg1);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        addAnonymousIndividualsToSetForValue(anons,arg0);
+        addAnonymousIndividualsToSetForValue(anons,arg1);
     }
 
     @Nonnull

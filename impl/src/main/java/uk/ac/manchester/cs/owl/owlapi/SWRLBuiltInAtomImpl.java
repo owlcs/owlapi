@@ -12,25 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -59,6 +51,20 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
             @Nonnull List<SWRLDArgument> args) {
         super(predicate);
         this.args = new ArrayList<>(checkNotNull(args, "args cannot be null"));
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        for (SWRLDArgument arg : args) {
+            addSignatureEntitiesToSetForValue(entities, arg);
+        }
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        for (SWRLDArgument arg : args) {
+            addAnonymousIndividualsToSetForValue(anons, arg);
+        }
     }
 
     @Override

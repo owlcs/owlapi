@@ -53,12 +53,7 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        if (value instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport value1 = (NonCachedSignatureImplSupport) value;
-            value1.addSignatureEntitiesToSet(entities);
-        }  else {
-            entities.addAll(value.getSignature());
-        }
+        addSignatureEntitiesToSetForValue(entities, value);
 
 
     }

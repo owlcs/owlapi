@@ -48,22 +48,12 @@ public class OWLDataComplementOfImpl extends OWLObjectImplWithoutEntityAndAnonCa
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        if(dataRange instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport dr = (NonCachedSignatureImplSupport)dataRange;
-            dr.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(dataRange.getSignature());
-        }
+        addSignatureEntitiesToSetForValue(entities, dataRange);
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        if(dataRange instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport dr = (NonCachedSignatureImplSupport)dataRange;
-            dr.addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(dataRange.getAnonymousIndividuals());
-        }
+        addAnonymousIndividualsToSetForValue(anons, dataRange);
     }
 
     @Override

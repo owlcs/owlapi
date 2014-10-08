@@ -14,16 +14,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+
+import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -50,6 +44,16 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     public OWLObjectInverseOfImpl(
             @Nonnull OWLObjectPropertyExpression inverseProperty) {
         this.inverseProperty = inverseProperty;
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        addSignatureEntitiesToSetForValue(entities, inverseProperty);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        addAnonymousIndividualsToSetForValue(anons, inverseProperty);
     }
 
     @Override

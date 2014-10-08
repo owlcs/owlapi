@@ -16,11 +16,9 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
@@ -34,10 +32,6 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         OWLInverseObjectPropertiesAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLObjectPropertyExpression first;
-    @Nonnull
-    private final OWLObjectPropertyExpression second;
 
     /**
      * @param first
@@ -51,45 +45,11 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
             @Nonnull OWLObjectPropertyExpression first,
             @Nonnull OWLObjectPropertyExpression second,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
-        super(new TreeSet<>(Arrays.asList(
+        super(annotations,
                 checkNotNull(first, "first cannot be null"),
-                checkNotNull(second, "second cannot be null"))), annotations);
-        this.first = first;
-        this.second = second;
+                checkNotNull(second, "second cannot be null"));
     }
 
-    @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        if (first instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport prop = (NonCachedSignatureImplSupport) first;
-            prop.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(first.getSignature());
-        }
-        if (second instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport prop = (NonCachedSignatureImplSupport) second;
-            prop.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(second.getSignature());
-        }
-
-    }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        if (first instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport prop = (NonCachedSignatureImplSupport) first;
-            prop.addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(first.getAnonymousIndividuals());
-        }
-        if (second instanceof NonCachedSignatureImplSupport) {
-            NonCachedSignatureImplSupport prop = (NonCachedSignatureImplSupport) second;
-            prop.addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(second.getAnonymousIndividuals());
-        }
-    }
 
     @Override
     public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
@@ -140,12 +100,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
 
     @Override
     public OWLObjectPropertyExpression getFirstProperty() {
-        return first;
+        return properties.get(0);
     }
 
     @Override
     public OWLObjectPropertyExpression getSecondProperty() {
-        return second;
+        return properties.get(1);
     }
 
     @Override
@@ -162,9 +122,9 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(getFirstProperty(), getSecondProperty()
                 .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(getSecondProperty(), getFirstProperty()
                 .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         return axs;
     }
@@ -172,7 +132,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public <T> Collection<T> walkPairwise(
             OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
-        T t = visitor.visit(first, second);
+        T t = visitor.visit(getFirstProperty(), getSecondProperty());
         if (t != null) {
             return CollectionFactory.createSet(t);
         }

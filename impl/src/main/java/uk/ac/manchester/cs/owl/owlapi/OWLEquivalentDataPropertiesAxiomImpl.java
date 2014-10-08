@@ -46,29 +46,6 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         super(properties, annotations);
     }
 
-    @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        for (OWLDataPropertyExpression owlDataPropertyExpression : getProperties()) {
-            if (owlDataPropertyExpression instanceof NonCachedSignatureImplSupport) {
-                NonCachedSignatureImplSupport dataPropertyExpression = (NonCachedSignatureImplSupport) owlDataPropertyExpression;
-                dataPropertyExpression.addSignatureEntitiesToSet(entities);
-            } else {
-                entities.addAll(owlDataPropertyExpression.getSignature());
-            }
-        }
-    }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (OWLDataPropertyExpression owlDataPropertyExpression : getProperties()) {
-            if (owlDataPropertyExpression instanceof NonCachedSignatureImplSupport) {
-                NonCachedSignatureImplSupport dataPropertyExpression = (NonCachedSignatureImplSupport) owlDataPropertyExpression;
-                dataPropertyExpression.addAnonymousIndividualsToSet(anons);
-            } else {
-                anons.addAll(owlDataPropertyExpression.getAnonymousIndividuals());
-            }
-        }
-    }
 
     @Override
     public OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations() {
