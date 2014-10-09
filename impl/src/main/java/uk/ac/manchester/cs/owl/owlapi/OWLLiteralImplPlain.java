@@ -39,7 +39,6 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
     private final String literal;
     @Nonnull
     private final String lang;
-    private final int hashcode;
 
     /**
      * @param literal
@@ -54,7 +53,7 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
         } else {
             this.lang = lang;
         }
-        hashcode = getHashCode();
+        hashCode = getHashCode();
     }
 
     @Override
@@ -149,7 +148,7 @@ public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCachin
 
     @Override
     public int hashCode() {
-        return hashcode;
+        return hashCode;
     }
 
     private final int getHashCode() {
