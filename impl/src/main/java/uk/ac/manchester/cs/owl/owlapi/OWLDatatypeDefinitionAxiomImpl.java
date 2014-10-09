@@ -19,24 +19,14 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
+public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
         OWLDatatypeDefinitionAxiom {
 
     private static final long serialVersionUID = 40000L;
@@ -59,6 +49,17 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
         super(annotations);
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        entities.add(datatype);
+        addSignatureEntitiesToSetForValue(entities, dataRange);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        addAnonymousIndividualsToSetForValue(anons, dataRange);
     }
 
     @Override

@@ -15,29 +15,20 @@ package uk.ac.manchester.cs.owl.owlapi;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.google.common.base.Optional;
+
+import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
+public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAnonCaching implements
         OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
@@ -51,6 +42,15 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     @Nonnull
     private final String language;
     private final int hashcode;
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        entities.add(datatype);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    }
 
     @Override
     protected int index() {

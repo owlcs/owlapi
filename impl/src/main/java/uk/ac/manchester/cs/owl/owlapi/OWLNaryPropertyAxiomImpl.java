@@ -12,22 +12,26 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.annotation.Nonnull;
-
+import org.semanticweb.owlapi.model.HasAnonymousIndividuals;
+import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -37,11 +41,11 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *        the property expression
  */
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
+        extends OWLPropertyAxiomImplWithoutEntityAndAnonCaching implements OWLNaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<P> properties;
+    protected final List<P> properties;
 
     /**
      * @param properties
@@ -56,6 +60,29 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
         checkNotNull(properties, "properties cannot be null");
         this.properties = (List<P>) CollectionFactory
                 .sortOptionally(properties);
+    }
+
+    OWLNaryPropertyAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations,
+                             P... properties
+    ) {
+        super(annotations);
+        checkNotNull(properties, "properties cannot be null");
+        Arrays.sort(properties);
+        this.properties = Arrays.asList(properties);
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        for (HasSignature hasSignature : getProperties()) {
+            addSignatureEntitiesToSetForValue(entities, hasSignature);
+        }
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        for (HasAnonymousIndividuals hasAnons : getProperties()) {
+            addAnonymousIndividualsToSetForValue(anons, hasAnons);
+        }
     }
 
     @Override

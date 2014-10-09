@@ -15,9 +15,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
@@ -46,6 +49,16 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
     public SWRLUnaryAtomImpl(@Nonnull SWRLPredicate predicate, @Nonnull A arg) {
         super(predicate);
         this.arg = checkNotNull(arg, "arg cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        addSignatureEntitiesToSetForValue(entities, arg);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        addAnonymousIndividualsToSetForValue(anons,arg);
     }
 
     @Override

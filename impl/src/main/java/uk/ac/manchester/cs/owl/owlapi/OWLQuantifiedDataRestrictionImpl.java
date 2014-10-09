@@ -12,15 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import javax.annotation.Nonnull;
-
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataRestriction;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
+
+import javax.annotation.Nonnull;
+import java.util.Set;
+
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 /** quantified data restriction */
 public abstract class OWLQuantifiedDataRestrictionImpl extends
@@ -42,6 +45,22 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
             @Nonnull OWLDataRange filler) {
         super(filler);
         this.property = checkNotNull(property, "property cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        addSignatureEntitiesToSetForValue(entities, getFiller());
+        addSignatureEntitiesToSetForValue(entities,property);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        addAnonymousIndividualsToSetForValue(anons, getFiller());
+        addAnonymousIndividualsToSetForValue(anons,property);
+        if (property instanceof HasIncrementalSignatureGenerationSupport) {
+            HasIncrementalSignatureGenerationSupport property1 = (HasIncrementalSignatureGenerationSupport) property;
+            property1.addAnonymousIndividualsToSet(anons);
+        }
     }
 
     @Override
@@ -70,4 +89,5 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
         }
         return false;
     }
+
 }

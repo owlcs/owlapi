@@ -15,22 +15,13 @@ package uk.ac.manchester.cs.owl.owlapi;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.google.common.base.Optional;
+
+import java.util.Set;
 
 /**
  * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL
@@ -38,7 +29,7 @@ import com.google.common.base.Optional;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
  */
-public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
+public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
     @Nonnull
@@ -48,7 +39,6 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     private final String literal;
     @Nonnull
     private final String lang;
-    private final int hashcode;
 
     /**
      * @param literal
@@ -63,7 +53,16 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
         } else {
             this.lang = lang;
         }
-        hashcode = getHashCode();
+        hashCode = getHashCode();
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+            entities.add(RDF_PLAIN_LITERAL);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
     }
 
     @Override
@@ -149,7 +148,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public int hashCode() {
-        return hashcode;
+        return hashCode;
     }
 
     private final int getHashCode() {

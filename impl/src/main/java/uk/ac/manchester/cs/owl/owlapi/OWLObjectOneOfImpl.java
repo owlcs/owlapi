@@ -19,15 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -55,6 +47,25 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
     public OWLObjectOneOfImpl(@Nonnull Set<? extends OWLIndividual> values) {
         this.values = new HashSet<>(checkNotNull(values,
                 "values cannot be null"));
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        for (OWLIndividual individual : values) {
+            if(individual.isNamed()) {
+                entities.add(individual.asOWLNamedIndividual());
+            }
+        }
+
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        for (OWLIndividual individual : values) {
+            if(individual.isAnonymous()) {
+                anons.add(individual.asOWLAnonymousIndividual());
+            }
+        }
     }
 
     @Override

@@ -12,27 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
-import java.util.Arrays;
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -44,10 +32,6 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         OWLInverseObjectPropertiesAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLObjectPropertyExpression first;
-    @Nonnull
-    private final OWLObjectPropertyExpression second;
 
     /**
      * @param first
@@ -61,12 +45,11 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
             @Nonnull OWLObjectPropertyExpression first,
             @Nonnull OWLObjectPropertyExpression second,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
-        super(new TreeSet<>(Arrays.asList(
+        super(annotations,
                 checkNotNull(first, "first cannot be null"),
-                checkNotNull(second, "second cannot be null"))), annotations);
-        this.first = first;
-        this.second = second;
+                checkNotNull(second, "second cannot be null"));
     }
+
 
     @Override
     public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
@@ -117,12 +100,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
 
     @Override
     public OWLObjectPropertyExpression getFirstProperty() {
-        return first;
+        return properties.get(0);
     }
 
     @Override
     public OWLObjectPropertyExpression getSecondProperty() {
-        return second;
+        return properties.get(1);
     }
 
     @Override
@@ -139,9 +122,9 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(getFirstProperty(), getSecondProperty()
                 .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(getSecondProperty(), getFirstProperty()
                 .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         return axs;
     }
@@ -149,7 +132,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public <T> Collection<T> walkPairwise(
             OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
-        T t = visitor.visit(first, second);
+        T t = visitor.visit(getFirstProperty(), getSecondProperty());
         if (t != null) {
             return CollectionFactory.createSet(t);
         }

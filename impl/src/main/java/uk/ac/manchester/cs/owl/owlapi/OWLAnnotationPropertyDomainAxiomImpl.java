@@ -19,23 +19,14 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
+public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching
         implements OWLAnnotationPropertyDomainAxiom {
 
     private static final long serialVersionUID = 40000L;
@@ -58,6 +49,15 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
         super(annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        entities.add(property);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
     }
 
     @Override

@@ -15,10 +15,13 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -29,7 +32,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
-        OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
+        OWLPropertyAxiomImplWithoutEntityAndAnonCaching implements OWLObjectPropertyCharacteristicAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -46,6 +49,20 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        if (property instanceof OWLObjectPropertyExpressionImpl) {
+            OWLObjectPropertyExpressionImpl objectProperty = (OWLObjectPropertyExpressionImpl) property;
+            objectProperty.addSignatureEntitiesToSet(entities);
+        } else {
+            entities.addAll(property.getSignature());
+        }
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
     }
 
     @Override

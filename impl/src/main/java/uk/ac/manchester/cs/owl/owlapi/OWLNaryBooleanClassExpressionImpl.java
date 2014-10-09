@@ -21,7 +21,9 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -47,6 +49,21 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
             @Nonnull Set<? extends OWLClassExpression> operands) {
         this.operands = new TreeSet<>(checkNotNull(operands,
                 "operands cannot be null"));
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        for (OWLClassExpression operand : operands) {
+            addSignatureEntitiesToSetForValue(entities, operand);
+        }
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        for (OWLClassExpression operand : operands) {
+            addAnonymousIndividualsToSetForValue(anons, operand);
+        }
+
     }
 
     @Override

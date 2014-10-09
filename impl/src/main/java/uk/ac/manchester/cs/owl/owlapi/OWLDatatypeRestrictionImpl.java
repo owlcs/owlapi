@@ -19,18 +19,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -39,7 +28,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
+public class OWLDatatypeRestrictionImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
         OWLDatatypeRestriction {
 
     private static final long serialVersionUID = 40000L;
@@ -64,6 +53,22 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.facetRestrictions = new TreeSet<>(checkNotNull(facetRestrictions,
                 "facetRestrictions cannot be null"));
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        entities.add(datatype);
+        for (OWLFacetRestriction facetRestriction : facetRestrictions) {
+            addSignatureEntitiesToSetForValue(entities,facetRestriction);
+        }
+
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        for (OWLFacetRestriction facetRestriction : facetRestrictions) {
+            addAnonymousIndividualsToSetForValue(anons,facetRestriction);
+        }
     }
 
     @Override

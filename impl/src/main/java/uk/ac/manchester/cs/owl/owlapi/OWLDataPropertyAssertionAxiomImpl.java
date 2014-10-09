@@ -12,22 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Set;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -56,6 +45,29 @@ public class OWLDataPropertyAssertionAxiomImpl
             @Nonnull OWLLiteral value,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(subject, property, value, annotations);
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        if (getSubject().isNamed()) {
+            entities.add(getSubject().asOWLNamedIndividual());
+        }
+
+        addSignatureEntitiesToSetForValue(entities, getProperty());
+
+        addSignatureEntitiesToSetForValue(entities, getObject());
+
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        if (getSubject().isAnonymous()) {
+            anons.add(getSubject().asOWLAnonymousIndividual());
+        }
+
+        addAnonymousIndividualsToSetForValue(anons, getProperty());
+
+        addAnonymousIndividualsToSetForValue(anons, getObject());
     }
 
     @Nonnull

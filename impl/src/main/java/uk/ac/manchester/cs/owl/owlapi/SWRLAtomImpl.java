@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
+public abstract class SWRLAtomImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements SWRLAtom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

@@ -19,24 +19,14 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
+public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
         OWLAnnotationAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
@@ -75,6 +65,23 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         }
         return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
                 getValue(), NO_ANNOTATIONS);
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        entities.add(property);
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        if (subject instanceof OWLAnonymousIndividual) {
+            OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) subject;
+            anons.add(anonymousIndividual);
+        }
+        if (value instanceof OWLAnonymousIndividual) {
+            OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) value;
+            anons.add(anonymousIndividual);
+        }
     }
 
     /**

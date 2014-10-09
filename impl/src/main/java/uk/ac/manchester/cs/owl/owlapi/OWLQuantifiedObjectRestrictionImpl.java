@@ -12,15 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import javax.annotation.Nonnull;
-
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
+
+import javax.annotation.Nonnull;
+import java.util.Set;
+
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 /** quantified object restriction */
 public abstract class OWLQuantifiedObjectRestrictionImpl extends
@@ -47,6 +50,18 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
+    }
+
+    @Override
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+        addSignatureEntitiesToSetForValue(entities, getProperty());
+        addSignatureEntitiesToSetForValue(entities, getFiller());
+    }
+
+    @Override
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+        addAnonymousIndividualsToSetForValue(anons, getProperty());
+        addAnonymousIndividualsToSetForValue(anons, getFiller());
     }
 
     @Override
