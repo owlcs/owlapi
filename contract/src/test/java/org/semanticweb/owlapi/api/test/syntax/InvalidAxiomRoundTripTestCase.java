@@ -23,11 +23,15 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+
+import java.util.Set;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class InvalidAxiomRoundTripTestCase extends TestBase {
@@ -77,18 +81,38 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         OWLClass e1 = Class(IRI("urn:test1"));
         OWLClass e2 = Class(IRI("urn:test2"));
         OWLClass e3 = Class(IRI("urn:test3"));
-        // given
-        OWLAxiom wrongAxiom = DisjointClasses(e1);
+
+        // The implementation now checks for classes that only have a single distinct element
+        // Note: we cannot distinguish between a self-disjoint axiom and an FSS/API etc created single element axiom.
+        // but this is coding around a problem in the spec.
+
+        checkSingletonDisjointFixup(e1,DisjointClasses(e1,e1));
+        checkSingletonDisjointFixup(OWLThing(),DisjointClasses(OWLThing(),OWLThing()));
+        OWLDisjointClassesAxiom singleClassDisjointAxiom = DisjointClasses(e1);
+        checkSingletonDisjointFixup(e1, singleClassDisjointAxiom);
+
         OWLAxiom validAxiom = DisjointClasses(e2, e3);
         // when
-        addAxioms(wrongAxiom, validAxiom);
+        addAxioms(singleClassDisjointAxiom, validAxiom);
         OWLOntology reloaded = roundTrip(o,
                 new FunctionalSyntaxDocumentFormat());
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
-        assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertEquals(1, reloaded.getLogicalAxiomCount());
+        assertTrue(reloaded.containsAxiom(singleClassDisjointAxiom));
+        assertEquals(2, reloaded.getLogicalAxiomCount());
+    }
+
+    protected void checkSingletonDisjointFixup(OWLClass e1, OWLDisjointClassesAxiom wrongAxiom) {
+        Set<OWLClassExpression> classExpressions = wrongAxiom.getClassExpressions();
+        assertEquals("should have two members", 2, classExpressions.size());
+        assertTrue("contains e1",classExpressions.contains(e1));
+        if(!e1.isOWLThing()) {
+            assertTrue("contains Thing", classExpressions.contains(OWLThing()));
+        } else {
+            assertTrue("contains Nothing",classExpressions.contains(OWLNothing()));
+        }
+        assertTrue("is annotated",wrongAxiom.isAnnotated());
     }
 
     @Test

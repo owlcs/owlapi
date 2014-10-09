@@ -15,8 +15,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +28,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -884,8 +888,42 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         checkNull(classExpressions, "classExpressions", true);
         checkAnnotations(annotations);
+        // Hack to handle the case where classExpressions has only a single member
+        // which will usually be the result of :x owl:disjointWith :x .
+
+        if (classExpressions.size() == 1) {
+            Set<OWLClassExpression> modifiedClassExpressions = new HashSet<OWLClassExpression>(2);
+            OWLClassExpression classExpression = classExpressions.iterator().next();
+            OWLClass addedClass = classExpression.isOWLThing() ? OWL_NOTHING : OWL_THING;
+            modifiedClassExpressions.add(addedClass);
+            modifiedClassExpressions.add(classExpression);
+            annotations = makeSingletonDisjoinClassWarningAnnotation(annotations, classExpression, addedClass);
+            classExpressions = modifiedClassExpressions;
+        }
+
         return new OWLDisjointClassesAxiomImpl(classExpressions, annotations);
     }
+
+    protected Set<? extends OWLAnnotation> makeSingletonDisjoinClassWarningAnnotation(Set<? extends OWLAnnotation> annotations,
+                                                                                      OWLClassExpression classExpression,
+                                                                                      OWLClassExpression addedClass) {
+        Set<OWLAnnotation> modifiedAnnotations = new HashSet<OWLAnnotation>(annotations.size() + 1);
+        modifiedAnnotations.addAll(annotations);
+
+        String provenanceComment = String.format("%s on %s",
+                VersionInfo.getVersionInfo().getGeneratedByMessage(),
+                new SimpleDateFormat().format(new Date()));
+        OWLAnnotationImpl provenanceAnnotation =
+                new OWLAnnotationImpl(RDFS_COMMENT, getOWLLiteral(provenanceComment),
+                        EMPTY_ANNOTATIONS_SET);
+        Set<? extends OWLAnnotation> metaAnnotations = Collections.singleton(provenanceAnnotation);
+
+        String changeComment = String.format("DisjointClasses(%s) replaced by DisjointClasses(%s %s)",
+                classExpression,classExpression, addedClass);
+        modifiedAnnotations.add(new OWLAnnotationImpl(RDFS_COMMENT, getOWLLiteral(changeComment), metaAnnotations));
+        return modifiedAnnotations;
+    }
+
 
     @Nonnull
     @Override
