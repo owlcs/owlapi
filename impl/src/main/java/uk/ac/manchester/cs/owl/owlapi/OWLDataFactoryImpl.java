@@ -38,18 +38,21 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -110,16 +113,16 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     protected OWLDataFactoryInternals data;
 
-    /** default constructor */
+    /**
+     * default constructor
+     */
     public OWLDataFactoryImpl() {
         this(true, false);
     }
 
     /**
-     * @param cache
-     *        true if objects should be cached
-     * @param useCompression
-     *        true if literals should be compressed
+     * @param cache          true if objects should be cached
+     * @param useCompression true if literals should be compressed
      */
     public OWLDataFactoryImpl(boolean cache, boolean useCompression) {
         if (cache) {
@@ -132,7 +135,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     /**
      * @return singleton instance
      * @deprecated Do not create data factories directly; use
-     *             OWLOntologyManager::getOWLDataFactory()
+     * OWLOntologyManager::getOWLDataFactory()
      */
     @Deprecated
     public static OWLDataFactory getInstance() {
@@ -174,7 +177,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     @SuppressWarnings("unchecked")
     public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType,
-            IRI iri) {
+                                                IRI iri) {
         checkNull(entityType, "entityType");
         checkNull(iri, IRI2);
         E ret = null;
@@ -257,7 +260,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDatatype getOWLDatatype(String abbreviatedIRI,
-            PrefixManager prefixManager) {
+                                      PrefixManager prefixManager) {
         checkNull(abbreviatedIRI, ABBREVIATED_IRI);
         checkNull(prefixManager, PREFIX_MANAGER);
         return data.getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
@@ -313,7 +316,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDataProperty getOWLDataProperty(String curi,
-            PrefixManager prefixManager) {
+                                              PrefixManager prefixManager) {
         checkNull(curi, CURI2);
         checkNull(prefixManager, PREFIX_MANAGER);
         return getOWLDataProperty(prefixManager.getIRI(curi));
@@ -321,7 +324,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLNamedIndividual getOWLNamedIndividual(String curi,
-            PrefixManager prefixManager) {
+                                                    PrefixManager prefixManager) {
         checkNull(curi, CURI2);
         checkNull(prefixManager, PREFIX_MANAGER);
         return getOWLNamedIndividual(prefixManager.getIRI(curi));
@@ -329,7 +332,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLObjectProperty getOWLObjectProperty(String curi,
-            PrefixManager prefixManager) {
+                                                  PrefixManager prefixManager) {
         checkNull(curi, CURI2);
         checkNull(prefixManager, PREFIX_MANAGER);
         return getOWLObjectProperty(prefixManager.getIRI(curi));
@@ -593,25 +596,25 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
-            int facetValue) {
+                                                      int facetValue) {
         return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 
     @Override
     public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
-            double facetValue) {
+                                                      double facetValue) {
         return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 
     @Override
     public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
-            float facetValue) {
+                                                      float facetValue) {
         return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 
     @Override
     public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
-            OWLLiteral facetValue) {
+                                                      OWLLiteral facetValue) {
         checkNull(facet, "facet");
         checkNull(facetValue, "facetValue");
         return new OWLFacetRestrictionImpl(facet, facetValue);
@@ -641,7 +644,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
-            OWLDataPropertyExpression property) {
+                                                              OWLDataPropertyExpression property) {
         if (cardinality < 0) {
             throw new IllegalArgumentException("cardinality cannot be negative");
         }
@@ -652,7 +655,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
-            OWLDataPropertyExpression property, OWLDataRange dataRange) {
+                                                              OWLDataPropertyExpression property, OWLDataRange dataRange) {
         checkNull(dataRange, DATA_RANGE);
         checkNull(property, "property");
         if (cardinality < 0) {
@@ -663,7 +666,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
-            OWLDataPropertyExpression property) {
+                                                          OWLDataPropertyExpression property) {
         if (cardinality < 0) {
             throw new IllegalArgumentException("cardinality cannot be negative");
         }
@@ -674,7 +677,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
-            OWLDataPropertyExpression property, OWLDataRange dataRange) {
+                                                          OWLDataPropertyExpression property, OWLDataRange dataRange) {
         if (cardinality < 0) {
             throw new IllegalArgumentException("cardinality cannot be negative");
         }
@@ -685,7 +688,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
-            OWLDataPropertyExpression property) {
+                                                          OWLDataPropertyExpression property) {
         if (cardinality < 0) {
             throw new IllegalArgumentException("cardinality cannot be negative");
         }
@@ -696,7 +699,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
-            OWLDataPropertyExpression property, OWLDataRange dataRange) {
+                                                          OWLDataPropertyExpression property, OWLDataRange dataRange) {
         checkNull(dataRange, DATA_RANGE);
         if (cardinality < 0) {
             throw new IllegalArgumentException("cardinality cannot be negative");
@@ -739,7 +742,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLObjectOneOf
-            getOWLObjectOneOf(Set<? extends OWLIndividual> values) {
+    getOWLObjectOneOf(Set<? extends OWLIndividual> values) {
         checkNull(values, VALUES2);
         return new OWLObjectOneOfImpl(values);
     }
@@ -776,7 +779,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
-            OWLObjectPropertyExpression property) {
+                                                              OWLObjectPropertyExpression property) {
         if (cardinality < 0) {
             throw new IllegalArgumentException("cardinality cannot be negative");
         }
@@ -786,8 +789,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
-            OWLObjectPropertyExpression property,
-            OWLClassExpression classExpression) {
+                                                              OWLObjectPropertyExpression property,
+                                                              OWLClassExpression classExpression) {
         checkNull(classExpression, "classExpression");
         checkNull(property, "property");
         if (cardinality < 0) {
@@ -799,7 +802,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
-            OWLObjectPropertyExpression property) {
+                                                              OWLObjectPropertyExpression property) {
         if (cardinality < 0) {
             throw new IllegalArgumentException("cardinality cannot be negative");
         }
@@ -809,8 +812,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
-            OWLObjectPropertyExpression property,
-            OWLClassExpression classExpression) {
+                                                              OWLObjectPropertyExpression property,
+                                                              OWLClassExpression classExpression) {
         if (cardinality < 0) {
             throw new IllegalArgumentException("cardinality cannot be negative");
         }
@@ -859,9 +862,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLAsymmetricObjectPropertyAxiom
-            getOWLAsymmetricObjectPropertyAxiom(
-                    OWLObjectPropertyExpression propertyExpression,
-                    Set<? extends OWLAnnotation> annotations) {
+    getOWLAsymmetricObjectPropertyAxiom(
+            OWLObjectPropertyExpression propertyExpression,
+            Set<? extends OWLAnnotation> annotations) {
         checkNull(propertyExpression, "propertyExpression");
         checkNull(annotations, ANNOTATIONS, true);
         return new OWLAsymmetricObjectPropertyAxiomImpl(propertyExpression,
@@ -870,8 +873,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLAsymmetricObjectPropertyAxiom
-            getOWLAsymmetricObjectPropertyAxiom(
-                    OWLObjectPropertyExpression propertyExpression) {
+    getOWLAsymmetricObjectPropertyAxiom(
+            OWLObjectPropertyExpression propertyExpression) {
         return getOWLAsymmetricObjectPropertyAxiom(propertyExpression,
                 EMPTY_ANNOTATIONS_SET);
     }
@@ -938,7 +941,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDeclarationAxiom getOWLDeclarationAxiom(OWLEntity owlEntity,
-            Set<? extends OWLAnnotation> annotations) {
+                                                      Set<? extends OWLAnnotation> annotations) {
         checkNull(owlEntity, "owlEntity");
         checkNull(annotations, ANNOTATIONS, true);
         return new OWLDeclarationAxiomImpl(owlEntity, annotations);
@@ -974,7 +977,40 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             Set<? extends OWLAnnotation> annotations) {
         checkNull(classExpressions, "classExpressions");
         checkNull(annotations, ANNOTATIONS, true);
+
+        // Hack to handle the case where classExpressions has only a single member
+        // which will usually be the result of :x owl:disjointWith :x .
+
+        if (classExpressions.size() == 1) {
+            Set<OWLClassExpression> modifiedClassExpressions = new HashSet<OWLClassExpression>(2);
+            OWLClassExpression classExpression = classExpressions.iterator().next();
+            OWLClass addedClass = classExpression.isOWLThing() ? OWL_NOTHING : OWL_THING;
+            modifiedClassExpressions.add(addedClass);
+            modifiedClassExpressions.add(classExpression);
+            annotations = makeSingletonDisjoinClassWarningAnnotation(annotations, classExpression, addedClass);
+            classExpressions = modifiedClassExpressions;
+        }
         return new OWLDisjointClassesAxiomImpl(classExpressions, annotations);
+    }
+
+    protected Set<? extends OWLAnnotation> makeSingletonDisjoinClassWarningAnnotation(Set<? extends OWLAnnotation> annotations,
+                                                                                      OWLClassExpression classExpression,
+                                                                                      OWLClassExpression addedClass) {
+        Set<OWLAnnotation> modifiedAnnotations = new HashSet<OWLAnnotation>(annotations.size() + 1);
+        modifiedAnnotations.addAll(annotations);
+
+        String provenanceComment = String.format("%s on %s",
+                VersionInfo.getVersionInfo().getGeneratedByMessage(),
+                new SimpleDateFormat().format(new Date()));
+        OWLAnnotationImpl provenanceAnnotation =
+                new OWLAnnotationImpl(RDFS_COMMENT, getOWLLiteral(provenanceComment),
+                        EMPTY_ANNOTATIONS_SET);
+        Set<? extends OWLAnnotation> metaAnnotations = Collections.singleton(provenanceAnnotation);
+
+        String changeComment = String.format("DisjointClasses(%s) replaced by DisjointClasses(%s %s)",
+                classExpression,classExpression, addedClass);
+        modifiedAnnotations.add(new OWLAnnotationImpl(RDFS_COMMENT, getOWLLiteral(changeComment), metaAnnotations));
+        return modifiedAnnotations;
     }
 
     @Override
