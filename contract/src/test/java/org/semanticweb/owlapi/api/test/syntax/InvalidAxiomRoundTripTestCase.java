@@ -77,16 +77,16 @@ public class InvalidAxiomRoundTripTestCase {
         OWLClass e2 = Class(IRI("urn:test2"));
         OWLClass e3 = Class(IRI("urn:test3"));
         // given
-        OWLAxiom wrongAxiom = DisjointClasses(e1);
+        OWLAxiom doubleDisjointedAxiom = DisjointClasses(e1,e1);
         OWLAxiom validAxiom = DisjointClasses(e2, e3);
         // when
-        addAxioms(wrongAxiom, validAxiom);
+        addAxioms(doubleDisjointedAxiom, validAxiom);
         OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
-        assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertTrue(reloaded.getAxioms().size() == 1);
+        assertTrue(reloaded.containsAxiom(doubleDisjointedAxiom));
+        assertTrue(reloaded.getAxioms().size() == 2);
     }
 
     @Test
