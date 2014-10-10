@@ -379,6 +379,7 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     public void trimToSize() {
         if (initialized) {
+            map.trimToSize();
             for (Map.Entry<K, Set<V>> entry : map.entrySet()) {
                 Set<V> set = entry.getValue();
                 if (set instanceof THashSet) {
