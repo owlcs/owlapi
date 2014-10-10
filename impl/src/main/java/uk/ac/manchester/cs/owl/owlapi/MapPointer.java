@@ -48,7 +48,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
  * @param <V>
  *        value
  */
-public class MapPointer<K, V extends OWLAxiom> {
+public class MapPointer<K, V extends OWLAxiom> implements HasTrimToSize {
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
     private static final int DEFAULT_INITIAL_CAPACITY = 2;
     private static Logger logger = LoggerFactory.getLogger(MapPointer.class);
