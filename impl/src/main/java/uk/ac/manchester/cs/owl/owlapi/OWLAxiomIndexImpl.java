@@ -64,16 +64,14 @@ import org.semanticweb.owlapi.search.Filters;
  * @since 4.0.0
  */
 public abstract class OWLAxiomIndexImpl extends
-        OWLObjectImplWithEntityAndAnonCaching implements OWLAxiomIndex {
+        OWLObjectImplWithEntityAndAnonCaching implements OWLAxiomIndex,
+        HasTrimToSize {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
     protected final Internals ints = new Internals();
 
-    /**
-     * Trims the capacity of the axiom indexes . An application can use this
-     * operation to minimize the storage of the index instance.
-     */
+    @Override
     public void trimToSize() {
         ints.trimToSize();
     }
