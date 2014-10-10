@@ -963,6 +963,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                                 documentSource.getDocumentIRI());
                         ontologyConfigurationsByOntologyID.put(
                                 ontology.getOntologyID(), configuration);
+                        if (ontology instanceof HasTrimToSize) {
+                            HasTrimToSize trimmableOntology = (OWLOntologyImpl) ontology;
+                            trimmableOntology.trimToSize();
+                        }
                         return ontology;
                     } catch (OWLOntologyRenameException e) {
                         // We loaded an ontology from a document and the
