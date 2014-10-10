@@ -48,7 +48,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
  * @param <V>
  *        value
  */
-public class MapPointer<K, V extends OWLAxiom> {
+public class MapPointer<K, V extends OWLAxiom> implements HasTrimToSize {
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
     private static final int DEFAULT_INITIAL_CAPACITY = 2;
     private static Logger logger = LoggerFactory.getLogger(MapPointer.class);
@@ -370,15 +370,18 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
         return t;
     }
+
+    private static long totalInUse = 0;
+    private static long totalAllocated = 0;
+
     /**
      * Trims the capacity of the map entries . An application can use this operation to minimize the storage of the map pointer instance.
 
      */
-    private static long totalInUse = 0;
-    private static long totalAllocated = 0;
 
     public void trimToSize() {
         if (initialized) {
+            map.trimToSize();
             for (Map.Entry<K, Set<V>> entry : map.entrySet()) {
                 Set<V> set = entry.getValue();
                 if (set instanceof THashSet) {
