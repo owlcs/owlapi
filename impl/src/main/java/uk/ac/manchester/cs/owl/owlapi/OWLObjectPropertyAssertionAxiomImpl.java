@@ -48,8 +48,6 @@ public class OWLObjectPropertyAssertionAxiomImpl
         super(subject, property, object, annotations);
     }
 
-
-
     @Override
     public OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {

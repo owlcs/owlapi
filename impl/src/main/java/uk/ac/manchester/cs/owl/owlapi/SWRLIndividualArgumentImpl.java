@@ -34,7 +34,8 @@ import java.util.Set;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLIndividualArgumentImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
+public class SWRLIndividualArgumentImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements
         SWRLIndividualArgument {
 
     private static final long serialVersionUID = 40000L;
@@ -56,12 +57,12 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImplWithoutEntityAndAno
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        addSignatureEntitiesToSetForValue(entities,individual);
+        addSignatureEntitiesToSetForValue(entities, individual);
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons,individual);
+        addAnonymousIndividualsToSetForValue(anons, individual);
     }
 
     @Override

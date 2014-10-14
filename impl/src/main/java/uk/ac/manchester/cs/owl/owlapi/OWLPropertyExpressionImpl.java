@@ -19,7 +19,8 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLPropertyExpressionImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
+public abstract class OWLPropertyExpressionImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements
         OWLPropertyExpression {
 
     private static final long serialVersionUID = 40000L;

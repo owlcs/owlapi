@@ -27,7 +27,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImplWithoutEntityAndAnonCaching implements
+public class OWLHasKeyAxiomImpl extends
+        OWLLogicalAxiomImplWithoutEntityAndAnonCaching implements
         OWLHasKeyAxiom {
 
     private static final long serialVersionUID = 40000L;

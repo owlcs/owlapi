@@ -28,7 +28,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLAnnotation {
+public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
+        implements OWLAnnotation {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -159,5 +160,4 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching 
             anons.add(anonymousIndividual);
         }
     }
-
 }

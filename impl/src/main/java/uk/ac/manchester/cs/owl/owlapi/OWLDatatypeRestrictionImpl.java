@@ -28,7 +28,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDatatypeRestrictionImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
+public class OWLDatatypeRestrictionImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements
         OWLDatatypeRestriction {
 
     private static final long serialVersionUID = 40000L;
@@ -59,15 +60,14 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImplWithoutEntityAndAno
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
         for (OWLFacetRestriction facetRestriction : facetRestrictions) {
-            addSignatureEntitiesToSetForValue(entities,facetRestriction);
+            addSignatureEntitiesToSetForValue(entities, facetRestriction);
         }
-
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         for (OWLFacetRestriction facetRestriction : facetRestrictions) {
-            addAnonymousIndividualsToSetForValue(anons,facetRestriction);
+            addAnonymousIndividualsToSetForValue(anons, facetRestriction);
         }
     }
 

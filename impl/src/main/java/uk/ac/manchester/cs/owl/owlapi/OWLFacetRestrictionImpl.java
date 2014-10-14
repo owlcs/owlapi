@@ -35,8 +35,8 @@ import java.util.Set;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLFacetRestrictionImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLFacetRestriction {
+public class OWLFacetRestrictionImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -68,7 +68,7 @@ public class OWLFacetRestrictionImpl extends OWLObjectImplWithoutEntityAndAnonCa
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons,facetValue);
+        addAnonymousIndividualsToSetForValue(anons, facetValue);
     }
 
     @Override

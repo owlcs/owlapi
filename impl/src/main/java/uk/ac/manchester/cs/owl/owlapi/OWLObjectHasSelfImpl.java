@@ -53,7 +53,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons,property);
+        addAnonymousIndividualsToSetForValue(anons, property);
     }
 
     @Override

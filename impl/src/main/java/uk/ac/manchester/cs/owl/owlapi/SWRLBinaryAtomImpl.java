@@ -55,14 +55,14 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-         addSignatureEntitiesToSetForValue(entities, arg0);
-         addSignatureEntitiesToSetForValue(entities, arg1);
+        addSignatureEntitiesToSetForValue(entities, arg0);
+        addSignatureEntitiesToSetForValue(entities, arg1);
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons,arg0);
-        addAnonymousIndividualsToSetForValue(anons,arg1);
+        addAnonymousIndividualsToSetForValue(anons, arg0);
+        addAnonymousIndividualsToSetForValue(anons, arg1);
     }
 
     @Nonnull

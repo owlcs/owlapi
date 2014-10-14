@@ -28,7 +28,6 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
         HasDataPropertiesInSignature, HasIndividualsInSignature,
         HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
 
-
     /**
      * Gets all of the nested (includes top level) class expressions that are
      * used in this object

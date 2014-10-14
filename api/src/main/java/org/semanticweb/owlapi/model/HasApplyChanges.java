@@ -24,7 +24,10 @@ import javax.annotation.Nonnull;
 public interface HasApplyChanges {
 
     /**
-     * Applies a list ontology changes to a collection of ontologies. Note that the ontologies need to be managed by this manager, since import closures, ontology ids and configurations might be affected by the changes, and they are held by the manager.
+     * Applies a list ontology changes to a collection of ontologies. Note that
+     * the ontologies need to be managed by this manager, since import closures,
+     * ontology ids and configurations might be affected by the changes, and
+     * they are held by the manager.
      * 
      * @param changes
      *        The changes to be applied.

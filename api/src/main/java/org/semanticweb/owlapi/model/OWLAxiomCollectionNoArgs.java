@@ -25,15 +25,13 @@ import javax.annotation.Nonnull;
  * @author ignazio
  * @since 4.0.0
  */
-public interface OWLAxiomCollectionNoArgs  extends HasAxioms, HasLogicalAxioms,
-HasAxiomsByType, HasContainsAxiom{
-
+public interface OWLAxiomCollectionNoArgs extends HasAxioms, HasLogicalAxioms,
+        HasAxiomsByType, HasContainsAxiom {
 
     /**
      * @return The number of axioms in this ontology.
      */
     int getAxiomCount();
-
 
     /**
      * Gets the number of logical axioms in this collection.
@@ -41,7 +39,6 @@ HasAxiomsByType, HasContainsAxiom{
      * @return The number of axioms in this collection.
      */
     int getLogicalAxiomCount();
-
 
     /**
      * Gets the axiom count of a specific type of axiom.
@@ -53,7 +50,6 @@ HasAxiomsByType, HasContainsAxiom{
      * @return The number of the specified types of axioms in this collection
      */
     <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType);
-
 
     /**
      * Determines if this ontology contains the specified axiom.

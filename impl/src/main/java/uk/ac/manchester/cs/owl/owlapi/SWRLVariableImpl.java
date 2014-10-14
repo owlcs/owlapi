@@ -34,7 +34,8 @@ import java.util.Set;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements SWRLVariable {
+public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching
+        implements SWRLVariable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -50,12 +51,10 @@ public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching i
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-    }
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {}
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public IRI getIRI() {

@@ -39,8 +39,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     protected int index() {

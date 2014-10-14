@@ -38,7 +38,8 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
-        extends OWLLogicalAxiomImplWithoutEntityAndAnonCaching implements OWLPropertyAssertionAxiom<P, O> {
+        extends OWLLogicalAxiomImplWithoutEntityAndAnonCaching implements
+        OWLPropertyAssertionAxiom<P, O> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -66,16 +67,14 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         this.property = checkNotNull(property, "property cannot be null");
         this.o = checkNotNull(object, "object cannot be null");
     }
+
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         if (getSubject().isNamed()) {
             entities.add(getSubject().asOWLNamedIndividual());
         }
-
         addSignatureEntitiesToSetForValue(entities, getProperty());
-
         addSignatureEntitiesToSetForValue(entities, getObject());
-
     }
 
     @Override
@@ -83,9 +82,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         if (getSubject().isAnonymous()) {
             anons.add(getSubject().asOWLAnonymousIndividual());
         }
-
         addAnonymousIndividualsToSetForValue(anons, getProperty());
-
         addAnonymousIndividualsToSetForValue(anons, getObject());
     }
 

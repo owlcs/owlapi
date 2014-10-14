@@ -32,7 +32,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
-        OWLPropertyAxiomImplWithoutEntityAndAnonCaching implements OWLObjectPropertyCharacteristicAxiom {
+        OWLPropertyAxiomImplWithoutEntityAndAnonCaching implements
+        OWLObjectPropertyCharacteristicAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -62,8 +63,7 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public OWLObjectPropertyExpression getProperty() {

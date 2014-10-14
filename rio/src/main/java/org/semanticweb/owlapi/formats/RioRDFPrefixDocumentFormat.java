@@ -50,9 +50,8 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioRDFPrefixDocumentFormat extends
-        AbstractRDFPrefixDocumentFormat implements
-        MIMETypeAware,RioRDFDocumentFormat {
+public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
+        implements MIMETypeAware, RioRDFDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     private transient RDFFormat format;
@@ -88,9 +87,7 @@ public class RioRDFPrefixDocumentFormat extends
         return name;
     }
 
-    /**
-     * @return Rio format for this format
-     */
+    @Override
     public RDFFormat getRioFormat() {
         return format;
     }

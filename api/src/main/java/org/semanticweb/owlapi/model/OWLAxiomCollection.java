@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
         HasAxiomsByType, HasContainsAxiom {
 
-
     /**
      * @param includeImportsClosure
      *        if INCLUDED, include imports closure.

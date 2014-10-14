@@ -63,7 +63,6 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
         for (OWLClassExpression operand : operands) {
             addAnonymousIndividualsToSetForValue(anons, operand);
         }
-
     }
 
     @Override

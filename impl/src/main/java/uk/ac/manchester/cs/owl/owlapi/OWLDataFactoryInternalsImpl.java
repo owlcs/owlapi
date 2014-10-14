@@ -68,7 +68,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private final BuildableWeakIndexCache<OWLNamedIndividual> individualsByURI;
     @Nonnull
     private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
-
     @Nonnull
     transient final private Interner<String> languageTagInterner;
 
@@ -198,7 +197,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     /*
        Use a guava weak String interner for language tags.
      */
-
     @Override
     public OWLLiteral getOWLLiteral(String literal, @Nullable String lang) {
         if (lang == null) {

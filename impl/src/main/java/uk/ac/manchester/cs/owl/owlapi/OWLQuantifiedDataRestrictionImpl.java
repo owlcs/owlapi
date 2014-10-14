@@ -50,13 +50,13 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, getFiller());
-        addSignatureEntitiesToSetForValue(entities,property);
+        addSignatureEntitiesToSetForValue(entities, property);
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         addAnonymousIndividualsToSetForValue(anons, getFiller());
-        addAnonymousIndividualsToSetForValue(anons,property);
+        addAnonymousIndividualsToSetForValue(anons, property);
         if (property instanceof HasIncrementalSignatureGenerationSupport) {
             HasIncrementalSignatureGenerationSupport property1 = (HasIncrementalSignatureGenerationSupport) property;
             property1.addAnonymousIndividualsToSet(anons);
@@ -89,5 +89,4 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
         }
         return false;
     }
-
 }

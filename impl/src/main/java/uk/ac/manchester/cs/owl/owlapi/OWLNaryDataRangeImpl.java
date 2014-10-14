@@ -32,8 +32,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class OWLNaryDataRangeImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLNaryDataRange {
+public abstract class OWLNaryDataRangeImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLNaryDataRange {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -70,7 +70,6 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImplWithoutEntityAnd
         for (OWLDataRange operand : operands) {
             addSignatureEntitiesToSetForValue(entities, operand);
         }
-
     }
 
     @Override

@@ -28,7 +28,8 @@ import java.util.Set;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplInteger extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final int literal;
@@ -51,14 +52,14 @@ public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCach
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         hashcode = getHashCode();
     }
+
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     private final int hashcode;
 

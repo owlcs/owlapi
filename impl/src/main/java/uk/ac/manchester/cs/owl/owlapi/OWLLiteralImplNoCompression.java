@@ -28,8 +28,8 @@ import java.util.Set;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLLiteral {
+public class OWLLiteralImplNoCompression extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -49,8 +49,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImplWithoutEntityAndAn
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     protected int index() {

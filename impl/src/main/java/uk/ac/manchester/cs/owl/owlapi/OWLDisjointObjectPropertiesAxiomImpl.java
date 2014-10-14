@@ -47,7 +47,6 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
         super(properties, annotations);
     }
 
-
     @Nonnull
     @Override
     public OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations() {

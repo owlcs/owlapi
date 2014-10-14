@@ -521,6 +521,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(" .");
         write(SELF);
     }
+
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);

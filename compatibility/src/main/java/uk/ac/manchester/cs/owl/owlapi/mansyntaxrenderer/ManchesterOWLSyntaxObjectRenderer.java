@@ -38,5 +38,4 @@ public class ManchesterOWLSyntaxObjectRenderer
             ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
     }
-
 }

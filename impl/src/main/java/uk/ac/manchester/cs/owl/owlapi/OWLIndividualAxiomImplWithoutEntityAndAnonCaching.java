@@ -23,8 +23,9 @@ import java.util.Collection;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLIndividualAxiomImplWithoutEntityAndAnonCaching extends OWLLogicalAxiomImplWithoutEntityAndAnonCaching
-        implements OWLIndividualAxiom {
+public abstract class OWLIndividualAxiomImplWithoutEntityAndAnonCaching extends
+        OWLLogicalAxiomImplWithoutEntityAndAnonCaching implements
+        OWLIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
 

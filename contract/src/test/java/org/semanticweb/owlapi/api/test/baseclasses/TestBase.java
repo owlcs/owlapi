@@ -281,12 +281,6 @@ public abstract class TestBase {
         return toReturn;
     }
 
-    @Nonnull
-    private static String topOfStackTrace() {
-        StackTraceElement[] elements = new RuntimeException().getStackTrace();
-        return elements[1] + "\n" + elements[2] + '\n' + elements[3];
-    }
-
     /**
      * @param leftOnly
      * @param rightOnly

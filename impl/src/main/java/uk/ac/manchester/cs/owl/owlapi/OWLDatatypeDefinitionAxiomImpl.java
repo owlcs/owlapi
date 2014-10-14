@@ -26,7 +26,8 @@ import org.semanticweb.owlapi.model.*;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
+public class OWLDatatypeDefinitionAxiomImpl extends
+        OWLAxiomImplWithoutEntityAndAnonCaching implements
         OWLDatatypeDefinitionAxiom {
 
     private static final long serialVersionUID = 40000L;

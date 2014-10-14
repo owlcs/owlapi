@@ -265,11 +265,9 @@ public class Internals implements Serializable {
     }
 
     /**
-     * Trims the capacity of the axiom indexes . An application can use this operation to minimize the storage of
-     * the internals instance.
-
+     * Trims the capacity of the axiom indexes . An application can use this
+     * operation to minimize the storage of the internals instance.
      */
-
     public void trimToSize() {
         axiomsByType.trimToSize();
         owlClassReferences.trimToSize();
@@ -317,8 +315,6 @@ public class Internals implements Serializable {
         negativeDataPropertyAssertionAxiomsByIndividual.trimToSize();
         differentIndividualsAxiomsByIndividual.trimToSize();
         sameIndividualsAxiomsByIndividual.trimToSize();
-
-
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {

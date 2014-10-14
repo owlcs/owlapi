@@ -45,11 +45,9 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
             @Nonnull OWLObjectPropertyExpression first,
             @Nonnull OWLObjectPropertyExpression second,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
-        super(annotations,
-                checkNotNull(first, "first cannot be null"),
+        super(annotations, checkNotNull(first, "first cannot be null"),
                 checkNotNull(second, "second cannot be null"));
     }
-
 
     @Override
     public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
@@ -122,10 +120,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(getFirstProperty(), getSecondProperty()
-                .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(getSecondProperty(), getFirstProperty()
-                .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(getFirstProperty(),
+                getSecondProperty().getInverseProperty().getSimplified(),
+                NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(getSecondProperty(),
+                getFirstProperty().getInverseProperty().getSimplified(),
+                NO_ANNOTATIONS));
         return axs;
     }
 

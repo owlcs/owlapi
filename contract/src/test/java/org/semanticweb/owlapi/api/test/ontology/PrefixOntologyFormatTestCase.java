@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 
-import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -68,7 +67,4 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
         }
         return ont2;
     }
-    
-
-
 }

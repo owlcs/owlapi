@@ -55,6 +55,4 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(prop, union);
         return singleton(ax);
     }
-
-
 }

@@ -35,8 +35,9 @@ import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImplWithoutEntityAndAnonCaching
-        implements OWLNaryIndividualAxiom {
+public abstract class OWLNaryIndividualAxiomImpl extends
+        OWLIndividualAxiomImplWithoutEntityAndAnonCaching implements
+        OWLNaryIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -60,17 +61,16 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImplW
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         for (OWLIndividual individual : individuals) {
-            if(individual.isNamed()) {
+            if (individual.isNamed()) {
                 entities.add(individual.asOWLNamedIndividual());
             }
         }
-
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         for (OWLIndividual individual : individuals) {
-            if(individual.isAnonymous()) {
+            if (individual.isAnonymous()) {
                 anons.add(individual.asOWLAnonymousIndividual());
             }
         }

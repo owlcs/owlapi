@@ -37,7 +37,7 @@ public class NegativeDataPropertyAssertionTestCase extends
         axioms.add(NegativeDataPropertyAssertion(DataProperty(iri("p")),
                 NamedIndividual(iri("i")), Literal(33.3)));
         axioms.add(NegativeDataPropertyAssertion(DataProperty(iri("p")),
-                NamedIndividual(iri("i")), Literal("weasel","")));
+                NamedIndividual(iri("i")), Literal("weasel", "")));
         axioms.add(NegativeDataPropertyAssertion(DataProperty(iri("p")),
                 NamedIndividual(iri("i")), Literal("weasel")));
         return axioms;

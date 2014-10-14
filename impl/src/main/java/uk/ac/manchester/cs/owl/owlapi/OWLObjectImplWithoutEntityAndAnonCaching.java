@@ -36,7 +36,8 @@ import java.util.TreeSet;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObject, HasIncrementalSignatureGenerationSupport,Serializable {
+public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
+        OWLObject, HasIncrementalSignatureGenerationSupport, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
@@ -54,7 +55,6 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
         stream.defaultReadObject();
     }
 
-
     @Nonnull
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
@@ -71,7 +71,8 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
         return result;
     }
 
-    protected static void addEntitiesFromAnnotationsToSet(Collection<OWLAnnotation> annotations, Set<OWLEntity> entities) {
+    protected static void addEntitiesFromAnnotationsToSet(
+            Collection<OWLAnnotation> annotations, Set<OWLEntity> entities) {
         for (OWLAnnotation annotation : annotations) {
             if (annotation instanceof OWLAnnotationImpl) {
                 OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
@@ -82,7 +83,9 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
         }
     }
 
-    protected static void addAnonymousIndividualsFromAnnotationsToSet(Collection<OWLAnnotation> annotations, Set<OWLAnonymousIndividual> anons) {
+    protected static void addAnonymousIndividualsFromAnnotationsToSet(
+            Collection<OWLAnnotation> annotations,
+            Set<OWLAnonymousIndividual> anons) {
         for (OWLAnnotation annotation : annotations) {
             if (annotation instanceof OWLAnnotationImpl) {
                 OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
@@ -93,12 +96,10 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
         }
     }
 
-
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
         return getSignature().contains(owlEntity);
     }
-
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
@@ -172,20 +173,25 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
         return accept(collector);
     }
 
-    protected void addSignatureEntitiesToSetForValue(Set<OWLEntity> entities, HasSignature canHasSignature) {
+    protected void addSignatureEntitiesToSetForValue(Set<OWLEntity> entities,
+            HasSignature canHasSignature) {
         if (canHasSignature instanceof HasIncrementalSignatureGenerationSupport) {
             HasIncrementalSignatureGenerationSupport hasIncrementalSignatureGenerationSupport = (HasIncrementalSignatureGenerationSupport) canHasSignature;
-            hasIncrementalSignatureGenerationSupport.addSignatureEntitiesToSet(entities);
-        }  else {
+            hasIncrementalSignatureGenerationSupport
+                    .addSignatureEntitiesToSet(entities);
+        } else {
             entities.addAll(canHasSignature.getSignature());
         }
     }
 
-    protected void addAnonymousIndividualsToSetForValue(Set<OWLAnonymousIndividual> anons, HasAnonymousIndividuals canHasAnons) {
+    protected void addAnonymousIndividualsToSetForValue(
+            Set<OWLAnonymousIndividual> anons,
+            HasAnonymousIndividuals canHasAnons) {
         if (canHasAnons instanceof HasIncrementalSignatureGenerationSupport) {
             HasIncrementalSignatureGenerationSupport hasIncrementalSignatureGenerationSupport = (HasIncrementalSignatureGenerationSupport) canHasAnons;
-            hasIncrementalSignatureGenerationSupport.addAnonymousIndividualsToSet(anons);
-        }  else {
+            hasIncrementalSignatureGenerationSupport
+                    .addAnonymousIndividualsToSet(anons);
+        } else {
             anons.addAll(canHasAnons.getAnonymousIndividuals());
         }
     }
@@ -211,7 +217,8 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements OWLObj
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImplWithoutEntityAndAnonCaching) {
-            otherTypeIndex = ((OWLObjectImplWithoutEntityAndAnonCaching) o).index();
+            otherTypeIndex = ((OWLObjectImplWithoutEntityAndAnonCaching) o)
+                    .index();
         } else {
             otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }

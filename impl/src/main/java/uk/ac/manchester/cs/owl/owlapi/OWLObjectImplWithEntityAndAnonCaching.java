@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImplWithEntityAndAnonCaching implements OWLObject, Serializable {
+public abstract class OWLObjectImplWithEntityAndAnonCaching implements
+        OWLObject, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
@@ -200,7 +201,8 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements OWLObject
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImplWithEntityAndAnonCaching) {
-            otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o).index();
+            otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o)
+                    .index();
         } else {
             otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }

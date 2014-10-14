@@ -27,7 +27,8 @@ import java.util.Set;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
+public class OWLAnnotationPropertyImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements
         OWLAnnotationProperty {
 
     private static final long serialVersionUID = 40000L;
@@ -246,6 +247,5 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImplWithoutEntityAndAnon
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 }

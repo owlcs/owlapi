@@ -28,7 +28,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLDataOneOf {
+public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
+        implements OWLDataOneOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -53,12 +54,10 @@ public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching i
         for (OWLLiteral value : values) {
             entities.add(value.getDatatype());
         }
-
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public DataRangeType getDataRangeType() {

@@ -37,7 +37,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLAxiom,
+public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
@@ -51,14 +52,17 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends OWLObjectI
     }
 
     /**
-     * @param annotations annotations on the axiom
+     * @param annotations
+     *        annotations on the axiom
      */
     @SuppressWarnings("unchecked")
-    public OWLAxiomImplWithoutEntityAndAnonCaching(@Nonnull Collection<? extends OWLAnnotation> annotations) {
+    public OWLAxiomImplWithoutEntityAndAnonCaching(
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
             if (annotations.size() == 1) {
-                this.annotations = Collections.singletonList(annotations.iterator().next());
+                this.annotations = Collections.singletonList(annotations
+                        .iterator().next());
             } else {
                 this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
             }
@@ -132,7 +136,8 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends OWLObjectI
      * A convenience method for implementation that returns a set containing the
      * annotations on this axiom plus the annotations in the specified set.
      * 
-     * @param annos The annotations to add to the annotations on this axiom
+     * @param annos
+     *        The annotations to add to the annotations on this axiom
      * @return The annotations
      */
     @Nonnull
@@ -153,14 +158,15 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends OWLObjectI
         OWLAxiom other = (OWLAxiom) obj;
         // for OWLAxiomImpl comparisons, do not create wrapper objects
         if (other instanceof OWLAxiomImplWithoutEntityAndAnonCaching) {
-            return annotations.equals(((OWLAxiomImplWithoutEntityAndAnonCaching) other).annotations);
+            return annotations
+                    .equals(((OWLAxiomImplWithoutEntityAndAnonCaching) other).annotations);
         }
         return getAnnotations().equals(other.getAnnotations());
     }
 
     @Override
     public OWLAxiom getNNF() {
-            NNF con = new NNF(new OWLDataFactoryImpl());
+        NNF con = new NNF(new OWLDataFactoryImpl());
         OWLAxiom nnf = accept(con);
         return verifyNotNull(nnf);
     }
@@ -177,7 +183,7 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends OWLObjectI
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         Set<OWLAnonymousIndividual> anons = super.getAnonymousIndividuals();
-        addAnonymousIndividualsFromAnnotationsToSet(annotations,anons );
+        addAnonymousIndividualsFromAnnotationsToSet(annotations, anons);
         return anons;
     }
 }

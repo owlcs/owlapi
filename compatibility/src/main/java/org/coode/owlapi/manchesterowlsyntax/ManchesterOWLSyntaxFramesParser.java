@@ -24,7 +24,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  *             {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxFramesParser}
  */
 @Deprecated
-public class ManchesterOWLSyntaxFramesParser extends
+public class ManchesterOWLSyntaxFramesParser
+        extends
         org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxFramesParser {
 
     /**

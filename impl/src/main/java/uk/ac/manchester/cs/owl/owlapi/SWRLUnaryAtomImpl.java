@@ -58,7 +58,7 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons,arg);
+        addAnonymousIndividualsToSetForValue(anons, arg);
     }
 
     @Override

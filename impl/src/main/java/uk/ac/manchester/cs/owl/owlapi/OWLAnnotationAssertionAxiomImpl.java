@@ -26,7 +26,8 @@ import org.semanticweb.owlapi.model.*;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
+public class OWLAnnotationAssertionAxiomImpl extends
+        OWLAxiomImplWithoutEntityAndAnonCaching implements
         OWLAnnotationAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;

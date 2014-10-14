@@ -34,8 +34,8 @@ import java.util.Set;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLLiteralArgumentImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
-        SWRLLiteralArgument {
+public class SWRLLiteralArgumentImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements SWRLLiteralArgument {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -61,7 +61,7 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImplWithoutEntityAndAnonCa
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons,literal);
+        addAnonymousIndividualsToSetForValue(anons, literal);
     }
 
     @Override

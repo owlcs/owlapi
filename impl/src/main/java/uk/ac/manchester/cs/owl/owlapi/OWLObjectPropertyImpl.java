@@ -53,13 +53,11 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-
         entities.add(this);
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public boolean isTopEntity() {

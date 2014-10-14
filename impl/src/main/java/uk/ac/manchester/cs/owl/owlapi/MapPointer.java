@@ -12,9 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import com.google.common.collect.Iterables;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
+
+import java.lang.ref.SoftReference;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -23,19 +34,12 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 import uk.ac.manchester.cs.owl.owlapi.util.collections.SmallSet;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.lang.ref.SoftReference;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import com.google.common.collect.Iterables;
 
 /**
  * * Objects that identify contained maps - so that getting the keys of a
@@ -49,10 +53,10 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
  *        value
  */
 public class MapPointer<K, V extends OWLAxiom> {
+
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
     private static final int DEFAULT_INITIAL_CAPACITY = 2;
     private static Logger logger = LoggerFactory.getLogger(MapPointer.class);
-
     @Nullable
     private final AxiomType<?> type;
     @Nullable
@@ -60,13 +64,9 @@ public class MapPointer<K, V extends OWLAxiom> {
     private boolean initialized;
     @Nonnull
     protected final Internals i;
-
     private SoftReference<Set<IRI>> iris;
-
     private int size = 0;
-
     private final THashMap<K, Set<V>> map = new THashMap<>(17, 0.75F);
-
 
     /**
      * @param t
@@ -279,14 +279,13 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     private boolean putInternal(K k, V v) {
         Set<V> set = map.get(k);
-
-        if( set == null) {
+        if (set == null) {
             set = Collections.singleton(v);
-            map.put(k,set);
+            map.put(k, set);
             size++;
             return true;
         }
-        if(set.size() == 1) {
+        if (set.size() == 1) {
             if (set.contains(v)) {
                 return false;
             } else {
@@ -298,8 +297,8 @@ public class MapPointer<K, V extends OWLAxiom> {
                 return false;
             } else {
                 set = makeSet(set);
-                map.put(k,set);
-           }
+                map.put(k, set);
+            }
         }
         boolean added = set.add(v);
         if (added) {
@@ -321,8 +320,8 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return false;
         }
-        if(t.size() == 1) {
-            if(t.contains(v)) {
+        if (t.size() == 1) {
+            if (t.contains(v)) {
                 map.remove(k);
                 size--;
                 return true;
@@ -339,6 +338,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
         return removed;
     }
+
     private Set<V> makeSet() {
         return makeSet(DEFAULT_INITIAL_CAPACITY);
     }
@@ -346,6 +346,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     private Set<V> makeSet(int initialCapacity) {
         return makeSet(initialCapacity, DEFAULT_LOAD_FACTOR);
     }
+
     private THashSet<V> makeSet(int initialCapacity, float loadFactor) {
         return new THashSet<>(initialCapacity, loadFactor);
     }
@@ -370,13 +371,17 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
         return t;
     }
+
     /**
-     * Trims the capacity of the map entries . An application can use this operation to minimize the storage of the map pointer instance.
-
+     * Trims the capacity of the map entries . An application can use this
+     * operation to minimize the storage of the map pointer instance.
      */
-    private static long totalInUse = 0;
-    private static long totalAllocated = 0;
+    private static AtomicLong totalInUse = new AtomicLong(0);
+    private static AtomicLong totalAllocated = new AtomicLong(0);
 
+    /**
+     * Trim internal map to size.
+     */
     public void trimToSize() {
         if (initialized) {
             for (Map.Entry<K, Set<V>> entry : map.entrySet()) {
@@ -384,34 +389,29 @@ public class MapPointer<K, V extends OWLAxiom> {
                 if (set instanceof THashSet) {
                     THashSet<V> vs = (THashSet<V>) set;
                     vs.trimToSize();
-                    synchronized (MapPointer.class) {
-                        totalInUse += set.size();
-                        totalAllocated += vs.capacity();
-                    }
+                    totalInUse.addAndGet(set.size());
+                    totalAllocated.addAndGet(vs.capacity());
                 } else if (set instanceof SmallSet<?>) {
-                    SmallSet<?> smallSet = (SmallSet<?>) set;
-                    totalInUse += set.size();
-                    totalAllocated += 3;
+                    totalInUse.addAndGet(set.size());
+                    totalAllocated.addAndGet(3);
                 } else {
-                    synchronized (MapPointer.class) {
-                        totalInUse += 1;
-                        totalAllocated += 1;
-                    }
-
+                    totalInUse.addAndGet(1);
+                    totalAllocated.addAndGet(1);
                 }
-
             }
         }
     }
-    synchronized static void resetCounts() {
-        totalAllocated=0;
-        totalInUse=0;
-    }
-    synchronized static long getTotalInUse() {
-        return totalInUse;
+
+    static void resetCounts() {
+        totalAllocated.set(0);
+        totalInUse.set(0);
     }
 
-    synchronized static long getTotalAllocated() {
-        return totalAllocated;
+    static long getTotalInUse() {
+        return totalInUse.get();
+    }
+
+    static long getTotalAllocated() {
+        return totalAllocated.get();
     }
 }

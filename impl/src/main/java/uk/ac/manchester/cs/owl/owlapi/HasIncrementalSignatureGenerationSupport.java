@@ -1,15 +1,28 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
-
-import java.util.Set;
 
 /**
  * Created by ses on 10/7/14.
  */
 public interface HasIncrementalSignatureGenerationSupport {
-    void addSignatureEntitiesToSet(Set<OWLEntity> entities);
 
-    void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons);
+    /**
+     * @param entities
+     *        entity set where entities will be added
+     */
+    void addSignatureEntitiesToSet(@Nonnull Set<OWLEntity> entities);
+
+    /**
+     * @param anons
+     *        anonymous individuals set where individuals will be added
+     */
+    void
+            addAnonymousIndividualsToSet(
+                    @Nonnull Set<OWLAnonymousIndividual> anons);
 }

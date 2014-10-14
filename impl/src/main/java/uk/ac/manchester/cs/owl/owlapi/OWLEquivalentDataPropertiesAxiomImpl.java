@@ -46,7 +46,6 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         super(properties, annotations);
     }
 
-
     @Override
     public OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {

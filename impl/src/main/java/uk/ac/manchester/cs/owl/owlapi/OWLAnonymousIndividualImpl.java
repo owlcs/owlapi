@@ -159,8 +159,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-    }
+    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {}
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {

@@ -29,6 +29,7 @@ public enum ManchesterOWLSyntax {
 
 
 
+
     //@formatter:off
     
 //    public static final String VALUE_PARTITION = "ValuePartition:";

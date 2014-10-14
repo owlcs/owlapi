@@ -2,13 +2,12 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import gnu.trove.set.hash.TCustomHashSet;
 import gnu.trove.strategy.HashingStrategy;
-import org.semanticweb.owlapi.model.OWLAxiom;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * Created by ses on 9/30/14.
@@ -17,24 +16,33 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
 
     private Set<OWLAxiom> delegate = createPlainLiteralTypeFoldingSet();
 
+    /**
+     * @param axioms
+     *        set of axioms
+     */
     public PlainLiteralTypeFoldingAxiomSet(Collection<OWLAxiom> axioms) {
         delegate.addAll(axioms);
     }
 
     static Set<OWLAxiom> createPlainLiteralTypeFoldingSet() {
-
-
         HashingStrategy<OWLAxiom> strategy = new OWLAxiomHashingStrategy();
-        return new TCustomHashSet<OWLAxiom>(strategy);
+        return new TCustomHashSet<>(strategy);
     }
 
-    private static class OWLAxiomHashingStrategy implements HashingStrategy<OWLAxiom> {
+    private static class OWLAxiomHashingStrategy implements
+            HashingStrategy<OWLAxiom> {
+
+        private static final long serialVersionUID = 40000L;
+
+        public OWLAxiomHashingStrategy() {}
+
         /**
-         * Computes a hash code for the specified object.  Implementers
-         * can use the object's own <tt>hashCode</tt> method, the Java
-         * runtime's <tt>identityHashCode</tt>, or a custom scheme.
+         * Computes a hash code for the specified object. Implementers can use
+         * the object's own <tt>hashCode</tt> method, the Java runtime's
+         * <tt>identityHashCode</tt>, or a custom scheme.
          *
-         * @param object for which the hashcode is to be computed
+         * @param object
+         *        for which the hashcode is to be computed
          * @return the hashCode
          */
         @Override
@@ -43,12 +51,14 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
         }
 
         /**
-         * Compares o1 and o2 for equality.  Strategy implementers may use
-         * the objects' own equals() methods, compare object references,
-         * or implement some custom scheme.
+         * Compares o1 and o2 for equality. Strategy implementers may use the
+         * objects' own equals() methods, compare object references, or
+         * implement some custom scheme.
          *
-         * @param o1 an <code>Object</code> value
-         * @param o2 an <code>Object</code> value
+         * @param o1
+         *        an <code>Object</code> value
+         * @param o2
+         *        an <code>Object</code> value
          * @return true if the objects are equal according to this strategy.
          */
         @Override

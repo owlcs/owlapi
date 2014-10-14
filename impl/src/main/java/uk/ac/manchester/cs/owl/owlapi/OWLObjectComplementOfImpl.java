@@ -53,7 +53,7 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons,operand);
+        addAnonymousIndividualsToSetForValue(anons, operand);
     }
 
     @Override

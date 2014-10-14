@@ -12,16 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.formats;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
-import javax.annotation.Nonnull;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * An abstract base class for RDF Document Formats that are not prefix aware.
+ * 
  * @since 4.0.1
  */
 public abstract class AbstractRDFNonPrefixDocumentFormat extends
@@ -36,10 +38,7 @@ public abstract class AbstractRDFNonPrefixDocumentFormat extends
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();
     }
 
-    /**
-     * @param error
-     *        error to add to the error set
-     */
+    @Override
     public void addError(RDFResourceParseError error) {
         errors.add(error);
     }
@@ -49,8 +48,8 @@ public abstract class AbstractRDFNonPrefixDocumentFormat extends
      * to shorted IRIs.
      *
      * @return {@code true} if this format is an instance of
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
-     * wise {@code false}.
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
+     *         wise {@code false}.
      */
     @Override
     public boolean isPrefixOWLOntologyFormat() {
@@ -64,9 +63,10 @@ public abstract class AbstractRDFNonPrefixDocumentFormat extends
      * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
      *
      * @return This format as a more specific
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException if this format is not an instance of
-     *                            {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
+     * @throws ClassCastException
+     *         if this format is not an instance of
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
      */
     @Nonnull
     @Override

@@ -9,7 +9,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
-
 @SuppressWarnings("javadoc")
 public class DLSyntaxTestCase extends TestBase {
 

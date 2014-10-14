@@ -28,7 +28,8 @@ import java.util.Set;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLDatatype {
+public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
+        implements OWLDatatype {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -261,13 +262,11 @@ public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching im
         return iri.compareTo(((OWLDatatype) object).getIRI());
     }
 
-
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(this);
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 }

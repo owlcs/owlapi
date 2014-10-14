@@ -94,7 +94,6 @@ public interface OWLAxiomIndex {
     boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
             @Nonnull Imports includeImportsClosure);
 
-
     /**
      * Generic search method: resutns all axioms which refer entity, are
      * instances of type, optionally including the imports closure in the

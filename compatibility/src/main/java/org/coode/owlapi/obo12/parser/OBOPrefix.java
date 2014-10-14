@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo12.parser;
 
 /**
@@ -49,10 +48,8 @@ public enum OBOPrefix {
     /** obo prefix */
     OBO("http://purl.obolibrary.org/obo/"),
     /** iao prefix */
-    
     IAO(OBOPrefix.OBO + "IAO_"),
     /** obo owl prefix */
-    
     OBO_IN_OWL("http://www.geneontology.org/formats/oboInOWL#");
 
     private String prefix;

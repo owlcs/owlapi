@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.anonymous;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
 /**
@@ -30,6 +29,4 @@ public class AnonymousTurtleAssertionTestCase extends
     protected String getFileName() {
         return "testBlankNodesAssertions.ttl";
     }
-
-
 }

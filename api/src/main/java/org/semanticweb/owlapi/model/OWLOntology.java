@@ -38,9 +38,8 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @since 2.0.0
  */
 public interface OWLOntology extends OWLObject, HasAnnotations,
-        HasDirectImports, HasImportsClosure, HasOntologyID,
-        OWLAxiomCollection, OWLAxiomCollectionBooleanArgs,
- OWLAxiomCollectionNoArgs, OWLSignature,
+        HasDirectImports, HasImportsClosure, HasOntologyID, OWLAxiomCollection,
+        OWLAxiomCollectionBooleanArgs, OWLAxiomCollectionNoArgs, OWLSignature,
         OWLSignatureBooleanArgs, OWLAxiomIndex {
 
     /**

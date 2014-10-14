@@ -35,14 +35,15 @@
  */
 package org.semanticweb.owlapi.formats;
 
-import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFParserRegistry;
-import org.semanticweb.owlapi.model.MIMETypeAware;
-
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import org.openrdf.rio.RDFFormat;
+import org.openrdf.rio.RDFParserRegistry;
+import org.semanticweb.owlapi.model.MIMETypeAware;
 
 /**
  * This format is designed to encapsulate any Sesame Rio RDFFormat within
@@ -52,8 +53,8 @@ import java.util.List;
  * @since 4.0.0
  */
 public class RioRDFNonPrefixDocumentFormat extends
-        AbstractRDFNonPrefixDocumentFormat implements
-        MIMETypeAware,RioRDFDocumentFormat {
+        AbstractRDFNonPrefixDocumentFormat implements MIMETypeAware,
+        RioRDFDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     private transient RDFFormat format;
@@ -71,8 +72,8 @@ public class RioRDFNonPrefixDocumentFormat extends
     }
 
     /**
-     * Constructor for super-classes to specify which {@link org.openrdf.rio.RDFFormat} they
-     * support.
+     * Constructor for super-classes to specify which
+     * {@link org.openrdf.rio.RDFFormat} they support.
      *
      * @param format
      *        The {@link org.openrdf.rio.RDFFormat} that this instance supports.
@@ -87,8 +88,8 @@ public class RioRDFNonPrefixDocumentFormat extends
      * to shorted IRIs.
      *
      * @return {@code true} if this format is an instance of
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
-     * wise {@code false}.
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
+     *         wise {@code false}.
      */
     @Override
     public boolean isPrefixOWLOntologyFormat() {
@@ -102,9 +103,10 @@ public class RioRDFNonPrefixDocumentFormat extends
      * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
      *
      * @return This format as a more specific
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException if this format is not an instance of
-     *                            {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
+     * @throws ClassCastException
+     *         if this format is not an instance of
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
      */
     @Nonnull
     @Override
@@ -119,9 +121,7 @@ public class RioRDFNonPrefixDocumentFormat extends
         return name;
     }
 
-    /**
-     * @return Rio format for this format
-     */
+    @Override
     public RDFFormat getRioFormat() {
         return format;
     }

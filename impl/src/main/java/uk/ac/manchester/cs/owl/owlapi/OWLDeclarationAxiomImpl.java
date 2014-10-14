@@ -26,8 +26,8 @@ import org.semanticweb.owlapi.model.*;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDeclarationAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
-        OWLDeclarationAxiom {
+public class OWLDeclarationAxiomImpl extends
+        OWLAxiomImplWithoutEntityAndAnonCaching implements OWLDeclarationAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -48,12 +48,10 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCac
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(entity);
-
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public boolean isLogicalAxiom() {

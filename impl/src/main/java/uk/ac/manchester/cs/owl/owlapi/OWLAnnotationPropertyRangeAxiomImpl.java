@@ -26,7 +26,8 @@ import org.semanticweb.owlapi.model.*;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImplWithoutEntityAndAnonCaching implements
+public class OWLAnnotationPropertyRangeAxiomImpl extends
+        OWLAxiomImplWithoutEntityAndAnonCaching implements
         OWLAnnotationPropertyRangeAxiom {
 
     private static final long serialVersionUID = 40000L;
@@ -57,8 +58,7 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImplWithoutEnti
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations() {

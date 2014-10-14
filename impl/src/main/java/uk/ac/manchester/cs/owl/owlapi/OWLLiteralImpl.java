@@ -44,7 +44,8 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
+        implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
@@ -97,14 +98,14 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching imp
         }
         hashcode = getHashCode();
     }
+
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-    }
+    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public String getLiteral() {
