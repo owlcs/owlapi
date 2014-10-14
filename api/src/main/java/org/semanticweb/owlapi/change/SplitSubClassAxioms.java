@@ -14,12 +14,12 @@ package org.semanticweb.owlapi.change;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -72,19 +72,21 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     public SplitSubClassAxioms(@Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLDataFactory dataFactory) {
         super(dataFactory);
-        for (OWLOntology ont : ontologies) {
-            for (OWLSubClassOfAxiom ax : ont.getAxioms(AxiomType.SUBCLASS_OF)) {
-                ConjunctSplitter splitter = new ConjunctSplitter();
-                ax.getSuperClass().accept(splitter);
-                if (splitter.result.size() > 1) {
-                    addChange(new RemoveAxiom(ont, ax));
-                    for (OWLClassExpression desc : splitter.result) {
-                        OWLAxiom replAx = getDataFactory()
-                                .getOWLSubClassOfAxiom(ax.getSubClass(), desc);
-                        addChange(new AddAxiom(ont, replAx));
-                    }
-                }
-            }
+        Consumer<? super OWLOntology> action = o -> o.getAxioms(
+                AxiomType.SUBCLASS_OF).forEach(ax -> {
+            split(o, ax);
+        });
+        ontologies.stream().forEach(action);
+    }
+
+    protected void split(OWLOntology o, OWLSubClassOfAxiom ax) {
+        ConjunctSplitter splitter = new ConjunctSplitter();
+        ax.getSuperClass().accept(splitter);
+        if (splitter.result.size() > 1) {
+            addChange(new RemoveAxiom(o, ax));
+            splitter.result.stream().forEach(
+                    desc -> addChange(new AddAxiom(o, getDataFactory()
+                            .getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
         }
     }
 

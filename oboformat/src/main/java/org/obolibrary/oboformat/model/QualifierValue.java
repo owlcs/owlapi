@@ -78,7 +78,8 @@ public class QualifierValue implements Comparable<QualifierValue> {
         QualifierValue other = (QualifierValue) obj;
         if (!qualifier.equals(other.qualifier)) {
             return false;
-        } else if (!value.equals(other.value)) {
+        }
+        if (!value.equals(other.value)) {
             return false;
         }
         return true;

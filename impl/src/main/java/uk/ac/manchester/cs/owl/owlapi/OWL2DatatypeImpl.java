@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -279,7 +278,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory.createSet((OWLEntity) this);
+        return createSet((OWLEntity) this);
     }
 
     @Override

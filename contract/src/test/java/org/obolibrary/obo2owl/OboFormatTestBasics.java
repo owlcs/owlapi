@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -161,7 +162,7 @@ public class OboFormatTestBasics {
         StringWriter target = new StringWriter();
         OBOFormatWriter oboWriter = new OBOFormatWriter();
         BufferedWriter bw = new BufferedWriter(target);
-        oboWriter.write(obodoc, bw);
+        oboWriter.write(obodoc, new PrintWriter(bw));
         bw.flush();
         return target.toString();
     }
@@ -191,7 +192,7 @@ public class OboFormatTestBasics {
         writer.setCheckStructure(true);
         StringWriter out = new StringWriter();
         BufferedWriter stream = new BufferedWriter(out);
-        writer.write(oboDoc, stream);
+        writer.write(oboDoc, new PrintWriter(stream));
         stream.close();
         return out.getBuffer().toString();
     }
@@ -210,7 +211,7 @@ public class OboFormatTestBasics {
         OBOFormatWriter writer = new OBOFormatWriter();
         writer.setCheckStructure(true);
         BufferedWriter stream = new BufferedWriter(new StringWriter());
-        writer.write(oboDoc, stream);
+        writer.write(oboDoc, new PrintWriter(stream));
         stream.close();
     }
 

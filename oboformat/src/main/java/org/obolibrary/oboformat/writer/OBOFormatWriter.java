@@ -10,7 +10,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.Serializable;
+import java.io.Writer;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -109,13 +111,12 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(@Nonnull String fn, @Nonnull BufferedWriter writer)
+    public void write(@Nonnull String fn, @Nonnull Writer writer)
             throws IOException {
         if (fn.startsWith("http:")) {
             write(new URL(fn), writer);
         } else {
-            BufferedReader reader = new BufferedReader(new FileReader(new File(
-                    fn)));
+            Reader reader = new BufferedReader(new FileReader(new File(fn)));
             try {
                 write(reader, writer);
             } finally {
@@ -136,9 +137,9 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(@Nonnull URL url, @Nonnull BufferedWriter writer)
+    public void write(@Nonnull URL url, @Nonnull Writer writer)
             throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
+        Reader reader = new BufferedReader(new InputStreamReader(
                 url.openStream()));
         write(reader, writer);
     }
@@ -153,8 +154,7 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(BufferedReader reader, @Nonnull BufferedWriter writer)
-            throws IOException {
+    public void write(Reader reader, @Nonnull Writer writer) throws IOException {
         OBOFormatParser parser = new OBOFormatParser();
         OBODoc doc = parser.parse(reader);
         write(doc, writer);
@@ -173,7 +173,7 @@ public class OBOFormatWriter {
         FileOutputStream os = new FileOutputStream(new File(outFile));
         OutputStreamWriter osw = new OutputStreamWriter(os,
                 StandardCharsets.UTF_8);
-        BufferedWriter bw = new BufferedWriter(osw);
+        Writer bw = new BufferedWriter(osw);
         write(doc, bw);
         bw.close();
     }
@@ -186,7 +186,7 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(@Nonnull OBODoc doc, @Nonnull BufferedWriter writer)
+    public void write(@Nonnull OBODoc doc, @Nonnull Writer writer)
             throws IOException {
         NameProvider nameProvider = new OBODocNameProvider(doc);
         write(doc, writer, nameProvider);
@@ -202,7 +202,7 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(@Nonnull OBODoc doc, @Nonnull BufferedWriter writer,
+    public void write(@Nonnull OBODoc doc, @Nonnull Writer writer,
             NameProvider nameProvider) throws IOException {
         if (isCheckStructure) {
             doc.check();
@@ -232,17 +232,17 @@ public class OBOFormatWriter {
     }
 
     private static void writeLine(@Nonnull StringBuilder ln,
-            @Nonnull BufferedWriter writer) throws IOException {
+            @Nonnull Writer writer) throws IOException {
         ln.append('\n');
         writer.write(ln.toString());
     }
 
-    private static void writeLine(String ln, @Nonnull BufferedWriter writer)
+    private static void writeLine(String ln, @Nonnull Writer writer)
             throws IOException {
         writer.write(ln + '\n');
     }
 
-    private static void writeEmptyLine(@Nonnull BufferedWriter writer)
+    private static void writeEmptyLine(@Nonnull Writer writer)
             throws IOException {
         writer.write("\n");
     }
@@ -268,9 +268,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void writeHeader(@Nonnull Frame frame,
-            @Nonnull BufferedWriter writer, NameProvider nameProvider)
-            throws IOException {
+    public void writeHeader(@Nonnull Frame frame, @Nonnull Writer writer,
+            NameProvider nameProvider) throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, HeaderTagsComparator.INSTANCE);
         write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"),
@@ -310,7 +309,7 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(@Nonnull Frame frame, @Nonnull BufferedWriter writer,
+    public void write(@Nonnull Frame frame, @Nonnull Writer writer,
             @Nullable NameProvider nameProvider) throws IOException {
         StringComparator comparator = null;
         if (frame.getType() == FrameType.TERM) {
@@ -385,7 +384,7 @@ public class OBOFormatWriter {
     }
 
     private static void writeXRefClause(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+            @Nonnull Writer writer) throws IOException {
         Xref xref = clause.getValue(Xref.class);
         if (xref != null) {
             StringBuilder sb = new StringBuilder();
@@ -414,7 +413,7 @@ public class OBOFormatWriter {
     }
 
     private static void writeSynonymtypedef(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+            @Nonnull Writer writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
@@ -438,7 +437,7 @@ public class OBOFormatWriter {
     }
 
     private static void writeHeaderDate(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+            @Nonnull Writer writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
@@ -458,8 +457,9 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    private static void writeIdSpace(@Nonnull Clause cl,
-            @Nonnull BufferedWriter writer) throws IOException {
+    private static void
+            writeIdSpace(@Nonnull Clause cl, @Nonnull Writer writer)
+                    throws IOException {
         StringBuilder sb = new StringBuilder(cl.getTag());
         sb.append(": ");
         Collection<Object> values = cl.getValues();
@@ -482,7 +482,7 @@ public class OBOFormatWriter {
     }
 
     private static void writeClauseWithQuotedString(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+            @Nonnull Writer writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
@@ -564,8 +564,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public static void writeDef(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+    public static void writeDef(@Nonnull Clause clause, @Nonnull Writer writer)
+            throws IOException {
         writeClauseWithQuotedString(clause, writer);
     }
 
@@ -580,7 +580,7 @@ public class OBOFormatWriter {
      *         Signals that an I/O exception has occurred.
      */
     public static void writePropertyValue(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+            @Nonnull Writer writer) throws IOException {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
             LOG.error("The {} has incorrect number of values: {}",
@@ -622,7 +622,7 @@ public class OBOFormatWriter {
      *         Signals that an I/O exception has occurred.
      */
     public static void writeSynonym(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+            @Nonnull Writer writer) throws IOException {
         writeClauseWithQuotedString(clause, writer);
     }
 
@@ -638,9 +638,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public static void
-            write(@Nonnull Clause clause, @Nonnull BufferedWriter writer,
-                    @Nullable NameProvider nameProvider) throws IOException {
+    public static void write(@Nonnull Clause clause, @Nonnull Writer writer,
+            @Nullable NameProvider nameProvider) throws IOException {
         if (OboFormatTag.TAG_IS_OBSELETE.getTag().equals(clause.getTag())) {
             // only write the obsolete tag if the value is Boolean.TRUE or
             // "true"

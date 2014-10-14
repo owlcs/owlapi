@@ -80,15 +80,14 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
         OWLConstantReplacer replacer = new OWLConstantReplacer(
                 getDataFactory(), map);
-        for (OWLOntology ont : ontologies) {
-            for (OWLAxiom ax : ont.getLogicalAxioms()) {
-                OWLAxiom dupAx = replacer.duplicateObject(ax);
-                if (!ax.equals(dupAx)) {
-                    addChange(new RemoveAxiom(ont, ax));
-                    addChange(new AddAxiom(ont, dupAx));
-                }
-            }
-        }
+        ontologies.stream().forEach(
+                o -> o.getLogicalAxioms().stream().forEach(ax -> {
+                    OWLAxiom dupAx = replacer.duplicateObject(ax);
+                    if (!ax.equals(dupAx)) {
+                        addChange(new RemoveAxiom(o, ax));
+                        addChange(new AddAxiom(o, dupAx));
+                    }
+                }));
     }
 
     /** The Class OWLConstantReplacer. */
@@ -122,11 +121,10 @@ public class CoerceConstantsIntoDataPropertyRange extends
         private OWLLiteral process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLLiteral con) {
             OWLDatatype dt = map.get(prop);
-            if (dt != null) {
-                return getDataFactory().getOWLLiteral(con.getLiteral(), dt);
-            } else {
+            if (dt == null) {
                 return con;
             }
+            return getDataFactory().getOWLLiteral(con.getLiteral(), dt);
         }
 
         @Override

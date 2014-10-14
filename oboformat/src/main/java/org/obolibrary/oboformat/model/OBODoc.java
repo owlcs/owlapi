@@ -35,9 +35,6 @@ public class OBODoc {
     /** The imported obo docs. */
     protected Collection<OBODoc> importedOBODocs = new LinkedList<>();
 
-    /** Default constructor. */
-    public OBODoc() {}
-
     /** @return the header frame */
     public Frame getHeaderFrame() {
         return headerFrame;

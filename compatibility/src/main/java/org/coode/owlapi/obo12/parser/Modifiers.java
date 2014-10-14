@@ -42,7 +42,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 /**
  * Author: Matthew Horridge<br>
@@ -67,9 +66,8 @@ class Modifiers {
      */
     public static Modifiers parseModifiers(String modifiersList) {
         Modifiers modifiers = new Modifiers();
-        StringTokenizer tokenizer = new StringTokenizer(modifiersList, ",");
-        while (tokenizer.hasMoreTokens()) {
-            String nameValuePair = tokenizer.nextToken().trim();
+        for (String s : modifiersList.split(",")) {
+            String nameValuePair = s.trim();
             String[] split = nameValuePair.split("=");
             if (split.length == 2) {
                 modifiers.addModifier(split[0], split[1]);

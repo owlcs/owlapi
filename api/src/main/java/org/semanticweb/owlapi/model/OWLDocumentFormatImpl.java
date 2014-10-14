@@ -102,11 +102,10 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     public Serializable
             getParameter(Serializable key, Serializable defaultValue) {
         Serializable val = parameterMap.get(key);
-        if (val != null) {
-            return val;
-        } else {
+        if (val == null) {
             return defaultValue;
         }
+        return val;
     }
 
     @Override

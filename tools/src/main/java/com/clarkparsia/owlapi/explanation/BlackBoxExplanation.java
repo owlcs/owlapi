@@ -79,11 +79,11 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /** The Constant DEFAULT_FAST_PRUNING_WINDOW_SIZE. */
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     /** The fast pruning window size. */
-    private int fastPruningWindowSize = 0;
+    private int fastPruningWindowSize;
     /** The owl ontology manager. */
     private final OWLOntologyManager owlOntologyManager;
     // Creation of debugging ontology and satisfiability testing
-    private int satTestCount = 0;
+    private int satTestCount;
 
     /**
      * Instantiates a new black box explanation.
@@ -397,9 +397,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         // the debugging axioms set to be expanded to the
         // defining axioms for the class being debugged
         resetSatisfiabilityTestCounter();
-        if (!unsatClass.isAnonymous()) {
-            expandWithDefiningAxioms((OWLClass) unsatClass, expansionLimit);
-        } else {
+        if (unsatClass.isAnonymous()) {
             OWLClass owlThing = owlOntologyManager.getOWLDataFactory()
                     .getOWLThing();
             OWLSubClassOfAxiom axiom = owlOntologyManager.getOWLDataFactory()
@@ -407,6 +405,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             debuggingAxioms.add(axiom);
             expandAxioms();
             debuggingAxioms.remove(axiom);
+        } else {
+            expandWithDefiningAxioms((OWLClass) unsatClass, expansionLimit);
         }
         LOGGER.info("Initial axiom count: {}", debuggingAxioms.size());
         int totalAdded = 0;

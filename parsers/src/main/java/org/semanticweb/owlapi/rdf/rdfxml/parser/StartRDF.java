@@ -126,14 +126,12 @@ abstract class AbstractState {
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
         if (value != null) {
             return parser.resolveIRI(value);
-        } else {
-            value = atts.getValue(RDFNS, ATTR_NODE_ID);
-            if (value != null) {
-                return NodeID.getIRIFromNodeID(value);
-            } else {
-                return null;
-            }
         }
+        value = atts.getValue(RDFNS, ATTR_NODE_ID);
+        if (value != null) {
+            return NodeID.getIRIFromNodeID(value);
+        }
+        return null;
     }
 
     /**

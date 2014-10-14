@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,13 +48,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     private static final long serialVersionUID = 40000L;
     @Nullable
-    private transient WeakReference<Set<OWLClass>> namedClasses = null;
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-        namedClasses = null;
-    }
+    private transient WeakReference<Set<OWLClass>> namedClasses;
 
     /**
      * @param classExpressions

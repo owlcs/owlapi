@@ -23,7 +23,7 @@ public class ConsoleProgressMonitor implements ReasonerProgressMonitor,
         Serializable {
 
     private static final long serialVersionUID = 40000L;
-    private int lastPercentage = 0;
+    private int lastPercentage;
 
     @Override
     public void reasonerTaskStarted(String taskName) {

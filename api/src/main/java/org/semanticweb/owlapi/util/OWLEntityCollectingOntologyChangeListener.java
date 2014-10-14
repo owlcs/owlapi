@@ -20,9 +20,9 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiomChange;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * A convenience class which is an ontology change listener which collects the
@@ -40,7 +40,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
     @Override
     public void ontologiesChanged(
             @Nonnull List<? extends OWLOntologyChange> changes)
-            throws OWLException {
+            throws OWLRuntimeException {
         entities.clear();
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {
@@ -54,10 +54,10 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
     /**
      * Called when a set of changes have been applied.
      * 
-     * @throws OWLException
+     * @throws OWLRuntimeException
      *         if there is any exception
      */
-    public abstract void ontologiesChanged() throws OWLException;
+    public abstract void ontologiesChanged() throws OWLRuntimeException;
 
     /** @return the entities which were referenced in the last change set. */
     public Set<OWLEntity> getEntities() {

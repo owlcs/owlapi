@@ -61,7 +61,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     protected final Internals i;
     private SoftReference<Set<IRI>> iris;
-    private int size = 0;
+    private int size;
     private final THashMap<K, Set<V>> map = new THashMap<>(17, 0.75F);
 
     /**
@@ -173,8 +173,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     public synchronized Iterable<K> keySet() {
         init();
-        Set<K> keySet = map.keySet();
-        return keySet;
+        return map.keySet();
     }
 
     /**

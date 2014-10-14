@@ -272,24 +272,19 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
 
     @Nonnull
     protected OWLClassExpression getOWLClassOrRestriction(String termList) {
-        StringTokenizer tok = new StringTokenizer(termList, " ", false);
-        String id0 = null;
+        String[] strings = termList.split(" ");
+        if (strings.length == 1) {
+            return getDataFactory().getOWLClass(getIRIFromOBOId(strings[0]));
+        }
+        String id0 = strings[0];
         String id1 = null;
-        id0 = tok.nextToken();
-        if (tok.hasMoreTokens()) {
-            id1 = tok.nextToken();
-        }
-        if (id1 == null) {
-            return getDataFactory().getOWLClass(getIRIFromOBOId(id0));
-        } else {
-            IRI propertyIRI = getConsumer()
-                    .getRelationIRIFromSymbolicIdOrOBOId(id0);
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
-                    propertyIRI);
-            OWLClass filler = getDataFactory()
-                    .getOWLClass(getIRIFromOBOId(id1));
-            return getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
-        }
+        id1 = strings[1];
+        IRI propertyIRI = getConsumer()
+                .getRelationIRIFromSymbolicIdOrOBOId(id0);
+        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
+                propertyIRI);
+        OWLClass filler = getDataFactory().getOWLClass(getIRIFromOBOId(id1));
+        return getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
     }
 
     @Nonnull
@@ -472,12 +467,8 @@ class DefTagValueHandler extends AbstractTagValueHandler {
         Set<OWLAnnotation> annotations = new HashSet<>();
         String xrefs = matcher.group(XREF_GROUP);
         if (xrefs != null) {
-            StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
-            while (tokenizer.hasMoreTokens()) {
-                String xrefValue = tokenizer.nextToken();
-                OWLAnnotation xrefAnnotation = getConsumer().parseXRef(
-                        xrefValue);
-                annotations.add(xrefAnnotation);
+            for (String xrefValue : xrefs.split(",")) {
+                annotations.add(getConsumer().parseXRef(xrefValue));
             }
         }
         return annotations;

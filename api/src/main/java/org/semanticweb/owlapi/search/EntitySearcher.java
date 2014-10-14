@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.search;
 
+import static org.semanticweb.owlapi.model.parameters.AxiomAnnotations.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.Filters.*;
 
@@ -43,8 +44,6 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
-import org.semanticweb.owlapi.model.parameters.Imports;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -1686,9 +1685,8 @@ public class EntitySearcher {
      */
     public static boolean containsAxiom(@Nonnull OWLAxiom a,
             @Nonnull OWLOntology o, boolean imports) {
-        return o.containsAxiom(a,
-                imports ? Imports.INCLUDED : Imports.EXCLUDED,
-                AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
+        return o.containsAxiom(a, fromBoolean(imports),
+                CONSIDER_AXIOM_ANNOTATIONS);
     }
 
     /**
@@ -1727,8 +1725,8 @@ public class EntitySearcher {
      */
     public static boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom a,
             @Nonnull OWLOntology o, boolean imports) {
-        return o.containsAxiom(a, Imports.fromBoolean(imports),
-                AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
+        return o.containsAxiom(a, fromBoolean(imports),
+                IGNORE_AXIOM_ANNOTATIONS);
     }
 
     /**
@@ -1766,7 +1764,7 @@ public class EntitySearcher {
      */
     public static Collection<OWLAxiom> getAxiomsIgnoreAnnotations(
             @Nonnull OWLAxiom a, @Nonnull OWLOntology o, boolean imports) {
-        return o.getAxiomsIgnoreAnnotations(a, Imports.fromBoolean(imports));
+        return o.getAxiomsIgnoreAnnotations(a, fromBoolean(imports));
     }
 
     /**

@@ -47,7 +47,7 @@ public class SpecificOntologyChangeBroadcastStrategy implements
 
     @Override
     public void broadcastChanges(OWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange> changes) throws OWLException {
+            List<? extends OWLOntologyChange> changes) {
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
         List<OWLOntologyChange> broadcastChanges = new ArrayList<>();

@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.HashSet;
@@ -61,15 +60,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private final LinkedHashSet<SWRLAtom> head;
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;
-    private transient WeakReference<Set<SWRLVariable>> variables = null;
-    private transient WeakReference<Set<OWLClassExpression>> classAtomsPredicates = null;
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-        variables = null;
-        classAtomsPredicates = null;
-    }
+    private transient WeakReference<Set<SWRLVariable>> variables;
+    private transient WeakReference<Set<OWLClassExpression>> classAtomsPredicates;
 
     /**
      * @param body

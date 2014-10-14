@@ -157,16 +157,14 @@ public class Frame {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("Frame(");
+        StringBuffer sb = new StringBuffer("Frame(");
         sb.append(id);
         sb.append(' ');
         for (Clause cl : clauses) {
             sb.append(cl);
         }
         sb.append(')');
-        String string = sb.toString();
-        return string;
+        return sb.toString();
     }
 
     /**

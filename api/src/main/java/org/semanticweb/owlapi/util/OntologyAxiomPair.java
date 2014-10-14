@@ -68,20 +68,19 @@ public class OntologyAxiomPair {
         if (ontology != null && other.ontology != null) {
             return verifyNotNull(ontology).equals(other.ontology)
                     && axiom.equals(other.axiom);
-        } else if (ontology != other.ontology) {
-            return false;
-        } else {
-            return axiom.equals(other.axiom);
         }
+        if (ontology != other.ontology) {
+            return false;
+        }
+        return axiom.equals(other.axiom);
     }
 
     @Override
     public int hashCode() {
         if (ontology != null) {
             return verifyNotNull(ontology).hashCode() + axiom.hashCode();
-        } else {
-            return 37 + axiom.hashCode();
         }
+        return 37 + axiom.hashCode();
     }
 
     @Nonnull

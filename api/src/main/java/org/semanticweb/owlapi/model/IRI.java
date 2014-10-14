@@ -391,8 +391,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     @Override
     public CharSequence subSequence(int start, int end) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(namespace);
+        StringBuilder sb = new StringBuilder(namespace);
         sb.append(remainder);
         return sb.subSequence(start, end);
     }

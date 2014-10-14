@@ -2,6 +2,7 @@ package org.obolibrary.oboformat.parser;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +12,6 @@ import javax.annotation.Nonnull;
 /** OBOformat constants. */
 public class OBOFormatConstants {
 
-    //@formatter:off
     /** OBOformat tags. */
     public enum OboFormatTag {
 
@@ -79,29 +79,31 @@ public class OBOFormatConstants {
         /**TAG_IS_ASYMMETRIC. */ TAG_IS_ASYMMETRIC("is_asymmetric"),
         /**TAG_NAMESPACE_ID_RULE. */ TAG_NAMESPACE_ID_RULE("namespace-id-rule"),
         /**TAG_LOGICAL_DEFINITION_VIEW_RELATION. */ TAG_LOGICAL_DEFINITION_VIEW_RELATION("logical-definition-view-relation"),
-        
+        //@formatter:on
         // these are keywords, not tags, but we keep them here for convenience
-        /**Scope. */ 
-        TAG_SCOPE("scope"), 
+        /** Scope. */
+        TAG_SCOPE("scope"),
         /** Implicit, in synonymtypedef. */
         TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
         /** implicit, in synonym. */
-        /**Broad. */
-        TAG_BROAD("BROAD"), 
-        /**Narrow. */
+        /** Broad. */
+        TAG_BROAD("BROAD"),
+        /** Narrow. */
         TAG_NARROW("NARROW"),
-        /**Exact. */
+        /** Exact. */
         TAG_EXACT("EXACT"),
-        /**Related. */
+        /** Related. */
         TAG_RELATED("RELATED");
+
         @Nonnull
-        private final  String tag;
+        private final String tag;
 
         OboFormatTag(@Nonnull String tag) {
             this.tag = tag;
         }
 
-        /** @return tag */@Nonnull 
+        /** @return tag */
+        @Nonnull
         public String getTag() {
             return tag;
         }
@@ -110,30 +112,42 @@ public class OBOFormatConstants {
         public String toString() {
             return tag;
         }
+        /**Term frames.*/
+        public static EnumSet<OboFormatTag> TERM_FRAMES = EnumSet.of(
+                TAG_INTERSECTION_OF, TAG_UNION_OF, TAG_EQUIVALENT_TO,
+                TAG_DISJOINT_FROM, TAG_RELATIONSHIP, TAG_IS_A);
+        /**Typedef frames.*/
+        public static EnumSet<OboFormatTag> TYPEDEF_FRAMES = EnumSet.of(
+                TAG_INTERSECTION_OF, TAG_UNION_OF, TAG_EQUIVALENT_TO,
+                TAG_DISJOINT_FROM, TAG_INVERSE_OF, TAG_TRANSITIVE_OVER,
+                TAG_DISJOINT_OVER, TAG_IS_A);
     }
 
-    
-    private static final Map<String, OboFormatTag> TAGSTABLE=initTagsTable();
-    static Map<String, OboFormatTag> initTagsTable(){
+    private static final Map<String, OboFormatTag> TAGSTABLE = initTagsTable();
+
+    static Map<String, OboFormatTag> initTagsTable() {
         Map<String, OboFormatTag> tags = new HashMap<>();
         for (OboFormatTag tag : OboFormatTag.values()) {
             tags.put(tag.getTag(), tag);
         }
         return tags;
     }
-    /** tags */@Nonnull
-    public static final Set<String> TAGS=TAGSTABLE.keySet();
 
-    /** @param tag
-     *            tag
-     * @return oboformat tag */
+    /** tags */
+    @Nonnull
+    public static final Set<String> TAGS = TAGSTABLE.keySet();
+
+    /**
+     * @param tag
+     *        tag
+     * @return oboformat tag
+     */
     public static OboFormatTag getTag(String tag) {
         return TAGSTABLE.get(tag);
     }
 
-    /** @return Date format for OboFormatTag.TAG_DATE*/
+    /** @return Date format for OboFormatTag.TAG_DATE */
     public static final DateFormat headerDateFormat() {
-            return new SimpleDateFormat("dd:MM:yyyy HH:mm");
-        }
-    
+        return new SimpleDateFormat("dd:MM:yyyy HH:mm");
+    }
 }

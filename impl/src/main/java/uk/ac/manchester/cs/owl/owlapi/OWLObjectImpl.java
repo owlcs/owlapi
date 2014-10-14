@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
@@ -60,20 +59,13 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
             .emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
-    private int hashCode = 0;
+    private int hashCode;
     @Nullable
-    private transient WeakReference<Set<OWLEntity>> signature = null;
-    private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
+    private transient WeakReference<Set<OWLEntity>> signature;
+    private transient WeakReference<Set<OWLAnonymousIndividual>> anons;
     @Nonnull
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
-
-    private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-        signature = null;
-        anons = null;
-    }
 
     @Override
     public Set<OWLEntity> getSignature() {

@@ -1863,88 +1863,114 @@ public class Translators {
         @Override
         public SWRLAtom translate(IRI firstObject) {
             if (consumer.isSWRLBuiltInAtom(firstObject)) {
-                IRI builtInIRI = consumer.getResourceObject(firstObject,
-                        BUILT_IN.getIRI(), true);
-                IRI mainIRI = consumer.getResourceObject(firstObject,
-                        ARGUMENTS.getIRI(), true);
-                OptimisedListTranslator<SWRLDArgument> listTranslator = new OptimisedListTranslator<>(
-                        consumer, new SWRLAtomDObjectListItemTranslator());
-                List<SWRLDArgument> args = listTranslator
-                        .translateList(mainIRI);
-                return dataFactory.getSWRLBuiltInAtom(builtInIRI, args);
+                return builtin(firstObject);
             } else if (consumer.isSWRLClassAtom(firstObject)) {
-                // C(?x) or C(ind)
-                SWRLIArgument iObject = translateSWRLAtomIObject(firstObject,
-                        ARGUMENT_1.getIRI());
-                IRI classIRI = consumer.getResourceObject(firstObject,
-                        CLASS_PREDICATE.getIRI(), true);
-                if (classIRI == null) {
-                    throw new OWLRuntimeException(
-                            "Don't know how to translate SWRL Atom: class IRI is null "
-                                    + firstObject);
-                }
-                OWLClassExpression desc = accessor
-                        .translateClassExpression(classIRI);
-                return dataFactory.getSWRLClassAtom(desc, iObject);
+                return classAtom(firstObject);
             } else if (consumer.isSWRLDataRangeAtom(firstObject)) {
-                // DR(?x) or DR(val)
-                SWRLDArgument dObject = translateSWRLAtomDObject(firstObject,
-                        ARGUMENT_1.getIRI());
-                IRI dataRangeIRI = consumer.getResourceObject(firstObject,
-                        DATA_RANGE.getIRI(), true);
-                if (dataRangeIRI == null) {
-                    throw new OWLRuntimeException(
-                            "Don't know how to translate SWRL Atom: data range IRI is null "
-                                    + firstObject);
-                }
-                OWLDataRange dataRange = consumer
-                        .translateDataRange(dataRangeIRI);
-                return dataFactory.getSWRLDataRangeAtom(dataRange, dObject);
+                return dataRangeAtom(firstObject);
             } else if (consumer.isSWRLDataValuedPropertyAtom(firstObject)) {
-                SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
-                        ARGUMENT_1.getIRI());
-                SWRLDArgument arg2 = translateSWRLAtomDObject(firstObject,
-                        ARGUMENT_2.getIRI());
-                IRI dataPropertyIRI = consumer.getResourceObject(firstObject,
-                        PROPERTY_PREDICATE.getIRI(), true);
-                if (dataPropertyIRI == null) {
-                    throw new OWLRuntimeException(
-                            "Don't know how to translate SWRL Atom: data property IRI is null "
-                                    + firstObject);
-                }
-                OWLDataPropertyExpression prop = consumer
-                        .translateDataPropertyExpression(dataPropertyIRI);
-                return dataFactory.getSWRLDataPropertyAtom(prop, arg1, arg2);
+                return dataValueAtom(firstObject);
             } else if (consumer.isSWRLIndividualPropertyAtom(firstObject)) {
-                SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
-                        ARGUMENT_1.getIRI());
-                SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject,
-                        ARGUMENT_2.getIRI());
-                IRI objectPropertyIRI = consumer.getResourceObject(firstObject,
-                        PROPERTY_PREDICATE.getIRI(), true);
-                if (objectPropertyIRI == null) {
-                    throw new OWLRuntimeException(
-                            "Don't know how to translate SWRL Atom: object property IRI is null "
-                                    + firstObject);
-                }
-                OWLObjectPropertyExpression prop = consumer
-                        .translateObjectPropertyExpression(objectPropertyIRI);
-                return dataFactory.getSWRLObjectPropertyAtom(prop, arg1, arg2);
+                return individualAtom(firstObject);
             } else if (consumer.isSWRLSameAsAtom(firstObject)) {
-                SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
-                        ARGUMENT_1.getIRI());
-                SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject,
-                        ARGUMENT_2.getIRI());
-                return dataFactory.getSWRLSameIndividualAtom(arg1, arg2);
+                return sameAsAtom(firstObject);
             } else if (consumer.isSWRLDifferentFromAtom(firstObject)) {
-                SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
-                        ARGUMENT_1.getIRI());
-                SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject,
-                        ARGUMENT_2.getIRI());
-                return dataFactory.getSWRLDifferentIndividualsAtom(arg1, arg2);
+                return differentFromAtom(firstObject);
             }
             throw new OWLRuntimeException(
                     "Don't know how to translate SWRL Atom: " + firstObject);
+        }
+
+        protected SWRLAtom differentFromAtom(IRI firstObject) {
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
+                    ARGUMENT_1.getIRI());
+            SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject,
+                    ARGUMENT_2.getIRI());
+            return dataFactory.getSWRLDifferentIndividualsAtom(arg1, arg2);
+        }
+
+        protected SWRLAtom sameAsAtom(IRI firstObject) {
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
+                    ARGUMENT_1.getIRI());
+            SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject,
+                    ARGUMENT_2.getIRI());
+            return dataFactory.getSWRLSameIndividualAtom(arg1, arg2);
+        }
+
+        protected SWRLAtom individualAtom(IRI firstObject) {
+            IRI objectPropertyIRI = consumer.getResourceObject(firstObject,
+                    PROPERTY_PREDICATE.getIRI(), true);
+            if (objectPropertyIRI == null) {
+                throw new OWLRuntimeException(
+                        "Don't know how to translate SWRL Atom: object property IRI is null "
+                                + firstObject);
+            }
+            OWLObjectPropertyExpression prop = consumer
+                    .translateObjectPropertyExpression(objectPropertyIRI);
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
+                    ARGUMENT_1.getIRI());
+            SWRLIArgument arg2 = translateSWRLAtomIObject(firstObject,
+                    ARGUMENT_2.getIRI());
+            return dataFactory.getSWRLObjectPropertyAtom(prop, arg1, arg2);
+        }
+
+        protected SWRLAtom dataValueAtom(IRI firstObject) {
+            IRI dataPropertyIRI = consumer.getResourceObject(firstObject,
+                    PROPERTY_PREDICATE.getIRI(), true);
+            if (dataPropertyIRI == null) {
+                throw new OWLRuntimeException(
+                        "Don't know how to translate SWRL Atom: data property IRI is null "
+                                + firstObject);
+            }
+            OWLDataPropertyExpression prop = consumer
+                    .translateDataPropertyExpression(dataPropertyIRI);
+            SWRLIArgument arg1 = translateSWRLAtomIObject(firstObject,
+                    ARGUMENT_1.getIRI());
+            SWRLDArgument arg2 = translateSWRLAtomDObject(firstObject,
+                    ARGUMENT_2.getIRI());
+            return dataFactory.getSWRLDataPropertyAtom(prop, arg1, arg2);
+        }
+
+        protected SWRLAtom dataRangeAtom(IRI firstObject) {
+            // DR(?x) or DR(val)
+            IRI dataRangeIRI = consumer.getResourceObject(firstObject,
+                    DATA_RANGE.getIRI(), true);
+            if (dataRangeIRI == null) {
+                throw new OWLRuntimeException(
+                        "Don't know how to translate SWRL Atom: data range IRI is null "
+                                + firstObject);
+            }
+            OWLDataRange dataRange = consumer.translateDataRange(dataRangeIRI);
+            SWRLDArgument dObject = translateSWRLAtomDObject(firstObject,
+                    ARGUMENT_1.getIRI());
+            return dataFactory.getSWRLDataRangeAtom(dataRange, dObject);
+        }
+
+        protected SWRLAtom classAtom(IRI firstObject) {
+            // C(?x) or C(ind)
+            IRI classIRI = consumer.getResourceObject(firstObject,
+                    CLASS_PREDICATE.getIRI(), true);
+            if (classIRI == null) {
+                throw new OWLRuntimeException(
+                        "Don't know how to translate SWRL Atom: class IRI is null "
+                                + firstObject);
+            }
+            OWLClassExpression desc = accessor
+                    .translateClassExpression(classIRI);
+            SWRLIArgument iObject = translateSWRLAtomIObject(firstObject,
+                    ARGUMENT_1.getIRI());
+            return dataFactory.getSWRLClassAtom(desc, iObject);
+        }
+
+        protected SWRLAtom builtin(IRI firstObject) {
+            IRI builtInIRI = consumer.getResourceObject(firstObject,
+                    BUILT_IN.getIRI(), true);
+            IRI mainIRI = consumer.getResourceObject(firstObject,
+                    ARGUMENTS.getIRI(), true);
+            OptimisedListTranslator<SWRLDArgument> listTranslator = new OptimisedListTranslator<>(
+                    consumer, new SWRLAtomDObjectListItemTranslator());
+            List<SWRLDArgument> args = listTranslator.translateList(mainIRI);
+            return dataFactory.getSWRLBuiltInAtom(builtInIRI, args);
         }
 
         @Override

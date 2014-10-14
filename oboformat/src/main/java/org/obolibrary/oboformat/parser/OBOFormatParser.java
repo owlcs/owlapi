@@ -397,12 +397,7 @@ public class OBOFormatParser {
             for (String tag : f.getTags()) {
                 OboFormatTag tagconstant = OBOFormatConstants.getTag(tag);
                 Clause c = f.getClause(tag);
-                if (tagconstant == OboFormatTag.TAG_INTERSECTION_OF
-                        || tagconstant == OboFormatTag.TAG_UNION_OF
-                        || tagconstant == OboFormatTag.TAG_EQUIVALENT_TO
-                        || tagconstant == OboFormatTag.TAG_DISJOINT_FROM
-                        || tagconstant == OboFormatTag.TAG_RELATIONSHIP
-                        || tagconstant == OboFormatTag.TAG_IS_A) {
+                if (OboFormatTag.TERM_FRAMES.contains(tagconstant)) {
                     if (c.getValues().size() > 1) {
                         String error = checkRelation(c.getValue(String.class),
                                 tag, f.getId(), doc);
@@ -429,14 +424,7 @@ public class OBOFormatParser {
             for (String tag : f.getTags()) {
                 OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
                 Clause c = f.getClause(tag);
-                if (tagConstant == OboFormatTag.TAG_IS_A
-                        || tagConstant == OboFormatTag.TAG_INTERSECTION_OF
-                        || tagConstant == OboFormatTag.TAG_UNION_OF
-                        || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO
-                        || tagConstant == OboFormatTag.TAG_DISJOINT_FROM
-                        || tagConstant == OboFormatTag.TAG_INVERSE_OF
-                        || tagConstant == OboFormatTag.TAG_TRANSITIVE_OVER
-                        || tagConstant == OboFormatTag.TAG_DISJOINT_OVER) {
+                if (OboFormatTag.TYPEDEF_FRAMES.contains(tagConstant)) {
                     String error = checkRelation(c.getValue(String.class), tag,
                             f.getId(), doc);
                     if (error != null) {

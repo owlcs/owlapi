@@ -72,22 +72,22 @@ public class HiddenGCICount extends IntegerValuedMetric {
                 if (!processed.contains(cls)) {
                     processed.add(cls);
                 } else {
-                    continue;
-                }
-                boolean foundEquivalentClassesAxiom = false;
-                boolean foundSubClassAxiom = false;
-                for (OWLOntology o : getOntologies()) {
-                    if (!foundEquivalentClassesAxiom) {
-                        foundEquivalentClassesAxiom = !o
-                                .getEquivalentClassesAxioms(cls).isEmpty();
-                    }
-                    if (!foundSubClassAxiom) {
-                        foundSubClassAxiom = !o.getSubClassAxiomsForSubClass(
-                                cls).isEmpty();
-                    }
-                    if (foundSubClassAxiom && foundEquivalentClassesAxiom) {
-                        result.add(cls);
-                        break;
+                    boolean foundEquivalentClassesAxiom = false;
+                    boolean foundSubClassAxiom = false;
+                    for (OWLOntology o : getOntologies()) {
+                        if (!foundEquivalentClassesAxiom) {
+                            foundEquivalentClassesAxiom = !o
+                                    .getEquivalentClassesAxioms(cls).isEmpty();
+                        }
+                        if (!foundSubClassAxiom) {
+                            foundSubClassAxiom = !o
+                                    .getSubClassAxiomsForSubClass(cls)
+                                    .isEmpty();
+                        }
+                        if (foundSubClassAxiom && foundEquivalentClassesAxiom) {
+                            result.add(cls);
+                            break;
+                        }
                     }
                 }
             }

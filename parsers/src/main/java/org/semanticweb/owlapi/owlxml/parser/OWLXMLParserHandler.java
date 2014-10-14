@@ -249,18 +249,16 @@ class OWLXMLParserHandler extends DefaultHandler {
     public int getLineNumber() {
         if (locator != null) {
             return locator.getLineNumber();
-        } else {
-            return -1;
         }
+        return -1;
     }
 
     /** @return column number */
     public int getColumnNumber() {
         if (locator != null) {
             return locator.getColumnNumber();
-        } else {
-            return -1;
         }
+        return -1;
     }
 
     private final Map<String, IRI> iriMap = new HashMap<>();
@@ -297,9 +295,8 @@ class OWLXMLParserHandler extends DefaultHandler {
     private static String getNormalisedAbbreviatedIRI(String input) {
         if (input.indexOf(':') != -1) {
             return input;
-        } else {
-            return ':' + input;
         }
+        return ':' + input;
     }
 
     /**

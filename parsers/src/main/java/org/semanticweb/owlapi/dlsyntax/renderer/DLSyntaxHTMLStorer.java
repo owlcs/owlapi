@@ -55,12 +55,10 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
             protected String renderEntity(@Nonnull OWLEntity entity) {
                 String shortForm = sfp.getShortForm(checkNotNull(entity,
                         "entity cannot be null"));
-                if (!entity.equals(subject)) {
-                    return "<a href=\"#" + shortForm + "\">" + shortForm
-                            + "</a>";
-                } else {
+                if (entity.equals(subject)) {
                     return shortForm;
                 }
+                return "<a href=\"#" + shortForm + "\">" + shortForm + "</a>";
             }
 
             @Override

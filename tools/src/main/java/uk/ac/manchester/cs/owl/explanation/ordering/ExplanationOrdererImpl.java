@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
@@ -20,12 +21,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -76,6 +77,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Provides ordering and indenting of explanations based on various ordering
@@ -89,20 +91,20 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     private Set<OWLAxiom> currentExplanation;
     @Nonnull
-    private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = new HashMap<>();
+    private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = createMap();
     @Nonnull
-    private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = new HashMap<>();
+    private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
     @Nonnull
     private final SeedExtractor seedExtractor = new SeedExtractor();
     @Nonnull
     private final OWLOntologyManager man;
     private OWLOntology ont;
     @Nonnull
-    private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = new HashMap<>();
+    private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
     @Nonnull
-    private final Set<OWLAxiom> consumedAxioms = new HashSet<>();
+    private final Set<OWLAxiom> consumedAxioms = createSet();
     @Nonnull
-    private final Set<AxiomType<?>> passTypes = new HashSet<>();
+    private final Set<AxiomType<?>> passTypes = createSet();
 
     /**
      * Instantiates a new explanation orderer impl.
@@ -177,50 +179,79 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     @Nonnull
-    private List<OWLEntity> getRHSEntitiesSorted(@Nonnull OWLAxiom ax) {
-        Collection<OWLEntity> entities = getRHSEntities(ax);
-        List<OWLEntity> sortedEntities = new ArrayList<>(entities);
-        Collections.sort(sortedEntities, PROPERTIESFIRSTCOMPARATOR);
-        return sortedEntities;
+    private Stream<OWLEntity> getRHSEntitiesSorted(@Nonnull OWLAxiom ax) {
+        return getRHSEntities(ax).stream().sorted(PROPERTIESFIRST);
     }
 
     private void insertChildren(@Nonnull OWLEntity entity,
             @Nonnull ExplanationTree tree) {
         Set<OWLAxiom> currentPath = new HashSet<>(
                 tree.getUserObjectPathToRoot());
-        Set<? extends OWLAxiom> axioms = Collections.emptySet();
-        if (entity.isOWLClass()) {
-            axioms = ont.getAxioms(entity.asOWLClass(), EXCLUDED);
-        } else if (entity.isOWLObjectProperty()) {
-            axioms = ont.getAxioms(entity.asOWLObjectProperty(), EXCLUDED);
-        } else if (entity.isOWLDataProperty()) {
-            axioms = ont.getAxioms(entity.asOWLDataProperty(), EXCLUDED);
-        } else if (entity.isOWLNamedIndividual()) {
-            axioms = ont.getAxioms(entity.asOWLNamedIndividual(), EXCLUDED);
-        }
-        for (OWLAxiom ax : axioms) {
-            if (passTypes.contains(ax.getAxiomType())) {
-                continue;
-            }
-            Set<OWLAxiom> mapped = getIndexedSet(entity, mappedAxioms, true);
-            if (consumedAxioms.contains(ax) || mapped.contains(ax)
-                    || currentPath.contains(ax)) {
-                continue;
-            }
-            mapped.add(ax);
-            consumedAxioms.add(ax);
-            ExplanationTree child = new ExplanationTree(ax);
-            tree.addChild(child);
-            for (OWLEntity ent : getRHSEntitiesSorted(ax)) {
-                insertChildren(ent, child);
-            }
-        }
+        getAxioms(entity)
+                .filter(ax -> !passTypes.contains(ax.getAxiomType()))
+                .forEach(
+                        ax -> {
+                            Set<OWLAxiom> mapped = getIndexedSet(entity,
+                                    mappedAxioms, true);
+                            if (!consumedAxioms.contains(ax)
+                                    && !mapped.contains(ax)
+                                    && !currentPath.contains(ax)) {
+                                mapped.add(ax);
+                                consumedAxioms.add(ax);
+                                ExplanationTree child = new ExplanationTree(ax);
+                                tree.addChild(child);
+                                getRHSEntitiesSorted(ax).forEach(
+                                        ent -> insertChildren(ent, child));
+                            }
+                        });
         sortChildrenAxioms(tree);
+    }
+
+    protected Stream<? extends OWLAxiom> getAxioms(OWLEntity entity) {
+        if (entity.isOWLClass()) {
+            return ont.getAxioms(entity.asOWLClass(), EXCLUDED).stream();
+        }
+        if (entity.isOWLObjectProperty()) {
+            return ont.getAxioms(entity.asOWLObjectProperty(), EXCLUDED)
+                    .stream();
+        }
+        if (entity.isOWLDataProperty()) {
+            return ont.getAxioms(entity.asOWLDataProperty(), EXCLUDED).stream();
+        }
+        if (entity.isOWLNamedIndividual()) {
+            return ont.getAxioms(entity.asOWLNamedIndividual(), EXCLUDED)
+                    .stream();
+        }
+        return Collections.<OWLAxiom> emptySet().stream();
     }
 
     /** The comparator. */
     @Nonnull
-    private static final Comparator<Tree<OWLAxiom>> COMPARATOR = new OWLAxiomTreeComparator();
+    private static final Comparator<Tree<OWLAxiom>> COMPARATOR = (o1, o2) -> {
+        OWLAxiom ax1 = o1.getUserObject();
+        OWLAxiom ax2 = o2.getUserObject();
+        // Equivalent classes axioms always come last
+        if (ax1 instanceof OWLEquivalentClassesAxiom) {
+            return 1;
+        }
+        if (ax2 instanceof OWLEquivalentClassesAxiom) {
+            return -1;
+        }
+        if (ax1 instanceof OWLPropertyAxiom) {
+            return -1;
+        }
+        int diff = childDiff(o1, o2);
+        if (diff != 0) {
+            return diff;
+        }
+        if (ax1 instanceof OWLSubClassOfAxiom
+                && ax2 instanceof OWLSubClassOfAxiom) {
+            OWLSubClassOfAxiom sc1 = (OWLSubClassOfAxiom) ax1;
+            OWLSubClassOfAxiom sc2 = (OWLSubClassOfAxiom) ax2;
+            return sc1.getSuperClass().compareTo(sc2.getSuperClass());
+        }
+        return 1;
+    };
 
     private static void sortChildrenAxioms(@Nonnull ExplanationTree tree) {
         tree.sortChildren(COMPARATOR);
@@ -273,14 +304,15 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     @Nonnull
     private static <K, E> Set<E> getIndexedSet(@Nonnull K obj,
             @Nonnull Map<K, Set<E>> map, boolean addIfEmpty) {
-        Set<E> values = map.get(obj);
-        if (values == null) {
-            values = new HashSet<>();
-            if (addIfEmpty) {
-                map.put(obj, values);
-            }
+        if (addIfEmpty) {
+            return map.computeIfAbsent(obj,
+                    (x) -> CollectionFactory.<E> createSet());
         }
-        return values;
+        Set<E> set = map.get(obj);
+        if (set == null) {
+            return createSet();
+        }
+        return set;
     }
 
     /**
@@ -352,72 +384,26 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
     }
 
-    /** The Class PropertiesFirstComparator. */
-    private static class PropertiesFirstComparator implements
-            Comparator<OWLObject>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
-
-        PropertiesFirstComparator() {}
-
-        @Override
-        public int compare(OWLObject o1, OWLObject o2) {
-            if (o1 instanceof OWLProperty) {
-                return -1;
-            } else {
-                if (o1.equals(o2)) {
-                    return 0;
-                }
-                return 1;
-            }
-        }
-    }
-
     /** The properties first comparator. */
-    private static final PropertiesFirstComparator PROPERTIESFIRSTCOMPARATOR = new PropertiesFirstComparator();
-
-    /** tree comparator. */
-    private static class OWLAxiomTreeComparator implements
-            Comparator<Tree<OWLAxiom>>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
-
-        OWLAxiomTreeComparator() {}
-
-        @Override
-        public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
-            OWLAxiom ax1 = o1.getUserObject();
-            OWLAxiom ax2 = o2.getUserObject();
-            // Equivalent classes axioms always come last
-            if (ax1 instanceof OWLEquivalentClassesAxiom) {
-                return 1;
-            }
-            if (ax2 instanceof OWLEquivalentClassesAxiom) {
-                return -1;
-            }
-            if (ax1 instanceof OWLPropertyAxiom) {
-                return -1;
-            }
-            int diff = childDiff(o1, o2);
-            if (diff != 0) {
-                return diff;
-            }
-            if (ax1 instanceof OWLSubClassOfAxiom
-                    && ax2 instanceof OWLSubClassOfAxiom) {
-                OWLSubClassOfAxiom sc1 = (OWLSubClassOfAxiom) ax1;
-                OWLSubClassOfAxiom sc2 = (OWLSubClassOfAxiom) ax2;
-                return sc1.getSuperClass().compareTo(sc2.getSuperClass());
-            }
-            return 1;
+    private static final Comparator<OWLObject> PROPERTIESFIRST = (o1, o2) -> {
+        if (o1.equals(o2)) {
+            return 0;
         }
-
-        private static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
-            int childCount1 = o1.getChildCount();
-            childCount1 = childCount1 > 0 ? 0 : 1;
-            int childCount2 = o2.getChildCount();
-            childCount2 = childCount2 > 0 ? 0 : 1;
-            return childCount1 - childCount2;
+        if (o1 instanceof OWLProperty && o2 instanceof OWLProperty) {
+            return o1.compareTo(o2);
         }
+        if (o1 instanceof OWLProperty) {
+            return -1;
+        }
+        return 1;
+    };
+
+    private static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+        int childCount1 = o1.getChildCount();
+        childCount1 = childCount1 > 0 ? 0 : 1;
+        int childCount2 = o2.getChildCount();
+        childCount2 = childCount2 > 0 ? 0 : 1;
+        return childCount1 - childCount2;
     }
 
     /** The Class SeedExtractor. */

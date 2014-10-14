@@ -343,7 +343,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             throw new OWLRuntimeException(
                     "Explanation contains removed axiom: " + axiom);
         }
-        if (!newMUPS.isEmpty()) {
+        if (newMUPS.isEmpty()) {
+            LOGGER.info("Stop - satisfiable");
+            // End of current path - add it to the list of paths
+            satPaths.add(new HashSet<>(currentPathContents));
+        } else {
             // Note that getting a previous justification does not mean
             // we can stop. stopping here causes some justifications to
             // be missed
@@ -355,10 +359,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             // We have found a new MUPS, so recalculate the ordering
             // axioms in the MUPS at the current level
             return getOrderedMUPS(orderedMups, allMups);
-        } else {
-            LOGGER.info("Stop - satisfiable");
-            // End of current path - add it to the list of paths
-            satPaths.add(new HashSet<>(currentPathContents));
         }
         return orderedMups;
     }

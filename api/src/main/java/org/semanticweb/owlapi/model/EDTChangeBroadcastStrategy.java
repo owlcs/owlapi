@@ -31,41 +31,16 @@ public class EDTChangeBroadcastStrategy implements
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public void broadcastChanges(
-            @Nonnull final OWLOntologyChangeListener listener,
-            final List<? extends OWLOntologyChange> changes)
+    public void broadcastChanges(@Nonnull OWLOntologyChangeListener l,
+            @Nonnull List<? extends OWLOntologyChange> changes)
             throws OWLException {
-        if (SwingUtilities.isEventDispatchThread()) {
-            listener.ontologiesChanged(changes);
-        } else {
-            try {
-                Runnable r = new Runnable() {
-
-                    @Override
-                    public void run() {
-                        try {
-                            listener.ontologiesChanged(changes);
-                        } catch (OWLException e) {
-                            throw new BroadcastException(e);
-                        }
-                    }
-                };
-                SwingUtilities.invokeLater(r);
-            } catch (BroadcastException e) {
+        try {
+            SwingUtilities.invokeLater(() -> l.ontologiesChanged(changes));
+        } catch (OWLRuntimeException e) {
+            if (e.getCause() instanceof OWLException) {
                 throw (OWLException) e.getCause();
             }
-        }
-    }
-
-    /**
-     * Wrap an exception as a runtime exception, for unwrapping later on.
-     */
-    private static class BroadcastException extends RuntimeException {
-
-        private static final long serialVersionUID = 40000L;
-
-        BroadcastException(OWLException cause) {
-            super(cause);
+            throw new OWLException(e);
         }
     }
 }

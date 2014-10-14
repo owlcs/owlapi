@@ -66,9 +66,8 @@ public class OWLObjectWalker<O extends OWLObject> {
         if (visitor != null) {
             o.accept(visitor);
             return null;
-        } else {
-            return o.accept(visitorEx);
         }
+        return o.accept(visitorEx);
     }
 
     protected void setVisitor(OWLObjectVisitorEx<?> visitor) {

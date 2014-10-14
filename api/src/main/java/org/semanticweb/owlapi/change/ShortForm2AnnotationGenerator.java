@@ -14,19 +14,17 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -95,36 +93,24 @@ public class ShortForm2AnnotationGenerator extends
                 null);
     }
 
-    private void generateChanges(OWLOntologyManager ontologyManager,
-            @Nonnull OWLOntology ontology,
-            @Nonnull ShortFormProvider shortFormProvider,
-            @Nonnull IRI annotationIRI, @Nullable String languageTag) {
-        ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(
-                ontology);
-        Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter
-                .getObjects();
-        for (OWLOntology ont : ontology2EntityMap.keySet()) {
-            for (OWLEntity ent : ontology2EntityMap.get(ont)) {
-                String shortForm = shortFormProvider.getShortForm(ent);
-                OWLLiteral con;
-                if (languageTag != null) {
-                    con = ontologyManager.getOWLDataFactory().getOWLLiteral(
-                            shortForm, languageTag);
-                } else {
-                    con = ontologyManager.getOWLDataFactory().getOWLLiteral(
-                            shortForm);
-                }
-                if (ontology.containsEntityInSignature(ent)) {
-                    OWLOntologyChange chg = new AddAxiom(ont, ontologyManager
-                            .getOWLDataFactory()
-                            .getOWLAnnotationAssertionAxiom(
-                                    ontologyManager.getOWLDataFactory()
-                                            .getOWLAnnotationProperty(
-                                                    annotationIRI),
-                                    ent.getIRI(), con));
-                    addChange(chg);
-                }
+    private static void generateChanges(OWLOntologyManager ontologyManager,
+            @Nonnull OWLOntology o, @Nonnull ShortFormProvider provider,
+            @Nonnull IRI annotationIRI, @Nullable String lang) {
+        OWLDataFactory df = ontologyManager.getOWLDataFactory();
+        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(annotationIRI);
+        Function<OWLEntity, OWLLiteral> action = (e) -> {
+            if (lang != null) {
+                return df.getOWLLiteral(provider.getShortForm(e), lang);
             }
-        }
+            return df.getOWLLiteral(provider.getShortForm(e));
+        };
+        new ImportsStructureEntitySorter(o).getObjects().forEach(
+                (ont, ent) -> ent.stream().forEach(
+                        e -> {
+                            if (o.containsEntityInSignature(e)) {
+                                ont.addAxiom(df.getOWLAnnotationAssertionAxiom(
+                                        ap, e.getIRI(), action.apply(e)));
+                            }
+                        }));
     }
 }

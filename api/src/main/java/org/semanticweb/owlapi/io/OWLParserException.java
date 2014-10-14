@@ -130,8 +130,7 @@ public class OWLParserException extends OWLRuntimeException {
     public String getMessage() {
         if (lineNumber != -1) {
             return super.getMessage() + " (Line " + lineNumber + ')';
-        } else {
-            return super.getMessage();
         }
+        return super.getMessage();
     }
 }

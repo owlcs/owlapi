@@ -35,6 +35,7 @@ package org.semanticweb.owlapi.change;/*
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -116,15 +117,11 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private void generateChanges() {
         Set<OWLClassExpression> supers = new HashSet<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             for (OWLEquivalentClassesAxiom ax : o
                     .getEquivalentClassesAxioms(cls)) {
-                assert ax != null;
                 addChange(new RemoveAxiom(o, ax));
-                for (OWLClassExpression equivCls : ax.getClassExpressions()) {
-                    assert equivCls != null;
-                    supers.addAll(getClassExpressions(equivCls));
-                }
+                ax.getClassExpressions().stream()
+                        .forEach(c -> supers.addAll(getClassExpressions(c)));
             }
         }
         supers.remove(cls);
@@ -146,6 +143,11 @@ public class ConvertEquivalentClassesToSuperClasses extends
                         public Set<OWLClassExpression> visit(
                                 OWLObjectIntersectionOf ce) {
                             return ce.getOperands();
+                        }
+
+                        @Override
+                        public Set<OWLClassExpression> doDefault(Object o) {
+                            return Collections.emptySet();
                         }
                     });
             if (result.isEmpty()) {

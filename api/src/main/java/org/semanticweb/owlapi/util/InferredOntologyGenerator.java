@@ -131,11 +131,9 @@ public class InferredOntologyGenerator {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
         List<AddAxiom> changes = new ArrayList<>();
-        for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
-            for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {
-                changes.add(new AddAxiom(ontology, ax));
-            }
-        }
+        axiomGenerators.stream()
+                .flatMap(g -> g.createAxioms(df, reasoner).stream())
+                .forEach(ax -> changes.add(new AddAxiom(ontology, ax)));
         ontology.getOWLOntologyManager().applyChanges(changes);
     }
 }

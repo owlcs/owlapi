@@ -122,12 +122,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         checkNotNull(inputConsumer, "consumer cannot be null");
         String systemID = s.getSystemId();
         try {
-            if (systemID != null) {
-                baseIRI = IRI.create(new URI(source.getSystemId()));
-            } else {
+            if (systemID == null) {
                 throw new SAXException(
                         "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             }
+            baseIRI = IRI.create(new URI(source.getSystemId()));
             consumer = inputConsumer;
             inputConsumer.startModel(getBaseIRI());
             PARSERFACTORY.newSAXParser().parse(source, this);
@@ -324,21 +323,19 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             int hashIndex = base.indexOf('#');
             if (hashIndex != -1) {
                 return base.substring(0, hashIndex);
-            } else {
-                return base;
             }
+            return base;
         } else {
             try {
                 String resolved = resolvedIRIs.get(uri);
                 if (resolved != null) {
                     return resolved;
-                } else {
-                    IRI theIRI = resolveFromDelegate(getBaseIRI(), uri);
-                    String u = theIRI.toString();
-                    uriCache.put(u, theIRI);
-                    resolvedIRIs.put(uri, u);
-                    return u;
                 }
+                IRI theIRI = resolveFromDelegate(getBaseIRI(), uri);
+                String u = theIRI.toString();
+                uriCache.put(u, theIRI);
+                resolvedIRIs.put(uri, u);
+                return u;
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, String.format(WRONGRESOLVE,
                         uri, getBaseIRI(), e.getMessage()),

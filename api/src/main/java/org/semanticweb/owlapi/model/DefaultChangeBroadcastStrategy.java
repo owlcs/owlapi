@@ -32,8 +32,7 @@ public class DefaultChangeBroadcastStrategy implements
 
     @Override
     public void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
-            @Nonnull List<? extends OWLOntologyChange> changes)
-            throws OWLException {
+            @Nonnull List<? extends OWLOntologyChange> changes) {
         // Just broadcast all changes
         listener.ontologiesChanged(changes);
     }

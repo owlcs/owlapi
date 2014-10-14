@@ -57,8 +57,7 @@ public class OWLProfileReport {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(profile.getName());
+        StringBuilder sb = new StringBuilder(profile.getName());
         sb.append(" Profile Report: ");
         if (isInProfile()) {
             sb.append("[Ontology and imports closure in profile]\n");

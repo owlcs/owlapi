@@ -19,7 +19,6 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.OWLAPIConfigProvider;
-import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.DocumentSources;
@@ -58,7 +57,6 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
             OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
         try (Reader r = DocumentSources.wrapInputAsReader(source, config);
                 BufferedReader reader = new BufferedReader(r)) {
-            ManchesterSyntaxDocumentFormat format = new ManchesterSyntaxDocumentFormat();
             StringBuilder sb = new StringBuilder();
             String line;
             int lineCount = 1;
@@ -99,8 +97,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                             .getOWLOntologyManager().getOWLDataFactory());
             parser.setOntologyLoaderConfiguration(config);
             parser.setStringToParse(s);
-            format = parser.parseOntology(ontology);
-            return format;
+            return parser.parseOntology(ontology);
         } catch (ParserException e) {
             throw new ManchesterOWLSyntaxParserException(e.getMessage(), e,
                     e.getLineNumber(), e.getColumnNumber());

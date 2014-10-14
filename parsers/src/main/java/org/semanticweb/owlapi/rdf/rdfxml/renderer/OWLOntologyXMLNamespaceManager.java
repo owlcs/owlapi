@@ -181,14 +181,12 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             return name;
         }
         String prefix = getPrefixForNamespace(ns);
-        if (prefix != null) {
-            if (!prefix.isEmpty()) {
-                return prefix + ":" + fragment;
-            } else {
-                return fragment;
-            }
-        } else {
+        if (prefix == null) {
             return null;
         }
+        if (prefix.isEmpty()) {
+            return fragment;
+        }
+        return prefix + ":" + fragment;
     }
 }

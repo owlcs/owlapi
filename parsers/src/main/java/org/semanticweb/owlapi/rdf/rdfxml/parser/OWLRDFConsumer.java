@@ -218,6 +218,16 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private final Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = createMap();
     private final Map<IRI, IRI> remappedIRIs = createMap();
     private final Map<String, IRI> remappedIRIStrings = createMap();
+    // Caching IRIs here helps save memory. This cache is local to a particular
+    // consumer, so the cache size itself is much smaller than the total memory
+    // footprint
+    private final Map<String, IRI> IRIMap = createMap();
+    @Nonnull
+    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
+    private final static Set<IRI> entityTypes = Sets.newHashSet(
+            OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
+            OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(),
+            RDFS_DATATYPE.getIRI(), OWL_NAMED_INDIVIDUAL.getIRI());
 
     /**
      * Instantiates a new oWLRDF consumer.
@@ -459,9 +469,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         return df;
     }
 
-    // We cache IRIs to save memory!!
-    private final Map<String, IRI> IRIMap = createMap();
-
     /**
      * Gets any annotations that were translated since the last call of this
      * method (calling this method clears the current pending annotations).
@@ -643,11 +650,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private static boolean isEntityTypeIRI(IRI iri) {
         return entityTypes.contains(iri);
     }
-
-    private final static Set<IRI> entityTypes = Sets.newHashSet(
-            OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
-            OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(),
-            RDFS_DATATYPE.getIRI(), OWL_NAMED_INDIVIDUAL.getIRI());
 
     /**
      * Sets the ontology id.
@@ -1503,11 +1505,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype,
             @Nullable String lang) {
-        if (datatype != null) {
-            return df.getOWLLiteral(literal, df.getOWLDatatype(datatype));
-        } else {
+        if (datatype == null) {
             return df.getOWLLiteral(literal, lang);
         }
+        return df.getOWLLiteral(literal, df.getOWLDatatype(datatype));
     }
 
     /**
@@ -1703,9 +1704,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         }
         return val;
     }
-
-    @Nonnull
-    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
 
     @Nonnull
     private <E extends OWLEntity> E getErrorEntity(
@@ -2097,10 +2095,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         }
         Map<IRI, Collection<IRI>> resPredObjMap = resTriplesBySubject
                 .get(subject);
-        if (resPredObjMap != null) {
-            if (resPredObjMap.containsKey(predicate)) {
-                return true;
-            }
+        if (resPredObjMap != null && resPredObjMap.containsKey(predicate)) {
+            return true;
         }
         Map<IRI, Collection<OWLLiteral>> litPredObjMap = litTriplesBySubject
                 .get(subject);

@@ -111,9 +111,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
             return CollectionFactory.copy(entities);
-        } else {
-            return Collections.emptySet();
         }
+        return Collections.emptySet();
     }
 
     @Nullable
@@ -123,12 +122,10 @@ public abstract class CachingBidirectionalShortFormProvider implements
         if (entities != null) {
             if (!entities.isEmpty()) {
                 return entities.iterator().next();
-            } else {
-                return null;
             }
-        } else {
             return null;
         }
+        return null;
     }
 
     @Override
@@ -136,9 +133,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
         String sf = entity2ShortFormMap.get(entity);
         if (sf != null) {
             return sf;
-        } else {
-            return generateShortForm(entity);
         }
+        return generateShortForm(entity);
     }
 
     @Override

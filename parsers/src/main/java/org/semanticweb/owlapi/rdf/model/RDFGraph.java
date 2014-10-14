@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
@@ -20,7 +21,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -51,13 +51,13 @@ public class RDFGraph implements Serializable {
             .newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<>();
+    private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
     @Nonnull
-    private final Set<RDFResourceBlankNode> rootAnonymousNodes = new HashSet<>();
+    private final Set<RDFResourceBlankNode> rootAnonymousNodes = createSet();
     @Nonnull
-    private final Set<RDFTriple> triples = new HashSet<>();
+    private final Set<RDFTriple> triples = createSet();
     @Nonnull
-    private final Map<RDFNode, RDFNode> remappedNodes = new HashMap<>();
+    private final Map<RDFNode, RDFNode> remappedNodes = createMap();
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any
@@ -102,8 +102,8 @@ public class RDFGraph implements Serializable {
             // check if the node is remapped
             RDFNode rdfNode = remappedNodes.get(subject);
             if (rdfNode == null) {
-            return Collections.emptyList();
-        }
+                return Collections.emptyList();
+            }
             // else return the triples for the remapped node
             return getTriplesForSubject(rdfNode, sort);
         }
@@ -119,8 +119,8 @@ public class RDFGraph implements Serializable {
      */
     public Map<RDFTriple, RDFResourceBlankNode>
             computeRemappingForSharedNodes() {
-        Map<RDFTriple, RDFResourceBlankNode> toReturn = new HashMap<>();
-        Map<RDFNode, List<RDFTriple>> sharers = new HashMap<>();
+        Map<RDFTriple, RDFResourceBlankNode> toReturn = createMap();
+        Map<RDFNode, List<RDFTriple>> sharers = createMap();
         for (RDFTriple t : triples) {
             if (t.getObject().isAnonymous()
                     && notInSkippedPredicates(t.getPredicate())) {

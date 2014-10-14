@@ -16,6 +16,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Writer;
 
 import javax.annotation.Nonnull;
@@ -89,8 +90,8 @@ public class OBOFormatRenderer implements OWLRenderer {
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
             oboFormatWriter.setCheckStructure((Boolean) format.getParameter(
                     OBODocumentFormat.VALIDATION, Boolean.TRUE));
-            oboFormatWriter.write(result, new BufferedWriter(writer),
-                    nameProvider);
+            oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(
+                    writer)), nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }

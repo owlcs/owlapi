@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -190,18 +191,17 @@ public class MutableTree<N> implements Tree<N> {
     @Override
     public void dump(PrintWriter writer, int indent) {
         int depth = getPathToRoot().size();
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < depth + indent; i++) {
-            sb.append("\t");
-        }
-        writer.print(sb.toString());
+        char[] chars = new char[depth + indent];
+        Arrays.fill(chars, '\t');
+        String tabs = new String(chars);
+        writer.print(tabs);
         String ren = toStringRenderer.render(this);
-        ren = ren.replace("\n", "\n" + sb);
+        ren = ren.replace("\n", "\n" + tabs);
         writer.println(ren);
         for (Tree<N> child : getChildren()) {
             Object edge = getEdge(child);
             if (edge != null) {
-                writer.print(sb.toString());
+                writer.print('\t');
                 writer.print("--- ");
                 writer.print(edge);
                 writer.print(" ---\n\n");
@@ -250,9 +250,8 @@ public class MutableTree<N> implements Tree<N> {
     public String toString() {
         if (userObject != null) {
             return userObject.toString();
-        } else {
-            return "";
         }
+        return "";
     }
 
     /** @return the size */

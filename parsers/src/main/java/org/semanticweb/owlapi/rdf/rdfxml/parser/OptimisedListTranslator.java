@@ -91,7 +91,7 @@ class OptimisedListTranslator<O extends OWLObject> {
         List<O> list;
         if (shared) {
             Object o = consumer.getSharedAnonymousNode(mainNode);
-            if (o != null && o instanceof List) {
+            if (o instanceof List) {
                 list = (List<O>) o;
             } else {
                 list = new ArrayList<>();

@@ -342,8 +342,7 @@ public class OWL2DLProfile implements OWLProfile {
             // - Be rdfs:Literal, or
             // - Not be in the reserved vocabulary of OWL 2
             if (!OWL2Datatype.isBuiltIn(node.getIRI())) {
-                if (!node.getIRI().getNamespace()
-                        .equals(Namespaces.XSD.toString())) {
+                if (!Namespaces.XSD.inNamespace(node.getIRI())) {
                     if (!node.isTopDatatype()) {
                         if (node.getIRI().isReservedVocabulary()) {
                             profileViolations.add(new UseOfUnknownDatatype(
@@ -588,13 +587,13 @@ public class OWL2DLProfile implements OWLProfile {
                 profileViolations.add(new InsufficientPropertyExpressions(
                         getCurrentOntology(), axiom));
             }
-            for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-                if (getPropertyManager().isNonSimple(prop)) {
-                    profileViolations
-                            .add(new UseOfNonSimplePropertyInDisjointPropertiesAxiom(
-                                    getCurrentOntology(), axiom, prop));
-                }
-            }
+            axiom.getProperties()
+                    .stream()
+                    .filter(p -> getPropertyManager().isNonSimple(p))
+                    .forEach(
+                            p -> profileViolations
+                                    .add(new UseOfNonSimplePropertyInDisjointPropertiesAxiom(
+                                            getCurrentOntology(), axiom, p)));
         }
 
         @Override

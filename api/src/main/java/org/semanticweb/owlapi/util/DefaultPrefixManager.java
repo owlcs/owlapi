@@ -160,11 +160,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
         int sep = prefixIRI.indexOf(':');
         if (sep == -1) {
-            if (getDefaultPrefix() != null) {
-                return IRI.create(getDefaultPrefix() + prefixIRI);
-            } else {
+            if (getDefaultPrefix() == null) {
                 return IRI.create(prefixIRI);
             }
+            return IRI.create(getDefaultPrefix() + prefixIRI);
         } else {
             String prefixName = prefixIRI.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {

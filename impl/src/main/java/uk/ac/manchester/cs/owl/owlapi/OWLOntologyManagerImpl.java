@@ -22,7 +22,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -97,7 +96,6 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
@@ -114,6 +112,7 @@ import com.google.inject.Provider;
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
 
+    private static final String BADLISTENER = "BADLY BEHAVING LISTENER: {} has been removed";
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OWLOntologyManagerImpl.class);
@@ -122,7 +121,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     protected final Map<OWLOntologyID, IRI> documentIRIsByID = createSyncMap();
     @Nonnull
-    protected final Map<OWLOntologyID, OWLOntologyLoaderConfiguration> ontologyConfigurationsByOntologyID = new HashMap<>();
+    protected final Map<OWLOntologyID, OWLOntologyLoaderConfiguration> ontologyConfigurationsByOntologyID = createSyncMap();
     @Nonnull
     protected final Map<OWLOntologyID, OWLDocumentFormat> ontologyFormatsByOntology = createSyncMap();
     @Nonnull
@@ -162,7 +161,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
     @Nonnull
-    private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
+    private Optional<OWLOntologyLoaderConfiguration> config = absent();
 
     /**
      * @param dataFactory
@@ -384,7 +383,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         // the returned set can be mutated, but changes will not be propagated
         // back
-        return CollectionFactory.copyMutable(ontologies);
+        return copyMutable(ontologies);
     }
 
     /**
@@ -484,8 +483,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public ChangeApplied addAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
-        List<OWLOntologyChange> addAxioms = addAxioms(ont,
-                CollectionFactory.createSet(axiom));
+        List<OWLOntologyChange> addAxioms = addAxioms(ont, createSet(axiom));
         if (addAxioms.isEmpty()) {
             return ChangeApplied.UNSUCCESSFULLY;
         }
@@ -506,7 +504,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public ChangeApplied removeAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
         List<OWLOntologyChange> removeAxioms = removeAxioms(ont,
-                CollectionFactory.createSet(axiom));
+                createSet(axiom));
         if (removeAxioms.isEmpty()) {
             return ChangeApplied.UNSUCCESSFULLY;
         }
@@ -525,8 +523,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public ChangeApplied applyChange(@Nonnull OWLOntologyChange change) {
-        List<OWLOntologyChange> applyChanges = applyChanges(CollectionFactory
-                .list(change));
+        List<OWLOntologyChange> applyChanges = applyChanges(list(change));
         if (applyChanges.isEmpty()) {
             return ChangeApplied.UNSUCCESSFULLY;
         }
@@ -568,29 +565,27 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     private void checkForOntologyIDChange(OWLOntologyChange change) {
-        if (change instanceof SetOntologyID) {
-            SetOntologyID setID = (SetOntologyID) change;
-            OWLOntology existingOntology = ontologiesByID
-                    .get(((SetOntologyID) change).getNewOntologyID());
-            if (existingOntology != null
-                    && !change.getOntology().equals(existingOntology)) {
-                if (!change.getOntology().getAxioms()
-                        .equals(existingOntology.getAxioms())) {
-                    LOGGER.error(
-                            "OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}",
-                            existingOntology);
-                    LOGGER.error(
-                            "OWLOntologyManagerImpl.checkForOntologyIDChange() new:{}",
-                            change.getOntology());
-                    throw new OWLOntologyRenameException(
-                            change.getChangeData(),
-                            ((SetOntologyID) change).getNewOntologyID());
-                }
-            }
-            renameOntology(setID.getOriginalOntologyID(),
-                    setID.getNewOntologyID());
-            resetImportsClosureCache();
+        if (!(change instanceof SetOntologyID)) {
+            return;
         }
+        SetOntologyID setID = (SetOntologyID) change;
+        OWLOntology existingOntology = ontologiesByID.get(setID
+                .getNewOntologyID());
+        OWLOntology o = setID.getOntology();
+        if (existingOntology != null && !o.equals(existingOntology)) {
+            if (!o.getAxioms().equals(existingOntology.getAxioms())) {
+                LOGGER.error(
+                        "OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}",
+                        existingOntology);
+                LOGGER.error(
+                        "OWLOntologyManagerImpl.checkForOntologyIDChange() new:{}",
+                        o);
+                throw new OWLOntologyRenameException(setID.getChangeData(),
+                        setID.getNewOntologyID());
+            }
+        }
+        renameOntology(setID.getOriginalOntologyID(), setID.getNewOntologyID());
+        resetImportsClosureCache();
     }
 
     // Methods to create, load and reload ontologies
@@ -748,20 +743,19 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         OWLOntologyID id = new OWLOntologyID(of(iri), absent());
         IRI documentIRI = getDocumentIRIFromMappers(id, true);
-        if (documentIRI != null) {
-            if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
-                throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
-            }
-            // The ontology might be being loaded, but its IRI might
-            // not have been set (as is probably the case with RDF/XML!)
-            OWLOntology ontByDocumentIRI = getOntologyByDocumentIRI(documentIRI);
-            if (ontByDocumentIRI != null) {
-                return ontByDocumentIRI;
-            }
-        } else {
+        if (documentIRI == null) {
             // Nothing we can do here. We can't get a document IRI to load
             // the ontology from.
             throw new OntologyIRIMappingNotFoundException(iri);
+        }
+        if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
+            throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
+        }
+        // The ontology might be being loaded, but its IRI might
+        // not have been set (as is probably the case with RDF/XML!)
+        OWLOntology ontByDocumentIRI = getOntologyByDocumentIRI(documentIRI);
+        if (ontByDocumentIRI != null) {
+            return ontByDocumentIRI;
         }
         return loadOntology(iri,
                 new IRIDocumentSource(documentIRI, null, null), configuration);
@@ -1070,9 +1064,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (!quiet) {
             throw new OWLOntologyIRIMappingNotFoundException(
                     verifyNotNull(ontologyID.getDefaultDocumentIRI().get()));
-        } else {
-            return null;
         }
+        return null;
     }
 
     protected final void installDefaultURIMappers() {
@@ -1128,8 +1121,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 // to prevent the other listeners from receiving events.
                 strategy.broadcastChanges(listener, changes);
             } catch (Exception e) {
-                LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed",
-                        e.getMessage(), e);
+                LOGGER.warn(BADLISTENER, e.getMessage(), e);
                 listenerMap.remove(listener);
             }
         }
@@ -1312,8 +1304,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             try {
                 listener.begin(size);
             } catch (Exception e) {
-                LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed",
-                        e.getMessage(), e);
+                LOGGER.warn(BADLISTENER, e.getMessage(), e);
                 progressListeners.remove(listener);
             }
         }
@@ -1327,8 +1318,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             try {
                 listener.end();
             } catch (Exception e) {
-                LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed",
-                        e.getMessage(), e);
+                LOGGER.warn(BADLISTENER, e.getMessage(), e);
                 progressListeners.remove(listener);
             }
         }
@@ -1345,8 +1335,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             try {
                 listener.appliedChange(change);
             } catch (Exception e) {
-                LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed",
-                        e.getMessage(), e);
+                LOGGER.warn(BADLISTENER, e.getMessage(), e);
                 progressListeners.remove(listener);
             }
         }

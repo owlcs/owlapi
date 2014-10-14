@@ -171,9 +171,8 @@ public class PropertyAssertionValueShortFormProvider implements
         }
         if (candidateValue != null) {
             return getRendering(candidateValue);
-        } else {
-            return alternateShortFormProvider.getShortForm(entity);
         }
+        return alternateShortFormProvider.getShortForm(entity);
     }
 
     /**

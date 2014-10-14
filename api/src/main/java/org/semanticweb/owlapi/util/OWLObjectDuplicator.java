@@ -133,11 +133,10 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     private IRI getIRI(@Nonnull OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
         IRI replacement = replacementMap.get(entity);
-        if (replacement != null) {
-            return replacement;
-        } else {
+        if (replacement == null) {
             return entity.getIRI();
         }
+        return replacement;
     }
 
     @Nonnull

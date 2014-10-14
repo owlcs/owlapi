@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Set;
@@ -51,9 +52,9 @@ public class EquivalentToTest extends OboFormatTestBasics {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         OutputStreamWriter osw = new OutputStreamWriter(os,
                 StandardCharsets.UTF_8);
-        BufferedWriter bw = new BufferedWriter(osw);
-        w.write(obodoc, bw);
-        bw.close();
+        PrintWriter bufferedWriter = new PrintWriter(new BufferedWriter(osw));
+        w.write(obodoc, bufferedWriter);
+        bufferedWriter.close();
         OBOFormatParser p = new OBOFormatParser();
         obodoc = p.parse(new BufferedReader(new InputStreamReader(
                 new ByteArrayInputStream(os.toByteArray()))));

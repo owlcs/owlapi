@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedInputStream;
@@ -23,11 +24,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,6 +43,8 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.google.common.base.Splitter;
 
 /**
  * A mapper which given a root folder attempts to automatically discover and map
@@ -62,9 +63,9 @@ public class AutoIRIMapper extends DefaultHandler implements
     private final Set<String> fileExtensions = new HashSet<>();
     private boolean mapped;
     private final boolean recursive;
-    private final Map<String, OntologyRootElementHandler> handlerMap = new HashMap<>();
-    private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = new HashMap<>();
-    private final Map<String, IRI> oboFileMap = new HashMap<>();
+    private final Map<String, OntologyRootElementHandler> handlerMap = createMap();
+    private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = createMap();
+    private final Map<String, IRI> oboFileMap = createMap();
     private final String directoryPath;
     private transient File currentFile;
 
@@ -167,25 +168,24 @@ public class AutoIRIMapper extends DefaultHandler implements
             return;
         }
         File[] files = f.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                if (file.isDirectory() && recursive) {
-                    processFile(file);
-                } else {
-                    if (file.getName().endsWith(".obo")) {
-                        oboFileMap.put(file.getName(), IRI.create(file));
-                    } else if (file.getName().endsWith(".omn")) {
-                        parseManchesterSyntaxFile(file);
-                    } else {
-                        for (String ext : fileExtensions) {
-                            if (file.getName().endsWith(ext)) {
-                                parseFile(file);
-                                break;
-                            }
-                        }
-                    }
-                }
+        if (files == null) {
+            return;
+        }
+        for (File file : files) {
+            if (file.isDirectory() && recursive) {
+                processFile(file);
+                continue;
             }
+            if (file.getName().endsWith(".obo")) {
+                oboFileMap.put(file.getName(), IRI.create(file));
+                continue;
+            }
+            if (file.getName().endsWith(".omn")) {
+                parseManchesterSyntaxFile(file);
+                continue;
+            }
+            fileExtensions.stream().filter(ext -> file.getName().endsWith(ext))
+                    .forEach(x -> parseFile(file));
         }
     }
 
@@ -204,40 +204,30 @@ public class AutoIRIMapper extends DefaultHandler implements
     }
 
     private void parseManchesterSyntaxFile(@Nonnull File file) {
-        BufferedReader br = null;
-        try {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                new FileInputStream(file), StandardCharsets.UTF_8))) {
             // Ontology: <URI>
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(
-                    file), StandardCharsets.UTF_8));
             String line = br.readLine();
-            IRI ontologyIRI = null;
             while (line != null) {
-                StringTokenizer tokenizer = new StringTokenizer(line, " \r\n",
-                        false);
+                if (parseManLine(file, line) != null) {
+                    return;
+                }
                 line = br.readLine();
-                while (tokenizer.hasMoreTokens()) {
-                    String tok = tokenizer.nextToken();
-                    if (tok.startsWith("<") && tok.endsWith(">")) {
-                        ontologyIRI = unquote(tok);
-                        addMapping(ontologyIRI, file);
-                        break;
-                    }
-                }
-                if (ontologyIRI != null) {
-                    break;
-                }
             }
         } catch (@SuppressWarnings("unused") IOException e) {
             // if we can't parse a file, then we can't map it
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-            } catch (@SuppressWarnings("unused") IOException e2) {
-                // not to do here
+        }
+    }
+
+    private IRI parseManLine(File file, String line) {
+        for (String tok : Splitter.on(" ").split(line)) {
+            if (tok.startsWith("<") && tok.endsWith(">")) {
+                IRI iri = unquote(tok);
+                addMapping(iri, file);
+                return iri;
             }
         }
+        return null;
     }
 
     /**
@@ -275,8 +265,8 @@ public class AutoIRIMapper extends DefaultHandler implements
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AutoURIMapper: (");
+        StringBuilder sb = new StringBuilder(100);
+        sb.append("AutoIRIMapper: (");
         sb.append(ontologyIRI2PhysicalURIMap.size());
         sb.append(" ontologies)\n");
         for (IRI iri : ontologyIRI2PhysicalURIMap.keySet()) {

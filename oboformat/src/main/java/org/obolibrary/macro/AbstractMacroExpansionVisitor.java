@@ -1,7 +1,8 @@
 package org.obolibrary.macro;
 
 import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.util.Collection;
@@ -14,7 +15,6 @@ import java.util.function.Function;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -77,6 +77,17 @@ public abstract class AbstractMacroExpansionVisitor implements
             Function<? super T, ? extends T> mapper) {
         return c.stream().map(mapper).collect(toSet());
     }
+
+    static final Logger LOG = LoggerFactory
+            .getLogger(AbstractMacroExpansionVisitor.class);
+    final OWLDataFactory df;
+    @Nonnull
+    final Map<IRI, String> expandAssertionToMap;
+    @Nonnull
+    protected final Map<IRI, String> expandExpressionMap;
+    protected OWLDataVisitorEx<OWLDataRange> rangeVisitor;
+    protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
+    protected ManchesterSyntaxTool manchesterSyntaxTool;
 
     @Override
     public OWLAxiom doDefault(Object o) {
@@ -225,17 +236,6 @@ public abstract class AbstractMacroExpansionVisitor implements
         }
     }
 
-    static final Logger LOG = LoggerFactory
-            .getLogger(AbstractMacroExpansionVisitor.class);
-    final OWLDataFactory df;
-    @Nonnull
-    final Map<IRI, String> expandAssertionToMap;
-    @Nonnull
-    protected final Map<IRI, String> expandExpressionMap;
-    protected OWLDataVisitorEx<OWLDataRange> rangeVisitor;
-    protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
-    protected ManchesterSyntaxTool manchesterSyntaxTool;
-
     /**
      * @param input
      *        ontology
@@ -251,21 +251,14 @@ public abstract class AbstractMacroExpansionVisitor implements
         return manchesterSyntaxTool;
     }
 
-    protected AbstractMacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
-        df = inputOntology.getOWLOntologyManager().getOWLDataFactory();
+    protected AbstractMacroExpansionVisitor(@Nonnull OWLOntology o) {
+        df = o.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<>();
         expandAssertionToMap = new HashMap<>();
-        OWLAnnotationProperty expandExpressionAP = df
-                .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000424
-                        .getIRI());
-        OWLAnnotationProperty expandAssertionAP = df
-                .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000425
-                        .getIRI());
-        for (OWLObjectProperty p : inputOntology
-                .getObjectPropertiesInSignature()) {
-            for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
-                    Filters.annotations, p.getIRI(), INCLUDED),
-                    expandExpressionAP)) {
+        for (OWLObjectProperty p : o.getObjectPropertiesInSignature()) {
+            for (OWLAnnotation a : annotations(
+                    o.filterAxioms(Filters.annotations, p.getIRI(), INCLUDED),
+                    df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI()))) {
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
@@ -274,11 +267,10 @@ public abstract class AbstractMacroExpansionVisitor implements
                 }
             }
         }
-        for (OWLAnnotationProperty p : inputOntology
-                .getAnnotationPropertiesInSignature(EXCLUDED)) {
-            for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
-                    Filters.annotations, p.getIRI(), INCLUDED),
-                    expandAssertionAP)) {
+        for (OWLAnnotationProperty p : o.getAnnotationPropertiesInSignature()) {
+            for (OWLAnnotation a : annotations(
+                    o.filterAxioms(Filters.annotations, p.getIRI(), INCLUDED),
+                    df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI()))) {
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
@@ -297,31 +289,39 @@ public abstract class AbstractMacroExpansionVisitor implements
         IRI templateVal = null;
         if (expandExpressionMap.containsKey(iri)) {
             if (filler instanceof OWLObjectOneOf) {
-                Set<OWLIndividual> inds = ((OWLObjectOneOf) filler)
-                        .getIndividuals();
-                if (inds.size() == 1) {
-                    OWLIndividual ind = inds.iterator().next();
-                    if (ind instanceof OWLNamedIndividual) {
-                        templateVal = ((OWLNamedObject) ind).getIRI();
-                    }
-                }
+                templateVal = valFromOneOf(filler);
             }
             if (filler instanceof OWLNamedObject) {
                 templateVal = ((OWLNamedObject) filler).getIRI();
             }
             if (templateVal != null) {
-                String tStr = expandExpressionMap.get(iri);
-                String exStr = tStr.replaceAll("\\?Y",
-                        manchesterSyntaxTool.getId(templateVal));
-                try {
-                    result = manchesterSyntaxTool
-                            .parseManchesterExpression(exStr);
-                } catch (ParserException e) {
-                    LOG.error(e.getMessage(), e);
-                }
+                result = resultFromVal(iri, templateVal);
             }
         }
         return result;
+    }
+
+    protected OWLClassExpression resultFromVal(IRI iri, IRI templateVal) {
+        String tStr = expandExpressionMap.get(iri);
+        String exStr = tStr.replaceAll("\\?Y",
+                manchesterSyntaxTool.getId(templateVal));
+        try {
+            return manchesterSyntaxTool.parseManchesterExpression(exStr);
+        } catch (ParserException e) {
+            LOG.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+    protected IRI valFromOneOf(Object filler) {
+        Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).getIndividuals();
+        if (inds.size() == 1) {
+            OWLIndividual ind = inds.iterator().next();
+            if (ind instanceof OWLNamedIndividual) {
+                return ((OWLNamedObject) ind).getIRI();
+            }
+        }
+        return null;
     }
 
     // Conversion of non-class expressions to MacroExpansionVisitor

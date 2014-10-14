@@ -18,7 +18,6 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
 
@@ -26,6 +25,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.vocab.Namespaces;
+
+import com.google.common.base.Splitter;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -88,10 +89,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         String path = uri.getPath();
         String shortForm = null;
         if (path != null && !path.isEmpty()) {
-            StringTokenizer tokenizer = new StringTokenizer(path, "/", false);
             String candidatePathElement = "";
-            while (tokenizer.hasMoreTokens()) {
-                String tok = tokenizer.nextToken();
+            for (String tok : Splitter.on('/').split(path)) {
                 if (isCandidatePathElement(tok)) {
                     candidatePathElement = stripExtensionIfPresent(tok);
                 }

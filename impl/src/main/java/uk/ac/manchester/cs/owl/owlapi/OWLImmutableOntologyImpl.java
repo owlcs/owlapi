@@ -118,15 +118,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Ontology(");
-        sb.append(ontologyID);
-        sb.append(") [Axioms: ");
-        int axiomCount = ints.getAxiomCount();
-        sb.append(axiomCount);
-        sb.append(" Logical Axioms: ");
-        sb.append(ints.getLogicalAxiomCount());
-        sb.append("] First 20 axioms: {");
+        StringBuilder sb = new StringBuilder(100);
+        sb.append("Ontology(").append(ontologyID).append(") [Axioms: ")
+                .append(ints.getAxiomCount()).append(" Logical Axioms: ")
+                .append(ints.getLogicalAxiomCount())
+                .append("] First 20 axioms: {");
         for (OWLAxiom ax : Iterables.limit(ints.getAxioms(), 20)) {
             sb.append(ax).append(' ');
         }

@@ -22,7 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -271,7 +270,7 @@ public class XMLWriterImpl implements XMLWriter {
         private final String name;
         private final Map<String, String> attributes;
         @Nullable
-        String textContent;
+        protected String textContent;
         private boolean startWritten;
         private int indentation;
         private boolean wrapAttributes;
@@ -361,14 +360,12 @@ public class XMLWriterImpl implements XMLWriter {
                     // Name is null so by convension this is a comment
                     if (textContent != null) {
                         writer.write("\n\n\n");
-                        StringTokenizer tokenizer = new StringTokenizer(
-                                textContent, "\n", true);
-                        while (tokenizer.hasMoreTokens()) {
-                            String token = tokenizer.nextToken();
+                        for (String token : textContent.split("\n")) {
                             if (!token.equals("\n")) {
                                 insertIndentation();
                             }
                             writer.write(token);
+                            writer.write("\n");
                         }
                         writer.write("\n\n");
                     }
