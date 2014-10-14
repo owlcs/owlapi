@@ -964,8 +964,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                         ontologyConfigurationsByOntologyID.put(
                                 ontology.getOntologyID(), configuration);
                         if (ontology instanceof HasTrimToSize) {
-                            HasTrimToSize trimmableOntology = (OWLOntologyImpl) ontology;
-                            trimmableOntology.trimToSize();
+                            ((HasTrimToSize) ontology).trimToSize();
                         }
                         return ontology;
                     } catch (OWLOntologyRenameException e) {
