@@ -1583,11 +1583,11 @@ public class TripleHandlers {
                             // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
                             man.applyChange(new RemoveImport(consumer
                                     .getOntology(), id));
-                            io.getImportsDeclarations().stream()
-                                    .forEach(d -> addImport(man, d));
-                            io.getAnnotations().stream()
-                                    .forEach(ann -> addOntAnn(man, ann));
-                            io.getAxioms().stream().forEach(ax -> add(ax));
+                            io.getImportsDeclarations().forEach(
+                                    d -> addImport(man, d));
+                            io.getAnnotations().forEach(
+                                    ann -> addOntAnn(man, ann));
+                            io.getAxioms().forEach(ax -> add(ax));
                             man.removeOntology(io);
                         }
                     }

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.HasIRI;
@@ -161,12 +163,8 @@ public enum SWRLBuiltInsVocabulary
      *         if there is no builtin vocabulary with the specified IRI
      */
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
-        for (SWRLBuiltInsVocabulary v : values()) {
-            if (v.iri.equals(iri)) {
-                return v;
-            }
-        }
-        return null;
+        return Stream.of(values()).filter(v -> v.iri.equals(iri)).findAny()
+                .orElse(null);
     }
 
     @Override

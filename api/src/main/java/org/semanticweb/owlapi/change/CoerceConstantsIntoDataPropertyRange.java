@@ -78,16 +78,14 @@ public class CoerceConstantsIntoDataPropertyRange extends
                 }
             }
         }
-        OWLConstantReplacer replacer = new OWLConstantReplacer(
-                getDataFactory(), map);
-        ontologies.stream().forEach(
-                o -> o.getLogicalAxioms().stream().forEach(ax -> {
-                    OWLAxiom dupAx = replacer.duplicateObject(ax);
-                    if (!ax.equals(dupAx)) {
-                        addChange(new RemoveAxiom(o, ax));
-                        addChange(new AddAxiom(o, dupAx));
-                    }
-                }));
+        OWLConstantReplacer replacer = new OWLConstantReplacer(df, map);
+        ontologies.forEach(o -> o.getLogicalAxioms().forEach(ax -> {
+            OWLAxiom dupAx = replacer.duplicateObject(ax);
+            if (!ax.equals(dupAx)) {
+                addChange(new RemoveAxiom(o, ax));
+                addChange(new AddAxiom(o, dupAx));
+            }
+        }));
     }
 
     /** The Class OWLConstantReplacer. */
@@ -114,7 +112,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
             for (OWLLiteral con : oneOf.getValues()) {
                 vals.add(process(prop, con));
             }
-            return getDataFactory().getOWLDataOneOf(vals);
+            return df.getOWLDataOneOf(vals);
         }
 
         @Nonnull
@@ -124,13 +122,13 @@ public class CoerceConstantsIntoDataPropertyRange extends
             if (dt == null) {
                 return con;
             }
-            return getDataFactory().getOWLLiteral(con.getLiteral(), dt);
+            return df.getOWLLiteral(con.getLiteral(), dt);
         }
 
         @Override
         public void visit(@Nonnull OWLDataHasValue ce) {
             super.visit(ce);
-            setLastObject(getDataFactory().getOWLDataHasValue(ce.getProperty(),
+            setLastObject(df.getOWLDataHasValue(ce.getProperty(),
                     process(ce.getProperty(), ce.getFiller())));
         }
 
@@ -138,7 +136,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataSomeValuesFrom ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
+                setLastObject(df
                         .getOWLDataSomeValuesFrom(
                                 ce.getProperty(),
                                 process(ce.getProperty(),
@@ -150,7 +148,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataMinCardinality ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
+                setLastObject(df
                         .getOWLDataMinCardinality(
                                 ce.getCardinality(),
                                 ce.getProperty(),
@@ -163,7 +161,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataMaxCardinality ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
+                setLastObject(df
                         .getOWLDataMaxCardinality(
                                 ce.getCardinality(),
                                 ce.getProperty(),
@@ -176,7 +174,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataExactCardinality ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
+                setLastObject(df
                         .getOWLDataExactCardinality(
                                 ce.getCardinality(),
                                 ce.getProperty(),
@@ -189,7 +187,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         public void visit(OWLDataAllValuesFrom ce) {
             super.visit(ce);
             if (ce instanceof OWLDataOneOf) {
-                setLastObject(getDataFactory()
+                setLastObject(df
                         .getOWLDataAllValuesFrom(
                                 ce.getProperty(),
                                 process(ce.getProperty(),
@@ -200,7 +198,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
-            setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(
+            setLastObject(df.getOWLDataPropertyAssertionAxiom(
                     axiom.getProperty(), axiom.getSubject(),
                     process(axiom.getProperty(), axiom.getObject())));
         }
@@ -208,10 +206,9 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
-            setLastObject(getDataFactory()
-                    .getOWLNegativeDataPropertyAssertionAxiom(
-                            axiom.getProperty(), axiom.getSubject(),
-                            process(axiom.getProperty(), axiom.getObject())));
+            setLastObject(df.getOWLNegativeDataPropertyAssertionAxiom(
+                    axiom.getProperty(), axiom.getSubject(),
+                    process(axiom.getProperty(), axiom.getObject())));
         }
     }
 }

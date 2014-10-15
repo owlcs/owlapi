@@ -76,7 +76,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
                 AxiomType.SUBCLASS_OF).forEach(ax -> {
             split(o, ax);
         });
-        ontologies.stream().forEach(action);
+        ontologies.forEach(action);
     }
 
     protected void split(OWLOntology o, OWLSubClassOfAxiom ax) {
@@ -84,9 +84,8 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         ax.getSuperClass().accept(splitter);
         if (splitter.result.size() > 1) {
             addChange(new RemoveAxiom(o, ax));
-            splitter.result.stream().forEach(
-                    desc -> addChange(new AddAxiom(o, getDataFactory()
-                            .getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
+            splitter.result.forEach(desc -> addChange(new AddAxiom(o, df
+                    .getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
         }
     }
 

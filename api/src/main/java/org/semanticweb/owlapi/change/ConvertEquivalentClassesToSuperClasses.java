@@ -74,6 +74,18 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
 
+    private static final OWLClassExpressionVisitorEx<Set<OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Set<OWLClassExpression>>() {
+
+        @Override
+        public Set<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
+            return ce.getOperands();
+        }
+
+        @Override
+        public Set<OWLClassExpression> doDefault(Object o) {
+            return Collections.emptySet();
+        }
+    };
     private static final long serialVersionUID = 40000L;
     /** The target ontology. */
     @Nonnull
@@ -120,36 +132,20 @@ public class ConvertEquivalentClassesToSuperClasses extends
             for (OWLEquivalentClassesAxiom ax : o
                     .getEquivalentClassesAxioms(cls)) {
                 addChange(new RemoveAxiom(o, ax));
-                ax.getClassExpressions().stream()
-                        .forEach(c -> supers.addAll(getClassExpressions(c)));
+                ax.getClassExpressions().forEach(
+                        c -> supers.addAll(getClassExpressions(c)));
             }
         }
         supers.remove(cls);
-        for (OWLClassExpression sup : supers) {
-            assert sup != null;
-            addChange(new AddAxiom(targetOntology, getDataFactory()
-                    .getOWLSubClassOfAxiom(cls, sup)));
-        }
+        supers.forEach(sup -> addChange(new AddAxiom(targetOntology, df
+                .getOWLSubClassOfAxiom(cls, sup))));
     }
 
     @Nonnull
     private Set<OWLClassExpression> getClassExpressions(
             @Nonnull OWLClassExpression desc) {
         if (splitIntersections) {
-            Set<OWLClassExpression> result = desc
-                    .accept(new OWLClassExpressionVisitorEx<Set<OWLClassExpression>>() {
-
-                        @Override
-                        public Set<OWLClassExpression> visit(
-                                OWLObjectIntersectionOf ce) {
-                            return ce.getOperands();
-                        }
-
-                        @Override
-                        public Set<OWLClassExpression> doDefault(Object o) {
-                            return Collections.emptySet();
-                        }
-                    });
+            Set<OWLClassExpression> result = desc.accept(INTERSECTION_SPLITTER);
             if (result.isEmpty()) {
                 result.add(desc);
             }

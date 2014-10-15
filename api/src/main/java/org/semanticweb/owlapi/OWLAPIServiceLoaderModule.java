@@ -59,9 +59,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
         try {
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            for (T o : load(type)) {
-                binder.addBinding().toInstance(o);
-            }
+            load(type).forEach(o -> binder.addBinding().toInstance(o));
         } catch (ServiceConfigurationError e) {
             e.printStackTrace(System.out);
             throw new OWLRuntimeException("Injection failed for " + type, e);
@@ -96,10 +94,10 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
             Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(),
                     factory);
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            for (F o : load(factory)) {
+            load(factory).forEach(o -> {
                 factoryBinder.addBinding().toInstance(o);
                 binder.addBinding().toInstance(o.get());
-            }
+            });
         } catch (ServiceConfigurationError e) {
             e.printStackTrace(System.out);
             throw new OWLRuntimeException("Injection failed for factory: "
@@ -111,9 +109,8 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         try {
             Multibinder<OWLOntologyManagerFactory> binder = Multibinder
                     .newSetBinder(binder(), OWLOntologyManagerFactory.class);
-            for (OWLOntologyManagerFactory o : load(OWLOntologyManagerFactory.class)) {
-                binder.addBinding().toInstance(o);
-            }
+            load(OWLOntologyManagerFactory.class).forEach(
+                    o -> binder.addBinding().toInstance(o));
         } catch (ServiceConfigurationError e) {
             e.printStackTrace(System.out);
             throw new OWLRuntimeException(

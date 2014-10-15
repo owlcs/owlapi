@@ -12,8 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import java.util.HashSet;
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -157,13 +159,8 @@ public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return iri.toString();
     }
 
-    static final Set<IRI> BUILT_IN_IRIS;
-    static {
-        BUILT_IN_IRIS = new HashSet<>();
-        for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
-            BUILT_IN_IRIS.add(v.getIRI());
-        }
-    }
+    static final Set<IRI> BUILT_IN_IRIS = Stream.of(values())
+            .map(v -> v.getIRI()).collect(toSet());
 
     @Override
     public String getShortForm() {

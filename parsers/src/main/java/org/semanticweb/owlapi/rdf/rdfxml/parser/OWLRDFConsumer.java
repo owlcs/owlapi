@@ -526,18 +526,18 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         // We cache IRIs of various entities here.
         // We also mop up any triples that weren't parsed and consumed in the
         // imports closure.
-        ontology.getAnnotationPropertiesInSignature(INCLUDED).stream()
-                .forEach(e -> annPropertyIRIs.add(e.getIRI()));
-        ontology.getDataPropertiesInSignature(INCLUDED).stream()
-                .forEach(e -> dataPropertyIRIs.add(e.getIRI()));
-        ontology.getObjectPropertiesInSignature(INCLUDED).stream()
-                .forEach(e -> objectPropertyIRIs.add(e.getIRI()));
-        ontology.getClassesInSignature(INCLUDED).stream()
-                .forEach(e -> classIRIs.add(e.getIRI()));
-        ontology.getDatatypesInSignature(INCLUDED).stream()
-                .forEach(e -> dataRangeIRIs.add(e.getIRI()));
-        ontology.getIndividualsInSignature(INCLUDED).stream()
-                .forEach(e -> individualIRIs.add(e.getIRI()));
+        ontology.getAnnotationPropertiesInSignature(INCLUDED).forEach(
+                e -> annPropertyIRIs.add(e.getIRI()));
+        ontology.getDataPropertiesInSignature(INCLUDED).forEach(
+                e -> dataPropertyIRIs.add(e.getIRI()));
+        ontology.getObjectPropertiesInSignature(INCLUDED).forEach(
+                e -> objectPropertyIRIs.add(e.getIRI()));
+        ontology.getClassesInSignature(INCLUDED).forEach(
+                e -> classIRIs.add(e.getIRI()));
+        ontology.getDatatypesInSignature(INCLUDED).forEach(
+                e -> dataRangeIRIs.add(e.getIRI()));
+        ontology.getIndividualsInSignature(INCLUDED).forEach(
+                e -> individualIRIs.add(e.getIRI()));
     }
 
     @Override
@@ -1674,7 +1674,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         // the annotations annotate us. This
         // will only happen if we are an annotation!
         Set<OWLAnnotation> anns = createSet();
-        getAnnotatedSourceAnnotationMainNodes(n).stream().forEach(
+        getAnnotatedSourceAnnotationMainNodes(n).forEach(
                 node -> anns.addAll(translateAnnotations(node)));
         Set<OWLAnnotation> nodeAnns = createSet();
         getPredicatesBySubject(n).stream().filter(p -> isAnnotationProperty(p))
@@ -1742,11 +1742,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private Set<RDFTriple> getTriplesForMainNode(@Nonnull IRI n,
             IRI... augmentingTypes) {
         Set<RDFTriple> triples = createSet();
-        getPredicatesBySubject(n).stream().forEach(
+        getPredicatesBySubject(n).forEach(
                 p -> {
-                    getResourceObjects(n, p).stream().forEach(
+                    getResourceObjects(n, p).forEach(
                             o -> triples.add(getRDFTriple(n, p, o)));
-                    getLiteralObjects(n, p).stream().forEach(
+                    getLiteralObjects(n, p).forEach(
                             object -> triples.add(getRDFTriple(n, p, object)));
                 });
         Stream.of(augmentingTypes).forEach(
@@ -2257,11 +2257,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the iterator
      */
     protected void iterateResources(ResourceTripleIterator iterator) {
-        new ArrayList<>(resTriplesBySubject.entrySet()).stream().forEach(
-                e -> new ArrayList<>(e.getValue().entrySet()).stream().forEach(
-                        p -> new ArrayList<>(p.getValue()).stream().forEach(
-                                object -> iterator.handleResourceTriple(
-                                        e.getKey(), p.getKey(), object))));
+        new ArrayList<>(resTriplesBySubject.entrySet())
+                .forEach(e -> new ArrayList<>(e.getValue().entrySet())
+                        .forEach(p -> new ArrayList<>(p.getValue())
+                                .forEach(object -> iterator
+                                        .handleResourceTriple(e.getKey(),
+                                                p.getKey(), object))));
     }
 
     /**
@@ -2271,11 +2272,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the iterator
      */
     protected void iterateLiterals(LiteralTripleIterator iterator) {
-        new ArrayList<>(litTriplesBySubject.entrySet()).stream().forEach(
-                e -> new ArrayList<>(e.getValue().entrySet()).stream().forEach(
-                        p -> new ArrayList<>(p.getValue()).stream().forEach(
-                                object -> iterator.handleLiteralTriple(
-                                        e.getKey(), p.getKey(), object))));
+        new ArrayList<>(litTriplesBySubject.entrySet())
+                .forEach(e -> new ArrayList<>(e.getValue().entrySet())
+                        .forEach(p -> new ArrayList<>(p.getValue())
+                                .forEach(object -> iterator
+                                        .handleLiteralTriple(e.getKey(),
+                                                p.getKey(), object))));
     }
 
     @Override

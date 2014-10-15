@@ -12,11 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -49,14 +49,13 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     /** LANG_RANGE. */       LANG_RANGE      (Namespaces.RDF, "langRange",       "langRange");
 //@formatter:on
     /** All facet iris. */
-    public static final Set<IRI> FACET_IRIS;
-    static {
-        Set<IRI> iris = new HashSet<>();
-        for (OWLFacet v : values()) {
-            iris.add(v.getIRI());
-        }
-        FACET_IRIS = Collections.unmodifiableSet(iris);
+    public static final Set<IRI> FACET_IRIS = stream().map(v -> v.iri).collect(
+            toSet());
+
+    private static Stream<OWLFacet> stream() {
+        return Stream.of(values());
     }
+
     @Nonnull
     private final IRI iri;
     @Nonnull
@@ -107,12 +106,12 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     @Nonnull
     public static OWLFacet getFacet(@Nonnull IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        for (OWLFacet vocabulary : OWLFacet.values()) {
-            if (vocabulary.getIRI().equals(iri)) {
-                return vocabulary;
-            }
-        }
-        throw new IllegalArgumentException("Unknown facet: " + iri);
+        return stream()
+                .filter(v -> v.iri.equals(iri))
+                .findAny()
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Unknown facet: "
+                                + iri));
     }
 
     /**
@@ -125,12 +124,8 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static OWLFacet getFacetByShortName(@Nonnull String shortName) {
         checkNotNull(shortName);
-        for (OWLFacet vocabulary : OWLFacet.values()) {
-            if (vocabulary.getShortForm().equals(shortName)) {
-                return vocabulary;
-            }
-        }
-        return null;
+        return stream().filter(v -> v.getShortForm().equals(shortName))
+                .findAny().orElse(null);
     }
 
     /**
@@ -139,21 +134,13 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      * @return facet for name
      */
     public static OWLFacet getFacetBySymbolicName(String symbolicName) {
-        for (OWLFacet vocabulary : OWLFacet.values()) {
-            if (vocabulary.getSymbolicForm().equals(symbolicName)) {
-                return vocabulary;
-            }
-        }
-        return null;
+        return stream().filter(v -> v.getSymbolicForm().equals(symbolicName))
+                .findAny().orElse(null);
     }
 
     /** @return all facets */
     public static Set<String> getFacets() {
-        Set<String> result = new HashSet<>();
-        for (OWLFacet v : values()) {
-            result.add(v.getSymbolicForm());
-        }
-        return result;
+        return stream().map(v -> v.getSymbolicForm()).collect(toSet());
     }
 
     @Override

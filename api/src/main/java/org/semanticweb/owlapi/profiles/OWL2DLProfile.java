@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
 import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
@@ -392,15 +393,15 @@ public class OWL2DLProfile implements OWLProfile {
                 OWLObject obj, Set<OWLAxiom> axioms) {
             for (OWLDatatype dt : obj.getDatatypesInSignature()) {
                 if (datatypes.add(dt)) {
-                    for (OWLOntology ont : getCurrentOntology()
-                            .getImportsClosure()) {
-                        for (OWLDatatypeDefinitionAxiom ax : ont
-                                .getDatatypeDefinitions(dt)) {
-                            axioms.add(ax);
-                            getDatatypesInSignature(datatypes,
-                                    ax.getDataRange(), axioms);
-                        }
-                    }
+                    Imports.INCLUDED
+                            .stream(getCurrentOntology())
+                            .flatMap(o -> o.getDatatypeDefinitions(dt).stream())
+                            .forEach(
+                                    ax -> {
+                                        axioms.add(ax);
+                                        getDatatypesInSignature(datatypes,
+                                                ax.getDataRange(), axioms);
+                                    });
                 }
             }
         }

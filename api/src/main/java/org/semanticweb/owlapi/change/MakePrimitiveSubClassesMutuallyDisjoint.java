@@ -100,8 +100,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
             }
         }
         MakeClassesMutuallyDisjoint makeClassesMutuallyDisjoint = new MakeClassesMutuallyDisjoint(
-                getDataFactory(), subclasses, usePairwiseDisjointAxioms,
-                targetOntology);
+                df, subclasses, usePairwiseDisjointAxioms, targetOntology);
         addChanges(makeClassesMutuallyDisjoint.getChanges());
     }
 }

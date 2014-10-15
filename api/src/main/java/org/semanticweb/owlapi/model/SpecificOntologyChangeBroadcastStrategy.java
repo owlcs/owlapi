@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -50,12 +50,9 @@ public class SpecificOntologyChangeBroadcastStrategy implements
             List<? extends OWLOntologyChange> changes) {
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
-        List<OWLOntologyChange> broadcastChanges = new ArrayList<>();
-        for (OWLOntologyChange change : changes) {
-            if (change.getOntology().equals(ontology)) {
-                broadcastChanges.add(change);
-            }
-        }
+        List<OWLOntologyChange> broadcastChanges = changes.stream()
+                .filter(c -> c.getOntology().equals(ontology))
+                .collect(toList());
         listener.ontologiesChanged(broadcastChanges);
     }
 }

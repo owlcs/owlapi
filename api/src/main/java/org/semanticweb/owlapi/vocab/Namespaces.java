@@ -167,26 +167,18 @@ public enum Namespaces {
      * @return true if the iri is for a namespace ignored by default
      */
     public static boolean isDefaultIgnoredImport(IRI i) {
-        for (Namespaces n : defaultIgnoredImports) {
-            if (n.hashless.equals(i.toString())) {
-                return true;
-            }
-        }
-        return false;
+        return defaultIgnoredImports.stream().anyMatch(
+                n -> n.hashless.equals(i.toString()));
     }
 
     /**
      * @param i
-     *        the stirng to check
+     *        the string to check
      * @return true if the string is for a namespace ignored by default
      */
     public static boolean isDefaultIgnoredImport(String i) {
-        for (Namespaces n : defaultIgnoredImports) {
-            if (n.hashless.equals(i)) {
-                return true;
-            }
-        }
-        return false;
+        return defaultIgnoredImports.stream().anyMatch(
+                n -> n.hashless.equals(i));
     }
 
     @Nonnull

@@ -142,7 +142,7 @@ public class OWLObjectPropertyManager {
     protected void mark(OWLObjectPropertyExpression p) {
         compositeProperties.add(p.getSimplified());
         compositeProperties.add(p.getInverseProperty().getSimplified());
-        inverseProperties(p).stream().forEach(i -> {
+        inverseProperties(p).forEach(i -> {
             compositeProperties.add(i.getSimplified());
             compositeProperties.add(i.getInverseProperty().getSimplified());
         });

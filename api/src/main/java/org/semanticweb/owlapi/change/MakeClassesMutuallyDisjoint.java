@@ -79,15 +79,15 @@ public class MakeClassesMutuallyDisjoint extends
                     classExpressions);
             for (int i = 0; i < descList.size(); i++) {
                 for (int j = i + 1; j < descList.size(); j++) {
-                    addChange(new AddAxiom(targetOntology, getDataFactory()
-                            .getOWLDisjointClassesAxiom(
-                                    CollectionFactory.createSet(
-                                            descList.get(i), descList.get(j)))));
+                    addChange(new AddAxiom(
+                            targetOntology,
+                            df.getOWLDisjointClassesAxiom(CollectionFactory
+                                    .createSet(descList.get(i), descList.get(j)))));
                 }
             }
         } else {
-            addChange(new AddAxiom(targetOntology, getDataFactory()
-                    .getOWLDisjointClassesAxiom(classExpressions)));
+            addChange(new AddAxiom(targetOntology,
+                    df.getOWLDisjointClassesAxiom(classExpressions)));
         }
     }
 }

@@ -108,12 +108,12 @@ public class ConvertSuperClassesToEquivalentClass extends
                 descs.add(ax.getSuperClass());
             }
         }
-        OWLClassExpression equivalentClass = getDataFactory()
+        OWLClassExpression equivalentClass = df
                 .getOWLObjectIntersectionOf(descs);
         Set<OWLClassExpression> equivalentClasses = new HashSet<>();
         equivalentClasses.add(cls);
         equivalentClasses.add(equivalentClass);
-        addChange(new AddAxiom(targetOntology, getDataFactory()
-                .getOWLEquivalentClassesAxiom(equivalentClasses)));
+        addChange(new AddAxiom(targetOntology,
+                df.getOWLEquivalentClassesAxiom(equivalentClasses)));
     }
 }

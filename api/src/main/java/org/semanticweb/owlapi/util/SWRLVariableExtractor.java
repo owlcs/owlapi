@@ -16,7 +16,6 @@ import java.util.LinkedHashSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
@@ -24,7 +23,6 @@ import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObject;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLRule;
@@ -51,12 +49,8 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
 
     @Override
     public void visit(SWRLRule node) {
-        for (SWRLAtom atom : node.getBody()) {
-            atom.accept(this);
-        }
-        for (SWRLAtom atom : node.getHead()) {
-            atom.accept(this);
-        }
+        node.getBody().forEach(a -> a.accept(this));
+        node.getHead().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -83,9 +77,7 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        for (SWRLObject o : node.getArguments()) {
-            o.accept(this);
-        }
+        node.getArguments().forEach(a -> a.accept(this));
     }
 
     @Override

@@ -109,24 +109,23 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         // 1) Make the classes which represent the values, subclasses of the
         // value partition class
         for (OWLClassExpression valuePartitionValue : valuePartitionClasses) {
-            addChange(new AddAxiom(targetOntology, getDataFactory()
-                    .getOWLSubClassOfAxiom(valuePartitionValue,
-                            valuePartitionClass)));
+            addChange(new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(
+                    valuePartitionValue, valuePartitionClass)));
         }
         // 2) Make the values disjoint
-        addChange(new AddAxiom(targetOntology, getDataFactory()
-                .getOWLDisjointClassesAxiom(valuePartitionClasses)));
+        addChange(new AddAxiom(targetOntology,
+                df.getOWLDisjointClassesAxiom(valuePartitionClasses)));
         // 3) Add a covering axiom to the value partition
-        OWLClassExpression union = getDataFactory().getOWLObjectUnionOf(
-                valuePartitionClasses);
-        addChange(new AddAxiom(targetOntology, getDataFactory()
-                .getOWLSubClassOfAxiom(valuePartitionClass, union)));
+        OWLClassExpression union = df
+                .getOWLObjectUnionOf(valuePartitionClasses);
+        addChange(new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(
+                valuePartitionClass, union)));
         // 4) Make the property functional
-        addChange(new AddAxiom(targetOntology, getDataFactory()
-                .getOWLFunctionalObjectPropertyAxiom(valuePartitionProperty)));
+        addChange(new AddAxiom(targetOntology,
+                df.getOWLFunctionalObjectPropertyAxiom(valuePartitionProperty)));
         // 5) Set the range of the property to be the value partition
-        addChange(new AddAxiom(targetOntology, getDataFactory()
-                .getOWLObjectPropertyRangeAxiom(valuePartitionProperty,
+        addChange(new AddAxiom(targetOntology,
+                df.getOWLObjectPropertyRangeAxiom(valuePartitionProperty,
                         valuePartitionClass)));
     }
 }

@@ -105,12 +105,11 @@ public class ShortForm2AnnotationGenerator extends
             return df.getOWLLiteral(provider.getShortForm(e));
         };
         new ImportsStructureEntitySorter(o).getObjects().forEach(
-                (ont, ent) -> ent.stream().forEach(
-                        e -> {
-                            if (o.containsEntityInSignature(e)) {
-                                ont.addAxiom(df.getOWLAnnotationAssertionAxiom(
-                                        ap, e.getIRI(), action.apply(e)));
-                            }
-                        }));
+                (ont, ent) -> ent.forEach(e -> {
+                    if (o.containsEntityInSignature(e)) {
+                        ont.addAxiom(df.getOWLAnnotationAssertionAxiom(ap,
+                                e.getIRI(), action.apply(e)));
+                    }
+                }));
     }
 }

@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -87,21 +86,16 @@ public class AddClassExpressionClosureAxiom extends
         // the target property and all of the fillers for hasValue restrictions
         // as nominals
         FillerCollector collector = new FillerCollector(property);
-        for (OWLOntology ont : ontologies) {
-            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
-                ax.getSuperClass().accept(collector);
-            }
-        }
+        ontologies.forEach(o -> o.getSubClassAxiomsForSubClass(cls).forEach(
+                ax -> ax.getSuperClass().accept(collector)));
         Set<OWLClassExpression> fillers = collector.getFillers();
         if (fillers.isEmpty()) {
             return;
         }
-        OWLClassExpression closureAxiomFiller = getDataFactory()
-                .getOWLObjectUnionOf(fillers);
-        OWLClassExpression closureAxiomDesc = getDataFactory()
-                .getOWLObjectAllValuesFrom(property, closureAxiomFiller);
-        addChange(new AddAxiom(targetOntology, getDataFactory()
-                .getOWLSubClassOfAxiom(cls, closureAxiomDesc)));
+        OWLClassExpression closureAxiomDesc = df.getOWLObjectAllValuesFrom(
+                property, df.getOWLObjectUnionOf(fillers));
+        addChange(new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(cls,
+                closureAxiomDesc)));
     }
 
     private class FillerCollector implements OWLClassExpressionVisitor {
@@ -135,8 +129,8 @@ public class AddClassExpressionClosureAxiom extends
         @Override
         public void visit(@Nonnull OWLObjectHasValue ce) {
             if (ce.getProperty().equals(property)) {
-                fillers.add(getDataFactory().getOWLObjectOneOf(
-                        CollectionFactory.createSet(ce.getFiller())));
+                fillers.add(df.getOWLObjectOneOf(CollectionFactory.createSet(ce
+                        .getFiller())));
             }
         }
     }

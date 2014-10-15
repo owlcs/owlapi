@@ -64,10 +64,10 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
                         addChange(new RemoveAxiom(ont, ax));
                         superClasses.add(ax.getSuperClass());
                     }
-                    OWLClassExpression combinedSuperClass = getDataFactory()
+                    OWLClassExpression combinedSuperClass = df
                             .getOWLObjectIntersectionOf(superClasses);
-                    addChange(new AddAxiom(ont, getDataFactory()
-                            .getOWLSubClassOfAxiom(cls, combinedSuperClass)));
+                    addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls,
+                            combinedSuperClass)));
                 }
             }
         }

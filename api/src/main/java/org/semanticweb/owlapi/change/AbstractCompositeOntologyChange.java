@@ -34,7 +34,7 @@ public abstract class AbstractCompositeOntologyChange implements
     private static final long serialVersionUID = 40000L;
     /** The data factory. */
     @Nonnull
-    private final OWLDataFactory dataFactory;
+    protected final OWLDataFactory df;
     /** The changes. */
     @Nonnull
     private final List<OWLOntologyChange> changes = new ArrayList<>();
@@ -47,18 +47,7 @@ public abstract class AbstractCompositeOntologyChange implements
      */
     protected AbstractCompositeOntologyChange(
             @Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory,
-                "dataFactory cannot be null");
-    }
-
-    /**
-     * Gets the data factory.
-     * 
-     * @return the data factory
-     */
-    @Nonnull
-    protected OWLDataFactory getDataFactory() {
-        return dataFactory;
+        df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
     /**
