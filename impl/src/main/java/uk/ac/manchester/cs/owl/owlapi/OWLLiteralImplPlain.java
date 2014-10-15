@@ -51,7 +51,6 @@ public class OWLLiteralImplPlain extends
     private final String literal;
     @Nonnull
     private final String lang;
-    private final int hashcode;
 
     /**
      * @param literal
@@ -66,7 +65,7 @@ public class OWLLiteralImplPlain extends
         } else {
             this.lang = lang;
         }
-        hashcode = getHashCode();
+        hashCode = getHashCode();
     }
 
     @Override
@@ -160,35 +159,35 @@ public class OWLLiteralImplPlain extends
 
     @Override
     public int hashCode() {
-        return hashcode;
+        return hashCode;
     }
 
     private final int getHashCode() {
-        int hashCode = 277;
-        hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode = hashCode * 37;
+        int hash = 277;
+        hash = hash * 37 + getDatatype().hashCode();
+        hash = hash * 37;
         try {
             if (isInteger()) {
-                hashCode += parseInteger() * 65536;
+                hash += parseInteger() * 65536;
             } else if (isDouble()) {
-                hashCode += (int) parseDouble() * 65536;
+                hash += (int) parseDouble() * 65536;
             } else if (isFloat()) {
-                hashCode += (int) parseFloat() * 65536;
+                hash += (int) parseFloat() * 65536;
             } else if (isBoolean()) {
-                hashCode += parseBoolean() ? 65536 : 0;
+                hash += parseBoolean() ? 65536 : 0;
             } else {
-                hashCode += getLiteral().hashCode() * 65536;
+                hash += getLiteral().hashCode() * 65536;
             }
         } catch (@SuppressWarnings("unused") NumberFormatException e) {
             // it is possible that a literal does not have a value that's valid
             // for its datatype; not very useful for a consistent ontology but
             // some W3C reasoner tests use them
-            hashCode += getLiteral().hashCode() * 65536;
+            hash += getLiteral().hashCode() * 65536;
         }
         if (hasLang()) {
-            hashCode = hashCode * 37 + getLang().hashCode();
+            hash = hash * 37 + getLang().hashCode();
         }
-        return hashCode;
+        return hash;
     }
 
     @Override

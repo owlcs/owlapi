@@ -57,7 +57,7 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
             .emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
-    private int hashCode = 0;
+    protected int hashCode = 0;
     @Nonnull
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
