@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.syntax;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 import org.junit.Before;
@@ -23,11 +25,14 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class InvalidAxiomRoundTripTestCase extends TestBase {
@@ -54,8 +59,14 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         }
     }
 
+    private OWLOntology saveAndReload() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
+        return roundTrip(o, new FunctionalSyntaxDocumentFormat());
+    }
+
     @Test
-    public void shouldRoundTripInvalidDifferentIndividuals() throws Exception {
+    public void shouldRoundTripInvalidDifferentIndividuals()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLNamedIndividual e1 = NamedIndividual(IRI("urn:test1"));
         OWLNamedIndividual e2 = NamedIndividual(IRI("urn:test2"));
@@ -66,33 +77,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         // when
         addAxioms(wrongAxiom, validAxiom);
         // then
-        assertCorrectResult(wrongAxiom, validAxiom,
-                roundTrip(o, new FunctionalSyntaxDocumentFormat()));
-    }
-
-    @Test
-    public void shouldRoundTripInvalidDisjointClasses() throws Exception {
-        // given
-        OWLClass e1 = Class(IRI("urn:test1"));
-        OWLClass e2 = Class(IRI("urn:test2"));
-        OWLClass e3 = Class(IRI("urn:test3"));
-        // given
-        OWLAxiom wrongAxiom = DisjointClasses(e1);
-        OWLAxiom validAxiom = DisjointClasses(e2, e3);
-        // when
-        addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = roundTrip(o,
-                new FunctionalSyntaxDocumentFormat());
-        // then
-        assertNotNull(reloaded);
-        assertTrue(reloaded.containsAxiom(validAxiom));
-        assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertEquals(1, reloaded.getLogicalAxiomCount());
+        assertCorrectResult(wrongAxiom, validAxiom, saveAndReload());
     }
 
     @Test
     public void shouldRoundTripInvalidDisjointObjectProperties()
-            throws Exception {
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:test1"));
         OWLObjectProperty e2 = ObjectProperty(IRI("urn:test2"));
@@ -102,8 +92,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         OWLAxiom validAxiom = DisjointObjectProperties(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = roundTrip(o,
-                new FunctionalSyntaxDocumentFormat());
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -112,7 +101,51 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDisjointDataProperties() throws Exception {
+    public void shouldRoundTripInvalidDisjointClasses() throws Exception {
+        // given
+        OWLClass e1 = Class(IRI("urn:test1"));
+        OWLClass e2 = Class(IRI("urn:test2"));
+        OWLClass e3 = Class(IRI("urn:test3"));
+        // The implementation now checks for classes that only have a single
+        // distinct element
+        // Note: we cannot distinguish between a self-disjoint axiom and an
+        // FSS/API etc created single element axiom.
+        // but this is coding around a problem in the spec.
+        checkSingletonDisjointFixup(e1, DisjointClasses(e1, e1));
+        checkSingletonDisjointFixup(OWLThing(),
+                DisjointClasses(OWLThing(), OWLThing()));
+        OWLDisjointClassesAxiom singleClassDisjointAxiom = DisjointClasses(e1);
+        checkSingletonDisjointFixup(e1, singleClassDisjointAxiom);
+        OWLAxiom validAxiom = DisjointClasses(e2, e3);
+        // when
+        addAxioms(singleClassDisjointAxiom, validAxiom);
+        OWLOntology reloaded = roundTrip(o,
+                new FunctionalSyntaxDocumentFormat());
+        // then
+        assertNotNull(reloaded);
+        assertTrue(reloaded.containsAxiom(validAxiom));
+        assertTrue(reloaded.containsAxiom(singleClassDisjointAxiom));
+        assertEquals(2, reloaded.getLogicalAxiomCount());
+    }
+
+    protected void checkSingletonDisjointFixup(OWLClass e1,
+            OWLDisjointClassesAxiom wrongAxiom) {
+        Set<OWLClassExpression> classExpressions = wrongAxiom
+                .getClassExpressions();
+        assertEquals("should have two members", 2, classExpressions.size());
+        assertTrue("contains e1", classExpressions.contains(e1));
+        if (!e1.isOWLThing()) {
+            assertTrue("contains Thing", classExpressions.contains(OWLThing()));
+        } else {
+            assertTrue("contains Nothing",
+                    classExpressions.contains(OWLNothing()));
+        }
+        assertTrue("is annotated", wrongAxiom.isAnnotated());
+    }
+
+    @Test
+    public void shouldRoundTripInvalidDisjointDataProperties()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:test1"));
         OWLDataProperty e2 = DataProperty(IRI("urn:test2"));
@@ -122,8 +155,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         OWLAxiom validAxiom = DisjointDataProperties(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = roundTrip(o,
-                new FunctionalSyntaxDocumentFormat());
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -132,7 +164,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidSameIndividuals() throws Exception {
+    public void shouldRoundTripInvalidSameIndividuals()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLNamedIndividual e1 = NamedIndividual(IRI("urn:test1"));
         OWLNamedIndividual e2 = NamedIndividual(IRI("urn:test2"));
@@ -143,12 +176,12 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         // when
         addAxioms(wrongAxiom, validAxiom);
         // then
-        assertCorrectResult(wrongAxiom, validAxiom,
-                roundTrip(o, new FunctionalSyntaxDocumentFormat()));
+        assertCorrectResult(wrongAxiom, validAxiom, saveAndReload());
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentClasses() throws Exception {
+    public void shouldRoundTripInvalidEquivalentClasses()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLClass e1 = Class(IRI("urn:test1"));
         OWLClass e2 = Class(IRI("urn:test2"));
@@ -158,8 +191,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         OWLAxiom validAxiom = EquivalentClasses(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = roundTrip(o,
-                new FunctionalSyntaxDocumentFormat());
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -169,7 +201,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentObjectProperties()
-            throws Exception {
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:test1"));
         OWLObjectProperty e2 = ObjectProperty(IRI("urn:test2"));
@@ -179,8 +211,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         OWLAxiom validAxiom = EquivalentObjectProperties(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = roundTrip(o,
-                new FunctionalSyntaxDocumentFormat());
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -190,7 +221,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentDataProperties()
-            throws Exception {
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:test1"));
         OWLDataProperty e2 = DataProperty(IRI("urn:test2"));
@@ -200,8 +231,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         OWLAxiom validAxiom = EquivalentDataProperties(e2, e3);
         // when
         addAxioms(wrongAxiom, validAxiom);
-        OWLOntology reloaded = roundTrip(o,
-                new FunctionalSyntaxDocumentFormat());
+        OWLOntology reloaded = saveAndReload();
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
