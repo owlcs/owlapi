@@ -73,9 +73,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (SWRLDArgument arg : args) {
-            addAnonymousIndividualsToSetForValue(anons, arg);
-        }
+        args.forEach(a -> addAnonymousIndividualsToSetForValue(anons, a));
     }
 
     @Override

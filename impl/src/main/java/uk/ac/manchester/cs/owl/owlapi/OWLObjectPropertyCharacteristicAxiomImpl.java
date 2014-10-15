@@ -20,7 +20,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
@@ -61,9 +60,6 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
             entities.addAll(property.getSignature());
         }
     }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public OWLObjectPropertyExpression getProperty() {

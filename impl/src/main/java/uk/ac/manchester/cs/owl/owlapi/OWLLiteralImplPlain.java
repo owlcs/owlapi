@@ -19,7 +19,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -72,9 +71,6 @@ public class OWLLiteralImplPlain extends
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(RDF_PLAIN_LITERAL);
     }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     protected int index() {

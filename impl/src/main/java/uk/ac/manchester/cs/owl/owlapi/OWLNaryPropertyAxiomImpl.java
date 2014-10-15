@@ -23,7 +23,6 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.HasAnonymousIndividuals;
 import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -83,9 +82,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (HasAnonymousIndividuals hasAnons : getProperties()) {
-            addAnonymousIndividualsToSetForValue(anons, hasAnons);
-        }
+        getProperties().forEach(
+                p -> addAnonymousIndividualsToSetForValue(anons, p));
     }
 
     @Override

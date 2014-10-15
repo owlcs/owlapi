@@ -60,9 +60,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (OWLClassExpression operand : operands) {
-            addAnonymousIndividualsToSetForValue(anons, operand);
-        }
+        operands.forEach(o -> addAnonymousIndividualsToSetForValue(anons, o));
     }
 
     @Override

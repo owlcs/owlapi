@@ -164,8 +164,7 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         addAnonymousIndividualsFromAnnotationsToSet(anns, anons);
         if (value instanceof OWLAnonymousIndividual) {
-            OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) value;
-            anons.add(anonymousIndividual);
+            anons.add((OWLAnonymousIndividual) value);
         }
     }
 }

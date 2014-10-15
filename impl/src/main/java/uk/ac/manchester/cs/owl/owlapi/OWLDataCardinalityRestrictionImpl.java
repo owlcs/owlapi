@@ -54,8 +54,7 @@ public abstract class OWLDataCardinalityRestrictionImpl extends
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        OWLDataRange filler = getFiller();
-        addAnonymousIndividualsToSetForValue(anons, filler);
+        addAnonymousIndividualsToSetForValue(anons, getFiller());
     }
 
     @Override

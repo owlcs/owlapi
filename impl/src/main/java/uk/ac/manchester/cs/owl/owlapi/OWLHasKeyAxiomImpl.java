@@ -79,9 +79,8 @@ public class OWLHasKeyAxiomImpl extends
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         addAnonymousIndividualsToSetForValue(anons, expression);
-        for (OWLPropertyExpression propertyExpression : propertyExpressions) {
-            addAnonymousIndividualsToSetForValue(anons, propertyExpression);
-        }
+        propertyExpressions.forEach(p -> addAnonymousIndividualsToSetForValue(
+                anons, p));
     }
 
     @Override

@@ -70,11 +70,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (OWLIndividual individual : values) {
-            if (individual.isAnonymous()) {
-                anons.add(individual.asOWLAnonymousIndividual());
-            }
-        }
+        values.stream().filter(i -> i.isAnonymous())
+                .forEach(i -> anons.add(i.asOWLAnonymousIndividual()));
     }
 
     @Override

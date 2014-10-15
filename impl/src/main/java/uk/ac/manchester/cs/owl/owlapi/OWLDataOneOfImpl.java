@@ -20,7 +20,6 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
@@ -68,9 +67,6 @@ public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
             entities.add(value.getDatatype());
         }
     }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public DataRangeType getDataRangeType() {

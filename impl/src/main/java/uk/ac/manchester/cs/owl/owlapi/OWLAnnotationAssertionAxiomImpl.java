@@ -88,12 +88,10 @@ public class OWLAnnotationAssertionAxiomImpl extends
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         if (subject instanceof OWLAnonymousIndividual) {
-            OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) subject;
-            anons.add(anonymousIndividual);
+            anons.add((OWLAnonymousIndividual) subject);
         }
         if (value instanceof OWLAnonymousIndividual) {
-            OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) value;
-            anons.add(anonymousIndividual);
+            anons.add((OWLAnonymousIndividual) value);
         }
     }
 

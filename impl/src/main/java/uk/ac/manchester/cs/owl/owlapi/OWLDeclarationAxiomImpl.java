@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
@@ -58,9 +57,6 @@ public class OWLDeclarationAxiomImpl extends
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(entity);
     }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public boolean isLogicalAxiom() {

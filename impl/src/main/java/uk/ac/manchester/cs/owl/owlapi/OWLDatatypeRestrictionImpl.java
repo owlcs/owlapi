@@ -79,9 +79,8 @@ public class OWLDatatypeRestrictionImpl extends
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (OWLFacetRestriction facetRestriction : facetRestrictions) {
-            addAnonymousIndividualsToSetForValue(anons, facetRestriction);
-        }
+        facetRestrictions.stream().forEach(
+                r -> addAnonymousIndividualsToSetForValue(anons, r));
     }
 
     @Override

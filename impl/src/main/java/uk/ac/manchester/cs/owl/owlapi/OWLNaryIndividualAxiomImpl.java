@@ -69,11 +69,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (OWLIndividual individual : individuals) {
-            if (individual.isAnonymous()) {
-                anons.add(individual.asOWLAnonymousIndividual());
-            }
-        }
+        individuals.stream().filter(i -> i.isAnonymous())
+                .forEach(i -> anons.add(i.asOWLAnonymousIndividual()));
     }
 
     @Override

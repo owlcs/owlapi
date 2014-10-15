@@ -19,7 +19,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -52,15 +51,11 @@ public class OWLLiteralImplNoCompression extends
     private final OWLDatatype datatype;
     @Nonnull
     private final String language;
-    private final int hashcode;
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
     }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     protected int index() {
@@ -96,7 +91,7 @@ public class OWLLiteralImplNoCompression extends
             language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
         }
-        hashcode = getHashCode();
+        hashCode = getHashCode();
     }
 
     @Nonnull
@@ -196,7 +191,7 @@ public class OWLLiteralImplNoCompression extends
 
     @Override
     public int hashCode() {
-        return hashcode;
+        return hashCode;
     }
 
     private final int getHashCode() {

@@ -73,8 +73,6 @@ public abstract class OWLNaryDataRangeImpl extends
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        for (OWLDataRange operand : operands) {
-            addAnonymousIndividualsToSetForValue(anons, operand);
-        }
+        operands.forEach(o -> addAnonymousIndividualsToSetForValue(anons, o));
     }
 }

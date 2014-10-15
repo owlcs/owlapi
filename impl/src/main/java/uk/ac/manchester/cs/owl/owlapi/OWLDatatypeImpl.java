@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
@@ -288,7 +287,4 @@ public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(this);
     }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 }

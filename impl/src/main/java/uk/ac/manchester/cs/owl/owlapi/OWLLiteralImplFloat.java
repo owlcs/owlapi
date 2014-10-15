@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -67,9 +66,6 @@ public class OWLLiteralImplFloat extends
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
     }
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     private final int hashcode;
 

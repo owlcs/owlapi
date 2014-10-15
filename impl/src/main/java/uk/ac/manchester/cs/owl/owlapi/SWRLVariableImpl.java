@@ -19,7 +19,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -52,9 +51,6 @@ public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {}
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {}
 
     @Override
     public IRI getIRI() {

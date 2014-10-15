@@ -63,8 +63,7 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends
         OWLDataRange filler = getFiller();
         addAnonymousIndividualsToSetForValue(anons, filler);
         if (property instanceof HasIncrementalSignatureGenerationSupport) {
-            HasIncrementalSignatureGenerationSupport property1 = (HasIncrementalSignatureGenerationSupport) property;
-            property1.addAnonymousIndividualsToSet(anons);
+            ((HasIncrementalSignatureGenerationSupport) property).addAnonymousIndividualsToSet(anons);
         }
     }
 

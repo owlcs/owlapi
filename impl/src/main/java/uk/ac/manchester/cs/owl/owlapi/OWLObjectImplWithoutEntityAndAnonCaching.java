@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 2.0.0
  */
 public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLObject, Serializable {
+        OWLObject, HasIncrementalSignatureGenerationSupport, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
@@ -61,11 +61,6 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     @Nonnull
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
-
-    abstract public void addSignatureEntitiesToSet(Set<OWLEntity> entities);
-
-    abstract public void addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons);
 
     @Nonnull
     @Override

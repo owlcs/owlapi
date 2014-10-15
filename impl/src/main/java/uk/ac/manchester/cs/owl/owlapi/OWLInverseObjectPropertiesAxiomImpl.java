@@ -90,14 +90,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         if (first instanceof HasIncrementalSignatureGenerationSupport) {
-            HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) first;
-            prop.addAnonymousIndividualsToSet(anons);
+            ((HasIncrementalSignatureGenerationSupport) first).addAnonymousIndividualsToSet(anons);
         } else {
             anons.addAll(first.getAnonymousIndividuals());
         }
         if (second instanceof HasIncrementalSignatureGenerationSupport) {
-            HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) second;
-            prop.addAnonymousIndividualsToSet(anons);
+            ((HasIncrementalSignatureGenerationSupport) second).addAnonymousIndividualsToSet(anons);
         } else {
             anons.addAll(second.getAnonymousIndividuals());
         }
