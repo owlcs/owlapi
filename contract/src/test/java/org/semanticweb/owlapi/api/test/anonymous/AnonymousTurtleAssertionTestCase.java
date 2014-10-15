@@ -29,6 +29,4 @@ public class AnonymousTurtleAssertionTestCase extends
     protected String getFileName() {
         return "testBlankNodesAssertions.ttl";
     }
-
-
 }

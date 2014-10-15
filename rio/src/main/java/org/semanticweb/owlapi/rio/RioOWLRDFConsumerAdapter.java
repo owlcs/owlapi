@@ -93,7 +93,6 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
         if (format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat prefixDocumentFormat = (PrefixDocumentFormat) format;
             prefixDocumentFormat.setPrefix(prefix + ':', uri);
-
         }
     }
 

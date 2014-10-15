@@ -36,8 +36,9 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImplWithEntityAndAnonCaching
-        implements OWLSubPropertyChainOfAxiom {
+public class OWLSubPropertyChainAxiomImpl extends
+        OWLPropertyAxiomImplWithEntityAndAnonCaching implements
+        OWLSubPropertyChainOfAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

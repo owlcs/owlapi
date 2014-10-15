@@ -29,5 +29,4 @@ public class AnonymousTroublesomeConversionTestCase extends
     protected String getFileName() {
         return "extraBlankNodes.owl";
     }
-
 }

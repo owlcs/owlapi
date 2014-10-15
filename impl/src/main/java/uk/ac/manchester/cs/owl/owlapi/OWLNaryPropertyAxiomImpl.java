@@ -64,6 +64,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
                 .sortOptionally(properties);
     }
 
+    @SafeVarargs
     OWLNaryPropertyAxiomImpl(
             @Nonnull Collection<? extends OWLAnnotation> annotations,
             P... properties) {

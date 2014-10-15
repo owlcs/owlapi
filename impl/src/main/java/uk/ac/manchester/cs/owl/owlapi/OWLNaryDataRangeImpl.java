@@ -68,8 +68,8 @@ public abstract class OWLNaryDataRangeImpl extends
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         for (OWLDataRange operand : operands) {
             addSignatureEntitiesToSetForValue(entities, operand);
-            }
         }
+    }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {

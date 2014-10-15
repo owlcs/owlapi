@@ -79,10 +79,10 @@ public class OWLLiteralImplDouble extends
     }
 
     private int getHashCode() {
-        int hashCode = 277;
-        hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode = hashCode * 37 + (int) (literal * 65536);
-        return hashCode;
+        int hash = 277;
+        hash = hash * 37 + getDatatype().hashCode();
+        hash = hash * 37 + (int) (literal * 65536);
+        return hash;
     }
 
     @Override

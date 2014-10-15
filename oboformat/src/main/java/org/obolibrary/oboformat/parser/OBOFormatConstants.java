@@ -15,6 +15,7 @@ public class OBOFormatConstants {
     /** OBOformat tags. */
     public enum OboFormatTag {
 
+
         //@formatter:off
         /**TAG_FORMAT_VERSION. */ TAG_FORMAT_VERSION("format-version"),
         /**TAG_ONTOLOGY. */ TAG_ONTOLOGY( "ontology"),
@@ -112,11 +113,12 @@ public class OBOFormatConstants {
         public String toString() {
             return tag;
         }
-        /**Term frames.*/
+
+        /** Term frames. */
         public static EnumSet<OboFormatTag> TERM_FRAMES = EnumSet.of(
                 TAG_INTERSECTION_OF, TAG_UNION_OF, TAG_EQUIVALENT_TO,
                 TAG_DISJOINT_FROM, TAG_RELATIONSHIP, TAG_IS_A);
-        /**Typedef frames.*/
+        /** Typedef frames. */
         public static EnumSet<OboFormatTag> TYPEDEF_FRAMES = EnumSet.of(
                 TAG_INTERSECTION_OF, TAG_UNION_OF, TAG_EQUIVALENT_TO,
                 TAG_DISJOINT_FROM, TAG_INVERSE_OF, TAG_TRANSITIVE_OVER,

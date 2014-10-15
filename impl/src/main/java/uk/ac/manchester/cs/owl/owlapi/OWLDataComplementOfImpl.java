@@ -62,7 +62,7 @@ public class OWLDataComplementOfImpl extends
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, dataRange);
-        }
+    }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {

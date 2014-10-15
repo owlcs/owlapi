@@ -210,7 +210,8 @@ public class OWLLiteralImplString implements OWLLiteral {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImplWithEntityAndAnonCaching) {
-            otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o).index();
+            otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o)
+                    .index();
         } else {
             otherTypeIndex = OWLObjectImplWithEntityAndAnonCaching.OWLOBJECT_TYPEINDEX_PROVIDER
                     .getTypeIndex(o);

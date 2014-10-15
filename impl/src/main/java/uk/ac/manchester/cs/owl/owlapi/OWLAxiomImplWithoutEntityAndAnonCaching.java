@@ -183,7 +183,7 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         Set<OWLAnonymousIndividual> anons = super.getAnonymousIndividuals();
-        addAnonymousIndividualsFromAnnotationsToSet(annotations,anons );
+        addAnonymousIndividualsFromAnnotationsToSet(annotations, anons);
         return anons;
     }
 }

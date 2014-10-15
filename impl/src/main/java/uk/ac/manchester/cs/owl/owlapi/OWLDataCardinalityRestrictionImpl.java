@@ -50,13 +50,12 @@ public abstract class OWLDataCardinalityRestrictionImpl extends
         OWLDataRange filler = getFiller();
         addSignatureEntitiesToSetForValue(entities, filler);
         addSignatureEntitiesToSetForValue(entities, property);
-        }
+    }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         OWLDataRange filler = getFiller();
         addAnonymousIndividualsToSetForValue(anons, filler);
-
     }
 
     @Override

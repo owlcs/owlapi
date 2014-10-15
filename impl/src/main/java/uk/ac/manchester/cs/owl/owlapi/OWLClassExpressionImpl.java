@@ -19,8 +19,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class OWLClassExpressionImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLClassExpression {
+public abstract class OWLClassExpressionImpl extends
+        OWLObjectImplWithoutEntityAndAnonCaching implements OWLClassExpression {
 
     private static final long serialVersionUID = 40000L;
 

@@ -20,7 +20,8 @@ import org.semanticweb.owlapi.model.OWLRestriction;
  * @since 2.0.0
  */
 public abstract class OWLRestrictionImpl extends
-        OWLAnonymousClassExpressionImpl implements OWLRestriction,HasIncrementalSignatureGenerationSupport {
+        OWLAnonymousClassExpressionImpl implements OWLRestriction,
+        HasIncrementalSignatureGenerationSupport {
 
     private static final long serialVersionUID = 40000L;
 

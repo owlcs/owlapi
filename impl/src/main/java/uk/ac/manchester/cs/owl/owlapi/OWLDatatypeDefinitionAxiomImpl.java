@@ -68,7 +68,7 @@ public class OWLDatatypeDefinitionAxiomImpl extends
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
         addSignatureEntitiesToSetForValue(entities, dataRange);
-        }
+    }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {

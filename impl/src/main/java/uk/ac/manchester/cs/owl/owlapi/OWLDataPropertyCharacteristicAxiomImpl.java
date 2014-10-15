@@ -28,7 +28,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLDataPropertyCharacteristicAxiomImpl extends
-        OWLPropertyAxiomImplWithEntityAndAnonCaching implements OWLDataPropertyCharacteristicAxiom {
+        OWLPropertyAxiomImplWithEntityAndAnonCaching implements
+        OWLDataPropertyCharacteristicAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

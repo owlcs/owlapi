@@ -33,6 +33,4 @@ public class EquivalentDataPropertiesNaryAnnotatedTestCase extends
         return EquivalentDataProperties(annos, DataProperty(iri("p")),
                 DataProperty(iri("q")), DataProperty(iri("r")));
     }
-
-
 }

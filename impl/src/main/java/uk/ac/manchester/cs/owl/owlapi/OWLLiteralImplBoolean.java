@@ -79,10 +79,10 @@ public class OWLLiteralImplBoolean extends
     }
 
     private int getHashCode() {
-        int hashCode = 277;
-        hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode = hashCode * 37 + (literal ? 65536 : 0);
-        return hashCode;
+        int hash = 277;
+        hash = hash * 37 + getDatatype().hashCode();
+        hash = hash * 37 + (literal ? 65536 : 0);
+        return hash;
     }
 
     @Override

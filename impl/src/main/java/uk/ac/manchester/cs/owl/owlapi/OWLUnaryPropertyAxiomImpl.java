@@ -30,7 +30,8 @@ import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
  *        property type
  */
 public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImplWithEntityAndAnonCaching implements OWLUnaryPropertyAxiom<P> {
+        extends OWLPropertyAxiomImplWithEntityAndAnonCaching implements
+        OWLUnaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

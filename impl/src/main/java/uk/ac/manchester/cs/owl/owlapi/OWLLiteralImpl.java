@@ -210,18 +210,18 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     private final int getHashCode() {
-        int hashCode = 277;
-        hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode *= 37;
+        int hash = 277;
+        hash = hash * 37 + getDatatype().hashCode();
+        hash *= 37;
         if (literal.l != null) {
-            hashCode += literal.l.hashCode();
+            hash += literal.l.hashCode();
         } else {
-            hashCode += Arrays.hashCode(literal.bytes);
+            hash += Arrays.hashCode(literal.bytes);
         }
         if (hasLang()) {
-            hashCode = hashCode * 37 + getLang().hashCode();
+            hash = hash * 37 + getLang().hashCode();
         }
-        return hashCode;
+        return hash;
     }
 
     @Override

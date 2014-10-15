@@ -29,5 +29,4 @@ public class PrimerRDFXMLRoundTrippingTestCase extends
     protected String getFileName() {
         return "primer.rdfxml.xml";
     }
-
 }

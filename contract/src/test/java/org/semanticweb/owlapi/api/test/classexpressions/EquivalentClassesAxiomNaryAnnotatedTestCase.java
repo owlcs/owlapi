@@ -33,5 +33,4 @@ public class EquivalentClassesAxiomNaryAnnotatedTestCase extends
         return EquivalentClasses(annos, Class(iri("A")), Class(iri("B")),
                 Class(iri("C")), Class(iri("D")));
     }
-
 }

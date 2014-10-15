@@ -28,6 +28,4 @@ public class AnonymousTurtleTestCase extends AbstractFileRoundTrippingTestCase {
     protected String getFileName() {
         return "testBlankNodes.ttl";
     }
-
-
 }

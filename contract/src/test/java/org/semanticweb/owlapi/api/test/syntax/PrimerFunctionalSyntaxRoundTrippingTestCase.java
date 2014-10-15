@@ -29,5 +29,4 @@ public class PrimerFunctionalSyntaxRoundTrippingTestCase extends
     protected String getFileName() {
         return "primer.functionalsyntax.txt";
     }
-
 }
