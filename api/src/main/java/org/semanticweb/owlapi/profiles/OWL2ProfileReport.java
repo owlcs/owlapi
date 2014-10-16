@@ -62,17 +62,9 @@ public class OWL2ProfileReport extends OWLProfileReport {
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
         sb.append("\n[Simple properties]\n");
-        for (OWLObjectPropertyExpression prop : simpleRoles) {
-            sb.append('\t');
-            sb.append(prop);
-            sb.append('\n');
-        }
+        simpleRoles.forEach(p -> sb.append('\t').append(p).append('\n'));
         sb.append("\n[Non-simple properties]\n");
-        for (OWLObjectPropertyExpression prop : nonSimpleRoles) {
-            sb.append('\t');
-            sb.append(prop);
-            sb.append('\n');
-        }
+        nonSimpleRoles.forEach(p -> sb.append('\t').append(p).append('\n'));
         return sb.toString();
     }
 }

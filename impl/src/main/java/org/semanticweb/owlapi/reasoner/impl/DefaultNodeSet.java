@@ -105,9 +105,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        a set then duplicate {@code Node}s will be filtered out.
      */
     public void addAllNodes(@Nonnull Collection<Node<E>> nodeset) {
-        for (Node<E> node : nodeset) {
-            addNode(node);
-        }
+        nodeset.forEach(node -> addNode(node));
     }
 
     /**
@@ -129,9 +127,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        {@code Node} which will then be added to this {@code NodeSet}.
      */
     public void addDifferentEntities(@Nonnull Set<E> entities) {
-        for (E e : entities) {
-            addNode(getNode(e));
-        }
+        entities.forEach(e -> addNode(getNode(e)));
     }
 
     @Nonnull
@@ -144,9 +140,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     @Override
     public Set<E> getFlattened() {
         Set<E> result = new HashSet<>();
-        for (Node<E> node : nodes) {
-            result.addAll(node.getEntities());
-        }
+        nodes.forEach(node -> result.addAll(node.getEntities()));
         return result;
     }
 

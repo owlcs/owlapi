@@ -713,8 +713,6 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
     private void visitCollection(Collection<? extends OWLObject> collection) {
-        for (OWLObject object : collection) {
-            object.accept(this);
-        }
+        collection.forEach(o -> o.accept(this));
     }
 }

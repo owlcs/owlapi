@@ -172,13 +172,12 @@ public class SimpleRootClassChecker implements RootClassChecker {
             }
             boolean check = false;
             for (OWLClassExpression desc : descs) {
-                if (desc.equals(cls)) {
-                    continue;
-                }
-                check = check(desc);
-                if (check) {
-                    isRoot = false;
-                    return;
+                if (!desc.equals(cls)) {
+                    check = check(desc);
+                    if (check) {
+                        isRoot = false;
+                        return;
+                    }
                 }
             }
             isRoot = check;

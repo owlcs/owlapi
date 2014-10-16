@@ -34,7 +34,6 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
-import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 
 /**
  * Base builder class, providing annotations storage.
@@ -103,10 +102,8 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         List<OWLOntologyChange> changes = new ArrayList<>();
         // check conformity to the profile
         OWLProfileReport report = profile.checkOntology(o);
-        for (OWLProfileViolation v : report.getViolations()) {
-            // collect all changes to fix the ontology
-            changes.addAll(v.repair());
-        }
+        // collect all changes to fix the ontology
+        report.getViolations().forEach(v -> changes.addAll(v.repair()));
         // fix the ontology
         o.getOWLOntologyManager().applyChanges(changes);
         // return all applied changes for reference

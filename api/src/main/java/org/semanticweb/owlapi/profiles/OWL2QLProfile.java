@@ -356,12 +356,7 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
-            for (OWLClassExpression e : ce.getOperands()) {
-                if (!e.accept(this).booleanValue()) {
-                    return false;
-                }
-            }
-            return true;
+            return !ce.getOperands().stream().anyMatch(e -> !e.accept(this));
         }
 
         @Override

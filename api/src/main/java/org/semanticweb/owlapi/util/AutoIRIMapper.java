@@ -265,17 +265,11 @@ public class AutoIRIMapper extends DefaultHandler implements
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(100);
-        sb.append("AutoIRIMapper: (");
-        sb.append(ontologyIRI2PhysicalURIMap.size());
-        sb.append(" ontologies)\n");
-        for (IRI iri : ontologyIRI2PhysicalURIMap.keySet()) {
-            sb.append("    ");
-            sb.append(iri.toQuotedString());
-            sb.append(" -> ");
-            sb.append(ontologyIRI2PhysicalURIMap.get(iri));
-            sb.append('\n');
-        }
+        StringBuilder sb = new StringBuilder("AutoIRIMapper: (");
+        sb.append(ontologyIRI2PhysicalURIMap.size()).append(" ontologies)\n");
+        ontologyIRI2PhysicalURIMap.forEach((k, v) -> sb.append("    ")
+                .append(k.toQuotedString()).append(" -> ").append(v)
+                .append('\n'));
         return sb.toString();
     }
 

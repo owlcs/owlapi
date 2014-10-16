@@ -51,14 +51,13 @@ public class QNameShortFormProvider implements ShortFormProvider {
     public QNameShortFormProvider(
             @Nonnull Map<String, String> prefix2NamespaceMap) {
         checkNotNull(prefix2NamespaceMap, "prefix2NamespaceMap cannot be null");
-        for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
-            String key = e.getKey();
+        prefix2NamespaceMap.forEach((key, v) -> {
             int lastChar = key.length() - 1;
             if (key.charAt(lastChar) == ':') {
                 key = key.substring(0, lastChar);
             }
-            namespaceUtil.setPrefix(e.getValue(), key);
-        }
+            namespaceUtil.setPrefix(v, key);
+        });
     }
 
     @Override

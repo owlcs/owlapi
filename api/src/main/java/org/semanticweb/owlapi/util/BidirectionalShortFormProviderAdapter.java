@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
+import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
@@ -41,7 +42,7 @@ public class BidirectionalShortFormProviderAdapter extends
 
     @Nonnull
     private final ShortFormProvider shortFormProvider;
-    private Set<OWLOntology> ontologies;
+    protected Set<OWLOntology> ontologies;
     private OWLOntologyManager man;
     @Nonnull
     private final OWLOntologyChangeListener changeListener = changes -> handleChanges(changes);
@@ -125,33 +126,33 @@ public class BidirectionalShortFormProviderAdapter extends
         Set<OWLEntity> processed = new HashSet<>();
         for (OWLOntologyChange chg : changes) {
             if (ontologies.contains(chg.getOntology())) {
-                if (chg.isAddAxiom()) {
-                    AddAxiom addAx = (AddAxiom) chg;
-                    for (OWLEntity ent : addAx.getSignature()) {
-                        if (!processed.contains(ent)) {
-                            processed.add(ent);
-                            add(ent);
+                OWLOntologyChangeVisitor v = new OWLOntologyChangeVisitor() {
+
+                    @Override
+                    public void visit(AddAxiom change) {
+                        for (OWLEntity ent : change.getSignature()) {
+                            if (processed.add(ent)) {
+                                add(ent);
+                            }
                         }
                     }
-                } else if (chg.isRemoveAxiom()) {
-                    RemoveAxiom remAx = (RemoveAxiom) chg;
-                    for (OWLEntity ent : remAx.getSignature()) {
-                        if (!processed.contains(ent)) {
-                            processed.add(ent);
-                            boolean stillRef = false;
-                            for (OWLOntology ont : ontologies) {
-                                if (ont.containsEntityInSignature(ent)) {
-                                    stillRef = true;
-                                    break;
-                                }
-                            }
-                            if (!stillRef) {
+
+                    @Override
+                    public void visit(RemoveAxiom change) {
+                        for (OWLEntity ent : change.getSignature()) {
+                            if (processed.add(ent) && !stillReferenced(ent)) {
                                 remove(ent);
                             }
                         }
                     }
-                }
+                };
+                chg.accept(v);
             }
         }
+    }
+
+    protected boolean stillReferenced(OWLEntity ent) {
+        return ontologies.stream().anyMatch(
+                ont -> ont.containsEntityInSignature(ent));
     }
 }

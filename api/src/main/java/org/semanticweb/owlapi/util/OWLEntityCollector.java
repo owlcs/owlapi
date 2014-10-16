@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -42,9 +41,7 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -64,7 +61,6 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -85,13 +81,11 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -101,8 +95,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
@@ -144,9 +136,7 @@ public class OWLEntityCollector implements
 
     protected void processAxiomAnnotations(@Nonnull OWLAxiom ax) {
         // default behavior: iterate over the annotations outside the axiom
-        for (OWLAnnotation anno : ax.getAnnotations()) {
-            anno.accept(this);
-        }
+        ax.getAnnotations().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -183,9 +173,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDisjointClassesAxiom axiom) {
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.getClassExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -209,9 +197,7 @@ public class OWLEntityCollector implements
     @Override
     public Collection<OWLEntity>
             visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.getProperties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -228,27 +214,21 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDifferentIndividualsAxiom axiom) {
-        for (OWLIndividual ind : axiom.getIndividuals()) {
-            ind.accept(this);
-        }
+        axiom.getIndividuals().forEach(i -> i.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLDisjointDataPropertiesAxiom axiom) {
-        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.getProperties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.getProperties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -288,9 +268,7 @@ public class OWLEntityCollector implements
     @Override
     public Collection<OWLEntity> visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept(this);
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.getClassExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -326,9 +304,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.getProperties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -343,9 +319,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLEquivalentClassesAxiom axiom) {
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.getClassExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -391,18 +365,14 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLSameIndividualAxiom axiom) {
-        for (OWLIndividual ind : axiom.getIndividuals()) {
-            ind.accept(this);
-        }
+        axiom.getIndividuals().forEach(i -> i.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLSubPropertyChainOfAxiom axiom) {
-        for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
-            prop.accept(this);
-        }
+        axiom.getPropertyChain().forEach(p -> p.accept(this));
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
@@ -419,9 +389,7 @@ public class OWLEntityCollector implements
     @Override
     public Collection<OWLEntity> visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
-        for (OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
-            prop.accept(this);
-        }
+        axiom.getPropertyExpressions().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -435,17 +403,13 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLObjectIntersectionOf ce) {
-        for (OWLClassExpression operand : ce.getOperands()) {
-            operand.accept(this);
-        }
+        ce.getOperands().forEach(o -> o.accept(this));
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLObjectUnionOf ce) {
-        for (OWLClassExpression operand : ce.getOperands()) {
-            operand.accept(this);
-        }
+        ce.getOperands().forEach(o -> o.accept(this));
         return objects;
     }
 
@@ -505,9 +469,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLObjectOneOf ce) {
-        for (OWLIndividual ind : ce.getIndividuals()) {
-            ind.accept(this);
-        }
+        ce.getIndividuals().forEach(i -> i.accept(this));
         return objects;
     }
 
@@ -562,34 +524,26 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDataOneOf node) {
-        for (OWLLiteral val : node.getValues()) {
-            val.accept(this);
-        }
+        node.getValues().forEach(val -> val.accept(this));
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLDataIntersectionOf node) {
-        for (OWLDataRange dr : node.getOperands()) {
-            dr.accept(this);
-        }
+        node.getOperands().forEach(dr -> dr.accept(this));
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLDataUnionOf node) {
-        for (OWLDataRange dr : node.getOperands()) {
-            dr.accept(this);
-        }
+        node.getOperands().forEach(dr -> dr.accept(this));
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
-        for (OWLFacetRestriction facetRestriction : node.getFacetRestrictions()) {
-            facetRestriction.accept(this);
-        }
+        node.getFacetRestrictions().forEach(f -> f.accept(this));
         return objects;
     }
 
@@ -641,9 +595,7 @@ public class OWLEntityCollector implements
     public Collection<OWLEntity> visit(OWLAnnotation node) {
         node.getProperty().accept(this);
         node.getValue().accept(this);
-        for (OWLAnnotation anno : node.getAnnotations()) {
-            anno.accept(this);
-        }
+        node.getAnnotations().forEach(a -> a.accept(this));
         return objects;
     }
 
@@ -711,12 +663,8 @@ public class OWLEntityCollector implements
     // SWRL Object Visitor
     @Override
     public Collection<OWLEntity> visit(SWRLRule rule) {
-        for (SWRLAtom atom : rule.getBody()) {
-            atom.accept(this);
-        }
-        for (SWRLAtom atom : rule.getHead()) {
-            atom.accept(this);
-        }
+        rule.getBody().forEach(a -> a.accept(this));
+        rule.getHead().forEach(a -> a.accept(this));
         processAxiomAnnotations(rule);
         return objects;
     }
@@ -753,9 +701,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(SWRLBuiltInAtom node) {
-        for (SWRLArgument obj : node.getAllArguments()) {
-            obj.accept(this);
-        }
+        node.getAllArguments().forEach(o -> o.accept(this));
         return objects;
     }
 

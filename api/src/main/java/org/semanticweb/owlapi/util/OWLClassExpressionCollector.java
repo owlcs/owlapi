@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
@@ -87,58 +86,46 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLOntology ontology) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        for (OWLAxiom ax : ontology.getLogicalAxioms()) {
-            result.addAll(ax.accept(this));
-        }
-        return result;
+        return ontology.getLogicalAxioms().stream()
+                .flatMap(ax -> ax.accept(this).stream()).collect(toSet());
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLClass ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(ce);
-        for (OWLClassExpression op : ce.getOperands()) {
-            result.addAll(op.accept(this));
-        }
+        Set<OWLClassExpression> result = createSet(ce);
+        ce.getOperands().forEach(op -> result.addAll(op.accept(this)));
         return result;
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectUnionOf ce) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(ce);
-        for (OWLClassExpression op : ce.getOperands()) {
-            result.addAll(op.accept(this));
-        }
+        Set<OWLClassExpression> result = createSet(ce);
+        ce.getOperands().forEach(op -> result.addAll(op.accept(this)));
         return result;
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectComplementOf ce) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(ce);
+        Set<OWLClassExpression> result = createSet(ce);
         result.addAll(ce.getOperand().accept(this));
         return result;
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectSomeValuesFrom ce) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(ce);
+        Set<OWLClassExpression> result = createSet(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectAllValuesFrom ce) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(ce);
+        Set<OWLClassExpression> result = createSet(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
@@ -146,15 +133,14 @@ public class OWLClassExpressionCollector implements
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointClassesAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<>();
-        for (OWLClassExpression ce : axiom.getClassExpressions()) {
-            result.addAll(ce.accept(this));
-        }
+        axiom.getClassExpressions().forEach(
+                ce -> result.addAll(ce.accept(this)));
         return result;
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectHasValue ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
@@ -164,8 +150,7 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectMinCardinality ce) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(ce);
+        Set<OWLClassExpression> result = createSet(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
@@ -177,48 +162,46 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectExactCardinality ce) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(ce);
+        Set<OWLClassExpression> result = createSet(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectMaxCardinality ce) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(ce);
+        Set<OWLClassExpression> result = createSet(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectHasSelf ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectOneOf ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataSomeValuesFrom ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataAllValuesFrom ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataHasValue ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataMinCardinality ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
@@ -228,21 +211,19 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataExactCardinality ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataMaxCardinality ce) {
-        return toSet(ce);
+        return createSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        result.add(axiom.getOWLClass());
-        for (OWLClassExpression ce : axiom.getClassExpressions()) {
-            result.addAll(ce.accept(this));
-        }
+        Set<OWLClassExpression> result = createSet(axiom.getOWLClass());
+        axiom.getClassExpressions().forEach(
+                ce -> result.addAll(ce.accept(this)));
         return result;
     }
 
@@ -259,9 +240,8 @@ public class OWLClassExpressionCollector implements
     @Override
     public Set<OWLClassExpression> visit(OWLEquivalentClassesAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<>();
-        for (OWLClassExpression ce : axiom.getClassExpressions()) {
-            result.addAll(ce.accept(this));
-        }
+        axiom.getClassExpressions().forEach(
+                ce -> result.addAll(ce.accept(this)));
         return result;
     }
 
@@ -273,17 +253,8 @@ public class OWLClassExpressionCollector implements
     @Override
     public Set<OWLClassExpression> visit(SWRLRule rule) {
         Set<OWLClassExpression> result = new HashSet<>();
-        for (SWRLAtom atom : rule.getBody()) {
-            result.addAll(atom.accept(this));
-        }
-        for (SWRLAtom atom : rule.getHead()) {
-            result.addAll(atom.accept(this));
-        }
+        rule.getBody().forEach(a -> result.addAll(a.accept(this)));
+        rule.getHead().forEach(a -> result.addAll(a.accept(this)));
         return result;
-    }
-
-    @Nonnull
-    private static Set<OWLClassExpression> toSet(@Nonnull OWLClassExpression t) {
-        return CollectionFactory.createSet(t);
     }
 }

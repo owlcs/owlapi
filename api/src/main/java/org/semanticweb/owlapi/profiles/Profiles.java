@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.profiles;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -147,11 +148,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
      * @return Profiles with matching IRI, or null if none is found
      */
     public static Profiles valueForIRI(IRI i) {
-        for (Profiles p : values()) {
-            if (p.iri.equals(i)) {
-                return p;
-            }
-        }
-        return null;
+        return Stream.of(values()).filter(p -> p.iri.equals(i)).findAny()
+                .orElse(null);
     }
 }

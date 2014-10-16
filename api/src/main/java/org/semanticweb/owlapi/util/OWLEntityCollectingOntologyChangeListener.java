@@ -44,8 +44,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
         entities.clear();
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {
-                OWLAxiomChange axiomChange = (OWLAxiomChange) change;
-                entities.addAll(axiomChange.getSignature());
+                entities.addAll(((OWLAxiomChange) change).getSignature());
             }
         }
         ontologiesChanged();

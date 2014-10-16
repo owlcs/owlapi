@@ -12,13 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,14 +50,8 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
 
     @Nonnull
     public Set<OWLAxiom> getNormalisedAxioms(@Nonnull Set<OWLAxiom> axioms) {
-        List<OWLAxiom> axiomsList = new ArrayList<>(axioms);
-        Collections.sort(axiomsList);
-        Set<OWLAxiom> normalised = new HashSet<>();
-        for (OWLAxiom ax : axiomsList) {
-            OWLAxiom dup = duplicateObject(ax);
-            normalised.add(dup);
-        }
-        return normalised;
+        return axioms.stream().sorted().map(ax -> duplicateObject(ax))
+                .collect(toSet());
     }
 
     @Override

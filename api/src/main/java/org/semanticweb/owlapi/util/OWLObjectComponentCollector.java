@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -41,9 +40,7 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -83,7 +80,6 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
@@ -100,7 +96,6 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
@@ -145,9 +140,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     private void process(@Nonnull Set<? extends OWLObject> objects) {
         checkNotNull(objects, "objects cannot be null");
-        for (OWLObject obj : objects) {
-            obj.accept(this);
-        }
+        objects.forEach(o -> o.accept(this));
     }
 
     /**
@@ -200,9 +193,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
         handleObject(ce);
-        for (OWLClassExpression op : ce.getOperands()) {
-            op.accept(this);
-        }
+        ce.getOperands().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -513,9 +504,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         handleObject(axiom);
-        for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
-            prop.accept(this);
-        }
+        axiom.getPropertyChain().forEach(o -> o.accept(this));
         axiom.getSuperProperty().accept(this);
     }
 
@@ -567,14 +556,8 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         handleObject(axiom);
         axiom.getClassExpression().accept(this);
-        for (OWLObjectPropertyExpression prop : axiom
-                .getObjectPropertyExpressions()) {
-            prop.accept(this);
-        }
-        for (OWLDataPropertyExpression prop : axiom
-                .getDataPropertyExpressions()) {
-            prop.accept(this);
-        }
+        axiom.getObjectPropertyExpressions().forEach(o -> o.accept(this));
+        axiom.getDataPropertyExpressions().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -601,17 +584,13 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataIntersectionOf node) {
         handleObject(node);
-        for (OWLDataRange rng : node.getOperands()) {
-            rng.accept(this);
-        }
+        node.getOperands().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
         handleObject(node);
-        for (OWLDataRange rng : node.getOperands()) {
-            rng.accept(this);
-        }
+        node.getOperands().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -672,9 +651,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(SWRLBuiltInAtom node) {
         handleObject(node);
-        for (SWRLDArgument obj : node.getArguments()) {
-            obj.accept(this);
-        }
+        node.getArguments().forEach(o -> o.accept(this));
     }
 
     @Override

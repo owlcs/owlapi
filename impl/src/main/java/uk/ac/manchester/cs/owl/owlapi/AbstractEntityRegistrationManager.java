@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -32,9 +31,7 @@ import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
@@ -53,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -72,12 +68,10 @@ import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -87,8 +81,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLArgument;
-import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
@@ -127,9 +119,7 @@ public abstract class AbstractEntityRegistrationManager implements
             ((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
         } else {
             // default behavior: iterate over the annotations outside the axiom
-            for (OWLAnnotation anno : ax.getAnnotations()) {
-                anno.accept(this);
-            }
+            ax.getAnnotations().forEach(a -> a.accept(this));
         }
     }
 
@@ -162,9 +152,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.getClassExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -184,9 +172,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
-        for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.getProperties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -200,25 +186,19 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-        for (OWLIndividual ind : axiom.getIndividuals()) {
-            ind.accept(this);
-        }
+        axiom.getIndividuals().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
-        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.getProperties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
-        for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.getProperties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -253,9 +233,7 @@ public abstract class AbstractEntityRegistrationManager implements
     @Override
     public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.getClassExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -286,9 +264,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
-        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.getProperties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -301,9 +277,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.getClassExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -342,17 +316,13 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
-        for (OWLIndividual ind : axiom.getIndividuals()) {
-            ind.accept(this);
-        }
+        axiom.getIndividuals().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
-        for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
-            prop.accept(this);
-        }
+        axiom.getPropertyChain().forEach(a -> a.accept(this));
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
@@ -367,25 +337,19 @@ public abstract class AbstractEntityRegistrationManager implements
     @Override
     public void visit(@Nonnull OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
-        for (OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
-            prop.accept(this);
-        }
+        axiom.getPropertyExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     // OWLClassExpressionVisitor
     @Override
     public void visit(@Nonnull OWLObjectIntersectionOf ce) {
-        for (OWLClassExpression operand : ce.getOperands()) {
-            operand.accept(this);
-        }
+        ce.getOperands().forEach(a -> a.accept(this));
     }
 
     @Override
     public void visit(@Nonnull OWLObjectUnionOf ce) {
-        for (OWLClassExpression operand : ce.getOperands()) {
-            operand.accept(this);
-        }
+        ce.getOperands().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -436,9 +400,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLObjectOneOf ce) {
-        for (OWLIndividual ind : ce.getIndividuals()) {
-            ind.accept(this);
-        }
+        ce.getIndividuals().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -485,31 +447,23 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLDataOneOf node) {
-        for (OWLLiteral val : node.getValues()) {
-            val.accept(this);
-        }
+        node.getValues().forEach(a -> a.accept(this));
     }
 
     @Override
     public void visit(@Nonnull OWLDataIntersectionOf node) {
-        for (OWLDataRange dr : node.getOperands()) {
-            dr.accept(this);
-        }
+        node.getOperands().forEach(a -> a.accept(this));
     }
 
     @Override
     public void visit(@Nonnull OWLDataUnionOf node) {
-        for (OWLDataRange dr : node.getOperands()) {
-            dr.accept(this);
-        }
+        node.getOperands().forEach(a -> a.accept(this));
     }
 
     @Override
     public void visit(@Nonnull OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
-        for (OWLFacetRestriction facetRestriction : node.getFacetRestrictions()) {
-            facetRestriction.accept(this);
-        }
+        node.getFacetRestrictions().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -533,9 +487,7 @@ public abstract class AbstractEntityRegistrationManager implements
     public void visit(@Nonnull OWLAnnotation node) {
         node.getProperty().accept(this);
         node.getValue().accept(this);
-        for (OWLAnnotation anno : node.getAnnotations()) {
-            anno.accept(this);
-        }
+        node.getAnnotations().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -575,12 +527,8 @@ public abstract class AbstractEntityRegistrationManager implements
     // SWRL Object Visitor
     @Override
     public void visit(@Nonnull SWRLRule rule) {
-        for (SWRLAtom atom : rule.getBody()) {
-            atom.accept(this);
-        }
-        for (SWRLAtom atom : rule.getHead()) {
-            atom.accept(this);
-        }
+        rule.getBody().forEach(a -> a.accept(this));
+        rule.getHead().forEach(a -> a.accept(this));
         processAxiomAnnotations(rule);
     }
 
@@ -612,9 +560,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull SWRLBuiltInAtom node) {
-        for (SWRLArgument obj : node.getAllArguments()) {
-            obj.accept(this);
-        }
+        node.getAllArguments().forEach(a -> a.accept(this));
     }
 
     @Override

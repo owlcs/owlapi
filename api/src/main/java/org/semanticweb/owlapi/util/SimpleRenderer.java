@@ -833,8 +833,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             prop.accept(this);
             sb.append(' ');
         }
-        sb.append(')');
-        sb.append(')');
+        sb.append("))");
     }
 
     @Override

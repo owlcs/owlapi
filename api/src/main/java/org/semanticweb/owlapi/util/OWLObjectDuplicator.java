@@ -104,7 +104,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      *        return type
      */
     @Nonnull
-    public <O extends OWLObject> O duplicateObject(@Nonnull OWLObject object) {
+    public <O extends OWLObject> O duplicateObject(@Nonnull O object) {
         checkNotNull(object, "object cannot be null");
         object.accept(this);
         return getLastObject();
@@ -872,7 +872,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             IRI replacementIRI = replacementMap.get(entity);
             if (replacementIRI != null) {
                 obj = replacementIRI;
-                break;
+                return;
             }
         }
     }

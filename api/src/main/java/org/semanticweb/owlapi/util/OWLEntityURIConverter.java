@@ -27,11 +27,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -93,20 +89,12 @@ public class OWLEntityURIConverter {
         processedEntities = new HashSet<>();
         List<OWLOntologyChange> changes = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
-            for (OWLClass cls : ont.getClassesInSignature()) {
-                if (!cls.isOWLThing() && !cls.isOWLNothing()) {
-                    processEntity(cls);
-                }
-            }
-            for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
-                processEntity(prop);
-            }
-            for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {
-                processEntity(prop);
-            }
-            for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
-                processEntity(ind);
-            }
+            ont.getClassesInSignature().stream()
+                    .filter(c -> !c.isOWLThing() && !c.isOWLNothing())
+                    .forEach(c -> processEntity(c));
+            ont.getObjectPropertiesInSignature().forEach(p -> processEntity(p));
+            ont.getDataPropertiesInSignature().forEach(p -> processEntity(p));
+            ont.getIndividualsInSignature().forEach(i -> processEntity(i));
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap,
                 manager.getOWLDataFactory());

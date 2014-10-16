@@ -106,9 +106,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      */
     public void walkStructure(@Nonnull OWLObjectVisitorEx<?> v) {
         setVisitor(checkNotNull(v, "v cannot be null"));
-        for (O o : objects) {
-            o.accept(walker);
-        }
+        objects.forEach(o -> o.accept(walker));
     }
 
     /**
@@ -117,9 +115,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      */
     public void walkStructure(@Nonnull OWLObjectVisitor v) {
         setVisitor(checkNotNull(v, "v cannot be null"));
-        for (O o : objects) {
-            o.accept(walker);
-        }
+        objects.forEach(o -> o.accept(walker));
     }
 
     /**

@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.BiConsumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -81,6 +82,16 @@ public class MapPointer<K, V extends OWLAxiom> {
         visitor = v;
         this.initialized = initialized;
         this.i = checkNotNull(i, "i cannot be null");
+    }
+
+    /**
+     * This method replicates the Map.forEach on all the key/value pairs
+     * 
+     * @param consumer
+     *        a consumer with two arguments
+     */
+    public void forEach(BiConsumer<K, V> consumer) {
+        keySet().forEach(k -> getValues(k).forEach(v -> consumer.accept(k, v)));
     }
 
     /**

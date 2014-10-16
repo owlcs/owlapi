@@ -199,14 +199,13 @@ public class OWLObjectPropertyManager {
                     Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map,
                     OWLEquivalentObjectPropertiesAxiom ax) {
         // Do pairwise
-        for (OWLObjectPropertyExpression p1 : ax.getProperties()) {
-            for (OWLObjectPropertyExpression p2 : ax.getProperties()) {
-                if (!p1.equals(p2)) {
-                    getKeyValueSymmetric(map, p1, p2);
-                    getKeyValueSymmetric(map, p2, p1);
-                }
+        ax.walkPairwise((p1, p2) -> {
+            if (!p1.equals(p2)) {
+                getKeyValueSymmetric(map, p1, p2);
+                getKeyValueSymmetric(map, p2, p1);
             }
-        }
+            return null;
+        });
     }
 
     protected
@@ -322,9 +321,7 @@ public class OWLObjectPropertyManager {
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> map = new HashMap<>(
                     getPropertyHierarchy());
             axioms(SUB_PROPERTY_CHAIN_OF).forEach(ax -> {
-                for (OWLObjectPropertyExpression prop : ax.getPropertyChain()) {
-                    map(map, ax, prop);
-                }
+                ax.getPropertyChain().forEach(p -> map(map, ax, p));
             });
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> ordering = new HashMap<>();
             for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
@@ -526,9 +523,8 @@ public class OWLObjectPropertyManager {
         if (supers == null) {
             return;
         }
-        for (OWLObjectPropertyExpression sup : supers) {
-            getReflexiveTransitiveClosure(sup, map, rtc, processed);
-        }
+        supers.forEach(sup -> getReflexiveTransitiveClosure(sup, map, rtc,
+                processed));
     }
 
     @Nonnull

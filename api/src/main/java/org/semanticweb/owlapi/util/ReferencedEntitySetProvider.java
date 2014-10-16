@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
@@ -50,7 +49,7 @@ public class ReferencedEntitySetProvider implements
             entities.addAll(ont.getObjectPropertiesInSignature());
             entities.addAll(ont.getDataPropertiesInSignature());
             entities.addAll(ont.getIndividualsInSignature());
-            entities.addAll(ont.getAnnotationPropertiesInSignature(EXCLUDED));
+            entities.addAll(ont.getAnnotationPropertiesInSignature());
             entities.addAll(ont.getDatatypesInSignature());
         }
         return entities;

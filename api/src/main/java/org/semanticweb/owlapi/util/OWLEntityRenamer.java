@@ -81,9 +81,8 @@ public class OWLEntityRenamer {
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(
                 owlOntologyManager.getOWLDataFactory(), uriMap);
-        for (OWLOntology ont : ontologies) {
-            fillListWithTransformChanges(changes, getAxioms(ont, iri), ont, dup);
-        }
+        ontologies.forEach(o -> fillListWithTransformChanges(changes,
+                getAxioms(o, iri), o, dup));
         return changes;
     }
 
@@ -105,10 +104,8 @@ public class OWLEntityRenamer {
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap,
                 owlOntologyManager.getOWLDataFactory());
-        for (OWLOntology ont : ontologies) {
-            fillListWithTransformChanges(changes, getAxioms(ont, entity), ont,
-                    duplicator);
-        }
+        ontologies.forEach(o -> fillListWithTransformChanges(changes,
+                getAxioms(o, entity), o, duplicator));
         return changes;
     }
 
@@ -123,10 +120,9 @@ public class OWLEntityRenamer {
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap,
                 owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
-            for (OWLEntity ent : entity2IRIMap.keySet()) {
-                fillListWithTransformChanges(changes, getAxioms(ont, ent), ont,
-                        duplicator);
-            }
+            entity2IRIMap.keySet().forEach(
+                    e -> fillListWithTransformChanges(changes,
+                            getAxioms(ont, e), ont, duplicator));
         }
         return changes;
     }

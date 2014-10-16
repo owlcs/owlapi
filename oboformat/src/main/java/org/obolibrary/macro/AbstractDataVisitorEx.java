@@ -14,15 +14,14 @@ import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** Data visitor. */
 public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
 
-    final OWLDataFactory dataFactory;
+    final OWLDataFactory df;
 
     protected AbstractDataVisitorEx(@Nonnull OWLDataFactory df) {
-        dataFactory = df;
+        this.df = df;
     }
 
     @Override
@@ -34,28 +33,22 @@ public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
     public OWLDataRange visit(@Nonnull OWLDataOneOf node) {
         // Encode as a data union of and return result
         Set<OWLDataOneOf> oneOfs = new HashSet<>();
-        for (OWLLiteral lit : node.getValues()) {
-            oneOfs.add(dataFactory.getOWLDataOneOf(lit));
-        }
-        return dataFactory.getOWLDataUnionOf(oneOfs).accept(this);
+        node.getValues().forEach(lit -> oneOfs.add(df.getOWLDataOneOf(lit)));
+        return df.getOWLDataUnionOf(oneOfs).accept(this);
     }
 
     @Override
     public OWLDataRange visit(@Nonnull OWLDataIntersectionOf node) {
         Set<OWLDataRange> ops = new HashSet<>();
-        for (OWLDataRange op : node.getOperands()) {
-            ops.add(op.accept(this));
-        }
-        return dataFactory.getOWLDataIntersectionOf(ops);
+        node.getOperands().forEach(op -> ops.add(op.accept(this)));
+        return df.getOWLDataIntersectionOf(ops);
     }
 
     @Override
     public OWLDataRange visit(@Nonnull OWLDataUnionOf node) {
         Set<OWLDataRange> ops = new HashSet<>();
-        for (OWLDataRange op : node.getOperands()) {
-            ops.add(op.accept(this));
-        }
-        return dataFactory.getOWLDataUnionOf(ops);
+        node.getOperands().forEach(op -> ops.add(op.accept(this)));
+        return df.getOWLDataUnionOf(ops);
     }
 
     @Override

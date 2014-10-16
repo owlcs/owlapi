@@ -183,9 +183,7 @@ public abstract class TestBase {
                 if (!b.contains(ax)) {
                     if (!isIgnorableAxiom(ax, false)) {
                         leftOnly.add(ax);
-                        sb.append("Rem axiom: ");
-                        sb.append(ax);
-                        sb.append('\n');
+                        sb.append("Rem axiom: ").append(ax).append('\n');
                         counter++;
                     }
                 }
@@ -194,9 +192,7 @@ public abstract class TestBase {
                 if (!a.contains(ax)) {
                     if (!isIgnorableAxiom(ax, true)) {
                         rightOnly.add(ax);
-                        sb.append("Add axiom: ");
-                        sb.append(ax);
-                        sb.append('\n');
+                        sb.append("Add axiom: ").append(ax).append('\n');
                         counter++;
                     }
                 }

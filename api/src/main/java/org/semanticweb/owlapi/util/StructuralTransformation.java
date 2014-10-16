@@ -102,9 +102,7 @@ public class StructuralTransformation implements Serializable {
     public Set<OWLAxiom> getTransformedAxioms(@Nonnull Set<OWLAxiom> axioms) {
         checkNotNull(axioms, "axioms cannot be null");
         signature.clear();
-        for (OWLAxiom ax : axioms) {
-            signature.addAll(ax.getSignature());
-        }
+        axioms.forEach(ax -> signature.addAll(ax.getSignature()));
         AxiomRewriter rewriter = new AxiomRewriter();
         Set<OWLAxiom> transformedAxioms = new HashSet<>();
         for (OWLAxiom ax : axioms) {

@@ -70,9 +70,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
     protected void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
-        for (OWLEntity entity : entitySetProvider.getEntities()) {
-            add(entity);
-        }
+        entitySetProvider.getEntities().forEach(e -> add(e));
     }
 
     /**
