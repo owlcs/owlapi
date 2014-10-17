@@ -67,9 +67,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         Set<OWLClassExpression> disjuncts = new HashSet<>();
-        for (OWLClassExpression op : getOperands()) {
-            disjuncts.addAll(op.asDisjunctSet());
-        }
+        getOperands().forEach(op -> disjuncts.addAll(op.asDisjunctSet()));
         return disjuncts;
     }
 

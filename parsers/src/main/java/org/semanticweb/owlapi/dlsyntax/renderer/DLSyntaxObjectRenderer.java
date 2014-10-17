@@ -19,13 +19,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -176,11 +174,11 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLAxiom ax : new TreeSet<>(checkNotNull(ontology,
-                "ontology cannot be null").getLogicalAxioms())) {
+        checkNotNull(ontology, "ontology cannot be null");
+        ontology.getLogicalAxioms().stream().sorted().forEach(ax -> {
             ax.accept(this);
             write("\n");
-        }
+        });
     }
 
     protected void write(@Nonnull String s) {

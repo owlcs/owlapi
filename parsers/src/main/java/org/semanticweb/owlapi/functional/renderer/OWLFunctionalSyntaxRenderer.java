@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.renderer;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 
 import javax.annotation.Nonnull;
 
@@ -21,6 +20,7 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -30,14 +30,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
-            throws OWLRendererException {
+    public void render(@Nonnull OWLOntology ontology,
+            @Nonnull PrintWriter writer) throws OWLRendererException {
         try {
             FunctionalSyntaxObjectRenderer ren = new FunctionalSyntaxObjectRenderer(
                     ontology, writer);
             ontology.accept(ren);
             writer.flush();
-        } catch (IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLRendererIOException(e);
         }
     }

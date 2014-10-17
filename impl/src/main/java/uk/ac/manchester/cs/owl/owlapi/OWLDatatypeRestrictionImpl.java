@@ -72,9 +72,8 @@ public class OWLDatatypeRestrictionImpl extends
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
-        for (OWLFacetRestriction facetRestriction : facetRestrictions) {
-            addSignatureEntitiesToSetForValue(entities, facetRestriction);
-        }
+        facetRestrictions.forEach(f -> addSignatureEntitiesToSetForValue(
+                entities, f));
     }
 
     @Override

@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.MissingImportEvent;
 import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.MissingImportListener;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -494,9 +493,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Collection<? extends OWLAxiom> axioms) {
         List<AddAxiom> changes = new ArrayList<>(axioms.size() + 2);
-        for (OWLAxiom ax : axioms) {
-            changes.add(new AddAxiom(ont, ax));
-        }
+        axioms.forEach(ax -> changes.add(new AddAxiom(ont, ax)));
         return applyChanges(changes);
     }
 
@@ -515,9 +512,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public List<OWLOntologyChange> removeAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms) {
         List<RemoveAxiom> changes = new ArrayList<>(axioms.size() + 2);
-        for (OWLAxiom ax : axioms) {
-            changes.add(new RemoveAxiom(ont, ax));
-        }
+        axioms.forEach(ax -> changes.add(new RemoveAxiom(ont, ax)));
         return applyChanges(changes);
     }
 
@@ -654,12 +649,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         OWLOntology ont = createOntology(ontologyIRI);
         Set<OWLAxiom> axioms = new HashSet<>();
-        for (OWLOntology ontology : ontologies) {
-            if (copyLogicalAxiomsOnly) {
-                axioms.addAll(ontology.getLogicalAxioms());
-            } else {
-                axioms.addAll(ontology.getAxioms());
-            }
+        if (copyLogicalAxiomsOnly) {
+            ontologies.forEach(o -> axioms.addAll(o.getLogicalAxioms()));
+        } else {
+            ontologies.forEach(o -> axioms.addAll(o.getAxioms()));
         }
         addAxioms(ont, axioms);
         return ont;
@@ -690,13 +683,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 break;
             case SHALLOW:
             case DEEP:
-                toReturn = createOntology(toCopy.getOntologyID());
-                for (AxiomType<?> type : AxiomType.AXIOM_TYPES) {
-                    addAxioms(toReturn, toCopy.getAxioms(type));
-                }
-                for (OWLAnnotation a : toCopy.getAnnotations()) {
-                    applyChange(new AddOntologyAnnotation(toReturn, a));
-                }
+                OWLOntology o = createOntology(toCopy.getOntologyID());
+                AxiomType.AXIOM_TYPES.forEach(t -> addAxioms(o,
+                        toCopy.getAxioms(t)));
+                toCopy.getAnnotations().forEach(
+                        a -> applyChange(new AddOntologyAnnotation(o, a)));
+                toReturn = o;
                 break;
             default:
                 throw new OWLRuntimeException("settings value not understood: "
@@ -1191,10 +1183,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private void broadcastOntologyChangesVetoed(
             @Nonnull List<? extends OWLOntologyChange> changes,
             @Nonnull OWLOntologyChangeVetoException veto) {
-        for (OWLOntologyChangesVetoedListener listener : new ArrayList<>(
-                vetoListeners)) {
-            listener.ontologyChangesVetoed(changes, veto);
-        }
+        new ArrayList<>(vetoListeners).forEach(l -> l.ontologyChangesVetoed(
+                changes, veto));
     }
 
     // Imports etc.
@@ -1251,10 +1241,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     protected void fireMissingImportEvent(@Nonnull MissingImportEvent evt) {
-        for (MissingImportListener listener : new ArrayList<>(
-                missingImportsListeners)) {
-            listener.importMissing(evt);
-        }
+        new ArrayList<>(missingImportsListeners).forEach(l -> l
+                .importMissing(evt));
     }
 
     // Other listeners etc.

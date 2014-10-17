@@ -116,22 +116,12 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public boolean containsOWLNothing() {
-        for (OWLClassExpression desc : getClassExpressions()) {
-            if (desc.isOWLNothing()) {
-                return true;
-            }
-        }
-        return false;
+        return getClassExpressions().stream().anyMatch(d -> d.isOWLNothing());
     }
 
     @Override
     public boolean containsOWLThing() {
-        for (OWLClassExpression desc : getClassExpressions()) {
-            if (desc.isOWLThing()) {
-                return true;
-            }
-        }
-        return false;
+        return getClassExpressions().stream().anyMatch(d -> d.isOWLThing());
     }
 
     @Override

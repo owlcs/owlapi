@@ -24,7 +24,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -81,7 +80,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /** The fast pruning window size. */
     private int fastPruningWindowSize;
     /** The owl ontology manager. */
-    private final OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyManager man;
     // Creation of debugging ontology and satisfiability testing
     private int satTestCount;
 
@@ -99,7 +98,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             @Nonnull OWLReasonerFactory reasonerFactory,
             @Nonnull OWLReasoner reasoner) {
         super(ontology, reasonerFactory, reasoner);
-        owlOntologyManager = ontology.getOWLOntologyManager();
+        man = ontology.getOWLOntologyManager();
     }
 
     @Override
@@ -110,7 +109,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
 
     private void reset() {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(verifyNotNull(debuggingOntology));
+            man.removeOntology(verifyNotNull(debuggingOntology));
             debuggingOntology = null;
         }
         debuggingAxioms.clear();
@@ -155,27 +154,25 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         /* The expansion factor. */
         double expansionFactor = 1.25;
         for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
-            if (expandedWithDefiningAxioms.contains(ax)) {
-                // Skip if already done
-                continue;
-            }
-            // Collect the entities that have been used in the axiom
-            for (OWLEntity curObj : ax.getSignature()) {
-                if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
-                    int added = expandWithDefiningAxioms(curObj, remainingSpace);
-                    axiomsAdded += added;
-                    remainingSpace -= added;
-                    if (remainingSpace == 0) {
-                        expansionLimit *= expansionFactor;
-                        return axiomsAdded;
+            if (expandedWithDefiningAxioms.add(ax)) {
+                // Collect the entities that have been used in the axiom
+                for (OWLEntity curObj : ax.getSignature()) {
+                    if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
+                        int added = expandWithDefiningAxioms(curObj,
+                                remainingSpace);
+                        axiomsAdded += added;
+                        remainingSpace -= added;
+                        if (remainingSpace == 0) {
+                            expansionLimit *= expansionFactor;
+                            return axiomsAdded;
+                        }
+                        // Flag that we have completely expanded all defining
+                        // axioms
+                        // for this particular entity
+                        objectsExpandedWithDefiningAxioms.add(curObj);
                     }
-                    // Flag that we have completely expanded all defining axioms
-                    // for this particular entity
-                    objectsExpandedWithDefiningAxioms.add(curObj);
                 }
             }
-            // Flag that we've completely expanded this particular axiom
-            expandedWithDefiningAxioms.add(ax);
         }
         if (axiomsAdded > 0) {
             return axiomsAdded;
@@ -183,25 +180,22 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         // No axioms added at this point. Start adding axioms that reference
         // entities contained in the current set of debugging axioms
         for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
-            if (expandedWithReferencingAxioms.contains(ax)) {
-                // Skip - already done this one
-                continue;
-            }
-            // Keep track of the number of axioms that have been added
-            for (OWLEntity curObj : ax.getSignature()) {
-                if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
-                    int added = expandWithReferencingAxioms(curObj,
-                            expansionLimit);
-                    axiomsAdded += added;
-                    remainingSpace -= added;
-                    if (remainingSpace == 0) {
-                        expansionLimit *= expansionFactor;
-                        return axiomsAdded;
+            if (expandedWithReferencingAxioms.add(ax)) {
+                // Keep track of the number of axioms that have been added
+                for (OWLEntity curObj : ax.getSignature()) {
+                    if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
+                        int added = expandWithReferencingAxioms(curObj,
+                                expansionLimit);
+                        axiomsAdded += added;
+                        remainingSpace -= added;
+                        if (remainingSpace == 0) {
+                            expansionLimit *= expansionFactor;
+                            return axiomsAdded;
+                        }
+                        objectsExpandedWithReferencingAxioms.add(curObj);
                     }
-                    objectsExpandedWithReferencingAxioms.add(curObj);
                 }
             }
-            expandedWithReferencingAxioms.add(ax);
         }
         return axiomsAdded;
     }
@@ -234,7 +228,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
                         (OWLIndividual) obj, EXCLUDED));
             }
             if (!referenceFound) {
-                expansionAxioms.add(owlOntologyManager.getOWLDataFactory()
+                expansionAxioms.add(man.getOWLDataFactory()
                         .getOWLDeclarationAxiom(obj));
             }
         }
@@ -375,15 +369,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
 
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(verifyNotNull(debuggingOntology));
+            man.removeOntology(verifyNotNull(debuggingOntology));
         }
-        debuggingOntology = owlOntologyManager.createOntology();
-        List<AddAxiom> changes = new ArrayList<>();
-        for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
-            changes.add(new AddAxiom(verifyNotNull(debuggingOntology),
-                    verifyNotNull(ax)));
-        }
-        owlOntologyManager.applyChanges(changes);
+        debuggingOntology = man.createOntology();
+        man.addAxioms(verifyNotNull(debuggingOntology), debuggingAxioms);
     }
 
     private void resetSatisfiabilityTestCounter() {
@@ -398,9 +387,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         // defining axioms for the class being debugged
         resetSatisfiabilityTestCounter();
         if (unsatClass.isAnonymous()) {
-            OWLClass owlThing = owlOntologyManager.getOWLDataFactory()
-                    .getOWLThing();
-            OWLSubClassOfAxiom axiom = owlOntologyManager.getOWLDataFactory()
+            OWLClass owlThing = man.getOWLDataFactory().getOWLThing();
+            OWLSubClassOfAxiom axiom = man.getOWLDataFactory()
                     .getOWLSubClassOfAxiom(unsatClass, owlThing);
             debuggingAxioms.add(axiom);
             expandAxioms();
@@ -466,9 +454,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
                 debuggingAxioms.remove(axiom);
             }
         };
-        for (OWLAxiom axiom : new ArrayList<>(debuggingAxioms)) {
-            axiom.accept(declarationRemover);
-        }
+        new ArrayList<>(debuggingAxioms).forEach(ax -> ax
+                .accept(declarationRemover));
     }
 
     @Override

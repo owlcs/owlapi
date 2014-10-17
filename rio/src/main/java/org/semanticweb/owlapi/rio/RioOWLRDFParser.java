@@ -117,11 +117,8 @@ public class RioOWLRDFParser extends RDFParserBase {
     /**
      * @param source
      *        the ontology source to parse
-     * @throws IOException
-     *         if an exception is raised during render
      */
-    protected void render(@Nonnull OWLOntologyDocumentSource source)
-            throws IOException {
+    protected void render(@Nonnull OWLOntologyDocumentSource source) {
         if (ontologyManagerFactories.isEmpty()) {
             throw new OWLRuntimeException(
                     "No ontology manager factories available, parsing is impossible");

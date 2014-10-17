@@ -47,9 +47,7 @@ public class OWLMetricManager {
      *        the ontology to measure
      */
     public void setOntology(@Nonnull OWLOntology ontology) {
-        for (OWLMetric<?> metric : metrics) {
-            metric.setOntology(ontology);
-        }
+        metrics.forEach(m -> m.setOntology(ontology));
     }
 
     /** @return the metrics */

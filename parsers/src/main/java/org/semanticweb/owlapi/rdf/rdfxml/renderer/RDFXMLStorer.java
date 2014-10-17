@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -23,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
@@ -41,7 +41,7 @@ public class RDFXMLStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, @Nonnull OWLDocumentFormat format)
+            @Nonnull PrintWriter writer, @Nonnull OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         try {
             RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer,
@@ -57,7 +57,7 @@ public class RDFXMLStorer extends AbstractOWLStorer {
                         new IllegalElementNameException(sb.toString().trim()));
             }
             renderer.render();
-        } catch (IOException | IllegalElementNameException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

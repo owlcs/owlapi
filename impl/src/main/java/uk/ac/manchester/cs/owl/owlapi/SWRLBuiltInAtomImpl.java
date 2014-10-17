@@ -66,9 +66,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        for (SWRLDArgument arg : args) {
-            addSignatureEntitiesToSetForValue(entities, arg);
-        }
+        args.forEach(arg -> addSignatureEntitiesToSetForValue(entities, arg));
     }
 
     @Override

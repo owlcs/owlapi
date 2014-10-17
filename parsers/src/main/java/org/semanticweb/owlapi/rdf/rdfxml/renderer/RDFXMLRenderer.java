@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -65,7 +64,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
      * @param w
      *        writer
      */
-    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
+    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull PrintWriter w) {
         this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w,
                 "w cannot be null"), verifyNotNull(ontology
                 .getOWLOntologyManager().getOntologyFormat(ontology)));
@@ -79,8 +78,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
      * @param format
      *        format
      */
-    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
-            @Nonnull OWLDocumentFormat format) {
+    public RDFXMLRenderer(@Nonnull OWLOntology ontology,
+            @Nonnull PrintWriter w, @Nonnull OWLDocumentFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(
                 format, "format cannot be null"));
         this.format = checkNotNull(format, "format cannot be null");
@@ -109,12 +108,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void beginDocument() throws IOException {
+    protected void beginDocument() {
         writer.startDocument();
     }
 
     @Override
-    protected void endDocument() throws IOException {
+    protected void endDocument() {
         writer.endDocument();
         writer.writeComment(VersionInfo.getVersionInfo()
                 .getGeneratedByMessage());
@@ -126,55 +125,51 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind)
-            throws IOException {
+    protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind) {
         writer.writeComment(XMLUtils.escapeXML(checkNotNull(ind,
                 "ind cannot be null").getIRI().toString()));
     }
 
     @Override
-    protected void writeClassComment(@Nonnull OWLClass cls) throws IOException {
+    protected void writeClassComment(@Nonnull OWLClass cls) {
         writer.writeComment(XMLUtils.escapeXML(checkNotNull(cls,
                 "cls cannot be null").getIRI().toString()));
     }
 
     @Override
-    protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop)
-            throws IOException {
+    protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop) {
         writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
                 "prop cannot be null").getIRI().toString()));
     }
 
     @Override
-    protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop)
-            throws IOException {
+    protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop) {
         writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
                 "prop cannot be null").getIRI().toString()));
     }
 
     @Override
     protected void writeAnnotationPropertyComment(
-            @Nonnull OWLAnnotationProperty prop) throws IOException {
+            @Nonnull OWLAnnotationProperty prop) {
         writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
                 "prop cannot be null").getIRI().toString()));
     }
 
     @Override
-    protected void writeDatatypeComment(@Nonnull OWLDatatype datatype)
-            throws IOException {
+    protected void writeDatatypeComment(@Nonnull OWLDatatype datatype) {
         writer.writeComment(XMLUtils.escapeXML(checkNotNull(datatype,
                 "datatype cannot be null").getIRI().toString()));
     }
 
     @Override
-    protected void writeBanner(@Nonnull String name) throws IOException {
+    protected void writeBanner(@Nonnull String name) {
         writer.writeComment("\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
                 + checkNotNull(name, "name cannot be null")
                 + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
     @Override
-    public void render(@Nonnull RDFResource node) throws IOException {
+    public void render(@Nonnull RDFResource node) {
         checkNotNull(node, "node cannot be null");
         if (pending.contains(node)) {
             return;

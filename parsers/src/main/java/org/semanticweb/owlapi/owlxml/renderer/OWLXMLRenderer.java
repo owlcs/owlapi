@@ -14,8 +14,7 @@ package org.semanticweb.owlapi.owlxml.renderer;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -26,6 +25,7 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -46,7 +46,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
      *         renderer error
      */
     public static void render(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, @Nonnull OWLDocumentFormat format)
+            @Nonnull PrintWriter writer, @Nonnull OWLDocumentFormat format)
             throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
@@ -86,13 +86,13 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
             ontology.accept(ren);
             w.endDocument();
             writer.flush();
-        } catch (IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLRendererIOException(e);
         }
     }
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(OWLOntology ontology, PrintWriter writer)
             throws OWLRendererException {
         render(checkNotNull(ontology, "ontology cannot be null"),
                 checkNotNull(writer, "writer cannot be null"), ontology

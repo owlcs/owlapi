@@ -1,8 +1,8 @@
 package org.obolibrary.obo2owl;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -12,6 +12,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
+
+import com.google.common.collect.Maps;
 
 /** @author Shahid Manzoor */
 public class Obo2OWLConstants {
@@ -133,15 +135,9 @@ public class Obo2OWLConstants {
         }
     }
 
-    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = initTagsToVocab();
-
-    static Map<String, Obo2OWLVocabulary> initTagsToVocab() {
-        Map<String, Obo2OWLVocabulary> tags = new HashMap<>();
-        for (Obo2OWLVocabulary vocab : Obo2OWLVocabulary.values()) {
-            tags.put(vocab.mappedTag, vocab);
-        }
-        return tags;
-    }
+    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = Maps
+            .uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()),
+                    v -> v.mappedTag);
 
     /**
      * @param tag

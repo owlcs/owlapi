@@ -24,7 +24,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -37,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -248,11 +248,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
     @Nonnull
     private static Set<OWLAxiom> asAxiomSet(OWLOntology ont) {
-        Set<OWLAxiom> axs = new HashSet<>(ont.getAxioms());
-        for (OWLOntology importedOnt : ont.getImportsClosure()) {
-            axs.addAll(importedOnt.getAxioms());
-        }
-        return axs;
+        return ont.getAxioms(Imports.INCLUDED);
     }
 
     /**
@@ -431,19 +427,17 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     .getDeclarationAxioms(entity);
             enrichedModule.addAll(declarationAxioms);
             if (LOGGER.isInfoEnabled()) {
-                for (OWLDeclarationAxiom declarationAxiom : declarationAxioms) {
-                    LOGGER.info("  Added entity declaration axiom:   {}",
-                            minusOntologyURI(declarationAxiom.toString()));
-                }
+                declarationAxioms.forEach(a -> LOGGER.info(
+                        "  Added entity declaration axiom:   {}",
+                        minusOntologyURI(a.toString())));
             }
             Collection<OWLAxiom> axioms = ontology.filterAxioms(
                     Filters.annotations, entity.getIRI(), INCLUDED);
             enrichedModule.addAll(axioms);
             if (LOGGER.isInfoEnabled()) {
-                for (OWLAxiom axiom : axioms) {
-                    LOGGER.info("  Added entity annotation axiom:   {}",
-                            minusOntologyURI(axiom.toString()));
-                }
+                axioms.forEach(a -> LOGGER.info(
+                        "  Added entity annotation axiom:   {}",
+                        minusOntologyURI(a.toString())));
             }
         }
         // Adding all same-individuals axioms
@@ -454,22 +448,18 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                         .getSameIndividualAxioms(entity.asOWLNamedIndividual());
                 enrichedModule.addAll(sameIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
-                    for (OWLSameIndividualAxiom sameIndividualAxiom : sameIndividualAxioms) {
-                        LOGGER.info(
-                                "  Added same individual axiom:   {}",
-                                minusOntologyURI(sameIndividualAxiom.toString()));
-                    }
+                    sameIndividualAxioms.forEach(i -> LOGGER.info(
+                            "  Added same individual axiom:   {}",
+                            minusOntologyURI(i.toString())));
                 }
                 Set<OWLDifferentIndividualsAxiom> differentIndividualAxioms = ontology
                         .getDifferentIndividualAxioms(entity
                                 .asOWLNamedIndividual());
                 enrichedModule.addAll(differentIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
-                    for (OWLDifferentIndividualsAxiom differentIndividualsAxiom : differentIndividualAxioms) {
-                        LOGGER.info("  Added different individual axiom:   {}",
-                                minusOntologyURI(differentIndividualsAxiom
-                                        .toString()));
-                    }
+                    differentIndividualAxioms.forEach(a -> LOGGER.info(
+                            "  Added different individual axiom:   {}",
+                            minusOntologyURI(a.toString())));
                 }
             }
         }
@@ -500,9 +490,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     void outputSignature(@Nonnull String preamble, @Nonnull Set<OWLEntity> sig) {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info(preamble);
-            for (OWLEntity ent : sig) {
-                LOGGER.info("  {}", minusOntologyURI(ent.toString()));
-            }
+            sig.forEach(e -> LOGGER.info("  {}", minusOntologyURI(e.toString())));
         }
     }
 
@@ -604,8 +592,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         Set<OWLEntity> enrichedSig = new HashSet<>(sig);
         Set<OWLClass> classesInSig = new HashSet<>();
         for (OWLEntity ent : sig) {
-            if (OWLClass.class.isAssignableFrom(ent.getClass())) {
-                classesInSig.add((OWLClass) ent);
+            if (ent.isOWLClass()) {
+                classesInSig.add(ent.asOWLClass());
             }
         }
         if (superClassLevel != 0) {
@@ -715,14 +703,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     public OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature,
             @Nonnull IRI iri, int superClassLevel, int subClassLevel,
             OWLReasoner reasoner) throws OWLOntologyCreationException {
-        Set<OWLAxiom> axs = extract(signature, superClassLevel, subClassLevel,
-                reasoner);
-        OWLOntology newOnt = manager.createOntology(iri);
-        LinkedList<AddAxiom> addaxs = new LinkedList<>();
-        for (OWLAxiom ax : axs) {
-            addaxs.add(new AddAxiom(newOnt, ax));
-        }
-        manager.applyChanges(addaxs);
-        return newOnt;
+        return manager.createOntology(
+                extract(signature, superClassLevel, subClassLevel, reasoner),
+                iri);
     }
 }

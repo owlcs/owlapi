@@ -51,9 +51,7 @@ public class OBODocDiffer {
             int n, boolean isCheckFrame) {
         List<Diff> diffs = new ArrayList<>();
         Map<String, Frame> fm2 = new HashMap<>();
-        for (Frame f : fl2) {
-            fm2.put(f.getId(), f);
-        }
+        fl2.forEach(f -> fm2.put(f.getId(), f));
         for (Frame f1 : fl1) {
             if (fm2.containsKey(f1.getId())) {
                 Frame f2 = fm2.get(f1.getId());

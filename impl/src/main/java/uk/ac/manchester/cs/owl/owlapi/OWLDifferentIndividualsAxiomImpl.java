@@ -104,12 +104,7 @@ public class OWLDifferentIndividualsAxiomImpl extends
 
     @Override
     public boolean containsAnonymousIndividuals() {
-        for (OWLIndividual ind : getIndividuals()) {
-            if (ind.isAnonymous()) {
-                return true;
-            }
-        }
-        return false;
+        return getIndividuals().stream().anyMatch(i -> i.isAnonymous());
     }
 
     @Override

@@ -1,7 +1,6 @@
 package org.obolibrary.owl;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,6 +15,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -34,7 +34,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, OWLDocumentFormat format)
+            @Nonnull PrintWriter writer, OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(
@@ -42,7 +42,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
             ontology.accept(renderer);
             writer.flush();
-        } catch (IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

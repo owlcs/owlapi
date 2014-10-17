@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -43,11 +42,10 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     private static final long serialVersionUID = 40000L;
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
-            OWLDocumentFormat format) {
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            PrintWriter printWriter, OWLDocumentFormat format) {
         checkNotNull(ontology, "ontology cannot be null");
-        PrintWriter printWriter = new PrintWriter(checkNotNull(writer,
-                "writer cannot be null"));
+        checkNotNull(printWriter, "writer cannot be null");
         beginWritingOntology(ontology, printWriter);
         for (OWLObjectProperty prop : new TreeSet<>(
                 ontology.getObjectPropertiesInSignature())) {

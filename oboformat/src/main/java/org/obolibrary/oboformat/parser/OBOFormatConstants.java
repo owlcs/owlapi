@@ -2,18 +2,21 @@ package org.obolibrary.oboformat.parser;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+
+import com.google.common.collect.Maps;
 
 /** OBOformat constants. */
 public class OBOFormatConstants {
 
     /** OBOformat tags. */
     public enum OboFormatTag {
+
 
 
         //@formatter:off
@@ -125,16 +128,8 @@ public class OBOFormatConstants {
                 TAG_DISJOINT_OVER, TAG_IS_A);
     }
 
-    private static final Map<String, OboFormatTag> TAGSTABLE = initTagsTable();
-
-    static Map<String, OboFormatTag> initTagsTable() {
-        Map<String, OboFormatTag> tags = new HashMap<>();
-        for (OboFormatTag tag : OboFormatTag.values()) {
-            tags.put(tag.getTag(), tag);
-        }
-        return tags;
-    }
-
+    private static final Map<String, OboFormatTag> TAGSTABLE = Maps
+            .uniqueIndex(Arrays.asList(OboFormatTag.values()), v -> v.getTag());
     /** tags */
     @Nonnull
     public static final Set<String> TAGS = TAGSTABLE.keySet();

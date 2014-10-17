@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
-import org.obolibrary.obo2owl.OwlStringTools.OwlStringException;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
@@ -38,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -314,68 +314,122 @@ public class OWLAPIOwl2Obo {
         setObodoc(new OBODoc());
         preProcess();
         tr(getOWLOntology());
-        for (OWLAxiom ax : getOWLOntology().getAxioms()) {
-            if (ax instanceof OWLDeclarationAxiom) {
-                tr((OWLDeclarationAxiom) ax);
-            } else if (ax instanceof OWLSubClassOfAxiom) {
-                tr((OWLSubClassOfAxiom) ax);
-            } else if (ax instanceof OWLDisjointClassesAxiom) {
-                tr((OWLDisjointClassesAxiom) ax);
-            } else if (ax instanceof OWLEquivalentClassesAxiom) {
-                tr((OWLEquivalentClassesAxiom) ax);
-            } else if (ax instanceof OWLClassAssertionAxiom) {
-                tr((OWLClassAssertionAxiom) ax);
-            } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
-                tr((OWLEquivalentObjectPropertiesAxiom) ax);
-            } else if (ax instanceof OWLSubAnnotationPropertyOfAxiom) {
-                tr((OWLSubAnnotationPropertyOfAxiom) ax);
-            } else if (ax instanceof OWLSubObjectPropertyOfAxiom) {
-                tr((OWLSubObjectPropertyOfAxiom) ax);
-            } else if (ax instanceof OWLObjectPropertyRangeAxiom) {
-                tr((OWLObjectPropertyRangeAxiom) ax);
-            } else if (ax instanceof OWLFunctionalObjectPropertyAxiom) {
-                tr((OWLFunctionalObjectPropertyAxiom) ax);
-            } else if (ax instanceof OWLSymmetricObjectPropertyAxiom) {
-                tr((OWLSymmetricObjectPropertyAxiom) ax);
-            } else if (ax instanceof OWLAsymmetricObjectPropertyAxiom) {
-                tr((OWLAsymmetricObjectPropertyAxiom) ax);
-            } else if (ax instanceof OWLObjectPropertyDomainAxiom) {
-                tr((OWLObjectPropertyDomainAxiom) ax);
-            } else if (ax instanceof OWLInverseFunctionalObjectPropertyAxiom) {
-                tr((OWLInverseFunctionalObjectPropertyAxiom) ax);
-            } else if (ax instanceof OWLInverseObjectPropertiesAxiom) {
-                tr((OWLInverseObjectPropertiesAxiom) ax);
-            } else if (ax instanceof OWLDisjointObjectPropertiesAxiom) {
-                tr((OWLDisjointObjectPropertiesAxiom) ax);
-            } else if (ax instanceof OWLReflexiveObjectPropertyAxiom) {
-                tr((OWLReflexiveObjectPropertyAxiom) ax);
-            } else if (ax instanceof OWLTransitiveObjectPropertyAxiom) {
-                tr((OWLTransitiveObjectPropertyAxiom) ax);
-            } else if (ax instanceof OWLSubPropertyChainOfAxiom) {
-                tr((OWLSubPropertyChainOfAxiom) ax);
-            } else {
-                if (!(ax instanceof OWLAnnotationAssertionAxiom)) {
-                    error(ax, false);
-                } else {
-                    // we presume this has been processed
+        OWLAxiomVisitor visitor = new OWLAxiomVisitor() {
+
+            @Override
+            public void visit(OWLDeclarationAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLSubClassOfAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLDisjointClassesAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLEquivalentClassesAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLClassAssertionAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLEquivalentObjectPropertiesAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLSubAnnotationPropertyOfAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLSubObjectPropertyOfAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLObjectPropertyRangeAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLFunctionalObjectPropertyAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLSymmetricObjectPropertyAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLAsymmetricObjectPropertyAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLObjectPropertyDomainAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLInverseFunctionalObjectPropertyAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLInverseObjectPropertiesAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLDisjointObjectPropertiesAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLReflexiveObjectPropertyAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLTransitiveObjectPropertyAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void visit(OWLSubPropertyChainOfAxiom ax) {
+                tr(ax);
+            }
+
+            @Override
+            public void doDefault(Object o) {
+                if (!(o instanceof OWLAnnotationAssertionAxiom)) {
+                    error((OWLAxiom) o, false);
                 }
             }
-        }
+        };
+        getOWLOntology().getAxioms().forEach(ax -> ax.accept(visitor));
         if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
-            try {
-                String axiomString = OwlStringTools.translate(
-                        untranslatableAxioms, manager);
-                if (axiomString != null) {
-                    Frame headerFrame = getObodoc().getHeaderFrame();
-                    if (headerFrame == null) {
-                        headerFrame = new Frame(FrameType.HEADER);
-                        getObodoc().setHeaderFrame(headerFrame);
-                    }
-                    headerFrame.addClause(new Clause(
-                            OboFormatTag.TAG_OWL_AXIOMS, axiomString));
+            String axiomString = OwlStringTools.translate(untranslatableAxioms,
+                    manager);
+            if (axiomString != null) {
+                Frame headerFrame = getObodoc().getHeaderFrame();
+                if (headerFrame == null) {
+                    headerFrame = new Frame(FrameType.HEADER);
+                    getObodoc().setHeaderFrame(headerFrame);
                 }
-            } catch (OwlStringException e) {
-                throw new OWLRuntimeException(e);
+                headerFrame.addClause(new Clause(OboFormatTag.TAG_OWL_AXIOMS,
+                        axiomString));
             }
         }
         return getObodoc();
@@ -387,19 +441,17 @@ public class OWLAPIOwl2Obo {
     protected void preProcess() {
         // converse of postProcess in obo2owl
         String viewRel = null;
-        for (OWLAnnotation ann : getOWLOntology().getAnnotations()) {
-            if (ann.getProperty()
-                    .getIRI()
-                    .equals(Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation
-                            .getIRI())) {
-                OWLAnnotationValue v = ann.getValue();
-                if (v instanceof OWLLiteral) {
-                    viewRel = ((OWLLiteral) v).getLiteral();
-                } else {
-                    viewRel = getIdentifier((IRI) v);
-                }
-                break;
+        for (OWLAnnotation ann : getOWLOntology().getAnnotations(
+                manager.getOWLDataFactory().getOWLAnnotationProperty(
+                        Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation
+                                .getIRI()))) {
+            OWLAnnotationValue v = ann.getValue();
+            if (v instanceof OWLLiteral) {
+                viewRel = ((OWLLiteral) v).getLiteral();
+            } else {
+                viewRel = getIdentifier((IRI) v);
             }
+            break;
         }
         if (viewRel != null) {
             // OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
@@ -1061,9 +1113,9 @@ public class OWLAPIOwl2Obo {
     }
 
     private boolean isMetadataTag(OWLAnnotationProperty p) {
-        final IRI metadataTagIRI = IRI
-                .create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX
-                        + OboFormatTag.TAG_IS_METADATA_TAG.getTag());
+        final IRI metadataTagIRI = IRI.create(
+                Obo2OWLConstants.OIOVOCAB_IRI_PREFIX,
+                OboFormatTag.TAG_IS_METADATA_TAG.getTag());
         Set<OWLAnnotationAssertionAxiom> axioms = owlOntology
                 .getAnnotationAssertionAxioms(p.getIRI());
         for (OWLAnnotationAssertionAxiom ax : axioms) {
@@ -1531,9 +1583,7 @@ public class OWLAPIOwl2Obo {
         }
         // Only add clauses if the *entire* equivalence axiom can be translated
         if (!isUntranslateable) {
-            for (Clause c : equivalenceAxiomClauses) {
-                f.addClause(c);
-            }
+            equivalenceAxiomClauses.forEach(c -> f.addClause(c));
         }
     }
 
@@ -1607,9 +1657,8 @@ public class OWLAPIOwl2Obo {
             }
         }
         if (f != null) {
-            for (OWLAnnotationAssertionAxiom a : set) {
-                tr(a, f);
-            }
+            Frame f1 = f;
+            set.forEach(a -> tr(a, f1));
             add(f);
         }
     }
@@ -2122,9 +2171,7 @@ public class OWLAPIOwl2Obo {
                     return;
                 }
                 clauses = normalizeRelationshipClauses(clauses);
-                for (Clause clause : clauses) {
-                    f.addClause(clause);
-                }
+                clauses.forEach(c -> f.addClause(c));
             } else {
                 error(ax, true);
                 return;

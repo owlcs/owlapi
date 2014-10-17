@@ -23,7 +23,6 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -75,9 +74,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        for (HasSignature hasSignature : getProperties()) {
-            addSignatureEntitiesToSetForValue(entities, hasSignature);
-        }
+        getProperties().forEach(
+                e -> addSignatureEntitiesToSetForValue(entities, e));
     }
 
     @Override

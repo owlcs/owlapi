@@ -36,9 +36,9 @@
 package org.semanticweb.owlapi.rio;
 
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
@@ -192,8 +193,9 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
-            OWLDocumentFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            PrintWriter writer, OWLDocumentFormat format)
+            throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
         // example, it could store the triples in memory without serialising
@@ -218,7 +220,7 @@ public class RioStorer extends AbstractOWLStorer {
             final RioRenderer ren = new RioRenderer(ontology, rioHandler,
                     format, contexts);
             ren.render();
-        } catch (final IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }
     }
@@ -252,7 +254,7 @@ public class RioStorer extends AbstractOWLStorer {
             final RioRenderer ren = new RioRenderer(ontology, rioHandler,
                     format, contexts);
             ren.render();
-        } catch (final IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

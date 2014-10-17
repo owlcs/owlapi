@@ -107,9 +107,8 @@ public class MutableTree<N> implements Tree<N> {
 
     /** remove all children. */
     public void clearChildren() {
-        for (MutableTree<N> child : new ArrayList<>(children)) {
-            removeChild(child);
-        }
+        children.forEach(c -> c.parent = null);
+        children.clear();
     }
 
     @Override
@@ -178,9 +177,7 @@ public class MutableTree<N> implements Tree<N> {
 
     private void getUserObjectClosure(Tree<N> tree, Set<N> bin) {
         bin.add(tree.getUserObject());
-        for (Tree<N> child : tree.getChildren()) {
-            getUserObjectClosure(child, bin);
-        }
+        tree.getChildren().forEach(c -> getUserObjectClosure(c, bin));
     }
 
     @Override
@@ -201,8 +198,7 @@ public class MutableTree<N> implements Tree<N> {
         for (Tree<N> child : getChildren()) {
             Object edge = getEdge(child);
             if (edge != null) {
-                writer.print('\t');
-                writer.print("--- ");
+                writer.print("\t--- ");
                 writer.print(edge);
                 writer.print(" ---\n\n");
             }
@@ -214,9 +210,7 @@ public class MutableTree<N> implements Tree<N> {
     @Override
     public void setNodeRenderer(NodeRenderer<N> renderer) {
         this.toStringRenderer = renderer;
-        for (Tree<N> child : children) {
-            child.setNodeRenderer(toStringRenderer);
-        }
+        children.forEach(c -> c.setNodeRenderer(toStringRenderer));
     }
 
     @Override
@@ -228,9 +222,7 @@ public class MutableTree<N> implements Tree<N> {
 
     private void fillDepthFirst(Tree<N> tree, List<N> bin) {
         bin.add(tree.getUserObject());
-        for (Tree<N> child : tree.getChildren()) {
-            fillDepthFirst(child, bin);
-        }
+        tree.getChildren().forEach(c -> fillDepthFirst(c, bin));
     }
 
     /**
@@ -266,12 +258,7 @@ public class MutableTree<N> implements Tree<N> {
 
     private int getMaxDepth(Tree<N> tree) {
         int maxChildDepth = tree.getPathToRoot().size();
-        for (Tree<N> child : tree.getChildren()) {
-            int childDepth = getMaxDepth(child);
-            if (childDepth > maxChildDepth) {
-                maxChildDepth = childDepth;
-            }
-        }
-        return maxChildDepth;
+        return tree.getChildren().stream().mapToInt(c -> getMaxDepth(c)).max()
+                .orElse(maxChildDepth);
     }
 }

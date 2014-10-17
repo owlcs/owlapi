@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Map;
@@ -274,6 +276,10 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
                     ANNOTATION_ASSERTION, SUB_ANNOTATION_PROPERTY_OF,
                     ANNOTATION_PROPERTY_DOMAIN, ANNOTATION_PROPERTY_RANGE,
                     HAS_KEY);
+    /** Axiom types. */
+    @Nonnull
+    public static final Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = AXIOM_TYPES
+            .stream().filter(a -> a.isLogical).collect(toSet());
     private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps
             .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, String>() {
 

@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.renderer;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 
 import javax.annotation.Nonnull;
 
@@ -21,6 +20,7 @@ import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
@@ -33,12 +33,13 @@ public class TurtleStorer extends AbstractOWLStorer {
     private static final long serialVersionUID = 40000L;
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
-            OWLDocumentFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            PrintWriter writer, OWLDocumentFormat format)
+            throws OWLOntologyStorageException {
         try {
             TurtleRenderer ren = new TurtleRenderer(ontology, writer, format);
             ren.render();
-        } catch (IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

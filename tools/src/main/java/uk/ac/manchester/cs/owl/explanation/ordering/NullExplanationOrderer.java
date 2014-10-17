@@ -32,9 +32,7 @@ public class NullExplanationOrderer implements ExplanationOrderer {
     public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
             @Nonnull Set<OWLAxiom> axioms) {
         ExplanationTree root = new ExplanationTree(entailment);
-        for (OWLAxiom ax : axioms) {
-            root.addChild(new ExplanationTree(ax));
-        }
+        axioms.forEach(ax -> root.addChild(new ExplanationTree(ax)));
         return root;
     }
 }

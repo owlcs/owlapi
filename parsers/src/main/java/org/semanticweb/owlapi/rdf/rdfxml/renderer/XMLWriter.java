@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -63,40 +61,29 @@ public interface XMLWriter {
      * 
      * @param rootElement
      *        The iri of the root element.
-     * @throws IOException
-     *         if there was an IO problem
      */
-    void startDocument(@Nonnull IRI rootElement) throws IOException;
+    void startDocument(@Nonnull IRI rootElement);
 
     /**
      * Causes all open elements, including the document root element, to be
      * closed.
-     * 
-     * @throws IOException
-     *         if there was an IO problem
      */
-    void endDocument() throws IOException;
+    void endDocument();
 
     /**
      * Writes the start of an element.
      * 
      * @param name
      *        The tag name of the element to be written. This must be a valid
-     *        QName.
-     * @throws IOException
-     *         if there was an IO problem
-     * @throws IllegalElementNameException
-     *         if the specified name is not a valid QName
+     *        QName. @throws IllegalElementNameException if the specified name
+     *        is not a valid QName
      */
-    void writeStartElement(@Nonnull IRI name) throws IOException;
+    void writeStartElement(@Nonnull IRI name);
 
     /**
      * Writes the closing tag of the last element to be started.
-     * 
-     * @throws IOException
-     *         if there was an IO problem
      */
-    void writeEndElement() throws IOException;
+    void writeEndElement();
 
     /**
      * Writes an attribute of the last element to be started (that has not been
@@ -106,11 +93,8 @@ public interface XMLWriter {
      *        The name of the attribute
      * @param val
      *        The value of the attribute
-     * @throws IOException
-     *         if there was an IO problem
      */
-    void writeAttribute(@Nonnull String attr, @Nonnull String val)
-            throws IOException;
+    void writeAttribute(@Nonnull String attr, @Nonnull String val);
 
     /**
      * Writes an attribute of the last element to be started (that has not been
@@ -120,26 +104,20 @@ public interface XMLWriter {
      *        The name of the attribute
      * @param val
      *        The value of the attribute
-     * @throws IOException
-     *         if there was an IO problem
      */
-    void writeAttribute(@Nonnull IRI attr, String val) throws IOException;
+    void writeAttribute(@Nonnull IRI attr, String val);
 
     /**
      * Writes a text element.
      * 
      * @param text
      *        The text to be written
-     * @throws IOException
-     *         if there was an IO problem
      */
-    void writeTextContent(@Nonnull String text) throws IOException;
+    void writeTextContent(@Nonnull String text);
 
     /**
      * @param commentText
      *        commentText
-     * @throws IOException
-     *         if there was an IO problem
      */
-    void writeComment(@Nonnull String commentText) throws IOException;
+    void writeComment(@Nonnull String commentText);
 }

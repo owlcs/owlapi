@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 
 import javax.annotation.Nonnull;
 
@@ -41,13 +40,12 @@ public class TutorialSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, OWLDocumentFormat format)
+            @Nonnull PrintWriter writer, OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         try {
             OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
             renderer.render(ontology, writer);
-            writer.flush();
-        } catch (IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLRuntimeException(e);
         }
     }

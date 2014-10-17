@@ -80,9 +80,7 @@ public class OWLObjectComplementOfExtractor implements
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        for (OWLClassExpression op : ce.getOperands()) {
-            op.accept(this);
-        }
+        ce.getOperands().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -102,8 +100,6 @@ public class OWLObjectComplementOfExtractor implements
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        for (OWLClassExpression op : ce.getOperands()) {
-            op.accept(this);
-        }
+        ce.getOperands().forEach(o -> o.accept(this));
     }
 }

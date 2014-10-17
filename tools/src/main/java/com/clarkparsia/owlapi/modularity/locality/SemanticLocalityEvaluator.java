@@ -190,18 +190,16 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         /**
-         * @param classExpressions
+         * @param exps
          *        the class expressions
          * @return the set of modified OWL class expressions
          */
         @Nonnull
         public Set<OWLClassExpression> replaceBottom(
-                @Nonnull Set<OWLClassExpression> classExpressions) {
+                @Nonnull Set<OWLClassExpression> exps) {
+            checkNotNull(exps, "exps cannot be null");
             Set<OWLClassExpression> result = new HashSet<>();
-            for (OWLClassExpression desc : checkNotNull(classExpressions,
-                    "classExpressions cannot be null")) {
-                result.add(replaceBottom(desc));
-            }
+            exps.forEach(ce -> result.add(replaceBottom(ce)));
             return result;
         }
 

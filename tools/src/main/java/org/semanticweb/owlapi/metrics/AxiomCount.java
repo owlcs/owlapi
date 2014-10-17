@@ -38,11 +38,7 @@ public class AxiomCount extends IntegerValuedMetric {
 
     @Override
     protected Integer recomputeMetric() {
-        int count = 0;
-        for (OWLOntology ontology : getOntologies()) {
-            count += ontology.getAxiomCount();
-        }
-        return count;
+        return getOntologies().stream().mapToInt(o -> o.getAxiomCount()).sum();
     }
 
     @Override

@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.RDFResource;
@@ -59,31 +57,25 @@ public class RDFXMLWriter {
     /**
      * @param elementName
      *        elementName
-     * @throws IOException
-     *         io exception
      */
-    public void writeStartElement(@Nonnull IRI elementName) throws IOException {
+    public void writeStartElement(@Nonnull IRI elementName) {
         // Sort out with namespace
         writer.writeStartElement(checkNotNull(elementName,
                 "elementName cannot be null"));
     }
 
     /**
-     * @throws IOException
-     *         io exception
+     * Parse type attribute.
      */
-    public void writeParseTypeAttribute() throws IOException {
+    public void writeParseTypeAttribute() {
         writer.writeAttribute(PARSETYPE_IRI, "Collection");
     }
 
     /**
      * @param datatypeIRI
      *        datatypeIRI
-     * @throws IOException
-     *         io exception
      */
-    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI)
-            throws IOException {
+    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
         writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
     }
@@ -91,49 +83,37 @@ public class RDFXMLWriter {
     /**
      * @param text
      *        text
-     * @throws IOException
-     *         io exception
      */
-    public void writeTextContent(@Nonnull String text) throws IOException {
+    public void writeTextContent(@Nonnull String text) {
         writer.writeTextContent(text);
     }
 
     /**
      * @param lang
      *        lang
-     * @throws IOException
-     *         io exception
      */
-    public void writeLangAttribute(@Nonnull String lang) throws IOException {
+    public void writeLangAttribute(@Nonnull String lang) {
         writer.writeAttribute(XML_LANG, lang);
     }
 
-    /**
-     * @throws IOException
-     *         io exception
-     */
-    public void writeEndElement() throws IOException {
+    /** Write end element. */
+    public void writeEndElement() {
         writer.writeEndElement();
     }
 
     /**
      * @param value
      *        value
-     * @throws IOException
-     *         io exception
      */
-    public void writeAboutAttribute(@Nonnull IRI value) throws IOException {
+    public void writeAboutAttribute(@Nonnull IRI value) {
         writeAttribute(RDF_ABOUT, value);
     }
 
     /**
      * @param node
      *        node
-     * @throws IOException
-     *         io exception
      */
-    public void writeNodeIDAttribute(@Nonnull RDFResource node)
-            throws IOException {
+    public void writeNodeIDAttribute(@Nonnull RDFResource node) {
         writer.writeAttribute(RDF_NODEID, node.toString());
     }
 
@@ -142,11 +122,8 @@ public class RDFXMLWriter {
      *        attribute name
      * @param value
      *        value
-     * @throws IOException
-     *         io exception
      */
-    public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value)
-            throws IOException {
+    public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value) {
         writer.writeAttribute(attributeName,
                 checkNotNull(value, "value cannot be null").toString());
     }
@@ -161,36 +138,30 @@ public class RDFXMLWriter {
     /**
      * @param value
      *        value
-     * @throws IOException
-     *         io exception
      */
-    public void writeResourceAttribute(@Nonnull IRI value) throws IOException {
+    public void writeResourceAttribute(@Nonnull IRI value) {
         writeAttribute(RDF_RESOURCE, value);
     }
 
     /**
-     * @throws IOException
-     *         io exception
+     * Start document.
      */
-    public void startDocument() throws IOException {
+    public void startDocument() {
         writer.startDocument(RDF_RDF);
     }
 
     /**
-     * @throws IOException
-     *         io exception
+     * End document.
      */
-    public void endDocument() throws IOException {
+    public void endDocument() {
         writer.endDocument();
     }
 
     /**
      * @param comment
      *        comment
-     * @throws IOException
-     *         io exception
      */
-    public void writeComment(@Nonnull String comment) throws IOException {
+    public void writeComment(@Nonnull String comment) {
         writer.writeComment(comment);
     }
 }

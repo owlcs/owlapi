@@ -209,9 +209,7 @@ public class Translators {
         public void consumeSWRLRules(Set<IRI> swrlRules) {
             SWRLRuleTranslator translator = new SWRLRuleTranslator(consumer,
                     this);
-            for (IRI ruleIRI : swrlRules) {
-                translator.translateRule(ruleIRI);
-            }
+            swrlRules.forEach(i -> translator.translateRule(i));
         }
 
         public OWLClassExpression getClassExpressionIfTranslated(IRI mainNode) {

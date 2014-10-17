@@ -86,9 +86,7 @@ public class OWLObjectIntersectionOfImpl extends
     @Override
     public Set<OWLClassExpression> asConjunctSet() {
         Set<OWLClassExpression> conjuncts = new HashSet<>();
-        for (OWLClassExpression op : getOperands()) {
-            conjuncts.addAll(op.asConjunctSet());
-        }
+        getOperands().forEach(op -> conjuncts.addAll(op.asConjunctSet()));
         return conjuncts;
     }
 
@@ -97,11 +95,6 @@ public class OWLObjectIntersectionOfImpl extends
         if (ce.equals(this)) {
             return true;
         }
-        for (OWLClassExpression op : getOperands()) {
-            if (op.containsConjunct(ce)) {
-                return true;
-            }
-        }
-        return false;
+        return getOperands().stream().anyMatch(op -> op.containsConjunct(ce));
     }
 }

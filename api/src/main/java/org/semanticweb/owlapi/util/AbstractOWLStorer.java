@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
@@ -30,6 +31,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,9 +96,10 @@ public abstract class AbstractOWLStorer implements OWLStorer {
     private void store(@Nonnull OWLOntology ontology,
             @Nonnull OWLDocumentFormat ontologyFormat,
             @Nonnull OutputStream tempOutputStream)
-            throws OWLOntologyStorageException, IOException {
-        Writer tempWriter = new BufferedWriter(new OutputStreamWriter(
-                tempOutputStream, StandardCharsets.UTF_8));
+            throws OWLOntologyStorageException {
+        PrintWriter tempWriter = new PrintWriter(
+                new BufferedWriter(new OutputStreamWriter(tempOutputStream,
+                        StandardCharsets.UTF_8)));
         storeOntology(ontology, tempWriter, ontologyFormat);
         tempWriter.flush();
         tempWriter.close();
@@ -110,9 +113,9 @@ public abstract class AbstractOWLStorer implements OWLStorer {
                     throws OWLOntologyStorageException {
         Optional<Writer> writer = target.getWriter();
         if (format.isTextual() && writer.isPresent()) {
-            try (Writer w = writer.get();) {
-                storeOntology(ontology, w, format);
-                w.flush();
+            try (Writer w = writer.get(); PrintWriter pw = new PrintWriter(w);) {
+                storeOntology(ontology, pw, format);
+                pw.flush();
                 return;
             } catch (IOException e) {
                 throw new OWLOntologyStorageException(e);
@@ -137,7 +140,7 @@ public abstract class AbstractOWLStorer implements OWLStorer {
      * Override this to support textual serialisation.
      */
     protected abstract void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, @Nonnull OWLDocumentFormat format)
+            @Nonnull PrintWriter writer, @Nonnull OWLDocumentFormat format)
             throws OWLOntologyStorageException;
 
     /*
@@ -154,11 +157,12 @@ public abstract class AbstractOWLStorer implements OWLStorer {
                             + format.getKey());
         }
         try {
-            Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    outputStream, StandardCharsets.UTF_8));
+            PrintWriter writer = new PrintWriter(
+                    new BufferedWriter(new OutputStreamWriter(outputStream,
+                            StandardCharsets.UTF_8)));
             storeOntology(ontology, writer, format);
             writer.flush();
-        } catch (IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

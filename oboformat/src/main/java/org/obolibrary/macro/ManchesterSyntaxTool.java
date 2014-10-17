@@ -101,10 +101,9 @@ public class ManchesterSyntaxTool {
         dataFactory = manager.getOWLDataFactory();
         Set<OWLOntology> ontologies = new HashSet<>(
                 inputOntology.getImportsClosure());
-        if (auxiliaryOntologies != null && !auxiliaryOntologies.isEmpty()) {
-            for (OWLOntology auxOnt : auxiliaryOntologies) {
-                ontologies.addAll(auxOnt.getImportsClosure());
-            }
+        if (auxiliaryOntologies != null) {
+            auxiliaryOntologies.forEach(o -> ontologies.addAll(o
+                    .getImportsClosure()));
         }
         ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
                 new BidirectionalShortFormProviderAdapter(manager, ontologies,

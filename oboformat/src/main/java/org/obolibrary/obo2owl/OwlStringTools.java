@@ -1,7 +1,9 @@
 package org.obolibrary.obo2owl;
 
+import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -17,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
@@ -29,7 +32,7 @@ public class OwlStringTools {
      * Exception indicating an un-recoverable error during the handling of axiom
      * strings.
      */
-    public static class OwlStringException extends Exception {
+    public static class OwlStringException extends OWLRuntimeException {
 
         // generated
         private static final long serialVersionUID = 40000L;
@@ -68,9 +71,12 @@ public class OwlStringTools {
             translationManager.addAxioms(ontology, axioms);
             OWLFunctionalSyntaxRenderer r = new OWLFunctionalSyntaxRenderer();
             Writer writer = new StringWriter();
-            r.render(ontology, writer);
+            PrintWriter w = new PrintWriter(writer);
+            r.render(ontology, w);
+            w.flush();
             return writer.toString();
-        } catch (OWLRendererException | OWLOntologyCreationException e) {
+        } catch (OWLRendererException | OWLOntologyCreationException
+                | OWLRuntimeException e) {
             throw new OwlStringException(e);
         }
     }
@@ -84,16 +90,13 @@ public class OwlStringTools {
      * @param translationManager
      *        translationManager
      * @return set of axioms or null
-     * @throws OwlStringException
-     *         OwlStringException
      * @see #translate(Set,OWLOntologyManager)
      */
-    @Nullable
+    @Nonnull
     public static Set<OWLAxiom> translate(@Nullable String axioms,
-            @Nonnull OWLOntologyManager translationManager)
-            throws OwlStringException {
+            @Nonnull OWLOntologyManager translationManager) {
         if (axioms == null || axioms.isEmpty()) {
-            return null;
+            return Collections.emptySet();
         }
         try {
             OWLFunctionalSyntaxOWLParser p = new OWLFunctionalSyntaxOWLParser();
@@ -105,7 +108,7 @@ public class OwlStringTools {
             return ontology.getAxioms();
         } catch (UnloadableImportException | OWLOntologyCreationException
                 | OWLParserException e) {
-            throw new OwlStringException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 }

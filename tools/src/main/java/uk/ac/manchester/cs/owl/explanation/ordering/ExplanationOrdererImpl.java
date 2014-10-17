@@ -143,9 +143,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
         Collections.sort(rootAxioms, new TargetAxiomsComparator(
                 getTargetAxioms(currentTarget)));
-        for (OWLAxiom ax : rootAxioms) {
-            root.addChild(new ExplanationTree(ax));
-        }
+        rootAxioms.forEach(ax -> root.addChild(new ExplanationTree(ax)));
         return root;
     }
 
@@ -263,9 +261,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
-        for (OWLAxiom ax : currentExplanation) {
-            ax.accept(builder);
-        }
+        currentExplanation.forEach(ax -> ax.accept(builder));
         try {
             if (ont != null) {
                 man.removeOntology(verifyNotNull(ont));

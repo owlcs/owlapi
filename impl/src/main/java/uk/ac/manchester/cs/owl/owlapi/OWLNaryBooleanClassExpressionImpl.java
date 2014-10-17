@@ -53,9 +53,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        for (OWLClassExpression operand : operands) {
-            addSignatureEntitiesToSetForValue(entities, operand);
-        }
+        operands.forEach(o -> addSignatureEntitiesToSetForValue(entities, o));
     }
 
     @Override

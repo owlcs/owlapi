@@ -66,9 +66,7 @@ public abstract class OWLNaryDataRangeImpl extends
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        for (OWLDataRange operand : operands) {
-            addSignatureEntitiesToSetForValue(entities, operand);
-        }
+        operands.forEach(o -> addSignatureEntitiesToSetForValue(entities, o));
     }
 
     @Override

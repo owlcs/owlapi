@@ -12,14 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -27,13 +25,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(@Nonnull OWLOntology ontology, Writer writer)
+    public void render(@Nonnull OWLOntology ontology, PrintWriter writer)
             throws OWLRendererException {
         try {
             ontology.accept(new KRSS2ObjectRenderer(ontology, writer));
             writer.flush();
-        } catch (IOException io) {
-            throw new OWLRendererIOException(io);
         } catch (OWLRuntimeException e) {
             throw new OWLRendererException(e);
         }

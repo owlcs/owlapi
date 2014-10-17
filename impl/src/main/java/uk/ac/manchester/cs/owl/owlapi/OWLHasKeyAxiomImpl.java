@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
@@ -71,9 +72,8 @@ public class OWLHasKeyAxiomImpl extends
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, expression);
-        for (OWLPropertyExpression propertyExpression : propertyExpressions) {
-            addSignatureEntitiesToSetForValue(entities, propertyExpression);
-        }
+        propertyExpressions.forEach(p -> addSignatureEntitiesToSetForValue(
+                entities, p));
     }
 
     @Override
@@ -115,24 +115,16 @@ public class OWLHasKeyAxiomImpl extends
 
     @Override
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
-        Set<OWLDataPropertyExpression> props = new TreeSet<>();
-        for (OWLPropertyExpression prop : propertyExpressions) {
-            if (prop.isDataPropertyExpression()) {
-                props.add((OWLDataPropertyExpression) prop);
-            }
-        }
-        return props;
+        return propertyExpressions.stream()
+                .filter(p -> p.isDataPropertyExpression())
+                .map(p -> (OWLDataPropertyExpression) p).collect(toSet());
     }
 
     @Override
     public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
-        Set<OWLObjectPropertyExpression> props = new TreeSet<>();
-        for (OWLPropertyExpression prop : propertyExpressions) {
-            if (prop.isObjectPropertyExpression()) {
-                props.add((OWLObjectPropertyExpression) prop);
-            }
-        }
-        return props;
+        return propertyExpressions.stream()
+                .filter(p -> p.isObjectPropertyExpression())
+                .map(p -> (OWLObjectPropertyExpression) p).collect(toSet());
     }
 
     @Override

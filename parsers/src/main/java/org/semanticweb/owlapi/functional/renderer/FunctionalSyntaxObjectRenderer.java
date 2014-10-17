@@ -206,12 +206,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         List<OWLEntity> signature = sortOptionally(ontology.getSignature());
         Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(
                 addMissingDeclarations, signature, ont.getPunnedIRIs(INCLUDED));
-        for (OWLEntity ent : signature) {
-            writeDeclarations(ent, writtenAxioms, illegals);
-        }
-        for (OWLEntity ent : signature) {
-            writeAxioms(ent, writtenAxioms);
-        }
+        signature.forEach(e -> writeDeclarations(e, writtenAxioms, illegals));
+        signature.forEach(e -> writeAxioms(e, writtenAxioms));
         for (OWLAxiom ax : ontology.getAxioms()) {
             if (!writtenAxioms.contains(ax)) {
                 ax.accept(this);

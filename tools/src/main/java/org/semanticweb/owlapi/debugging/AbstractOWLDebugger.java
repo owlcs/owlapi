@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -46,7 +47,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public abstract class AbstractOWLDebugger implements OWLDebugger {
 
     @Nonnull
-    protected final OWLOntologyManager owlOntologyManager;
+    protected final OWLOntologyManager man;
+    protected final OWLDataFactory df;
     @Nonnull
     private OWLOntology ontology;
 
@@ -61,29 +63,28 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     protected AbstractOWLDebugger(
             @Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager,
+        man = checkNotNull(owlOntologyManager,
                 "owlOntologyManager cannot be null");
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
+        df = man.getOWLDataFactory();
         mergeImportsClosure();
     }
 
     private void mergeImportsClosure() {
-        OWLOntology originalOntology = ontology;
+        OWLOntology o = ontology;
         try {
-            ontology = owlOntologyManager
+            ontology = man
                     .createOntology(OWLOntologyDocumentSourceBase
                             .getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
         List<AddAxiom> changes = new ArrayList<>();
-        for (OWLOntology ont : owlOntologyManager
-                .getImportsClosure(originalOntology)) {
-            for (OWLAxiom ax : ont.getLogicalAxioms()) {
-                changes.add(new AddAxiom(ontology, ax));
-            }
+        for (OWLOntology ont : o.getImportsClosure()) {
+            ont.getLogicalAxioms().forEach(
+                    ax -> changes.add(new AddAxiom(ontology, ax)));
         }
-        owlOntologyManager.applyChanges(changes);
+        man.applyChanges(changes);
     }
 
     /**
@@ -146,7 +147,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
             // Remove the current axiom from the ontology
-            owlOntologyManager.applyChange(new RemoveAxiom(ontology, axiom));
+            man.applyChange(new RemoveAxiom(ontology, axiom));
             currentPathContents.add(axiom);
             boolean earlyTermination = false;
             // Early path termination. If our path contents are the superset of
@@ -177,7 +178,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             // Back track - go one level up the tree and run for the next axiom
             currentPathContents.remove(axiom);
             // Done with the axiom that was removed. Add it back in
-            owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
+            man.applyChange(new AddAxiom(ontology, axiom));
         }
     }
 }

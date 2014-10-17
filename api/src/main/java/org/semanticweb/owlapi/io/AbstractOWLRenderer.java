@@ -13,15 +13,15 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -36,11 +36,11 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     public void render(OWLOntology ontology, @Nonnull OutputStream os)
             throws OWLRendererException {
         try {
-            Writer writer = new BufferedWriter(new OutputStreamWriter(os,
-                    StandardCharsets.UTF_8));
+            PrintWriter writer = new PrintWriter(new BufferedWriter(
+                    new OutputStreamWriter(os, StandardCharsets.UTF_8)));
             render(ontology, writer);
             writer.flush();
-        } catch (IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new OWLRendererIOException(e);
         }
     }
@@ -58,5 +58,5 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      *         if exceptions arise
      */
     public abstract void render(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer) throws OWLRendererException;
+            @Nonnull PrintWriter writer) throws OWLRendererException;
 }

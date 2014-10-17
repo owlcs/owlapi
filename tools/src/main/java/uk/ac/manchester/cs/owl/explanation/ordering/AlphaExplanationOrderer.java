@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -53,16 +52,9 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
             @Nonnull Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
         List<OWLAxiom> sortedAxioms = new ArrayList<>(axioms);
-        Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {
-
-            @Override
-            public int compare(OWLAxiom o1, OWLAxiom o2) {
-                return renderer.render(o1).compareTo(renderer.render(o2));
-            }
-        });
-        for (OWLAxiom ax : sortedAxioms) {
-            root.addChild(new ExplanationTree(ax));
-        }
+        Collections.sort(sortedAxioms, (o1, o2) -> renderer.render(o1)
+                .compareTo(renderer.render(o2)));
+        sortedAxioms.forEach(ax -> root.addChild(new ExplanationTree(ax)));
         return root;
     }
 }

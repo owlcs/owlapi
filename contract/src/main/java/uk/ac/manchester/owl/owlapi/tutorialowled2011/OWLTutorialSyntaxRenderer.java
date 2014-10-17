@@ -12,14 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Sean Bechhofer, The University Of Manchester, Information Management
@@ -29,14 +29,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
-            throws OWLRendererIOException {
+    public void render(@Nonnull OWLOntology ontology,
+            @Nonnull PrintWriter writer) throws OWLRendererIOException {
         try {
             OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
                     writer);
             ontology.accept(ren);
             writer.flush();
-        } catch (IOException ex) {
+        } catch (OWLRuntimeException ex) {
             throw new OWLRendererIOException(ex);
         }
     }

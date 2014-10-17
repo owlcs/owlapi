@@ -60,11 +60,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        for (OWLIndividual individual : individuals) {
-            if (individual.isNamed()) {
-                entities.add(individual.asOWLNamedIndividual());
-            }
-        }
+        individuals.stream().filter(i -> i.isNamed())
+                .forEach(i -> entities.add(i.asOWLNamedIndividual()));
     }
 
     @Override

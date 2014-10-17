@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
@@ -30,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -81,7 +81,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
-        return CollectionFactory.copy(values);
+        return copy(values);
     }
 
     @Override
@@ -95,9 +95,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
             return this;
         } else {
             Set<OWLClassExpression> ops = new HashSet<>();
-            for (OWLIndividual ind : values) {
-                ops.add(new OWLObjectOneOfImpl(CollectionFactory.createSet(ind)));
-            }
+            values.forEach(i -> ops.add(new OWLObjectOneOfImpl(createSet(i))));
             return new OWLObjectUnionOfImpl(ops);
         }
     }

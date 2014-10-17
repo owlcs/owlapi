@@ -160,9 +160,7 @@ public class Frame {
         StringBuffer sb = new StringBuffer("Frame(");
         sb.append(id);
         sb.append(' ');
-        for (Clause cl : clauses) {
-            sb.append(cl);
-        }
+        clauses.forEach(cl -> sb.append(cl).append(' '));
         sb.append(')');
         return sb.toString();
     }
@@ -244,9 +242,7 @@ public class Frame {
     @Nonnull
     public Collection<Object> getTagValues(String tag) {
         Collection<Object> vals = new ArrayList<>();
-        for (Clause c : getClauses(tag)) {
-            vals.add(c.getValue());
-        }
+        getClauses(tag).forEach(v -> vals.add(v.getValue()));
         return vals;
     }
 
@@ -277,9 +273,7 @@ public class Frame {
     @Nonnull
     public <T> Collection<T> getTagValues(String tag, @Nonnull Class<T> cls) {
         Collection<T> vals = new ArrayList<>();
-        for (Clause c : getClauses(tag)) {
-            vals.add(c.getValue(cls));
-        }
+        getClauses(tag).forEach(c -> vals.add(c.getValue(cls)));
         return vals;
     }
 
@@ -303,9 +297,7 @@ public class Frame {
     @Nonnull
     public Set<String> getTags() {
         Set<String> tags = new HashSet<>();
-        for (Clause cl : getClauses()) {
-            tags.add(cl.getTag());
-        }
+        getClauses().forEach(cl -> tags.add(cl.getTag()));
         return tags;
     }
 
@@ -325,9 +317,7 @@ public class Frame {
         if (!extFrame.getType().equals(getType())) {
             throw new FrameMergeException("frame types do not match");
         }
-        for (Clause c : extFrame.getClauses()) {
-            addClause(c);
-        }
+        extFrame.getClauses().forEach(c -> addClause(c));
         // note we do not perform a document structure check at this point
     }
 

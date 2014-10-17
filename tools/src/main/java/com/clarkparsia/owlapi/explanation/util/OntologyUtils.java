@@ -19,9 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -49,18 +47,20 @@ public final class OntologyUtils {
     public static boolean containsUnreferencedEntity(
             @Nonnull OWLOntology ontology, @Nonnull OWLClassExpression desc) {
         checkNotNull(ontology, "ontology cannot be null");
-        for (OWLEntity entity : checkNotNull(desc, "desc cannot be null")
-                .getSignature()) {
+        checkNotNull(desc, "desc cannot be null");
+        for (OWLEntity entity : desc.getSignature()) {
             if (!ontology.containsEntityInSignature(entity)) {
-                if (entity instanceof OWLClass
-                        && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity)
-                                .isOWLNothing())) {
-                    continue;
+                if (!thingOrNothing(entity)) {
+                    return true;
                 }
-                return true;
             }
         }
         return false;
+    }
+
+    protected static boolean thingOrNothing(OWLEntity entity) {
+        return entity.isOWLClass()
+                && (entity.isTopEntity() || entity.isBottomEntity());
     }
 
     /**
@@ -105,11 +105,9 @@ public final class OntologyUtils {
     public static void addAxiom(@Nonnull OWLAxiom axiom,
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntologyManager manager) {
-        for (OWLOntology ont : checkNotNull(ontologies,
-                "ontologies cannot be null")) {
-            checkNotNull(manager, "manager cannot be null").applyChange(
-                    new AddAxiom(ont, checkNotNull(axiom,
-                            "axiom cannot be null")));
-        }
+        checkNotNull(manager, "manager cannot be null");
+        checkNotNull(axiom, "axiom cannot be null");
+        checkNotNull(ontologies, "ontologies cannot be null");
+        ontologies.forEach(o -> manager.addAxiom(o, axiom));
     }
 }

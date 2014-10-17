@@ -88,7 +88,6 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
@@ -103,10 +102,8 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
@@ -138,9 +135,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     private void writeAnnotations(@Nonnull OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
-        for (OWLAnnotation anno : axiom.getAnnotations()) {
-            anno.accept(this);
-        }
+        render(axiom.getAnnotations());
     }
 
     @Override
@@ -151,9 +146,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             writer.writeTextContent(decl.getIRI().toString());
             writer.writeEndElement();
         }
-        for (OWLAnnotation annotation : ontology.getAnnotations()) {
-            annotation.accept(this);
-        }
+        render(ontology.getAnnotations());
         // treat declarations separately from other axioms
         Collection<OWLDeclarationAxiom> declarations = ontology
                 .getAxioms(AxiomType.DECLARATION);
@@ -185,14 +178,10 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             }
         }
         Collection<OWLAxiom> axioms = new ArrayList<>();
-        for (AxiomType<?> t : AxiomType.AXIOM_TYPES) {
-            if (!t.equals(AxiomType.DECLARATION)) {
-                axioms.addAll(ontology.getAxioms(t));
-            }
-        }
-        for (OWLAxiom ax : CollectionFactory.sortOptionally(axioms)) {
-            ax.accept(this);
-        }
+        AxiomType.AXIOM_TYPES.stream()
+                .filter(t -> !t.equals(AxiomType.DECLARATION))
+                .forEach(t -> axioms.addAll(ontology.getAxioms(t)));
+        render(CollectionFactory.sortOptionally(axioms));
     }
 
     @Override
@@ -421,9 +410,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(SUB_OBJECT_PROPERTY_OF);
         writeAnnotations(axiom);
         writer.writeStartElement(OBJECT_PROPERTY_CHAIN);
-        for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
-            prop.accept(this);
-        }
+        render(axiom.getPropertyChain());
         writer.writeEndElement();
         axiom.getSuperProperty().accept(this);
         writer.writeEndElement();
@@ -763,9 +750,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLAnnotation node) {
         writer.writeStartElement(ANNOTATION);
-        for (OWLAnnotation anno : node.getAnnotations()) {
-            anno.accept(this);
-        }
+        render(node.getAnnotations());
         node.getProperty().accept(this);
         node.getValue().accept(this);
         writer.writeEndElement();
@@ -812,14 +797,10 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(DL_SAFE_RULE);
         writeAnnotations(rule);
         writer.writeStartElement(BODY);
-        for (SWRLAtom atom : rule.getBody()) {
-            atom.accept(this);
-        }
+        render(rule.getBody());
         writer.writeEndElement();
         writer.writeStartElement(HEAD);
-        for (SWRLAtom atom : rule.getHead()) {
-            atom.accept(this);
-        }
+        render(rule.getHead());
         writer.writeEndElement();
         writer.writeEndElement();
     }
@@ -862,9 +843,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(SWRLBuiltInAtom node) {
         writer.writeStartElement(BUILT_IN_ATOM);
         writer.writeIRIAttribute(node.getPredicate());
-        for (SWRLDArgument arg : node.getArguments()) {
-            arg.accept(this);
-        }
+        render(node.getArguments());
         writer.writeEndElement();
     }
 
@@ -901,9 +880,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-    private void render(Set<? extends OWLObject> objects) {
-        for (OWLObject obj : objects) {
-            obj.accept(this);
-        }
+    private void render(Collection<? extends OWLObject> objects) {
+        objects.forEach(a -> a.accept(this));
     }
 }

@@ -383,38 +383,18 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<IRI> getPunnedIRIs(Imports imports) {
         Set<IRI> punned = new HashSet<>();
         Set<IRI> test = new HashSet<>();
-        imports.stream(this).forEach((o) -> {
-            for (OWLEntity e : o.getClassesInSignature()) {
-                if (test.add(e.getIRI())) {
-                    punned.add(e.getIRI());
-                }
-            }
-            for (OWLEntity e : o.getDataPropertiesInSignature()) {
-                if (test.add(e.getIRI())) {
-                    punned.add(e.getIRI());
-                }
-            }
-            for (OWLEntity e : o.getObjectPropertiesInSignature()) {
-                if (test.add(e.getIRI())) {
-                    punned.add(e.getIRI());
-                }
-            }
-            for (OWLEntity e : o.getAnnotationPropertiesInSignature()) {
-                if (test.add(e.getIRI())) {
-                    punned.add(e.getIRI());
-                }
-            }
-            for (OWLEntity e : o.getDatatypesInSignature()) {
-                if (test.add(e.getIRI())) {
-                    punned.add(e.getIRI());
-                }
-            }
-            for (OWLEntity e : o.getIndividualsInSignature()) {
-                if (test.add(e.getIRI())) {
-                    punned.add(e.getIRI());
-                }
-            }
-        });
+        imports.stream(this).forEach(
+                (o) -> {
+                    Stream.of(o.getClassesInSignature(),
+                            o.getDataPropertiesInSignature(),
+                            o.getObjectPropertiesInSignature(),
+                            o.getAnnotationPropertiesInSignature(),
+                            o.getDatatypesInSignature(),
+                            o.getIndividualsInSignature())
+                            .flatMap(s -> s.stream())
+                            .filter(e -> test.add(e.getIRI()))
+                            .forEach(e -> punned.add(e.getIRI()));
+                });
         if (punned.isEmpty()) {
             return Collections.emptySet();
         }
@@ -566,9 +546,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                 props,
                 ints.get(OWLAnnotationProperty.class, OWLAxiom.class,
                         Navigation.IN_SUB_POSITION).get().keySet());
-        for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
-            props.add(anno.getProperty());
-        }
+        ints.getOntologyAnnotations(false).forEach(
+                a -> props.add(a.getProperty()));
         return props;
     }
 
@@ -588,10 +567,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public Set<IRI> getDirectImportsDocuments() {
         Set<IRI> result = createSet();
-        for (OWLImportsDeclaration importsDeclaration : ints
-                .getImportsDeclarations(false)) {
-            result.add(importsDeclaration.getIRI());
-        }
+        ints.getImportsDeclarations(false).forEach(i -> result.add(i.getIRI()));
         return result;
     }
 
@@ -826,13 +802,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             Set<OWLAxiom> axioms = new HashSet<>();
             // axioms referring entities with this IRI, data property assertions
             // with IRI as subject, annotations with IRI as subject or object.
-            Set<OWLEntity> entities = getEntitiesInSignature((IRI) owlEntity);
-            for (OWLEntity e : entities) {
-                axioms.addAll(getReferencingAxioms(e));
-            }
+            getEntitiesInSignature((IRI) owlEntity).forEach(
+                    e -> axioms.addAll(getReferencingAxioms(e)));
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (ax.getObject().getDatatype().getIRI()
-                        .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
+                if (OWL2Datatype.XSD_ANY_URI.matches(ax.getObject()
+                        .getDatatype())) {
                     if (ax.getObject().getLiteral()
                             .equals(owlEntity.toString())) {
                         axioms.add(ax);
@@ -844,8 +818,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                     axioms.add(ax);
                 } else if (ax.getValue().asLiteral().isPresent()) {
                     Optional<OWLLiteral> lit = ax.getValue().asLiteral();
-                    if (lit.get().getDatatype().getIRI()
-                            .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
+                    if (OWL2Datatype.XSD_ANY_URI.matches(lit.get()
+                            .getDatatype())) {
                         if (lit.get().getLiteral().equals(owlEntity.toString())) {
                             axioms.add(ax);
                         }
@@ -856,8 +830,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (ax.getObject().getDatatype().getIRI()
-                        .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
+                if (OWL2Datatype.XSD_ANY_URI.matches(ax.getObject()
+                        .getDatatype())) {
                     if (ax.getObject().equals(owlEntity)) {
                         axioms.add(ax);
                     }

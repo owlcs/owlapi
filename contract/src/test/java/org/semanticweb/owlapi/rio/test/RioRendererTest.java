@@ -5,7 +5,6 @@ package org.semanticweb.owlapi.rio.test;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
@@ -97,7 +96,7 @@ public class RioRendererTest {
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
-    public void testRenderEmptyStatementCollector() throws IOException {
+    public void testRenderEmptyStatementCollector() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
                 testHandlerStatementCollector, null);
         testRenderer.render();
@@ -115,7 +114,7 @@ public class RioRendererTest {
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
-    public void testRenderEmptyRdfXmlWriter() throws IOException {
+    public void testRenderEmptyRdfXmlWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
                 testRdfXmlRioWriter, null);
         testRenderer.render();
@@ -132,7 +131,7 @@ public class RioRendererTest {
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
-    public void testRenderEmptyTurtleWriter() throws IOException {
+    public void testRenderEmptyTurtleWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
                 testTurtleRioWriter, null);
         testRenderer.render();
@@ -149,7 +148,7 @@ public class RioRendererTest {
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
-    public void testRenderEmptyNTriplesWriter() throws IOException {
+    public void testRenderEmptyNTriplesWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
                 testNTriplesRioWriter, null);
         testRenderer.render();
@@ -166,7 +165,7 @@ public class RioRendererTest {
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
-    public void testRenderKoalaStatementCollector() throws IOException {
+    public void testRenderKoalaStatementCollector() {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
                 testHandlerStatementCollector, null);
         testRenderer.render();

@@ -87,10 +87,7 @@ public abstract class OWLAxiomImplWithEntityAndAnonCaching extends
 
     @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
-        int size = annotations.size();
-        for (int i = 0; i < size; i++) {
-            t.visitItem(annotations.get(i));
-        }
+        annotations.forEach(a -> t.visitItem(a));
     }
 
     @Override
@@ -98,15 +95,12 @@ public abstract class OWLAxiomImplWithEntityAndAnonCaching extends
             OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
             return emptySet();
-        } else {
-            Set<OWLAnnotation> result = new HashSet<>();
-            for (OWLAnnotation anno : annotations) {
-                if (anno.getProperty().equals(annotationProperty)) {
-                    result.add(anno);
-                }
-            }
-            return result;
         }
+        Set<OWLAnnotation> result = new HashSet<>();
+        annotations.stream()
+                .filter(a -> a.getProperty().equals(annotationProperty))
+                .forEach(a -> result.add(a));
+        return result;
     }
 
     @Override

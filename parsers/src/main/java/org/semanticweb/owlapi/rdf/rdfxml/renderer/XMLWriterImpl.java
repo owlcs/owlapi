@@ -14,8 +14,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -28,6 +27,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.StringLengthComparator;
 
 import com.google.common.collect.Lists;
@@ -44,7 +44,7 @@ public class XMLWriterImpl implements XMLWriter {
     @Nonnull
     private final Stack<XMLElement> elementStack;
     @Nonnull
-    protected final Writer writer;
+    protected final PrintWriter writer;
     private String encoding = "";
     @Nonnull
     private final String xmlBase;
@@ -63,7 +63,7 @@ public class XMLWriterImpl implements XMLWriter {
      * @param xmlBase
      *        xmlBase
      */
-    public XMLWriterImpl(@Nonnull Writer writer,
+    public XMLWriterImpl(@Nonnull PrintWriter writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
             @Nonnull String xmlBase) {
         this.writer = checkNotNull(writer, "writer cannot be null");
@@ -137,7 +137,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void writeStartElement(IRI name) throws IOException {
+    public void writeStartElement(IRI name) {
         String qName = xmlWriterNamespaceManager.getQName(name);
         if (qName.length() == name.length()) {
             // Could not generate a valid QName, therefore, we cannot
@@ -155,7 +155,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void writeEndElement() throws IOException {
+    public void writeEndElement() {
         // Pop the element off the stack and write it out
         if (!elementStack.isEmpty()) {
             XMLElement element = elementStack.pop();
@@ -188,7 +188,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void writeComment(String commentText) throws IOException {
+    public void writeComment(String commentText) {
         XMLElement element = new XMLElement(null, elementStack.size());
         element.setText("<!-- " + commentText.replace("--", "&#45;&#45;")
                 + " -->");
@@ -205,10 +205,10 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    private void writeEntities(@Nonnull IRI rootName) throws IOException {
+    private void writeEntities(@Nonnull IRI rootName) {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
         if (qName == null) {
-            throw new IOException("Cannot create valid XML: qname for "
+            throw new OWLRuntimeException("Cannot create valid XML: qname for "
                     + rootName + " is null");
         }
         writer.write("\n\n<!DOCTYPE " + qName + " [\n");
@@ -227,7 +227,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void startDocument(@Nonnull IRI rootElement) throws IOException {
+    public void startDocument(@Nonnull IRI rootElement) {
         String encodingString = "";
         if (!encoding.isEmpty()) {
             encodingString = " encoding=\"" + encoding + '"';
@@ -256,7 +256,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void endDocument() throws IOException {
+    public void endDocument() {
         // Pop of each element
         while (!elementStack.isEmpty()) {
             writeEndElement();
@@ -318,10 +318,8 @@ public class XMLWriterImpl implements XMLWriter {
         /**
          * @param close
          *        close
-         * @throws IOException
-         *         io error
          */
-        public void writeElementStart(boolean close) throws IOException {
+        public void writeElementStart(boolean close) {
             if (!startWritten) {
                 startWritten = true;
                 insertIndentation();
@@ -375,11 +373,8 @@ public class XMLWriterImpl implements XMLWriter {
 
         /**
          * Write end element.
-         * 
-         * @throws IOException
-         *         io error
          */
-        public void writeElementEnd() throws IOException {
+        public void writeElementEnd() {
             if (name != null) {
                 if (!startWritten) {
                     writeElementStart(true);
@@ -395,7 +390,7 @@ public class XMLWriterImpl implements XMLWriter {
             }
         }
 
-        private void writeAttribute(String attr, String val) throws IOException {
+        private void writeAttribute(String attr, String val) {
             writer.write(attr);
             writer.write('=');
             writer.write('"');
@@ -407,7 +402,7 @@ public class XMLWriterImpl implements XMLWriter {
             writer.write('"');
         }
 
-        private void writeAttributes() throws IOException {
+        private void writeAttributes() {
             for (Iterator<String> it = attributes.keySet().iterator(); it
                     .hasNext();) {
                 String attr = it.next();
@@ -423,13 +418,13 @@ public class XMLWriterImpl implements XMLWriter {
             }
         }
 
-        private void writeTextContent() throws IOException {
+        private void writeTextContent() {
             if (textContent != null) {
                 writer.write(XMLUtils.escapeXML(textContent));
             }
         }
 
-        private void insertIndentation() throws IOException {
+        private void insertIndentation() {
             if (XMLWriterPreferences.getInstance().isIndenting()) {
                 for (int i = 0; i < indentation
                         * XMLWriterPreferences.getInstance().getIndentSize(); i++) {
@@ -438,7 +433,7 @@ public class XMLWriterImpl implements XMLWriter {
             }
         }
 
-        private void writeNewLine() throws IOException {
+        private void writeNewLine() {
             writer.write('\n');
         }
     }

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
@@ -30,15 +31,14 @@ import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
@@ -137,31 +137,20 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             return (OWLClass) cls;
         } else {
             // The class is anonymous, so we need to assign it a name
-            OWLClass curCls = owlOntologyManager.getOWLDataFactory()
-                    .getOWLClass(createIRI());
-            Set<OWLClassExpression> operands = new HashSet<>();
-            operands.add(curCls);
-            operands.add(cls);
-            temporaryAxioms.add(owlOntologyManager.getOWLDataFactory()
-                    .getOWLEquivalentClassesAxiom(operands));
-            for (OWLAxiom ax : temporaryAxioms) {
-                owlOntologyManager.applyChange(new AddAxiom(getOWLOntology(),
-                        ax));
-            }
+            OWLClass curCls = df.getOWLClass(createIRI());
+            temporaryAxioms.add(df.getOWLEquivalentClassesAxiom(createSet(
+                    curCls, cls)));
+            temporaryAxioms.forEach(ax -> man.addAxiom(getOWLOntology(), ax));
             return curCls;
         }
     }
 
     @Override
-    public Set<OWLAxiom> getSOSForInconsistentClass(OWLClassExpression cls)
-            throws OWLException {
+    public Set<OWLAxiom> getSOSForInconsistentClass(OWLClassExpression cls) {
         reset();
         currentClass = setupDebuggingClass(cls);
         generateSOSAxioms();
-        for (OWLAxiom ax : temporaryAxioms) {
-            owlOntologyManager
-                    .applyChange(new RemoveAxiom(getOWLOntology(), ax));
-        }
+        temporaryAxioms.forEach(ax -> man.removeAxiom(getOWLOntology(), ax));
         debuggingAxioms.removeAll(temporaryAxioms);
         return new HashSet<>(debuggingAxioms);
     }
@@ -311,7 +300,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     // Contraction/Pruning - Fast pruning is performed and then slow pruning is
     // performed.
-    private void performFastPruning() throws OWLException {
+    private void performFastPruning() {
         Set<OWLAxiom> axiomWindow = new HashSet<>();
         Object[] axioms = debuggingAxioms.toArray();
         LOGGER.info("Fast pruning: ");
@@ -349,17 +338,18 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         LOGGER.info("    - End of fast pruning");
     }
 
-    private void performSlowPruning() throws OWLException {
+    private void performSlowPruning() {
         // Simply remove axioms one at a time. If the class
         // being debugged turns satisfiable then we know we have
         // an SOS axoiom.
-        List<OWLAxiom> axiomsCopy = new ArrayList<>(debuggingAxioms);
-        for (OWLAxiom ax : axiomsCopy) {
-            debuggingAxioms.remove(ax);
-            if (isSatisfiable()) {
-                // Affects satisfiability, so add back in
-                debuggingAxioms.add(ax);
-            }
+        new ArrayList<>(debuggingAxioms).forEach(ax -> removeAndTest(ax));
+    }
+
+    protected void removeAndTest(OWLAxiom ax) {
+        debuggingAxioms.remove(ax);
+        if (isSatisfiable()) {
+            // Affects satisfiability, so add back in
+            debuggingAxioms.add(ax);
         }
     }
 
@@ -376,10 +366,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * before the test is performed.
      * 
      * @return true, if is satisfiable
-     * @throws OWLException
-     *         the oWL exception
      */
-    private boolean isSatisfiable() throws OWLException {
+    private boolean isSatisfiable() {
         createDebuggingOntology();
         OWLReasoner reasoner = reasonerFactory
                 .createNonBufferingReasoner(getDebuggingOntology());
@@ -389,36 +377,37 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return sat;
     }
 
-    private void createDebuggingOntology() throws OWLException {
+    private void createDebuggingOntology() {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(verifyNotNull(debuggingOntology));
+            man.removeOntology(verifyNotNull(debuggingOntology));
         }
         IRI iri = createIRI();
         SimpleIRIMapper mapper = new SimpleIRIMapper(iri, iri);
-        owlOntologyManager.getIRIMappers().add(mapper);
-        debuggingOntology = owlOntologyManager.createOntology(iri);
-        owlOntologyManager.getIRIMappers().remove(mapper);
+        man.getIRIMappers().add(mapper);
+        try {
+            debuggingOntology = man.createOntology(iri);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+        man.getIRIMappers().remove(mapper);
         List<AddAxiom> changes = new ArrayList<>();
-        for (OWLAxiom ax : debuggingAxioms) {
-            changes.add(new AddAxiom(getDebuggingOntology(), ax));
-        }
-        for (OWLAxiom ax : temporaryAxioms) {
-            changes.add(new AddAxiom(getDebuggingOntology(), ax));
-        }
+        debuggingAxioms.forEach(ax -> changes.add(new AddAxiom(
+                getDebuggingOntology(), ax)));
+        temporaryAxioms.forEach(ax -> changes.add(new AddAxiom(
+                getDebuggingOntology(), ax)));
         // Ensure the ontology contains the signature of the class which is
         // being debugged
-        OWLDataFactory factory = owlOntologyManager.getOWLDataFactory();
-        OWLAxiom ax = factory.getOWLSubClassOfAxiom(
-                verifyNotNull(currentClass), factory.getOWLThing());
+        OWLAxiom ax = df.getOWLSubClassOfAxiom(verifyNotNull(currentClass),
+                df.getOWLThing());
         changes.add(new AddAxiom(getDebuggingOntology(), ax));
-        owlOntologyManager.applyChanges(changes);
+        man.applyChanges(changes);
     }
 
     private void resetSatisfiabilityTestCounter() {
         satTestCount = 0;
     }
 
-    private void generateSOSAxioms() throws OWLException {
+    private void generateSOSAxioms() {
         // Perform the initial expansion - this will cause
         // the debugging axioms set to be expanded to the
         // defining axioms for the class being debugged

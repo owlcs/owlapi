@@ -261,9 +261,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         this.configuration = configuration;
         handlerAccessor = new HandlerAccessor(this);
         translatorAccessor = new TranslatorAccessor(this);
-        for (IRI iri : BUILT_IN_AP_IRIS) {
-            annPropertyIRIs.add(iri);
-        }
+        BUILT_IN_AP_IRIS.forEach(i -> annPropertyIRIs.add(i));
         dataRangeIRIs.add(RDFS_LITERAL.getIRI());
         Stream.of(OWL2Datatype.values()).forEach(
                 v -> dataRangeIRIs.add(v.getIRI()));

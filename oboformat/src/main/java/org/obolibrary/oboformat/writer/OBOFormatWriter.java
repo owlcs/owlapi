@@ -250,9 +250,7 @@ public class OBOFormatWriter {
     @Nonnull
     private static List<String> duplicateTags(@Nonnull Set<String> src) {
         List<String> tags = new ArrayList<>(src.size());
-        for (String tag : src) {
-            tags.add(tag);
-        }
+        src.forEach(tag -> tags.add(tag));
         return tags;
     }
 

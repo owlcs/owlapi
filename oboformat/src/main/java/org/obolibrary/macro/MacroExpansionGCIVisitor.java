@@ -1,7 +1,5 @@
 package org.obolibrary.macro;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -20,7 +18,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,11 +96,8 @@ public class MacroExpansionGCIVisitor {
                     visitor.getTool().getId((IRI) ax.getValue()));
             LOG.info("Expanding {}", expandTo);
             try {
-                Set<OntologyAxiomPair> setAxp = visitor.getTool()
-                        .parseManchesterExpressionFrames(expandTo);
-                for (OntologyAxiomPair axp : setAxp) {
-                    output(axp.getAxiom());
-                }
+                visitor.getTool().parseManchesterExpressionFrames(expandTo)
+                        .forEach(axp -> output(axp.getAxiom()));
             } catch (Exception ex) {
                 LOG.error(ex.getMessage(), ex);
             }

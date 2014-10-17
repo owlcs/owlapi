@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
-import org.obolibrary.obo2owl.OwlStringTools.OwlStringException;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -403,15 +402,10 @@ public class OWLAPIObo2Owl {
             // TODO - warn
         }
         trHeaderFrame(hf);
-        for (Frame f : obodoc.getTypedefFrames()) {
-            trTypedefToAnnotationProperty(f);
-        }
-        for (Frame f : obodoc.getTypedefFrames()) {
-            trTypedefFrame(f);
-        }
-        for (Frame f : obodoc.getTermFrames()) {
-            trTermFrame(f);
-        }
+        obodoc.getTypedefFrames()
+                .forEach(f -> trTypedefToAnnotationProperty(f));
+        obodoc.getTypedefFrames().forEach(f -> trTypedefFrame(f));
+        obodoc.getTermFrames().forEach(f -> trTermFrame(f));
         // TODO - individuals
         for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
             String path = getURI(cl.getValue().toString());
@@ -590,35 +584,21 @@ public class OWLAPIObo2Owl {
                  */
             } else if (tag == OboFormatTag.TAG_REMARK) {
                 // translate remark as rdfs:comment
-                Collection<Clause> clauses = headerFrame.getClauses(t);
-                for (Clause clause : clauses) {
-                    addOntologyAnnotation(fac.getRDFSComment(),
-                            trLiteral(clause.getValue()), trAnnotations(clause));
-                }
+                headerFrame.getClauses(t).forEach(
+                        c -> addOntologyAnnotation(fac.getRDFSComment(),
+                                trLiteral(c.getValue()), trAnnotations(c)));
             } else if (tag == OboFormatTag.TAG_IDSPACE) {
                 // do not translate, as they are just directives? TODO ask Chris
             } else if (tag == OboFormatTag.TAG_OWL_AXIOMS) {
                 // in theory, there should only be one tag
                 // but we can silently collapse multiple tags
-                Collection<String> axiomStrings = headerFrame.getTagValues(tag,
-                        String.class);
-                try {
-                    for (String axiomString : axiomStrings) {
-                        Set<OWLAxiom> axioms = OwlStringTools.translate(
-                                axiomString, manager);
-                        if (axioms != null) {
-                            manager.addAxioms(getOwlOntology(), axioms);
-                        }
-                    }
-                } catch (OwlStringException e) {
-                    throw new RuntimeException(e);
-                }
+                headerFrame.getTagValues(tag, String.class).forEach(
+                        s -> manager.addAxioms(getOwlOntology(),
+                                OwlStringTools.translate(s, manager)));
             } else {
-                Collection<Clause> clauses = headerFrame.getClauses(t);
-                for (Clause clause : clauses) {
-                    addOntologyAnnotation(trTagToAnnotationProp(t),
-                            trLiteral(clause.getValue()), trAnnotations(clause));
-                }
+                headerFrame.getClauses(t).forEach(
+                        c -> addOntologyAnnotation(trTagToAnnotationProp(t),
+                                trLiteral(c.getValue()), trAnnotations(c)));
             }
         }
     }
@@ -705,14 +685,8 @@ public class OWLAPIObo2Owl {
     public OWLClassExpression trTermFrame(@Nonnull Frame termFrame) {
         OWLClass cls = trClass(termFrame.getId());
         add(fac.getOWLDeclarationAxiom(cls));
-        for (String t : termFrame.getTags()) {
-            // System.out.println("tag:"+tag);
-            Collection<Clause> clauses = termFrame.getClauses(t);
-            Set<OWLAxiom> axioms = trTermFrameClauses(cls, clauses, t);
-            if (!axioms.isEmpty()) {
-                add(axioms);
-            }
-        }
+        termFrame.getTags().forEach(
+                t -> add(trTermFrameClauses(cls, termFrame.getClauses(t), t)));
         return cls;
     }
 
@@ -737,9 +711,7 @@ public class OWLAPIObo2Owl {
         } else if (tag == OboFormatTag.TAG_UNION_OF) {
             axioms.add(trUnionOf(cls, clauses));
         } else {
-            for (Clause clause : clauses) {
-                axioms.add(trTermClause(cls, t, clause));
-            }
+            clauses.forEach(c -> axioms.add(trTermClause(cls, t, c)));
         }
         return axioms;
     }
@@ -778,10 +750,8 @@ public class OWLAPIObo2Owl {
                      * trObjectProp((String)typedefFrame.getC), annotations);
                      */
                 } else {
-                    for (Clause clause : typedefFrame.getClauses(tag)) {
-                        // System.out.println(p+" p "+tag+" t "+clause);
-                        add(trGenericClause(p, tag, clause));
-                    }
+                    typedefFrame.getClauses(tag).forEach(
+                            c -> add(trGenericClause(p, tag, c)));
                 }
             }
             return p;
@@ -844,9 +814,7 @@ public class OWLAPIObo2Owl {
                         add(axiom);
                     }
                 } else {
-                    for (Clause clause : clauses) {
-                        add(trTypedefClause(p, tag, clause));
-                    }
+                    clauses.forEach(c -> add(trTypedefClause(p, tag, c)));
                 }
             }
             return p;
@@ -1395,9 +1363,7 @@ public class OWLAPIObo2Owl {
     protected Set<? extends OWLAnnotation> trAnnotations(
             @Nonnull Collection<Clause> clauses) {
         Set<OWLAnnotation> anns = new HashSet<>();
-        for (Clause clause : clauses) {
-            trAnnotations(clause, anns);
-        }
+        clauses.forEach(c -> trAnnotations(c, anns));
         return anns;
     }
 

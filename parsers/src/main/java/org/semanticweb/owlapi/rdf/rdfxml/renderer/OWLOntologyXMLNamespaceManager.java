@@ -90,18 +90,15 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             namespaceUtil.setPrefix(Namespaces.SWRL.toString(), "swrl");
             namespaceUtil.setPrefix(Namespaces.SWRLB.toString(), "swrlb");
         }
-        Set<OWLEntity> entities = getEntitiesThatRequireNamespaces();
-        for (OWLEntity ent : entities) {
-            processEntity(ent);
-        }
-        Map<String, String> ns2prefixMap = namespaceUtil
-                .getNamespace2PrefixMap();
-        for (String ns : ns2prefixMap.keySet()) {
-            if (!Namespaces.OWL11.inNamespace(ns)
-                    && !Namespaces.OWL11XML.inNamespace(ns)) {
-                String prefix = ns2prefixMap.get(ns);
-                setPrefix(prefix, ns);
-            }
+        getEntitiesThatRequireNamespaces().forEach(e -> processEntity(e));
+        namespaceUtil.getNamespace2PrefixMap().forEach(
+                (k, v) -> setOWL2Prefix(k, v));
+    }
+
+    protected void setOWL2Prefix(String k, String v) {
+        if (!Namespaces.OWL11.inNamespace(k)
+                && !Namespaces.OWL11XML.inNamespace(k)) {
+            setPrefix(v, k);
         }
     }
 

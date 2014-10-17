@@ -334,9 +334,8 @@ public abstract class AbstractMacroExpansionVisitor implements
     @Override
     public OWLAxiom visit(@Nonnull OWLDisjointClassesAxiom ax) {
         Set<OWLClassExpression> ops = new HashSet<>();
-        for (OWLClassExpression op : ax.getClassExpressions()) {
-            ops.add(op.accept(classVisitor));
-        }
+        ax.getClassExpressions()
+                .forEach(op -> ops.add(op.accept(classVisitor)));
         return df.getOWLDisjointClassesAxiom(set(ax.getClassExpressions(),
                 o -> o.accept(classVisitor)));
     }
@@ -362,9 +361,8 @@ public abstract class AbstractMacroExpansionVisitor implements
     @Override
     public OWLAxiom visit(@Nonnull OWLDisjointUnionAxiom ax) {
         Set<OWLClassExpression> descs = new HashSet<>();
-        for (OWLClassExpression op : ax.getClassExpressions()) {
-            descs.add(op.accept(classVisitor));
-        }
+        ax.getClassExpressions().forEach(
+                op -> descs.add(op.accept(classVisitor)));
         return df.getOWLDisjointUnionAxiom(ax.getOWLClass(), descs);
     }
 
@@ -387,9 +385,8 @@ public abstract class AbstractMacroExpansionVisitor implements
     @Override
     public OWLAxiom visit(@Nonnull OWLEquivalentClassesAxiom ax) {
         Set<OWLClassExpression> ops = new HashSet<>();
-        for (OWLClassExpression op : ax.getClassExpressions()) {
-            ops.add(op.accept(classVisitor));
-        }
+        ax.getClassExpressions()
+                .forEach(op -> ops.add(op.accept(classVisitor)));
         return df.getOWLEquivalentClassesAxiom(ops);
     }
 }

@@ -14,9 +14,8 @@ package org.semanticweb.owlapi.latex.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -36,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -63,7 +63,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(OWLOntology ontology, PrintWriter writer)
             throws OWLRendererException {
         try {
             LatexWriter w = new LatexWriter(writer);
@@ -129,7 +129,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             }
             writer.write("\\end{document}\n");
             writer.flush();
-        } catch (IOException e) {
+        } catch (OWLRuntimeException e) {
             throw new LatexRendererIOException(e);
         }
     }

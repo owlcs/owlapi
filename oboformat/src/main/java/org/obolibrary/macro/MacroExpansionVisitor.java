@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -117,11 +116,8 @@ public class MacroExpansionVisitor {
                     visitor.getTool().getId(axValIRI));
             LOG.info("Expanding {}", expandTo);
             try {
-                Set<OntologyAxiomPair> setAxp = visitor.getTool()
-                        .parseManchesterExpressionFrames(expandTo);
-                for (OntologyAxiomPair axp : setAxp) {
-                    setAx.add(axp.getAxiom());
-                }
+                visitor.getTool().parseManchesterExpressionFrames(expandTo)
+                        .forEach(axp -> setAx.add(axp.getAxiom()));
             } catch (Exception ex) {
                 LOG.error(ex.getMessage(), ex);
             }

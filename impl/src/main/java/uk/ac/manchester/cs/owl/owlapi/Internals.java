@@ -317,9 +317,7 @@ public class Internals implements Serializable {
                 DIFFERENT_INDIVIDUALS, ICOLLECTIONS);
         sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL,
                 ICOLLECTIONS);
-        for (OWLAxiom ax : axiomsForSerialization) {
-            addAxiom(ax);
-        }
+        axiomsForSerialization.forEach(ax -> addAxiom(ax));
         axiomsForSerialization = null;
     }
 
@@ -1027,13 +1025,9 @@ public class Internals implements Serializable {
     @Nonnull
     public Set<OWLLogicalAxiom> getLogicalAxioms() {
         Set<OWLLogicalAxiom> axioms = createSet();
-        for (AxiomType<?> type : AXIOM_TYPES) {
-            if (type.isLogical()) {
-                for (OWLAxiom ax : (Collection<OWLAxiom>) axiomsByType
-                        .getValues(type)) {
-                    axioms.add((OWLLogicalAxiom) ax);
-                }
-            }
+        for (AxiomType<?> type : LOGICAL_AXIOM_TYPES) {
+            axiomsByType.getValues(type).forEach(
+                    ax -> axioms.add((OWLLogicalAxiom) ax));
         }
         return axioms;
     }
@@ -1043,10 +1037,8 @@ public class Internals implements Serializable {
      */
     public int getLogicalAxiomCount() {
         int count = 0;
-        for (AxiomType<?> type : AXIOM_TYPES) {
-            if (type.isLogical()) {
-                count += Iterables.size(axiomsByType.getValues(type));
-            }
+        for (AxiomType<?> type : LOGICAL_AXIOM_TYPES) {
+            count += Iterables.size(axiomsByType.getValues(type));
         }
         return count;
     }
