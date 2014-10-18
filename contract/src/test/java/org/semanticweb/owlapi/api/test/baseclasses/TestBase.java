@@ -91,7 +91,7 @@ public abstract class TestBase {
                             new FileDocumentSource(new File(resource.toURI())),
                             getConfiguration());
         } catch (URISyntaxException | OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -375,7 +375,7 @@ public abstract class TestBase {
                 return m.createOntology(iri);
             }
         } catch (OWLOntologyCreationException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 

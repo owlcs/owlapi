@@ -1740,7 +1740,7 @@ class OWLDatatypeDefinitionElementHandler extends
     @Override
     void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         OWLDataRange handledDataRange = h.getOWLObject();
-        if (handledDataRange.isDatatype() && datatype == null) {
+        if (handledDataRange.isOWLDatatype() && datatype == null) {
             datatype = handledDataRange.asOWLDatatype();
         } else {
             dataRange = handledDataRange;
@@ -1829,7 +1829,7 @@ class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHandler {
     @Override
     void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         OWLDataRange dr = h.getOWLObject();
-        if (dr.isDatatype()) {
+        if (dr.isOWLDatatype()) {
             restrictedDataRange = dr.asOWLDatatype();
         }
     }

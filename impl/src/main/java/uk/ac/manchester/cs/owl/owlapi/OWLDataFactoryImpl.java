@@ -596,9 +596,10 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
                     : OWL_THING;
             modifiedClassExpressions.add(addedClass);
             modifiedClassExpressions.add(classExpression);
-            annotations = makeSingletonDisjoinClassWarningAnnotation(
-                    annotations, classExpression, addedClass);
-            classExpressions = modifiedClassExpressions;
+            return getOWLDisjointClassesAxiom(
+                    modifiedClassExpressions,
+                    makeSingletonDisjoinClassWarningAnnotation(annotations,
+                            classExpression, addedClass));
         }
         return new OWLDisjointClassesAxiomImpl(classExpressions, annotations);
     }

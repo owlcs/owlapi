@@ -330,7 +330,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLDataComplementOf node) {
         write(NOT);
-        if (node.getDataRange().isDatatype()) {
+        if (node.getDataRange().isOWLDatatype()) {
             node.getDataRange().accept(this);
         } else {
             write("(");

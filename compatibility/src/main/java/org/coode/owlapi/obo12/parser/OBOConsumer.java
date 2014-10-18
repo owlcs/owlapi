@@ -38,6 +38,8 @@
  */
 package org.coode.owlapi.obo12.parser;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -484,9 +486,7 @@ class OBOConsumer implements OBOParserHandler {
      */
     @Nonnull
     public IRI getIRIFromTagName(String tagName) {
-        if (tagName == null) {
-            throw new NullPointerException("tagName must not be null");
-        }
+        checkNotNull(tagName, "tagName must not be null");
         IRI tagIRI = tagIRICache.get(tagName);
         if (tagIRI != null) {
             return tagIRI;
@@ -507,9 +507,7 @@ class OBOConsumer implements OBOParserHandler {
      */
     @Nonnull
     public IRI getIRIFromOBOId(String oboId) {
-        if (oboId == null) {
-            throw new NullPointerException("oboId must not be null.");
-        }
+        checkNotNull(oboId, "oboId must not be null.");
         return getIRI(oboId);
     }
 

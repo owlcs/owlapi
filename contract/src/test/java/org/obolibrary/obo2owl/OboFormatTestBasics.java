@@ -104,7 +104,7 @@ public class OboFormatTestBasics {
             try {
                 inputStream = new FileInputStream(new File("obo/" + fn));
             } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+                throw new OWLRuntimeException(e);
             }
         }
         return inputStream;

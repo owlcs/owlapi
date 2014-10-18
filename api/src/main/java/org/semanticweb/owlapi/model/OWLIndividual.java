@@ -21,7 +21,8 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
+public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject,
+        AsOWLNamedIndividual {
 
     /**
      * Determines if this individual is an instance of
@@ -44,17 +45,6 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      *         represents a named individual ( {@code OWLIndividual})
      */
     boolean isAnonymous();
-
-    /**
-     * Obtains this individual as a named individual if it is indeed named.
-     * 
-     * @return The individual as a named individual
-     * @throws OWLRuntimeException
-     *         if this individual is anonymous
-     */
-    // XXX as optional
-    @Nonnull
-    OWLNamedIndividual asOWLNamedIndividual();
 
     /**
      * Obtains this individual an anonymous individual if it is indeed

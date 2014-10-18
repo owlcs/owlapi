@@ -30,15 +30,4 @@ public class LatexAxiomsListDocumentFormat extends OWLDocumentFormatImpl {
     public String getKey() {
         return "Latex Axiom List";
     }
-
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new UnsupportedOperationException(getClass().getName()
-                + " is not a PrefixDocumentFormat");
-    }
 }

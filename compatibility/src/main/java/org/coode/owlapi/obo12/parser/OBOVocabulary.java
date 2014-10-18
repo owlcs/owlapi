@@ -47,6 +47,7 @@ import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -157,7 +158,7 @@ public enum OBOVocabulary {
 
         @Override
         public void setIRIPrefix(String idPrefix, String iriPrefix) {
-            throw new RuntimeException(
+            throw new OWLRuntimeException(
                     "The default id space manager must not be used for custom prefixes.");
         }
     };
@@ -228,7 +229,7 @@ public enum OBOVocabulary {
             sb.append(localId);
             return sb.toString();
         } else {
-            throw new RuntimeException("Not an OBO IRI");
+            throw new OWLRuntimeException("Not an OBO IRI");
         }
     }
 

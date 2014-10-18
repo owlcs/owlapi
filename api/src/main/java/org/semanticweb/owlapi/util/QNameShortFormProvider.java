@@ -44,20 +44,22 @@ public class QNameShortFormProvider implements ShortFormProvider {
      * Creates a QNameShortFormProvider where the specified map overrides any
      * auto-generated prefix namespace mappings.
      * 
-     * @param prefix2NamespaceMap
+     * @param prefix2Ns
      *        The map which contains a prefix to namespace mapping. The prefix
      *        must not have a trailing ":"; if one is there, it will be removed
      */
-    public QNameShortFormProvider(
-            @Nonnull Map<String, String> prefix2NamespaceMap) {
-        checkNotNull(prefix2NamespaceMap, "prefix2NamespaceMap cannot be null");
-        prefix2NamespaceMap.forEach((key, v) -> {
-            int lastChar = key.length() - 1;
-            if (key.charAt(lastChar) == ':') {
-                key = key.substring(0, lastChar);
-            }
-            namespaceUtil.setPrefix(v, key);
-        });
+    public QNameShortFormProvider(@Nonnull Map<String, String> prefix2Ns) {
+        checkNotNull(prefix2Ns, "prefix2NamespaceMap cannot be null");
+        prefix2Ns.forEach((key, v) -> namespaceUtil.setPrefix(v,
+                removeColon(key)));
+    }
+
+    protected String removeColon(String key) {
+        int lastChar = key.length() - 1;
+        if (key.charAt(lastChar) == ':') {
+            return key.substring(0, lastChar);
+        }
+        return key;
     }
 
     @Override

@@ -21,10 +21,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -52,16 +50,6 @@ public abstract class OWLNaryDataRangeImpl extends
     @Override
     public boolean isTopDatatype() {
         return false;
-    }
-
-    @Override
-    public boolean isDatatype() {
-        return false;
-    }
-
-    @Override
-    public OWLDatatype asOWLDatatype() {
-        throw new OWLRuntimeException("Not a datatype");
     }
 
     @Override

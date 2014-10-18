@@ -38,6 +38,8 @@
  */
 package org.coode.owlapi.obo12.parser;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -166,9 +168,7 @@ enum OBOIdType {
      *         the specified oboId does not conform to any OBO Id type.
      */
     public static OBOIdType getIdType(String oboId) {
-        if (oboId == null) {
-            throw new NullPointerException("oboId must not be null");
-        }
+        checkNotNull(oboId, "oboId must not be null");
         for (OBOIdType idType : values()) {
             Pattern pattern = idType.getPattern();
             Matcher matcher = pattern.matcher(oboId);

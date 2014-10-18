@@ -172,7 +172,9 @@ public interface OWLDocumentFormat extends Serializable {
      *         wise {@code false}.
      */
     // XXX as optional
-    boolean isPrefixOWLOntologyFormat();
+    default boolean isPrefixOWLOntologyFormat() {
+        return false;
+    }
 
     /**
      * If this format is an instance of
@@ -187,7 +189,10 @@ public interface OWLDocumentFormat extends Serializable {
      *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
      */
     @Nonnull
-    PrefixDocumentFormat asPrefixOWLOntologyFormat();
+    default PrefixDocumentFormat asPrefixOWLOntologyFormat() {
+        throw new ClassCastException(getClass().getName()
+                + " is not a Prefix Document Format");
+    }
 
     /**
      * If this format describes an ontology that was loaded from some ontology

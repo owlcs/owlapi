@@ -138,7 +138,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      */
     protected static boolean isTopOrBuiltInDatatype(
             @Nonnull OWLDataRange dataRange) {
-        if (dataRange.isDatatype()) {
+        if (dataRange.isOWLDatatype()) {
             OWLDatatype dataType = dataRange.asOWLDatatype();
             return dataType.isTopDatatype() || dataType.isBuiltIn();
         } else {
@@ -159,7 +159,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      */
     protected static boolean isTopOrBuiltInInfiniteDatatype(
             @Nonnull OWLDataRange dataRange) {
-        if (dataRange.isDatatype()) {
+        if (dataRange.isOWLDatatype()) {
             OWLDatatype dataType = dataRange.asOWLDatatype();
             return dataType.isTopDatatype() || dataType.isBuiltIn()
                     && !dataType.getBuiltInDatatype().isFinite();

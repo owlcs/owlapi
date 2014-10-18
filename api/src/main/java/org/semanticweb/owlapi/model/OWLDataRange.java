@@ -28,16 +28,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLDataRange extends OWLObject, OWLPropertyRange,
-        SWRLPredicate {
-
-    /**
-     * Determines if this data range is a datatype (int, float, ...).
-     * 
-     * @return {@code true} if this datarange is a datatype, or {@code false} if
-     *         it is not a datatype and is some other data range such as a data
-     *         range restriction, data oneOf or data complementOf.
-     */
-    boolean isDatatype();
+        SWRLPredicate, AsOWLDatatype {
 
     /**
      * Determines if this data range is the top data type.
@@ -46,17 +37,6 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
      *         {@code false}
      */
     boolean isTopDatatype();
-
-    /**
-     * If this data range is a datatype then this method may be used to obtain
-     * it as a datatype (rather than using an explicit cast).
-     * 
-     * @return This data range as an
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype}
-     */
-    // XXX as optional
-    @Nonnull
-    OWLDatatype asOWLDatatype();
 
     /**
      * Gets the type of this data range.

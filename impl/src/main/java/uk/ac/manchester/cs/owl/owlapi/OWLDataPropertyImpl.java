@@ -20,23 +20,17 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -182,48 +176,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     }
 
     @Override
-    public OWLClass asOWLClass() {
-        throw new OWLRuntimeException("Not an OWLClass!");
-    }
-
-    @Override
-    public OWLDatatype asOWLDatatype() {
-        throw new OWLRuntimeException("Not an OWLDatatype!");
-    }
-
-    @Override
-    public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new OWLRuntimeException("Not an OWLIndividual!");
-    }
-
-    @Override
-    public OWLObjectProperty asOWLObjectProperty() {
-        throw new OWLRuntimeException("Not an OWLObjectProperty!");
-    }
-
-    @Override
-    public boolean isOWLClass() {
-        return false;
-    }
-
-    @Override
     public boolean isOWLDataProperty() {
         return true;
-    }
-
-    @Override
-    public boolean isOWLDatatype() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLNamedIndividual() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLObjectProperty() {
-        return false;
     }
 
     @Override
@@ -244,16 +198,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     @Override
     public boolean isOWLBottomDataProperty() {
         return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
-    }
-
-    @Override
-    public OWLAnnotationProperty asOWLAnnotationProperty() {
-        throw new OWLRuntimeException("Not an annotation property");
-    }
-
-    @Override
-    public boolean isOWLAnnotationProperty() {
-        return false;
     }
 
     @Override

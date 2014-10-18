@@ -27,11 +27,9 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividualVisitor;
 import org.semanticweb.owlapi.model.OWLIndividualVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.google.common.base.Optional;
@@ -85,12 +83,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {
         return this;
-    }
-
-    @Override
-    public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new OWLRuntimeException(
-                "Not a named individual! This method should only be called on named individuals");
     }
 
     @Override

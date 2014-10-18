@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
@@ -84,16 +83,5 @@ public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements
     @Override
     public String getKey() {
         return "OBO 1.2 Format";
-    }
-
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new UnsupportedOperationException(getClass().getName()
-                + " is not a PrefixDocumentFormat");
     }
 }

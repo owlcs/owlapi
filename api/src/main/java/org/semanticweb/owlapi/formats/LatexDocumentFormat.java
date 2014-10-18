@@ -30,15 +30,4 @@ public class LatexDocumentFormat extends OWLDocumentFormatImpl {
     public String getKey() {
         return "LaTeX Syntax";
     }
-
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new UnsupportedOperationException(getClass().getName()
-                + " is not a PrefixDocumentFormat");
-    }
 }

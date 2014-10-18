@@ -26,15 +26,4 @@ public class KRSS2DocumentFormat extends OWLDocumentFormatImpl {
     public String getKey() {
         return "KRSS2 Syntax";
     }
-
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new UnsupportedOperationException(getClass().getName()
-                + " is not a PrefixDocumentFormat");
-    }
 }

@@ -21,9 +21,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -32,11 +29,9 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -120,9 +115,8 @@ public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
             throw new OWLRuntimeException(
                     iri
                             + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
-        } else {
-            return OWL2Datatype.getDatatype(iri);
         }
+        return OWL2Datatype.getDatatype(iri);
     }
 
     @Override
@@ -151,11 +145,6 @@ public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public boolean isDatatype() {
-        return true;
-    }
-
-    @Override
     public boolean isTopDatatype() {
         return top;
     }
@@ -169,63 +158,13 @@ public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public OWLClass asOWLClass() {
-        throw new OWLRuntimeException("Not an OWLClass!");
-    }
-
-    @Override
-    public OWLDataProperty asOWLDataProperty() {
-        throw new OWLRuntimeException("Not a data property!");
-    }
-
-    @Override
     public OWLDatatype asOWLDatatype() {
         return this;
     }
 
     @Override
-    public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new OWLRuntimeException("Not an individual!");
-    }
-
-    @Override
-    public OWLObjectProperty asOWLObjectProperty() {
-        throw new OWLRuntimeException("Not an object property");
-    }
-
-    @Override
-    public boolean isOWLClass() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLDataProperty() {
-        return false;
-    }
-
-    @Override
     public boolean isOWLDatatype() {
         return true;
-    }
-
-    @Override
-    public boolean isOWLNamedIndividual() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLObjectProperty() {
-        return false;
-    }
-
-    @Override
-    public OWLAnnotationProperty asOWLAnnotationProperty() {
-        throw new OWLRuntimeException("Not an annotation property");
-    }
-
-    @Override
-    public boolean isOWLAnnotationProperty() {
-        return false;
     }
 
     @Override

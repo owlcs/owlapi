@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.formats;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
@@ -41,36 +39,5 @@ public abstract class AbstractRDFNonPrefixDocumentFormat extends
     @Override
     public void addError(RDFResourceParseError error) {
         errors.add(error);
-    }
-
-    /**
-     * Determines if this format is an instance of a format that uses prefixes
-     * to shorted IRIs.
-     *
-     * @return {@code true} if this format is an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
-     *         wise {@code false}.
-     */
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    /**
-     * If this format is an instance of
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} then this
-     * method will obtain it as a
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     *
-     * @return This format as a more specific
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException
-     *         if this format is not an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
-     */
-    @Nonnull
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new ClassCastException("Not a Prefix Document Format");
     }
 }

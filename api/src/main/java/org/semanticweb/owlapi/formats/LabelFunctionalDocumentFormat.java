@@ -31,15 +31,4 @@ public class LabelFunctionalDocumentFormat extends OWLDocumentFormatImpl {
     public String getKey() {
         return "Label functional Syntax";
     }
-
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new UnsupportedOperationException(getClass().getName()
-                + " is not a PrefixDocumentFormat");
-    }
 }

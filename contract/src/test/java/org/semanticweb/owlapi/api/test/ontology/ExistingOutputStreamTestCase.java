@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * API writers/storers/renderers should not close streams if they didn't open
@@ -66,7 +67,7 @@ public class ExistingOutputStreamTestCase extends TestBase {
             w.flush();
             w.close();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
         return new StringDocumentTarget();
     }

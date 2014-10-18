@@ -23,9 +23,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -34,11 +31,9 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.HashCode;
@@ -109,11 +104,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public boolean isDatatype() {
-        return true;
-    }
-
-    @Override
     public boolean isTopDatatype() {
         return owl2Datatype == RDFS_LITERAL;
     }
@@ -165,58 +155,8 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public boolean isOWLClass() {
-        return false;
-    }
-
-    @Override
-    public OWLClass asOWLClass() {
-        throw new UnsupportedOperationException("Not an OWLClass");
-    }
-
-    @Override
-    public boolean isOWLObjectProperty() {
-        return false;
-    }
-
-    @Override
-    public OWLObjectProperty asOWLObjectProperty() {
-        throw new UnsupportedOperationException("Not an OWLObjectProperty");
-    }
-
-    @Override
-    public boolean isOWLDataProperty() {
-        return false;
-    }
-
-    @Override
-    public OWLDataProperty asOWLDataProperty() {
-        throw new UnsupportedOperationException("Not an OWLDataProperty");
-    }
-
-    @Override
-    public boolean isOWLNamedIndividual() {
-        return false;
-    }
-
-    @Override
-    public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new UnsupportedOperationException("Not an OWLNamedIndividual");
-    }
-
-    @Override
     public boolean isOWLDatatype() {
         return true;
-    }
-
-    @Override
-    public boolean isOWLAnnotationProperty() {
-        return false;
-    }
-
-    @Override
-    public OWLAnnotationProperty asOWLAnnotationProperty() {
-        throw new UnsupportedOperationException("Not an OWLAnnotationProperty");
     }
 
     @Override

@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -88,18 +87,8 @@ public class OWLDatatypeRestrictionImpl extends
     }
 
     @Override
-    public boolean isDatatype() {
-        return false;
-    }
-
-    @Override
     public boolean isTopDatatype() {
         return false;
-    }
-
-    @Override
-    public OWLDatatype asOWLDatatype() {
-        throw new OWLRuntimeException("Not a data type!");
     }
 
     @Override

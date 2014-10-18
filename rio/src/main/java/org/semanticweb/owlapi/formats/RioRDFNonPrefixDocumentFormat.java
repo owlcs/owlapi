@@ -39,8 +39,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
@@ -81,37 +79,6 @@ public class RioRDFNonPrefixDocumentFormat extends
     public RioRDFNonPrefixDocumentFormat(RDFFormat format) {
         this.format = format;
         formatName = this.format.getName();
-    }
-
-    /**
-     * Determines if this format is an instance of a format that uses prefixes
-     * to shorted IRIs.
-     *
-     * @return {@code true} if this format is an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
-     *         wise {@code false}.
-     */
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    /**
-     * If this format is an instance of
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} then this
-     * method will obtain it as a
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     *
-     * @return This format as a more specific
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException
-     *         if this format is not an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
-     */
-    @Nonnull
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new ClassCastException("Not a Prefix Document Format");
     }
 
     @Override

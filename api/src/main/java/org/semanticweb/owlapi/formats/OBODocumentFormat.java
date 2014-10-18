@@ -35,15 +35,4 @@ public class OBODocumentFormat extends OWLDocumentFormatImpl {
     public String getKey() {
         return "OBO Format";
     }
-
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new UnsupportedOperationException(getClass().getName()
-                + " is not a PrefixDocumentFormat");
-    }
 }

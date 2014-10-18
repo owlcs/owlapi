@@ -21,22 +21,16 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -112,63 +106,13 @@ public class OWLAnnotationPropertyImpl extends
     }
 
     @Override
-    public OWLClass asOWLClass() {
-        throw new OWLRuntimeException("Not OWLClass");
-    }
-
-    @Override
     public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public OWLDataProperty asOWLDataProperty() {
-        throw new OWLRuntimeException("Not OWLDataProperty");
-    }
-
-    @Override
-    public OWLDatatype asOWLDatatype() {
-        throw new OWLRuntimeException("Not OWLDatatype");
-    }
-
-    @Override
-    public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new OWLRuntimeException("Not OWLIndividual");
-    }
-
-    @Override
-    public OWLObjectProperty asOWLObjectProperty() {
-        throw new OWLRuntimeException("Not OWLObjectProperty");
-    }
-
-    @Override
     public boolean isBuiltIn() {
         return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(getIRI());
-    }
-
-    @Override
-    public boolean isOWLClass() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLDataProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLDatatype() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLNamedIndividual() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLObjectProperty() {
-        return false;
     }
 
     @Override

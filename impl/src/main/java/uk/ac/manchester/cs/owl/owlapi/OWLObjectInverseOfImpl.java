@@ -20,13 +20,11 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -106,12 +104,6 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     @Override
     public boolean isAnonymous() {
         return true;
-    }
-
-    @Override
-    public OWLObjectProperty asOWLObjectProperty() {
-        throw new OWLRuntimeException(
-                "Property is not a named property.  Check using the isAnonymous method before calling this method!");
     }
 
     @Override

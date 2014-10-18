@@ -73,7 +73,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
                 "ontologies cannot be null")) {
             for (OWLDataPropertyRangeAxiom ax : ont
                     .getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
-                if (ax.getRange().isDatatype()) {
+                if (ax.getRange().isOWLDatatype()) {
                     map.put(ax.getProperty(), (OWLDatatype) ax.getRange());
                 }
             }

@@ -17,9 +17,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
@@ -65,12 +63,6 @@ public abstract class OWLAnonymousClassExpressionImpl extends
     @Override
     public OWLClassExpression getObjectComplementOf() {
         return new OWLObjectComplementOfImpl(this);
-    }
-
-    @Override
-    public OWLClass asOWLClass() {
-        throw new OWLRuntimeException(
-                "Not an OWLClass.  This method should only be called if the isAnonymous method returns false!");
     }
 
     @Override

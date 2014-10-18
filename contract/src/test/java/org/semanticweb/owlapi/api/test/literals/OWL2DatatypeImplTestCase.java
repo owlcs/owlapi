@@ -93,7 +93,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
 
     @Test
     public void isDatatype() {
-        assertTrue(plainLiteral.isDatatype());
+        assertTrue(plainLiteral.isOWLDatatype());
     }
 
     @Test
