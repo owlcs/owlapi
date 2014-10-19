@@ -69,11 +69,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         return nodeId.getID();
     }
 
-    @Override
-    public boolean isNamed() {
-        return false;
-    }
-
     @Nonnull
     @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {

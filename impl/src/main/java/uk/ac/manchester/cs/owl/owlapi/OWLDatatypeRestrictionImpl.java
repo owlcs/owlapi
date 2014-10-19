@@ -87,11 +87,6 @@ public class OWLDatatypeRestrictionImpl extends
     }
 
     @Override
-    public boolean isTopDatatype() {
-        return false;
-    }
-
-    @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }

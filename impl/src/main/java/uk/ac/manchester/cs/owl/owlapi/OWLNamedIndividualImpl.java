@@ -66,11 +66,6 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
     }
 
     @Override
-    public boolean isNamed() {
-        return true;
-    }
-
-    @Override
     public EntityType<?> getEntityType() {
         return EntityType.NAMED_INDIVIDUAL;
     }

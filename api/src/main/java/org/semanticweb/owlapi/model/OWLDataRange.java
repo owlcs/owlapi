@@ -36,7 +36,9 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
      * @return {@code true} if this data range is the top datatype otherwise
      *         {@code false}
      */
-    boolean isTopDatatype();
+    default boolean isTopDatatype() {
+        return false;
+    }
 
     /**
      * Gets the type of this data range.

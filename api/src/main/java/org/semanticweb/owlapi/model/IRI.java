@@ -481,16 +481,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    public boolean isTopEntity() {
-        return false;
-    }
-
-    @Override
-    public boolean isBottomEntity() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

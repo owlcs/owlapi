@@ -75,11 +75,6 @@ public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public boolean isTopDatatype() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDataOneOf)) {

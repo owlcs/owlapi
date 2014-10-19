@@ -237,11 +237,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public boolean isBottomEntity() {
-        return false;
-    }
-
-    @Override
     public int compareTo(OWLObject o) {
         if (!(o instanceof OWLDatatype)) {
             OWLObjectTypeIndexProvider provider = new OWLObjectTypeIndexProvider();

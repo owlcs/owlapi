@@ -561,7 +561,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Nonnull
     @Override
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
-        return (Set<OWLImportsDeclaration>) ints.getImportsDeclarations(true);
+        return asSet(ints.getImportsDeclarations(true));
     }
 
     @Override

@@ -196,16 +196,6 @@ public class OWLLiteralImplString implements OWLLiteral {
     }
 
     @Override
-    public boolean isTopEntity() {
-        return false;
-    }
-
-    @Override
-    public boolean isBottomEntity() {
-        return false;
-    }
-
-    @Override
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;

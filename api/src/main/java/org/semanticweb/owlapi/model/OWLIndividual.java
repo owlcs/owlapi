@@ -33,7 +33,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject,
      *         {@link org.semanticweb.owlapi.model.OWLNamedIndividual} because
      *         it is a named individuals, otherwise {@code false}
      */
-    boolean isNamed();
+    default boolean isNamed() {
+        return isOWLNamedIndividual();
+    }
 
     /**
      * Obtains this individual an anonymous individual if it is indeed

@@ -71,7 +71,9 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      * @return {@code true} if this object corresponds to one of the above
      *         entities.
      */
-    boolean isTopEntity();
+    default boolean isTopEntity() {
+        return false;
+    }
 
     /**
      * Determines if this object is either, owl:Nothing (the bottom class),
@@ -81,5 +83,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      * @return {@code true} if this object corresponds to one of the above
      *         entities.
      */
-    boolean isBottomEntity();
+    default boolean isBottomEntity() {
+        return false;
+    }
 }

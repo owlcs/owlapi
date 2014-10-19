@@ -213,16 +213,6 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
         return ToStringRenderer.getInstance().getRendering(this);
     }
 
-    @Override
-    public boolean isTopEntity() {
-        return false;
-    }
-
-    @Override
-    public boolean isBottomEntity() {
-        return false;
-    }
-
     protected static int compareSets(Collection<? extends OWLObject> set1,
             Collection<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;

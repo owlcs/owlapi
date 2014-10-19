@@ -73,11 +73,6 @@ public class OWLDataComplementOfImpl extends
     }
 
     @Override
-    public boolean isTopDatatype() {
-        return false;
-    }
-
-    @Override
     public OWLDataRange getDataRange() {
         return dataRange;
     }

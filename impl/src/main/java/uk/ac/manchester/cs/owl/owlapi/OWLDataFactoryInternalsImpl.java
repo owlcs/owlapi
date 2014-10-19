@@ -154,6 +154,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     @Nonnull
     @Override
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
+        // XXX these buildable can be replaced with suppliers
         return objectPropertiesByURI.cache(iri, Buildable.OWLOBJECTPROPERTY);
     }
 

@@ -48,11 +48,6 @@ public abstract class OWLNaryDataRangeImpl extends
     }
 
     @Override
-    public boolean isTopDatatype() {
-        return false;
-    }
-
-    @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         operands.forEach(o -> addSignatureEntitiesToSetForValue(entities, o));
     }
