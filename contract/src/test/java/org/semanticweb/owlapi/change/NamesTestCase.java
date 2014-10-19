@@ -10,22 +10,13 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test;
+package org.semanticweb.owlapi.change;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.change.AddAxiomData;
-import org.semanticweb.owlapi.change.AddImportData;
-import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
-import org.semanticweb.owlapi.change.OWLOntologyChangeData;
-import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
-import org.semanticweb.owlapi.change.RemoveAxiomData;
-import org.semanticweb.owlapi.change.RemoveImportData;
-import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
-import org.semanticweb.owlapi.change.SetOntologyIDData;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.krss1.parser.KRSSOWLParser;
 import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
@@ -56,86 +47,26 @@ public class NamesTestCase {
 
     @Test
     public void shoudReturnRightName() throws OWLOntologyCreationException {
-        assertEquals("AddAxiomData", new AddAxiomData(mock(OWLAxiom.class)) {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getName() {
-                return super.getName();
-            }
-        }.getName());
+        assertEquals("AddAxiomData",
+                new AddAxiomData(mock(OWLAxiom.class)).getName());
         assertEquals("AddImportData", new AddImportData(
-                mock(OWLImportsDeclaration.class)) {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getName() {
-                return super.getName();
-            }
-        }.getName());
+                mock(OWLImportsDeclaration.class)).getName());
         assertEquals("AddOntologyAnnotationData",
-                new AddOntologyAnnotationData(mock(OWLAnnotation.class)) {
-
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public String getName() {
-                        return super.getName();
-                    }
-                }.getName());
-        assertEquals("OWLOntologyChangeRecord", new OWLOntologyChangeRecord(
-                mock(OWLOntologyID.class), mock(OWLOntologyChangeData.class)) {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getName() {
-                return super.getName();
-            }
-        }.getName());
+                new AddOntologyAnnotationData(mock(OWLAnnotation.class))
+                        .getName());
+        assertEquals("OWLOntologyChangeRecord",
+                new OWLOntologyChangeRecord(mock(OWLOntologyID.class),
+                        mock(OWLOntologyChangeData.class)).getName());
         assertEquals("RemoveAxiomData", new RemoveAxiomData(
-                mock(OWLAxiom.class)) {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getName() {
-                return super.getName();
-            }
-        }.getName());
+                mock(OWLAxiom.class)).getName());
         assertEquals("RemoveImportData", new RemoveImportData(
-                mock(OWLImportsDeclaration.class)) {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getName() {
-                return super.getName();
-            }
-        }.getName());
+                mock(OWLImportsDeclaration.class)).getName());
         assertEquals("RemoveOntologyAnnotationData",
-                new RemoveOntologyAnnotationData(mock(OWLAnnotation.class)) {
-
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public String getName() {
-                        return super.getName();
-                    }
-                }.getName());
+                new RemoveOntologyAnnotationData(mock(OWLAnnotation.class))
+                        .getName());
         assertEquals("SetOntologyIDData", new SetOntologyIDData(
                 new OWLOntologyID(Optional.of(IRI.create("urn:test1")),
-                        Optional.of(IRI.create("urn:test2")))) {
-
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public String getName() {
-                return super.getName();
-            }
-        }.getName());
+                        Optional.of(IRI.create("urn:test2")))).getName());
         assertEquals("KRSS2OWLParser", new KRSS2OWLParser().getName());
         assertEquals("KRSSOWLParser", new KRSSOWLParser().getName());
         assertEquals("OWLFunctionalSyntaxOWLParser",

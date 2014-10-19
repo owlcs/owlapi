@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.owlxml.parser;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -41,12 +40,6 @@ import org.xml.sax.SAXException;
 public class OWLXMLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
-
-    @Nonnull
-    @Override
-    public String getName() {
-        return "OWLXMLParser";
-    }
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {

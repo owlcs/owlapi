@@ -73,7 +73,9 @@ public abstract class OWLOntologyChangeData implements HasSignature,
             @Nonnull OWLOntology ontology);
 
     /** @return a name for the object class */
-    protected abstract String getName();
+    protected String getName() {
+        return getClass().getSimpleName();
+    }
 
     protected String getTemplate() {
         return getName() + "(%s)";

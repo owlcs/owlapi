@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.krss2.parser;
 import java.io.IOException;
 import java.io.Reader;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -234,12 +232,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 public class KRSS2OWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
-
-    @Nonnull
-    @Override
-    public String getName() {
-        return "KRSS2OWLParser";
-    }
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {

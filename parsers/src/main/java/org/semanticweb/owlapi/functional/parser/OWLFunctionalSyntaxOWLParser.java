@@ -39,12 +39,6 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     @Nonnull
     @Override
-    public String getName() {
-        return "OWLFunctionalSyntaxOWLParser";
-    }
-
-    @Nonnull
-    @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
         return new FunctionalSyntaxDocumentFormatFactory();
     }

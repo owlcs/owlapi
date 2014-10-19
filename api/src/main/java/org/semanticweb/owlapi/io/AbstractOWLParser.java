@@ -47,9 +47,4 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         is.setSystemId(source.getDocumentIRI().toString());
         return is;
     }
-
-    @Override
-    public String getName() {
-        return getClass().getSimpleName();
-    }
 }

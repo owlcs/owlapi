@@ -16,8 +16,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -40,12 +38,6 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
     private static final String COMMENT_START_CHAR = "#";
-
-    @Nonnull
-    @Override
-    public String getName() {
-        return "ManchesterOWLSyntaxOntologyParser";
-    }
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {

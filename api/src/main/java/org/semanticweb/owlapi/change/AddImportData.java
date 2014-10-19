@@ -55,9 +55,4 @@ public class AddImportData extends ImportChangeData {
             OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
-
-    @Override
-    protected String getName() {
-        return "AddImportData";
-    }
 }

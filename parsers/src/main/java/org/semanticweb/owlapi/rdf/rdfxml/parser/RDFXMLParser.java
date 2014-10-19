@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -37,12 +35,6 @@ import org.xml.sax.SAXException;
 public class RDFXMLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
-
-    @Nonnull
-    @Override
-    public String getName() {
-        return "RDFXMLParser";
-    }
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {

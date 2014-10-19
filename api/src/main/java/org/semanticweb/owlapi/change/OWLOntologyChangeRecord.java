@@ -179,6 +179,6 @@ public class OWLOntologyChangeRecord implements Serializable {
 
     /** @return a name for the object class */
     public String getName() {
-        return "OWLOntologyChangeRecord";
+        return getClass().getSimpleName();
     }
 }

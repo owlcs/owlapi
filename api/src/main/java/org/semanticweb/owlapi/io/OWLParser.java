@@ -108,7 +108,9 @@ public interface OWLParser extends Serializable {
 
     /** @return a unique name for the parser, typically the simple class name */
     @Nonnull
-    String getName();
+    default String getName() {
+        return getClass().getSimpleName();
+    }
 
     /**
      * @return The supported format for this parser.

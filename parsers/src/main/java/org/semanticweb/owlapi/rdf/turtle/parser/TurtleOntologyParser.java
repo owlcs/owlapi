@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 import java.io.IOException;
 import java.io.Reader;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -38,12 +36,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 public class TurtleOntologyParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
-
-    @Nonnull
-    @Override
-    public String getName() {
-        return "TurtleOntologyParser";
-    }
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {

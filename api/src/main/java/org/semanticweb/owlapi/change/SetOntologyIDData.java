@@ -73,9 +73,4 @@ public class SetOntologyIDData extends OWLOntologyChangeData {
     public OWLOntologyID getItem() {
         return getNewId();
     }
-
-    @Override
-    protected String getName() {
-        return "SetOntologyIDData";
-    }
 }
