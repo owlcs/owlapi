@@ -65,16 +65,6 @@ public class OWLObjectSomeValuesFromImpl extends
     }
 
     @Override
-    public boolean isObjectRestriction() {
-        return true;
-    }
-
-    @Override
-    public boolean isDataRestriction() {
-        return false;
-    }
-
-    @Override
     public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }

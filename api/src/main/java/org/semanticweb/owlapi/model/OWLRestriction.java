@@ -31,7 +31,9 @@ public interface OWLRestriction extends OWLAnonymousClassExpression {
      * @return {@code true} if this is an object restriction, otherwise
      *         {@code false}
      */
-    boolean isObjectRestriction();
+    default boolean isObjectRestriction() {
+        return false;
+    }
 
     /**
      * Determines if this is a data restriction.
@@ -39,7 +41,9 @@ public interface OWLRestriction extends OWLAnonymousClassExpression {
      * @return {@code true} if this is a data restriction, otherwise
      *         {@code false}
      */
-    boolean isDataRestriction();
+    default boolean isDataRestriction() {
+        return false;
+    }
 
     /** @return property being restricted */
     OWLPropertyExpression getProperty();

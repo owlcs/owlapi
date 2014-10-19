@@ -44,7 +44,9 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      * @return {@code true} if this is a literal, or false if this is not a
      *         literal.
      */
-    boolean isClassExpressionLiteral();
+    default boolean isClassExpressionLiteral() {
+        return false;
+    }
 
     /**
      * Determines if this expression is the built in class owl:Thing. This

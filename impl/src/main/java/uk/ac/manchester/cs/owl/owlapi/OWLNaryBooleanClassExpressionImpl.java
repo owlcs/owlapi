@@ -72,11 +72,6 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     }
 
     @Override
-    public boolean isClassExpressionLiteral() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNaryBooleanClassExpression)) {

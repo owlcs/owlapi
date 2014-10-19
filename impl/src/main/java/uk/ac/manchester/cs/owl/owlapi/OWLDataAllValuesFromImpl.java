@@ -65,16 +65,6 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl
     }
 
     @Override
-    public boolean isObjectRestriction() {
-        return false;
-    }
-
-    @Override
-    public boolean isDataRestriction() {
-        return true;
-    }
-
-    @Override
     public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }

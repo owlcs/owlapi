@@ -106,16 +106,6 @@ public class OWLObjectHasValueImpl extends
         return value.compareTo(other.getFiller());
     }
 
-    @Override
-    public boolean isObjectRestriction() {
-        return true;
-    }
-
-    @Override
-    public boolean isDataRestriction() {
-        return false;
-    }
-
     @Nonnull
     @Override
     public OWLClassExpression asSomeValuesFrom() {

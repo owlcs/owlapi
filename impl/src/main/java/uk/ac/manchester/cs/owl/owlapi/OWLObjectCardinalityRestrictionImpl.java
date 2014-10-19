@@ -14,6 +14,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -22,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-
-import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -65,16 +65,6 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends
     @Override
     public boolean isQualified() {
         return getFiller().isAnonymous() || !getFiller().isOWLThing();
-    }
-
-    @Override
-    public boolean isObjectRestriction() {
-        return true;
-    }
-
-    @Override
-    public boolean isDataRestriction() {
-        return false;
     }
 
     @Override

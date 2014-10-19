@@ -37,4 +37,9 @@ public interface OWLDataRestriction extends OWLRestriction,
     @Nonnull
     @Override
     OWLDataPropertyExpression getProperty();
+
+    @Override
+    default boolean isDataRestriction() {
+        return true;
+    }
 }

@@ -76,16 +76,6 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
     }
 
     @Override
-    public boolean isObjectRestriction() {
-        return true;
-    }
-
-    @Override
-    public boolean isDataRestriction() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectHasSelf

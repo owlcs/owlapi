@@ -85,11 +85,6 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
     }
 
     @Override
-    public boolean isClassExpressionLiteral() {
-        return false;
-    }
-
-    @Override
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
             return this;

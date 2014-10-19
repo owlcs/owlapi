@@ -26,11 +26,6 @@ public abstract class OWLRestrictionImpl extends
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public boolean isClassExpressionLiteral() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLRestriction;

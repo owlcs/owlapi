@@ -78,16 +78,6 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
     }
 
     @Override
-    public boolean isObjectRestriction() {
-        return false;
-    }
-
-    @Override
-    public boolean isDataRestriction() {
-        return true;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataHasValue
