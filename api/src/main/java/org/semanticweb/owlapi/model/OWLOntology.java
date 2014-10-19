@@ -46,7 +46,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
         OWLAxiomCollectionBooleanArgs, OWLAxiomCollectionNoArgs, OWLSignature,
         OWLSignatureBooleanArgs, OWLAxiomIndex, HasApplyChange,
         HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms,
-        HasDirectRemoveAxiom, HasDirectRemoveAxioms, HasApplyDirectChange {
+        HasDirectRemoveAxiom, HasDirectRemoveAxioms, HasApplyDirectChange,
+        IsAnonymous {
 
     // Default implementation of these mutating methods is to do nothing.
     // Adding them to this interface allows access without casting, since
@@ -142,16 +143,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *        the new manager for this ontology
      */
     void setOWLOntologyManager(OWLOntologyManager manager);
-
-    /**
-     * Determines whether or not this ontology is anonymous. An ontology is
-     * anonymous if it does not have an ontology IRI. In this case,
-     * getOntologyID().getOntologyIRI() will return an Optional.absent.
-     * 
-     * @return {@code true} if this ontology is anonymous, otherwise
-     *         {@code false}
-     */
-    boolean isAnonymous();
 
     /**
      * Gets the annotations on this ontology. Note: these are the annotations on

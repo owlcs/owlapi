@@ -49,11 +49,6 @@ public class RDFResourceIRI extends RDFResource {
     }
 
     @Override
-    public boolean isAnonymous() {
-        return false;
-    }
-
-    @Override
     public int hashCode() {
         return resource.hashCode();
     }

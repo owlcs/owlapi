@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
-        SWRLPredicate, AsOWLClass {
+        SWRLPredicate, AsOWLClass, IsAnonymous {
 
     /**
      * Gets the class expression type for this class expression.
@@ -36,15 +36,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      */
     @Nonnull
     ClassExpressionType getClassExpressionType();
-
-    /**
-     * Determines whether or not this expression represents an anonymous class
-     * expression.
-     * 
-     * @return {@code true} if this is an anonymous class expression, or
-     *         {@code false} if this is a named class ( {@code OWLClass})
-     */
-    boolean isAnonymous();
 
     /**
      * Determines if this class is a literal. A literal being either a named

@@ -21,16 +21,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyExpression extends OWLObject {
-
-    /**
-     * Determines if this property expression is anonymous.
-     * 
-     * @return {@code true} if the property expression is anonymous (because it
-     *         is the inverse of a property). {@code false} if this property is
-     *         a named object property or named data property.
-     */
-    boolean isAnonymous();
+public interface OWLPropertyExpression extends OWLObject, IsAnonymous {
 
     /**
      * @param visitor

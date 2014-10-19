@@ -115,11 +115,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     }
 
     @Override
-    public boolean isAnonymous() {
-        return false;
-    }
-
-    @Override
     public boolean isClassExpressionLiteral() {
         return true;
     }

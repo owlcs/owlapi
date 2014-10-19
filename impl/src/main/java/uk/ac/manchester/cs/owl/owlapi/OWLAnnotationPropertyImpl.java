@@ -148,11 +148,6 @@ public class OWLAnnotationPropertyImpl extends
     }
 
     @Override
-    public boolean isAnonymous() {
-        return false;
-    }
-
-    @Override
     public void accept(OWLPropertyExpressionVisitor visitor) {
         visitor.visit(this);
     }

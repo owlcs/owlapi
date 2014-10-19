@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject,
-        AsOWLNamedIndividual {
+        AsOWLNamedIndividual, IsAnonymous {
 
     /**
      * Determines if this individual is an instance of
@@ -34,17 +34,6 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject,
      *         it is a named individuals, otherwise {@code false}
      */
     boolean isNamed();
-
-    /**
-     * Determines if this object is an instance of
-     * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} Note that
-     * this method is the dual of {@link #isNamed()}.
-     * 
-     * @return {@code true} if this object represents an anonymous individual (
-     *         {@code OWLAnonymousIndividual)} or {@code false} if this object
-     *         represents a named individual ( {@code OWLIndividual})
-     */
-    boolean isAnonymous();
 
     /**
      * Obtains this individual an anonymous individual if it is indeed

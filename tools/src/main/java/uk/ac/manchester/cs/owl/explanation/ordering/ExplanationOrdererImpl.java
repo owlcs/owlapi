@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -141,8 +140,16 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 rootAxioms.add(ax);
             }
         }
-        Collections.sort(rootAxioms, new TargetAxiomsComparator(
-                getTargetAxioms(currentTarget)));
+        Set<OWLAxiom> targetAxioms = getTargetAxioms(currentTarget);
+        Collections.sort(rootAxioms, (o1, o2) -> {
+            if (targetAxioms.contains(o1)) {
+                return 1;
+            }
+            if (targetAxioms.contains(o2)) {
+                return -1;
+            }
+            return 0;
+        });
         rootAxioms.forEach(ax -> root.addChild(new ExplanationTree(ax)));
         return root;
     }
@@ -348,36 +355,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             @Nonnull OWLAxiom axiom) {
         getIndexedSet(axiom, entitiesByAxiomRHS, true).addAll(
                 rhs.getSignature());
-    }
-
-    /** The Class TargetAxiomsComparator. */
-    private static class TargetAxiomsComparator implements
-            Comparator<OWLAxiom>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
-        private final Set<OWLAxiom> targetAxioms;
-
-        /**
-         * Instantiates a new target axioms comparator.
-         * 
-         * @param targetAxioms
-         *        the target axioms
-         */
-        TargetAxiomsComparator(@Nonnull Set<OWLAxiom> targetAxioms) {
-            this.targetAxioms = checkNotNull(targetAxioms,
-                    "targetAxioms cannot be null");
-        }
-
-        @Override
-        public int compare(OWLAxiom o1, OWLAxiom o2) {
-            if (targetAxioms.contains(o1)) {
-                return 1;
-            }
-            if (targetAxioms.contains(o2)) {
-                return -1;
-            }
-            return 0;
-        }
     }
 
     /** The properties first comparator. */

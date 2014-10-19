@@ -96,11 +96,6 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
     }
 
     @Override
-    public boolean isAnonymous() {
-        return false;
-    }
-
-    @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         return this;
     }

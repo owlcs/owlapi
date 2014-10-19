@@ -166,11 +166,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     }
 
     @Override
-    public boolean isAnonymous() {
-        return false;
-    }
-
-    @Override
     public OWLDataProperty asOWLDataProperty() {
         return this;
     }

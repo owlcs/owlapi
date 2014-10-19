@@ -156,11 +156,6 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Override
-    public boolean isAnonymous() {
-        return false;
-    }
-
-    @Override
     public OWLObjectProperty asOWLObjectProperty() {
         return this;
     }

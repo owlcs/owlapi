@@ -108,11 +108,6 @@ public class RDFLiteral extends RDFNode {
         throw new UnsupportedOperationException("RDF Literals do not have IRIs");
     }
 
-    @Override
-    public boolean isAnonymous() {
-        return false;
-    }
-
     /** @return the lexical form for this literal */
     @Nonnull
     public String getLexicalValue() {

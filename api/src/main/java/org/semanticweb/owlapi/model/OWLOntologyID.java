@@ -30,7 +30,8 @@ import com.google.common.base.Optional;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
+public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable,
+        IsAnonymous {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -257,6 +258,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @return {@code true} if this ID is an ID for an ontology without an IRI,
      *         or {@code false} if this ID is an ID for an ontology with an IRI.
      */
+    @Override
     public boolean isAnonymous() {
         return !ontologyIRI.isPresent();
     }
