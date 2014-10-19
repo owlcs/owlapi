@@ -47,11 +47,6 @@ public class RDFResourceBlankNode extends RDFResource {
     }
 
     @Override
-    public boolean isLiteral() {
-        return false;
-    }
-
-    @Override
     public boolean isAnonymous() {
         return true;
     }

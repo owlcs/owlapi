@@ -38,4 +38,9 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
      */
     @Nonnull
     OWLObjectPropertyExpression getInverse();
+
+    @Override
+    public default boolean isAnonymous() {
+        return true;
+    }
 }

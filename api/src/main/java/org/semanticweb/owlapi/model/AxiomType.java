@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -281,21 +280,9 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
     public static final Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = AXIOM_TYPES
             .stream().filter(a -> a.isLogical).collect(toSet());
     private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps
-            .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, String>() {
-
-                @Override
-                public String apply(AxiomType<?> input) {
-                    return input.getName();
-                }
-            });
+            .uniqueIndex(AXIOM_TYPES, t -> t.getName());
     private static final Map<Class<?>, AxiomType<?>> CLASS_TYPE_MAP = Maps
-            .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, Class<?>>() {
-
-                @Override
-                public Class<?> apply(AxiomType<?> input) {
-                    return input.getActualClass();
-                }
-            });
+            .uniqueIndex(AXIOM_TYPES, t -> t.getActualClass());
 
     /**
      * @param t

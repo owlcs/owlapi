@@ -56,21 +56,6 @@ public abstract class AnnotationChange extends OWLOntologyChange {
         return annotation;
     }
 
-    @Override
-    public boolean isImportChange() {
-        return false;
-    }
-
-    @Override
-    public boolean isAxiomChange() {
-        return false;
-    }
-
-    @Override
-    public boolean isAddAxiom() {
-        return false;
-    }
-
     @Nonnull
     @Override
     public OWLAxiom getAxiom() {

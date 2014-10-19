@@ -23,4 +23,10 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnonymousClassExpression extends OWLClassExpression {}
+public interface OWLAnonymousClassExpression extends OWLClassExpression {
+
+    @Override
+    public default boolean isAnonymous() {
+        return true;
+    }
+}

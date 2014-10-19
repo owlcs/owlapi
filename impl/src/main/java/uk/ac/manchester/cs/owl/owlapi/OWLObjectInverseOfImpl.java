@@ -102,11 +102,6 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Override
-    public boolean isAnonymous() {
-        return true;
-    }
-
-    @Override
     protected int compareObjectOfSameType(OWLObject object) {
         return inverseProperty.compareTo(((OWLObjectInverseOf) object)
                 .getInverse());

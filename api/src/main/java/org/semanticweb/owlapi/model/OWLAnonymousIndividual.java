@@ -33,4 +33,9 @@ public interface OWLAnonymousIndividual extends OWLIndividual,
      */
     @Nonnull
     NodeID getID();
+
+    @Override
+    public default boolean isAnonymous() {
+        return true;
+    }
 }

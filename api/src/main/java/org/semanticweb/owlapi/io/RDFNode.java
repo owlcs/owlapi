@@ -31,7 +31,9 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
      * 
      * @return {@code true} if this node is a literal, otherwise {@code false}.
      */
-    public abstract boolean isLiteral();
+    public boolean isLiteral() {
+        return false;
+    }
 
     /**
      * Determines if this node is a resource and is anonymous.

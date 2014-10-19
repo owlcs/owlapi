@@ -34,11 +34,6 @@ public class RDFResourceIRI extends RDFResource {
     }
 
     @Override
-    public boolean isLiteral() {
-        return false;
-    }
-
-    @Override
     public IRI getIRI() {
         return resource;
     }

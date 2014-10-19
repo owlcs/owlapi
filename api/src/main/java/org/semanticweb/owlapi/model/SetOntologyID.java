@@ -70,21 +70,6 @@ public class SetOntologyID extends OWLOntologyChange {
     }
 
     @Override
-    public boolean isImportChange() {
-        return false;
-    }
-
-    @Override
-    public boolean isAxiomChange() {
-        return false;
-    }
-
-    @Override
-    public boolean isAddAxiom() {
-        return false;
-    }
-
-    @Override
     public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException(
                 "This is an ontology id change, not an axiom change: " + this);

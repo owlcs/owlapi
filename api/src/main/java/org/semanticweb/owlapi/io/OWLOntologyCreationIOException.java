@@ -37,14 +37,4 @@ public class OWLOntologyCreationIOException extends
         super("OWLOntologyCreationIOException: " + ioException.getMessage(),
                 ioException);
     }
-
-    /**
-     * Delegates to the getMessage() method of the cause.
-     * 
-     * @return The message of the IOException
-     */
-    @Override
-    public String getMessage() {
-        return getCause().getMessage();
-    }
 }

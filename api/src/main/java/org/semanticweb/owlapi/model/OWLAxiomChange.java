@@ -50,11 +50,6 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
         return true;
     }
 
-    @Override
-    public boolean isImportChange() {
-        return false;
-    }
-
     @Nonnull
     @Override
     public OWLAxiom getAxiom() {

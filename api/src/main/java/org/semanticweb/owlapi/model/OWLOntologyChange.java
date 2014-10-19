@@ -47,7 +47,9 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      * @return {@code true} if the change is an {@code OWLAddAxiomChange} or
      *         {@code OWLRemoveAxiomChange} otherwise {@code false}.
      */
-    public abstract boolean isAxiomChange();
+    public boolean isAxiomChange() {
+        return false;
+    }
 
     /**
      * Determines if the change will add an axiom to an ontology.
@@ -55,7 +57,9 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      * @return {@code true} if the change is an AddAxiom change and it will add
      *         an axiom to an ontology, {@code false} otherwise.
      */
-    public abstract boolean isAddAxiom();
+    public boolean isAddAxiom() {
+        return false;
+    }
 
     /**
      * Determines if the change will remove an axiom from an ontology.
@@ -87,7 +91,9 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      * @return {@code true} if this change is an import change, otherwise
      *         {@code false}.
      */
-    public abstract boolean isImportChange();
+    public boolean isImportChange() {
+        return false;
+    }
 
     /**
      * Gets the ontology that the change is/was applied to.

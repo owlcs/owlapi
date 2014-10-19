@@ -38,11 +38,6 @@ public class RemoveAxiom extends OWLAxiomChange {
         super(ont, axiom);
     }
 
-    @Override
-    public boolean isAddAxiom() {
-        return false;
-    }
-
     @Nonnull
     @Override
     public RemoveAxiomData getChangeData() {

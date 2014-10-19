@@ -74,11 +74,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         return false;
     }
 
-    @Override
-    public boolean isAnonymous() {
-        return true;
-    }
-
     @Nonnull
     @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {
