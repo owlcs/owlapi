@@ -54,10 +54,4 @@ public abstract class ImportChange extends OWLOntologyChange {
     public boolean isImportChange() {
         return true;
     }
-
-    @Override
-    public OWLAxiom getAxiom() {
-        throw new UnsupportedOperationException(
-                "This is an import change, not an axiom change: " + this);
-    }
 }

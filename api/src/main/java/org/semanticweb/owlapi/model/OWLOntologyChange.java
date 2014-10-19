@@ -82,7 +82,10 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      *         {@code isAxiomChange} method first).
      */
     @Nonnull
-    public abstract OWLAxiom getAxiom();
+    public OWLAxiom getAxiom() {
+        throw new UnsupportedOperationException("This is an "
+                + getClass().getSimpleName() + ", not an axiom change: " + this);
+    }
 
     /**
      * Determines if this change is an import change and hence causes a change

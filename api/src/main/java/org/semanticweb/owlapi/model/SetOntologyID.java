@@ -69,12 +69,6 @@ public class SetOntologyID extends OWLOntologyChange {
         return new SetOntologyIDData(newOntologyID);
     }
 
-    @Override
-    public OWLAxiom getAxiom() {
-        throw new UnsupportedOperationException(
-                "This is an ontology id change, not an axiom change: " + this);
-    }
-
     /**
      * Gets the original ID of the ontology whose URI was changed.
      * 
