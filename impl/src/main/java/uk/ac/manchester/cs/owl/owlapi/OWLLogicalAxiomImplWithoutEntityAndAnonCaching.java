@@ -12,11 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -35,15 +36,5 @@ public abstract class OWLLogicalAxiomImplWithoutEntityAndAnonCaching extends
     protected OWLLogicalAxiomImplWithoutEntityAndAnonCaching(
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-    }
-
-    @Override
-    public boolean isLogicalAxiom() {
-        return true;
-    }
-
-    @Override
-    public boolean isAnnotationAxiom() {
-        return false;
     }
 }

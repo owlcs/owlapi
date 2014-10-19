@@ -100,16 +100,6 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends
     }
 
     @Override
-    public boolean isLogicalAxiom() {
-        return false;
-    }
-
-    @Override
-    public boolean isAnnotationAxiom() {
-        return true;
-    }
-
-    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
     }

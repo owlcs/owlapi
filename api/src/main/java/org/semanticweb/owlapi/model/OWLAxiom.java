@@ -91,7 +91,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @return {@code true} if the axiom is a logical axiom, {@code false} if
      *         the axiom is not a logical axiom.
      */
-    boolean isLogicalAxiom();
+    default boolean isLogicalAxiom() {
+        return false;
+    }
 
     /**
      * Determines if this axioms in an annotation axiom (an instance of
@@ -101,7 +103,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         {@code OWLAnnotationAxiom}, otherwise {@code false}.
      * @since 3.2
      */
-    boolean isAnnotationAxiom();
+    default boolean isAnnotationAxiom() {
+        return false;
+    }
 
     /**
      * Determines if this axiom has any annotations on it

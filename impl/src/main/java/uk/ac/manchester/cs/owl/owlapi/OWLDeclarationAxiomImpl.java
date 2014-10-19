@@ -59,16 +59,6 @@ public class OWLDeclarationAxiomImpl extends
     }
 
     @Override
-    public boolean isLogicalAxiom() {
-        return false;
-    }
-
-    @Override
-    public boolean isAnnotationAxiom() {
-        return false;
-    }
-
-    @Override
     public OWLDeclarationAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;

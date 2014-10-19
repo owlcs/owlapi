@@ -19,4 +19,10 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnnotationAxiom extends OWLAxiom, OWLAnnotationObject {}
+public interface OWLAnnotationAxiom extends OWLAxiom, OWLAnnotationObject {
+
+    @Override
+    public default boolean isAnnotationAxiom() {
+        return true;
+    }
+}

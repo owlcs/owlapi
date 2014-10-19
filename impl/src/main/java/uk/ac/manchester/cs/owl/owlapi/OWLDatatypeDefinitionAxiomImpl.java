@@ -112,16 +112,6 @@ public class OWLDatatypeDefinitionAxiomImpl extends
     }
 
     @Override
-    public boolean isLogicalAxiom() {
-        return true;
-    }
-
-    @Override
-    public boolean isAnnotationAxiom() {
-        return false;
-    }
-
-    @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DATATYPE_DEFINITION;
     }

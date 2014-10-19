@@ -21,4 +21,10 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLLogicalAxiom extends OWLAxiom {}
+public interface OWLLogicalAxiom extends OWLAxiom {
+
+    @Override
+    public default boolean isLogicalAxiom() {
+        return true;
+    }
+}

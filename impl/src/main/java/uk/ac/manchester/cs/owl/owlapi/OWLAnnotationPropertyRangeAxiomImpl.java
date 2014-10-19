@@ -99,16 +99,6 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends
     }
 
     @Override
-    public boolean isLogicalAxiom() {
-        return false;
-    }
-
-    @Override
-    public boolean isAnnotationAxiom() {
-        return true;
-    }
-
-    @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) object;
         int diff = property.compareTo(other.getProperty());

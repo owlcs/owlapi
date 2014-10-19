@@ -37,14 +37,4 @@ public abstract class OWLLogicalAxiomImplWithEntityAndAnonCaching extends
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
     }
-
-    @Override
-    public boolean isLogicalAxiom() {
-        return true;
-    }
-
-    @Override
-    public boolean isAnnotationAxiom() {
-        return false;
-    }
 }
