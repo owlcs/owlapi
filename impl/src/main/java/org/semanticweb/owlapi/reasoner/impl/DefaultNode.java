@@ -140,7 +140,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Nonnull
     @Override
-    public Set<E> getEntitiesMinus(final E e) {
+    public Set<E> getEntitiesMinus(E e) {
         return CollectionFactory.copy(Sets.filter(entities,
                 (input) -> !input.equals(e)));
     }

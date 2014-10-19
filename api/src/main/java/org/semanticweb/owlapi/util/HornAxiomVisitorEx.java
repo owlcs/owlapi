@@ -68,17 +68,17 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
@@ -91,10 +91,10 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
     public Boolean visit(OWLDisjointClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
             if (!checkNegative(c)) {
-                return false;
+                return Boolean.FALSE;
             }
         }
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
@@ -114,12 +114,12 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLSubObjectPropertyOfAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
@@ -133,22 +133,22 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
                 return false;
             }
         }
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLDeclarationAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLAnnotationAssertionAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
@@ -158,22 +158,22 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
                 return false;
             }
         }
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     @Override
     public Boolean visit(OWLInverseObjectPropertiesAxiom axiom) {
-        return true;
+        return Boolean.TRUE;
     }
 
     private class PositiveAppearanceVisitorEx implements
@@ -188,7 +188,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -198,7 +198,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
                     return false;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -246,7 +246,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -256,7 +256,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
                     return false;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -266,7 +266,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
                     return false;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override

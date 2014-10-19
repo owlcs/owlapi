@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.util.StringComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +60,31 @@ public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory
             .getLogger(OBOFormatWriter.class);
+    /** The Class FramesComparator. */
+    private static final Comparator<Frame> framesComparator = (o1, o2) -> o1
+            .getId().compareTo(o2.getId());
+    @Nonnull
+    private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
+    @Nonnull
+    private static final Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
+    /**
+     * This comparator sorts clauses with the same tag in the specified write
+     * order.
+     */
+    private static final Comparator<Clause> clauseComparator = (o1, o2) -> compare(
+            o1, o2);
+    /** The Class TermsTagsComparator. */
+    private static Comparator<String> termsTagsComparator = (o1, o2) -> {
+        Integer i1 = TAGSPRIORITIES.get(o1);
+        Integer i2 = TAGSPRIORITIES.get(o2);
+        if (i1 == null) {
+            i1 = 10000;
+        }
+        if (i2 == null) {
+            i2 = 10000;
+        }
+        return i1.compareTo(i2);
+    };
     @Nonnull
     private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
     private boolean isCheckStructure = true;
@@ -211,13 +235,13 @@ public class OBOFormatWriter {
         writeHeader(headerFrame, writer, nameProvider);
         List<Frame> termFrames = new ArrayList<>();
         termFrames.addAll(doc.getTermFrames());
-        Collections.sort(termFrames, FramesComparator.INSTANCE);
+        Collections.sort(termFrames, framesComparator);
         List<Frame> typeDefFrames = new ArrayList<>();
         typeDefFrames.addAll(doc.getTypedefFrames());
-        Collections.sort(typeDefFrames, FramesComparator.INSTANCE);
+        Collections.sort(typeDefFrames, framesComparator);
         List<Frame> instanceFrames = new ArrayList<>();
         typeDefFrames.addAll(doc.getInstanceFrames());
-        Collections.sort(instanceFrames, FramesComparator.INSTANCE);
+        Collections.sort(instanceFrames, framesComparator);
         for (Frame f : termFrames) {
             write(f, writer, nameProvider);
         }
@@ -269,7 +293,7 @@ public class OBOFormatWriter {
     public void writeHeader(@Nonnull Frame frame, @Nonnull Writer writer,
             NameProvider nameProvider) throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
-        Collections.sort(tags, HeaderTagsComparator.INSTANCE);
+        Collections.sort(tags, headerTagsComparator);
         write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"),
                 writer, nameProvider);
         for (String tag : tags) {
@@ -277,7 +301,7 @@ public class OBOFormatWriter {
                 continue;
             }
             List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
-            Collections.sort(clauses, ClauseComparator.INSTANCE);
+            Collections.sort(clauses, clauseComparator);
             for (Clause clause : clauses) {
                 if (tag.equals(OboFormatTag.TAG_SUBSETDEF.getTag())) {
                     writeSynonymtypedef(clause, writer);
@@ -309,16 +333,16 @@ public class OBOFormatWriter {
      */
     public void write(@Nonnull Frame frame, @Nonnull Writer writer,
             @Nullable NameProvider nameProvider) throws IOException {
-        StringComparator comparator = null;
+        Comparator<String> comparator = null;
         if (frame.getType() == FrameType.TERM) {
             writeLine("[Term]", writer);
-            comparator = TermsTagsComparator.INSTANCE;
+            comparator = termsTagsComparator;
         } else if (frame.getType() == FrameType.TYPEDEF) {
             writeLine("[Typedef]", writer);
-            comparator = TypeDefTagsComparator.INSTANCE;
+            comparator = typeDefTagsComparator;
         } else if (frame.getType() == FrameType.INSTANCE) {
             writeLine("[Instance]", writer);
-            comparator = TypeDefTagsComparator.INSTANCE;
+            comparator = typeDefTagsComparator;
         }
         if (frame.getId() != null) {
             Object label = frame.getTagValue(OboFormatTag.TAG_NAME);
@@ -346,7 +370,7 @@ public class OBOFormatWriter {
         }
         for (String tag : tags) {
             List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
-            Collections.sort(clauses, ClauseComparator.INSTANCE);
+            Collections.sort(clauses, clauseComparator);
             for (Clause clause : clauses) {
                 String clauseTag = clause.getTag();
                 if (OboFormatTag.TAG_ID.getTag().equals(clauseTag)) {
@@ -807,127 +831,136 @@ public class OBOFormatWriter {
         return in;
     }
 
+    @Nonnull
+    private static final Map<String, Integer> HEADERTAGSPRIORITIES = buildHeaderTagsPriorities();
     /** The Class HeaderTagsComparator. */
-    private static class HeaderTagsComparator implements StringComparator {
-
-        static final HeaderTagsComparator INSTANCE = new HeaderTagsComparator();
-        @Nonnull
-        private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
-        private static final long serialVersionUID = 40000L;
-
-        @Nonnull
-        private static Map<String, Integer> buildTagsPriorities() {
-            Map<String, Integer> table = new HashMap<>();
-            table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
-            table.put(OboFormatTag.TAG_DATA_VERSION.getTag(), 10);
-            table.put(OboFormatTag.TAG_DATE.getTag(), 15);
-            table.put(OboFormatTag.TAG_SAVED_BY.getTag(), 20);
-            table.put(OboFormatTag.TAG_AUTO_GENERATED_BY.getTag(), 25);
-            table.put(OboFormatTag.TAG_SUBSETDEF.getTag(), 35);
-            table.put(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag(), 40);
-            table.put(OboFormatTag.TAG_DEFAULT_NAMESPACE.getTag(), 45);
-            table.put(OboFormatTag.TAG_NAMESPACE_ID_RULE.getTag(), 46);
-            table.put(OboFormatTag.TAG_IDSPACE.getTag(), 50);
-            table.put(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag(), 55);
-            table.put(
-                    OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag(),
-                    60);
-            table.put(OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag(), 65);
-            table.put(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag(), 70);
-            table.put(OboFormatTag.TAG_REMARK.getTag(), 75);
-            // moved from pos 30 to emulate OBO-Edit behavior
-            table.put(OboFormatTag.TAG_IMPORT.getTag(), 80);
-            // moved from pos 5 to emulate OBO-Edit behavior
-            table.put(OboFormatTag.TAG_ONTOLOGY.getTag(), 85);
-            table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 100);
-            table.put(OboFormatTag.TAG_OWL_AXIOMS.getTag(), 110);
-            return table;
+    private static Comparator<String> headerTagsComparator = (o1, o2) -> {
+        Integer i1 = HEADERTAGSPRIORITIES.get(o1);
+        Integer i2 = HEADERTAGSPRIORITIES.get(o2);
+        if (i1 == null) {
+            i1 = 10000;
         }
-
-        @Override
-        public int compare(String o1, String o2) {
-            Integer i1 = TAGSPRIORITIES.get(o1);
-            Integer i2 = TAGSPRIORITIES.get(o2);
-            if (i1 == null) {
-                i1 = 10000;
-            }
-            if (i2 == null) {
-                i2 = 10000;
-            }
-            return i1.compareTo(i2);
+        if (i2 == null) {
+            i2 = 10000;
         }
+        return i1.compareTo(i2);
+    };
+
+    @Nonnull
+    private static Map<String, Integer> buildHeaderTagsPriorities() {
+        Map<String, Integer> table = new HashMap<>();
+        table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
+        table.put(OboFormatTag.TAG_DATA_VERSION.getTag(), 10);
+        table.put(OboFormatTag.TAG_DATE.getTag(), 15);
+        table.put(OboFormatTag.TAG_SAVED_BY.getTag(), 20);
+        table.put(OboFormatTag.TAG_AUTO_GENERATED_BY.getTag(), 25);
+        table.put(OboFormatTag.TAG_SUBSETDEF.getTag(), 35);
+        table.put(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag(), 40);
+        table.put(OboFormatTag.TAG_DEFAULT_NAMESPACE.getTag(), 45);
+        table.put(OboFormatTag.TAG_NAMESPACE_ID_RULE.getTag(), 46);
+        table.put(OboFormatTag.TAG_IDSPACE.getTag(), 50);
+        table.put(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag(), 55);
+        table.put(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag(),
+                60);
+        table.put(OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag(), 65);
+        table.put(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag(), 70);
+        table.put(OboFormatTag.TAG_REMARK.getTag(), 75);
+        // moved from pos 30 to emulate OBO-Edit behavior
+        table.put(OboFormatTag.TAG_IMPORT.getTag(), 80);
+        // moved from pos 5 to emulate OBO-Edit behavior
+        table.put(OboFormatTag.TAG_ONTOLOGY.getTag(), 85);
+        table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 100);
+        table.put(OboFormatTag.TAG_OWL_AXIOMS.getTag(), 110);
+        return table;
     }
 
-    /** The Class TermsTagsComparator. */
-    private static class TermsTagsComparator implements StringComparator {
+    @Nonnull
+    private static Map<String, Integer> buildTagsPriorities() {
+        Map<String, Integer> table = new HashMap<>();
+        table.put(OboFormatTag.TAG_ID.getTag(), 5);
+        table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
+        table.put(OboFormatTag.TAG_NAME.getTag(), 15);
+        table.put(OboFormatTag.TAG_NAMESPACE.getTag(), 20);
+        table.put(OboFormatTag.TAG_ALT_ID.getTag(), 25);
+        table.put(OboFormatTag.TAG_DEF.getTag(), 30);
+        table.put(OboFormatTag.TAG_COMMENT.getTag(), 35);
+        table.put(OboFormatTag.TAG_SUBSET.getTag(), 40);
+        table.put(OboFormatTag.TAG_SYNONYM.getTag(), 45);
+        table.put(OboFormatTag.TAG_XREF.getTag(), 50);
+        table.put(OboFormatTag.TAG_BUILTIN.getTag(), 55);
+        table.put(OboFormatTag.TAG_HOLDS_OVER_CHAIN.getTag(), 60);
+        table.put(OboFormatTag.TAG_IS_A.getTag(), 65);
+        table.put(OboFormatTag.TAG_INTERSECTION_OF.getTag(), 70);
+        table.put(OboFormatTag.TAG_UNION_OF.getTag(), 80);
+        table.put(OboFormatTag.TAG_EQUIVALENT_TO.getTag(), 85);
+        table.put(OboFormatTag.TAG_DISJOINT_FROM.getTag(), 90);
+        table.put(OboFormatTag.TAG_RELATIONSHIP.getTag(), 95);
+        table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 98);
+        table.put(OboFormatTag.TAG_IS_OBSELETE.getTag(), 110);
+        table.put(OboFormatTag.TAG_REPLACED_BY.getTag(), 115);
+        table.put(OboFormatTag.TAG_CONSIDER.getTag(), 120);
+        table.put(OboFormatTag.TAG_CREATED_BY.getTag(), 130);
+        table.put(OboFormatTag.TAG_CREATION_DATE.getTag(), 140);
+        return table;
+    }
 
-        static final TermsTagsComparator INSTANCE = new TermsTagsComparator();
-        @Nonnull
-        private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
-        private static final long serialVersionUID = 40000L;
-
-        @Nonnull
-        private static Map<String, Integer> buildTagsPriorities() {
-            Map<String, Integer> table = new HashMap<>();
-            table.put(OboFormatTag.TAG_ID.getTag(), 5);
-            table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
-            table.put(OboFormatTag.TAG_NAME.getTag(), 15);
-            table.put(OboFormatTag.TAG_NAMESPACE.getTag(), 20);
-            table.put(OboFormatTag.TAG_ALT_ID.getTag(), 25);
-            table.put(OboFormatTag.TAG_DEF.getTag(), 30);
-            table.put(OboFormatTag.TAG_COMMENT.getTag(), 35);
-            table.put(OboFormatTag.TAG_SUBSET.getTag(), 40);
-            table.put(OboFormatTag.TAG_SYNONYM.getTag(), 45);
-            table.put(OboFormatTag.TAG_XREF.getTag(), 50);
-            table.put(OboFormatTag.TAG_BUILTIN.getTag(), 55);
-            table.put(OboFormatTag.TAG_HOLDS_OVER_CHAIN.getTag(), 60);
-            table.put(OboFormatTag.TAG_IS_A.getTag(), 65);
-            table.put(OboFormatTag.TAG_INTERSECTION_OF.getTag(), 70);
-            table.put(OboFormatTag.TAG_UNION_OF.getTag(), 80);
-            table.put(OboFormatTag.TAG_EQUIVALENT_TO.getTag(), 85);
-            table.put(OboFormatTag.TAG_DISJOINT_FROM.getTag(), 90);
-            table.put(OboFormatTag.TAG_RELATIONSHIP.getTag(), 95);
-            table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 98);
-            table.put(OboFormatTag.TAG_IS_OBSELETE.getTag(), 110);
-            table.put(OboFormatTag.TAG_REPLACED_BY.getTag(), 115);
-            table.put(OboFormatTag.TAG_CONSIDER.getTag(), 120);
-            table.put(OboFormatTag.TAG_CREATED_BY.getTag(), 130);
-            table.put(OboFormatTag.TAG_CREATION_DATE.getTag(), 140);
-            return table;
-        }
-
-        @Override
-        public int compare(String o1, String o2) {
-            Integer i1 = TAGSPRIORITIES.get(o1);
-            Integer i2 = TAGSPRIORITIES.get(o2);
-            if (i1 == null) {
-                i1 = 10000;
-            }
-            if (i2 == null) {
-                i2 = 10000;
-            }
-            return i1.compareTo(i2);
-        }
+    @Nonnull
+    private static Map<String, Integer> buildTypeDefTagsPriorities() {
+        Map<String, Integer> table = new HashMap<>();
+        table.put(OboFormatTag.TAG_ID.getTag(), 5);
+        table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
+        table.put(OboFormatTag.TAG_NAME.getTag(), 15);
+        table.put(OboFormatTag.TAG_NAMESPACE.getTag(), 20);
+        table.put(OboFormatTag.TAG_ALT_ID.getTag(), 25);
+        table.put(OboFormatTag.TAG_DEF.getTag(), 30);
+        table.put(OboFormatTag.TAG_COMMENT.getTag(), 35);
+        table.put(OboFormatTag.TAG_SUBSET.getTag(), 40);
+        table.put(OboFormatTag.TAG_SYNONYM.getTag(), 45);
+        table.put(OboFormatTag.TAG_XREF.getTag(), 50);
+        table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 55);
+        table.put(OboFormatTag.TAG_DOMAIN.getTag(), 60);
+        table.put(OboFormatTag.TAG_RANGE.getTag(), 65);
+        table.put(OboFormatTag.TAG_BUILTIN.getTag(), 70);
+        table.put(OboFormatTag.TAG_HOLDS_OVER_CHAIN.getTag(), 71);
+        table.put(OboFormatTag.TAG_IS_ANTI_SYMMETRIC.getTag(), 75);
+        table.put(OboFormatTag.TAG_IS_CYCLIC.getTag(), 80);
+        table.put(OboFormatTag.TAG_IS_REFLEXIVE.getTag(), 85);
+        table.put(OboFormatTag.TAG_IS_SYMMETRIC.getTag(), 90);
+        table.put(OboFormatTag.TAG_IS_TRANSITIVE.getTag(), 100);
+        table.put(OboFormatTag.TAG_IS_FUNCTIONAL.getTag(), 105);
+        table.put(OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL.getTag(), 110);
+        table.put(OboFormatTag.TAG_IS_A.getTag(), 115);
+        table.put(OboFormatTag.TAG_INTERSECTION_OF.getTag(), 120);
+        table.put(OboFormatTag.TAG_UNION_OF.getTag(), 125);
+        table.put(OboFormatTag.TAG_EQUIVALENT_TO.getTag(), 130);
+        table.put(OboFormatTag.TAG_DISJOINT_FROM.getTag(), 135);
+        table.put(OboFormatTag.TAG_INVERSE_OF.getTag(), 140);
+        table.put(OboFormatTag.TAG_TRANSITIVE_OVER.getTag(), 145);
+        table.put(OboFormatTag.TAG_EQUIVALENT_TO_CHAIN.getTag(), 155);
+        table.put(OboFormatTag.TAG_DISJOINT_OVER.getTag(), 160);
+        table.put(OboFormatTag.TAG_RELATIONSHIP.getTag(), 165);
+        table.put(OboFormatTag.TAG_IS_OBSELETE.getTag(), 169);
+        table.put(OboFormatTag.TAG_REPLACED_BY.getTag(), 185);
+        table.put(OboFormatTag.TAG_CONSIDER.getTag(), 190);
+        table.put(OboFormatTag.TAG_CREATED_BY.getTag(), 191);
+        table.put(OboFormatTag.TAG_CREATION_DATE.getTag(), 192);
+        table.put(OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag(), 195);
+        table.put(OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag(), 200);
+        table.put(OboFormatTag.TAG_IS_METADATA_TAG.getTag(), 205);
+        table.put(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG.getTag(), 210);
+        return table;
     }
 
     /** The Class ClauseListComparator. */
-    private static class ClauseListComparator implements Comparator<Clause>,
-            Serializable {
-
-        protected static final ClauseListComparator INSTANCE = new ClauseListComparator();
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public int compare(Clause o1, Clause o2) {
-            String t1 = o1.getTag();
-            String t2 = o2.getTag();
-            int compare = TermsTagsComparator.INSTANCE.compare(t1, t2);
-            if (compare == 0) {
-                compare = ClauseComparator.INSTANCE.compare(o1, o2);
-            }
-            return compare;
+    private static Comparator<Clause> clauseListComparator = (o1, o2) -> {
+        String t1 = o1.getTag();
+        String t2 = o2.getTag();
+        int compare = termsTagsComparator.compare(t1, t2);
+        if (compare == 0) {
+            compare = compare(o1, o2);
         }
-    }
+        return compare;
+    };
 
     /**
      * Sort a list of term frame clauses according to in the OBO format
@@ -937,175 +970,93 @@ public class OBOFormatWriter {
      *        the clauses
      */
     public static void sortTermClauses(@Nonnull List<Clause> clauses) {
-        Collections.sort(clauses, ClauseListComparator.INSTANCE);
+        Collections.sort(clauses, clauseListComparator);
     }
 
     /** The Class TypeDefTagsComparator. */
-    private static class TypeDefTagsComparator implements StringComparator {
-
-        static final TypeDefTagsComparator INSTANCE = new TypeDefTagsComparator();
-        @Nonnull
-        private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
-        private static final long serialVersionUID = 40000L;
-
-        @Nonnull
-        private static Map<String, Integer> buildTagsPriorities() {
-            Map<String, Integer> table = new HashMap<>();
-            table.put(OboFormatTag.TAG_ID.getTag(), 5);
-            table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
-            table.put(OboFormatTag.TAG_NAME.getTag(), 15);
-            table.put(OboFormatTag.TAG_NAMESPACE.getTag(), 20);
-            table.put(OboFormatTag.TAG_ALT_ID.getTag(), 25);
-            table.put(OboFormatTag.TAG_DEF.getTag(), 30);
-            table.put(OboFormatTag.TAG_COMMENT.getTag(), 35);
-            table.put(OboFormatTag.TAG_SUBSET.getTag(), 40);
-            table.put(OboFormatTag.TAG_SYNONYM.getTag(), 45);
-            table.put(OboFormatTag.TAG_XREF.getTag(), 50);
-            table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 55);
-            table.put(OboFormatTag.TAG_DOMAIN.getTag(), 60);
-            table.put(OboFormatTag.TAG_RANGE.getTag(), 65);
-            table.put(OboFormatTag.TAG_BUILTIN.getTag(), 70);
-            table.put(OboFormatTag.TAG_HOLDS_OVER_CHAIN.getTag(), 71);
-            table.put(OboFormatTag.TAG_IS_ANTI_SYMMETRIC.getTag(), 75);
-            table.put(OboFormatTag.TAG_IS_CYCLIC.getTag(), 80);
-            table.put(OboFormatTag.TAG_IS_REFLEXIVE.getTag(), 85);
-            table.put(OboFormatTag.TAG_IS_SYMMETRIC.getTag(), 90);
-            table.put(OboFormatTag.TAG_IS_TRANSITIVE.getTag(), 100);
-            table.put(OboFormatTag.TAG_IS_FUNCTIONAL.getTag(), 105);
-            table.put(OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL.getTag(), 110);
-            table.put(OboFormatTag.TAG_IS_A.getTag(), 115);
-            table.put(OboFormatTag.TAG_INTERSECTION_OF.getTag(), 120);
-            table.put(OboFormatTag.TAG_UNION_OF.getTag(), 125);
-            table.put(OboFormatTag.TAG_EQUIVALENT_TO.getTag(), 130);
-            table.put(OboFormatTag.TAG_DISJOINT_FROM.getTag(), 135);
-            table.put(OboFormatTag.TAG_INVERSE_OF.getTag(), 140);
-            table.put(OboFormatTag.TAG_TRANSITIVE_OVER.getTag(), 145);
-            table.put(OboFormatTag.TAG_EQUIVALENT_TO_CHAIN.getTag(), 155);
-            table.put(OboFormatTag.TAG_DISJOINT_OVER.getTag(), 160);
-            table.put(OboFormatTag.TAG_RELATIONSHIP.getTag(), 165);
-            table.put(OboFormatTag.TAG_IS_OBSELETE.getTag(), 169);
-            table.put(OboFormatTag.TAG_REPLACED_BY.getTag(), 185);
-            table.put(OboFormatTag.TAG_CONSIDER.getTag(), 190);
-            table.put(OboFormatTag.TAG_CREATED_BY.getTag(), 191);
-            table.put(OboFormatTag.TAG_CREATION_DATE.getTag(), 192);
-            table.put(OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag(), 195);
-            table.put(OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag(), 200);
-            table.put(OboFormatTag.TAG_IS_METADATA_TAG.getTag(), 205);
-            table.put(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG.getTag(), 210);
-            return table;
+    private static Comparator<String> typeDefTagsComparator = (o1, o2) -> {
+        Integer i1 = TYPEDEFTAGSPRIORITIES.get(o1);
+        Integer i2 = TYPEDEFTAGSPRIORITIES.get(o2);
+        if (i1 == null) {
+            i1 = 10000;
         }
+        if (i2 == null) {
+            i2 = 10000;
+        }
+        return i1.compareTo(i2);
+    };
 
-        @Override
-        public int compare(String o1, String o2) {
-            Integer i1 = TAGSPRIORITIES.get(o1);
-            Integer i2 = TAGSPRIORITIES.get(o2);
-            if (i1 == null) {
-                i1 = 10000;
+    private static int compare(Clause o1, Clause o2) {
+        // special case for intersections
+        String tag = o1.getTag();
+        if (OboFormatTag.TAG_INTERSECTION_OF.getTag().equals(tag)) {
+            // sort by values size, prefer short ones.
+            int s1 = o1.getValues().size();
+            int s2 = o2.getValues().size();
+            if (s1 < s2) {
+                return -1;
+            } else if (s1 > s2) {
+                return 1;
             }
-            if (i2 == null) {
-                i2 = 10000;
-            }
-            return i1.compareTo(i2);
         }
-    }
-
-    /** The Class FramesComparator. */
-    private static class FramesComparator implements Comparator<Frame>,
-            Serializable {
-
-        static final FramesComparator INSTANCE = new FramesComparator();
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public int compare(Frame o1, Frame o2) {
-            return o1.getId().compareTo(o2.getId());
+        // sort by value
+        int comp = compareValues(o1.getValue(), o2.getValue());
+        if (comp != 0) {
+            return comp;
         }
+        return compareValues(o1.getValue2(), o2.getValue2());
     }
 
     /**
-     * This comparator sorts clauses with the same tag in the specified write
-     * order.
+     * Compare values.
+     * 
+     * @param o1
+     *        the o1
+     * @param o2
+     *        the o2
+     * @return the int
      */
-    private static class ClauseComparator implements Comparator<Clause>,
-            Serializable {
-
-        static final ClauseComparator INSTANCE = new ClauseComparator();
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public int compare(Clause o1, Clause o2) {
-            // special case for intersections
-            String tag = o1.getTag();
-            if (OboFormatTag.TAG_INTERSECTION_OF.getTag().equals(tag)) {
-                // sort by values size, prefer short ones.
-                int s1 = o1.getValues().size();
-                int s2 = o2.getValues().size();
-                if (s1 < s2) {
-                    return -1;
-                } else if (s1 > s2) {
-                    return 1;
-                }
-            }
-            // sort by value
-            int comp = compareValues(o1.getValue(), o2.getValue());
-            if (comp != 0) {
-                return comp;
-            }
-            return compareValues(o1.getValue2(), o2.getValue2());
+    private static int compareValues(@Nullable Object o1, @Nullable Object o2) {
+        if (o1 == null && o2 == null) {
+            return 0;
         }
-
-        /**
-         * Compare values.
-         * 
-         * @param o1
-         *        the o1
-         * @param o2
-         *        the o2
-         * @return the int
-         */
-        private static int compareValues(@Nullable Object o1,
-                @Nullable Object o2) {
-            if (o1 == null && o2 == null) {
-                return 0;
-            }
-            if (o1 == null) {
-                return -1;
-            }
-            if (o2 == null) {
-                return 1;
-            }
-            String s1 = toStringRepresentation(o1);
-            String s2 = toStringRepresentation(o2);
-            int comp = s1.compareToIgnoreCase(s2);
-            if (comp == 0) {
-                // normally ignore case, for sorting
-                // but if the strings are equal,
-                // try again with case check
-                comp = s1.compareTo(s2);
-            }
-            return comp;
+        if (o1 == null) {
+            return -1;
         }
-
-        /**
-         * @param obj
-         *        the obj
-         * @return toString representation
-         */
-        @Nullable
-        private static String toStringRepresentation(@Nullable Object obj) {
-            String s = null;
-            if (obj != null) {
-                if (obj instanceof Xref) {
-                    Xref xref = (Xref) obj;
-                    s = xref.getIdref() + ' ' + xref.getAnnotation();
-                } else if (obj instanceof String) {
-                    s = (String) obj;
-                } else {
-                    s = obj.toString();
-                }
-            }
-            return s;
+        if (o2 == null) {
+            return 1;
         }
+        String s1 = toStringRepresentation(o1);
+        String s2 = toStringRepresentation(o2);
+        int comp = s1.compareToIgnoreCase(s2);
+        if (comp == 0) {
+            // normally ignore case, for sorting
+            // but if the strings are equal,
+            // try again with case check
+            comp = s1.compareTo(s2);
+        }
+        return comp;
+    }
+
+    /**
+     * @param obj
+     *        the obj
+     * @return toString representation
+     */
+    @Nullable
+    private static String toStringRepresentation(@Nullable Object obj) {
+        String s = null;
+        if (obj != null) {
+            if (obj instanceof Xref) {
+                Xref xref = (Xref) obj;
+                s = xref.getIdref() + ' ' + xref.getAnnotation();
+            } else if (obj instanceof String) {
+                s = (String) obj;
+            } else {
+                s = obj.toString();
+            }
+        }
+        return s;
     }
 
     /** The Class XrefComparator. */

@@ -32,19 +32,12 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLObject;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
@@ -248,6 +241,11 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImplWithEntityAndAnonCaching
             SWRLObjectVisitorEx<SWRLObject> {
 
         @Override
+        public SWRLObject doDefault(Object o) {
+            return (SWRLObject) o;
+        }
+
+        @Override
         public SWRLRule visit(SWRLRule node) {
             Set<SWRLAtom> nodebody = new HashSet<>();
             for (SWRLAtom atom : node.getBody()) {
@@ -261,54 +259,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImplWithEntityAndAnonCaching
         }
 
         @Override
-        public SWRLClassAtom visit(SWRLClassAtom node) {
-            return node;
-        }
-
-        @Override
-        public SWRLDataRangeAtom visit(SWRLDataRangeAtom node) {
-            return node;
-        }
-
-        @Override
         public SWRLObjectPropertyAtom visit(SWRLObjectPropertyAtom node) {
             return node.getSimplified();
-        }
-
-        @Override
-        public SWRLDataPropertyAtom visit(SWRLDataPropertyAtom node) {
-            return node;
-        }
-
-        @Override
-        public SWRLBuiltInAtom visit(SWRLBuiltInAtom node) {
-            return node;
-        }
-
-        @Override
-        public SWRLVariable visit(SWRLVariable node) {
-            return node;
-        }
-
-        @Override
-        public SWRLIndividualArgument visit(SWRLIndividualArgument node) {
-            return node;
-        }
-
-        @Override
-        public SWRLLiteralArgument visit(SWRLLiteralArgument node) {
-            return node;
-        }
-
-        @Override
-        public SWRLSameIndividualAtom visit(SWRLSameIndividualAtom node) {
-            return node;
-        }
-
-        @Override
-        public SWRLDifferentIndividualsAtom visit(
-                SWRLDifferentIndividualsAtom node) {
-            return node;
         }
     }
 }

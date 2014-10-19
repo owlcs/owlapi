@@ -83,7 +83,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(@Nonnull OWLDeclarationAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(), axiom
-                .getEntity().accept(OWLEntityTypeProvider.INSTANCE));
+                .getEntity().accept(owlEntityTypeProvider));
     }
 
     @Override
@@ -1146,15 +1146,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             return;
         }
         addTriple(entity, RDF_TYPE.getIRI(),
-                entity.accept(OWLEntityTypeProvider.INSTANCE));
+                entity.accept(owlEntityTypeProvider));
     }
 
     /** Visits entities and returns their RDF type. */
-    private static class OWLEntityTypeProvider implements
-            OWLEntityVisitorEx<IRI> {
-
-        @Nonnull
-        public static final OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
+    private static final OWLEntityVisitorEx<IRI> owlEntityTypeProvider = new OWLEntityVisitorEx<IRI>() {
 
         @Override
         public IRI visit(OWLClass cls) {
@@ -1185,5 +1181,5 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         public IRI visit(OWLAnnotationProperty property) {
             return OWL_ANNOTATION_PROPERTY.getIRI();
         }
-    }
+    };
 }

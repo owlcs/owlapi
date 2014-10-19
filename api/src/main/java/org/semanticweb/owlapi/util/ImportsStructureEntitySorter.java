@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -32,16 +30,10 @@ public class ImportsStructureEntitySorter extends
      *        the ontology
      */
     public ImportsStructureEntitySorter(@Nonnull OWLOntology ontology) {
-        super(ontology, new ReferencedEntitySelector());
+        super(ontology, referencedEntitySelector);
     }
 
     /** Selector of referenced entities. */
-    public static class ReferencedEntitySelector implements
-            ObjectSelector<OWLEntity> {
-
-        @Override
-        public Set<OWLEntity> getObjects(@Nonnull OWLOntology ontology) {
-            return ontology.getSignature();
-        }
-    }
+    public static ObjectSelector<OWLEntity> referencedEntitySelector = o -> o
+            .getSignature();
 }

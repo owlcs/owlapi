@@ -318,7 +318,7 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -328,7 +328,7 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLDataSomeValuesFrom ce) {
-            return true;
+            return Boolean.TRUE;
         }
     }
 
@@ -351,7 +351,7 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -371,7 +371,7 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLDataSomeValuesFrom ce) {
-            return true;
+            return Boolean.TRUE;
         }
     }
 

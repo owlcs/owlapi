@@ -294,20 +294,20 @@ public class OWL2RLProfile implements OWLProfile {
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression op : ce.getOperands()) {
                 if (!isOWL2RLSubClassExpression(op)) {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
             for (OWLClassExpression op : ce.getOperands()) {
                 if (!isOWL2RLSubClassExpression(op)) {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -318,22 +318,22 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectHasValue ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
         public Boolean visit(OWLObjectOneOf ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
         public Boolean visit(OWLDataSomeValuesFrom ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
         public Boolean visit(OWLDataHasValue ce) {
-            return true;
+            return Boolean.TRUE;
         }
     }
 
@@ -363,10 +363,10 @@ public class OWL2RLProfile implements OWLProfile {
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression e : ce.getOperands()) {
                 if (!e.accept(this).booleanValue()) {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
         // XXX difference in subclass and superclass - correct?
@@ -382,7 +382,7 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectHasValue ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -394,12 +394,12 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLDataAllValuesFrom ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
         public Boolean visit(OWLDataHasValue ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
@@ -439,20 +439,20 @@ public class OWL2RLProfile implements OWLProfile {
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression e : ce.getOperands()) {
                 if (!e.accept(this).booleanValue()) {
-                    return false;
+                    return Boolean.FALSE;
                 }
             }
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
         public Boolean visit(OWLObjectHasValue ce) {
-            return true;
+            return Boolean.TRUE;
         }
 
         @Override
         public Boolean visit(OWLDataHasValue ce) {
-            return true;
+            return Boolean.TRUE;
         }
     }
 
