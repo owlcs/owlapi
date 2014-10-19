@@ -153,36 +153,6 @@ public class OWLAnnotationPropertyImpl extends
     }
 
     @Override
-    public boolean isDataPropertyExpression() {
-        return false;
-    }
-
-    @Override
-    public boolean isObjectPropertyExpression() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLTopObjectProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLBottomObjectProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLTopDataProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLBottomDataProperty() {
-        return false;
-    }
-
-    @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(this);
     }

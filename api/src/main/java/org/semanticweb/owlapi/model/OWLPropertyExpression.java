@@ -40,10 +40,14 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous {
     <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor);
 
     /** @return true if this is a data property */
-    boolean isDataPropertyExpression();
+    default boolean isDataPropertyExpression() {
+        return false;
+    }
 
     /** @return true if this is an object property */
-    boolean isObjectPropertyExpression();
+    default boolean isObjectPropertyExpression() {
+        return false;
+    }
 
     /**
      * Determines if this is the owl:topObjectProperty.
@@ -51,7 +55,9 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous {
      * @return {@code true} if this property is the owl:topObjectProperty
      *         otherwise {@code false}
      */
-    boolean isOWLTopObjectProperty();
+    default boolean isOWLTopObjectProperty() {
+        return false;
+    }
 
     /**
      * Determines if this is the owl:bottomObjectProperty.
@@ -59,7 +65,9 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous {
      * @return {@code true} if this property is the owl:bottomObjectProperty
      *         otherwise {@code false}
      */
-    boolean isOWLBottomObjectProperty();
+    default boolean isOWLBottomObjectProperty() {
+        return false;
+    }
 
     /**
      * Determines if this is the owl:topDataProperty.
@@ -67,7 +75,9 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous {
      * @return {@code true} if this property is the owl:topDataProperty
      *         otherwise {@code false}
      */
-    boolean isOWLTopDataProperty();
+    default boolean isOWLTopDataProperty() {
+        return false;
+    }
 
     /**
      * Determines if this is the owl:bottomDataProperty.
@@ -75,5 +85,7 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous {
      * @return {@code true} if this property is the owl:bottomDataProperty
      *         otherwise {@code false}
      */
-    boolean isOWLBottomDataProperty();
+    default boolean isOWLBottomDataProperty() {
+        return false;
+    }
 }

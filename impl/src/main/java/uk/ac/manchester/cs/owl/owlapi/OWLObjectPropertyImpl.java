@@ -179,14 +179,4 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
     public boolean isOWLBottomObjectProperty() {
         return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
     }
-
-    @Override
-    public boolean isOWLTopDataProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLBottomDataProperty() {
-        return false;
-    }
 }

@@ -106,24 +106,4 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         return inverseProperty.compareTo(((OWLObjectInverseOf) object)
                 .getInverse());
     }
-
-    @Override
-    public boolean isOWLTopObjectProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLBottomObjectProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLTopDataProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLBottomDataProperty() {
-        return false;
-    }
 }

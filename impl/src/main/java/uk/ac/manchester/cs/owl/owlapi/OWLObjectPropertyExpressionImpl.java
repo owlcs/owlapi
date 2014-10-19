@@ -39,11 +39,6 @@ public abstract class OWLObjectPropertyExpressionImpl extends
     }
 
     @Override
-    public boolean isDataPropertyExpression() {
-        return false;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLObjectPropertyExpression;
     }

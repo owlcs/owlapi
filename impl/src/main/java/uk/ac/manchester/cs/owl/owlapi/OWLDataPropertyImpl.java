@@ -99,11 +99,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     }
 
     @Override
-    public boolean isObjectPropertyExpression() {
-        return false;
-    }
-
-    @Override
     public IRI getIRI() {
         return iri;
     }
@@ -173,16 +168,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     @Override
     public boolean isOWLDataProperty() {
         return true;
-    }
-
-    @Override
-    public boolean isOWLTopObjectProperty() {
-        return false;
-    }
-
-    @Override
-    public boolean isOWLBottomObjectProperty() {
-        return false;
     }
 
     @Override
