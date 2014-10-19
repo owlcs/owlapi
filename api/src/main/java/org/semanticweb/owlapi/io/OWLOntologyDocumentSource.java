@@ -14,14 +14,13 @@ package org.semanticweb.owlapi.io;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-
-import com.google.common.base.Optional;
 
 /**
  * A document source provides a point for loading an ontology. A document source
@@ -54,7 +53,7 @@ public interface OWLOntologyDocumentSource {
      *         in an Optional.
      */
     default Optional<Reader> getReader() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**
@@ -68,7 +67,7 @@ public interface OWLOntologyDocumentSource {
      */
     @Nonnull
     default Optional<InputStream> getInputStream() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**
@@ -85,7 +84,7 @@ public interface OWLOntologyDocumentSource {
      */
     @Nullable
     default Optional<OWLDocumentFormat> getFormat() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**
@@ -93,7 +92,7 @@ public interface OWLOntologyDocumentSource {
      *         return Optional.absent.
      */
     default Optional<String> getMIMEType() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**

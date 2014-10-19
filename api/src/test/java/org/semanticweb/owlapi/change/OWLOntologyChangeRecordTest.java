@@ -6,12 +6,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-
-import com.google.common.base.Optional;
 
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTest {

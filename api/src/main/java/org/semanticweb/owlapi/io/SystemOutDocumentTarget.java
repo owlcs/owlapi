@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
-
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 /**
  * An output target that will output an ontology to {@code System.out}.

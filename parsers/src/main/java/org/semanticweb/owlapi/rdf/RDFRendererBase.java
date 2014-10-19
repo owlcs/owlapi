@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -68,8 +69,6 @@ import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

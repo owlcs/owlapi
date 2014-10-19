@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -32,8 +33,6 @@ import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.PriorityCollection;
-
-import com.google.common.base.Optional;
 
 /**
  * An {@code OWLOntologyManager} manages a set of ontologies. It is the main
@@ -336,7 +335,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     default OWLOntology createOntology(@Nonnull IRI ontologyIRI)
             throws OWLOntologyCreationException {
         return createOntology(new OWLOntologyID(
-                Optional.fromNullable(ontologyIRI), Optional.absent()));
+                Optional.ofNullable(ontologyIRI), Optional.empty()));
     }
 
     /**

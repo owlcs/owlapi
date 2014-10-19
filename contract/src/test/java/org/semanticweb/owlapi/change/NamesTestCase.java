@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.change;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+import java.util.Optional;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
@@ -39,8 +41,6 @@ import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-
-import com.google.common.base.Optional;
 
 @SuppressWarnings({ "javadoc" })
 public class NamesTestCase {

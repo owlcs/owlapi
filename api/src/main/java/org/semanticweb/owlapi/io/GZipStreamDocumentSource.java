@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 
 import javax.annotation.Nonnull;
@@ -26,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * An ontology document source which can read from a GZIP stream.
@@ -94,7 +93,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         if (buffer == null) {
-            return Optional.absent();
+            return Optional.empty();
         }
         try {
             return Optional.of(DocumentSources.wrap(new GZIPInputStream(
@@ -102,7 +101,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 }

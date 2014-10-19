@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
@@ -26,8 +28,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
-
-import com.google.common.base.Optional;
 
 /** @author Peter Ansell p_ansell@yahoo.com */
 @SuppressWarnings("javadoc")
@@ -124,9 +124,9 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime()
             throws Exception {
-        Optional<IRI> absent = Optional.<IRI> absent();
+        Optional<IRI> empty = Optional.<IRI> empty();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(i139,
-                absent);
+                empty);
         OWLOntology initialOntology = m
                 .createOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();

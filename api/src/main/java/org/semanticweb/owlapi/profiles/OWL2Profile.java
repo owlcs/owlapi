@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.profiles;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -38,8 +39,6 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import com.google.common.base.Optional;
 
 /**
  * Checks to see if an ontology and its imports closure fall into the OWL 2 DL

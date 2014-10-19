@@ -12,9 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static com.google.common.base.Optional.absent;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+
+import java.util.Optional;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -40,7 +41,8 @@ public class OntologyURITestCase extends TestBase {
         OWLOntologyID ontIDBoth = new OWLOntologyID(of(iriA), of(iriB));
         OWLOntologyID ontIDBoth2 = new OWLOntologyID(of(iriA), of(iriB));
         assertEquals(ontIDBoth, ontIDBoth2);
-        OWLOntologyID ontIDURIOnly = new OWLOntologyID(of(iriA), absent());
+        OWLOntologyID ontIDURIOnly = new OWLOntologyID(of(iriA),
+                Optional.empty());
         assertFalse(ontIDBoth.equals(ontIDURIOnly));
         OWLOntologyID ontIDNoneA = new OWLOntologyID();
         OWLOntologyID ontIDNoneB = new OWLOntologyID();
@@ -54,7 +56,7 @@ public class OntologyURITestCase extends TestBase {
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
         assertTrue(m.contains(iri));
         assertTrue(m.getOntologies().contains(ont));
-        OWLOntologyID ontID = new OWLOntologyID(of(iri), absent());
+        OWLOntologyID ontID = new OWLOntologyID(of(iri), Optional.empty());
         assertEquals(ont.getOntologyID(), ontID);
     }
 
@@ -71,7 +73,7 @@ public class OntologyURITestCase extends TestBase {
         OWLOntology ont = m.createOntology(iri);
         IRI newIRI = IRI("http://www.another.com/newont");
         SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(
-                of(newIRI), absent()));
+                of(newIRI), Optional.empty()));
         m.applyChange(sou);
         assertFalse(m.contains(iri));
         assertTrue(m.contains(newIRI));

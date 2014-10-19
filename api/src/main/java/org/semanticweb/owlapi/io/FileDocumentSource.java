@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -25,8 +26,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * A convenience class which will prepare an input source from a file.
@@ -91,7 +90,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
         } catch (FileNotFoundException e) {
             LOGGER.error("File cannot be found", e);
             failedOnStreams.set(true);
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 }

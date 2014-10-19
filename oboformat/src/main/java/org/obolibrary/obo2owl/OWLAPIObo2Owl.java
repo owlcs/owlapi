@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -70,7 +71,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 /** The Class OWLAPIObo2Owl. */
@@ -387,18 +387,18 @@ public class OWLAPIObo2Owl {
                 // that was passed in, update it
                 // when parsing, the original ontology is likely an anonymous,
                 // empty one
-                if (!ontIRI
-                        .equals(in.getOntologyID().getOntologyIRI().orNull())) {
+                if (!ontIRI.equals(in.getOntologyID().getOntologyIRI()
+                        .orElse(null))) {
                     manager.applyChange(new SetOntologyID(in,
                             new OWLOntologyID(Optional.of(ontIRI), Optional
-                                    .<IRI> absent())));
+                                    .<IRI> empty())));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
             manager.applyChange(new SetOntologyID(in,
                     new OWLOntologyID(Optional.of(IRI.create(DEFAULT_IRI_PREFIX
-                            + defaultIDSpace)), Optional.<IRI> absent())));
+                            + defaultIDSpace)), Optional.<IRI> empty())));
             // TODO - warn
         }
         trHeaderFrame(hf);

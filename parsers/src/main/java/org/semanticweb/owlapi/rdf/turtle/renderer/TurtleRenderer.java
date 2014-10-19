@@ -149,7 +149,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private void write(@Nonnull IRI iri) {
-        if (iri.equals(ontology.getOntologyID().getOntologyIRI().orNull())) {
+        if (iri.equals(ontology.getOntologyID().getOntologyIRI().orElse(null))) {
             writeAsURI(iri.toString());
         } else {
             String name = pm.getPrefixIRI(iri);

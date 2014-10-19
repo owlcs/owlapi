@@ -15,10 +15,9 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.OutputStream;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

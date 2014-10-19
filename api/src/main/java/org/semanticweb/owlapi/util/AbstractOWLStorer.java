@@ -23,6 +23,7 @@ import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -35,8 +36,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * Base class for ontology storers. Note that all current implementations are

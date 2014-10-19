@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -91,7 +92,6 @@ import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
 /** @author ignazio */
@@ -714,7 +714,7 @@ public class Internals implements Serializable {
                 return Optional.of((MapPointer<T, A>) hasKeyAxiomsByClass);
             }
         }
-        return Optional.absent();
+        return Optional.empty();
     }
 
     @Nonnull

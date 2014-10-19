@@ -14,12 +14,11 @@ package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * An ontology document target which can write to a GZIP stream. Notice that
@@ -49,7 +48,7 @@ public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
             return Optional.of(new GZIPOutputStream(outputStream));
         } catch (IOException e) {
             LOGGER.error("Fille cannot be found or opened", e);
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 }

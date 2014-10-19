@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -24,8 +25,6 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information

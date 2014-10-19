@@ -23,6 +23,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -33,8 +34,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * Base class for common utilities among stream, reader and file input sources.
@@ -202,7 +201,7 @@ public abstract class StreamDocumentSourceBase extends
     @Override
     public Optional<InputStream> getInputStream() {
         if (!streamAvailable) {
-            return Optional.absent();
+            return Optional.empty();
         }
         try {
             return Optional.of(DocumentSources.wrap(new GZIPInputStream(
@@ -210,14 +209,14 @@ public abstract class StreamDocumentSourceBase extends
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 
     @Override
     public Optional<Reader> getReader() {
         if (streamAvailable) {
-            return Optional.absent();
+            return Optional.empty();
         }
         try {
             return Optional.of(new InputStreamReader(DocumentSources
@@ -226,7 +225,7 @@ public abstract class StreamDocumentSourceBase extends
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 }

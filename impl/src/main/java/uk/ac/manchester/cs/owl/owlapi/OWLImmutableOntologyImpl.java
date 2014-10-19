@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -79,7 +80,6 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 
 /**
@@ -838,7 +838,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                 }
             }
             for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-                if (owlEntity.equals(ax.getValue().asLiteral().orNull())) {
+                if (owlEntity.equals(ax.getValue().asLiteral().orElse(null))) {
                     axioms.add(ax);
                 }
             }

@@ -14,6 +14,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -33,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Charsets;
-import com.google.common.base.Optional;
 
 /**
  * Static methods from AbstractOWLParser. Mostly used by
@@ -92,7 +92,7 @@ public class DocumentSources {
      *        loader configuration to use of the reader must be built form the
      *        input IRI
      * @return A Reader wrapped in an Optional; if no Reader can be obtained,
-     *         the result is Optional.absent. @throws
+     *         the result is Optional.empty. @throws
      *         OWLOntologyInputSourceException if an IO related exception is
      *         thrown.
      * @throws OWLOntologyInputSourceException
@@ -208,7 +208,7 @@ public class DocumentSources {
                 }
             }
             if (is == null) {
-                return Optional.absent();
+                return Optional.empty();
             }
             if (isZipName(documentIRI, conn)) {
                 ZipInputStream zis = new ZipInputStream(is);

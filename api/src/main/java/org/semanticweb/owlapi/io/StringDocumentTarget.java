@@ -14,10 +14,9 @@ package org.semanticweb.owlapi.io;
 
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

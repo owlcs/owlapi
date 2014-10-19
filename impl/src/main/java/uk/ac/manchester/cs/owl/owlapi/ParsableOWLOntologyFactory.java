@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -38,7 +39,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 /**

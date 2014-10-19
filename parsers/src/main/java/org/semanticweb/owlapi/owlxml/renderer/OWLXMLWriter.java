@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import javax.annotation.Nonnull;
@@ -37,8 +38,6 @@ import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
-
-import com.google.common.base.Optional;
 
 /**
  * Writes OWL/XML. In an OWL/XML documents written by this writer, the base is

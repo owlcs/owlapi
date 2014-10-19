@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -22,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
-
-import com.google.common.base.Optional;
 
 /**
  * Punning between properties is not allowed.

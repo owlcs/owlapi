@@ -18,6 +18,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
@@ -26,8 +27,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import com.google.common.base.Optional;
 
 /**
  * Represents International Resource Identifiers.
@@ -179,7 +178,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     public Optional<String> getRemainder() {
         if (remainder.isEmpty()) {
-            return Optional.absent();
+            return Optional.empty();
         }
         return Optional.of(remainder);
     }
@@ -335,11 +334,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     protected Optional<String> asOptional(String suffix) {
         if (suffix == null) {
-            return Optional.absent();
+            return Optional.empty();
         } else if (suffix.isEmpty()) {
-            return Optional.absent();
+            return Optional.empty();
         }
-        return Optional.fromNullable(suffix);
+        return Optional.ofNullable(suffix);
     }
 
     protected IRI(@Nonnull String s) {
@@ -472,12 +471,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     @Override
     public Optional<OWLLiteral> asLiteral() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     @Override

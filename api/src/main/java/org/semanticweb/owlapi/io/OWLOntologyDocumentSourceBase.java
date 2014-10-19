@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -10,8 +11,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-
-import com.google.common.base.Optional;
 
 /**
  * Base class for OWLOntologyDocumentSource.
@@ -52,8 +51,8 @@ public abstract class OWLOntologyDocumentSourceBase implements
      */
     public OWLOntologyDocumentSourceBase(@Nonnull IRI iri,
             @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        this.format = Optional.fromNullable(format);
-        mimeType = Optional.fromNullable(mime);
+        this.format = Optional.ofNullable(format);
+        mimeType = Optional.ofNullable(mime);
         documentIRI = checkNotNull(iri, "document iri cannot be null");
     }
 

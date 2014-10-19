@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -91,7 +92,6 @@ import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 /**

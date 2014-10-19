@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
@@ -27,8 +29,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
-
-import com.google.common.base.Optional;
 
 /**
  * Tests the loading of a single ontology multiple times, using the same
@@ -148,7 +148,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
-                Optional.of(CREATE0139), Optional.<IRI> absent());
+                Optional.of(CREATE0139), Optional.<IRI> empty());
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(CREATE0139), Optional.of(CREATEV2));

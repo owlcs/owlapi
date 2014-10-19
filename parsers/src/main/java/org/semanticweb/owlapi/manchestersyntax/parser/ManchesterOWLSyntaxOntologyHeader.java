@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.manchestersyntax.parser;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -22,8 +23,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -52,8 +51,8 @@ public class ManchesterOWLSyntaxOntologyHeader {
     public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
             @Nonnull Set<OWLAnnotation> annotations,
             Set<OWLImportsDeclaration> importsDeclarations) {
-        ontologyID = new OWLOntologyID(Optional.fromNullable(ontologyIRI),
-                Optional.fromNullable(versionIRI));
+        ontologyID = new OWLOntologyID(Optional.ofNullable(ontologyIRI),
+                Optional.ofNullable(versionIRI));
         this.annotations = new ArrayList<>(annotations);
         this.importsDeclarations = new ArrayList<>(importsDeclarations);
     }

@@ -16,13 +16,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
-
-import com.google.common.base.Optional;
 
 /**
  * Converts the entity URI fragment or last path element if the fragment is not

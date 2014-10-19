@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
@@ -27,8 +29,6 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import com.google.common.base.Optional;
 
 /**
  * An OWLLiteral with xsd:string datatype and no language tag.

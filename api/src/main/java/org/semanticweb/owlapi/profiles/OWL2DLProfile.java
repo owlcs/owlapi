@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -96,8 +97,6 @@ import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information

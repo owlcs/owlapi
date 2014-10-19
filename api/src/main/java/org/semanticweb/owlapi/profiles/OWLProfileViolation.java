@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,8 +30,6 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be

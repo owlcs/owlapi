@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -26,8 +27,6 @@ import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -61,10 +60,10 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
                 return Optional.of(os);
             } catch (IOException e) {
                 LOGGER.error("Cannot create or find file", e);
-                return Optional.absent();
+                return Optional.empty();
             }
         }
         LOGGER.error("Could not create directories: {}", parentFile);
-        return Optional.absent();
+        return Optional.empty();
     }
 }

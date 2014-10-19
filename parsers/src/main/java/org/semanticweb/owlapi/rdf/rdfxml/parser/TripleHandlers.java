@@ -19,6 +19,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -65,7 +66,6 @@ import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
 /**

@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -97,8 +98,6 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-
-import com.google.common.base.Optional;
 
 @SuppressWarnings({ "javadoc", "rawtypes" })
 public class OWLProfileTestCase {

@@ -13,11 +13,10 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-
-import com.google.common.base.Optional;
 
 /** A set of personalized preconditions. */
 public final class OWLAPIPreconditions {

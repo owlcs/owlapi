@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 
 import org.junit.Before;
@@ -24,8 +26,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics

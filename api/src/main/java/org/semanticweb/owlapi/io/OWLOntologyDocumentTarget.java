@@ -14,12 +14,11 @@ package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-
-import com.google.common.base.Optional;
 
 /**
  * Specifies an interface that provides a pointer to an ontology document where
@@ -46,7 +45,7 @@ public interface OWLOntologyDocumentTarget {
      */
     @Nonnull
     default Optional<Writer> getWriter() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**
@@ -59,7 +58,7 @@ public interface OWLOntologyDocumentTarget {
      */
     @Nonnull
     default Optional<OutputStream> getOutputStream() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**
@@ -70,6 +69,6 @@ public interface OWLOntologyDocumentTarget {
      */
     @Nonnull
     default Optional<IRI> getDocumentIRI() {
-        return Optional.absent();
+        return Optional.empty();
     }
 }

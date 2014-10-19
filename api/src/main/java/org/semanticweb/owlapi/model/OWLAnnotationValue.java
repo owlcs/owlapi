@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import java.util.Optional;
 
-import com.google.common.base.Optional;
+import javax.annotation.Nonnull;
 
 /**
  * A marker interface for annotation values, which can either be an IRI (URI),
@@ -51,7 +51,7 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      */
     @Nonnull
     default Optional<OWLLiteral> asLiteral() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**
@@ -60,7 +60,7 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      */
     @Nonnull
     default Optional<IRI> asIRI() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**
@@ -69,6 +69,6 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      */
     @Nonnull
     default Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return Optional.absent();
+        return Optional.empty();
     }
 }

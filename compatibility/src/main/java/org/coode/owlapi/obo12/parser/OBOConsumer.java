@@ -44,6 +44,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -75,8 +76,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * Author: Matthew Horridge<br>
@@ -317,8 +316,8 @@ class OBOConsumer implements OBOParserHandler {
                     + dataVersionTagValue);
         }
         OWLOntologyID ontologyID = new OWLOntologyID(
-                Optional.fromNullable(ontologyIRI),
-                Optional.fromNullable(versionIRI));
+                Optional.ofNullable(ontologyIRI),
+                Optional.ofNullable(versionIRI));
         ontology.getOWLOntologyManager().applyChange(
                 new SetOntologyID(ontology, ontologyID));
     }

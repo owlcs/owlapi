@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.model;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 /**
  * Value visitor for EntityType
@@ -42,7 +42,7 @@ public interface EntityTypeVisitorEx<T> {
      * @return default value if no values are matched
      */
     default Optional<T> doDefault() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     /**

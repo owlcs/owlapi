@@ -22,14 +22,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * An {@code OWLOntologyDocumentTarget} that supports writing out to a
@@ -63,7 +62,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
             return Optional.of(new BufferedWriter(new FileWriter(file)));
         } catch (IOException e) {
             LOGGER.error("Writer cannot be created", e);
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 
@@ -74,7 +73,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
                     file)));
         } catch (IOException e) {
             LOGGER.error("Input stream cannot be created", e);
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 

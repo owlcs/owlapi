@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -100,7 +101,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-import com.google.common.base.Optional;
 import com.google.inject.Provider;
 
 /**
@@ -128,7 +128,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Nonnull
     private Provider<OWLOntologyLoaderConfiguration> configProvider;
     @Nonnull
-    private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
+    private Optional<OWLOntologyLoaderConfiguration> config = Optional.empty();
     protected OWLDataFactory df;
     private List<Token> tokens;
     private int tokenIndex;
@@ -220,7 +220,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Override
     public void setOntologyLoaderConfiguration(
             OWLOntologyLoaderConfiguration config) {
-        this.config = Optional.fromNullable(config);
+        this.config = Optional.ofNullable(config);
     }
 
     @Override
@@ -2285,7 +2285,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             if (IMPORT.matches(section)) {
                 consumeToken();
                 tok = peekToken();
-                Optional<IRI> importedIRI = Optional.absent();
+                Optional<IRI> importedIRI = Optional.empty();
                 if (tok.startsWith("<")) {
                     importedIRI = Optional.of(parseIRI());
                 } else if (isOntologyName(tok)) {

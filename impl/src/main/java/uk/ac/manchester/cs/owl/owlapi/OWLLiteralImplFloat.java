@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -29,8 +30,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -217,6 +216,7 @@ public class OWLLiteralImplFloat extends
 
     @Override
     public Optional<OWLLiteral> asLiteral() {
+        // XXX bring up to interface default?
         return Optional.<OWLLiteral> of(this);
     }
 }

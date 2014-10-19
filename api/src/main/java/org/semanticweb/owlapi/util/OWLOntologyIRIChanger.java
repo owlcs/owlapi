@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -28,8 +29,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
-
-import com.google.common.base.Optional;
 
 /**
  * Changes the URI of an ontology and ensures that ontologies which import the

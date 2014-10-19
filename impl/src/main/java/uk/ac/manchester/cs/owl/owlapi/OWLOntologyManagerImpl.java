@@ -12,12 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static com.google.common.base.Optional.absent;
 import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
@@ -100,7 +101,6 @@ import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
 import com.google.inject.Provider;
 
 /**
@@ -160,7 +160,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
     @Nonnull
-    private Optional<OWLOntologyLoaderConfiguration> config = absent();
+    private transient Optional<OWLOntologyLoaderConfiguration> config = Optional
+            .empty();
 
     /**
      * @param dataFactory
@@ -182,7 +183,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public void setOntologyLoaderConfiguration(
             OWLOntologyLoaderConfiguration newConfig) {
-        config = Optional.fromNullable(newConfig);
+        config = Optional.ofNullable(newConfig);
     }
 
     @Override
@@ -289,7 +290,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             IRI documentIRI = getDocumentIRIFromMappers(id, true);
             if (documentIRI == null) {
                 if (!id.isAnonymous()) {
-                    documentIRI = id.getDefaultDocumentIRI().orNull();
+                    documentIRI = id.getDefaultDocumentIRI().orElse(null);
                 } else {
                     documentIRI = IRI.generateDocumentIRI();
                 }
@@ -617,7 +618,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
         if (documentIRI == null) {
             if (!ontologyID.isAnonymous()) {
-                documentIRI = ontologyID.getDefaultDocumentIRI().orNull();
+                documentIRI = ontologyID.getDefaultDocumentIRI().orElse(null);
             } else {
                 documentIRI = IRI.generateDocumentIRI();
             }
@@ -645,7 +646,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             throws OWLOntologyCreationException {
         if (contains(ontologyIRI)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(
-                    of(ontologyIRI), absent()));
+                    of(ontologyIRI), Optional.empty()));
         }
         OWLOntology ont = createOntology(ontologyIRI);
         Set<OWLAxiom> axioms = new HashSet<>();
@@ -663,7 +664,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             throws OWLOntologyCreationException {
         if (contains(ontologyIRI)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(
-                    of(ontologyIRI), absent()));
+                    of(ontologyIRI), Optional.empty()));
         }
         OWLOntology ont = createOntology(ontologyIRI);
         addAxioms(ont, axioms);
@@ -733,7 +734,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (ontByID != null) {
             return ontByID;
         }
-        OWLOntologyID id = new OWLOntologyID(of(iri), absent());
+        OWLOntologyID id = new OWLOntologyID(of(iri), Optional.empty());
         IRI documentIRI = getDocumentIRIFromMappers(id, true);
         if (documentIRI == null) {
             // Nothing we can do here. We can't get a document IRI to load
@@ -794,7 +795,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (loadCount.get() != importsLoadCount.get()) {
             LOGGER.error("Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
         }
-        fireStartedLoadingEvent(new OWLOntologyID(of(ontologyIRI), absent()),
+        fireStartedLoadingEvent(
+                new OWLOntologyID(of(ontologyIRI), Optional.empty()),
                 documentSource.getDocumentIRI(), loadCount.get() > 0);
         loadCount.incrementAndGet();
         broadcastChanges.set(false);
@@ -1078,9 +1080,16 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private void readObject(java.io.ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
+        config = Optional.ofNullable((OWLOntologyLoaderConfiguration) stream
+                .readObject());
         listenerMap = new ConcurrentHashMap<>();
         impendingChangeListenerMap = new ConcurrentHashMap<>();
         vetoListeners = new ArrayList<>();
+    }
+
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        stream.writeObject(config.orElse(null));
     }
 
     @Override
@@ -1334,6 +1343,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Nonnull
     protected <T> Optional<T> of(T t) {
-        return Optional.fromNullable(t);
+        return Optional.ofNullable(t);
     }
 }

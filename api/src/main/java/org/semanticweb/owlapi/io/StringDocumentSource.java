@@ -16,13 +16,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-
-import com.google.common.base.Optional;
 
 /**
  * An ontology input source that wraps a string.

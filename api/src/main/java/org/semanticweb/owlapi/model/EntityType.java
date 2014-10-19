@@ -18,12 +18,11 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import com.google.common.base.Optional;
 
 /**
  * Represents the different types of OWL 2 Entities.

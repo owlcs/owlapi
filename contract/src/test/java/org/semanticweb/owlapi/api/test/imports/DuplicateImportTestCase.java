@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -28,8 +29,6 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import com.google.common.base.Optional;
 
 @SuppressWarnings({ "javadoc" })
 public class DuplicateImportTestCase extends TestBase {

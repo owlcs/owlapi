@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -63,8 +64,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -129,7 +128,7 @@ public abstract class TestBase {
 
     @Nonnull
     protected <T> Optional<T> of(T t) {
-        return Optional.fromNullable(t);
+        return Optional.ofNullable(t);
     }
 
     @Nonnull

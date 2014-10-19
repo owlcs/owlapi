@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnull;
@@ -23,8 +24,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  * An ontology document target which can write to a GZIP File. Notice that this
@@ -54,7 +53,7 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
             return Optional.of(new GZIPOutputStream(new FileOutputStream(out)));
         } catch (IOException e) {
             LOGGER.error("Cannot create output stream", e);
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 

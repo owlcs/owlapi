@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
@@ -81,7 +82,6 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Sets;
 
@@ -1364,7 +1364,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * {@code null} if the parsed ontology does not have an IRI
      */
     private void chooseAndSetOntologyIRI() {
-        Optional<IRI> ontologyIRIToSet = Optional.absent();
+        Optional<IRI> ontologyIRIToSet = Optional.empty();
         if (ontologyIRIs.isEmpty()) {
             // No ontology IRIs
             // We used to use the xml:base here. But this is probably incorrect

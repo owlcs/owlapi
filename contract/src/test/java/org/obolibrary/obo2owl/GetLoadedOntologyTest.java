@@ -2,14 +2,14 @@ package org.obolibrary.obo2owl;
 
 import static org.junit.Assert.*;
 
+import java.util.Optional;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import com.google.common.base.Optional;
 
 @SuppressWarnings({ "javadoc" })
 public class GetLoadedOntologyTest {
