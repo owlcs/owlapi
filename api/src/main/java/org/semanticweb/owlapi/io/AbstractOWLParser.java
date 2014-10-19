@@ -36,6 +36,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     protected AbstractOWLParser() {}
 
+    @SuppressWarnings("resource")
     @Nonnull
     protected InputSource getInputSource(
             @Nonnull OWLOntologyDocumentSource source,

@@ -25,5 +25,5 @@ public interface HasIncrementalSignatureGenerationSupport {
     default
             void
             addAnonymousIndividualsToSet(
-                    @SuppressWarnings("unused") @Nonnull Set<OWLAnonymousIndividual> anons) {};
+                    @SuppressWarnings("unused") @Nonnull Set<OWLAnonymousIndividual> anons) {}
 }

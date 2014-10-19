@@ -48,6 +48,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
         this.file = checkNotNull(file, "file cannot be null");
     }
 
+    @SuppressWarnings("resource")
     @Override
     public Optional<OutputStream> getOutputStream() {
         File parentFile = file.getAbsoluteFile().getParentFile();

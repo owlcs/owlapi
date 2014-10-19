@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.StringLengthComparator;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 
 /**
@@ -358,7 +359,8 @@ public class XMLWriterImpl implements XMLWriter {
                     // Name is null so by convension this is a comment
                     if (textContent != null) {
                         writer.write("\n\n\n");
-                        for (String token : textContent.split("\n")) {
+                        for (String token : Splitter.on('\n')
+                                .split(textContent)) {
                             if (!token.equals("\n")) {
                                 insertIndentation();
                             }

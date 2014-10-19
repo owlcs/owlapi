@@ -60,8 +60,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
     @Override
     public Optional<Writer> getWriter() {
         try {
-            BufferedWriter reference = new BufferedWriter(new FileWriter(file));
-            return Optional.of(reference);
+            return Optional.of(new BufferedWriter(new FileWriter(file)));
         } catch (IOException e) {
             LOGGER.error("Writer cannot be created", e);
             return Optional.absent();
@@ -71,9 +70,8 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
     @Override
     public Optional<OutputStream> getOutputStream() {
         try {
-            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
-                    new FileOutputStream(file));
-            return Optional.of(bufferedOutputStream);
+            return Optional.of(new BufferedOutputStream(new FileOutputStream(
+                    file)));
         } catch (IOException e) {
             LOGGER.error("Input stream cannot be created", e);
             return Optional.absent();

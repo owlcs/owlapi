@@ -148,6 +148,7 @@ public class DocumentSources {
      *         if there was an {@code IOException} in obtaining the input stream
      *         from the URI.
      */
+    @SuppressWarnings("resource")
     @Nonnull
     public static Optional<InputStream> getInputStream(
             @Nonnull IRI documentIRI,
