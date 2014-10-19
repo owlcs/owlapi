@@ -18,7 +18,6 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
@@ -29,9 +28,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import com.google.common.base.Optional;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 
 /**
  * Represents International Resource Identifiers.
@@ -312,25 +308,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     // Impl - All constructors are private - factory methods are used for
     // public creation
     private static final long serialVersionUID = 40000L;
-    private static final LoadingCache<String, String> PREFIX_CACHE = CacheBuilder
-            .newBuilder().concurrencyLevel(8).maximumSize(1024)
-            .build(new CacheLoader<String, String>() {
-
-                @Override
-                public String load(String key) {
-                    return key;
-                }
-            });
-
-    @Nonnull
-    private static String cache(@Nonnull String s) {
-        try {
-            return PREFIX_CACHE.get(s);
-        } catch (@SuppressWarnings("unused") ExecutionException e) {
-            return s;
-        }
-    }
-
     @Nonnull
     private final String remainder;
     @Nonnull
@@ -346,7 +323,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        The suffix.
      */
     protected IRI(@Nonnull String prefix, @Nullable String suffix) {
-        namespace = cache(prefix);
+        namespace = prefix.intern();
         remainder = suffix == null ? "" : suffix;
     }
 
