@@ -20,72 +20,62 @@ import javax.annotation.Nonnull;
  * @since 3.3
  * @param <R>
  *        return type
- * @param <E>
- *        exception thrown
  */
-public interface OWLOntologyChangeDataVisitor<R, E extends Exception> {
+public interface OWLOntologyChangeDataVisitor<R> {
 
     /**
      * @param data
      *        object to visit
      * @return result of visit
-     * @throws E
-     *         exception
      */
     @Nonnull
-    R visit(AddAxiomData data) throws E;
+    R visit(AddAxiomData data);
 
     /**
      * @param data
      *        object to visit
      * @return result of visit
-     * @throws E
-     *         exception
      */
-    R visit(RemoveAxiomData data) throws E;
+    @Nonnull
+    R visit(RemoveAxiomData data);
 
     /**
      * @param data
      *        object to visit
      * @return result of visit
-     * @throws E
-     *         exception
      */
-    R visit(AddOntologyAnnotationData data) throws E;
+    @Nonnull
+    R visit(AddOntologyAnnotationData data);
 
     /**
      * @param data
      *        object to visit
      * @return result of visit
-     * @throws E
-     *         exception
      */
-    R visit(RemoveOntologyAnnotationData data) throws E;
+    @Nonnull
+    R visit(RemoveOntologyAnnotationData data);
 
     /**
      * @param data
      *        object to visit
      * @return result of visit
-     * @throws E
-     *         exception
      */
-    R visit(SetOntologyIDData data) throws E;
+    @Nonnull
+    R visit(SetOntologyIDData data);
 
     /**
      * @param data
      *        object to visit
      * @return result of visit
-     * @throws E
-     *         exception
      */
-    R visit(AddImportData data) throws E;
+    @Nonnull
+    R visit(AddImportData data);
 
     /**
      * @param data
      *        object to visit
      * @return result of visit
-     * @throws E
-     *         exception
      */
-    R visit(RemoveImportData data) throws E;
+    @Nonnull
+    R visit(RemoveImportData data);
 }

@@ -64,8 +64,7 @@ public class SetOntologyIDData extends OWLOntologyChangeData {
     }
 
     @Override
-    public <O, E extends Exception> O accept(
-            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+    public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
         return visitor.visit(this);
     }
 

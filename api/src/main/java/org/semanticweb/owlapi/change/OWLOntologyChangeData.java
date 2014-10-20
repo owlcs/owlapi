@@ -46,15 +46,10 @@ public abstract class OWLOntologyChangeData implements HasSignature,
      *        The visitor
      * @param <R>
      *        The return type for visitor's visit methods.
-     * @param <E>
-     *        The exception type for exceptions thrown by the visitor's visit
-     *        methods.
      * @return The object returned by the visitor's visit methods.
-     * @throws E
-     *         The exception thrown by the visitor's visit methods.
      */
-    public abstract <R, E extends Exception> R accept(
-            @Nonnull OWLOntologyChangeDataVisitor<R, E> visitor) throws E;
+    public abstract <R> R accept(
+            @Nonnull OWLOntologyChangeDataVisitor<R> visitor);
 
     /**
      * Creates an {@link OWLOntologyChange} object that pertains to the
