@@ -25,4 +25,14 @@ public interface SWRLDataPropertyAtom extends
     @Nonnull
     @Override
     OWLDataPropertyExpression getPredicate();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

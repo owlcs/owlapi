@@ -25,8 +25,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -95,22 +93,12 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
     }
 
     @Override
-    public void accept(@Nonnull OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

@@ -16,8 +16,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
@@ -62,17 +60,7 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>
     }
 
     @Override
-    public void accept(@Nonnull OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

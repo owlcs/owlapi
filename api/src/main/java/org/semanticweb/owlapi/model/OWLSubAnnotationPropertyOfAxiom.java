@@ -42,4 +42,14 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
      */
     @Nonnull
     OWLAnnotationProperty getSuperProperty();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

@@ -16,8 +16,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
@@ -57,11 +55,6 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
     }
 
     @Override
-    public void accept(@Nonnull OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
@@ -82,11 +75,6 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
         SWRLDataRangeAtom other = (SWRLDataRangeAtom) obj;
         return other.getArgument().equals(getArgument())
                 && other.getPredicate().equals(getPredicate());
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

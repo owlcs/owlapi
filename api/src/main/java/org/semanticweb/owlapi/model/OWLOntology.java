@@ -437,4 +437,14 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
             @Nonnull OWLOntologyDocumentTarget documentTarget)
             throws OWLOntologyStorageException;
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

@@ -28,4 +28,14 @@ public interface SWRLLiteralArgument extends SWRLDArgument {
      */
     @Nonnull
     OWLLiteral getLiteral();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

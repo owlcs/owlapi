@@ -200,4 +200,14 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      */
     @Nonnull
     <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

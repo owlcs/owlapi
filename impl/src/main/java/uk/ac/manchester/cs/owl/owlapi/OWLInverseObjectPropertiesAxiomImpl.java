@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -90,12 +88,14 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
         if (first instanceof HasIncrementalSignatureGenerationSupport) {
-            ((HasIncrementalSignatureGenerationSupport) first).addAnonymousIndividualsToSet(anons);
+            ((HasIncrementalSignatureGenerationSupport) first)
+                    .addAnonymousIndividualsToSet(anons);
         } else {
             anons.addAll(first.getAnonymousIndividuals());
         }
         if (second instanceof HasIncrementalSignatureGenerationSupport) {
-            ((HasIncrementalSignatureGenerationSupport) second).addAnonymousIndividualsToSet(anons);
+            ((HasIncrementalSignatureGenerationSupport) second)
+                    .addAnonymousIndividualsToSet(anons);
         } else {
             anons.addAll(second.getAnonymousIndividuals());
         }
@@ -129,22 +129,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     }
 
     @Override
-    public void accept(@Nonnull OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

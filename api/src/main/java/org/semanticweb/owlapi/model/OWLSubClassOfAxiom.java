@@ -50,4 +50,14 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
      * @return {@code true} if this axiom is a GCI, other wise {@code false}.
      */
     boolean isGCI();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

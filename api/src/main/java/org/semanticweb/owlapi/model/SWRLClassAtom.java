@@ -24,4 +24,14 @@ public interface SWRLClassAtom extends SWRLUnaryAtom<SWRLIArgument> {
     @Nonnull
     @Override
     OWLClassExpression getPredicate();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

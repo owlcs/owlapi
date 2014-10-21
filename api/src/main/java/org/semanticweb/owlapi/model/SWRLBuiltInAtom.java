@@ -37,4 +37,14 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
      * @return {@code true} if this is a core builtin, otherwise {@code false}
      */
     boolean isCoreBuiltIn();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

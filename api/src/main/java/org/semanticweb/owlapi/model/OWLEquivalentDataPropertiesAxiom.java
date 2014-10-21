@@ -39,4 +39,14 @@ public interface OWLEquivalentDataPropertiesAxiom extends
     /** @return the axioms equivalent to the equivalent data properties axiom */
     @Nonnull
     Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

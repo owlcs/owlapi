@@ -31,4 +31,14 @@ public interface OWLSymmetricObjectPropertyAxiom extends
     /** @return the set of axioms equivalent to this axiom */
     @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /**
  * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Functional_Data_Properties"
@@ -22,4 +24,15 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLFunctionalDataPropertyAxiom extends
-        OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {}
+        OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+}

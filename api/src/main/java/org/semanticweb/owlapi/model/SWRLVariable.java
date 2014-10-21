@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
 /**
  * Represents a variable that can appear in an atom. Variable can either be
  * place holders for individuals or literals. Variables are named with IRIs.
@@ -23,4 +25,15 @@ import java.io.Serializable;
  * @since 2.0.0
  */
 public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI,
-        Serializable {}
+        Serializable {
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+}

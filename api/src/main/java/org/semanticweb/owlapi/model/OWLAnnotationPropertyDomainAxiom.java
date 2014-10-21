@@ -43,4 +43,14 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
     @Nonnull
     @Override
     IRI getDomain();
+
+    @Override
+    default void accept(@Nonnull OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }
