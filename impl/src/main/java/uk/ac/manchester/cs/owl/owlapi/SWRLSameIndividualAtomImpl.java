@@ -72,7 +72,7 @@ public class SWRLSameIndividualAtomImpl extends
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

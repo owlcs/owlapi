@@ -600,7 +600,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

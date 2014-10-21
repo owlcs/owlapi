@@ -80,22 +80,22 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

@@ -234,22 +234,22 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -268,12 +268,12 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

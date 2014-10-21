@@ -70,17 +70,17 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

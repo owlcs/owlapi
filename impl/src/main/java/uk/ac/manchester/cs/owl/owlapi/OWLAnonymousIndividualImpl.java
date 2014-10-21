@@ -81,42 +81,42 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLIndividualVisitor visitor) {
+    public void accept(@Nonnull OWLIndividualVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationSubjectVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationSubjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
+    public <E> E accept(@Nonnull OWLAnnotationSubjectVisitorEx<E> visitor) {
         return visitor.visit(this);
     }
 

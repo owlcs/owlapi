@@ -72,22 +72,22 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
     }
 
     @Override
-    public void accept(OWLClassExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

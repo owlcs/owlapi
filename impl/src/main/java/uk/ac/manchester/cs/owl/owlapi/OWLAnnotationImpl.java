@@ -135,22 +135,22 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationObjectVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

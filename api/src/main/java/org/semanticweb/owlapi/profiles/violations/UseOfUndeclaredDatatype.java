@@ -66,7 +66,7 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation implements
     }
 
     @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

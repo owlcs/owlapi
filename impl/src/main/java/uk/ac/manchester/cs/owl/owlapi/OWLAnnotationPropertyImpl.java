@@ -86,27 +86,27 @@ public class OWLAnnotationPropertyImpl extends
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLEntityVisitor visitor) {
+    public void accept(@Nonnull OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLEntityVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -126,12 +126,12 @@ public class OWLAnnotationPropertyImpl extends
     }
 
     @Override
-    public void accept(OWLNamedObjectVisitor visitor) {
+    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -148,7 +148,7 @@ public class OWLAnnotationPropertyImpl extends
     }
 
     @Override
-    public void accept(OWLPropertyExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
         visitor.visit(this);
     }
 

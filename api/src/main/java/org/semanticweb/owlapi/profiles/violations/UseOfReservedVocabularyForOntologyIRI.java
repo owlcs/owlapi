@@ -45,7 +45,7 @@ public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -56,7 +56,7 @@ public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
     }
 
     @Override
-    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

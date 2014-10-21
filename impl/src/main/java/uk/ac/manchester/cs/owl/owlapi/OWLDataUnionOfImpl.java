@@ -80,27 +80,27 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataRangeVisitor visitor) {
+    public void accept(@Nonnull OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }
