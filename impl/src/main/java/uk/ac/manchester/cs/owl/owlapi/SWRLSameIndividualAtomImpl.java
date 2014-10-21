@@ -18,8 +18,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -52,16 +50,6 @@ public class SWRLSameIndividualAtomImpl extends
         super(checkNotNull(property, "property cannot be null"), checkNotNull(
                 arg0, "arg0 cannot be null"), checkNotNull(arg1,
                 "arg1 cannot be null"));
-    }
-
-    @Override
-    public void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

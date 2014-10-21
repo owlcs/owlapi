@@ -17,8 +17,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -71,16 +69,6 @@ public class SWRLObjectPropertyAtomImpl extends
             return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(),
                     getSecondArgument());
         }
-    }
-
-    @Override
-    public void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

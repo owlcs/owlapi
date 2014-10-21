@@ -94,4 +94,14 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    default void accept(SWRLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

@@ -23,8 +23,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -65,16 +63,6 @@ public class SWRLLiteralArgumentImpl extends
     @Override
     public OWLLiteral getLiteral() {
         return literal;
-    }
-
-    @Override
-    public void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

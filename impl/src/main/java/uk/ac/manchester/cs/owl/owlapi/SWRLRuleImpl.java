@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLObject;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
@@ -158,16 +157,6 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImplWithEntityAndAnonCaching
         }
         classAtomsPredicates = new WeakReference<>(toReturn);
         return toReturn;
-    }
-
-    @Override
-    public void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

@@ -18,8 +18,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -52,16 +50,6 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>
     @Override
     public OWLClassExpression getPredicate() {
         return (OWLClassExpression) super.getPredicate();
-    }
-
-    @Override
-    public void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

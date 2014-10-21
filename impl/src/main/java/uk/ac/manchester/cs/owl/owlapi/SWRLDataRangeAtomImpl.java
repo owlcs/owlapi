@@ -18,8 +18,6 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -52,16 +50,6 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
     @Override
     public OWLDataRange getPredicate() {
         return (OWLDataRange) super.getPredicate();
-    }
-
-    @Override
-    public void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

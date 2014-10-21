@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
@@ -90,16 +88,6 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         return new ArrayList<>(args);
-    }
-
-    @Override
-    public void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

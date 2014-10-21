@@ -21,8 +21,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
-import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -58,16 +56,6 @@ public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     @Override
     protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return iri.compareTo(((SWRLVariable) object).getIRI());
-    }
-
-    @Override
-    public void accept(SWRLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override
