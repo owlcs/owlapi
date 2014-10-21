@@ -28,8 +28,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
@@ -161,16 +159,6 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLEquivalentClassesAxiom;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

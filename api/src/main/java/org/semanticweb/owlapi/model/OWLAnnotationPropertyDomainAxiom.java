@@ -53,4 +53,14 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
     default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

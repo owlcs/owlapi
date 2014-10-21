@@ -23,8 +23,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
@@ -101,16 +99,6 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
             return ((OWLDisjointUnionAxiom) obj).getOWLClass().equals(owlClass);
         }
         return false;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLAxiomVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override
