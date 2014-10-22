@@ -21,10 +21,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -159,26 +155,6 @@ public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     @Override
     public boolean isOWLDatatype() {
         return true;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public void accept(@Nonnull OWLDataRangeVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

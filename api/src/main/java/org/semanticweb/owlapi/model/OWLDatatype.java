@@ -117,4 +117,24 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
     default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    default void accept(@Nonnull OWLDataVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    default void accept(@Nonnull OWLDataRangeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }
