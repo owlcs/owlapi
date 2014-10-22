@@ -20,10 +20,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.NodeID;
-import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -74,26 +70,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     protected int compareObjectOfSameType(OWLObject object) {
         OWLAnonymousIndividual other = (OWLAnonymousIndividual) object;
         return nodeId.compareTo(other.getID());
-    }
-
-    @Override
-    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public void accept(@Nonnull OWLAnnotationSubjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <E> E accept(@Nonnull OWLAnnotationSubjectVisitorEx<E> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

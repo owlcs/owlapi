@@ -58,4 +58,24 @@ public interface OWLAnonymousIndividual extends OWLIndividual,
     default <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    default void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    default void accept(@Nonnull OWLAnnotationSubjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <E> E accept(@Nonnull OWLAnnotationSubjectVisitorEx<E> visitor) {
+        return visitor.visit(this);
+    }
 }

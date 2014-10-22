@@ -19,8 +19,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -77,16 +75,6 @@ public class OWLFacetRestrictionImpl extends
     @Override
     public OWLLiteral getFacetValue() {
         return facetValue;
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public void accept(@Nonnull OWLDataVisitor visitor) {
-        visitor.visit(this);
     }
 
     @Override

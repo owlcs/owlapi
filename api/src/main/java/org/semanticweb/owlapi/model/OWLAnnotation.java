@@ -90,7 +90,9 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      * @param visitor
      *        visitor to accept
      */
-    void accept(@Nonnull OWLAnnotationObjectVisitor visitor);
+    default void accept(@Nonnull OWLAnnotationObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 
     /**
      * @param visitor
@@ -100,7 +102,9 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      * @return visitor value
      */
     @Nonnull
-    <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor);
+    default <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
     @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {

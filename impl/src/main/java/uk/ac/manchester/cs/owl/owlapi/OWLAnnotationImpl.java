@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -141,16 +139,6 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
         } else {
             return getValue().compareTo(other.getValue());
         }
-    }
-
-    @Override
-    public void accept(@Nonnull OWLAnnotationObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override
