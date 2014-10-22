@@ -297,31 +297,13 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     public void shouldDoPrecedenceWithParentheses()
             throws OWLOntologyCreationException {
         // given
+        String text1 = "(a and b) or c";
         OWLClass a = Class(IRI("urn:test#a"));
         OWLClass b = Class(IRI("urn:test#b"));
         OWLClass c = Class(IRI("urn:test#c"));
-        OWLClass d = Class(IRI("urn:test#all"));
-        String text1 = "(a and b) or c";
         OWLClassExpression expected = df.getOWLObjectUnionOf(
                 df.getOWLObjectIntersectionOf(a, b), c);
-        OWLOntology o = m.createOntology();
-        m.addAxiom(o, df.getOWLDeclarationAxiom(a));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(b));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(c));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(d));
-        m.addAxiom(o, df.getOWLSubClassOfAxiom(expected, d));
-        // select a short form provider that uses annotations
-        ShortFormProvider sfp = new AnnotationValueShortFormProvider(
-                Arrays.asList(df.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
-        BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                m.getOntologies(), sfp);
-        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
-        parser.setStringToParse(text1);
-        ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
-                shortFormProvider);
-        parser.setOWLEntityChecker(owlEntityChecker);
-        parser.setDefaultOntology(o);
+        ManchesterOWLSyntaxParser parser = setupPArser(text1, expected);
         // when
         // finally parse
         OWLClassExpression dsvf = parser.parseClassExpression();
@@ -385,13 +367,26 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     public void shouldDoPrecedenceWithoutParentheses()
             throws OWLOntologyCreationException {
         // given
+        String text1 = "a and b or c";
+        OWLClass a = Class(IRI("urn:test#a"));
+        OWLClass b = Class(IRI("urn:test#b"));
+        OWLClass c = Class(IRI("urn:test#c"));
+        OWLClassExpression expected = df.getOWLObjectUnionOf(
+                df.getOWLObjectIntersectionOf(a, b), c);
+        ManchesterOWLSyntaxParser parser = setupPArser(text1, expected);
+        // when
+        // finally parse
+        OWLClassExpression dsvf = parser.parseClassExpression();
+        // then
+        assertEquals("Expected " + expected + " actual " + dsvf, expected, dsvf);
+    }
+
+    protected ManchesterOWLSyntaxParser setupPArser(String text1,
+            OWLClassExpression expected) throws OWLOntologyCreationException {
         OWLClass a = Class(IRI("urn:test#a"));
         OWLClass b = Class(IRI("urn:test#b"));
         OWLClass c = Class(IRI("urn:test#c"));
         OWLClass d = Class(IRI("urn:test#all"));
-        String text1 = "a and b or c";
-        OWLClassExpression expected = df.getOWLObjectUnionOf(
-                df.getOWLObjectIntersectionOf(a, b), c);
         OWLOntology o = m.createOntology();
         m.addAxiom(o, df.getOWLDeclarationAxiom(a));
         m.addAxiom(o, df.getOWLDeclarationAxiom(b));
@@ -410,11 +405,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
         parser.setDefaultOntology(o);
-        // when
-        // finally parse
-        OWLClassExpression dsvf = parser.parseClassExpression();
-        // then
-        assertEquals("Expected " + expected + " actual " + dsvf, expected, dsvf);
+        return parser;
     }
 
     @Test
