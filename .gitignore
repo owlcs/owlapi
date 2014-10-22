@@ -10,3 +10,4 @@ bin/
 *.ipr
 .DS_Store
 dependency-reduced-pom.xml
+/reports/
