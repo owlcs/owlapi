@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
@@ -175,11 +173,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     }
 
     @Override
-    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public void accept(@Nonnull OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
@@ -196,11 +189,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
 
     @Override
     public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

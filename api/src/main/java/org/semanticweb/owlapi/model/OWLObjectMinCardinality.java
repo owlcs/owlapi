@@ -34,4 +34,14 @@ public interface OWLObjectMinCardinality extends
     default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    default void accept(@Nonnull OWLClassExpressionVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

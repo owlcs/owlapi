@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -60,15 +58,5 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl
             return obj instanceof OWLDataAllValuesFrom;
         }
         return false;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 }

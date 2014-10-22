@@ -16,8 +16,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -60,15 +58,5 @@ public class OWLObjectSomeValuesFromImpl extends
             return obj instanceof OWLObjectSomeValuesFrom;
         }
         return false;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 }

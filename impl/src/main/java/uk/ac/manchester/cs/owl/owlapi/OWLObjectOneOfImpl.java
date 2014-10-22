@@ -23,8 +23,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -102,16 +100,6 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
             return ((OWLObjectOneOf) obj).getIndividuals().equals(values);
         }
         return false;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

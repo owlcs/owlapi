@@ -21,8 +21,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
@@ -87,16 +85,6 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
             return ((OWLObjectComplementOf) obj).getOperand().equals(operand);
         }
         return false;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

@@ -21,14 +21,11 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -38,8 +35,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class OWLObjectHasValueImpl extends
-        OWLValueRestrictionImpl<OWLIndividual> implements OWLObjectHasValue,
-        OWLObjectRestriction {
+        OWLValueRestrictionImpl<OWLIndividual> implements OWLObjectHasValue {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -110,15 +106,5 @@ public class OWLObjectHasValueImpl extends
         return new OWLObjectSomeValuesFromImpl(
                 getProperty(),
                 new OWLObjectOneOfImpl(CollectionFactory.createSet(getFiller())));
-    }
-
-    @Override
-    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 }
