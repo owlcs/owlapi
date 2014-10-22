@@ -189,7 +189,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      * @param visitor
      *        visitor
      */
-    void accept(@Nonnull OWLDataVisitor visitor);
+    default void accept(@Nonnull OWLDataVisitor visitor) {
+        visitor.visit(this);
+    }
 
     /**
      * @param visitor
@@ -199,7 +201,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      * @return visitor return value
      */
     @Nonnull
-    <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
+    default <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
     @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
@@ -208,6 +212,16 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
 
     @Override
     default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    default void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

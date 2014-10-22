@@ -18,10 +18,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -237,28 +233,6 @@ public class OWLLiteralImplNoCompression extends
                     && language.equals(other.getLang());
         }
         return false;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLDataVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Nonnull
-    @Override
-    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Nonnull
-    @Override
-    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override
