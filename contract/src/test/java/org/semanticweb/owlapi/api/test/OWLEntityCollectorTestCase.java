@@ -35,8 +35,8 @@ import org.semanticweb.owlapi.util.OWLEntityCollector;
 @RunWith(Parameterized.class)
 public class OWLEntityCollectorTestCase extends TestBase {
 
-    private OWLAxiom object;
-    private String expected;
+    protected OWLAxiom object;
+    protected String expected;
 
     public OWLEntityCollectorTestCase(OWLAxiom object, String expected) {
         this.object = object;
