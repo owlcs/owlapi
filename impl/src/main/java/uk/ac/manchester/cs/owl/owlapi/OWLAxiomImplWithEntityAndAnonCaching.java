@@ -12,24 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.Collections.*;
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static java.util.Collections.emptySet;
+import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.copy;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.NNF;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -54,25 +55,10 @@ public abstract class OWLAxiomImplWithEntityAndAnonCaching extends
      * @param annotations
      *        annotations on the axiom
      */
-    @SuppressWarnings("unchecked")
     public OWLAxiomImplWithEntityAndAnonCaching(
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
-        if (!annotations.isEmpty()) {
-            if (annotations.size() == 1) {
-                this.annotations = Collections.singletonList(annotations
-                        .iterator().next());
-            } else {
-                this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
-            }
-        } else {
-            this.annotations = emptyList();
-        }
-    }
-
-    @Override
-    public boolean isAnnotated() {
-        return !annotations.isEmpty();
+        this.annotations = asAnnotations(annotations);
     }
 
     // TODO when processing annotations on OWLOntology:: add axiom, needs
@@ -91,37 +77,12 @@ public abstract class OWLAxiomImplWithEntityAndAnonCaching extends
     }
 
     @Override
-    public Set<OWLAnnotation> getAnnotations(
-            OWLAnnotationProperty annotationProperty) {
+    public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty ap) {
         if (annotations.isEmpty()) {
             return emptySet();
         }
-        Set<OWLAnnotation> result = new HashSet<>();
-        annotations.stream()
-                .filter(a -> a.getProperty().equals(annotationProperty))
-                .forEach(a -> result.add(a));
-        return result;
-    }
-
-    @Override
-    public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
-        return getAxiomWithoutAnnotations().equals(
-                axiom.getAxiomWithoutAnnotations());
-    }
-
-    @Override
-    public boolean isOfType(AxiomType<?>... axiomTypes) {
-        for (AxiomType<?> type : axiomTypes) {
-            if (getAxiomType().equals(type)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isOfType(Set<AxiomType<?>> types) {
-        return types.contains(getAxiomType());
+        return annotations.stream().filter(a -> a.getProperty().equals(ap))
+                .collect(toSet());
     }
 
     /**
@@ -134,9 +95,7 @@ public abstract class OWLAxiomImplWithEntityAndAnonCaching extends
      */
     @Nonnull
     protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
-        Set<OWLAnnotation> merged = new HashSet<>(annos);
-        merged.addAll(annotations);
-        return merged;
+        return Sets.newHashSet(Iterables.concat(annos, annotations));
     }
 
     @Override
@@ -158,8 +117,6 @@ public abstract class OWLAxiomImplWithEntityAndAnonCaching extends
 
     @Override
     public OWLAxiom getNNF() {
-        NNF con = new NNF(new OWLDataFactoryImpl());
-        OWLAxiom nnf = accept(con);
-        return verifyNotNull(nnf);
+        return accept(new NNF(new OWLDataFactoryImpl()));
     }
 }

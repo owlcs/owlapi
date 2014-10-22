@@ -12,55 +12,31 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.HasAnonymousIndividuals;
 import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLObject, HasIncrementalSignatureGenerationSupport, Serializable {
+public abstract class OWLObjectImplWithoutEntityAndAnonCaching extends
+        OWLObjectAbstractImpl implements
+        HasIncrementalSignatureGenerationSupport {
 
     private static final long serialVersionUID = 40000L;
-    /** a convenience reference for an empty annotation set, saves on typing. */
-    @Nonnull
-    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
-            .emptySet();
-    static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
-    protected int hashCode = 0;
-    @Nonnull
-    protected static final OWLClass OWL_THING = new OWLClassImpl(
-            OWLRDFVocabulary.OWL_THING.getIRI());
 
     @Nonnull
     @Override
@@ -104,66 +80,6 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     }
 
     @Override
-    public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
-        return getSignature().contains(owlEntity);
-    }
-
-    @Override
-    public Set<OWLClass> getClassesInSignature() {
-        Set<OWLClass> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLClass()) {
-                result.add(ent.asOWLClass());
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        Set<OWLDataProperty> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLDataProperty()) {
-                result.add(ent.asOWLDataProperty());
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        Set<OWLObjectProperty> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLObjectProperty()) {
-                result.add(ent.asOWLObjectProperty());
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        Set<OWLNamedIndividual> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLNamedIndividual()) {
-                result.add(ent.asOWLNamedIndividual());
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public Set<OWLDatatype> getDatatypesInSignature() {
-        Set<OWLDatatype> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLDatatype()) {
-                result.add(ent.asOWLDatatype());
-            }
-        }
-        return result;
-    }
-
-    @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
         Set<OWLAnnotationProperty> result = new HashSet<>();
         for (OWLEntity ent : getSignature()) {
@@ -199,92 +115,5 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
         } else {
             anons.addAll(canHasAnons.getAnonymousIndividuals());
         }
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj == this || obj instanceof OWLObject;
-    }
-
-    @Override
-    public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = HashCode.hashCode(this);
-        }
-        return hashCode;
-    }
-
-    protected abstract int index();
-
-    @Override
-    public int compareTo(OWLObject o) {
-        int thisTypeIndex = index();
-        int otherTypeIndex = 0;
-        if (o instanceof OWLObjectImplWithoutEntityAndAnonCaching) {
-            otherTypeIndex = ((OWLObjectImplWithoutEntityAndAnonCaching) o)
-                    .index();
-        } else {
-            otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
-        }
-        int diff = thisTypeIndex - otherTypeIndex;
-        if (diff == 0) {
-            // Objects are the same type
-            return compareObjectOfSameType(o);
-        } else {
-            return diff;
-        }
-    }
-
-    protected abstract int compareObjectOfSameType(@Nonnull OWLObject object);
-
-    @Override
-    @Nonnull
-    public String toString() {
-        return ToStringRenderer.getInstance().getRendering(this);
-    }
-
-    protected static int compareSets(Collection<? extends OWLObject> set1,
-            Collection<? extends OWLObject> set2) {
-        SortedSet<? extends OWLObject> ss1;
-        if (set1 instanceof SortedSet) {
-            ss1 = (SortedSet<? extends OWLObject>) set1;
-        } else {
-            ss1 = new TreeSet<>(set1);
-        }
-        SortedSet<? extends OWLObject> ss2;
-        if (set2 instanceof SortedSet) {
-            ss2 = (SortedSet<? extends OWLObject>) set2;
-        } else {
-            ss2 = new TreeSet<>(set2);
-        }
-        int i = 0;
-        Iterator<? extends OWLObject> thisIt = ss1.iterator();
-        Iterator<? extends OWLObject> otherIt = ss2.iterator();
-        while (i < ss1.size() && i < ss2.size()) {
-            OWLObject o1 = thisIt.next();
-            OWLObject o2 = otherIt.next();
-            int diff = o1.compareTo(o2);
-            if (diff != 0) {
-                return diff;
-            }
-            i++;
-        }
-        return ss1.size() - ss2.size();
-    }
-
-    protected static int compareLists(List<? extends OWLObject> list1,
-            List<? extends OWLObject> list2) {
-        int i = 0;
-        int size = list1.size() < list2.size() ? list1.size() : list2.size();
-        while (i < size) {
-            OWLObject o1 = list1.get(i);
-            OWLObject o2 = list2.get(i);
-            int diff = o1.compareTo(o2);
-            if (diff != 0) {
-                return diff;
-            }
-            i++;
-        }
-        return list1.size() - list2.size();
     }
 }

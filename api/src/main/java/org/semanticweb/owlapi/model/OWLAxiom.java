@@ -81,7 +81,10 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @return {@code true} if {@code axiom} without annotations is equal to
      *         this axiom without annotations otherwise {@code false}.
      */
-    boolean equalsIgnoreAnnotations(@Nonnull OWLAxiom axiom);
+    default boolean equalsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
+        return getAxiomWithoutAnnotations().equals(
+                axiom.getAxiomWithoutAnnotations());
+    }
 
     /**
      * Determines if this axiom is a logical axiom. Logical axioms are defined
@@ -113,7 +116,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @return {@code true} if this axiom has annotations on it, otherwise
      *         {@code false}
      */
-    boolean isAnnotated();
+    default boolean isAnnotated() {
+        return !getAnnotations().isEmpty();
+    }
 
     /**
      * Gets the axiom type for this axiom.
