@@ -76,4 +76,14 @@ public interface OWLAnnotationProperty extends OWLProperty {
     default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    default void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

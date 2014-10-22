@@ -21,8 +21,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -77,16 +75,6 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
                     inverseProperty);
         }
         return false;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override
