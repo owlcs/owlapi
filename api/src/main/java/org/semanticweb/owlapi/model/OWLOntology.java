@@ -104,7 +104,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @param visitor
      *        the visitor
      */
-    void accept(@Nonnull OWLNamedObjectVisitor visitor);
+    default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
 
     /**
      * Accepts a visitor
@@ -115,8 +117,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *        The visitor
      * @return visitor return value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor);
+    default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 
     /**
      * Gets the manager that manages this ontology. The manager is used by

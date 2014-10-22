@@ -27,10 +27,6 @@ import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -166,28 +162,8 @@ public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public void accept(@Nonnull OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

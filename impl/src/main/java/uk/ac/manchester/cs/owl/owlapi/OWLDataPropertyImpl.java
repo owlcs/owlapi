@@ -22,10 +22,6 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -114,26 +110,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
             return otherIRI.equals(iri);
         }
         return false;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

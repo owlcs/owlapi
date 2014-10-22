@@ -29,10 +29,6 @@ import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -168,28 +164,8 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public void accept(@Nonnull OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
     public IRI getIRI() {
         return owl2Datatype.getIRI();
-    }
-
-    @Override
-    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

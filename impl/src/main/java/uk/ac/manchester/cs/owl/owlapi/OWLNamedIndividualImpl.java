@@ -22,13 +22,9 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLIndividualVisitor;
 import org.semanticweb.owlapi.model.OWLIndividualVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -117,26 +113,6 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
     protected int compareObjectOfSameType(OWLObject object) {
         OWLNamedIndividual other = (OWLNamedIndividual) object;
         return iri.compareTo(other.getIRI());
-    }
-
-    @Override
-    public void accept(@Nonnull OWLEntityVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

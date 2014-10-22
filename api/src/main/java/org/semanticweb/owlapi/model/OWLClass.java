@@ -44,4 +44,24 @@ public interface OWLClass extends OWLClassExpression, OWLLogicalEntity,
     default <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    default void accept(@Nonnull OWLEntityVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }

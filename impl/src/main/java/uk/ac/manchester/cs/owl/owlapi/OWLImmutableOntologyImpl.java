@@ -58,8 +58,6 @@ import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
@@ -582,19 +580,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public Set<OWLOntology> getImportsClosure() {
         return getOWLOntologyManager().getImportsClosure(this);
-    }
-
-    // Add/Remove axiom mechanism. Each axiom gets visited by a visitor, which
-    // adds the axiom
-    // to the appropriate index.
-    @Override
-    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     // Utility methods for getting/setting various values in maps and sets

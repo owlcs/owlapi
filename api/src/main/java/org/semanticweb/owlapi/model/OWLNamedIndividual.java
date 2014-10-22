@@ -34,4 +34,24 @@ public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {
     default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    default void accept(@Nonnull OWLEntityVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
 }
