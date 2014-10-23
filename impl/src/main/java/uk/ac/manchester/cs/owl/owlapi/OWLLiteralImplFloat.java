@@ -12,12 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.util.Optional;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -35,8 +30,6 @@ public class OWLLiteralImplFloat extends
 
     private static final long serialVersionUID = 40000L;
     private final float literal;
-    @Nonnull
-    private final OWLDatatype datatype;
 
     @Override
     protected int index() {
@@ -46,18 +39,15 @@ public class OWLLiteralImplFloat extends
     /**
      * @param literal
      *        literal value
-     * @param datatype
-     *        datatype
      */
-    public OWLLiteralImplFloat(float literal, @Nonnull OWLDatatype datatype) {
+    public OWLLiteralImplFloat(float literal) {
         this.literal = literal;
-        this.datatype = checkNotNull(datatype, "datatype cannot be null");
         hashcode = getHashCode();
     }
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(datatype);
+        entities.add(InternalizedEntities.XSDFLOAT);
     }
 
     private final int hashcode;
@@ -80,49 +70,6 @@ public class OWLLiteralImplFloat extends
     }
 
     @Override
-    public boolean isRDFPlainLiteral() {
-        return false;
-    }
-
-    @Override
-    public boolean hasLang() {
-        return false;
-    }
-
-    @Override
-    public boolean isInteger() {
-        return false;
-    }
-
-    @Override
-    public int parseInteger() {
-        throw new NumberFormatException(
-                "this literal is not an integer but a float");
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean parseBoolean() {
-        throw new NumberFormatException(
-                "this literal is not a boolean but a float");
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public double parseDouble() {
-        throw new NumberFormatException(
-                "this literal is not a double but a float");
-    }
-
-    @Override
     public boolean isFloat() {
         return true;
     }
@@ -132,20 +79,9 @@ public class OWLLiteralImplFloat extends
         return literal;
     }
 
-    @Nonnull
-    @Override
-    public String getLang() {
-        return "";
-    }
-
-    @Override
-    public boolean hasLang(String lang) {
-        return false;
-    }
-
     @Override
     public OWLDatatype getDatatype() {
-        return datatype;
+        return InternalizedEntities.XSDFLOAT;
     }
 
     @Override
@@ -153,11 +89,10 @@ public class OWLLiteralImplFloat extends
         if (super.equals(obj)) {
             if (obj instanceof OWLLiteralImplFloat) {
                 OWLLiteralImplFloat other = (OWLLiteralImplFloat) obj;
-                return literal == other.literal
-                        && datatype.equals(other.getDatatype());
+                return literal == other.literal;
             }
             if (obj instanceof OWLLiteral) {
-                return datatype.equals(((OWLLiteral) obj).getDatatype())
+                return getDatatype().equals(((OWLLiteral) obj).getDatatype())
                         && getLiteral().equals(((OWLLiteral) obj).getLiteral());
             }
         }
@@ -171,16 +106,10 @@ public class OWLLiteralImplFloat extends
         if (diff != 0) {
             return diff;
         }
-        int compareTo = datatype.compareTo(other.getDatatype());
+        int compareTo = getDatatype().compareTo(other.getDatatype());
         if (compareTo != 0) {
             return compareTo;
         }
         return Float.compare(literal, other.parseFloat());
-    }
-
-    @Override
-    public Optional<OWLLiteral> asLiteral() {
-        // XXX bring up to interface default?
-        return Optional.<OWLLiteral> of(this);
     }
 }

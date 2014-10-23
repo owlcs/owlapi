@@ -12,15 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Optional;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -54,69 +51,6 @@ public class OWLLiteralImplString implements OWLLiteral {
     @Override
     public String getLiteral() {
         return literal;
-    }
-
-    @Override
-    public boolean hasLang() {
-        return false;
-    }
-
-    @Override
-    public int parseInteger() {
-        return Integer.parseInt(getLiteral());
-    }
-
-    @Override
-    public boolean isRDFPlainLiteral() {
-        return false;
-    }
-
-    @Override
-    public boolean isInteger() {
-        return false;
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public boolean isFloat() {
-        return false;
-    }
-
-    @Override
-    public boolean parseBoolean() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a boolean value");
-    }
-
-    @Override
-    public double parseDouble() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a double value");
-    }
-
-    @Override
-    public float parseFloat() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a float value");
-    }
-
-    @Override
-    public String getLang() {
-        return "";
-    }
-
-    @Override
-    public boolean hasLang(String l) {
-        return false;
     }
 
     @Override
@@ -167,7 +101,7 @@ public class OWLLiteralImplString implements OWLLiteral {
             otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o)
                     .index();
         } else {
-            otherTypeIndex = OWLObjectImplWithEntityAndAnonCaching.OWLOBJECT_TYPEINDEX_PROVIDER
+            otherTypeIndex = OWLObjectAbstractImpl.OWLOBJECT_TYPEINDEX_PROVIDER
                     .getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
@@ -182,10 +116,5 @@ public class OWLLiteralImplString implements OWLLiteral {
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
         return false;
-    }
-
-    @Override
-    public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
     }
 }

@@ -12,12 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.util.Optional;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -35,8 +30,6 @@ public class OWLLiteralImplBoolean extends
 
     private static final long serialVersionUID = 40000L;
     private final boolean literal;
-    @Nonnull
-    private final OWLDatatype datatype;
 
     @Override
     protected int index() {
@@ -46,18 +39,15 @@ public class OWLLiteralImplBoolean extends
     /**
      * @param literal
      *        literal value
-     * @param datatype
-     *        datatype
      */
-    public OWLLiteralImplBoolean(boolean literal, @Nonnull OWLDatatype datatype) {
-        this.datatype = checkNotNull(datatype, "datatype cannot be null");
+    public OWLLiteralImplBoolean(boolean literal) {
         this.literal = literal;
         hashcode = getHashCode();
     }
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(datatype);
+        entities.add(InternalizedEntities.XSDBOOLEAN);
     }
 
     private final int hashcode;
@@ -69,7 +59,7 @@ public class OWLLiteralImplBoolean extends
 
     private int getHashCode() {
         int hash = 277;
-        hash = hash * 37 + getDatatype().hashCode();
+        hash = hash * 37 + InternalizedEntities.XSDBOOLEAN.hashCode();
         hash = hash * 37 + (literal ? 65536 : 0);
         return hash;
     }
@@ -77,27 +67,6 @@ public class OWLLiteralImplBoolean extends
     @Override
     public String getLiteral() {
         return Boolean.toString(literal);
-    }
-
-    @Override
-    public boolean isRDFPlainLiteral() {
-        return false;
-    }
-
-    @Override
-    public boolean hasLang() {
-        return false;
-    }
-
-    @Override
-    public boolean isInteger() {
-        return false;
-    }
-
-    @Override
-    public int parseInteger() {
-        throw new NumberFormatException(
-                "this literal is not an integer but a boolean");
     }
 
     @Override
@@ -111,41 +80,8 @@ public class OWLLiteralImplBoolean extends
     }
 
     @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public double parseDouble() {
-        throw new NumberFormatException(
-                "this literal is not a double but a boolean");
-    }
-
-    @Override
-    public boolean isFloat() {
-        return false;
-    }
-
-    @Override
-    public float parseFloat() {
-        throw new NumberFormatException(
-                "this literal is not a float but a boolean");
-    }
-
-    @Nonnull
-    @Override
-    public String getLang() {
-        return "";
-    }
-
-    @Override
-    public boolean hasLang(String lang) {
-        return false;
-    }
-
-    @Override
     public OWLDatatype getDatatype() {
-        return datatype;
+        return InternalizedEntities.XSDBOOLEAN;
     }
 
     @Override
@@ -153,11 +89,11 @@ public class OWLLiteralImplBoolean extends
         if (super.equals(obj)) {
             if (obj instanceof OWLLiteralImplBoolean) {
                 OWLLiteralImplBoolean other = (OWLLiteralImplBoolean) obj;
-                return literal == other.literal
-                        && datatype.equals(other.getDatatype());
+                return literal == other.literal;
             }
             if (obj instanceof OWLLiteral) {
-                return datatype.equals(((OWLLiteral) obj).getDatatype())
+                return InternalizedEntities.XSDBOOLEAN
+                        .equals(((OWLLiteral) obj).getDatatype())
                         && getLiteral().equals(((OWLLiteral) obj).getLiteral());
             }
         }
@@ -171,15 +107,10 @@ public class OWLLiteralImplBoolean extends
         if (diff != 0) {
             return diff;
         }
-        int compareTo = datatype.compareTo(other.getDatatype());
+        int compareTo = getDatatype().compareTo(other.getDatatype());
         if (compareTo != 0) {
             return compareTo;
         }
         return Boolean.compare(literal, other.parseBoolean());
-    }
-
-    @Override
-    public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
     }
 }

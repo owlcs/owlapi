@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
+import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -38,29 +38,6 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private static final OWLDatatype PLAIN = new OWL2DatatypeImpl(
-            RDF_PLAIN_LITERAL);
-    @Nonnull
-    private static final OWLDatatype XSDBOOLEAN = new OWL2DatatypeImpl(
-            XSD_BOOLEAN);
-    @Nonnull
-    private static final OWLDatatype XSDDOUBLE = new OWL2DatatypeImpl(
-            XSD_DOUBLE);
-    @Nonnull
-    private static final OWLDatatype XSDFLOAT = new OWL2DatatypeImpl(XSD_FLOAT);
-    @Nonnull
-    private static final OWLDatatype XSDINTEGER = new OWL2DatatypeImpl(
-            XSD_INTEGER);
-    @Nonnull
-    private static final OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(
-            RDFS_LITERAL);
-    @Nonnull
-    private static final OWLLiteral TRUELITERAL = new OWLLiteralImplBoolean(
-            true, XSDBOOLEAN);
-    @Nonnull
-    private static final OWLLiteral FALSELITERAL = new OWLLiteralImplBoolean(
-            false, XSDBOOLEAN);
     @Nullable
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
@@ -108,7 +85,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     @Override
     public OWLLiteral getOWLLiteral(float value) {
-        return new OWLLiteralImplFloat(value, getFloatOWLDatatype());
+        return new OWLLiteralImplFloat(value);
     }
 
     @Override
@@ -136,7 +113,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     @Override
     public OWLLiteral getOWLLiteral(int value) {
-        return new OWLLiteralImplInteger(value, getIntegerOWLDatatype());
+        return new OWLLiteralImplInteger(value);
     }
 
     @Override
@@ -146,7 +123,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     @Override
     public OWLLiteral getOWLLiteral(double value) {
-        return new OWLLiteralImplDouble(value, getDoubleOWLDatatype());
+        return new OWLLiteralImplDouble(value);
     }
 
     @Override

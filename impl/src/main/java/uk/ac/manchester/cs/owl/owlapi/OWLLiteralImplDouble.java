@@ -12,12 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.util.Optional;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -35,8 +30,6 @@ public class OWLLiteralImplDouble extends
 
     private static final long serialVersionUID = 40000L;
     private final double literal;
-    @Nonnull
-    private final OWLDatatype datatype;
 
     @Override
     protected int index() {
@@ -45,18 +38,15 @@ public class OWLLiteralImplDouble extends
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(datatype);
+        entities.add(InternalizedEntities.XSDDOUBLE);
     }
 
     /**
      * @param literal
      *        literal value
-     * @param datatype
-     *        datatype
      */
-    public OWLLiteralImplDouble(double literal, @Nonnull OWLDatatype datatype) {
+    public OWLLiteralImplDouble(double literal) {
         this.literal = literal;
-        this.datatype = checkNotNull(datatype, "datatype cannot be null");
         hashcode = getHashCode();
     }
 
@@ -80,38 +70,6 @@ public class OWLLiteralImplDouble extends
     }
 
     @Override
-    public boolean isRDFPlainLiteral() {
-        return false;
-    }
-
-    @Override
-    public boolean hasLang() {
-        return false;
-    }
-
-    @Override
-    public boolean isInteger() {
-        return false;
-    }
-
-    @Override
-    public int parseInteger() {
-        throw new NumberFormatException(
-                "this literal is not an integer but a double");
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean parseBoolean() {
-        throw new NumberFormatException(
-                "this literal is not a boolean but a double");
-    }
-
-    @Override
     public boolean isDouble() {
         return true;
     }
@@ -122,30 +80,8 @@ public class OWLLiteralImplDouble extends
     }
 
     @Override
-    public boolean isFloat() {
-        return false;
-    }
-
-    @Override
-    public float parseFloat() {
-        throw new NumberFormatException(
-                "this literal is not a float but a double");
-    }
-
-    @Nonnull
-    @Override
-    public String getLang() {
-        return "";
-    }
-
-    @Override
-    public boolean hasLang(String lang) {
-        return false;
-    }
-
-    @Override
     public OWLDatatype getDatatype() {
-        return datatype;
+        return InternalizedEntities.XSDDOUBLE;
     }
 
     @Override
@@ -153,11 +89,10 @@ public class OWLLiteralImplDouble extends
         if (super.equals(obj)) {
             if (obj instanceof OWLLiteralImplDouble) {
                 OWLLiteralImplDouble other = (OWLLiteralImplDouble) obj;
-                return literal == other.literal
-                        && datatype.equals(other.getDatatype());
+                return literal == other.literal;
             }
             if (obj instanceof OWLLiteral) {
-                return datatype.equals(((OWLLiteral) obj).getDatatype())
+                return getDatatype().equals(((OWLLiteral) obj).getDatatype())
                         && getLiteral().equals(((OWLLiteral) obj).getLiteral());
             }
         }
@@ -171,15 +106,10 @@ public class OWLLiteralImplDouble extends
         if (diff != 0) {
             return diff;
         }
-        int compareTo = datatype.compareTo(other.getDatatype());
+        int compareTo = getDatatype().compareTo(other.getDatatype());
         if (compareTo != 0) {
             return compareTo;
         }
         return Double.compare(literal, other.parseDouble());
-    }
-
-    @Override
-    public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
     }
 }

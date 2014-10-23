@@ -23,7 +23,6 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -239,11 +238,6 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
             return diff;
         }
         return language.compareTo(other.getLang());
-    }
-
-    @Override
-    public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
     }
 
     // Literal Wrapper

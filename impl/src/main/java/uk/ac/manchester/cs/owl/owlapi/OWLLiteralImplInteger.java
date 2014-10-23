@@ -12,12 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.util.Optional;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -35,8 +30,6 @@ public class OWLLiteralImplInteger extends
 
     private static final long serialVersionUID = 40000L;
     private final int literal;
-    @Nonnull
-    private final OWLDatatype datatype;
 
     @Override
     protected int index() {
@@ -46,18 +39,15 @@ public class OWLLiteralImplInteger extends
     /**
      * @param literal
      *        literal value
-     * @param datatype
-     *        datatype
      */
-    public OWLLiteralImplInteger(int literal, @Nonnull OWLDatatype datatype) {
+    public OWLLiteralImplInteger(int literal) {
         this.literal = literal;
-        this.datatype = checkNotNull(datatype, "datatype cannot be null");
         hashcode = getHashCode();
     }
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(datatype);
+        entities.add(getDatatype());
     }
 
     private final int hashcode;
@@ -80,16 +70,6 @@ public class OWLLiteralImplInteger extends
     }
 
     @Override
-    public boolean isRDFPlainLiteral() {
-        return false;
-    }
-
-    @Override
-    public boolean hasLang() {
-        return false;
-    }
-
-    @Override
     public boolean isInteger() {
         return true;
     }
@@ -100,51 +80,8 @@ public class OWLLiteralImplInteger extends
     }
 
     @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean parseBoolean() {
-        throw new NumberFormatException(
-                "this literal is not a boolean but a int");
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public double parseDouble() {
-        throw new NumberFormatException(
-                "this literal is not a double but a int");
-    }
-
-    @Override
-    public boolean isFloat() {
-        return false;
-    }
-
-    @Override
-    public float parseFloat() {
-        throw new NumberFormatException("this literal is not a float but a int");
-    }
-
-    @Nonnull
-    @Override
-    public String getLang() {
-        return "";
-    }
-
-    @Override
-    public boolean hasLang(String lang) {
-        return false;
-    }
-
-    @Override
     public OWLDatatype getDatatype() {
-        return datatype;
+        return InternalizedEntities.XSDINTEGER;
     }
 
     @Override
@@ -152,11 +89,10 @@ public class OWLLiteralImplInteger extends
         if (super.equals(obj)) {
             if (obj instanceof OWLLiteralImplInteger) {
                 OWLLiteralImplInteger other = (OWLLiteralImplInteger) obj;
-                return literal == other.literal
-                        && datatype.equals(other.getDatatype());
+                return literal == other.literal;
             }
             if (obj instanceof OWLLiteral) {
-                return datatype.equals(((OWLLiteral) obj).getDatatype())
+                return getDatatype().equals(((OWLLiteral) obj).getDatatype())
                         && getLiteral().equals(((OWLLiteral) obj).getLiteral());
             }
         }
@@ -170,15 +106,10 @@ public class OWLLiteralImplInteger extends
         if (diff != 0) {
             return diff;
         }
-        int compareTo = datatype.compareTo(other.getDatatype());
+        int compareTo = getDatatype().compareTo(other.getDatatype());
         if (compareTo != 0) {
             return compareTo;
         }
         return Integer.compare(literal, other.parseInteger());
-    }
-
-    @Override
-    public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
     }
 }

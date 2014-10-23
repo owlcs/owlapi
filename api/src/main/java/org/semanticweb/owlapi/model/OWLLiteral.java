@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -48,7 +50,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      * @return {@code true} if the datatype of this literal is rdf:PlainLiteral,
      *         otherwise {@code false}.
      */
-    boolean isRDFPlainLiteral();
+    default boolean isRDFPlainLiteral() {
+        return false;
+    }
 
     /**
      * Gets the lexical value of this literal. Note that if the datatype is
@@ -65,6 +69,11 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      */
     @Nonnull
     String getLiteral();
+
+    @Override
+    default String getLang() {
+        return "";
+    }
 
     /**
      * Gets the {@code OWLDatatype} which types this literal.
@@ -83,7 +92,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      * @return {@code true} if this literal has a non-empty language tag,
      *         otherwise {@code false}
      */
-    boolean hasLang();
+    default boolean hasLang() {
+        return false;
+    }
 
     /**
      * Determines if this {@code OWLLiteral} has a particular language tag.
@@ -91,11 +102,13 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      * @param lang
      *        The specific lang to test for. The tag will be normalised - white
      *        space will be trimmed from the end and it will be converted to
-     *        lower case.
+     *        lower case. Null input will be treted as empty.
      * @return {@code true} if this literal has a language tag equal to
      *         {@code lang}, otherwise {@code false}.
      */
-    boolean hasLang(String lang);
+    default boolean hasLang(@SuppressWarnings("unused") String lang) {
+        return false;
+    }
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that
@@ -105,7 +118,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         {@code "http://www.w3.org/2001/XMLSchema#"integer}, i.e. this
      *         literal represents an integer, otherwise {@code false}.
      */
-    boolean isInteger();
+    default boolean isInteger() {
+        return false;
+    }
 
     /**
      * Parses the lexical value of this literal into an integer. The lexical
@@ -117,7 +132,10 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         if the lexical form could not be parsed into an integer because
      *         it is not in the lexical space of the integer datatype.
      */
-    int parseInteger();
+    default int parseInteger() {
+        throw new NumberFormatException(getClass().getName()
+                + " does not have an int value but has " + getLiteral());
+    }
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that
@@ -127,7 +145,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         {@code "http://www.w3.org/2001/XMLSchema#"boolean}, i.e. this
      *         literal represents a boolean, otherwise {@code false}.
      */
-    boolean isBoolean();
+    default boolean isBoolean() {
+        return false;
+    }
 
     /**
      * Parses the lexical value of this literal into a boolean. The lexical
@@ -139,7 +159,10 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         if the lexical form could not be parsed into a boolean because it
      *         is not in the lexical space of the boolean datatype.
      */
-    boolean parseBoolean();
+    default boolean parseBoolean() {
+        throw new OWLRuntimeException(getClass().getName()
+                + " does not have a boolean value but has " + getLiteral());
+    }
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that
@@ -149,7 +172,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         {@code "http://www.w3.org/2001/XMLSchema#"double}, i.e. this
      *         literal represents a double, otherwise {@code false}.
      */
-    boolean isDouble();
+    default boolean isDouble() {
+        return false;
+    }
 
     /**
      * Parses the lexical value of this literal into a double. The lexical value
@@ -161,7 +186,10 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         if the lexical form could not be parsed into a double because it
      *         is not in the lexical space of the double datatype.
      */
-    double parseDouble();
+    default double parseDouble() {
+        throw new NumberFormatException(getClass().getName()
+                + " does not have a double value but has " + getLiteral());
+    }
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that
@@ -171,7 +199,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         {@code "http://www.w3.org/2001/XMLSchema#"float}, i.e. this
      *         literal represents a float, otherwise {@code false}.
      */
-    boolean isFloat();
+    default boolean isFloat() {
+        return false;
+    }
 
     /**
      * Parses the lexical value of this literal into a float. The lexical value
@@ -183,7 +213,15 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         if the lexical form could not be parsed into a float because it
      *         is not in the lexical space of the float datatype.
      */
-    float parseFloat();
+    default float parseFloat() {
+        throw new NumberFormatException(getClass().getName()
+                + " does not have a float value but has " + getLiteral());
+    }
+
+    @Override
+    default Optional<OWLLiteral> asLiteral() {
+        return Optional.<OWLLiteral> of(this);
+    }
 
     /**
      * @param visitor

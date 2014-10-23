@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -22,9 +21,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL.
@@ -36,9 +33,6 @@ public class OWLLiteralImplPlain extends
         OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
-    @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
-            OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final String literal;
     @Nonnull
@@ -62,7 +56,7 @@ public class OWLLiteralImplPlain extends
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(RDF_PLAIN_LITERAL);
+        entities.add(getDatatype());
     }
 
     @Override
@@ -81,51 +75,8 @@ public class OWLLiteralImplPlain extends
     }
 
     @Override
-    public int parseInteger() {
-        return Integer.parseInt(getLiteral());
-    }
-
-    @Override
     public boolean isRDFPlainLiteral() {
         return true;
-    }
-
-    @Override
-    public boolean isInteger() {
-        return false;
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return false;
-    }
-
-    @Override
-    public boolean isDouble() {
-        return false;
-    }
-
-    @Override
-    public boolean isFloat() {
-        return false;
-    }
-
-    @Override
-    public boolean parseBoolean() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a boolean value");
-    }
-
-    @Override
-    public double parseDouble() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a double value");
-    }
-
-    @Override
-    public float parseFloat() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a float value");
     }
 
     @Override
@@ -143,7 +94,7 @@ public class OWLLiteralImplPlain extends
 
     @Override
     public OWLDatatype getDatatype() {
-        return RDF_PLAIN_LITERAL;
+        return InternalizedEntities.PLAIN;
     }
 
     @Override
@@ -209,10 +160,5 @@ public class OWLLiteralImplPlain extends
             return diff;
         }
         return lang.compareTo(other.getLang());
-    }
-
-    @Override
-    public Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
     }
 }
