@@ -26,24 +26,6 @@ import javax.annotation.Nonnull;
 public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
         HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
 
-    /**
-     * Gets the annotation property that this axiom provides a range for.
-     * 
-     * @return The annotation property
-     */
-    @Nonnull
-    @Override
-    OWLAnnotationProperty getProperty();
-
-    /**
-     * Gets the specified IRI that corresponds to the range.
-     * 
-     * @return The range of the annotation property.
-     */
-    @Nonnull
-    @Override
-    IRI getRange();
-
     @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);

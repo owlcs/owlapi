@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Given a set of class expressions, this composite change will make them
@@ -63,11 +63,10 @@ public class MakeClassesMutuallyDisjoint extends
             boolean usePairwiseDisjointAxioms,
             @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(
-                checkNotNull(classExpressions,
-                        "classExpressions cannot be null"),
-                usePairwiseDisjointAxioms,
-                checkNotNull(targetOntology, "targetOntology cannot be null"));
+        checkNotNull(classExpressions, "classExpressions cannot be null");
+        checkNotNull(targetOntology, "targetOntology cannot be null");
+        generateChanges(classExpressions, usePairwiseDisjointAxioms,
+                targetOntology);
     }
 
     private void generateChanges(
@@ -79,10 +78,9 @@ public class MakeClassesMutuallyDisjoint extends
                     classExpressions);
             for (int i = 0; i < descList.size(); i++) {
                 for (int j = i + 1; j < descList.size(); j++) {
-                    addChange(new AddAxiom(
-                            targetOntology,
-                            df.getOWLDisjointClassesAxiom(CollectionFactory
-                                    .createSet(descList.get(i), descList.get(j)))));
+                    addChange(new AddAxiom(targetOntology,
+                            df.getOWLDisjointClassesAxiom(createSet(
+                                    descList.get(i), descList.get(j)))));
                 }
             }
         } else {

@@ -26,24 +26,6 @@ import javax.annotation.Nonnull;
 public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
         HasProperty<OWLAnnotationProperty>, HasDomain<IRI> {
 
-    /**
-     * Gets the annotation property that this axiom specifies a domain for.
-     * 
-     * @return The annotation property.
-     */
-    @Nonnull
-    @Override
-    OWLAnnotationProperty getProperty();
-
-    /**
-     * Gets the IRI that represents the domain.
-     * 
-     * @return The IRI that represents the domain
-     */
-    @Nonnull
-    @Override
-    IRI getDomain();
-
     @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);

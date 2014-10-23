@@ -26,26 +26,6 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
         HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
 
     /**
-     * Gets the subject of the annotation assertion. This is either an
-     * {@link org.semanticweb.owlapi.model.IRI} or an
-     * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
-     * 
-     * @return The subject of the annotation
-     */
-    @Nonnull
-    @Override
-    OWLAnnotationSubject getSubject();
-
-    /**
-     * Gets the annotation property.
-     * 
-     * @return The annotation property.
-     */
-    @Nonnull
-    @Override
-    OWLAnnotationProperty getProperty();
-
-    /**
      * Gets the annotation value. This is either an
      * {@link org.semanticweb.owlapi.model.IRI}, an
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} or an

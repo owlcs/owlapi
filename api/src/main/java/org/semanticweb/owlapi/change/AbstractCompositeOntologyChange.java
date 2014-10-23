@@ -63,11 +63,11 @@ public abstract class AbstractCompositeOntologyChange implements
     /**
      * Adds the changes.
      * 
-     * @param change
-     *        the change
+     * @param c
+     *        the changes
      */
-    protected void addChanges(Collection<OWLOntologyChange> change) {
-        changes.addAll(change);
+    protected void addChanges(Collection<OWLOntologyChange> c) {
+        changes.addAll(c);
     }
 
     @Override

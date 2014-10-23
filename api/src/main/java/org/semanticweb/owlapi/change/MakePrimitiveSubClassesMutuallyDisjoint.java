@@ -12,12 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.sub;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -86,21 +85,18 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
                 usePairwiseDisjointAxioms);
     }
 
-    private void generateChanges(@Nonnull OWLClass cls,
-            @Nonnull OWLOntology targetOntology,
+    private void generateChanges(@Nonnull OWLClass cls, @Nonnull OWLOntology o,
             boolean usePairwiseDisjointAxioms) {
-        Set<OWLClass> subclasses = new HashSet<>();
-        Collection<OWLClassExpression> sub = sub(
-                targetOntology.getSubClassAxiomsForSuperClass(cls),
-                OWLClassExpression.class);
-        for (OWLClassExpression subCls : sub) {
-            if (!subCls.isAnonymous()
-                    && !isDefined(subCls.asOWLClass(), targetOntology)) {
-                subclasses.add(subCls.asOWLClass());
-            }
-        }
-        MakeClassesMutuallyDisjoint makeClassesMutuallyDisjoint = new MakeClassesMutuallyDisjoint(
-                df, subclasses, usePairwiseDisjointAxioms, targetOntology);
-        addChanges(makeClassesMutuallyDisjoint.getChanges());
+        Set<OWLClassExpression> sub = sub(
+                o.getSubClassAxiomsForSuperClass(cls), OWLClassExpression.class)
+                .stream().filter(c -> undefinedPrimitive(o, c))
+                .collect(toSet());
+        addChanges(new MakeClassesMutuallyDisjoint(df, sub,
+                usePairwiseDisjointAxioms, o).getChanges());
+    }
+
+    protected boolean undefinedPrimitive(OWLOntology o,
+            OWLClassExpression subCls) {
+        return !subCls.isAnonymous() && !isDefined(subCls.asOWLClass(), o);
     }
 }

@@ -109,9 +109,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLDataOneOf oneOf) {
             Set<OWLLiteral> vals = new HashSet<>();
-            for (OWLLiteral con : oneOf.getValues()) {
-                vals.add(process(prop, con));
-            }
+            oneOf.getValues().forEach(c -> vals.add(process(prop, c)));
             return df.getOWLDataOneOf(vals);
         }
 
@@ -135,7 +133,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Override
         public void visit(OWLDataSomeValuesFrom ce) {
             super.visit(ce);
-            if (ce instanceof OWLDataOneOf) {
+            if (ce.getFiller() instanceof OWLDataOneOf) {
                 setLastObject(df
                         .getOWLDataSomeValuesFrom(
                                 ce.getProperty(),
@@ -147,7 +145,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Override
         public void visit(OWLDataMinCardinality ce) {
             super.visit(ce);
-            if (ce instanceof OWLDataOneOf) {
+            if (ce.getFiller() instanceof OWLDataOneOf) {
                 setLastObject(df
                         .getOWLDataMinCardinality(
                                 ce.getCardinality(),
@@ -160,7 +158,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Override
         public void visit(OWLDataMaxCardinality ce) {
             super.visit(ce);
-            if (ce instanceof OWLDataOneOf) {
+            if (ce.getFiller() instanceof OWLDataOneOf) {
                 setLastObject(df
                         .getOWLDataMaxCardinality(
                                 ce.getCardinality(),
@@ -173,7 +171,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Override
         public void visit(OWLDataExactCardinality ce) {
             super.visit(ce);
-            if (ce instanceof OWLDataOneOf) {
+            if (ce.getFiller() instanceof OWLDataOneOf) {
                 setLastObject(df
                         .getOWLDataExactCardinality(
                                 ce.getCardinality(),
@@ -186,7 +184,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Override
         public void visit(OWLDataAllValuesFrom ce) {
             super.visit(ce);
-            if (ce instanceof OWLDataOneOf) {
+            if (ce.getFiller() instanceof OWLDataOneOf) {
                 setLastObject(df
                         .getOWLDataAllValuesFrom(
                                 ce.getProperty(),

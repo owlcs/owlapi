@@ -20,27 +20,10 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -95,99 +78,19 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         /** The result. */
         final Set<OWLClassExpression> result = new HashSet<>();
 
+        @Override
+        public void doDefault(Object object) {
+            result.add((OWLClassExpression) object);
+        }
+
         /** Instantiates a new conjunct splitter. */
         ConjunctSplitter() {}
-
-        @Override
-        public void visit(OWLClass ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLDataAllValuesFrom ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLDataExactCardinality ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLDataMaxCardinality ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLDataMinCardinality ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLDataSomeValuesFrom ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLDataHasValue ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectAllValuesFrom ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectComplementOf ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectExactCardinality ce) {
-            result.add(ce);
-        }
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression op : ce.getOperands()) {
                 op.accept(this);
             }
-        }
-
-        @Override
-        public void visit(OWLObjectMaxCardinality ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectMinCardinality ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectOneOf ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectHasSelf ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectSomeValuesFrom ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectUnionOf ce) {
-            result.add(ce);
-        }
-
-        @Override
-        public void visit(OWLObjectHasValue ce) {
-            result.add(ce);
         }
     }
 }
