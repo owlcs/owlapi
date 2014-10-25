@@ -27,6 +27,9 @@ public interface OWLInverseFunctionalObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     @Override
+    OWLInverseFunctionalObjectPropertyAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

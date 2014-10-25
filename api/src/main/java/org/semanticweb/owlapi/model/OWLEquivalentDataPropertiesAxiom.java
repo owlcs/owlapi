@@ -28,6 +28,9 @@ import javax.annotation.Nonnull;
 public interface OWLEquivalentDataPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
+    @Override
+    OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations();
+
     @Nonnull
     @Override
     Set<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms();

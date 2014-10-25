@@ -27,6 +27,9 @@ public interface OWLDataPropertyDomainAxiom extends
         OWLPropertyDomainAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
+    OWLDataPropertyDomainAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

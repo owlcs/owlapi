@@ -26,6 +26,9 @@ import javax.annotation.Nonnull;
  */
 public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
 
+    @Override
+    OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
+
     /**
      * Determines if this equivalent classes axiom contains at least one named
      * class (excluding owl:Thing or owl:Nothing).

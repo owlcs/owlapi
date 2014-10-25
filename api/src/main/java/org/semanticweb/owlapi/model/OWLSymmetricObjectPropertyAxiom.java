@@ -28,6 +28,9 @@ import javax.annotation.Nonnull;
 public interface OWLSymmetricObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom {
 
+    @Override
+    OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
+
     /** @return the set of axioms equivalent to this axiom */
     @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();

@@ -27,6 +27,9 @@ public interface OWLTransitiveObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom {
 
     @Override
+    OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

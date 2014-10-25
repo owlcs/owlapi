@@ -30,6 +30,9 @@ import javax.annotation.Nonnull;
  */
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
 
+    @Override
+    OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
+
     /**
      * Gets the chain of properties that represents the subproperty in this
      * axiom.

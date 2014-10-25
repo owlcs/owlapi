@@ -27,6 +27,9 @@ public interface OWLNegativeDataPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
         OWLSubClassOfAxiomShortCut {
 
+    @Override
+    OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
+
     /**
      * Determines whether this axiom contains anonymous individuals. Anonymous
      * individuals are not allowed in negative data property assertion axioms.

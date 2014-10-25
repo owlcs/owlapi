@@ -25,6 +25,9 @@ import javax.annotation.Nonnull;
  */
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
 
+    @Override
+    OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations();
+
     /**
      * Gets the subproperty of this axiom.
      * 

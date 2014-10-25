@@ -26,6 +26,9 @@ public interface OWLSubDataPropertyOfAxiom extends
         OWLSubPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
+    OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

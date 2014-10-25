@@ -26,6 +26,9 @@ import javax.annotation.Nonnull;
 public interface OWLClassAssertionAxiom extends OWLIndividualAxiom,
         OWLSubClassOfAxiomShortCut {
 
+    @Override
+    OWLClassAssertionAxiom getAxiomWithoutAnnotations();
+
     /**
      * Gets the individual that is asserted to be an instance of a class
      * expression by this axiom.

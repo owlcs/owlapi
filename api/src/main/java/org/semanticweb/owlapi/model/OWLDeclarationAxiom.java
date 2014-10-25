@@ -27,6 +27,9 @@ import javax.annotation.Nonnull;
  */
 public interface OWLDeclarationAxiom extends OWLAxiom {
 
+    @Override
+    OWLDeclarationAxiom getAxiomWithoutAnnotations();
+
     /** @return The entity that is declared by this axiom. */
     @Nonnull
     OWLEntity getEntity();

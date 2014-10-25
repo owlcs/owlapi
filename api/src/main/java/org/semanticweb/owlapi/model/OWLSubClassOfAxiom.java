@@ -25,6 +25,9 @@ import javax.annotation.Nonnull;
  */
 public interface OWLSubClassOfAxiom extends OWLClassAxiom {
 
+    @Override
+    OWLSubClassOfAxiom getAxiomWithoutAnnotations();
+
     /**
      * Gets the subclass in this axiom.
      * 

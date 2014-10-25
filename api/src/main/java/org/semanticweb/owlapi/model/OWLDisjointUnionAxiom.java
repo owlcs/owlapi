@@ -27,6 +27,9 @@ import javax.annotation.Nonnull;
  */
 public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
 
+    @Override
+    OWLDisjointUnionAxiom getAxiomWithoutAnnotations();
+
     /**
      * Gets the class which is equivalent to the disjoint union.
      * 

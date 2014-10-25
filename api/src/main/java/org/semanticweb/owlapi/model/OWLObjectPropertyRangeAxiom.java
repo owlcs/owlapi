@@ -27,6 +27,9 @@ public interface OWLObjectPropertyRangeAxiom extends
         OWLObjectPropertyAxiom {
 
     @Override
+    OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

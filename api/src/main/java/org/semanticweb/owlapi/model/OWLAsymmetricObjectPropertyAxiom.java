@@ -27,6 +27,9 @@ public interface OWLAsymmetricObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom {
 
     @Override
+    OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

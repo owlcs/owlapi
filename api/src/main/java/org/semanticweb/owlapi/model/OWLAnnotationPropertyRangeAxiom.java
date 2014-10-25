@@ -27,6 +27,9 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
         HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
 
     @Override
+    OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

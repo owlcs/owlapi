@@ -28,6 +28,9 @@ public interface OWLDataPropertyAssertionAxiom extends
         OWLSubClassOfAxiomShortCut {
 
     @Override
+    OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

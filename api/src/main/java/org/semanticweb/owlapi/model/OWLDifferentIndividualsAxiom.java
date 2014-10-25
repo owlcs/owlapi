@@ -27,6 +27,9 @@ import javax.annotation.Nonnull;
  */
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
 
+    @Override
+    OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
+
     /**
      * Determines whether this axiom contains anonymous individuals. Anonymous
      * individuals are not allowed in different individuals axioms.

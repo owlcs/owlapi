@@ -26,6 +26,9 @@ import javax.annotation.Nonnull;
  */
 public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
+    @Override
+    OWLHasKeyAxiom getAxiomWithoutAnnotations();
+
     /**
      * Gets the class expression, instances of which, this axiom acts as the key
      * for.

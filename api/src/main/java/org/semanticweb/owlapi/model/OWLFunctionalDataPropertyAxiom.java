@@ -27,6 +27,9 @@ public interface OWLFunctionalDataPropertyAxiom extends
         OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     @Override
+    OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
