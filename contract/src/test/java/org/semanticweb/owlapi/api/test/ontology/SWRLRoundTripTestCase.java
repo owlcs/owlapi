@@ -54,8 +54,8 @@ public class SWRLRoundTripTestCase extends TestBase {
     public void shouldDoCompleteRoundtrip() throws Exception {
         OWLClass a = Class(IRI(NS + "#A"));
         OWLDataProperty p = df.getOWLDataProperty(NS + "#P");
-        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#X"));
-        SWRLVariable y = df.getSWRLVariable(IRI(NS + "#Y"));
+        SWRLVariable x = df.getSWRLVariable(NS + "#X");
+        SWRLVariable y = df.getSWRLVariable(NS + "#Y");
         OWLOntology ontology = m.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(p, x, y));
@@ -74,8 +74,8 @@ public class SWRLRoundTripTestCase extends TestBase {
     public void shouldDoCompleteRoundtripManchesterOWLSyntax() throws Exception {
         OWLClass a = Class(IRI(NS + "#A"));
         OWLDataProperty p = df.getOWLDataProperty(NS + "#P");
-        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#X"));
-        SWRLVariable y = df.getSWRLVariable(IRI(NS + "#Y"));
+        SWRLVariable x = df.getSWRLVariable(NS + "#X");
+        SWRLVariable y = df.getSWRLVariable(NS + "#Y");
         OWLOntology ontology = m.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(p, x, y));
@@ -187,8 +187,8 @@ public class SWRLRoundTripTestCase extends TestBase {
     OWLOntology prepareOntology() throws OWLOntologyCreationException {
         OWLClass a = Class(IRI(NS + "#A"));
         OWLDataProperty p = df.getOWLDataProperty(NS + "#P");
-        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#X"));
-        SWRLVariable y = df.getSWRLVariable(IRI(NS + "#Y"));
+        SWRLVariable x = df.getSWRLVariable(NS + "#X");
+        SWRLVariable y = df.getSWRLVariable(NS + "#Y");
         OWLOntology ontology = m.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(p, x, y));

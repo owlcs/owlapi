@@ -59,21 +59,19 @@ class BuildersTestUtil {
     static Set<OWLNamedIndividual> inds = Sets.newHashSet(i,
             df.getOWLNamedIndividual(iri));
     @Nonnull
-    static SWRLDArgument var1 = df.getSWRLVariable(IRI.create("var1"));
+    static SWRLDArgument var1 = df.getSWRLVariable("var1");
     @Nonnull
-    static SWRLIArgument var2 = df.getSWRLVariable(IRI.create("var2"));
+    static SWRLIArgument var2 = df.getSWRLVariable("var2");
     @Nonnull
     static SWRLAtom v1 = df.getSWRLBuiltInAtom(
             IRI.create("v1"),
-            Arrays.asList(
-                    (SWRLDArgument) df.getSWRLVariable(IRI.create("var3")),
-                    df.getSWRLVariable(IRI.create("var4"))));
+            Arrays.asList((SWRLDArgument) df.getSWRLVariable("var3"),
+                    df.getSWRLVariable("var4")));
     @Nonnull
     static SWRLAtom v2 = df.getSWRLBuiltInAtom(
             IRI.create("v2"),
-            Arrays.asList(
-                    (SWRLDArgument) df.getSWRLVariable(IRI.create("var5")),
-                    df.getSWRLVariable(IRI.create("var6"))));
+            Arrays.asList((SWRLDArgument) df.getSWRLVariable("var5"),
+                    df.getSWRLVariable("var6")));
     @Nonnull
     static Set<SWRLAtom> body = Sets.newHashSet(v1);
     @Nonnull

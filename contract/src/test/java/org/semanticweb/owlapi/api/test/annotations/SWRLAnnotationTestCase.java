@@ -52,7 +52,7 @@ public class SWRLAnnotationTestCase extends TestBase {
 
     @Before
     public void setUp() {
-        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#x"));
+        SWRLVariable x = df.getSWRLVariable(NS + "#x");
         SWRLAtom atom1 = df.getSWRLClassAtom(a, x);
         SWRLAtom atom2 = df.getSWRLClassAtom(b, x);
         Set<SWRLAtom> consequent = new TreeSet<>();

@@ -43,9 +43,9 @@ public class SWRLRuleAlternateNSTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
-        SWRLVariable varX = df.getSWRLVariable(IRI("http://www.owlapi#x"));
-        SWRLVariable varY = df.getSWRLVariable(IRI("http://www.owlapi#y"));
-        SWRLVariable varZ = df.getSWRLVariable(IRI("http://www.owlapi#z"));
+        SWRLVariable varX = df.getSWRLVariable("http://www.owlapi#x");
+        SWRLVariable varY = df.getSWRLVariable("http://www.owlapi#y");
+        SWRLVariable varZ = df.getSWRLVariable("http://www.owlapi#z");
         Set<SWRLAtom> body = new HashSet<>();
         body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
         SWRLIndividualArgument indIArg = df
@@ -54,8 +54,8 @@ public class SWRLRuleAlternateNSTestCase extends
                 .getSWRLIndividualArgument(NamedIndividual(iri("j")));
         body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
         body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-        SWRLVariable varQ = df.getSWRLVariable(IRI("http://www.owlapi#q"));
-        SWRLVariable varR = df.getSWRLVariable(IRI("http://www.owlapi#r"));
+        SWRLVariable varQ = df.getSWRLVariable("http://www.owlapi#q");
+        SWRLVariable varR = df.getSWRLVariable("http://www.owlapi#r");
         body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varX, varQ));
         OWLLiteral lit = Literal(33);
         SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);

@@ -299,7 +299,7 @@ public class TutorialSnippetsTestCase {
         // Get hold of references to class A and class B.
         OWLClass clsA = df.getOWLClass(EXAMPLE_IRI + "#A");
         OWLClass clsB = df.getOWLClass(EXAMPLE_IRI + "#B");
-        SWRLVariable var = df.getSWRLVariable(IRI.create(EXAMPLE_IRI + "#x"));
+        SWRLVariable var = df.getSWRLVariable(EXAMPLE_IRI + "#x");
         Set<SWRLClassAtom> body = Collections.singleton(df.getSWRLClassAtom(
                 clsA, var));
         Set<SWRLClassAtom> head = Collections.singleton(df.getSWRLClassAtom(

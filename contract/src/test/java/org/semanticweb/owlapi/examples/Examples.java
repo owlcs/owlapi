@@ -775,8 +775,7 @@ public class Examples extends TestBase {
         // objects from a data factory that represent class A and class B
         OWLClass clsA = factory.getOWLClass(ontologyIRI + "#A");
         OWLClass clsB = factory.getOWLClass(ontologyIRI + "#B");
-        SWRLVariable var = factory.getSWRLVariable(IRI.create(ontologyIRI
-                + "#x"));
+        SWRLVariable var = factory.getSWRLVariable(ontologyIRI + "#x");
         SWRLRule rule = factory.getSWRLRule(
                 singleton(factory.getSWRLClassAtom(clsA, var)),
                 singleton(factory.getSWRLClassAtom(clsB, var)));

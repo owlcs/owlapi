@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -175,6 +177,45 @@ public interface SWRLProvider {
      */
     @Nonnull
     SWRLVariable getSWRLVariable(@Nonnull IRI var);
+
+    /**
+     * Gets a SWRLVariable.
+     * 
+     * @param iri
+     *        The IRI of the variable
+     * @return A SWRLVariable that has the name specified by the IRI
+     */
+    @Nonnull
+    default SWRLVariable getSWRLVariable(@Nonnull String iri) {
+        return getSWRLVariable(IRI.create(iri));
+    }
+
+    /**
+     * Gets a SWRLVariable.
+     * 
+     * @param namespace
+     *        The IRI namespace
+     * @param remainder
+     *        optional remainder or local name
+     * @return A SWRLVariable that has the name specified by the IRI
+     */
+    @Nonnull
+    default SWRLVariable getSWRLVariable(@Nonnull String namespace,
+            @Nullable String remainder) {
+        return getSWRLVariable(IRI.create(namespace, remainder));
+    }
+
+    /**
+     * Gets a SWRLVariable with the same IRI as the input.
+     * 
+     * @param var
+     *        an HasIRI instance. The variable will have the same IRI
+     * @return A SWRLVariable that has the name specified by the IRI
+     */
+    @Nonnull
+    default SWRLVariable getSWRLVariable(@Nonnull HasIRI var) {
+        return getSWRLVariable(var.getIRI());
+    }
 
     /**
      * Gets a SWRLIndividualArgument, which is used to wrap and OWLIndividual as

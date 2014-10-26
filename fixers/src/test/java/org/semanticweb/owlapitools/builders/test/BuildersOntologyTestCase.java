@@ -130,15 +130,13 @@ public class BuildersOntologyTestCase {
     @Nonnull
     private final SWRLAtom v1 = df.getSWRLBuiltInAtom(
             IRI.create("v1"),
-            Arrays.asList(
-                    (SWRLDArgument) df.getSWRLVariable(IRI.create("var3")),
-                    df.getSWRLVariable(IRI.create("var4"))));
+            Arrays.asList((SWRLDArgument) df.getSWRLVariable("var3"),
+                    df.getSWRLVariable("var4")));
     @Nonnull
     private final SWRLAtom v2 = df.getSWRLBuiltInAtom(
             IRI.create("v2"),
-            Arrays.asList(
-                    (SWRLDArgument) df.getSWRLVariable(IRI.create("var5")),
-                    df.getSWRLVariable(IRI.create("var6"))));
+            Arrays.asList((SWRLDArgument) df.getSWRLVariable("var5"),
+                    df.getSWRLVariable("var6")));
     @Nonnull
     private final Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));
     @Nonnull

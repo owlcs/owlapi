@@ -42,9 +42,9 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
-        SWRLVariable varX = df.getSWRLVariable(IRI("urn:swrl#x"));
-        SWRLVariable varY = df.getSWRLVariable(IRI("urn:swrl#y"));
-        SWRLVariable varZ = df.getSWRLVariable(IRI("urn:swrl#z"));
+        SWRLVariable varX = df.getSWRLVariable("urn:swrl#x");
+        SWRLVariable varY = df.getSWRLVariable("urn:swrl#y");
+        SWRLVariable varZ = df.getSWRLVariable("urn:swrl#z");
         Set<SWRLAtom> body = new HashSet<>();
         body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
         SWRLIndividualArgument indIArg = df
@@ -53,8 +53,8 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
                 .getSWRLIndividualArgument(NamedIndividual(iri("j")));
         body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
         body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
-        SWRLVariable varQ = df.getSWRLVariable(IRI("urn:swrl#q"));
-        SWRLVariable varR = df.getSWRLVariable(IRI("urn:swrl#r"));
+        SWRLVariable varQ = df.getSWRLVariable("urn:swrl#q");
+        SWRLVariable varR = df.getSWRLVariable("urn:swrl#r");
         body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varX, varQ));
         OWLLiteral lit = Literal(33);
         SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);

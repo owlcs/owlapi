@@ -774,8 +774,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     @Override
     public void visit(@Nonnull SWRLVariable node) {
         node.getIRI().accept(this);
-        IRI iri = getLastObject();
-        obj = dataFactory.getSWRLVariable(iri);
+        obj = dataFactory.getSWRLVariable(getLastObject());
     }
 
     @Override

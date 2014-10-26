@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -62,12 +61,12 @@ public class SWRLAtomOrderingRoundTripTestCase {
         OWLClass clsC = Class("C", pm);
         OWLClass clsD = Class("D", pm);
         OWLClass clsE = Class("E", pm);
-        SWRLVariable varA = dataFactory.getSWRLVariable(IRI
-                .create("http://other.com/A/VarA"));
-        SWRLVariable varB = dataFactory.getSWRLVariable(IRI
-                .create("http://other.com/A/VarA"));
-        SWRLVariable varC = dataFactory.getSWRLVariable(IRI
-                .create("http://other.com/A/VarA"));
+        SWRLVariable varA = dataFactory
+                .getSWRLVariable("http://other.com/A/VarA");
+        SWRLVariable varB = dataFactory
+                .getSWRLVariable("http://other.com/A/VarA");
+        SWRLVariable varC = dataFactory
+                .getSWRLVariable("http://other.com/A/VarA");
         body.add(dataFactory.getSWRLClassAtom(clsC, varA));
         body.add(dataFactory.getSWRLClassAtom(clsB, varB));
         body.add(dataFactory.getSWRLClassAtom(clsA, varC));
