@@ -22,8 +22,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.providers.LiteralProvider;
+import org.semanticweb.owlapi.model.providers.OWLVocabularyProvider;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -37,52 +38,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  */
 public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
         OWLEntityByTypeProvider, OWLAnonymousIndividualProvider,
-        OWLAnonymousIndividualByIdProvider {
-
-    // Entities and data stuff
-    /**
-     * Gets the built in owl:Thing class, which has a URI of
-     * &lt;http://www.w3.org/2002/07/owl#Thing&gt;
-     * 
-     * @return The OWL Class corresponding to owl:Thing
-     */
-    @Nonnull
-    OWLClass getOWLThing();
-
-    /**
-     * Gets the built in owl:Nothing class, which has a URI of
-     * &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
-     * 
-     * @return The OWL Class corresponding to owl:Nothing
-     */
-    @Nonnull
-    OWLClass getOWLNothing();
-
-    /** @return the built in top object property */
-    @Nonnull
-    OWLObjectProperty getOWLTopObjectProperty();
-
-    /** @return the built in top data property */
-    @Nonnull
-    OWLDataProperty getOWLTopDataProperty();
-
-    /** @return the built in bottom object property */
-    @Nonnull
-    OWLObjectProperty getOWLBottomObjectProperty();
-
-    /** @return the built in bottom data property */
-    @Nonnull
-    OWLDataProperty getOWLBottomDataProperty();
-
-    /**
-     * Gets the built in data range corresponding to the top data type (like
-     * owl:Thing but for data ranges), this datatype is rdfs:Literal, and has a
-     * URI of $lt;http://www.w3.org/2000/01/rdf-schema#&gt;
-     * 
-     * @return The OWL Datatype corresponding to the top data type.
-     */
-    @Nonnull
-    OWLDatatype getTopDatatype();
+        OWLAnonymousIndividualByIdProvider, OWLVocabularyProvider,
+        LiteralProvider {
 
     /**
      * Gets the inverse of an object property.
@@ -95,249 +52,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     OWLObjectInverseOf getOWLObjectInverseOf(
             @Nonnull OWLObjectPropertyExpression property);
 
-    /**
-     * Gets an annotation property that has an IRI corresponding to
-     * {@code rdfs:label}.
-     * 
-     * @return An annotation property with an IRI of {@code rdfs:label}.
-     */
-    @Nonnull
-    OWLAnnotationProperty getRDFSLabel();
-
-    /**
-     * Gets an annotation property that has an IRI corresponding to
-     * {@code rdfs:comment}.
-     * 
-     * @return An annotation property with an IRI of {@code rdfs:comment}.
-     */
-    @Nonnull
-    OWLAnnotationProperty getRDFSComment();
-
-    /**
-     * Gets an annotation property that has an IRI corresponding to
-     * {@code rdfs:seeAlso}.
-     * 
-     * @return An annotation property with an IRI of {@code rdfs:seeAlso}.
-     */
-    @Nonnull
-    OWLAnnotationProperty getRDFSSeeAlso();
-
-    /**
-     * Gets an annotation property that has an IRI corresponding to
-     * {@code rdfs:isDefinedBy}.
-     * 
-     * @return An annotation property with an IRI of {@code rdfs:isDefinedBy}.
-     */
-    @Nonnull
-    OWLAnnotationProperty getRDFSIsDefinedBy();
-
-    /**
-     * Gets an annotation property that has an IRI corresponding to
-     * {@code owl:versionInfo}.
-     * 
-     * @return An annotation property with an IRI of {@code owl:versionInfo}.
-     */
-    @Nonnull
-    OWLAnnotationProperty getOWLVersionInfo();
-
-    /**
-     * Gets an annotation property that has an IRI corresponding to
-     * {@code owl:backwardCompatibleWith}.
-     * 
-     * @return An annotation property with an IRI of
-     *         {@code owl:backwardCompatibleWith}.
-     */
-    @Nonnull
-    OWLAnnotationProperty getOWLBackwardCompatibleWith();
-
-    /**
-     * Gets an annotation property that has an IRI corresponding to
-     * {@code owl:incompatibleWith}.
-     * 
-     * @return An annotation property with an IRI of
-     *         {@code owl:incompatibleWith}.
-     */
-    @Nonnull
-    OWLAnnotationProperty getOWLIncompatibleWith();
-
-    /**
-     * Gets an annotation property that has an IRI corresponding to
-     * {@code owl:backwardCompatibleWith}.
-     * 
-     * @return An annotation property with an IRI of
-     *         {@code owl:backwardCompatibleWith}.
-     */
-    @Nonnull
-    OWLAnnotationProperty getOWLDeprecated();
-
-    /**
-     * Gets the rdf:PlainLiteral datatype.
-     * 
-     * @return The datatype with an IRI of {@code rdf:PlainLiteral}
-     */
-    @Nonnull
-    OWLDatatype getRDFPlainLiteral();
-
-    /**
-     * A convenience method that obtains the datatype that represents integers.
-     * This datatype will have the URI of
-     * &lt;http://www.w3.org/2001/XMLSchema#integer&gt;
-     * 
-     * @return An object representing an integer datatype.
-     */
-    @Nonnull
-    OWLDatatype getIntegerOWLDatatype();
-
-    /**
-     * A convenience method that obtains the datatype that represents floats.
-     * This datatype will have the URI of
-     * &lt;http://www.w3.org/2001/XMLSchema#float&gt;
-     * 
-     * @return An object representing the float datatype.
-     */
-    @Nonnull
-    OWLDatatype getFloatOWLDatatype();
-
-    /**
-     * A convenience method that obtains the datatype that represents doubles.
-     * This datatype will have the URI of
-     * &lt;http://www.w3.org/2001/XMLSchema#double&gt;
-     * 
-     * @return An object representing a double datatype.
-     */
-    @Nonnull
-    OWLDatatype getDoubleOWLDatatype();
-
-    /**
-     * A convenience method that obtains the datatype that represents the
-     * boolean datatype. This datatype will have the URI of
-     * &lt;http://www.w3.org/2001/XMLSchema#boolean&gt;
-     * 
-     * @return An object representing the boolean datatype.
-     */
-    @Nonnull
-    OWLDatatype getBooleanOWLDatatype();
-
-    // Literals
-    /**
-     * Gets an {@code OWLLiteral}, which has the specified lexical value, and is
-     * typed with the specified datatype.
-     * 
-     * @param lexicalValue
-     *        The lexical value.
-     * @param datatype
-     *        The datatype.
-     * @return An OWLLiteral with the specified lexical value and specified
-     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and the
-     *         lexical value contains a language tag then the language tag will
-     *         be parsed out of the lexical value. For example,
-     *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
-     *         of "abc" and a language tag of "en".
-     */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWLDatatype datatype);
-
-    /**
-     * Gets an {@code OWLLiteral}, which has the specified lexical value, and is
-     * typed with the specified datatype.
-     * 
-     * @param lexicalValue
-     *        The lexical value.
-     * @param datatype
-     *        The datatype.
-     * @return An OWLLiteral with the specified lexical value and specified
-     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and the
-     *         lexical value contains a language tag then the language tag will
-     *         be parsed out of the lexical value. For example,
-     *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
-     *         of "abc" and a language tag of "en".
-     */
-    @Nonnull
-    default OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWL2Datatype datatype) {
+    @Override
+    default OWLLiteral
+            getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
         checkNotNull(datatype, "datatype cannot be null");
         return getOWLLiteral(lexicalValue, getOWLDatatype(datatype));
     }
-
-    /**
-     * Convenience method that obtains a literal typed as an integer.
-     * 
-     * @param value
-     *        The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
-     *         the integer, and whose data type is xsd:integer.
-     */
-    @Nonnull
-    OWLLiteral getOWLLiteral(int value);
-
-    /**
-     * Convenience method that obtains a literal typed as a double.
-     * 
-     * @param value
-     *        The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
-     *         the double, and whose data type is xsd:double.
-     */
-    @Nonnull
-    OWLLiteral getOWLLiteral(double value);
-
-    /**
-     * Convenience method that obtains a literal typed as a boolean.
-     * 
-     * @param value
-     *        The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
-     *         the boolean, and whose data type is xsd:boolean.
-     */
-    @Nonnull
-    OWLLiteral getOWLLiteral(boolean value);
-
-    /**
-     * Convenience method that obtains a literal typed as a float.
-     * 
-     * @param value
-     *        The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
-     *         the float, and whose data type is xsd:float.
-     */
-    @Nonnull
-    OWLLiteral getOWLLiteral(float value);
-
-    /**
-     * Gets a literal that has the specified lexical value, and has the datatype
-     * xsd:string. The literal will not have a language tag.
-     * 
-     * @param value
-     *        The lexical value of the literal.
-     * @return A literal (without a language tag) that has a datatype of
-     *         xsd:string.
-     */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String value);
-
-    /**
-     * Gets an OWLLiteral with a language tag. The datatype of this literal will
-     * have an IRI of rdf:PlainLiteral (
-     * {@link org.semanticweb.owlapi.vocab.OWLRDFVocabulary#RDF_PLAIN_LITERAL}).
-     * 
-     * @param literal
-     *        The string literal.
-     * @param lang
-     *        The language tag. The empty string may be specified to indicate an
-     *        empty language tag. Leading and trailing white space will be
-     *        removed from the tag and the tag will be normalised to LOWER CASE.
-     *        If {@code lang} is {@code null} then {@code lang} will be
-     *        converted to the empty string (for backwards compatibility). If
-     *        not empty, the tag is formed according to <a
-     *        href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a> but
-     *        the OWL API will not check that the tag conforms to this
-     *        specification - it is up to the caller to ensure this.
-     * @return The OWLLiteral that represents the string literal with a
-     *         (possibly empty) language tag.
-     */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable String lang);
 
     // Data ranges
     /**

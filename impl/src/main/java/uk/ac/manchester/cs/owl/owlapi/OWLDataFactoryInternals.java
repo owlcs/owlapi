@@ -147,28 +147,4 @@ public interface OWLDataFactoryInternals extends Serializable {
      */
     @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable String lang);
-
-    /** @return top datatype */
-    @Nonnull
-    OWLDatatype getTopDatatype();
-
-    /** @return integer datatype */
-    @Nonnull
-    OWLDatatype getIntegerOWLDatatype();
-
-    /** @return float datatype */
-    @Nonnull
-    OWLDatatype getFloatOWLDatatype();
-
-    /** @return double datatype */
-    @Nonnull
-    OWLDatatype getDoubleOWLDatatype();
-
-    /** @return boolean datatype */
-    @Nonnull
-    OWLDatatype getBooleanOWLDatatype();
-
-    /** @return plain literal datatype */
-    @Nonnull
-    OWLDatatype getRDFPlainLiteral();
 }

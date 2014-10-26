@@ -1196,31 +1196,36 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLDatatype getBooleanOWLDatatype() {
-        return data.getBooleanOWLDatatype();
+        return InternalizedEntities.XSDBOOLEAN;
+    }
+
+    @Override
+    public OWLDatatype getStringOWLDatatype() {
+        return InternalizedEntities.XSDSTRING;
     }
 
     @Override
     public OWLDatatype getDoubleOWLDatatype() {
-        return data.getDoubleOWLDatatype();
+        return InternalizedEntities.XSDDOUBLE;
     }
 
     @Override
     public OWLDatatype getFloatOWLDatatype() {
-        return data.getFloatOWLDatatype();
+        return InternalizedEntities.XSDFLOAT;
     }
 
     @Override
     public OWLDatatype getIntegerOWLDatatype() {
-        return data.getIntegerOWLDatatype();
+        return InternalizedEntities.XSDINTEGER;
     }
 
     @Override
     public OWLDatatype getTopDatatype() {
-        return data.getTopDatatype();
+        return InternalizedEntities.RDFSLITERAL;
     }
 
     @Override
     public OWLDatatype getRDFPlainLiteral() {
-        return data.getRDFPlainLiteral();
+        return InternalizedEntities.PLAIN;
     }
 }

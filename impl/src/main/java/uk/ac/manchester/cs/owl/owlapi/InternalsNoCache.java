@@ -135,7 +135,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             if (sep != -1) {
                 String lex = lexicalValue.substring(0, sep);
                 String lang = lexicalValue.substring(sep + 1);
-                literal = getBasicLiteral(lex, lang, getRDFPlainLiteral());
+                literal = getBasicLiteral(lex, lang, PLAIN);
             } else {
                 literal = getBasicLiteral(lexicalValue, datatype);
             }
@@ -170,8 +170,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                     // again, some W3C tests require padding zeroes to make
                     // literals different
                     if (lexicalValue.trim().charAt(0) == '0') {
-                        literal = getBasicLiteral(lexicalValue,
-                                getIntegerOWLDatatype());
+                        literal = getBasicLiteral(lexicalValue, XSDINTEGER);
                     } else {
                         try {
                             // this is fine for values that can be parsed as
@@ -219,35 +218,5 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     private static boolean isBooleanTrueValue(@Nonnull String lexicalValue) {
         return lexicalValue.equals("1") || lexicalValue.equals("true");
-    }
-
-    @Override
-    public OWLDatatype getTopDatatype() {
-        return RDFSLITERAL;
-    }
-
-    @Override
-    public OWLDatatype getIntegerOWLDatatype() {
-        return XSDINTEGER;
-    }
-
-    @Override
-    public OWLDatatype getFloatOWLDatatype() {
-        return XSDFLOAT;
-    }
-
-    @Override
-    public OWLDatatype getDoubleOWLDatatype() {
-        return XSDDOUBLE;
-    }
-
-    @Override
-    public OWLDatatype getBooleanOWLDatatype() {
-        return XSDBOOLEAN;
-    }
-
-    @Override
-    public OWLDatatype getRDFPlainLiteral() {
-        return PLAIN;
     }
 }
