@@ -12,28 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import org.semanticweb.owlapi.model.providers.EntityByTypeProvider;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.4.6
+ * @deprecated use EntityByTypeProvider
  */
-public interface OWLEntityByTypeProvider {
-
-    /**
-     * Gets an entity that has the specified IRI and is of the specified type.
-     * 
-     * @param entityType
-     *        The type of the entity that will be returned.
-     * @param iri
-     *        The IRI of the entity that will be returned.
-     * @param <E>
-     *        type class
-     * @return An entity that has the same IRI as this entity and is of the
-     *         specified type.
-     */
-    @Nonnull
-    <E extends OWLEntity> E getOWLEntity(@Nonnull EntityType<E> entityType,
-            @Nonnull IRI iri);
-}
+@Deprecated
+public interface OWLEntityByTypeProvider extends EntityByTypeProvider {}

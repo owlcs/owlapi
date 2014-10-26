@@ -115,7 +115,6 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
@@ -338,8 +337,7 @@ public class Examples extends TestBase {
         // classes whose instances are data values OWLDatatype objects are
         // obtained from a data factory. The OWL2Datatype enum defines built in
         // OWL 2 Datatypes Get hold of the integer datatype
-        OWLDatatype integer = factory.getOWLDatatype(OWL2Datatype.XSD_INTEGER
-                .getIRI());
+        OWLDatatype integer = factory.getOWLDatatype(OWL2Datatype.XSD_INTEGER);
         // For common data types there are some convenience methods of
         // OWLDataFactory. For example
         OWLDatatype integerDatatype = factory.getIntegerOWLDatatype();
@@ -423,8 +421,7 @@ public class Examples extends TestBase {
         // integers greater than 18. First get a reference to our hasAge
         // property
         OWLDataFactory factory = man.getOWLDataFactory();
-        OWLDataProperty hasAge = factory.getOWLDataProperty(IRI.create(base
-                + "hasAge"));
+        OWLDataProperty hasAge = factory.getOWLDataProperty(base + "hasAge");
         // For completeness, we will make hasAge functional by adding an axiom
         // to state this
         OWLFunctionalDataPropertyAxiom funcAx = factory
@@ -449,7 +446,7 @@ public class Examples extends TestBase {
         // Now we want to say all adults have an age that is greater or equal to
         // 18 - i.e. Adult is a subclass of hasAge some int[>= 18] Obtain a
         // reference to the Adult class
-        OWLClass adult = factory.getOWLClass(IRI.create(base + "#Adult"));
+        OWLClass adult = factory.getOWLClass(base + "#Adult");
         // Now make adult a subclass of the things that have an age greater to
         // or equal to 18
         OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(adult,
@@ -469,7 +466,7 @@ public class Examples extends TestBase {
         // Typed literals are literals that are typed with a datatype Create a
         // typed literal to represent the integer 33
         OWLDatatype integerDatatype = factory
-                .getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
+                .getOWLDatatype(OWL2Datatype.XSD_INTEGER);
         OWLLiteral literal3 = factory.getOWLLiteral("33", integerDatatype);
         // There is are short cut methods on OWLDataFactory for creating typed
         // literals with common datatypes Internallym these methods create
@@ -555,8 +552,8 @@ public class Examples extends TestBase {
         // Get hold of references to class A and class B. Note that the ontology
         // does not contain class A or classB, we simply get references to
         // objects from a data factory that represent class A and class B
-        OWLClass clsA = factory.getOWLClass(IRI.create(ontologyIRI + "#A"));
-        OWLClass clsB = factory.getOWLClass(IRI.create(ontologyIRI + "#B"));
+        OWLClass clsA = factory.getOWLClass(ontologyIRI + "#A");
+        OWLClass clsB = factory.getOWLClass(ontologyIRI + "#B");
         // Now create the axiom
         OWLAxiom axiom = factory.getOWLSubClassOfAxiom(clsA, clsB);
         // We now add the axiom to the ontology, so that the ontology states
@@ -698,7 +695,7 @@ public class Examples extends TestBase {
         // specifying this typed literal as the value of the property assertion.
         // That is, Get hold of the xsd:integer datatype
         OWLDatatype integerDatatype = factory
-                .getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
+                .getOWLDatatype(OWL2Datatype.XSD_INTEGER);
         // Create a typed literal. We type the literal "51" with the datatype
         OWLLiteral literal = factory.getOWLLiteral("51", integerDatatype);
         // Create the property assertion and add it to the ontology
@@ -776,18 +773,18 @@ public class Examples extends TestBase {
         // Get hold of references to class A and class B. Note that the ontology
         // does not contain class A or classB, we simply get references to
         // objects from a data factory that represent class A and class B
-        OWLClass clsA = factory.getOWLClass(IRI.create(ontologyIRI + "#A"));
-        OWLClass clsB = factory.getOWLClass(IRI.create(ontologyIRI + "#B"));
+        OWLClass clsA = factory.getOWLClass(ontologyIRI + "#A");
+        OWLClass clsB = factory.getOWLClass(ontologyIRI + "#B");
         SWRLVariable var = factory.getSWRLVariable(IRI.create(ontologyIRI
                 + "#x"));
         SWRLRule rule = factory.getSWRLRule(
                 singleton(factory.getSWRLClassAtom(clsA, var)),
                 singleton(factory.getSWRLClassAtom(clsB, var)));
         manager.applyChange(new AddAxiom(ontology, rule));
-        OWLObjectProperty prop = factory.getOWLObjectProperty(IRI
-                .create(ontologyIRI + "#propA"));
-        OWLObjectProperty propB = factory.getOWLObjectProperty(IRI
-                .create(ontologyIRI + "#propB"));
+        OWLObjectProperty prop = factory.getOWLObjectProperty(ontologyIRI
+                + "#propA");
+        OWLObjectProperty propB = factory.getOWLObjectProperty(ontologyIRI
+                + "#propB");
         SWRLObjectPropertyAtom propAtom = factory.getSWRLObjectPropertyAtom(
                 prop, var, var);
         SWRLObjectPropertyAtom propAtom2 = factory.getSWRLObjectPropertyAtom(
@@ -820,15 +817,15 @@ public class Examples extends TestBase {
         // peter. We need a subject and object - matthew is the subject and
         // peter is the object. We use the data factory to obtain references to
         // these individuals
-        OWLIndividual matthew = dataFactory.getOWLNamedIndividual(IRI
-                .create(base + "#matthew"));
-        OWLIndividual peter = dataFactory.getOWLNamedIndividual(IRI.create(base
-                + "#peter"));
+        OWLIndividual matthew = dataFactory.getOWLNamedIndividual(base
+                + "#matthew");
+        OWLIndividual peter = dataFactory
+                .getOWLNamedIndividual(base + "#peter");
         // We want to link the subject and object with the hasFather property,
         // so use the data factory to obtain a reference to this object
         // property.
-        OWLObjectProperty hasFather = dataFactory.getOWLObjectProperty(IRI
-                .create(base + "#hasFather"));
+        OWLObjectProperty hasFather = dataFactory.getOWLObjectProperty(base
+                + "#hasFather");
         // Now create the actual assertion (triple), as an object property
         // assertion axiom matthew --> hasFather --> peter
         OWLObjectPropertyAssertionAxiom assertion = dataFactory
@@ -839,8 +836,7 @@ public class Examples extends TestBase {
         // We can also specify that matthew is an instance of Person. To do this
         // we use a ClassAssertion axiom. First we need a reference to the
         // person class
-        OWLClass personClass = dataFactory.getOWLClass(IRI.create(base
-                + "#Person"));
+        OWLClass personClass = dataFactory.getOWLClass(base + "#Person");
         // Now we will create out Class Assertion to specify that matthew is an
         // instance of Person (or rather that Person has matthew as an instance)
         OWLClassAssertionAxiom ax = dataFactory.getOWLClassAssertionAxiom(
@@ -929,16 +925,16 @@ public class Examples extends TestBase {
         // words, Heads have parts that are noses! First we need to obtain
         // references to our hasPart property and our Nose class
         OWLDataFactory factory = man.getOWLDataFactory();
-        OWLObjectProperty hasPart = factory.getOWLObjectProperty(IRI
-                .create(base + "#hasPart"));
-        OWLClass nose = factory.getOWLClass(IRI.create(base + "#Nose"));
+        OWLObjectProperty hasPart = factory.getOWLObjectProperty(base
+                + "#hasPart");
+        OWLClass nose = factory.getOWLClass(base + "#Nose");
         // Now create a restriction to describe the class of individuals that
         // have at least one part that is a kind of nose
         OWLClassExpression hasPartSomeNose = factory
                 .getOWLObjectSomeValuesFrom(hasPart, nose);
         // Obtain a reference to the Head class so that we can specify that
         // Heads have noses
-        OWLClass head = factory.getOWLClass(IRI.create(base + "#Head"));
+        OWLClass head = factory.getOWLClass(base + "#Head");
         // We now want to state that Head is a subclass of hasPart some Nose, to
         // do this we create a subclass axiom, with head as the subclass and
         // "hasPart some Nose" as the superclass (remember, restrictions are
@@ -1034,8 +1030,8 @@ public class Examples extends TestBase {
         // Get a reference to the vegetarian class so that we can as the
         // reasoner about it. The full IRI of this class happens to be:
         // <http://owl.man.ac.uk/2005/07/sssw/people#vegetarian>
-        OWLClass vegPizza = fac.getOWLClass(IRI
-                .create("http://owl.man.ac.uk/2005/07/sssw/people#vegetarian"));
+        OWLClass vegPizza = fac
+                .getOWLClass("http://owl.man.ac.uk/2005/07/sssw/people#vegetarian");
         // Now use the reasoner to obtain the subclasses of vegetarian. We can
         // ask for the direct subclasses of vegetarian or all of the (proper)
         // subclasses of vegetarian. In this case we just want the direct ones
@@ -1066,8 +1062,8 @@ public class Examples extends TestBase {
         // instances of the class pet. This class has a full IRI of
         // <http://owl.man.ac.uk/2005/07/sssw/people#pet> We need to obtain a
         // reference to this class so that we can ask the reasoner about it.
-        OWLClass country = fac.getOWLClass(IRI
-                .create("http://owl.man.ac.uk/2005/07/sssw/people#pet"));
+        OWLClass country = fac
+                .getOWLClass("http://owl.man.ac.uk/2005/07/sssw/people#pet");
         // Ask the reasoner for the instances of pet
         NodeSet<OWLNamedIndividual> individualsNodeSet = reasoner.getInstances(
                 country, true);
@@ -1086,12 +1082,12 @@ public class Examples extends TestBase {
         // individual Mick, the full IRI of which is
         // <http://owl.man.ac.uk/2005/07/sssw/people#Mick> Get a reference to
         // the individual Mick
-        OWLNamedIndividual mick = fac.getOWLNamedIndividual(IRI
-                .create("http://owl.man.ac.uk/2005/07/sssw/people#Mick"));
+        OWLNamedIndividual mick = fac
+                .getOWLNamedIndividual("http://owl.man.ac.uk/2005/07/sssw/people#Mick");
         // Let's get the pets of Mick Get hold of the has_pet property which has
         // a full IRI of <http://owl.man.ac.uk/2005/07/sssw/people#has_pet>
-        OWLObjectProperty hasPet = fac.getOWLObjectProperty(IRI
-                .create("http://owl.man.ac.uk/2005/07/sssw/people#has_pet"));
+        OWLObjectProperty hasPet = fac
+                .getOWLObjectProperty("http://owl.man.ac.uk/2005/07/sssw/people#has_pet");
         // Now ask the reasoner for the has_pet property values for Mick
         NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
                 .getObjectPropertyValues(mick, hasPet);
@@ -1255,9 +1251,9 @@ public class Examples extends TestBase {
         OWLOntology ont = loadPizza(man);
         // We want to add a comment to the pizza class. First, we need to obtain
         // a reference to the pizza class
-        OWLClass pizzaCls = df.getOWLClass(IRI.create(ont.getOntologyID()
-                .getOntologyIRI().get()
-                + "#Pizza"));
+        OWLClass pizzaCls = df.getOWLClass(ont.getOntologyID().getOntologyIRI()
+                .get()
+                + "#Pizza");
         // Now we create the content of our comment. In this case we simply want
         // a plain string literal. We'll attach a language to the comment to
         // specify that our comment is written in English (en).
@@ -1281,9 +1277,7 @@ public class Examples extends TestBase {
         // The above constant is just a plain literal containing the version
         // info text/comment we need to create an annotation, which pairs a URI
         // with the constant
-        OWLAnnotation anno = df.getOWLAnnotation(df
-                .getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO
-                        .getIRI()), lit);
+        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLVersionInfo(), lit);
         // Now we can add this as an ontology annotation Apply the change in the
         // usual way
         man.applyChange(new AddOntologyAnnotation(ont, anno));
@@ -1297,8 +1291,7 @@ public class Examples extends TestBase {
         // class with a constant which is untyped then we check the language tag
         // to see if it is Portugeuse. Firstly, get the annotation property for
         // rdfs:label
-        OWLAnnotationProperty label = df
-                .getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+        OWLAnnotationProperty label = df.getRDFSLabel();
         for (OWLClass cls : ont.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
             for (OWLAnnotation annotation : annotations(ont.filterAxioms(
@@ -1374,8 +1367,7 @@ public class Examples extends TestBase {
         man.addAxiom(
                 o,
                 man.getOWLDataFactory().getOWLDeclarationAxiom(
-                        man.getOWLDataFactory().getOWLClass(
-                                IRI.create("urn:testclass"))));
+                        man.getOWLDataFactory().getOWLClass("urn:testclass")));
         // Create our ontology merger
         OWLOntologyMerger merger = new OWLOntologyMerger(man);
         // We merge all of the loaded ontologies. Since an OWLOntologyManager is
@@ -1455,15 +1447,14 @@ public class Examples extends TestBase {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ont);
         // Now we can query the reasoner, suppose we want to determine the
         // properties that instances of Marghertia pizza must have
-        OWLClass margheritaPizza = man.getOWLDataFactory().getOWLClass(
-                IRI.create(prefix + "Quokka"));
+        OWLClass margheritaPizza = man.getOWLDataFactory().getOWLClass(prefix,
+                "Quokka");
         // printProperties(man, ont, reasoner, margheritaPizza);
         // We can also ask if the instances of a class must have a property
         OWLClass mozzarellaTopping = man.getOWLDataFactory().getOWLClass(
-                IRI.create(prefix + "MozzarellaTopping"));
-        OWLObjectProperty hasOrigin = man
-                .getOWLDataFactory()
-                .getOWLObjectProperty(IRI.create(prefix + "hasCountryOfOrigin"));
+                prefix, "MozzarellaTopping");
+        OWLObjectProperty hasOrigin = man.getOWLDataFactory()
+                .getOWLObjectProperty(prefix + "hasCountryOfOrigin");
         if (hasProperty(man, reasoner, mozzarellaTopping, hasOrigin)) {
             // System.out.println("Instances of " + mozzarellaTopping
             // + " have a country of origin");
@@ -1623,9 +1614,9 @@ public class Examples extends TestBase {
         // generate a seed signature that contains "PizzaTopping" and its
         // subclasses. We start by creating a signature that consists of
         // "PizzaTopping".
-        OWLClass toppingCls = df.getOWLClass(IRI.create(ont.getOntologyID()
+        OWLClass toppingCls = df.getOWLClass(ont.getOntologyID()
                 .getOntologyIRI().get()
-                + "#PizzaTopping"));
+                + "#PizzaTopping");
         Set<OWLEntity> sig = new HashSet<OWLEntity>();
         sig.add(toppingCls);
         // We now add all subclasses (direct and indirect) of the chosen
@@ -1726,14 +1717,14 @@ public class Examples extends TestBase {
         // #John. Note however, that there is no reuqirement that a URI of a
         // class, property or individual that is used in an ontology have a
         // correspondance with the URI of the ontology.
-        OWLIndividual john = factory.getOWLNamedIndividual(IRI
-                .create(ontologyIRI + "#John"));
-        OWLIndividual mary = factory.getOWLNamedIndividual(IRI
-                .create(ontologyIRI + "#Mary"));
-        OWLIndividual susan = factory.getOWLNamedIndividual(IRI
-                .create(ontologyIRI + "#Susan"));
-        OWLIndividual bill = factory.getOWLNamedIndividual(IRI
-                .create(ontologyIRI + "#Bill"));
+        OWLIndividual john = factory.getOWLNamedIndividual(ontologyIRI
+                + "#John");
+        OWLIndividual mary = factory.getOWLNamedIndividual(ontologyIRI
+                + "#Mary");
+        OWLIndividual susan = factory.getOWLNamedIndividual(ontologyIRI
+                + "#Susan");
+        OWLIndividual bill = factory.getOWLNamedIndividual(ontologyIRI
+                + "#Bill");
         // The ontologies that we created aren't contained in any ontology at
         // the moment. Individuals (or classes or properties) can't directly be
         // added to an ontology, they have to be used in axioms, and then the
@@ -1744,8 +1735,8 @@ public class Examples extends TestBase {
         // properties link an individual to an individual, and data properties
         // link and individual to a constant - here, we need an object property
         // because John and Mary are individuals).
-        OWLObjectProperty hasWife = factory.getOWLObjectProperty(IRI
-                .create(ontologyIRI + "#hasWife"));
+        OWLObjectProperty hasWife = factory.getOWLObjectProperty(ontologyIRI
+                + "#hasWife");
         // Now we need to create the assertion that John hasWife Mary. To do
         // this we need an axiom, in this case an object property assertion
         // axiom. This can be thought of as a "triple" that has a subject, john,
@@ -1761,23 +1752,23 @@ public class Examples extends TestBase {
         manager.applyChange(addAxiom1);
         // Now we want to add the other facts/assertions to the ontology John
         // hasSon Bill Get a refernece to the hasSon property
-        OWLObjectProperty hasSon = factory.getOWLObjectProperty(IRI
-                .create(ontologyIRI + "#hasSon"));
+        OWLObjectProperty hasSon = factory.getOWLObjectProperty(ontologyIRI
+                + "#hasSon");
         // Create the assertion, John hasSon Bill
         OWLAxiom axiom2 = factory.getOWLObjectPropertyAssertionAxiom(hasSon,
                 john, bill);
         // Apply the change
         manager.applyChange(new AddAxiom(ont, axiom2));
         // John hasDaughter Susan
-        OWLObjectProperty hasDaughter = factory.getOWLObjectProperty(IRI
-                .create(ontologyIRI + "#hasDaughter"));
+        OWLObjectProperty hasDaughter = factory
+                .getOWLObjectProperty(ontologyIRI + "#hasDaughter");
         OWLAxiom axiom3 = factory.getOWLObjectPropertyAssertionAxiom(
                 hasDaughter, john, susan);
         manager.applyChange(new AddAxiom(ont, axiom3));
         // John hasAge 33 In this case, hasAge is a data property, which we need
         // a reference to
-        OWLDataProperty hasAge = factory.getOWLDataProperty(IRI
-                .create(ontologyIRI + "#hasAge"));
+        OWLDataProperty hasAge = factory.getOWLDataProperty(ontologyIRI
+                + "#hasAge");
         // We create a data property assertion instead of an object property
         // assertion
         OWLAxiom axiom4 = factory.getOWLDataPropertyAssertionAxiom(hasAge,
@@ -1813,12 +1804,12 @@ public class Examples extends TestBase {
         // Now specify the genders of John, Mary, Bill and Susan. To do this we
         // need the male and female individuals and the hasGender object
         // property.
-        OWLIndividual male = factory.getOWLNamedIndividual(IRI
-                .create(ontologyIRI + "#male"));
-        OWLIndividual female = factory.getOWLNamedIndividual(IRI
-                .create(ontologyIRI + "#female"));
-        OWLObjectProperty hasGender = factory.getOWLObjectProperty(IRI
-                .create(ontologyIRI + "#hasGender"));
+        OWLIndividual male = factory.getOWLNamedIndividual(ontologyIRI
+                + "#male");
+        OWLIndividual female = factory.getOWLNamedIndividual(ontologyIRI
+                + "#female");
+        OWLObjectProperty hasGender = factory.getOWLObjectProperty(ontologyIRI
+                + "#hasGender");
         Set<OWLAxiom> genders = new HashSet<OWLAxiom>();
         genders.add(factory.getOWLObjectPropertyAssertionAxiom(hasGender, john,
                 male));
@@ -1837,8 +1828,7 @@ public class Examples extends TestBase {
         // hasDaughter are the class Person. To do this we need various domain
         // and range axioms, and we need a reference to the class Person First
         // get a reference to the person class
-        OWLClass person = factory.getOWLClass(IRI.create(ontologyIRI
-                + "#Person"));
+        OWLClass person = factory.getOWLClass(ontologyIRI + "#Person");
         // Now we add the domain and range axioms that specify the domains and
         // ranges of the various properties that we are interested in.
         Set<OWLAxiom> domainsAndRanges = new HashSet<OWLAxiom>();
@@ -1878,9 +1868,9 @@ public class Examples extends TestBase {
         // Inverse property axioms //We can specify the inverse property of
         // hasWife as hasHusband We first need a reference to the hasHusband
         // property.
-        OWLObjectProperty hasHusband = factory.getOWLObjectProperty(IRI
-                .create(ont.getOntologyID().getOntologyIRI().get()
-                        + "#hasHusband"));
+        OWLObjectProperty hasHusband = factory.getOWLObjectProperty(ont
+                .getOntologyID().getOntologyIRI().get()
+                + "#hasHusband");
         // The full URI of the hasHusband property will be
         // http://example.com/owlapi/families#hasHusband since the URI of our
         // ontology is http://example.com/owlapi/families Create the inverse
@@ -1890,9 +1880,9 @@ public class Examples extends TestBase {
         // Sub property axioms //OWL allows a property hierarchy to be
         // specified. Here, hasSon and hasDaughter will be specified as
         // hasChild.
-        OWLObjectProperty hasChild = factory.getOWLObjectProperty(IRI
-                .create(ont.getOntologyID().getOntologyIRI().get()
-                        + "#hasChild"));
+        OWLObjectProperty hasChild = factory.getOWLObjectProperty(ont
+                .getOntologyID().getOntologyIRI().get()
+                + "#hasChild");
         OWLSubObjectPropertyOfAxiom hasSonSubHasChildAx = factory
                 .getOWLSubObjectPropertyOfAxiom(hasSon, hasChild);
         // Add the axiom
@@ -1927,11 +1917,9 @@ public class Examples extends TestBase {
         // that we already have, we want to say something about the classes Man,
         // Woman and Parent. To say something about these classes, as usual, we
         // need references to them:
-        OWLClass man = factory.getOWLClass(IRI.create(ontologyIRI + "#Man"));
-        OWLClass woman = factory
-                .getOWLClass(IRI.create(ontologyIRI + "#Woman"));
-        OWLClass parent = factory.getOWLClass(IRI.create(ontologyIRI
-                + "#Parent"));
+        OWLClass man = factory.getOWLClass(ontologyIRI + "#Man");
+        OWLClass woman = factory.getOWLClass(ontologyIRI + "#Woman");
+        OWLClass parent = factory.getOWLClass(ontologyIRI + "#Parent");
         // It is important to realise that simply getting references to a class
         // via the data factory does not add them to an ontology - only axioms
         // can be added to an ontology. Now say that Man, Woman and Parent are
@@ -2019,16 +2007,14 @@ public class Examples extends TestBase {
         // First create the class Person and hasAge some int[>=13, <20]
         OWLClassExpression teenagePerson = factory.getOWLObjectIntersectionOf(
                 person, teenagerAgeRestriction);
-        OWLClass teenager = factory.getOWLClass(IRI.create(ontologyIRI
-                + "#Teenager"));
+        OWLClass teenager = factory.getOWLClass(ontologyIRI + "#Teenager");
         OWLEquivalentClassesAxiom teenagerDefinition = factory
                 .getOWLEquivalentClassesAxiom(teenager, teenagePerson);
         manager.addAxiom(ont, teenagerDefinition);
         // Do the same for Adult that has an age greater than 21
         OWLDataRange geq21 = factory.getOWLDatatypeRestriction(integerDatatype,
                 factory.getOWLFacetRestriction(MIN_INCLUSIVE, 21));
-        OWLClass adult = factory
-                .getOWLClass(IRI.create(ontologyIRI + "#Adult"));
+        OWLClass adult = factory.getOWLClass(ontologyIRI + "#Adult");
         OWLClassExpression adultAgeRestriction = factory
                 .getOWLDataSomeValuesFrom(hasAge, geq21);
         OWLClassExpression adultPerson = factory.getOWLObjectIntersectionOf(
@@ -2038,8 +2024,7 @@ public class Examples extends TestBase {
         manager.addAxiom(ont, adultDefinition);
         // And finally Child
         OWLDataRange notGeq21 = factory.getOWLDataComplementOf(geq21);
-        OWLClass child = factory
-                .getOWLClass(IRI.create(ontologyIRI + "#Child"));
+        OWLClass child = factory.getOWLClass(ontologyIRI + "#Child");
         OWLClassExpression childAgeRestriction = factory
                 .getOWLDataSomeValuesFrom(hasAge, notGeq21);
         OWLClassExpression childPerson = factory.getOWLObjectIntersectionOf(

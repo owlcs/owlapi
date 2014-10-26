@@ -23,7 +23,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -88,8 +87,8 @@ public class StructuralTransformation implements Serializable {
 
     @Nonnull
     protected OWLClass createNewName() {
-        OWLClass cls = df.getOWLClass(IRI.create(
-                "http://www.semanticweb.org/ontology#", "X" + nameCounter));
+        OWLClass cls = df.getOWLClass("http://www.semanticweb.org/ontology#",
+                "X" + nameCounter);
         nameCounter++;
         return cls;
     }

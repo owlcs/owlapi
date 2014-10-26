@@ -294,8 +294,7 @@ public abstract class TestBase {
     }
 
     private Set<OWLAnnotation> reannotate(Set<OWLAnnotation> anns) {
-        OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING
-                .getIRI());
+        OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING);
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLAnnotation a : anns) {
             Optional<OWLLiteral> asLiteral = a.getValue().asLiteral();
@@ -457,7 +456,7 @@ public abstract class TestBase {
 
     // @Test
     public void checkVerify() {
-        OWLDataProperty t = df.getOWLDataProperty(IRI.create("urn:test#t"));
+        OWLDataProperty t = df.getOWLDataProperty("urn:test#t");
         Set<OWLAxiom> ax1 = new HashSet<>();
         ax1.add(df.getOWLDataPropertyAssertionAxiom(t,
                 df.getOWLAnonymousIndividual(), df.getOWLLiteral("test1")));

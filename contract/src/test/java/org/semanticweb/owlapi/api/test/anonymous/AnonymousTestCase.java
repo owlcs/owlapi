@@ -56,9 +56,9 @@ public class AnonymousTestCase extends TestBase {
     public void testRoundTripWithAnonymousIndividuals() throws Exception {
         String ns = "http://test.com/genid#";
         IRI ont = IRI.create(ns + "ontology.owl");
-        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create(ns, "i"));
-        OWLObjectProperty p = df.getOWLObjectProperty(IRI.create(ns, "p"));
-        OWLDataProperty q = df.getOWLDataProperty(IRI.create(ns, "q"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(ns, "i");
+        OWLObjectProperty p = df.getOWLObjectProperty(ns, "p");
+        OWLDataProperty q = df.getOWLDataProperty(ns, "q");
         OWLOntology ontology = m.createOntology(ont);
         OWLIndividual ind = df.getOWLAnonymousIndividual();
         OWLObjectPropertyAssertionAxiom ax1 = df

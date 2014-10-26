@@ -4,7 +4,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,18 +19,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  */
 public abstract class OWLOntologyDocumentSourceBase implements
         OWLOntologyDocumentSource {
-
-    private static final AtomicLong COUNTER = new AtomicLong();
-
-    /**
-     * @param prefix
-     *        prefix for result
-     * @return a fresh IRI
-     */
-    @Nonnull
-    public static IRI getNextDocumentIRI(String prefix) {
-        return IRI.create(prefix + COUNTER.incrementAndGet());
-    }
 
     private final IRI documentIRI;
     private final Optional<OWLDocumentFormat> format;
@@ -68,7 +55,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
      */
     public OWLOntologyDocumentSourceBase(@Nonnull String iriPrefix,
             @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        this(getNextDocumentIRI(iriPrefix), format, mime);
+        this(IRI.getNextDocumentIRI(iriPrefix), format, mime);
     }
 
     @Override

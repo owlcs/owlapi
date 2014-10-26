@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
@@ -124,8 +125,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     private Set<IRI> initSet() {
         Set<IRI> set = CollectionFactory.createSet();
         for (K k : map.keySet()) {
-            if (k instanceof OWLEntity) {
-                set.add(((OWLEntity) k).getIRI());
+            if (k instanceof HasIRI) {
+                set.add(((HasIRI) k).getIRI());
             } else if (k instanceof IRI) {
                 set.add((IRI) k);
             }

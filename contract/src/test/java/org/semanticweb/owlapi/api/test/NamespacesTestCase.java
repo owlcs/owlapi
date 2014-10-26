@@ -48,7 +48,7 @@ public class NamespacesTestCase extends TestBase {
         // then
         assertEquals(XSDVocabulary.STRING, v);
         assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df),
-                df.getOWLDatatype(v.getIRI()));
+                df.getOWLDatatype(v));
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -21,8 +21,8 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -57,7 +57,7 @@ public class DisjointsTestCase extends TestBase {
 
     @Test
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = m.createOntology(OWLOntologyDocumentSourceBase
+        OWLOntology ontA = m.createOntology(IRI
                 .getNextDocumentIRI("urntests#uri"));
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();

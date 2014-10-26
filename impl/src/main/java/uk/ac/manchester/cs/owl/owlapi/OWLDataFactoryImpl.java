@@ -1134,8 +1134,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         checkNotNull(arg0, "arg0 cannot be null");
         checkNotNull(arg1, "arg1 cannot be null");
         return new SWRLDifferentIndividualsAtomImpl(
-                getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM
-                        .getIRI()),
+                getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM),
                 arg0, arg1);
     }
 
@@ -1146,8 +1145,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         checkNotNull(arg0, "arg0 cannot be null");
         checkNotNull(arg1, "arg1 cannot be null");
         return new SWRLSameIndividualAtomImpl(
-                getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getIRI()),
-                arg0, arg1);
+                getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS), arg0, arg1);
     }
 
     @Nonnull

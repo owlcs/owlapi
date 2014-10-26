@@ -24,7 +24,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
@@ -452,7 +451,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     @Nonnull
     private static IRI createIRI() {
-        return OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("http://debugging.blackbox#A");
+        return IRI.getNextDocumentIRI("http://debugging.blackbox#A");
     }
 }

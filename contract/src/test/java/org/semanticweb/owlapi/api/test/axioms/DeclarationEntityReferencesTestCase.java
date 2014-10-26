@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -40,7 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends TestBase {
 
-    private static final IRI NEXT_DOCUMENT_IRI = OWLOntologyDocumentSourceBase
+    private static final IRI NEXT_DOCUMENT_IRI = IRI
             .getNextDocumentIRI("urn:testontology");
 
     @Test

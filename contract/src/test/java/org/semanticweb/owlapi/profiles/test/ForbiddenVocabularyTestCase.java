@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.profiles.test;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
@@ -111,13 +110,11 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
         // a:hasBrother ) The uncle of someone's child is that person's brother.
         OWLObjectProperty father = df
-                .getOWLObjectProperty(IRI("urn:test:hasFather"));
+                .getOWLObjectProperty("urn:test:hasFather");
         OWLObjectProperty brother = df
-                .getOWLObjectProperty(IRI("urn:test:hasBrother"));
-        OWLObjectProperty child = df
-                .getOWLObjectProperty(IRI("urn:test:hasChild"));
-        OWLObjectProperty uncle = df
-                .getOWLObjectProperty(IRI("urn:test:hasUncle"));
+                .getOWLObjectProperty("urn:test:hasBrother");
+        OWLObjectProperty child = df.getOWLObjectProperty("urn:test:hasChild");
+        OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:hasUncle");
         o.getOWLOntologyManager()
                 .addAxiom(o, df.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager().addAxiom(o,
@@ -151,13 +148,11 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
         OWLObjectProperty father = df
-                .getOWLObjectProperty(IRI("urn:test:hasFather"));
+                .getOWLObjectProperty("urn:test:hasFather");
         OWLObjectProperty brother = df
-                .getOWLObjectProperty(IRI("urn:test:hasBrother"));
-        OWLObjectProperty child = df
-                .getOWLObjectProperty(IRI("urn:test:hasChild"));
-        OWLObjectProperty uncle = df
-                .getOWLObjectProperty(IRI("urn:test:hasUncle"));
+                .getOWLObjectProperty("urn:test:hasBrother");
+        OWLObjectProperty child = df.getOWLObjectProperty("urn:test:hasChild");
+        OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:hasUncle");
         o.getOWLOntologyManager()
                 .addAxiom(o, df.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager().addAxiom(o,

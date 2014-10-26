@@ -33,7 +33,7 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         OWLDataFactory factory = m.getOWLDataFactory();
         OWLOntology ontology = m.createOntology(IRI("urn:testontology:o1"));
         OWLObjectProperty p = factory
-                .getOWLObjectProperty(IRI("http://example.org/A_#part_of"));
+                .getOWLObjectProperty("http://example.org/A_#part_of");
         OWLClass a = Class(IRI("http://example.org/A_A"));
         OWLClass b = Class(IRI("http://example.org/A_B"));
         m.addAxiom(ontology, Declaration(p));

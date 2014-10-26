@@ -28,14 +28,12 @@ class BuildersTestUtil {
     @Nonnull
     static OWLDataFactory df = new OWLDataFactoryImpl();
     @Nonnull
-    static OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
-            .create("urn:test#ann"));
+    static OWLAnnotationProperty ap = df
+            .getOWLAnnotationProperty("urn:test#ann");
     @Nonnull
-    static OWLObjectProperty op = df.getOWLObjectProperty(IRI
-            .create("urn:test#op"));
+    static OWLObjectProperty op = df.getOWLObjectProperty("urn:test#op");
     @Nonnull
-    static OWLDataProperty dp = df
-            .getOWLDataProperty(IRI.create("urn:test#dp"));
+    static OWLDataProperty dp = df.getOWLDataProperty("urn:test#dp");
     @Nonnull
     static OWLLiteral lit = df.getOWLLiteral(false);
     @Nonnull
@@ -44,10 +42,9 @@ class BuildersTestUtil {
     static Set<OWLAnnotation> annotations = Sets.newHashSet(df
             .getOWLAnnotation(ap, df.getOWLLiteral("test")));
     @Nonnull
-    static OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
+    static OWLClass ce = df.getOWLClass("urn:test#c");
     @Nonnull
-    static OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
-            .create("urn:test#i"));
+    static OWLNamedIndividual i = df.getOWLNamedIndividual("urn:test#i");
     @Nonnull
     static OWLDatatype d = df.getBooleanOWLDatatype();
     @Nonnull

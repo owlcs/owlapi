@@ -12,9 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.io.Serializable;
-
-import javax.annotation.Nonnull;
+import org.semanticweb.owlapi.model.providers.AnonymousIndividualProvider;
 
 /**
  * An interface to an object that can provide instances if
@@ -23,20 +21,8 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 4.0.0
- * @see OWLDataFactory
+ * @deprecated use AnonymousIndividualProvider
  */
-public interface OWLAnonymousIndividualProvider extends Serializable {
-
-    /**
-     * Gets an {@link OWLAnonymousIndividual}. The {@link NodeID} for the
-     * individual will be generated automatically. Successive invocations of
-     * this method (on this object) will result in instances of
-     * {@link OWLAnonymousIndividual} that do not have {@link NodeID}s that have
-     * been used previously.
-     * 
-     * @return The instance of {@link OWLAnonymousIndividual}.
-     * @see OWLAnonymousIndividualByIdProvider
-     */
-    @Nonnull
-    OWLAnonymousIndividual getOWLAnonymousIndividual();
-}
+@Deprecated
+public interface OWLAnonymousIndividualProvider extends
+        AnonymousIndividualProvider {}

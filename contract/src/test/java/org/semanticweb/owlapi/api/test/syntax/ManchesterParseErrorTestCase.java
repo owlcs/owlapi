@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -90,7 +88,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         public OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
                 return factory
-                        .getOWLDataProperty(IRI("http://protege.org/Test.owl#p"));
+                        .getOWLDataProperty("http://protege.org/Test.owl#p");
             } else {
                 return null;
             }

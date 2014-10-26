@@ -459,8 +459,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     @Override
     public void visit(@Nonnull OWLClass ce) {
-        IRI uri = getIRI(ce);
-        obj = dataFactory.getOWLClass(uri);
+        obj = dataFactory.getOWLClass(getIRI(ce));
     }
 
     @Override

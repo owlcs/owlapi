@@ -64,8 +64,8 @@ public class MultiImportsTestCase extends TestBase {
         File ontologyDirectory = new File(RESOURCES, "importNoOntology");
         String ns = "http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/";
         IRI bobsOntologyName = IRI.create(ns + "subject-bob");
-        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(IRI
-                .create(ns + "subject-bob#subjectOnImmunosuppressantA2"));
+        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(ns
+                + "subject-bob#subjectOnImmunosuppressantA2");
         m.getIRIMappers()
                 .add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"), IRI
                         .create(new File(ontologyDirectory, "subject-amy.ttl"))));

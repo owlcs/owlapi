@@ -21,7 +21,6 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -48,12 +47,9 @@ public class SubObjectPropertyChainOfAnnotatedTestCase extends
 
     @Test
     public void testCompareRoleChains() {
-        OWLObjectPropertyExpression p = df.getOWLObjectProperty(IRI.create(
-                "_:", "p"));
-        OWLObjectPropertyExpression q = df.getOWLObjectProperty(IRI.create(
-                "_:", "q"));
-        OWLObjectPropertyExpression r = df.getOWLObjectProperty(IRI.create(
-                "_:", "r"));
+        OWLObjectPropertyExpression p = df.getOWLObjectProperty("_:", "p");
+        OWLObjectPropertyExpression q = df.getOWLObjectProperty("_:", "q");
+        OWLObjectPropertyExpression r = df.getOWLObjectProperty("_:", "r");
         OWLSubPropertyChainOfAxiom ax1 = df.getOWLSubPropertyChainOfAxiom(
                 Lists.newArrayList(p, q), r);
         OWLSubPropertyChainOfAxiom ax2 = df.getOWLSubPropertyChainOfAxiom(

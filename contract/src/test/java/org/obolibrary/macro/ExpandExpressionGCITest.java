@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -30,8 +29,8 @@ public class ExpandExpressionGCITest extends OboFormatTestBasics {
         OWLOntology gciOntology = mev.createGCIOntology();
         int axiomCount = gciOntology.getAxiomCount();
         assertTrue(axiomCount > 0);
-        OWLClass cls = df.getOWLClass(IRI
-                .create("http://purl.obolibrary.org/obo/TEST_2"));
+        OWLClass cls = df.getOWLClass("http://purl.obolibrary.org/obo/",
+                "TEST_2");
         Set<OWLDisjointClassesAxiom> dcas = gciOntology
                 .getDisjointClassesAxioms(cls);
         assertEquals(1, dcas.size());
@@ -40,13 +39,13 @@ public class ExpandExpressionGCITest extends OboFormatTestBasics {
         assertEquals(2, equivalentClassesAxioms.size());
         for (OWLEquivalentClassesAxiom eca : equivalentClassesAxioms) {
             Set<OWLClassExpression> ces = eca.getClassExpressions();
-            OWLClass clst4 = df.getOWLClass(IRI
-                    .create("http://purl.obolibrary.org/obo/TEST_4"));
-            OWLObjectPropertyExpression p = df.getOWLObjectProperty(IRI
-                    .create("http://purl.obolibrary.org/obo/RO_0002104"));
+            OWLClass clst4 = df.getOWLClass("http://purl.obolibrary.org/obo/",
+                    "TEST_4");
+            OWLObjectPropertyExpression p = df.getOWLObjectProperty(
+                    "http://purl.obolibrary.org/obo/", "RO_0002104");
             OWLClassExpression cet4 = df.getOWLObjectSomeValuesFrom(p, clst4);
-            OWLClass clst5 = df.getOWLClass(IRI
-                    .create("http://purl.obolibrary.org/obo/TEST_5"));
+            OWLClass clst5 = df.getOWLClass("http://purl.obolibrary.org/obo/",
+                    "TEST_5");
             OWLClassExpression cet5 = df.getOWLObjectSomeValuesFrom(p, clst5);
             if (ces.contains(cet4)) {
                 ces.remove(cet4);

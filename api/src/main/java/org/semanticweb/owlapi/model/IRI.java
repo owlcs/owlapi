@@ -300,7 +300,17 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     @Nonnull
     public static IRI generateDocumentIRI() {
-        return create("owlapi:ontology" + COUNTER.incrementAndGet());
+        return getNextDocumentIRI("owlapi:ontology");
+    }
+
+    /**
+     * @param prefix
+     *        prefix for result
+     * @return a fresh IRI
+     */
+    @Nonnull
+    public static IRI getNextDocumentIRI(String prefix) {
+        return IRI.create(prefix + COUNTER.incrementAndGet());
     }
 
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());

@@ -46,6 +46,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
@@ -59,7 +60,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * <br>
  */
 @SuppressWarnings("javadoc")
-public enum OBOVocabulary {
+public enum OBOVocabulary implements HasIRI {
     DATA_VERSION("data-version"),
     VERSION("version"),
     DATE("date", DublinCoreVocabulary.DATE.getIRI()),
@@ -285,6 +286,7 @@ public enum OBOVocabulary {
         return name;
     }
 
+    @Override
     @Nonnull
     public IRI getIRI() {
         return iri;

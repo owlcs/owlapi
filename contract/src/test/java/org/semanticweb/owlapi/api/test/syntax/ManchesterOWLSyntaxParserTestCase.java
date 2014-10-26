@@ -244,7 +244,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Before
     public void setUpPAndDateTime() {
         p = DataProperty(IRI(NS + "#p"));
-        dateTime = df.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
+        dateTime = df.getOWLDatatype(XSDVocabulary.DATE_TIME);
     }
 
     @Test
@@ -316,8 +316,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
             throws OWLOntologyCreationException {
         // given
         String text1 = "p some decimal[<=2.0, >= 1.0]";
-        OWLDatatype decimal = df.getOWLDatatype(OWL2Datatype.XSD_DECIMAL
-                .getIRI());
+        OWLDatatype decimal = df.getOWLDatatype(OWL2Datatype.XSD_DECIMAL);
         OWLFacetRestriction max = df.getOWLFacetRestriction(
                 OWLFacet.MAX_INCLUSIVE, df.getOWLLiteral("2.0", decimal));
         OWLFacetRestriction min = df.getOWLFacetRestriction(
@@ -353,7 +352,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
             throws OWLOntologyCreationException {
         // given
         OWLAxiom expected = df.getOWLDataPropertyRangeAxiom(df
-                .getOWLDataProperty(IRI.create("urn:a")), df.getOWLDataOneOf(df
+                .getOWLDataProperty("urn:a"), df.getOWLDataOneOf(df
                 .getOWLLiteral("1.2", OWL2Datatype.XSD_DECIMAL)));
         String input = "Ontology:\n DataProperty: <urn:a>\n Range: {1.2}";
         OWLOntology o = loadOntologyFromString(input);

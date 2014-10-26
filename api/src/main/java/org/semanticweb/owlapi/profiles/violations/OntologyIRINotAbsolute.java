@@ -51,7 +51,8 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation {
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(
+            @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -63,7 +64,7 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation {
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
-        return list(new SetOntologyID(ontology,
-                IRI.create("urn:ontology#replaced")));
+        return list(new SetOntologyID(ontology, IRI.create(
+                "urn:profilesrepair:ontology#", "replaced")));
     }
 }

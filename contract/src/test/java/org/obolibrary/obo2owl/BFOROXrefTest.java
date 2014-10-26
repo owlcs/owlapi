@@ -26,10 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings({ "javadoc" })
 public class BFOROXrefTest extends OboFormatTestBasics {
 
-    public static final OWLAnnotationProperty OBO_ID = OWLManager
-            .getOWLDataFactory()
-            .getOWLAnnotationProperty(
-                    IRI.create("http://www.geneontology.org/formats/oboInOwl#id"));
+    public final OWLAnnotationProperty OBO_ID = df
+            .getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#id");
     @Nonnull
     private final OWLOntology owlOnt = convertOBOFile("rel_xref_test.obo");
 

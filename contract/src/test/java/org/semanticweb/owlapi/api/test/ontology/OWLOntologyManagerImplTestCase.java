@@ -18,7 +18,6 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLException;
@@ -54,7 +53,7 @@ public class OWLOntologyManagerImplTestCase {
 
     @Test
     public void testContains() throws OWLOntologyCreationException {
-        OWLOntology ont = manager.createOntology(OWLOntologyDocumentSourceBase
+        OWLOntology ont = manager.createOntology(IRI
                 .getNextDocumentIRI("urn:testontology"));
         assertTrue(manager.contains(ont.getOntologyID()));
         assertNotNull("ontology should not be null",
@@ -68,9 +67,9 @@ public class OWLOntologyManagerImplTestCase {
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        OWLOntology ontA = manager.createOntology(OWLOntologyDocumentSourceBase
+        OWLOntology ontA = manager.createOntology(IRI
                 .getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = manager.createOntology(OWLOntologyDocumentSourceBase
+        OWLOntology ontB = manager.createOntology(IRI
                 .getNextDocumentIRI("urn:testontology"));
         OWLImportsDeclaration decl = manager.getOWLDataFactory()
                 .getOWLImportsDeclaration(
@@ -84,11 +83,11 @@ public class OWLOntologyManagerImplTestCase {
     @Test
     public void testImportsClosure() throws OWLException {
         // OntA -> OntB -> OntC (-> means imports)
-        OWLOntology ontA = manager.createOntology(OWLOntologyDocumentSourceBase
+        OWLOntology ontA = manager.createOntology(IRI
                 .getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = manager.createOntology(OWLOntologyDocumentSourceBase
+        OWLOntology ontB = manager.createOntology(IRI
                 .getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontC = manager.createOntology(OWLOntologyDocumentSourceBase
+        OWLOntology ontC = manager.createOntology(IRI
                 .getNextDocumentIRI("urn:testontology"));
         OWLImportsDeclaration declA = manager.getOWLDataFactory()
                 .getOWLImportsDeclaration(

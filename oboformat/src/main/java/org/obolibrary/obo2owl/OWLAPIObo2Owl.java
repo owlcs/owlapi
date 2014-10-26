@@ -1495,8 +1495,7 @@ public class OWLAPIObo2Owl {
      * @return the oWL class
      */
     protected OWLClass trClass(@Nonnull String classId) {
-        IRI iri = oboIdToIRI(classId);
-        return fac.getOWLClass(iri);
+        return fac.getOWLClass(oboIdToIRI(classId));
     }
 
     /**
@@ -1619,8 +1618,7 @@ public class OWLAPIObo2Owl {
      */
     @Nonnull
     protected OWLAnnotationProperty trAnnotationProp(@Nonnull String relId) {
-        IRI iri = oboIdToIRI(mapPropId(relId));
-        return fac.getOWLAnnotationProperty(iri);
+        return fac.getOWLAnnotationProperty(oboIdToIRI(mapPropId(relId)));
     }
 
     /**
@@ -1632,8 +1630,7 @@ public class OWLAPIObo2Owl {
      */
     @Nonnull
     protected OWLObjectProperty trObjectProp(@Nonnull String relId) {
-        IRI iri = oboIdToIRI(mapPropId(relId));
-        return fac.getOWLObjectProperty(iri);
+        return fac.getOWLObjectProperty(oboIdToIRI(mapPropId(relId)));
     }
 
     /**
@@ -1645,8 +1642,7 @@ public class OWLAPIObo2Owl {
      */
     @Nonnull
     protected OWLObjectPropertyExpression trObjectProp(@Nonnull Object v) {
-        IRI iri = oboIdToIRI(mapPropId((String) v));
-        return fac.getOWLObjectProperty(iri);
+        return fac.getOWLObjectProperty(oboIdToIRI(mapPropId((String) v)));
     }
 
     /**

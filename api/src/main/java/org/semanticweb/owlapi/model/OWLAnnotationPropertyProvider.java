@@ -12,23 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import org.semanticweb.owlapi.model.providers.AnnotationPropertyProvider;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.4.6
+ * @deprecated use AnnotationPropertyProvider
  */
-public interface OWLAnnotationPropertyProvider {
-
-    /**
-     * Gets an instance of {@link OWLAnnotationProperty} that has the specified
-     * {@code IRI}.
-     * 
-     * @param iri
-     *        The IRI.
-     * @return An {@link OWLAnnotationProperty} that has the specified IRI.
-     */
-    @Nonnull
-    OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull IRI iri);
-}
+@Deprecated
+public interface OWLAnnotationPropertyProvider extends
+        AnnotationPropertyProvider {}

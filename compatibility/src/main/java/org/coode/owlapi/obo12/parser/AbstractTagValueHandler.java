@@ -51,6 +51,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -66,7 +67,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Author: Matthew Horridge<br>
@@ -312,13 +312,13 @@ class AltIdTagValueHandler extends AbstractTagValueHandler {
     @Override
     public void handle(String currentId, String value, String qualifierBlock,
             String comment) {
-        IRI subject = getConsumer().getCurrentEntity().getIRI();
-        IRI annotationPropertyIRI = OBOVocabulary.ALT_ID.getIRI();
+        HasIRI subject = getConsumer().getCurrentEntity();
         OWLAnnotationProperty property = getDataFactory()
-                .getOWLAnnotationProperty(annotationPropertyIRI);
+                .getOWLAnnotationProperty(OBOVocabulary.ALT_ID);
         IRI object = getIRIFromOBOId(value);
         OWLAnnotationAssertionAxiom ax = getDataFactory()
-                .getOWLAnnotationAssertionAxiom(property, subject, object);
+                .getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
+                        object);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
@@ -642,9 +642,7 @@ class NameTagValueHandler extends AbstractTagValueHandler {
         }
         OWLLiteral con = getDataFactory().getOWLLiteral(value);
         OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
-                getDataFactory().getOWLAnnotationProperty(
-                        OWLRDFVocabulary.RDFS_LABEL.getIRI()), ent.getIRI(),
-                con);
+                getDataFactory().getRDFSLabel(), ent.getIRI(), con);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

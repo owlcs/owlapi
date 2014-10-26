@@ -52,7 +52,6 @@ import org.openrdf.model.Namespace;
 import org.openrdf.model.Statement;
 import org.openrdf.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -82,8 +81,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        source.
      */
     public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = checkNotNull(statements,
                 "statements cannot be null");
     }
@@ -116,8 +114,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        make up this source.
      */
     public RioMemoryTripleSource(@Nonnull Iterable<Statement> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = statements.iterator();
         if (statements instanceof Model) {
             namespaces.putAll(Namespaces.asMap(((Model) statements)
@@ -136,8 +133,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      */
     public RioMemoryTripleSource(
             final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = IRI.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = new Iterator<Statement>() {
 
             @Override

@@ -12,24 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.io.Serializable;
-
-import javax.annotation.Nonnull;
+import org.semanticweb.owlapi.model.providers.ClassProvider;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.4.6
+ * @deprecated use ClassProvider
  */
-public interface OWLClassProvider extends Serializable {
-
-    /**
-     * Gets an instance of {@link OWLClass} that has the specified {@code IRI}.
-     * 
-     * @param iri
-     *        The IRI. Not {@code null}.
-     * @return An {@link OWLClass} that has the specified IRI. Not {@code null}.
-     */
-    @Nonnull
-    OWLClass getOWLClass(@Nonnull IRI iri);
-}
+@Deprecated
+public interface OWLClassProvider extends ClassProvider {}

@@ -85,73 +85,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     OWLDatatype getTopDatatype();
 
     /**
-     * Gets an OWLClass that has an IRI that is obtained by expanding an
-     * abbreviated name using an appropriate prefix mapping. See <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
-     * Structural Specification</a> for more details.
-     * 
-     * @param abbreviatedIRI
-     *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     *        PREFIX_NAME may be the empty string (the default prefix).<br>
-     *        Note that abbreviated IRIs always contain a colon as a delimiter,
-     *        even if the prefix name is the empty string.
-     * @param prefixManager
-     *        The prefix manager that is responsible for mapping prefix names to
-     *        prefix IRIs.
-     * @return An OWLClass that has the IRI obtained by expanding the specified
-     *         abbreviated IRI using the specified prefix manager. <br>
-     *         For example, suppose "m:Cat" was specified as the abbreviated
-     *         IRI, the prefix manager would be used to obtain the IRI prefix
-     *         for the "m:" prefix name, this prefix would then be concatenated
-     *         with "Cat" to obtain the full IRI which would be the IRI of the
-     *         OWLClass obtained by this method.
-     * @throws OWLRuntimeException
-     *         if the prefix name in the specified abbreviated IRI does not have
-     *         a mapping to a prefix in the specified prefix manager.
-     */
-    @Nonnull
-    default OWLClass getOWLClass(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "iri cannot be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLClass(prefixManager.getIRI(abbreviatedIRI));
-    }
-
-    /**
-     * Gets an OWLObjectProperty that has an IRI that is obtained by expanding
-     * an abbreviated name using an appropriate prefix mapping. See <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
-     * Structural Specification</a> for more details.
-     * 
-     * @param abbreviatedIRI
-     *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     *        PREFIX_NAME may be the empty string (the default prefix). Note
-     *        that abbreviated IRIs always contain a colon as a delimiter, even
-     *        if the prefix name is the empty string.
-     * @param prefixManager
-     *        The prefix manager that is responsible for mapping prefix names to
-     *        prefix IRIs.
-     * @return An OWLObjectProperty that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager. <br>
-     *         For example, suppose "m:Cat" was specified as the abbreviated
-     *         IRI, the prefix manager would be used to obtain the IRI prefix
-     *         for the "m:" prefix name, this prefix would then be concatenated
-     *         with "Cat" to obtain the full IRI which would be the IRI of the
-     *         OWLObjectProperty obtained by this method.
-     * @throws OWLRuntimeException
-     *         if the prefix name in the specified abbreviated IRI does not have
-     *         a mapping to a prefix in the specified prefix manager.
-     */
-    @Nonnull
-    default OWLObjectProperty
-            getOWLObjectProperty(@Nonnull String abbreviatedIRI,
-                    @Nonnull PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "curi canno be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLObjectProperty(prefixManager.getIRI(abbreviatedIRI));
-    }
-
-    /**
      * Gets the inverse of an object property.
      * 
      * @param property
@@ -161,107 +94,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     @Nonnull
     OWLObjectInverseOf getOWLObjectInverseOf(
             @Nonnull OWLObjectPropertyExpression property);
-
-    /**
-     * Gets an OWLDataProperty that has an IRI that is obtained by expanding an
-     * abbreviated name using an appropriate prefix mapping. See <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
-     * Structural Specification</a> for more details.
-     * 
-     * @param abbreviatedIRI
-     *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     *        PREFIX_NAME may be the empty string (the default prefix). Note
-     *        that abbreviated IRIs always contain a colon as a delimiter, even
-     *        if the prefix name is the empty string.
-     * @param prefixManager
-     *        The prefix manager that is responsible for mapping prefix names to
-     *        prefix IRIs.
-     * @return An OWLDataProperty that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager. <br>
-     *         For example, suppose "m:Cat" was specified as the abbreviated
-     *         IRI, the prefix manager would be used to obtain the IRI prefix
-     *         for the "m:" prefix name, this prefix would then be concatenated
-     *         with "Cat" to obtain the full IRI which would be the IRI of the
-     *         OWLDataProperty obtained by this method.
-     * @throws OWLRuntimeException
-     *         if the prefix name in the specified abbreviated IRI does not have
-     *         a mapping to a prefix in the specified prefix manager.
-     */
-    @Nonnull
-    default OWLDataProperty getOWLDataProperty(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "curi canno be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLDataProperty(prefixManager.getIRI(abbreviatedIRI));
-    }
-
-    /**
-     * Gets an OWLNamedIndividual that has an IRI that is obtained by expanding
-     * an abbreviated name using an appropriate prefix mapping. See <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
-     * Structural Specification</a> for more details.
-     * 
-     * @param abbreviatedIRI
-     *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     *        PREFIX_NAME may be the empty string (the default prefix). Note
-     *        that abbreviated IRIs always contain a colon as a delimiter, even
-     *        if the prefix name is the empty string.
-     * @param prefixManager
-     *        The prefix manager that is responsible for mapping prefix names to
-     *        prefix IRIs.
-     * @return An OWLNamedIndividual that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager. <br>
-     *         For example, suppose "m:Cat" was specified as the abbreviated
-     *         IRI, the prefix manager would be used to obtain the IRI prefix
-     *         for the "m:" prefix name, this prefix would then be concatenated
-     *         with "Cat" to obtain the full IRI which would be the IRI of the
-     *         OWLNamedIndividual obtained by this method.
-     * @throws OWLRuntimeException
-     *         if the prefix name in the specified abbreviated IRI does not have
-     *         a mapping to a prefix in the specified prefix manager.
-     */
-    @Nonnull
-    default OWLNamedIndividual
-            getOWLNamedIndividual(@Nonnull String abbreviatedIRI,
-                    @Nonnull PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "curi canno be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLNamedIndividual(prefixManager.getIRI(abbreviatedIRI));
-    }
-
-    /**
-     * Gets an OWLAnnotationProperty that has an IRI that is obtained by
-     * expanding an abbreviated name using an appropriate prefix mapping. See <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
-     * Structural Specification</a> for more details.
-     * 
-     * @param abbreviatedIRI
-     *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     *        PREFIX_NAME may be the empty string (the default prefix). Note
-     *        that abbreviated IRIs always contain a colon as a delimiter, even
-     *        if the prefix name is the empty string.
-     * @param prefixManager
-     *        The prefix manager that is responsible for mapping prefix names to
-     *        prefix IRIs.
-     * @return An OWLAnnotationProperty that has the IRI obtained by expanding
-     *         the specified abbreviated IRI using the specified prefix manager. <br>
-     *         For example, suppose "m:Cat" was specified as the abbreviated
-     *         IRI, the prefix manager would be used to obtain the IRI prefix
-     *         for the "m:" prefix name, this prefix would then be concatenated
-     *         with "Cat" to obtain the full IRI which would be the IRI of the
-     *         OWLAnnotationProperty obtained by this method.
-     * @throws OWLRuntimeException
-     *         if the prefix name in the specified abbreviated IRI does not have
-     *         a mapping to a prefix in the specified prefix manager.
-     */
-    @Nonnull
-    default OWLAnnotationProperty
-            getOWLAnnotationProperty(@Nonnull String abbreviatedIRI,
-                    @Nonnull PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLAnnotationProperty(prefixManager.getIRI(abbreviatedIRI));
-    }
 
     /**
      * Gets an annotation property that has an IRI corresponding to
@@ -347,39 +179,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     OWLDatatype getRDFPlainLiteral();
 
     /**
-     * Gets an OWLDatatype that has an IRI that is obtained by expanding an
-     * abbreviated name using an appropriate prefix mapping. See <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
-     * Structural Specification</a> for more details.
-     * 
-     * @param abbreviatedIRI
-     *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
-     *        PREFIX_NAME may be the empty string (the default prefix). Note
-     *        that abbreviated IRIs always contain a colon as a delimiter, even
-     *        if the prefix name is the empty string.
-     * @param prefixManager
-     *        The prefix manager that is responsible for mapping prefix names to
-     *        prefix IRIs.
-     * @return An OWLDatatype that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager. <br>
-     *         For example, suppose "m:Cat" was specified as the abbreviated
-     *         IRI, the prefix manager would be used to obtain the IRI prefix
-     *         for the "m:" prefix name, this prefix would then be concatenated
-     *         with "Cat" to obtain the full IRI which would be the IRI of the
-     *         OWLDatatype obtained by this method.
-     * @throws OWLRuntimeException
-     *         if the prefix name in the specified abbreviated IRI does not have
-     *         a mapping to a prefix in the specified prefix manager.
-     */
-    @Nonnull
-    default OWLDatatype getOWLDatatype(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager) {
-        checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
-        checkNotNull(prefixManager, "prefixManager cannot be null");
-        return getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
-    }
-
-    /**
      * A convenience method that obtains the datatype that represents integers.
      * This datatype will have the URI of
      * &lt;http://www.w3.org/2001/XMLSchema#integer&gt;
@@ -458,7 +257,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     default OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
             @Nonnull OWL2Datatype datatype) {
         checkNotNull(datatype, "datatype cannot be null");
-        return getOWLLiteral(lexicalValue, getOWLDatatype(datatype.getIRI()));
+        return getOWLLiteral(lexicalValue, getOWLDatatype(datatype));
     }
 
     /**

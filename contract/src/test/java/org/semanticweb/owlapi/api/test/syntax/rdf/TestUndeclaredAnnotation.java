@@ -43,10 +43,10 @@ public class TestUndeclaredAnnotation extends TestBase {
                 .getAxioms(AxiomType.ANNOTATION_ASSERTION);
         assertEquals("annotation axiom count should be 2", 2,
                 annotationAxioms.size());
-        OWLAnnotationProperty relProperty = df.getOWLAnnotationProperty(IRI
-                .create("http://example.com/ns#rel"));
-        OWLAnnotationProperty predProperty = df.getOWLAnnotationProperty(IRI
-                .create("http://example.com/ns#pred"));
+        OWLAnnotationProperty relProperty = df
+                .getOWLAnnotationProperty("http://example.com/ns#rel");
+        OWLAnnotationProperty predProperty = df
+                .getOWLAnnotationProperty("http://example.com/ns#pred");
         Set<OWLAnonymousIndividual> anonymousIndividualSet = oo
                 .getAnonymousIndividuals();
         assertEquals("should be one anonymous individual", 1,
@@ -77,8 +77,8 @@ public class TestUndeclaredAnnotation extends TestBase {
                 + "        ex:subj rdfs:label \"Visible\" .\n"
                 + "        ex:subj ex:pred \"Visible\" .";
         OWLOntology oo = loadOntologyFromString(input);
-        OWLAnnotationProperty pred = df.getOWLAnnotationProperty(IRI
-                .create("http://www.example.org/pred"));
+        OWLAnnotationProperty pred = df
+                .getOWLAnnotationProperty("http://www.example.org/pred");
         int countLabels = 0;
         int countPreds = 0;
         int countBNodeAnnotations = 0;

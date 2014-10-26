@@ -46,8 +46,7 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
         OWLClass c = factory.getOWLClass(iri);
         // Def
         OWLAnnotationProperty defProperty = factory
-                .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115
-                        .getIRI());
+                .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115);
         int counter = 0;
         for (OWLAnnotationAssertionAxiom ax : owlOntology
                 .getAnnotationAssertionAxioms(c.getIRI())) {

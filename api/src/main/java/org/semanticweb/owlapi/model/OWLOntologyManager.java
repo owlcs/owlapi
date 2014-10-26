@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -266,8 +265,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     default OWLOntology createOntology(@Nonnull Set<OWLAxiom> axioms)
             throws OWLOntologyCreationException {
         return createOntology(axioms,
-                OWLOntologyDocumentSourceBase
-                        .getNextDocumentIRI("owlapi:ontology#ont"));
+                IRI.getNextDocumentIRI("owlapi:ontology#ont"));
     }
 
     /**

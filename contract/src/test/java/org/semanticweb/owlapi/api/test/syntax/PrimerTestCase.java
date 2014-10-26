@@ -52,23 +52,20 @@ public class PrimerTestCase extends TestBase {
         // Rectifying this to be able to assert equality, and using a different
         // ontology
         // so that the equality test does not skip gcis because of the format
-        OWLClass x = df.getOWLClass(IRI
-                .create("http://example.com/owl/families/X"));
+        OWLClass x = df.getOWLClass("http://example.com/owl/families/X");
         Set<OWLClassAxiom> axioms = manch.getAxioms(x, EXCLUDED);
         manch.getOWLOntologyManager().removeAxioms(manch, axioms);
-        OWLClass female = df.getOWLClass(IRI
-                .create("http://example.com/owl/families/Female"));
-        OWLClassExpression oneOf = df.getOWLObjectOneOf(df
-                .getOWLNamedIndividual(IRI
-                        .create("http://example.com/owl/families/Bill")), df
-                .getOWLNamedIndividual(IRI
-                        .create("http://example.com/owl/families/Mary")), df
-                .getOWLNamedIndividual(IRI
-                        .create("http://example.com/owl/families/Meg")));
-        OWLClass parent = df.getOWLClass(IRI
-                .create("http://example.com/owl/families/Parent"));
-        OWLObjectProperty hasChild = df.getOWLObjectProperty(IRI
-                .create("http://example.com/owl/families/hasChild"));
+        OWLClass female = df
+                .getOWLClass("http://example.com/owl/families/Female");
+        OWLClassExpression oneOf = df
+                .getOWLObjectOneOf(
+                        df.getOWLNamedIndividual("http://example.com/owl/families/Bill"),
+                        df.getOWLNamedIndividual("http://example.com/owl/families/Mary"),
+                        df.getOWLNamedIndividual("http://example.com/owl/families/Meg"));
+        OWLClass parent = df
+                .getOWLClass("http://example.com/owl/families/Parent");
+        OWLObjectProperty hasChild = df
+                .getOWLObjectProperty("http://example.com/owl/families/hasChild");
         OWLClassExpression superClass = df.getOWLObjectIntersectionOf(parent,
                 df.getOWLObjectAllValuesFrom(hasChild, female),
                 df.getOWLObjectMaxCardinality(1, hasChild));
@@ -107,8 +104,8 @@ public class PrimerTestCase extends TestBase {
         // XXX somehow the Turtle parser introduces a tautology: the inverse of
         // inverse(hasParent) is hasParent
         // dropping said tautology to assert equality of the rest of the axioms
-        OWLObjectProperty hasParent = df.getOWLObjectProperty(IRI
-                .create("http://example.com/owl/families/hasParent"));
+        OWLObjectProperty hasParent = df
+                .getOWLObjectProperty("http://example.com/owl/families/hasParent");
         turt.getOWLOntologyManager().removeAxiom(
                 turt,
                 df.getOWLInverseObjectPropertiesAxiom(

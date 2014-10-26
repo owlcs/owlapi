@@ -51,7 +51,8 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(
+            @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -66,7 +67,8 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
         return list(new SetOntologyID(ontology, new OWLOntologyID(
-                Optional.of(IRI.create("urn:ontology#renamed")),
-                Optional.of(IRI.create("urn:ontology#renamed1")))));
+                Optional.of(IRI.create("urn:profilesrepair:ontology#",
+                        "renamed")), Optional.of(IRI.create(
+                        "urn:profilesrepair:ontology#", "renamed1")))));
     }
 }

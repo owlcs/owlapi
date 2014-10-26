@@ -98,7 +98,6 @@ import org.semanticweb.owlapi.util.PriorityCollection;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -268,8 +267,8 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(KOALA_IRI);
         // class A and class B
-        OWLClass clsA = df.getOWLClass(IRI.create(KOALA_IRI + "#A"));
-        OWLClass clsB = df.getOWLClass(IRI.create(KOALA_IRI + "#B"));
+        OWLClass clsA = df.getOWLClass(KOALA_IRI + "#A");
+        OWLClass clsB = df.getOWLClass(KOALA_IRI + "#B");
         // Now create the axiom
         OWLAxiom axiom = df.getOWLSubClassOfAxiom(clsA, clsB);
         // add the axiom to the ontology.
@@ -285,7 +284,7 @@ public class TutorialSnippetsTestCase {
     public void testAssertedSuperclasses() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
-        OWLClass quokkaCls = df.getOWLClass(IRI.create(KOALA_IRI + "#Quokka"));
+        OWLClass quokkaCls = df.getOWLClass(KOALA_IRI + "#Quokka");
         Collection<OWLSubClassOfAxiom> classes = o
                 .getSubClassAxiomsForSubClass(quokkaCls);
         // for each superclass there will be a corresponding axiom
@@ -298,8 +297,8 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // Get hold of references to class A and class B.
-        OWLClass clsA = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#A"));
-        OWLClass clsB = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#B"));
+        OWLClass clsA = df.getOWLClass(EXAMPLE_IRI + "#A");
+        OWLClass clsB = df.getOWLClass(EXAMPLE_IRI + "#B");
         SWRLVariable var = df.getSWRLVariable(IRI.create(EXAMPLE_IRI + "#x"));
         Set<SWRLClassAtom> body = Collections.singleton(df.getSWRLClassAtom(
                 clsA, var));
@@ -307,10 +306,10 @@ public class TutorialSnippetsTestCase {
                 clsB, var));
         SWRLRule rule = df.getSWRLRule(body, head);
         m.applyChange(new AddAxiom(o, rule));
-        OWLObjectProperty prop = df.getOWLObjectProperty(IRI.create(EXAMPLE_IRI
-                + "#propA"));
-        OWLObjectProperty propB = df.getOWLObjectProperty(IRI
-                .create(EXAMPLE_IRI + "#propB"));
+        OWLObjectProperty prop = df
+                .getOWLObjectProperty(EXAMPLE_IRI + "#propA");
+        OWLObjectProperty propB = df.getOWLObjectProperty(EXAMPLE_IRI
+                + "#propB");
         SWRLObjectPropertyAtom propAtom = df.getSWRLObjectPropertyAtom(prop,
                 var, var);
         SWRLObjectPropertyAtom propAtom2 = df.getSWRLObjectPropertyAtom(propB,
@@ -328,13 +327,12 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // We want to state that matthew has a father who is peter.
-        OWLIndividual matthew = df.getOWLNamedIndividual(IRI.create(EXAMPLE_IRI
-                + "#matthew"));
-        OWLIndividual peter = df.getOWLNamedIndividual(IRI.create(EXAMPLE_IRI
-                + "#peter"));
+        OWLIndividual matthew = df.getOWLNamedIndividual(EXAMPLE_IRI
+                + "#matthew");
+        OWLIndividual peter = df.getOWLNamedIndividual(EXAMPLE_IRI + "#peter");
         // We need the hasFather property
-        OWLObjectProperty hasFather = df.getOWLObjectProperty(IRI
-                .create(EXAMPLE_IRI + "#hasFather"));
+        OWLObjectProperty hasFather = df.getOWLObjectProperty(EXAMPLE_IRI
+                + "#hasFather");
         // matthew --> hasFather --> peter
         OWLObjectPropertyAssertionAxiom assertion = df
                 .getOWLObjectPropertyAssertionAxiom(hasFather, matthew, peter);
@@ -342,8 +340,7 @@ public class TutorialSnippetsTestCase {
         AddAxiom addAxiomChange = new AddAxiom(o, assertion);
         m.applyChange(addAxiomChange);
         // matthew is an instance of Person
-        OWLClass personClass = df.getOWLClass(IRI.create(EXAMPLE_IRI
-                + "#Person"));
+        OWLClass personClass = df.getOWLClass(EXAMPLE_IRI + "#Person");
         OWLClassAssertionAxiom ax = df.getOWLClassAssertionAxiom(personClass,
                 matthew);
         // Add this axiom to our ontology - with a convenience method
@@ -380,14 +377,14 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // all Heads have parts that are noses (at least one)
         // We do this by creating an existential (some) restriction
-        OWLObjectProperty hasPart = df.getOWLObjectProperty(IRI
-                .create(EXAMPLE_IRI + "#hasPart"));
-        OWLClass nose = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#Nose"));
+        OWLObjectProperty hasPart = df.getOWLObjectProperty(EXAMPLE_IRI
+                + "#hasPart");
+        OWLClass nose = df.getOWLClass(EXAMPLE_IRI + "#Nose");
         // Now let's describe the class of individuals that have at
         // least one part that is a kind of nose
         OWLClassExpression hasPartSomeNose = df.getOWLObjectSomeValuesFrom(
                 hasPart, nose);
-        OWLClass head = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#Head"));
+        OWLClass head = df.getOWLClass(EXAMPLE_IRI + "#Head");
         // Head subclass of our restriction
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(head, hasPartSomeNose);
         // Add the axiom to our ontology
@@ -400,8 +397,7 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // Adults have an age greater than 18.
-        OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create(EXAMPLE_IRI
-                + "hasAge"));
+        OWLDataProperty hasAge = df.getOWLDataProperty(EXAMPLE_IRI + "hasAge");
         // Create the restricted data range by applying the facet restriction
         // with a value of 18 to int
         OWLDataRange greaterThan18 = df.getOWLDatatypeRestriction(
@@ -410,7 +406,7 @@ public class TutorialSnippetsTestCase {
         // Now we can use this in our datatype restriction on hasAge
         OWLClassExpression adultDefinition = df.getOWLDataSomeValuesFrom(
                 hasAge, greaterThan18);
-        OWLClass adult = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#Adult"));
+        OWLClass adult = df.getOWLClass(EXAMPLE_IRI + "#Adult");
         OWLSubClassOfAxiom ax = df
                 .getOWLSubClassOfAxiom(adult, adultDefinition);
         m.applyChange(new AddAxiom(o, ax));
@@ -602,7 +598,7 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // We want to add a comment to the pizza class.
-        OWLClass quokkaCls = df.getOWLClass(IRI.create(KOALA_IRI + "#Quokka"));
+        OWLClass quokkaCls = df.getOWLClass(KOALA_IRI + "#Quokka");
         // the content of our comment: a string and a language tag
         OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(),
                 df.getOWLLiteral("A class which represents Quokkas", "en"));
@@ -621,9 +617,7 @@ public class TutorialSnippetsTestCase {
         // We want to add a comment to the pizza class.
         OWLLiteral lit = df.getOWLLiteral("Added a comment to the pizza class");
         // create an annotation to pair a URI with the constant
-        OWLAnnotationProperty owlAnnotationProperty = df
-                .getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO
-                        .getIRI());
+        OWLAnnotationProperty owlAnnotationProperty = df.getOWLVersionInfo();
         OWLAnnotation anno = df.getOWLAnnotation(owlAnnotationProperty, lit);
         // Now we can add this as an ontology annotation
         // Apply the change in the usual way
@@ -677,8 +671,8 @@ public class TutorialSnippetsTestCase {
         OWLOntology o2 = m.createOntology(EXAMPLE_IRI);
         m.addAxiom(
                 o2,
-                df.getOWLDeclarationAxiom(df.getOWLClass(IRI.create(EXAMPLE_IRI
-                        + "#Weasel"))));
+                df.getOWLDeclarationAxiom(df.getOWLClass(EXAMPLE_IRI
+                        + "#Weasel")));
         // Create our ontology merger
         OWLOntologyMerger merger = new OWLOntologyMerger(m);
         // We merge all of the loaded ontologies. Since an OWLOntologyManager is
@@ -734,7 +728,7 @@ public class TutorialSnippetsTestCase {
         // Now we can query the reasoner, suppose we want to determine the
         // properties that
         // instances of Margherita pizza must have
-        OWLClass margherita = df.getOWLClass(IRI.create(prefix + "Margherita"));
+        OWLClass margherita = df.getOWLClass(prefix, "Margherita");
         printProperties(o, reasoner, margherita);
     }
 
@@ -775,7 +769,7 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         // extract a module for all toppings.
         // start by creating a signature that consists of "Quokka".
-        OWLClass quokkaCls = df.getOWLClass(IRI.create(KOALA_IRI + "#Quokka"));
+        OWLClass quokkaCls = df.getOWLClass(KOALA_IRI + "#Quokka");
         Set<OWLEntity> sig = new HashSet<>();
         sig.add(quokkaCls);
         // We now add all subclasses (direct and indirect) of the chosen
@@ -828,8 +822,7 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         // OWLDatatype represents named datatypes in OWL
         // The OWL2Datatype enum defines built in OWL 2 Datatypes
-        OWLDatatype integer = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER
-                .getIRI());
+        OWLDatatype integer = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER);
         // For common data types there are some convenience methods of
         // OWLDataFactory
         OWLDatatype integerDatatype = df.getIntegerOWLDatatype();
@@ -844,8 +837,7 @@ public class TutorialSnippetsTestCase {
         OWLDatatypeRestriction integerGE18 = df.getOWLDatatypeRestriction(
                 integer, OWLFacet.MIN_INCLUSIVE, eighteen);
         OWLDataProperty hasAge = df
-                .getOWLDataProperty(IRI
-                        .create("http://www.semanticweb.org/ontologies/dataranges#hasAge"));
+                .getOWLDataProperty("http://www.semanticweb.org/ontologies/dataranges#hasAge");
         OWLDataPropertyRangeAxiom rangeAxiom = df.getOWLDataPropertyRangeAxiom(
                 hasAge, integerGE18);
         OWLOntology o = m.createOntology(IRI
@@ -855,8 +847,7 @@ public class TutorialSnippetsTestCase {
         // Now create a datatype definition axiom
         OWLDatatypeDefinitionAxiom datatypeDef = df
                 .getOWLDatatypeDefinitionAxiom(
-                        df.getOWLDatatype(IRI
-                                .create("http://www.semanticweb.org/ontologies/dataranges#age")),
+                        df.getOWLDatatype("http://www.semanticweb.org/ontologies/dataranges#age"),
                         integerGE18);
         // Add the definition to our ontology
         m.addAxiom(o, datatypeDef);

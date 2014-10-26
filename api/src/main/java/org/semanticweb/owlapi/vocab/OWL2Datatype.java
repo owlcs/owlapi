@@ -32,10 +32,10 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.providers.DatatypeProvider;
 
 /**
  * An enumeration of the datatypes in the OWL 2 specification. These are the
@@ -46,6 +46,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @since 2.2.0
  */
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
+
+
 
 
 
@@ -159,6 +161,10 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
                                 + " is not a built in datatype!"));
     }
 
+    public static OWL2Datatype getDatatype(HasIRI datatype) {
+        return getDatatype(datatype.getIRI());
+    }
+
     @Nonnull
     private final String shortForm;
     @Nonnull
@@ -247,14 +253,14 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * Gets the equivalent OWLDatatype from the given factory.
      * 
      * @param factory
-     *        the OWLDataFactory. Not {@code null}.
+     *        the OWLDataFactory.
      * @return An {@link OWLDatatype} that has the same IRI as this
-     *         {@code OWL2Datatype}. Not {@code null}.
+     *         {@code OWL2Datatype}.
      */
     @Nonnull
-    public OWLDatatype getDatatype(@Nonnull OWLDataFactory factory) {
+    public OWLDatatype getDatatype(@Nonnull DatatypeProvider factory) {
         checkNotNull(factory, "factory cannot be null");
-        return factory.getOWLDatatype(getIRI());
+        return factory.getOWLDatatype(this);
     }
 
     /**

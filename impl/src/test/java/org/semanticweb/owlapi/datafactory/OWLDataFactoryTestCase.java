@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -68,7 +67,7 @@ public class OWLDataFactoryTestCase {
 
     @Nonnull
     private static IRI IRI() {
-        return OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:test#A");
+        return IRI.getNextDocumentIRI("urn:test#A");
     }
 
     @Nonnull

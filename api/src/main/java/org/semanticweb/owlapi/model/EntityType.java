@@ -22,6 +22,7 @@ import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.providers.EntityProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -45,7 +46,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
         private static final long serialVersionUID = 50000L;
 
         @Override
-        public OWLClass buildEntity(IRI i, OWLDataFactory df) {
+        public OWLClass buildEntity(IRI i, EntityProvider df) {
             return df.getOWLClass(i);
         }
     };
@@ -58,7 +59,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
         private static final long serialVersionUID = 50000L;
 
         @Override
-        public OWLObjectProperty buildEntity(IRI i, OWLDataFactory df) {
+        public OWLObjectProperty buildEntity(IRI i, EntityProvider df) {
             return df.getOWLObjectProperty(i);
         }
     };
@@ -71,7 +72,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
         private static final long serialVersionUID = 50000L;
 
         @Override
-        public OWLDataProperty buildEntity(IRI i, OWLDataFactory df) {
+        public OWLDataProperty buildEntity(IRI i, EntityProvider df) {
             return df.getOWLDataProperty(i);
         }
     };
@@ -84,7 +85,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
         private static final long serialVersionUID = 50000L;
 
         @Override
-        public OWLAnnotationProperty buildEntity(IRI i, OWLDataFactory df) {
+        public OWLAnnotationProperty buildEntity(IRI i, EntityProvider df) {
             return df.getOWLAnnotationProperty(i);
         }
     };
@@ -97,7 +98,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
         private static final long serialVersionUID = 50000L;
 
         @Override
-        public OWLNamedIndividual buildEntity(IRI i, OWLDataFactory df) {
+        public OWLNamedIndividual buildEntity(IRI i, EntityProvider df) {
             return df.getOWLNamedIndividual(i);
         }
     };
@@ -109,7 +110,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
         private static final long serialVersionUID = 50000L;
 
         @Override
-        public OWLDatatype buildEntity(IRI i, OWLDataFactory df) {
+        public OWLDatatype buildEntity(IRI i, EntityProvider df) {
             return df.getOWLDatatype(i);
         }
     };
@@ -201,5 +202,5 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable,
      *        data factory
      * @return entity
      */
-    public abstract E buildEntity(IRI i, OWLDataFactory df);
+    public abstract E buildEntity(IRI i, EntityProvider df);
 }

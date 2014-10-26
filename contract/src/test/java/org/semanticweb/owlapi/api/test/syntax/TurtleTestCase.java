@@ -133,8 +133,8 @@ public class TurtleTestCase extends TestBase {
         // given
         String input = "@prefix f:    <urn:test/> . f:r f:p f: .";
         OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(
-                df.getOWLAnnotationProperty(IRI("urn:test/p")),
-                IRI("urn:test/r"), IRI("urn:test/"));
+                df.getOWLAnnotationProperty("urn:test/p"), IRI("urn:test/r"),
+                IRI("urn:test/"));
         // when
         OWLOntology o = loadOntologyFromString(input);
         // then
@@ -298,9 +298,8 @@ public class TurtleTestCase extends TestBase {
         OWLOntology ontology = m.createOntology(IRI.create(string));
         m.addAxiom(
                 ontology,
-                df.getOWLSubClassOfAxiom(
-                        df.getOWLClass(IRI.create(string + 't')),
-                        df.getOWLClass(IRI.create(string + 'q'))));
+                df.getOWLSubClassOfAxiom(df.getOWLClass(string, "t"),
+                        df.getOWLClass(string, "q")));
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         equal(o, in);
     }

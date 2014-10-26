@@ -61,7 +61,7 @@ public class IRIShorteningTestCase extends TestBase {
         OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF
                 .getPrefixIRI()));
         m.addAxiom(o, df.getOWLDeclarationAxiom(i));
-        i = df.getOWLNamedIndividual(OWLRDFVocabulary.RDF_TYPE.getIRI());
+        i = df.getOWLNamedIndividual(OWLRDFVocabulary.RDF_TYPE);
         m.addAxiom(o, df.getOWLDeclarationAxiom(i));
         return o;
     }

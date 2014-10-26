@@ -60,10 +60,9 @@ public class SerializationTest {
     @Nonnull
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     @Nonnull
-    OWLDataPropertyExpression dp = DF.getOWLDataProperty(IRI.create("urn:dp"));
+    OWLDataPropertyExpression dp = DF.getOWLDataProperty("urn:dp");
     @Nonnull
-    OWLObjectPropertyExpression op = DF.getOWLObjectProperty(IRI
-            .create("urn:op"));
+    OWLObjectPropertyExpression op = DF.getOWLObjectProperty("urn:op");
     @Nonnull
     IRI iri = IRI.create("urn:iri");
     @Nonnull
@@ -71,12 +70,11 @@ public class SerializationTest {
     @Nonnull
     OWLAnnotationSubject as = IRI.create("urn:i");
     @Nonnull
-    OWLDatatype owldatatype = DF.getOWLDatatype(owl2datatype.getIRI());
+    OWLDatatype owldatatype = DF.getOWLDatatype(owl2datatype);
     @Nonnull
     OWLDataRange dr = DF.getOWLDatatypeRestriction(owldatatype);
     @Nonnull
-    OWLAnnotationProperty ap = DF
-            .getOWLAnnotationProperty(IRI.create("urn:ap"));
+    OWLAnnotationProperty ap = DF.getOWLAnnotationProperty("urn:ap");
     @Nonnull
     OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
     @Nonnull
@@ -84,7 +82,7 @@ public class SerializationTest {
     @Nonnull
     String string = "testString";
     @Nonnull
-    OWLClassExpression c = DF.getOWLClass(IRI.create("urn:classexpression"));
+    OWLClassExpression c = DF.getOWLClass("urn:classexpression");
     @Nonnull
     PrefixManager prefixmanager = new DefaultPrefixManager();
     @Nonnull

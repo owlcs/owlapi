@@ -96,14 +96,12 @@ public class BuildersOntologyTestCase {
     @Nonnull
     private final OWLDataFactory df = new OWLDataFactoryImpl(true, false);
     @Nonnull
-    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
-            .create("urn:test#ann"));
+    private final OWLAnnotationProperty ap = df
+            .getOWLAnnotationProperty("urn:test#ann");
     @Nonnull
-    private final OWLObjectProperty op = df.getOWLObjectProperty(IRI
-            .create("urn:test#op"));
+    private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test#op");
     @Nonnull
-    private final OWLDataProperty dp = df.getOWLDataProperty(IRI
-            .create("urn:test#dp"));
+    private final OWLDataProperty dp = df.getOWLDataProperty("urn:test#dp");
     @Nonnull
     private final OWLLiteral lit = df.getOWLLiteral(false);
     @Nonnull
@@ -112,13 +110,11 @@ public class BuildersOntologyTestCase {
     private final Set<OWLAnnotation> annotations = Sets.newHashSet(df
             .getOWLAnnotation(ap, df.getOWLLiteral("test")));
     @Nonnull
-    private final OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
+    private final OWLClass ce = df.getOWLClass("urn:test#c");
     @Nonnull
-    private final OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
-            .create("urn:test#i"));
+    private final OWLNamedIndividual i = df.getOWLNamedIndividual("urn:test#i");
     @Nonnull
-    private final OWLDatatype d = df.getOWLDatatype(IRI
-            .create("urn:test#datatype"));
+    private final OWLDatatype d = df.getOWLDatatype("urn:test#datatype");
     @Nonnull
     private final Set<OWLDataProperty> dps = Sets.newHashSet(
             df.getOWLDataProperty(iri), dp);

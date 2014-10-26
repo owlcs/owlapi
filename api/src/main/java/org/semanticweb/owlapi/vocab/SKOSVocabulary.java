@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.providers.AnnotationPropertyProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -130,7 +131,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * @return set of SKOS annotation properties
      */
     public static Set<OWLAnnotationProperty> getAnnotationProperties(
-            OWLDataFactory dataFactory) {
+            AnnotationPropertyProvider dataFactory) {
         return stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY))
                 .map(v -> dataFactory.getOWLAnnotationProperty(v.iri))
                 .collect(toSet());

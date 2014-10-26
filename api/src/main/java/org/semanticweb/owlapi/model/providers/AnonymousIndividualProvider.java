@@ -10,46 +10,35 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.literals;
+package org.semanticweb.owlapi.model.providers;
 
-import static org.junit.Assert.*;
+import java.io.Serializable;
 
-import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
- * @since 3.1.0
+ * An interface to an object that can provide instances if
+ * {@link OWLAnonymousIndividual}.
+ * 
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group
+ * @since 5.0.0
  */
-@SuppressWarnings("javadoc")
-public class BuiltInDatatypesTestCase extends TestBase {
+public interface AnonymousIndividualProvider extends Serializable {
 
-    @Test
-    public void testBuiltInDatatypes() {
-        OWL2Datatype dt = OWL2Datatype
-                .getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL);
-        assertNotNull("object should not be null", dt);
-        dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL);
-        assertNotNull("object should not be null", dt);
-        OWLDatatype datatype = df.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL);
-        assertNotNull("object should not be null", datatype);
-        OWL2Datatype test = datatype.getBuiltInDatatype();
-        assertEquals(test, dt);
-    }
-
-    @Test
-    public void testFailure() {
-        for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
-            OWLDatatype datatype = df.getOWLDatatype(type);
-            if (datatype.isBuiltIn()) {
-                OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
-                assertNotNull("object should not be null", builtInDatatype);
-            }
-        }
-    }
+    /**
+     * Gets an {@link OWLAnonymousIndividual}. The {@link NodeID} for the
+     * individual will be generated automatically. Successive invocations of
+     * this method (on this object) will result in instances of
+     * {@link OWLAnonymousIndividual} that do not have {@link NodeID}s that have
+     * been used previously.
+     * 
+     * @return The instance of {@link OWLAnonymousIndividual}.
+     * @see AnonymousIndividualByIdProvider
+     */
+    @Nonnull
+    OWLAnonymousIndividual getOWLAnonymousIndividual();
 }

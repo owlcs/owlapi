@@ -155,9 +155,8 @@ public class ConvertPropertyAssertionsToAnnotations extends
     private OWLAnnotationAssertionAxiom convertToAnnotation(
             @Nonnull OWLNamedIndividual ind,
             @Nonnull OWLDataPropertyAssertionAxiom ax) {
-        OWLAnnotation anno = df.getOWLAnnotation(
-                df.getOWLAnnotationProperty(ax.getProperty()
-                        .asOWLDataProperty().getIRI()), ax.getObject());
+        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(ax
+                .getProperty().asOWLDataProperty()), ax.getObject());
         return df.getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
     }
 }
