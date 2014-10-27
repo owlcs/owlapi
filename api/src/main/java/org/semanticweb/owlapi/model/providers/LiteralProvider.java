@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -20,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Provider for OWLLiteral construction. */
-public interface LiteralProvider {
+public interface LiteralProvider extends DatatypeProvider {
 
     // Literals
     /**
@@ -58,8 +60,11 @@ public interface LiteralProvider {
      *         of "abc" and a language tag of "en".
      */
     @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWL2Datatype datatype);
+    default OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
+            @Nonnull OWL2Datatype datatype) {
+        checkNotNull(datatype, "datatype cannot be null");
+        return getOWLLiteral(lexicalValue, getOWLDatatype(datatype));
+    }
 
     /**
      * Convenience method that obtains a literal typed as an integer.
