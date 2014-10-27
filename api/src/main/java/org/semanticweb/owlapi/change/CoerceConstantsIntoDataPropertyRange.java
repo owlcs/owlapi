@@ -124,89 +124,88 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(@Nonnull OWLDataHasValue ce) {
-            super.visit(ce);
-            setLastObject(df.getOWLDataHasValue(ce.getProperty(),
-                    process(ce.getProperty(), ce.getFiller())));
+        public OWLDataHasValue visit(@Nonnull OWLDataHasValue ce) {
+            return df.getOWLDataHasValue(ce.getProperty(),
+                    process(ce.getProperty(), ce.getFiller()));
         }
 
         @Override
-        public void visit(OWLDataSomeValuesFrom ce) {
-            super.visit(ce);
+        public OWLDataSomeValuesFrom visit(OWLDataSomeValuesFrom ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
-                setLastObject(df
+                return df
                         .getOWLDataSomeValuesFrom(
                                 ce.getProperty(),
                                 process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                                        (OWLDataOneOf) ce.getFiller()));
             }
+            return super.visit(ce);
         }
 
         @Override
-        public void visit(OWLDataMinCardinality ce) {
-            super.visit(ce);
+        public OWLDataMinCardinality visit(OWLDataMinCardinality ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
-                setLastObject(df
+                return df
                         .getOWLDataMinCardinality(
                                 ce.getCardinality(),
                                 ce.getProperty(),
                                 process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                                        (OWLDataOneOf) ce.getFiller()));
             }
+            return super.visit(ce);
         }
 
         @Override
-        public void visit(OWLDataMaxCardinality ce) {
-            super.visit(ce);
+        public OWLDataMaxCardinality visit(OWLDataMaxCardinality ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
-                setLastObject(df
+                return df
                         .getOWLDataMaxCardinality(
                                 ce.getCardinality(),
                                 ce.getProperty(),
                                 process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                                        (OWLDataOneOf) ce.getFiller()));
             }
+            return super.visit(ce);
         }
 
         @Override
-        public void visit(OWLDataExactCardinality ce) {
-            super.visit(ce);
+        public OWLDataExactCardinality visit(OWLDataExactCardinality ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
-                setLastObject(df
+                return df
                         .getOWLDataExactCardinality(
                                 ce.getCardinality(),
                                 ce.getProperty(),
                                 process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                                        (OWLDataOneOf) ce.getFiller()));
             }
+            return super.visit(ce);
         }
 
         @Override
-        public void visit(OWLDataAllValuesFrom ce) {
-            super.visit(ce);
+        public OWLDataAllValuesFrom visit(OWLDataAllValuesFrom ce) {
             if (ce.getFiller() instanceof OWLDataOneOf) {
-                setLastObject(df
+                return df
                         .getOWLDataAllValuesFrom(
                                 ce.getProperty(),
                                 process(ce.getProperty(),
-                                        (OWLDataOneOf) ce.getFiller())));
+                                        (OWLDataOneOf) ce.getFiller()));
             }
+            return super.visit(ce);
         }
 
         @Override
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
-            super.visit(axiom);
-            setLastObject(df.getOWLDataPropertyAssertionAxiom(
-                    axiom.getProperty(), axiom.getSubject(),
-                    process(axiom.getProperty(), axiom.getObject())));
+        public OWLDataPropertyAssertionAxiom visit(
+                OWLDataPropertyAssertionAxiom axiom) {
+            return df.getOWLDataPropertyAssertionAxiom(axiom.getProperty(),
+                    axiom.getSubject(),
+                    process(axiom.getProperty(), axiom.getObject()));
         }
 
         @Override
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            super.visit(axiom);
-            setLastObject(df.getOWLNegativeDataPropertyAssertionAxiom(
+        public OWLNegativeDataPropertyAssertionAxiom visit(
+                OWLNegativeDataPropertyAssertionAxiom axiom) {
+            return df.getOWLNegativeDataPropertyAssertionAxiom(
                     axiom.getProperty(), axiom.getSubject(),
-                    process(axiom.getProperty(), axiom.getObject())));
+                    process(axiom.getProperty(), axiom.getObject()));
         }
     }
 }

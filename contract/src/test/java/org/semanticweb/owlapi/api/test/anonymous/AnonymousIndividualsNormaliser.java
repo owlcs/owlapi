@@ -50,18 +50,18 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
 
     @Nonnull
     public Set<OWLAxiom> getNormalisedAxioms(@Nonnull Set<OWLAxiom> axioms) {
-        return axioms.stream().sorted().map(ax -> duplicateObject(ax))
+        return axioms.stream().sorted().map(ax -> (OWLAxiom) get(ax))
                 .collect(toSet());
     }
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {
+    public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
         OWLAnonymousIndividual ind = renamingMap.get(individual);
         if (ind == null) {
             counter++;
             ind = AnonymousIndividual("anon-ind-" + counter);
             renamingMap.put(individual, ind);
         }
-        setLastObject(ind);
+        return ind;
     }
 }

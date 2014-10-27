@@ -23,18 +23,109 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataExactCardinality;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
+import org.semanticweb.owlapi.model.OWLDataMinCardinality;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDArgument;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
+public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     @Nonnull
-    private final OWLDataFactory dataFactory;
-    private Object obj;
+    private final OWLDataFactory df;
     @Nonnull
     private final Map<OWLEntity, IRI> replacementMap;
 
@@ -62,8 +153,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      */
     public OWLObjectDuplicator(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Map<IRI, IRI> iriReplacementMap) {
-        this.dataFactory = checkNotNull(dataFactory,
-                "dataFactory cannot be null");
+        df = checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
         replacementMap = new HashMap<>();
         iriReplacementMap.forEach((k, v) -> {
@@ -90,8 +180,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public OWLObjectDuplicator(
             @Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
             @Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory,
-                "dataFactory cannot be null");
+        df = checkNotNull(dataFactory, "dataFactory cannot be null");
         replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap,
                 "entityIRIReplacementMap cannot be null"));
     }
@@ -106,18 +195,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     @Nonnull
     public <O extends OWLObject> O duplicateObject(@Nonnull O object) {
         checkNotNull(object, "object cannot be null");
-        object.accept(this);
-        return getLastObject();
-    }
-
-    protected void setLastObject(@Nonnull Object obj) {
-        this.obj = obj;
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    @Nonnull
-    protected <O> O getLastObject() {
-        return (O) obj;
+        return get(object);
     }
 
     /**
@@ -140,749 +218,548 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
     @Nonnull
-    private Set<OWLAnnotation>
-            duplicateAxiomAnnotations(@Nonnull OWLAxiom axiom) {
+    private Set<OWLAnnotation> anns(@Nonnull OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         Set<OWLAnnotation> duplicatedAnnos = new HashSet<>();
-        for (OWLAnnotation anno : axiom.getAnnotations()) {
-            anno.accept(this);
-            duplicatedAnnos.add((OWLAnnotation) getLastObject());
-        }
+        axiom.getAnnotations().forEach(a -> duplicatedAnnos.add(get(a)));
         return duplicatedAnnos;
     }
 
     @Override
-    public void visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
-        axiom.getProperty().accept(this);
-        obj = dataFactory.getOWLAsymmetricObjectPropertyAxiom(
-                (OWLObjectPropertyExpression) getLastObject(),
-                duplicateAxiomAnnotations(axiom));
+    public OWLAsymmetricObjectPropertyAxiom visit(
+            @Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
+        return df.getOWLAsymmetricObjectPropertyAxiom(get(axiom.getProperty()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLClassAssertionAxiom axiom) {
-        axiom.getIndividual().accept(this);
-        OWLIndividual ind = getLastObject();
-        axiom.getClassExpression().accept(this);
-        OWLClassExpression type = getLastObject();
-        obj = dataFactory.getOWLClassAssertionAxiom(type, ind,
-                duplicateAxiomAnnotations(axiom));
+    public OWLClassAssertionAxiom visit(@Nonnull OWLClassAssertionAxiom axiom) {
+        return df.getOWLClassAssertionAxiom(get(axiom.getClassExpression()),
+                get(axiom.getIndividual()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
-        axiom.getSubject().accept(this);
-        OWLIndividual subj = getLastObject();
-        axiom.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        axiom.getObject().accept(this);
-        OWLLiteral con = getLastObject();
-        obj = dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, con,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDataPropertyAssertionAxiom visit(
+            @Nonnull OWLDataPropertyAssertionAxiom axiom) {
+        return df.getOWLDataPropertyAssertionAxiom(get(axiom.getProperty()),
+                get(axiom.getSubject()), get(axiom.getObject()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        axiom.getDomain().accept(this);
-        OWLClassExpression domain = getLastObject();
-        obj = dataFactory.getOWLDataPropertyDomainAxiom(prop, domain,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDataPropertyDomainAxiom visit(
+            @Nonnull OWLDataPropertyDomainAxiom axiom) {
+        return df.getOWLDataPropertyDomainAxiom(get(axiom.getProperty()),
+                get(axiom.getDomain()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        axiom.getRange().accept(this);
-        OWLDataRange range = getLastObject();
-        obj = dataFactory.getOWLDataPropertyRangeAxiom(prop, range,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDataPropertyRangeAxiom visit(
+            @Nonnull OWLDataPropertyRangeAxiom axiom) {
+        return df.getOWLDataPropertyRangeAxiom(get(axiom.getProperty()),
+                get(axiom.getRange()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
-        axiom.getSubProperty().accept(this);
-        OWLDataPropertyExpression subProp = getLastObject();
-        axiom.getSuperProperty().accept(this);
-        OWLDataPropertyExpression supProp = getLastObject();
-        obj = dataFactory.getOWLSubDataPropertyOfAxiom(subProp, supProp,
-                duplicateAxiomAnnotations(axiom));
+    public OWLSubDataPropertyOfAxiom visit(
+            @Nonnull OWLSubDataPropertyOfAxiom axiom) {
+        return df.getOWLSubDataPropertyOfAxiom(get(axiom.getSubProperty()),
+                get(axiom.getSuperProperty()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDeclarationAxiom axiom) {
-        axiom.getEntity().accept(this);
-        OWLEntity ent = getLastObject();
-        obj = dataFactory.getOWLDeclarationAxiom(ent,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDeclarationAxiom visit(@Nonnull OWLDeclarationAxiom axiom) {
+        return df.getOWLDeclarationAxiom(get(axiom.getEntity()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-        Set<OWLIndividual> inds = duplicateSet(axiom.getIndividuals());
-        obj = dataFactory.getOWLDifferentIndividualsAxiom(inds,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDifferentIndividualsAxiom visit(
+            @Nonnull OWLDifferentIndividualsAxiom axiom) {
+        return df.getOWLDifferentIndividualsAxiom(set(axiom.getIndividuals()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> descs = duplicateSet(axiom
-                .getClassExpressions());
-        obj = dataFactory.getOWLDisjointClassesAxiom(descs,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDisjointClassesAxiom
+            visit(@Nonnull OWLDisjointClassesAxiom axiom) {
+        return df.getOWLDisjointClassesAxiom(set(axiom.getClassExpressions()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
-        Set<OWLDataPropertyExpression> props = duplicateSet(axiom
-                .getProperties());
-        obj = dataFactory.getOWLDisjointDataPropertiesAxiom(props,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDisjointDataPropertiesAxiom visit(
+            @Nonnull OWLDisjointDataPropertiesAxiom axiom) {
+        return df.getOWLDisjointDataPropertiesAxiom(set(axiom.getProperties()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
-        Set<OWLObjectPropertyExpression> props = duplicateSet(axiom
-                .getProperties());
-        obj = dataFactory.getOWLDisjointObjectPropertiesAxiom(props,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDisjointObjectPropertiesAxiom visit(
+            @Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
+        return df.getOWLDisjointObjectPropertiesAxiom(
+                set(axiom.getProperties()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
-        axiom.getOWLClass().accept(this);
-        OWLClass cls = getLastObject();
-        Set<OWLClassExpression> ops = duplicateSet(axiom.getClassExpressions());
-        obj = dataFactory.getOWLDisjointUnionAxiom(cls, ops,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDisjointUnionAxiom visit(@Nonnull OWLDisjointUnionAxiom axiom) {
+        return df.getOWLDisjointUnionAxiom(get(axiom.getOWLClass()),
+                set(axiom.getClassExpressions()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
-        axiom.getSubject().accept(this);
-        OWLAnnotationSubject subject = getLastObject();
-        axiom.getProperty().accept(this);
-        OWLAnnotationProperty prop = getLastObject();
-        axiom.getValue().accept(this);
-        OWLAnnotationValue value = getLastObject();
-        obj = dataFactory.getOWLAnnotationAssertionAxiom(prop, subject, value,
-                duplicateAxiomAnnotations(axiom));
+    public OWLAnnotationAssertionAxiom visit(
+            @Nonnull OWLAnnotationAssertionAxiom axiom) {
+        return df.getOWLAnnotationAssertionAxiom(get(axiom.getProperty()),
+                get(axiom.getSubject()), get(axiom.getValue()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> descs = duplicateSet(axiom
-                .getClassExpressions());
-        obj = dataFactory.getOWLEquivalentClassesAxiom(descs,
-                duplicateAxiomAnnotations(axiom));
+    public OWLEquivalentClassesAxiom visit(
+            @Nonnull OWLEquivalentClassesAxiom axiom) {
+        return df.getOWLEquivalentClassesAxiom(
+                set(axiom.getClassExpressions()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
-        Set<OWLDataPropertyExpression> props = duplicateSet(axiom
-                .getProperties());
-        obj = dataFactory.getOWLEquivalentDataPropertiesAxiom(props,
-                duplicateAxiomAnnotations(axiom));
+    public OWLEquivalentDataPropertiesAxiom visit(
+            @Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
+        return df.getOWLEquivalentDataPropertiesAxiom(
+                set(axiom.getProperties()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
-        Set<OWLObjectPropertyExpression> props = duplicateSet(axiom
-                .getProperties());
-        obj = dataFactory.getOWLEquivalentObjectPropertiesAxiom(props,
-                duplicateAxiomAnnotations(axiom));
+    public OWLEquivalentObjectPropertiesAxiom visit(
+            @Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
+        return df.getOWLEquivalentObjectPropertiesAxiom(
+                set(axiom.getProperties()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLDataPropertyExpression obj2 = getLastObject();
-        obj = dataFactory.getOWLFunctionalDataPropertyAxiom(obj2,
-                duplicateAxiomAnnotations(axiom));
+    public OWLFunctionalDataPropertyAxiom visit(
+            @Nonnull OWLFunctionalDataPropertyAxiom axiom) {
+        return df.getOWLFunctionalDataPropertyAxiom(get(axiom.getProperty()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression obj2 = getLastObject();
-        obj = dataFactory.getOWLFunctionalObjectPropertyAxiom(obj2,
-                duplicateAxiomAnnotations(axiom));
+    public OWLFunctionalObjectPropertyAxiom visit(
+            @Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
+        return df.getOWLFunctionalObjectPropertyAxiom(get(axiom.getProperty()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression obj2 = getLastObject();
-        obj = dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(obj2,
-                duplicateAxiomAnnotations(axiom));
+    public OWLInverseFunctionalObjectPropertyAxiom visit(
+            @Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        return df.getOWLInverseFunctionalObjectPropertyAxiom(
+                get(axiom.getProperty()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
-        axiom.getFirstProperty().accept(this);
-        OWLObjectPropertyExpression propA = getLastObject();
-        axiom.getSecondProperty().accept(this);
-        OWLObjectPropertyExpression propB = getLastObject();
-        obj = dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB,
-                duplicateAxiomAnnotations(axiom));
+    public OWLInverseObjectPropertiesAxiom visit(
+            @Nonnull OWLInverseObjectPropertiesAxiom axiom) {
+        return df.getOWLInverseObjectPropertiesAxiom(
+                get(axiom.getFirstProperty()), get(axiom.getSecondProperty()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression obj2 = getLastObject();
-        obj = dataFactory.getOWLIrreflexiveObjectPropertyAxiom(obj2,
-                duplicateAxiomAnnotations(axiom));
+    public OWLIrreflexiveObjectPropertyAxiom visit(
+            @Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
+        return df.getOWLIrreflexiveObjectPropertyAxiom(
+                get(axiom.getProperty()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
-        axiom.getSubject().accept(this);
-        OWLIndividual ind = getLastObject();
-        axiom.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        axiom.getObject().accept(this);
-        OWLLiteral con = getLastObject();
-        obj = dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, ind,
-                con, duplicateAxiomAnnotations(axiom));
+    public OWLNegativeDataPropertyAssertionAxiom visit(
+            @Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
+        return df.getOWLNegativeDataPropertyAssertionAxiom(
+                get(axiom.getProperty()), get(axiom.getSubject()),
+                get(axiom.getObject()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        axiom.getSubject().accept(this);
-        OWLIndividual ind = getLastObject();
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        axiom.getObject().accept(this);
-        OWLIndividual ind2 = getLastObject();
-        obj = dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, ind,
-                ind2, duplicateAxiomAnnotations(axiom));
+    public OWLNegativeObjectPropertyAssertionAxiom visit(
+            @Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        return df.getOWLNegativeObjectPropertyAssertionAxiom(
+                get(axiom.getProperty()), get(axiom.getSubject()),
+                get(axiom.getObject()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
-        axiom.getSubject().accept(this);
-        OWLIndividual ind = getLastObject();
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        axiom.getObject().accept(this);
-        OWLIndividual ind2 = getLastObject();
-        obj = dataFactory.getOWLObjectPropertyAssertionAxiom(prop, ind, ind2,
-                duplicateAxiomAnnotations(axiom));
+    public OWLObjectPropertyAssertionAxiom visit(
+            @Nonnull OWLObjectPropertyAssertionAxiom axiom) {
+        return df.getOWLObjectPropertyAssertionAxiom(get(axiom.getProperty()),
+                get(axiom.getSubject()), get(axiom.getObject()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
-        axiom.getSuperProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
+    public OWLSubPropertyChainOfAxiom visit(
+            @Nonnull OWLSubPropertyChainOfAxiom axiom) {
         List<OWLObjectPropertyExpression> chain = new ArrayList<>();
-        for (OWLObjectPropertyExpression p : axiom.getPropertyChain()) {
-            p.accept(this);
-            chain.add((OWLObjectPropertyExpression) getLastObject());
-        }
-        obj = dataFactory.getOWLSubPropertyChainOfAxiom(chain, prop,
-                duplicateAxiomAnnotations(axiom));
+        axiom.getPropertyChain().forEach(p -> chain.add(get(p)));
+        return df.getOWLSubPropertyChainOfAxiom(chain,
+                get(axiom.getSuperProperty()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        axiom.getDomain().accept(this);
-        OWLClassExpression domain = getLastObject();
-        obj = dataFactory.getOWLObjectPropertyDomainAxiom(prop, domain,
-                duplicateAxiomAnnotations(axiom));
+    public OWLObjectPropertyDomainAxiom visit(
+            @Nonnull OWLObjectPropertyDomainAxiom axiom) {
+        return df.getOWLObjectPropertyDomainAxiom(get(axiom.getProperty()),
+                get(axiom.getDomain()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        axiom.getRange().accept(this);
-        OWLClassExpression range = getLastObject();
-        obj = dataFactory.getOWLObjectPropertyRangeAxiom(prop, range,
-                duplicateAxiomAnnotations(axiom));
+    public OWLObjectPropertyRangeAxiom visit(
+            @Nonnull OWLObjectPropertyRangeAxiom axiom) {
+        return df.getOWLObjectPropertyRangeAxiom(get(axiom.getProperty()),
+                get(axiom.getRange()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
-        axiom.getSubProperty().accept(this);
-        OWLObjectPropertyExpression subProp = getLastObject();
-        axiom.getSuperProperty().accept(this);
-        OWLObjectPropertyExpression supProp = getLastObject();
-        obj = dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, supProp,
-                duplicateAxiomAnnotations(axiom));
+    public OWLSubObjectPropertyOfAxiom visit(
+            @Nonnull OWLSubObjectPropertyOfAxiom axiom) {
+        return df.getOWLSubObjectPropertyOfAxiom(get(axiom.getSubProperty()),
+                get(axiom.getSuperProperty()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        obj = dataFactory.getOWLReflexiveObjectPropertyAxiom(prop,
-                duplicateAxiomAnnotations(axiom));
+    public OWLReflexiveObjectPropertyAxiom visit(
+            @Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
+        return df.getOWLReflexiveObjectPropertyAxiom(get(axiom.getProperty()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
-        Set<OWLIndividual> individuals = duplicateSet(axiom.getIndividuals());
-        obj = dataFactory.getOWLSameIndividualAxiom(individuals,
-                duplicateAxiomAnnotations(axiom));
+    public OWLSameIndividualAxiom visit(@Nonnull OWLSameIndividualAxiom axiom) {
+        return df.getOWLSameIndividualAxiom(set(axiom.getIndividuals()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
-        axiom.getSubClass().accept(this);
-        OWLClassExpression subClass = getLastObject();
-        axiom.getSuperClass().accept(this);
-        OWLClassExpression supClass = getLastObject();
-        obj = dataFactory.getOWLSubClassOfAxiom(subClass, supClass,
-                duplicateAxiomAnnotations(axiom));
+    public OWLSubClassOfAxiom visit(@Nonnull OWLSubClassOfAxiom axiom) {
+        return df.getOWLSubClassOfAxiom(get(axiom.getSubClass()),
+                get(axiom.getSuperClass()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        obj = dataFactory.getOWLSymmetricObjectPropertyAxiom(prop,
-                duplicateAxiomAnnotations(axiom));
+    public OWLSymmetricObjectPropertyAxiom visit(
+            @Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
+        return df.getOWLSymmetricObjectPropertyAxiom(get(axiom.getProperty()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        obj = dataFactory.getOWLTransitiveObjectPropertyAxiom(prop,
-                duplicateAxiomAnnotations(axiom));
+    public OWLTransitiveObjectPropertyAxiom visit(
+            @Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
+        return df.getOWLTransitiveObjectPropertyAxiom(get(axiom.getProperty()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLClass ce) {
-        obj = dataFactory.getOWLClass(getIRI(ce));
+    public OWLClass visit(@Nonnull OWLClass ce) {
+        return df.getOWLClass(getIRI(ce));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataAllValuesFrom ce) {
-        ce.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataAllValuesFrom(prop, filler);
+    public OWLDataAllValuesFrom visit(@Nonnull OWLDataAllValuesFrom ce) {
+        return df.getOWLDataAllValuesFrom(get(ce.getProperty()),
+                get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataExactCardinality ce) {
-        ce.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataExactCardinality(ce.getCardinality(), prop,
-                filler);
+    public OWLDataExactCardinality visit(@Nonnull OWLDataExactCardinality ce) {
+        return df.getOWLDataExactCardinality(ce.getCardinality(),
+                get(ce.getProperty()), get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMaxCardinality ce) {
-        ce.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataMaxCardinality(ce.getCardinality(), prop,
-                filler);
+    public OWLDataMaxCardinality visit(@Nonnull OWLDataMaxCardinality ce) {
+        return df.getOWLDataMaxCardinality(ce.getCardinality(),
+                get(ce.getProperty()), get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMinCardinality ce) {
-        ce.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataMinCardinality(ce.getCardinality(), prop,
-                filler);
+    public OWLDataMinCardinality visit(@Nonnull OWLDataMinCardinality ce) {
+        return df.getOWLDataMinCardinality(ce.getCardinality(),
+                get(ce.getProperty()), get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataSomeValuesFrom ce) {
-        ce.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataSomeValuesFrom(prop, filler);
+    public OWLDataSomeValuesFrom visit(@Nonnull OWLDataSomeValuesFrom ce) {
+        return df.getOWLDataSomeValuesFrom(get(ce.getProperty()),
+                get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataHasValue ce) {
-        ce.getProperty().accept(this);
-        OWLDataPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLLiteral val = getLastObject();
-        obj = dataFactory.getOWLDataHasValue(prop, val);
+    public OWLDataHasValue visit(@Nonnull OWLDataHasValue ce) {
+        return df
+                .getOWLDataHasValue(get(ce.getProperty()), get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectAllValuesFrom ce) {
-        ce.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectAllValuesFrom(prop, filler);
+    public OWLObjectAllValuesFrom visit(@Nonnull OWLObjectAllValuesFrom ce) {
+        return df.getOWLObjectAllValuesFrom(get(ce.getProperty()),
+                get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectComplementOf ce) {
-        ce.getOperand().accept(this);
-        OWLClassExpression op = getLastObject();
-        obj = dataFactory.getOWLObjectComplementOf(op);
+    public OWLObjectComplementOf visit(@Nonnull OWLObjectComplementOf ce) {
+        return df.getOWLObjectComplementOf(get(ce.getOperand()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectExactCardinality ce) {
-        ce.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectExactCardinality(ce.getCardinality(),
-                prop, filler);
+    public OWLObjectExactCardinality
+            visit(@Nonnull OWLObjectExactCardinality ce) {
+        return df.getOWLObjectExactCardinality(ce.getCardinality(),
+                get(ce.getProperty()), get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectIntersectionOf ce) {
-        Set<OWLClassExpression> ops = duplicateSet(ce.getOperands());
-        obj = dataFactory.getOWLObjectIntersectionOf(ops);
+    public OWLObjectIntersectionOf visit(@Nonnull OWLObjectIntersectionOf ce) {
+        return df.getOWLObjectIntersectionOf(set(ce.getOperands()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMaxCardinality ce) {
-        ce.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectMaxCardinality(ce.getCardinality(), prop,
-                filler);
+    public OWLObjectMaxCardinality visit(@Nonnull OWLObjectMaxCardinality ce) {
+        return df.getOWLObjectMaxCardinality(ce.getCardinality(),
+                get(ce.getProperty()), get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMinCardinality ce) {
-        ce.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectMinCardinality(ce.getCardinality(), prop,
-                filler);
+    public OWLObjectMinCardinality visit(@Nonnull OWLObjectMinCardinality ce) {
+        OWLObjectPropertyExpression prop = get(ce.getProperty());
+        return df.getOWLObjectMinCardinality(ce.getCardinality(), prop,
+                get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectOneOf ce) {
-        Set<OWLIndividual> inds = duplicateSet(ce.getIndividuals());
-        obj = dataFactory.getOWLObjectOneOf(inds);
+    public OWLObjectOneOf visit(@Nonnull OWLObjectOneOf ce) {
+        return df.getOWLObjectOneOf(set(ce.getIndividuals()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasSelf ce) {
-        ce.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        obj = dataFactory.getOWLObjectHasSelf(prop);
+    public OWLObjectHasSelf visit(@Nonnull OWLObjectHasSelf ce) {
+        return df.getOWLObjectHasSelf(get(ce.getProperty()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
-        ce.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
+    public OWLObjectSomeValuesFrom visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+        return df.getOWLObjectSomeValuesFrom(get(ce.getProperty()),
+                get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectUnionOf ce) {
-        Set<OWLClassExpression> ops = duplicateSet(ce.getOperands());
-        obj = dataFactory.getOWLObjectUnionOf(ops);
+    public OWLObjectUnionOf visit(@Nonnull OWLObjectUnionOf ce) {
+        return df.getOWLObjectUnionOf(set(ce.getOperands()));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasValue ce) {
-        ce.getProperty().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        ce.getFiller().accept(this);
-        OWLIndividual value = getLastObject();
-        obj = dataFactory.getOWLObjectHasValue(prop, value);
+    public OWLObjectHasValue visit(@Nonnull OWLObjectHasValue ce) {
+        return df.getOWLObjectHasValue(get(ce.getProperty()),
+                get(ce.getFiller()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataComplementOf node) {
-        node.getDataRange().accept(this);
-        OWLDataRange dr = getLastObject();
-        obj = dataFactory.getOWLDataComplementOf(dr);
+    public OWLDataComplementOf visit(@Nonnull OWLDataComplementOf node) {
+        return df.getOWLDataComplementOf(get(node.getDataRange()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataOneOf node) {
-        Set<OWLLiteral> vals = duplicateSet(node.getValues());
-        obj = dataFactory.getOWLDataOneOf(vals);
+    public OWLDataOneOf visit(@Nonnull OWLDataOneOf node) {
+        return df.getOWLDataOneOf(set(node.getValues()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDatatype node) {
-        IRI iri = getIRI(node);
-        obj = dataFactory.getOWLDatatype(iri);
+    public OWLDatatype visit(@Nonnull OWLDatatype node) {
+        return df.getOWLDatatype(getIRI(node));
     }
 
     @Override
-    public void visit(@Nonnull OWLDatatypeRestriction node) {
-        node.getDatatype().accept(this);
-        OWLDatatype dr = getLastObject();
-        Set<OWLFacetRestriction> restrictions = new HashSet<>();
-        for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
-            restriction.accept(this);
-            restrictions.add((OWLFacetRestriction) getLastObject());
-        }
-        obj = dataFactory.getOWLDatatypeRestriction(dr, restrictions);
+    public OWLDatatypeRestriction visit(@Nonnull OWLDatatypeRestriction node) {
+        return df.getOWLDatatypeRestriction(get(node.getDatatype()),
+                set(node.getFacetRestrictions()));
     }
 
     @Override
-    public void visit(@Nonnull OWLFacetRestriction node) {
-        node.getFacetValue().accept(this);
-        OWLLiteral val = getLastObject();
-        obj = dataFactory.getOWLFacetRestriction(node.getFacet(), val);
+    public OWLFacetRestriction visit(@Nonnull OWLFacetRestriction node) {
+        return df.getOWLFacetRestriction(node.getFacet(),
+                get(node.getFacetValue()));
     }
 
     @Override
-    public void visit(@Nonnull OWLLiteral node) {
-        node.getDatatype().accept(this);
-        OWLDatatype dt = getLastObject();
+    public OWLLiteral visit(@Nonnull OWLLiteral node) {
         if (node.hasLang()) {
-            obj = dataFactory.getOWLLiteral(node.getLiteral(), node.getLang());
-        } else {
-            obj = dataFactory.getOWLLiteral(node.getLiteral(), dt);
+            return df.getOWLLiteral(node.getLiteral(), node.getLang());
         }
+        return df.getOWLLiteral(node.getLiteral(),
+                (OWLDatatype) get(node.getDatatype()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataProperty property) {
-        IRI iri = getIRI(property);
-        obj = dataFactory.getOWLDataProperty(iri);
+    public OWLDataProperty visit(@Nonnull OWLDataProperty property) {
+        return df.getOWLDataProperty(getIRI(property));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectProperty property) {
-        IRI iri = getIRI(property);
-        obj = dataFactory.getOWLObjectProperty(iri);
+    public OWLObjectProperty visit(@Nonnull OWLObjectProperty property) {
+        return df.getOWLObjectProperty(getIRI(property));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectInverseOf property) {
-        property.getInverse().accept(this);
-        OWLObjectPropertyExpression prop = getLastObject();
-        obj = dataFactory.getOWLObjectInverseOf(prop);
+    public OWLObjectInverseOf visit(@Nonnull OWLObjectInverseOf property) {
+        return df.getOWLObjectInverseOf(get(property.getInverse()));
     }
 
     @Override
-    public void visit(@Nonnull OWLNamedIndividual individual) {
-        IRI iri = getIRI(individual);
-        obj = dataFactory.getOWLNamedIndividual(iri);
+    public OWLNamedIndividual visit(@Nonnull OWLNamedIndividual individual) {
+        return df.getOWLNamedIndividual(getIRI(individual));
     }
 
     @Override
-    public void visit(OWLOntology ontology) {
+    public OWLOntology visit(OWLOntology ontology) {
         // Should we duplicate ontologies here? Probably not.
-        obj = ontology;
+        return ontology;
     }
 
     @Override
-    public void visit(@Nonnull SWRLRule rule) {
+    public SWRLRule visit(@Nonnull SWRLRule rule) {
         Set<SWRLAtom> antecedents = new HashSet<>();
         Set<SWRLAtom> consequents = new HashSet<>();
-        for (SWRLAtom atom : rule.getBody()) {
-            atom.accept(this);
-            antecedents.add((SWRLAtom) getLastObject());
-        }
-        for (SWRLAtom atom : rule.getHead()) {
-            atom.accept(this);
-            consequents.add((SWRLAtom) getLastObject());
-        }
-        obj = dataFactory.getSWRLRule(antecedents, consequents);
+        rule.getBody().forEach(a -> antecedents.add(get(a)));
+        rule.getHead().forEach(a -> consequents.add(get(a)));
+        return df.getSWRLRule(antecedents, consequents);
     }
 
     @Override
-    public void visit(@Nonnull SWRLClassAtom node) {
-        node.getPredicate().accept(this);
-        OWLClassExpression desc = getLastObject();
-        node.getArgument().accept(this);
-        SWRLIArgument atom = getLastObject();
-        obj = dataFactory.getSWRLClassAtom(desc, atom);
+    public SWRLClassAtom visit(@Nonnull SWRLClassAtom node) {
+        return df.getSWRLClassAtom(get(node.getPredicate()),
+                get(node.getArgument()));
     }
 
     @Override
-    public void visit(@Nonnull SWRLDataRangeAtom node) {
-        node.getPredicate().accept(this);
-        OWLDataRange rng = getLastObject();
-        node.getArgument().accept(this);
-        SWRLDArgument atom = getLastObject();
-        obj = dataFactory.getSWRLDataRangeAtom(rng, atom);
+    public SWRLDataRangeAtom visit(@Nonnull SWRLDataRangeAtom node) {
+        return df.getSWRLDataRangeAtom(get(node.getPredicate()),
+                get(node.getArgument()));
     }
 
     @Override
-    public void visit(@Nonnull SWRLObjectPropertyAtom node) {
-        node.getPredicate().accept(this);
-        OWLObjectPropertyExpression exp = getLastObject();
-        node.getFirstArgument().accept(this);
-        SWRLIArgument arg0 = getLastObject();
-        node.getSecondArgument().accept(this);
-        SWRLIArgument arg1 = getLastObject();
-        obj = dataFactory.getSWRLObjectPropertyAtom(exp, arg0, arg1);
+    public SWRLObjectPropertyAtom visit(@Nonnull SWRLObjectPropertyAtom node) {
+        return df.getSWRLObjectPropertyAtom(get(node.getPredicate()),
+                get(node.getFirstArgument()), get(node.getSecondArgument()));
     }
 
     @Override
-    public void visit(@Nonnull SWRLDataPropertyAtom node) {
-        node.getPredicate().accept(this);
-        OWLDataPropertyExpression exp = getLastObject();
-        node.getFirstArgument().accept(this);
-        SWRLIArgument arg0 = getLastObject();
-        node.getSecondArgument().accept(this);
-        SWRLDArgument arg1 = getLastObject();
-        obj = dataFactory.getSWRLDataPropertyAtom(exp, arg0, arg1);
+    public SWRLDataPropertyAtom visit(@Nonnull SWRLDataPropertyAtom node) {
+        return df.getSWRLDataPropertyAtom(get(node.getPredicate()),
+                get(node.getFirstArgument()), get(node.getSecondArgument()));
     }
 
     @Override
-    public void visit(@Nonnull SWRLBuiltInAtom node) {
+    public SWRLBuiltInAtom visit(@Nonnull SWRLBuiltInAtom node) {
         List<SWRLDArgument> atomObjects = new ArrayList<>();
-        for (SWRLDArgument atomObject : node.getArguments()) {
-            atomObject.accept(this);
-            atomObjects.add((SWRLDArgument) getLastObject());
-        }
-        obj = dataFactory.getSWRLBuiltInAtom(node.getPredicate(), atomObjects);
+        node.getArguments().forEach(a -> atomObjects.add(get(a)));
+        return df.getSWRLBuiltInAtom(node.getPredicate(), atomObjects);
     }
 
     @Override
-    public void visit(@Nonnull SWRLDifferentIndividualsAtom node) {
-        node.getFirstArgument().accept(this);
-        SWRLIArgument arg0 = getLastObject();
-        node.getSecondArgument().accept(this);
-        SWRLIArgument arg1 = getLastObject();
-        obj = dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);
+    public SWRLDifferentIndividualsAtom visit(
+            @Nonnull SWRLDifferentIndividualsAtom node) {
+        return df.getSWRLDifferentIndividualsAtom(get(node.getFirstArgument()),
+                get(node.getSecondArgument()));
     }
 
     @Override
-    public void visit(@Nonnull SWRLSameIndividualAtom node) {
-        node.getFirstArgument().accept(this);
-        SWRLIArgument arg0 = getLastObject();
-        node.getSecondArgument().accept(this);
-        SWRLIArgument arg1 = getLastObject();
-        obj = dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
+    public SWRLSameIndividualAtom visit(@Nonnull SWRLSameIndividualAtom node) {
+        return df.getSWRLSameIndividualAtom(get(node.getFirstArgument()),
+                get(node.getSecondArgument()));
     }
 
     @Override
-    public void visit(@Nonnull SWRLVariable node) {
-        node.getIRI().accept(this);
-        obj = dataFactory.getSWRLVariable(getLastObject());
+    public SWRLVariable visit(@Nonnull SWRLVariable node) {
+        return df.getSWRLVariable((IRI) get(node.getIRI()));
     }
 
     @Override
-    public void visit(@Nonnull SWRLIndividualArgument node) {
-        node.getIndividual().accept(this);
-        OWLIndividual ind = getLastObject();
-        obj = dataFactory.getSWRLIndividualArgument(ind);
+    public SWRLIndividualArgument visit(@Nonnull SWRLIndividualArgument node) {
+        return df.getSWRLIndividualArgument(get(node.getIndividual()));
     }
 
     @Override
-    public void visit(@Nonnull SWRLLiteralArgument node) {
-        node.getLiteral().accept(this);
-        OWLLiteral con = getLastObject();
-        obj = dataFactory.getSWRLLiteralArgument(con);
+    public SWRLLiteralArgument visit(@Nonnull SWRLLiteralArgument node) {
+        return df.getSWRLLiteralArgument(get(node.getLiteral()));
     }
 
     @Override
-    public void visit(@Nonnull OWLHasKeyAxiom axiom) {
-        axiom.getClassExpression().accept(this);
-        OWLClassExpression ce = getLastObject();
-        Set<OWLPropertyExpression> props = duplicateSet(axiom
-                .getPropertyExpressions());
-        obj = dataFactory.getOWLHasKeyAxiom(ce, props,
-                duplicateAxiomAnnotations(axiom));
+    public OWLHasKeyAxiom visit(@Nonnull OWLHasKeyAxiom axiom) {
+        return df.getOWLHasKeyAxiom(get(axiom.getClassExpression()),
+                set(axiom.getPropertyExpressions()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataIntersectionOf node) {
-        Set<OWLDataRange> ranges = duplicateSet(node.getOperands());
-        obj = dataFactory.getOWLDataIntersectionOf(ranges);
+    public OWLDataIntersectionOf visit(@Nonnull OWLDataIntersectionOf node) {
+        return df.getOWLDataIntersectionOf(set(node.getOperands()));
     }
 
     @Override
-    public void visit(@Nonnull OWLDataUnionOf node) {
-        Set<OWLDataRange> ranges = duplicateSet(node.getOperands());
-        obj = dataFactory.getOWLDataUnionOf(ranges);
+    public OWLDataUnionOf visit(@Nonnull OWLDataUnionOf node) {
+        return df.getOWLDataUnionOf(set(node.getOperands()));
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotationProperty property) {
-        obj = dataFactory.getOWLAnnotationProperty(getIRI(property));
+    public OWLAnnotationProperty visit(@Nonnull OWLAnnotationProperty property) {
+        return df.getOWLAnnotationProperty(getIRI(property));
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLAnnotationProperty prop = getLastObject();
-        axiom.getDomain().accept(this);
-        IRI domain = getLastObject();
-        obj = dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain,
-                duplicateAxiomAnnotations(axiom));
+    public OWLAnnotationPropertyDomainAxiom visit(
+            @Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
+        return df.getOWLAnnotationPropertyDomainAxiom(get(axiom.getProperty()),
+                get(axiom.getDomain()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
-        axiom.getProperty().accept(this);
-        OWLAnnotationProperty prop = getLastObject();
-        axiom.getRange().accept(this);
-        IRI range = getLastObject();
-        obj = dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range,
-                duplicateAxiomAnnotations(axiom));
+    public OWLAnnotationPropertyRangeAxiom visit(
+            @Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+        return df.getOWLAnnotationPropertyRangeAxiom(get(axiom.getProperty()),
+                get(axiom.getRange()), anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
-        axiom.getSubProperty().accept(this);
-        OWLAnnotationProperty sub = getLastObject();
-        axiom.getSuperProperty().accept(this);
-        OWLAnnotationProperty sup = getLastObject();
-        obj = dataFactory.getOWLSubAnnotationPropertyOfAxiom(sub, sup,
-                duplicateAxiomAnnotations(axiom));
+    public OWLSubAnnotationPropertyOfAxiom visit(
+            @Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+        return df.getOWLSubAnnotationPropertyOfAxiom(
+                get(axiom.getSubProperty()), get(axiom.getSuperProperty()),
+                anns(axiom));
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotation node) {
-        node.getProperty().accept(this);
-        OWLAnnotationProperty prop = getLastObject();
-        node.getValue().accept(this);
-        OWLAnnotationValue val = getLastObject();
-        obj = dataFactory.getOWLAnnotation(prop, val);
+    public OWLAnnotation visit(@Nonnull OWLAnnotation node) {
+        return df.getOWLAnnotation(get(node.getProperty()),
+                get(node.getValue()));
     }
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {
-        obj = individual;
+    public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
+        return individual;
     }
 
     @Override
-    public void visit(IRI iri) {
-        obj = iri;
+    public IRI visit(IRI iri) {
         for (EntityType<?> entityType : EntityType.values()) {
-            OWLEntity entity = dataFactory.getOWLEntity(entityType, iri);
+            OWLEntity entity = df.getOWLEntity(entityType, iri);
             IRI replacementIRI = replacementMap.get(entity);
             if (replacementIRI != null) {
-                obj = replacementIRI;
-                return;
+                return replacementIRI;
             }
         }
+        return iri;
     }
 
     @Override
-    public void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
-        axiom.getDatatype().accept(this);
-        OWLDatatype dt = getLastObject();
-        axiom.getDataRange().accept(this);
-        OWLDataRange rng = getLastObject();
-        obj = dataFactory.getOWLDatatypeDefinitionAxiom(dt, rng,
-                duplicateAxiomAnnotations(axiom));
+    public OWLDatatypeDefinitionAxiom visit(
+            @Nonnull OWLDatatypeDefinitionAxiom axiom) {
+        return df.getOWLDatatypeDefinitionAxiom(get(axiom.getDatatype()),
+                get(axiom.getDataRange()), anns(axiom));
     }
 
     /**
@@ -893,13 +770,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      * @return The set of duplicated objects
      */
     @Nonnull
-    @SuppressWarnings("unchecked")
-    private <O extends OWLObject> Set<O> duplicateSet(@Nonnull Set<O> objects) {
+    private <O extends OWLObject> Set<O> set(@Nonnull Set<O> objects) {
         Set<O> dup = new HashSet<>();
-        for (O o : objects) {
-            o.accept(this);
-            dup.add((O) getLastObject());
-        }
+        objects.forEach(o -> dup.add(get(o)));
         return dup;
+    }
+
+    protected <O> O get(OWLObject o) {
+        return (O) o.accept(this);
     }
 }
