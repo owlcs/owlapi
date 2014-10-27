@@ -52,13 +52,16 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         operands.forEach(o -> addSignatureEntitiesToSetForValue(entities, o));
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         operands.forEach(o -> addAnonymousIndividualsToSetForValue(anons, o));
+        return anons;
     }
 
     @Override

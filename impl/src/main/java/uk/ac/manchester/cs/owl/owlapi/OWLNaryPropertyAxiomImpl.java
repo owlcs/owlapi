@@ -73,15 +73,18 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         getProperties().forEach(
                 e -> addSignatureEntitiesToSetForValue(entities, e));
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         getProperties().forEach(
                 p -> addAnonymousIndividualsToSetForValue(anons, p));
+        return anons;
     }
 
     @Override

@@ -52,13 +52,16 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, property);
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         addAnonymousIndividualsToSetForValue(anons, property);
+        return anons;
     }
 
     @Override

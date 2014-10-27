@@ -14,12 +14,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -44,9 +41,6 @@ public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     protected SWRLVariableImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }
-
-    @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {}
 
     @Override
     public IRI getIRI() {

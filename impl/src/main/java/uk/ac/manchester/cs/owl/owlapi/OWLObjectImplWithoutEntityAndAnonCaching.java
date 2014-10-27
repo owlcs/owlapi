@@ -49,9 +49,7 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching extends
     @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
-        Set<OWLEntity> result = new HashSet<>();
-        addSignatureEntitiesToSet(result);
-        return result;
+        return addSignatureEntitiesToSet(new HashSet<>());
     }
 
     protected static void addEntitiesFromAnnotationsToSet(
@@ -106,6 +104,7 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching extends
         }
     }
 
+    // XXX return the input value?
     protected void addAnonymousIndividualsToSetForValue(
             Set<OWLAnonymousIndividual> anons,
             HasAnonymousIndividuals canHasAnons) {

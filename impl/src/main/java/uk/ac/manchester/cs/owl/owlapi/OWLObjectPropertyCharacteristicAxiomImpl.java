@@ -52,13 +52,14 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         if (property instanceof OWLObjectPropertyExpressionImpl) {
             OWLObjectPropertyExpressionImpl objectProperty = (OWLObjectPropertyExpressionImpl) property;
             objectProperty.addSignatureEntitiesToSet(entities);
         } else {
             entities.addAll(property.getSignature());
         }
+        return entities;
     }
 
     @Override

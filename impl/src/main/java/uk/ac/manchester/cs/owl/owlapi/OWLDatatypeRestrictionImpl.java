@@ -63,16 +63,19 @@ public class OWLDatatypeRestrictionImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
         facetRestrictions.forEach(f -> addSignatureEntitiesToSetForValue(
                 entities, f));
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         facetRestrictions.forEach(r -> addAnonymousIndividualsToSetForValue(
                 anons, r));
+        return anons;
     }
 
     @Override

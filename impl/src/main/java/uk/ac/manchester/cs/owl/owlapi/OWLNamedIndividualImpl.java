@@ -40,8 +40,9 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
     private final IRI iri;
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(this);
+        return entities;
     }
 
     @Override

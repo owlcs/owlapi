@@ -56,18 +56,21 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         for (OWLIndividual individual : values) {
             if (individual.isNamed()) {
                 entities.add(individual.asOWLNamedIndividual());
             }
         }
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         values.stream().filter(i -> i.isAnonymous())
                 .forEach(i -> anons.add(i.asOWLAnonymousIndividual()));
+        return anons;
     }
 
     @Override

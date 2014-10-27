@@ -77,18 +77,21 @@ public class OWLAnnotationAssertionAxiomImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(property);
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         if (subject instanceof OWLAnonymousIndividual) {
             anons.add((OWLAnonymousIndividual) subject);
         }
         if (value instanceof OWLAnonymousIndividual) {
             anons.add((OWLAnonymousIndividual) value);
         }
+        return anons;
     }
 
     /**

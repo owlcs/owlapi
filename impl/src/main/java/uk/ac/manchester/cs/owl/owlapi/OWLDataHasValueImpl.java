@@ -58,8 +58,9 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, value);
+        return entities;
     }
 
     @Override

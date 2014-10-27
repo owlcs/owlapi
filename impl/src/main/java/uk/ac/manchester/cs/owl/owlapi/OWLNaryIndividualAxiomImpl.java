@@ -59,15 +59,18 @@ public abstract class OWLNaryIndividualAxiomImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         individuals.stream().filter(i -> i.isNamed())
                 .forEach(i -> entities.add(i.asOWLNamedIndividual()));
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         individuals.stream().filter(i -> i.isAnonymous())
                 .forEach(i -> anons.add(i.asOWLAnonymousIndividual()));
+        return anons;
     }
 
     @Override

@@ -54,15 +54,18 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, getProperty());
         addSignatureEntitiesToSetForValue(entities, getFiller());
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         addAnonymousIndividualsToSetForValue(anons, getProperty());
         addAnonymousIndividualsToSetForValue(anons, getFiller());
+        return anons;
     }
 
     @Override

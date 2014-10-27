@@ -15,15 +15,22 @@ public interface HasIncrementalSignatureGenerationSupport {
     /**
      * @param entities
      *        entity set where entities will be added
+     * @return the modified input entities
      */
-    void addSignatureEntitiesToSet(@Nonnull Set<OWLEntity> entities);
+    @Nonnull
+    default Set<OWLEntity> addSignatureEntitiesToSet(
+            @Nonnull Set<OWLEntity> entities) {
+        return entities;
+    }
 
     /**
      * @param anons
      *        anonymous individuals set where individuals will be added
+     * @return the modified input individuals
      */
-    default
-            void
-            addAnonymousIndividualsToSet(
-                    @SuppressWarnings("unused") @Nonnull Set<OWLAnonymousIndividual> anons) {}
+    @Nonnull
+    default Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            @Nonnull Set<OWLAnonymousIndividual> anons) {
+        return anons;
+    }
 }

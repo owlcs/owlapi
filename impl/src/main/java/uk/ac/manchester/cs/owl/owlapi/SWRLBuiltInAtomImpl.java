@@ -61,13 +61,16 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         args.forEach(arg -> addSignatureEntitiesToSetForValue(entities, arg));
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         args.forEach(a -> addAnonymousIndividualsToSetForValue(anons, a));
+        return anons;
     }
 
     @Override

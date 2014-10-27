@@ -66,17 +66,20 @@ public class OWLHasKeyAxiomImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, expression);
         propertyExpressions.forEach(p -> addSignatureEntitiesToSetForValue(
                 entities, p));
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         addAnonymousIndividualsToSetForValue(anons, expression);
         propertyExpressions.forEach(p -> addAnonymousIndividualsToSetForValue(
                 anons, p));
+        return anons;
     }
 
     @Override

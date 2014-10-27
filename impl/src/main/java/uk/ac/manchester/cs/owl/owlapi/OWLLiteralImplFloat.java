@@ -46,8 +46,9 @@ public class OWLLiteralImplFloat extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(InternalizedEntities.XSDFLOAT);
+        return entities;
     }
 
     private final int hashcode;

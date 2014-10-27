@@ -59,15 +59,18 @@ public class OWLObjectHasValueImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, property);
         addSignatureEntitiesToSetForValue(entities, value);
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         addAnonymousIndividualsToSetForValue(anons, property);
         addAnonymousIndividualsToSetForValue(anons, value);
+        return anons;
     }
 
     @Override

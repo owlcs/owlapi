@@ -57,21 +57,24 @@ public class OWLDataPropertyAssertionAxiomImpl
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         if (getSubject().isNamed()) {
             entities.add(getSubject().asOWLNamedIndividual());
         }
         addSignatureEntitiesToSetForValue(entities, getProperty());
         addSignatureEntitiesToSetForValue(entities, getObject());
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         if (getSubject().isAnonymous()) {
             anons.add(getSubject().asOWLAnonymousIndividual());
         }
         addAnonymousIndividualsToSetForValue(anons, getProperty());
         addAnonymousIndividualsToSetForValue(anons, getObject());
+        return anons;
     }
 
     @Nonnull

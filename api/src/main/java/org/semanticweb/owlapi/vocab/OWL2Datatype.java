@@ -52,6 +52,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
 
 
+
 //@formatter:off
     /** RDF_XML_LITERAL. */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL. */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -161,6 +162,16 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
                                 + " is not a built in datatype!"));
     }
 
+    /**
+     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains
+     * the corresponding {@code OWL2Datatype}.
+     * 
+     * @param datatype
+     *        The datatype IRI. Not {@code null}.
+     * @return The {@code OWL2Datatype} that has the specified {@link IRI}.
+     * @throws OWLRuntimeException
+     *         if the specified IRI is not a built in datatype IRI.
+     */
     public static OWL2Datatype getDatatype(HasIRI datatype) {
         return getDatatype(datatype.getIRI());
     }

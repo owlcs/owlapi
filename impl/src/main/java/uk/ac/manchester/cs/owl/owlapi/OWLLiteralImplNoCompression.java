@@ -45,8 +45,9 @@ public class OWLLiteralImplNoCompression extends
     private final String language;
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(datatype);
+        return entities;
     }
 
     @Override

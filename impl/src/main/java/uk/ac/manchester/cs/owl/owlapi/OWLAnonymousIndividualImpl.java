@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -94,10 +93,9 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {}
-
-    @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         anons.add(this);
+        return anons;
     }
 }

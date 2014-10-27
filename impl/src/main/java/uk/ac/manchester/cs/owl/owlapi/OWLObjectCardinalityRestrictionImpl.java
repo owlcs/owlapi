@@ -46,15 +46,18 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, property);
         addSignatureEntitiesToSetForValue(entities, getFiller());
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         addAnonymousIndividualsToSetForValue(anons, property);
         addAnonymousIndividualsToSetForValue(anons, getFiller());
+        return anons;
     }
 
     @Override

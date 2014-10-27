@@ -50,8 +50,9 @@ public class OWLDeclarationAxiomImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(entity);
+        return entities;
     }
 
     @Override

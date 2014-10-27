@@ -54,8 +54,9 @@ public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         values.forEach(v -> entities.add(v.getDatatype()));
+        return entities;
     }
 
     @Override

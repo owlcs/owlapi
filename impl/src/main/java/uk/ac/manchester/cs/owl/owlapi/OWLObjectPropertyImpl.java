@@ -56,8 +56,9 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(this);
+        return entities;
     }
 
     @Override

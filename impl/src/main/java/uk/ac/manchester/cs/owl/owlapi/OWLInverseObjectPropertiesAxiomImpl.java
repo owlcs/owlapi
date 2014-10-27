@@ -68,7 +68,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         if (first instanceof HasIncrementalSignatureGenerationSupport) {
             HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) first;
             prop.addSignatureEntitiesToSet(entities);
@@ -81,10 +81,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         } else {
             entities.addAll(second.getSignature());
         }
+        return entities;
     }
 
     @Override
-    public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
+    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
+            Set<OWLAnonymousIndividual> anons) {
         if (first instanceof HasIncrementalSignatureGenerationSupport) {
             ((HasIncrementalSignatureGenerationSupport) first)
                     .addAnonymousIndividualsToSet(anons);
@@ -97,6 +99,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         } else {
             anons.addAll(second.getAnonymousIndividuals());
         }
+        return anons;
     }
 
     @Override

@@ -37,8 +37,9 @@ public class OWLLiteralImplDouble extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(InternalizedEntities.XSDDOUBLE);
+        return entities;
     }
 
     /**

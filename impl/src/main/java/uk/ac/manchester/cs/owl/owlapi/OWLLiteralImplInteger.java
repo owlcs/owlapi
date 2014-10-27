@@ -46,8 +46,9 @@ public class OWLLiteralImplInteger extends
     }
 
     @Override
-    public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
+    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         entities.add(getDatatype());
+        return entities;
     }
 
     private final int hashcode;
