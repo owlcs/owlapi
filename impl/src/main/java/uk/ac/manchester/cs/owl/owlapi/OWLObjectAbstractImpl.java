@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -57,9 +56,6 @@ public abstract class OWLObjectAbstractImpl implements OWLObject, Serializable {
             .emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     protected int hashCode = 0;
-    @Nonnull
-    protected static final OWLClass OWL_THING = new OWLClassImpl(
-            OWLRDFVocabulary.OWL_THING.getIRI());
 
     @SuppressWarnings("unchecked")
     protected static List<OWLAnnotation> asAnnotations(

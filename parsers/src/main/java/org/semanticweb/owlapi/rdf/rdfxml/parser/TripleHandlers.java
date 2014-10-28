@@ -2108,15 +2108,14 @@ public class TripleHandlers {
                 return false;
             }
             if (o.isReservedVocabulary()) {
-                return o.equals(OWL_THING.getIRI());
+                return o.isThing();
             }
             return true;
         }
 
         @Override
         public void handleTriple(@Nonnull IRI s, IRI p, @Nonnull IRI o) {
-            if (BUILT_IN_VOCABULARY_IRIS.contains(o)
-                    && !o.equals(OWL_THING.getIRI())) {
+            if (BUILT_IN_VOCABULARY_IRIS.contains(o) && !o.isThing()) {
                 // Can't have instance of built in vocabulary!
                 // Shall we throw an exception here?
                 LOGGER.info("Individual of builtin type {}", o);

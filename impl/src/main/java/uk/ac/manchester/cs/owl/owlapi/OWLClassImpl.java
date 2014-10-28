@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -56,8 +55,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
      */
     public OWLClassImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
-        isThing = getIRI().equals(OWLRDFVocabulary.OWL_THING.getIRI());
-        isNothing = getIRI().equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
+        isThing = getIRI().isThing();
+        isNothing = getIRI().isNothing();
     }
 
     @Override
