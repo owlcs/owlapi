@@ -132,7 +132,7 @@ public class OWLAnnotationAssertionAxiomImpl extends
 
     @Override
     public OWLAnnotation getAnnotation() {
-        return new OWLAnnotationImpl(property, value, NO_ANNOTATIONS);
+        return new OWLAnnotationImplNotAnnotated(property, value);
     }
 
     @Override

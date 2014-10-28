@@ -22,10 +22,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.providers.ClassProvider;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -37,7 +39,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 2.0.0
  */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
-        OWLClassProvider {
+        ClassProvider {
 
     private static final long serialVersionUID = 40000L;
     protected OWLDataFactoryInternals data;
@@ -599,15 +601,14 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         String provenanceComment = String.format("%s on %s", VersionInfo
                 .getVersionInfo().getGeneratedByMessage(),
                 new SimpleDateFormat().format(new Date()));
-        OWLAnnotationImpl provenanceAnnotation = new OWLAnnotationImpl(
-                RDFS_COMMENT, getOWLLiteral(provenanceComment),
-                Collections.emptySet());
+        OWLAnnotation provenanceAnnotation = getOWLAnnotation(RDFS_COMMENT,
+                getOWLLiteral(provenanceComment));
         Set<? extends OWLAnnotation> metaAnnotations = Collections
                 .singleton(provenanceAnnotation);
         String changeComment = String.format(
                 "DisjointClasses(%s) replaced by DisjointClasses(%s %s)",
                 classExpression, classExpression, addedClass);
-        modifiedAnnotations.add(new OWLAnnotationImpl(RDFS_COMMENT,
+        modifiedAnnotations.add(getOWLAnnotation(RDFS_COMMENT,
                 getOWLLiteral(changeComment), metaAnnotations));
         return modifiedAnnotations;
     }
@@ -959,14 +960,20 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         return data.getOWLAnnotationProperty(iri);
     }
 
+    @Override
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
+            OWLAnnotationValue value) {
+        return new OWLAnnotationImplNotAnnotated(property, value);
+    }
+
     @Nonnull
     @Override
     public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
             OWLAnnotationValue value,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Stream<? extends OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(value, "value cannot be null");
-        checkAnnotations(annotations);
+        checkNotNull(annotations, "annotations cannot be null");
         return new OWLAnnotationImpl(property, value, annotations);
     }
 

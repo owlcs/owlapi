@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -37,10 +37,45 @@ public interface AnnotationProvider {
      * @return The annotation on the specified property with the specified value
      */
     @Nonnull
+    OWLAnnotation getOWLAnnotation(@Nonnull OWLAnnotationProperty property,
+            @Nonnull OWLAnnotationValue value);
+
+    /**
+     * Gets an annotation
+     * 
+     * @param property
+     *        the annotation property.
+     * @param value
+     *        The annotation value.
+     * @param annotations
+     *        A set of annotations. Cannot be null or contain nulls.
+     * @return The annotation on the specified property with the specified value
+     */
+    @Nonnull
     default OWLAnnotation getOWLAnnotation(
             @Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationValue value) {
-        return getOWLAnnotation(property, value, Collections.emptySet());
+            @Nonnull OWLAnnotationValue value,
+            @Nonnull Set<? extends OWLAnnotation> annotations) {
+        return getOWLAnnotation(property, value, annotations.stream());
+    }
+
+    /**
+     * Gets an annotation
+     * 
+     * @param property
+     *        the annotation property.
+     * @param value
+     *        The annotation value.
+     * @param annotation
+     *        Annotation on this annotation. Cannot be null or contain nulls.
+     * @return The annotation on the specified property with the specified value
+     */
+    @Nonnull
+    default OWLAnnotation
+            getOWLAnnotation(@Nonnull OWLAnnotationProperty property,
+                    @Nonnull OWLAnnotationValue value,
+                    @Nonnull OWLAnnotation annotation) {
+        return getOWLAnnotation(property, value, Stream.of(annotation));
     }
 
     /**
@@ -51,11 +86,10 @@ public interface AnnotationProvider {
      * @param value
      *        The annotation value.
      * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls. nulls.
+     *        A stream of annotations. Cannot be null or contain nulls.
      * @return The annotation on the specified property with the specified value
      */
-    @Nonnull
-    OWLAnnotation getOWLAnnotation(@Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationValue value,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
+            OWLAnnotationValue value,
+            @Nonnull Stream<? extends OWLAnnotation> annotations);
 }
