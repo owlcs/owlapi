@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
-        OWLPropertyAxiomImplWithoutEntityAndAnonCaching implements
+        OWLPropertyAxiomImpl implements
         OWLObjectPropertyCharacteristicAxiom {
 
     private static final long serialVersionUID = 40000L;

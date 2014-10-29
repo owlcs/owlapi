@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLClassAssertionAxiomImpl extends
-        OWLIndividualAxiomImplWithEntityAndAnonCaching implements
+        OWLIndividualAxiomImpl implements
         OWLClassAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;

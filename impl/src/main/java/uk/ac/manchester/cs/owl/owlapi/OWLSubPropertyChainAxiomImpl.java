@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  * @since 2.0.0
  */
 public class OWLSubPropertyChainAxiomImpl extends
-        OWLPropertyAxiomImplWithEntityAndAnonCaching implements
+        OWLPropertyAxiomImpl implements
         OWLSubPropertyChainOfAxiom {
 
     private static final long serialVersionUID = 40000L;

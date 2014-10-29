@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLRuleImpl extends OWLLogicalAxiomImplWithEntityAndAnonCaching
+public class SWRLRuleImpl extends OWLLogicalAxiomImpl
         implements SWRLRule {
 
     private static final long serialVersionUID = 40000L;

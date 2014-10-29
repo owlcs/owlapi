@@ -36,8 +36,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLHasKeyAxiomImpl extends
-        OWLLogicalAxiomImplWithoutEntityAndAnonCaching implements
+public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         OWLHasKeyAxiom {
 
     private static final long serialVersionUID = 40000L;

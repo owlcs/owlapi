@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLClassAxiom;
  * @since 2.0.0
  */
 public abstract class OWLClassAxiomImpl extends
-        OWLLogicalAxiomImplWithEntityAndAnonCaching implements OWLClassAxiom {
+        OWLLogicalAxiomImpl implements OWLClassAxiom {
 
     private static final long serialVersionUID = 40000L;
 

@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDeclarationAxiomImpl extends
-        OWLAxiomImplWithoutEntityAndAnonCaching implements OWLDeclarationAxiom {
+public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
+        OWLDeclarationAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

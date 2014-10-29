@@ -25,9 +25,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.NNF;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -39,7 +37,7 @@ import com.google.common.collect.Sets;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
+public abstract class OWLAxiomImpl extends
         OWLObjectImpl implements OWLAxiom, CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
@@ -56,7 +54,7 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLAxiomImplWithoutEntityAndAnonCaching(
+    public OWLAxiomImpl(
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         this.annotations = asAnnotations(annotations);
@@ -109,9 +107,9 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
         }
         OWLAxiom other = (OWLAxiom) obj;
         // for OWLAxiomImpl comparisons, do not create wrapper objects
-        if (other instanceof OWLAxiomImplWithoutEntityAndAnonCaching) {
+        if (other instanceof OWLAxiomImpl) {
             return annotations
-                    .equals(((OWLAxiomImplWithoutEntityAndAnonCaching) other).annotations);
+                    .equals(((OWLAxiomImpl) other).annotations);
         }
         return getAnnotations().equals(other.getAnnotations());
     }
@@ -119,21 +117,5 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
     @Override
     public OWLAxiom getNNF() {
         return accept(new NNF(new OWLDataFactoryImpl()));
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLEntity> getSignature() {
-        Set<OWLEntity> signature = super.getSignature();
-        addEntitiesFromAnnotationsToSet(annotations, signature);
-        return signature;
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        Set<OWLAnonymousIndividual> anons = super.getAnonymousIndividuals();
-        addAnonymousIndividualsFromAnnotationsToSet(annotations, anons);
-        return anons;
     }
 }

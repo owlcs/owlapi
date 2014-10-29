@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
  * @since 2.0.0
  */
 public abstract class OWLNaryIndividualAxiomImpl extends
-        OWLIndividualAxiomImplWithoutEntityAndAnonCaching implements
+        OWLIndividualAxiomImpl implements
         OWLNaryIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
