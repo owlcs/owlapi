@@ -19,9 +19,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -30,8 +28,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class OWLNaryDataRangeImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLNaryDataRange {
+public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
+        OWLNaryDataRange {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -45,18 +43,5 @@ public abstract class OWLNaryDataRangeImpl extends
     @Override
     public Set<OWLDataRange> getOperands() {
         return CollectionFactory.copy(operands);
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        operands.forEach(o -> addSignatureEntitiesToSetForValue(entities, o));
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        operands.forEach(o -> addAnonymousIndividualsToSetForValue(anons, o));
-        return anons;
     }
 }

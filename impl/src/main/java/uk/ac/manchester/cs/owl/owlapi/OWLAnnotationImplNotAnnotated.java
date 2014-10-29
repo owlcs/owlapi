@@ -22,8 +22,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -33,8 +31,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationImplNotAnnotated extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLAnnotation {
+public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
+        OWLAnnotation {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -117,22 +115,5 @@ public class OWLAnnotationImplNotAnnotated extends
         } else {
             return getValue().compareTo(other.getValue());
         }
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(property);
-        addEntitiesFromAnnotationsToSet(getAnnotations(), entities);
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsFromAnnotationsToSet(getAnnotations(), anons);
-        if (value instanceof OWLAnonymousIndividual) {
-            anons.add((OWLAnonymousIndividual) value);
-        }
-        return anons;
     }
 }

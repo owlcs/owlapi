@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLVariableImpl extends OWLObjectImplWithoutEntityAndAnonCaching
-        implements SWRLVariable {
+public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

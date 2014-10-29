@@ -14,13 +14,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -43,21 +39,6 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends
             @Nonnull OWLClassExpression filler) {
         super(cardinality, filler);
         this.property = checkNotNull(property, "property cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        addSignatureEntitiesToSetForValue(entities, property);
-        addSignatureEntitiesToSetForValue(entities, getFiller());
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons, property);
-        addAnonymousIndividualsToSetForValue(anons, getFiller());
-        return anons;
     }
 
     @Override

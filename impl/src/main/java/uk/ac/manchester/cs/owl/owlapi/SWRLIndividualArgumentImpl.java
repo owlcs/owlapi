@@ -14,12 +14,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -30,8 +26,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLIndividualArgumentImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements
+public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
         SWRLIndividualArgument {
 
     private static final long serialVersionUID = 40000L;
@@ -49,19 +44,6 @@ public class SWRLIndividualArgumentImpl extends
      */
     public SWRLIndividualArgumentImpl(@Nonnull OWLIndividual individual) {
         this.individual = checkNotNull(individual, "individual cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        addSignatureEntitiesToSetForValue(entities, individual);
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons, individual);
-        return anons;
     }
 
     @Override

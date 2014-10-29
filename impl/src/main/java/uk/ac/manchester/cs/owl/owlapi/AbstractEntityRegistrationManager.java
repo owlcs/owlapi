@@ -97,30 +97,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 public abstract class AbstractEntityRegistrationManager implements
         OWLObjectVisitor, SWRLObjectVisitor {
 
-    // Axiom Visitor stuff
-    @Nonnull
-    private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
-
-        @Override
-        public void visit(CollectionContainer<OWLAnnotation> c) {}
-
-        @Override
-        public void visitItem(@Nonnull OWLAnnotation c) {
-            c.accept(AbstractEntityRegistrationManager.this);
-        }
-    };
-
-    @SuppressWarnings("unchecked")
     protected void processAxiomAnnotations(@Nonnull OWLAxiom ax) {
-        // an OWLAxiomImpl will implement this interface with <OWLAnnotation >
-        // parameter; this will avoid creating a defensive copy of the
-        // annotation set
-        if (ax instanceof CollectionContainer) {
-            ((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
-        } else {
-            // default behavior: iterate over the annotations outside the axiom
-            ax.getAnnotations().forEach(a -> a.accept(this));
-        }
+        ax.getAnnotations().forEach(a -> a.accept(this));
     }
 
     @Override

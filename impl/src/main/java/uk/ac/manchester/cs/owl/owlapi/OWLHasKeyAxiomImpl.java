@@ -23,10 +23,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -63,23 +61,6 @@ public class OWLHasKeyAxiomImpl extends
         this.expression = checkNotNull(expression, "expression cannot be null");
         this.propertyExpressions = new TreeSet<>(checkNotNull(
                 propertyExpressions, "propertyExpressions cannot be null"));
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        addSignatureEntitiesToSetForValue(entities, expression);
-        propertyExpressions.forEach(p -> addSignatureEntitiesToSetForValue(
-                entities, p));
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons, expression);
-        propertyExpressions.forEach(p -> addAnonymousIndividualsToSetForValue(
-                anons, p));
-        return anons;
     }
 
     @Override

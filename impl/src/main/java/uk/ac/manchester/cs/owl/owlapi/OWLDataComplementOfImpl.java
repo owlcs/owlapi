@@ -14,15 +14,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -31,8 +27,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataComplementOfImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLDataComplementOf {
+public class OWLDataComplementOfImpl extends OWLObjectImpl implements
+        OWLDataComplementOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -49,19 +45,6 @@ public class OWLDataComplementOfImpl extends
      */
     public OWLDataComplementOfImpl(@Nonnull OWLDataRange dataRange) {
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        addSignatureEntitiesToSetForValue(entities, dataRange);
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons, dataRange);
-        return anons;
     }
 
     @Override

@@ -12,54 +12,34 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
-import java.lang.ref.WeakReference;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.Nullable;
+import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
+ * A utility class that visits axioms, class expressions etc. and accumulates
+ * the anonymous individuals referred.
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0
+ * @since 5.0.0
  */
-public abstract class OWLObjectImplWithEntityAndAnonCaching extends
-        OWLObjectAbstractImpl {
+public class AnonymousIndividualCollector extends
+        AbstractEntityRegistrationManager {
 
-    private static final long serialVersionUID = 40000L;
-    @Nullable
-    private transient WeakReference<Set<OWLEntity>> signature = null;
-    private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
+    private Collection<OWLAnonymousIndividual> anonymousIndividuals;
 
-    @Override
-    public Set<OWLEntity> getSignature() {
-        Set<OWLEntity> set = null;
-        if (signature != null) {
-            set = verifyNotNull(signature).get();
-        }
-        if (set == null) {
-            set = new HashSet<>();
-            Set<OWLAnonymousIndividual> anon = new HashSet<>();
-            OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(
-                    set, anon);
-            accept(collector);
-            signature = new WeakReference<>(set);
-            anons = new WeakReference<>(anon);
-        }
-        return CollectionFactory.copy(set);
+    /**
+     * @param anonsToReturn
+     *        the set that will contain the anon individuals
+     */
+    public AnonymousIndividualCollector(
+            Collection<OWLAnonymousIndividual> anonsToReturn) {
+        anonymousIndividuals = anonsToReturn;
     }
 
     @Override
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        if (signature == null || verifyNotNull(signature).get() == null) {
-            getSignature();
-        }
-        return CollectionFactory.copy(anons.get());
+    public void visit(OWLAnonymousIndividual individual) {
+        anonymousIndividuals.add(individual);
     }
 }

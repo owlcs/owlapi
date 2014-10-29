@@ -23,7 +23,6 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.io.Writer;
 import java.util.Arrays;
-import java.util.Set;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -31,7 +30,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -46,8 +44,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
-        implements OWLLiteral {
+public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
@@ -99,12 +96,6 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
             this.datatype = RDF_PLAIN_LITERAL;
         }
         hashcode = getHashCode();
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(datatype);
-        return entities;
     }
 
     @Override

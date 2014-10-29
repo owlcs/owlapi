@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -171,11 +170,5 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     protected int compareObjectOfSameType(OWLObject object) {
         OWLClass other = (OWLClass) object;
         return iri.compareTo(other.getIRI());
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(this);
-        return entities;
     }
 }

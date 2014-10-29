@@ -14,15 +14,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -34,8 +31,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
-        implements OWLDatatype {
+public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -160,11 +156,5 @@ public class OWLDatatypeImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((OWLDatatype) object).getIRI());
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(this);
-        return entities;
     }
 }

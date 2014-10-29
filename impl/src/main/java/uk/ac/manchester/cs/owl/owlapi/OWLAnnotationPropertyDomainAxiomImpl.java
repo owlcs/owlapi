@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -56,12 +55,6 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends
         super(annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(property);
-        return entities;
     }
 
     @Override

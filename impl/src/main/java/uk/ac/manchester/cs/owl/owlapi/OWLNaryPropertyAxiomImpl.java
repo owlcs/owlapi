@@ -24,8 +24,6 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
@@ -70,21 +68,6 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
         checkNotNull(properties, "properties cannot be null");
         Arrays.sort(properties);
         this.properties = Arrays.asList(properties);
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        getProperties().forEach(
-                e -> addSignatureEntitiesToSetForValue(entities, e));
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        getProperties().forEach(
-                p -> addAnonymousIndividualsToSetForValue(anons, p));
-        return anons;
     }
 
     @Override

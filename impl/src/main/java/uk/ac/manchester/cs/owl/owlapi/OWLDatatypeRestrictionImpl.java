@@ -20,10 +20,8 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -34,8 +32,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDatatypeRestrictionImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements
+public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
         OWLDatatypeRestriction {
 
     private static final long serialVersionUID = 40000L;
@@ -60,22 +57,6 @@ public class OWLDatatypeRestrictionImpl extends
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.facetRestrictions = new TreeSet<>(checkNotNull(facetRestrictions,
                 "facetRestrictions cannot be null"));
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(datatype);
-        facetRestrictions.forEach(f -> addSignatureEntitiesToSetForValue(
-                entities, f));
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        facetRestrictions.forEach(r -> addAnonymousIndividualsToSetForValue(
-                anons, r));
-        return anons;
     }
 
     @Override

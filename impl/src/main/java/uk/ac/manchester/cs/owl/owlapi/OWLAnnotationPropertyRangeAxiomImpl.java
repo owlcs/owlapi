@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -56,12 +55,6 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
         this.range = checkNotNull(range, "range cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(property);
-        return entities;
     }
 
     @Override

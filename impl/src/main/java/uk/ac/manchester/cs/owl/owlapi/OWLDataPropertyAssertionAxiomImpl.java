@@ -18,10 +18,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -54,27 +52,6 @@ public class OWLDataPropertyAssertionAxiomImpl
             @Nonnull OWLLiteral value,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(subject, property, value, annotations);
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        if (getSubject().isNamed()) {
-            entities.add(getSubject().asOWLNamedIndividual());
-        }
-        addSignatureEntitiesToSetForValue(entities, getProperty());
-        addSignatureEntitiesToSetForValue(entities, getObject());
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        if (getSubject().isAnonymous()) {
-            anons.add(getSubject().asOWLAnonymousIndividual());
-        }
-        addAnonymousIndividualsToSetForValue(anons, getProperty());
-        addAnonymousIndividualsToSetForValue(anons, getObject());
-        return anons;
     }
 
     @Nonnull

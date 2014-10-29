@@ -15,13 +15,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
@@ -66,27 +63,6 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
         this.o = checkNotNull(object, "object cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        if (getSubject().isNamed()) {
-            entities.add(getSubject().asOWLNamedIndividual());
-        }
-        addSignatureEntitiesToSetForValue(entities, getProperty());
-        addSignatureEntitiesToSetForValue(entities, getObject());
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        if (getSubject().isAnonymous()) {
-            anons.add(getSubject().asOWLAnonymousIndividual());
-        }
-        addAnonymousIndividualsToSetForValue(anons, getProperty());
-        addAnonymousIndividualsToSetForValue(anons, getObject());
-        return anons;
     }
 
     @Override

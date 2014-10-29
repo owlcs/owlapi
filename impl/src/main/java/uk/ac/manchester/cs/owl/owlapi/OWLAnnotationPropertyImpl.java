@@ -14,14 +14,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -31,8 +28,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements
+public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
         OWLAnnotationProperty {
 
     private static final long serialVersionUID = 40000L;
@@ -102,11 +98,5 @@ public class OWLAnnotationPropertyImpl extends
         }
         OWLAnnotationProperty other = (OWLAnnotationProperty) obj;
         return iri.equals(other.getIRI());
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(this);
-        return entities;
     }
 }

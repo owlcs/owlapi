@@ -6,11 +6,12 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Created by ses on 10/7/14.
  */
-public interface HasIncrementalSignatureGenerationSupport {
+public interface HasIncrementalSignatureGenerationSupport extends OWLObject {
 
     /**
      * @param entities
@@ -20,6 +21,7 @@ public interface HasIncrementalSignatureGenerationSupport {
     @Nonnull
     default Set<OWLEntity> addSignatureEntitiesToSet(
             @Nonnull Set<OWLEntity> entities) {
+        accept(new EntityCollector(entities));
         return entities;
     }
 
@@ -31,6 +33,7 @@ public interface HasIncrementalSignatureGenerationSupport {
     @Nonnull
     default Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
             @Nonnull Set<OWLAnonymousIndividual> anons) {
+        accept(new AnonymousIndividualCollector(anons));
         return anons;
     }
 }

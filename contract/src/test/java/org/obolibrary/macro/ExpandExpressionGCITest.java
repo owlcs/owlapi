@@ -10,7 +10,6 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -22,8 +21,6 @@ public class ExpandExpressionGCITest extends OboFormatTestBasics {
     @Test
     public void testExpand() {
         OWLOntology ontology = convert(parseOBOFile("no_overlap.obo"));
-        OWLDataFactory df = ontology.getOWLOntologyManager()
-                .getOWLDataFactory();
         MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(ontology,
                 OWLManager.createOWLOntologyManager());
         OWLOntology gciOntology = mev.createGCIOntology();

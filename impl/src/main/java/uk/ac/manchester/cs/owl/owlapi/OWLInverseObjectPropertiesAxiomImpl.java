@@ -25,8 +25,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
@@ -65,41 +63,6 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
                 checkNotNull(second, "second cannot be null"))), annotations);
         this.first = first;
         this.second = second;
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        if (first instanceof HasIncrementalSignatureGenerationSupport) {
-            HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) first;
-            prop.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(first.getSignature());
-        }
-        if (second instanceof HasIncrementalSignatureGenerationSupport) {
-            HasIncrementalSignatureGenerationSupport prop = (HasIncrementalSignatureGenerationSupport) second;
-            prop.addSignatureEntitiesToSet(entities);
-        } else {
-            entities.addAll(second.getSignature());
-        }
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        if (first instanceof HasIncrementalSignatureGenerationSupport) {
-            ((HasIncrementalSignatureGenerationSupport) first)
-                    .addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(first.getAnonymousIndividuals());
-        }
-        if (second instanceof HasIncrementalSignatureGenerationSupport) {
-            ((HasIncrementalSignatureGenerationSupport) second)
-                    .addAnonymousIndividualsToSet(anons);
-        } else {
-            anons.addAll(second.getAnonymousIndividuals());
-        }
-        return anons;
     }
 
     @Override

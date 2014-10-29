@@ -14,12 +14,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -31,8 +27,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLFacetRestrictionImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLFacetRestriction {
+public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
+        OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -55,19 +51,6 @@ public class OWLFacetRestrictionImpl extends
             @Nonnull OWLLiteral facetValue) {
         this.facet = checkNotNull(facet, "facet cannot be null");
         this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        addSignatureEntitiesToSetForValue(entities, facetValue);
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons, facetValue);
-        return anons;
     }
 
     @Override

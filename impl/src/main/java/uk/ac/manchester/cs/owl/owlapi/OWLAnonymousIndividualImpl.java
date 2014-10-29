@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -90,12 +89,5 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     @Override
     public int hashCode() {
         return nodeId.hashCode();
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        anons.add(this);
-        return anons;
     }
 }

@@ -21,12 +21,10 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -58,20 +56,6 @@ public class OWLDatatypeDefinitionAxiomImpl extends
         super(annotations);
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(datatype);
-        addSignatureEntitiesToSetForValue(entities, dataRange);
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons, dataRange);
-        return anons;
     }
 
     @Override

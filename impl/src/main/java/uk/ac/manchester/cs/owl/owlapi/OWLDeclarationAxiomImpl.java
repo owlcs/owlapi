@@ -50,12 +50,6 @@ public class OWLDeclarationAxiomImpl extends
     }
 
     @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(entity);
-        return entities;
-    }
-
-    @Override
     public OWLDeclarationAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;

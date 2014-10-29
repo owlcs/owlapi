@@ -12,59 +12,73 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import java.util.Collection;
+import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
+ * A utility class that visits axioms, class expressions etc. and accumulates
+ * the named objects that are referred to in those axioms, class expressions
+ * etc. For example, if the collector visited the axiom (propP some C)
+ * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
+ * D.
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements
-        SWRLLiteralArgument {
+public class EntityCollector extends AbstractEntityRegistrationManager {
 
-    private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLLiteral literal;
-
-    @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 8;
-    }
+    private Collection<OWLEntity> objects;
 
     /**
-     * @param literal
-     *        literal for argument
+     * @param toReturn
+     *        the set that will contain the results
      */
-    public SWRLLiteralArgumentImpl(@Nonnull OWLLiteral literal) {
-        this.literal = checkNotNull(literal, "literal cannot be null");
+    public EntityCollector(Set<OWLEntity> toReturn) {
+        objects = toReturn;
     }
 
     @Override
-    public OWLLiteral getLiteral() {
-        return literal;
+    public void visit(OWLClass ce) {
+        objects.add(ce);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof SWRLLiteralArgumentImpl)) {
-            return false;
-        }
-        SWRLLiteralArgument other = (SWRLLiteralArgument) obj;
-        return other.getLiteral().equals(getLiteral());
+    public void visit(OWLObjectProperty property) {
+        objects.add(property);
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return literal.compareTo(((SWRLLiteralArgument) object).getLiteral());
+    public void visit(OWLDataProperty property) {
+        objects.add(property);
+    }
+
+    @Override
+    public void visit(OWLNamedIndividual individual) {
+        objects.add(individual);
+    }
+
+    @Override
+    public void visit(OWLDatatype node) {
+        objects.add(node);
+    }
+
+    @Override
+    public void visit(OWLOntology ontology) {
+        objects.addAll(ontology.getSignature());
+    }
+
+    @Override
+    public void visit(OWLAnnotationProperty property) {
+        objects.add(property);
     }
 }

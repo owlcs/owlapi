@@ -25,8 +25,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -74,24 +72,6 @@ public class OWLAnnotationAssertionAxiomImpl extends
         }
         return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
                 getValue(), NO_ANNOTATIONS);
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(property);
-        return entities;
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> addAnonymousIndividualsToSet(
-            Set<OWLAnonymousIndividual> anons) {
-        if (subject instanceof OWLAnonymousIndividual) {
-            anons.add((OWLAnonymousIndividual) subject);
-        }
-        if (value instanceof OWLAnonymousIndividual) {
-            anons.add((OWLAnonymousIndividual) value);
-        }
-        return anons;
     }
 
     /**

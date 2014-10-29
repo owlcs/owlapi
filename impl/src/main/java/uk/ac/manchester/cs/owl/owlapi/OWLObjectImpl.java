@@ -24,12 +24,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -38,16 +40,22 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectAbstractImpl implements OWLObject, Serializable {
+public abstract class OWLObjectImpl implements OWLObject, Serializable,
+        HasIncrementalSignatureGenerationSupport {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
@@ -56,6 +64,44 @@ public abstract class OWLObjectAbstractImpl implements OWLObject, Serializable {
             .emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     protected int hashCode = 0;
+    protected static CacheLoader<OWLObjectImpl, Set<OWLEntity>> builder = new CacheLoader<OWLObjectImpl, Set<OWLEntity>>() {
+
+        @Override
+        public Set<OWLEntity> load(OWLObjectImpl key) {
+            return key.addSignatureEntitiesToSet(new HashSet<>());
+        }
+    };
+    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = CacheBuilder
+            .newBuilder().weakKeys().softValues().build(builder);
+    protected static CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonbuilder = new CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>>() {
+
+        @Override
+        public Set<OWLAnonymousIndividual> load(OWLObjectImpl key) {
+            return key.addAnonymousIndividualsToSet(new HashSet<>());
+        }
+    };
+    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = CacheBuilder
+            .newBuilder().weakKeys().softValues().build(anonbuilder);
+
+    @Nonnull
+    @Override
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        try {
+            return anonCaches.get(this);
+        } catch (ExecutionException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLEntity> getSignature() {
+        try {
+            return signatures.get(this);
+        } catch (ExecutionException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     protected static List<OWLAnnotation> asAnnotations(
@@ -67,6 +113,31 @@ public abstract class OWLObjectAbstractImpl implements OWLObject, Serializable {
             return Collections.singletonList(anns.iterator().next());
         }
         return (List<OWLAnnotation>) sortOptionally(anns);
+    }
+
+    protected static void addEntitiesFromAnnotationsToSet(
+            Collection<OWLAnnotation> annotations, Set<OWLEntity> entities) {
+        for (OWLAnnotation annotation : annotations) {
+            if (annotation instanceof OWLAnnotationImpl) {
+                OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
+                owlAnnotation.addSignatureEntitiesToSet(entities);
+            } else {
+                entities.addAll(annotation.getSignature());
+            }
+        }
+    }
+
+    protected static void addAnonymousIndividualsFromAnnotationsToSet(
+            Collection<OWLAnnotation> annotations,
+            Set<OWLAnonymousIndividual> anons) {
+        for (OWLAnnotation annotation : annotations) {
+            if (annotation instanceof OWLAnnotationImpl) {
+                OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
+                owlAnnotation.addAnonymousIndividualsToSet(anons);
+            } else {
+                anons.addAll(annotation.getAnonymousIndividuals());
+            }
+        }
     }
 
     @Override
@@ -163,8 +234,8 @@ public abstract class OWLObjectAbstractImpl implements OWLObject, Serializable {
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
-        if (o instanceof OWLObjectAbstractImpl) {
-            otherTypeIndex = ((OWLObjectAbstractImpl) o).index();
+        if (o instanceof OWLObjectImpl) {
+            otherTypeIndex = ((OWLObjectImpl) o).index();
         } else {
             otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }

@@ -12,13 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -29,8 +26,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
  */
-public class OWLLiteralImplPlain extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
     @Nonnull
@@ -52,12 +48,6 @@ public class OWLLiteralImplPlain extends
             this.lang = lang;
         }
         hashCode = getHashCode();
-    }
-
-    @Override
-    public Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        entities.add(getDatatype());
-        return entities;
     }
 
     @Override

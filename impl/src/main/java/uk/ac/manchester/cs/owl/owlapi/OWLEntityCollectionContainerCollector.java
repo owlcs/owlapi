@@ -39,7 +39,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
+ * @deprecated use EntityCollector or AnonymousIndividualCollector
  */
+@Deprecated
 public class OWLEntityCollectionContainerCollector extends
         AbstractEntityRegistrationManager {
 

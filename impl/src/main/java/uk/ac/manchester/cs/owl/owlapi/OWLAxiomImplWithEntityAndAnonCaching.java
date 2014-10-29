@@ -38,8 +38,7 @@ import com.google.common.collect.Sets;
  * @since 2.0.0
  */
 public abstract class OWLAxiomImplWithEntityAndAnonCaching extends
-        OWLObjectImplWithEntityAndAnonCaching implements OWLAxiom,
-        CollectionContainer<OWLAnnotation> {
+        OWLObjectImpl implements OWLAxiom, CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

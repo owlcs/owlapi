@@ -97,11 +97,10 @@ public class OWLLiteralImplString implements OWLLiteral {
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
-        if (o instanceof OWLObjectImplWithEntityAndAnonCaching) {
-            otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o)
-                    .index();
+        if (o instanceof OWLObjectImpl) {
+            otherTypeIndex = ((OWLObjectImpl) o).index();
         } else {
-            otherTypeIndex = OWLObjectAbstractImpl.OWLOBJECT_TYPEINDEX_PROVIDER
+            otherTypeIndex = OWLObjectImpl.OWLOBJECT_TYPEINDEX_PROVIDER
                     .getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
