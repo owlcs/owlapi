@@ -44,7 +44,7 @@ public class BuilderDatatypeDefinition extends
             @Nonnull OWLDatatypeDefinitionAxiom expected, OWLDataFactory df) {
         this(df);
         with(expected.getDatatype()).withType(expected.getDataRange())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     /**

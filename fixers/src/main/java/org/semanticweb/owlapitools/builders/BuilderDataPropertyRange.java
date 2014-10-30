@@ -43,7 +43,7 @@ public class BuilderDataPropertyRange extends
             @Nonnull OWLDataPropertyRangeAxiom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withRange(expected.getRange())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     @Override

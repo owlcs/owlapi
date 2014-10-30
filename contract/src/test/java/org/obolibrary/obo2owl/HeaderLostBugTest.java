@@ -2,16 +2,12 @@ package org.obolibrary.obo2owl;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Set;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -28,14 +24,12 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
     public void testHeaderLog() {
         OWLOntology ontology = convertOBOFile("header_lost_bug.obo");
         IRI ontologyIRI = IRI.create("http://purl.obolibrary.org/obo/test.owl");
-        Set<OWLAnnotation> ontAnns = ontology.getAnnotations();
-        Set<OWLAnnotationAssertionAxiom> axioms = ontology
-                .getAnnotationAssertionAxioms(ontologyIRI);
         // two tags in the header of the obo file are translated as annotation
         // assertions, so the axioms
         // should have two axioms in count.
-        assertEquals(2, ontAnns.size());
-        assertEquals(0, axioms.size());
+        assertEquals(2, ontology.annotations().count());
+        assertEquals(0, ontology.getAnnotationAssertionAxioms(ontologyIRI)
+                .size());
     }
 
     @Override

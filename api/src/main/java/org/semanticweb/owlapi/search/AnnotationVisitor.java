@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.search;
 
-import java.util.Collection;
-import java.util.HashSet;
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -24,20 +24,16 @@ class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
     @Nonnull
     @Override
     public Set<C> doDefault(@Nonnull Object object) {
-        return get(((HasAnnotations) object).getAnnotations());
+        return ((HasAnnotations) object).annotations().map(a -> get(a))
+                .collect(toSet());
     }
 
     @Nonnull
-    private Set<C> get(@Nonnull Collection<OWLAnnotation> collection) {
-        Set<C> toReturn = new HashSet<>();
-        for (OWLAnnotation c : collection) {
-            if (value) {
-                toReturn.add((C) c.getValue());
-            } else {
-                toReturn.add((C) c);
-            }
+    private C get(OWLAnnotation a) {
+        if (value) {
+            return (C) a.getValue();
         }
-        return toReturn;
+        return (C) a;
     }
 
     @Nonnull

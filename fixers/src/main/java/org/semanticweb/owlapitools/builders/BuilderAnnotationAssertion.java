@@ -52,7 +52,7 @@ public class BuilderAnnotationAssertion
     public BuilderAnnotationAssertion(
             @Nonnull OWLAnnotationAssertionAxiom expected, OWLDataFactory df) {
         this(df);
-        withAnnotations(expected.getAnnotations())
+        withAnnotations(expected.annotations())
                 .withSubject(expected.getSubject())
                 .withProperty(expected.getProperty())
                 .withValue(expected.getValue());

@@ -36,7 +36,7 @@ public class BuilderObjectPropertyDomain
             @Nonnull OWLObjectPropertyDomainAxiom expected, OWLDataFactory df) {
         this(df);
         withDomain(expected.getDomain()).withProperty(expected.getProperty())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     /**

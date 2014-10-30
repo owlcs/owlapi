@@ -151,7 +151,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         walkerCallback.ontology = ontology;
         walkerCallback.ax = null;
         process(ontology);
-        ontology.getAnnotations().forEach(a -> a.accept(this));
+        ontology.annotations().forEach(a -> a.accept(this));
         ontology.getAxioms().forEach(a -> a.accept(this));
     }
 

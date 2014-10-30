@@ -575,7 +575,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         translateAnonymousNode(axiom);
-        axiom.getAnnotations().forEach(
+        axiom.annotations().forEach(
                 a -> addTriple(axiom, a.getProperty().getIRI(), a.getValue()));
         addTriple(axiom, RDF_TYPE.getIRI(),
                 OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
@@ -856,7 +856,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             @Nonnull P predicate, @Nonnull N object) {
         // Base triple
         addTriple(subject, predicate, object);
-        if (ax.getAnnotations().isEmpty()) {
+        if (!ax.isAnnotated()) {
             return;
         }
         // The axiom has annotations and we therefore need to reify the axiom in
@@ -875,7 +875,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void translateAnnotations(@Nonnull OWLAxiom ax) {
         translateAnonymousNode(ax);
-        ax.getAnnotations().forEach(a -> translateAnnotation(ax, a));
+        ax.annotations().forEach(a -> translateAnnotation(ax, a));
     }
 
     /**

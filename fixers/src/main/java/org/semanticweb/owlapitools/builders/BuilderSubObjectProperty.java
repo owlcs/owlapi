@@ -36,7 +36,7 @@ public class BuilderSubObjectProperty
             @Nonnull OWLSubObjectPropertyOfAxiom expected, OWLDataFactory df) {
         this(df);
         withSub(expected.getSubProperty()).withSup(expected.getSuperProperty())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     /**

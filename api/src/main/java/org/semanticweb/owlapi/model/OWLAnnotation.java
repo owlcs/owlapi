@@ -64,16 +64,6 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
     boolean isDeprecatedIRIAnnotation();
 
     /**
-     * Gets the annotations on this annotation.
-     * 
-     * @return A (possibly empty) set of annotations that annotate this
-     *         annotation
-     */
-    @Nonnull
-    @Override
-    Set<OWLAnnotation> getAnnotations();
-
-    /**
      * Gets an OWLAnnotation which is a copy of this annotation but which has
      * the specified annotations.
      * 

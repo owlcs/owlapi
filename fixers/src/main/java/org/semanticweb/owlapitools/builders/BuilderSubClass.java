@@ -35,7 +35,7 @@ public class BuilderSubClass extends
             OWLDataFactory df) {
         this(df);
         withSub(expected.getSubClass()).withSup(expected.getSuperClass())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     /**

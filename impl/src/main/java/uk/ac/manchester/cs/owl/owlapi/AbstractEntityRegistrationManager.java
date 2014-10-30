@@ -98,7 +98,7 @@ public abstract class AbstractEntityRegistrationManager implements
         OWLObjectVisitor, SWRLObjectVisitor {
 
     protected void processAxiomAnnotations(@Nonnull OWLAxiom ax) {
-        ax.getAnnotations().forEach(a -> a.accept(this));
+        ax.annotations().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -465,7 +465,7 @@ public abstract class AbstractEntityRegistrationManager implements
     public void visit(@Nonnull OWLAnnotation node) {
         node.getProperty().accept(this);
         node.getValue().accept(this);
-        node.getAnnotations().forEach(a -> a.accept(this));
+        node.annotations().forEach(a -> a.accept(this));
     }
 
     @Override

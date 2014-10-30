@@ -43,7 +43,7 @@ public class BuilderInverseObjectProperties
         this(df);
         withProperty(expected.getFirstProperty()).withInverseProperty(
                 expected.getSecondProperty()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

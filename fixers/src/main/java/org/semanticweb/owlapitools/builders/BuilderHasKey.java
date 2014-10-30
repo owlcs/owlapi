@@ -39,7 +39,7 @@ public class BuilderHasKey extends
     public BuilderHasKey(@Nonnull OWLHasKeyAxiom expected, OWLDataFactory df) {
         this(df);
         withClass(expected.getClassExpression())
-                .withAnnotations(expected.getAnnotations())
+                .withAnnotations(expected.annotations())
                 .withItems(expected.getDataPropertyExpressions())
                 .withItems(expected.getObjectPropertyExpressions());
     }

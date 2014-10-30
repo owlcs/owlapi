@@ -44,7 +44,7 @@ public class BuilderPropertyChain
         this(df);
         withPropertiesInChain(expected.getPropertyChain()).withProperty(
                 expected.getSuperProperty()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

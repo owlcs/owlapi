@@ -35,7 +35,7 @@ public class BuilderFunctionalDataProperty
             @Nonnull OWLFunctionalDataPropertyAxiom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

@@ -36,7 +36,7 @@ public class BuilderDisjointClasses
             OWLDataFactory df) {
         this(df);
         withItems(expected.getClassExpressions()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

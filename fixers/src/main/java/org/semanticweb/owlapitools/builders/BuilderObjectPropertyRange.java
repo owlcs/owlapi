@@ -35,7 +35,7 @@ public class BuilderObjectPropertyRange
             @Nonnull OWLObjectPropertyRangeAxiom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withRange(expected.getRange())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     /**

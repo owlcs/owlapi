@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -294,11 +295,11 @@ public final class Searcher {
                 set.add(((OWLAnnotationAssertionAxiom) axiom).getAnnotation());
             }
         }
+        Stream<OWLAnnotation> stream = axiom.annotations();
         if (p != null) {
-            set.addAll(axiom.getAnnotations(p));
-        } else {
-            set.addAll(axiom.getAnnotations());
+            stream = stream.filter(a -> a.getProperty().equals(p));
         }
+        stream.forEach(a -> set.add(a));
         return set;
     }
 

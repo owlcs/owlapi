@@ -3,14 +3,13 @@ package org.obolibrary.obo2owl;
 import static org.junit.Assert.*;
 
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -33,7 +32,9 @@ public class RoundTripOboAnnotations extends RoundTripTest {
         IRI t3 = IRI.create("http://purl.obolibrary.org/obo/TEST_0003");
         IRI isInferredIRI = IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX,
                 "is_inferred");
-        boolean hasAnnotation = false;
+        AtomicBoolean hasAnnotation = new AtomicBoolean(false);
+        OWLAnnotationProperty infIRI = df
+                .getOWLAnnotationProperty(isInferredIRI);
         Set<OWLSubClassOfAxiom> axioms = owl.getAxioms(AxiomType.SUBCLASS_OF);
         for (OWLSubClassOfAxiom axiom : axioms) {
             OWLClassExpression superClassCE = axiom.getSuperClass();
@@ -43,27 +44,25 @@ public class RoundTripOboAnnotations extends RoundTripTest {
                 OWLClass subClass = (OWLClass) subClassCE;
                 if (superClass.getIRI().equals(t1)
                         && subClass.getIRI().equals(t3)) {
-                    Set<OWLAnnotation> annotations = axiom.getAnnotations();
-                    for (OWLAnnotation owlAnnotation : annotations) {
-                        OWLAnnotationProperty property = owlAnnotation
-                                .getProperty();
-                        if (property.getIRI().equals(isInferredIRI)) {
-                            OWLAnnotationValue value = owlAnnotation.getValue();
-                            if (value instanceof OWLLiteral) {
-                                OWLLiteral literal = (OWLLiteral) value;
-                                assertEquals("true", literal.getLiteral());
-                            } else {
-                                fail("The value is not the expected type, expected OWLiteral but was: "
-                                        + value.getClass().getName());
-                            }
-                            hasAnnotation = true;
-                        }
-                    }
+                    axiom.annotations(infIRI)
+                            .map(a -> a.getValue())
+                            .forEach(
+                                    v -> {
+                                        if (v instanceof OWLLiteral) {
+                                            assertEquals("true",
+                                                    ((OWLLiteral) v)
+                                                            .getLiteral());
+                                        } else {
+                                            fail("The value is not the expected type, expected OWLiteral but was: "
+                                                    + v.getClass().getName());
+                                        }
+                                        hasAnnotation.set(true);
+                                    });
                 }
             }
         }
         assertTrue(
                 "The sub class reation between t3 and t1 should have an is_inferred=true annotation",
-                hasAnnotation);
+                hasAnnotation.get());
     }
 }

@@ -268,6 +268,18 @@ public abstract class TestBase {
                 }
             }
         }
+        if (!axioms1.equals(axioms2)
+                && destination instanceof RDFJsonLDDocumentFormat) {
+            // other axioms can have their annotations changed to string type
+            Set<OWLAxiom> reannotated1 = new HashSet<>();
+            axioms1.forEach(a -> reannotated1.add(reannotate(a)));
+            axioms1.clear();
+            axioms1.addAll(reannotated1);
+            Set<OWLAxiom> reannotated2 = new HashSet<>();
+            axioms2.forEach(a -> reannotated2.add(reannotate(a)));
+            axioms2.clear();
+            axioms2.addAll(reannotated2);
+        }
     }
 
     private boolean
@@ -285,12 +297,17 @@ public abstract class TestBase {
         }
         Set<OWLAxiom> toRemove = new HashSet<>();
         for (OWLAxiom ax : others) {
-            OWLAxiom reannotated = ax.getAxiomWithoutAnnotations()
-                    .getAnnotatedAxiom(reannotate(ax.getAnnotations()));
+            OWLAxiom reannotated = reannotate(ax);
             toRemove.add(reannotated);
         }
         axioms.removeAll(toRemove);
         return true;
+    }
+
+    protected OWLAxiom reannotate(OWLAxiom ax) {
+        OWLAxiom reannotated = ax.getAxiomWithoutAnnotations()
+                .getAnnotatedAxiom(reannotate(ax.getAnnotations()));
+        return reannotated;
     }
 
     private Set<OWLAnnotation> reannotate(Set<OWLAnnotation> anns) {

@@ -40,8 +40,8 @@ public class BuilderDeclaration extends
     public BuilderDeclaration(@Nonnull OWLDeclarationAxiom expected,
             OWLDataFactory df) {
         this(df);
-        withEntity(expected.getEntity()).withAnnotations(
-                expected.getAnnotations());
+        withEntity(expected.getEntity())
+                .withAnnotations(expected.annotations());
     }
 
     /**

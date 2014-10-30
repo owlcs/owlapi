@@ -52,7 +52,7 @@ public class BuilderAnnotationPropertyDomain
             OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withDomain(expected.getDomain())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     /**

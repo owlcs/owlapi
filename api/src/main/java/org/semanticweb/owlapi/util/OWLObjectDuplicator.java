@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
@@ -220,9 +221,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Nonnull
     private Set<OWLAnnotation> anns(@Nonnull OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
-        Set<OWLAnnotation> duplicatedAnnos = new HashSet<>();
-        axiom.getAnnotations().forEach(a -> duplicatedAnnos.add(get(a)));
-        return duplicatedAnnos;
+        return axiom.annotations().map(a -> (OWLAnnotation) get(a))
+                .collect(toSet());
     }
 
     @Override
@@ -776,6 +776,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
         return dup;
     }
 
+    @SuppressWarnings("unchecked")
     protected <O> O get(OWLObject o) {
         return (O) o.accept(this);
     }

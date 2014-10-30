@@ -245,7 +245,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
 
     protected void processAxiomAnnotations(OWLAxiom ax) {
         // default behavior: iterate over the annotations outside the axiom
-        ax.getAnnotations().forEach(a -> a.accept(this));
+        ax.annotations().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -643,7 +643,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
     public void visit(OWLAnnotation annotation) {
         annotation.getProperty().accept(this);
         annotation.getValue().accept(this);
-        annotation.getAnnotations().forEach(o -> o.accept(this));
+        annotation.annotations().forEach(o -> o.accept(this));
     }
 
     @Override

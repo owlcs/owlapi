@@ -249,10 +249,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      *        the axiom whose annotations should be written
      */
     public void writeAnnotations(OWLAxiom axiom) {
-        for (OWLAnnotation anno : axiom.getAnnotations()) {
-            anno.accept(this);
+        axiom.annotations().forEach(a -> {
+            a.accept(this);
             insertSpace();
-        }
+        });
     }
 
     @Override

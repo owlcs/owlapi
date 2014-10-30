@@ -36,7 +36,7 @@ public class BuilderDisjointDataProperties
             @Nonnull OWLDisjointDataPropertiesAxiom expected, OWLDataFactory df) {
         this(df);
         withItems(expected.getProperties()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

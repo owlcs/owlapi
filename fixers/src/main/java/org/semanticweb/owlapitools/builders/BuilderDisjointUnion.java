@@ -44,7 +44,7 @@ public class BuilderDisjointUnion
         this(df);
         withClass(expected.getOWLClass()).withItems(
                 expected.getClassExpressions()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

@@ -45,7 +45,7 @@ public class BuilderObjectPropertyAssertion
         this(df);
         withSubject(expected.getSubject()).withProperty(expected.getProperty())
                 .withValue(expected.getObject())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     /**

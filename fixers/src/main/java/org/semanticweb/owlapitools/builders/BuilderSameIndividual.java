@@ -36,7 +36,7 @@ public class BuilderSameIndividual
             OWLDataFactory df) {
         this(df);
         withItems(expected.getIndividuals()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

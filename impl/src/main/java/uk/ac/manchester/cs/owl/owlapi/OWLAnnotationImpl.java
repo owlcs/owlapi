@@ -13,12 +13,10 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toList;
-import static org.semanticweb.owlapi.util.CollectionFactory.copy;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -61,16 +59,8 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
     }
 
     @Override
-    public Set<OWLAnnotation> getAnnotations() {
-        return copy(anns);
-    }
-
-    @Override
-    public Set<OWLAnnotation> getAnnotations(
-            OWLAnnotationProperty annotationProperty) {
-        return anns.stream()
-                .filter((x) -> x.getProperty().equals(annotationProperty))
-                .collect(Collectors.toSet());
+    public Stream<OWLAnnotation> annotations() {
+        return anns.stream();
     }
 
     @Override

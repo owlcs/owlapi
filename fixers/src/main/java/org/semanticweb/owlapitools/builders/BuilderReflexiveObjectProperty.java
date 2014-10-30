@@ -35,7 +35,7 @@ public class BuilderReflexiveObjectProperty
             @Nonnull OWLReflexiveObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -76,13 +77,25 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
 
     /**
      * @param arg
-     *        annotation
+     *        annotations
      * @return builder
      */
     @Nonnull
     @SuppressWarnings("unchecked")
     public B withAnnotations(@Nonnull Collection<OWLAnnotation> arg) {
         annotations.addAll(arg);
+        return (B) this;
+    }
+
+    /**
+     * @param arg
+     *        annotations
+     * @return builder
+     */
+    @Nonnull
+    @SuppressWarnings("unchecked")
+    public B withAnnotations(@Nonnull Stream<OWLAnnotation> arg) {
+        arg.forEach(a -> annotations.add(a));
         return (B) this;
     }
 

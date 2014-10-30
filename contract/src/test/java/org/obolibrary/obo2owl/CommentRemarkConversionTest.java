@@ -1,9 +1,9 @@
 package org.obolibrary.obo2owl;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
@@ -11,9 +11,6 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -35,18 +32,9 @@ public class CommentRemarkConversionTest extends OboFormatTestBasics {
         OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(
                 OWLManager.createOWLOntologyManager());
         OWLOntology owlOntology = obo2Owl.convert(obo);
-        Set<OWLAnnotation> annotations = owlOntology.getAnnotations();
-        Set<String> comments = new HashSet<>();
-        for (OWLAnnotation owlAnnotation : annotations) {
-            OWLAnnotationProperty property = owlAnnotation.getProperty();
-            if (property.isComment()) {
-                OWLAnnotationValue value = owlAnnotation.getValue();
-                if (value instanceof OWLLiteral) {
-                    OWLLiteral literal = (OWLLiteral) value;
-                    comments.add(literal.getLiteral());
-                }
-            }
-        }
+        Set<String> comments = owlOntology.annotations(df.getRDFSComment())
+                .map(a -> a.getValue()).filter(a -> a instanceof OWLLiteral)
+                .map(a -> ((OWLLiteral) a).getLiteral()).collect(toSet());
         // check that all remarks have been translated to rdfs:comment
         assertEquals(remarks.size(), comments.size());
         assertTrue(comments.containsAll(remarks));

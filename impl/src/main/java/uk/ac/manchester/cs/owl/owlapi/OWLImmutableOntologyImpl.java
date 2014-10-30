@@ -256,8 +256,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Nonnull
     @Override
-    public Set<OWLAnnotation> getAnnotations() {
-        return (Set<OWLAnnotation>) ints.getOntologyAnnotations(true);
+    public Stream<OWLAnnotation> annotations() {
+        return ((Set<OWLAnnotation>) ints.getOntologyAnnotations(true))
+                .stream();
     }
 
     @Override

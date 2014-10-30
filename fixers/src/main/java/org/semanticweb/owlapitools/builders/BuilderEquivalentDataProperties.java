@@ -37,7 +37,7 @@ public class BuilderEquivalentDataProperties
             OWLDataFactory df) {
         this(df);
         withItems(expected.getProperties()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

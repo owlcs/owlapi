@@ -36,7 +36,7 @@ public class BuilderIrreflexiveObjectProperty
             OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

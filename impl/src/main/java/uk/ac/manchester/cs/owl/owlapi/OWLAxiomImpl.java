@@ -12,19 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.Collections.emptySet;
-import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.util.CollectionFactory.copy;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.NNF;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -37,8 +34,8 @@ import com.google.common.collect.Sets;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImpl extends
-        OWLObjectImpl implements OWLAxiom, CollectionContainer<OWLAnnotation> {
+public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
+        CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -54,34 +51,24 @@ public abstract class OWLAxiomImpl extends
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLAxiomImpl(
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+    public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         this.annotations = asAnnotations(annotations);
     }
 
-    // TODO when processing annotations on OWLOntology:: add axiom, needs
-    // optimizing
     @Override
-    public Set<OWLAnnotation> getAnnotations() {
-        if (annotations.isEmpty()) {
-            return emptySet();
-        }
-        return copy(annotations);
+    public Stream<OWLAnnotation> annotations() {
+        return annotations.stream();
+    }
+
+    @Override
+    public boolean isAnnotated() {
+        return !annotations.isEmpty();
     }
 
     @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
         annotations.forEach(a -> t.visitItem(a));
-    }
-
-    @Override
-    public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty ap) {
-        if (annotations.isEmpty()) {
-            return emptySet();
-        }
-        return annotations.stream().filter(a -> a.getProperty().equals(ap))
-                .collect(toSet());
     }
 
     /**
@@ -108,8 +95,7 @@ public abstract class OWLAxiomImpl extends
         OWLAxiom other = (OWLAxiom) obj;
         // for OWLAxiomImpl comparisons, do not create wrapper objects
         if (other instanceof OWLAxiomImpl) {
-            return annotations
-                    .equals(((OWLAxiomImpl) other).annotations);
+            return annotations.equals(((OWLAxiomImpl) other).annotations);
         }
         return getAnnotations().equals(other.getAnnotations());
     }

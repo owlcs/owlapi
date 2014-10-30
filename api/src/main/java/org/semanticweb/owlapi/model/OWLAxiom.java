@@ -116,9 +116,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @return {@code true} if this axiom has annotations on it, otherwise
      *         {@code false}
      */
-    default boolean isAnnotated() {
-        return !getAnnotations().isEmpty();
-    }
+    boolean isAnnotated();
 
     /**
      * Gets the axiom type for this axiom.

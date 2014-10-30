@@ -42,7 +42,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     public BuilderSWRLRule(@Nonnull SWRLRule expected, OWLDataFactory df) {
         this(df);
         withBody(expected.getBody()).withHead(expected.getHead())
-                .withAnnotations(expected.getAnnotations());
+                .withAnnotations(expected.annotations());
     }
 
     /**

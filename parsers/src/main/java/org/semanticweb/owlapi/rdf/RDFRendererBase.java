@@ -473,28 +473,28 @@ public abstract class RDFRendererBase {
 
     private void addAnnotationsToOntologyHeader(
             @Nonnull RDFResource ontologyHeaderNode) {
+        OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
+
+            @Nonnull
+            @Override
+            public RDFNode visit(IRI iri) {
+                return new RDFResourceIRI(iri);
+            }
+
+            @Nonnull
+            @Override
+            public RDFNode visit(OWLAnonymousIndividual individual) {
+                return new RDFResourceBlankNode(
+                        System.identityHashCode(individual));
+            }
+
+            @Nonnull
+            @Override
+            public RDFNode visit(OWLLiteral literal) {
+                return new RDFLiteral(literal);
+            }
+        };
         for (OWLAnnotation anno : ontology.getAnnotations()) {
-            OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
-
-                @Nonnull
-                @Override
-                public RDFNode visit(IRI iri) {
-                    return new RDFResourceIRI(iri);
-                }
-
-                @Nonnull
-                @Override
-                public RDFNode visit(OWLAnonymousIndividual individual) {
-                    return new RDFResourceBlankNode(
-                            System.identityHashCode(individual));
-                }
-
-                @Nonnull
-                @Override
-                public RDFNode visit(OWLLiteral literal) {
-                    return new RDFLiteral(literal);
-                }
-            };
             RDFNode node = anno.getValue().accept(valVisitor);
             graph.addTriple(new RDFTriple(ontologyHeaderNode,
                     new RDFResourceIRI(anno.getProperty().getIRI()), node));

@@ -147,20 +147,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      */
     void setOWLOntologyManager(OWLOntologyManager manager);
 
-    /**
-     * Gets the annotations on this ontology. Note: these are the annotations on
-     * the ontology itself, not the annotations contained in axxioms included in
-     * this ontology.
-     * 
-     * @return A set of annotations on this ontology. The set returned will be a
-     *         copy - modifying the set will have no effect on the annotations
-     *         in this ontology, similarly, any changes that affect the
-     *         annotations on this ontology will not change the returned set.
-     */
-    @Nonnull
-    @Override
-    Set<OWLAnnotation> getAnnotations();
-
     // Imported ontologies
     /**
      * Gets the set of <em>loaded</em> ontologies that this ontology is related

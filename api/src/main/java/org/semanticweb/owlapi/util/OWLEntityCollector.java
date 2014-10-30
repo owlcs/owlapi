@@ -136,7 +136,7 @@ public class OWLEntityCollector implements
 
     protected void processAxiomAnnotations(@Nonnull OWLAxiom ax) {
         // default behavior: iterate over the annotations outside the axiom
-        ax.getAnnotations().forEach(a -> a.accept(this));
+        ax.annotations().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -595,7 +595,7 @@ public class OWLEntityCollector implements
     public Collection<OWLEntity> visit(OWLAnnotation node) {
         node.getProperty().accept(this);
         node.getValue().accept(this);
-        node.getAnnotations().forEach(a -> a.accept(this));
+        node.annotations().forEach(a -> a.accept(this));
         return objects;
     }
 

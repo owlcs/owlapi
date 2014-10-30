@@ -54,7 +54,7 @@ public class BuilderClassAssertion extends
         this(df);
         withClass(expected.getClassExpression()).withIndividual(
                 expected.getIndividual()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**

@@ -36,7 +36,7 @@ public class BuilderFunctionalObjectProperty
             OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
-                expected.getAnnotations());
+                expected.annotations());
     }
 
     /**
