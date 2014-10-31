@@ -28,7 +28,7 @@ public abstract class AbstractFileRoundTrippingTestCase extends
         OWLOntology o = ontologyFromClasspathFile(fileName);
         if (logger.isTraceEnabled()) {
             logger.trace("ontology as parsed from input file:");
-            o.getAxioms().forEach(ax -> logger.trace(ax.toString()));
+            o.axioms().forEach(ax -> logger.trace(ax.toString()));
         }
         return o;
     }

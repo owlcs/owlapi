@@ -462,10 +462,7 @@ public abstract class TestBase {
                                 .setReportStackTraces(true));
         if (logger.isTraceEnabled()) {
             logger.trace("TestBase.roundTripOntology() ontology parsed");
-            Set<OWLAxiom> axioms = ont2.getAxioms();
-            for (OWLAxiom ax : axioms) {
-                logger.trace(ax.toString());
-            }
+            ont2.axioms().forEach(ax -> logger.trace(ax.toString()));
         }
         equal(ont, ont2);
         return ont2;

@@ -19,7 +19,6 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -139,9 +138,7 @@ public class TestCornerCasesTestCase extends TestBase {
                 .add("ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
         OWLOntology o = loadOntologyFromString(s);
         Set<String> result = new TreeSet<>();
-        for (OWLAxiom ax : o.getAxioms()) {
-            result.add(ax.toString());
-        }
+        o.axioms().forEach(ax -> result.add(ax.toString()));
         if (!result.equals(expectedResult)) {
             Set<String> intersection = new TreeSet<>(result);
             intersection.retainAll(expectedResult);

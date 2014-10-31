@@ -47,7 +47,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     public DefinitionTracker(@Nonnull OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
         for (OWLOntology importOnt : ontology.getImportsClosure()) {
-            importOnt.getAxioms().forEach(ax -> addAxiom(ax));
+            importOnt.axioms().forEach(ax -> addAxiom(ax));
         }
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
     }

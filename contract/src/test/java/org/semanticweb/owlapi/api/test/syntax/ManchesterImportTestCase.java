@@ -56,7 +56,7 @@ public class ManchesterImportTestCase extends TestBase {
         OWLOntologyManager manager = getManager();
         IRI iri = IRI(str);
         OWLOntology ontology = manager.loadOntology(iri);
-        assertEquals(1, ontology.getAxioms().size());
+        assertEquals(1, ontology.axioms().count());
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), iri);
         assertNotNull(manager.getOntology(iri));
     }

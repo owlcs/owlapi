@@ -454,9 +454,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
             writeCloseBracket();
             writeln();
         }
-        for (OWLAxiom axiom : ontology.getAxioms()) {
-            axiom.accept(this);
-        }
+        ontology.axioms().forEach(a -> a.accept(this));
         try {
             writer.flush();
         } catch (IOException io) {

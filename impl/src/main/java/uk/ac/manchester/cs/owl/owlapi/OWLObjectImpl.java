@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -115,31 +116,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         return (List<OWLAnnotation>) sortOptionally(anns);
     }
 
-    protected static void addEntitiesFromAnnotationsToSet(
-            Collection<OWLAnnotation> annotations, Set<OWLEntity> entities) {
-        for (OWLAnnotation annotation : annotations) {
-            if (annotation instanceof OWLAnnotationImpl) {
-                OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
-                owlAnnotation.addSignatureEntitiesToSet(entities);
-            } else {
-                entities.addAll(annotation.getSignature());
-            }
-        }
-    }
-
-    protected static void addAnonymousIndividualsFromAnnotationsToSet(
-            Collection<OWLAnnotation> annotations,
-            Set<OWLAnonymousIndividual> anons) {
-        for (OWLAnnotation annotation : annotations) {
-            if (annotation instanceof OWLAnnotationImpl) {
-                OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
-                owlAnnotation.addAnonymousIndividualsToSet(anons);
-            } else {
-                anons.addAll(annotation.getAnonymousIndividuals());
-            }
-        }
-    }
-
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
         return getSignature().contains(owlEntity);
@@ -201,14 +177,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
     }
 
     @Override
-    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        Set<OWLAnnotationProperty> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLAnnotationProperty()) {
-                result.add(ent.asOWLAnnotationProperty());
-            }
-        }
-        return result;
+    public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
+        return getSignature().stream().filter(e -> e.isOWLAnnotationProperty())
+                .map(e -> e.asOWLAnnotationProperty());
     }
 
     @Override

@@ -245,11 +245,11 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("<div class='box'>");
         write("<h2>Axioms</h2>\n");
         writeListStart();
-        for (OWLAxiom ax : ontology.getAxioms()) {
+        ontology.axioms().forEach(ax -> {
             writeListItemStart();
             ax.accept(this);
             writeListEnd();
-        }
+        });
         writeListEnd();
         write("</div>");
         footer();

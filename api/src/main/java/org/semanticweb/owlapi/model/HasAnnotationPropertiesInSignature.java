@@ -12,11 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -27,8 +28,7 @@ public interface HasAnnotationPropertiesInSignature {
 
     /**
      * A convenience method that obtains the annotation properties that are in
-     * the signature of this object. Its default implementation returns an
-     * empty, modifiable set.
+     * the signature of this object.
      * 
      * @return A set containing the annotation properties that are in the
      *         signature of this object.The set is a subset of the signature,
@@ -37,6 +37,18 @@ public interface HasAnnotationPropertiesInSignature {
      */
     @Nonnull
     default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        return CollectionFactory.createSet();
+        return annotationPropertiesInSignature().collect(toSet());
+    }
+
+    /**
+     * A convenience method that obtains the annotation properties that are in
+     * the signature of this object.
+     * 
+     * @return A stream of the annotation properties that are in the signature
+     *         of this object.
+     */
+    @Nonnull
+    default Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
+        return Stream.empty();
     }
 }

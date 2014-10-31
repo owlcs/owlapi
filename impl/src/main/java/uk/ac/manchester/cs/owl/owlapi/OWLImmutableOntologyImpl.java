@@ -119,9 +119,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                 .append(ints.getAxiomCount()).append(" Logical Axioms: ")
                 .append(ints.getLogicalAxiomCount())
                 .append("] First 20 axioms: {");
-        for (OWLAxiom ax : Iterables.limit(ints.getAxioms(), 20)) {
-            sb.append(ax).append(' ');
-        }
+        ints.getAxioms().limit(20).forEach(a -> sb.append(a).append(' '));
         sb.append('}');
         return sb.toString();
     }
@@ -177,8 +175,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLAxiom> getAxioms() {
-        return asSet(ints.getAxioms());
+    public Stream<OWLAxiom> axioms() {
+        return ints.getAxioms();
     }
 
     @Nonnull
@@ -211,7 +209,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public Set<OWLAxiom> getAxioms(Imports imports) {
-        return imports.collect(this, o -> o.getAxioms().stream());
+        return imports.collect(this, o -> o.axioms());
     }
 
     @Override
@@ -257,8 +255,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Nonnull
     @Override
     public Stream<OWLAnnotation> annotations() {
-        return ((Set<OWLAnnotation>) ints.getOntologyAnnotations(true))
-                .stream();
+        return ints.getOntologyAnnotations();
     }
 
     @Override
@@ -330,20 +327,19 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     private boolean checkOntologyAnnotations(OWLAnnotationProperty p) {
-        Iterable<OWLAnnotation> anns = ints.getOntologyAnnotations(false);
-        return Iterables.any(anns, (ann) -> ann.getProperty().equals(p));
+        return ints.getOntologyAnnotations().anyMatch(
+                ann -> ann.getProperty().equals(p));
     }
 
     @Override
     public boolean containsIndividualInSignature(IRI iri, Imports imports) {
-        return imports.anyMatch(this,
-                (o) -> o.containsIndividualInSignature(iri));
+        return imports
+                .anyMatch(this, o -> o.containsIndividualInSignature(iri));
     }
 
     @Override
     public boolean containsDatatypeInSignature(IRI iri, Imports imports) {
-        return imports
-                .anyMatch(this, (o) -> o.containsDatatypeInSignature(iri));
+        return imports.anyMatch(this, o -> o.containsDatatypeInSignature(iri));
     }
 
     @Override
@@ -537,22 +533,17 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        Set<OWLAnnotationProperty> props = createSet();
-        Iterables.addAll(
-                props,
+    public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
+        return Stream.concat(
                 ints.get(OWLAnnotationProperty.class, OWLAxiom.class,
-                        Navigation.IN_SUB_POSITION).get().keySet());
-        ints.getOntologyAnnotations(false).forEach(
-                a -> props.add(a.getProperty()));
-        return props;
+                        Navigation.IN_SUB_POSITION).get().keySet().stream(),
+                ints.getOntologyAnnotations().map(a -> a.getProperty()));
     }
 
     @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
             Imports imports) {
-        return imports.collect(this, o -> o
-                .getAnnotationPropertiesInSignature().stream());
+        return imports.collect(this, o -> o.annotationPropertiesInSignature());
     }
 
     @Nonnull

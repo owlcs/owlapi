@@ -267,16 +267,19 @@ public abstract class AbstractMacroExpansionVisitor implements
                 }
             }
         }
-        for (OWLAnnotationProperty p : o.getAnnotationPropertiesInSignature()) {
-            for (OWLAnnotation a : annotations(
-                    o.filterAxioms(Filters.annotations, p.getIRI(), INCLUDED),
-                    df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI()))) {
-                OWLAnnotationValue v = a.getValue();
-                if (v instanceof OWLLiteral) {
-                    String str = ((OWLLiteral) v).getLiteral();
-                    LOG.info("assertion mapping {} to {}", p, str);
-                    expandAssertionToMap.put(p.getIRI(), str);
-                }
+        o.annotationPropertiesInSignature()
+                .forEach(p -> expandAssertions(o, p));
+    }
+
+    protected void expandAssertions(OWLOntology o, OWLAnnotationProperty p) {
+        for (OWLAnnotation a : annotations(
+                o.filterAxioms(Filters.annotations, p.getIRI(), INCLUDED),
+                df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI()))) {
+            OWLAnnotationValue v = a.getValue();
+            if (v instanceof OWLLiteral) {
+                String str = ((OWLLiteral) v).getLiteral();
+                LOG.info("assertion mapping {} to {}", p, str);
+                expandAssertionToMap.put(p.getIRI(), str);
             }
         }
     }

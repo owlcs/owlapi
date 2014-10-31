@@ -1587,7 +1587,7 @@ public class TripleHandlers {
                                     d -> addImport(man, d));
                             io.annotations()
                                     .forEach(ann -> addOntAnn(man, ann));
-                            io.getAxioms().forEach(ax -> add(ax));
+                            io.axioms().forEach(ax -> add(ax));
                             man.removeOntology(io);
                         }
                     }

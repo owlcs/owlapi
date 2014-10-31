@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,8 +38,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
-
-import com.google.common.collect.Iterables;
 
 /**
  * * Objects that identify contained maps - so that getting the keys of a
@@ -183,7 +182,7 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     /** @return keyset */
     @Nonnull
-    public synchronized Iterable<K> keySet() {
+    public synchronized Set<K> keySet() {
         init();
         return map.keySet();
     }
@@ -265,7 +264,7 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     /** @return all values contained */
     @Nonnull
-    public synchronized Iterable<V> getAllValues() {
+    public synchronized Stream<V> getAllValues() {
         init();
         return values();
     }
@@ -356,8 +355,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     @Nonnull
-    private Iterable<V> values() {
-        return Iterables.concat(map.values());
+    private Stream<V> values() {
+        return map.values().stream().flatMap(s -> s.stream());
     }
 
     @Nonnull

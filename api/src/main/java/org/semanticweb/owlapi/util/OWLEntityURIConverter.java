@@ -99,13 +99,13 @@ public class OWLEntityURIConverter {
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap,
                 manager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
-            for (OWLAxiom ax : ont.getAxioms()) {
+            ont.axioms().forEach(ax -> {
                 OWLAxiom dupAx = dup.duplicateObject(ax);
                 if (!dupAx.equals(ax)) {
                     changes.add(new RemoveAxiom(ont, ax));
                     changes.add(new AddAxiom(ont, dupAx));
                 }
-            }
+            });
         }
         return changes;
     }

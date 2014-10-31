@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
@@ -26,6 +27,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -233,6 +235,10 @@ public class Internals implements Serializable {
         public boolean remove(K k) {
             return set.remove(k);
         }
+
+        public Stream<K> stream() {
+            return set.stream();
+        }
     }
 
     @SuppressWarnings("null")
@@ -375,8 +381,7 @@ public class Internals implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
-        axiomsForSerialization = new ArrayList<>();
-        Iterables.addAll(axiomsForSerialization, axiomsByType.getAllValues());
+        axiomsForSerialization = axiomsByType.getAllValues().collect(toList());
         stream.defaultWriteObject();
     }
 
@@ -938,18 +943,11 @@ public class Internals implements Serializable {
     }
 
     /**
-     * @param copy
-     *        true if a copy of the set should be returned, false for a non
-     *        defensive copy (to be used only by OWLImmutableOntologyImpl for
-     *        iteration)
      * @return iterable of annotations
      */
     @Nonnull
-    Iterable<OWLAnnotation> getOntologyAnnotations(boolean copy) {
-        if (!copy) {
-            return ontologyAnnotations.iterable();
-        }
-        return ontologyAnnotations.copy();
+    Stream<OWLAnnotation> getOntologyAnnotations() {
+        return ontologyAnnotations.stream();
     }
 
     /**
@@ -1001,7 +999,7 @@ public class Internals implements Serializable {
      * @return the axioms by type
      */
     @Nonnull
-    public Iterable<OWLAxiom> getAxioms() {
+    public Stream<OWLAxiom> getAxioms() {
         return axiomsByType.getAllValues();
     }
 
@@ -1605,9 +1603,8 @@ public class Internals implements Serializable {
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder("Internals{(first 20 axioms) ");
-        for (OWLAxiom ax : Iterables.limit(axiomsByType.getAllValues(), 20)) {
-            b.append(ax).append('\n');
-        }
+        axiomsByType.getAllValues().limit(20)
+                .forEach(a -> b.append(a).append('\n'));
         b.append('}');
         return b.toString();
     }
