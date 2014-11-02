@@ -332,18 +332,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntology> getDirectImports(OWLOntology ontology) {
+    public Stream<OWLOntology> directImports(OWLOntology ontology) {
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
-        Set<OWLOntology> imports = new HashSet<>();
-        for (OWLImportsDeclaration axiom : ontology.getImportsDeclarations()) {
-            OWLOntology importedOntology = getImportedOntology(axiom);
-            if (importedOntology != null) {
-                imports.add(importedOntology);
-            }
-        }
-        return imports;
+        return ontology.getImportsDeclarations().stream()
+                .map(ax -> getImportedOntology(ax)).filter(o -> o != null);
     }
 
     @Override
@@ -364,11 +358,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      */
     private void getImports(@Nonnull OWLOntology ont,
             @Nonnull Set<OWLOntology> result) {
-        for (OWLOntology directImport : getDirectImports(ont)) {
-            if (result.add(directImport)) {
-                getImports(directImport, result);
-            }
-        }
+        directImports(ont).filter(o -> result.add(o)).forEach(
+                o -> getImports(o, result));
     }
 
     @Override

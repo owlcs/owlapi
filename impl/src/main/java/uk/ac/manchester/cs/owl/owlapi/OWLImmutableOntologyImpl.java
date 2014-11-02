@@ -547,14 +547,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Nonnull
     @Override
     public Set<OWLImportsDeclaration> getImportsDeclarations() {
-        return asSet(ints.getImportsDeclarations(true));
+        return ints.getImportsDeclarations().collect(toSet());
     }
 
     @Override
-    public Set<IRI> getDirectImportsDocuments() {
-        Set<IRI> result = createSet();
-        ints.getImportsDeclarations(false).forEach(i -> result.add(i.getIRI()));
-        return result;
+    public Stream<IRI> directImportsDocuments() {
+        return ints.getImportsDeclarations().map(i -> i.getIRI());
     }
 
     @Override
@@ -563,8 +561,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLOntology> getDirectImports() {
-        return manager.getDirectImports(this);
+    public Stream<OWLOntology> directImports() {
+        return manager.directImports(this);
     }
 
     @Override

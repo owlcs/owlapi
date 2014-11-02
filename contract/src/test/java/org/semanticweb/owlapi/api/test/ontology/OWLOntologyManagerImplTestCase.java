@@ -107,7 +107,7 @@ public class OWLOntologyManagerImplTestCase {
     @Test
     public void testImportsLoad() throws OWLException {
         OWLOntology ontA = manager.createOntology(IRI.create("a"));
-        assertTrue(ontA.getDirectImports().size() == 0);
+        assertTrue(ontA.directImports().count() == 0);
         IRI b = IRI.create("b");
         OWLImportsDeclaration declB = manager.getOWLDataFactory()
                 .getOWLImportsDeclaration(b);
@@ -119,7 +119,7 @@ public class OWLOntologyManagerImplTestCase {
         directImportsDocuments = ontA.getDirectImportsDocuments();
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));
-        assertEquals(1, ontA.getDirectImports().size());
+        assertEquals(1, ontA.directImports().count());
         assertTrue(ontA.getDirectImports().contains(ontB));
     }
 }

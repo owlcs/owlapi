@@ -907,19 +907,11 @@ public class Internals implements Serializable {
         return false;
     }
 
-    /**
-     * @param copy
-     *        true if a copy of the set should be returned, false for a non
-     *        defensive copy (to be used only by OWLImmutableOntologyImpl for
-     *        iteration)
-     * @return iterable of imports declaration
+    /** @return stream of imports declaration
      */
     @Nonnull
-    public Iterable<OWLImportsDeclaration> getImportsDeclarations(boolean copy) {
-        if (!copy) {
-            return importsDeclarations.iterable();
-        }
-        return importsDeclarations.copy();
+    public Stream<OWLImportsDeclaration> getImportsDeclarations() {
+        return importsDeclarations.stream();
     }
 
     /**

@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -37,7 +40,23 @@ public interface HasDirectImports {
      *         was removed from the manager.
      */
     @Nonnull
-    Set<IRI> getDirectImportsDocuments();
+    default Set<IRI> getDirectImportsDocuments() {
+        return directImportsDocuments().collect(toSet());
+    }
+
+    /**
+     * The stream of document IRIs that are directly imported by this ontology.
+     * This corresponds to the IRIs defined by the directlyImportsDocument
+     * association as discussed in Section 3.4 of the OWL 2 Structural
+     * specification.
+     * 
+     * @return The stream of directlyImportsDocument IRIs.
+     * @throws UnknownOWLOntologyException
+     *         If this ontology is no longer managed by its manager because it
+     *         was removed from the manager.
+     */
+    @Nonnull
+    Stream<IRI> directImportsDocuments();
 
     /**
      * Gets the set of <em>loaded</em> ontologies that this ontology is related
@@ -57,5 +76,27 @@ public interface HasDirectImports {
      *         was removed from the manager.
      */
     @Nonnull
-    Set<OWLOntology> getDirectImports();
+    default Set<OWLOntology> getDirectImports() {
+        return directImports().collect(toSet());
+    }
+
+    /**
+     * Stream of <em>loaded</em> ontologies that this ontology is related to via
+     * the directlyImports relation. See Section 3.4 of the OWL 2 specification
+     * for the definition of the directlyImports relation. <br>
+     * Note that there may be fewer ontologies in the set returned by this
+     * method than there are IRIs in the set returned by the
+     * {@link #getDirectImportsDocuments()} method. This will be the case if
+     * some of the ontologies that are directly imported by this ontology are
+     * not loaded for what ever reason.
+     * 
+     * @return Stream of ontologies such that for this ontology O, and each
+     *         ontology O' in the set, (O, O') is in the directlyImports
+     *         relation.
+     * @throws UnknownOWLOntologyException
+     *         If this ontology is no longer managed by its manager because it
+     *         was removed from the manager.
+     */
+    @Nonnull
+    Stream<OWLOntology> directImports();
 }

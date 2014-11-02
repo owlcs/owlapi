@@ -1366,12 +1366,9 @@ public class OWLAPIOwl2Obo {
     protected void tr(@Nonnull OWLOntology ontology) {
         Frame f = new Frame(FrameType.HEADER);
         getObodoc().setHeaderFrame(f);
-        for (IRI iri : ontology.getDirectImportsDocuments()) {
-            Clause c = new Clause(OboFormatTag.TAG_IMPORT.getTag());
-            // c.setValue(getOntologyId(iri));
-            c.setValue(iri.toString());
-            f.addClause(c);
-        }
+        ontology.directImportsDocuments().forEach(
+                iri -> f.addClause(new Clause(OboFormatTag.TAG_IMPORT.getTag())
+                        .withValue(iri.toString())));
         String id = getOntologyId(ontology);
         Clause c = new Clause(OboFormatTag.TAG_ONTOLOGY.getTag());
         c.setValue(id);

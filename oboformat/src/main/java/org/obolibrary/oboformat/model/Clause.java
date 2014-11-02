@@ -58,6 +58,16 @@ public class Clause {
     }
 
     /**
+     * @param value
+     *        value to set
+     * @return modified clause
+     */
+    public Clause withValue(String value) {
+        setValue(value);
+        return this;
+    }
+
+    /**
      * Default constructor.
      * 
      * @deprecated use Clause(String). Using this constructor makes the hashcode

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,6 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -182,7 +185,24 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         returned.
      */
     @Nonnull
-    Set<OWLOntology> getDirectImports(@Nonnull OWLOntology ontology);
+    default Set<OWLOntology> getDirectImports(@Nonnull OWLOntology ontology) {
+        return directImports(ontology).collect(toSet());
+    }
+
+    /**
+     * Stream of <em>loaded</em> ontologies that the specified ontology is
+     * related to via the directlyImports relation as defined in Section 3.4 of
+     * the OWL 2 Structural specification
+     * 
+     * @param ontology
+     *        The ontology whose direct imports are to be retrieved.
+     * @return Stream of <em>loaded</em> ontologies that the specified ontology
+     *         is related to via the directlyImports relation. If the ontology
+     *         is not managed by this manager then the empty set will be
+     *         returned.
+     */
+    @Nonnull
+    Stream<OWLOntology> directImports(@Nonnull OWLOntology ontology);
 
     /**
      * Gets the set of ontologies that are in the transitive closure of the
