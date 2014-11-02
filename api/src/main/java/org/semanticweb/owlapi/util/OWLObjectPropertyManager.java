@@ -117,7 +117,7 @@ public class OWLObjectPropertyManager {
     }
 
     protected <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> t) {
-        return ontologies().flatMap(o -> o.getAxioms(t).stream());
+        return ontologies().flatMap(o -> o.axioms(t));
     }
 
     /** @return the property expressions */

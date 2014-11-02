@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.change;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
@@ -55,11 +54,8 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     public SplitSubClassAxioms(@Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLDataFactory dataFactory) {
         super(dataFactory);
-        Consumer<? super OWLOntology> action = o -> o.getAxioms(
-                AxiomType.SUBCLASS_OF).forEach(ax -> {
-            split(o, ax);
-        });
-        ontologies.forEach(action);
+        ontologies.forEach(o -> o.axioms(AxiomType.SUBCLASS_OF).forEach(
+                ax -> split(o, ax)));
     }
 
     protected void split(OWLOntology o, OWLSubClassOfAxiom ax) {

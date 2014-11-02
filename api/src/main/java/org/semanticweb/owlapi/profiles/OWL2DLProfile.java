@@ -19,6 +19,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -390,19 +392,21 @@ public class OWL2DLProfile implements OWLProfile {
 
         private void getDatatypesInSignature(Set<OWLDatatype> datatypes,
                 OWLObject obj, Set<OWLAxiom> axioms) {
-            for (OWLDatatype dt : obj.getDatatypesInSignature()) {
-                if (datatypes.add(dt)) {
-                    Imports.INCLUDED
-                            .stream(getCurrentOntology())
-                            .flatMap(o -> o.getDatatypeDefinitions(dt).stream())
-                            .forEach(
-                                    ax -> {
-                                        axioms.add(ax);
-                                        getDatatypesInSignature(datatypes,
-                                                ax.getDataRange(), axioms);
-                                    });
-                }
-            }
+            Consumer<? super OWLDatatypeDefinitionAxiom> addAndRecurse = ax -> {
+                axioms.add(ax);
+                getDatatypesInSignature(datatypes, ax.getDataRange(), axioms);
+            };
+            obj.datatypesInSignature()
+                    .filter(dt -> datatypes.add(dt))
+                    .forEach(
+                            dt -> datatypeDefinitions(dt)
+                                    .forEach(addAndRecurse));
+        }
+
+        protected Stream<OWLDatatypeDefinitionAxiom> datatypeDefinitions(
+                OWLDatatype dt) {
+            return Imports.INCLUDED.stream(getCurrentOntology()).flatMap(
+                    o -> o.getDatatypeDefinitions(dt).stream());
         }
 
         @Override

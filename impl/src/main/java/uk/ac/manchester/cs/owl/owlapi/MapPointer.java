@@ -193,7 +193,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return value
      */
     @Nonnull
-    public synchronized Iterable<V> getValues(K key) {
+    public synchronized Set<V> getValues(K key) {
         init();
         return get(key);
     }

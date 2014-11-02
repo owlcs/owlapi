@@ -523,11 +523,9 @@ public abstract class RDFRendererBase {
                     }
                     axioms.add(ax);
                 }
-                for (OWLHasKeyAxiom ax : ontology.getAxioms(AxiomType.HAS_KEY)) {
-                    if (ax.getClassExpression().equals(cls)) {
-                        axioms.add(ax);
-                    }
-                }
+                ontology.axioms(AxiomType.HAS_KEY)
+                        .filter(ax -> ax.getClassExpression().equals(cls))
+                        .forEach(ax -> axioms.add(ax));
             }
 
             @Override

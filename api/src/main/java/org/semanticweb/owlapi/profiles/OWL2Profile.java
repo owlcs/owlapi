@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -144,20 +145,19 @@ public class OWL2Profile implements OWLProfile {
         public void visit(OWLDatatypeRestriction node) {
             // The datatype should not be defined with a datatype definition
             // axiom
+            OWLDatatype datatype = node.getDatatype();
             for (OWLOntology ont : man.getImportsClosure(getCurrentOntology())) {
-                for (OWLDatatypeDefinitionAxiom ax : ont
-                        .getAxioms(AxiomType.DATATYPE_DEFINITION)) {
-                    if (node.getDatatype().equals(ax.getDatatype())) {
-                        profileViolations
-                                .add(new UseOfDefinedDatatypeInDatatypeRestriction(
-                                        getCurrentOntology(),
-                                        getCurrentAxiom(), node));
-                    }
-                }
+                ont.axioms(AxiomType.DATATYPE_DEFINITION)
+                        .filter(ax -> datatype.equals(ax.getDatatype()))
+                        .forEach(
+                                ax -> profileViolations
+                                        .add(new UseOfDefinedDatatypeInDatatypeRestriction(
+                                                getCurrentOntology(),
+                                                getCurrentAxiom(), node)));
             }
             // All facets must be allowed for the restricted datatype
             for (OWLFacetRestriction r : node.getFacetRestrictions()) {
-                OWL2Datatype dt = node.getDatatype().getBuiltInDatatype();
+                OWL2Datatype dt = datatype.getBuiltInDatatype();
                 if (!dt.getFacets().contains(r.getFacet())) {
                     profileViolations.add(new UseOfIllegalFacetRestriction(
                             getCurrentOntology(), getCurrentAxiom(), node, r

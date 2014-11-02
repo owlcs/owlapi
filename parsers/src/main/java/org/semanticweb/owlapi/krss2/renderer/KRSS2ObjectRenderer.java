@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.*;
@@ -721,14 +722,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     protected
             Set<OWLSubPropertyChainOfAxiom>
             getPropertyChainSubPropertyAxiomsFor(OWLPropertyExpression property) {
-        Set<OWLSubPropertyChainOfAxiom> axioms = new HashSet<>();
-        for (OWLSubPropertyChainOfAxiom axiom : ont
-                .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
-            if (axiom.getSuperProperty().equals(property)) {
-                axioms.add(axiom);
-            }
-        }
-        return axioms;
+        return ont.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF)
+                .filter(a -> a.getSuperProperty().equals(property))
+                .collect(toSet());
     }
 
     protected void reset() {

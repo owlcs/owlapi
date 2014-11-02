@@ -19,7 +19,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -52,9 +51,8 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
 
     private void generateChanges(@Nonnull Set<OWLOntology> ontologies) {
         for (OWLOntology ont : ontologies) {
-            for (OWLClassAxiom ax : ont.getAxioms(AxiomType.DISJOINT_CLASSES)) {
-                addChange(new RemoveAxiom(ont, ax));
-            }
+            ont.axioms(AxiomType.DISJOINT_CLASSES).forEach(
+                    ax -> addChange(new RemoveAxiom(ont, ax)));
         }
     }
 }

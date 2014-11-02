@@ -98,12 +98,10 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLXMLDocumentFormat f = new OWLXMLDocumentFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
         equal(ontology, ontology2);
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.SWRL_RULE)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
+        ontology2.getAxioms(AxiomType.SWRL_RULE).forEach(
+                r -> assertFalse(noLabel(r)));
+        ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION).forEach(
+                r -> assertFalse(noLabel(r)));
     }
 
     @Test
@@ -113,12 +111,10 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLDocumentFormat f = new TurtleDocumentFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
         equal(ontology, ontology2);
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.SWRL_RULE)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
+        ontology2.getAxioms(AxiomType.SWRL_RULE).forEach(
+                r -> assertFalse(noLabel(r)));
+        ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION).forEach(
+                r -> assertFalse(noLabel(r)));
     }
 
     @Test
@@ -128,12 +124,10 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLDocumentFormat f = new FunctionalSyntaxDocumentFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
         equal(ontology, ontology2);
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.SWRL_RULE)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
+        ontology2.axioms(AxiomType.SWRL_RULE).forEach(
+                r -> assertFalse(noLabel(r)));
+        ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(
+                r -> assertFalse(noLabel(r)));
     }
 
     @Test
@@ -143,12 +137,10 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLDocumentFormat f = new RDFXMLDocumentFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
         equal(ontology, ontology2);
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.SWRL_RULE)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
+        ontology2.getAxioms(AxiomType.SWRL_RULE).forEach(
+                r -> assertFalse(noLabel(r)));
+        ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION).forEach(
+                r -> assertFalse(noLabel(r)));
     }
 
     @Test
@@ -158,9 +150,12 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLDocumentFormat f = new RDFXMLDocumentFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
         equal(ontology, ontology2);
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
+        ontology2.axioms(AxiomType.DATATYPE_DEFINITION).forEach(
+                r -> assertFalse(noLabel(r)));
+    }
+
+    protected boolean noLabel(OWLAxiom r) {
+        return r.getAnnotations(df.getRDFSLabel()).isEmpty();
     }
 
     @Ignore("man syntax does not like annotations")
@@ -171,12 +166,10 @@ public class SWRLRoundTripTestCase extends TestBase {
         StringDocumentTarget save = saveOntology(ontology, f);
         OWLOntology ontology2 = loadOntologyFromString(save);
         equal(ontology, ontology2);
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.SWRL_RULE)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
-        for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
-            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        }
+        ontology2.axioms(AxiomType.SWRL_RULE).forEach(
+                r -> assertFalse(noLabel(r)));
+        ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION).forEach(
+                r -> assertFalse(noLabel(r)));
     }
 
     /**

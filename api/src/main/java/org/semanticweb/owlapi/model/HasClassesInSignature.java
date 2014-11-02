@@ -12,11 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * An interface to an object that has a signature and can provide the classes
@@ -29,8 +30,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public interface HasClassesInSignature {
 
     /**
-     * Gets the classes in the signature of this object. The default
-     * implementation of this method returns an empty, modifiable set.
+     * Gets the classes in the signature of this object.
      * 
      * @return A set containing the classes that are in the signature of this
      *         object. The set is a subset of the signature, and is not backed
@@ -39,6 +39,14 @@ public interface HasClassesInSignature {
      */
     @Nonnull
     default Set<OWLClass> getClassesInSignature() {
-        return CollectionFactory.createSet();
+        return classesInSignature().collect(toSet());
+    }
+
+    /**
+     * @return Stream of classes in the signature of this object.
+     */
+    @Nonnull
+    default Stream<OWLClass> classesInSignature() {
+        return Stream.empty();
     }
 }

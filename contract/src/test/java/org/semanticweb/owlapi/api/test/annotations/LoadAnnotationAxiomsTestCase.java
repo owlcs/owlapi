@@ -111,8 +111,8 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology reloaded = loadOntologyWithConfig(
                 saveOntology(ontology, format), configuration);
-        HashSet<OWLDeclarationAxiom> declarations = new HashSet<>(
-                reloaded.getAxioms(AxiomType.DECLARATION));
+        Set<OWLDeclarationAxiom> declarations = reloaded
+                .getAxioms(AxiomType.DECLARATION);
         reloaded.getOWLOntologyManager().removeAxioms(reloaded, declarations);
         return reloaded;
     }

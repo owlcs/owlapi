@@ -122,25 +122,15 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
     }
 
     @Override
-    public Set<OWLClass> getClassesInSignature() {
-        Set<OWLClass> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLClass()) {
-                result.add(ent.asOWLClass());
-            }
-        }
-        return result;
+    public Stream<OWLClass> classesInSignature() {
+        return getSignature().stream().filter(e -> e.isOWLClass())
+                .map(e -> e.asOWLClass());
     }
 
     @Override
-    public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        Set<OWLDataProperty> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLDataProperty()) {
-                result.add(ent.asOWLDataProperty());
-            }
-        }
-        return result;
+    public Stream<OWLDataProperty> dataPropertiesInSignature() {
+        return getSignature().stream().filter(e -> e.isOWLDataProperty())
+                .map(e -> e.asOWLDataProperty());
     }
 
     @Override
@@ -166,14 +156,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
     }
 
     @Override
-    public Set<OWLDatatype> getDatatypesInSignature() {
-        Set<OWLDatatype> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLDatatype()) {
-                result.add(ent.asOWLDatatype());
-            }
-        }
-        return result;
+    public Stream<OWLDatatype> datatypesInSignature() {
+        return getSignature().stream().filter(e -> e.isOWLDatatype())
+                .map(e -> e.asOWLDatatype());
     }
 
     @Override

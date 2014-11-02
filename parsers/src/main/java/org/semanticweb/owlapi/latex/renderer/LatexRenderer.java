@@ -29,8 +29,6 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -49,6 +47,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     @Nonnull
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
+    private OWLEntityComparator entityComparator = new OWLEntityComparator(
+            shortFormProvider);
 
     private void writeEntitySection(@Nonnull OWLEntity entity,
             @Nonnull LatexWriter w) {
@@ -99,15 +99,17 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 }
             }
             w.write("\\section*{Data properties}");
-            for (OWLDataProperty prop : sortEntities(ontology
-                    .getDataPropertiesInSignature())) {
-                writeEntitySection(prop, w);
-                for (OWLAxiom ax : sortAxioms(ontology
-                        .getAxioms(prop, EXCLUDED))) {
-                    ax.accept(renderer);
-                    w.write("\n\n");
-                }
-            }
+            ontology.dataPropertiesInSignature()
+                    .sorted(entityComparator)
+                    .forEach(
+                            prop -> {
+                                writeEntitySection(prop, w);
+                                for (OWLAxiom ax : sortAxioms(ontology
+                                        .getAxioms(prop, EXCLUDED))) {
+                                    ax.accept(renderer);
+                                    w.write("\n\n");
+                                }
+                            });
             w.write("\\section*{Individuals}");
             for (OWLNamedIndividual ind : sortEntities(ontology
                     .getIndividualsInSignature())) {
@@ -118,15 +120,17 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 }
             }
             w.write("\\section*{Datatypes}");
-            for (OWLDatatype type : sortEntities(ontology
-                    .getDatatypesInSignature())) {
-                writeEntitySection(type, w);
-                for (OWLAxiom ax : sortAxioms(ontology
-                        .getAxioms(type, EXCLUDED))) {
-                    ax.accept(renderer);
-                    w.write("\n\n");
-                }
-            }
+            ontology.datatypesInSignature()
+                    .sorted(entityComparator)
+                    .forEach(
+                            type -> {
+                                writeEntitySection(type, w);
+                                for (OWLAxiom ax : sortAxioms(ontology
+                                        .getAxioms(type, EXCLUDED))) {
+                                    ax.accept(renderer);
+                                    w.write("\n\n");
+                                }
+                            });
             writer.write("\\end{document}\n");
             writer.flush();
         } catch (OWLRuntimeException e) {
@@ -136,8 +140,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private <T extends OWLEntity> Collection<T> sortEntities(Set<T> entites) {
         List<T> list = new ArrayList<>(entites);
-        OWLEntityComparator entityComparator = new OWLEntityComparator(
-                shortFormProvider);
         Collections.sort(list, entityComparator);
         return list;
     }

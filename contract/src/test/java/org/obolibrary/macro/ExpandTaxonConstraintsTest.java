@@ -1,6 +1,6 @@
 package org.obolibrary.macro;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 import org.obolibrary.obo2owl.RoundTripTest;
@@ -28,7 +28,7 @@ public class ExpandTaxonConstraintsTest extends RoundTripTest {
         OWLOntology ontology = convert(parseOBOFile("taxon_constraints.obo"));
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology);
         OWLOntology outputOntology = mev.expandAll();
-        int n = outputOntology.getAxioms(AxiomType.DISJOINT_CLASSES).size();
-        assertTrue(n > 0);
+        assertFalse(outputOntology.getAxioms(AxiomType.DISJOINT_CLASSES)
+                .isEmpty());
     }
 }

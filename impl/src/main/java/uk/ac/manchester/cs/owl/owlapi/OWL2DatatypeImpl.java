@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -167,8 +168,8 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public Set<OWLDatatype> getDatatypesInSignature() {
-        return createSet((OWLDatatype) this);
+    public Stream<OWLDatatype> datatypesInSignature() {
+        return Stream.of((OWLDatatype) this);
     }
 
     @Override

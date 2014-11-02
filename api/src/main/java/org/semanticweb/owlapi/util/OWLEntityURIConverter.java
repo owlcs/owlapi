@@ -89,11 +89,11 @@ public class OWLEntityURIConverter {
         processedEntities = new HashSet<>();
         List<OWLOntologyChange> changes = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
-            ont.getClassesInSignature().stream()
+            ont.classesInSignature()
                     .filter(c -> !c.isOWLThing() && !c.isOWLNothing())
                     .forEach(c -> processEntity(c));
             ont.getObjectPropertiesInSignature().forEach(p -> processEntity(p));
-            ont.getDataPropertiesInSignature().forEach(p -> processEntity(p));
+            ont.dataPropertiesInSignature().forEach(p -> processEntity(p));
             ont.getIndividualsInSignature().forEach(i -> processEntity(i));
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap,

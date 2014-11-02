@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
@@ -52,12 +53,13 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
             write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
                     printWriter);
         }
-        for (OWLDataProperty prop : new TreeSet<>(
-                ontology.getDataPropertiesInSignature())) {
+        for (OWLDataProperty prop : ontology.dataPropertiesInSignature()
+                .sorted().collect(toList())) {
             write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
                     printWriter);
         }
-        for (OWLClass cls : new TreeSet<>(ontology.getClassesInSignature())) {
+        for (OWLClass cls : ontology.classesInSignature().sorted()
+                .collect(toList())) {
             write(ontology, cls, ontology.getAxioms(cls, EXCLUDED), printWriter);
         }
         for (OWLNamedIndividual ind : new TreeSet<>(

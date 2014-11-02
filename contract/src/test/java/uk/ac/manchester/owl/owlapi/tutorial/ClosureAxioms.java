@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -59,13 +58,10 @@ public class ClosureAxioms {
 
     public void addClosureAxioms(@Nonnull OWLClass clazz) {
         /* Get the class axioms */
-        Set<OWLSubClassOfAxiom> axioms = ontology
-                .getAxioms(AxiomType.SUBCLASS_OF);
         /* Collect those that assert superclasses of the class */
         SubClassCollector collector = new SubClassCollector(clazz);
-        for (OWLClassAxiom axiom : axioms) {
-            axiom.accept(collector);
-        }
+        ontology.getAxioms(AxiomType.SUBCLASS_OF).forEach(
+                a -> a.accept(collector));
         Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions = new HashMap<>();
         /* For each axiom.... */
         for (OWLSubClassOfAxiom axiom : collector.getAxioms()) {

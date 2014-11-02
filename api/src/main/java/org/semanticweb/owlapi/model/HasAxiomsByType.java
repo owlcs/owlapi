@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -39,5 +42,20 @@ public interface HasAxiomsByType {
      *         object.
      */
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType);
+    default <T extends OWLAxiom> Set<T> getAxioms(
+            @Nonnull AxiomType<T> axiomType) {
+        return axioms(axiomType).collect(toSet());
+    }
+
+    /**
+     * Filter axioms according to the specified type.
+     * 
+     * @param axiomType
+     *        The type of axioms to be retrieved.
+     * @param <T>
+     *        axiom type
+     * @return Stream of axioms of the specified type.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Stream<T> axioms(@Nonnull AxiomType<T> axiomType);
 }

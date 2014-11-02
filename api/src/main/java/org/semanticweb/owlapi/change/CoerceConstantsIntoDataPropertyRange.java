@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -71,12 +70,11 @@ public class CoerceConstantsIntoDataPropertyRange extends
         Map<OWLDataPropertyExpression, OWLDatatype> map = new HashMap<>();
         for (OWLOntology ont : checkNotNull(ontologies,
                 "ontologies cannot be null")) {
-            for (OWLDataPropertyRangeAxiom ax : ont
-                    .getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
-                if (ax.getRange().isOWLDatatype()) {
-                    map.put(ax.getProperty(), (OWLDatatype) ax.getRange());
-                }
-            }
+            ont.axioms(AxiomType.DATA_PROPERTY_RANGE)
+                    .filter(ax -> ax.getRange().isOWLDatatype())
+                    .forEach(
+                            ax -> map.put(ax.getProperty(), ax.getRange()
+                                    .asOWLDatatype()));
         }
         OWLConstantReplacer replacer = new OWLConstantReplacer(df, map);
         ontologies.forEach(o -> o.getLogicalAxioms().forEach(ax -> {

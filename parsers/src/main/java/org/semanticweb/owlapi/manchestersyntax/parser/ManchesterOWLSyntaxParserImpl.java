@@ -2191,7 +2191,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                             getOntologyLoaderConfiguration());
                     OWLOntology imported = ont.getOWLOntologyManager()
                             .getOntology(decl.getIRI());
-                    imported.getAxioms(AxiomType.DECLARATION).forEach(
+                    imported.axioms(AxiomType.DECLARATION).forEach(
                             d -> processDeclaredEntities(d));
                 }
                 for (OWLAnnotation anno : header.getAnnotations()) {
@@ -2232,7 +2232,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 imports.add(new AddImport(ont, decl));
                 OWLOntology imported = ont.getOWLOntologyManager().getOntology(
                         decl.getIRI());
-                imported.getAxioms(AxiomType.DECLARATION).forEach(
+                imported.axioms(AxiomType.DECLARATION).forEach(
                         d -> processDeclaredEntities(d));
             } else if (PREFIX.matches(section)) {
                 parsePrefixDeclaration().forEach(

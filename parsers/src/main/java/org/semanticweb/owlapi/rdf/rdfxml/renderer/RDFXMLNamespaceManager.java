@@ -47,9 +47,9 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
         Set<OWLEntity> entities = new HashSet<>();
-        getOntology().getAxioms(AxiomType.OBJECT_PROPERTY_ASSERTION).forEach(
+        getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).forEach(
                 ax -> entities.addAll(ax.getProperty().getSignature()));
-        getOntology().getAxioms(AxiomType.DATA_PROPERTY_ASSERTION).forEach(
+        getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION).forEach(
                 ax -> entities.add(ax.getProperty().asOWLDataProperty()));
         entities.addAll(getOntology().getAnnotationPropertiesInSignature(
                 EXCLUDED));

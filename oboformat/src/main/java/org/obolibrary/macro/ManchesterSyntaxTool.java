@@ -313,9 +313,8 @@ public class ManchesterSyntaxTool {
         @Nullable
         IRI getIRIByLabel(@Nonnull String label) {
             for (OWLOntology o : ontologies) {
-                Set<OWLAnnotationAssertionAxiom> aas = o
-                        .getAxioms(AxiomType.ANNOTATION_ASSERTION);
-                for (OWLAnnotationAssertionAxiom aa : aas) {
+                for (OWLAnnotationAssertionAxiom aa : o
+                        .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
                     OWLAnnotationValue v = aa.getValue();
                     OWLAnnotationProperty property = aa.getProperty();
                     if (isMatchingLabel(label, v, property)) {

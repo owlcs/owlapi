@@ -306,7 +306,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         writeOntologyHeader(ontology);
         ontology.getAnnotationPropertiesInSignature(EXCLUDED).forEach(
                 p -> write(p));
-        ontology.getDatatypesInSignature().forEach(p -> write(p));
+        ontology.datatypesInSignature().forEach(p -> write(p));
         for (OWLObjectProperty prop : ontology.getObjectPropertiesInSignature()) {
             write(prop);
             OWLObjectPropertyExpression invProp = prop.getInverseProperty();
@@ -314,8 +314,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                 write(invProp);
             }
         }
-        ontology.getDataPropertiesInSignature().forEach(p -> write(p));
-        ontology.getClassesInSignature().forEach(p -> write(p));
+        ontology.dataPropertiesInSignature().forEach(p -> write(p));
+        ontology.classesInSignature().forEach(p -> write(p));
         ontology.getIndividualsInSignature().forEach(p -> write(p));
         ontology.getReferencedAnonymousIndividuals().forEach(p -> write(p));
         // Nary disjoint classes axioms
@@ -382,7 +382,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                 writeSection(DIFFERENT_INDIVIDUALS, map, ",", false, ontology);
             }
         }
-        ontology.getAxioms(AxiomType.SWRL_RULE).forEach(
+        ontology.axioms(AxiomType.SWRL_RULE).forEach(
                 rule -> writeSection(RULE, Collections.singleton(rule), ", ",
                         false));
         flush();
