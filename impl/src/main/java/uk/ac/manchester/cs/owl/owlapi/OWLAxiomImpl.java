@@ -12,11 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -80,8 +80,14 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      * @return The annotations
      */
     @Nonnull
-    protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
+    protected Collection<OWLAnnotation> mergeAnnos(
+            Collection<OWLAnnotation> annos) {
         return Sets.newHashSet(Iterables.concat(annos, annotations));
+    }
+
+    @Nonnull
+    protected Collection<OWLAnnotation> mergeAnnos(Stream<OWLAnnotation> annos) {
+        return Stream.concat(annos, annotations.stream()).collect(toSet());
     }
 
     @Override

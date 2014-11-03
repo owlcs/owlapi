@@ -77,7 +77,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
                                     .asOWLDatatype()));
         }
         OWLConstantReplacer replacer = new OWLConstantReplacer(df, map);
-        ontologies.forEach(o -> o.getLogicalAxioms().forEach(ax -> {
+        ontologies.forEach(o -> o.logicalAxioms().forEach(ax -> {
             OWLAxiom dupAx = replacer.duplicateObject(ax);
             if (!ax.equals(dupAx)) {
                 addChange(new RemoveAxiom(o, ax));

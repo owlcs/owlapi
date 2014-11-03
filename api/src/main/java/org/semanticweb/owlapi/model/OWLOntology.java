@@ -170,26 +170,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     Set<OWLOntology> getImports();
 
     /**
-     * Gets the set of <em>loaded</em> ontologies that this ontology is related
-     * to via the <em>reflexive transitive closure</em> of the directlyImports
-     * relation as defined in Section 3.4 of the OWL 2 Structural Specification.
-     * (i.e. The set returned includes all ontologies returned by the
-     * {@link #getImports()} method plus this ontology.)<br>
-     * For example, if this ontology imports ontology B, and ontology B imports
-     * ontology C, then this method will return the set consisting of this
-     * ontology, ontology B and ontology C.
-     * 
-     * @return The set of ontologies in the reflexive transitive closure of the
-     *         directlyImports relation.
-     * @throws UnknownOWLOntologyException
-     *         If this ontology is no longer managed by its manager because it
-     *         was removed from the manager.
-     */
-    @Nonnull
-    @Override
-    Set<OWLOntology> getImportsClosure();
-
-    /**
      * Gets the set of imports declarations for this ontology. The set returned
      * represents the set of IRIs that correspond to the set of IRIs in an
      * ontology's directlyImportsDocuments (see Section 3 in the OWL 2

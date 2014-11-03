@@ -15,7 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -33,9 +33,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLClassAssertionAxiomImpl extends
-        OWLIndividualAxiomImpl implements
-        OWLClassAssertionAxiom {
+public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
+        implements OWLClassAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -71,7 +70,14 @@ public class OWLClassAssertionAxiomImpl extends
 
     @Override
     public OWLClassAssertionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLClassAssertionAxiomImpl(getIndividual(),
+                getClassExpression(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLClassAssertionAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLClassAssertionAxiomImpl(getIndividual(),
                 getClassExpression(), mergeAnnos(annotations));
     }

@@ -14,7 +14,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -48,7 +49,7 @@ public class OWLObjectPropertyRangeAxiomImpl
     public OWLObjectPropertyRangeAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLClassExpression range,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 
@@ -69,7 +70,14 @@ public class OWLObjectPropertyRangeAxiomImpl
 
     @Override
     public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(),
                 mergeAnnos(annotations));
     }

@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -63,7 +64,15 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
     @Nonnull
     @Override
     public OWLDisjointObjectPropertiesAxiom getAnnotatedAxiom(
-            @Nonnull Set<OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
+        return new OWLDisjointObjectPropertiesAxiomImpl(getProperties(),
+                mergeAnnos(annotations));
+    }
+
+    @Nonnull
+    @Override
+    public OWLDisjointObjectPropertiesAxiom getAnnotatedAxiom(
+            @Nonnull Stream<OWLAnnotation> annotations) {
         return new OWLDisjointObjectPropertiesAxiomImpl(getProperties(),
                 mergeAnnos(annotations));
     }

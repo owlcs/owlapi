@@ -235,7 +235,20 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         the empty set will be returned.
      */
     @Nonnull
-    Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology);
+    default Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology) {
+        return importsClosure(ontology).collect(toSet());
+    }
+
+    /**
+     * Imports closure stream for the specified ontology.
+     * 
+     * @param ontology
+     *        The ontology whose imports closure is to be retrieved.
+     * @return Stream of ontologies that contains the imports closure for the
+     *         specified ontology. It includes the specified ontology.
+     */
+    @Nonnull
+    Stream<OWLOntology> importsClosure(@Nonnull OWLOntology ontology);
 
     /**
      * Gets the topologically ordered imports closure.

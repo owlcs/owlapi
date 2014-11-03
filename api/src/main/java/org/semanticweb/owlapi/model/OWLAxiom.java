@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -60,7 +61,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * Gets a copy of this axiom that is annotated with the specified
      * annotations. If this axiom has any annotations on it they will be merged
      * with the specified set of annotations. Note that this axiom will not be
-     * modified (or remove from any ontologies).
+     * modified (or removed from any ontologies).
      * 
      * @param annotations
      *        The annotations that will be added to existing annotations to
@@ -70,7 +71,23 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         {@code OWLAxiom#getAnnotations()} method.
      */
     @Nonnull
-    OWLAxiom getAnnotatedAxiom(@Nonnull Set<OWLAnnotation> annotations);
+    OWLAxiom getAnnotatedAxiom(@Nonnull Collection<OWLAnnotation> annotations);
+
+    /**
+     * Gets a copy of this axiom that is annotated with the specified
+     * annotations. If this axiom has any annotations on it they will be merged
+     * with the specified set of annotations. Note that this axiom will not be
+     * modified (or removed from any ontologies).
+     * 
+     * @param annotations
+     *        The annotations that will be added to existing annotations to
+     *        annotate the copy of this axiom
+     * @return A copy of this axiom that has the specified annotations plus any
+     *         existing annotations returned by the
+     *         {@code OWLAxiom#getAnnotations()} method.
+     */
+    @Nonnull
+    OWLAxiom getAnnotatedAxiom(@Nonnull Stream<OWLAnnotation> annotations);
 
     /**
      * Determines if another axiom is equal to this axiom not taking into

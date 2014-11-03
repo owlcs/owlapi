@@ -316,7 +316,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         ontology.dataPropertiesInSignature().forEach(p -> write(p));
         ontology.classesInSignature().forEach(p -> write(p));
-        ontology.getIndividualsInSignature().forEach(p -> write(p));
+        ontology.individualsInSignature().forEach(p -> write(p));
         ontology.getReferencedAnonymousIndividuals().forEach(p -> write(p));
         // Nary disjoint classes axioms
         event = new RendererEvent(this, ontology);

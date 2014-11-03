@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -49,7 +50,7 @@ public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
     }
 
     @Override
-    public Set<OWLOntology> getOntologies() {
-        return ontologySingletonSet;
+    public Stream<OWLOntology> ontologies() {
+        return ontologySingletonSet.stream();
     }
 }

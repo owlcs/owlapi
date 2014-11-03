@@ -15,7 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -67,7 +67,14 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(),
+                getRange(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(),
                 getRange(), mergeAnnos(annotations));
     }

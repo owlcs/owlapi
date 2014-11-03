@@ -12,9 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -77,21 +78,13 @@ public class ImportsStructureObjectSorter<O> {
      */
     @Nonnull
     public Map<OWLOntology, Set<O>> getObjects() {
-        List<OWLOntology> imports = new ArrayList<>(
-                ontology.getImportsClosure());
+        List<OWLOntology> imports = ontology.importsClosure().collect(toList());
+        Collections.reverse(imports);
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<>();
         Set<O> processed = new HashSet<>();
-        for (int i = imports.size() - 1; i > -1; i--) {
-            OWLOntology currentOnt = imports.get(i);
-            Set<O> objects = new HashSet<>();
-            for (O obj : objectSelector.getObjects(currentOnt)) {
-                if (!processed.contains(obj)) {
-                    processed.add(obj);
-                    objects.add(obj);
-                }
-            }
-            ontology2EntityMap.put(currentOnt, objects);
-        }
+        imports.forEach(ont -> ontology2EntityMap.put(ont, objectSelector
+                .getObjects(ont).stream().filter(o -> processed.add(o))
+                .collect(toSet())));
         return ontology2EntityMap;
     }
 

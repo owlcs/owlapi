@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -73,8 +74,21 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      *         annotating it
      */
     @Nonnull
-    OWLAnnotation
-            getAnnotatedAnnotation(@Nonnull Set<OWLAnnotation> annotations);
+    OWLAnnotation getAnnotatedAnnotation(
+            @Nonnull Collection<OWLAnnotation> annotations);
+
+    /**
+     * Gets an OWLAnnotation which is a copy of this annotation but which has
+     * the specified annotations.
+     * 
+     * @param annotations
+     *        The annotations
+     * @return A copy of this annotation with the specified annotations
+     *         annotating it
+     */
+    @Nonnull
+    OWLAnnotation getAnnotatedAnnotation(
+            @Nonnull Stream<OWLAnnotation> annotations);
 
     /**
      * @param visitor

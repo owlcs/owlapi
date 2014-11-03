@@ -86,8 +86,8 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLOntology ontology) {
-        return ontology.getLogicalAxioms().stream()
-                .flatMap(ax -> ax.accept(this).stream()).collect(toSet());
+        return ontology.logicalAxioms().flatMap(ax -> ax.accept(this).stream())
+                .collect(toSet());
     }
 
     @Override

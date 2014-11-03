@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -62,7 +63,14 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
 
     @Override
     public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLEquivalentDataPropertiesAxiomImpl(getProperties(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLEquivalentDataPropertiesAxiomImpl(getProperties(),
                 mergeAnnos(annotations));
     }

@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
@@ -49,7 +49,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
      */
     public OWLPropertyDomainAxiomImpl(@Nonnull P property,
             @Nonnull OWLClassExpression domain,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
     }

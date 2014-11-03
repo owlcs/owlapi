@@ -15,7 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -59,7 +59,14 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
 
     @Override
     public OWLInverseFunctionalObjectPropertyAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLInverseFunctionalObjectPropertyAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }

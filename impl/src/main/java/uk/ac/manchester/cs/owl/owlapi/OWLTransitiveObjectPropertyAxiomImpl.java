@@ -13,7 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -57,7 +57,13 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAxiom getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotations) {
         return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }

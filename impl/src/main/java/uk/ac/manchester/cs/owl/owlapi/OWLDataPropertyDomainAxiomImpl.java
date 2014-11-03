@@ -14,7 +14,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -48,7 +49,7 @@ public class OWLDataPropertyDomainAxiomImpl extends
     public OWLDataPropertyDomainAxiomImpl(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLClassExpression domain,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 
@@ -62,7 +63,13 @@ public class OWLDataPropertyDomainAxiomImpl extends
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAxiom getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
+        return new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotations) {
         return new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(),
                 mergeAnnos(annotations));
     }

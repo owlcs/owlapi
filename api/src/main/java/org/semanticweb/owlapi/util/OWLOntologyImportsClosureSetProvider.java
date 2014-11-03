@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -58,7 +58,7 @@ public class OWLOntologyImportsClosureSetProvider implements
     }
 
     @Override
-    public Set<OWLOntology> getOntologies() {
-        return manager.getImportsClosure(rootOntology);
+    public Stream<OWLOntology> ontologies() {
+        return manager.importsClosure(rootOntology);
     }
 }

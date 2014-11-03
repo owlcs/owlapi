@@ -365,8 +365,7 @@ public class OWLObjectPropertyManager {
 
     @Nonnull
     private Set<OWLObjectPropertyExpression> getReferencedProperties() {
-        return ontologies()
-                .flatMap(o -> o.getObjectPropertiesInSignature().stream())
+        return ontologies().flatMap(o -> o.objectPropertiesInSignature())
                 .map(p -> p.getSimplified()).collect(toSet());
     }
 
@@ -377,12 +376,13 @@ public class OWLObjectPropertyManager {
      */
     @Nonnull
     public static Collection<Set<OWLObjectPropertyExpression>>
-            getEquivalentObjectProperties(@Nonnull Set<OWLOntology> ontologies) {
+            getEquivalentObjectProperties(
+                    @Nonnull Stream<OWLOntology> ontologies) {
         checkNotNull(ontologies, "ontologies cannot be null");
         Set<Set<OWLObjectPropertyExpression>> result = new HashSet<>();
         Set<OWLObjectPropertyExpression> processed = new HashSet<>();
-        Stream<OWLObjectPropertyExpression> properties = ontologies.stream()
-                .flatMap(o -> o.getObjectPropertiesInSignature().stream());
+        Stream<OWLObjectPropertyExpression> properties = ontologies
+                .flatMap(o -> o.objectPropertiesInSignature());
         properties.forEach(p -> {
             if (!processed.contains(p)) {
                 tarjan(ontologies, p, 0,
@@ -412,7 +412,7 @@ public class OWLObjectPropertyManager {
     @Nonnull
     public Collection<Set<OWLObjectPropertyExpression>>
             getEquivalentObjectProperties() {
-        return getEquivalentObjectProperties(ontology.getImportsClosure());
+        return getEquivalentObjectProperties(ontology.importsClosure());
     }
 
     /**
@@ -435,7 +435,7 @@ public class OWLObjectPropertyManager {
      * @param stackProps
      *        stack entities
      */
-    public static void tarjan(@Nonnull Set<OWLOntology> ontologies,
+    public static void tarjan(@Nonnull Stream<OWLOntology> ontologies,
             @Nonnull OWLObjectPropertyExpression prop, int index,
             @Nonnull Stack<OWLObjectPropertyExpression> stack,
             @Nonnull Map<OWLObjectPropertyExpression, Integer> indexMap,
@@ -456,21 +456,24 @@ public class OWLObjectPropertyManager {
         lowlinkMap.put(prop, index);
         stack.push(prop);
         stackProps.add(prop);
-        for (OWLOntology ont : ontologies) {
-            for (OWLSubObjectPropertyOfAxiom ax : ont
-                    .getObjectSubPropertyAxiomsForSubProperty(prop)) {
-                if (ax.getSubProperty().equals(prop)) {
-                    OWLObjectPropertyExpression supProp = ax.getSuperProperty();
-                    if (!indexMap.containsKey(supProp)) {
-                        tarjan(ontologies, supProp, index + 1, stack, indexMap,
-                                lowlinkMap, result, processed, stackProps);
-                        put(prop, lowlinkMap, supProp);
-                    } else if (stackProps.contains(supProp)) {
-                        putIndex(prop, indexMap, lowlinkMap, supProp);
+        ontologies
+                .forEach(ont -> {
+                    for (OWLSubObjectPropertyOfAxiom ax : ont
+                            .getObjectSubPropertyAxiomsForSubProperty(prop)) {
+                        if (ax.getSubProperty().equals(prop)) {
+                            OWLObjectPropertyExpression supProp = ax
+                                    .getSuperProperty();
+                            if (!indexMap.containsKey(supProp)) {
+                                tarjan(ontologies, supProp, index + 1, stack,
+                                        indexMap, lowlinkMap, result,
+                                        processed, stackProps);
+                                put(prop, lowlinkMap, supProp);
+                            } else if (stackProps.contains(supProp)) {
+                                putIndex(prop, indexMap, lowlinkMap, supProp);
+                            }
+                        }
                     }
-                }
-            }
-        }
+                });
         if (lowlinkMap.get(prop).equals(indexMap.get(prop))) {
             Set<OWLObjectPropertyExpression> scc = new HashSet<>();
             OWLObjectPropertyExpression propPrime;

@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.AxiomType.*;
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSyncSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
 
@@ -907,7 +907,8 @@ public class Internals implements Serializable {
         return false;
     }
 
-    /** @return stream of imports declaration
+    /**
+     * @return stream of imports declaration
      */
     @Nonnull
     public Stream<OWLImportsDeclaration> getImportsDeclarations() {
@@ -1013,13 +1014,10 @@ public class Internals implements Serializable {
      * @return logical axioms
      */
     @Nonnull
-    public Set<OWLLogicalAxiom> getLogicalAxioms() {
-        Set<OWLLogicalAxiom> axioms = createSet();
-        for (AxiomType<?> type : LOGICAL_AXIOM_TYPES) {
-            axiomsByType.getValues(type).forEach(
-                    ax -> axioms.add((OWLLogicalAxiom) ax));
-        }
-        return axioms;
+    public Stream<OWLLogicalAxiom> getLogicalAxioms() {
+        return LOGICAL_AXIOM_TYPES.stream()
+                .map(type -> axiomsByType.values(type, OWLLogicalAxiom.class))
+                .flatMap(x -> x);
     }
 
     /**

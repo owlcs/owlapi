@@ -255,18 +255,19 @@ public abstract class AbstractMacroExpansionVisitor implements
         df = o.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<>();
         expandAssertionToMap = new HashMap<>();
-        for (OWLObjectProperty p : o.getObjectPropertiesInSignature()) {
-            for (OWLAnnotation a : annotations(
-                    o.filterAxioms(Filters.annotations, p.getIRI(), INCLUDED),
-                    df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI()))) {
-                OWLAnnotationValue v = a.getValue();
-                if (v instanceof OWLLiteral) {
-                    String str = ((OWLLiteral) v).getLiteral();
-                    LOG.info("mapping {} to {}", p, str);
-                    expandExpressionMap.put(p.getIRI(), str);
-                }
-            }
-        }
+        o.objectPropertiesInSignature().forEach(
+                p -> annotations(
+                        o.filterAxioms(Filters.annotations, p.getIRI(),
+                                INCLUDED),
+                        df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI()))
+                        .stream().forEach(a -> {
+                            OWLAnnotationValue v = a.getValue();
+                            if (v instanceof OWLLiteral) {
+                                String str = ((OWLLiteral) v).getLiteral();
+                                LOG.info("mapping {} to {}", p.getIRI(), str);
+                                expandExpressionMap.put(p.getIRI(), str);
+                            }
+                        }));
         o.annotationPropertiesInSignature()
                 .forEach(p -> expandAssertions(o, p));
     }

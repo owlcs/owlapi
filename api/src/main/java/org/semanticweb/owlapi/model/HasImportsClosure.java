@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -26,11 +29,30 @@ import javax.annotation.Nonnull;
 public interface HasImportsClosure {
 
     /**
-     * Gets the imports closure, including the root object.
+     * Gets the set of <em>loaded</em> ontologies that this ontology is related
+     * to via the <em>reflexive transitive closure</em> of the directlyImports
+     * relation as defined in Section 3.4 of the OWL 2 Structural Specification.
+     * For example, if this ontology imports ontology B, and ontology B imports
+     * ontology C, then this method will return the set consisting of this
+     * ontology, ontology B and ontology C.
      * 
-     * @return A set of ontology representing the imports closure of this object
-     *         (includes this object).
+     * @return The set of ontologies in the reflexive transitive closure of the
+     *         directlyImports relation.
+     * @throws UnknownOWLOntologyException
+     *         If this ontology is no longer managed by its manager because it
+     *         was removed from the manager.
      */
     @Nonnull
-    Set<OWLOntology> getImportsClosure();
+    default Set<OWLOntology> getImportsClosure() {
+        return importsClosure().collect(toSet());
+    }
+
+    /**
+     * Gets the imports closure, including the root object.
+     * 
+     * @return Stream of ontologies representing the imports closure of this
+     *         object (includes this object).
+     */
+    @Nonnull
+    Stream<OWLOntology> importsClosure();
 }

@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -356,10 +355,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 .getOWLLiteral("1.2", OWL2Datatype.XSD_DECIMAL)));
         String input = "Ontology:\n DataProperty: <urn:a>\n Range: {1.2}";
         OWLOntology o = loadOntologyFromString(input);
-        Set<OWLLogicalAxiom> axioms = o.getLogicalAxioms();
-        for (OWLLogicalAxiom ax : axioms) {
-            assertEquals(expected, ax);
-        }
+        o.logicalAxioms().forEach(ax -> assertEquals(expected, ax));
     }
 
     @Test

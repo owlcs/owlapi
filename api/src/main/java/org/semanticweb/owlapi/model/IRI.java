@@ -480,16 +480,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<OWLLiteral> asLiteral() {
-        return Optional.empty();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -31,7 +31,7 @@ public abstract class InferredDataPropertyAxiomGenerator<A extends OWLDataProper
         extends InferredEntityAxiomGenerator<OWLDataProperty, A> {
 
     @Override
-    protected Set<OWLDataProperty> getEntities(@Nonnull OWLOntology ont) {
-        return ont.getDataPropertiesInSignature();
+    protected Stream<OWLDataProperty> getEntities(@Nonnull OWLOntology ont) {
+        return ont.dataPropertiesInSignature();
     }
 }

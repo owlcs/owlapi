@@ -175,7 +175,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
     @Override
     public void visit(OWLOntology ontology) {
         checkNotNull(ontology, "ontology cannot be null");
-        ontology.getLogicalAxioms().stream().sorted().forEach(ax -> {
+        ontology.logicalAxioms().sorted().forEach(ax -> {
             ax.accept(this);
             write("\n");
         });

@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -41,8 +41,8 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
     }
 
     @Override
-    public Set<OWLEntity> getSignature() {
-        return axiom.getSignature();
+    public Stream<OWLEntity> signature() {
+        return axiom.signature();
     }
 
     @Override

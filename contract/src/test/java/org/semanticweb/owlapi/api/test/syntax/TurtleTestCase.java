@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -311,9 +310,8 @@ public class TurtleTestCase extends TestBase {
         // when
         OWLOntology o = loadOntologyFromString(input);
         // then
-        for (OWLLogicalAxiom ax : o.getLogicalAxioms()) {
-            assertTrue(ax instanceof OWLObjectPropertyDomainAxiom);
-        }
+        o.getLogicalAxioms().forEach(
+                ax -> assertTrue(ax instanceof OWLObjectPropertyDomainAxiom));
     }
 
     @Test
@@ -323,8 +321,7 @@ public class TurtleTestCase extends TestBase {
         // when
         OWLOntology o = loadOntologyFromString(input);
         // then
-        for (OWLLogicalAxiom ax : o.getLogicalAxioms()) {
-            assertTrue(ax instanceof OWLAnnotationAssertionAxiom);
-        }
+        o.getLogicalAxioms().forEach(
+                ax -> assertTrue(ax instanceof OWLAnnotationAssertionAxiom));
     }
 }

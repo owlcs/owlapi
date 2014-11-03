@@ -358,15 +358,13 @@ public class TutorialSnippetsTestCase {
         // from a set of ontologies by removing all referencing axioms
         OWLEntityRemover remover = new OWLEntityRemover(
                 Collections.singleton(o));
-        int previousNumberOfIndividuals = o.getIndividualsInSignature().size();
+        long previousNumberOfIndividuals = o.individualsInSignature().count();
         // Visit all individuals with the remover
         // Changes needed for removal will be prepared
-        for (OWLNamedIndividual ind : o.getIndividualsInSignature()) {
-            ind.accept(remover);
-        }
+        o.individualsInSignature().forEach(i -> i.accept(remover));
         // Now apply the changes
         m.applyChanges(remover.getChanges());
-        int size = o.getIndividualsInSignature().size();
+        long size = o.individualsInSignature().count();
         assertTrue(previousNumberOfIndividuals + " supposed to be larger than "
                 + size, previousNumberOfIndividuals > size);
     }

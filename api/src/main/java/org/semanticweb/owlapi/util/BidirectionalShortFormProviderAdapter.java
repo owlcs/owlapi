@@ -130,20 +130,16 @@ public class BidirectionalShortFormProviderAdapter extends
 
                     @Override
                     public void visit(AddAxiom change) {
-                        for (OWLEntity ent : change.getSignature()) {
-                            if (processed.add(ent)) {
-                                add(ent);
-                            }
-                        }
+                        change.signature().filter(e -> processed.add(e))
+                                .forEach(e -> add(e));
                     }
 
                     @Override
                     public void visit(RemoveAxiom change) {
-                        for (OWLEntity ent : change.getSignature()) {
-                            if (processed.add(ent) && !stillReferenced(ent)) {
-                                remove(ent);
-                            }
-                        }
+                        change.signature()
+                                .filter(e -> processed.add(e)
+                                        && !stillReferenced(e))
+                                .forEach(e -> remove(e));
                     }
                 };
                 chg.accept(v);

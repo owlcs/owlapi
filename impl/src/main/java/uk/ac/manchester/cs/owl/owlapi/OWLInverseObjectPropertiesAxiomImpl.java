@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -87,7 +88,14 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
 
     @Override
     public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
+                getSecondProperty(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
                 getSecondProperty(), mergeAnnos(annotations));
     }

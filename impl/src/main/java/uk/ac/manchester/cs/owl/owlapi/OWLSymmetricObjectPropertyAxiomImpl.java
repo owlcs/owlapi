@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -62,7 +63,14 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
 
     @Override
     public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }

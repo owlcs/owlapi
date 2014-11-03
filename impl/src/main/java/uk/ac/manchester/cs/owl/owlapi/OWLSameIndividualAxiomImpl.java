@@ -16,10 +16,12 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -48,7 +50,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
      */
     public OWLSameIndividualAxiomImpl(
             @Nonnull Set<? extends OWLIndividual> individuals,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 
@@ -62,7 +64,14 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public OWLSameIndividualAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLSameIndividualAxiomImpl(getIndividuals(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLSameIndividualAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLSameIndividualAxiomImpl(getIndividuals(),
                 mergeAnnos(annotations));
     }

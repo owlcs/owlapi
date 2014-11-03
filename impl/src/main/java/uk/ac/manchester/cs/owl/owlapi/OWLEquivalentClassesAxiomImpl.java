@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,7 +70,14 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public OWLEquivalentClassesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLEquivalentClassesAxiomImpl(getClassExpressions(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLEquivalentClassesAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLEquivalentClassesAxiomImpl(getClassExpressions(),
                 mergeAnnos(annotations));
     }

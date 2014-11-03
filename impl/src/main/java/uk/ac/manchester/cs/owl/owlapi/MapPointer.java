@@ -201,6 +201,25 @@ public class MapPointer<K, V extends OWLAxiom> {
     /**
      * @param key
      *        key to look up
+     * @param type
+     *        type of the returned values
+     * @return value
+     */
+    @SuppressWarnings("unchecked")
+    @Nonnull
+    public synchronized <O extends V> Stream<O> values(K key,
+            @SuppressWarnings("unused") Class<O> type) {
+        init();
+        Set<V> t = map.get(key);
+        if (t == null) {
+            return Stream.empty();
+        }
+        return ((Set<O>) t).stream();
+    }
+
+    /**
+     * @param key
+     *        key to look up
      * @return true if there are values for key
      */
     public synchronized boolean hasValues(K key) {

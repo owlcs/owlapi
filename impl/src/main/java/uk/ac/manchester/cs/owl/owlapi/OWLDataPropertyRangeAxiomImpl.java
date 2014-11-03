@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Set;
+import java.util.Collection;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -47,7 +48,7 @@ public class OWLDataPropertyRangeAxiomImpl extends
     public OWLDataPropertyRangeAxiomImpl(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange range,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 
@@ -62,7 +63,13 @@ public class OWLDataPropertyRangeAxiomImpl extends
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAxiom getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
+        return new OWLDataPropertyRangeAxiomImpl(getProperty(), getRange(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotations) {
         return new OWLDataPropertyRangeAxiomImpl(getProperty(), getRange(),
                 mergeAnnos(annotations));
     }

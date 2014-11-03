@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
@@ -24,12 +23,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
@@ -48,24 +43,26 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(printWriter, "writer cannot be null");
         beginWritingOntology(ontology, printWriter);
-        for (OWLObjectProperty prop : new TreeSet<>(
-                ontology.getObjectPropertiesInSignature())) {
-            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
-                    printWriter);
-        }
-        for (OWLDataProperty prop : ontology.dataPropertiesInSignature()
-                .sorted().collect(toList())) {
-            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
-                    printWriter);
-        }
-        for (OWLClass cls : ontology.classesInSignature().sorted()
-                .collect(toList())) {
-            write(ontology, cls, ontology.getAxioms(cls, EXCLUDED), printWriter);
-        }
-        for (OWLNamedIndividual ind : new TreeSet<>(
-                ontology.getIndividualsInSignature())) {
-            write(ontology, ind, ontology.getAxioms(ind, EXCLUDED), printWriter);
-        }
+        ontology.objectPropertiesInSignature()
+                .sorted()
+                .forEach(
+                        p -> write(ontology, p,
+                                ontology.getAxioms(p, EXCLUDED), printWriter));
+        ontology.dataPropertiesInSignature()
+                .sorted()
+                .forEach(
+                        p -> write(ontology, p,
+                                ontology.getAxioms(p, EXCLUDED), printWriter));
+        ontology.classesInSignature()
+                .sorted()
+                .forEach(
+                        c -> write(ontology, c,
+                                ontology.getAxioms(c, EXCLUDED), printWriter));
+        ontology.individualsInSignature()
+                .sorted()
+                .forEach(
+                        i -> write(ontology, i,
+                                ontology.getAxioms(i, EXCLUDED), printWriter));
         beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), printWriter);
         for (OWLAxiom ax : ontology.getGeneralClassAxioms()) {
             beginWritingAxiom(ax, printWriter);

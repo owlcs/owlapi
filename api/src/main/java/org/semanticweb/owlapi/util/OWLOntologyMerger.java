@@ -14,14 +14,11 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -99,23 +96,17 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         } else {
             ontology = ontologyManager.createOntology();
         }
-        List<AddAxiom> changes = new ArrayList<>();
-        for (OWLOntology ont : setProvider.getOntologies()) {
-            for (OWLAxiom ax : getAxioms(ont)) {
-                if (axiomFilter.passes(ax)) {
-                    changes.add(new AddAxiom(ontology, ax));
-                }
-            }
-        }
-        ontologyManager.applyChanges(changes);
+        setProvider.ontologies().flatMap(ont -> getAxioms(ont))
+                .filter(ax -> axiomFilter.passes(ax))
+                .forEach(ax -> ontology.addAxiom(ax));
         return ontology;
     }
 
-    private Set<? extends OWLAxiom> getAxioms(OWLOntology ont) {
+    private Stream<? extends OWLAxiom> getAxioms(OWLOntology ont) {
         if (mergeOnlyLogicalAxioms) {
-            return ont.getLogicalAxioms();
+            return ont.logicalAxioms();
         } else {
-            return ont.getAxioms();
+            return ont.axioms();
         }
     }
 

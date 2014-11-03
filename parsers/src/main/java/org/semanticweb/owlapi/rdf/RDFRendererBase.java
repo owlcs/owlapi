@@ -624,6 +624,7 @@ public abstract class RDFRendererBase {
     @Nonnull
     private static List<OWLEntity> toSortedSet(
             @Nonnull Set<? extends OWLEntity> entities) {
+        // XXX streams
         List<OWLEntity> results = new ArrayList<>(entities);
         Collections.sort(results, (Comparator<OWLEntity>) (o1, o2) -> o1
                 .getIRI().compareTo(o2.getIRI()));

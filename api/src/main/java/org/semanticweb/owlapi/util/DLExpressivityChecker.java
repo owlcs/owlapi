@@ -159,7 +159,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private List<Construct> getOrderedConstructs() {
         constructs.clear();
         constructs.add(AL);
-        ontologies.stream().flatMap(o -> o.getLogicalAxioms().stream())
+        ontologies.stream().flatMap(o -> o.logicalAxioms())
                 .forEach(ax -> ax.accept(this));
         pruneConstructs();
         List<Construct> cons = new ArrayList<>(constructs);

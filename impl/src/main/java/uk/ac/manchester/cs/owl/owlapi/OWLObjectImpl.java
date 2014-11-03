@@ -96,9 +96,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
 
     @Nonnull
     @Override
-    public Set<OWLEntity> getSignature() {
+    public Stream<OWLEntity> signature() {
         try {
-            return signatures.get(this);
+            return signatures.get(this).stream();
         } catch (ExecutionException e) {
             throw new OWLRuntimeException(e);
         }
@@ -118,53 +118,42 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
 
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
-        return getSignature().contains(owlEntity);
+        return signature().anyMatch(e -> e.equals(owlEntity));
     }
 
     @Override
     public Stream<OWLClass> classesInSignature() {
-        return getSignature().stream().filter(e -> e.isOWLClass())
-                .map(e -> e.asOWLClass());
+        return signature().filter(e -> e.isOWLClass()).map(e -> e.asOWLClass());
     }
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return getSignature().stream().filter(e -> e.isOWLDataProperty())
-                .map(e -> e.asOWLDataProperty());
+        return signature().filter(e -> e.isOWLDataProperty()).map(
+                e -> e.asOWLDataProperty());
     }
 
     @Override
-    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        Set<OWLObjectProperty> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLObjectProperty()) {
-                result.add(ent.asOWLObjectProperty());
-            }
-        }
-        return result;
+    public Stream<OWLObjectProperty> objectPropertiesInSignature() {
+        return signature().filter(e -> e.isOWLObjectProperty()).map(
+                e -> e.asOWLObjectProperty());
     }
 
     @Override
-    public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        Set<OWLNamedIndividual> result = new HashSet<>();
-        for (OWLEntity ent : getSignature()) {
-            if (ent.isOWLNamedIndividual()) {
-                result.add(ent.asOWLNamedIndividual());
-            }
-        }
-        return result;
+    public Stream<OWLNamedIndividual> individualsInSignature() {
+        return signature().filter(e -> e.isOWLNamedIndividual()).map(
+                e -> e.asOWLNamedIndividual());
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return getSignature().stream().filter(e -> e.isOWLDatatype())
-                .map(e -> e.asOWLDatatype());
+        return signature().filter(e -> e.isOWLDatatype()).map(
+                e -> e.asOWLDatatype());
     }
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return getSignature().stream().filter(e -> e.isOWLAnnotationProperty())
-                .map(e -> e.asOWLAnnotationProperty());
+        return signature().filter(e -> e.isOWLAnnotationProperty()).map(
+                e -> e.asOWLAnnotationProperty());
     }
 
     @Override

@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -68,7 +68,7 @@ public abstract class OntologyAnnotationChangeData extends
     }
 
     @Override
-    public Set<OWLEntity> getSignature() {
-        return annotation.getSignature();
+    public Stream<OWLEntity> signature() {
+        return annotation.signature();
     }
 }

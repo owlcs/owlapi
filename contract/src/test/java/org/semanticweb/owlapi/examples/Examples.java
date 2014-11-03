@@ -885,9 +885,7 @@ public class Examples extends TestBase {
         // remover will automatically accumulate the changes which are necessary
         // to remove the individual from the ontologies (the pizza ontology)
         // which it knows about
-        for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
-            ind.accept(remover);
-        }
+        ont.individualsInSignature().forEach(i -> i.accept(remover));
         // Now we get all of the changes from the entity remover, which should
         // be applied to remove all of the individuals that we have visited from
         // the pizza ontology. Notice that "batch" deletes can essentially be

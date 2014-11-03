@@ -17,7 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -32,9 +32,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLSubPropertyChainAxiomImpl extends
-        OWLPropertyAxiomImpl implements
-        OWLSubPropertyChainOfAxiom {
+public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
+        implements OWLSubPropertyChainOfAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -63,7 +62,14 @@ public class OWLSubPropertyChainAxiomImpl extends
 
     @Override
     public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(),
+                getSuperProperty(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLSubPropertyChainAxiomImpl(getPropertyChain(),
                 getSuperProperty(), mergeAnnos(annotations));
     }

@@ -34,6 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -202,18 +203,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntology> getOntologies() {
-        return new HashSet<>(ontologiesByID.values());
-    }
-
-    @Override
     public Set<OWLOntology> getOntologies(OWLAxiom axiom) {
         return ontologies().filter(o -> o.containsAxiom(axiom))
                 .collect(toSet());
     }
 
-    /** @return stream of ontologies */
-    protected Stream<OWLOntology> ontologies() {
+    @Override
+    public Stream<OWLOntology> ontologies() {
         return ontologiesByID.values().stream();
     }
 
@@ -363,18 +359,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntology> getImportsClosure(OWLOntology ontology) {
-        Set<OWLOntology> ontologies = importsClosureCache.get(ontology
-                .getOntologyID());
-        if (ontologies == null) {
-            ontologies = new LinkedHashSet<>();
-            getImportsClosure(ontology, ontologies);
-            // store the wrapped set
-            importsClosureCache.put(ontology.getOntologyID(), ontologies);
-        }
-        // the returned set can be mutated, but changes will not be propagated
-        // back
-        return copyMutable(ontologies);
+    public Stream<OWLOntology> importsClosure(OWLOntology ontology) {
+        OWLOntologyID id = ontology.getOntologyID();
+        return importsClosureCache.computeIfAbsent(id,
+                i -> getImportsClosure(ontology, new LinkedHashSet<>()))
+                .stream();
     }
 
     /**
@@ -386,7 +375,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @param ontologies
      *        a place to store the result
      */
-    private void getImportsClosure(@Nonnull OWLOntology ontology,
+    private Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology,
             @Nonnull Set<OWLOntology> ontologies) {
         ontologies.add(ontology);
         for (OWLOntology ont : getDirectImports(ontology)) {
@@ -394,11 +383,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 getImportsClosure(ont, ontologies);
             }
         }
+        return ontologies;
     }
 
     @Override
     public List<OWLOntology> getSortedImportsClosure(OWLOntology ontology) {
-        return new ArrayList<>(ontology.getImportsClosure());
+        return ontology.importsClosure().sorted().collect(toList());
     }
 
     /**
@@ -502,7 +492,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public List<OWLOntologyChange> removeAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Set<? extends OWLAxiom> axioms) {
+            @Nonnull Collection<? extends OWLAxiom> axioms) {
         List<RemoveAxiom> changes = new ArrayList<>(axioms.size() + 2);
         axioms.forEach(ax -> changes.add(new RemoveAxiom(ont, ax)));
         return applyChanges(changes);
@@ -640,13 +630,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     of(ontologyIRI), Optional.empty()));
         }
         OWLOntology ont = createOntology(ontologyIRI);
-        Set<OWLAxiom> axioms = new HashSet<>();
-        if (copyLogicalAxiomsOnly) {
-            ontologies.forEach(o -> axioms.addAll(o.getLogicalAxioms()));
-        } else {
-            ontologies.forEach(o -> axioms.addAll(o.getAxioms()));
-        }
-        addAxioms(ont, axioms);
+        Function<? super OWLOntology, ? extends Stream<? extends OWLAxiom>> mapper = o -> copyLogicalAxiomsOnly ? o
+                .logicalAxioms() : o.axioms();
+        addAxioms(ont, ontologies.stream().flatMap(mapper).collect(toSet()));
         return ont;
     }
 

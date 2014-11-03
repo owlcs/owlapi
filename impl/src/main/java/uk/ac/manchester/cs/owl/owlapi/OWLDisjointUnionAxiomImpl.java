@@ -15,9 +15,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -55,7 +57,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
      */
     public OWLDisjointUnionAxiomImpl(@Nonnull OWLClass owlClass,
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
         this.classExpressions = new TreeSet<>(checkNotNull(classExpressions,
@@ -78,7 +80,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public OWLDisjointUnionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(),
+                getClassExpressions(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLDisjointUnionAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLDisjointUnionAxiomImpl(getOWLClass(),
                 getClassExpressions(), mergeAnnos(annotations));
     }

@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -72,14 +73,14 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(ontologyChangeListener);
         reasonerAxioms = new HashSet<>();
-        for (OWLOntology ont : rootOntology.getImportsClosure()) {
-            for (OWLAxiom ax : ont.getLogicalAxioms()) {
-                reasonerAxioms.add(ax.getAxiomWithoutAnnotations());
-            }
-            for (OWLAxiom ax : ont.getAxioms(AxiomType.DECLARATION)) {
-                reasonerAxioms.add(ax.getAxiomWithoutAnnotations());
-            }
-        }
+        rootOntology
+                .importsClosure()
+                .flatMap(
+                        o -> Stream.concat(o.logicalAxioms(),
+                                o.axioms(AxiomType.DECLARATION)))
+                .forEach(
+                        ax -> reasonerAxioms.add(ax
+                                .getAxiomWithoutAnnotations()));
     }
 
     /** @return the configuration */
@@ -172,18 +173,18 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         if (rawChanges.isEmpty()) {
             return;
         }
-        for (OWLOntology ont : rootOntology.getImportsClosure()) {
-            for (OWLAxiom ax : ont.getLogicalAxioms()) {
-                if (!reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())) {
-                    added.add(ax);
-                }
-            }
-            for (OWLAxiom ax : ont.getAxioms(AxiomType.DECLARATION)) {
-                if (!reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())) {
-                    added.add(ax);
-                }
-            }
-        }
+        rootOntology
+                .importsClosure()
+                .flatMap(o -> o.logicalAxioms())
+                .filter(ax -> !reasonerAxioms.contains(ax
+                        .getAxiomWithoutAnnotations()))
+                .forEach(ax -> added.add(ax));
+        rootOntology
+                .importsClosure()
+                .flatMap(o -> o.axioms(AxiomType.DECLARATION))
+                .filter(ax -> !reasonerAxioms.contains(ax
+                        .getAxiomWithoutAnnotations()))
+                .forEach(ax -> added.add(ax));
         for (OWLAxiom ax : reasonerAxioms) {
             if (!rootOntology.containsAxiom(ax, Imports.INCLUDED,
                     AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS)) {

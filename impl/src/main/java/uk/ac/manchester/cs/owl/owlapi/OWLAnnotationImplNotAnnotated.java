@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -75,11 +75,17 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
 
     @Override
     public OWLAnnotation getAnnotatedAnnotation(
-            @Nonnull Set<OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         if (annotations.isEmpty()) {
             return this;
         }
-        return new OWLAnnotationImpl(property, value, annotations.stream());
+        return getAnnotatedAnnotation(annotations.stream());
+    }
+
+    @Override
+    public OWLAnnotation getAnnotatedAnnotation(
+            @Nonnull Stream<OWLAnnotation> annotations) {
+        return new OWLAnnotationImpl(property, value, annotations);
     }
 
     @Override

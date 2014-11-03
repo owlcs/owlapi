@@ -13,7 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -59,7 +59,14 @@ public class OWLSubObjectPropertyOfAxiomImpl extends
 
     @Override
     public OWLSubObjectPropertyOfAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(),
+                getSuperProperty(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLSubObjectPropertyOfAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(),
                 getSuperProperty(), mergeAnnos(annotations));
     }

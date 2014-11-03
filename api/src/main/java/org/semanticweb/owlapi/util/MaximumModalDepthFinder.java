@@ -63,7 +63,7 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLOntology ontology) {
-        return ontology.getLogicalAxioms().stream()
+        return ontology.logicalAxioms()
                 .mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
     }
 

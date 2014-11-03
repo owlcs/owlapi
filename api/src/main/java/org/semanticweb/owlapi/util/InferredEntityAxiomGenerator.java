@@ -12,8 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -42,14 +45,10 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
             @Nonnull OWLReasoner reasoner) {
         Set<E> processedEntities = new HashSet<>();
         Set<A> result = new HashSet<>();
-        for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
-            for (E entity : getEntities(ont)) {
-                if (!processedEntities.contains(entity)) {
-                    processedEntities.add(entity);
-                    addAxioms(entity, reasoner, df, result);
-                }
-            }
-        }
+        reasoner.getRootOntology().importsClosure()
+                .flatMap(o -> getEntities(o))
+                .filter(e -> processedEntities.add(e))
+                .forEach(e -> addAxioms(e, reasoner, df, result));
         return result;
     }
 
@@ -79,14 +78,11 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
      * @return A set of entities.
      */
     @Nonnull
-    protected abstract Set<E> getEntities(@Nonnull OWLOntology ont);
+    protected abstract Stream<E> getEntities(@Nonnull OWLOntology ont);
 
     protected Set<E> getAllEntities(OWLReasoner reasoner) {
-        Set<E> results = new HashSet<>();
-        for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
-            results.addAll(getEntities(ont));
-        }
-        return results;
+        return reasoner.getRootOntology().importsClosure()
+                .flatMap(o -> getEntities(o)).collect(toSet());
     }
 
     @Override

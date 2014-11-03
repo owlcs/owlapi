@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 
@@ -33,10 +34,9 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 public class DefinitionTracker implements OWLOntologyChangeListener {
 
     /** Mapping from entities to the number of axioms. */
-    private final Map<OWLEntity, Integer> referenceCounts = new HashMap<>();
+    private final Map<OWLEntity, AtomicInteger> referenceCounts = new HashMap<>();
     private final OWLOntology ontology;
     private final Set<OWLAxiom> axioms = new HashSet<>();
-    private static final Integer ONE = Integer.valueOf(1);
 
     /**
      * Instantiates a new definition tracker.
@@ -46,36 +46,27 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      */
     public DefinitionTracker(@Nonnull OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        for (OWLOntology importOnt : ontology.getImportsClosure()) {
-            importOnt.axioms().forEach(ax -> addAxiom(ax));
-        }
+        ontology.importsClosure().flatMap(o -> o.axioms())
+                .forEach(ax -> addAxiom(ax));
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
     }
 
     private void addAxiom(@Nonnull OWLAxiom axiom) {
         if (axioms.add(axiom)) {
-            for (OWLEntity entity : axiom.getSignature()) {
-                Integer count = referenceCounts.get(entity);
-                if (count == null) {
-                    count = ONE;
-                } else {
-                    count += 1;
-                }
-                referenceCounts.put(entity, count);
-            }
+            axiom.signature().forEach(
+                    e -> referenceCounts.computeIfAbsent(e,
+                            x -> new AtomicInteger(0)).incrementAndGet());
         }
     }
 
     private void removeAxiom(@Nonnull OWLAxiom axiom) {
         if (axioms.remove(axiom)) {
-            for (OWLEntity entity : axiom.getSignature()) {
-                Integer count = referenceCounts.get(entity);
-                if (count == 1) {
-                    referenceCounts.remove(entity);
-                } else {
-                    referenceCounts.put(entity, count - 1);
+            axiom.signature().forEach(e -> {
+                AtomicInteger count = referenceCounts.get(e);
+                if (count != null && count.decrementAndGet() == 0) {
+                    referenceCounts.remove(e);
                 }
-            }
+            });
         }
     }
 
@@ -106,13 +97,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      *         the given ontology
      */
     public boolean isDefined(@Nonnull OWLClassExpression classExpression) {
-        for (OWLEntity entity : checkNotNull(classExpression,
-                "classExpression cannot be null").getSignature()) {
-            if (!isDefined(entity)) {
-                return false;
-            }
-        }
-        return true;
+        checkNotNull(classExpression, "classExpression cannot be null");
+        return !classExpression.signature().anyMatch(e -> !isDefined(e));
     }
 
     @Override

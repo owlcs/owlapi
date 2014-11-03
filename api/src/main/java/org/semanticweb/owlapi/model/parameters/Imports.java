@@ -36,7 +36,7 @@ public enum Imports {
 
         @Override
         public Stream<OWLOntology> stream(OWLOntology o) {
-            return o.getImportsClosure().stream();
+            return o.importsClosure();
         }
 
         @Override

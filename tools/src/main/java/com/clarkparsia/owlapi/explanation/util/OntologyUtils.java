@@ -48,14 +48,9 @@ public final class OntologyUtils {
             @Nonnull OWLOntology ontology, @Nonnull OWLClassExpression desc) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(desc, "desc cannot be null");
-        for (OWLEntity entity : desc.getSignature()) {
-            if (!ontology.containsEntityInSignature(entity)) {
-                if (!thingOrNothing(entity)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return desc.signature().anyMatch(
+                e -> !ontology.containsEntityInSignature(e)
+                        && !thingOrNothing(e));
     }
 
     protected static boolean thingOrNothing(OWLEntity entity) {

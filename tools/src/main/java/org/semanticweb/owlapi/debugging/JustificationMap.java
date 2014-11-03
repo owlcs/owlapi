@@ -174,7 +174,7 @@ public class JustificationMap {
         OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
         parentAxiom.accept(extractor);
         Set<OWLAxiom> result = new HashSet<>();
-        extractor.getRHS().stream().flatMap(o -> o.getSignature().stream())
+        extractor.getRHS().stream().flatMap(o -> o.signature())
                 .flatMap(e -> getAxiomsByLHS(e).stream())
                 .filter(ax -> usedAxioms.add(ax)).forEach(ax -> result.add(ax));
         return result;

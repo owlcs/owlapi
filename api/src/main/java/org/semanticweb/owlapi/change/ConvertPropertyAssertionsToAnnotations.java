@@ -115,7 +115,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
 
     private void generateChanges() {
         Stream<OWLNamedIndividual> inds = ontologies().flatMap(
-                o -> o.getIndividualsInSignature().stream());
+                o -> o.individualsInSignature());
         getPunnedIndividuals(inds).forEach(ind -> convertToAnnotations(ind));
     }
 

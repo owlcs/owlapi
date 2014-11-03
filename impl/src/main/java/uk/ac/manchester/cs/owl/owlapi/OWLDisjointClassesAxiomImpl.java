@@ -13,10 +13,12 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -44,7 +46,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
      */
     public OWLDisjointClassesAxiomImpl(
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
@@ -60,7 +62,14 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public OWLDisjointClassesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
+                mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLDisjointClassesAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
                 mergeAnnos(annotations));
     }

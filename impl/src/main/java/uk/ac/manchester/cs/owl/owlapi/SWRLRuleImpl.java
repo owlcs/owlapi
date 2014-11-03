@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -42,8 +43,7 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLRuleImpl extends OWLLogicalAxiomImpl
-        implements SWRLRule {
+public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     private static final long serialVersionUID = 40000L;
     private final LinkedHashSet<SWRLAtom> head;
@@ -80,8 +80,15 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(@Nonnull Set<OWLAnnotation> annotations) {
-        return new SWRLRuleImpl(getBody(), getHead(), annotations);
+    public OWLAxiom getAnnotatedAxiom(
+            @Nonnull Collection<OWLAnnotation> annotations) {
+        return new SWRLRuleImpl(getBody(), getHead(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLAxiom
+            getAnnotatedAxiom(@Nonnull Stream<OWLAnnotation> annotations) {
+        return new SWRLRuleImpl(getBody(), getHead(), mergeAnnos(annotations));
     }
 
     /**

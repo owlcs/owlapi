@@ -14,10 +14,8 @@ package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -74,17 +72,12 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         OWLOntology o = ontology;
         try {
             ontology = man
-                    .createOntology(IRI
-                            .getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"));
+                    .createOntology(
+                            IRI.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
+                            o.getImportsClosure(), true);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
-        List<AddAxiom> changes = new ArrayList<>();
-        for (OWLOntology ont : o.getImportsClosure()) {
-            ont.getLogicalAxioms().forEach(
-                    ax -> changes.add(new AddAxiom(ontology, ax)));
-        }
-        man.applyChanges(changes);
     }
 
     /**

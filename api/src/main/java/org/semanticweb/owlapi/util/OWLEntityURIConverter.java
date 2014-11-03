@@ -92,9 +92,9 @@ public class OWLEntityURIConverter {
             ont.classesInSignature()
                     .filter(c -> !c.isOWLThing() && !c.isOWLNothing())
                     .forEach(c -> processEntity(c));
-            ont.getObjectPropertiesInSignature().forEach(p -> processEntity(p));
+            ont.objectPropertiesInSignature().forEach(p -> processEntity(p));
             ont.dataPropertiesInSignature().forEach(p -> processEntity(p));
-            ont.getIndividualsInSignature().forEach(i -> processEntity(i));
+            ont.individualsInSignature().forEach(i -> processEntity(i));
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap,
                 manager.getOWLDataFactory());

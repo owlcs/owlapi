@@ -15,7 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -89,7 +89,14 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public OWLAnnotationAssertionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotations) {
+        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
+                getValue(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLAnnotationAssertionAxiom getAnnotatedAxiom(
+            Stream<OWLAnnotation> annotations) {
         return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
                 getValue(), mergeAnnos(annotations));
     }

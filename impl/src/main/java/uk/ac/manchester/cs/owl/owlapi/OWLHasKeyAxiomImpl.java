@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -72,7 +73,14 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     }
 
     @Override
-    public OWLHasKeyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLHasKeyAxiom getAnnotatedAxiom(
+            Collection<OWLAnnotation> annotations) {
+        return new OWLHasKeyAxiomImpl(getClassExpression(),
+                getPropertyExpressions(), mergeAnnos(annotations));
+    }
+
+    @Override
+    public OWLHasKeyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotations) {
         return new OWLHasKeyAxiomImpl(getClassExpression(),
                 getPropertyExpressions(), mergeAnnos(annotations));
     }

@@ -20,7 +20,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -35,11 +34,11 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxioms(ont, createAxioms());
-        for (OWLEntity entity : ont.getSignature()) {
-            if (!entity.isBuiltIn() && !ont.isDeclared(entity, INCLUDED)) {
-                ont.getOWLOntologyManager().addAxiom(ont, Declaration(entity));
-            }
-        }
+        ont.signature()
+                .filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
+                .forEach(
+                        e -> ont.getOWLOntologyManager().addAxiom(ont,
+                                Declaration(e)));
         return ont;
     }
 

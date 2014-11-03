@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -43,15 +43,6 @@ public class ReferencedEntitySetProvider implements
 
     @Override
     public Set<OWLEntity> getEntities() {
-        Set<OWLEntity> entities = new HashSet<>();
-        for (OWLOntology ont : ontologies) {
-            entities.addAll(ont.getClassesInSignature());
-            entities.addAll(ont.getObjectPropertiesInSignature());
-            entities.addAll(ont.getDataPropertiesInSignature());
-            entities.addAll(ont.getIndividualsInSignature());
-            entities.addAll(ont.getAnnotationPropertiesInSignature());
-            entities.addAll(ont.getDatatypesInSignature());
-        }
-        return entities;
+        return ontologies.stream().flatMap(o -> o.signature()).collect(toSet());
     }
 }

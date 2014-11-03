@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -185,7 +186,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLLogicalAxiom> getLogicalAxioms() {
+    public Stream<OWLLogicalAxiom> logicalAxioms() {
         return ints.getLogicalAxioms();
     }
 
@@ -218,7 +219,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public Set<OWLLogicalAxiom> getLogicalAxioms(Imports imports) {
-        return imports.collect(this, o -> o.getLogicalAxioms().stream());
+        return imports.collect(this, o -> o.logicalAxioms());
     }
 
     @Nonnull
@@ -341,27 +342,15 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri) {
-        Set<OWLEntity> result = createSet(6);
-        if (containsClassInSignature(iri)) {
-            result.add(df.getOWLClass(iri));
-        }
-        if (containsObjectPropertyInSignature(iri)) {
-            result.add(df.getOWLObjectProperty(iri));
-        }
-        if (containsDataPropertyInSignature(iri)) {
-            result.add(df.getOWLDataProperty(iri));
-        }
-        if (containsIndividualInSignature(iri)) {
-            result.add(df.getOWLNamedIndividual(iri));
-        }
-        if (containsDatatypeInSignature(iri)) {
-            result.add(df.getOWLDatatype(iri));
-        }
-        if (containsAnnotationPropertyInSignature(iri)) {
-            result.add(df.getOWLAnnotationProperty(iri));
-        }
-        return result;
+    public Stream<OWLEntity> entitiesInSignature(@Nonnull IRI iri) {
+        Predicate<? super OWLEntity> matchIRI = c -> c.getIRI().equals(iri);
+        return Stream.of(classesInSignature().filter(matchIRI),
+                objectPropertiesInSignature().filter(matchIRI),
+                dataPropertiesInSignature().filter(matchIRI),
+                individualsInSignature().filter(matchIRI),
+                datatypesInSignature().filter(matchIRI),
+                annotationPropertiesInSignature().filter(matchIRI)).flatMap(
+                x -> x);
     }
 
     @Override
@@ -376,13 +365,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         Set<IRI> test = new HashSet<>();
         imports.stream(this).forEach(
                 (o) -> {
-                    Stream.of(o.getClassesInSignature(),
-                            o.getDataPropertiesInSignature(),
-                            o.getObjectPropertiesInSignature(),
-                            o.getAnnotationPropertiesInSignature(),
-                            o.getDatatypesInSignature(),
-                            o.getIndividualsInSignature())
-                            .flatMap(s -> s.stream())
+                    Stream.of(o.classesInSignature(),
+                            o.dataPropertiesInSignature(),
+                            o.objectPropertiesInSignature(),
+                            o.annotationPropertiesInSignature(),
+                            o.datatypesInSignature(),
+                            o.individualsInSignature()).flatMap(s -> s)
                             .filter(e -> test.add(e.getIRI()))
                             .forEach(e -> punned.add(e.getIRI()));
                 });
@@ -429,22 +417,16 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLEntity> getSignature() {
-        // We might want to cache this for performance reasons,
-        // but I'm not sure right now.
-        Set<OWLEntity> entities = createSet();
-        entities.addAll(getClassesInSignature());
-        entities.addAll(getObjectPropertiesInSignature());
-        entities.addAll(getDataPropertiesInSignature());
-        entities.addAll(getIndividualsInSignature());
-        entities.addAll(getDatatypesInSignature());
-        entities.addAll(getAnnotationPropertiesInSignature());
-        return entities;
+    public Stream<OWLEntity> signature() {
+        return Stream.of(classesInSignature(), objectPropertiesInSignature(),
+                dataPropertiesInSignature(), individualsInSignature(),
+                datatypesInSignature(), annotationPropertiesInSignature())
+                .flatMap(x -> x);
     }
 
     @Override
     public Set<OWLEntity> getSignature(Imports imports) {
-        return imports.collect(this, o -> o.getSignature().stream());
+        return imports.collect(this, o -> o.signature());
     }
 
     @Nonnull
@@ -472,15 +454,15 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return asSet(ints.get(OWLObjectProperty.class, OWLAxiom.class).get()
-                .keySet());
+    public Stream<OWLObjectProperty> objectPropertiesInSignature() {
+        return ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet()
+                .stream();
     }
 
     @Override
-    public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return asSet(ints.get(OWLNamedIndividual.class, OWLAxiom.class).get()
-                .keySet());
+    public Stream<OWLNamedIndividual> individualsInSignature() {
+        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).get()
+                .keySet().stream();
     }
 
     @Override
@@ -497,8 +479,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public Set<OWLObjectProperty>
             getObjectPropertiesInSignature(Imports imports) {
-        return imports.collect(this, o -> o.getObjectPropertiesInSignature()
-                .stream());
+        return imports.collect(this, o -> o.objectPropertiesInSignature());
     }
 
     @Override
@@ -508,8 +489,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature(Imports imports) {
-        return imports.collect(this, o -> o.getIndividualsInSignature()
-                .stream());
+        return imports.collect(this, o -> o.individualsInSignature());
     }
 
     @Override
@@ -566,8 +546,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLOntology> getImportsClosure() {
-        return getOWLOntologyManager().getImportsClosure(this);
+    public Stream<OWLOntology> importsClosure() {
+        return getOWLOntologyManager().importsClosure(this);
     }
 
     // Utility methods for getting/setting various values in maps and sets

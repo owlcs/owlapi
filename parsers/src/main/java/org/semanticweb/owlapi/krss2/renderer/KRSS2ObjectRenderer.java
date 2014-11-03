@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
-import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.*;
@@ -487,7 +487,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             }
         }
         for (OWLNamedIndividual individual : sort(ontology
-                .getIndividualsInSignature())) {
+                .individualsInSignature().collect(toList()))) {
             if (ignoreDeclarations) {
                 if (ontology.getAxioms(individual, EXCLUDED).size() == 1
                         && ontology.getDeclarationAxioms(individual).size() == 1) {
