@@ -30,7 +30,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
@@ -1067,7 +1066,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ont.getAxioms(ind, Imports.EXCLUDED)) {
+                for (OWLAxiom ax : ont.getAxioms(ind)) {
                     if (root == null || !root.equals(ax)) {
                         ax.accept(this);
                     }
@@ -1083,8 +1082,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                ont.axioms(ind, Imports.EXCLUDED)
-                        .forEach(ax -> ax.accept(this));
+                ont.axioms(ind).forEach(ax -> ax.accept(this));
                 ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())
                         .forEach(ax -> ax.accept(this));
             }

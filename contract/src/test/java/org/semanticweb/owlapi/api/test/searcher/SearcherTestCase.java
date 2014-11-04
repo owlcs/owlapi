@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.searcher;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.util.Collection;
@@ -42,7 +42,7 @@ public class SearcherTestCase extends TestBase {
         OWLAxiom ax = SubClassOf(c, d);
         o.getOWLOntologyManager().addAxiom(o, ax);
         assertTrue(o.getAxioms(AxiomType.SUBCLASS_OF).contains(ax));
-        assertTrue(o.getAxioms(c, EXCLUDED).contains(ax));
+        assertTrue(o.getAxioms(c).contains(ax));
     }
 
     @Test

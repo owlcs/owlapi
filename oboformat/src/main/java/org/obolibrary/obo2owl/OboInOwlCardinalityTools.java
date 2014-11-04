@@ -186,10 +186,10 @@ public final class OboInOwlCardinalityTools {
                 TAG_IS_TRANSITIVE, TAG_IS_FUNCTIONAL,
                 TAG_IS_INVERSE_FUNCTIONAL, TAG_IS_OBSELETE, TAG_CREATED_BY,
                 TAG_CREATION_DATE);
-        ontology.getClassesInSignature(INCLUDED).forEach(
+        ontology.classesInSignature(INCLUDED).forEach(
                 c -> checkOwlEntity(c, properties, ontology, reporter, handler,
                         manager));
-        ontology.getObjectPropertiesInSignature(INCLUDED).forEach(
+        ontology.objectPropertiesInSignature(INCLUDED).forEach(
                 p -> checkOwlEntity(p, properties, ontology, reporter, handler,
                         manager));
     }

@@ -310,7 +310,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         reset();
         for (OWLClass eachClass : ontology.getClassesInSignature()) {
             if (ignoreDeclarations) {
-                if (ontology.getAxioms(eachClass, EXCLUDED).size() == 1
+                if (ontology.getAxioms(eachClass).size() == 1
                         && ontology.getDeclarationAxioms(eachClass).size() == 1) {
                     continue;
                 }

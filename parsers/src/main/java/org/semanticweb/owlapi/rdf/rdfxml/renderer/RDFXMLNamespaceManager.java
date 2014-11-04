@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -51,8 +50,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
                 ax -> entities.addAll(ax.getProperty().getSignature()));
         getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION).forEach(
                 ax -> entities.add(ax.getProperty().asOWLDataProperty()));
-        entities.addAll(getOntology().getAnnotationPropertiesInSignature(
-                EXCLUDED));
+        entities.addAll(getOntology().getAnnotationPropertiesInSignature());
         return entities;
     }
 

@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @since 4.0.0
  */
 public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
-        HasAxiomsByType, HasContainsAxiom {
+        HasAxiomsByType, HasContainsAxiom, HasImportsClosure {
 
     /**
      * @param includeImportsClosure
@@ -43,13 +43,15 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     }
 
     /**
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return stream of All of the axioms in this collection, and optionally in
      *         the import closure.
      */
     @Nonnull
-    Stream<OWLAxiom> axioms(@Nonnull Imports includeImportsClosure);
+    default Stream<OWLAxiom> axioms(@Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.axioms());
+    }
 
     /**
      * @return The number of axioms in this ontology.
@@ -134,15 +136,17 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * 
      * @param axiomType
      *        The type of axioms to be retrived.
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return stream of all axioms of the specified type.
      * @param <T>
      *        axiom type
      */
     @Nonnull
-    <T extends OWLAxiom> Stream<T> axioms(@Nonnull AxiomType<T> axiomType,
-            @Nonnull Imports includeImportsClosure);
+    default <T extends OWLAxiom> Stream<T> axioms(
+            @Nonnull AxiomType<T> axiomType, @Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.axioms(axiomType));
+    }
 
     /**
      * Gets the axiom count of a specific type of axiom.
@@ -307,13 +311,16 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param owlEntity
      *        The entity that should be directly referred to by all axioms in
      *        the results set.
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return stream of all axioms referencing the entity.
      */
     @Nonnull
-    Stream<OWLAxiom> referencingAxioms(@Nonnull OWLPrimitive owlEntity,
-            @Nonnull Imports includeImportsClosure);
+    default Stream<OWLAxiom> referencingAxioms(@Nonnull OWLPrimitive owlEntity,
+            @Nonnull Imports imports) {
+        return imports.stream(this)
+                .flatMap(o -> o.referencingAxioms(owlEntity));
+    }
 
     // Axioms that form part of a description of a named entity
     /**
@@ -393,7 +400,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * 
      * @param cls
      *        The class whose describing axioms are to be retrieved.
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return A stream of class axioms that describe the class. This includes
      *         <ul>
@@ -408,8 +415,10 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      */
     @Nonnull
-    Stream<OWLClassAxiom> axioms(@Nonnull OWLClass cls,
-            @Nonnull Imports includeImportsClosure);
+    default Stream<OWLClassAxiom> axioms(@Nonnull OWLClass cls,
+            @Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.axioms(cls));
+    }
 
     /**
      * Gets the axioms that form the definition/description of an object
@@ -514,7 +523,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * 
      * @param property
      *        The property whose defining axioms are to be retrieved.
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return A stream of object property axioms that includes
      *         <ul>
@@ -536,9 +545,11 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      */
     @Nonnull
-    Stream<OWLObjectPropertyAxiom> axioms(
+    default Stream<OWLObjectPropertyAxiom> axioms(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Imports includeImportsClosure);
+            @Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.axioms(property));
+    }
 
     /**
      * Gets the axioms that form the definition/description of a data property.
@@ -626,7 +637,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * 
      * @param property
      *        The property whose defining axioms are to be retrieved.
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return A stream of data property axioms that includes
      *         <ul>
@@ -644,8 +655,10 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      */
     @Nonnull
-    Stream<OWLDataPropertyAxiom> axioms(@Nonnull OWLDataProperty property,
-            @Nonnull Imports includeImportsClosure);
+    default Stream<OWLDataPropertyAxiom> axioms(
+            @Nonnull OWLDataProperty property, @Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.axioms(property));
+    }
 
     /**
      * Gets the axioms that form the definition/description of an individual.
@@ -742,7 +755,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * 
      * @param individual
      *        The individual whose defining axioms are to be retrieved.
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return A stream of individual axioms that includes
      *         <ul>
@@ -763,8 +776,10 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      */
     @Nonnull
-    Stream<OWLIndividualAxiom> axioms(@Nonnull OWLIndividual individual,
-            @Nonnull Imports includeImportsClosure);
+    default Stream<OWLIndividualAxiom> axioms(
+            @Nonnull OWLIndividual individual, @Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.axioms(individual));
+    }
 
     /**
      * Gets the axioms that form the definition/description of an annotation
@@ -806,7 +821,16 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      */
     @Nonnull
-    Stream<OWLAnnotationAxiom> axioms(@Nonnull OWLAnnotationProperty property);
+    default Stream<OWLAnnotationAxiom> axioms(
+            @Nonnull OWLAnnotationProperty property) {
+        return Stream.of(
+                axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).filter(
+                        a -> a.getSubProperty().equals(property)),
+                axioms(AxiomType.ANNOTATION_PROPERTY_RANGE).filter(
+                        a -> a.getProperty().equals(property)),
+                axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN).filter(
+                        a -> a.getProperty().equals(property))).flatMap(x -> x);
+    }
 
     /**
      * Gets the axioms that form the definition/description of an annotation
@@ -840,7 +864,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * 
      * @param property
      *        The property whose definition axioms are to be retrieved
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return A stream of axioms that includes
      *         <ul>
@@ -853,8 +877,10 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      */
     @Nonnull
-    Stream<OWLAnnotationAxiom> axioms(@Nonnull OWLAnnotationProperty property,
-            @Nonnull Imports includeImportsClosure);
+    default Stream<OWLAnnotationAxiom> axioms(
+            @Nonnull OWLAnnotationProperty property, @Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.axioms(property));
+    }
 
     /**
      * Gets the datatype definition axioms for the specified datatype.
@@ -902,12 +928,15 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * 
      * @param datatype
      *        The datatype
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return The set of datatype definition axioms for the specified datatype.
      *         The set is a copy of the data.
      */
     @Nonnull
-    Stream<OWLDatatypeDefinitionAxiom> axioms(@Nonnull OWLDatatype datatype,
-            @Nonnull Imports includeImportsClosure);
+    default Stream<OWLDatatypeDefinitionAxiom> axioms(
+            @Nonnull OWLDatatype datatype, @Nonnull Imports imports) {
+        return imports.stream(this).flatMap(
+                o -> o.datatypeDefinitions(datatype));
+    }
 }

@@ -524,17 +524,17 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         // We cache IRIs of various entities here.
         // We also mop up any triples that weren't parsed and consumed in the
         // imports closure.
-        ontology.getAnnotationPropertiesInSignature(INCLUDED).forEach(
+        ontology.annotationPropertiesInSignature(INCLUDED).forEach(
                 e -> annPropertyIRIs.add(e.getIRI()));
-        ontology.getDataPropertiesInSignature(INCLUDED).forEach(
+        ontology.dataPropertiesInSignature(INCLUDED).forEach(
                 e -> dataPropertyIRIs.add(e.getIRI()));
-        ontology.getObjectPropertiesInSignature(INCLUDED).forEach(
+        ontology.objectPropertiesInSignature(INCLUDED).forEach(
                 e -> objectPropertyIRIs.add(e.getIRI()));
-        ontology.getClassesInSignature(INCLUDED).forEach(
+        ontology.classesInSignature(INCLUDED).forEach(
                 e -> classIRIs.add(e.getIRI()));
-        ontology.getDatatypesInSignature(INCLUDED).forEach(
+        ontology.datatypesInSignature(INCLUDED).forEach(
                 e -> dataRangeIRIs.add(e.getIRI()));
-        ontology.getIndividualsInSignature(INCLUDED).forEach(
+        ontology.individualsInSignature(INCLUDED).forEach(
                 e -> individualIRIs.add(e.getIRI()));
     }
 

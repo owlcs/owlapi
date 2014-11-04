@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.parameters.Imports;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -257,7 +258,7 @@ public class EntitySearcher {
             @Nonnull OWLAnnotationProperty e, @Nonnull OWLOntology ontology,
             boolean imports) {
         return Searcher.sub(ontology.filterAxioms(subAnnotationWithSuper, e,
-                imports ? INCLUDED : EXCLUDED));
+                Imports.fromBoolean(imports)));
     }
 
     /**
@@ -330,7 +331,7 @@ public class EntitySearcher {
             @Nonnull OWLAnnotationProperty e, @Nonnull OWLOntology ontology,
             boolean imports) {
         return Searcher.sup(ontology.filterAxioms(subAnnotationWithSub, e,
-                imports ? INCLUDED : EXCLUDED));
+                Imports.fromBoolean(imports)));
     }
 
     /**
@@ -404,7 +405,7 @@ public class EntitySearcher {
             @Nonnull OWLObjectPropertyExpression e,
             @Nonnull OWLOntology ontology, boolean imports) {
         return Searcher.sub(ontology.filterAxioms(subObjectPropertyWithSuper,
-                e, imports ? INCLUDED : EXCLUDED));
+                e, Imports.fromBoolean(imports)));
     }
 
     /**
@@ -478,7 +479,7 @@ public class EntitySearcher {
             @Nonnull OWLObjectPropertyExpression e,
             @Nonnull OWLOntology ontology, boolean imports) {
         return Searcher.sup(ontology.filterAxioms(subObjectPropertyWithSub, e,
-                imports ? INCLUDED : EXCLUDED));
+                Imports.fromBoolean(imports)));
     }
 
     /**
@@ -552,7 +553,7 @@ public class EntitySearcher {
             @Nonnull OWLDataPropertyExpression e,
             @Nonnull OWLOntology ontology, boolean imports) {
         return Searcher.sub(ontology.filterAxioms(subDataPropertyWithSuper, e,
-                imports ? INCLUDED : EXCLUDED));
+                Imports.fromBoolean(imports)));
     }
 
     /**
@@ -626,7 +627,7 @@ public class EntitySearcher {
             @Nonnull OWLDataPropertyExpression e,
             @Nonnull OWLOntology ontology, boolean imports) {
         return Searcher.sup(ontology.filterAxioms(subDataPropertyWithSub, e,
-                imports ? INCLUDED : EXCLUDED));
+                Imports.fromBoolean(imports)));
     }
 
     /**
@@ -1132,8 +1133,8 @@ public class EntitySearcher {
     public static Collection<OWLAxiom> getReferencingAxioms(
             @Nonnull OWLEntity e, @Nonnull OWLOntology ontology,
             boolean includeImports) {
-        return ontology.getReferencingAxioms(e, includeImports ? INCLUDED
-                : EXCLUDED);
+        return ontology.getReferencingAxioms(e,
+                Imports.fromBoolean(includeImports));
     }
 
     /**

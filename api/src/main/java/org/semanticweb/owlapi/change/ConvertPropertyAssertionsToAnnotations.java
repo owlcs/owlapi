@@ -34,7 +34,6 @@ package org.semanticweb.owlapi.change;/*
 */
 
 import static java.util.stream.Collectors.toList;
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
@@ -109,8 +108,8 @@ public class ConvertPropertyAssertionsToAnnotations extends
             @Nonnull Stream<OWLNamedIndividual> individuals) {
         return individuals.filter(
                 i -> ontologies().anyMatch(
-                        o -> o.containsClassInSignature(i.getIRI(), EXCLUDED)))
-                .collect(toList());
+                        o -> o.containsClassInSignature(i.getIRI()))).collect(
+                toList());
     }
 
     private void generateChanges() {
@@ -126,7 +125,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
     private void remove(@Nonnull OWLDataProperty prop) {
         ontologies().forEach(o -> {
             remove(o.getDeclarationAxioms(prop), o);
-            remove(o.getAxioms(prop, EXCLUDED), o);
+            remove(o.getAxioms(prop), o);
         });
     }
 

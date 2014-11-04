@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.explanation;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
@@ -215,17 +215,17 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         for (OWLOntology ont : getOntology().getImportsClosure()) {
             boolean referenceFound = false;
             if (obj instanceof OWLClass) {
-                referenceFound = expansionAxioms.addAll(ont.getAxioms(
-                        (OWLClass) obj, EXCLUDED));
+                referenceFound = expansionAxioms.addAll(ont
+                        .getAxioms((OWLClass) obj));
             } else if (obj instanceof OWLObjectProperty) {
-                referenceFound = expansionAxioms.addAll(ont.getAxioms(
-                        (OWLObjectProperty) obj, EXCLUDED));
+                referenceFound = expansionAxioms.addAll(ont
+                        .getAxioms((OWLObjectProperty) obj));
             } else if (obj instanceof OWLDataProperty) {
-                referenceFound = expansionAxioms.addAll(ont.getAxioms(
-                        (OWLDataProperty) obj, EXCLUDED));
+                referenceFound = expansionAxioms.addAll(ont
+                        .getAxioms((OWLDataProperty) obj));
             } else if (obj instanceof OWLIndividual) {
-                referenceFound = expansionAxioms.addAll(ont.getAxioms(
-                        (OWLIndividual) obj, EXCLUDED));
+                referenceFound = expansionAxioms.addAll(ont
+                        .getAxioms((OWLIndividual) obj));
             }
             if (!referenceFound) {
                 expansionAxioms.add(man.getOWLDataFactory()

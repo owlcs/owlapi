@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
@@ -46,23 +45,23 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         ontology.objectPropertiesInSignature()
                 .sorted()
                 .forEach(
-                        p -> write(ontology, p,
-                                ontology.getAxioms(p, EXCLUDED), printWriter));
+                        p -> write(ontology, p, ontology.getAxioms(p),
+                                printWriter));
         ontology.dataPropertiesInSignature()
                 .sorted()
                 .forEach(
-                        p -> write(ontology, p,
-                                ontology.getAxioms(p, EXCLUDED), printWriter));
+                        p -> write(ontology, p, ontology.getAxioms(p),
+                                printWriter));
         ontology.classesInSignature()
                 .sorted()
                 .forEach(
-                        c -> write(ontology, c,
-                                ontology.getAxioms(c, EXCLUDED), printWriter));
+                        c -> write(ontology, c, ontology.getAxioms(c),
+                                printWriter));
         ontology.individualsInSignature()
                 .sorted()
                 .forEach(
-                        i -> write(ontology, i,
-                                ontology.getAxioms(i, EXCLUDED), printWriter));
+                        i -> write(ontology, i, ontology.getAxioms(i),
+                                printWriter));
         beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), printWriter);
         for (OWLAxiom ax : ontology.getGeneralClassAxioms()) {
             beginWritingAxiom(ax, printWriter);
@@ -84,8 +83,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
             writeAxiom(entity, ax, writer);
             endWritingAxiom(ax, writer);
         }
-        Set<OWLAxiom> usages = new TreeSet<>(ont.getReferencingAxioms(entity,
-                EXCLUDED));
+        Set<OWLAxiom> usages = new TreeSet<>(ont.getReferencingAxioms(entity));
         usages.removeAll(axioms);
         beginWritingUsage(entity, usages, writer);
         for (OWLAxiom usage : usages) {

@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  * @author ignazio
  * @since 4.0.0
  */
-public interface OWLAxiomIndex {
+public interface OWLAxiomIndex extends HasImportsClosure {
 
     /**
      * Generic search method: returns all axioms which refer entity, are
@@ -75,7 +75,7 @@ public interface OWLAxiomIndex {
      *        type of axioms
      * @param entity
      *        referred entity (OWLPrimitive or property/class expression)
-     * @param includeImports
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @param forSubPosition
      *        for sub axioms (subclass, subproperty), the value specifies
@@ -86,9 +86,12 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Stream<T> axioms(@Nonnull Class<T> type,
-            @Nonnull OWLObject entity, @Nonnull Imports includeImports,
-            @Nonnull Navigation forSubPosition);
+    default <T extends OWLAxiom> Stream<T> axioms(@Nonnull Class<T> type,
+            @Nonnull OWLObject entity, @Nonnull Imports imports,
+            @Nonnull Navigation forSubPosition) {
+        return imports.stream(this).flatMap(
+                o -> o.axioms(type, entity.getClass(), entity, forSubPosition));
+    }
 
     /**
      * Generic search method: returns all axioms which refer entity, are
@@ -314,7 +317,7 @@ public interface OWLAxiomIndex {
      *        class rathet than the entity class might be necessary
      * @param entity
      *        referred entity (OWLPrimitive or property/class expression)
-     * @param includeImports
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @param forSubPosition
      *        for sub axioms (subclass, subproperty), the value specifies
@@ -325,10 +328,13 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Stream<T> axioms(@Nonnull Class<T> type,
+    default <T extends OWLAxiom> Stream<T> axioms(@Nonnull Class<T> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
-            @Nonnull OWLObject entity, @Nonnull Imports includeImports,
-            @Nonnull Navigation forSubPosition);
+            @Nonnull OWLObject entity, @Nonnull Imports imports,
+            @Nonnull Navigation forSubPosition) {
+        return imports.stream(this).flatMap(
+                o -> o.axioms(type, explicitClass, entity, forSubPosition));
+    }
 
     // Annotation axioms
     /**

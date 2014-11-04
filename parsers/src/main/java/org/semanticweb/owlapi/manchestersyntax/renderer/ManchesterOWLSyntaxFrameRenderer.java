@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.io.Writer;
 import java.util.ArrayList;
@@ -304,20 +303,19 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         writePrefixMap();
         writeNewLine();
         writeOntologyHeader(ontology);
-        ontology.getAnnotationPropertiesInSignature(EXCLUDED).forEach(
-                p -> write(p));
+        ontology.annotationPropertiesInSignature().forEach(p -> write(p));
         ontology.datatypesInSignature().forEach(p -> write(p));
         for (OWLObjectProperty prop : ontology.getObjectPropertiesInSignature()) {
             write(prop);
             OWLObjectPropertyExpression invProp = prop.getInverseProperty();
-            if (!ontology.getAxioms(invProp, EXCLUDED).isEmpty()) {
+            if (!ontology.getAxioms(invProp).isEmpty()) {
                 write(invProp);
             }
         }
         ontology.dataPropertiesInSignature().forEach(p -> write(p));
         ontology.classesInSignature().forEach(p -> write(p));
         ontology.individualsInSignature().forEach(p -> write(p));
-        ontology.getReferencedAnonymousIndividuals().forEach(p -> write(p));
+        ontology.referencedAnonymousIndividuals().forEach(p -> write(p));
         // Nary disjoint classes axioms
         event = new RendererEvent(this, ontology);
         for (OWLDisjointClassesAxiom ax : ontology

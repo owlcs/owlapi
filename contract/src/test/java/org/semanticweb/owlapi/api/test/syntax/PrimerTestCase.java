@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.util.Set;
 
@@ -53,7 +52,7 @@ public class PrimerTestCase extends TestBase {
         // ontology
         // so that the equality test does not skip gcis because of the format
         OWLClass x = df.getOWLClass("http://example.com/owl/families/X");
-        Set<OWLClassAxiom> axioms = manch.getAxioms(x, EXCLUDED);
+        Set<OWLClassAxiom> axioms = manch.getAxioms(x);
         manch.getOWLOntologyManager().removeAxioms(manch, axioms);
         OWLClass female = df
                 .getOWLClass("http://example.com/owl/families/Female");

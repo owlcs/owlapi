@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
@@ -157,30 +156,26 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /**
      * Gets the target axioms.
      * 
-     * @param currentTarget
+     * @param target
      *        the current target
      * @return the target axioms
      */
     @Nonnull
-    private Set<OWLAxiom> getTargetAxioms(@Nonnull OWLEntity currentTarget) {
-        Set<OWLAxiom> targetAxioms = new HashSet<>();
-        if (currentTarget.isOWLClass()) {
-            targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLClass(),
-                    EXCLUDED));
+    private Set<OWLAxiom> getTargetAxioms(@Nonnull OWLEntity target) {
+        Set<OWLAxiom> axioms = new HashSet<>();
+        if (target.isOWLClass()) {
+            axioms.addAll(ont.getAxioms(target.asOWLClass()));
         }
-        if (currentTarget.isOWLObjectProperty()) {
-            targetAxioms.addAll(ont.getAxioms(
-                    currentTarget.asOWLObjectProperty(), EXCLUDED));
+        if (target.isOWLObjectProperty()) {
+            axioms.addAll(ont.getAxioms(target.asOWLObjectProperty()));
         }
-        if (currentTarget.isOWLDataProperty()) {
-            targetAxioms.addAll(ont.getAxioms(
-                    currentTarget.asOWLDataProperty(), EXCLUDED));
+        if (target.isOWLDataProperty()) {
+            axioms.addAll(ont.getAxioms(target.asOWLDataProperty()));
         }
-        if (currentTarget.isOWLNamedIndividual()) {
-            targetAxioms.addAll(ont.getAxioms(
-                    currentTarget.asOWLNamedIndividual(), EXCLUDED));
+        if (target.isOWLNamedIndividual()) {
+            axioms.addAll(ont.getAxioms(target.asOWLNamedIndividual()));
         }
-        return targetAxioms;
+        return axioms;
     }
 
     @Nonnull
@@ -214,16 +209,16 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     protected Stream<? extends OWLAxiom> getAxioms(OWLEntity entity) {
         if (entity.isOWLClass()) {
-            return ont.axioms(entity.asOWLClass(), EXCLUDED);
+            return ont.axioms(entity.asOWLClass());
         }
         if (entity.isOWLObjectProperty()) {
-            return ont.axioms(entity.asOWLObjectProperty(), EXCLUDED);
+            return ont.axioms(entity.asOWLObjectProperty());
         }
         if (entity.isOWLDataProperty()) {
-            return ont.axioms(entity.asOWLDataProperty(), EXCLUDED);
+            return ont.axioms(entity.asOWLDataProperty());
         }
         if (entity.isOWLNamedIndividual()) {
-            return ont.axioms(entity.asOWLNamedIndividual(), EXCLUDED);
+            return ont.axioms(entity.asOWLNamedIndividual());
         }
         return Stream.empty();
     }

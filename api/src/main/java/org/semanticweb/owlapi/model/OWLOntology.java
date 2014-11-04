@@ -12,11 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -206,7 +209,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes.
      */
     @Nonnull
-    Set<OWLAxiom> getTBoxAxioms(@Nonnull Imports includeImportsClosure);
+    Set<? super OWLAxiom> getTBoxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the ABox for this ontology, i.e., the ones
@@ -220,7 +223,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes.
      */
     @Nonnull
-    Set<OWLAxiom> getABoxAxioms(@Nonnull Imports includeImportsClosure);
+    Set<? super OWLAxiom> getABoxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the RBox for this ontology, i.e., the ones
@@ -234,7 +237,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes.
      */
     @Nonnull
-    Set<OWLAxiom> getRBoxAxioms(@Nonnull Imports includeImportsClosure);
+    Set<? super OWLAxiom> getRBoxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the set of general axioms in this ontology. This includes:
@@ -262,7 +265,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
      * >The OWL 2 Structural Specification</a>)
      * 
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, the imports closure is included.
      * @return A set of {@code OWLEntity} objects. The set that is returned is a
      *         copy - it will not be updated if the ontology changes. It is
@@ -274,7 +277,32 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @see #getIndividualsInSignature()
      */
     @Nonnull
-    Set<OWLEntity> getSignature(@Nonnull Imports includeImportsClosure);
+    default Set<OWLEntity> getSignature(@Nonnull Imports imports) {
+        return signature(imports).collect(toSet());
+    }
+
+    /**
+     * Gets the entities that are in the signature of this ontology. The
+     * signature of an ontology is the set of entities that are used to build
+     * axioms and annotations in the ontology. (See <a href=
+     * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
+     * >The OWL 2 Structural Specification</a>)
+     * 
+     * @param imports
+     *        if INCLUDED, the imports closure is included.
+     * @return A set of {@code OWLEntity} objects. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes. It is
+     *         therefore safe to apply changes to this ontology while iterating
+     *         over this set.
+     * @see #getClassesInSignature()
+     * @see #getObjectPropertiesInSignature()
+     * @see #getDataPropertiesInSignature()
+     * @see #getIndividualsInSignature()
+     */
+    @Nonnull
+    default Stream<OWLEntity> signature(@Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.signature());
+    }
 
     /**
      * Determines if this ontology declares an entity i.e. it contains a
@@ -293,13 +321,15 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * 
      * @param owlEntity
      *        The entity to be tested for
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, the imports closure is included.
      * @return {@code true} if the ontology or its imports closure contains a
      *         declaration for the specified entity, otherwise {@code false}.
      */
-    boolean isDeclared(@Nonnull OWLEntity owlEntity,
-            @Nonnull Imports includeImportsClosure);
+    default boolean isDeclared(@Nonnull OWLEntity owlEntity,
+            @Nonnull Imports imports) {
+        return imports.stream(this).anyMatch(o -> o.isDeclared(owlEntity));
+    }
 
     /**
      * Saves the ontology. The ontology will be saved to the location that it
@@ -313,7 +343,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         ontology, or the ontology can't be saved in the format it was
      *         loaded from.
      */
-    void saveOntology() throws OWLOntologyStorageException;
+    default void saveOntology() throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this);
+    }
 
     /**
      * Saves the ontology, using the specified document IRI to determine
@@ -324,8 +356,10 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @throws OWLOntologyStorageException
      *         If the ontology cannot be saved
      */
-    void saveOntology(@Nonnull IRI documentIRI)
-            throws OWLOntologyStorageException;
+    default void saveOntology(@Nonnull IRI documentIRI)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, documentIRI);
+    }
 
     /**
      * Saves the ontology, to the specified output stream
@@ -336,8 +370,10 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         If there was a problem saving this ontology to the specified
      *         output stream
      */
-    void saveOntology(@Nonnull OutputStream outputStream)
-            throws OWLOntologyStorageException;
+    default void saveOntology(@Nonnull OutputStream outputStream)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, outputStream);
+    }
 
     /**
      * Saves the ontology in the specified ontology format to its document URI.
@@ -347,8 +383,10 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @throws OWLOntologyStorageException
      *         If the ontology cannot be saved.
      */
-    void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat)
-            throws OWLOntologyStorageException;
+    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, ontologyFormat);
+    }
 
     /**
      * Saves the ontology to the specified document IRI in the specified
@@ -361,8 +399,10 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
-            @Nonnull IRI documentIRI) throws OWLOntologyStorageException;
+    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
+            @Nonnull IRI documentIRI) throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, ontologyFormat, documentIRI);
+    }
 
     /**
      * Saves the ontology to the specified output stream in the specified
@@ -375,9 +415,12 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
+    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
             @Nonnull OutputStream outputStream)
-            throws OWLOntologyStorageException;
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager()
+                .saveOntology(this, ontologyFormat, outputStream);
+    }
 
     /**
      * Saves the ontology to the specified
@@ -388,8 +431,11 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    void saveOntology(@Nonnull OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException;
+    default void
+            saveOntology(@Nonnull OWLOntologyDocumentTarget documentTarget)
+                    throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, documentTarget);
+    }
 
     /**
      * Saves the ontology to the specified output target in the specified
@@ -402,9 +448,12 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
+    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
             @Nonnull OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException;
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, ontologyFormat,
+                documentTarget);
+    }
 
     @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {

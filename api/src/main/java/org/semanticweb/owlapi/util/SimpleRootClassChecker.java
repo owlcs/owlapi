@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
@@ -90,7 +89,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
     @Override
     public boolean isRootClass(OWLClass cls) {
         for (OWLOntology ont : ontologies) {
-            for (OWLAxiom ax : ont.getReferencingAxioms(cls, EXCLUDED)) {
+            for (OWLAxiom ax : ont.getReferencingAxioms(cls)) {
                 checker.setOWLClass(cls);
                 ax.accept(checker);
                 if (!checker.isRoot()) {

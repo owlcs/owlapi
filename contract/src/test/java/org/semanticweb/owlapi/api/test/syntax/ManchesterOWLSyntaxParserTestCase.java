@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -91,7 +90,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // when
         ontology = roundTrip(ontology);
         // then
-        assertTrue(ontology.containsDataPropertyInSignature(iri, EXCLUDED));
+        assertTrue(ontology.containsDataPropertyInSignature(iri));
     }
 
     @Test

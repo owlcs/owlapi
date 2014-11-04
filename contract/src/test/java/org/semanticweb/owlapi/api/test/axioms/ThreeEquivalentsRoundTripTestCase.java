@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -42,11 +41,9 @@ public class ThreeEquivalentsRoundTripTestCase extends TestBase {
         // when
         ontology = roundTrip(ontology);
         // then
-        assertTrue(ontology.containsObjectPropertyInSignature(p.getIRI(),
-                EXCLUDED));
-        assertTrue(ontology.containsObjectPropertyInSignature(q.getIRI(),
-                EXCLUDED));
-        assertTrue(ontology.containsClassInSignature(b.getIRI(), EXCLUDED));
-        assertTrue(ontology.containsClassInSignature(c.getIRI(), EXCLUDED));
+        assertTrue(ontology.containsObjectPropertyInSignature(p.getIRI()));
+        assertTrue(ontology.containsObjectPropertyInSignature(q.getIRI()));
+        assertTrue(ontology.containsClassInSignature(b.getIRI()));
+        assertTrue(ontology.containsClassInSignature(c.getIRI()));
     }
 }

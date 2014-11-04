@@ -78,25 +78,24 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 w.write("\\subsection*{Classes}\n\n");
             }
             for (OWLClass cls : clses) {
-                writeEntity(o, w, renderer, cls,
-                        sortAxioms(o.getAxioms(cls, EXCLUDED)));
+                writeEntity(o, w, renderer, cls, sortAxioms(o.getAxioms(cls)));
             }
             w.write("\\section*{Object properties}");
             sortEntities(o.getObjectPropertiesInSignature()).forEach(
                     p -> writeEntity(o, w, renderer, p,
-                            sortAxioms(o.getAxioms(p, EXCLUDED))));
+                            sortAxioms(o.getAxioms(p))));
             w.write("\\section*{Data properties}");
             o.dataPropertiesInSignature()
                     .sorted(entityComparator)
                     .forEach(
                             prop -> writeEntity(o, w, renderer, prop,
-                                    sortAxioms(o.getAxioms(prop, EXCLUDED))));
+                                    sortAxioms(o.getAxioms(prop))));
             w.write("\\section*{Individuals}");
             o.individualsInSignature()
                     .sorted(entityComparator)
                     .forEach(
                             i -> writeEntity(o, w, renderer, i,
-                                    sortAxioms(o.getAxioms(i, EXCLUDED))));
+                                    sortAxioms(o.getAxioms(i))));
             w.write("\\section*{Datatypes}");
             o.datatypesInSignature()
                     .sorted(entityComparator)

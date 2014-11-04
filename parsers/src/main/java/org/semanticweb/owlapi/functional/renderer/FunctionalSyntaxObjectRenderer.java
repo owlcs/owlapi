@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.renderer;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
@@ -240,37 +240,36 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
                     @Override
                     public List<? extends OWLAxiom> visit(OWLClass cls) {
-                        return sortOptionally(ont.getAxioms(cls, EXCLUDED));
+                        return sortOptionally(ont.getAxioms(cls));
                     }
 
                     @Override
                     public List<? extends OWLAxiom> visit(
                             OWLObjectProperty property) {
-                        return sortOptionally(ont.getAxioms(property, EXCLUDED));
+                        return sortOptionally(ont.getAxioms(property));
                     }
 
                     @Override
                     public List<? extends OWLAxiom> visit(
                             OWLDataProperty property) {
-                        return sortOptionally(ont.getAxioms(property, EXCLUDED));
+                        return sortOptionally(ont.getAxioms(property));
                     }
 
                     @Override
                     public List<? extends OWLAxiom> visit(
                             OWLNamedIndividual individual) {
-                        return sortOptionally(ont.getAxioms(individual,
-                                EXCLUDED));
+                        return sortOptionally(ont.getAxioms(individual));
                     }
 
                     @Override
                     public List<? extends OWLAxiom> visit(OWLDatatype datatype) {
-                        return sortOptionally(ont.getAxioms(datatype, EXCLUDED));
+                        return sortOptionally(ont.getAxioms(datatype));
                     }
 
                     @Override
                     public List<? extends OWLAxiom> visit(
                             OWLAnnotationProperty property) {
-                        return sortOptionally(ont.getAxioms(property, EXCLUDED));
+                        return sortOptionally(ont.getAxioms(property));
                     }
                 });
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
