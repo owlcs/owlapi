@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.OutputStream;
@@ -40,7 +39,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLAxiomCollectionNoArgs;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -83,7 +81,7 @@ import com.google.common.collect.Iterables;
  * @since 2.0.0
  */
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
-        OWLOntology, OWLAxiomCollectionNoArgs, Serializable {
+        OWLOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -207,43 +205,40 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLAxiom> getAxioms(Imports imports) {
-        return imports.collect(this, o -> o.axioms());
+    public Stream<OWLAxiom> axioms(Imports imports) {
+        return imports.stream(this, o -> o.axioms());
     }
 
     @Override
-    public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
+    public <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType,
             Imports imports) {
-        return imports.collect(this, o -> o.axioms(axiomType));
+        return imports.stream(this, o -> o.axioms(axiomType));
     }
 
     @Override
-    public Set<OWLLogicalAxiom> getLogicalAxioms(Imports imports) {
-        return imports.collect(this, o -> o.logicalAxioms());
+    public Stream<OWLLogicalAxiom> logicalAxioms(Imports imports) {
+        return imports.stream(this, o -> o.logicalAxioms());
     }
 
     @Nonnull
     @Override
     public Set<OWLAxiom> getTBoxAxioms(Imports imports) {
         return AxiomType.TBoxAxiomTypes.stream()
-                .flatMap(t -> getAxioms(t, imports).stream())
-                .collect(Collectors.toSet());
+                .flatMap(t -> axioms(t, imports)).collect(Collectors.toSet());
     }
 
     @Nonnull
     @Override
     public Set<OWLAxiom> getABoxAxioms(Imports imports) {
         return AxiomType.ABoxAxiomTypes.stream()
-                .flatMap(t -> getAxioms(t, imports).stream())
-                .collect(Collectors.toSet());
+                .flatMap(t -> axioms(t, imports)).collect(Collectors.toSet());
     }
 
     @Nonnull
     @Override
     public Set<OWLAxiom> getRBoxAxioms(Imports imports) {
         return AxiomType.RBoxAxiomTypes.stream()
-                .flatMap(t -> getAxioms(t, imports).stream())
-                .collect(Collectors.toSet());
+                .flatMap(t -> axioms(t, imports)).collect(Collectors.toSet());
     }
 
     @Override
@@ -620,119 +615,109 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLClassAxiom> getAxioms(OWLClass cls) {
-        return asSet(ints.get(OWLClass.class, OWLClassAxiom.class).get()
-                .getValues(cls));
+    public Stream<OWLClassAxiom> axioms(OWLClass cls) {
+        return ints.get(OWLClass.class, OWLClassAxiom.class).get()
+                .values(cls, OWLClassAxiom.class);
     }
 
     @Override
-    public Set<OWLClassAxiom> getAxioms(OWLClass cls, Imports imports) {
-        return imports.collect(this, o -> o.getAxioms(cls).stream());
+    public Stream<OWLClassAxiom> axioms(OWLClass cls, Imports imports) {
+        return imports.stream(this, o -> o.axioms(cls));
     }
 
     @Override
-    public Set<OWLObjectPropertyAxiom> getAxioms(
+    public Stream<OWLObjectPropertyAxiom> axioms(
             OWLObjectPropertyExpression property) {
-        Set<OWLObjectPropertyAxiom> result = createSet(50);
-        result.addAll(getAsymmetricObjectPropertyAxioms(property));
-        result.addAll(getReflexiveObjectPropertyAxioms(property));
-        result.addAll(getSymmetricObjectPropertyAxioms(property));
-        result.addAll(getIrreflexiveObjectPropertyAxioms(property));
-        result.addAll(getTransitiveObjectPropertyAxioms(property));
-        result.addAll(getInverseFunctionalObjectPropertyAxioms(property));
-        result.addAll(getFunctionalObjectPropertyAxioms(property));
-        result.addAll(getInverseObjectPropertyAxioms(property));
-        result.addAll(getObjectPropertyDomainAxioms(property));
-        result.addAll(getEquivalentObjectPropertiesAxioms(property));
-        result.addAll(getDisjointObjectPropertiesAxioms(property));
-        result.addAll(getObjectPropertyRangeAxioms(property));
-        result.addAll(getObjectSubPropertyAxiomsForSubProperty(property));
-        return result;
+        return Stream.of(asymmetricObjectPropertyAxioms(property),
+                reflexiveObjectPropertyAxioms(property),
+                symmetricObjectPropertyAxioms(property),
+                irreflexiveObjectPropertyAxioms(property),
+                transitiveObjectPropertyAxioms(property),
+                inverseFunctionalObjectPropertyAxioms(property),
+                functionalObjectPropertyAxioms(property),
+                inverseObjectPropertyAxioms(property),
+                objectPropertyDomainAxioms(property),
+                equivalentObjectPropertiesAxioms(property),
+                disjointObjectPropertiesAxioms(property),
+                objectPropertyRangeAxioms(property),
+                objectSubPropertyAxiomsForSubProperty(property))
+                .flatMap(x -> x);
     }
 
     @Override
-    public Set<OWLObjectPropertyAxiom> getAxioms(
+    public Stream<OWLObjectPropertyAxiom> axioms(
             OWLObjectPropertyExpression property, Imports imports) {
-        return imports.collect(this, o -> o.getAxioms(property).stream());
+        return imports.stream(this, o -> o.axioms(property));
     }
 
     @Override
-    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property) {
-        Set<OWLAnnotationAxiom> result = createSet();
-        axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).filter(
-                a -> a.getSubProperty().equals(property)).forEach(
-                a -> result.add(a));
-        axioms(AxiomType.ANNOTATION_PROPERTY_RANGE).filter(
-                a -> a.getProperty().equals(property)).forEach(
-                a -> result.add(a));
-        axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN).filter(
-                a -> a.getProperty().equals(property)).forEach(
-                a -> result.add(a));
-        return result;
+    public Stream<OWLAnnotationAxiom> axioms(OWLAnnotationProperty property) {
+        return Stream.of(
+                axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).filter(
+                        a -> a.getSubProperty().equals(property)),
+                axioms(AxiomType.ANNOTATION_PROPERTY_RANGE).filter(
+                        a -> a.getProperty().equals(property)),
+                axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN).filter(
+                        a -> a.getProperty().equals(property))).flatMap(x -> x);
     }
 
     @Override
-    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property,
+    public Stream<OWLAnnotationAxiom> axioms(OWLAnnotationProperty property,
             Imports imports) {
-        return imports.collect(this, o -> o.getAxioms(property).stream());
+        return imports.stream(this, o -> o.axioms(property));
     }
 
     @Override
-    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property) {
-        Set<OWLDataPropertyAxiom> result = createSet();
-        result.addAll(getDataPropertyDomainAxioms(property));
-        result.addAll(getEquivalentDataPropertiesAxioms(property));
-        result.addAll(getDisjointDataPropertiesAxioms(property));
-        result.addAll(getDataPropertyRangeAxioms(property));
-        result.addAll(getFunctionalDataPropertyAxioms(property));
-        result.addAll(getDataSubPropertyAxiomsForSubProperty(property));
-        return result;
+    public Stream<OWLDataPropertyAxiom> axioms(OWLDataProperty property) {
+        return Stream.of(dataPropertyDomainAxioms(property),
+                equivalentDataPropertiesAxioms(property),
+                disjointDataPropertiesAxioms(property),
+                dataPropertyRangeAxioms(property),
+                functionalDataPropertyAxioms(property),
+                dataSubPropertyAxiomsForSubProperty(property)).flatMap(x -> x);
     }
 
     @Override
-    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property,
+    public Stream<OWLDataPropertyAxiom> axioms(OWLDataProperty property,
             Imports imports) {
-        return imports.collect(this, o -> o.getAxioms(property).stream());
+        return imports.stream(this, o -> o.axioms(property));
     }
 
     @Override
-    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual) {
-        Set<OWLIndividualAxiom> result = createSet();
-        result.addAll(getClassAssertionAxioms(individual));
-        result.addAll(getObjectPropertyAssertionAxioms(individual));
-        result.addAll(getDataPropertyAssertionAxioms(individual));
-        result.addAll(getNegativeObjectPropertyAssertionAxioms(individual));
-        result.addAll(getNegativeDataPropertyAssertionAxioms(individual));
-        result.addAll(getSameIndividualAxioms(individual));
-        result.addAll(getDifferentIndividualAxioms(individual));
-        return result;
+    public Stream<OWLIndividualAxiom> axioms(OWLIndividual individual) {
+        return Stream.of(classAssertionAxioms(individual),
+                objectPropertyAssertionAxioms(individual),
+                dataPropertyAssertionAxioms(individual),
+                negativeObjectPropertyAssertionAxioms(individual),
+                negativeDataPropertyAssertionAxioms(individual),
+                sameIndividualAxioms(individual),
+                differentIndividualAxioms(individual)).flatMap(x -> x);
     }
 
     @Override
-    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual,
+    public Stream<OWLIndividualAxiom> axioms(OWLIndividual individual,
             Imports imports) {
-        return imports.collect(this, o -> o.getAxioms(individual).stream());
+        return imports.stream(this, o -> o.axioms(individual));
     }
 
     @Override
-    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
-        return getDatatypeDefinitions(datatype);
+    public Stream<OWLDatatypeDefinitionAxiom> axioms(OWLDatatype datatype) {
+        return datatypeDefinitions(datatype);
     }
 
     @Override
-    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype,
+    public Stream<OWLDatatypeDefinitionAxiom> axioms(OWLDatatype datatype,
             Imports imports) {
-        return imports.collect(this, o -> o.getDatatypeDefinitions(datatype)
-                .stream());
+        return imports.stream(this, o -> o.datatypeDefinitions(datatype));
     }
 
     @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity) {
+    public Stream<OWLAxiom> referencingAxioms(OWLPrimitive owlEntity) {
         if (owlEntity instanceof OWLEntity) {
-            return asSet(ints.getReferencingAxioms((OWLEntity) owlEntity));
+            return ints.getReferencingAxioms((OWLEntity) owlEntity);
         } else if (owlEntity instanceof OWLAnonymousIndividual) {
-            return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
-                    .get().getValues((OWLAnonymousIndividual) owlEntity));
+            return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
+                    .values((OWLAnonymousIndividual) owlEntity, OWLAxiom.class);
         } else if (owlEntity instanceof IRI) {
             Set<OWLAxiom> axioms = new HashSet<>();
             // axioms referring entities with this IRI, data property assertions
@@ -761,7 +746,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                     }
                 }
             }
-            return axioms;
+            return axioms.stream();
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
@@ -777,58 +762,47 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                     axioms.add(ax);
                 }
             }
-            return axioms;
+            return axioms.stream();
         }
-        return Collections.emptySet();
+        return Stream.empty();
     }
 
     @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity,
+    public Stream<OWLAxiom> referencingAxioms(OWLPrimitive owlEntity,
             Imports imports) {
-        return imports.collect(this, o -> o.getReferencingAxioms(owlEntity)
-                .stream());
+        return imports.stream(this, o -> o.referencingAxioms(owlEntity));
     }
 
     // OWLAxiomIndex
     @Override
-    public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
+    public <A extends OWLAxiom> Stream<A> axioms(@Nonnull Class<A> type,
             @Nonnull OWLObject entity, Imports imports,
             Navigation forSubPosition) {
-        return imports.collect(
-                this,
-                o -> o.getAxioms(type, entity.getClass(), entity,
-                        forSubPosition).stream());
-    }
-
-    @Override
-    public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
-            @Nonnull OWLObject entity, Navigation forSubPosition) {
-        return getAxioms(type, entity.getClass(), entity, forSubPosition);
+        return imports.stream(this,
+                o -> o.axioms(type, entity.getClass(), entity, forSubPosition));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
+    public <A extends OWLAxiom> Stream<A> axioms(@Nonnull Class<A> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition) {
         Optional<MapPointer<OWLObject, A>> optional = ints.get(
                 (Class<OWLObject>) explicitClass, type, forSubPosition);
         if (optional.isPresent()) {
-            return asSet(optional.get().getValues(entity));
+            return optional.get().values(entity, type);
         }
-        Set<A> toReturn = axioms(AxiomType.getTypeForClass(type)).filter(
-                a -> a.getSignature().contains(entity)).collect(toSet());
-        return toReturn;
+        return axioms(AxiomType.getTypeForClass(type)).filter(
+                a -> a.getSignature().contains(entity));
     }
 
     @Override
-    public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
+    public <A extends OWLAxiom> Stream<A> axioms(@Nonnull Class<A> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Imports imports,
             @Nonnull Navigation forSubPosition) {
-        return imports.collect(this,
-                o -> o.getAxioms(type, explicitClass, entity, forSubPosition)
-                        .stream());
+        return imports.stream(this,
+                o -> o.axioms(type, explicitClass, entity, forSubPosition));
     }
 
     @Nonnull

@@ -1614,46 +1614,46 @@ public class Internals implements Serializable {
      * @return referencing axioms
      */
     @Nonnull
-    public Iterable<OWLAxiom>
-            getReferencingAxioms(@Nonnull OWLEntity owlEntity) {
+    public Stream<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);
     }
 
     private class ReferencedAxiomsCollector implements
-            OWLEntityVisitorEx<Iterable<OWLAxiom>>, Serializable {
+            OWLEntityVisitorEx<Stream<OWLAxiom>>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
         ReferencedAxiomsCollector() {}
 
         @Override
-        public Iterable<OWLAxiom> visit(OWLClass cls) {
-            return owlClassReferences.getValues(cls);
+        public Stream<OWLAxiom> visit(OWLClass cls) {
+            return owlClassReferences.values(cls, OWLAxiom.class);
         }
 
         @Override
-        public Iterable<OWLAxiom> visit(OWLObjectProperty property) {
-            return owlObjectPropertyReferences.getValues(property);
+        public Stream<OWLAxiom> visit(OWLObjectProperty property) {
+            return owlObjectPropertyReferences.values(property, OWLAxiom.class);
         }
 
         @Override
-        public Iterable<OWLAxiom> visit(OWLDataProperty property) {
-            return owlDataPropertyReferences.getValues(property);
+        public Stream<OWLAxiom> visit(OWLDataProperty property) {
+            return owlDataPropertyReferences.values(property, OWLAxiom.class);
         }
 
         @Override
-        public Iterable<OWLAxiom> visit(OWLNamedIndividual individual) {
-            return owlIndividualReferences.getValues(individual);
+        public Stream<OWLAxiom> visit(OWLNamedIndividual individual) {
+            return owlIndividualReferences.values(individual, OWLAxiom.class);
         }
 
         @Override
-        public Iterable<OWLAxiom> visit(OWLDatatype datatype) {
-            return owlDatatypeReferences.getValues(datatype);
+        public Stream<OWLAxiom> visit(OWLDatatype datatype) {
+            return owlDatatypeReferences.values(datatype, OWLAxiom.class);
         }
 
         @Override
-        public Iterable<OWLAxiom> visit(OWLAnnotationProperty property) {
-            return owlAnnotationPropertyReferences.getValues(property);
+        public Stream<OWLAxiom> visit(OWLAnnotationProperty property) {
+            return owlAnnotationPropertyReferences.values(property,
+                    OWLAxiom.class);
         }
     }
 }

@@ -43,11 +43,10 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  */
 public interface OWLOntology extends OWLObject, HasAnnotations,
         HasDirectImports, HasImportsClosure, HasOntologyID, OWLAxiomCollection,
-        OWLAxiomCollectionBooleanArgs, OWLAxiomCollectionNoArgs, OWLSignature,
-        OWLSignatureBooleanArgs, OWLAxiomIndex, HasApplyChange,
-        HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms,
-        HasDirectRemoveAxiom, HasDirectRemoveAxioms, HasApplyDirectChange,
-        IsAnonymous {
+        OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs,
+        OWLAxiomIndex, HasApplyChange, HasApplyChanges, HasDirectAddAxiom,
+        HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms,
+        HasApplyDirectChange, IsAnonymous {
 
     // Default implementation of these mutating methods is to do nothing.
     // Adding them to this interface allows access without casting, since

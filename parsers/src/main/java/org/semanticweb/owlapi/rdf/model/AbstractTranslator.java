@@ -1072,7 +1072,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                         ax.accept(this);
                     }
                 }
-                ont.getAnnotationAssertionAxioms(ind.asOWLAnonymousIndividual())
+                ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())
                         .forEach(ax -> ax.accept(this));
             }
             currentIndividuals.remove(ind);
@@ -1083,9 +1083,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                ont.getAxioms(ind, Imports.EXCLUDED).forEach(
-                        ax -> ax.accept(this));
-                ont.getAnnotationAssertionAxioms(ind.asOWLAnonymousIndividual())
+                ont.axioms(ind, Imports.EXCLUDED)
+                        .forEach(ax -> ax.accept(this));
+                ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())
                         .forEach(ax -> ax.accept(this));
             }
             currentIndividuals.remove(ind);

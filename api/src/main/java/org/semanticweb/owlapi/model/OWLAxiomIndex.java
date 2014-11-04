@@ -12,8 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Navigation.*;
+
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -52,7 +57,36 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+    default <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+            @Nonnull OWLObject entity, @Nonnull Imports includeImports,
+            @Nonnull Navigation forSubPosition) {
+        return axioms(type, entity, includeImports, forSubPosition).collect(
+                toSet());
+    }
+
+    /**
+     * Generic search method: returns all axioms which refer entity, are
+     * instances of type, optionally including the imports closure in the
+     * results.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param type
+     *        type of axioms
+     * @param entity
+     *        referred entity (OWLPrimitive or property/class expression)
+     * @param includeImports
+     *        if INCLUDED, include imports closure.
+     * @param forSubPosition
+     *        for sub axioms (subclass, subproperty), the value specifies
+     *        whether entity should appear as sub or super entity in the axioms
+     *        returned. For axiom types that have no sub/super entites, this
+     *        parameter is ignored.
+     * @return set of axioms satisfying the conditions. The set is a copy of the
+     *         data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Stream<T> axioms(@Nonnull Class<T> type,
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
             @Nonnull Navigation forSubPosition);
 
@@ -76,8 +110,35 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
-            @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition);
+    default <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+            @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition) {
+        return axioms(type, entity, forSubPosition).collect(toSet());
+    }
+
+    /**
+     * Generic search method: returns all axioms which refer entity, are
+     * instances of type, optionally including the imports closure in the
+     * results.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param type
+     *        type of axioms
+     * @param entity
+     *        referred entity (OWLPrimitive or property/class expression)
+     * @param forSubPosition
+     *        for sub axioms (subclass, subproperty), the value specifies
+     *        whether entity should appear as sub or super entity in the axioms
+     *        returned. For axiom types that have no sub/super entites, this
+     *        parameter is ignored.
+     * @return set of axioms satisfying the conditions. The set is a copy of the
+     *         data.
+     */
+    @Nonnull
+    default <T extends OWLAxiom> Stream<T> axioms(@Nonnull Class<T> type,
+            @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition) {
+        return axioms(type, entity.getClass(), entity, forSubPosition);
+    }
 
     /**
      * Generic filter type for further refining search by axiom type. The
@@ -172,7 +233,37 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+    default <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+            @Nonnull Class<? extends OWLObject> explicitClass,
+            @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition) {
+        return axioms(type, explicitClass, entity, forSubPosition).collect(
+                toSet());
+    }
+
+    /**
+     * Generic search method: resutns all axioms which refer entity, are
+     * instances of type, optionally including the imports closure in the
+     * results.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param type
+     *        type of axioms
+     * @param explicitClass
+     *        for overlapping indexes in the ontology internals, an explicit
+     *        class rathet than the entity class might be necessary
+     * @param entity
+     *        referred entity (OWLPrimitive or property/class expression)
+     * @param forSubPosition
+     *        for sub axioms (subclass, subproperty), the value specifies
+     *        whether entity should appear as sub or super entity in the axioms
+     *        returned. For axiom types that have no sub/super entites, this
+     *        parameter is ignored.
+     * @return set of axioms satisfying the conditions. The set is a copy of the
+     *         data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Stream<T> axioms(@Nonnull Class<T> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition);
 
@@ -201,7 +292,40 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+    default <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+            @Nonnull Class<? extends OWLObject> explicitClass,
+            @Nonnull OWLObject entity, @Nonnull Imports includeImports,
+            @Nonnull Navigation forSubPosition) {
+        return axioms(type, explicitClass, entity, includeImports,
+                forSubPosition).collect(toSet());
+    }
+
+    /**
+     * Generic search method: resutns all axioms which refer entity, are
+     * instances of type, optionally including the imports closure in the
+     * results.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param type
+     *        type of axioms
+     * @param explicitClass
+     *        for overlapping indexes in the ontology internals, an explicit
+     *        class rathet than the entity class might be necessary
+     * @param entity
+     *        referred entity (OWLPrimitive or property/class expression)
+     * @param includeImports
+     *        if INCLUDED, include imports closure.
+     * @param forSubPosition
+     *        for sub axioms (subclass, subproperty), the value specifies
+     *        whether entity should appear as sub or super entity in the axioms
+     *        returned. For axiom types that have no sub/super entites, this
+     *        parameter is ignored.
+     * @return set of axioms satisfying the conditions. The set is a copy of the
+     *         data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Stream<T> axioms(@Nonnull Class<T> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
             @Nonnull Navigation forSubPosition);
@@ -216,7 +340,22 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(
+    default Set<OWLSubAnnotationPropertyOfAxiom>
+            getSubAnnotationPropertyOfAxioms(
+                    @Nonnull OWLAnnotationProperty subProperty) {
+        return subAnnotationPropertyOfAxioms(subProperty).collect(toSet());
+    }
+
+    /**
+     * Gets the {@code SubAnnotationPropertyOfAxiom}s where the specified
+     * property is the sub-property.
+     * 
+     * @param subProperty
+     *        The sub-property of the axioms to be retrieved.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    Stream<OWLSubAnnotationPropertyOfAxiom> subAnnotationPropertyOfAxioms(
             @Nonnull OWLAnnotationProperty subProperty);
 
     /**
@@ -228,7 +367,22 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(
+    default Set<OWLAnnotationPropertyDomainAxiom>
+            getAnnotationPropertyDomainAxioms(
+                    @Nonnull OWLAnnotationProperty property) {
+        return annotationPropertyDomainAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@code OWLAnnotationPropertyDomainAxiom}s where the specified
+     * property is the property in the domain axiom.
+     * 
+     * @param property
+     *        The property that the axiom specifies a domain for.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    Stream<OWLAnnotationPropertyDomainAxiom> annotationPropertyDomainAxioms(
             @Nonnull OWLAnnotationProperty property);
 
     /**
@@ -240,7 +394,22 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(
+    default Set<OWLAnnotationPropertyRangeAxiom>
+            getAnnotationPropertyRangeAxioms(
+                    @Nonnull OWLAnnotationProperty property) {
+        return annotationPropertyRangeAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@code OWLAnnotationPropertyRangeAxiom}s where the specified
+     * property is the property in the range axiom.
+     * 
+     * @param property
+     *        The property that the axiom specifies a range for.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    Stream<OWLAnnotationPropertyRangeAxiom> annotationPropertyRangeAxioms(
             @Nonnull OWLAnnotationProperty property);
 
     // Various methods that provide axioms relating to specific entities that
@@ -254,7 +423,25 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDeclarationAxiom> getDeclarationAxioms(@Nonnull OWLEntity subject);
+    default Set<OWLDeclarationAxiom> getDeclarationAxioms(
+            @Nonnull OWLEntity subject) {
+        return getAxioms(OWLDeclarationAxiom.class, subject, EXCLUDED,
+                IN_SUB_POSITION);
+    }
+
+    /**
+     * Gets the declaration axioms for specified entity.
+     * 
+     * @param subject
+     *        The entity that is the subject of the set of returned axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDeclarationAxiom> declarationAxioms(
+            @Nonnull OWLEntity subject) {
+        return axioms(OWLDeclarationAxiom.class, subject, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the axioms that annotate the specified entity.
@@ -264,8 +451,25 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
-            @Nonnull OWLAnnotationSubject entity);
+    default Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+            @Nonnull OWLAnnotationSubject entity) {
+        return getAxioms(OWLAnnotationAssertionAxiom.class,
+                OWLAnnotationSubject.class, entity, EXCLUDED, IN_SUB_POSITION);
+    }
+
+    /**
+     * Gets the axioms that annotate the specified entity.
+     * 
+     * @param entity
+     *        The entity whose annotations are to be retrieved.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
+            @Nonnull OWLAnnotationSubject entity) {
+        return axioms(OWLAnnotationAssertionAxiom.class,
+                OWLAnnotationSubject.class, entity, EXCLUDED, IN_SUB_POSITION);
+    }
 
     // Classes
     /**
@@ -278,7 +482,26 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(@Nonnull OWLClass cls);
+    default Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(
+            @Nonnull OWLClass cls) {
+        return subClassAxiomsForSubClass(cls).collect(toSet());
+    }
+
+    /**
+     * Gets all of the subclass axioms where the left hand side (the subclass)
+     * is equal to the specified class.
+     * 
+     * @param cls
+     *        The class that is equal to the left hand side of the axiom
+     *        (subclass).
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLSubClassOfAxiom> subClassAxiomsForSubClass(
+            @Nonnull OWLClass cls) {
+        return axioms(OWLSubClassOfAxiom.class, OWLClass.class, cls, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets all of the subclass axioms where the right hand side (the
@@ -289,8 +512,25 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSubClassOfAxiom>
-            getSubClassAxiomsForSuperClass(@Nonnull OWLClass cls);
+    default Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(
+            @Nonnull OWLClass cls) {
+        return subClassAxiomsForSuperClass(cls).collect(toSet());
+    }
+
+    /**
+     * Gets all of the subclass axioms where the right hand side (the
+     * superclass) is equal to the specified class.
+     * 
+     * @param cls
+     *        The class
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLSubClassOfAxiom> subClassAxiomsForSuperClass(
+            @Nonnull OWLClass cls) {
+        return axioms(OWLSubClassOfAxiom.class, OWLClass.class, cls, EXCLUDED,
+                IN_SUPER_POSITION);
+    }
 
     /**
      * Gets all of the equivalent axioms in this ontology that contain the
@@ -301,8 +541,25 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(
-            @Nonnull OWLClass cls);
+    default Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(
+            @Nonnull OWLClass cls) {
+        return equivalentClassesAxioms(cls).collect(toSet());
+    }
+
+    /**
+     * Gets all of the equivalent axioms in this ontology that contain the
+     * specified class as an operand.
+     * 
+     * @param cls
+     *        The class to search
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLEquivalentClassesAxiom> equivalentClassesAxioms(
+            @Nonnull OWLClass cls) {
+        return axioms(OWLEquivalentClassesAxiom.class, OWLClass.class, cls,
+                EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the set of disjoint class axioms that contain the specified class as
@@ -313,8 +570,25 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDisjointClassesAxiom>
-            getDisjointClassesAxioms(@Nonnull OWLClass cls);
+    default Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(
+            @Nonnull OWLClass cls) {
+        return disjointClassesAxioms(cls).collect(toSet());
+    }
+
+    /**
+     * Gets the set of disjoint class axioms that contain the specified class as
+     * an operand.
+     * 
+     * @param cls
+     *        The class to search
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDisjointClassesAxiom> disjointClassesAxioms(
+            @Nonnull OWLClass cls) {
+        return axioms(OWLDisjointClassesAxiom.class, OWLClass.class, cls,
+                EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the set of disjoint union axioms that have the specified class as
@@ -327,8 +601,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDisjointUnionAxiom>
-            getDisjointUnionAxioms(@Nonnull OWLClass owlClass);
+    default Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(
+            @Nonnull OWLClass owlClass) {
+        return disjointUnionAxioms(owlClass).collect(toSet());
+    }
+
+    /**
+     * Gets the set of disjoint union axioms that have the specified class as
+     * the named class that is equivalent to the disjoint union of operands. For
+     * example, if the ontology contained the axiom DisjointUnion(A, propP some
+     * C, D, E) this axiom would be returned for class A (but not for D or E).
+     * 
+     * @param owlClass
+     *        The class that indexes the axioms to be retrieved.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDisjointUnionAxiom> disjointUnionAxioms(
+            @Nonnull OWLClass owlClass) {
+        return axioms(OWLDisjointUnionAxiom.class, OWLClass.class, owlClass,
+                EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the has key axioms that have the specified class as their subject.
@@ -338,7 +631,22 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLHasKeyAxiom> getHasKeyAxioms(@Nonnull OWLClass cls);
+    default Set<OWLHasKeyAxiom> getHasKeyAxioms(@Nonnull OWLClass cls) {
+        return hasKeyAxioms(cls).collect(toSet());
+    }
+
+    /**
+     * Gets the has key axioms that have the specified class as their subject.
+     * 
+     * @param cls
+     *        The subject of the has key axioms
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLHasKeyAxiom> hasKeyAxioms(@Nonnull OWLClass cls) {
+        return axioms(OWLHasKeyAxiom.class, OWLClass.class, cls, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     // Object properties
     /**
@@ -351,8 +659,30 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
-            @Nonnull OWLObjectPropertyExpression subProperty);
+    default Set<OWLSubObjectPropertyOfAxiom>
+            getObjectSubPropertyAxiomsForSubProperty(
+                    @Nonnull OWLObjectPropertyExpression subProperty) {
+        return objectSubPropertyAxiomsForSubProperty(subProperty).collect(
+                toSet());
+    }
+
+    /**
+     * Gets the {@link OWLSubObjectPropertyOfAxiom} s where the sub-property is
+     * equal to the specified property.
+     * 
+     * @param subProperty
+     *        The property which is equal to the sub property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLSubObjectPropertyOfAxiom>
+            objectSubPropertyAxiomsForSubProperty(
+                    @Nonnull OWLObjectPropertyExpression subProperty) {
+        return axioms(OWLSubObjectPropertyOfAxiom.class,
+                OWLObjectPropertyExpression.class, subProperty, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLSubObjectPropertyOfAxiom} s where the super-property
@@ -364,9 +694,30 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSubObjectPropertyOfAxiom>
+    default Set<OWLSubObjectPropertyOfAxiom>
             getObjectSubPropertyAxiomsForSuperProperty(
-                    @Nonnull OWLObjectPropertyExpression superProperty);
+                    @Nonnull OWLObjectPropertyExpression superProperty) {
+        return objectSubPropertyAxiomsForSuperProperty(superProperty).collect(
+                toSet());
+    }
+
+    /**
+     * Gets the {@link OWLSubObjectPropertyOfAxiom} s where the super-property
+     * is equal to the specified property.
+     * 
+     * @param superProperty
+     *        The property which is equal to the super-property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLSubObjectPropertyOfAxiom>
+            objectSubPropertyAxiomsForSuperProperty(
+                    @Nonnull OWLObjectPropertyExpression superProperty) {
+        return axioms(OWLSubObjectPropertyOfAxiom.class,
+                OWLObjectPropertyExpression.class, superProperty, EXCLUDED,
+                IN_SUPER_POSITION);
+    }
 
     /**
      * Gets the {@link OWLObjectPropertyDomainAxiom}s where the property is
@@ -378,8 +729,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
+            @Nonnull OWLObjectPropertyExpression property) {
+        return objectPropertyDomainAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLObjectPropertyDomainAxiom}s where the property is
+     * equal to the specified property.
+     * 
+     * @param property
+     *        The property which is equal to the property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLObjectPropertyDomainAxiom> objectPropertyDomainAxioms(
+            @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLObjectPropertyDomainAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLObjectPropertyRangeAxiom} s where the property is
@@ -391,8 +761,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(
+            @Nonnull OWLObjectPropertyExpression property) {
+        return objectPropertyRangeAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLObjectPropertyRangeAxiom} s where the property is
+     * equal to the specified property.
+     * 
+     * @param property
+     *        The property which is equal to the property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLObjectPropertyRangeAxiom> objectPropertyRangeAxioms(
+            @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLObjectPropertyRangeAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLInverseObjectPropertiesAxiom}s where the specified
@@ -405,8 +794,30 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLInverseObjectPropertiesAxiom>
+            getInverseObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return inverseObjectPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLInverseObjectPropertiesAxiom}s where the specified
+     * property is contained in the set returned by
+     * {@link OWLInverseObjectPropertiesAxiom#getProperties()} .
+     * 
+     * @param property
+     *        The property which is equal to the property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLInverseObjectPropertiesAxiom>
+            inverseObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLInverseObjectPropertiesAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLEquivalentObjectPropertiesAxiom}s that make the
@@ -419,9 +830,30 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLEquivalentObjectPropertiesAxiom>
+    default Set<OWLEquivalentObjectPropertiesAxiom>
             getEquivalentObjectPropertiesAxioms(
-                    @Nonnull OWLObjectPropertyExpression property);
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return equivalentObjectPropertiesAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLEquivalentObjectPropertiesAxiom}s that make the
+     * specified property equivalent to some other object property
+     * expression(s).
+     * 
+     * @param property
+     *        The property that the retrieved axioms make equivalent to some
+     *        other property expressions.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLEquivalentObjectPropertiesAxiom>
+            equivalentObjectPropertiesAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLEquivalentObjectPropertiesAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLDisjointObjectPropertiesAxiom}s that make the
@@ -434,8 +866,30 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLDisjointObjectPropertiesAxiom>
+            getDisjointObjectPropertiesAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return disjointObjectPropertiesAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLDisjointObjectPropertiesAxiom}s that make the
+     * specified property disjoint with some other object property
+     * expression(s).
+     * 
+     * @param property
+     *        The property that the retrieved axioms makes disjoint to some
+     *        other property expressions.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDisjointObjectPropertiesAxiom>
+            disjointObjectPropertiesAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLDisjointObjectPropertiesAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLFunctionalObjectPropertyAxiom}s contained in this
@@ -446,8 +900,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLFunctionalObjectPropertyAxiom>
+            getFunctionalObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return functionalObjectPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLFunctionalObjectPropertyAxiom}s contained in this
+     * ontology that make the specified object property functional.
+     * 
+     * @param property
+     *        The property that is made functional by the axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLFunctionalObjectPropertyAxiom>
+            functionalObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLFunctionalObjectPropertyAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLInverseFunctionalObjectPropertyAxiom}s contained in
@@ -458,9 +932,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLInverseFunctionalObjectPropertyAxiom>
+    default Set<OWLInverseFunctionalObjectPropertyAxiom>
             getInverseFunctionalObjectPropertyAxioms(
-                    @Nonnull OWLObjectPropertyExpression property);
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return inverseFunctionalObjectPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLInverseFunctionalObjectPropertyAxiom}s contained in
+     * this ontology that make the specified object property inverse functional.
+     * 
+     * @param property
+     *        The property that is made inverse functional by the axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLInverseFunctionalObjectPropertyAxiom>
+            inverseFunctionalObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLInverseFunctionalObjectPropertyAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLSymmetricObjectPropertyAxiom}s contained in this
@@ -471,8 +964,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLSymmetricObjectPropertyAxiom>
+            getSymmetricObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return symmetricObjectPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLSymmetricObjectPropertyAxiom}s contained in this
+     * ontology that make the specified object property symmetric.
+     * 
+     * @param property
+     *        The property that is made symmetric by the axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLSymmetricObjectPropertyAxiom>
+            symmetricObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLSymmetricObjectPropertyAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLAsymmetricObjectPropertyAxiom}s contained in this
@@ -483,8 +996,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLAsymmetricObjectPropertyAxiom>
+            getAsymmetricObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return asymmetricObjectPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLAsymmetricObjectPropertyAxiom}s contained in this
+     * ontology that make the specified object property asymmetric.
+     * 
+     * @param property
+     *        The property that is made asymmetric by the axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLAsymmetricObjectPropertyAxiom>
+            asymmetricObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLAsymmetricObjectPropertyAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLReflexiveObjectPropertyAxiom}s contained in this
@@ -495,8 +1028,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLReflexiveObjectPropertyAxiom>
+            getReflexiveObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return reflexiveObjectPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLReflexiveObjectPropertyAxiom}s contained in this
+     * ontology that make the specified object property reflexive.
+     * 
+     * @param property
+     *        The property that is made reflexive by the axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLReflexiveObjectPropertyAxiom>
+            reflexiveObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLReflexiveObjectPropertyAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLIrreflexiveObjectPropertyAxiom}s contained in this
@@ -507,8 +1060,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLIrreflexiveObjectPropertyAxiom>
+            getIrreflexiveObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return irreflexiveObjectPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLIrreflexiveObjectPropertyAxiom}s contained in this
+     * ontology that make the specified object property irreflexive.
+     * 
+     * @param property
+     *        The property that is made irreflexive by the axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLIrreflexiveObjectPropertyAxiom>
+            irreflexiveObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLIrreflexiveObjectPropertyAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLTransitiveObjectPropertyAxiom}s contained in this
@@ -519,8 +1092,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    default Set<OWLTransitiveObjectPropertyAxiom>
+            getTransitiveObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return transitiveObjectPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLTransitiveObjectPropertyAxiom}s contained in this
+     * ontology that make the specified object property transitive.
+     * 
+     * @param property
+     *        The property that is made transitive by the axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLTransitiveObjectPropertyAxiom>
+            transitiveObjectPropertyAxioms(
+                    @Nonnull OWLObjectPropertyExpression property) {
+        return axioms(OWLTransitiveObjectPropertyAxiom.class,
+                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     // Data properties
     /**
@@ -533,8 +1126,30 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(
-            @Nonnull OWLDataProperty subProperty);
+    default Set<OWLSubDataPropertyOfAxiom>
+            getDataSubPropertyAxiomsForSubProperty(
+                    @Nonnull OWLDataProperty subProperty) {
+        return dataSubPropertyAxiomsForSubProperty(subProperty)
+                .collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLSubDataPropertyOfAxiom}s where the sub-property is
+     * equal to the specified property.
+     * 
+     * @param subProperty
+     *        The property which is equal to the sub property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLSubDataPropertyOfAxiom>
+            dataSubPropertyAxiomsForSubProperty(
+                    @Nonnull OWLDataProperty subProperty) {
+        return axioms(OWLSubDataPropertyOfAxiom.class,
+                OWLDataPropertyExpression.class, subProperty, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLSubDataPropertyOfAxiom}s where the super-property is
@@ -546,8 +1161,30 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
-            @Nonnull OWLDataPropertyExpression superProperty);
+    default Set<OWLSubDataPropertyOfAxiom>
+            getDataSubPropertyAxiomsForSuperProperty(
+                    @Nonnull OWLDataPropertyExpression superProperty) {
+        return dataSubPropertyAxiomsForSuperProperty(superProperty).collect(
+                toSet());
+    }
+
+    /**
+     * Gets the {@link OWLSubDataPropertyOfAxiom}s where the super-property is
+     * equal to the specified property.
+     * 
+     * @param superProperty
+     *        The property which is equal to the super-property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLSubDataPropertyOfAxiom>
+            dataSubPropertyAxiomsForSuperProperty(
+                    @Nonnull OWLDataPropertyExpression superProperty) {
+        return axioms(OWLSubDataPropertyOfAxiom.class,
+                OWLDataPropertyExpression.class, superProperty, EXCLUDED,
+                IN_SUPER_POSITION);
+    }
 
     /**
      * Gets the {@link OWLDataPropertyDomainAxiom}s where the property is equal
@@ -559,8 +1196,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
-            @Nonnull OWLDataProperty property);
+    default Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
+            @Nonnull OWLDataProperty property) {
+        return dataPropertyDomainAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLDataPropertyDomainAxiom}s where the property is equal
+     * to the specified property.
+     * 
+     * @param property
+     *        The property which is equal to the property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDataPropertyDomainAxiom> dataPropertyDomainAxioms(
+            @Nonnull OWLDataProperty property) {
+        return axioms(OWLDataPropertyDomainAxiom.class,
+                OWLDataPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLDataPropertyRangeAxiom}s where the property is equal
@@ -572,8 +1228,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
-            @Nonnull OWLDataProperty property);
+    default Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
+            @Nonnull OWLDataProperty property) {
+        return dataPropertyRangeAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLDataPropertyRangeAxiom}s where the property is equal
+     * to the specified property.
+     * 
+     * @param property
+     *        The property which is equal to the property of the retrieved
+     *        axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDataPropertyRangeAxiom> dataPropertyRangeAxioms(
+            @Nonnull OWLDataProperty property) {
+        return axioms(OWLDataPropertyRangeAxiom.class,
+                OWLDataPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLEquivalentDataPropertiesAxiom}s that make the
@@ -585,8 +1260,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(
-            @Nonnull OWLDataProperty property);
+    default
+            Set<OWLEquivalentDataPropertiesAxiom>
+            getEquivalentDataPropertiesAxioms(@Nonnull OWLDataProperty property) {
+        return equivalentDataPropertiesAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLEquivalentDataPropertiesAxiom}s that make the
+     * specified property equivalent to some other data property expression(s).
+     * 
+     * @param property
+     *        The property that the retrieved axioms make equivalent to some
+     *        other property expressions.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLEquivalentDataPropertiesAxiom>
+            equivalentDataPropertiesAxioms(@Nonnull OWLDataProperty property) {
+        return axioms(OWLEquivalentDataPropertiesAxiom.class,
+                OWLDataPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLDisjointDataPropertiesAxiom}s that make the specified
@@ -598,8 +1293,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(
-            @Nonnull OWLDataProperty property);
+    default Set<OWLDisjointDataPropertiesAxiom>
+            getDisjointDataPropertiesAxioms(@Nonnull OWLDataProperty property) {
+        return disjointDataPropertiesAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLDisjointDataPropertiesAxiom}s that make the specified
+     * property disjoint with some other data property expression(s).
+     * 
+     * @param property
+     *        The property that the retrieved axioms makes disjoint to some
+     *        other property expressions.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDisjointDataPropertiesAxiom>
+            disjointDataPropertiesAxioms(@Nonnull OWLDataProperty property) {
+        return axioms(OWLDisjointDataPropertiesAxiom.class,
+                OWLDataPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLFunctionalDataPropertyAxiom}s contained in this
@@ -610,8 +1324,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(
-            @Nonnull OWLDataPropertyExpression property);
+    default Set<OWLFunctionalDataPropertyAxiom>
+            getFunctionalDataPropertyAxioms(
+                    @Nonnull OWLDataPropertyExpression property) {
+        return functionalDataPropertyAxioms(property).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLFunctionalDataPropertyAxiom}s contained in this
+     * ontology that make the specified data property functional.
+     * 
+     * @param property
+     *        The property that is made functional by the axioms.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLFunctionalDataPropertyAxiom>
+            functionalDataPropertyAxioms(
+                    @Nonnull OWLDataPropertyExpression property) {
+        return axioms(OWLFunctionalDataPropertyAxiom.class,
+                OWLDataPropertyExpression.class, property, EXCLUDED,
+                IN_SUB_POSITION);
+    }
 
     // Individuals
     /**
@@ -625,8 +1359,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
-            @Nonnull OWLIndividual individual);
+    default Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
+            @Nonnull OWLIndividual individual) {
+        return classAssertionAxioms(individual).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLClassAssertionAxiom}s contained in this ontology that
+     * make the specified {@code individual} an instance of some class
+     * expression.
+     * 
+     * @param individual
+     *        The individual that the returned axioms make an instance of some
+     *        class expression.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLClassAssertionAxiom> classAssertionAxioms(
+            @Nonnull OWLIndividual individual) {
+        return axioms(OWLClassAssertionAxiom.class, OWLIndividual.class,
+                individual, EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLClassAssertionAxiom}s contained in this ontology that
@@ -639,8 +1392,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
-            @Nonnull OWLClassExpression ce);
+    default Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
+            @Nonnull OWLClassExpression ce) {
+        return classAssertionAxioms(ce).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLClassAssertionAxiom}s contained in this ontology that
+     * make the specified class expression, {@code ce}, a type for some
+     * individual.
+     * 
+     * @param ce
+     *        The class expression that the returned axioms make a type for some
+     *        individual.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLClassAssertionAxiom> classAssertionAxioms(
+            @Nonnull OWLClassExpression ce) {
+        return axioms(OWLClassAssertionAxiom.class, OWLClassExpression.class,
+                ce, EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLDataPropertyAssertionAxiom}s contained in this
@@ -652,8 +1424,26 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
-            @Nonnull OWLIndividual individual);
+    default Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
+            @Nonnull OWLIndividual individual) {
+        return dataPropertyAssertionAxioms(individual).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLDataPropertyAssertionAxiom}s contained in this
+     * ontology that have the specified {@code individual} as the subject of the
+     * axiom.
+     * 
+     * @param individual
+     *        The individual that the returned axioms have as a subject.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDataPropertyAssertionAxiom> dataPropertyAssertionAxioms(
+            @Nonnull OWLIndividual individual) {
+        return axioms(OWLDataPropertyAssertionAxiom.class, OWLIndividual.class,
+                individual, EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLObjectPropertyAssertionAxiom}s contained in this
@@ -665,8 +1455,26 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(
-            @Nonnull OWLIndividual individual);
+    default Set<OWLObjectPropertyAssertionAxiom>
+            getObjectPropertyAssertionAxioms(@Nonnull OWLIndividual individual) {
+        return objectPropertyAssertionAxioms(individual).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLObjectPropertyAssertionAxiom}s contained in this
+     * ontology that have the specified {@code individual} as the subject of the
+     * axiom.
+     * 
+     * @param individual
+     *        The individual that the returned axioms have as a subject.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLObjectPropertyAssertionAxiom>
+            objectPropertyAssertionAxioms(@Nonnull OWLIndividual individual) {
+        return axioms(OWLObjectPropertyAssertionAxiom.class,
+                OWLIndividual.class, individual, EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLNegativeObjectPropertyAssertionAxiom} s contained in
@@ -678,9 +1486,29 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLNegativeObjectPropertyAssertionAxiom>
+    default Set<OWLNegativeObjectPropertyAssertionAxiom>
             getNegativeObjectPropertyAssertionAxioms(
-                    @Nonnull OWLIndividual individual);
+                    @Nonnull OWLIndividual individual) {
+        return negativeObjectPropertyAssertionAxioms(individual).collect(
+                toSet());
+    }
+
+    /**
+     * Gets the {@link OWLNegativeObjectPropertyAssertionAxiom} s contained in
+     * this ontology that have the specified {@code individual} as the subject
+     * of the axiom.
+     * 
+     * @param individual
+     *        The individual that the returned axioms have as a subject.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLNegativeObjectPropertyAssertionAxiom>
+            negativeObjectPropertyAssertionAxioms(
+                    @Nonnull OWLIndividual individual) {
+        return axioms(OWLNegativeObjectPropertyAssertionAxiom.class,
+                OWLIndividual.class, individual, EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLNegativeDataPropertyAssertionAxiom} s contained in
@@ -692,9 +1520,28 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLNegativeDataPropertyAssertionAxiom>
+    default Set<OWLNegativeDataPropertyAssertionAxiom>
             getNegativeDataPropertyAssertionAxioms(
-                    @Nonnull OWLIndividual individual);
+                    @Nonnull OWLIndividual individual) {
+        return negativeDataPropertyAssertionAxioms(individual).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLNegativeDataPropertyAssertionAxiom} s contained in
+     * this ontology that have the specified {@code individual} as the subject
+     * of the axiom.
+     * 
+     * @param individual
+     *        The individual that the returned axioms have as a subject.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLNegativeDataPropertyAssertionAxiom>
+            negativeDataPropertyAssertionAxioms(
+                    @Nonnull OWLIndividual individual) {
+        return axioms(OWLNegativeDataPropertyAssertionAxiom.class,
+                OWLIndividual.class, individual, EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLSameIndividualAxiom}s contained in this ontology that
@@ -706,8 +1553,26 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLSameIndividualAxiom> getSameIndividualAxioms(
-            @Nonnull OWLIndividual individual);
+    default Set<OWLSameIndividualAxiom> getSameIndividualAxioms(
+            @Nonnull OWLIndividual individual) {
+        return sameIndividualAxioms(individual).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLSameIndividualAxiom}s contained in this ontology that
+     * make the specified {@code individual} the same as some other individual.
+     * 
+     * @param individual
+     *        The individual that the returned axioms make the same as some
+     *        other individual.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLSameIndividualAxiom> sameIndividualAxioms(
+            @Nonnull OWLIndividual individual) {
+        return axioms(OWLSameIndividualAxiom.class, OWLIndividual.class,
+                individual, EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLDifferentIndividualsAxiom}s contained in this ontology
@@ -720,8 +1585,27 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
-            @Nonnull OWLIndividual individual);
+    default Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
+            @Nonnull OWLIndividual individual) {
+        return differentIndividualAxioms(individual).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLDifferentIndividualsAxiom}s contained in this ontology
+     * that make the specified {@code individual} different to some other
+     * individual.
+     * 
+     * @param individual
+     *        The individual that the returned axioms make the different as some
+     *        other individual.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLDifferentIndividualsAxiom> differentIndividualAxioms(
+            @Nonnull OWLIndividual individual) {
+        return axioms(OWLDifferentIndividualsAxiom.class, OWLIndividual.class,
+                individual, EXCLUDED, IN_SUB_POSITION);
+    }
 
     /**
      * Gets the {@link OWLDatatypeDefinitionAxiom}s contained in this ontology
@@ -732,6 +1616,20 @@ public interface OWLAxiomIndex {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     @Nonnull
-    Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(
+    default Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(
+            @Nonnull OWLDatatype datatype) {
+        return datatypeDefinitions(datatype).collect(toSet());
+    }
+
+    /**
+     * Gets the {@link OWLDatatypeDefinitionAxiom}s contained in this ontology
+     * that provide a definition for the specified datatype.
+     * 
+     * @param datatype
+     *        The datatype for which the returned axioms provide a definition.
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    Stream<OWLDatatypeDefinitionAxiom> datatypeDefinitions(
             @Nonnull OWLDatatype datatype);
 }

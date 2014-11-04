@@ -406,7 +406,7 @@ public class OWL2DLProfile implements OWLProfile {
         protected Stream<OWLDatatypeDefinitionAxiom> datatypeDefinitions(
                 OWLDatatype dt) {
             return Imports.INCLUDED.stream(getCurrentOntology()).flatMap(
-                    o -> o.getDatatypeDefinitions(dt).stream());
+                    o -> o.datatypeDefinitions(dt));
         }
 
         @Override

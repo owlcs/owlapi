@@ -505,7 +505,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         ensurePrepared();
         DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
         getRootOntology().importsClosure()
-                .flatMap(o -> o.getDataPropertyDomainAxioms(pe).stream())
+                .flatMap(o -> o.dataPropertyDomainAxioms(pe))
                 .forEach(ax -> addClasses(direct, result, ax.getDomain()));
         return result;
     }
@@ -525,7 +525,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
         getRootOntology()
                 .importsClosure()
-                .flatMap(o -> o.getClassAssertionAxioms(ind).stream())
+                .flatMap(o -> o.classAssertionAxioms(ind))
                 .forEach(
                         ax -> addClasses(direct, result,
                                 ax.getClassExpression()));
@@ -550,7 +550,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         for (OWLClass curCls : clses) {
             getRootOntology()
                     .importsClosure()
-                    .flatMap(o -> o.getClassAssertionAxioms(curCls).stream())
+                    .flatMap(o -> o.classAssertionAxioms(curCls))
                     .map(ax -> ax.getIndividual())
                     .filter(i -> !i.isAnonymous())
                     .map(i -> i.asOWLNamedIndividual())
@@ -623,7 +623,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         superProperties.addAll(getEquivalentDataProperties(pe).getEntities());
         getRootOntology()
                 .importsClosure()
-                .flatMap(o -> o.getDataPropertyAssertionAxioms(ind).stream())
+                .flatMap(o -> o.dataPropertyAssertionAxioms(ind))
                 .forEach(
                         ax -> {
                             if (superProperties.contains(ax.getProperty()

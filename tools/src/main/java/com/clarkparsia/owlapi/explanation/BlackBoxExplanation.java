@@ -247,11 +247,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      * @return the int
      */
     private int expandWithReferencingAxioms(@Nonnull OWLEntity obj, int limit) {
-        Set<OWLAxiom> expansionAxioms = new HashSet<>();
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        expansionAxioms.addAll(getOntology()
-                .getReferencingAxioms(obj, INCLUDED));
+        Set<OWLAxiom> expansionAxioms = getOntology().getReferencingAxioms(obj,
+                INCLUDED);
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }

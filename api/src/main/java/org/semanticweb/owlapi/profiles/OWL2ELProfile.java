@@ -325,45 +325,47 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
-            Set<OWLObjectPropertyRangeAxiom> rangeAxioms = getCurrentOntology()
-                    .getAxioms(AxiomType.OBJECT_PROPERTY_RANGE, INCLUDED);
-            if (rangeAxioms.isEmpty()) {
-                return;
-            }
             // Do we have a range restriction imposed on our super property?
-            for (OWLObjectPropertyRangeAxiom rngAx : rangeAxioms) {
-                if (getPropertyManager().isSubPropertyOf(
-                        axiom.getSuperProperty(), rngAx.getProperty())) {
-                    // Imposed range restriction!
-                    OWLClassExpression imposedRange = rngAx.getRange();
-                    // There must be an axiom that imposes a range on the last
-                    // prop in the chain
-                    List<OWLObjectPropertyExpression> chain = axiom
-                            .getPropertyChain();
-                    if (!chain.isEmpty()) {
-                        OWLObjectPropertyExpression lastProperty = chain
-                                .get(chain.size() - 1);
-                        boolean rngPresent = false;
-                        for (OWLOntology ont : getCurrentOntology()
-                                .getImportsClosure()) {
-                            for (OWLObjectPropertyRangeAxiom lastPropRngAx : ont
-                                    .getObjectPropertyRangeAxioms(lastProperty)) {
-                                if (lastPropRngAx.getRange().equals(
-                                        imposedRange)) {
-                                    // We're o.k.
-                                    rngPresent = true;
-                                    break;
+            getCurrentOntology()
+                    .axioms(AxiomType.OBJECT_PROPERTY_RANGE, INCLUDED)
+                    .forEach(
+                            rngAx -> {
+                                if (getPropertyManager().isSubPropertyOf(
+                                        axiom.getSuperProperty(),
+                                        rngAx.getProperty())) {
+                                    // Imposed range restriction!
+                                    OWLClassExpression imposedRange = rngAx
+                                            .getRange();
+                                    // There must be an axiom that imposes a
+                                    // range on the last
+                                    // prop in the chain
+                                    List<OWLObjectPropertyExpression> chain = axiom
+                                            .getPropertyChain();
+                                    if (!chain.isEmpty()) {
+                                        OWLObjectPropertyExpression lastProperty = chain
+                                                .get(chain.size() - 1);
+                                        boolean rngPresent = false;
+                                        for (OWLOntology ont : getCurrentOntology()
+                                                .getImportsClosure()) {
+                                            for (OWLObjectPropertyRangeAxiom lastPropRngAx : ont
+                                                    .getObjectPropertyRangeAxioms(lastProperty)) {
+                                                if (lastPropRngAx.getRange()
+                                                        .equals(imposedRange)) {
+                                                    // We're o.k.
+                                                    rngPresent = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (!rngPresent) {
+                                            profileViolations
+                                                    .add(new LastPropertyInChainNotInImposedRange(
+                                                            getCurrentOntology(),
+                                                            axiom, rngAx));
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                        if (!rngPresent) {
-                            profileViolations
-                                    .add(new LastPropertyInChainNotInImposedRange(
-                                            getCurrentOntology(), axiom, rngAx));
-                        }
-                    }
-                }
-            }
+                            });
         }
 
         @Override

@@ -352,15 +352,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      */
     protected void writeAnnotations(@Nonnull OWLEntity entity,
             @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
-        Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms = ont
-                .getAnnotationAssertionAxioms(entity.getIRI());
-        for (OWLAnnotationAxiom ax : annotationAssertionAxioms) {
-            if (!alreadyWrittenAxioms.contains(ax)) {
-                ax.accept(this);
-                writeReturn();
-            }
-        }
-        alreadyWrittenAxioms.addAll(annotationAssertionAxioms);
+        ont.annotationAssertionAxioms(entity.getIRI())
+                .filter(ax -> alreadyWrittenAxioms.add(ax)).forEach(ax -> {
+                    ax.accept(this);
+                    writeReturn();
+                });
     }
 
     /**

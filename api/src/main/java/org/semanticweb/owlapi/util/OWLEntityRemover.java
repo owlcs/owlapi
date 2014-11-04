@@ -84,9 +84,9 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     private void generateChanges(@Nonnull OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
         for (OWLOntology ont : ontologies) {
-            ont.getReferencingAxioms(entity, EXCLUDED).forEach(
+            ont.referencingAxioms(entity, EXCLUDED).forEach(
                     ax -> changes.add(new RemoveAxiom(ont, ax)));
-            ont.getAnnotationAssertionAxioms(entity.getIRI()).forEach(
+            ont.annotationAssertionAxioms(entity.getIRI()).forEach(
                     ax -> changes.add(new RemoveAxiom(ont, ax)));
         }
     }

@@ -214,20 +214,18 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     protected Stream<? extends OWLAxiom> getAxioms(OWLEntity entity) {
         if (entity.isOWLClass()) {
-            return ont.getAxioms(entity.asOWLClass(), EXCLUDED).stream();
+            return ont.axioms(entity.asOWLClass(), EXCLUDED);
         }
         if (entity.isOWLObjectProperty()) {
-            return ont.getAxioms(entity.asOWLObjectProperty(), EXCLUDED)
-                    .stream();
+            return ont.axioms(entity.asOWLObjectProperty(), EXCLUDED);
         }
         if (entity.isOWLDataProperty()) {
-            return ont.getAxioms(entity.asOWLDataProperty(), EXCLUDED).stream();
+            return ont.axioms(entity.asOWLDataProperty(), EXCLUDED);
         }
         if (entity.isOWLNamedIndividual()) {
-            return ont.getAxioms(entity.asOWLNamedIndividual(), EXCLUDED)
-                    .stream();
+            return ont.axioms(entity.asOWLNamedIndividual(), EXCLUDED);
         }
-        return Collections.<OWLAxiom> emptySet().stream();
+        return Stream.empty();
     }
 
     /** The comparator. */

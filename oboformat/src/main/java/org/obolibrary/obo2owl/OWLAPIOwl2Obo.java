@@ -1116,14 +1116,8 @@ public class OWLAPIOwl2Obo {
         final IRI metadataTagIRI = IRI.create(
                 Obo2OWLConstants.OIOVOCAB_IRI_PREFIX,
                 OboFormatTag.TAG_IS_METADATA_TAG.getTag());
-        Set<OWLAnnotationAssertionAxiom> axioms = owlOntology
-                .getAnnotationAssertionAxioms(p.getIRI());
-        for (OWLAnnotationAssertionAxiom ax : axioms) {
-            if (metadataTagIRI.equals(ax.getProperty().getIRI())) {
-                return true;
-            }
-        }
-        return false;
+        return owlOntology.annotationAssertionAxioms(p.getIRI()).anyMatch(
+                ax -> metadataTagIRI.equals(ax.getProperty().getIRI()));
     }
 
     /**
