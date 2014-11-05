@@ -12,15 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import com.google.common.base.Optional;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-import com.google.common.base.Optional;
-
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
@@ -41,7 +39,6 @@ public class OWLLiteralImplNoCompression extends
     private final OWLDatatype datatype;
     @Nonnull
     private final String language;
-    private final int hashcode;
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
@@ -85,7 +82,7 @@ public class OWLLiteralImplNoCompression extends
             language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
         }
-        hashcode = getHashCode();
+        hashCode = getHashCode();
     }
 
     @Nonnull
@@ -185,7 +182,7 @@ public class OWLLiteralImplNoCompression extends
 
     @Override
     public int hashCode() {
-        return hashcode;
+        return hashCode;
     }
 
     private final int getHashCode() {
