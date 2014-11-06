@@ -98,14 +98,14 @@ public class OWLClassExpressionCollector implements
     @Override
     public Set<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
         Set<OWLClassExpression> result = createSet(ce);
-        ce.getOperands().forEach(op -> result.addAll(op.accept(this)));
+        ce.operands().forEach(op -> result.addAll(op.accept(this)));
         return result;
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectUnionOf ce) {
         Set<OWLClassExpression> result = createSet(ce);
-        ce.getOperands().forEach(op -> result.addAll(op.accept(this)));
+        ce.operands().forEach(op -> result.addAll(op.accept(this)));
         return result;
     }
 
@@ -222,8 +222,7 @@ public class OWLClassExpressionCollector implements
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointUnionAxiom axiom) {
         Set<OWLClassExpression> result = createSet(axiom.getOWLClass());
-        axiom.getClassExpressions().forEach(
-                ce -> result.addAll(ce.accept(this)));
+        axiom.classExpressions().forEach(ce -> result.addAll(ce.accept(this)));
         return result;
     }
 

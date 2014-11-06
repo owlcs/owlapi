@@ -214,7 +214,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDifferentIndividualsAxiom axiom) {
-        axiom.getIndividuals().forEach(i -> i.accept(this));
+        axiom.individuals().forEach(i -> i.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -268,7 +268,7 @@ public class OWLEntityCollector implements
     @Override
     public Collection<OWLEntity> visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept(this);
-        axiom.getClassExpressions().forEach(d -> d.accept(this));
+        axiom.classExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -365,7 +365,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLSameIndividualAxiom axiom) {
-        axiom.getIndividuals().forEach(i -> i.accept(this));
+        axiom.individuals().forEach(i -> i.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -403,13 +403,13 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLObjectIntersectionOf ce) {
-        ce.getOperands().forEach(o -> o.accept(this));
+        ce.operands().forEach(o -> o.accept(this));
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLObjectUnionOf ce) {
-        ce.getOperands().forEach(o -> o.accept(this));
+        ce.operands().forEach(o -> o.accept(this));
         return objects;
     }
 
@@ -469,7 +469,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLObjectOneOf ce) {
-        ce.getIndividuals().forEach(i -> i.accept(this));
+        ce.individuals().forEach(i -> i.accept(this));
         return objects;
     }
 
@@ -524,7 +524,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDataOneOf node) {
-        node.getValues().forEach(val -> val.accept(this));
+        node.values().forEach(val -> val.accept(this));
         return objects;
     }
 
@@ -543,7 +543,7 @@ public class OWLEntityCollector implements
     @Override
     public Collection<OWLEntity> visit(OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
-        node.getFacetRestrictions().forEach(f -> f.accept(this));
+        node.facetRestrictions().forEach(f -> f.accept(this));
         return objects;
     }
 

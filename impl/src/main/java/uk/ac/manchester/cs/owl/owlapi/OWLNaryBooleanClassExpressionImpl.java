@@ -12,19 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -37,26 +36,21 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Set<OWLClassExpression> operands;
+    private final List<OWLClassExpression> operands;
 
     /**
      * @param operands
      *        operands
      */
     public OWLNaryBooleanClassExpressionImpl(
-            @Nonnull Set<? extends OWLClassExpression> operands) {
-        this.operands = new TreeSet<>(checkNotNull(operands,
-                "operands cannot be null"));
+            @Nonnull Collection<? extends OWLClassExpression> operands) {
+        this.operands = checkNotNull(operands, "operands cannot be null")
+                .stream().sorted().collect(toList());
     }
 
     @Override
-    public List<OWLClassExpression> getOperandsAsList() {
-        return new ArrayList<>(operands);
-    }
-
-    @Override
-    public Set<OWLClassExpression> getOperands() {
-        return CollectionFactory.copy(operands);
+    public Stream<OWLClassExpression> operands() {
+        return operands.stream();
     }
 
     @Override
@@ -65,15 +59,19 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
             if (!(obj instanceof OWLNaryBooleanClassExpression)) {
                 return false;
             }
+            if (obj instanceof OWLNaryBooleanClassExpressionImpl) {
+                return ((OWLNaryBooleanClassExpressionImpl) obj).operands
+                        .equals(operands);
+            }
             return ((OWLNaryBooleanClassExpression) obj).getOperands().equals(
-                    operands);
+                    getOperands());
         }
         return false;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(operands,
-                ((OWLNaryBooleanClassExpression) object).getOperands());
+        return compareStreams(operands(),
+                ((OWLNaryBooleanClassExpression) object).operands());
     }
 }

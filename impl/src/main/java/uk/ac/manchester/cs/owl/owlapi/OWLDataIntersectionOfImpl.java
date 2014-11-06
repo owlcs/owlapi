@@ -54,7 +54,7 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLDataIntersectionOf other = (OWLDataIntersectionOf) object;
-        return compareSets(getOperands(), other.getOperands());
+        return compareStreams(operands(), other.operands());
     }
 
     @Override
@@ -66,6 +66,6 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements
             return false;
         }
         OWLDataIntersectionOf other = (OWLDataIntersectionOf) obj;
-        return getOperands().equals(other.getOperands());
+        return getOperands().equals( other.getOperands()) ;
     }
 }

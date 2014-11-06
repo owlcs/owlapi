@@ -293,7 +293,8 @@ public class OWLDataFactoryTestCase {
         OWLDatatypeRestriction restRngB = testSubject
                 .getOWLDatatypeRestriction(rng, testSubject
                         .getOWLFacetRestriction(MIN_INCLUSIVE, facetValue));
-        assertFalse(restRngA.equals(restRngB));
+        assertNotEquals(restRngA.toString() + "\n" + restRngB.toString(),
+                restRngA, restRngB);
     }
 
     @Test

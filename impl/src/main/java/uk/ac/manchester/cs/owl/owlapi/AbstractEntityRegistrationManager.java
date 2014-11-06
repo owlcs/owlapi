@@ -164,7 +164,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-        axiom.getIndividuals().forEach(a -> a.accept(this));
+        axiom.individuals().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -211,7 +211,7 @@ public abstract class AbstractEntityRegistrationManager implements
     @Override
     public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
-        axiom.getClassExpressions().forEach(a -> a.accept(this));
+        axiom.classExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -294,7 +294,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
-        axiom.getIndividuals().forEach(a -> a.accept(this));
+        axiom.individuals().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -322,12 +322,12 @@ public abstract class AbstractEntityRegistrationManager implements
     // OWLClassExpressionVisitor
     @Override
     public void visit(@Nonnull OWLObjectIntersectionOf ce) {
-        ce.getOperands().forEach(a -> a.accept(this));
+        ce.operands().forEach(a -> a.accept(this));
     }
 
     @Override
     public void visit(@Nonnull OWLObjectUnionOf ce) {
-        ce.getOperands().forEach(a -> a.accept(this));
+        ce.operands().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -378,7 +378,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLObjectOneOf ce) {
-        ce.getIndividuals().forEach(a -> a.accept(this));
+        ce.individuals().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -425,7 +425,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLDataOneOf node) {
-        node.getValues().forEach(a -> a.accept(this));
+        node.values().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -441,7 +441,7 @@ public abstract class AbstractEntityRegistrationManager implements
     @Override
     public void visit(@Nonnull OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
-        node.getFacetRestrictions().forEach(a -> a.accept(this));
+        node.facetRestrictions().forEach(a -> a.accept(this));
     }
 
     @Override

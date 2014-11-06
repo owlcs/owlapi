@@ -214,7 +214,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
-        axiom.getIndividuals().forEach(a -> a.accept(this));
+        axiom.individuals().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -243,7 +243,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getOWLClass().accept(this);
-        axiom.getClassExpressions().forEach(a -> a.accept(this));
+        axiom.classExpressions().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -413,7 +413,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLSameIndividualAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
-        axiom.getIndividuals().forEach(a -> a.accept(this));
+        axiom.individuals().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -549,7 +549,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLObjectIntersectionOf ce) {
         walkerCallback.pushClassExpression(ce);
         process(ce);
-        ce.getOperands().forEach(a -> a.accept(this));
+        ce.operands().forEach(a -> a.accept(this));
         walkerCallback.popClassExpression();
     }
 
@@ -575,7 +575,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLObjectOneOf ce) {
         walkerCallback.pushClassExpression(ce);
         process(ce);
-        ce.getIndividuals().forEach(a -> a.accept(this));
+        ce.individuals().forEach(a -> a.accept(this));
         walkerCallback.popClassExpression();
     }
 
@@ -600,7 +600,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLObjectUnionOf ce) {
         walkerCallback.pushClassExpression(ce);
         process(ce);
-        ce.getOperands().forEach(a -> a.accept(this));
+        ce.operands().forEach(a -> a.accept(this));
         walkerCallback.popClassExpression();
     }
 
@@ -625,7 +625,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLDataOneOf node) {
         walkerCallback.pushDataRange(node);
         process(node);
-        node.getValues().forEach(a -> a.accept(this));
+        node.values().forEach(a -> a.accept(this));
         walkerCallback.popDataRange();
     }
 
@@ -656,7 +656,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         walkerCallback.pushDataRange(node);
         process(node);
         node.getDatatype().accept(this);
-        node.getFacetRestrictions().forEach(a -> a.accept(this));
+        node.facetRestrictions().forEach(a -> a.accept(this));
         walkerCallback.popDataRange();
     }
 

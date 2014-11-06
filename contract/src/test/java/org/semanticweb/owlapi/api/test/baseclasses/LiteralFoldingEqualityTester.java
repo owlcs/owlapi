@@ -951,13 +951,8 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        Set<OWLIndividual> aaa = a.getIndividuals();
-        Set<OWLIndividual> bbb = b.getIndividuals();
-        if (aaa.size() != bbb.size()) {
-            return false;
-        }
-        Iterator<OWLIndividual> ai = aaa.iterator();
-        Iterator<OWLIndividual> bi = bbb.iterator();
+        Iterator<OWLIndividual> ai = a.individuals().iterator();
+        Iterator<OWLIndividual> bi = b.individuals().iterator();
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
@@ -974,13 +969,8 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        Set<OWLIndividual> aaa = a.getIndividuals();
-        Set<OWLIndividual> bbb = b.getIndividuals();
-        if (aaa.size() != bbb.size()) {
-            return false;
-        }
-        Iterator<OWLIndividual> ai = aaa.iterator();
-        Iterator<OWLIndividual> bi = bbb.iterator();
+        Iterator<OWLIndividual> ai = a.individuals().iterator();
+        Iterator<OWLIndividual> bi = b.individuals().iterator();
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;

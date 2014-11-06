@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -33,9 +33,8 @@ import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryIndividualAxiomImpl extends
-        OWLIndividualAxiomImpl implements
-        OWLNaryIndividualAxiom {
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
+        implements OWLNaryIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -49,7 +48,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends
      */
     @SuppressWarnings("unchecked")
     public OWLNaryIndividualAxiomImpl(
-            @Nonnull Set<? extends OWLIndividual> individuals,
+            @Nonnull Collection<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(individuals, "individuals cannot be null");
@@ -57,13 +56,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends
     }
 
     @Override
-    public Set<OWLIndividual> getIndividuals() {
-        return copy(individuals);
-    }
-
-    @Override
-    public List<OWLIndividual> getIndividualsAsList() {
-        return new ArrayList<>(individuals);
+    public Stream<OWLIndividual> individuals() {
+        return individuals.stream();
     }
 
     @Override
@@ -83,8 +77,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(individuals,
-                ((OWLNaryIndividualAxiom) object).getIndividuals());
+        return compareStreams(individuals(),
+                ((OWLNaryIndividualAxiom) object).individuals());
     }
 
     @Override

@@ -12,11 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
+import static java.util.stream.Collectors.toList;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -37,7 +41,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Set<OWLIndividual> values;
+    private final List<OWLIndividual> values;
 
     @Override
     protected int index() {
@@ -48,9 +52,10 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
      * @param values
      *        values for oneof
      */
-    public OWLObjectOneOfImpl(@Nonnull Set<? extends OWLIndividual> values) {
-        this.values = new HashSet<>(checkNotNull(values,
-                "values cannot be null"));
+    public OWLObjectOneOfImpl(
+            @Nonnull Collection<? extends OWLIndividual> values) {
+        this.values = checkNotNull(values, "values cannot be null").stream()
+                .sorted().collect(toList());
     }
 
     @Override
@@ -59,8 +64,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
     }
 
     @Override
-    public Set<OWLIndividual> getIndividuals() {
-        return copy(values);
+    public Stream<OWLIndividual> individuals() {
+        return values.stream();
     }
 
     @Override
@@ -80,13 +85,18 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
             if (!(obj instanceof OWLObjectOneOf)) {
                 return false;
             }
-            return ((OWLObjectOneOf) obj).getIndividuals().equals(values);
+            if (obj instanceof OWLObjectOneOfImpl) {
+                return values.equals(((OWLObjectOneOfImpl) obj).values);
+            }
+            return ((OWLObjectOneOf) obj).getIndividuals().equals(
+                    getIndividuals());
         }
         return false;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(values, ((OWLObjectOneOf) object).getIndividuals());
+        return compareStreams(individuals(),
+                ((OWLObjectOneOf) object).individuals());
     }
 }

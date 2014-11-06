@@ -196,7 +196,7 @@ public abstract class TestBase {
                     }
                 }
             }
-            if (counter > 0) {
+            if (counter > 0 && !rightOnly.equals(leftOnly)) {
                 // a test fails on OpenJDK implementations because of
                 // ordering
                 // testing here if blank node ids are the only difference

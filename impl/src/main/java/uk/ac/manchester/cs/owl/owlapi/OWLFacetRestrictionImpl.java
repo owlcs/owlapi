@@ -64,6 +64,22 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof OWLFacetRestriction) {
+            return facet.equals(((OWLFacetRestriction) obj).getFacet())
+                    && facetValue.equals(((OWLFacetRestriction) obj)
+                            .getFacetValue());
+        }
+        return false;
+    }
+
+    @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLFacetRestriction other = (OWLFacetRestriction) object;
         int diff = facet.compareTo(other.getFacet());

@@ -49,9 +49,7 @@ public class ExistentialCollector implements OWLClassExpressionVisitor {
 
     @Override
     public void visit(@Nonnull OWLObjectIntersectionOf ce) {
-        for (OWLClassExpression operand : ce.getOperands()) {
-            operand.accept(this);
-        }
+        ce.operands().forEach(o -> o.accept(this));
     }
 
     @Override

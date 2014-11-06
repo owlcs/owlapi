@@ -224,13 +224,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
         constructs.add(AL);
-        ce.getOperands().forEach(o -> o.accept(this));
+        ce.operands().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
         constructs.add(U);
-        ce.getOperands().forEach(o -> o.accept(this));
+        ce.operands().forEach(o -> o.accept(this));
     }
 
     private static boolean isTop(OWLClassExpression classExpression) {
@@ -473,7 +473,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public void visit(OWLDisjointUnionAxiom axiom) {
         constructs.add(U);
         constructs.add(C);
-        axiom.getClassExpressions().forEach(o -> o.accept(this));
+        axiom.classExpressions().forEach(o -> o.accept(this));
     }
 
     @Override

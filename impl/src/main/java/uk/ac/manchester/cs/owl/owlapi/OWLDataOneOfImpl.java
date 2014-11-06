@@ -12,10 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -23,7 +25,6 @@ import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -35,7 +36,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Set<OWLLiteral> values;
+    private final List<OWLLiteral> values;
 
     @Override
     protected int index() {
@@ -46,9 +47,9 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
      * @param values
      *        lierals
      */
-    public OWLDataOneOfImpl(@Nonnull Set<? extends OWLLiteral> values) {
-        this.values = new TreeSet<>(checkNotNull(values,
-                "values cannot be null"));
+    public OWLDataOneOfImpl(@Nonnull Collection<? extends OWLLiteral> values) {
+        this.values = checkNotNull(values, "values cannot be null").stream()
+                .sorted().collect(toList());
     }
 
     @Override
@@ -57,8 +58,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     @Override
-    public Set<OWLLiteral> getValues() {
-        return CollectionFactory.copy(values);
+    public Stream<OWLLiteral> values() {
+        return values.stream();
     }
 
     @Override
@@ -67,13 +68,16 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
             if (!(obj instanceof OWLDataOneOf)) {
                 return false;
             }
-            return ((OWLDataOneOf) obj).getValues().equals(values);
+            if (obj instanceof OWLDataOneOfImpl) {
+                return values.equals(((OWLDataOneOfImpl) obj).values);
+            }
+            return ((OWLDataOneOf) obj).getValues().equals(getValues());
         }
         return false;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(values, ((OWLDataOneOf) object).getValues());
+          return  compareStreams(values(), ((OWLDataOneOf) object).values());
     }
 }

@@ -84,9 +84,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
-            for (OWLClassExpression op : ce.getOperands()) {
-                op.accept(this);
-            }
+            ce.operands().forEach(op -> op.accept(this));
         }
     }
 }

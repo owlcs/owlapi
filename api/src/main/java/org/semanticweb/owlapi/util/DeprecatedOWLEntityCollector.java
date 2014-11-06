@@ -311,7 +311,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        axiom.getIndividuals().forEach(i -> i.accept(this));
+        axiom.individuals().forEach(i -> i.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -358,7 +358,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
-        axiom.getClassExpressions().forEach(d -> d.accept(this));
+        axiom.classExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -441,7 +441,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        axiom.getIndividuals().forEach(i -> i.accept(this));
+        axiom.individuals().forEach(i -> i.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -475,12 +475,12 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLObjectIntersectionOf desc) {
-        desc.getOperands().forEach(o -> o.accept(this));
+        desc.operands().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLObjectUnionOf desc) {
-        desc.getOperands().forEach(o -> o.accept(this));
+        desc.operands().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -531,7 +531,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLObjectOneOf desc) {
-        desc.getIndividuals().forEach(i -> i.accept(this));
+        desc.individuals().forEach(i -> i.accept(this));
     }
 
     @Override
@@ -577,7 +577,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDataOneOf node) {
-        node.getValues().forEach(o -> o.accept(this));
+        node.values().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -593,7 +593,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
     @Override
     public void visit(OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
-        node.getFacetRestrictions().forEach(o -> o.accept(this));
+        node.facetRestrictions().forEach(o -> o.accept(this));
     }
 
     @Override

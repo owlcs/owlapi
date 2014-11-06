@@ -1095,7 +1095,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                 writeSection(DIFFERENT_FROM, inds, ",", true, ontology);
                 if (renderExtensions) {
                     nary.forEach(ax -> writeSection(DIFFERENT_INDIVIDUALS,
-                            ax.getIndividuals(), ", ", false, ontology));
+                            ax.getIndividualsAsList(), ", ", false, ontology));
                 }
             }
         }

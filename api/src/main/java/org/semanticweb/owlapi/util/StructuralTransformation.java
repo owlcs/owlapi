@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
@@ -186,9 +187,8 @@ public class StructuralTransformation implements Serializable {
         @Override
         public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
             OWLClass name = createNewName();
-            for (OWLClassExpression op : ce.getOperands()) {
-                axioms.add(getSCA(name, op.accept(this)));
-            }
+            ce.operands().forEach(
+                    op -> axioms.add(getSCA(name, op.accept(this))));
             return name;
         }
 
@@ -236,18 +236,20 @@ public class StructuralTransformation implements Serializable {
         @Override
         public OWLClassExpression visit(OWLObjectUnionOf ce) {
             Set<OWLClassExpression> descs = new HashSet<>();
-            for (OWLClassExpression op : ce.getOperands()) {
-                OWLClassExpression flatOp = op.accept(this);
-                if (flatOp.isAnonymous()
-                        || signature.contains(flatOp.asOWLClass())) {
-                    OWLClass name = createNewName();
-                    descs.add(name);
-                    axioms.add(ldf.getOWLSubClassOfAxiom(name, flatOp));
-                } else {
-                    descs.add(flatOp);
-                }
-            }
+            ce.operands().forEach(op -> visitOperand(descs, op));
             return ldf.getOWLObjectUnionOf(descs);
+        }
+
+        protected void visitOperand(Set<OWLClassExpression> descs,
+                OWLClassExpression op) {
+            OWLClassExpression flatOp = op.accept(this);
+            if (flatOp.isAnonymous() || signature.contains(flatOp.asOWLClass())) {
+                OWLClass name = createNewName();
+                descs.add(name);
+                axioms.add(ldf.getOWLSubClassOfAxiom(name, flatOp));
+            } else {
+                descs.add(flatOp);
+            }
         }
     }
 
@@ -297,8 +299,8 @@ public class StructuralTransformation implements Serializable {
         public Set<OWLAxiom> visit(OWLDifferentIndividualsAxiom axiom) {
             // Explode into pairwise nominals?
             Set<OWLAxiom> axioms = new HashSet<>();
-            List<OWLIndividual> individuals = new ArrayList<>(
-                    axiom.getIndividuals());
+            List<OWLIndividual> individuals = axiom.individuals().collect(
+                    toList());
             for (int i = 0; i < individuals.size(); i++) {
                 for (int j = i + 1; j < individuals.size(); j++) {
                     axioms.addAll(subClassOf(

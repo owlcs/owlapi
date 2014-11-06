@@ -199,9 +199,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         SWRLRule other = (SWRLRule) object;
-        int diff = compareSets(getBody(), other.getBody());
+        int diff = compareCollections(getBody(), other.getBody());
         if (diff == 0) {
-            diff = compareSets(getHead(), other.getHead());
+            diff = compareCollections(getHead(), other.getHead());
         }
         return diff;
     }

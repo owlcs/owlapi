@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -47,7 +50,19 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         equivalent to the disjoint union.
      */
     @Nonnull
-    Set<OWLClassExpression> getClassExpressions();
+    default Set<OWLClassExpression> getClassExpressions() {
+        return classExpressions().collect(toSet());
+    }
+
+    /**
+     * Gets the class expressions which are operands of the disjoint union.
+     * 
+     * @return A {@code Set} containing the operands of the disjoint union, note
+     *         that this <b>does not</b> include the {@code OWLClass} that is
+     *         equivalent to the disjoint union.
+     */
+    @Nonnull
+    Stream<OWLClassExpression> classExpressions();
 
     /**
      * Gets the part of this axiom that corresponds to an

@@ -69,14 +69,14 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLObjectIntersectionOf ce) {
-        return ce.getOperands().stream()
-                .mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return ce.operands().mapToInt(ax -> ax.accept(this).intValue()).max()
+                .orElse(0);
     }
 
     @Override
     public Integer visit(OWLObjectUnionOf ce) {
-        return ce.getOperands().stream()
-                .mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return ce.operands().mapToInt(ax -> ax.accept(this).intValue()).max()
+                .orElse(0);
     }
 
     @Override

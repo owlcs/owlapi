@@ -12,16 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
-import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -33,15 +35,22 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Set<OWLDataRange> operands;
+    private final List<OWLDataRange> operands;
 
-    protected OWLNaryDataRangeImpl(@Nonnull Set<? extends OWLDataRange> operands) {
-        this.operands = new TreeSet<>(checkNotNull(operands,
-                "operands cannot be null"));
+    protected OWLNaryDataRangeImpl(
+            @Nonnull Collection<? extends OWLDataRange> operands) {
+        this.operands = checkNotNull(operands, "operands cannot be null")
+                .stream().collect(toList());
     }
 
     @Override
-    public Set<OWLDataRange> getOperands() {
-        return CollectionFactory.copy(operands);
+    public Stream<OWLDataRange> operands() {
+        return operands.stream();
+    }
+
+    @Override
+    protected int compareObjectOfSameType(OWLObject object) {
+        return compareStreams(operands(),
+                ((OWLNaryDataRange) object).operands());
     }
 }

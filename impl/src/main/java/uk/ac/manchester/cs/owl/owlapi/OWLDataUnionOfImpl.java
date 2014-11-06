@@ -53,7 +53,7 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLDataUnionOf other = (OWLDataUnionOf) object;
-        return compareSets(getOperands(), other.getOperands());
+        return compareStreams(operands(), other.operands());
     }
 
     @Override

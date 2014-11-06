@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -125,7 +126,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(139);
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -137,7 +138,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         addValueToHash(3);
         axiom.getProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -145,7 +146,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(7);
         axiom.getIndividual().accept(this);
         axiom.getClassExpression().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -154,7 +155,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -162,7 +163,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(13);
         axiom.getProperty().accept(this);
         axiom.getDomain().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -170,7 +171,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(17);
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -178,50 +179,50 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(19);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
         addValueToHash(23);
         axiom.getEntity().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         addValueToHash(29);
-        visitStream(axiom.getIndividuals());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.individuals());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         addValueToHash(31);
         visitStream(axiom.getClassExpressions());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         addValueToHash(37);
         visitStream(axiom.getProperties());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         addValueToHash(41);
         visitStream(axiom.getProperties());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         addValueToHash(43);
         axiom.getOWLClass().accept(this);
-        visitStream(axiom.getClassExpressions());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.classExpressions());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -230,49 +231,49 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getValue().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         addValueToHash(53);
         visitStream(axiom.getClassExpressions());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         addValueToHash(59);
         visitStream(axiom.getProperties());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         addValueToHash(61);
         visitStream(axiom.getProperties());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         addValueToHash(67);
         axiom.getProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         addValueToHash(71);
         axiom.getProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         addValueToHash(79);
         axiom.getProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -280,14 +281,14 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(83);
         hashCode = hashCode * MULT + axiom.getFirstProperty().hashCode()
                 + axiom.getSecondProperty().hashCode();
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         addValueToHash(89);
         axiom.getProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -296,7 +297,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -305,7 +306,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -314,7 +315,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -322,7 +323,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(107);
         visitStream(axiom.getPropertyChain());
         axiom.getSuperProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -330,7 +331,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(109);
         axiom.getProperty().accept(this);
         axiom.getDomain().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -338,7 +339,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(113);
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -346,7 +347,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         addValueToHash(127);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -359,22 +360,22 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         addValueToHash(137);
-        visitStream(axiom.getIndividuals());
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.individuals());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         addValueToHash(149);
         axiom.getProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         addValueToHash(151);
         axiom.getProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -452,7 +453,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
         addValueToHash(211);
-        visitStream(ce.getOperands());
+        visitStream(ce.operands());
     }
 
     @Override
@@ -474,7 +475,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLObjectOneOf ce) {
         addValueToHash(229);
-        visitStream(ce.getIndividuals());
+        visitStream(ce.individuals());
     }
 
     @Override
@@ -493,7 +494,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLObjectUnionOf ce) {
         addValueToHash(241);
-        visitStream(ce.getOperands());
+        visitStream(ce.operands());
     }
 
     @Override
@@ -512,7 +513,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLDataOneOf node) {
         addValueToHash(263);
-        visitStream(node.getValues());
+        visitStream(node.values());
     }
 
     @Override
@@ -525,7 +526,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     public void visit(OWLDatatypeRestriction node) {
         addValueToHash(271);
         node.getDatatype().accept(this);
-        visitStream(node.getFacetRestrictions());
+        visitStream(node.facetRestrictions());
     }
 
     @Override
@@ -671,13 +672,13 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLDataIntersectionOf node) {
         addValueToHash(839);
-        visitStream(node.getOperands());
+        visitStream(node.operands());
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
         addValueToHash(853);
-        visitStream(node.getOperands());
+        visitStream(node.operands());
     }
 
     @Override
@@ -712,7 +713,12 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
         axiom.getDataRange().accept(this);
     }
 
+    @Deprecated
     private void visitStream(Collection<? extends OWLObject> collection) {
+        collection.forEach(o -> o.accept(this));
+    }
+
+    private void visitStream(Stream<? extends OWLObject> collection) {
         collection.forEach(o -> o.accept(this));
     }
 }

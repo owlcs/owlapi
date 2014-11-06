@@ -107,7 +107,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLDataOneOf oneOf) {
             Set<OWLLiteral> vals = new HashSet<>();
-            oneOf.getValues().forEach(c -> vals.add(process(prop, c)));
+            oneOf.values().forEach(c -> vals.add(process(prop, c)));
             return df.getOWLDataOneOf(vals);
         }
 

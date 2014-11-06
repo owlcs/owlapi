@@ -203,7 +203,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         return ToStringRenderer.getInstance().getRendering(this);
     }
 
-    protected static int compareSets(Collection<? extends OWLObject> set1,
+    protected static int compareCollections(
+            Collection<? extends OWLObject> set1,
             Collection<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {
@@ -230,6 +231,21 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
             i++;
         }
         return ss1.size() - ss2.size();
+    }
+
+    protected static int compareStreams(Stream<? extends OWLObject> set1,
+            Stream<? extends OWLObject> set2) {
+        Iterator<? extends OWLObject> thisIt = set1.sorted().iterator();
+        Iterator<? extends OWLObject> otherIt = set2.sorted().iterator();
+        while (thisIt.hasNext() && otherIt.hasNext()) {
+            OWLObject o1 = thisIt.next();
+            OWLObject o2 = otherIt.next();
+            int diff = o1.compareTo(o2);
+            if (diff != 0) {
+                return diff;
+            }
+        }
+        return Boolean.compare(thisIt.hasNext(), otherIt.hasNext());
     }
 
     protected static int compareLists(List<? extends OWLObject> list1,

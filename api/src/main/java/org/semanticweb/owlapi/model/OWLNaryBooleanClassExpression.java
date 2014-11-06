@@ -12,8 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -27,7 +30,13 @@ public interface OWLNaryBooleanClassExpression extends
 
     /** @return the class expressions */
     @Nonnull
-    Set<OWLClassExpression> getOperands();
+    default Set<OWLClassExpression> getOperands() {
+        return operands().collect(toSet());
+    }
+
+    /** @return the class expressions */
+    @Nonnull
+    Stream<OWLClassExpression> operands();
 
     /**
      * Gets the class expressions returned by {@link #getOperands()} as a list
@@ -36,5 +45,7 @@ public interface OWLNaryBooleanClassExpression extends
      * @return The class expressions as a list.
      */
     @Nonnull
-    List<OWLClassExpression> getOperandsAsList();
+    default List<OWLClassExpression> getOperandsAsList() {
+        return operands().collect(toList());
+    }
 }

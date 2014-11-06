@@ -219,7 +219,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        for (Iterator<OWLClassExpression> it = ce.getOperands().iterator(); it
+        for (Iterator<OWLClassExpression> it = ce.operands().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -350,7 +350,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        for (Iterator<OWLClassExpression> it = ce.getOperands().iterator(); it
+        for (Iterator<OWLClassExpression> it = ce.operands().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -368,7 +368,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        for (Iterator<OWLIndividual> it = ce.getIndividuals().iterator(); it
+        for (Iterator<OWLIndividual> it = ce.individuals().iterator(); it
                 .hasNext();) {
             writeOpenBrace();
             it.next().accept(this);
@@ -573,7 +573,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it
+        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it
                 .hasNext();) {
             write("\\{");
             it.next().accept(this);
@@ -613,10 +613,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(OWLDisjointUnionAxiom axiom) {
         write("DisjointUnion");
         writeSpace();
-        for (OWLClassExpression p : axiom.getClassExpressions()) {
+        axiom.classExpressions().forEach(p -> {
             p.accept(this);
             writeSpace();
-        }
+        });
     }
 
     @Override
@@ -795,7 +795,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it
+        for (Iterator<OWLIndividual> it = axiom.individuals().iterator(); it
                 .hasNext();) {
             write("\\{");
             it.next().accept(this);
@@ -913,10 +913,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     public void visit(OWLDatatypeRestriction node) {
         write("DatatypeRestriction");
         node.getDatatype().accept(this);
-        for (OWLFacetRestriction r : node.getFacetRestrictions()) {
+        node.facetRestrictions().forEach(r -> {
             writeSpace();
             r.accept(this);
-        }
+        });
     }
 
     @Override

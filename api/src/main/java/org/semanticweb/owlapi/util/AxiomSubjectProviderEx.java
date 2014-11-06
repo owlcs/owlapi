@@ -135,7 +135,7 @@ public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
 
     @Override
     public OWLObject visit(OWLDifferentIndividualsAxiom axiom) {
-        return axiom.getIndividuals().iterator().next();
+        return axiom.individuals().iterator().next();
     }
 
     @Override
@@ -240,7 +240,7 @@ public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
 
     @Override
     public OWLObject visit(OWLSameIndividualAxiom axiom) {
-        return axiom.getIndividuals().iterator().next();
+        return axiom.individuals().iterator().next();
     }
 
     @Override

@@ -12,13 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -45,7 +44,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
     @Nonnull
     private final OWLClass owlClass;
     @Nonnull
-    private final Set<OWLClassExpression> classExpressions;
+    private final List<OWLClassExpression> classExpressions;
 
     /**
      * @param owlClass
@@ -56,17 +55,18 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
      *        annotations
      */
     public OWLDisjointUnionAxiomImpl(@Nonnull OWLClass owlClass,
-            @Nonnull Set<? extends OWLClassExpression> classExpressions,
+            @Nonnull Collection<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
-        this.classExpressions = new TreeSet<>(checkNotNull(classExpressions,
-                "classExpressions cannot be null"));
+        this.classExpressions = checkNotNull(classExpressions,
+                "classExpressions cannot be null").stream().sorted()
+                .collect(toList());
     }
 
     @Override
-    public Set<OWLClassExpression> getClassExpressions() {
-        return CollectionFactory.copy(classExpressions);
+    public Stream<OWLClassExpression> classExpressions() {
+        return classExpressions.stream();
     }
 
     @Override
@@ -105,7 +105,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
             if (!(obj instanceof OWLDisjointUnionAxiom)) {
                 return false;
             }
-            return ((OWLDisjointUnionAxiom) obj).getOWLClass().equals(owlClass);
+            if (obj instanceof OWLDisjointUnionAxiomImpl) {
+                return classExpressions
+                        .equals(((OWLDisjointUnionAxiomImpl) obj).classExpressions);
+            }
+            return ((OWLDisjointUnionAxiom) obj).getOWLClass().equals(owlClass)
+                    && getClassExpressions()
+                            .equals(((OWLDisjointUnionAxiom) obj)
+                                    .getClassExpressions());
         }
         return false;
     }
@@ -135,6 +142,6 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         if (diff != 0) {
             return diff;
         }
-        return compareSets(classExpressions, other.getClassExpressions());
+        return compareStreams(classExpressions(), other.classExpressions());
     }
 }

@@ -98,7 +98,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(classExpressions,
+        return compareCollections(classExpressions,
                 ((OWLNaryClassAxiom) object).getClassExpressions());
     }
 

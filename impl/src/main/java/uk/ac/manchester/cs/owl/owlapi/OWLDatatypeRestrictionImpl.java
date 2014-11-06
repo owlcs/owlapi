@@ -12,10 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -24,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -39,7 +40,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
-    private final Set<OWLFacetRestriction> facetRestrictions;
+    private final List<OWLFacetRestriction> facetRestrictions;
 
     @Override
     protected int index() {
@@ -53,10 +54,11 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
      *        facet restriction
      */
     public OWLDatatypeRestrictionImpl(@Nonnull OWLDatatype datatype,
-            @Nonnull Set<OWLFacetRestriction> facetRestrictions) {
+            @Nonnull Collection<OWLFacetRestriction> facetRestrictions) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        this.facetRestrictions = new TreeSet<>(checkNotNull(facetRestrictions,
-                "facetRestrictions cannot be null"));
+        this.facetRestrictions = checkNotNull(facetRestrictions,
+                "facetRestrictions cannot be null").stream().sorted()
+                .collect(toList());
     }
 
     @Override
@@ -70,8 +72,8 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLFacetRestriction> getFacetRestrictions() {
-        return CollectionFactory.copy(facetRestrictions);
+    public Stream<OWLFacetRestriction> facetRestrictions() {
+        return facetRestrictions.stream();
     }
 
     @Override
@@ -80,9 +82,16 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
             if (!(obj instanceof OWLDatatypeRestriction)) {
                 return false;
             }
+            if (obj instanceof OWLDatatypeRestrictionImpl) {
+                return datatype
+                        .equals(((OWLDatatypeRestrictionImpl) obj).datatype)
+                        && facetRestrictions
+                                .equals(((OWLDatatypeRestrictionImpl) obj).facetRestrictions);
+            }
             OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
             return other.getDatatype().equals(datatype)
-                    && other.getFacetRestrictions().equals(facetRestrictions);
+                    && other.getFacetRestrictions().equals(
+                            getFacetRestrictions());
         }
         return false;
     }
@@ -94,6 +103,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
         if (diff != 0) {
             return diff;
         }
-        return compareSets(facetRestrictions, other.getFacetRestrictions());
+            return compareStreams(facetRestrictions(),
+                    other.facetRestrictions());
     }
 }

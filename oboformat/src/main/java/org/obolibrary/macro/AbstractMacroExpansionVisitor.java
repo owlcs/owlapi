@@ -364,9 +364,8 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     @Override
     public OWLAxiom visit(@Nonnull OWLDisjointUnionAxiom ax) {
-        Set<OWLClassExpression> descs = new HashSet<>();
-        ax.getClassExpressions().forEach(
-                op -> descs.add(op.accept(classVisitor)));
+        Set<OWLClassExpression> descs = ax.classExpressions()
+                .map(op -> op.accept(classVisitor)).collect(toSet());
         return df.getOWLDisjointUnionAxiom(ax.getOWLClass(), descs);
     }
 

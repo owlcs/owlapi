@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.FreshEntityPolicy;
 import org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy;
@@ -644,20 +645,14 @@ public class StructuralReasoner extends OWLReasonerBase {
         stack.add(ind);
         while (!stack.isEmpty()) {
             OWLNamedIndividual currentInd = stack.remove(0);
-            getRootOntology()
+            Stream<OWLSameIndividualAxiom> axioms = getRootOntology()
                     .importsClosure()
                     .flatMap(
                             o -> o.getSameIndividualAxioms(currentInd).stream())
-                    .filter(ax -> processed.add(ax))
-                    .forEach(
-                            ax -> ax.getIndividuals()
-                                    .stream()
-                                    .filter(i -> !i.isAnonymous())
-                                    .filter(i -> inds.add(i
-                                            .asOWLNamedIndividual()))
-                                    .forEach(
-                                            i -> stack.add(i
-                                                    .asOWLNamedIndividual())));
+                    .filter(ax -> processed.add(ax));
+            axioms.forEach(ax -> ax.individuals().filter(i -> i.isNamed())
+                    .filter(i -> inds.add(i.asOWLNamedIndividual()))
+                    .forEach(i -> stack.add(i.asOWLNamedIndividual())));
         }
         if (inds.isEmpty()) {
             inds.add(ind);
@@ -676,32 +671,23 @@ public class StructuralReasoner extends OWLReasonerBase {
         stack.add(ind);
         while (!stack.isEmpty()) {
             OWLNamedIndividual currentInd = stack.remove(0);
-            for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
-                for (OWLDifferentIndividualsAxiom axiom : ontology
-                        .getDifferentIndividualAxioms(currentInd)) {
-                    if (!processed.contains(axiom)) {
-                        processed.add(axiom);
-                        for (OWLIndividual i : axiom.getIndividuals()) {
-                            if (!i.isAnonymous()) {
-                                OWLNamedIndividual namedInd = i
-                                        .asOWLNamedIndividual();
-                                if (inds.add(namedInd)) {
-                                    stack.add(namedInd);
-                                }
-                            }
+            Stream<OWLDifferentIndividualsAxiom> axioms = Imports.INCLUDED
+                    .stream(getRootOntology())
+                    .flatMap(o -> o.differentIndividualAxioms(currentInd))
+                    .filter(ax -> processed.add(ax));
+            axioms.forEach(ax -> ax.individuals()
+                    .filter(i -> i.isOWLNamedIndividual())
+                    .map(i -> i.asOWLNamedIndividual()).forEach(i -> {
+                        if (inds.add(i)) {
+                            stack.add(i);
                         }
-                    }
-                }
-            }
+                    }));
         }
         if (inds.isEmpty()) {
             inds.add(ind);
         }
-        Set<Node<OWLNamedIndividual>> set = new HashSet<>();
-        for (OWLNamedIndividual n : inds) {
-            set.add(getSameIndividuals(n));
-        }
-        return new OWLNamedIndividualNodeSet(set);
+        return new OWLNamedIndividualNodeSet(inds.stream()
+                .map(i -> getSameIndividuals(i)).collect(toSet()));
     }
 
     protected OWLDataFactory getDataFactory() {

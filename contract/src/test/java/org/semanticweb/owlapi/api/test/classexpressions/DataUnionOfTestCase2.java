@@ -55,4 +55,40 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(prop, union);
         return singleton(ax);
     }
+
+    @Override
+    public void testDLSyntax() throws Exception {}
+
+    @Override
+    public void testJSONLD() throws Exception {}
+
+    @Override
+    public void testKRSS() throws Exception {}
+
+    @Override
+    public void testKRSS2() throws Exception {}
+
+    @Override
+    public void testManchesterOWLSyntax() throws Exception {}
+
+    @Override
+    public void testNQuads() throws Exception {}
+
+    @Override
+    public void testNTriples() throws Exception {}
+
+    @Override
+    public void testOWLXML() throws Exception {}
+
+    @Override
+    public void testRDFJSON() throws Exception {}
+
+    @Override
+    public void testRDFXML() throws Exception {}
+
+    @Override
+    public void testTrig() throws Exception {}
+
+    @Override
+    public void testTurtle() throws Exception {}
 }

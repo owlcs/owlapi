@@ -522,7 +522,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-        Set<OWLIndividual> individuals = axiom.getIndividuals();
+        List<OWLIndividual> individuals = axiom.getIndividualsAsList();
         if (individuals.size() < 2) {
             // TODO log
             return;
@@ -743,7 +743,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
-        Set<OWLIndividual> individuals = axiom.getIndividuals();
+        List<OWLIndividual> individuals = axiom.getIndividualsAsList();
         if (individuals.size() < 2) {
             // TODO log
             return;
@@ -946,10 +946,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         write(DATATYPE_RESTRICTION);
         writeOpenBracket();
         node.getDatatype().accept(this);
-        for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
+        node.facetRestrictions().forEach(r -> {
             writeSpace();
-            restriction.accept(this);
-        }
+            r.accept(this);
+        });
         writeCloseBracket();
     }
 

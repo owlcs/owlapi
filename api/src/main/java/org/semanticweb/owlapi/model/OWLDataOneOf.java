@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -33,7 +36,17 @@ public interface OWLDataOneOf extends OWLDataRange {
      * @return The values that this data range consists of.
      */
     @Nonnull
-    Set<OWLLiteral> getValues();
+    default Set<OWLLiteral> getValues() {
+        return values().collect(toSet());
+    }
+
+    /**
+     * Gets the values ({@link OWLLiteral}s) that this data range consists of.
+     * 
+     * @return The values that this data range consists of.
+     */
+    @Nonnull
+    Stream<OWLLiteral> values();
 
     @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {

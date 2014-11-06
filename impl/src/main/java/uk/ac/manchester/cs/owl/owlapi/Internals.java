@@ -1174,9 +1174,9 @@ public class Internals implements Serializable {
 
         @Override
         public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-            for (OWLIndividual ind : axiom.getIndividuals()) {
-                differentIndividualsAxiomsByIndividual.put(ind, axiom);
-            }
+            axiom.individuals().forEach(
+                    ind -> differentIndividualsAxiomsByIndividual.put(ind,
+                            axiom));
         }
 
         @Override

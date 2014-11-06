@@ -732,10 +732,10 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         write("DatatypeRestriction");
         writeOpenBracket();
         node.getDatatype().accept(this);
-        for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
+        node.facetRestrictions().forEach(r -> {
             writeSpace();
-            restriction.accept(this);
-        }
+            r.accept(this);
+        });
         writeCloseBracket();
     }
 

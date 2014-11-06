@@ -493,7 +493,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-        List<OWLIndividual> individuals = sort(axiom.getIndividuals());
+        List<OWLIndividual> individuals = axiom.getIndividualsAsList();
         int size = individuals.size();
         if (size <= 1) {
             return;
@@ -552,7 +552,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
-        List<OWLIndividual> individuals = sort(axiom.getIndividuals());
+        List<OWLIndividual> individuals = axiom.getIndividualsAsList();
         int size = individuals.size();
         if (size <= 1) {
             return;

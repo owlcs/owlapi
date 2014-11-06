@@ -340,9 +340,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLObjectIntersectionOf ce) {
         writeOpenBracket();
         write(AND);
-        for (OWLClassExpression des : ce.getOperands()) {
-            write(des);
-        }
+        ce.operands().forEach(des -> write(des));
         writeCloseBracket();
     }
 
@@ -350,9 +348,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLObjectUnionOf ce) {
         writeOpenBracket();
         write(OR);
-        for (OWLClassExpression des : ce.getOperands()) {
-            write(des);
-        }
+        ce.operands().forEach(des -> write(des));
         writeCloseBracket();
     }
 

@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -35,7 +38,19 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      *         class expression.
      */
     @Nonnull
-    Set<OWLIndividual> getIndividuals();
+    default Set<OWLIndividual> getIndividuals() {
+        return individuals().collect(toSet());
+    }
+
+    /**
+     * Gets the individuals that are in the oneOf. These individuals represent
+     * the exact instances (extension) of this class expression.
+     * 
+     * @return The individiauls that are the values of this {@code ObjectOneOf}
+     *         class expression.
+     */
+    @Nonnull
+    Stream<OWLIndividual> individuals();
 
     /**
      * Simplifies this enumeration to a union of singleton nominals.

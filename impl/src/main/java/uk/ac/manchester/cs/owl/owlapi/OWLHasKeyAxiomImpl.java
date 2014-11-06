@@ -121,7 +121,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         if (diff != 0) {
             return diff;
         }
-        return compareSets(propertyExpressions, other.getPropertyExpressions());
+        return compareCollections(propertyExpressions, other.getPropertyExpressions());
     }
 
     @Override

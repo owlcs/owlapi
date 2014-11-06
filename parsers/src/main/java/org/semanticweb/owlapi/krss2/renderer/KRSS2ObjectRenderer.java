@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -665,9 +664,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     public void visit(OWLObjectOneOf ce) {
         writeOpenBracket();
         write(ONE_OF);
-        for (OWLIndividual individual : ce.getIndividuals()) {
-            write(individual);
-        }
+        ce.individuals().forEach(i -> write(i));
         writeCloseBracket();
     }
 

@@ -146,7 +146,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
                     }
                 } else {
                     // Encode as a data union of and return result
-                    Set<OWLDataOneOf> oneOfs = node.getValues().stream()
+                    Set<OWLDataOneOf> oneOfs = node.values()
                             .map(lit -> dataFactory.getOWLDataOneOf(lit))
                             .collect(toSet());
                     return dataFactory.getOWLDataUnionOf(oneOfs).accept(this);
@@ -209,7 +209,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
-                Set<OWLClassExpression> ops = ce.getOperands().stream()
+                Set<OWLClassExpression> ops = ce.operands()
                         .map(p -> p.accept(this)).collect(toSet());
                 if (negated) {
                     return dataFactory.getOWLObjectUnionOf(ops);
@@ -220,7 +220,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLClassExpression visit(OWLObjectUnionOf ce) {
-                Set<OWLClassExpression> ops = ce.getOperands().stream()
+                Set<OWLClassExpression> ops = ce.operands()
                         .map(p -> p.accept(this)).collect(toSet());
                 if (negated) {
                     // Flip to an intersection
@@ -533,7 +533,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> ops = axiom.getClassExpressions().stream()
+        Set<OWLClassExpression> ops = axiom.classExpressions()
                 .map(p -> p.accept(classVisitor)).collect(toSet());
         return dataFactory.getOWLDisjointUnionAxiom(axiom.getOWLClass(), ops);
     }

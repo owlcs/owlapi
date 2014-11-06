@@ -107,13 +107,13 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public boolean containsAnonymousIndividuals() {
-        return getIndividuals().stream().anyMatch(i -> i.isAnonymous());
+        return individuals().anyMatch(i -> i.isAnonymous());
     }
 
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
-        getIndividuals().forEach(
+        individuals().forEach(
                 i -> nominalsList.add(new OWLObjectOneOfImpl(createSet(i))));
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {

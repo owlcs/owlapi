@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -263,7 +264,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         writer.writeStartElement(DIFFERENT_INDIVIDUALS);
         writeAnnotations(axiom);
-        render(axiom.getIndividuals());
+        render(axiom.individuals());
         writer.writeEndElement();
     }
 
@@ -296,7 +297,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(DISJOINT_UNION);
         writeAnnotations(axiom);
         axiom.getOWLClass().accept(this);
-        render(axiom.getClassExpressions());
+        render(axiom.classExpressions());
         writer.writeEndElement();
     }
 
@@ -455,7 +456,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLSameIndividualAxiom axiom) {
         writer.writeStartElement(SAME_INDIVIDUAL);
         writeAnnotations(axiom);
-        render(axiom.getIndividuals());
+        render(axiom.individuals());
         writer.writeEndElement();
     }
 
@@ -577,7 +578,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
         writer.writeStartElement(OBJECT_INTERSECTION_OF);
-        render(ce.getOperands());
+        render(ce.operands());
         writer.writeEndElement();
     }
 
@@ -606,7 +607,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectOneOf ce) {
         writer.writeStartElement(OBJECT_ONE_OF);
-        render(ce.getIndividuals());
+        render(ce.individuals());
         writer.writeEndElement();
     }
 
@@ -628,7 +629,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectUnionOf ce) {
         writer.writeStartElement(OBJECT_UNION_OF);
-        render(ce.getOperands());
+        render(ce.operands());
         writer.writeEndElement();
     }
 
@@ -665,7 +666,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDatatypeRestriction node) {
         writer.writeStartElement(DATATYPE_RESTRICTION);
         node.getDatatype().accept(this);
-        render(node.getFacetRestrictions());
+        render(node.facetRestrictions());
         writer.writeEndElement();
     }
 
@@ -880,7 +881,12 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
+    @Deprecated
     private void render(Collection<? extends OWLObject> objects) {
+        objects.forEach(a -> a.accept(this));
+    }
+
+    private void render(Stream<? extends OWLObject> objects) {
         objects.forEach(a -> a.accept(this));
     }
 }

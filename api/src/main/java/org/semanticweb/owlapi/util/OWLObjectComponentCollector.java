@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -139,7 +140,10 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     private void process(@Nonnull Set<? extends OWLObject> objects) {
-        checkNotNull(objects, "objects cannot be null");
+        objects.forEach(o -> o.accept(this));
+    }
+
+    private void process(@Nonnull Stream<? extends OWLObject> objects) {
         objects.forEach(o -> o.accept(this));
     }
 
@@ -193,13 +197,13 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
         handleObject(ce);
-        ce.getOperands().forEach(o -> o.accept(this));
+        ce.operands().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
         handleObject(ce);
-        process(ce.getOperands());
+        process(ce.operands());
     }
 
     @Override
@@ -259,7 +263,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLObjectOneOf ce) {
         handleObject(ce);
-        process(ce.getIndividuals());
+        process(ce.individuals());
     }
 
     @Override
@@ -361,7 +365,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getIndividuals());
+        process(axiom.individuals());
     }
 
     @Override
@@ -408,7 +412,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     public void visit(OWLDisjointUnionAxiom axiom) {
         handleObject(axiom);
         axiom.getOWLClass().accept(this);
-        process(axiom.getClassExpressions());
+        process(axiom.classExpressions());
     }
 
     @Override
@@ -498,7 +502,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getIndividuals());
+        process(axiom.individuals());
     }
 
     @Override

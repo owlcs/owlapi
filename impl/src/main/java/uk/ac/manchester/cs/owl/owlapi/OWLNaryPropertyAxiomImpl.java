@@ -99,7 +99,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(properties,
+        return compareCollections(properties,
                 ((OWLNaryPropertyAxiom<?>) object).getProperties());
     }
 

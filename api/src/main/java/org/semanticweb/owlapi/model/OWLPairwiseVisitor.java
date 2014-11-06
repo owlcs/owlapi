@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
  * @param <C>
  *        type of elements to accept
  */
+@FunctionalInterface
 public interface OWLPairwiseVisitor<T, C> {
 
     /**

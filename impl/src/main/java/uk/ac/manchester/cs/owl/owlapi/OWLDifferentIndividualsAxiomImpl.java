@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -29,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -109,7 +110,7 @@ public class OWLDifferentIndividualsAxiomImpl extends
 
     @Override
     public boolean containsAnonymousIndividuals() {
-        return getIndividuals().stream().anyMatch(i -> i.isAnonymous());
+        return individuals().anyMatch(i -> i.isAnonymous());
     }
 
     @Override
@@ -120,10 +121,8 @@ public class OWLDifferentIndividualsAxiomImpl extends
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
-        for (OWLIndividual individual : getIndividuals()) {
-            nominalsList.add(new OWLObjectOneOfImpl(CollectionFactory
-                    .createSet(individual)));
-        }
+        individuals().forEach(
+                i -> nominalsList.add(new OWLObjectOneOfImpl(createSet(i))));
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             for (int j = i + 1; j < nominalsList.size(); j++) {

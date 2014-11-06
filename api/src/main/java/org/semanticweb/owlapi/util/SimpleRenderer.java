@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -221,11 +222,16 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         return sb.toString();
     }
 
+    @Deprecated
     protected void render(Set<? extends OWLObject> objects) {
         if (objects.isEmpty()) {
             return;
         }
-        objects.stream().sorted().forEach((x) -> {
+        render(objects.stream());
+    }
+
+    protected void render(Stream<? extends OWLObject> objects) {
+        objects.sorted().forEach((x) -> {
             x.accept(this);
             sb.append(' ');
         });
@@ -345,7 +351,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         sb.append("DifferentIndividuals(");
         writeAnnotations(axiom);
-        render(axiom.getIndividuals());
+        render(axiom.individuals());
         sb.append(" )");
     }
 
@@ -411,7 +417,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         writeAnnotations(axiom);
         axiom.getOWLClass().accept(this);
         insertSpace();
-        render(axiom.getClassExpressions());
+        render(axiom.classExpressions());
         sb.append(" )");
     }
 
@@ -551,7 +557,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLSameIndividualAxiom axiom) {
         sb.append("SameIndividual(");
         writeAnnotations(axiom);
-        render(axiom.getIndividuals());
+        render(axiom.individuals());
         sb.append(" )");
     }
 
@@ -578,14 +584,14 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
         sb.append("ObjectIntersectionOf(");
-        render(ce.getOperands());
+        render(ce.operands());
         sb.append(')');
     }
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
         sb.append("ObjectUnionOf(");
-        render(ce.getOperands());
+        render(ce.operands());
         sb.append(')');
     }
 
@@ -666,7 +672,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLObjectOneOf ce) {
         sb.append("ObjectOneOf(");
-        render(ce.getIndividuals());
+        render(ce.individuals());
         sb.append(')');
     }
 
@@ -753,10 +759,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLDatatypeRestriction node) {
         sb.append("DataRangeRestriction(");
         node.getDatatype().accept(this);
-        for (OWLFacetRestriction restriction : node.getFacetRestrictions()) {
+        node.facetRestrictions().forEach(r -> {
             insertSpace();
-            restriction.accept(this);
-        }
+            r.accept(this);
+        });
         sb.append(')');
     }
 
