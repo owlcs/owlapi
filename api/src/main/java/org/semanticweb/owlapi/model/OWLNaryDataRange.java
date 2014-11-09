@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 public interface OWLNaryDataRange extends OWLDataRange {
 
     /** @return the data ranges */
+    @Deprecated
     @Nonnull
     default Set<OWLDataRange> getOperands() {
         return operands().collect(toSet());

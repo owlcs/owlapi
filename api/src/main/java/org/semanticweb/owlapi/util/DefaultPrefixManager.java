@@ -17,11 +17,10 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -106,8 +105,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public Set<String> getPrefixNames() {
-        return new HashSet<>(prefix2NamespaceMap.keySet());
+    public Stream<String> prefixNames() {
+        return prefix2NamespaceMap.keySet().stream();
     }
 
     private void setupDefaultPrefixes() {

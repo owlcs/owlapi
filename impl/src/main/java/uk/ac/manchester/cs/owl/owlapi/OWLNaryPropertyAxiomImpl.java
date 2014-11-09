@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -38,8 +39,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *        the property expression
  */
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImpl implements
-        OWLNaryPropertyAxiom<P> {
+        extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -71,8 +71,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     }
 
     @Override
-    public Set<P> getProperties() {
-        return CollectionFactory.copy(properties);
+    public Stream<P> properties() {
+        return properties.stream();
     }
 
     @Override

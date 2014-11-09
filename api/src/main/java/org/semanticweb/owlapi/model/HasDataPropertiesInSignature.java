@@ -36,6 +36,7 @@ public interface HasDataPropertiesInSignature {
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLDataProperty> getDataPropertiesInSignature() {
         return dataPropertiesInSignature().collect(toSet());

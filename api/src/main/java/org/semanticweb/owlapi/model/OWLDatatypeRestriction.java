@@ -43,6 +43,7 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
      * 
      * @return A {@code Set} of facet restrictions that apply to this data range
      */
+    @Deprecated
     @Nonnull
     default Set<OWLFacetRestriction> getFacetRestrictions() {
         return facetRestrictions().collect(toSet());

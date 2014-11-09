@@ -49,6 +49,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         that this <b>does not</b> include the {@code OWLClass} that is
      *         equivalent to the disjoint union.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLClassExpression> getClassExpressions() {
         return classExpressions().collect(toSet());

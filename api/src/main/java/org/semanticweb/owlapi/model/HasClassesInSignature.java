@@ -37,6 +37,7 @@ public interface HasClassesInSignature {
      *         by the signature; it is a modifiable collection and changes are
      *         not reflected by the signature.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLClass> getClassesInSignature() {
         return classesInSignature().collect(toSet());

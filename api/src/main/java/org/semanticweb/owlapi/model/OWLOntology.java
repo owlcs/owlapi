@@ -168,8 +168,50 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         if this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
+    @Deprecated
     @Nonnull
-    Set<OWLOntology> getImports();
+    default Set<OWLOntology> getImports() {
+        return imports().collect(toSet());
+    }
+
+    /**
+     * Gets the set of <em>loaded</em> ontologies that this ontology is related
+     * to via the <em>transitive closure</em> of the <a
+     * href="http://www.w3.org/TR/owl2-syntax/#Imports">directlyImports
+     * relation</a>.<br>
+     * For example, if this ontology imports ontology B, and ontology B imports
+     * ontology C, then this method will return the set consisting of ontology B
+     * and ontology C.
+     * 
+     * @return The set of ontologies that this ontology is related to via the
+     *         transitive closure of the directlyImports relation. The set that
+     *         is returned is a copy - it will not be updated if the ontology
+     *         changes. It is therefore safe to apply changes to this ontology
+     *         while iterating over this set.
+     * @throws UnknownOWLOntologyException
+     *         if this ontology is no longer managed by its manager because it
+     *         was removed from the manager.
+     */
+    @Nonnull
+    Stream<OWLOntology> imports();
+
+    /**
+     * Gets the set of imports declarations for this ontology. The set returned
+     * represents the set of IRIs that correspond to the set of IRIs in an
+     * ontology's directlyImportsDocuments (see Section 3 in the OWL 2
+     * structural specification).
+     * 
+     * @return The set of imports declarations that correspond to the set of
+     *         ontology document IRIs that are directly imported by this
+     *         ontology. The set that is returned is a copy - it will not be
+     *         updated if the ontology changes. It is therefore safe to apply
+     *         changes to this ontology while iterating over this set.
+     */
+    @Deprecated
+    @Nonnull
+    default Set<OWLImportsDeclaration> getImportsDeclarations() {
+        return importsDeclarations().collect(toSet());
+    }
 
     /**
      * Gets the set of imports declarations for this ontology. The set returned
@@ -184,14 +226,13 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes to this ontology while iterating over this set.
      */
     @Nonnull
-    Set<OWLImportsDeclaration> getImportsDeclarations();
+    Stream<OWLImportsDeclaration> importsDeclarations();
 
     // Methods to retrive class, property and individual axioms
     /**
      * Determines if this ontology is empty - an ontology is empty if it does
-     * not contain any axioms (i.e. {@link #getAxioms()} returns the empty set),
-     * and it does not have any annotations (i.e. {@link #getAnnotations()}
-     * returns the empty set).
+     * not contain any axioms (i.e. {@link #axioms()} is empty), and it does not
+     * have any annotations (i.e. {@link #annotations()} is empty).
      * 
      * @return {@code true} if the ontology is empty, otherwise {@code false}.
      */
@@ -208,8 +249,44 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
      */
+    @Deprecated
     @Nonnull
-    Set<? super OWLAxiom> getTBoxAxioms(@Nonnull Imports includeImportsClosure);
+    default Set<? super OWLAxiom> getTBoxAxioms(
+            @Nonnull Imports includeImportsClosure) {
+        return tboxAxioms(includeImportsClosure).collect(toSet());
+    }
+
+    /**
+     * Gets the axioms that form the TBox for this ontology, i.e., the ones
+     * whose type is in the AxiomType::TBoxAxiomTypes.
+     * 
+     * @param includeImportsClosure
+     *        if INCLUDED, the imports closure is included.
+     * @return A set containing the axioms which are of the specified type. The
+     *         set that is returned is a copy of the axioms in the ontology (and
+     *         its imports closure) - it will not be updated if the ontology
+     *         changes.
+     */
+    @Nonnull
+    Stream<? super OWLAxiom> tboxAxioms(@Nonnull Imports includeImportsClosure);
+
+    /**
+     * Gets the axioms that form the ABox for this ontology, i.e., the ones
+     * whose type is in the AxiomType::ABoxAxiomTypes.
+     * 
+     * @param includeImportsClosure
+     *        if INCLUDED, the imports closure is included.
+     * @return A set containing the axioms which are of the specified type. The
+     *         set that is returned is a copy of the axioms in the ontology (and
+     *         its imports closure) - it will not be updated if the ontology
+     *         changes.
+     */
+    @Deprecated
+    @Nonnull
+    default Set<? super OWLAxiom> getABoxAxioms(
+            @Nonnull Imports includeImportsClosure) {
+        return aboxAxioms(includeImportsClosure).collect(toSet());
+    }
 
     /**
      * Gets the axioms that form the ABox for this ontology, i.e., the ones
@@ -223,7 +300,25 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes.
      */
     @Nonnull
-    Set<? super OWLAxiom> getABoxAxioms(@Nonnull Imports includeImportsClosure);
+    Stream<? super OWLAxiom> aboxAxioms(@Nonnull Imports includeImportsClosure);
+
+    /**
+     * Gets the axioms that form the RBox for this ontology, i.e., the ones
+     * whose type is in the AxiomType::RBoxAxiomTypes.
+     * 
+     * @param includeImportsClosure
+     *        if INCLUDED, the imports closure is included.
+     * @return A set containing the axioms which are of the specified type. The
+     *         set that is returned is a copy of the axioms in the ontology (and
+     *         its imports closure) - it will not be updated if the ontology
+     *         changes.
+     */
+    @Deprecated
+    @Nonnull
+    default Set<? super OWLAxiom> getRBoxAxioms(
+            @Nonnull Imports includeImportsClosure) {
+        return rboxAxioms(includeImportsClosure).collect(toSet());
+    }
 
     /**
      * Gets the axioms that form the RBox for this ontology, i.e., the ones
@@ -237,7 +332,28 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes.
      */
     @Nonnull
-    Set<? super OWLAxiom> getRBoxAxioms(@Nonnull Imports includeImportsClosure);
+    Stream<? super OWLAxiom> rboxAxioms(@Nonnull Imports includeImportsClosure);
+
+    /**
+     * Gets the set of general axioms in this ontology. This includes:
+     * <ul>
+     * <li>Subclass axioms that have a complex class as the subclass</li>
+     * <li>Equivalent class axioms that don't contain any named classes (
+     * {@code OWLClass}es)</li>
+     * <li>Disjoint class axioms that don't contain any named classes (
+     * {@code OWLClass}es)</li>
+     * </ul>
+     * 
+     * @return The set that is returned is a copy of the axioms in the ontology
+     *         - it will not be updated if the ontology changes. It is therefore
+     *         safe to apply changes to this ontology while iterating over this
+     *         set.
+     */
+    @Deprecated
+    @Nonnull
+    default Set<OWLClassAxiom> getGeneralClassAxioms() {
+        return generalClassAxioms().collect(toSet());
+    }
 
     /**
      * Gets the set of general axioms in this ontology. This includes:
@@ -255,7 +371,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         set.
      */
     @Nonnull
-    Set<OWLClassAxiom> getGeneralClassAxioms();
+    Stream<OWLClassAxiom> generalClassAxioms();
 
     // References/usage
     /**
@@ -276,6 +392,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @see #getDataPropertiesInSignature()
      * @see #getIndividualsInSignature()
      */
+    @Deprecated
     @Nonnull
     default Set<OWLEntity> getSignature(@Nonnull Imports imports) {
         return signature(imports).collect(toSet());
@@ -294,10 +411,10 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set.
-     * @see #getClassesInSignature()
-     * @see #getObjectPropertiesInSignature()
-     * @see #getDataPropertiesInSignature()
-     * @see #getIndividualsInSignature()
+     * @see #classesInSignature()
+     * @see #objectPropertiesInSignature()
+     * @see #dataPropertiesInSignature()
+     * @see #individualsInSignature()
      */
     @Nonnull
     default Stream<OWLEntity> signature(@Nonnull Imports imports) {

@@ -16,11 +16,9 @@ import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -62,12 +60,9 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
-import com.google.common.collect.Iterables;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -203,33 +198,25 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return (Stream<OWLAxiom>) s;
     }
 
+    @Nonnull
     @Override
-    public Stream<OWLLogicalAxiom> logicalAxioms(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.logicalAxioms());
+    public Stream<? super OWLAxiom> tboxAxioms(Imports imports) {
+        return AxiomType.TBoxAxiomTypes.stream().flatMap(
+                t -> asAxiomStream(axioms(t, imports)));
     }
 
     @Nonnull
     @Override
-    public Set<? super OWLAxiom> getTBoxAxioms(Imports imports) {
-        return AxiomType.TBoxAxiomTypes.stream()
-                .flatMap(t -> asAxiomStream(axioms(t, imports)))
-                .collect(toSet());
+    public Stream<? super OWLAxiom> aboxAxioms(Imports imports) {
+        return AxiomType.ABoxAxiomTypes.stream().flatMap(
+                t -> asAxiomStream(axioms(t, imports)));
     }
 
     @Nonnull
     @Override
-    public Set<? super OWLAxiom> getABoxAxioms(Imports imports) {
-        return AxiomType.ABoxAxiomTypes.stream()
-                .flatMap(t -> asAxiomStream(axioms(t, imports)))
-                .collect(toSet());
-    }
-
-    @Nonnull
-    @Override
-    public Set<? super OWLAxiom> getRBoxAxioms(Imports imports) {
-        return AxiomType.RBoxAxiomTypes.stream()
-                .flatMap(t -> asAxiomStream(axioms(t, imports)))
-                .collect(toSet());
+    public Stream<? super OWLAxiom> rboxAxioms(Imports imports) {
+        return AxiomType.RBoxAxiomTypes.stream().flatMap(
+                t -> asAxiomStream(axioms(t, imports)));
     }
 
     @Override
@@ -245,7 +232,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLClassAxiom> getGeneralClassAxioms() {
+    public Stream<OWLClassAxiom> generalClassAxioms() {
         return ints.getGeneralClassAxioms();
     }
 
@@ -385,17 +372,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                 .flatMap(x -> x);
     }
 
-    @Nonnull
-    private static <T> Set<T> asSet(Iterable<T> i) {
-        List<T> list = new ArrayList<>();
-        Iterables.addAll(list, i);
-        return CollectionFactory.copy(list);
-    }
-
     @Override
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
-                .get().keySet());
+    public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
+        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
+                .keySet().stream();
     }
 
     @Override
@@ -443,8 +423,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Nonnull
     @Override
-    public Set<OWLImportsDeclaration> getImportsDeclarations() {
-        return ints.getImportsDeclarations().collect(toSet());
+    public Stream<OWLImportsDeclaration> importsDeclarations() {
+        return ints.getImportsDeclarations();
     }
 
     @Override
@@ -453,8 +433,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLOntology> getImports() {
-        return manager.getImports(this);
+    public Stream<OWLOntology> imports() {
+        return manager.imports(this);
     }
 
     @Override

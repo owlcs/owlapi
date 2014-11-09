@@ -37,6 +37,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return All of the axioms in this collection, and optionally in the
      *         import closure. The set that is returned is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAxiom> getAxioms(@Nonnull Imports includeImportsClosure) {
         return axioms(includeImportsClosure).collect(toSet());
@@ -76,6 +77,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         optionally including the imports closure. The set that is
      *         returned is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLLogicalAxiom> getLogicalAxioms(
             @Nonnull Imports includeImportsClosure) {
@@ -86,14 +88,15 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * Gets all axioms semantically relevant, i.e., all axioms that are not
      * annotation axioms or declaration axioms.
      * 
-     * @param includeImportsClosure
+     * @param imports
      *        if INCLUDED, include imports closure.
      * @return A stream of axioms which are of type {@code OWLLogicalAxiom},
      *         optionally including the imports closure.
      */
     @Nonnull
-    Stream<OWLLogicalAxiom>
-            logicalAxioms(@Nonnull Imports includeImportsClosure);
+    default Stream<OWLLogicalAxiom> logicalAxioms(@Nonnull Imports imports) {
+        return imports.stream(this).flatMap(o -> o.logicalAxioms());
+    }
 
     /**
      * Gets the number of logical axioms in this collection.
@@ -257,6 +260,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        the results set.
      * @return All axioms referencing the entity. The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity) {
         return referencingAxioms(owlEntity).collect(toSet());
@@ -293,6 +297,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        if INCLUDED, include imports closure.
      * @return All axioms referencing the entity. The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
             @Nonnull Imports includeImportsClosure) {
@@ -341,6 +346,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The returned set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls) {
         return axioms(cls).collect(toSet());
@@ -388,6 +394,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The returned set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls,
             @Nonnull Imports includeImportsClosure) {
@@ -446,6 +453,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set that is returned is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLObjectPropertyAxiom> getAxioms(
             @Nonnull OWLObjectPropertyExpression property) {
@@ -510,6 +518,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set that is returned is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLObjectPropertyAxiom> getAxioms(
             @Nonnull OWLObjectPropertyExpression property,
@@ -572,6 +581,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLDataPropertyAxiom> getAxioms(
             @Nonnull OWLDataProperty property) {
@@ -625,6 +635,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLDataPropertyAxiom> getAxioms(
             @Nonnull OWLDataProperty property,
@@ -684,6 +695,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLIndividualAxiom>
             getAxioms(@Nonnull OWLIndividual individual) {
@@ -743,6 +755,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLIndividualAxiom> getAxioms(
             @Nonnull OWLIndividual individual,
@@ -798,6 +811,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAnnotationAxiom> getAxioms(
             @Nonnull OWLAnnotationProperty property) {
@@ -851,6 +865,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAnnotationAxiom> getAxioms(
             @Nonnull OWLAnnotationProperty property,
@@ -890,6 +905,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return The set of datatype definition axioms for the specified datatype.
      *         The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(
             @Nonnull OWLDatatype datatype) {
@@ -916,6 +932,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return The set of datatype definition axioms for the specified datatype.
      *         The set is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(
             @Nonnull OWLDatatype datatype,

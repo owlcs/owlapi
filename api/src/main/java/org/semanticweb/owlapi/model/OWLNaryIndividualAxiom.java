@@ -29,6 +29,7 @@ public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom,
         OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut {
 
     /** @return the individuals */
+    @Deprecated
     @Nonnull
     default Set<OWLIndividual> getIndividuals() {
         return individuals().collect(toSet());

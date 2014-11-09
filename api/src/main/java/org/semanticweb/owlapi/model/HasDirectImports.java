@@ -39,6 +39,7 @@ public interface HasDirectImports {
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
+    @Deprecated
     @Nonnull
     default Set<IRI> getDirectImportsDocuments() {
         return directImportsDocuments().collect(toSet());
@@ -75,6 +76,7 @@ public interface HasDirectImports {
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLOntology> getDirectImports() {
         return directImports().collect(toSet());

@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -35,9 +38,23 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * 
      * @return The union of the entities contained in the {@code Nodes} in this
      *         {@code NodeSet}.
+     * @deprecated use {@link #entities()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<E> getFlattened() {
+        return entities().collect(toSet());
+    }
+
+    /**
+     * A convenience method that gets all of the entities contained in the
+     * {@code Nodes} in this {@code NodeSet}.
+     * 
+     * @return The union of the entities contained in the {@code Nodes} in this
+     *         {@code NodeSet}.
      */
     @Nonnull
-    Set<E> getFlattened();
+    Stream<E> entities();
 
     /** @return true if the node set is empty */
     boolean isEmpty();
@@ -89,7 +106,20 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * 
      * @return The set of {@code Node}s contained in this {@code NodeSet}. Note
      *         that this set will be an unmodifiable set.
+     * @deprecated use {@link #nodes()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<Node<E>> getNodes() {
+        return nodes().collect(toSet());
+    }
+
+    /**
+     * Gets the {@code Node}s contained in this {@code NodeSet}.
+     * 
+     * @return The set of {@code Node}s contained in this {@code NodeSet}. Note
+     *         that this set will be an unmodifiable set.
      */
     @Nonnull
-    Set<Node<E>> getNodes();
+    Stream<Node<E>> nodes();
 }

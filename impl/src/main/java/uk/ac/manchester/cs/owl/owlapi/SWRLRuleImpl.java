@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.lang.ref.WeakReference;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -35,7 +34,6 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
@@ -49,8 +47,6 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private final LinkedHashSet<SWRLAtom> head;
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;
-    private transient WeakReference<Set<SWRLVariable>> variables;
-    private transient WeakReference<Set<OWLClassExpression>> classAtomsPredicates;
 
     /**
      * @param body
@@ -76,19 +72,19 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         if (!isAnnotated()) {
             return this;
         }
-        return new SWRLRuleImpl(getBody(), getHead(), NO_ANNOTATIONS);
+        return new SWRLRuleImpl(body, head, NO_ANNOTATIONS);
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(
             @Nonnull Collection<OWLAnnotation> annotations) {
-        return new SWRLRuleImpl(getBody(), getHead(), mergeAnnos(annotations));
+        return new SWRLRuleImpl(body, head, mergeAnnos(annotations));
     }
 
     @Override
     public OWLAxiom
             getAnnotatedAxiom(@Nonnull Stream<OWLAnnotation> annotations) {
-        return new SWRLRuleImpl(getBody(), getHead(), mergeAnnos(annotations));
+        return new SWRLRuleImpl(body, head, mergeAnnos(annotations));
     }
 
     /**
@@ -104,35 +100,12 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Nonnull
     @Override
-    public Set<SWRLVariable> getVariables() {
-        Set<SWRLVariable> toReturn = null;
-        if (variables != null) {
-            toReturn = variables.get();
-        }
-        if (toReturn != null) {
-            return toReturn;
-        }
-        SWRLVariableExtractor extractor = new SWRLVariableExtractor();
-        accept(extractor);
-        toReturn = extractor.getVariables();
-        variables = new WeakReference<>(toReturn);
-        return toReturn;
+    public Stream<SWRLVariable> variables() {
+        return accept(new SWRLVariableExtractor()).stream();
     }
 
     private boolean hasAnon() {
-        for (SWRLAtom atom : head) {
-            if (atom instanceof SWRLClassAtom
-                    && ((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
-                return true;
-            }
-        }
-        for (SWRLAtom atom : body) {
-            if (atom instanceof SWRLClassAtom
-                    && ((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
-                return true;
-            }
-        }
-        return false;
+        return classAtomPredicates().anyMatch(p -> p.isAnonymous());
     }
 
     @Override
@@ -141,37 +114,20 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
-    public Set<OWLClassExpression> getClassAtomPredicates() {
-        Set<OWLClassExpression> toReturn = null;
-        if (classAtomsPredicates != null) {
-            toReturn = classAtomsPredicates.get();
-        }
-        if (toReturn != null) {
-            return toReturn;
-        }
-        toReturn = new LinkedHashSet<>();
-        for (SWRLAtom atom : head) {
-            if (atom instanceof SWRLClassAtom) {
-                toReturn.add(((SWRLClassAtom) atom).getPredicate());
-            }
-        }
-        for (SWRLAtom atom : body) {
-            if (atom instanceof SWRLClassAtom) {
-                toReturn.add(((SWRLClassAtom) atom).getPredicate());
-            }
-        }
-        classAtomsPredicates = new WeakReference<>(toReturn);
-        return toReturn;
+    public Stream<OWLClassExpression> classAtomPredicates() {
+        return Stream.concat(head.stream(), body.stream())
+                .filter(c -> c instanceof SWRLClassAtom)
+                .map(c -> ((SWRLClassAtom) c).getPredicate());
     }
 
     @Override
-    public Set<SWRLAtom> getBody() {
-        return CollectionFactory.copy(body);
+    public Stream<SWRLAtom> body() {
+        return body.stream();
     }
 
     @Override
-    public Set<SWRLAtom> getHead() {
-        return CollectionFactory.copy(head);
+    public Stream<SWRLAtom> head() {
+        return head.stream();
     }
 
     @Override
@@ -186,7 +142,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
                 return false;
             }
             SWRLRule other = (SWRLRule) obj;
-            return other.getBody().equals(body) && other.getHead().equals(head);
+            return compareStreams(body(), other.body()) == 0
+                    && compareStreams(head(), other.head()) == 0;
         }
         return false;
     }
@@ -199,9 +156,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         SWRLRule other = (SWRLRule) object;
-        int diff = compareCollections(getBody(), other.getBody());
+        int diff = compareStreams(body(), other.body());
         if (diff == 0) {
-            diff = compareCollections(getHead(), other.getHead());
+            diff = compareStreams(head(), other.head());
         }
         return diff;
     }
@@ -219,14 +176,10 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
         @Override
         public SWRLRule visit(SWRLRule node) {
-            Set<SWRLAtom> nodebody = new HashSet<>();
-            for (SWRLAtom atom : node.getBody()) {
-                nodebody.add((SWRLAtom) atom.accept(this));
-            }
-            Set<SWRLAtom> nodehead = new HashSet<>();
-            for (SWRLAtom atom : node.getHead()) {
-                nodehead.add((SWRLAtom) atom.accept(this));
-            }
+            Set<SWRLAtom> nodebody = node.body()
+                    .map(a -> (SWRLAtom) a.accept(this)).collect(toSet());
+            Set<SWRLAtom> nodehead = node.head()
+                    .map(a -> (SWRLAtom) a.accept(this)).collect(toSet());
             return new SWRLRuleImpl(nodebody, nodehead, NO_ANNOTATIONS);
         }
 

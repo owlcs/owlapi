@@ -37,6 +37,7 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      * @return The individiauls that are the values of this {@code ObjectOneOf}
      *         class expression.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLIndividual> getIndividuals() {
         return individuals().collect(toSet());

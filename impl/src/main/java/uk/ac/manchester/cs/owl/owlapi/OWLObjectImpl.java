@@ -86,9 +86,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
 
     @Nonnull
     @Override
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+    public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
         try {
-            return anonCaches.get(this);
+            return anonCaches.get(this).stream();
         } catch (ExecutionException e) {
             throw new OWLRuntimeException(e);
         }
@@ -157,9 +157,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
     }
 
     @Override
-    public Set<OWLClassExpression> getNestedClassExpressions() {
+    public Stream<OWLClassExpression> nestedClassExpressions() {
         OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
-        return accept(collector);
+        return accept(collector).stream();
     }
 
     @Override

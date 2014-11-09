@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.formats;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Map;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -69,8 +69,8 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
     }
 
     @Override
-    public Set<String> getPrefixNames() {
-        return nsm.getPrefixNames();
+    public Stream<String> prefixNames() {
+        return nsm.prefixNames();
     }
 
     @Override

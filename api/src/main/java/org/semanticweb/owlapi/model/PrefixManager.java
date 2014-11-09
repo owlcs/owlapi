@@ -12,9 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -119,9 +122,21 @@ public interface PrefixManager extends Serializable {
      * Gets the prefix names that have a mapping in this prefix manager.
      * 
      * @return The prefix names as a set of strings.
+     * @deprecated use {@link #prefixNames()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<String> getPrefixNames() {
+        return prefixNames().collect(toSet());
+    }
+
+    /**
+     * Gets the prefix names that have a mapping in this prefix manager.
+     * 
+     * @return The prefix names as a set of strings.
      */
     @Nonnull
-    Set<String> getPrefixNames();
+    Stream<String> prefixNames();
 
     /**
      * Sets the default namespace. This will also bind the prefix name ":" to

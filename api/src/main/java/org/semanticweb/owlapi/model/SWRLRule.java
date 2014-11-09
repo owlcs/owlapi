@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -31,9 +34,35 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * 
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
      *         of the rule.
+     * @deprecated use {@link #body()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<SWRLAtom> getBody() {
+        return body().collect(toSet());
+    }
+
+    /**
+     * Gets the atoms in the body of the rule.
+     * 
+     * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
+     *         of the rule.
      */
     @Nonnull
-    Set<SWRLAtom> getBody();
+    Stream<SWRLAtom> body();
+
+    /**
+     * Gets the atoms in the head of the rule.
+     * 
+     * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
+     *         of the rule
+     * @deprecated use {@link #head()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<SWRLAtom> getHead() {
+        return head().collect(toSet());
+    }
 
     /**
      * Gets the atoms in the head of the rule.
@@ -42,7 +71,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      *         of the rule
      */
     @Nonnull
-    Set<SWRLAtom> getHead();
+    Stream<SWRLAtom> head();
 
     /**
      * If this rule contains atoms that have predicates that are inverse object
@@ -60,9 +89,21 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * Gets the variables that appear in this rule.
      * 
      * @return A set of variables.
+     * @deprecated use {@link #variables()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<SWRLVariable> getVariables() {
+        return variables().collect(toSet());
+    }
+
+    /**
+     * Gets the variables that appear in this rule.
+     * 
+     * @return A set of variables.
      */
     @Nonnull
-    Set<SWRLVariable> getVariables();
+    Stream<SWRLVariable> variables();
 
     /**
      * Determines if this rule uses anonymous class expressions in class atoms.
@@ -77,9 +118,22 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * 
      * @return A set of class expressions that represent the class class
      *         expressions that are predicates of class atoms.
+     * @deprecated use {@link #classAtomPredicates()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<OWLClassExpression> getClassAtomPredicates() {
+        return classAtomPredicates().collect(toSet());
+    }
+
+    /**
+     * Gets the predicates of class atoms.
+     * 
+     * @return A set of class expressions that represent the class class
+     *         expressions that are predicates of class atoms.
      */
     @Nonnull
-    Set<OWLClassExpression> getClassAtomPredicates();
+    Stream<OWLClassExpression> classAtomPredicates();
 
     @Nonnull
     @Override

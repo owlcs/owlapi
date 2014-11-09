@@ -36,12 +36,14 @@ public interface HasIndividualsInSignature {
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLNamedIndividual> getIndividualsInSignature() {
         return individualsInSignature().collect(toSet());
     }
 
-    /** @return Stream containing the individuals that are in the signature of
+    /**
+     * @return Stream containing the individuals that are in the signature of
      *         this object.
      */
     @Nonnull

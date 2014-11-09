@@ -83,6 +83,7 @@ public interface HasAnnotations {
      *         Note: for iterating over this set of annotations, using the
      *         annotations() stream is more efficient.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAnnotation> getAnnotations() {
         return annotations().collect(toSet());
@@ -98,6 +99,7 @@ public interface HasAnnotations {
      * @return A set of annotations whose annotation properties is equals to
      *         {@code annotationProperty}.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAnnotation> getAnnotations(
             @Nonnull OWLAnnotationProperty annotationProperty) {

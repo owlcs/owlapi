@@ -34,6 +34,7 @@ public interface HasAxioms {
      * @return The set of {@link OWLAxiom}s contained in this object. Changes
      *         are not reflected back.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAxiom> getAxioms() {
         return axioms().collect(toSet());

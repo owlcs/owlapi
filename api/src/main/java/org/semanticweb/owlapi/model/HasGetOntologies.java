@@ -29,6 +29,7 @@ public interface HasGetOntologies {
     /**
      * @return The set of ontologies contained within this object
      */
+    @Deprecated
     @Nonnull
     default Set<OWLOntology> getOntologies() {
         return ontologies().collect(toSet());

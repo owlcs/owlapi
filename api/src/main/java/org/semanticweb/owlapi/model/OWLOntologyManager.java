@@ -63,7 +63,36 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         specified axiom is contained in O.
      */
     @Nonnull
-    Set<OWLOntology> getOntologies(@Nonnull OWLAxiom axiom);
+    default Set<OWLOntology> getOntologies(@Nonnull OWLAxiom axiom) {
+        return ontologies(axiom).collect(toSet());
+    }
+
+    /**
+     * Gets the ontologies that are managed by this manager that contain the
+     * specified axiom.
+     * 
+     * @param axiom
+     *        The axioms
+     * @return The set of ontologies such that for each ontology, O the
+     *         specified axiom is contained in O.
+     */
+    @Nonnull
+    default Stream<OWLOntology> ontologies(@Nonnull OWLAxiom axiom) {
+        return ontologies().filter(o -> o.containsAxiom(axiom));
+    }
+
+    /**
+     * Gets the versions (if any) of the ontology that have the specified IRI
+     * 
+     * @param ontology
+     *        The ontology IRI
+     * @return The set of ontologies that have the specified ontology IRI.
+     */
+    @Deprecated
+    @Nonnull
+    default Set<OWLOntology> getVersions(@Nonnull IRI ontology) {
+        return versions(ontology).collect(toSet());
+    }
 
     /**
      * Gets the versions (if any) of the ontology that have the specified IRI
@@ -73,7 +102,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @return The set of ontologies that have the specified ontology IRI.
      */
     @Nonnull
-    Set<OWLOntology> getVersions(@Nonnull IRI ontology);
+    default Stream<OWLOntology> versions(@Nonnull IRI ontology) {
+        return ontologies().filter(
+                o -> o.getOntologyID().matchOntology(ontology));
+    }
 
     /**
      * @param ontology
@@ -128,8 +160,24 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @return A set of OWLOntologyIDs where the version matches the given
      *         version or the empty set if none match.
      */
+    @Deprecated
     @Nonnull
-    Set<OWLOntologyID> getOntologyIDsByVersion(@Nonnull IRI ontologyVersionIRI);
+    default Set<OWLOntologyID> getOntologyIDsByVersion(
+            @Nonnull IRI ontologyVersionIRI) {
+        return ontologyIDsByVersion(ontologyVersionIRI).collect(toSet());
+    }
+
+    /**
+     * Gets a set of OWLOntologyIDs representing ontologies that are managed by
+     * this manager.
+     * 
+     * @param ontologyVersionIRI
+     *        The version IRI to match against all of the known ontologies.
+     * @return A set of OWLOntologyIDs where the version matches the given
+     *         version or the empty set if none match.
+     */
+    @Nonnull
+    Stream<OWLOntologyID> ontologyIDsByVersion(@Nonnull IRI ontologyVersionIRI);
 
     /**
      * Gets a previously loaded/created ontology that has the specified ontology
@@ -184,6 +232,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         is not managed by this manager then the empty set will be
      *         returned.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLOntology> getDirectImports(@Nonnull OWLOntology ontology) {
         return directImports(ontology).collect(toSet());
@@ -217,8 +266,27 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         If the ontology is not managed by this manager then the empty set
      *         will be returned.
      */
+    @Deprecated
     @Nonnull
-    Set<OWLOntology> getImports(@Nonnull OWLOntology ontology);
+    default Set<OWLOntology> getImports(@Nonnull OWLOntology ontology) {
+        return imports(ontology).collect(toSet());
+    }
+
+    /**
+     * Gets the set of ontologies that are in the transitive closure of the
+     * directly imports relation.
+     * 
+     * @param ontology
+     *        The ontology whose imports are to be retrieved.
+     * @return A set of {@code OWLOntology}ies that are in the transitive
+     *         closure of the directly imports relation of this ontology. If,
+     *         for what ever reason, an imported ontology could not be loaded,
+     *         then it will not be contained in the returned set of ontologies.
+     *         If the ontology is not managed by this manager then the empty set
+     *         will be returned.
+     */
+    @Nonnull
+    Stream<OWLOntology> imports(@Nonnull OWLOntology ontology);
 
     /**
      * Gets the imports closure for the specified ontology.
@@ -234,6 +302,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         ontologies. If the ontology is not managed by this manager then
      *         the empty set will be returned.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology) {
         return importsClosure(ontology).collect(toSet());

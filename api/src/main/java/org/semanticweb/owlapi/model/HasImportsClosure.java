@@ -42,6 +42,7 @@ public interface HasImportsClosure {
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLOntology> getImportsClosure() {
         return importsClosure().collect(toSet());

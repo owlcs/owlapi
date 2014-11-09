@@ -1036,8 +1036,8 @@ public class Internals implements Serializable {
      * @return copy of GCI axioms
      */
     @Nonnull
-    public Set<OWLClassAxiom> getGeneralClassAxioms() {
-        return generalClassAxioms.copy();
+    public Stream<OWLClassAxiom> getGeneralClassAxioms() {
+        return generalClassAxioms.stream();
     }
 
     /**

@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -99,9 +102,22 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * each other.
      * 
      * @return The set of entities contained in this {@code Node}.
+     * @deprecated use {@link #entities()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<E> getEntities() {
+        return entities().collect(toSet());
+    }
+
+    /**
+     * Gets the entities contained in this node. The entities are equivalent to
+     * each other.
+     * 
+     * @return The set of entities contained in this {@code Node}.
      */
     @Nonnull
-    Set<E> getEntities();
+    Stream<E> entities();
 
     /**
      * Gets the number of entities contained in this {@code Node}.

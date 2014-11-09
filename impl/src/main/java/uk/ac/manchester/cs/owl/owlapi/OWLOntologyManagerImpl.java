@@ -22,14 +22,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -203,12 +201,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntology> getOntologies(OWLAxiom axiom) {
-        return ontologies().filter(o -> o.containsAxiom(axiom))
-                .collect(toSet());
-    }
-
-    @Override
     public Stream<OWLOntology> ontologies() {
         return ontologiesByID.values().stream();
     }
@@ -250,9 +242,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntologyID> getOntologyIDsByVersion(IRI iri) {
-        return ids().filter(o -> o.matchVersion(iri)).collect(
-                toCollection(TreeSet::new));
+    public Stream<OWLOntologyID> ontologyIDsByVersion(IRI iri) {
+        return ids().filter(o -> o.matchVersion(iri));
     }
 
     @Override
@@ -305,12 +296,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
-    @Override
-    public Set<OWLOntology> getVersions(IRI iri) {
-        return ontologies().filter(o -> o.getOntologyID().matchOntology(iri))
-                .collect(toSet());
-    }
-
     @Nullable
     @Override
     public OWLOntology getImportedOntology(OWLImportsDeclaration declaration) {
@@ -337,10 +322,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntology> getImports(OWLOntology ontology) {
-        Set<OWLOntology> result = new HashSet<>();
-        getImports(ontology, result);
-        return result;
+    public Stream<OWLOntology> imports(OWLOntology ontology) {
+        return getImports(ontology, new LinkedHashSet<>()).stream();
     }
 
     /**
@@ -351,11 +334,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @param result
      *        A place to store the result - the transitive closure of the
      *        imports will be stored in this result set.
+     * @return modified result
      */
-    private void getImports(@Nonnull OWLOntology ont,
+    private Set<OWLOntology> getImports(@Nonnull OWLOntology ont,
             @Nonnull Set<OWLOntology> result) {
         directImports(ont).filter(o -> result.add(o)).forEach(
                 o -> getImports(o, result));
+        return result;
     }
 
     @Override
@@ -374,6 +359,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      *        The ontology whose reflexive transitive closure is to be retrieved
      * @param ontologies
      *        a place to store the result
+     * @return modified ontologies
      */
     private Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology,
             @Nonnull Set<OWLOntology> ontologies) {

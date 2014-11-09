@@ -34,6 +34,7 @@ public interface HasLogicalAxioms {
      * @return A set of {@link OWLLogicalAxiom}s that are contained within this
      *         object. Changes are not reflected back.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLLogicalAxiom> getLogicalAxioms() {
         return logicalAxioms().collect(toSet());

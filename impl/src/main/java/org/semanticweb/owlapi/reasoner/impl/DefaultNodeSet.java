@@ -15,17 +15,16 @@ package org.semanticweb.owlapi.reasoner.impl;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -67,8 +66,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     @Nonnull
     @Override
-    public Set<Node<E>> getNodes() {
-        return CollectionFactory.copyMutable(nodes);
+    public Stream<Node<E>> nodes() {
+        return nodes.stream();
     }
 
     /**
@@ -138,10 +137,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     @Nonnull
     @Override
-    public Set<E> getFlattened() {
-        Set<E> result = new HashSet<>();
-        nodes.forEach(node -> result.addAll(node.getEntities()));
-        return result;
+    public Stream<E> entities() {
+        return nodes().flatMap(n -> n.entities());
     }
 
     @Override

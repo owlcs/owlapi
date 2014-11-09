@@ -41,6 +41,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @return the set of classes in the signature, optionally including the
      *         import closure. The set that is returned is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLClass> getClassesInSignature(@Nonnull Imports imports) {
         return classesInSignature(imports).collect(toSet());
@@ -69,6 +70,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      *         including the import closure. The set that is returned is a copy
      *         of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLObjectProperty> getObjectPropertiesInSignature(
             @Nonnull Imports includeImportsClosure) {
@@ -103,6 +105,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      *         the import closure. The set that is returned is a copy of the
      *         data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLDataProperty> getDataPropertiesInSignature(
             @Nonnull Imports includeImportsClosure) {
@@ -135,6 +138,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @return the set of individuals in the signature, optionally including the
      *         import closure. The set that is returned is a copy of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLNamedIndividual> getIndividualsInSignature(
             @Nonnull Imports includeImportsClosure) {
@@ -164,6 +168,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      *        if INCLUDED, include imports closure.
      * @return The set of referenced anonymous individuals
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
             @Nonnull Imports includeImportsClosure) {
@@ -191,6 +196,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * 
      * @return The set of referenced anonymous individuals
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
         return referencedAnonymousIndividuals().collect(toSet());
@@ -214,6 +220,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      *         is a copy of the data.
      */
     @Nonnull
+    @Deprecated
     default Set<OWLDatatype> getDatatypesInSignature(
             @Nonnull Imports includeImportsClosure) {
         return datatypesInSignature(includeImportsClosure).collect(toSet());
@@ -243,6 +250,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      *         including the import closure. The set that is returned is a copy
      *         of the data.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
             @Nonnull Imports includeImportsClosure) {
@@ -482,6 +490,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @return the set of entities with the specified IRI, optionally including
      *         the ones in the import closure.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri,
             @Nonnull Imports includeImportsClosure) {

@@ -35,6 +35,7 @@ public interface HasAnnotationPropertiesInSignature {
      *         and is not backed by the signature; it is a modifiable collection
      *         and changes are not reflected by the signature.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
         return annotationPropertiesInSignature().collect(toSet());

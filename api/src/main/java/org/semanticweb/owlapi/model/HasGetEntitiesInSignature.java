@@ -31,6 +31,7 @@ public interface HasGetEntitiesInSignature {
      *        IRI for all entities to retrieve
      * @return entities with IRI equal to entityIRI
      */
+    @Deprecated
     @Nonnull
     default Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI entityIRI) {
         return entitiesInSignature(entityIRI).collect(toSet());

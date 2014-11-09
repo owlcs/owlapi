@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -106,9 +106,8 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Nonnull
         private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLDataOneOf oneOf) {
-            Set<OWLLiteral> vals = new HashSet<>();
-            oneOf.values().forEach(c -> vals.add(process(prop, c)));
-            return df.getOWLDataOneOf(vals);
+            return df.getOWLDataOneOf(oneOf.values().map(c -> process(prop, c))
+                    .collect(toSet()));
         }
 
         @Nonnull

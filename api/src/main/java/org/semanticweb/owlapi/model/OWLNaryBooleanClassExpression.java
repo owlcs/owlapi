@@ -29,6 +29,7 @@ public interface OWLNaryBooleanClassExpression extends
         OWLBooleanClassExpression {
 
     /** @return the class expressions */
+    @Deprecated
     @Nonnull
     default Set<OWLClassExpression> getOperands() {
         return operands().collect(toSet());

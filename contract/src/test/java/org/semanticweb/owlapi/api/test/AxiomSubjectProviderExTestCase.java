@@ -45,16 +45,6 @@ public class AxiomSubjectProviderExTestCase extends TestBase {
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String> map = new LinkedHashMap<>();
-        map.put(b.dRange(), "<urn:test#dp>");
-        map.put(b.dDef(), "http://www.w3.org/2001/XMLSchema#double");
-        map.put(b.decC(), "<urn:test#c>");
-        map.put(b.decOp(), "<urn:test#op>");
-        map.put(b.decDp(), "<urn:test#dp>");
-        map.put(b.decDt(), "<urn:test#datatype>");
-        map.put(b.decAp(), "<urn:test#ann>");
-        map.put(b.decI(), "<urn:test#i>");
-        map.put(b.assDi(), "<urn:test#i>");
-        map.put(b.dc(), "<urn:test#c>");
         map.put(b.dDp(), "<urn:test#dp>");
         map.put(b.dOp(), "<urn:test#iri>");
         map.put(b.du(), "<urn:test#c>");
@@ -118,6 +108,16 @@ public class AxiomSubjectProviderExTestCase extends TestBase {
         map.put(b.assD(), "<urn:test#i>");
         map.put(b.assDPlain(), "<urn:test#i>");
         map.put(b.dDom(), "<urn:test#dp>");
+        map.put(b.dRange(), "<urn:test#dp>");
+        map.put(b.dDef(), "http://www.w3.org/2001/XMLSchema#double");
+        map.put(b.decC(), "<urn:test#c>");
+        map.put(b.decOp(), "<urn:test#op>");
+        map.put(b.decDp(), "<urn:test#dp>");
+        map.put(b.decDt(), "<urn:test#datatype>");
+        map.put(b.decAp(), "<urn:test#ann>");
+        map.put(b.decI(), "<urn:test#i>");
+        map.put(b.assDi(), "<urn:test#i>");
+        map.put(b.dc(), "<urn:test#c>");
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;

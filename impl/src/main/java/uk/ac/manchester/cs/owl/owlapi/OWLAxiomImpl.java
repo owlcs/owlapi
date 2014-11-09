@@ -39,7 +39,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<OWLAnnotation> annotations;
+    protected final List<OWLAnnotation> annotations;
 
     @Override
     protected int index() {

@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -48,8 +51,22 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      *         specified to be equivalent to some other class (expression),
      *         excluding the built in classes owl:Thing and owl:Nothing
      */
+    @Deprecated
     @Nonnull
-    Set<OWLClass> getNamedClasses();
+    default Set<OWLClass> getNamedClasses() {
+        return namedClasses().collect(toSet());
+    }
+
+    /**
+     * Gets the named classes (excluding owl:Thing and owl:Nothing) that are in
+     * this equivalent classes axiom.
+     * 
+     * @return A set of classes that represents the named classes that are
+     *         specified to be equivalent to some other class (expression),
+     *         excluding the built in classes owl:Thing and owl:Nothing
+     */
+    @Nonnull
+    Stream<OWLClass> namedClasses();
 
     /**
      * Determines if this class axiom makes a class expression equivalent to

@@ -43,6 +43,7 @@ public interface HasSignature {
      * @return A set of entities that represents the signature of this object.
      *         Changes are not reflected back.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLEntity> getSignature() {
         return signature().collect(toSet());

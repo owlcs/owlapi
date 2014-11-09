@@ -35,6 +35,7 @@ public interface OWLDataOneOf extends OWLDataRange {
      * 
      * @return The values that this data range consists of.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLLiteral> getValues() {
         return values().collect(toSet());

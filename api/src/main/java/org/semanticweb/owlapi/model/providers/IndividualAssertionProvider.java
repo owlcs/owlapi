@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -50,9 +49,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
     default OWLSameIndividualAxiom getOWLSameIndividualAxiom(
             @Nonnull OWLIndividual... individual) {
         checkIterableNotNull(individual, "individuals cannot be null", true);
-        Set<OWLIndividual> inds = new HashSet<>();
-        inds.addAll(Arrays.asList(individual));
-        return getOWLSameIndividualAxiom(inds);
+        return getOWLSameIndividualAxiom(createSet(individual));
     }
 
     /**

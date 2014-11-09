@@ -13,8 +13,8 @@
 package org.semanticweb.owlapi.profiles;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -35,7 +35,7 @@ public class OWLProfileReport {
      *        the set of violations
      */
     public OWLProfileReport(OWLProfile profile,
-            Set<OWLProfileViolation> violations) {
+            Collection<OWLProfileViolation> violations) {
         this.profile = profile;
         this.violations = new ArrayList<>(violations);
     }

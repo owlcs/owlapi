@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.model;
 import static java.util.stream.Collectors.toSet;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -140,16 +140,12 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
      */
     @Nonnull
     public static Set<OWLAxiom> getAxiomsWithoutTypes(
-            @Nonnull Set<OWLAxiom> sourceAxioms,
+            @Nonnull Collection<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
-        Set<OWLAxiom> result = new HashSet<>();
         Set<AxiomType<?>> disallowed = Sets.newHashSet(axiomTypes);
-        for (OWLAxiom ax : sourceAxioms) {
-            if (!disallowed.contains(ax.getAxiomType())) {
-                result.add(ax);
-            }
-        }
-        return result;
+        return sourceAxioms.stream()
+                .filter(a -> !disallowed.contains(a.getAxiomType()))
+                .collect(toSet());
     }
 
     /**
@@ -166,16 +162,12 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
      */
     @Nonnull
     public static Set<OWLAxiom> getAxiomsOfTypes(
-            @Nonnull Set<OWLAxiom> sourceAxioms,
+            @Nonnull Collection<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
-        Set<OWLAxiom> result = new HashSet<>();
         Set<AxiomType<?>> allowed = Sets.newHashSet(axiomTypes);
-        for (OWLAxiom ax : sourceAxioms) {
-            if (allowed.contains(ax.getAxiomType())) {
-                result.add(ax);
-            }
-        }
-        return result;
+        return sourceAxioms.stream()
+                .filter(a -> allowed.contains(a.getAxiomType()))
+                .collect(toSet());
     }
 
     /**

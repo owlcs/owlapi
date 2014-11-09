@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import javax.annotation.Nonnull;
@@ -24,7 +25,7 @@ import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLObjectVisitor;
+import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
@@ -36,7 +37,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  *         Informatics Group
  * @since 2.1.0
  */
-public class SWRLVariableExtractor implements SWRLObjectVisitor {
+public class SWRLVariableExtractor implements
+        SWRLObjectVisitorEx<Collection<SWRLVariable>> {
 
     @Nonnull
     private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<>();
@@ -48,58 +50,71 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
     @Override
-    public void visit(SWRLRule node) {
+    public Collection<SWRLVariable> visit(SWRLRule node) {
         node.getBody().forEach(a -> a.accept(this));
         node.getHead().forEach(a -> a.accept(this));
+        return variables;
     }
 
     @Override
-    public void visit(SWRLClassAtom node) {
+    public Collection<SWRLVariable> visit(SWRLClassAtom node) {
         node.getArgument().accept(this);
+        return variables;
     }
 
     @Override
-    public void visit(SWRLDataRangeAtom node) {
+    public Collection<SWRLVariable> visit(SWRLDataRangeAtom node) {
         node.getArgument().accept(this);
+        return variables;
     }
 
     @Override
-    public void visit(SWRLObjectPropertyAtom node) {
+    public Collection<SWRLVariable> visit(SWRLObjectPropertyAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
+        return variables;
     }
 
     @Override
-    public void visit(SWRLDataPropertyAtom node) {
+    public Collection<SWRLVariable> visit(SWRLDataPropertyAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
+        return variables;
     }
 
     @Override
-    public void visit(SWRLBuiltInAtom node) {
+    public Collection<SWRLVariable> visit(SWRLBuiltInAtom node) {
         node.getArguments().forEach(a -> a.accept(this));
+        return variables;
     }
 
     @Override
-    public void visit(SWRLVariable node) {
+    public Collection<SWRLVariable> visit(SWRLVariable node) {
         variables.add(node);
+        return variables;
     }
 
     @Override
-    public void visit(SWRLIndividualArgument node) {}
-
-    @Override
-    public void visit(SWRLLiteralArgument node) {}
-
-    @Override
-    public void visit(SWRLSameIndividualAtom node) {
-        node.getFirstArgument().accept(this);
-        node.getSecondArgument().accept(this);
+    public Collection<SWRLVariable> visit(SWRLIndividualArgument node) {
+        return variables;
     }
 
     @Override
-    public void visit(SWRLDifferentIndividualsAtom node) {
+    public Collection<SWRLVariable> visit(SWRLLiteralArgument node) {
+        return variables;
+    }
+
+    @Override
+    public Collection<SWRLVariable> visit(SWRLSameIndividualAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
+        return variables;
+    }
+
+    @Override
+    public Collection<SWRLVariable> visit(SWRLDifferentIndividualsAtom node) {
+        node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
+        return variables;
     }
 }

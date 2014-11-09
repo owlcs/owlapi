@@ -2,7 +2,7 @@ package org.obolibrary.owl;
 
 import java.io.PrintWriter;
 import java.util.Map;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -106,8 +106,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
-        public Set<String> getPrefixNames() {
-            return delegate.getPrefixNames();
+        public Stream<String> prefixNames() {
+            return delegate.prefixNames();
         }
 
         @Override

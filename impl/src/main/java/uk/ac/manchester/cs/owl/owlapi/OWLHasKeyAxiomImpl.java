@@ -12,12 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toSet;
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -25,12 +24,9 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -44,7 +40,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     @Nonnull
     private final OWLClassExpression expression;
     @Nonnull
-    private final Set<OWLPropertyExpression> propertyExpressions;
+    private final List<OWLPropertyExpression> propertyExpressions;
 
     /**
      * @param expression
@@ -54,13 +50,15 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLHasKeyAxiomImpl(@Nonnull OWLClassExpression expression,
-            @Nonnull Set<? extends OWLPropertyExpression> propertyExpressions,
+    public OWLHasKeyAxiomImpl(
+            @Nonnull OWLClassExpression expression,
+            @Nonnull Collection<? extends OWLPropertyExpression> propertyExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
-        this.propertyExpressions = new TreeSet<>(checkNotNull(
-                propertyExpressions, "propertyExpressions cannot be null"));
+        checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
+        this.propertyExpressions = propertyExpressions.stream().sorted()
+                .collect(toList());
     }
 
     @Override
@@ -69,20 +67,20 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
             return this;
         }
         return new OWLHasKeyAxiomImpl(getClassExpression(),
-                getPropertyExpressions(), NO_ANNOTATIONS);
+                propertyExpressions, NO_ANNOTATIONS);
     }
 
     @Override
     public OWLHasKeyAxiom getAnnotatedAxiom(
             Collection<OWLAnnotation> annotations) {
         return new OWLHasKeyAxiomImpl(getClassExpression(),
-                getPropertyExpressions(), mergeAnnos(annotations));
+                propertyExpressions, mergeAnnos(annotations));
     }
 
     @Override
     public OWLHasKeyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotations) {
         return new OWLHasKeyAxiomImpl(getClassExpression(),
-                getPropertyExpressions(), mergeAnnos(annotations));
+                propertyExpressions, mergeAnnos(annotations));
     }
 
     @Override
@@ -96,22 +94,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     }
 
     @Override
-    public Set<OWLPropertyExpression> getPropertyExpressions() {
-        return CollectionFactory.copy(propertyExpressions);
-    }
-
-    @Override
-    public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
-        return propertyExpressions.stream()
-                .filter(p -> p.isDataPropertyExpression())
-                .map(p -> (OWLDataPropertyExpression) p).collect(toSet());
-    }
-
-    @Override
-    public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
-        return propertyExpressions.stream()
-                .filter(p -> p.isObjectPropertyExpression())
-                .map(p -> (OWLObjectPropertyExpression) p).collect(toSet());
+    public Stream<OWLPropertyExpression> propertyExpressions() {
+        return propertyExpressions.stream();
     }
 
     @Override
@@ -121,7 +105,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         if (diff != 0) {
             return diff;
         }
-        return compareCollections(propertyExpressions, other.getPropertyExpressions());
+        return compareStreams(propertyExpressions(),
+                other.propertyExpressions());
     }
 
     @Override
@@ -134,8 +119,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
             }
             OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
             return expression.equals(other.getClassExpression())
-                    && propertyExpressions.equals(other
-                            .getPropertyExpressions());
+                    && compareStreams(propertyExpressions(),
+                            other.propertyExpressions()) == 0;
         }
         return false;
     }

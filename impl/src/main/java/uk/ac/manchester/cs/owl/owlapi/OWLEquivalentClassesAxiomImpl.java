@@ -12,10 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toSet;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
-import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,7 +20,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -42,8 +37,6 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         implements OWLEquivalentClassesAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nullable
-    private transient WeakReference<Set<OWLClass>> namedClasses;
 
     /**
      * @param classExpressions
@@ -68,16 +61,16 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public OWLEquivalentClassesAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Collection<OWLAnnotation> annotationsToAdd) {
         return new OWLEquivalentClassesAxiomImpl(classExpressions,
-                mergeAnnos(annotations));
+                mergeAnnos(annotationsToAdd));
     }
 
     @Override
     public OWLEquivalentClassesAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> annotationsToAdd) {
         return new OWLEquivalentClassesAxiomImpl(classExpressions,
-                mergeAnnos(annotations));
+                mergeAnnos(annotationsToAdd));
     }
 
     @Override
@@ -102,14 +95,16 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
             OWLClassExpression indI = classExpressions.get(i);
             OWLClassExpression indJ = classExpressions.get(i + 1);
             result.add(new OWLEquivalentClassesAxiomImpl(Arrays.asList(indI,
-                    indJ), getAnnotations()));
+                    indJ), annotations));
         }
         return result;
     }
 
     @Override
     public boolean containsNamedEquivalentClass() {
-        return !getNamedClasses().isEmpty();
+        return classExpressions().anyMatch(
+                desc -> !desc.isAnonymous() && !desc.isOWLNothing()
+                        && !desc.isOWLThing());
     }
 
     @Override
@@ -123,19 +118,10 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     }
 
     @Override
-    public Set<OWLClass> getNamedClasses() {
-        Set<OWLClass> toReturn = null;
-        if (namedClasses != null) {
-            toReturn = verifyNotNull(namedClasses).get();
-        }
-        if (toReturn == null) {
-            toReturn = classExpressions()
-                    .filter(desc -> !desc.isAnonymous() && !desc.isOWLNothing()
-                            && !desc.isOWLThing())
-                    .map(desc -> desc.asOWLClass()).collect(toSet());
-            namedClasses = new WeakReference<>(toReturn);
-        }
-        return toReturn;
+    public Stream<OWLClass> namedClasses() {
+        return classExpressions().filter(
+                desc -> !desc.isAnonymous() && !desc.isOWLNothing()
+                        && !desc.isOWLThing()).map(desc -> desc.asOWLClass());
     }
 
     @Override

@@ -35,6 +35,7 @@ public interface HasDatatypesInSignature {
      *         the signature; it is a modifiable collection and changes are not
      *         reflected by the signature.
      */
+    @Deprecated
     @Nonnull
     default Set<OWLDatatype> getDatatypesInSignature() {
         return datatypesInSignature().collect(toSet());

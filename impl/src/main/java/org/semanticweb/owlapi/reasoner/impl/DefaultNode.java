@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -124,8 +125,8 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Nonnull
     @Override
-    public Set<E> getEntities() {
-        return CollectionFactory.copy(entities);
+    public Stream<E> entities() {
+        return entities.stream();
     }
 
     @Override
