@@ -202,7 +202,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         hashCode = 31;
-        hashCode = hashCode * MULT + axiom.getClassExpressions().hashCode();
+        hashCode = hashCode * MULT + hash(axiom.classExpressions());
         hashCode = hashCode * MULT + hash(axiom.annotations());
     }
 
@@ -240,7 +240,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         hashCode = 53;
-        hashCode = hashCode * MULT + axiom.getClassExpressions().hashCode();
+        hashCode = hashCode * MULT + hash(axiom.classExpressions());
         hashCode = hashCode * MULT + hash(axiom.annotations());
     }
 

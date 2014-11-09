@@ -394,7 +394,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         constructs.add(C);
-        axiom.getClassExpressions().forEach(o -> o.accept(this));
+        axiom.classExpressions().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -510,7 +510,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        axiom.getClassExpressions().forEach(o -> o.accept(this));
+        axiom.classExpressions().forEach(o -> o.accept(this));
     }
 
     @Override

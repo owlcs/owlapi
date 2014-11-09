@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -447,19 +448,19 @@ public class OWLAPIObo2Owl {
             Set<OWLAxiom> newAxioms = new HashSet<>();
             for (OWLEquivalentClassesAxiom eca : ontology
                     .getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
-                int numNamed = 0;
+                AtomicInteger numNamed = new AtomicInteger();
                 Set<OWLClassExpression> xs = new HashSet<>();
-                for (OWLClassExpression x : eca.getClassExpressions()) {
+                eca.classExpressions().forEach(x -> {
                     if (x instanceof OWLClass) {
                         xs.add(x);
-                        numNamed++;
-                        continue;
+                        numNamed.incrementAndGet();
+                    } else {
+                        // anonymous class expressions are 'prefixed' with view
+                        // property
+                        xs.add(fac.getOWLObjectSomeValuesFrom(vp, x));
                     }
-                    // anonymous class expressions are 'prefixed' with view
-                    // property
-                    xs.add(fac.getOWLObjectSomeValuesFrom(vp, x));
-                }
-                if (numNamed == 1) {
+                });
+                if (numNamed.get() == 1) {
                     rmAxioms.add(eca);
                     newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
                 }

@@ -28,12 +28,9 @@ public class LogicalDefinitionPropertyViewTest extends OboFormatTestBasics {
         OWLObjectProperty op = df
                 .getOWLObjectProperty("http://purl.obolibrary.org/obo/BFO_0000050");
         boolean ok = owlOntology.axioms(AxiomType.EQUIVALENT_CLASSES).anyMatch(
-                eca -> eca
-                        .getClassExpressions()
-                        .stream()
-                        .anyMatch(
-                                x -> x instanceof OWLObjectSomeValuesFrom
-                                        && x.containsEntityInSignature(op)));
+                eca -> eca.classExpressions().anyMatch(
+                        x -> x instanceof OWLObjectSomeValuesFrom
+                                && x.containsEntityInSignature(op)));
         assertTrue(ok);
         // reverse translation
         OBODoc obodoc = convert(owlOntology);

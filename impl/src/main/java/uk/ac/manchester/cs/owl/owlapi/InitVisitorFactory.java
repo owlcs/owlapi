@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -291,8 +290,7 @@ public class InitVisitorFactory {
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-            List<OWLClassExpression> list = new ArrayList<>(
-                    axiom.getClassExpressions());
+            List<OWLClassExpression> list = axiom.getClassExpressionsAsList();
             if (named) {
                 deleteAnonymousClasses(list);
             }
@@ -353,8 +351,7 @@ public class InitVisitorFactory {
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-            List<OWLClassExpression> list = new ArrayList<>(
-                    axiom.getClassExpressions());
+            List<OWLClassExpression> list = axiom.getClassExpressionsAsList();
             if (named) {
                 deleteAnonymousClasses(list);
             }

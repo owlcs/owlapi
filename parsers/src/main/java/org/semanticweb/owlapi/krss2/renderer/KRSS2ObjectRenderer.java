@@ -522,7 +522,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> descs = sort(axiom.getClassExpressions());
+        List<OWLClassExpression> descs = sort(axiom.getClassExpressionsAsList());
         int size = descs.size();
         if (size <= 1) {
             return;
@@ -600,7 +600,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         List<OWLClassExpression> descriptions = sort(axiom
-                .getClassExpressions());
+                .getClassExpressionsAsList());
         int size = descriptions.size();
         if (size <= 1) {
             return;

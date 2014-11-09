@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -453,41 +454,45 @@ public class OWLAPIOwl2Obo {
             }
             break;
         }
-        if (viewRel != null) {
-            // OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
-            Set<OWLAxiom> rmAxioms = new HashSet<>();
-            Set<OWLAxiom> newAxioms = new HashSet<>();
-            for (OWLEquivalentClassesAxiom eca : getOWLOntology().getAxioms(
-                    AxiomType.EQUIVALENT_CLASSES)) {
-                int numNamed = 0;
-                Set<OWLClassExpression> xs = new HashSet<>();
-                for (OWLClassExpression x : eca.getClassExpressions()) {
-                    if (x instanceof OWLClass) {
-                        xs.add(x);
-                        numNamed++;
-                        continue;
-                    } else if (x instanceof OWLObjectSomeValuesFrom) {
-                        OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x)
-                                .getProperty();
-                        if (!getIdentifier(p).equals(viewRel)) {
-                            LOG.error("Expected: {} got: {} in {}", viewRel, p,
-                                    eca);
-                        }
-                        xs.add(((OWLObjectSomeValuesFrom) x).getFiller());
-                    } else {
-                        LOG.error("Unexpected: {}", eca);
-                    }
-                }
-                if (numNamed == 1) {
-                    rmAxioms.add(eca);
-                    newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
-                } else {
-                    LOG.error("ECA did not fit expected pattern: {}", eca);
-                }
-            }
-            manager.removeAxioms(getOWLOntology(), rmAxioms);
-            manager.addAxioms(getOWLOntology(), newAxioms);
+        if (viewRel == null) {
+            return;
         }
+        String view = viewRel;
+        // OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
+        Set<OWLAxiom> rmAxioms = new HashSet<>();
+        Set<OWLAxiom> newAxioms = new HashSet<>();
+        for (OWLEquivalentClassesAxiom eca : getOWLOntology().getAxioms(
+                AxiomType.EQUIVALENT_CLASSES)) {
+            AtomicInteger numNamed = new AtomicInteger();
+            Set<OWLClassExpression> xs = new HashSet<>();
+            eca.classExpressions()
+                    .forEach(
+                            x -> {
+                                if (x instanceof OWLClass) {
+                                    xs.add(x);
+                                    numNamed.incrementAndGet();
+                                } else if (x instanceof OWLObjectSomeValuesFrom) {
+                                    OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x)
+                                            .getProperty();
+                                    if (!getIdentifier(p).equals(view)) {
+                                        LOG.error("Expected: {} got: {} in {}",
+                                                view, p, eca);
+                                    }
+                                    xs.add(((OWLObjectSomeValuesFrom) x)
+                                            .getFiller());
+                                } else {
+                                    LOG.error("Unexpected: {}", eca);
+                                }
+                            });
+            if (numNamed.get() == 1) {
+                rmAxioms.add(eca);
+                newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
+            } else {
+                LOG.error("ECA did not fit expected pattern: {}", eca);
+            }
+        }
+        manager.removeAxioms(getOWLOntology(), rmAxioms);
+        manager.addAxioms(getOWLOntology(), newAxioms);
     }
 
     protected void add(@Nullable Frame f) {
@@ -1395,13 +1400,12 @@ public class OWLAPIOwl2Obo {
          * Assumption: the underlying data structure is a set The order is not
          * guaranteed to be preserved.
          */
-        Set<OWLClassExpression> expressions = ax.getClassExpressions();
         // handle expression list with size other than two elements as error
-        if (expressions.size() != 2) {
+        if (ax.classExpressions().count() != 2) {
             error(ax, false);
             return;
         }
-        Iterator<OWLClassExpression> it = expressions.iterator();
+        Iterator<OWLClassExpression> it = ax.classExpressions().iterator();
         OWLClassExpression ce1 = it.next();
         OWLClassExpression ce2 = it.next();
         if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity()
@@ -1586,11 +1590,10 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLDisjointClassesAxiom ax) {
         // use set, the OWL-API does not provide an order
-        Set<OWLClassExpression> set = ax.getClassExpressions();
-        if (set.size() != 2) {
+        if (ax.classExpressions().count() != 2) {
             error("Expected two classes in a disjoin classes axiom.", ax, false);
         }
-        Iterator<OWLClassExpression> it = set.iterator();
+        Iterator<OWLClassExpression> it = ax.classExpressions().iterator();
         OWLClassExpression ce1 = it.next();
         OWLClassExpression ce2 = it.next();
         if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity()

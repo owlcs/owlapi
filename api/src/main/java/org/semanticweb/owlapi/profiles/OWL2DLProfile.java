@@ -222,7 +222,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            if (axiom.getClassExpressions().size() < 2) {
+            if (axiom.classExpressions().count() < 2) {
                 profileViolations.add(new InsufficientOperands(
                         getCurrentOntology(), axiom, axiom));
             }
@@ -230,7 +230,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            if (axiom.getClassExpressions().size() < 2) {
+            if (axiom.classExpressions().count() < 2) {
                 profileViolations.add(new InsufficientOperands(
                         getCurrentOntology(), axiom, axiom));
             }

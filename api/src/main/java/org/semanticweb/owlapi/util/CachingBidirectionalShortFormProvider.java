@@ -12,11 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -55,8 +55,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
     protected abstract String generateShortForm(@Nonnull OWLEntity entity);
 
     @Override
-    public Set<String> getShortForms() {
-        return CollectionFactory.copyMutable(shortForm2EntityMap.keySet());
+    public Stream<String> shortForms() {
+        return shortForm2EntityMap.keySet().stream();
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
     protected void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
-        entitySetProvider.getEntities().forEach(e -> add(e));
+        entitySetProvider.entities().forEach(e -> add(e));
     }
 
     /**
@@ -105,12 +105,12 @@ public abstract class CachingBidirectionalShortFormProvider implements
     }
 
     @Override
-    public Set<OWLEntity> getEntities(String shortForm) {
+    public Stream<OWLEntity> entities(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
-            return CollectionFactory.copy(entities);
+            return entities.stream();
         }
-        return Collections.emptySet();
+        return Stream.empty();
     }
 
     @Nullable

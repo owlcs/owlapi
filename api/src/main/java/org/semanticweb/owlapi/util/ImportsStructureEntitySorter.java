@@ -35,5 +35,5 @@ public class ImportsStructureEntitySorter extends
 
     /** Selector of referenced entities. */
     public static ObjectSelector<OWLEntity> referencedEntitySelector = o -> o
-            .getSignature();
+            .signature();
 }

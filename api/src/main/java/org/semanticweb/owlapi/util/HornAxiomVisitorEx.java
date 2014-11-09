@@ -89,12 +89,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLDisjointClassesAxiom axiom) {
-        for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!checkNegative(c)) {
-                return Boolean.FALSE;
-            }
-        }
-        return Boolean.TRUE;
+        return !axiom.classExpressions().anyMatch(c -> !checkNegative(c));
     }
 
     @Override
@@ -153,12 +148,8 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
-        for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!checkPositive(c) || !checkNegative(c)) {
-                return false;
-            }
-        }
-        return Boolean.TRUE;
+        return !axiom.classExpressions().anyMatch(
+                c -> !checkPositive(c) || !checkNegative(c));
     }
 
     @Override

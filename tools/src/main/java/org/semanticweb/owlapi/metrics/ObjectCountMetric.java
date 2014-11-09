@@ -12,9 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import java.util.HashSet;
+import static java.util.stream.Collectors.toSet;
+
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -62,7 +64,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      * @return the objects
      */
     @Nonnull
-    protected abstract Set<? extends E> getObjects(@Nonnull OWLOntology ont);
+    protected abstract Stream<? extends E> getObjects(@Nonnull OWLOntology ont);
 
     @Override
     public Integer recomputeMetric() {
@@ -76,9 +78,8 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      */
     @Nonnull
     protected Set<? extends E> getObjects() {
-        Set<E> objects = new HashSet<>();
-        getOntologies().forEach(o -> objects.addAll(getObjects(o)));
-        return objects;
+        return getOntologies().stream().flatMap(o -> getObjects(o))
+                .collect(toSet());
     }
 
     @Override

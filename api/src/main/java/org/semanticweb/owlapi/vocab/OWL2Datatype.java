@@ -13,15 +13,13 @@
 package org.semanticweb.owlapi.vocab;
 
 import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -46,6 +44,7 @@ import org.semanticweb.owlapi.model.providers.DatatypeProvider;
  * @since 2.2.0
  */
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
+
 
 
 
@@ -317,8 +316,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
         Category(String name, OWLFacet... facets) {
             this.name = name;
-            Set<OWLFacet> f = new HashSet<>(Arrays.asList(facets));
-            this.facets = Collections.unmodifiableSet(f);
+            this.facets = createSet(facets);
         }
 
         /** @return name */
@@ -326,9 +324,18 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             return name;
         }
 
-        /** @return facets */
+        /**
+         * @return facets
+         * @deprecated use {@link #facets()}
+         */
+        @Deprecated
         public Set<OWLFacet> getFacets() {
-            return facets;
+            return facets().collect(toSet());
+        }
+
+        /** @return facets */
+        public Stream<OWLFacet> facets() {
+            return facets.stream();
         }
     }
 

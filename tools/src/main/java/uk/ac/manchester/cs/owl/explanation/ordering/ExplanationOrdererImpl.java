@@ -417,17 +417,16 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            for (OWLClassExpression ce : axiom.getClassExpressions()) {
-                if (!ce.isAnonymous()) {
-                    if (source == null) {
-                        source = ce.asOWLClass();
-                    } else if (target == null) {
-                        target = ce.asOWLClass();
-                    } else {
-                        break;
-                    }
-                }
-            }
+            axiom.classExpressions().filter(c -> !c.isAnonymous())
+                    .forEach(ce -> {
+                        if (source == null) {
+                            source = ce.asOWLClass();
+                        } else if (target == null) {
+                            target = ce.asOWLClass();
+                        } else {
+                            return;
+                        }
+                    });
         }
 
         @Override
@@ -496,12 +495,12 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            for (OWLClassExpression desc : axiom.getClassExpressions()) {
+            axiom.classExpressions().forEach(desc -> {
                 if (!desc.isAnonymous()) {
                     getAxiomsForLHS(desc.asOWLClass()).add(axiom);
                 }
                 indexAxiomsByRHSEntities(desc, axiom);
-            }
+            });
         }
 
         @Override

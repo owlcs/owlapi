@@ -338,8 +338,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-        if (axiom.getClassExpressions().size() == 2) {
-            addPairwise(axiom, axiom.getClassExpressions(),
+        if (axiom.classExpressions().count() == 2) {
+            addPairwise(axiom, axiom.getClassExpressionsAsList(),
                     OWL_EQUIVALENT_CLASS.getIRI());
         } else {
             axiom.splitToAnnotatedPairs().forEach(ax -> ax.accept(this));
@@ -348,15 +348,16 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        if (axiom.getClassExpressions().size() == 2) {
-            addPairwiseClassExpressions(axiom, axiom.getClassExpressions(),
+        if (axiom.classExpressions().count() == 2) {
+            addPairwiseClassExpressions(axiom,
+                    axiom.getClassExpressionsAsList(),
                     OWL_DISJOINT_WITH.getIRI());
         } else {
             translateAnonymousNode(axiom);
             addTriple(axiom, RDF_TYPE.getIRI(),
                     OWL_ALL_DISJOINT_CLASSES.getIRI());
-            addListTriples(axiom, OWL_MEMBERS.getIRI(), axiom
-                    .getClassExpressions().stream());
+            addListTriples(axiom, OWL_MEMBERS.getIRI(),
+                    axiom.classExpressions());
             translateAnnotations(axiom);
         }
     }
@@ -1129,10 +1130,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      *        The IRI which describes the relationship between pairs of class
      *        expressions.
      */
-    private void
-            addPairwiseClassExpressions(@Nonnull OWLAxiom axiom,
-                    @Nonnull Set<OWLClassExpression> classExpressions,
-                    @Nonnull IRI iri) {
+    private void addPairwiseClassExpressions(@Nonnull OWLAxiom axiom,
+            @Nonnull Collection<OWLClassExpression> classExpressions,
+            @Nonnull IRI iri) {
         List<OWLClassExpression> classExpressionList = new ArrayList<>(
                 classExpressions);
         addPairwise(axiom, classExpressionList, iri);

@@ -132,10 +132,8 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        axiom.getClassExpressions().forEach(
-                ce -> result.addAll(ce.accept(this)));
-        return result;
+        return axiom.classExpressions().flatMap(ce -> ce.accept(this).stream())
+                .collect(toSet());
     }
 
     @Override
@@ -221,9 +219,8 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> result = createSet(axiom.getOWLClass());
-        axiom.classExpressions().forEach(ce -> result.addAll(ce.accept(this)));
-        return result;
+        return axiom.classExpressions().flatMap(ce -> ce.accept(this).stream())
+                .collect(toSet());
     }
 
     @Override
@@ -238,10 +235,8 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> result = new HashSet<>();
-        axiom.getClassExpressions().forEach(
-                ce -> result.addAll(ce.accept(this)));
-        return result;
+        return axiom.classExpressions().flatMap(ce -> ce.accept(this).stream())
+                .collect(toSet());
     }
 
     @Override

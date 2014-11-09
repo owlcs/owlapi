@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.dlsyntax.renderer;
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -308,8 +307,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> descs = new ArrayList<>(
-                axiom.getClassExpressions());
+        List<OWLClassExpression> descs = axiom.getClassExpressionsAsList();
         for (int i = 0; i < descs.size() - 1; i++) {
             for (int j = i + 1; j < descs.size(); j++) {
                 descs.get(i).accept(this);
@@ -482,7 +480,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        write(axiom.getClassExpressions(), EQUIVALENT_TO, false);
+        write(axiom.getClassExpressionsAsList(), EQUIVALENT_TO, false);
     }
 
     @Override

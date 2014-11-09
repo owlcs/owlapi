@@ -14,6 +14,10 @@ package org.semanticweb.owlapi.expression;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -54,66 +58,45 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
     @Override
     public OWLClass getOWLClass(String name) {
-        checkNotNull(name, "name cannot be null");
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if (ent.isOWLClass()) {
-                return ent.asOWLClass();
-            }
-        }
-        return null;
+        return find(name, OWLEntity::isOWLClass, OWLEntity::asOWLClass);
     }
 
     @Override
     public OWLDataProperty getOWLDataProperty(String name) {
-        checkNotNull(name, "name cannot be null");
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if (ent.isOWLDataProperty()) {
-                return ent.asOWLDataProperty();
-            }
-        }
-        return null;
+        return find(name, OWLEntity::isOWLDataProperty,
+                OWLEntity::asOWLDataProperty);
     }
 
     @Override
     public OWLDatatype getOWLDatatype(String name) {
-        checkNotNull(name, "name cannot be null");
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if (ent.isOWLDatatype()) {
-                return ent.asOWLDatatype();
-            }
-        }
-        return null;
+        return find(name, OWLEntity::isOWLDatatype, OWLEntity::asOWLDatatype);
     }
 
     @Override
     public OWLNamedIndividual getOWLIndividual(String name) {
-        checkNotNull(name, "name cannot be null");
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if (ent.isOWLNamedIndividual()) {
-                return ent.asOWLNamedIndividual();
-            }
-        }
-        return null;
+        return find(name, OWLEntity::isOWLNamedIndividual,
+                OWLEntity::asOWLNamedIndividual);
     }
 
     @Override
     public OWLObjectProperty getOWLObjectProperty(String name) {
-        checkNotNull(name, "name cannot be null");
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if (ent.isOWLObjectProperty()) {
-                return ent.asOWLObjectProperty();
-            }
-        }
-        return null;
+        return find(name, OWLEntity::isOWLObjectProperty,
+                OWLEntity::asOWLObjectProperty);
     }
 
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        return find(name, OWLEntity::isOWLAnnotationProperty,
+                OWLEntity::asOWLAnnotationProperty);
+    }
+
+    protected <T extends OWLEntity> T find(String name, Predicate<OWLEntity> p,
+            Function<OWLEntity, T> f) {
         checkNotNull(name, "name cannot be null");
-        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if (ent.isOWLAnnotationProperty()) {
-                return ent.asOWLAnnotationProperty();
-            }
+        Optional<OWLEntity> findFirst = shortFormProvider.entities(name)
+                .filter(p).findFirst();
+        if (findFirst.isPresent()) {
+            return f.apply(findFirst.get());
         }
         return null;
     }

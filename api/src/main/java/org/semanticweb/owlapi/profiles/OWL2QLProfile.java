@@ -179,12 +179,12 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            for (OWLClassExpression ce : axiom.getClassExpressions()) {
-                if (!isOWL2QLSubClassExpression(ce)) {
-                    violations.add(new UseOfNonSubClassExpression(
-                            getCurrentOntology(), axiom, ce));
-                }
-            }
+            axiom.classExpressions()
+                    .filter(ce -> !isOWL2QLSubClassExpression(ce))
+                    .forEach(
+                            ce -> violations
+                                    .add(new UseOfNonSubClassExpression(
+                                            getCurrentOntology(), axiom, ce)));
         }
 
         @Override

@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.debugging;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -129,19 +128,17 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        if (axiom.getClassExpressions().size() == 2
+        if (axiom.classExpressions().count() == 2
                 && axiom.getClassExpressions().contains(
                         dataFactory.getOWLNothing())) {
-            for (OWLClassExpression c : axiom.getClassExpressions()) {
-                if (!c.isOWLNothing()) {
-                    desc = c;
-                    return;
-                }
+            desc = axiom.classExpressions().filter(c -> !c.isOWLNothing())
+                    .findFirst().orElse(null);
+            if (desc != null) {
+                return;
             }
         }
         // (C and not D) or (not C and D)
-        Set<OWLClassExpression> clses = axiom.getClassExpressions();
-        Iterator<OWLClassExpression> it = clses.iterator();
+        Iterator<OWLClassExpression> it = axiom.classExpressions().iterator();
         OWLClassExpression descC = it.next();
         OWLClassExpression notC = dataFactory.getOWLObjectComplementOf(descC);
         OWLClassExpression descD = it.next();

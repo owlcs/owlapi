@@ -308,9 +308,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         writeOpenBracket();
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            write(desc);
-        }
+        axiom.classExpressions().forEach(desc -> write(desc));
         writeCloseBracket();
     }
 

@@ -17,6 +17,7 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -232,7 +233,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Nonnull
     @Override
     public OWLDataIntersectionOf getOWLDataIntersectionOf(
-            @Nonnull Set<? extends OWLDataRange> dataRanges) {
+            @Nonnull Collection<? extends OWLDataRange> dataRanges) {
         checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
         return new OWLDataIntersectionOfImpl(dataRanges);
     }
@@ -279,7 +280,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Nonnull
     @Override
     public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
-            @Nonnull Set<? extends OWLClassExpression> operands) {
+            @Nonnull Collection<? extends OWLClassExpression> operands) {
         checkIterableNotNull(operands, "operands cannot be null", true);
         return new OWLObjectIntersectionOfImpl(operands);
     }

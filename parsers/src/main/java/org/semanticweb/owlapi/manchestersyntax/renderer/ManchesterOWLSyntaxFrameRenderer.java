@@ -320,18 +320,18 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         event = new RendererEvent(this, ontology);
         for (OWLDisjointClassesAxiom ax : ontology
                 .getAxioms(AxiomType.DISJOINT_CLASSES)) {
-            if (ax.getClassExpressions().size() > 2) {
+            if (ax.classExpressions().count() > 2) {
                 SectionMap<Object, OWLAxiom> map = new SectionMap<>();
-                map.put(ax.getClassExpressions(), ax);
+                map.put(ax.getClassExpressionsAsList(), ax);
                 writeSection(DISJOINT_CLASSES, map, ",", false, ontology);
             }
         }
         // Nary equivalent classes axioms
         for (OWLEquivalentClassesAxiom ax : ontology
                 .getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
-            if (ax.getClassExpressions().size() > 2) {
+            if (ax.classExpressions().count() > 2) {
                 SectionMap<Object, OWLAxiom> map = new SectionMap<>();
-                map.put(ax.getClassExpressions(), ax);
+                map.put(ax.getClassExpressionsAsList(), ax);
                 writeSection(EQUIVALENT_CLASSES, map, ",", false, ontology);
             }
         }
@@ -529,7 +529,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                 SectionMap<Object, OWLAxiom> equivalentClasses = new SectionMap<>();
                 for (OWLEquivalentClassesAxiom ax : ontology
                         .getEquivalentClassesAxioms(cls)) {
-                    if (ax.getClassExpressions().size() == 2 && isDisplayed(ax)) {
+                    if (ax.classExpressions().count() == 2 && isDisplayed(ax)) {
                         ax.getClassExpressionsMinus(cls).forEach(
                                 c -> equivalentClasses.put(c, ax));
                         axioms.add(ax);
@@ -587,7 +587,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                 for (OWLDisjointClassesAxiom ax : ontology
                         .getDisjointClassesAxioms(cls)) {
                     if (isDisplayed(ax)) {
-                        if (ax.getClassExpressions().size() == 2) {
+                        if (ax.classExpressions().count() == 2) {
                             OWLClassExpression disjointWith = ax
                                     .getClassExpressionsMinus(cls).iterator()
                                     .next();
@@ -603,9 +603,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                     for (OWLDisjointClassesAxiom ax : ontology
                             .getDisjointClassesAxioms(cls)) {
                         if (isDisplayed(ax)
-                                && ax.getClassExpressions().size() > 2) {
+                                && ax.classExpressions().count() > 2) {
                             Collection<OWLClassExpression> allDisjointClasses = sortedCollection(ax
-                                    .getClassExpressions());
+                                    .getClassExpressionsAsList());
                             axioms.add(ax);
                             writeSection(DISJOINT_CLASSES, allDisjointClasses,
                                     ", ", false, ontology);

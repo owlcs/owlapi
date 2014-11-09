@@ -173,7 +173,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDisjointClassesAxiom axiom) {
-        axiom.getClassExpressions().forEach(d -> d.accept(this));
+        axiom.classExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -319,7 +319,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLEquivalentClassesAxiom axiom) {
-        axiom.getClassExpressions().forEach(d -> d.accept(this));
+        axiom.classExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }

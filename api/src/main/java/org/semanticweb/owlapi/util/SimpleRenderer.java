@@ -303,7 +303,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLDisjointClassesAxiom axiom) {
         sb.append("DisjointClasses(");
         writeAnnotations(axiom);
-        render(axiom.getClassExpressions());
+        render(axiom.classExpressions());
         sb.append(')');
     }
 
@@ -503,7 +503,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLEquivalentClassesAxiom axiom) {
         sb.append("EquivalentClasses(");
         writeAnnotations(axiom);
-        render(axiom.getClassExpressions());
+        render(axiom.classExpressions());
         sb.append(" )");
     }
 

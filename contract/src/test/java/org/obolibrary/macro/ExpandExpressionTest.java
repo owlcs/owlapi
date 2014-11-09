@@ -3,11 +3,11 @@ package org.obolibrary.macro;
 import static org.junit.Assert.*;
 
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -40,26 +40,23 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
         cls = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_4");
         Set<OWLEquivalentClassesAxiom> ecas = outputOntology
                 .getEquivalentClassesAxioms(cls);
-        boolean ok = false;
+        AtomicBoolean ok = new AtomicBoolean(false);
         for (OWLEquivalentClassesAxiom eca : ecas) {
-            for (OWLClassExpression x : eca.getClassExpressions()) {
-                if (x instanceof OWLObjectIntersectionOf) {
-                    for (OWLClassExpression y : ((OWLObjectIntersectionOf) x)
-                            .getOperands()) {
-                        if (y instanceof OWLObjectSomeValuesFrom) {
-                            String pStr = ((OWLObjectSomeValuesFrom) y)
-                                    .getProperty().toString();
-                            // System.out.println("p=" + pStr);
-                            assertEquals(
-                                    "<http://purl.obolibrary.org/obo/BFO_0000051>",
-                                    pStr);
-                            ok = true;
-                        }
-                    }
-                }
-            }
+            eca.classExpressions()
+                    .filter(ce -> ce instanceof OWLObjectIntersectionOf)
+                    .flatMap(x -> ((OWLObjectIntersectionOf) x).operands())
+                    .filter(y -> y instanceof OWLObjectSomeValuesFrom)
+                    .map(y -> ((OWLObjectSomeValuesFrom) y).getProperty()
+                            .toString())
+                    .forEach(
+                            pStr -> {
+                                assertEquals(
+                                        "<http://purl.obolibrary.org/obo/BFO_0000051>",
+                                        pStr);
+                                ok.set(true);
+                            });
+            assertTrue(ok.get());
+            writeOWL(ontology);
         }
-        assertTrue(ok);
-        writeOWL(ontology);
     }
 }

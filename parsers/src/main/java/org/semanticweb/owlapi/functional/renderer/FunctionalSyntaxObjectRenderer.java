@@ -281,8 +281,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                 continue;
             }
             if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
-                    && ((OWLDisjointClassesAxiom) ax).getClassExpressions()
-                            .size() > 2) {
+                    && ((OWLDisjointClassesAxiom) ax).classExpressions()
+                            .count() > 2) {
                 continue;
             }
             ax.accept(this);
@@ -534,7 +534,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> classExpressions = axiom.getClassExpressions();
+        List<OWLClassExpression> classExpressions = axiom
+                .getClassExpressionsAsList();
         if (classExpressions.size() < 2) {
             // TODO log
             return;
@@ -590,7 +591,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> classExpressions = axiom.getClassExpressions();
+        List<OWLClassExpression> classExpressions = axiom
+                .getClassExpressionsAsList();
         if (classExpressions.size() < 2) {
             // TODO log
             return;

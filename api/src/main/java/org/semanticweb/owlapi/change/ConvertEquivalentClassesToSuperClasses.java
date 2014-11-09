@@ -132,7 +132,7 @@ public class ConvertEquivalentClassesToSuperClasses extends
             for (OWLEquivalentClassesAxiom ax : o
                     .getEquivalentClassesAxioms(cls)) {
                 addChange(new RemoveAxiom(o, ax));
-                ax.getClassExpressions().forEach(
+                ax.classExpressions().forEach(
                         c -> supers.addAll(getClassExpressions(c)));
             }
         }

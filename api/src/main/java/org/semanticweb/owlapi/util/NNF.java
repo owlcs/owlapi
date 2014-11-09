@@ -468,7 +468,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = axiom.getClassExpressions().stream()
+        Set<OWLClassExpression> ops = axiom.classExpressions()
                 .map(p -> p.accept(classVisitor)).collect(toSet());
         return dataFactory.getOWLDisjointClassesAxiom(ops);
     }
@@ -582,7 +582,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = axiom.getClassExpressions().stream()
+        Set<OWLClassExpression> ops = axiom.classExpressions()
                 .map(p -> p.accept(classVisitor)).collect(toSet());
         return dataFactory.getOWLEquivalentClassesAxiom(ops);
     }

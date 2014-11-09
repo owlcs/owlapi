@@ -258,8 +258,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            rhs.addAll(axiom.getClassExpressions());
-            lhs.addAll(axiom.getClassExpressions());
+            rhs.addAll(axiom.getClassExpressionsAsList());
+            lhs.addAll(axiom.getClassExpressionsAsList());
         }
 
         @Override
@@ -367,8 +367,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            rhs.addAll(axiom.getClassExpressions());
-            lhs.addAll(axiom.getClassExpressions());
+            rhs.addAll(axiom.getClassExpressionsAsList());
+            lhs.addAll(axiom.getClassExpressionsAsList());
         }
 
         @Override

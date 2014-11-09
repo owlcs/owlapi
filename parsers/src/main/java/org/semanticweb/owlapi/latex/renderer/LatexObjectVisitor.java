@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.latex.renderer;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -407,9 +408,11 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        if (axiom.getClassExpressions().size() != 2) {
-            for (OWLClassExpression left : axiom.getClassExpressions()) {
-                for (OWLClassExpression right : axiom.getClassExpressions()) {
+        List<OWLClassExpression> classExpressions = axiom
+                .getClassExpressionsAsList();
+        if (classExpressions.size() != 2) {
+            for (OWLClassExpression left : classExpressions) {
+                for (OWLClassExpression right : classExpressions) {
                     if (left != right) {
                         if (left.equals(subject)) {
                             left.accept(this);
@@ -433,8 +436,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                 }
             }
         } else {
-            Iterator<OWLClassExpression> it = axiom.getClassExpressions()
-                    .iterator();
+            Iterator<OWLClassExpression> it = classExpressions.iterator();
             OWLClassExpression descA = it.next();
             OWLClassExpression descB = it.next();
             OWLClassExpression lhs;
@@ -458,10 +460,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        if (axiom.getClassExpressions().size() > 2) {
+        List<OWLClassExpression> classExpressions = axiom
+                .getClassExpressionsAsList();
+        if (classExpressions.size() > 2) {
             Set<Set<OWLClassExpression>> rendered = new HashSet<>();
-            for (OWLClassExpression left : axiom.getClassExpressions()) {
-                for (OWLClassExpression right : axiom.getClassExpressions()) {
+            for (OWLClassExpression left : classExpressions) {
+                for (OWLClassExpression right : classExpressions) {
                     if (left != right) {
                         Set<OWLClassExpression> cur = CollectionFactory
                                 .createSet(left, right);
@@ -476,9 +480,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                     }
                 }
             }
-        } else if (axiom.getClassExpressions().size() == 2) {
-            Iterator<OWLClassExpression> it = axiom.getClassExpressions()
-                    .iterator();
+        } else if (classExpressions.size() == 2) {
+            Iterator<OWLClassExpression> it = classExpressions.iterator();
             OWLClassExpression descA = it.next();
             OWLClassExpression descB = it.next();
             OWLClassExpression lhs;

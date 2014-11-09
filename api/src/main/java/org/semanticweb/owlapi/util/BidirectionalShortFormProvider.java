@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,9 +41,26 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      * @return The set of entities that have the specified short form. If there
      *         are no entities which have the specified short form then an empty
      *         set will be returned.
+     * @deprecated use {@link #entities(String)}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<OWLEntity> getEntities(@Nonnull String shortForm) {
+        return entities(shortForm).collect(toSet());
+    }
+
+    /**
+     * For a given short form this method obtains the entities which have this
+     * short form.
+     * 
+     * @param shortForm
+     *        The short form of the entities that will be retrieved.
+     * @return The set of entities that have the specified short form. If there
+     *         are no entities which have the specified short form then an empty
+     *         set will be returned.
      */
     @Nonnull
-    Set<OWLEntity> getEntities(@Nonnull String shortForm);
+    Stream<OWLEntity> entities(@Nonnull String shortForm);
 
     /**
      * A convenience method which gets an entity from its short form.
@@ -60,7 +80,20 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      * 
      * @return A set, which contains the strings representing the short forms of
      *         entities for which there is a mapping.
+     * @deprecated use {@link #shortForms()}
+     */
+    @Deprecated
+    @Nonnull
+    default Set<String> getShortForms() {
+        return shortForms().collect(toSet());
+    }
+
+    /**
+     * Gets all of the short forms that are mapped to entities.
+     * 
+     * @return A set, which contains the strings representing the short forms of
+     *         entities for which there is a mapping.
      */
     @Nonnull
-    Set<String> getShortForms();
+    Stream<String> shortForms();
 }

@@ -277,7 +277,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        axiom.getClassExpressions().forEach(d -> d.accept(this));
+        axiom.classExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -402,7 +402,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        axiom.getClassExpressions().forEach(d -> d.accept(this));
+        axiom.classExpressions().forEach(d -> d.accept(this));
         processAxiomAnnotations(axiom);
     }
 

@@ -2,6 +2,7 @@ package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -50,7 +51,8 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
     }
 
     @Nonnull
-    private OWLObjectIntersectionOf and(@Nonnull Set<OWLClassExpression> set) {
+    private OWLObjectIntersectionOf and(
+            @Nonnull Collection<OWLClassExpression> set) {
         return factory.getOWLObjectIntersectionOf(set);
     }
 
@@ -122,12 +124,12 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     @Override
     public OWLClassExpression visit(OWLDisjointClassesAxiom axiom) {
-        return and(axiom.getClassExpressions());
+        return and(axiom.getClassExpressionsAsList());
     }
 
     @Override
     public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
-        Iterator<OWLClassExpression> classes = axiom.getClassExpressions()
+        Iterator<OWLClassExpression> classes = axiom.classExpressions()
                 .iterator();
         OWLClassExpression c1 = classes.next();
         OWLClassExpression c2 = classes.next();

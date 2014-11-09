@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -1123,17 +1124,16 @@ public class Internals implements Serializable {
 
         @Override
         public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-            boolean allAnon = true;
+            AtomicBoolean allAnon = new AtomicBoolean(true);
             // Index against each named class in the axiom
-            for (OWLClassExpression desc : axiom.getClassExpressions()) {
-                if (!desc.isAnonymous()) {
-                    OWLClass cls = (OWLClass) desc;
-                    disjointClassesAxiomsByClass.put(cls, axiom);
-                    classAxiomsByClass.put(cls, axiom);
-                    allAnon = false;
-                }
-            }
-            if (allAnon) {
+            axiom.classExpressions().filter(d -> !d.isAnonymous())
+                    .forEach(desc -> {
+                        OWLClass cls = (OWLClass) desc;
+                        disjointClassesAxiomsByClass.put(cls, axiom);
+                        classAxiomsByClass.put(cls, axiom);
+                        allAnon.set(false);
+                    });
+            if (allAnon.get()) {
                 addGeneralClassAxioms(axiom);
             }
         }
@@ -1275,15 +1275,17 @@ public class Internals implements Serializable {
 
         @Override
         public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-            boolean allAnon = true;
-            for (OWLClassExpression desc : axiom.getClassExpressions()) {
-                if (!desc.isAnonymous()) {
-                    equivalentClassesAxiomsByClass.put((OWLClass) desc, axiom);
-                    classAxiomsByClass.put((OWLClass) desc, axiom);
-                    allAnon = false;
-                }
-            }
-            if (allAnon) {
+            AtomicBoolean allAnon = new AtomicBoolean(true);
+            axiom.classExpressions()
+                    .filter(d -> !d.isAnonymous())
+                    .forEach(
+                            desc -> {
+                                equivalentClassesAxiomsByClass.put(
+                                        (OWLClass) desc, axiom);
+                                classAxiomsByClass.put((OWLClass) desc, axiom);
+                                allAnon.set(false);
+                            });
+            if (allAnon.get()) {
                 addGeneralClassAxioms(axiom);
             }
         }

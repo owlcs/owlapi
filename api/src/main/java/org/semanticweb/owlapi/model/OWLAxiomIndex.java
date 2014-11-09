@@ -1264,7 +1264,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property that the retrieved axioms make equivalent to some
      *        other property expressions.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use equivalentDataPropertiesAxioms
      */
+    @Deprecated
     @Nonnull
     default
             Set<OWLEquivalentDataPropertiesAxiom>

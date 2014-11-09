@@ -464,7 +464,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> classes = sort(axiom.getClassExpressions());
+        List<OWLClassExpression> classes = sort(axiom
+                .getClassExpressionsAsList());
         int size = classes.size();
         if (size <= 1) {
             return;

@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -99,7 +100,18 @@ public class ImportsStructureObjectSorter<O> {
          *        the ontology to explore
          * @return set of objects selected
          */
+        @Deprecated
         @Nonnull
-        Set<O> getObjects(@Nonnull OWLOntology ontology);
+        default Set<O> getObjects(@Nonnull OWLOntology ontology) {
+            return objects(ontology).collect(toSet());
+        }
+
+        /**
+         * @param ontology
+         *        the ontology to explore
+         * @return set of objects selected
+         */
+        @Nonnull
+        Stream<O> objects(@Nonnull OWLOntology ontology);
     }
 }

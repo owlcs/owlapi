@@ -327,7 +327,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // bot-equivalent.
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            Collection<OWLClassExpression> disjs = axiom.getClassExpressions();
+            Collection<OWLClassExpression> disjs = axiom
+                    .getClassExpressionsAsList();
             int size = disjs.size();
             if (size == 1) {
                 // XXX actually being here means the axiom is not OWL 2
@@ -485,7 +486,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             isLocal = true;
-            Iterator<OWLClassExpression> eqs = axiom.getClassExpressions()
+            Iterator<OWLClassExpression> eqs = axiom.classExpressions()
                     .iterator();
             OWLClassExpression first = eqs.next();
             // axiom is local if it contains a single class expression

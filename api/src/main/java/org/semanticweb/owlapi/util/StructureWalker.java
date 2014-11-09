@@ -221,7 +221,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLDisjointClassesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
-        axiom.getClassExpressions().forEach(a -> a.accept(this));
+        axiom.classExpressions().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -290,7 +290,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLEquivalentClassesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
-        axiom.getClassExpressions().forEach(a -> a.accept(this));
+        axiom.classExpressions().forEach(a -> a.accept(this));
     }
 
     @Override

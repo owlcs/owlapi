@@ -119,8 +119,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Set<OWLClassExpression> eqClasses = axiom.getClassExpressions();
-            if (eqClasses.size() != 2) {
+            if (axiom.classExpressions().count() != 2) {
                 return;
             }
             LOGGER.info("Calling the Reasoner");

@@ -39,7 +39,6 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -303,18 +302,14 @@ public class StructuralReasoner extends OWLReasonerBase {
     public NodeSet<OWLClass> getDisjointClasses(@Nonnull OWLClassExpression ce) {
         ensurePrepared();
         OWLClassNodeSet nodeSet = new OWLClassNodeSet();
-        if (!ce.isAnonymous()) {
-            for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
-                for (OWLDisjointClassesAxiom ax : ontology
-                        .getDisjointClassesAxioms(ce.asOWLClass())) {
-                    for (OWLClassExpression op : ax.getClassExpressions()) {
-                        if (!op.isAnonymous()) {
-                            nodeSet.addNode(getEquivalentClasses(op));
-                        }
-                    }
-                }
-            }
+        if (ce.isAnonymous()) {
+            return nodeSet;
         }
+        getRootOntology().importsClosure()
+                .flatMap(o -> o.disjointClassesAxioms(ce.asOWLClass()))
+                .flatMap(ax -> ax.classExpressions())
+                .filter(op -> !op.isAnonymous())
+                .forEach(op -> nodeSet.addNode(getEquivalentClasses(op)));
         return nodeSet;
     }
 
@@ -1448,16 +1443,19 @@ public class StructuralReasoner extends OWLReasonerBase {
                     }
                 } else if (ax instanceof OWLEquivalentClassesAxiom) {
                     OWLEquivalentClassesAxiom eca = (OWLEquivalentClassesAxiom) ax;
-                    for (OWLClassExpression ce : eca.getClassExpressions()) {
-                        if (ce.containsConjunct(parent)) {
-                            for (OWLClassExpression sub : eca
-                                    .getClassExpressions()) {
-                                if (!sub.isAnonymous() && !sub.equals(ce)) {
-                                    result.add(sub.asOWLClass());
-                                }
-                            }
-                        }
-                    }
+                    eca.classExpressions()
+                            .filter(ce -> ce.containsConjunct(parent))
+                            .forEach(
+                                    ce -> eca
+                                            .classExpressions()
+                                            .forEach(
+                                                    sub -> {
+                                                        if (!sub.isAnonymous()
+                                                                && !sub.equals(ce)) {
+                                                            result.add(sub
+                                                                    .asOWLClass());
+                                                        }
+                                                    }));
                 }
             }
             return result;

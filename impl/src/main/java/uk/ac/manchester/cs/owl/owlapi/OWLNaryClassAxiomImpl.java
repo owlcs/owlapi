@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -39,7 +40,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<OWLClassExpression> classExpressions;
+    protected final List<OWLClassExpression> classExpressions;
 
     /**
      * @param classExpressions
@@ -49,7 +50,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
      */
     @SuppressWarnings("unchecked")
     public OWLNaryClassAxiomImpl(
-            @Nonnull Set<? extends OWLClassExpression> classExpressions,
+            @Nonnull Collection<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(classExpressions, "classExpressions cannot be null");
@@ -62,8 +63,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public List<OWLClassExpression> getClassExpressionsAsList() {
-        return new ArrayList<>(classExpressions);
+    public Stream<OWLClassExpression> classExpressions() {
+        return classExpressions.stream();
     }
 
     @Override
@@ -98,8 +99,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareCollections(classExpressions,
-                ((OWLNaryClassAxiom) object).getClassExpressions());
+        return compareStreams(classExpressions(),
+                ((OWLNaryClassAxiom) object).classExpressions());
     }
 
     @Override

@@ -130,7 +130,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        axiom.getClassExpressions().forEach(a -> a.accept(this));
+        axiom.classExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -255,7 +255,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-        axiom.getClassExpressions().forEach(a -> a.accept(this));
+        axiom.classExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 

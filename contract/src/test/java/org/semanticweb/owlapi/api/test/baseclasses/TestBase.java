@@ -237,7 +237,7 @@ public abstract class TestBase {
             for (OWLAxiom ax : new ArrayList<>(axioms1)) {
                 if (ax instanceof OWLEquivalentClassesAxiom) {
                     OWLEquivalentClassesAxiom ax2 = (OWLEquivalentClassesAxiom) ax;
-                    if (ax2.getClassExpressions().size() > 2) {
+                    if (ax2.classExpressions().count() > 2) {
                         Set<OWLEquivalentClassesAxiom> pairs = ax2
                                 .splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {

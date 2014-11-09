@@ -332,7 +332,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getClassExpressions());
+        process(axiom.classExpressions());
     }
 
     @Override
@@ -463,7 +463,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getClassExpressions());
+        process(axiom.classExpressions());
     }
 
     @Override

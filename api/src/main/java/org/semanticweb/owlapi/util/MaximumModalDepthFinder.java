@@ -96,7 +96,7 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLDisjointClassesAxiom axiom) {
-        return axiom.getClassExpressions().stream()
+        return axiom.classExpressions()
                 .mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
     }
 
@@ -167,7 +167,7 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLEquivalentClassesAxiom axiom) {
-        return axiom.getClassExpressions().stream()
+        return axiom.classExpressions()
                 .mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
     }
 }

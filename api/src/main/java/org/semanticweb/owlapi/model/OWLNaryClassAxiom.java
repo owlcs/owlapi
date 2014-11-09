@@ -12,8 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -30,8 +33,19 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom,
      * 
      * @return A {@code Set} of class expressions that appear in the axiom.
      */
+    @Deprecated
     @Nonnull
-    Set<OWLClassExpression> getClassExpressions();
+    default Set<OWLClassExpression> getClassExpressions() {
+        return classExpressions().collect(toSet());
+    }
+
+    /**
+     * Gets all of the top level class expressions that appear in this axiom.
+     * 
+     * @return A {@code Set} of class expressions that appear in the axiom.
+     */
+    @Nonnull
+    Stream<OWLClassExpression> classExpressions();
 
     /**
      * A convenience method that obtains the class expression returned by the
@@ -39,8 +53,11 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom,
      * 
      * @return A list of the class expressions in this axiom.
      */
+    @Deprecated
     @Nonnull
-    List<OWLClassExpression> getClassExpressionsAsList();
+    default List<OWLClassExpression> getClassExpressionsAsList() {
+        return classExpressions().collect(toList());
+    }
 
     /**
      * Determines if this class axiom contains the specified class expression as

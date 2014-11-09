@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -45,7 +44,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
      *        annotations
      */
     public OWLDisjointClassesAxiomImpl(
-            @Nonnull Set<? extends OWLClassExpression> classExpressions,
+            @Nonnull Collection<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
@@ -56,21 +55,20 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
-                NO_ANNOTATIONS);
+        return new OWLDisjointClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointClassesAxiom getAnnotatedAxiom(
             Collection<OWLAnnotation> annotations) {
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
+        return new OWLDisjointClassesAxiomImpl(classExpressions,
                 mergeAnnos(annotations));
     }
 
     @Override
     public OWLDisjointClassesAxiom getAnnotatedAxiom(
             Stream<OWLAnnotation> annotations) {
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
+        return new OWLDisjointClassesAxiomImpl(classExpressions,
                 mergeAnnos(annotations));
     }
 
@@ -87,11 +85,11 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @Override
     public Set<OWLDisjointClassesAxiom> asPairwiseAxioms() {
         Set<OWLDisjointClassesAxiom> result = new HashSet<>();
-        List<OWLClassExpression> list = getClassExpressionsAsList();
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = i + 1; j < list.size(); j++) {
+        for (int i = 0; i < classExpressions.size() - 1; i++) {
+            for (int j = i + 1; j < classExpressions.size(); j++) {
                 result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays
-                        .asList(list.get(i), list.get(j))), NO_ANNOTATIONS));
+                        .asList(classExpressions.get(i),
+                                classExpressions.get(j))), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -99,16 +97,15 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Set<OWLDisjointClassesAxiom> splitToAnnotatedPairs() {
-        List<OWLClassExpression> ops = getClassExpressionsAsList();
-        if (ops.size() == 2) {
+        if (classExpressions.size() == 2) {
             return Collections.singleton(this);
         }
         Set<OWLDisjointClassesAxiom> result = new HashSet<>();
-        for (int i = 0; i < ops.size() - 1; i++) {
-            OWLClassExpression indI = ops.get(i);
-            OWLClassExpression indJ = ops.get(i + 1);
-            result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays
-                    .asList(indI, indJ)), getAnnotations()));
+        for (int i = 0; i < classExpressions.size() - 1; i++) {
+            OWLClassExpression indI = classExpressions.get(i);
+            OWLClassExpression indJ = classExpressions.get(i + 1);
+            result.add(new OWLDisjointClassesAxiomImpl(Arrays
+                    .asList(indI, indJ), getAnnotations()));
         }
         return result;
     }
@@ -116,11 +113,11 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
-        List<OWLClassExpression> list = getClassExpressionsAsList();
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = i + 1; j < list.size(); j++) {
-                result.add(new OWLSubClassOfAxiomImpl(list.get(i), list.get(j)
-                        .getObjectComplementOf(), NO_ANNOTATIONS));
+        for (int i = 0; i < classExpressions.size() - 1; i++) {
+            for (int j = i + 1; j < classExpressions.size(); j++) {
+                result.add(new OWLSubClassOfAxiomImpl(classExpressions.get(i),
+                        classExpressions.get(j).getObjectComplementOf(),
+                        NO_ANNOTATIONS));
             }
         }
         return result;

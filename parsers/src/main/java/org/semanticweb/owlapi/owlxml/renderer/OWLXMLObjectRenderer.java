@@ -272,7 +272,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDisjointClassesAxiom axiom) {
         writer.writeStartElement(DISJOINT_CLASSES);
         writeAnnotations(axiom);
-        render(axiom.getClassExpressions());
+        render(axiom.classExpressions());
         writer.writeEndElement();
     }
 
@@ -315,7 +315,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLEquivalentClassesAxiom axiom) {
         writer.writeStartElement(EQUIVALENT_CLASSES);
         writeAnnotations(axiom);
-        render(axiom.getClassExpressions());
+        render(axiom.classExpressions());
         writer.writeEndElement();
     }
 

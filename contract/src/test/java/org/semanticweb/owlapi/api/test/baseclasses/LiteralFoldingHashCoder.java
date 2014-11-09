@@ -199,7 +199,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         addValueToHash(31);
-        visitStream(axiom.getClassExpressions());
+        visitStream(axiom.classExpressions());
         visitStream(axiom.annotations());
     }
 
@@ -237,7 +237,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         addValueToHash(53);
-        visitStream(axiom.getClassExpressions());
+        visitStream(axiom.classExpressions());
         visitStream(axiom.annotations());
     }
 
