@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.util.Collection;
 import java.util.Set;
@@ -197,7 +198,7 @@ public class OWLEntityCollector implements
     @Override
     public Collection<OWLEntity>
             visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        axiom.getProperties().forEach(p -> p.accept(this));
+        axiom.properties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -221,14 +222,14 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDisjointDataPropertiesAxiom axiom) {
-        axiom.getProperties().forEach(p -> p.accept(this));
+        axiom.properties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        axiom.getProperties().forEach(p -> p.accept(this));
+        axiom.properties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -304,7 +305,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        axiom.getProperties().forEach(p -> p.accept(this));
+        axiom.properties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -389,7 +390,7 @@ public class OWLEntityCollector implements
     @Override
     public Collection<OWLEntity> visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
-        axiom.getPropertyExpressions().forEach(p -> p.accept(this));
+        axiom.propertyExpressions().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
         return objects;
     }
@@ -530,13 +531,13 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDataIntersectionOf node) {
-        node.getOperands().forEach(dr -> dr.accept(this));
+        node.operands().forEach(dr -> dr.accept(this));
         return objects;
     }
 
     @Override
     public Collection<OWLEntity> visit(OWLDataUnionOf node) {
-        node.getOperands().forEach(dr -> dr.accept(this));
+        node.operands().forEach(dr -> dr.accept(this));
         return objects;
     }
 
@@ -620,7 +621,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLOntology ontology) {
-        objects.addAll(ontology.getSignature());
+        add(ontology.signature(), objects);
         return objects;
     }
 
@@ -663,8 +664,8 @@ public class OWLEntityCollector implements
     // SWRL Object Visitor
     @Override
     public Collection<OWLEntity> visit(SWRLRule rule) {
-        rule.getBody().forEach(a -> a.accept(this));
-        rule.getHead().forEach(a -> a.accept(this));
+        rule.body().forEach(a -> a.accept(this));
+        rule.head().forEach(a -> a.accept(this));
         processAxiomAnnotations(rule);
         return objects;
     }

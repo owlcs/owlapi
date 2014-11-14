@@ -43,8 +43,8 @@ public class TestImportByLocationTestCase extends TestBase {
         // import from the document location of a.owl (rather than the
         // ontology IRI)
         m.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
-        assertEquals(1, b.getImportsDeclarations().size());
-        assertEquals(1, b.getImports().size());
+        assertEquals(1, b.importsDeclarations().count());
+        assertEquals(1, b.imports().count());
     }
 
     private OWLOntology createOntologyFile(@Nonnull IRI iri, @Nonnull File f)

@@ -35,7 +35,7 @@ public class BuilderObjectIntersectionOf
     public BuilderObjectIntersectionOf(
             @Nonnull OWLObjectIntersectionOf expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.getOperands());
+        withItems(expected.operands());
     }
 
     /**

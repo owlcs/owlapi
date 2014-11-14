@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toSet;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -43,7 +44,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
      *        operands
      */
     public OWLObjectUnionOfImpl(
-            @Nonnull Set<? extends OWLClassExpression> operands) {
+            @Nonnull Collection<? extends OWLClassExpression> operands) {
         super(operands);
     }
 

@@ -33,21 +33,21 @@ public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
     public OWLDataRange visit(@Nonnull OWLDataOneOf node) {
         // Encode as a data union of and return result
         Set<OWLDataOneOf> oneOfs = new HashSet<>();
-        node.getValues().forEach(lit -> oneOfs.add(df.getOWLDataOneOf(lit)));
+        node.values().forEach(lit -> oneOfs.add(df.getOWLDataOneOf(lit)));
         return df.getOWLDataUnionOf(oneOfs).accept(this);
     }
 
     @Override
     public OWLDataRange visit(@Nonnull OWLDataIntersectionOf node) {
         Set<OWLDataRange> ops = new HashSet<>();
-        node.getOperands().forEach(op -> ops.add(op.accept(this)));
+        node.operands().forEach(op -> ops.add(op.accept(this)));
         return df.getOWLDataIntersectionOf(ops);
     }
 
     @Override
     public OWLDataRange visit(@Nonnull OWLDataUnionOf node) {
         Set<OWLDataRange> ops = new HashSet<>();
-        node.getOperands().forEach(op -> ops.add(op.accept(this)));
+        node.operands().forEach(op -> ops.add(op.accept(this)));
         return df.getOWLDataUnionOf(ops);
     }
 

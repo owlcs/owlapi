@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.impl;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
@@ -108,6 +109,17 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     /**
+     * Adds a collection of {@code Node}s to this set.
+     * 
+     * @param nodeset
+     *        The {@code Node}s to be added. Note that if the collection is not
+     *        a set then duplicate {@code Node}s will be filtered out.
+     */
+    public void addAllNodes(@Nonnull Stream<Node<E>> nodeset) {
+        nodeset.forEach(node -> addNode(node));
+    }
+
+    /**
      * Adds the set of entities as a {@code Node} to this set.
      * 
      * @param entities
@@ -193,7 +205,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
             return false;
         }
         NodeSet<?> other = (NodeSet<?>) obj;
-        return nodes.equals(other.getNodes());
+        return nodes.equals(other.nodes().collect(toSet()));
     }
 
     @Override

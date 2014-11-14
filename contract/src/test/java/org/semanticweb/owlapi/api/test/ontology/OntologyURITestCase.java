@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Optional;
 
@@ -55,7 +56,7 @@ public class OntologyURITestCase extends TestBase {
         OWLOntology ont = m.createOntology(iri);
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
         assertTrue(m.contains(iri));
-        assertTrue(m.getOntologies().contains(ont));
+        assertTrue(contains(m.ontologies(), ont));
         OWLOntologyID ontID = new OWLOntologyID(of(iri), Optional.empty());
         assertEquals(ont.getOntologyID(), ontID);
     }

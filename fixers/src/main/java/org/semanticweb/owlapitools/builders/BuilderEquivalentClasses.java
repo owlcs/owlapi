@@ -44,7 +44,7 @@ public class BuilderEquivalentClasses
     public BuilderEquivalentClasses(
             @Nonnull OWLEquivalentClassesAxiom expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.getClassExpressions()).withAnnotations(
+        withItems(expected.classExpressions()).withAnnotations(
                 expected.annotations());
     }
 

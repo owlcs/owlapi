@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -155,7 +156,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     protected boolean noLabel(OWLAxiom r) {
-        return r.getAnnotations(df.getRDFSLabel()).isEmpty();
+        return r.annotations(df.getRDFSLabel()).count()==0;
     }
 
     @Ignore("man syntax does not like annotations")
@@ -245,7 +246,7 @@ public class SWRLRoundTripTestCase extends TestBase {
                 df.getDoubleOWLDatatype(),
                 singleton(df.getOWLAnnotation(df.getRDFSLabel(),
                         df.getOWLLiteral("datatype definition", ""))));
-        assertTrue(o.getAxioms().contains(def));
+        assertTrue(contains(o.axioms(), def));
     }
 
     @Test
@@ -273,6 +274,6 @@ public class SWRLRoundTripTestCase extends TestBase {
                 df.getOWLClass("urn:test"),
                 singleton(df.getOWLAnnotation(df.getRDFSLabel(),
                         df.getOWLLiteral("datatype definition", ""))));
-        assertTrue(o.getAxioms().contains(def));
+        assertTrue(contains(o.axioms(), def));
     }
 }

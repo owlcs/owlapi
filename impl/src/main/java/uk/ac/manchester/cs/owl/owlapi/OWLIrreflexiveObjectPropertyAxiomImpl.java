@@ -60,16 +60,9 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends
 
     @Override
     public OWLIrreflexiveObjectPropertyAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLIrreflexiveObjectPropertyAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
+                mergeAnnos(anns));
     }
 
     @Override

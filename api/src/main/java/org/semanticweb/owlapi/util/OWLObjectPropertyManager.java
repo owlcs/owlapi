@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
@@ -457,23 +456,12 @@ public class OWLObjectPropertyManager {
         stack.push(prop);
         stackProps.add(prop);
         ontologies
-                .forEach(ont -> {
-                    for (OWLSubObjectPropertyOfAxiom ax : ont
-                            .getObjectSubPropertyAxiomsForSubProperty(prop)) {
-                        if (ax.getSubProperty().equals(prop)) {
-                            OWLObjectPropertyExpression supProp = ax
-                                    .getSuperProperty();
-                            if (!indexMap.containsKey(supProp)) {
-                                tarjan(ontologies, supProp, index + 1, stack,
-                                        indexMap, lowlinkMap, result,
-                                        processed, stackProps);
-                                put(prop, lowlinkMap, supProp);
-                            } else if (stackProps.contains(supProp)) {
-                                putIndex(prop, indexMap, lowlinkMap, supProp);
-                            }
-                        }
-                    }
-                });
+                .flatMap(ont -> ont.objectSubPropertyAxiomsForSubProperty(prop))
+                .filter(ax -> ax.getSubProperty().equals(prop))
+                .forEach(
+                        ax -> callTarjanAndPut(ontologies, prop, index, stack,
+                                indexMap, lowlinkMap, result, processed,
+                                stackProps, ax.getSuperProperty()));
         if (lowlinkMap.get(prop).equals(indexMap.get(prop))) {
             Set<OWLObjectPropertyExpression> scc = new HashSet<>();
             OWLObjectPropertyExpression propPrime;
@@ -488,6 +476,24 @@ public class OWLObjectPropertyManager {
             if (scc.size() > 1) {
                 result.add(scc);
             }
+        }
+    }
+
+    protected static void callTarjanAndPut(Stream<OWLOntology> ontologies,
+            OWLObjectPropertyExpression prop, int index,
+            Stack<OWLObjectPropertyExpression> stack,
+            Map<OWLObjectPropertyExpression, Integer> indexMap,
+            Map<OWLObjectPropertyExpression, Integer> lowlinkMap,
+            Set<Set<OWLObjectPropertyExpression>> result,
+            Set<OWLObjectPropertyExpression> processed,
+            Set<OWLObjectPropertyExpression> stackProps,
+            OWLObjectPropertyExpression supProp) {
+        if (!indexMap.containsKey(supProp)) {
+            tarjan(ontologies, supProp, index + 1, stack, indexMap, lowlinkMap,
+                    result, processed, stackProps);
+            put(prop, lowlinkMap, supProp);
+        } else if (stackProps.contains(supProp)) {
+            putIndex(prop, indexMap, lowlinkMap, supProp);
         }
     }
 

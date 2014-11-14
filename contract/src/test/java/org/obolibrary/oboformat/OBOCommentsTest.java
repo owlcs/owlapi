@@ -1,5 +1,6 @@
 package org.obolibrary.oboformat;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class OBOCommentsTest extends TestBase {
                 + "data-version: beta2 ! WSIO Beta 2\n";
         OWLOntology o2 = loadOntologyFromString(in2, IRI.create("urn:test2"),
                 new OBODocumentFormat());
-        assertEquals(o1.getAxioms(), o2.getAxioms());
+        assertEquals(o1.axioms().collect(toSet()), o2.axioms().collect(toSet()));
     }
 
     @Test

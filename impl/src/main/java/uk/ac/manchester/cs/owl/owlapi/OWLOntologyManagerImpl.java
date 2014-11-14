@@ -317,7 +317,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
-        return ontology.getImportsDeclarations().stream()
+        return ontology.importsDeclarations()
                 .map(ax -> getImportedOntology(ax)).filter(o -> o != null);
     }
 
@@ -364,11 +364,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology,
             @Nonnull Set<OWLOntology> ontologies) {
         ontologies.add(ontology);
-        for (OWLOntology ont : getDirectImports(ontology)) {
-            if (!ontologies.contains(ont)) {
-                getImportsClosure(ont, ontologies);
-            }
-        }
+        directImports(ontology).filter(o -> !ontologies.contains(o)).forEach(
+                o -> getImportsClosure(o, ontologies));
         return ontologies;
     }
 
@@ -459,9 +456,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
-        List<AddAxiom> changes = new ArrayList<>(axioms.size() + 2);
-        axioms.forEach(ax -> changes.add(new AddAxiom(ont, ax)));
+            @Nonnull Stream<? extends OWLAxiom> axioms) {
+        List<AddAxiom> changes = axioms.map(ax -> new AddAxiom(ont, ax))
+                .collect(toList());
         return applyChanges(changes);
     }
 
@@ -536,7 +533,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 .getNewOntologyID());
         OWLOntology o = setID.getOntology();
         if (existingOntology != null && !o.equals(existingOntology)) {
-            if (!o.getAxioms().equals(existingOntology.getAxioms())) {
+            if (!o.axioms().collect(toSet())
+                    .equals(existingOntology.axioms().collect(toSet()))) {
                 LOGGER.error(
                         "OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}",
                         existingOntology);
@@ -609,7 +607,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public OWLOntology createOntology(IRI ontologyIRI,
-            Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
+            Stream<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
             throws OWLOntologyCreationException {
         if (contains(ontologyIRI)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(
@@ -618,12 +616,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntology ont = createOntology(ontologyIRI);
         Function<? super OWLOntology, ? extends Stream<? extends OWLAxiom>> mapper = o -> copyLogicalAxiomsOnly ? o
                 .logicalAxioms() : o.axioms();
-        addAxioms(ont, ontologies.stream().flatMap(mapper).collect(toSet()));
+        addAxioms(ont, ontologies.flatMap(mapper).collect(toSet()));
         return ont;
     }
 
     @Override
-    public OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI)
+    public OWLOntology createOntology(Stream<OWLAxiom> axioms, IRI ontologyIRI)
             throws OWLOntologyCreationException {
         if (contains(ontologyIRI)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(
@@ -650,7 +648,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 OWLOntology o = createOntology(toCopy.getOntologyID());
                 AxiomType.AXIOM_TYPES.forEach(t -> addAxioms(o,
                         toCopy.getAxioms(t)));
-                toCopy.getAnnotations().forEach(
+                toCopy.annotations().forEach(
                         a -> applyChange(new AddOntologyAnnotation(o, a)));
                 toReturn = o;
                 break;

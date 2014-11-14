@@ -74,7 +74,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             ontology = man
                     .createOntology(
                             IRI.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
-                            o.getImportsClosure(), true);
+                            o.importsClosure(), true);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

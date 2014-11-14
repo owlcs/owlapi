@@ -28,8 +28,7 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
         // assertions, so the axioms
         // should have two axioms in count.
         assertEquals(2, ontology.annotations().count());
-        assertEquals(0, ontology.getAnnotationAssertionAxioms(ontologyIRI)
-                .size());
+        assertEquals(0, ontology.annotationAssertionAxioms(ontologyIRI).count());
     }
 
     @Override

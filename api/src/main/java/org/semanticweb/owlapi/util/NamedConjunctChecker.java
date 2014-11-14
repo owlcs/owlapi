@@ -131,14 +131,12 @@ public class NamedConjunctChecker {
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
-            for (OWLClassExpression op : ce.getOperands()) {
+            ce.operands().forEach(op -> {
                 op.accept(this);
-                // Early termination if we have found a named conjunct
-                // and we don't need to collect
                 if (found && !collect) {
-                    break;
+                    return;
                 }
-            }
+            });
         }
     }
 }

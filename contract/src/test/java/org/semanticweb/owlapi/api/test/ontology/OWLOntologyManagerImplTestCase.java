@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Set;
 
@@ -58,7 +60,7 @@ public class OWLOntologyManagerImplTestCase {
         assertTrue(manager.contains(ont.getOntologyID()));
         assertNotNull("ontology should not be null",
                 manager.getOntology(ont.getOntologyID()));
-        assertTrue(manager.getOntologies().contains(ont));
+        assertTrue(contains(manager.ontologies(), ont));
         assertNotNull("IRI should not be null",
                 manager.getOntologyDocumentIRI(ont));
         manager.removeOntology(ont);
@@ -75,9 +77,9 @@ public class OWLOntologyManagerImplTestCase {
                 .getOWLImportsDeclaration(
                         ontB.getOntologyID().getOntologyIRI().get());
         manager.applyChange(new AddImport(ontA, decl));
-        assertTrue(manager.getDirectImports(ontA).contains(ontB));
+        assertTrue(contains(manager.directImports(ontA), ontB));
         manager.removeOntology(ontB);
-        assertFalse(manager.getDirectImports(ontA).contains(ontB));
+        assertFalse(contains(manager.directImports(ontA), ontB));
     }
 
     @Test
@@ -97,11 +99,11 @@ public class OWLOntologyManagerImplTestCase {
                         ontC.getOntologyID().getOntologyIRI().get());
         manager.applyChange(new AddImport(ontA, declA));
         manager.applyChange(new AddImport(ontB, declB));
-        assertTrue(manager.getImportsClosure(ontA).contains(ontA));
-        assertTrue(manager.getImportsClosure(ontA).contains(ontB));
-        assertTrue(manager.getImportsClosure(ontA).contains(ontC));
-        assertTrue(manager.getImportsClosure(ontB).contains(ontB));
-        assertTrue(manager.getImportsClosure(ontB).contains(ontC));
+        assertTrue(contains(manager.importsClosure(ontA), ontA));
+        assertTrue(contains(manager.importsClosure(ontA), ontB));
+        assertTrue(contains(manager.importsClosure(ontA), ontC));
+        assertTrue(contains(manager.importsClosure(ontB), ontB));
+        assertTrue(contains(manager.importsClosure(ontB), ontC));
     }
 
     @Test
@@ -112,14 +114,15 @@ public class OWLOntologyManagerImplTestCase {
         OWLImportsDeclaration declB = manager.getOWLDataFactory()
                 .getOWLImportsDeclaration(b);
         manager.applyChange(new AddImport(ontA, declB));
-        Set<IRI> directImportsDocuments = ontA.getDirectImportsDocuments();
+        Set<IRI> directImportsDocuments = ontA.directImportsDocuments()
+                .collect(toSet());
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));
         OWLOntology ontB = manager.createOntology(b);
-        directImportsDocuments = ontA.getDirectImportsDocuments();
+        directImportsDocuments = ontA.directImportsDocuments().collect(toSet());
         assertEquals(1, directImportsDocuments.size());
         assertTrue(directImportsDocuments.contains(b));
         assertEquals(1, ontA.directImports().count());
-        assertTrue(ontA.getDirectImports().contains(ontB));
+        assertTrue(contains(ontA.directImports(), ontB));
     }
 }

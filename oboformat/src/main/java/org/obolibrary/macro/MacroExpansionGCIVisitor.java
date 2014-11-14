@@ -1,5 +1,7 @@
 package org.obolibrary.macro;
 
+import static java.util.stream.Collectors.toSet;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -71,7 +73,7 @@ public class MacroExpansionGCIVisitor {
 
     /** @return ontology for gci */
     public OWLOntology createGCIOntology() {
-        for (OWLAxiom ax : inputOntology.getAxioms()) {
+        for (OWLAxiom ax : inputOntology.axioms().collect(toSet())) {
             if (ax instanceof OWLSubClassOfAxiom) {
                 visitor.visit((OWLSubClassOfAxiom) ax);
             } else if (ax instanceof OWLEquivalentClassesAxiom) {

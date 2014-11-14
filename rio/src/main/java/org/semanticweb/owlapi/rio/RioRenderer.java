@@ -39,6 +39,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -163,7 +164,7 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void createGraph(Set<? extends OWLObject> objects) {
+    protected void createGraph(Stream<? extends OWLObject> objects) {
         super.createGraph(objects);
         triplesWithRemappedNodes = graph.computeRemappingForSharedNodes();
     }

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Iterator;
 
@@ -129,7 +130,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         if (axiom.classExpressions().count() == 2
-                && axiom.getClassExpressions().contains(
+                && contains(axiom.classExpressions(),
                         dataFactory.getOWLNothing())) {
             desc = axiom.classExpressions().filter(c -> !c.isOWLNothing())
                     .findFirst().orElse(null);

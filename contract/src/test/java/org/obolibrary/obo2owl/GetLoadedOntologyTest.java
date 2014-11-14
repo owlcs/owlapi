@@ -21,7 +21,7 @@ public class GetLoadedOntologyTest {
         StringDocumentSource source = new StringDocumentSource(input);
         OWLOntology origOnt = manager.loadOntologyFromOntologyDocument(source);
         assertNotNull(origOnt);
-        assertEquals(1, manager.getOntologies().size());
+        assertEquals(1, manager.ontologies().count());
         assertFalse(origOnt.getOntologyID().getVersionIRI().isPresent());
         assertTrue(origOnt.getAxiomCount() > 0);
         Optional<IRI> ontologyIRI = origOnt.getOntologyID().getOntologyIRI();

@@ -59,16 +59,9 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
 
     @Override
     public OWLInverseFunctionalObjectPropertyAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLInverseFunctionalObjectPropertyAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
+                mergeAnnos(anns));
     }
 
     @Override

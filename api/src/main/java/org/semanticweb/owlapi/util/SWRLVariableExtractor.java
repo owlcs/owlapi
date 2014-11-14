@@ -51,8 +51,8 @@ public class SWRLVariableExtractor implements
 
     @Override
     public Collection<SWRLVariable> visit(SWRLRule node) {
-        node.getBody().forEach(a -> a.accept(this));
-        node.getHead().forEach(a -> a.accept(this));
+        node.body().forEach(a -> a.accept(this));
+        node.head().forEach(a -> a.accept(this));
         return variables;
     }
 

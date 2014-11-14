@@ -118,34 +118,35 @@ public class ConvertPropertyAssertionsToAnnotations extends
         getPunnedIndividuals(inds).forEach(ind -> convertToAnnotations(ind));
     }
 
-    private void remove(Collection<? extends OWLAxiom> c, OWLOntology o) {
+    private void remove(Stream<? extends OWLAxiom> c, OWLOntology o) {
         c.forEach(ax -> addChange(new RemoveAxiom(o, ax)));
     }
 
     private void remove(@Nonnull OWLDataProperty prop) {
         ontologies().forEach(o -> {
-            remove(o.getDeclarationAxioms(prop), o);
-            remove(o.getAxioms(prop), o);
+            remove(o.declarationAxioms(prop), o);
+            remove(o.axioms(prop), o);
         });
     }
 
     private void remove(@Nonnull OWLNamedIndividual ind) {
         ontologies().forEach(o -> {
-            remove(o.getDeclarationAxioms(ind), o);
-            remove(o.getClassAssertionAxioms(ind), o);
+            remove(o.declarationAxioms(ind), o);
+            remove(o.classAssertionAxioms(ind), o);
         });
     }
 
     private void convertToAnnotations(@Nonnull OWLNamedIndividual ind) {
         ontologies.forEach(ont -> {
-            for (OWLDataPropertyAssertionAxiom ax : ont
-                    .getDataPropertyAssertionAxioms(ind)) {
-                if (!ax.getProperty().isAnonymous()) {
-                    addChange(new RemoveAxiom(ont, ax));
-                    addChange(new AddAxiom(ont, convertToAnnotation(ind, ax)));
-                    remove(ax.getProperty().asOWLDataProperty());
-                }
-            }
+            ont.dataPropertyAssertionAxioms(ind)
+                    .filter(ax -> !ax.getProperty().isAnonymous())
+                    .forEach(
+                            ax -> {
+                                addChange(new RemoveAxiom(ont, ax));
+                                addChange(new AddAxiom(ont,
+                                        convertToAnnotation(ind, ax)));
+                                remove(ax.getProperty().asOWLDataProperty());
+                            });
         });
         remove(ind);
     }

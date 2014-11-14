@@ -20,10 +20,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
@@ -43,22 +40,26 @@ public class InferredPropertyAssertionGenerator extends
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
-        for (OWLObjectProperty prop : reasoner.getRootOntology()
-                .getObjectPropertiesInSignature(INCLUDED)) {
-            for (OWLNamedIndividual value : reasoner.getObjectPropertyValues(
-                    entity, prop).getFlattened()) {
-                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop,
-                        entity, value));
-            }
-        }
-        for (OWLDataProperty prop : reasoner.getRootOntology()
-                .getDataPropertiesInSignature(INCLUDED)) {
-            for (OWLLiteral value : reasoner
-                    .getDataPropertyValues(entity, prop)) {
-                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop,
-                        entity, value));
-            }
-        }
+        reasoner.getRootOntology()
+                .objectPropertiesInSignature(INCLUDED)
+                .forEach(
+                        p -> {
+                            reasoner.getObjectPropertyValues(entity, p)
+                                    .entities()
+                                    .forEach(
+                                            i -> result.add(dataFactory
+                                                    .getOWLObjectPropertyAssertionAxiom(
+                                                            p, entity, i)));
+                        });
+        reasoner.getRootOntology()
+                .dataPropertiesInSignature(INCLUDED)
+                .forEach(
+                        p -> {
+                            reasoner.getDataPropertyValues(entity, p).forEach(
+                                    v -> result.add(dataFactory
+                                            .getOWLDataPropertyAssertionAxiom(
+                                                    p, entity, v)));
+                        });
     }
 
     @Override

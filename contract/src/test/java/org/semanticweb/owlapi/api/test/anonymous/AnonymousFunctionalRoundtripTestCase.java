@@ -12,8 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalIterators;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,8 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
         FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);
-        assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
+        assertTrue(equalIterators(o.logicalAxioms().iterator(), o1
+                .logicalAxioms().iterator()));
     }
 
     @Test

@@ -373,10 +373,10 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         // Remove any temporary declarations
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
             OntologyUtils.removeAxiom(decl, getReasoner().getRootOntology()
-                    .getImportsClosure(), getOntologyManager());
+                    .importsClosure());
         }
         // Done with the axiom that was removed. Add it back in
-        OntologyUtils.addAxiom(axiom, ontologies, getOntologyManager());
+        OntologyUtils.addAxiom(axiom, ontologies.stream());
     }
 
     /**
@@ -425,12 +425,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         // Remove the current axiom from all the ontologies it is included
         // in
         Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom,
-                getReasoner().getRootOntology().getImportsClosure(),
-                getOntologyManager());
+                getReasoner().getRootOntology().importsClosure());
         collectTemporaryDeclarations(axiom, temporaryDeclarations);
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
             OntologyUtils.addAxiom(decl, getReasoner().getRootOntology()
-                    .getImportsClosure(), getOntologyManager());
+                    .importsClosure());
         }
         return ontologies;
     }

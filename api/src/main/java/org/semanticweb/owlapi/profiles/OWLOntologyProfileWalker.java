@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
-import java.util.Set;
+import static java.util.stream.Collectors.toList;
+
+import java.util.Collection;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +39,15 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
      * @param objects
      *        ontologies to walk
      */
-    public OWLOntologyProfileWalker(@Nonnull Set<OWLOntology> objects) {
+    public OWLOntologyProfileWalker(@Nonnull Stream<OWLOntology> objects) {
+        this(objects.collect(toList()));
+    }
+
+    /**
+     * @param objects
+     *        ontologies to walk
+     */
+    public OWLOntologyProfileWalker(@Nonnull Collection<OWLOntology> objects) {
         super(objects);
         setStructureWalker(new StructureWalker<OWLOntology>(this) {
 

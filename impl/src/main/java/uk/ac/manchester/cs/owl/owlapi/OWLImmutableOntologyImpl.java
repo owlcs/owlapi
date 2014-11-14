@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -194,6 +195,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return imports.stream(this).mapToInt(o -> o.getAxiomCount()).sum();
     }
 
+    @SuppressWarnings("unchecked")
     private static Stream<OWLAxiom> asAxiomStream(Stream<? extends OWLAxiom> s) {
         return (Stream<OWLAxiom>) s;
     }
@@ -578,8 +580,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             Set<OWLAxiom> axioms = new HashSet<>();
             // axioms referring entities with this IRI, data property assertions
             // with IRI as subject, annotations with IRI as subject or object.
-            getEntitiesInSignature((IRI) owlEntity).forEach(
-                    e -> axioms.addAll(getReferencingAxioms(e)));
+            entitiesInSignature((IRI) owlEntity).forEach(
+                    e -> add(referencingAxioms(e), axioms));
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
                 if (OWL2Datatype.XSD_ANY_URI.matches(ax.getObject()
                         .getDatatype())) {
@@ -634,8 +636,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         if (optional.isPresent()) {
             return optional.get().values(entity, type);
         }
+        if (!(entity instanceof OWLEntity)) {
+            return Stream.empty();
+        }
         return axioms(AxiomType.getTypeForClass(type)).filter(
-                a -> a.getSignature().contains(entity));
+                a -> a.containsEntityInSignature((OWLEntity) entity));
     }
 
     @Nonnull

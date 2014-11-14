@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -25,6 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -141,17 +143,17 @@ public abstract class TestBase {
             assertEquals("Ontologies supposed to be the same",
                     ont1.getOntologyID(), ont2.getOntologyID());
         }
-        assertEquals("Annotations supposed to be the same",
-                ont1.getAnnotations(), ont2.getAnnotations());
+        assertTrue("Annotations supposed to be the same",
+                equalStreams(ont1.annotations(), ont2.annotations()));
         Set<OWLAxiom> axioms1;
         Set<OWLAxiom> axioms2;
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
         axioms1 = new AnonymousIndividualsNormaliser(df)
-                .getNormalisedAxioms(ont1.getAxioms());
+                .getNormalisedAxioms(ont1.axioms());
         axioms2 = new AnonymousIndividualsNormaliser(df)
-                .getNormalisedAxioms(ont2.getAxioms());
+                .getNormalisedAxioms(ont2.axioms());
         OWLDocumentFormat ontologyFormat = ont2.getOWLOntologyManager()
                 .getOntologyFormat(ont2);
         applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
@@ -247,7 +249,7 @@ public abstract class TestBase {
                     }
                 } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
                     OWLEquivalentDataPropertiesAxiom ax2 = (OWLEquivalentDataPropertiesAxiom) ax;
-                    if (ax2.getProperties().size() > 2) {
+                    if (ax2.properties().count() > 2) {
                         Set<OWLEquivalentDataPropertiesAxiom> pairs = ax2
                                 .splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
@@ -257,7 +259,7 @@ public abstract class TestBase {
                     }
                 } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
                     OWLEquivalentObjectPropertiesAxiom ax2 = (OWLEquivalentObjectPropertiesAxiom) ax;
-                    if (ax2.getProperties().size() > 2) {
+                    if (ax2.properties().count() > 2) {
                         Set<OWLEquivalentObjectPropertiesAxiom> pairs = ax2
                                 .splitToAnnotatedPairs();
                         if (removeIfContainsAll(axioms2, pairs, destination)) {
@@ -306,14 +308,14 @@ public abstract class TestBase {
 
     protected OWLAxiom reannotate(OWLAxiom ax) {
         OWLAxiom reannotated = ax.getAxiomWithoutAnnotations()
-                .getAnnotatedAxiom(reannotate(ax.getAnnotations()));
+                .getAnnotatedAxiom(reannotate(ax.annotations()));
         return reannotated;
     }
 
-    private Set<OWLAnnotation> reannotate(Set<OWLAnnotation> anns) {
+    private Set<OWLAnnotation> reannotate(Stream<OWLAnnotation> anns) {
         OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING);
         Set<OWLAnnotation> toReturn = new HashSet<>();
-        for (OWLAnnotation a : anns) {
+        anns.forEach(a -> {
             Optional<OWLLiteral> asLiteral = a.getValue().asLiteral();
             if (asLiteral.isPresent() && asLiteral.get().isRDFPlainLiteral()) {
                 OWLAnnotation replacement = df.getOWLAnnotation(
@@ -323,7 +325,7 @@ public abstract class TestBase {
             } else {
                 toReturn.add(a);
             }
-        }
+        });
         return toReturn;
     }
 

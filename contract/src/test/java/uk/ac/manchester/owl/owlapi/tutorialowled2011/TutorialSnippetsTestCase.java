@@ -12,17 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 
@@ -209,10 +210,9 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         assertNotNull(o);
         // These are the named classes referenced by axioms in the ontology.
-        for (OWLClass cls : o.getClassesInSignature()) {
-            // use the class for whatever purpose
-            assertNotNull(cls);
-        }
+        o.classesInSignature().forEach(cls ->
+        // use the class for whatever purpose
+                assertNotNull(cls));
     }
 
     @Test
@@ -285,11 +285,9 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         OWLClass quokkaCls = df.getOWLClass(KOALA_IRI + "#Quokka");
-        Collection<OWLSubClassOfAxiom> classes = o
-                .getSubClassAxiomsForSubClass(quokkaCls);
         // for each superclass there will be a corresponding axiom
         // the ontology indexes axioms in a variety of ways
-        assertEquals(2, classes.size());
+        assertEquals(2, o.subClassAxiomsForSubClass(quokkaCls).count());
     }
 
     @Test
@@ -460,17 +458,16 @@ public class TutorialSnippetsTestCase {
         // Ask the reasoner to precompute some inferences
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // Look up and print all direct subclasses for all classes
-        for (OWLClass c : o.getClassesInSignature()) {
+        o.classesInSignature().forEach(c -> {
             // the boolean argument specifies direct subclasses; false would
             // specify all subclasses
             // a NodeSet represents a set of Nodes.
             // a Node represents a set of equivalent classes
-            NodeSet<OWLClass> subClasses = reasoner.getSubClasses(c, true);
-            for (OWLClass subClass : subClasses.getFlattened()) {
-                assertNotNull(subClass);
+                NodeSet<OWLClass> subClasses = reasoner.getSubClasses(c, true);
+                subClasses.entities().forEach(
+                        subClass -> assertNotNull(subClass));
                 // process all subclasses no matter what node they're in
-            }
-        }
+            });
     }
 
     @Test
@@ -491,27 +488,30 @@ public class TutorialSnippetsTestCase {
         // Ask the reasoner to precompute some inferences
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // for each class, look up the instances
-        for (OWLClass c : o.getClassesInSignature()) {
-            // the boolean argument specifies direct subclasses; false would
-            // specify all subclasses
-            // a NodeSet represents a set of Nodes.
-            // a Node represents a set of equivalent classes/or sameAs
-            // individuals
-            NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(c,
-                    true);
-            for (OWLNamedIndividual i : instances.getFlattened()) {
-                // look up all property assertions
-                for (OWLObjectProperty op : o.getObjectPropertiesInSignature()) {
-                    NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
-                            .getObjectPropertyValues(i, op);
-                    for (OWLNamedIndividual value : petValuesNodeSet
-                            .getFlattened()) {
-                        assertNotNull(value);
+        o.classesInSignature()
+                .forEach(c -> {
+                    // the boolean argument specifies direct subclasses; false
+                    // would
+                    // specify all subclasses
+                    // a NodeSet represents a set of Nodes.
+                    // a Node represents a set of equivalent classes/or sameAs
+                    // individuals
+                        NodeSet<OWLNamedIndividual> instances = reasoner
+                                .getInstances(c, true);
+                        instances
+                                .entities()
+                                .forEach(i ->
+                                // look up all property assertions
+                                        o.objectPropertiesInSignature()
+                                                .forEach(
+                                                        op -> reasoner
+                                                                .getObjectPropertyValues(
+                                                                        i, op)
+                                                                .nodes()
+                                                                .forEach(
+                                                                        value -> assertNotNull(value))));
                         // use the value individuals
-                    }
-                }
-            }
-        }
+                    });
     }
 
     @Test
@@ -519,27 +519,28 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // We want to examine the restrictions on all classes.
-        for (OWLClass c : o.getClassesInSignature()) {
+        o.classesInSignature().forEach(c -> {
             // collect the properties which are used in existential restrictions
-            RestrictionVisitor visitor = new RestrictionVisitor(
-                    Collections.singleton(o));
-            for (OWLSubClassOfAxiom ax : o.getSubClassAxiomsForSubClass(c)) {
+                RestrictionVisitor visitor = new RestrictionVisitor(Collections
+                        .singleton(o));
+                o.subClassAxiomsForSubClass(c).forEach(ax ->
                 // Ask our superclass to accept a visit from the
                 // RestrictionVisitor
-                ax.getSuperClass().accept(visitor);
-            }
-            // Our RestrictionVisitor has now collected all of the properties
-            // that have been restricted in existential
-            // restrictions - print them out.
-            Set<OWLObjectPropertyExpression> restrictedProperties = visitor
-                    .getRestrictedProperties();
-            // System.out.println("Restricted properties for " + labelFor(c, o)
-            // + ": " + restrictedProperties.size());
-            for (OWLObjectPropertyExpression prop : restrictedProperties) {
-                assertNotNull(prop);
-                // System.out.println("    " + prop);
-            }
-        }
+                        ax.getSuperClass().accept(visitor));
+                // Our RestrictionVisitor has now collected all of the
+                // properties
+                // that have been restricted in existential
+                // restrictions - print them out.
+                Set<OWLObjectPropertyExpression> restrictedProperties = visitor
+                        .getRestrictedProperties();
+                // System.out.println("Restricted properties for " + labelFor(c,
+                // o)
+                // + ": " + restrictedProperties.size());
+                for (OWLObjectPropertyExpression prop : restrictedProperties) {
+                    assertNotNull(prop);
+                    // System.out.println("    " + prop);
+                }
+            });
     }
 
     /**
@@ -574,10 +575,8 @@ public class TutorialSnippetsTestCase {
                 // we recursively visit named supers.
                 processedClasses.add(ce);
                 for (OWLOntology ont : onts) {
-                    for (OWLSubClassOfAxiom ax : ont
-                            .getSubClassAxiomsForSubClass(ce)) {
-                        ax.getSuperClass().accept(this);
-                    }
+                    ont.subClassAxiomsForSubClass(ce).forEach(
+                            ax -> ax.getSuperClass().accept(this));
                 }
             }
         }
@@ -626,22 +625,19 @@ public class TutorialSnippetsTestCase {
     public void testReadAnnotations() throws OWLException {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
-        for (OWLClass cls : o.getClassesInSignature()) {
-            // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : annotations(
-                    o.getAnnotationAssertionAxioms(cls.getIRI()),
-                    df.getRDFSLabel())) {
-                if (annotation.getValue() instanceof OWLLiteral) {
-                    OWLLiteral val = (OWLLiteral) annotation.getValue();
-                    // look for portuguese labels
-                    if (val.hasLang("pt")) {
-                        assertNotNull(val.getLiteral());
-                        // System.out.println(cls + " labelled " +
-                        // val.getLiteral());
-                    }
-                }
-            }
-        }
+        // Get the annotations on the class that use the label property
+        Predicate<? super OWLAnnotation> portugueseLabelsOnly = a -> a
+                .getValue().asLiteral().isPresent()
+                && a.getValue().asLiteral().get().hasLang("pt");
+        o.classesInSignature()
+                .flatMap(
+                        c -> annotations(
+                                o.getAnnotationAssertionAxioms(c.getIRI()),
+                                df.getRDFSLabel()).stream())
+                .filter(portugueseLabelsOnly)
+                .forEach(
+                        a -> assertNotNull(a.getValue().asLiteral().get()
+                                .getLiteral()));
     }
 
     @Test
@@ -742,23 +738,23 @@ public class TutorialSnippetsTestCase {
      */
     private void printProperties(@Nonnull OWLOntology o,
             @Nonnull OWLReasoner reasoner, OWLClass cls) {
-        for (OWLObjectPropertyExpression prop : o
-                .getObjectPropertiesInSignature()) {
+        o.objectPropertiesInSignature().forEach(prop -> {
             // To test whether an instance of A MUST have a property p with a
             // filler, check for the satisfiability of A and not (some p Thing)
             // if this is satisfiable, then there might be instances with no
             // p-filler
-            OWLClassExpression restriction = df.getOWLObjectSomeValuesFrom(
-                    prop, df.getOWLThing());
-            OWLClassExpression intersection = df.getOWLObjectIntersectionOf(
-                    cls, df.getOWLObjectComplementOf(restriction));
-            boolean sat = !reasoner.isSatisfiable(intersection);
-            if (sat) {
-                assertNotNull(prop);
-                // System.out.println("Instances of " + cls +
-                // " necessarily have the property " + prop);
-            }
-        }
+                OWLClassExpression restriction = df.getOWLObjectSomeValuesFrom(
+                        prop, df.getOWLThing());
+                OWLClassExpression intersection = df
+                        .getOWLObjectIntersectionOf(cls,
+                                df.getOWLObjectComplementOf(restriction));
+                boolean sat = !reasoner.isSatisfiable(intersection);
+                if (sat) {
+                    assertNotNull(prop);
+                    // System.out.println("Instances of " + cls +
+                    // " necessarily have the property " + prop);
+                }
+            });
     }
 
     @Test
@@ -772,16 +768,14 @@ public class TutorialSnippetsTestCase {
         sig.add(quokkaCls);
         // We now add all subclasses (direct and indirect) of the chosen
         // classes.
-        Set<OWLEntity> seedSig = new HashSet<>();
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
-        for (OWLEntity ent : sig) {
-            seedSig.add(ent);
-            if (ent.isOWLClass()) {
-                NodeSet<OWLClass> subClasses = reasoner.getSubClasses(
-                        ent.asOWLClass(), false);
-                seedSig.addAll(subClasses.getFlattened());
-            }
-        }
+        Set<OWLEntity> seedSig = sig
+                .stream()
+                .filter(e -> e.isOWLClass())
+                .flatMap(
+                        e -> reasoner.getSubClasses(e.asOWLClass(), false)
+                                .entities()).collect(toSet());
+        seedSig.addAll(sig);
         // We now extract a locality-based module. STAR provides the smallest
         // ones
         SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(
@@ -893,11 +887,8 @@ public class TutorialSnippetsTestCase {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
         printHierarchy(reasoner, clazz, 0, new HashSet<OWLClass>());
         /* Now print out any unsatisfiable classes */
-        for (OWLClass cl : o.getClassesInSignature()) {
-            if (!reasoner.isSatisfiable(cl)) {
-                assertNotNull(labelFor(cl, o));
-            }
-        }
+        o.classesInSignature().filter(cl -> !reasoner.isSatisfiable(cl))
+                .forEach(cl -> assertNotNull(labelFor(cl, o)));
         reasoner.dispose();
     }
 
@@ -965,9 +956,10 @@ public class TutorialSnippetsTestCase {
             // System.out.println(labelFor(clazz, reasoner.getRootOntology()));
             /* Find the children and recurse */
             NodeSet<OWLClass> subClasses = reasoner.getSubClasses(clazz, true);
-            for (OWLClass child : subClasses.getFlattened()) {
-                printHierarchy(reasoner, child, level + 1, visited);
-            }
+            subClasses.entities()
+                    .forEach(
+                            child -> printHierarchy(reasoner, child, level + 1,
+                                    visited));
         }
     }
 

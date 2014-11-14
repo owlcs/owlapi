@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -71,13 +72,13 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
             if (obj instanceof OWLDataOneOfImpl) {
                 return values.equals(((OWLDataOneOfImpl) obj).values);
             }
-            return ((OWLDataOneOf) obj).getValues().equals(getValues());
+            return equalStreams(((OWLDataOneOf) obj).values(), values());
         }
         return false;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-          return  compareStreams(values(), ((OWLDataOneOf) object).values());
+        return compareStreams(values(), ((OWLDataOneOf) object).values());
     }
 }

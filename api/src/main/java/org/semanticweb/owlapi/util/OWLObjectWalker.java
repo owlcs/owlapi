@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,7 +57,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param objects
      *        the set of objects to visit
      */
-    public OWLObjectWalker(@Nonnull Set<O> objects) {
+    public OWLObjectWalker(@Nonnull Collection<O> objects) {
         this(objects, true);
     }
 
@@ -86,7 +85,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param objects
      *        the set of objects to visit
      */
-    public OWLObjectWalker(@Nonnull Set<O> objects, boolean visitDuplicates) {
+    public OWLObjectWalker(@Nonnull Collection<O> objects,
+            boolean visitDuplicates) {
         this.objects = new ArrayList<>(checkNotNull(objects,
                 "objects cannot be null"));
         this.visitDuplicates = visitDuplicates;

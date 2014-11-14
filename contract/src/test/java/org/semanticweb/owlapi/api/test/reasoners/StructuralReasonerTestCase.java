@@ -62,19 +62,19 @@ public class StructuralReasonerTestCase extends TestBase {
         OWLClass clsAp = Class(iri("Ap"));
         OWLClass clsB = Class(iri("B"));
         NodeSet<OWLClass> subsOfA = reasoner.getSubClasses(clsA, true);
-        assertEquals(1, subsOfA.getNodes().size());
+        assertEquals(1, subsOfA.nodes().count());
         assertTrue(subsOfA.containsEntity(clsB));
         NodeSet<OWLClass> subsOfAp = reasoner.getSubClasses(clsAp, true);
-        assertEquals(1, subsOfAp.getNodes().size());
+        assertEquals(1, subsOfAp.nodes().count());
         assertTrue(subsOfAp.containsEntity(clsB));
         Node<OWLClass> topNode = reasoner.getTopClassNode();
         NodeSet<OWLClass> subsOfTop = reasoner.getSubClasses(
                 topNode.getRepresentativeElement(), true);
-        assertEquals(1, subsOfTop.getNodes().size());
+        assertEquals(1, subsOfTop.nodes().count());
         assertTrue(subsOfTop.containsEntity(clsA));
         NodeSet<OWLClass> descOfTop = reasoner.getSubClasses(
                 topNode.getRepresentativeElement(), false);
-        assertEquals(3, descOfTop.getNodes().size());
+        assertEquals(3, descOfTop.nodes().count());
         assertTrue(descOfTop.containsEntity(clsA));
         assertTrue(descOfTop.containsEntity(clsB));
         assertTrue(descOfTop.containsEntity(OWLNothing()));
@@ -83,10 +83,10 @@ public class StructuralReasonerTestCase extends TestBase {
         assertTrue(supersOfTop.isEmpty());
         NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(clsA, false);
         assertTrue(supersOfA.isTopSingleton());
-        assertEquals(1, supersOfA.getNodes().size());
+        assertEquals(1, supersOfA.nodes().count());
         assertTrue(supersOfA.containsEntity(OWLThing()));
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(OWLThing());
-        assertEquals(2, equivsOfTop.getEntities().size());
-        assertTrue(equivsOfTop.getEntities().contains(clsX));
+        assertEquals(2, equivsOfTop.entities().count());
+        assertTrue(equivsOfTop.entities().anyMatch(x -> x.equals(clsX)));
     }
 }

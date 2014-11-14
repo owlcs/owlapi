@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -31,13 +31,14 @@ public class ReferencedEntitySetProvider implements
         OWLEntitySetProvider<OWLEntity> {
 
     @Nonnull
-    private final Set<OWLOntology> ontologies;
+    private final Collection<OWLOntology> ontologies;
 
     /**
      * @param ontologies
      *        ontologies to use
      */
-    public ReferencedEntitySetProvider(@Nonnull Set<OWLOntology> ontologies) {
+    public ReferencedEntitySetProvider(
+            @Nonnull Collection<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 

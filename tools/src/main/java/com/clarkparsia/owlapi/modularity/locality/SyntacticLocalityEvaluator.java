@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.modularity.locality;
 
+import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
@@ -327,8 +328,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // bot-equivalent.
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            Collection<OWLClassExpression> disjs = axiom
-                    .getClassExpressionsAsList();
+            Collection<OWLClassExpression> disjs = axiom.classExpressions()
+                    .collect(toList());
             int size = disjs.size();
             if (size == 1) {
                 // XXX actually being here means the axiom is not OWL 2
@@ -358,7 +359,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
                     Collection<OWLDataPropertyExpression> disjs = axiom
-                            .getProperties();
+                            .properties().collect(toList());
                     int size = disjs.size();
                     if (size == 1) {
                         // XXX actually being here means the axiom is not OWL 2
@@ -395,7 +396,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
                     Collection<OWLObjectPropertyExpression> disjs = axiom
-                            .getProperties();
+                            .properties().collect(toList());
                     int size = disjs.size();
                     if (size == 1) {
                         // XXX actually being here means the axiom is not OWL 2
@@ -431,7 +432,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
-            Collection<OWLClassExpression> rhs = axiom.getClassExpressions();
+            Collection<OWLClassExpression> rhs = axiom.classExpressions()
+                    .collect(toSet());
             if (localityCls == LocalityClass.BOTTOM_BOTTOM) {
                 // TODO (TS): "!signature.contains(lhs)" is not enough
                 // because lhs could be bot
@@ -532,7 +534,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            Collection<OWLDataPropertyExpression> eqs = axiom.getProperties();
+            Collection<OWLDataPropertyExpression> eqs = axiom.properties()
+                    .collect(toList());
             int size = eqs.size();
             if (size == 1) {
                 isLocal = true;
@@ -549,7 +552,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            Collection<OWLObjectPropertyExpression> eqs = axiom.getProperties();
+            Collection<OWLObjectPropertyExpression> eqs = axiom.properties()
+                    .collect(toList());
             int size = eqs.size();
             if (size == 1) {
                 isLocal = true;
@@ -1114,13 +1118,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
-            for (OWLClassExpression conj : ce.getOperands()) {
-                if (isBottomEquivalent(conj)) {
-                    isBottomEquivalent = true;
-                    return;
-                }
-            }
-            isBottomEquivalent = false;
+            isBottomEquivalent = ce.operands().anyMatch(
+                    c -> isBottomEquivalent(c));
         }
 
         // BUGFIX (TS): Corrected all conditions.
@@ -1168,7 +1167,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectOneOf ce) {
-            isBottomEquivalent = ce.getIndividuals().isEmpty();
+            isBottomEquivalent = ce.individuals().count() == 0;
         }
 
         @Override
@@ -1206,13 +1205,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectUnionOf ce) {
-            for (OWLClassExpression disj : ce.getOperands()) {
-                if (!isBottomEquivalent(disj)) {
-                    isBottomEquivalent = false;
-                    return;
-                }
-            }
-            isBottomEquivalent = true;
+            isBottomEquivalent = !ce.operands().anyMatch(
+                    d -> !isBottomEquivalent(d));
         }
 
         // BUGFIX (TS): desc.getValue() is an individual and therefore is *not*
@@ -1480,13 +1474,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
-            for (OWLClassExpression conj : ce.getOperands()) {
-                if (!isTopEquivalent(conj)) {
-                    isTopEquivalent = false;
-                    return;
-                }
-            }
-            isTopEquivalent = true;
+            isTopEquivalent = !ce.operands().anyMatch(c -> !isTopEquivalent(c));
         }
 
         // BUGFIX: (TS) Added the case of a bottom-equivalent filler to both
@@ -1578,13 +1566,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectUnionOf ce) {
-            for (OWLClassExpression conj : ce.getOperands()) {
-                if (isTopEquivalent(conj)) {
-                    isTopEquivalent = true;
-                    return;
-                }
-            }
-            isTopEquivalent = false;
+            isTopEquivalent = ce.operands().anyMatch(c -> isTopEquivalent(c));
         }
 
         @Override

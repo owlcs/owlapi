@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.explanation;
 
+import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
@@ -156,7 +157,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
             if (expandedWithDefiningAxioms.add(ax)) {
                 // Collect the entities that have been used in the axiom
-                for (OWLEntity curObj : ax.getSignature()) {
+                for (OWLEntity curObj : ax.signature().collect(toList())) {
                     if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                         int added = expandWithDefiningAxioms(curObj,
                                 remainingSpace);
@@ -182,7 +183,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
             if (expandedWithReferencingAxioms.add(ax)) {
                 // Keep track of the number of axioms that have been added
-                for (OWLEntity curObj : ax.getSignature()) {
+                for (OWLEntity curObj : ax.signature().collect(toList())) {
                     if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                         int added = expandWithReferencingAxioms(curObj,
                                 expansionLimit);
@@ -212,26 +213,27 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      */
     private int expandWithDefiningAxioms(@Nonnull OWLEntity obj, int limit) {
         Set<OWLAxiom> expansionAxioms = new HashSet<>();
-        for (OWLOntology ont : getOntology().getImportsClosure()) {
-            boolean referenceFound = false;
-            if (obj instanceof OWLClass) {
-                referenceFound = expansionAxioms.addAll(ont
-                        .getAxioms((OWLClass) obj));
-            } else if (obj instanceof OWLObjectProperty) {
-                referenceFound = expansionAxioms.addAll(ont
-                        .getAxioms((OWLObjectProperty) obj));
-            } else if (obj instanceof OWLDataProperty) {
-                referenceFound = expansionAxioms.addAll(ont
-                        .getAxioms((OWLDataProperty) obj));
-            } else if (obj instanceof OWLIndividual) {
-                referenceFound = expansionAxioms.addAll(ont
-                        .getAxioms((OWLIndividual) obj));
-            }
-            if (!referenceFound) {
-                expansionAxioms.add(man.getOWLDataFactory()
-                        .getOWLDeclarationAxiom(obj));
-            }
-        }
+        getOntology().importsClosure().forEach(
+                ont -> {
+                    boolean referenceFound = false;
+                    if (obj instanceof OWLClass) {
+                        referenceFound = expansionAxioms.addAll(ont.axioms(
+                                (OWLClass) obj).collect(toList()));
+                    } else if (obj instanceof OWLObjectProperty) {
+                        referenceFound = expansionAxioms.addAll(ont.axioms(
+                                (OWLObjectProperty) obj).collect(toList()));
+                    } else if (obj instanceof OWLDataProperty) {
+                        referenceFound = expansionAxioms.addAll(ont.axioms(
+                                (OWLDataProperty) obj).collect(toList()));
+                    } else if (obj instanceof OWLIndividual) {
+                        referenceFound = expansionAxioms.addAll(ont.axioms(
+                                (OWLIndividual) obj).collect(toList()));
+                    }
+                    if (!referenceFound) {
+                        expansionAxioms.add(man.getOWLDataFactory()
+                                .getOWLDeclarationAxiom(obj));
+                    }
+                });
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }
@@ -249,8 +251,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     private int expandWithReferencingAxioms(@Nonnull OWLEntity obj, int limit) {
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        Set<OWLAxiom> expansionAxioms = getOntology().getReferencingAxioms(obj,
-                INCLUDED);
+        Set<OWLAxiom> expansionAxioms = getOntology().referencingAxioms(obj,
+                INCLUDED).collect(toSet());
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }

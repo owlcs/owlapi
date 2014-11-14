@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -104,11 +105,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     @Nonnull
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
         Set<OWLEntity> result = new HashSet<>();
-        result.addAll(ontology.getClassesInSignature());
-        result.addAll(ontology.getObjectPropertiesInSignature());
-        result.addAll(ontology.getDataPropertiesInSignature());
-        result.addAll(ontology.getIndividualsInSignature());
-        result.addAll(ontology.getAnnotationPropertiesInSignature());
+        add(ontology.classesInSignature(), result);
+        add(ontology.objectPropertiesInSignature(), result);
+        add(ontology.dataPropertiesInSignature(), result);
+        add(ontology.individualsInSignature(), result);
+        add(ontology.annotationPropertiesInSignature(), result);
         return result;
     }
 

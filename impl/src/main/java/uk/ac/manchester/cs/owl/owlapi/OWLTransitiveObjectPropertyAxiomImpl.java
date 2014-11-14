@@ -57,15 +57,9 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
+    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotations) {
-        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
+                mergeAnnos(anns));
     }
 
     @Override

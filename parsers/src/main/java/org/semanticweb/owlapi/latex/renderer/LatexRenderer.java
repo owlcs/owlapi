@@ -12,16 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.latex.renderer;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -73,35 +71,36 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\begin{document}\n\n");
             LatexObjectVisitor renderer = new LatexObjectVisitor(w, o
                     .getOWLOntologyManager().getOWLDataFactory());
-            Collection<OWLClass> clses = sortEntities(o.getClassesInSignature());
+            Collection<OWLClass> clses = sortEntities(o.classesInSignature());
             if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");
             }
             for (OWLClass cls : clses) {
-                writeEntity(o, w, renderer, cls, sortAxioms(o.getAxioms(cls)));
+                writeEntity(o, w, renderer, cls, sortAxioms(o.axioms(cls)));
             }
             w.write("\\section*{Object properties}");
-            sortEntities(o.getObjectPropertiesInSignature()).forEach(
-                    p -> writeEntity(o, w, renderer, p,
-                            sortAxioms(o.getAxioms(p))));
+            sortEntities(o.objectPropertiesInSignature())
+                    .forEach(
+                            p -> writeEntity(o, w, renderer, p,
+                                    sortAxioms(o.axioms(p))));
             w.write("\\section*{Data properties}");
             o.dataPropertiesInSignature()
                     .sorted(entityComparator)
                     .forEach(
                             prop -> writeEntity(o, w, renderer, prop,
-                                    sortAxioms(o.getAxioms(prop))));
+                                    sortAxioms(o.axioms(prop))));
             w.write("\\section*{Individuals}");
             o.individualsInSignature()
                     .sorted(entityComparator)
                     .forEach(
                             i -> writeEntity(o, w, renderer, i,
-                                    sortAxioms(o.getAxioms(i))));
+                                    sortAxioms(o.axioms(i))));
             w.write("\\section*{Datatypes}");
             o.datatypesInSignature()
                     .sorted(entityComparator)
                     .forEach(
                             type -> writeEntity(o, w, renderer, type,
-                                    sortAxioms(o.getAxioms(type, EXCLUDED))));
+                                    sortAxioms(o.axioms(type, EXCLUDED))));
             w.write("\\end{document}\n");
             w.flush();
         } catch (OWLRuntimeException e) {
@@ -120,17 +119,14 @@ public class LatexRenderer extends AbstractOWLRenderer {
         }
     }
 
-    private <T extends OWLEntity> Collection<T> sortEntities(Set<T> entites) {
-        List<T> list = new ArrayList<>(entites);
-        Collections.sort(list, entityComparator);
-        return list;
+    private <T extends OWLEntity> Collection<T>
+            sortEntities(Stream<T> entities) {
+        return entities.sorted(entityComparator).collect(toList());
     }
 
     private static Collection<OWLAxiom> sortAxioms(
-            Set<? extends OWLAxiom> axioms) {
-        List<OWLAxiom> list = new ArrayList<>(axioms);
-        Collections.sort(list, new OWLAxiomComparator());
-        return list;
+            Stream<? extends OWLAxiom> axioms) {
+        return axioms.sorted(new OWLAxiomComparator()).collect(toList());
     }
 
     private static class OWLAxiomComparator implements Comparator<OWLAxiom>,

@@ -19,11 +19,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
@@ -201,66 +198,5 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
     @Nonnull
     public String toString() {
         return ToStringRenderer.getInstance().getRendering(this);
-    }
-
-    protected static int compareCollections(
-            Collection<? extends OWLObject> set1,
-            Collection<? extends OWLObject> set2) {
-        SortedSet<? extends OWLObject> ss1;
-        if (set1 instanceof SortedSet) {
-            ss1 = (SortedSet<? extends OWLObject>) set1;
-        } else {
-            ss1 = new TreeSet<>(set1);
-        }
-        SortedSet<? extends OWLObject> ss2;
-        if (set2 instanceof SortedSet) {
-            ss2 = (SortedSet<? extends OWLObject>) set2;
-        } else {
-            ss2 = new TreeSet<>(set2);
-        }
-        int i = 0;
-        Iterator<? extends OWLObject> thisIt = ss1.iterator();
-        Iterator<? extends OWLObject> otherIt = ss2.iterator();
-        while (i < ss1.size() && i < ss2.size()) {
-            OWLObject o1 = thisIt.next();
-            OWLObject o2 = otherIt.next();
-            int diff = o1.compareTo(o2);
-            if (diff != 0) {
-                return diff;
-            }
-            i++;
-        }
-        return ss1.size() - ss2.size();
-    }
-
-    protected static int compareStreams(Stream<? extends OWLObject> set1,
-            Stream<? extends OWLObject> set2) {
-        Iterator<? extends OWLObject> thisIt = set1.sorted().iterator();
-        Iterator<? extends OWLObject> otherIt = set2.sorted().iterator();
-        while (thisIt.hasNext() && otherIt.hasNext()) {
-            OWLObject o1 = thisIt.next();
-            OWLObject o2 = otherIt.next();
-            int diff = o1.compareTo(o2);
-            if (diff != 0) {
-                return diff;
-            }
-        }
-        return Boolean.compare(thisIt.hasNext(), otherIt.hasNext());
-    }
-
-    protected static int compareLists(List<? extends OWLObject> list1,
-            List<? extends OWLObject> list2) {
-        int i = 0;
-        int size = list1.size() < list2.size() ? list1.size() : list2.size();
-        while (i < size) {
-            OWLObject o1 = list1.get(i);
-            OWLObject o2 = list2.get(i);
-            int diff = o1.compareTo(o2);
-            if (diff != 0) {
-                return diff;
-            }
-            i++;
-        }
-        return list1.size() - list2.size();
     }
 }

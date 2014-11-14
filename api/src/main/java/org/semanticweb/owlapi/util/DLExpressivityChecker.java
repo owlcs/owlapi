@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -41,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
@@ -99,7 +99,7 @@ import com.google.common.base.Joiner;
 public class DLExpressivityChecker implements OWLObjectVisitor {
 
     private final Set<Construct> constructs;
-    private final Set<OWLOntology> ontologies;
+    private final List<OWLOntology> ontologies;
 
     /** @return ordered constructs */
     public List<Construct> getConstructs() {
@@ -110,8 +110,8 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
      * @param ontologies
      *        ontologies
      */
-    public DLExpressivityChecker(Set<OWLOntology> ontologies) {
-        this.ontologies = ontologies;
+    public DLExpressivityChecker(Collection<OWLOntology> ontologies) {
+        this.ontologies = new ArrayList<>(ontologies);
         constructs = new HashSet<>();
     }
 
@@ -240,15 +240,11 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private boolean isAtomic(OWLClassExpression classExpression) {
         if (classExpression.isAnonymous()) {
             return false;
-        } else {
-            for (OWLOntology ont : ontologies) {
-                if (!ont.getAxioms((OWLClass) classExpression, EXCLUDED)
-                        .isEmpty()) {
-                    return false;
-                }
-            }
-            return true;
         }
+        return !ontologies.stream()
+                .anyMatch(
+                        ont -> ont.axioms((OWLClass) classExpression, EXCLUDED)
+                                .count() > 0);
     }
 
     @Override
@@ -415,7 +411,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         constructs.add(H);
-        axiom.getProperties().forEach(o -> o.accept(this));
+        axiom.properties().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -433,15 +429,13 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         constructs.add(D);
-        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.properties().forEach(prop -> prop.accept(this));
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         constructs.add(R);
-        axiom.getProperties().forEach(o -> o.accept(this));
+        axiom.properties().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -500,7 +494,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         constructs.add(H);
         constructs.add(D);
-        axiom.getProperties().forEach(o -> o.accept(this));
+        axiom.properties().forEach(o -> o.accept(this));
     }
 
     @Override

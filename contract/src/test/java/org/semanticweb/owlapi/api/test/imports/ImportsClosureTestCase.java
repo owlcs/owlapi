@@ -37,10 +37,10 @@ public class ImportsClosureTestCase extends TestBase {
         IRI bIRI = IRI("http://b.com");
         OWLOntology ontB = m.createOntology(bIRI);
         m.applyChange(new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
-        assertEquals(2, m.getImportsClosure(ontA).size());
+        assertEquals(2, m.importsClosure(ontA).count());
         m.removeOntology(ontB);
-        assertEquals(1, m.getImportsClosure(ontA).size());
+        assertEquals(1, m.importsClosure(ontA).count());
         m.createOntology(bIRI);
-        assertEquals(2, m.getImportsClosure(ontA).size());
+        assertEquals(2, m.importsClosure(ontA).count());
     }
 }

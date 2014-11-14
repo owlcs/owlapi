@@ -26,6 +26,6 @@ public class RoundTripXrefescapecolonTest extends RoundTripTest {
         OWLOntology o = convert(oboFile);
         IRI expected = IRI
                 .create("http://purl.obolibrary.org/obo/GO_0042062%3A");
-        assertEquals(18, o.getAnnotationAssertionAxioms(expected).size());
+        assertEquals(18, o.annotationAssertionAxioms(expected).count());
     }
 }

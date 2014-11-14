@@ -57,11 +57,13 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
             PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
             prefixFormat.getPrefixName2PrefixMap();
             PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
-            for (String prefixName : prefixFormat.getPrefixNames()) {
-                assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
-                assertEquals(prefixFormat.getPrefix(prefixName),
-                        prefixFormat2.getPrefix(prefixName));
-            }
+            prefixFormat.prefixNames().forEach(
+                    prefixName -> {
+                        assertTrue(prefixFormat2
+                                .containsPrefixMapping(prefixName));
+                        assertEquals(prefixFormat.getPrefix(prefixName),
+                                prefixFormat2.getPrefix(prefixName));
+                    });
         }
         return ont2;
     }

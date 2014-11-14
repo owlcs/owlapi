@@ -201,14 +201,14 @@ public class MapPointer<K, V extends OWLAxiom> {
     /**
      * @param key
      *        key to look up
-     * @param type
+     * @param classType
      *        type of the returned values
      * @return value
      */
     @SuppressWarnings("unchecked")
     @Nonnull
     public synchronized <O extends V> Stream<O> values(K key,
-            @SuppressWarnings("unused") Class<O> type) {
+            @SuppressWarnings("unused") Class<O> classType) {
         init();
         Set<V> t = map.get(key);
         if (t == null) {

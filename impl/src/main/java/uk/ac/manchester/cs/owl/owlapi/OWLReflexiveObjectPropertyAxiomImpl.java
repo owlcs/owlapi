@@ -66,16 +66,9 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
 
     @Override
     public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(annotations));
+                mergeAnnos(anns));
     }
 
     @Override

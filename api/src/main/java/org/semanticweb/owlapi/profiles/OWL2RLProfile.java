@@ -120,7 +120,7 @@ public class OWL2RLProfile implements OWLProfile {
         Set<OWLProfileViolation> violations = new HashSet<>();
         violations.addAll(report.getViolations());
         OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
-                ontology.getImportsClosure());
+                ontology.importsClosure());
         OWL2RLObjectVisitor visitor = new OWL2RLObjectVisitor(walker);
         walker.walkStructure(visitor);
         violations.addAll(visitor.getProfileViolations());
@@ -298,12 +298,8 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
-            for (OWLClassExpression op : ce.getOperands()) {
-                if (!isOWL2RLSubClassExpression(op)) {
-                    return Boolean.FALSE;
-                }
-            }
-            return Boolean.TRUE;
+            return !ce.operands().anyMatch(
+                    op -> !isOWL2RLSubClassExpression(op));
         }
 
         @Override

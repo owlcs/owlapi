@@ -40,8 +40,8 @@ public class BuilderHasKey extends
         this(df);
         withClass(expected.getClassExpression())
                 .withAnnotations(expected.annotations())
-                .withItems(expected.getDataPropertyExpressions())
-                .withItems(expected.getObjectPropertyExpressions());
+                .withItems(expected.dataPropertyExpressions())
+                .withItems(expected.objectPropertyExpressions());
     }
 
     /**

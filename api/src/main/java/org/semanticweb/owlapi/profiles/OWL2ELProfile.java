@@ -53,7 +53,6 @@ import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -107,7 +106,7 @@ public class OWL2ELProfile implements OWLProfile {
         Set<OWLProfileViolation> violations = new HashSet<>();
         violations.addAll(report.getViolations());
         OWLOntologyProfileWalker ontologyWalker = new OWLOntologyProfileWalker(
-                ontology.getImportsClosure());
+                ontology.importsClosure());
         OWL2ELProfileObjectVisitor visitor = new OWL2ELProfileObjectVisitor(
                 ontologyWalker);
         ontologyWalker.walkStructure(visitor);
@@ -213,7 +212,7 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public void visit(OWLObjectOneOf ce) {
-            if (ce.getIndividuals().size() != 1) {
+            if (ce.individuals().count() != 1) {
                 profileViolations
                         .add(new UseOfObjectOneOfWithMultipleIndividuals(
                                 getCurrentOntology(), getCurrentAxiom(), ce));
@@ -234,7 +233,7 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDataOneOf node) {
-            if (node.getValues().size() != 1) {
+            if (node.values().count() != 1) {
                 profileViolations.add(new UseOfDataOneOfWithMultipleLiterals(
                         getCurrentOntology(), getCurrentAxiom(), node));
             }
@@ -344,19 +343,8 @@ public class OWL2ELProfile implements OWLProfile {
                                     if (!chain.isEmpty()) {
                                         OWLObjectPropertyExpression lastProperty = chain
                                                 .get(chain.size() - 1);
-                                        boolean rngPresent = false;
-                                        for (OWLOntology ont : getCurrentOntology()
-                                                .getImportsClosure()) {
-                                            for (OWLObjectPropertyRangeAxiom lastPropRngAx : ont
-                                                    .getObjectPropertyRangeAxioms(lastProperty)) {
-                                                if (lastPropRngAx.getRange()
-                                                        .equals(imposedRange)) {
-                                                    // We're o.k.
-                                                    rngPresent = true;
-                                                    break;
-                                                }
-                                            }
-                                        }
+                                        boolean rngPresent = rangePresent(
+                                                imposedRange, lastProperty);
                                         if (!rngPresent) {
                                             profileViolations
                                                     .add(new LastPropertyInChainNotInImposedRange(
@@ -366,6 +354,13 @@ public class OWL2ELProfile implements OWLProfile {
                                     }
                                 }
                             });
+        }
+
+        protected boolean rangePresent(OWLClassExpression imposedRange,
+                OWLObjectPropertyExpression lastProperty) {
+            return getCurrentOntology().importsClosure()
+                    .flatMap(o -> o.objectPropertyRangeAxioms(lastProperty))
+                    .anyMatch(l -> l.getRange().equals(imposedRange));
         }
 
         @Override

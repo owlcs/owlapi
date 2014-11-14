@@ -89,16 +89,9 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public OWLAnnotationAssertionAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
-                getValue(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLAnnotationAssertionAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
-                getValue(), mergeAnnos(annotations));
+                getValue(), mergeAnnos(anns));
     }
 
     @Override

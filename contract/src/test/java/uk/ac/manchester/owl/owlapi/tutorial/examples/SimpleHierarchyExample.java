@@ -60,16 +60,13 @@ public final class SimpleHierarchyExample {
      * assuming this class is at the given level. Makes no attempt to deal
      * sensibly with multiple inheritance.
      */
-    private void printHierarchy(@Nonnull OWLClass clazz) throws OWLException {
+    private void printHierarchy(@Nonnull OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory
                 .createNonBufferingReasoner(ontology);
         printHierarchy(reasoner, clazz, 0);
         /* Now print out any unsatisfiable classes */
-        for (OWLClass cl : ontology.getClassesInSignature()) {
-            if (!reasoner.isSatisfiable(cl)) {
-                out.println("XXX: " + labelFor(cl));
-            }
-        }
+        ontology.classesInSignature().filter(c -> !reasoner.isSatisfiable(c))
+                .forEach(c -> out.println("XXX: " + labelFor(c)));
         reasoner.dispose();
     }
 
@@ -96,7 +93,7 @@ public final class SimpleHierarchyExample {
      * inheritance.
      */
     private void printHierarchy(@Nonnull OWLReasoner reasoner,
-            @Nonnull OWLClass clazz, int level) throws OWLException {
+            @Nonnull OWLClass clazz, int level) {
         /*
          * Only print satisfiable classes -- otherwise we end up with bottom
          * everywhere
@@ -107,12 +104,9 @@ public final class SimpleHierarchyExample {
             }
             out.println(labelFor(clazz));
             /* Find the children and recurse */
-            for (OWLClass child : reasoner.getSubClasses(clazz, true)
-                    .getFlattened()) {
-                if (!child.equals(clazz)) {
-                    printHierarchy(reasoner, child, level + 1);
-                }
-            }
+            reasoner.getSubClasses(clazz, true).entities()
+                    .filter(c -> !c.equals(clazz))
+                    .forEach(c -> printHierarchy(reasoner, c, level + 1));
         }
     }
 

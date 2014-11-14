@@ -12,8 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.classexpressions;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import javax.annotation.Nonnull;
 
@@ -38,8 +39,10 @@ public class DisjointClassesRoundTripTestCase extends TestBase {
         String input = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n Prefix: piz: <http://ns.owl#>\n Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n Ontology: <http://ns.owl>\n"
                 + " Class: piz:F\n Class: piz:E\n Class: piz:D\n Class: piz:C\n DisjointClasses: \n ( piz:D or piz:C),\n (piz:E or piz:C),\n (piz:F or piz:C)";
         OWLOntology roundtripped = loadOntologyFromString(input);
-        assertEquals(input, ontology.getLogicalAxioms(),
-                roundtripped.getLogicalAxioms());
+        assertTrue(
+                input,
+                equalStreams(ontology.logicalAxioms(),
+                        roundtripped.logicalAxioms()));
     }
 
     @Test
@@ -48,8 +51,8 @@ public class DisjointClassesRoundTripTestCase extends TestBase {
         PrefixDocumentFormat format = new ManchesterSyntaxDocumentFormat();
         format.setPrefix("piz", NS + '#');
         OWLOntology roundtripped = roundTrip(ontology, format);
-        assertEquals(ontology.getLogicalAxioms(),
-                roundtripped.getLogicalAxioms());
+        assertTrue(equalStreams(ontology.logicalAxioms(),
+                roundtripped.logicalAxioms()));
     }
 
     @Nonnull

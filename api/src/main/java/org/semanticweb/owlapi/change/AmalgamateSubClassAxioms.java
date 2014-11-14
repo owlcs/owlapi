@@ -12,9 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -55,21 +57,22 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
         super(dataFactory);
         for (OWLOntology ont : checkNotNull(ontologies,
                 "ontologies cannot be null")) {
-            for (OWLClass cls : ont.getClassesInSignature()) {
-                Set<OWLSubClassOfAxiom> axioms = ont
-                        .getSubClassAxiomsForSubClass(cls);
-                if (axioms.size() > 1) {
-                    Set<OWLClassExpression> superClasses = new HashSet<>();
-                    for (OWLSubClassOfAxiom ax : axioms) {
-                        addChange(new RemoveAxiom(ont, ax));
-                        superClasses.add(ax.getSuperClass());
-                    }
-                    OWLClassExpression combinedSuperClass = df
-                            .getOWLObjectIntersectionOf(superClasses);
-                    addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls,
-                            combinedSuperClass)));
-                }
-            }
+            ont.classesInSignature().forEach(cls -> amalgamate(ont, cls));
         }
+    }
+
+    protected void amalgamate(OWLOntology ont, OWLClass cls) {
+        List<OWLSubClassOfAxiom> axioms = ont.subClassAxiomsForSubClass(cls)
+                .collect(toList());
+        if (axioms.size() < 2) {
+            return;
+        }
+        Set<OWLClassExpression> superClasses = new HashSet<>();
+        axioms.forEach(ax -> {
+            addChange(new RemoveAxiom(ont, ax));
+            superClasses.add(ax.getSuperClass());
+        });
+        addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls,
+                df.getOWLObjectIntersectionOf(superClasses))));
     }
 }

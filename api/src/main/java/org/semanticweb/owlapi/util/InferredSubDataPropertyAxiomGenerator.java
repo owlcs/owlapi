@@ -39,10 +39,11 @@ public class InferredSubDataPropertyAxiomGenerator extends
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
-        for (OWLDataProperty prop : reasoner.getSuperDataProperties(entity,
-                true).getFlattened()) {
-            result.add(dataFactory.getOWLSubDataPropertyOfAxiom(entity, prop));
-        }
+        reasoner.getSuperDataProperties(entity, true)
+                .entities()
+                .forEach(
+                        sup -> result.add(dataFactory
+                                .getOWLSubDataPropertyOfAxiom(entity, sup)));
     }
 
     @Override

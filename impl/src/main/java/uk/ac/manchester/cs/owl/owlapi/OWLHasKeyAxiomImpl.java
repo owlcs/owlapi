@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import java.util.Collection;
 import java.util.List;
@@ -71,16 +72,9 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     }
 
     @Override
-    public OWLHasKeyAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+    public OWLHasKeyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLHasKeyAxiomImpl(getClassExpression(),
-                propertyExpressions, mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLHasKeyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotations) {
-        return new OWLHasKeyAxiomImpl(getClassExpression(),
-                propertyExpressions, mergeAnnos(annotations));
+                propertyExpressions, mergeAnnos(anns));
     }
 
     @Override

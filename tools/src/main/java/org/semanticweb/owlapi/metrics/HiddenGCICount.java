@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -67,22 +69,21 @@ public class HiddenGCICount extends IntegerValuedMetric {
     protected Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<>();
         Set<OWLClass> result = new HashSet<>();
-        for (OWLOntology ont : getOntologies()) {
-            for (OWLClass cls : ont.getClassesInSignature()) {
+        for (OWLOntology ont : getOntologies().collect(toList())) {
+            for (OWLClass cls : ont.classesInSignature().collect(toList())) {
                 if (!processed.contains(cls)) {
                     processed.add(cls);
                 } else {
                     boolean foundEquivalentClassesAxiom = false;
                     boolean foundSubClassAxiom = false;
-                    for (OWLOntology o : getOntologies()) {
+                    for (OWLOntology o : getOntologies().collect(toList())) {
                         if (!foundEquivalentClassesAxiom) {
-                            foundEquivalentClassesAxiom = !o
-                                    .getEquivalentClassesAxioms(cls).isEmpty();
+                            foundEquivalentClassesAxiom = o
+                                    .equivalentClassesAxioms(cls).count() > 0;
                         }
                         if (!foundSubClassAxiom) {
-                            foundSubClassAxiom = !o
-                                    .getSubClassAxiomsForSubClass(cls)
-                                    .isEmpty();
+                            foundSubClassAxiom = o.subClassAxiomsForSubClass(
+                                    cls).count() > 0;
                         }
                         if (foundSubClassAxiom && foundEquivalentClassesAxiom) {
                             result.add(cls);

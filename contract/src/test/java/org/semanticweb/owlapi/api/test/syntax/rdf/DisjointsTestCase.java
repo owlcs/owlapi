@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -70,6 +71,6 @@ public class DisjointsTestCase extends TestBase {
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(classExpressions);
         m.applyChange(new AddAxiom(ontA, ax));
         OWLOntology ontB = roundTrip(ontA);
-        assertTrue(ontB.getAxioms().contains(ax));
+        assertTrue(contains(ontB.axioms(), ax));
     }
 }

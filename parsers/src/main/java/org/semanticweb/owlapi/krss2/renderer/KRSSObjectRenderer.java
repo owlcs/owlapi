@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
+import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,6 +71,8 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.CollectionFactory;
+
+import com.google.common.collect.Iterables;
 
 /**
  * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
@@ -268,10 +272,14 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     protected static <T extends OWLObject> List<T> sort(
             @Nonnull Iterable<T> objects) {
         Collection<T> sortedDescriptions = new ArrayList<>();
-        for (T t : objects) {
-            sortedDescriptions.add(t);
-        }
-        return CollectionFactory.sortOptionally(sortedDescriptions);
+        Iterables.addAll(sortedDescriptions, objects);
+        return sort(sortedDescriptions);
+    }
+
+    @Nonnull
+    protected static <T extends OWLObject> List<T> sort(
+            @Nonnull Stream<T> objects) {
+        return sort(objects.collect(toList()));
     }
 
     protected void writeOpenBracket() {
@@ -397,7 +405,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLOntology ontology) {
-        Set<OWLClass> classes = ontology.getClassesInSignature();
+        Set<OWLClass> classes = ontology.classesInSignature().collect(toSet());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLThing());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
@@ -427,7 +435,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
             }
         }
         for (OWLObjectProperty property : sort(ontology
-                .getObjectPropertiesInSignature())) {
+                .objectPropertiesInSignature())) {
             writeOpenBracket();
             Collection<OWLObjectPropertyExpression> properties = equivalent(ontology
                     .getEquivalentObjectPropertiesAxioms(property));
@@ -464,8 +472,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> classes = sort(axiom
-                .getClassExpressionsAsList());
+        List<OWLClassExpression> classes = sort(axiom.classExpressions());
         int size = classes.size();
         if (size <= 1) {
             return;
@@ -579,7 +586,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     public void visit(@Nonnull OWLObjectIntersectionOf ce) {
         writeOpenBracket();
         write(AND);
-        List<OWLClassExpression> operands = sort(ce.getOperands());
+        List<OWLClassExpression> operands = sort(ce.operands());
         int size = operands.size();
         if (size > 0) {
             int indent = getIndent();
@@ -597,7 +604,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     public void visit(@Nonnull OWLObjectUnionOf ce) {
         writeOpenBracket();
         write(OR);
-        List<OWLClassExpression> operands = sort(ce.getOperands());
+        List<OWLClassExpression> operands = sort(ce.operands());
         int size = operands.size();
         if (size > 0) {
             int indent = getIndent();

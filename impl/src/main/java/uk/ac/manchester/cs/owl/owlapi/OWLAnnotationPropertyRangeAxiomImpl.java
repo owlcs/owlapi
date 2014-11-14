@@ -67,16 +67,9 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(),
-                getRange(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(),
-                getRange(), mergeAnnos(annotations));
+                getRange(), mergeAnnos(anns));
     }
 
     @Override

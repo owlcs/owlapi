@@ -35,7 +35,7 @@ public class BuilderSameIndividual
     public BuilderSameIndividual(@Nonnull OWLSameIndividualAxiom expected,
             OWLDataFactory df) {
         this(df);
-        withItems(expected.getIndividuals()).withAnnotations(
+        withItems(expected.individuals()).withAnnotations(
                 expected.annotations());
     }
 

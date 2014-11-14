@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -101,7 +102,7 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
             OWLAnnotation other = (OWLAnnotation) obj;
             return other.getProperty().equals(property)
                     && other.getValue().equals(value)
-                    && other.getAnnotations().equals(getAnnotations());
+                    && equalStreams(other.annotations(), annotations());
         }
         return false;
     }

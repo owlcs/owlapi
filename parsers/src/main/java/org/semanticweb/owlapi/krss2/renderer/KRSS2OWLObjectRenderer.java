@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.*;
@@ -31,7 +32,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -187,7 +187,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLClass eachClass : ontology.getClassesInSignature()) {
+        for (OWLClass eachClass : ontology.classesInSignature().collect(
+                toList())) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
                 writeOpenBracket();
@@ -245,11 +246,9 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 }
             }
         }
-        for (OWLClassAxiom axiom : ontology.getGeneralClassAxioms()) {
-            axiom.accept(this);
-        }
+        ontology.generalClassAxioms().forEach(a -> a.accept(this));
         for (OWLObjectProperty property : ontology
-                .getObjectPropertiesInSignature()) {
+                .objectPropertiesInSignature().collect(toList())) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);

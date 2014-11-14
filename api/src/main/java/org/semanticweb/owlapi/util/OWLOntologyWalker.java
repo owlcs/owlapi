@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +29,7 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
      * @param objects
      *        objects to walk
      */
-    public OWLOntologyWalker(@Nonnull Set<OWLOntology> objects) {
+    public OWLOntologyWalker(@Nonnull Collection<OWLOntology> objects) {
         super(objects);
     }
 }

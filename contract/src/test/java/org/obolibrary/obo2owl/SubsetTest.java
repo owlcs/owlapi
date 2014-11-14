@@ -2,11 +2,9 @@ package org.obolibrary.obo2owl;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Set;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -20,17 +18,10 @@ public class SubsetTest extends OboFormatTestBasics {
         OWLOntology ontology = convert(parseOBOFile("subset_test.obo"));
         OWLAnnotationSubject subj = IRI
                 .create("http://purl.obolibrary.org/obo/GO_0000003");
-        Set<OWLAnnotationAssertionAxiom> aas = ontology
-                .getAnnotationAssertionAxioms(subj);
-        boolean ok = false;
-        for (OWLAnnotationAssertionAxiom aa : aas) {
-            if (aa.getProperty()
-                    .getIRI()
-                    .toString()
-                    .equals("http://www.geneontology.org/formats/oboInOwl#inSubset")) {
-                ok = true;
-            }
-        }
+        OWLAnnotationProperty p = df
+                .getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#inSubset");
+        boolean ok = ontology.annotationAssertionAxioms(subj).anyMatch(
+                a -> a.getProperty().equals(p));
         assertTrue(ok);
     }
 }

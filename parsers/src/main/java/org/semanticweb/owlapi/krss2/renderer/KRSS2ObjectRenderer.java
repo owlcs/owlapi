@@ -307,10 +307,11 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     @Override
     public void visit(OWLOntology ontology) {
         reset();
-        for (OWLClass eachClass : ontology.getClassesInSignature()) {
+        for (OWLClass eachClass : ontology.classesInSignature().collect(
+                toList())) {
             if (ignoreDeclarations) {
-                if (ontology.getAxioms(eachClass).size() == 1
-                        && ontology.getDeclarationAxioms(eachClass).size() == 1) {
+                if (ontology.axioms(eachClass).count() == 1
+                        && ontology.declarationAxioms(eachClass).count() == 1) {
                     continue;
                 }
             }
@@ -361,10 +362,10 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             }
         }
         for (OWLObjectProperty property : sort(ontology
-                .getObjectPropertiesInSignature())) {
+                .objectPropertiesInSignature())) {
             if (ignoreDeclarations) {
-                if (ontology.getAxioms(property, EXCLUDED).size() == 1
-                        && ontology.getDeclarationAxioms(property).size() == 1) {
+                if (ontology.axioms(property, EXCLUDED).count() == 1
+                        && ontology.declarationAxioms(property).count() == 1) {
                     continue;
                 }
             }
@@ -488,8 +489,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         for (OWLNamedIndividual individual : sort(ontology
                 .individualsInSignature().collect(toList()))) {
             if (ignoreDeclarations) {
-                if (ontology.getAxioms(individual, EXCLUDED).size() == 1
-                        && ontology.getDeclarationAxioms(individual).size() == 1) {
+                if (ontology.axioms(individual, EXCLUDED).count() == 1
+                        && ontology.declarationAxioms(individual).count() == 1) {
                     continue;
                 }
             }
@@ -522,7 +523,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> descs = sort(axiom.getClassExpressionsAsList());
+        List<OWLClassExpression> descs = sort(axiom.classExpressions());
         int size = descs.size();
         if (size <= 1) {
             return;
@@ -541,8 +542,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        List<OWLObjectPropertyExpression> properties = sort(axiom
-                .getProperties());
+        List<OWLObjectPropertyExpression> properties = sort(axiom.properties());
         int size = properties.size();
         for (int i = 0; i < size; i++) {
             for (int j = i + 1; j < size; j++) {
@@ -558,8 +558,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        List<OWLObjectPropertyExpression> properties = sort(axiom
-                .getProperties());
+        List<OWLObjectPropertyExpression> properties = sort(axiom.properties());
         int size = properties.size();
         if (size <= 1) {
             return;
@@ -599,8 +598,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        List<OWLClassExpression> descriptions = sort(axiom
-                .getClassExpressionsAsList());
+        List<OWLClassExpression> descriptions = sort(axiom.classExpressions());
         int size = descriptions.size();
         if (size <= 1) {
             return;

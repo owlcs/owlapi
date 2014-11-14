@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
@@ -52,7 +53,7 @@ public class PrimerTestCase extends TestBase {
         // ontology
         // so that the equality test does not skip gcis because of the format
         OWLClass x = df.getOWLClass("http://example.com/owl/families/X");
-        Set<OWLClassAxiom> axioms = manch.getAxioms(x);
+        Set<OWLClassAxiom> axioms = manch.axioms(x).collect(toSet());
         manch.getOWLOntologyManager().removeAxioms(manch, axioms);
         OWLClass female = df
                 .getOWLClass("http://example.com/owl/families/Female");
@@ -74,7 +75,7 @@ public class PrimerTestCase extends TestBase {
                         df.getOWLObjectIntersectionOf(female, oneOf),
                         superClass));
         OWLOntology replacement = OWLManager.createOWLOntologyManager()
-                .createOntology(manch.getAxioms(),
+                .createOntology(manch.axioms(),
                         manch.getOntologyID().getOntologyIRI().get());
         equal(func, replacement);
     }

@@ -61,13 +61,6 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public OWLEquivalentClassesAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotationsToAdd) {
-        return new OWLEquivalentClassesAxiomImpl(classExpressions,
-                mergeAnnos(annotationsToAdd));
-    }
-
-    @Override
-    public OWLEquivalentClassesAxiom getAnnotatedAxiom(
             Stream<OWLAnnotation> annotationsToAdd) {
         return new OWLEquivalentClassesAxiomImpl(classExpressions,
                 mergeAnnos(annotationsToAdd));

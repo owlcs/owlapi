@@ -12,9 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -290,49 +292,38 @@ public class InitVisitorFactory {
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-            List<OWLClassExpression> list = axiom.getClassExpressionsAsList();
+            Stream<OWLClassExpression> stream = axiom.classExpressions();
             if (named) {
-                deleteAnonymousClasses(list);
+                stream = stream.filter(c -> !c.isAnonymous());
             }
-            return (Collection<K>) list;
-        }
-
-        private static void deleteAnonymousClasses(
-                @Nonnull List<OWLClassExpression> list) {
-            for (int i = 0; i < list.size();) {
-                if (list.get(i).isAnonymous()) {
-                    list.remove(i);
-                } else {
-                    i++;
-                }
-            }
+            return (Collection<K>) stream.collect(toList());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(
                 @Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.getProperties();
+            return (Collection<K>) axiom.properties().collect(toList());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-            return (Collection<K>) axiom.getIndividuals();
+            return (Collection<K>) axiom.individuals().collect(toList());
         }
 
         @Nonnull
         @Override
         public Collection<K>
                 visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.getProperties();
+            return (Collection<K>) axiom.properties().collect(toList());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(
                 @Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.getProperties();
+            return (Collection<K>) axiom.properties().collect(toList());
         }
 
         @Nonnull
@@ -345,30 +336,30 @@ public class InitVisitorFactory {
         @Override
         public Collection<K> visit(
                 @Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.getProperties();
+            return (Collection<K>) axiom.properties().collect(toList());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-            List<OWLClassExpression> list = axiom.getClassExpressionsAsList();
+            Stream<OWLClassExpression> stream = axiom.classExpressions();
             if (named) {
-                deleteAnonymousClasses(list);
+                stream = stream.filter(c -> !c.isAnonymous());
             }
-            return (Collection<K>) list;
+            return (Collection<K>) stream.collect(toList());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLSameIndividualAxiom axiom) {
-            return (Collection<K>) axiom.getIndividuals();
+            return (Collection<K>) axiom.individuals().collect(toList());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(
                 @Nonnull OWLInverseObjectPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.getProperties();
+            return (Collection<K>) axiom.properties().collect(toList());
         }
     }
 

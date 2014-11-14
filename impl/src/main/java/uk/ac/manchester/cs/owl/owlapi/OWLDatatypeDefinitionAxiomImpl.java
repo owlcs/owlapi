@@ -68,16 +68,9 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLDatatypeDefinitionAxiomImpl(getDatatype(),
-                getDataRange(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(),
-                getDataRange(), mergeAnnos(annotations));
+                getDataRange(), mergeAnnos(anns));
     }
 
     @Override

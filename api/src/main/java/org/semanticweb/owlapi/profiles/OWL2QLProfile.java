@@ -126,7 +126,7 @@ public class OWL2QLProfile implements OWLProfile {
         Set<OWLProfileViolation> violations = new HashSet<>();
         violations.addAll(report.getViolations());
         OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
-                ontology.getImportsClosure());
+                ontology.importsClosure());
         OWL2QLObjectVisitor visitor = new OWL2QLObjectVisitor(walker);
         walker.walkStructure(visitor);
         violations.addAll(visitor.getProfileViolations());

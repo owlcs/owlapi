@@ -124,7 +124,7 @@ public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
 
     @Override
     public OWLObject visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        return axiom.getProperties().iterator().next();
+        return axiom.properties().iterator().next();
     }
 
     @Override
@@ -139,12 +139,12 @@ public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
 
     @Override
     public OWLObject visit(OWLDisjointDataPropertiesAxiom axiom) {
-        return axiom.getProperties().iterator().next();
+        return axiom.properties().iterator().next();
     }
 
     @Override
     public OWLObject visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        return axiom.getProperties().iterator().next();
+        return axiom.properties().iterator().next();
     }
 
     @Override
@@ -199,7 +199,7 @@ public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
 
     @Override
     public OWLObject visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        return axiom.getProperties().iterator().next();
+        return axiom.properties().iterator().next();
     }
 
     @Override
@@ -254,7 +254,7 @@ public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
 
     @Override
     public OWLObject visit(SWRLRule rule) {
-        return rule.getHead().iterator().next();
+        return rule.head().iterator().next();
     }
 
     @Override

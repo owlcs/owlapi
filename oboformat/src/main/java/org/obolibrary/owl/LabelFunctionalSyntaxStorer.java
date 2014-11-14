@@ -1,5 +1,7 @@
 package org.obolibrary.owl;
 
+import static java.util.stream.Collectors.toList;
+
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -69,7 +71,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         @Override
         public String getPrefixIRI(IRI iri) {
             for (OWLAnnotationAssertionAxiom annotation : ontology
-                    .getAnnotationAssertionAxioms(iri)) {
+                    .annotationAssertionAxioms(iri).collect(toList())) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
                     if (value instanceof OWLLiteral) {

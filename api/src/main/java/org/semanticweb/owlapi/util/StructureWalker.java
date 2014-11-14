@@ -228,14 +228,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
-        axiom.getProperties().forEach(a -> a.accept(this));
+        axiom.properties().forEach(a -> a.accept(this));
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
-        axiom.getProperties().forEach(a -> a.accept(this));
+        axiom.properties().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -297,14 +297,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
-        axiom.getProperties().forEach(a -> a.accept(this));
+        axiom.properties().forEach(a -> a.accept(this));
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
-        axiom.getProperties().forEach(a -> a.accept(this));
+        axiom.properties().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -444,8 +444,8 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(SWRLRule rule) {
         process(rule);
         walkerCallback.ax = rule;
-        rule.getBody().forEach(a -> a.accept(this));
-        rule.getHead().forEach(a -> a.accept(this));
+        rule.body().forEach(a -> a.accept(this));
+        rule.head().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -453,8 +453,8 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getClassExpression().accept(this);
-        axiom.getObjectPropertyExpressions().forEach(a -> a.accept(this));
-        axiom.getDataPropertyExpressions().forEach(a -> a.accept(this));
+        axiom.objectPropertyExpressions().forEach(a -> a.accept(this));
+        axiom.dataPropertyExpressions().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -633,7 +633,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLDataIntersectionOf node) {
         walkerCallback.pushDataRange(node);
         process(node);
-        node.getOperands().forEach(a -> a.accept(this));
+        node.operands().forEach(a -> a.accept(this));
         walkerCallback.popDataRange();
     }
 
@@ -641,7 +641,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     public void visit(OWLDataUnionOf node) {
         walkerCallback.pushDataRange(node);
         process(node);
-        node.getOperands().forEach(a -> a.accept(this));
+        node.operands().forEach(a -> a.accept(this));
         walkerCallback.popDataRange();
     }
 

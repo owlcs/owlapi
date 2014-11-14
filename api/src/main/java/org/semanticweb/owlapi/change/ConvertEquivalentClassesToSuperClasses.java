@@ -33,11 +33,12 @@ package org.semanticweb.owlapi.change;/*
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -46,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -74,16 +74,16 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
 
-    private static final OWLClassExpressionVisitorEx<Set<OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Set<OWLClassExpression>>() {
+    private static final OWLClassExpressionVisitorEx<Stream<OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Stream<OWLClassExpression>>() {
 
         @Override
-        public Set<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
-            return ce.getOperands();
+        public Stream<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
+            return ce.operands();
         }
 
         @Override
-        public Set<OWLClassExpression> doDefault(Object o) {
-            return Collections.emptySet();
+        public Stream<OWLClassExpression> doDefault(Object o) {
+            return Stream.empty();
         }
     };
     private static final long serialVersionUID = 40000L;
@@ -129,12 +129,12 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private void generateChanges() {
         Set<OWLClassExpression> supers = new HashSet<>();
         for (OWLOntology o : ontologies) {
-            for (OWLEquivalentClassesAxiom ax : o
-                    .getEquivalentClassesAxioms(cls)) {
-                addChange(new RemoveAxiom(o, ax));
-                ax.classExpressions().forEach(
-                        c -> supers.addAll(getClassExpressions(c)));
-            }
+            o.equivalentClassesAxioms(cls).forEach(
+                    ax -> {
+                        addChange(new RemoveAxiom(o, ax));
+                        ax.classExpressions().forEach(
+                                c -> supers.addAll(getClassExpressions(c)));
+                    });
         }
         supers.remove(cls);
         supers.forEach(sup -> addChange(new AddAxiom(targetOntology, df
@@ -145,10 +145,12 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private Set<OWLClassExpression> getClassExpressions(
             @Nonnull OWLClassExpression desc) {
         if (splitIntersections) {
-            Set<OWLClassExpression> result = desc.accept(INTERSECTION_SPLITTER);
+            Set<OWLClassExpression> result = desc.accept(INTERSECTION_SPLITTER)
+                    .collect(toSet());
             if (result.isEmpty()) {
                 result.add(desc);
             }
+            return result;
         }
         return CollectionFactory.createSet(desc);
     }

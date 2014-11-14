@@ -12,12 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
+import static java.util.stream.Collectors.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -212,7 +215,7 @@ class DLQueryEngine {
                 .parseClassExpression(classExpressionString);
         NodeSet<OWLClass> superClasses = reasoner.getSuperClasses(
                 classExpression, direct);
-        return superClasses.getFlattened();
+        return superClasses.entities().collect(toSet());
     }
 
     /**
@@ -233,14 +236,8 @@ class DLQueryEngine {
                 .parseClassExpression(classExpressionString);
         Node<OWLClass> equivalentClasses = reasoner
                 .getEquivalentClasses(classExpression);
-        Set<OWLClass> result;
-        if (classExpression.isAnonymous()) {
-            result = equivalentClasses.getEntities();
-        } else {
-            result = equivalentClasses.getEntitiesMinus(classExpression
-                    .asOWLClass());
-        }
-        return result;
+        return equivalentClasses.entities()
+                .filter(c -> c.equals(classExpression)).collect(toSet());
     }
 
     /**
@@ -263,7 +260,7 @@ class DLQueryEngine {
                 .parseClassExpression(classExpressionString);
         NodeSet<OWLClass> subClasses = reasoner.getSubClasses(classExpression,
                 direct);
-        return subClasses.getFlattened();
+        return subClasses.entities().collect(toSet());
     }
 
     /**
@@ -286,7 +283,7 @@ class DLQueryEngine {
                 .parseClassExpression(classExpressionString);
         NodeSet<OWLNamedIndividual> individuals = reasoner.getInstances(
                 classExpression, direct);
-        return individuals.getFlattened();
+        return individuals.entities().collect(toSet());
     }
 }
 
@@ -312,7 +309,8 @@ class DLQueryParser {
             @Nonnull ShortFormProvider shortFormProvider) {
         this.rootOntology = rootOntology;
         OWLOntologyManager manager = rootOntology.getOWLOntologyManager();
-        Set<OWLOntology> importsClosure = rootOntology.getImportsClosure();
+        List<OWLOntology> importsClosure = rootOntology.importsClosure()
+                .collect(toList());
         // Create a bidirectional short form provider to do the actual mapping.
         // It will generate names using the input
         // short form provider.

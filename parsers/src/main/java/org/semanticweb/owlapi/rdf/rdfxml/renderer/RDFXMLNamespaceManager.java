@@ -14,8 +14,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static java.util.stream.Collectors.toSet;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -45,13 +45,14 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     @Nonnull
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
-        Set<OWLEntity> entities = new HashSet<>();
-        getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).forEach(
-                ax -> entities.addAll(ax.getProperty().getSignature()));
-        getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION).forEach(
-                ax -> entities.add(ax.getProperty().asOWLDataProperty()));
-        entities.addAll(getOntology().getAnnotationPropertiesInSignature());
-        return entities;
+        return Stream
+                .of(getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION)
+                        .flatMap(ax -> ax.getProperty().signature()),
+                        getOntology()
+                                .axioms(AxiomType.DATA_PROPERTY_ASSERTION)
+                                .map(ax -> ax.getProperty().asOWLDataProperty()),
+                        getOntology().annotationPropertiesInSignature())
+                .flatMap(x -> x).collect(toSet());
     }
 
     /** @return entities with invalid qnames */

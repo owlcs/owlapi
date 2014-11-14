@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
@@ -208,8 +209,8 @@ public class OWL2DatatypeImplTestCase extends TestBase {
 
     @Test
     public void getSignature() {
-        assertNotNull(plainLiteral.getSignature());
-        assertEquals(plainLiteral.getSignature(), singleton(plainLiteral));
+        assertEquals(plainLiteral.signature().collect(toSet()),
+                singleton(plainLiteral));
     }
 
     @Test
@@ -219,27 +220,27 @@ public class OWL2DatatypeImplTestCase extends TestBase {
 
     @Test
     public void getClassesInSignature() {
-        assertTrue(plainLiteral.getClassesInSignature().isEmpty());
+        assertTrue(plainLiteral.classesInSignature().count() == 0);
     }
 
     @Test
     public void getObjectPropertiesInSignature() {
-        assertTrue(plainLiteral.getObjectPropertiesInSignature().isEmpty());
+        assertTrue(plainLiteral.objectPropertiesInSignature().count() == 0);
     }
 
     @Test
     public void getDataPropertiesInSignature() {
-        assertTrue(plainLiteral.getDataPropertiesInSignature().isEmpty());
+        assertTrue(plainLiteral.dataPropertiesInSignature().count() == 0);
     }
 
     @Test
     public void getIndividualsInSignature() {
-        assertTrue(plainLiteral.getIndividualsInSignature().isEmpty());
+        assertTrue(plainLiteral.individualsInSignature().count() == 0);
     }
 
     @Test
     public void getNestedClassExpressions() {
-        assertTrue(plainLiteral.getNestedClassExpressions().isEmpty());
+        assertTrue(plainLiteral.nestedClassExpressions().count() == 0);
     }
 
     @Test

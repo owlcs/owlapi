@@ -12,12 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.owlxml.renderer;
 
+import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -67,7 +67,6 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -136,22 +135,22 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     private void writeAnnotations(@Nonnull OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
-        render(axiom.getAnnotations());
+        render(axiom.annotations());
     }
 
     @Override
     public void visit(OWLOntology ontology) {
         checkNotNull(ontology, "ontology cannot be null");
-        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
+        ontology.importsDeclarations().forEach(decl -> {
             writer.writeStartElement(IMPORT);
             writer.writeTextContent(decl.getIRI().toString());
             writer.writeEndElement();
-        }
-        render(ontology.getAnnotations());
+        });
+        render(ontology.annotations());
         // treat declarations separately from other axioms
         Collection<OWLDeclarationAxiom> declarations = ontology
                 .getAxioms(AxiomType.DECLARATION);
-        Set<OWLEntity> declared = new HashSet<>(ontology.getSignature());
+        Set<OWLEntity> declared = ontology.signature().collect(toSet());
         for (OWLDeclarationAxiom ax : declarations) {
             ax.accept(this);
             declared.remove(ax.getEntity());
@@ -166,9 +165,9 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             }
             if (addMissing) {
                 Collection<IRI> illegalPunnings = OWLDocumentFormat
-                        .determineIllegalPunnings(addMissing,
-                                ontology.getSignature(),
-                                ontology.getPunnedIRIs(Imports.INCLUDED));
+                        .determineIllegalPunnings(addMissing, ontology
+                                .signature().collect(toList()), ontology
+                                .getPunnedIRIs(Imports.INCLUDED));
                 for (OWLEntity e : declared) {
                     if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
                             && !ontology.isDeclared(e, Imports.INCLUDED)) {
@@ -280,7 +279,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         writer.writeStartElement(DISJOINT_DATA_PROPERTIES);
         writeAnnotations(axiom);
-        render(axiom.getProperties());
+        render(axiom.properties());
         writer.writeEndElement();
     }
 
@@ -288,7 +287,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         writer.writeStartElement(DISJOINT_OBJECT_PROPERTIES);
         writeAnnotations(axiom);
-        render(axiom.getProperties());
+        render(axiom.properties());
         writer.writeEndElement();
     }
 
@@ -323,7 +322,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         writer.writeStartElement(EQUIVALENT_DATA_PROPERTIES);
         writeAnnotations(axiom);
-        render(axiom.getProperties());
+        render(axiom.properties());
         writer.writeEndElement();
     }
 
@@ -331,7 +330,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         writer.writeStartElement(EQUIVALENT_OBJECT_PROPERTIES);
         writeAnnotations(axiom);
-        render(axiom.getProperties());
+        render(axiom.properties());
         writer.writeEndElement();
     }
 
@@ -651,7 +650,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataOneOf node) {
         writer.writeStartElement(DATA_ONE_OF);
-        render(node.getValues());
+        render(node.values());
         writer.writeEndElement();
     }
 
@@ -722,22 +721,22 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(HAS_KEY);
         writeAnnotations(axiom);
         axiom.getClassExpression().accept(this);
-        render(axiom.getObjectPropertyExpressions());
-        render(axiom.getDataPropertyExpressions());
+        render(axiom.objectPropertyExpressions());
+        render(axiom.dataPropertyExpressions());
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
         writer.writeStartElement(DATA_INTERSECTION_OF);
-        render(node.getOperands());
+        render(node.operands());
         writer.writeEndElement();
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
         writer.writeStartElement(DATA_UNION_OF);
-        render(node.getOperands());
+        render(node.operands());
         writer.writeEndElement();
     }
 
@@ -751,7 +750,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLAnnotation node) {
         writer.writeStartElement(ANNOTATION);
-        render(node.getAnnotations());
+        render(node.annotations());
         node.getProperty().accept(this);
         node.getValue().accept(this);
         writer.writeEndElement();
@@ -798,10 +797,10 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(DL_SAFE_RULE);
         writeAnnotations(rule);
         writer.writeStartElement(BODY);
-        render(rule.getBody());
+        render(rule.body());
         writer.writeEndElement();
         writer.writeStartElement(HEAD);
-        render(rule.getHead());
+        render(rule.head());
         writer.writeEndElement();
         writer.writeEndElement();
     }

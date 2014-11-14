@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -65,6 +67,6 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements
             return false;
         }
         OWLDataUnionOf other = (OWLDataUnionOf) obj;
-        return getOperands().equals(other.getOperands());
+        return equalStreams(operands(), other.operands());
     }
 }

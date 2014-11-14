@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,7 +39,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<OWLIndividual> individuals;
+    protected final List<OWLIndividual> individuals;
 
     /**
      * @param individuals

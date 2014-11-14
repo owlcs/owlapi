@@ -91,6 +91,6 @@ public class SWRLTestCase extends TestBase {
                 + "      </swrl:AtomList>\n" + "    </swrl:body>\n"
                 + "  </swrl:Imp>\n" + "</rdf:RDF>";
         OWLOntology ont = loadOntologyFromString(input);
-        assertTrue(ont.getIndividualsInSignature().isEmpty());
+        assertTrue(ont.individualsInSignature().count() == 0);
     }
 }

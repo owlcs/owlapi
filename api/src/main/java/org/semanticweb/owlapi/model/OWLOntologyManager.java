@@ -371,6 +371,27 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     }
 
     /**
+     * Creates a new ontology that is initialised to contain specific axioms.
+     * The ontology will not have an IRI. The document IRI of the created
+     * ontology will be auto-generated.
+     * 
+     * @param axioms
+     *        The axioms that should be copied into the new ontology
+     * @return An ontology without an IRI that contains all of the specified
+     *         axioms
+     * @throws OWLOntologyCreationException
+     *         if there was a problem creating the new ontology.
+     * @throws OWLOntologyChangeException
+     *         if there was a problem copying the axioms.
+     */
+    @Nonnull
+    default OWLOntology createOntology(@Nonnull Stream<OWLAxiom> axioms)
+            throws OWLOntologyCreationException {
+        return createOntology(axioms,
+                IRI.getNextDocumentIRI("owlapi:ontology#ont"));
+    }
+
+    /**
      * Creates a new ontology that has the specified ontology IRI and is
      * initialised to contain specific axioms.
      * 
@@ -400,7 +421,42 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         manager.
      */
     @Nonnull
-    OWLOntology createOntology(@Nonnull Set<OWLAxiom> axioms,
+    default OWLOntology createOntology(@Nonnull Set<OWLAxiom> axioms,
+            @Nonnull IRI ontologyIRI) throws OWLOntologyCreationException {
+        return createOntology(axioms.stream(), ontologyIRI);
+    }
+
+    /**
+     * Creates a new ontology that has the specified ontology IRI and is
+     * initialised to contain specific axioms.
+     * 
+     * @param ontologyIRI
+     *        The IRI of the new ontology. <br>
+     *        The ontology document IRI of the created ontology will be set to
+     *        the value returned by any installed
+     *        {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s. If no
+     *        mappers are installed or the ontology IRI was not mapped to a
+     *        document IRI by any of the installed mappers, then the ontology
+     *        document IRI will be set to the value of {@code ontologyIRI}.
+     * @param axioms
+     *        The axioms that should be copied into the new ontology
+     * @return An ontology that has the specified IRI and contains all of the
+     *         specified axioms
+     * @throws OWLOntologyCreationException
+     *         if there was a problem creating the new ontology, if the new
+     *         ontology already exists in this manager.
+     * @throws OWLOntologyChangeException
+     *         if there was a problem copying the axioms.
+     * @throws OWLOntologyAlreadyExistsException
+     *         if the manager already contains an ontology with the specified
+     *         {@code ontologyIRI}.
+     * @throws OWLOntologyDocumentAlreadyExistsException
+     *         if the specified {@code ontologyIRI} is mapped to a ontology
+     *         document IRI for which there already exists a mapping in this
+     *         manager.
+     */
+    @Nonnull
+    OWLOntology createOntology(@Nonnull Stream<OWLAxiom> axioms,
             @Nonnull IRI ontologyIRI) throws OWLOntologyCreationException;
 
     /**
@@ -500,11 +556,53 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         manager.
      */
     @Nonnull
-    OWLOntology
+    default OWLOntology
             createOntology(@Nonnull IRI ontologyIRI,
                     @Nonnull Set<OWLOntology> ontologies,
                     boolean copyLogicalAxiomsOnly)
-                    throws OWLOntologyCreationException;
+                    throws OWLOntologyCreationException {
+        return createOntology(ontologyIRI, ontologies.stream(),
+                copyLogicalAxiomsOnly);
+    }
+
+    /**
+     * Creates a new ontology that has the specified ontology IRI and is
+     * initialised to contain the axioms that are contained in the specified
+     * ontologies. Note that the specified ontologies need not be managed by
+     * this manager. <br>
+     * The ontology document IRI of the created ontology will be set to the
+     * value returned by any installed
+     * {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s. If no mappers
+     * are installed or the ontology IRI was not mapped to a document IRI by any
+     * of the installed mappers, then the ontology document IRI will be set to
+     * the value of {@code ontologyIRI}.
+     * 
+     * @param ontologyIRI
+     *        The IRI of the new ontology.
+     * @param ontologies
+     *        The ontologies whose axioms should be copied into the new ontology
+     * @param copyLogicalAxiomsOnly
+     *        If set to {@code true} only logical axioms are copied into the new
+     *        ontology. If set to {@code false} then all axioms (including
+     *        annotation axioms) are copied into the new ontology.
+     * @return An ontology that has the specified IRI and contains all of the
+     *         axioms that are contained in the specified ontologies possibly
+     *         minus all non-logical axioms
+     * @throws OWLOntologyCreationException
+     *         if there was a problem creating the new ontology, if the new
+     *         ontology already exists in this manager.
+     * @throws OWLOntologyAlreadyExistsException
+     *         if the manager already contains an ontology with the specified
+     *         {@code ontologyIRI} (and no ontology version IRI).
+     * @throws OWLOntologyDocumentAlreadyExistsException
+     *         if the specified {@code ontologyIRI} is mapped to a ontology
+     *         document IRI for which there already exists a mapping in this
+     *         manager.
+     */
+    @Nonnull
+    OWLOntology createOntology(@Nonnull IRI ontologyIRI,
+            @Nonnull Stream<OWLOntology> ontologies,
+            boolean copyLogicalAxiomsOnly) throws OWLOntologyCreationException;
 
     /**
      * Creates a new ontology that has the specified ontology IRI and is

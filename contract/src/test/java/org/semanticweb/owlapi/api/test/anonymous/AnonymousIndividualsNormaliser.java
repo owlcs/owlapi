@@ -15,9 +15,11 @@ package org.semanticweb.owlapi.api.test.anonymous;
 import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -49,9 +51,14 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     }
 
     @Nonnull
-    public Set<OWLAxiom> getNormalisedAxioms(@Nonnull Set<OWLAxiom> axioms) {
-        return axioms.stream().sorted().map(ax -> (OWLAxiom) get(ax))
-                .collect(toSet());
+    public Set<OWLAxiom> getNormalisedAxioms(
+            @Nonnull Collection<OWLAxiom> axioms) {
+        return getNormalisedAxioms(axioms.stream());
+    }
+
+    @Nonnull
+    public Set<OWLAxiom> getNormalisedAxioms(@Nonnull Stream<OWLAxiom> axioms) {
+        return axioms.sorted().map(ax -> (OWLAxiom) get(ax)).collect(toSet());
     }
 
     @Override

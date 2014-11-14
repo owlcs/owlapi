@@ -1583,7 +1583,7 @@ public class TripleHandlers {
                             // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
                             man.applyChange(new RemoveImport(consumer
                                     .getOntology(), id));
-                            io.getImportsDeclarations().forEach(
+                            io.importsDeclarations().forEach(
                                     d -> addImport(man, d));
                             io.annotations()
                                     .forEach(ann -> addOntAnn(man, ann));

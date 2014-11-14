@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -74,7 +75,10 @@ public class EntityCollector extends AbstractEntityRegistrationManager {
 
     @Override
     public void visit(OWLOntology ontology) {
-        objects.addAll(ontology.getSignature());
+        Iterator<OWLEntity> it = ontology.signature().iterator();
+        while (it.hasNext()) {
+            objects.add(it.next());
+        }
     }
 
     @Override

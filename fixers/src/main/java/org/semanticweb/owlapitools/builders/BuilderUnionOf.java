@@ -42,7 +42,7 @@ public class BuilderUnionOf extends
      */
     public BuilderUnionOf(@Nonnull OWLObjectUnionOf expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.getOperands());
+        withItems(expected.operands());
     }
 
     @Override

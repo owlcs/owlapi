@@ -133,7 +133,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
         hashCode = ontology.getOntologyID().hashCode();
     }
 
-    private int hash(Stream<?> s) {
+    private static int hash(Stream<?> s) {
         return s.mapToInt(a -> a.hashCode()).sum();
     }
 
@@ -209,14 +209,14 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         hashCode = 37;
-        hashCode = hashCode * MULT + axiom.getProperties().hashCode();
+        hashCode = hashCode * MULT + hash(axiom.properties());
         hashCode = hashCode * MULT + hash(axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         hashCode = 41;
-        hashCode = hashCode * MULT + axiom.getProperties().hashCode();
+        hashCode = hashCode * MULT + hash(axiom.properties());
         hashCode = hashCode * MULT + hash(axiom.annotations());
     }
 
@@ -247,14 +247,14 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         hashCode = 59;
-        hashCode = hashCode * MULT + axiom.getProperties().hashCode();
+        hashCode = hashCode * MULT + hash(axiom.properties());
         hashCode = hashCode * MULT + hash(axiom.annotations());
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         hashCode = 61;
-        hashCode = hashCode * MULT + axiom.getProperties().hashCode();
+        hashCode = hashCode * MULT + hash(axiom.properties());
         hashCode = hashCode * MULT + hash(axiom.annotations());
     }
 
@@ -585,8 +585,8 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(SWRLRule rule) {
         hashCode = 631;
-        hashCode = hashCode * MULT + rule.getBody().hashCode();
-        hashCode = hashCode * MULT + rule.getHead().hashCode();
+        hashCode = hashCode * MULT + hash(rule.body());
+        hashCode = hashCode * MULT + hash(rule.head());
     }
 
     @Override
@@ -662,7 +662,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         hashCode = 821;
         hashCode = hashCode * MULT + axiom.getClassExpression().hashCode();
-        hashCode = hashCode * MULT + axiom.getPropertyExpressions().hashCode();
+        hashCode = hashCode * MULT + hash(axiom.propertyExpressions());
     }
 
     @Override
@@ -689,7 +689,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLDataIntersectionOf node) {
         hashCode = 839;
-        hashCode = hashCode * MULT + node.getOperands().hashCode();
+        hashCode = hashCode * MULT + hash(node.operands());
     }
 
     @Override

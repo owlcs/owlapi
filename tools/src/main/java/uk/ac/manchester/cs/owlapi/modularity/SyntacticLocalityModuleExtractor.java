@@ -12,15 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owlapi.modularity;
 
+import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -81,7 +85,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          * @param axs
          *        the set of axioms representing the ontology
          */
-        OntologyAxiomSet(@Nonnull Set<OWLAxiom> axs) {
+        OntologyAxiomSet(@Nonnull List<OWLAxiom> axs) {
             ax = axs.toArray(new OWLAxiom[axs.size()]);
         }
 
@@ -199,7 +203,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @Nonnull
     private static OWLOntology createOntology(@Nonnull OWLOntologyManager man,
-            @Nonnull OWLOntology ont, @Nonnull Set<OWLAxiom> axs) {
+            @Nonnull OWLOntology ont, @Nonnull Stream<OWLAxiom> axs) {
         try {
             return man.createOntology(axs);
         } catch (@SuppressWarnings("unused") OWLOntologyCreationException e) {
@@ -221,13 +225,14 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the type of module this extractor will construct
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man,
-            @Nonnull OWLOntology ont, @Nonnull Set<OWLAxiom> axs,
+            @Nonnull OWLOntology ont, @Nonnull Stream<OWLAxiom> axs,
             @Nonnull ModuleType moduleType) {
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
         rootOntology = checkNotNull(ont, "ont cannot be null");
-        ontologyAxiomSet = new OntologyAxiomSet(axs);
-        ontology = checkNotNull(createOntology(man, ont, axs));
+        List<OWLAxiom> collect = axs.collect(toList());
+        ontologyAxiomSet = new OntologyAxiomSet(collect);
+        ontology = checkNotNull(createOntology(man, ont, collect.stream()));
     }
 
     /**
@@ -247,8 +252,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     @Nonnull
-    private static Set<OWLAxiom> asAxiomSet(OWLOntology ont) {
-        return ont.getAxioms(Imports.INCLUDED);
+    private static Stream<OWLAxiom> asAxiomSet(OWLOntology ont) {
+        return ont.axioms(Imports.INCLUDED);
     }
 
     /**
@@ -316,8 +321,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                         mod[i] = true;
                         q2[i] = false;
                         int oldSize = signature.size();
-                        signature.addAll(ontologyAxiomSet.getAxiom(i)
-                                .getSignature());
+                        add(ontologyAxiomSet.getAxiom(i).signature(), signature);
                         // only triggering a change when the signature has
                         // changed doesn't improve performance
                         if (signature.size() > oldSize) {
@@ -381,7 +385,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     mod.add(ax);
                     q2remove.add(ax);
                     int oldSize = signature.size();
-                    signature.addAll(ax.getSignature());
+                    add(ax.signature(), signature);
                     // only triggering a change when the signature has changed
                     // doesn't improve performance
                     if (signature.size() > oldSize) {
@@ -423,8 +427,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all entity declaration axioms
         // Adding all entity annotation axioms
         for (OWLEntity entity : sig) {
-            Set<OWLDeclarationAxiom> declarationAxioms = ontology
-                    .getDeclarationAxioms(entity);
+            List<OWLDeclarationAxiom> declarationAxioms = ontology
+                    .declarationAxioms(entity).collect(toList());
             enrichedModule.addAll(declarationAxioms);
             if (LOGGER.isInfoEnabled()) {
                 declarationAxioms.forEach(a -> LOGGER.info(
@@ -444,17 +448,19 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all different-individuals axioms
         for (OWLEntity entity : sig) {
             if (entity.isOWLNamedIndividual()) {
-                Set<OWLSameIndividualAxiom> sameIndividualAxioms = ontology
-                        .getSameIndividualAxioms(entity.asOWLNamedIndividual());
+                List<OWLSameIndividualAxiom> sameIndividualAxioms = ontology
+                        .sameIndividualAxioms(entity.asOWLNamedIndividual())
+                        .collect(toList());
                 enrichedModule.addAll(sameIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
                     sameIndividualAxioms.forEach(i -> LOGGER.info(
                             "  Added same individual axiom:   {}",
                             minusOntologyURI(i.toString())));
                 }
-                Set<OWLDifferentIndividualsAxiom> differentIndividualAxioms = ontology
-                        .getDifferentIndividualAxioms(entity
-                                .asOWLNamedIndividual());
+                List<OWLDifferentIndividualsAxiom> differentIndividualAxioms = ontology
+                        .differentIndividualAxioms(
+                                entity.asOWLNamedIndividual())
+                        .collect(toList());
                 enrichedModule.addAll(differentIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
                     differentIndividualAxioms.forEach(a -> LOGGER.info(
@@ -541,7 +547,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 } else {
                     nodes = reasoner.getSubClasses(ent, false);
                 }
-                superOrSubClasses.addAll(nodes.getFlattened());
+                superOrSubClasses.addAll(nodes.entities().collect(toList()));
             }
         } else if (superOrSubClassLevel > 0) {
             Queue<OWLClass> toBeSuClassedNow;
@@ -554,10 +560,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     Set<OWLClass> suClasses;
                     if (superVsSub) {
                         suClasses = reasoner.getSuperClasses(ce, true)
-                                .getFlattened();
+                                .entities().collect(toSet());
                     } else {
-                        suClasses = reasoner.getSubClasses(ce, true)
-                                .getFlattened();
+                        suClasses = reasoner.getSubClasses(ce, true).entities()
+                                .collect(toSet());
                     }
                     for (OWLClass suClass : suClasses) {
                         if (!classesInSig.contains(suClass)

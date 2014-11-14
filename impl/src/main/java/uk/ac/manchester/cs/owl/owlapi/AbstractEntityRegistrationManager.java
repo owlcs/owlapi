@@ -150,7 +150,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
-        axiom.getProperties().forEach(a -> a.accept(this));
+        axiom.properties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -170,13 +170,13 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
-        axiom.getProperties().forEach(a -> a.accept(this));
+        axiom.properties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
-        axiom.getProperties().forEach(a -> a.accept(this));
+        axiom.properties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -242,7 +242,7 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
-        axiom.getProperties().forEach(a -> a.accept(this));
+        axiom.properties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -315,7 +315,7 @@ public abstract class AbstractEntityRegistrationManager implements
     @Override
     public void visit(@Nonnull OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
-        axiom.getPropertyExpressions().forEach(a -> a.accept(this));
+        axiom.propertyExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -430,12 +430,12 @@ public abstract class AbstractEntityRegistrationManager implements
 
     @Override
     public void visit(@Nonnull OWLDataIntersectionOf node) {
-        node.getOperands().forEach(a -> a.accept(this));
+        node.operands().forEach(a -> a.accept(this));
     }
 
     @Override
     public void visit(@Nonnull OWLDataUnionOf node) {
-        node.getOperands().forEach(a -> a.accept(this));
+        node.operands().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -505,8 +505,8 @@ public abstract class AbstractEntityRegistrationManager implements
     // SWRL Object Visitor
     @Override
     public void visit(@Nonnull SWRLRule rule) {
-        rule.getBody().forEach(a -> a.accept(this));
-        rule.getHead().forEach(a -> a.accept(this));
+        rule.body().forEach(a -> a.accept(this));
+        rule.head().forEach(a -> a.accept(this));
         processAxiomAnnotations(rule);
     }
 

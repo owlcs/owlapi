@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
@@ -83,7 +84,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
             @Nonnull OWLDocumentFormat format)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         Set<OWLAxiom> annotationAxioms = new HashSet<>();
-        Set<OWLAxiom> axioms = ontology.getAxioms();
+        Set<OWLAxiom> axioms = ontology.axioms().collect(toSet());
         for (OWLAxiom ax : axioms) {
             if (ax.isAnnotationAxiom()) {
                 annotationAxioms.add(ax);
@@ -92,17 +93,19 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         OWLOntologyLoaderConfiguration withAnnosConfig = new OWLOntologyLoaderConfiguration();
         OWLOntology reloadedWithAnnoAxioms = reload(ontology, format,
                 withAnnosConfig);
-        Set<OWLAxiom> axioms2 = reloadedWithAnnoAxioms.getAxioms();
+        Set<OWLAxiom> axioms2 = reloadedWithAnnoAxioms.axioms()
+                .collect(toSet());
         assertEquals(axioms, axioms2);
         OWLOntologyLoaderConfiguration withoutAnnosConfig = new OWLOntologyLoaderConfiguration()
                 .setLoadAnnotationAxioms(false);
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format,
                 withoutAnnosConfig);
-        assertFalse(axioms.equals(reloadedWithoutAnnoAxioms.getAxioms()));
+        assertFalse(axioms.equals(reloadedWithoutAnnoAxioms.axioms().collect(
+                toSet())));
         Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<>(axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
-        assertEquals(axiomsMinusAnnotationAxioms,
-                reloadedWithoutAnnoAxioms.getAxioms());
+        assertEquals(axiomsMinusAnnotationAxioms, reloadedWithoutAnnoAxioms
+                .axioms().collect(toSet()));
     }
 
     private OWLOntology reload(@Nonnull OWLOntology ontology,

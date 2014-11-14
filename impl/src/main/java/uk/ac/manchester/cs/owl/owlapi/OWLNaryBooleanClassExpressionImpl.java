@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -63,8 +64,9 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
                 return ((OWLNaryBooleanClassExpressionImpl) obj).operands
                         .equals(operands);
             }
-            return ((OWLNaryBooleanClassExpression) obj).getOperands().equals(
-                    getOperands());
+            return equalStreams(
+                    ((OWLNaryBooleanClassExpression) obj).operands(),
+                    operands());
         }
         return false;
     }

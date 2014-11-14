@@ -141,7 +141,7 @@ public class OWL2DLProfile implements OWLProfile {
             violations.addAll(report.getViolations());
         }
         OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
-                ontology.getImportsClosure());
+                ontology.importsClosure());
         OWL2DLProfileObjectVisitor visitor = new OWL2DLProfileObjectVisitor(
                 walker);
         walker.walkStructure(visitor);
@@ -174,7 +174,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDataOneOf node) {
-            if (node.getValues().isEmpty()) {
+            if (node.values().count() < 1) {
                 profileViolations.add(new EmptyOneOfAxiom(getCurrentOntology(),
                         getCurrentAxiom()));
             }
@@ -182,7 +182,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDataUnionOf node) {
-            if (node.getOperands().size() < 2) {
+            if (node.operands().count() < 2) {
                 profileViolations.add(new InsufficientOperands(
                         getCurrentOntology(), getCurrentAxiom(), node));
             }
@@ -190,7 +190,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDataIntersectionOf node) {
-            if (node.getOperands().size() < 2) {
+            if (node.operands().count() < 2) {
                 profileViolations.add(new InsufficientOperands(
                         getCurrentOntology(), getCurrentAxiom(), node));
             }
@@ -198,7 +198,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
-            if (ce.getOperands().size() < 2) {
+            if (ce.operands().count() < 2) {
                 profileViolations.add(new InsufficientOperands(
                         getCurrentOntology(), getCurrentAxiom(), ce));
             }
@@ -206,7 +206,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLObjectOneOf ce) {
-            if (ce.getIndividuals().isEmpty()) {
+            if (ce.individuals().count() < 1) {
                 profileViolations.add(new EmptyOneOfAxiom(getCurrentOntology(),
                         getCurrentAxiom()));
             }
@@ -214,7 +214,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLObjectUnionOf ce) {
-            if (ce.getOperands().size() < 2) {
+            if (ce.operands().count() < 2) {
                 profileViolations.add(new InsufficientOperands(
                         getCurrentOntology(), getCurrentAxiom(), ce));
             }
@@ -238,7 +238,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
-            if (axiom.getClassExpressions().size() < 2) {
+            if (axiom.classExpressions().count() < 2) {
                 profileViolations.add(new InsufficientOperands(
                         getCurrentOntology(), axiom, axiom));
             }
@@ -246,7 +246,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            if (axiom.getProperties().size() < 2) {
+            if (axiom.properties().count() < 2) {
                 profileViolations.add(new InsufficientPropertyExpressions(
                         getCurrentOntology(), axiom));
             }
@@ -254,7 +254,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-            if (axiom.getProperties().size() < 2) {
+            if (axiom.properties().count() < 2) {
                 profileViolations.add(new InsufficientPropertyExpressions(
                         getCurrentOntology(), axiom));
             }
@@ -262,7 +262,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            if (axiom.getProperties().size() < 2) {
+            if (axiom.properties().count() < 2) {
                 profileViolations.add(new InsufficientPropertyExpressions(
                         getCurrentOntology(), axiom));
             }
@@ -270,7 +270,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLHasKeyAxiom axiom) {
-            if (axiom.getPropertyExpressions().size() < 1) {
+            if (axiom.propertyExpressions().count() < 1) {
                 profileViolations.add(new InsufficientPropertyExpressions(
                         getCurrentOntology(), axiom));
             }
@@ -278,7 +278,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
-            if (axiom.getIndividuals().size() < 2) {
+            if (axiom.individuals().count() < 2) {
                 profileViolations.add(new InsufficientIndividuals(
                         getCurrentOntology(), axiom));
             }
@@ -286,7 +286,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            if (axiom.getIndividuals().size() < 2) {
+            if (axiom.individuals().count() < 2) {
                 profileViolations.add(new InsufficientIndividuals(
                         getCurrentOntology(), axiom));
             }
@@ -586,12 +586,11 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            if (axiom.getProperties().size() < 2) {
+            if (axiom.properties().count() < 2) {
                 profileViolations.add(new InsufficientPropertyExpressions(
                         getCurrentOntology(), axiom));
             }
-            axiom.getProperties()
-                    .stream()
+            axiom.properties()
                     .filter(p -> getPropertyManager().isNonSimple(p))
                     .forEach(
                             p -> profileViolations

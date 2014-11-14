@@ -206,14 +206,14 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         addValueToHash(37);
-        visitStream(axiom.getProperties());
+        visitStream(axiom.properties());
         visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         addValueToHash(41);
-        visitStream(axiom.getProperties());
+        visitStream(axiom.properties());
         visitStream(axiom.annotations());
     }
 
@@ -244,14 +244,14 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         addValueToHash(59);
-        visitStream(axiom.getProperties());
+        visitStream(axiom.properties());
         visitStream(axiom.annotations());
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         addValueToHash(61);
-        visitStream(axiom.getProperties());
+        visitStream(axiom.properties());
         visitStream(axiom.annotations());
     }
 
@@ -354,7 +354,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         addValueToHash(131);
         axiom.getProperty().accept(this);
-        visitStream(axiom.getAnnotations());
+        visitStream(axiom.annotations());
     }
 
     @Override
@@ -563,8 +563,8 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(SWRLRule rule) {
         addValueToHash(631);
-        visitStream(rule.getBody());
-        visitStream(rule.getHead());
+        visitStream(rule.body());
+        visitStream(rule.head());
     }
 
     @Override
@@ -645,7 +645,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         addValueToHash(821);
         axiom.getClassExpression().accept(this);
-        visitStream(axiom.getPropertyExpressions());
+        visitStream(axiom.propertyExpressions());
     }
 
     @Override

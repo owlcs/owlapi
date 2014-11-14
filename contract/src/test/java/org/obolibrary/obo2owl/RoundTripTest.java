@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -74,10 +73,8 @@ public class RoundTripTest extends OboFormatTestBasics {
             if (untranslatableAxioms != null) {
                 untranslatedSize = untranslatableAxioms.size();
             }
-            Set<OWLAxiom> expectedAxioms = oo.getAxioms();
-            Set<OWLAxiom> foundAxioms = oo2.getAxioms();
-            int expectedSize = expectedAxioms.size();
-            int foundSize = foundAxioms.size();
+            long expectedSize = oo.axioms().count();
+            long foundSize = oo2.axioms().count();
             assertEquals("Expected same number of axioms", expectedSize,
                     foundSize + untranslatedSize);
             return false;

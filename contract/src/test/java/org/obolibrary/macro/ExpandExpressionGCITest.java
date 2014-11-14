@@ -1,5 +1,6 @@
 package org.obolibrary.macro;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 
 import java.util.Set;
@@ -10,7 +11,6 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -28,14 +28,13 @@ public class ExpandExpressionGCITest extends OboFormatTestBasics {
         assertTrue(axiomCount > 0);
         OWLClass cls = df.getOWLClass("http://purl.obolibrary.org/obo/",
                 "TEST_2");
-        Set<OWLDisjointClassesAxiom> dcas = gciOntology
-                .getDisjointClassesAxioms(cls);
-        assertEquals(1, dcas.size());
+        assertEquals(1, gciOntology.disjointClassesAxioms(cls).count());
         Set<OWLEquivalentClassesAxiom> equivalentClassesAxioms = gciOntology
                 .getAxioms(AxiomType.EQUIVALENT_CLASSES);
         assertEquals(2, equivalentClassesAxioms.size());
         for (OWLEquivalentClassesAxiom eca : equivalentClassesAxioms) {
-            Set<OWLClassExpression> ces = eca.getClassExpressions();
+            Set<OWLClassExpression> ces = eca.classExpressions().collect(
+                    toSet());
             OWLClass clst4 = df.getOWLClass("http://purl.obolibrary.org/obo/",
                     "TEST_4");
             OWLObjectPropertyExpression p = df.getOWLObjectProperty(

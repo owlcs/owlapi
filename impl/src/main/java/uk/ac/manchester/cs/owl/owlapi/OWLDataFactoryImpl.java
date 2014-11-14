@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 
@@ -69,8 +70,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         data.purge();
     }
 
-    private static void
-            checkAnnotations(@Nonnull Set<? extends OWLAnnotation> o) {
+    private static void checkAnnotations(
+            @Nonnull Collection<? extends OWLAnnotation> o) {
         checkIterableNotNull(o, "annotations cannot be null", true);
     }
 
@@ -984,14 +985,15 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             OWLAnnotationSubject subject, @Nonnull OWLAnnotation annotation) {
         checkNotNull(annotation, "annotation cannot be null");
         return getOWLAnnotationAssertionAxiom(annotation.getProperty(),
-                subject, annotation.getValue(), annotation.getAnnotations());
+                subject, annotation.getValue(), annotation.annotations()
+                        .collect(toList()));
     }
 
     @Nonnull
     @Override
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
             OWLAnnotationSubject subject, @Nonnull OWLAnnotation annotation,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotation, "annotation cannot be null");
         return getOWLAnnotationAssertionAxiom(annotation.getProperty(),
                 subject, annotation.getValue(), annotations);
@@ -1002,7 +1004,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
             OWLAnnotationProperty property, OWLAnnotationSubject subject,
             OWLAnnotationValue value,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(property, "property cannot be null");
         checkNotNull(value, "value cannot be null");

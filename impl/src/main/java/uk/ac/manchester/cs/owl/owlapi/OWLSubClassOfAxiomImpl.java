@@ -57,16 +57,9 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public OWLSubClassOfAxiom getAnnotatedAxiom(
-            @Nonnull Collection<OWLAnnotation> annotations) {
+            @Nonnull Stream<OWLAnnotation> anns) {
         return new OWLSubClassOfAxiomImpl(subClass, superClass,
-                mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLSubClassOfAxiom getAnnotatedAxiom(
-            @Nonnull Stream<OWLAnnotation> annotations) {
-        return new OWLSubClassOfAxiomImpl(subClass, superClass,
-                mergeAnnos(annotations));
+                mergeAnnos(anns));
     }
 
     @Override

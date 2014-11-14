@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -41,9 +42,7 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -231,11 +230,14 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     protected void render(Stream<? extends OWLObject> objects) {
-        objects.sorted().forEach((x) -> {
-            x.accept(this);
-            sb.append(' ');
-        });
-        sb.deleteCharAt(sb.length() - 1);
+        Iterator<? extends OWLObject> it = objects.sorted().iterator();
+        if (it.hasNext()) {
+            while (it.hasNext()) {
+                it.next().accept(this);
+                sb.append(' ');
+            }
+            sb.deleteCharAt(sb.length() - 1);
+        }
     }
 
     @Override
@@ -331,7 +333,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         sb.append("EquivalentObjectProperties(");
         writeAnnotations(axiom);
-        render(axiom.getProperties());
+        render(axiom.properties());
         sb.append(" )");
     }
 
@@ -359,7 +361,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         sb.append("DisjointDataProperties(");
         writeAnnotations(axiom);
-        render(axiom.getProperties());
+        render(axiom.properties());
         sb.append(" )");
     }
 
@@ -367,7 +369,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         sb.append("DisjointObjectProperties(");
         writeAnnotations(axiom);
-        render(axiom.getProperties());
+        render(axiom.properties());
         sb.append(" )");
     }
 
@@ -485,7 +487,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         sb.append("EquivalentDataProperties(");
         writeAnnotations(axiom);
-        render(axiom.getProperties());
+        render(axiom.properties());
         sb.append(" )");
     }
 
@@ -751,7 +753,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLDataOneOf node) {
         sb.append("DataOneOf(");
-        render(node.getValues());
+        render(node.values());
         sb.append(" )");
     }
 
@@ -828,37 +830,35 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         writeAnnotations(axiom);
         axiom.getClassExpression().accept(this);
         sb.append(" (");
-        for (OWLObjectPropertyExpression prop : axiom
-                .getObjectPropertyExpressions()) {
-            prop.accept(this);
+        axiom.objectPropertyExpressions().forEach(p -> {
+            p.accept(this);
             sb.append(' ');
-        }
+        });
         sb.append(") (");
-        for (OWLDataPropertyExpression prop : axiom
-                .getDataPropertyExpressions()) {
-            prop.accept(this);
+        axiom.dataPropertyExpressions().forEach(p -> {
+            p.accept(this);
             sb.append(' ');
-        }
+        });
         sb.append("))");
     }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
         sb.append("DataIntersectionOf(");
-        for (OWLDataRange rng : node.getOperands()) {
-            rng.accept(this);
+        node.operands().forEach(r -> {
+            r.accept(this);
             sb.append(' ');
-        }
+        });
         sb.append(')');
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
         sb.append("DataUnionOf(");
-        for (OWLDataRange rng : node.getOperands()) {
-            rng.accept(this);
+        node.operands().forEach(r -> {
+            r.accept(this);
             sb.append(' ');
-        }
+        });
         sb.append(')');
     }
 
@@ -910,11 +910,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLAnnotation node) {
         sb.append("Annotation(");
-        Set<OWLAnnotation> annos = node.getAnnotations();
-        for (OWLAnnotation anno : annos) {
-            anno.accept(this);
+        node.annotations().forEach(a -> {
+            a.accept(this);
             sb.append(' ');
-        }
+        });
         node.getProperty().accept(this);
         sb.append(' ');
         node.getValue().accept(this);
@@ -926,10 +925,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DLSafeRule(");
         writeAnnotations(rule);
         sb.append(" Body(");
-        render(rule.getBody());
+        render(rule.body());
         sb.append(')');
         sb.append(" Head(");
-        render(rule.getHead());
+        render(rule.head());
         sb.append(')');
         sb.append(" )");
     }

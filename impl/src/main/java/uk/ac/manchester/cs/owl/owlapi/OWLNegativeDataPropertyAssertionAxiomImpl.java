@@ -75,16 +75,9 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
 
     @Override
     public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(),
-                getProperty(), getObject(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(),
-                getProperty(), getObject(), mergeAnnos(annotations));
+                getProperty(), getObject(), mergeAnnos(anns));
     }
 
     @Override

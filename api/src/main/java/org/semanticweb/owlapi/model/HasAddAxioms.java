@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -36,6 +37,23 @@ public interface HasAddAxioms {
      *         place in order to add the axioms.
      */
     @Nonnull
+    default List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
+            @Nonnull Collection<? extends OWLAxiom> axioms) {
+        return addAxioms(ont, axioms.stream());
+    }
+
+    /**
+     * A convenience method that adds a set of axioms to an ontology. The
+     * appropriate AddAxiom change objects are automatically generated.
+     * 
+     * @param ont
+     *        The ontology to which the axioms should be added.
+     * @param axioms
+     *        The axioms to be added.
+     * @return A list of ontology changes that represent the changes which took
+     *         place in order to add the axioms.
+     */
+    @Nonnull
     List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Collection<? extends OWLAxiom> axioms);
+            @Nonnull Stream<? extends OWLAxiom> axioms);
 }

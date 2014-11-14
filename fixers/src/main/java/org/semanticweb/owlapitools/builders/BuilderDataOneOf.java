@@ -42,7 +42,7 @@ public class BuilderDataOneOf extends
      */
     public BuilderDataOneOf(@Nonnull OWLDataOneOf expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.getValues());
+        withItems(expected.values());
     }
 
     @Override

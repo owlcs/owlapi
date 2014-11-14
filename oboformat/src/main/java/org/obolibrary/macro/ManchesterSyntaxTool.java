@@ -1,7 +1,9 @@
 package org.obolibrary.macro;
 
+import static java.util.stream.Collectors.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -99,11 +101,11 @@ public class ManchesterSyntaxTool {
             @Nullable Collection<OWLOntology> auxiliaryOntologies) {
         OWLOntologyManager manager = inputOntology.getOWLOntologyManager();
         dataFactory = manager.getOWLDataFactory();
-        Set<OWLOntology> ontologies = new HashSet<>(
-                inputOntology.getImportsClosure());
+        Set<OWLOntology> ontologies = inputOntology.importsClosure().collect(
+                toSet());
         if (auxiliaryOntologies != null) {
-            auxiliaryOntologies.forEach(o -> ontologies.addAll(o
-                    .getImportsClosure()));
+            auxiliaryOntologies
+                    .forEach(o -> add(ontologies, o.importsClosure()));
         }
         ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
                 new BidirectionalShortFormProviderAdapter(manager, ontologies,
@@ -357,7 +359,7 @@ public class ManchesterSyntaxTool {
             for (OWLOntology o : ontologies) {
                 OWLClass c = o.getOWLOntologyManager().getOWLDataFactory()
                         .getOWLClass(iri);
-                if (!o.getDeclarationAxioms(c).isEmpty()) {
+                if (!o.declarationAxioms(c).collect(toList()).isEmpty()) {
                     return c;
                 }
                 if (o.getOWLOntologyManager().getOWLDataFactory()
@@ -381,7 +383,8 @@ public class ManchesterSyntaxTool {
             for (OWLOntology o : ontologies) {
                 OWLNamedIndividual c = o.getOWLOntologyManager()
                         .getOWLDataFactory().getOWLNamedIndividual(iri);
-                for (OWLDeclarationAxiom da : o.getDeclarationAxioms(c)) {
+                for (OWLDeclarationAxiom da : o.declarationAxioms(c).collect(
+                        toSet())) {
                     if (da.getEntity() instanceof OWLNamedIndividual) {
                         return (OWLNamedIndividual) da.getEntity();
                     }
@@ -403,7 +406,7 @@ public class ManchesterSyntaxTool {
             for (OWLOntology o : ontologies) {
                 OWLObjectProperty p = o.getOWLOntologyManager()
                         .getOWLDataFactory().getOWLObjectProperty(iri);
-                if (!o.getDeclarationAxioms(p).isEmpty()) {
+                if (!o.declarationAxioms(p).collect(toList()).isEmpty()) {
                     return p;
                 }
             }

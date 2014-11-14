@@ -43,7 +43,7 @@ public class BuilderDatatypeRestriction
             OWLDataFactory df) {
         this(df);
         withDatatype(expected.getDatatype()).withItems(
-                expected.getFacetRestrictions());
+                expected.facetRestrictions());
     }
 
     /**

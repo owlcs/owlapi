@@ -44,7 +44,8 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(ap.getIRI()));
-        assertTrue(ont.getAnnotationPropertiesInSignature().contains(ap));
+        assertTrue(ont.annotationPropertiesInSignature().anyMatch(
+                a -> a.equals(ap)));
     }
 
     @Test
@@ -58,8 +59,8 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
                 .getIRI()));
-        assertTrue(ont.getAnnotationPropertiesInSignature().contains(
-                anno.getProperty()));
+        assertTrue(ont.annotationPropertiesInSignature().anyMatch(
+                a -> a.equals(anno.getProperty())));
     }
 
     @Test
@@ -72,7 +73,7 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
                 new AddOntologyAnnotation(ont, anno));
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
                 .getIRI(), EXCLUDED));
-        assertTrue(ont.getAnnotationPropertiesInSignature(EXCLUDED).contains(
-                anno.getProperty()));
+        assertTrue(ont.annotationPropertiesInSignature(EXCLUDED).anyMatch(
+                a -> a.equals(anno.getProperty())));
     }
 }

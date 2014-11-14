@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
@@ -40,10 +39,11 @@ public class InferredSubObjectPropertyAxiomGenerator extends
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
-        for (OWLObjectPropertyExpression prop : reasoner
-                .getSuperObjectProperties(entity, true).getFlattened()) {
-            result.add(dataFactory.getOWLSubObjectPropertyOfAxiom(entity, prop));
-        }
+        reasoner.getSuperObjectProperties(entity, true)
+                .entities()
+                .forEach(
+                        p -> result.add(dataFactory
+                                .getOWLSubObjectPropertyOfAxiom(entity, p)));
     }
 
     @Override

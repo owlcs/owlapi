@@ -35,7 +35,7 @@ public class BuilderDisjointClasses
     public BuilderDisjointClasses(@Nonnull OWLDisjointClassesAxiom expected,
             OWLDataFactory df) {
         this(df);
-        withItems(expected.getClassExpressions()).withAnnotations(
+        withItems(expected.classExpressions()).withAnnotations(
                 expected.annotations());
     }
 

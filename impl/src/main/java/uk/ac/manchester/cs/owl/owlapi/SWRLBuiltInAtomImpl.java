@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -68,8 +69,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
     }
 
     @Override
-    public List<SWRLDArgument> getArguments() {
-        return new ArrayList<>(args);
+    public Stream<SWRLDArgument> arguments() {
+        return args.stream();
     }
 
     @Override

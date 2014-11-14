@@ -33,7 +33,7 @@ public class BuilderOneOf extends
      */
     public BuilderOneOf(@Nonnull OWLObjectOneOf expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.getIndividuals());
+        withItems(expected.individuals());
     }
 
     /**

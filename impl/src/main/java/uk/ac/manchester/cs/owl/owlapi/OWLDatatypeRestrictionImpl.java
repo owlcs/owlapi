@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -90,8 +91,8 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
             }
             OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
             return other.getDatatype().equals(datatype)
-                    && other.getFacetRestrictions().equals(
-                            getFacetRestrictions());
+                    && equalStreams(other.facetRestrictions(),
+                            facetRestrictions());
         }
         return false;
     }
@@ -103,7 +104,6 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
         if (diff != 0) {
             return diff;
         }
-            return compareStreams(facetRestrictions(),
-                    other.facetRestrictions());
+        return compareStreams(facetRestrictions(), other.facetRestrictions());
     }
 }

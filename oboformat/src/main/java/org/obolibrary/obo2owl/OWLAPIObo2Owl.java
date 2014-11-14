@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static java.util.stream.Collectors.toSet;
 import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
@@ -429,7 +430,7 @@ public class OWLAPIObo2Owl {
      */
     protected void postProcess(@Nonnull OWLOntology ontology) {
         IRI pIRI = null;
-        for (OWLAnnotation ann : ontology.getAnnotations()) {
+        for (OWLAnnotation ann : ontology.annotations().collect(toSet())) {
             if (Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation
                     .sameIRI(ann.getProperty())) {
                 OWLAnnotationValue v = ann.getValue();

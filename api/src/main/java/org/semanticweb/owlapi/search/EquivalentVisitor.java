@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.search;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -18,7 +17,7 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 
 @SuppressWarnings("unchecked")
 class EquivalentVisitor<C extends OWLObject> implements
-        OWLAxiomVisitorEx<Set<C>> {
+        OWLAxiomVisitorEx<Stream<C>> {
 
     private final boolean equiv;
 
@@ -27,78 +26,78 @@ class EquivalentVisitor<C extends OWLObject> implements
     }
 
     @Override
-    public Set<C> doDefault(Object o) {
-        return Collections.<C> emptySet();
+    public Stream<C> doDefault(Object o) {
+        return Stream.empty();
     }
 
     @Nonnull
     @Override
-    public Set<C> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
+    public Stream<C> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         if (equiv) {
-            return (Set<C>) axiom.getClassExpressions();
+            return (Stream<C>) axiom.classExpressions();
         }
         return doDefault(axiom);
     }
 
     @Nonnull
     @Override
-    public Set<C> visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
+    public Stream<C> visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         if (equiv) {
-            return (Set<C>) axiom.getProperties();
+            return (Stream<C>) axiom.properties();
         }
         return doDefault(axiom);
     }
 
     @Nonnull
     @Override
-    public Set<C> visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
+    public Stream<C> visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         if (equiv) {
-            return (Set<C>) axiom.getProperties();
+            return (Stream<C>) axiom.properties();
         }
         return doDefault(axiom);
     }
 
     @Nonnull
     @Override
-    public Set<C> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
+    public Stream<C> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         if (!equiv) {
-            return (Set<C>) axiom.getIndividuals();
+            return (Stream<C>) axiom.individuals();
         }
         return doDefault(axiom);
     }
 
     @Nonnull
     @Override
-    public Set<C> visit(@Nonnull OWLSameIndividualAxiom axiom) {
+    public Stream<C> visit(@Nonnull OWLSameIndividualAxiom axiom) {
         if (equiv) {
-            return (Set<C>) axiom.getIndividuals();
+            return (Stream<C>) axiom.individuals();
         }
         return doDefault(axiom);
     }
 
     @Nonnull
     @Override
-    public Set<C> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
+    public Stream<C> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         if (!equiv) {
-            return (Set<C>) axiom.getClassExpressions();
+            return (Stream<C>) axiom.classExpressions();
         }
         return doDefault(axiom);
     }
 
     @Nonnull
     @Override
-    public Set<C> visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
+    public Stream<C> visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         if (!equiv) {
-            return (Set<C>) axiom.getProperties();
+            return (Stream<C>) axiom.properties();
         }
         return doDefault(axiom);
     }
 
     @Nonnull
     @Override
-    public Set<C> visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
+    public Stream<C> visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         if (!equiv) {
-            return (Set<C>) axiom.getProperties();
+            return (Stream<C>) axiom.properties();
         }
         return doDefault(axiom);
     }

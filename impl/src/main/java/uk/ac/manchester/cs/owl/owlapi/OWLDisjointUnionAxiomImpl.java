@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -74,22 +75,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(),
-                getClassExpressions(), NO_ANNOTATIONS);
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions,
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDisjointUnionAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(),
-                getClassExpressions(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLDisjointUnionAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(),
-                getClassExpressions(), mergeAnnos(annotations));
+    public OWLDisjointUnionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(), classExpressions,
+                mergeAnnos(anns));
     }
 
     @Override
@@ -110,9 +103,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
                         .equals(((OWLDisjointUnionAxiomImpl) obj).classExpressions);
             }
             return ((OWLDisjointUnionAxiom) obj).getOWLClass().equals(owlClass)
-                    && getClassExpressions()
-                            .equals(((OWLDisjointUnionAxiom) obj)
-                                    .getClassExpressions());
+                    && equalStreams(classExpressions(),
+                            ((OWLDisjointUnionAxiom) obj).classExpressions());
         }
         return false;
     }
@@ -125,14 +117,13 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
         return new OWLEquivalentClassesAxiomImpl(new HashSet<>(Arrays.asList(
-                owlClass, new OWLObjectUnionOfImpl(getClassExpressions()))),
+                owlClass, new OWLObjectUnionOfImpl(classExpressions))),
                 NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
-                NO_ANNOTATIONS);
+        return new OWLDisjointClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
     }
 
     @Override

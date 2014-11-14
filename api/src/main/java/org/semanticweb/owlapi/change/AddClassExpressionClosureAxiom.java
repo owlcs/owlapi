@@ -86,7 +86,7 @@ public class AddClassExpressionClosureAxiom extends
         // the target property and all of the fillers for hasValue restrictions
         // as nominals
         FillerCollector collector = new FillerCollector(property);
-        ontologies.forEach(o -> o.getSubClassAxiomsForSubClass(cls).forEach(
+        ontologies.forEach(o -> o.subClassAxiomsForSubClass(cls).forEach(
                 ax -> ax.getSuperClass().accept(collector)));
         Set<OWLClassExpression> fillers = collector.getFillers();
         if (fillers.isEmpty()) {

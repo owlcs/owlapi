@@ -15,6 +15,7 @@ package org.semanticweb.owlapitools.builders;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -41,8 +42,8 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
      */
     public BuilderSWRLRule(@Nonnull SWRLRule expected, OWLDataFactory df) {
         this(df);
-        withBody(expected.getBody()).withHead(expected.getHead())
-                .withAnnotations(expected.annotations());
+        withBody(expected.body()).withHead(expected.head()).withAnnotations(
+                expected.annotations());
     }
 
     /**
@@ -89,12 +90,34 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
     /**
      * @param arg
+     *        body atom
+     * @return builder
+     */
+    @Nonnull
+    public BuilderSWRLRule withBody(@Nonnull Stream<SWRLAtom> arg) {
+        arg.forEach(x -> withBody(x));
+        return this;
+    }
+
+    /**
+     * @param arg
      *        head atom
      * @return builder
      */
     @Nonnull
     public BuilderSWRLRule withHead(@Nonnull Collection<SWRLAtom> arg) {
         head.addAll(arg);
+        return this;
+    }
+
+    /**
+     * @param arg
+     *        head atom
+     * @return builder
+     */
+    @Nonnull
+    public BuilderSWRLRule withHead(@Nonnull Stream<SWRLAtom> arg) {
+        arg.forEach(x -> withHead(x));
         return this;
     }
 

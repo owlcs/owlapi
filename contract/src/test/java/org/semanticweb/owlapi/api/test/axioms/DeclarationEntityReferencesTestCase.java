@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -49,7 +50,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLAxiom ax = Declaration(cls);
         OWLOntology ont = m.createOntology(NEXT_DOCUMENT_IRI);
         m.applyChange(new AddAxiom(ont, ax));
-        assertTrue(ont.getClassesInSignature().contains(cls));
+        assertTrue(contains(ont.classesInSignature(), cls));
     }
 
     @Test
@@ -59,7 +60,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = m.createOntology(NEXT_DOCUMENT_IRI);
         m.applyChange(new AddAxiom(ont, ax));
-        assertTrue(ont.getObjectPropertiesInSignature().contains(prop));
+        assertTrue(contains(ont.objectPropertiesInSignature(), prop));
     }
 
     @Test
@@ -69,7 +70,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = m.createOntology(NEXT_DOCUMENT_IRI);
         m.applyChange(new AddAxiom(ont, ax));
-        assertTrue(ont.getDataPropertiesInSignature().contains(prop));
+        assertTrue(contains(ont.dataPropertiesInSignature(), prop));
     }
 
     @Test
@@ -79,6 +80,6 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLAxiom ax = Declaration(ind);
         OWLOntology ont = m.createOntology(NEXT_DOCUMENT_IRI);
         m.applyChange(new AddAxiom(ont, ax));
-        assertTrue(ont.getIndividualsInSignature().contains(ind));
+        assertTrue(contains(ont.individualsInSignature(), ind));
     }
 }

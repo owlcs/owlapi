@@ -1,9 +1,10 @@
 package org.obolibrary.obo2owl;
 
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
@@ -37,8 +38,8 @@ public class RoundTripCardinalityTest extends RoundTripTest {
         // Relations
         boolean foundRel1 = false;
         boolean foundRel2 = false;
-        Set<OWLSubClassOfAxiom> axioms = owlOntology
-                .getSubClassAxiomsForSubClass(c);
+        List<OWLSubClassOfAxiom> axioms = owlOntology
+                .subClassAxiomsForSubClass(c).collect(toList());
         assertEquals(3, axioms.size());
         for (OWLSubClassOfAxiom axiom : axioms) {
             OWLClassExpression superClass = axiom.getSuperClass();

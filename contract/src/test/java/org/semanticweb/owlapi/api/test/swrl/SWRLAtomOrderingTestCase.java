@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.api.test.swrl;
 
+import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -65,7 +66,7 @@ public class SWRLAtomOrderingTestCase {
 
     @Test
     public void shouldPreserveBodyOrdering() {
-        List<SWRLAtom> ruleImplBody = new ArrayList<>(rule.getBody());
+        List<SWRLAtom> ruleImplBody = rule.body().collect(toList());
         List<SWRLAtom> specifiedBody = new ArrayList<>(body);
         assertThat(ruleImplBody, is(equalTo(specifiedBody)));
     }

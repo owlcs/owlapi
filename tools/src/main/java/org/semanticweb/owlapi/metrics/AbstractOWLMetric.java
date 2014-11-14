@@ -16,7 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -94,11 +93,11 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements
      * @return ontologies as a set
      */
     @Nonnull
-    public Set<OWLOntology> getOntologies() {
+    public Stream<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
-            return ontology.getImportsClosure();
+            return ontology.importsClosure();
         } else {
-            return CollectionFactory.createSet(ontology);
+            return Stream.of(ontology);
         }
     }
 

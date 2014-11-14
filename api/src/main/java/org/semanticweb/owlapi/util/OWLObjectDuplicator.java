@@ -17,10 +17,10 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -104,7 +104,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -274,35 +273,35 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLDifferentIndividualsAxiom visit(
             @Nonnull OWLDifferentIndividualsAxiom axiom) {
-        return df.getOWLDifferentIndividualsAxiom(set(axiom.getIndividuals()),
+        return df.getOWLDifferentIndividualsAxiom(set(axiom.individuals()),
                 anns(axiom));
     }
 
     @Override
     public OWLDisjointClassesAxiom
             visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        return df.getOWLDisjointClassesAxiom(set(axiom.getClassExpressions()),
+        return df.getOWLDisjointClassesAxiom(set(axiom.classExpressions()),
                 anns(axiom));
     }
 
     @Override
     public OWLDisjointDataPropertiesAxiom visit(
             @Nonnull OWLDisjointDataPropertiesAxiom axiom) {
-        return df.getOWLDisjointDataPropertiesAxiom(set(axiom.getProperties()),
+        return df.getOWLDisjointDataPropertiesAxiom(set(axiom.properties()),
                 anns(axiom));
     }
 
     @Override
     public OWLDisjointObjectPropertiesAxiom visit(
             @Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
-        return df.getOWLDisjointObjectPropertiesAxiom(
-                set(axiom.getProperties()), anns(axiom));
+        return df.getOWLDisjointObjectPropertiesAxiom(set(axiom.properties()),
+                anns(axiom));
     }
 
     @Override
     public OWLDisjointUnionAxiom visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         return df.getOWLDisjointUnionAxiom(get(axiom.getOWLClass()),
-                set(axiom.getClassExpressions()), anns(axiom));
+                set(axiom.classExpressions()), anns(axiom));
     }
 
     @Override
@@ -315,22 +314,22 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLEquivalentClassesAxiom visit(
             @Nonnull OWLEquivalentClassesAxiom axiom) {
-        return df.getOWLEquivalentClassesAxiom(
-                set(axiom.getClassExpressions()), anns(axiom));
+        return df.getOWLEquivalentClassesAxiom(set(axiom.classExpressions()),
+                anns(axiom));
     }
 
     @Override
     public OWLEquivalentDataPropertiesAxiom visit(
             @Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
-        return df.getOWLEquivalentDataPropertiesAxiom(
-                set(axiom.getProperties()), anns(axiom));
+        return df.getOWLEquivalentDataPropertiesAxiom(set(axiom.properties()),
+                anns(axiom));
     }
 
     @Override
     public OWLEquivalentObjectPropertiesAxiom visit(
             @Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         return df.getOWLEquivalentObjectPropertiesAxiom(
-                set(axiom.getProperties()), anns(axiom));
+                set(axiom.properties()), anns(axiom));
     }
 
     @Override
@@ -431,7 +430,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     @Override
     public OWLSameIndividualAxiom visit(@Nonnull OWLSameIndividualAxiom axiom) {
-        return df.getOWLSameIndividualAxiom(set(axiom.getIndividuals()),
+        return df.getOWLSameIndividualAxiom(set(axiom.individuals()),
                 anns(axiom));
     }
 
@@ -516,7 +515,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     @Override
     public OWLObjectIntersectionOf visit(@Nonnull OWLObjectIntersectionOf ce) {
-        return df.getOWLObjectIntersectionOf(set(ce.getOperands()));
+        return df.getOWLObjectIntersectionOf(set(ce.operands()));
     }
 
     @Override
@@ -534,7 +533,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     @Override
     public OWLObjectOneOf visit(@Nonnull OWLObjectOneOf ce) {
-        return df.getOWLObjectOneOf(set(ce.getIndividuals()));
+        return df.getOWLObjectOneOf(set(ce.individuals()));
     }
 
     @Override
@@ -550,7 +549,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     @Override
     public OWLObjectUnionOf visit(@Nonnull OWLObjectUnionOf ce) {
-        return df.getOWLObjectUnionOf(set(ce.getOperands()));
+        return df.getOWLObjectUnionOf(set(ce.operands()));
     }
 
     @Override
@@ -566,7 +565,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     @Override
     public OWLDataOneOf visit(@Nonnull OWLDataOneOf node) {
-        return df.getOWLDataOneOf(set(node.getValues()));
+        return df.getOWLDataOneOf(set(node.values()));
     }
 
     @Override
@@ -577,7 +576,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLDatatypeRestriction visit(@Nonnull OWLDatatypeRestriction node) {
         return df.getOWLDatatypeRestriction(get(node.getDatatype()),
-                set(node.getFacetRestrictions()));
+                set(node.facetRestrictions()));
     }
 
     @Override
@@ -623,11 +622,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     @Override
     public SWRLRule visit(@Nonnull SWRLRule rule) {
-        Set<SWRLAtom> antecedents = new HashSet<>();
-        Set<SWRLAtom> consequents = new HashSet<>();
-        rule.getBody().forEach(a -> antecedents.add(get(a)));
-        rule.getHead().forEach(a -> consequents.add(get(a)));
-        return df.getSWRLRule(antecedents, consequents);
+        return df.getSWRLRule(set(rule.body()), set(rule.head()));
     }
 
     @Override
@@ -692,17 +687,17 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLHasKeyAxiom visit(@Nonnull OWLHasKeyAxiom axiom) {
         return df.getOWLHasKeyAxiom(get(axiom.getClassExpression()),
-                set(axiom.getPropertyExpressions()), anns(axiom));
+                set(axiom.propertyExpressions()), anns(axiom));
     }
 
     @Override
     public OWLDataIntersectionOf visit(@Nonnull OWLDataIntersectionOf node) {
-        return df.getOWLDataIntersectionOf(set(node.getOperands()));
+        return df.getOWLDataIntersectionOf(set(node.operands()));
     }
 
     @Override
     public OWLDataUnionOf visit(@Nonnull OWLDataUnionOf node) {
-        return df.getOWLDataUnionOf(set(node.getOperands()));
+        return df.getOWLDataUnionOf(set(node.operands()));
     }
 
     @Override
@@ -769,11 +764,10 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
      *        The set of object to be duplicated
      * @return The set of duplicated objects
      */
+    @SuppressWarnings("unchecked")
     @Nonnull
-    private <O extends OWLObject> Set<O> set(@Nonnull Set<O> objects) {
-        Set<O> dup = new HashSet<>();
-        objects.forEach(o -> dup.add(get(o)));
-        return dup;
+    private <O extends OWLObject> Set<O> set(@Nonnull Stream<O> objects) {
+        return objects.map(o -> (O) get(o)).collect(toSet());
     }
 
     @SuppressWarnings("unchecked")

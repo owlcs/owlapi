@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.dlsyntax.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -94,23 +93,20 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     }
 
     @Override
-    protected void beginWritingAxiom(OWLAxiom axiom, PrintWriter writer) {
-        checkNotNull(axiom, "axiom cannot be null");
+    protected void beginWritingAxiom(PrintWriter writer) {
         checkNotNull(writer, "writer cannot be null").println(
                 "<div class=\"axiombox\"> ");
     }
 
     @Override
-    protected void endWritingAxiom(OWLAxiom axiom, PrintWriter writer) {
-        checkNotNull(axiom, "axiom cannot be null");
+    protected void endWritingAxiom(PrintWriter writer) {
         checkNotNull(writer, "writer cannot be null").println(" </div>");
     }
 
     @Override
     protected void beginWritingAxioms(@Nonnull OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
+            @Nonnull PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
-        checkNotNull(axioms, "axioms cannot be null");
         checkNotNull(writer, "writer cannot be null").print("<h2><a name=\"");
         writer.print(sfp.getShortForm(subject));
         writer.print("\">");
@@ -119,39 +115,28 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     }
 
     @Override
-    protected void endWritingAxioms(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
+    protected void endWritingAxioms(@Nonnull PrintWriter writer) {
         writer.println("</div>");
     }
 
     @Override
-    protected void beginWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
-            PrintWriter writer) {
-        checkNotNull(writer, "writer cannot be null").println("<div>");
+    protected void beginWritingGeneralAxioms(PrintWriter writer) {
+        writer.println("<div>");
     }
 
     @Override
-    protected void endWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
-            PrintWriter writer) {
-        checkNotNull(axioms, "axioms cannot be null");
-        checkNotNull(writer, "writer cannot be null").println("</div>");
+    protected void endWritingGeneralAxioms(PrintWriter writer) {
+        writer.println("</div>");
     }
 
     @Override
-    protected void beginWritingUsage(OWLEntity subject,
-            @Nonnull Set<? extends OWLAxiom> axioms, PrintWriter writer) {
-        checkNotNull(subject, "subject cannot be null");
-        checkNotNull(axioms, "axioms cannot be null");
-        checkNotNull(writer, "writer cannot be null").println(
-                "<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages ("
-                        + axioms.size() + ")</h3>");
+    protected void beginWritingUsage(int size, PrintWriter writer) {
+        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages ("
+                + size + ")</h3>");
     }
 
     @Override
-    protected void endWritingUsage(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
-        checkNotNull(subject, "subject cannot be null");
-        checkNotNull(axioms, "axioms cannot be null");
-        checkNotNull(writer, "writer cannot be null").println("</div>");
+    protected void endWritingUsage(PrintWriter writer) {
+        writer.println("</div>");
     }
 }

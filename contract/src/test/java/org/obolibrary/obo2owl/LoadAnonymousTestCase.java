@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
@@ -221,6 +222,6 @@ public class LoadAnonymousTestCase extends TestBase {
                                 Literal("A unit which is a standard measure of the distance between two points.",
                                         XSD_STRING),
                                 singleton(Annotation(hasDbXref, literal)))));
-        assertEquals(expected, ontology.getAxioms());
+        assertEquals(expected, ontology.axioms().collect(toSet()));
     }
 }

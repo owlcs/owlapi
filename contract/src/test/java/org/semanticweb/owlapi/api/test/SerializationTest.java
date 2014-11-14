@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
@@ -265,11 +266,12 @@ public class SerializationTest {
         ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
         ObjectInputStream inStream = new ObjectInputStream(in);
         OWLOntologyManager copy = (OWLOntologyManager) inStream.readObject();
-        for (OWLOntology onto : copy.getOntologies()) {
-            OWLOntology original = m.getOntology(onto.getOntologyID()
-                    .getOntologyIRI().get());
-            assertEquals("Troubles with ontology " + onto.getOntologyID(),
-                    original.getAxioms(), onto.getAxioms());
-        }
+        copy.ontologies().forEach(
+                ont -> assertEquals(
+                        "Troubles with ontology " + ont.getOntologyID(),
+                        m.getOntology(
+                                ont.getOntologyID().getOntologyIRI().get())
+                                .axioms().collect(toSet()), ont.axioms()
+                                .collect(toSet())));
     }
 }

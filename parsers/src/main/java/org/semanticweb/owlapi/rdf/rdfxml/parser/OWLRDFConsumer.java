@@ -1379,14 +1379,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             // We have multiple to choose from
             // Choose one that isn't the object of an annotation assertion
             Set<IRI> candidateIRIs = createSet(ontologyIRIs);
-            for (OWLAnnotation anno : ontology.getAnnotations()) {
-                if (anno.getValue() instanceof IRI) {
-                    IRI iri = (IRI) anno.getValue();
-                    if (ontologyIRIs.contains(iri)) {
-                        candidateIRIs.remove(iri);
-                    }
-                }
-            }
+            ontology.annotations().forEach(
+                    a -> a.getValue().asIRI().ifPresent(iri -> {
+                        if (ontologyIRIs.contains(iri)) {
+                            candidateIRIs.remove(iri);
+                        }
+                    }));
             // Choose the first one parsed
             if (candidateIRIs.contains(firstOntologyIRI)) {
                 ontologyIRIToSet = Optional.of(firstOntologyIRI);

@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
@@ -17,7 +18,6 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -92,8 +92,8 @@ public class GuessRDFSPropertyTypeTestCase {
             @Nonnull String expectedDomain, @Nonnull String expectedRange,
             @Nonnull String expectedSuperProperty) {
         IRI p11IRI = prefixOWLOntologyFormat.getIRI(propertyName);
-        Set<OWLEntity> hadParticipant = cidocOntology
-                .getEntitiesInSignature(p11IRI);
+        Set<OWLEntity> hadParticipant = cidocOntology.entitiesInSignature(
+                p11IRI).collect(toSet());
         assertEquals("should have found " + propertyName, 1,
                 hadParticipant.size());
         OWLEntity entity = hadParticipant.iterator().next();
@@ -181,9 +181,9 @@ public class GuessRDFSPropertyTypeTestCase {
     @Test
     public void testObjectPropertyAndDataPropertySetsNonTriviallyDisjoint() {
         Set<OWLObjectProperty> objectProperties = cidocOntology
-                .getObjectPropertiesInSignature();
+                .objectPropertiesInSignature().collect(toSet());
         Set<OWLDataProperty> dataProperties = cidocOntology
-                .getDataPropertiesInSignature();
+                .dataPropertiesInSignature().collect(toSet());
         assertFalse("should have some object Properties",
                 objectProperties.isEmpty());
         assertFalse("should have some data Properties",
@@ -194,9 +194,7 @@ public class GuessRDFSPropertyTypeTestCase {
 
     @Test
     public void testAnnotationPropertyCount() {
-        Set<OWLAnnotationProperty> annotationProperties = cidocOntology
-                .getAnnotationPropertiesInSignature(INCLUDED);
         assertEquals("should only have 2 rdfs annotation properties", 2,
-                annotationProperties.size());
+                cidocOntology.annotationPropertiesInSignature(INCLUDED).count());
     }
 }

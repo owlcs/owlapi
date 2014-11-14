@@ -67,16 +67,9 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
 
     @Override
     public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(),
-                getDomain(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(),
-                getDomain(), mergeAnnos(annotations));
+                getDomain(), mergeAnnos(anns));
     }
 
     @Override

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
+import static java.util.stream.Collectors.*;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
@@ -51,10 +52,10 @@ public abstract class AbstractRendererAndParser extends TestBase {
             m.applyChange(new AddAxiom(ontA, ax));
         }
         OWLOntology ontB = roundTrip(ontA);
-        Set<OWLLogicalAxiom> aMinusB = ontA.getLogicalAxioms();
-        aMinusB.removeAll(ontB.getAxioms());
-        Set<OWLLogicalAxiom> bMinusA = ontB.getLogicalAxioms();
-        bMinusA.removeAll(ontA.getAxioms());
+        Set<OWLLogicalAxiom> aMinusB = ontA.logicalAxioms().collect(toSet());
+        aMinusB.removeAll(ontB.axioms().collect(toList()));
+        Set<OWLLogicalAxiom> bMinusA = ontB.logicalAxioms().collect(toSet());
+        bMinusA.removeAll(ontA.axioms().collect(toList()));
         StringBuilder msg = new StringBuilder();
         if (aMinusB.isEmpty() && bMinusA.isEmpty()) {
             msg.append("Ontology save/load roundtrip OK.\n");

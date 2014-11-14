@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -142,11 +143,11 @@ public class JustificationMap {
     private void buildChildren(@Nonnull OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
         Set<OWLAxiom> result = new HashSet<>();
-        for (OWLEntity ent : seed.getSignature()) {
-            Set<OWLAxiom> axs = getAxiomsByLHS(ent);
+        seed.signature().forEach(e -> {
+            Set<OWLAxiom> axs = getAxiomsByLHS(e);
             result.addAll(axs);
             usedAxioms.addAll(axs);
-        }
+        });
         rootAxioms.addAll(result);
         buildChildren(result);
     }
@@ -258,8 +259,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            rhs.addAll(axiom.getClassExpressionsAsList());
-            lhs.addAll(axiom.getClassExpressionsAsList());
+            add(axiom.classExpressions(), rhs);
+            add(axiom.classExpressions(), lhs);
         }
 
         @Override
@@ -276,8 +277,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            rhs.addAll(axiom.getProperties());
-            lhs.addAll(axiom.getProperties());
+            add(axiom.properties(), rhs);
+            add(axiom.properties(), lhs);
         }
 
         @Override
@@ -289,20 +290,20 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            rhs.addAll(axiom.getIndividuals());
-            lhs.addAll(axiom.getIndividuals());
+            add(axiom.individuals(), rhs);
+            add(axiom.individuals(), lhs);
         }
 
         @Override
         public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-            rhs.addAll(axiom.getProperties());
-            lhs.addAll(axiom.getProperties());
+            add(axiom.properties(), rhs);
+            add(axiom.properties(), lhs);
         }
 
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            rhs.addAll(axiom.getProperties());
-            lhs.addAll(axiom.getProperties());
+            add(axiom.properties(), rhs);
+            add(axiom.properties(), lhs);
         }
 
         @Override
@@ -331,10 +332,10 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
-            rhs.addAll(axiom.getClassExpressions());
+            add(axiom.classExpressions(), rhs);
             rhs.add(axiom.getOWLClass());
             lhs.add(axiom.getOWLClass());
-            lhs.addAll(axiom.getClassExpressions());
+            add(axiom.classExpressions(), lhs);
         }
 
         @Override
@@ -355,8 +356,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            rhs.addAll(axiom.getProperties());
-            lhs.addAll(axiom.getProperties());
+            add(axiom.properties(), rhs);
+            add(axiom.properties(), lhs);
         }
 
         @Override
@@ -367,8 +368,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            rhs.addAll(axiom.getClassExpressionsAsList());
-            lhs.addAll(axiom.getClassExpressionsAsList());
+            add(axiom.classExpressions(), rhs);
+            add(axiom.classExpressions(), lhs);
         }
 
         @Override
@@ -399,8 +400,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
-            rhs.addAll(axiom.getIndividuals());
-            lhs.addAll(axiom.getIndividuals());
+            add(axiom.individuals(), rhs);
+            add(axiom.individuals(), lhs);
         }
 
         @Override
@@ -411,8 +412,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            rhs.addAll(axiom.getProperties());
-            lhs.addAll(axiom.getProperties());
+            add(axiom.properties(), rhs);
+            add(axiom.properties(), lhs);
         }
 
         @Override

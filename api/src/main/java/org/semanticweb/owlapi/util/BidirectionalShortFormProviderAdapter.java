@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,7 +43,7 @@ public class BidirectionalShortFormProviderAdapter extends
 
     @Nonnull
     private final ShortFormProvider shortFormProvider;
-    protected Set<OWLOntology> ontologies;
+    protected Collection<OWLOntology> ontologies;
     private OWLOntologyManager man;
     @Nonnull
     private final OWLOntologyChangeListener changeListener = changes -> handleChanges(changes);
@@ -70,12 +71,11 @@ public class BidirectionalShortFormProviderAdapter extends
      *        forms of the referenced entities.
      */
     public BidirectionalShortFormProviderAdapter(
-            @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull Collection<OWLOntology> ontologies,
             @Nonnull ShortFormProvider shortFormProvider) {
         this.shortFormProvider = checkNotNull(shortFormProvider,
                 "shortFormProvider cannot be null");
-        this.ontologies = new HashSet<>(checkNotNull(ontologies,
-                "ontologies cannot be null"));
+        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         rebuild(new ReferencedEntitySetProvider(ontologies));
     }
 
@@ -100,7 +100,7 @@ public class BidirectionalShortFormProviderAdapter extends
      */
     public BidirectionalShortFormProviderAdapter(
             @Nonnull OWLOntologyManager man,
-            @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull Collection<OWLOntology> ontologies,
             @Nonnull ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
         this.man = checkNotNull(man, "man cannot be null");
@@ -120,9 +120,6 @@ public class BidirectionalShortFormProviderAdapter extends
     }
 
     void handleChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
-        if (ontologies == null) {
-            return;
-        }
         Set<OWLEntity> processed = new HashSet<>();
         for (OWLOntologyChange chg : changes) {
             if (ontologies.contains(chg.getOntology())) {

@@ -25,11 +25,9 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.violations.LexicalNotInLexicalSpace;
 import org.semanticweb.owlapi.profiles.violations.OntologyIRINotAbsolute;
 import org.semanticweb.owlapi.profiles.violations.OntologyVersionIRINotAbsolute;
@@ -74,9 +72,8 @@ public class OWL2Profile implements OWLProfile {
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
-                ontology.getImportsClosure());
-        OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker,
-                ontology.getOWLOntologyManager());
+                ontology.importsClosure());
+        OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker);
         walker.walkStructure(visitor);
         Set<OWLProfileViolation> pv = visitor.getProfileViolations();
         return new OWLProfileReport(this, pv);
@@ -86,14 +83,10 @@ public class OWL2Profile implements OWLProfile {
             OWLOntologyWalkerVisitor {
 
         @Nonnull
-        private final OWLOntologyManager man;
-        @Nonnull
         private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
-        OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker,
-                @Nonnull OWLOntologyManager man) {
+        OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker) {
             super(walker);
-            this.man = man;
         }
 
         public Set<OWLProfileViolation> getProfileViolations() {
@@ -146,24 +139,27 @@ public class OWL2Profile implements OWLProfile {
             // The datatype should not be defined with a datatype definition
             // axiom
             OWLDatatype datatype = node.getDatatype();
-            for (OWLOntology ont : man.getImportsClosure(getCurrentOntology())) {
-                ont.axioms(AxiomType.DATATYPE_DEFINITION)
-                        .filter(ax -> datatype.equals(ax.getDatatype()))
-                        .forEach(
-                                ax -> profileViolations
-                                        .add(new UseOfDefinedDatatypeInDatatypeRestriction(
-                                                getCurrentOntology(),
-                                                getCurrentAxiom(), node)));
-            }
+            getCurrentOntology()
+                    .importsClosure()
+                    .flatMap(o -> o.axioms(AxiomType.DATATYPE_DEFINITION))
+                    .filter(ax -> datatype.equals(ax.getDatatype()))
+                    .forEach(
+                            ax -> profileViolations
+                                    .add(new UseOfDefinedDatatypeInDatatypeRestriction(
+                                            getCurrentOntology(),
+                                            getCurrentAxiom(), node)));
             // All facets must be allowed for the restricted datatype
-            for (OWLFacetRestriction r : node.getFacetRestrictions()) {
-                OWL2Datatype dt = datatype.getBuiltInDatatype();
-                if (!dt.getFacets().contains(r.getFacet())) {
-                    profileViolations.add(new UseOfIllegalFacetRestriction(
-                            getCurrentOntology(), getCurrentAxiom(), node, r
-                                    .getFacet()));
-                }
-            }
+            node.facetRestrictions().forEach(
+                    r -> {
+                        OWL2Datatype dt = datatype.getBuiltInDatatype();
+                        if (!dt.getFacets().contains(r.getFacet())) {
+                            profileViolations
+                                    .add(new UseOfIllegalFacetRestriction(
+                                            getCurrentOntology(),
+                                            getCurrentAxiom(), node, r
+                                                    .getFacet()));
+                        }
+                    });
         }
 
         @Override

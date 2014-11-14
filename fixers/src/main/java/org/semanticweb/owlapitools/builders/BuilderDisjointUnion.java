@@ -42,9 +42,9 @@ public class BuilderDisjointUnion
     public BuilderDisjointUnion(@Nonnull OWLDisjointUnionAxiom expected,
             OWLDataFactory df) {
         this(df);
-        withClass(expected.getOWLClass()).withItems(
-                expected.getClassExpressions()).withAnnotations(
-                expected.annotations());
+        withClass(expected.getOWLClass())
+                .withItems(expected.classExpressions()).withAnnotations(
+                        expected.annotations());
     }
 
     /**

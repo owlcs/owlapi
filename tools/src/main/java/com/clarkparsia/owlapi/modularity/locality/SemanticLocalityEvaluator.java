@@ -12,10 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.modularity.locality;
 
+import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -195,11 +196,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          */
         @Nonnull
         public Set<OWLClassExpression> replaceBottom(
-                @Nonnull Set<OWLClassExpression> exps) {
+                @Nonnull Stream<OWLClassExpression> exps) {
             checkNotNull(exps, "exps cannot be null");
-            Set<OWLClassExpression> result = new HashSet<>();
-            exps.forEach(ce -> result.add(replaceBottom(ce)));
-            return result;
+            return exps.map(ce -> replaceBottom(ce)).collect(toSet());
         }
 
         /**
@@ -275,14 +274,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             Set<OWLClassExpression> disjointclasses = replaceBottom(axiom
-                    .getClassExpressions());
+                    .classExpressions());
             newAxiom = df.getOWLDisjointClassesAxiom(disjointclasses);
         }
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             Set<OWLClassExpression> eqclasses = replaceBottom(axiom
-                    .getClassExpressions());
+                    .classExpressions());
             newAxiom = df.getOWLEquivalentClassesAxiom(eqclasses);
         }
 
@@ -313,9 +312,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
-            Set<OWLClassExpression> operands = ce.getOperands();
-            newClassExpression = df
-                    .getOWLObjectIntersectionOf(replaceBottom(operands));
+            newClassExpression = df.getOWLObjectIntersectionOf(replaceBottom(ce
+                    .operands()));
         }
 
         @Override
@@ -358,9 +356,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectUnionOf ce) {
-            Set<OWLClassExpression> operands = ce.getOperands();
-            newClassExpression = df
-                    .getOWLObjectUnionOf(replaceBottom(operands));
+            newClassExpression = df.getOWLObjectUnionOf(replaceBottom(ce
+                    .operands()));
         }
 
         @Override

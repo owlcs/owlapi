@@ -46,9 +46,9 @@ public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
         OWLClass cls = (OWLClass) list.get(0);
         assertEquals(genus, OWLAPIOwl2Obo.getIdentifier(cls.getIRI()));
         OWLClassExpression rhs = list.get(1);
-        OWLClass cls2 = rhs.getClassesInSignature().iterator().next();
+        OWLClass cls2 = rhs.classesInSignature().iterator().next();
         assertEquals(differentia, OWLAPIOwl2Obo.getIdentifier(cls2.getIRI()));
-        OWLObjectProperty property = rhs.getObjectPropertiesInSignature()
+        OWLObjectProperty property = rhs.objectPropertiesInSignature()
                 .iterator().next();
         assertEquals(relId, OWLAPIOwl2Obo.getIdentifier(property.getIRI()));
     }

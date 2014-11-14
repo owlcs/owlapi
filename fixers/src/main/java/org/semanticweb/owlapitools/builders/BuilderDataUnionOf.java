@@ -34,7 +34,7 @@ public class BuilderDataUnionOf extends
     public BuilderDataUnionOf(@Nonnull OWLDataUnionOf expected,
             OWLDataFactory df) {
         this(df);
-        withItems(expected.getOperands());
+        withItems(expected.operands());
     }
 
     /**

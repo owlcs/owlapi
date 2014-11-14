@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.profiles.test;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 
 import javax.annotation.Nonnull;
@@ -64,13 +65,13 @@ public class ProfileBase {
     void compareOntologies(@Nonnull String in1, @Nonnull String in2) {
         OWLOntology o1 = o(in1);
         OWLOntology o2 = o(in2);
-        assertEquals(o1.getAxioms(), o2.getAxioms());
+        assertEquals(o1.axioms().collect(toSet()), o2.axioms().collect(toSet()));
     }
 
     protected void test(@Nonnull String in, boolean el, boolean ql, boolean rl,
             boolean dl) {
         OWLOntology o = o(in);
-        assertTrue("empty ontology", !o.getAxioms().isEmpty());
+        assertTrue("empty ontology", o.axioms().count() > 0);
         OWLProfileReport elReport = el(o);
         assertEquals(elReport.toString(), el, elReport.isInProfile());
         OWLProfileReport qlReport = ql(o);

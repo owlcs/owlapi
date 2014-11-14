@@ -247,8 +247,8 @@ public class OWLClassExpressionCollector implements
     @Override
     public Set<OWLClassExpression> visit(SWRLRule rule) {
         Set<OWLClassExpression> result = new HashSet<>();
-        rule.getBody().forEach(a -> result.addAll(a.accept(this)));
-        rule.getHead().forEach(a -> result.addAll(a.accept(this)));
+        rule.body().forEach(a -> result.addAll(a.accept(this)));
+        rule.head().forEach(a -> result.addAll(a.accept(this)));
         return result;
     }
 }

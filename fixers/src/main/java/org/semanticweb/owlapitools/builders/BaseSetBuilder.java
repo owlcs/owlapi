@@ -15,6 +15,7 @@ package org.semanticweb.owlapitools.builders;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -69,6 +70,18 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
     @SuppressWarnings("unchecked")
     public B withItems(@Nonnull Collection<? extends I> arg) {
         items.addAll(arg);
+        return (B) this;
+    }
+
+    /**
+     * @param arg
+     *        items to add
+     * @return builder
+     */
+    @Nonnull
+    @SuppressWarnings({ "unchecked", "null" })
+    public B withItems(@Nonnull Stream<? extends I> arg) {
+        arg.forEach(x -> withItem(x));
         return (B) this;
     }
 

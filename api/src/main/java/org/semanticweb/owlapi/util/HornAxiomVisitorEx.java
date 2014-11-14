@@ -119,16 +119,15 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLDisjointUnionAxiom axiom) {
-        OWLClassExpression c1 = axiom.getOWLClass();
-        if (!checkPositive(c1) || !checkNegative(c1)) {
+        if (neitherPositiveNorNegative(axiom.getOWLClass())) {
             return false;
         }
-        for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!checkPositive(c) || !checkNegative(c)) {
-                return false;
-            }
-        }
-        return Boolean.TRUE;
+        return Boolean.valueOf(!axiom.classExpressions().anyMatch(
+                c -> neitherPositiveNorNegative(c)));
+    }
+
+    protected boolean neitherPositiveNorNegative(OWLClassExpression c1) {
+        return !checkPositive(c1) || !checkNegative(c1);
     }
 
     @Override
@@ -149,7 +148,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
         return !axiom.classExpressions().anyMatch(
-                c -> !checkPositive(c) || !checkNegative(c));
+                c -> neitherPositiveNorNegative(c));
     }
 
     @Override

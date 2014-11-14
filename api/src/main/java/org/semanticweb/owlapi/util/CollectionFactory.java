@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static java.util.stream.Collectors.toList;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +29,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -85,9 +88,10 @@ public class CollectionFactory {
      * 
      * @param toReturn
      *        list to sort
+     * @return sorted input list
      */
-    public static void sortOptionally(
-            @Nonnull List<? extends OWLObject> toReturn) {
+    public static <T extends OWLObject> List<T> sortOptionally(
+            @Nonnull List<T> toReturn) {
         try {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
@@ -101,6 +105,7 @@ public class CollectionFactory {
                     "Misbehaving triple comparator, leaving triples unsorted",
                     e);
         }
+        return toReturn;
     }
 
     /**
@@ -152,21 +157,26 @@ public class CollectionFactory {
     @Nonnull
     public static <T extends OWLObject> List<T> sortOptionally(
             @Nonnull Collection<T> toReturn) {
-        List<T> list = new ArrayList<>(toReturn);
-        try {
-            Collections.sort(list);
-        } catch (IllegalArgumentException e) {
-            // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
-                throw e;
-            }
-            // otherwise print a warning and leave the list unsorted
-            LOGGER.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted",
-                    e);
-        }
-        return list;
+        return sortOptionally(new ArrayList<>(toReturn));
+    }
+
+    /**
+     * Sort a copy of the input collection; if the ordering is unstable and an
+     * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
+     * it and leave the collection unsorted. NOTE: use this method if ordering
+     * is desirable but not necessary.
+     * 
+     * @param toReturn
+     *        collection to sort
+     * @param <T>
+     *        list type
+     * @return sorted copy of the input, if no errors are raised. Copy of the
+     *         original otherwise.
+     */
+    @Nonnull
+    public static <T extends OWLObject> List<T> sortOptionally(
+            @Nonnull Stream<T> toReturn) {
+        return sortOptionally(toReturn.collect(toList()));
     }
 
     /**

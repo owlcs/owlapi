@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
@@ -103,10 +102,10 @@ public class ConvertSuperClassesToEquivalentClass extends
         // into an intersection which is made equivalent.
         Set<OWLClassExpression> descs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
-            for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
+            ont.subClassAxiomsForSubClass(cls).forEach(ax -> {
                 addChange(new RemoveAxiom(ont, ax));
                 descs.add(ax.getSuperClass());
-            }
+            });
         }
         OWLClassExpression equivalentClass = df
                 .getOWLObjectIntersectionOf(descs);

@@ -1,5 +1,7 @@
 package org.obolibrary.macro;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,7 +55,7 @@ public class MacroExpansionVisitor {
     public OWLOntology expandAll() {
         Set<OWLAxiom> newAxioms = new HashSet<>();
         Set<OWLAxiom> rmAxioms = new HashSet<>();
-        for (OWLAxiom ax : inputOntology.getAxioms()) {
+        for (OWLAxiom ax : inputOntology.axioms().collect(toSet())) {
             OWLAxiom exAx = ax;
             if (ax instanceof OWLSubClassOfAxiom) {
                 exAx = visitor.visit((OWLSubClassOfAxiom) ax);
@@ -96,7 +98,8 @@ public class MacroExpansionVisitor {
             // we assume it is a class
             IRI axValIRI = (IRI) ax.getValue();
             OWLClass axValClass = visitor.df.getOWLClass(axValIRI);
-            if (inputOntology.getDeclarationAxioms(axValClass).isEmpty()) {
+            if (inputOntology.declarationAxioms(axValClass).collect(toList())
+                    .isEmpty()) {
                 OWLDeclarationAxiom newAx = visitor.df
                         .getOWLDeclarationAxiom(axValClass);
                 manager.addAxiom(inputOntology, newAx);

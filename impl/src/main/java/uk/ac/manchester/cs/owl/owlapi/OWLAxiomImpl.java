@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,9 +26,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.NNF;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -80,12 +78,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      * @return The annotations
      */
     @Nonnull
-    protected Collection<OWLAnnotation> mergeAnnos(
-            Collection<OWLAnnotation> annos) {
-        return Sets.newHashSet(Iterables.concat(annos, annotations));
-    }
-
-    @Nonnull
     protected Collection<OWLAnnotation> mergeAnnos(Stream<OWLAnnotation> annos) {
         return Stream.concat(annos, annotations.stream()).collect(toSet());
     }
@@ -103,7 +95,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         if (other instanceof OWLAxiomImpl) {
             return annotations.equals(((OWLAxiomImpl) other).annotations);
         }
-        return getAnnotations().equals(other.getAnnotations());
+        return equalStreams(annotations(), annotations());
     }
 
     @Override

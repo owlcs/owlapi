@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -76,15 +77,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(
-            @Nonnull Collection<OWLAnnotation> annotations) {
-        return new SWRLRuleImpl(body, head, mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLAxiom
-            getAnnotatedAxiom(@Nonnull Stream<OWLAnnotation> annotations) {
-        return new SWRLRuleImpl(body, head, mergeAnnos(annotations));
+    public OWLAxiom getAnnotatedAxiom(@Nonnull Stream<OWLAnnotation> anns) {
+        return new SWRLRuleImpl(body, head, mergeAnnos(anns));
     }
 
     /**
@@ -142,8 +136,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
                 return false;
             }
             SWRLRule other = (SWRLRule) obj;
-            return compareStreams(body(), other.body()) == 0
-                    && compareStreams(head(), other.head()) == 0;
+            return equalStreams(body(), other.body())
+                    && equalStreams(head(), other.head());
         }
         return false;
     }

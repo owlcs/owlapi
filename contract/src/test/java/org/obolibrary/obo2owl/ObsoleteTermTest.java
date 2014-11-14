@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 
 import java.util.Set;
@@ -28,7 +29,7 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
         OWLAnnotationSubject subj = IRI
                 .create("http://purl.obolibrary.org/obo/XX_0000034");
         Set<OWLAnnotationAssertionAxiom> aas = ontology
-                .getAnnotationAssertionAxioms(subj);
+                .annotationAssertionAxioms(subj).collect(toSet());
         boolean okDeprecated = false;
         for (OWLAnnotationAssertionAxiom aa : aas) {
             if (aa.getProperty().getIRI()

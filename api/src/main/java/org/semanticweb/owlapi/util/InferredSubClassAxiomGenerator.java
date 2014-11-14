@@ -39,10 +39,11 @@ public class InferredSubClassAxiomGenerator extends
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
         if (reasoner.isSatisfiable(entity)) {
-            for (OWLClass sup : reasoner.getSuperClasses(entity, true)
-                    .getFlattened()) {
-                result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));
-            }
+            reasoner.getSuperClasses(entity, true)
+                    .entities()
+                    .forEach(
+                            sup -> result.add(dataFactory
+                                    .getOWLSubClassOfAxiom(entity, sup)));
         } else {
             result.add(dataFactory.getOWLSubClassOfAxiom(entity,
                     dataFactory.getOWLNothing()));

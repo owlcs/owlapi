@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -79,7 +80,7 @@ public class OWLEntityRenamer {
         List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(df, uriMap);
         ontologies.forEach(o -> fillListWithTransformChanges(changes,
-                o.getReferencingAxioms(iri), o, dup));
+                o.referencingAxioms(iri), o, dup));
         return changes;
     }
 
@@ -123,12 +124,11 @@ public class OWLEntityRenamer {
         return changes;
     }
 
-    private static Set<OWLAxiom> getAxioms(@Nonnull OWLOntology ont,
+    private static Stream<OWLAxiom> getAxioms(@Nonnull OWLOntology ont,
             @Nonnull OWLEntity entity) {
-        Set<OWLAxiom> axioms = ont.getReferencingAxioms(entity);
-        axioms.addAll(ont.getDeclarationAxioms(entity));
-        axioms.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
-        return axioms;
+        return Stream.of(ont.referencingAxioms(entity),
+                ont.declarationAxioms(entity),
+                ont.annotationAssertionAxioms(entity.getIRI())).flatMap(x -> x);
     }
 
     /**
@@ -147,12 +147,12 @@ public class OWLEntityRenamer {
      *        The duplicator that will do the duplicating
      */
     private static void fillListWithTransformChanges(
-            List<OWLOntologyChange> changes, Set<OWLAxiom> axioms,
+            List<OWLOntologyChange> changes, Stream<OWLAxiom> axioms,
             @Nonnull OWLOntology ont, OWLObjectDuplicator duplicator) {
-        for (OWLAxiom ax : axioms) {
+        axioms.forEach(ax -> {
             changes.add(new RemoveAxiom(ont, ax));
             OWLAxiom dupAx = duplicator.duplicateObject(ax);
             changes.add(new AddAxiom(ont, dupAx));
-        }
+        });
     }
 }

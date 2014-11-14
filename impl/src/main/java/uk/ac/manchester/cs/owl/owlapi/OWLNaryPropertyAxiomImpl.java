@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +53,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      *        annotations
      */
     @SuppressWarnings("unchecked")
-    public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
+    public OWLNaryPropertyAxiomImpl(
+            @Nonnull Collection<? extends P> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
@@ -99,8 +101,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareCollections(properties,
-                ((OWLNaryPropertyAxiom<?>) object).getProperties());
+        return compareStreams(properties(),
+                ((OWLNaryPropertyAxiom<?>) object).properties());
     }
 
     @Override

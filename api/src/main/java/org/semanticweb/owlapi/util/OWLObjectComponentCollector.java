@@ -139,10 +139,6 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         return CollectionFactory.copyMutable(result);
     }
 
-    private void process(@Nonnull Set<? extends OWLObject> objects) {
-        objects.forEach(o -> o.accept(this));
-    }
-
     private void process(@Nonnull Stream<? extends OWLObject> objects) {
         objects.forEach(o -> o.accept(this));
     }
@@ -161,7 +157,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLOntology ontology) {
-        process(ontology.getAxioms());
+        process(ontology.axioms());
     }
 
     @Override
@@ -351,7 +347,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getProperties());
+        process(axiom.properties());
     }
 
     @Override
@@ -371,13 +367,13 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getProperties());
+        process(axiom.properties());
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getProperties());
+        process(axiom.properties());
     }
 
     @Override
@@ -450,7 +446,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getProperties());
+        process(axiom.properties());
     }
 
     @Override
@@ -515,14 +511,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         handleObject(axiom);
-        process(axiom.getProperties());
+        process(axiom.properties());
     }
 
     @Override
     public void visit(SWRLRule rule) {
         handleObject(rule);
-        process(rule.getBody());
-        process(rule.getHead());
+        process(rule.body());
+        process(rule.head());
     }
 
     @Override
@@ -534,14 +530,14 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataOneOf node) {
         handleObject(node);
-        process(node.getValues());
+        process(node.values());
     }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
         handleObject(node);
         node.getDatatype().accept(this);
-        process(node.getFacetRestrictions());
+        process(node.facetRestrictions());
     }
 
     @Override
@@ -560,8 +556,8 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         handleObject(axiom);
         axiom.getClassExpression().accept(this);
-        axiom.getObjectPropertyExpressions().forEach(o -> o.accept(this));
-        axiom.getDataPropertyExpressions().forEach(o -> o.accept(this));
+        axiom.objectPropertyExpressions().forEach(o -> o.accept(this));
+        axiom.dataPropertyExpressions().forEach(o -> o.accept(this));
     }
 
     @Override
@@ -588,13 +584,13 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     @Override
     public void visit(OWLDataIntersectionOf node) {
         handleObject(node);
-        node.getOperands().forEach(o -> o.accept(this));
+        node.operands().forEach(o -> o.accept(this));
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
         handleObject(node);
-        node.getOperands().forEach(o -> o.accept(this));
+        node.operands().forEach(o -> o.accept(this));
     }
 
     @Override

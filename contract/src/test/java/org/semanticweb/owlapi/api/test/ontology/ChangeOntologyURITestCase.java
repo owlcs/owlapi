@@ -49,13 +49,13 @@ public class ChangeOntologyURITestCase extends TestBase {
         m.applyChanges(changer.getChanges(ont, newIRI));
         assertFalse(m.contains(oldIRI));
         assertTrue(m.contains(newIRI));
-        assertTrue(m.getOntologies().contains(ont));
-        assertTrue(m.getDirectImports(importingOnt).contains(ont));
+        assertTrue(m.ontologies().anyMatch(o -> o.equals(ont)));
+        assertTrue(m.directImports(importingOnt).anyMatch(o -> o.equals(ont)));
         OWLOntology ontology = m.getOntology(newIRI);
         assertNotNull("ontology should not be null", ontology);
         assertEquals(ontology, ont);
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), newIRI);
-        assertTrue(m.getImportsClosure(importingOnt).contains(ont));
+        assertTrue(m.importsClosure(importingOnt).anyMatch(o -> o.equals(ont)));
         assertNotNull("ontology should not be null",
                 m.getOntologyDocumentIRI(ont));
         // Document IRI will still be the same (in this case the old ont URI)

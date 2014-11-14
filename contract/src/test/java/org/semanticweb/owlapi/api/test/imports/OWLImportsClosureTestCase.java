@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ImportsDeclaration;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -44,16 +45,16 @@ public class OWLImportsClosureTestCase extends TestBase {
                 .getNextDocumentIRI("urn:testontology"));
         OWLOntology ontB = m.createOntology(IRI
                 .getNextDocumentIRI("urn:testontology"));
-        assertTrue(m.getImportsClosure(ontA).contains(ontA));
+        assertTrue(contains(m.importsClosure(ontA), ontA));
         OWLImportsDeclaration importsDeclaration = ImportsDeclaration(ontB
                 .getOntologyID().getOntologyIRI().get());
         m.applyChange(new AddImport(ontA, importsDeclaration));
-        assertTrue(m.getImportsClosure(ontA).contains(ontB));
+        assertTrue(contains(m.importsClosure(ontA), ontB));
         m.applyChange(new RemoveImport(ontA, importsDeclaration));
-        assertFalse(m.getImportsClosure(ontA).contains(ontB));
+        assertFalse(contains(m.importsClosure(ontA), ontB));
         m.applyChange(new AddImport(ontA, importsDeclaration));
-        assertTrue(m.getImportsClosure(ontA).contains(ontB));
+        assertTrue(contains(m.importsClosure(ontA), ontB));
         m.removeOntology(ontB);
-        assertFalse(m.getImportsClosure(ontA).contains(ontB));
+        assertFalse(contains(m.importsClosure(ontA), ontB));
     }
 }

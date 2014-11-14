@@ -58,15 +58,8 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
-    public OWLDeclarationAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
-        return new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLDeclarationAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(annotations));
+    public OWLDeclarationAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(anns));
     }
 
     @Override

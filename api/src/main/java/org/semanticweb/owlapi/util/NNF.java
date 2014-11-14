@@ -138,7 +138,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLDataRange visit(OWLDataOneOf node) {
-                if (node.getValues().size() == 1) {
+                if (node.values().count() == 1) {
                     if (negated) {
                         return dataFactory.getOWLDataComplementOf(node);
                     } else {
@@ -155,7 +155,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLDataRange visit(OWLDataIntersectionOf node) {
-                Set<OWLDataRange> ops = node.getOperands().stream()
+                Set<OWLDataRange> ops = node.operands()
                         .map(p -> p.accept(this)).collect(toSet());
                 if (negated) {
                     return dataFactory.getOWLDataUnionOf(ops);
@@ -166,7 +166,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLDataRange visit(OWLDataUnionOf node) {
-                Set<OWLDataRange> ops = node.getOperands().stream()
+                Set<OWLDataRange> ops = node.operands()
                         .map(p -> p.accept(this)).collect(toSet());
                 if (negated) {
                     // Flip to an intersection
@@ -341,7 +341,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLClassExpression visit(OWLObjectOneOf ce) {
-                if (ce.getIndividuals().size() == 1) {
+                if (ce.individuals().count() == 1) {
                     if (negated) {
                         return getNegation(ce);
                     } else {

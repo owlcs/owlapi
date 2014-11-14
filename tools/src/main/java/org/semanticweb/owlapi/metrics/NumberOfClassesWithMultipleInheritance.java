@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
+import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 
 import java.util.HashSet;
@@ -55,15 +56,15 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         Set<OWLClass> processed = new HashSet<>();
         Set<OWLClass> clses = new HashSet<>();
         NamedConjunctChecker checker = new NamedConjunctChecker();
-        for (OWLOntology ont : getOntologies()) {
-            for (OWLClass cls : ont.getClassesInSignature()) {
+        for (OWLOntology ont : getOntologies().collect(toList())) {
+            for (OWLClass cls : ont.classesInSignature().collect(toList())) {
                 if (processed.contains(cls)) {
                     continue;
                 }
                 processed.add(cls);
                 int count = 0;
-                for (OWLClassExpression sup : equivalent(
-                        ont.getEquivalentClassesAxioms(cls),
+                for (OWLClassExpression sup : equivalent(ont
+                        .equivalentClassesAxioms(cls).collect(toList()),
                         OWLClassExpression.class)) {
                     if (checker.hasNamedConjunct(sup)) {
                         count++;

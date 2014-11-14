@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
+import static java.util.stream.Collectors.*;
 import static org.junit.Assert.assertNotNull;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
@@ -566,10 +567,9 @@ public class Examples extends TestBase {
         // The ontology will now contain references to class A and class B -
         // that is, class A and class B are contained within the SIGNATURE of
         // the ontology let's print them out
-        for (OWLClass cls : ontology.getClassesInSignature()) {
-            // do anything that's necessary, e.g., print them out
-            // System.out.println("Referenced class: " + cls);
-        }
+        ontology.classesInSignature().forEach(x -> x.toString());
+        // do anything that's necessary, e.g., print them out
+        // System.out.println("Referenced class: " + cls);
         // We should also find that B is an ASSERTED superclass of A
         Iterable<OWLClassExpression> superClasses = sup(
                 ontology.filterAxioms(Filters.subClassWithSub, clsA, INCLUDED),
@@ -1044,7 +1044,7 @@ public class Examples extends TestBase {
         // class B and class C. In this case, we don't particularly care about
         // the equivalences, so we will flatten this set of sets and print the
         // result
-        Set<OWLClass> clses = subClses.getFlattened();
+        Set<OWLClass> clses = subClses.entities().collect(toSet());
         // System.out.println("Subclasses of vegetarian: ");
         // for (OWLClass cls : clses) {
         // System.out.println("    " + cls);
@@ -1067,7 +1067,8 @@ public class Examples extends TestBase {
         // The reasoner returns a NodeSet again. This time the NodeSet contains
         // individuals. Again, we just want the individuals, so get a flattened
         // set.
-        Set<OWLNamedIndividual> individuals = individualsNodeSet.getFlattened();
+        Set<OWLNamedIndividual> individuals = individualsNodeSet.entities()
+                .collect(toSet());
         // System.out.println("Instances of pet: ");
         // for (OWLNamedIndividual ind : individuals) {
         // System.out.println("    " + ind);
@@ -1088,7 +1089,8 @@ public class Examples extends TestBase {
         // Now ask the reasoner for the has_pet property values for Mick
         NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
                 .getObjectPropertyValues(mick, hasPet);
-        Set<OWLNamedIndividual> values = petValuesNodeSet.getFlattened();
+        Set<OWLNamedIndividual> values = petValuesNodeSet.entities().collect(
+                toSet());
         // System.out.println("The has_pet property values for Mick are: ");
         // for (OWLNamedIndividual ind : values) {
         // System.out.println("    " + ind);
@@ -1133,8 +1135,7 @@ public class Examples extends TestBase {
         DefaultPrefixManager pm = new DefaultPrefixManager(null, null,
                 "http://owl.man.ac.uk/2005/07/sssw/people#");
         // Print out a node as a list of class names in curly brackets
-        for (Iterator<OWLClass> it = node.getEntities().iterator(); it
-                .hasNext();) {
+        for (Iterator<OWLClass> it = node.entities().iterator(); it.hasNext();) {
             OWLClass cls = it.next();
             // User a prefix manager to provide a slightly nicer shorter name
             String shortForm = pm.getShortForm(cls);
@@ -1176,14 +1177,11 @@ public class Examples extends TestBase {
         // In this case, restrictions are used as (anonymous) superclasses, so
         // to get the restrictions on margherita pizza we need to obtain the
         // subclass axioms for margherita pizza.
-        for (OWLSubClassOfAxiom ax : ont
-                .getSubClassAxiomsForSubClass(margheritaPizza)) {
-            OWLClassExpression superCls = ax.getSuperClass();
-            // Ask our superclass to accept a visit from the RestrictionVisitor
-            // - if it is an existential restiction then our restriction visitor
-            // will answer it - if not our visitor will ignore it
-            superCls.accept(restrictionVisitor);
-        }
+        ont.subClassAxiomsForSubClass(margheritaPizza).forEach(
+                ax -> ax.getSuperClass().accept(restrictionVisitor));
+        // Ask our superclass to accept a visit from the RestrictionVisitor
+        // - if it is an existential restiction then our restriction visitor
+        // will answer it - if not our visitor will ignore it
         // Our RestrictionVisitor has now collected all of the properties that
         // have been restricted in existential restrictions - print them out.
         // System.out.println("Restricted properties for " + margheritaPizza
@@ -1219,10 +1217,8 @@ public class Examples extends TestBase {
                 // get caught out by cycles in the taxonomy
                 processedClasses.add(ce);
                 for (OWLOntology ont : onts) {
-                    for (OWLSubClassOfAxiom ax : ont
-                            .getSubClassAxiomsForSubClass(ce)) {
-                        ax.getSuperClass().accept(this);
-                    }
+                    ont.subClassAxiomsForSubClass(ce).forEach(
+                            ax -> ax.getSuperClass().accept(this));
                 }
             }
         }
@@ -1289,18 +1285,19 @@ public class Examples extends TestBase {
         // to see if it is Portugeuse. Firstly, get the annotation property for
         // rdfs:label
         OWLAnnotationProperty label = df.getRDFSLabel();
-        for (OWLClass cls : ont.getClassesInSignature()) {
+        ont.classesInSignature().forEach(c -> {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : annotations(ont.filterAxioms(
-                    Filters.annotations, cls.getIRI(), INCLUDED), label)) {
-                if (annotation.getValue() instanceof OWLLiteral) {
-                    OWLLiteral val = (OWLLiteral) annotation.getValue();
-                    if (val.hasLang("pt")) {
-                        // System.out.println(cls + " -> " + val.getLiteral());
+                for (OWLAnnotation annotation : annotations(ont.filterAxioms(
+                        Filters.annotations, c.getIRI(), INCLUDED), label)) {
+                    if (annotation.getValue() instanceof OWLLiteral) {
+                        OWLLiteral val = (OWLLiteral) annotation.getValue();
+                        if (val.hasLang("pt")) {
+                            // System.out.println(cls + " -> " +
+                            // val.getLiteral());
+                        }
                     }
                 }
-            }
-        }
+            });
     }
 
     /**
@@ -1550,10 +1547,7 @@ public class Examples extends TestBase {
         // same)
         printOntology(manager, ontology);
         // List the imported ontologies
-        for (OWLOntology importedOntology : ontology.getImports()) {
-            // System.out.println("Imports:");
-            printOntology(manager, importedOntology);
-        }
+        ontology.imports().forEach(o -> printOntology(manager, o));
     }
 
     /**
@@ -1628,7 +1622,7 @@ public class Examples extends TestBase {
             if (OWLClass.class.isAssignableFrom(ent.getClass())) {
                 NodeSet<OWLClass> subClasses = reasoner.getSubClasses(
                         (OWLClass) ent, false);
-                seedSig.addAll(subClasses.getFlattened());
+                seedSig.addAll(subClasses.entities().collect(toList()));
             }
         }
         // Output for debugging purposes

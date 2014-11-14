@@ -72,14 +72,15 @@ public class OWLOntologyIRIChanger {
         OWLImportsDeclaration owlImport = owlOntologyManager
                 .getOWLDataFactory().getOWLImportsDeclaration(newIRI);
         IRI ontIRI = ontology.getOntologyID().getOntologyIRI().get();
-        for (OWLOntology ont : owlOntologyManager.getOntologies()) {
-            for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
-                if (decl.getIRI().equals(ontIRI)) {
-                    changes.add(new RemoveImport(ont, decl));
-                    changes.add(new AddImport(ont, owlImport));
-                }
-            }
-        }
+        owlOntologyManager.ontologies().forEach(
+                ont -> {
+                    ont.importsDeclarations()
+                            .filter(decl -> decl.getIRI().equals(ontIRI))
+                            .forEach(decl -> {
+                                changes.add(new RemoveImport(ont, decl));
+                                changes.add(new AddImport(ont, owlImport));
+                            });
+                });
         return changes;
     }
 }

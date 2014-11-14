@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -120,7 +121,7 @@ public class ParsersStorersTestCase extends TestBase {
             if (expectRoundtrip) {
                 // check bnodes
                 String axiom = object.toString().replace("_:id", "");
-                for (OWLAxiom ax : o.getAxioms()) {
+                for (OWLAxiom ax : o.axioms().collect(toSet())) {
                     if (!condition) {
                         String a = ax.toString()
                                 .replaceAll("_:genid[0-9]+", "");
@@ -130,7 +131,7 @@ public class ParsersStorersTestCase extends TestBase {
                 if (!condition) {
                     System.out.println(target.toString());
                     System.out.println(ontologyFormat + " " + axiom);
-                    for (OWLAxiom ax : o.getAxioms()) {
+                    for (OWLAxiom ax : o.axioms().collect(toSet())) {
                         String a = ax.toString()
                                 .replaceAll("_:genid[0-9]+", "");
                         System.out.println(ontologyFormat + " parsed " + a);

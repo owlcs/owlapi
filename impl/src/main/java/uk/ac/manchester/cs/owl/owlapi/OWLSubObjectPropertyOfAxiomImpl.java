@@ -59,16 +59,9 @@ public class OWLSubObjectPropertyOfAxiomImpl extends
 
     @Override
     public OWLSubObjectPropertyOfAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+            Stream<OWLAnnotation> anns) {
         return new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(),
-                getSuperProperty(), mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLSubObjectPropertyOfAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(),
-                getSuperProperty(), mergeAnnos(annotations));
+                getSuperProperty(), mergeAnnos(anns));
     }
 
     @Override

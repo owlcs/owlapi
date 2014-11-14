@@ -59,17 +59,10 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
     }
 
     @Override
-    public OWLDisjointClassesAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
+    public OWLDisjointClassesAxiom
+            getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLDisjointClassesAxiomImpl(classExpressions,
-                mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLDisjointClassesAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLDisjointClassesAxiomImpl(classExpressions,
-                mergeAnnos(annotations));
+                mergeAnnos(anns));
     }
 
     @Override
@@ -105,7 +98,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
             OWLClassExpression indI = classExpressions.get(i);
             OWLClassExpression indJ = classExpressions.get(i + 1);
             result.add(new OWLDisjointClassesAxiomImpl(Arrays
-                    .asList(indI, indJ), getAnnotations()));
+                    .asList(indI, indJ), annotations));
         }
         return result;
     }

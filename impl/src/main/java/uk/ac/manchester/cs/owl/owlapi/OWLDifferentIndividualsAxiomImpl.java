@@ -49,7 +49,7 @@ public class OWLDifferentIndividualsAxiomImpl extends
      *        annotations on the axiom
      */
     public OWLDifferentIndividualsAxiomImpl(
-            @Nonnull Set<? extends OWLIndividual> individuals,
+            @Nonnull Collection<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
@@ -59,27 +59,18 @@ public class OWLDifferentIndividualsAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDifferentIndividualsAxiomImpl(getIndividuals(),
-                NO_ANNOTATIONS);
+        return new OWLDifferentIndividualsAxiomImpl(individuals, NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDifferentIndividualsAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
-        return new OWLDifferentIndividualsAxiomImpl(getIndividuals(),
-                mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLDifferentIndividualsAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLDifferentIndividualsAxiomImpl(getIndividuals(),
-                mergeAnnos(annotations));
+            Stream<OWLAnnotation> anns) {
+        return new OWLDifferentIndividualsAxiomImpl(individuals,
+                mergeAnnos(anns));
     }
 
     @Override
     public Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms() {
-        List<OWLIndividual> individuals = getIndividualsAsList();
         Set<OWLDifferentIndividualsAxiom> result = new HashSet<>();
         for (int i = 0; i < individuals.size() - 1; i++) {
             for (int j = i + 1; j < individuals.size(); j++) {
@@ -94,7 +85,6 @@ public class OWLDifferentIndividualsAxiomImpl extends
 
     @Override
     public Set<OWLDifferentIndividualsAxiom> splitToAnnotatedPairs() {
-        List<OWLIndividual> individuals = getIndividualsAsList();
         if (individuals.size() == 2) {
             return Collections.singleton(this);
         }
@@ -102,8 +92,8 @@ public class OWLDifferentIndividualsAxiomImpl extends
         for (int i = 0; i < individuals.size() - 1; i++) {
             OWLIndividual indI = individuals.get(i);
             OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLDifferentIndividualsAxiomImpl(new HashSet<>(
-                    Arrays.asList(indI, indJ)), getAnnotations()));
+            result.add(new OWLDifferentIndividualsAxiomImpl(Arrays.asList(indI,
+                    indJ), annotations));
         }
         return result;
     }

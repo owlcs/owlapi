@@ -16,7 +16,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -36,9 +35,11 @@ public class InferredClassAssertionAxiomGenerator extends
     protected void addAxioms(@Nonnull OWLNamedIndividual entity,
             @Nonnull OWLReasoner reasoner, @Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLClassAssertionAxiom> result) {
-        for (OWLClass type : reasoner.getTypes(entity, false).getFlattened()) {
-            result.add(dataFactory.getOWLClassAssertionAxiom(type, entity));
-        }
+        reasoner.getTypes(entity, false)
+                .entities()
+                .forEach(
+                        t -> result.add(dataFactory.getOWLClassAssertionAxiom(
+                                t, entity)));
     }
 
     @Override

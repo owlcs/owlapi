@@ -78,8 +78,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      */
     @Nonnull
     protected Set<? extends E> getObjects() {
-        return getOntologies().stream().flatMap(o -> getObjects(o))
-                .collect(toSet());
+        return getOntologies().flatMap(o -> getObjects(o)).collect(toSet());
     }
 
     @Override

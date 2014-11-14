@@ -12,8 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.io.PrintWriter;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -53,8 +54,6 @@ public class Debugger {
     @Nonnull
     private final OWLDebugger debugger;
     private final OWLReasoner checker;
-    @Nonnull
-    private final OWLClass bottom;
 
     public Debugger(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntology ontology,
@@ -63,8 +62,6 @@ public class Debugger {
         checker = reasonerFactory.createNonBufferingReasoner(ontology);
         /* Create a new debugger */
         debugger = new BlackBoxOWLDebugger(manager, ontology, reasonerFactory);
-        /* Get bottom */
-        bottom = manager.getOWLDataFactory().getOWLNothing();
     }
 
     public void report(@Nonnull PrintWriter writer) throws OWLException {
@@ -72,13 +69,10 @@ public class Debugger {
                 writer);
         /* Write a header */
         renderer.header();
-        Set<OWLClass> unsatisfiables = new HashSet<>();
-        for (OWLClass clazz : ontology.getClassesInSignature()) {
-            /* Collect the unsatisfiable classes that aren't bottom. */
-            if (!checker.isSatisfiable(clazz) && !clazz.equals(bottom)) {
-                unsatisfiables.add(clazz);
-            }
-        }
+        /* Collect the unsatisfiable classes that aren't bottom. */
+        Set<OWLClass> unsatisfiables = ontology.classesInSignature()
+                .filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing())
+                .collect(toSet());
         writer.println("<h1>Ontology Debugging Report</h1>");
         writer.println("<br>Ontology: " + ontology.getOntologyID() + "<br>");
         if (unsatisfiables.isEmpty()) {

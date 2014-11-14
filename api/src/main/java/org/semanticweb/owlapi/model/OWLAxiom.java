@@ -71,7 +71,10 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         {@code OWLAxiom#getAnnotations()} method.
      */
     @Nonnull
-    OWLAxiom getAnnotatedAxiom(@Nonnull Collection<OWLAnnotation> annotations);
+    default OWLAxiom getAnnotatedAxiom(
+            @Nonnull Collection<OWLAnnotation> annotations) {
+        return getAnnotatedAxiom(annotations.stream());
+    }
 
     /**
      * Gets a copy of this axiom that is annotated with the specified

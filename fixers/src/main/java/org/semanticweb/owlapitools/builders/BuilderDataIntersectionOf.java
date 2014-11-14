@@ -44,7 +44,7 @@ public class BuilderDataIntersectionOf
     public BuilderDataIntersectionOf(@Nonnull OWLDataIntersectionOf expected,
             OWLDataFactory df) {
         this(df);
-        withItems(expected.getOperands());
+        withItems(expected.operands());
     }
 
     @Override

@@ -276,11 +276,9 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 .loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man
                 .loadOntologyFromOntologyDocument(savedLocation2);
-        for (OWLOntology importedOntology : ont2L.getImports()) {
-            for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
-                assertTrue(containsConsiderEx(importedOntology, importedAxiom));
-                assertFalse(containsConsiderEx(ont2L, importedAxiom));
-            }
-        }
+        ont2L.imports().forEach(o -> o.axioms().forEach(ax -> {
+            assertTrue(containsConsiderEx(o, ax));
+            assertFalse(containsConsiderEx(ont2L, ax));
+        }));
     }
 }

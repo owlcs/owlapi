@@ -12,12 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -46,7 +44,7 @@ public class OWLDisjointDataPropertiesAxiomImpl extends
      *        annotations
      */
     public OWLDisjointDataPropertiesAxiomImpl(
-            @Nonnull Set<? extends OWLDataPropertyExpression> properties,
+            @Nonnull Collection<? extends OWLDataPropertyExpression> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(properties, annotations);
     }
@@ -56,33 +54,25 @@ public class OWLDisjointDataPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointDataPropertiesAxiomImpl(getProperties(),
+        return new OWLDisjointDataPropertiesAxiomImpl(properties,
                 NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointDataPropertiesAxiom getAnnotatedAxiom(
-            Collection<OWLAnnotation> annotations) {
-        return new OWLDisjointDataPropertiesAxiomImpl(getProperties(),
-                mergeAnnos(annotations));
-    }
-
-    @Override
-    public OWLDisjointDataPropertiesAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotations) {
-        return new OWLDisjointDataPropertiesAxiomImpl(getProperties(),
-                mergeAnnos(annotations));
+            Stream<OWLAnnotation> anns) {
+        return new OWLDisjointDataPropertiesAxiomImpl(properties,
+                mergeAnnos(anns));
     }
 
     @Override
     public Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms() {
         Set<OWLDisjointDataPropertiesAxiom> result = new HashSet<>();
-        List<OWLDataPropertyExpression> list = new ArrayList<>(getProperties());
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = i + 1; j < list.size(); j++) {
+        for (int i = 0; i < properties.size() - 1; i++) {
+            for (int j = i + 1; j < properties.size(); j++) {
                 result.add(new OWLDisjointDataPropertiesAxiomImpl(
-                        new HashSet<>(Arrays.asList(list.get(i), list.get(j))),
-                        NO_ANNOTATIONS));
+                        new HashSet<>(Arrays.asList(properties.get(i),
+                                properties.get(j))), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -90,16 +80,15 @@ public class OWLDisjointDataPropertiesAxiomImpl extends
 
     @Override
     public Set<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs() {
-        List<OWLDataPropertyExpression> ops = new ArrayList<>(getProperties());
-        if (ops.size() == 2) {
+        if (properties.size() == 2) {
             return Collections.singleton(this);
         }
         Set<OWLDisjointDataPropertiesAxiom> result = new HashSet<>();
-        for (int i = 0; i < ops.size() - 1; i++) {
-            OWLDataPropertyExpression indI = ops.get(i);
-            OWLDataPropertyExpression indJ = ops.get(i + 1);
+        for (int i = 0; i < properties.size() - 1; i++) {
+            OWLDataPropertyExpression indI = properties.get(i);
+            OWLDataPropertyExpression indJ = properties.get(i + 1);
             result.add(new OWLDisjointDataPropertiesAxiomImpl(new HashSet<>(
-                    Arrays.asList(indI, indJ)), getAnnotations()));
+                    Arrays.asList(indI, indJ)), annotations));
         }
         return result;
     }
