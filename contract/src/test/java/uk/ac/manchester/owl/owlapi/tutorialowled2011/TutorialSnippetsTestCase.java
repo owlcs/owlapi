@@ -632,8 +632,8 @@ public class TutorialSnippetsTestCase {
         o.classesInSignature()
                 .flatMap(
                         c -> annotations(
-                                o.getAnnotationAssertionAxioms(c.getIRI()),
-                                df.getRDFSLabel()).stream())
+                                o.annotationAssertionAxioms(c.getIRI()),
+                                df.getRDFSLabel()))
                 .filter(portugueseLabelsOnly)
                 .forEach(
                         a -> assertNotNull(a.getValue().asLiteral().get()
@@ -934,15 +934,9 @@ public class TutorialSnippetsTestCase {
     LabelExtractor le = new LabelExtractor();
 
     private String labelFor(@Nonnull OWLEntity clazz, @Nonnull OWLOntology o) {
-        Iterable<OWLAnnotation> annotations = annotations(o
-                .getAnnotationAssertionAxioms(clazz.getIRI()));
-        for (OWLAnnotation anno : annotations) {
-            String result = anno.accept(le);
-            if (!result.isEmpty()) {
-                return result;
-            }
-        }
-        return clazz.getIRI().toString();
+        return annotations(o.annotationAssertionAxioms(clazz.getIRI()))
+                .map(a -> a.accept(le)).filter(v -> !v.isEmpty()).findAny()
+                .orElseGet(() -> clazz.getIRI().toString());
     }
 
     public void printHierarchy(@Nonnull OWLReasoner reasoner,

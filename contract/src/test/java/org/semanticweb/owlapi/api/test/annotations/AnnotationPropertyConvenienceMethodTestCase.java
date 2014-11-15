@@ -12,11 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
+import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.Filters.subAnnotationWithSuper;
 import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
 
@@ -45,14 +47,14 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        Collection<OWLAxiom> axioms = ont.filterAxioms(
-                Filters.subAnnotationWithSub, propP, INCLUDED);
-        assertTrue(sup(axioms).contains(propQ));
-        assertTrue(sup(axioms).contains(propR));
-        axioms = ont
-                .filterAxioms(Filters.subAnnotationWithSub, propP, EXCLUDED);
-        assertTrue(sup(axioms).contains(propQ));
-        assertTrue(sup(axioms).contains(propR));
+        Collection<OWLAxiom> axioms = ont.axioms(Filters.subAnnotationWithSub,
+                propP, INCLUDED).collect(toSet());
+        assertTrue(contains(sup(axioms.stream()), propQ));
+        assertTrue(contains(sup(axioms.stream()), propR));
+        axioms = ont.axioms(Filters.subAnnotationWithSub, propP, EXCLUDED)
+                .collect(toSet());
+        assertTrue(contains(sup(axioms.stream()), propQ));
+        assertTrue(contains(sup(axioms.stream()), propR));
     }
 
     @Test
@@ -65,17 +67,13 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        assertTrue(sub(
-                ont.filterAxioms(subAnnotationWithSuper, propQ, INCLUDED))
-                .contains(propP));
-        assertTrue(sub(
-                ont.filterAxioms(subAnnotationWithSuper, propQ, EXCLUDED))
-                .contains(propP));
-        assertTrue(sub(
-                ont.filterAxioms(subAnnotationWithSuper, propR, INCLUDED))
-                .contains(propP));
-        assertTrue(sub(
-                ont.filterAxioms(subAnnotationWithSuper, propR, EXCLUDED))
-                .contains(propP));
+        assertTrue(sub(ont.axioms(subAnnotationWithSuper, propQ, INCLUDED))
+                .collect(toSet()).contains(propP));
+        assertTrue(sub(ont.axioms(subAnnotationWithSuper, propQ, EXCLUDED))
+                .collect(toSet()).contains(propP));
+        assertTrue(sub(ont.axioms(subAnnotationWithSuper, propR, INCLUDED))
+                .collect(toSet()).contains(propP));
+        assertTrue(sub(ont.axioms(subAnnotationWithSuper, propR, EXCLUDED))
+                .collect(toSet()).contains(propP));
     }
 }

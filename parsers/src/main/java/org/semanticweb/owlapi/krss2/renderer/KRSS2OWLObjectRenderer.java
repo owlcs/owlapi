@@ -21,15 +21,13 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -162,26 +160,19 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    private void flatten(Collection<OWLClassExpression> inputClassExpressions) {
-        List<OWLClassExpression> classExpressions;
-        if (inputClassExpressions instanceof List) {
-            classExpressions = (List<OWLClassExpression>) inputClassExpressions;
-        } else {
-            classExpressions = new ArrayList<>(inputClassExpressions);
-        }
-        if (classExpressions.isEmpty()) {
+    private void flatten(Iterator<OWLClassExpression> c) {
+        if (!c.hasNext()) {
             return;
         }
-        OWLClassExpression desc = classExpressions.iterator().next();
-        if (classExpressions.size() == 1) {
+        OWLClassExpression desc = c.next();
+        if (!c.hasNext()) {
             write(desc);
             return;
         }
-        classExpressions.remove(0);
         writeOpenBracket();
         write(AND);
         write(desc);
-        flatten(classExpressions);
+        flatten(c);
         writeCloseBracket();
     }
 
@@ -195,16 +186,15 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Collection<OWLAxiom> axioms = ontology.filterAxioms(
-                        Filters.subClassWithSub, eachClass, INCLUDED);
-                Collection<OWLClassExpression> superClasses = sup(axioms,
+                Stream<OWLClassExpression> superClasses = sup(ontology.axioms(
+                        Filters.subClassWithSub, eachClass, INCLUDED),
                         OWLClassExpression.class);
-                flatten(superClasses);
+                flatten(superClasses.iterator());
                 writeCloseBracket(); // ==> end definition of primitive-concept
                 writeln();
                 Collection<OWLClassExpression> classes = equivalent(
-                        ontology.getEquivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class);
+                        ontology.equivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class).collect(toList());
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -219,8 +209,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_CONCEPT);
                 write(eachClass);
                 Collection<OWLClassExpression> classes = equivalent(
-                        ontology.getEquivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class);
+                        ontology.equivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class).collect(toList());
                 if (classes.isEmpty()) {
                     // ?
                     writeCloseBracket();
@@ -262,27 +252,30 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeSpace();
                 write(TRUE);
             }
-            Collection<OWLClassExpression> domains = domain(ontology
-                    .getObjectPropertyDomainAxioms(property));
-            if (!domains.isEmpty()) {
+            Stream<OWLClassExpression> domains = domain(ontology
+                    .objectPropertyDomainAxioms(property));
+            Iterator<OWLClassExpression> i = domains.iterator();
+            if (i.hasNext()) {
                 writeAttribute(DOMAIN);
-                flatten(domains);
+                flatten(i);
             }
-            Collection<OWLClassExpression> ranges = range(ontology
-                    .getObjectPropertyRangeAxioms(property));
-            if (!ranges.isEmpty()) {
+            Stream<OWLClassExpression> ranges = range(ontology
+                    .objectPropertyRangeAxioms(property));
+            i = ranges.iterator();
+            if (i.hasNext()) {
                 writeAttribute(RANGE_ATTR);
-                flatten(ranges);
+                flatten(i);
             }
-            Collection<OWLAxiom> axioms = ontology.filterAxioms(
-                    Filters.subObjectPropertyWithSub, property, INCLUDED);
-            Collection<OWLObjectPropertyExpression> superProperties = sup(
-                    axioms, OWLObjectPropertyExpression.class);
-            if (!superProperties.isEmpty()) {
+            Stream<OWLObjectPropertyExpression> superProperties = sup(
+                    ontology.axioms(Filters.subObjectPropertyWithSub, property,
+                            INCLUDED), OWLObjectPropertyExpression.class);
+            Iterator<OWLObjectPropertyExpression> it = superProperties
+                    .iterator();
+            if (it.hasNext()) {
                 writeAttribute(PARENTS_ATTR);
                 writeOpenBracket();
-                for (OWLObjectPropertyExpression express : superProperties) {
-                    write(express);
+                while (it.hasNext()) {
+                    write(it.next());
                 }
                 writeCloseBracket();
             }

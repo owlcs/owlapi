@@ -160,10 +160,35 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *         collected from a set, therefore the collection contains no
      *         duplicates. It is a copy of the data.
      */
+    @Deprecated
     @Nonnull
-    <T extends OWLAxiom> Collection<T> filterAxioms(
+    default <T extends OWLAxiom> Collection<T> filterAxioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
-            @Nonnull Imports includeImportsClosure);
+            @Nonnull Imports includeImportsClosure) {
+        Stream<T> axioms = axioms(filter, key, includeImportsClosure);
+        return axioms.collect(toSet());
+    }
+
+    /**
+     * Generic filter type for further refining search by axiom type. The
+     * returned axioms are both belonging to one of the types listed by the
+     * filter and satisfying its pass condition.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param filter
+     *        the filter to match
+     * @param key
+     *        the key. Its type is generic and it is used only by the filter.
+     * @param includeImportsClosure
+     *        if INCLUDED, include imports closure.
+     * @return a collection of axioms matching the request. The axioms are
+     *         collected from a set, therefore the collection contains no
+     *         duplicates. It is a copy of the data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Stream<T> axioms(@Nonnull OWLAxiomSearchFilter filter,
+            @Nonnull Object key, @Nonnull Imports includeImportsClosure);
 
     /**
      * Generic filter type for further refining search by axiom type. The
@@ -180,9 +205,31 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *         collected from a set, therefore the collection contains no
      *         duplicates. It is a copy of the data.
      */
+    @Deprecated
     @Nonnull
-    <T extends OWLAxiom> Collection<T> filterAxioms(
-            @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key);
+    default <T extends OWLAxiom> Collection<T> filterAxioms(
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key) {
+        Stream<T> axioms = axioms(filter, key);
+        return axioms.collect(toSet());
+    }
+
+    /** Generic filter type for further refining search by axiom type. The
+     * returned axioms are both belonging to one of the types listed by the
+     * filter and satisfying its pass condition.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param filter
+     *        the filter to match
+     * @param key
+     *        the key. Its type is generic and it is used only by the filter.
+     * @return a collection of axioms matching the request. The axioms are
+     *         collected from a set, therefore the collection contains no
+     *         duplicates. It is a copy of the data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Stream<T> axioms(@Nonnull OWLAxiomSearchFilter filter,
+            @Nonnull Object key);
 
     /**
      * Generic containment check type for further refining search by axiom type.

@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -75,10 +74,8 @@ public final class SimpleHierarchyExample {
          * Use a visitor to extract label annotations
          */
         LabelExtractor le = new LabelExtractor();
-        for (OWLAnnotation anno : annotations(ontology
-                .getAnnotationAssertionAxioms(clazz.getIRI()))) {
-            anno.accept(le);
-        }
+        annotations(ontology.annotationAssertionAxioms(clazz.getIRI()))
+                .forEach(a -> a.accept(le));
         /* Print out the label if there is one. If not, just use the class URI */
         if (le.getResult() != null) {
             return le.getResult();

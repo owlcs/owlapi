@@ -63,9 +63,9 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
                 processed.add(cls);
                 int count = 0;
-                for (OWLClassExpression sup : equivalent(ont
-                        .equivalentClassesAxioms(cls).collect(toList()),
-                        OWLClassExpression.class)) {
+                for (OWLClassExpression sup : equivalent(
+                        ont.equivalentClassesAxioms(cls),
+                        OWLClassExpression.class).collect(toList())) {
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }

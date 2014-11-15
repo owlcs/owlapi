@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -39,15 +38,11 @@ public class DeprecatedTestCase extends AbstractFileRoundTrippingTestCase {
     public void testAnnotationAssertionsPresent() {
         OWLOntology ont = createOntology();
         OWLClass cls = Class(iri("http://www.semanticweb.org/owlapi/test#ClsA"));
-        for (OWLAnnotation anno : annotations(ont.filterAxioms(
-                Filters.annotations, cls.getIRI(), INCLUDED))) {
-            assertTrue(anno.isDeprecatedIRIAnnotation());
-        }
+        annotations(ont.axioms(Filters.annotations, cls.getIRI(), INCLUDED))
+                .forEach(a -> a.isDeprecatedIRIAnnotation());
         OWLDataProperty prop = DataProperty(iri("http://www.semanticweb.org/owlapi/test#prop"));
-        for (OWLAnnotation anno : annotations(ont.filterAxioms(
-                Filters.annotations, prop.getIRI(), INCLUDED))) {
-            assertTrue(anno.isDeprecatedIRIAnnotation());
-        }
+        annotations(ont.axioms(Filters.annotations, prop.getIRI(), INCLUDED))
+                .forEach(a -> assertTrue(a.isDeprecatedIRIAnnotation()));
     }
 
     @Nonnull

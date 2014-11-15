@@ -87,9 +87,8 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
 
     private void generateChanges(@Nonnull OWLClass cls, @Nonnull OWLOntology o,
             boolean usePairwiseDisjointAxioms) {
-        Set<OWLClassExpression> sub = sub(
-                o.getSubClassAxiomsForSuperClass(cls), OWLClassExpression.class)
-                .stream().filter(c -> undefinedPrimitive(o, c))
+        Set<OWLClassExpression> sub = sub(o.subClassAxiomsForSuperClass(cls),
+                OWLClassExpression.class).filter(c -> undefinedPrimitive(o, c))
                 .collect(toSet());
         addChanges(new MakeClassesMutuallyDisjoint(df, sub,
                 usePairwiseDisjointAxioms, o).getChanges());

@@ -87,7 +87,6 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -165,6 +164,7 @@ public class OWLAPIOwl2Obo {
     protected boolean discardUntranslatable = false;
     /** Mute untranslatable axiom warnings. */
     private boolean muteUntranslatableAxioms = false;
+    private OWLDataFactory df;
 
     protected final void init() {
         idSpaceMap = new HashMap<>();
@@ -183,6 +183,7 @@ public class OWLAPIOwl2Obo {
      */
     public OWLAPIOwl2Obo(@Nonnull OWLOntologyManager translationManager) {
         manager = translationManager;
+        df = manager.getOWLDataFactory();
         init();
     }
 
@@ -2003,16 +2004,19 @@ public class OWLAPIOwl2Obo {
             c.addValue(indvId);
             String nameValue = "";
             String scopeValue = null;
-            for (OWLAnnotation ann : annotations(getOWLOntology()
-                    .getAnnotationAssertionAxioms(indv.getIRI()))) {
-                String propId = ann.getProperty().getIRI().toString();
-                String value = ((OWLLiteral) ann.getValue()).getLiteral();
-                if (OWLRDFVocabulary.RDFS_LABEL.getIRI().toString()
-                        .equals(propId)) {
-                    nameValue = '"' + value + '"';
-                } else {
-                    scopeValue = value;
-                }
+            Optional<OWLAnnotation> a = annotations(
+                    getOWLOntology().annotationAssertionAxioms(indv.getIRI()),
+                    df.getRDFSLabel()).findFirst();
+            if (a.isPresent()) {
+                nameValue = '"' + a.get().getValue().asLiteral().get()
+                        .getLiteral() + '"';
+            }
+            a = annotations(
+                    getOWLOntology().annotationAssertionAxioms(indv.getIRI()))
+                    .filter(ann -> !ann.getProperty().equals(df.getRDFSLabel()))
+                    .findFirst();
+            if (a.isPresent()) {
+                scopeValue = a.get().getValue().asLiteral().get().getLiteral();
             }
             c.addValue(nameValue);
             if (scopeValue != null) {
@@ -2033,14 +2037,12 @@ public class OWLAPIOwl2Obo {
             indvId = indvId.replaceFirst(".*:", "");
             c.addValue(indvId);
             String nameValue = "";
-            for (OWLAnnotation ann : annotations(getOWLOntology()
-                    .getAnnotationAssertionAxioms(indv.getIRI()))) {
-                String propId = ann.getProperty().getIRI().toString();
-                String value = ((OWLLiteral) ann.getValue()).getLiteral();
-                if (OWLRDFVocabulary.RDFS_LABEL.getIRI().toString()
-                        .equals(propId)) {
-                    nameValue = '"' + value + '"';
-                }
+            Optional<OWLAnnotation> value = annotations(
+                    getOWLOntology().annotationAssertionAxioms(indv.getIRI()),
+                    df.getRDFSLabel()).findFirst();
+            if (value.isPresent()) {
+                nameValue = '"' + value.get().getValue().asLiteral().get()
+                        .getLiteral() + '"';
             }
             c.addValue(nameValue);
             f.addClause(c);

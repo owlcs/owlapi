@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
@@ -203,11 +202,9 @@ public class Utf8TestCase extends TestBase {
 
     private static boolean checkOntology(@Nonnull OWLOntology ontology,
             @Nonnull OWLClass c, @Nonnull String chinese) {
-        for (OWLAnnotation annotation : annotations(ontology
-                .getAnnotationAssertionAxioms(c.getIRI()))) {
-            String value = ((OWLLiteral) annotation.getValue()).getLiteral();
-            return chinese.equals(value);
-        }
-        return false;
+        return annotations(ontology.annotationAssertionAxioms(c.getIRI()))
+                .anyMatch(
+                        a -> a.getValue().asLiteral().get().getLiteral()
+                                .equals(chinese));
     }
 }

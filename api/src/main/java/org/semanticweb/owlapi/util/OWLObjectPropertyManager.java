@@ -106,9 +106,9 @@ public class OWLObjectPropertyManager {
         return getCompositeProperties().contains(expression.getSimplified());
     }
 
-    protected Collection<OWLObjectPropertyExpression> inverseProperties(
+    protected Stream<OWLObjectPropertyExpression> inverseProperties(
             OWLObjectPropertyExpression p1) {
-        return inverse(ontology.getInverseObjectPropertyAxioms(p1), p1);
+        return inverse(ontology.inverseObjectPropertyAxioms(p1), p1);
     }
 
     protected Stream<OWLOntology> ontologies() {

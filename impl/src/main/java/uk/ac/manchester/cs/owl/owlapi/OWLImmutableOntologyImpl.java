@@ -644,22 +644,20 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Nonnull
-    @SuppressWarnings("unchecked")
     @Override
-    public <T extends OWLAxiom> Collection<T> filterAxioms(
+    public <T extends OWLAxiom> Stream<T> axioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
             Imports imports) {
-        return (Set<T>) imports.stream(this)
-                .flatMap(o -> o.filterAxioms(filter, key).stream())
-                .collect(toSet());
+        return imports.stream(this).flatMap(o -> o.axioms(filter, key));
     }
 
     @Nonnull
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends OWLAxiom> Collection<T> filterAxioms(
+    public <T extends OWLAxiom> Stream<T> axioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key) {
-        return (Collection<T>) ints.filterAxioms(filter, key);
+        Collection<T> c = (Collection<T>) ints.filterAxioms(filter, key);
+        return c.stream();
     }
 
     @Override

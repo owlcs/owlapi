@@ -435,8 +435,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                         "  Added entity declaration axiom:   {}",
                         minusOntologyURI(a.toString())));
             }
-            Collection<OWLAxiom> axioms = ontology.filterAxioms(
-                    Filters.annotations, entity.getIRI(), INCLUDED);
+            Collection<OWLAxiom> axioms = ontology.axioms(Filters.annotations,
+                    entity.getIRI(), INCLUDED).collect(toList());
             enrichedModule.addAll(axioms);
             if (LOGGER.isInfoEnabled()) {
                 axioms.forEach(a -> LOGGER.info(

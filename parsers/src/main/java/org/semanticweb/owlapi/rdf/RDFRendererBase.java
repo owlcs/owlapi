@@ -498,8 +498,8 @@ public abstract class RDFRendererBase {
         final Set<OWLAxiom> axioms = new HashSet<>();
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
-            axioms.addAll(ontology.filterAxioms(Filters.annotations,
-                    entity.getIRI(), INCLUDED));
+            axioms.addAll(ontology.axioms(Filters.annotations, entity.getIRI(),
+                    INCLUDED).collect(toList()));
         }
         add(ontology.declarationAxioms(entity), axioms);
         entity.accept(new OWLEntityVisitor() {

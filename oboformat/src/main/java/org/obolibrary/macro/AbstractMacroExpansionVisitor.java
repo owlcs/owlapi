@@ -17,7 +17,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -257,10 +256,9 @@ public abstract class AbstractMacroExpansionVisitor implements
         expandAssertionToMap = new HashMap<>();
         o.objectPropertiesInSignature().forEach(
                 p -> annotations(
-                        o.filterAxioms(Filters.annotations, p.getIRI(),
-                                INCLUDED),
+                        o.axioms(Filters.annotations, p.getIRI(), INCLUDED),
                         df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI()))
-                        .stream().forEach(a -> {
+                        .forEach(a -> {
                             OWLAnnotationValue v = a.getValue();
                             if (v instanceof OWLLiteral) {
                                 String str = ((OWLLiteral) v).getLiteral();
@@ -273,16 +271,14 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     protected void expandAssertions(OWLOntology o, OWLAnnotationProperty p) {
-        for (OWLAnnotation a : annotations(
-                o.filterAxioms(Filters.annotations, p.getIRI(), INCLUDED),
-                df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI()))) {
-            OWLAnnotationValue v = a.getValue();
-            if (v instanceof OWLLiteral) {
-                String str = ((OWLLiteral) v).getLiteral();
-                LOG.info("assertion mapping {} to {}", p, str);
-                expandAssertionToMap.put(p.getIRI(), str);
-            }
-        }
+        annotations(o.axioms(Filters.annotations, p.getIRI(), INCLUDED),
+                df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI()))
+                .map(a -> a.getValue().asLiteral()).filter(v -> v.isPresent())
+                .forEach(v -> {
+                    String str = v.get().getLiteral();
+                    LOG.info("assertion mapping {} to {}", p, str);
+                    expandAssertionToMap.put(p.getIRI(), str);
+                });
     }
 
     @Nullable

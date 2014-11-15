@@ -25,11 +25,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
@@ -321,15 +321,15 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Collection<OWLAxiom> axioms = ontology.filterAxioms(
-                        Filters.subClassWithSub, eachClass, INCLUDED);
-                flatten(sup(axioms, OWLClassExpression.class),
+                flatten(sup(
+                        ontology.axioms(Filters.subClassWithSub, eachClass,
+                                INCLUDED), OWLClassExpression.class).iterator(),
                         KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
                 Collection<OWLClassExpression> classes = equivalent(
-                        ontology.getEquivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class);
+                        ontology.equivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class).collect(toList());
                 for (OWLClassExpression description : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -342,15 +342,14 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Collection<OWLClassExpression> classes = equivalent(
-                        ontology.getEquivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class);
-                flatten(classes, KRSSVocabulary.AND);
+                flatten(equivalent(ontology.equivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class).iterator(),
+                        KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
                 Collection<OWLClassExpression> supclasses = sup(
-                        ontology.getSubClassAxiomsForSubClass(eachClass),
-                        OWLClassExpression.class);
+                        ontology.subClassAxiomsForSubClass(eachClass),
+                        OWLClassExpression.class).collect(toList());
                 for (OWLClassExpression description : supclasses) {
                     writeOpenBracket();
                     write(eachClass);
@@ -370,16 +369,18 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 }
             }
             writeOpenBracket();
-            Collection<OWLObjectPropertyExpression> properties = equivalent(ontology
-                    .getEquivalentObjectPropertiesAxioms(property));
+            Stream<OWLObjectPropertyExpression> streamp = equivalent(ontology
+                    .equivalentObjectPropertiesAxioms(property));
+            Collection<OWLObjectPropertyExpression> properties = streamp
+                    .collect(toSet());
             boolean isPrimitive = properties.isEmpty();
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
-                Collection<OWLAxiom> axioms = ontology.filterAxioms(
-                        Filters.subObjectPropertyWithSub, property, INCLUDED);
                 Collection<OWLObjectPropertyExpression> superProperties = sup(
-                        axioms, OWLObjectPropertyExpression.class);
+                        ontology.axioms(Filters.subObjectPropertyWithSub,
+                                property, INCLUDED),
+                        OWLObjectPropertyExpression.class).collect(toSet());
                 int superSize = superProperties.size();
                 if (superSize == 1) {
                     writeSpace();
@@ -447,22 +448,24 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(TRUE);
             }
             Iterator<OWLObjectPropertyExpression> inverses = inverse(
-                    ontology.getInverseObjectPropertyAxioms(property), property)
+                    ontology.inverseObjectPropertyAxioms(property), property)
                     .iterator();
             if (!inverses.hasNext()) {
                 writeSpace();
                 write(INVERSE_ATTR);
                 write(inverses.next());
             }
-            Collection<OWLClassExpression> desc = domain(ontology
-                    .getObjectPropertyDomainAxioms(property));
-            if (!desc.isEmpty()) {
+            Stream<OWLClassExpression> stream = domain(ontology
+                    .objectPropertyDomainAxioms(property));
+            Iterator<OWLClassExpression> desc = stream.iterator();
+            if (desc.hasNext()) {
                 writeSpace();
                 write(DOMAIN_ATTR);
                 flatten(desc, KRSSVocabulary.AND);
             }
-            desc = range(ontology.getObjectPropertyRangeAxioms(property));
-            if (!desc.isEmpty()) {
+            stream = range(ontology.objectPropertyRangeAxioms(property));
+            desc = stream.iterator();
+            if (desc.hasNext()) {
                 writeSpace();
                 write(RANGE_ATTR);
                 flatten(desc, KRSSVocabulary.AND);

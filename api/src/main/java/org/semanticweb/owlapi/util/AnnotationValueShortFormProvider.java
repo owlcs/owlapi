@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -165,9 +166,9 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             ontologySetProvider
                     .ontologies()
                     .flatMap(
-                            o -> o.filterAxioms(Filters.annotations,
-                                    entity.getIRI(), INCLUDED).stream())
-                    .forEach(ax -> ax.accept(checker));
+                            o -> o.axioms(Filters.annotations, entity.getIRI(),
+                                    INCLUDED))
+                    .forEach(ax -> ((OWLAxiom) ax).accept(checker));
             OWLObject match = checker.getMatch();
             if (match != null) {
                 return getRendering(match);

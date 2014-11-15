@@ -1551,13 +1551,10 @@ public class StructuralReasoner extends OWLReasonerBase {
         public Collection<OWLDataProperty> getParents(
                 @Nonnull OWLDataProperty child) {
             Set<OWLDataProperty> properties = new HashSet<>();
-            Collection<OWLAxiom> axioms = getRootOntology().filterAxioms(
+            Stream<OWLAxiom> axioms = getRootOntology().axioms(
                     Filters.subDataPropertyWithSub, child, INCLUDED);
-            Collection<OWLDataPropertyExpression> expressions = sup(axioms,
-                    OWLDataPropertyExpression.class);
-            for (OWLDataPropertyExpression prop : expressions) {
-                properties.add(prop.asOWLDataProperty());
-            }
+            sup(axioms, OWLDataPropertyExpression.class).forEach(
+                    p -> properties.add(p.asOWLDataProperty()));
             return properties;
         }
 
@@ -1566,12 +1563,10 @@ public class StructuralReasoner extends OWLReasonerBase {
         public Collection<OWLDataProperty> getChildren(
                 @Nonnull OWLDataProperty parent) {
             Set<OWLDataProperty> properties = new HashSet<>();
-            Collection<OWLAxiom> axioms = getRootOntology().filterAxioms(
+            Stream<OWLAxiom> axioms = getRootOntology().axioms(
                     Filters.subDataPropertyWithSuper, parent, INCLUDED);
-            for (OWLDataPropertyExpression prop : sub(axioms,
-                    OWLDataPropertyExpression.class)) {
-                properties.add(prop.asOWLDataProperty());
-            }
+            sub(axioms, OWLDataPropertyExpression.class).forEach(
+                    p -> properties.add(p.asOWLDataProperty()));
             return properties;
         }
     }

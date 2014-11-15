@@ -572,8 +572,8 @@ public class Examples extends TestBase {
         // System.out.println("Referenced class: " + cls);
         // We should also find that B is an ASSERTED superclass of A
         Iterable<OWLClassExpression> superClasses = sup(
-                ontology.filterAxioms(Filters.subClassWithSub, clsA, INCLUDED),
-                OWLClassExpression.class);
+                ontology.axioms(Filters.subClassWithSub, clsA, INCLUDED),
+                OWLClassExpression.class).collect(toList());
         // Now save the ontology. The ontology will be saved to the location
         // where we loaded it from, in the default ontology format
         manager.saveOntology(ontology);
@@ -1285,19 +1285,15 @@ public class Examples extends TestBase {
         // to see if it is Portugeuse. Firstly, get the annotation property for
         // rdfs:label
         OWLAnnotationProperty label = df.getRDFSLabel();
-        ont.classesInSignature().forEach(c -> {
-            // Get the annotations on the class that use the label property
-                for (OWLAnnotation annotation : annotations(ont.filterAxioms(
-                        Filters.annotations, c.getIRI(), INCLUDED), label)) {
-                    if (annotation.getValue() instanceof OWLLiteral) {
-                        OWLLiteral val = (OWLLiteral) annotation.getValue();
-                        if (val.hasLang("pt")) {
-                            // System.out.println(cls + " -> " +
-                            // val.getLiteral());
-                        }
-                    }
-                }
-            });
+        ont.classesInSignature().forEach(
+                c -> annotations(
+                        ont.axioms(Filters.annotations, c.getIRI(), INCLUDED),
+                        label).map(a -> a.getValue().asLiteral())
+                        .filter(v -> v.isPresent() && v.get().hasLang("pt"))
+                        .forEach(
+                        // Get the annotations on the class that use the label
+                        // property
+                                v -> v.get().getLiteral()));
     }
 
     /**

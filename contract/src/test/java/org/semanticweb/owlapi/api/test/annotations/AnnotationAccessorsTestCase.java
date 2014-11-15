@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -82,9 +82,9 @@ public class AnnotationAccessorsTestCase extends TestBase {
         if (e instanceof OWLEntity) {
             assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
                     .anyMatch(a -> a.equals(ax)));
-            assertTrue(annotations(
-                    ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
-                            .collect(toSet())).contains(ax.getAnnotation()));
+            assertTrue(contains(
+                    annotations(ont.annotationAssertionAxioms(((OWLEntity) e)
+                            .getIRI())), ax.getAnnotation()));
         }
     }
 }

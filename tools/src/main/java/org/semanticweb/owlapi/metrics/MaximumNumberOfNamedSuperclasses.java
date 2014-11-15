@@ -12,12 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
 
@@ -52,27 +52,22 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
 
     @Override
     public Integer recomputeMetric() {
-        int count = 0;
+        AtomicLong count = new AtomicLong();
         Set<OWLClass> processedClasses = new HashSet<>();
-        for (OWLOntology ont : getOntologies().collect(toList())) {
-            for (OWLClass cls : ont.classesInSignature().collect(toList())) {
-                if (!processedClasses.contains(cls)) {
-                    processedClasses.add(cls);
-                    int curCount = 0;
-                    for (OWLClassExpression desc : equivalent(ont
-                            .equivalentClassesAxioms(cls).collect(toList()),
-                            OWLClassExpression.class)) {
-                        if (!desc.isAnonymous()) {
-                            curCount++;
-                        }
-                    }
-                    if (curCount > count) {
-                        count = curCount;
-                    }
-                }
-            }
-        }
-        return count;
+        getOntologies().forEach(
+                o -> o.classesInSignature()
+                        .filter(c -> processedClasses.add(c))
+                        .forEach(
+                                cls -> {
+                                    long curCount = equivalent(
+                                            o.equivalentClassesAxioms(cls),
+                                            OWLClassExpression.class).filter(
+                                            d -> !d.isAnonymous()).count();
+                                    if (curCount > count.get()) {
+                                        count.set(curCount);
+                                    }
+                                }));
+        return count.intValue();
     }
 
     @Override

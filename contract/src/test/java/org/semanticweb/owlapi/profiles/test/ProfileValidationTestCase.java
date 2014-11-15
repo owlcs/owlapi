@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles.test;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
@@ -83,8 +83,8 @@ public class ProfileValidationTestCase extends TestBase {
                         toList())) {
             OWLIndividual ind = ax.getIndividual();
             Collection<OWLLiteral> vals = values(
-                    testCasesOntology.getDataPropertyAssertionAxioms(ind),
-                    rdfXMLPremiseOntologyProperty);
+                    testCasesOntology.dataPropertyAssertionAxioms(ind),
+                    rdfXMLPremiseOntologyProperty).collect(toSet());
             if (vals.size() != 1) {
                 continue;
             }
@@ -92,15 +92,15 @@ public class ProfileValidationTestCase extends TestBase {
             OWLOntology ontology = loadOntologyFromString(ontologySerialisation);
             // FULL?
             Collection<OWLIndividual> finder = values(
-                    testCasesOntology.getObjectPropertyAssertionAxioms(ind),
-                    speciesProperty);
+                    testCasesOntology.objectPropertyAssertionAxioms(ind),
+                    speciesProperty).collect(toSet());
             if (finder.contains(full)) {
                 checkProfile(ontology, new OWL2Profile(), true);
             }
             Collection<OWLIndividual> negativeFinder = negValues(
                     testCasesOntology
-                            .getNegativeObjectPropertyAssertionAxioms(ind),
-                    speciesProperty);
+                            .negativeObjectPropertyAssertionAxioms(ind),
+                    speciesProperty).collect(toSet());
             if (negativeFinder.contains(full)) {
                 checkProfile(ontology, new OWL2Profile(), false);
             }
