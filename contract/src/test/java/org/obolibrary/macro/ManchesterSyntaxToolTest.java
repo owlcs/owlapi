@@ -42,7 +42,8 @@ public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
     private static void checkIntersection(OWLClassExpression expression,
             String genus, String relId, String differentia) {
         OWLObjectIntersectionOf intersection = (OWLObjectIntersectionOf) expression;
-        List<OWLClassExpression> list = intersection.getOperandsAsList();
+        List<? extends OWLClassExpression> list = intersection
+                .getOperandsAsList();
         OWLClass cls = (OWLClass) list.get(0);
         assertEquals(genus, OWLAPIOwl2Obo.getIdentifier(cls.getIRI()));
         OWLClassExpression rhs = list.get(1);

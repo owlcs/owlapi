@@ -37,7 +37,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<OWLClassExpression> operands;
+    private final List<? extends OWLClassExpression> operands;
 
     /**
      * @param operands
@@ -50,7 +50,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     }
 
     @Override
-    public Stream<OWLClassExpression> operands() {
+    public Stream<? extends OWLClassExpression> operands() {
         return operands.stream();
     }
 

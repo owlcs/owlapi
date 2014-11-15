@@ -51,7 +51,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLClassExpression> getClassExpressions() {
+    default Set<? extends OWLClassExpression> getClassExpressions() {
         return classExpressions().collect(toSet());
     }
 
@@ -63,7 +63,7 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         equivalent to the disjoint union.
      */
     @Nonnull
-    Stream<OWLClassExpression> classExpressions();
+    Stream<? extends OWLClassExpression> classExpressions();
 
     /**
      * Gets the part of this axiom that corresponds to an

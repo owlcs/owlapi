@@ -37,7 +37,9 @@ public interface HasAnnotations {
      *         ontologies. Use the EntitySearcher methods for that purpose.
      */
     @Nonnull
-    Stream<OWLAnnotation> annotations();
+    default Stream<? extends OWLAnnotation> annotations() {
+        return Stream.empty();
+    }
 
     /**
      * @return a stream of OWLAnnotations on this object, with filter applied.
@@ -50,7 +52,7 @@ public interface HasAnnotations {
      *        annotation property or the annotation value
      */
     @Nonnull
-    default Stream<OWLAnnotation> annotations(
+    default Stream<? extends OWLAnnotation> annotations(
             @Nonnull Predicate<OWLAnnotation> p) {
         return annotations().filter(p);
     }
@@ -65,7 +67,8 @@ public interface HasAnnotations {
      *        annotation property to filter on
      */
     @Nonnull
-    default Stream<OWLAnnotation> annotations(@Nonnull OWLAnnotationProperty p) {
+    default Stream<? extends OWLAnnotation> annotations(
+            @Nonnull OWLAnnotationProperty p) {
         return annotations().filter(a -> a.getProperty().equals(p));
     }
 
@@ -85,7 +88,7 @@ public interface HasAnnotations {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLAnnotation> getAnnotations() {
+    default Set<? extends OWLAnnotation> getAnnotations() {
         return annotations().collect(toSet());
     }
 
@@ -101,7 +104,7 @@ public interface HasAnnotations {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLAnnotation> getAnnotations(
+    default Set<? extends OWLAnnotation> getAnnotations(
             @Nonnull OWLAnnotationProperty annotationProperty) {
         return annotations(a -> a.getProperty().equals(annotationProperty))
                 .collect(Collectors.toSet());

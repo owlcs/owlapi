@@ -29,11 +29,11 @@ public interface OWLNaryDataRange extends OWLDataRange {
     /** @return the data ranges */
     @Deprecated
     @Nonnull
-    default Set<OWLDataRange> getOperands() {
+    default Set<? extends OWLDataRange> getOperands() {
         return operands().collect(toSet());
     }
 
     /** @return the data ranges */
     @Nonnull
-    Stream<OWLDataRange> operands();
+    Stream<? extends OWLDataRange> operands();
 }

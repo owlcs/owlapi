@@ -960,7 +960,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {}
 
-    protected void writeAnnotations(@Nonnull Iterator<OWLAnnotation> annoIt) {
+    protected void writeAnnotations(
+            @Nonnull Iterator<? extends OWLAnnotation> annoIt) {
         if (!annoIt.hasNext()) {
             return;
         }

@@ -449,8 +449,9 @@ public class OWLAPIOwl2Obo {
                 .getOWLAnnotationProperty(
                         Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation
                                 .getIRI());
-        for (OWLAnnotation ann : getOWLOntology().annotations(logicalDef)
-                .collect(toList())) {
+        List<? extends OWLAnnotation> collect = getOWLOntology().annotations(logicalDef)
+                .collect(toList());
+        for (OWLAnnotation ann : collect) {
             OWLAnnotationValue v = ann.getValue();
             if (v instanceof OWLLiteral) {
                 viewRel = ((OWLLiteral) v).getLiteral();
@@ -525,7 +526,7 @@ public class OWLAPIOwl2Obo {
      */
     protected boolean trObjectProperty(@Nullable OWLObjectProperty prop,
             @Nullable String tag, @Nullable String value,
-            @Nonnull Stream<OWLAnnotation> annotations) {
+            @Nonnull Stream<? extends OWLAnnotation> annotations) {
         if (prop == null || value == null) {
             return false;
         }
@@ -562,7 +563,7 @@ public class OWLAPIOwl2Obo {
      */
     protected boolean trObjectProperty(@Nullable OWLObjectProperty prop,
             String tag, @Nullable Boolean value,
-            @Nonnull Stream<OWLAnnotation> annotations) {
+            @Nonnull Stream<? extends OWLAnnotation> annotations) {
         if (prop == null || value == null) {
             return false;
         }
@@ -659,7 +660,8 @@ public class OWLAPIOwl2Obo {
             clause = new Clause(OboFormatTag.TAG_TRANSITIVE_OVER, rel2);
         } else {
             OboFormatTag tag = OboFormatTag.TAG_HOLDS_OVER_CHAIN;
-            for (OWLAnnotation ann : ax.annotations().collect(toList())) {
+            List<? extends OWLAnnotation> collect = ax.annotations().collect(toList());
+            for (OWLAnnotation ann : collect) {
                 if (OWLAPIObo2Owl.IRI_PROP_ISREVERSIBLEPROPERTYCHAIN.equals(ann
                         .getProperty().getIRI().toString())) {
                     tag = OboFormatTag.TAG_EQUIVALENT_TO_CHAIN;
@@ -1281,7 +1283,7 @@ public class OWLAPIOwl2Obo {
      *        the qualifiers
      */
     protected static void addQualifiers(@Nonnull Clause c,
-            @Nonnull Stream<OWLAnnotation> qualifiers) {
+            @Nonnull Stream<? extends OWLAnnotation> qualifiers) {
         qualifiers.forEach(a -> addQualifiers(c, a));
     }
 
@@ -1395,7 +1397,8 @@ public class OWLAPIOwl2Obo {
             c2.setValue(vid);
             f.addClause(c2);
         }
-        for (OWLAnnotation ann : ontology.annotations().collect(toSet())) {
+        Set<? extends OWLAnnotation> collect = ontology.annotations().collect(toSet());
+        for (OWLAnnotation ann : collect) {
             OWLAnnotationProperty property = ann.getProperty();
             String tagString = owlObjectToTag(property);
             if (OboFormatTag.TAG_COMMENT.getTag().equals(tagString)) {
@@ -1459,7 +1462,7 @@ public class OWLAPIOwl2Obo {
             f.addClause(c);
             addQualifiers(c, ax.annotations());
         } else if (ce2 instanceof OWLObjectUnionOf) {
-            List<OWLClassExpression> list2 = ((OWLObjectUnionOf) ce2)
+            List<? extends OWLClassExpression> list2 = ((OWLObjectUnionOf) ce2)
                     .getOperandsAsList();
             for (OWLClassExpression oce : list2) {
                 String id = getIdentifier(oce);
@@ -1474,7 +1477,7 @@ public class OWLAPIOwl2Obo {
                 addQualifiers(c, ax.annotations());
             }
         } else if (ce2 instanceof OWLObjectIntersectionOf) {
-            List<OWLClassExpression> list2 = ((OWLObjectIntersectionOf) ce2)
+            List<? extends OWLClassExpression> list2 = ((OWLObjectIntersectionOf) ce2)
                     .getOperandsAsList();
             for (OWLClassExpression ce : list2) {
                 String r = null;
@@ -2144,7 +2147,8 @@ public class OWLAPIOwl2Obo {
             } else if (sup instanceof OWLObjectIntersectionOf) {
                 OWLObjectIntersectionOf i = (OWLObjectIntersectionOf) sup;
                 List<Clause> clauses = new ArrayList<>();
-                for (OWLClassExpression operand : i.operands().collect(toSet())) {
+                Set<? extends OWLClassExpression> collect = i.operands().collect(toSet());
+                for (OWLClassExpression operand : collect) {
                     if (operand instanceof OWLObjectCardinalityRestriction) {
                         OWLObjectCardinalityRestriction restriction = (OWLObjectCardinalityRestriction) operand;
                         OWLClassExpression filler = restriction.getFiller();

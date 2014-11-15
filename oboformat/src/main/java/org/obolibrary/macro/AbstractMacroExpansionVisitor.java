@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -72,11 +70,6 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractMacroExpansionVisitor implements
         OWLAxiomVisitorEx<OWLAxiom> {
 
-    protected static <T> Set<T> set(Stream<T> c,
-            Function<? super T, ? extends T> mapper) {
-        return c.map(mapper).collect(toSet());
-    }
-
     static final Logger LOG = LoggerFactory
             .getLogger(AbstractMacroExpansionVisitor.class);
     final OWLDataFactory df;
@@ -103,14 +96,14 @@ public abstract class AbstractMacroExpansionVisitor implements
 
         @Override
         public OWLClassExpression visit(@Nonnull OWLObjectIntersectionOf ce) {
-            return df.getOWLObjectIntersectionOf(set(ce.operands(),
-                    o -> o.accept(this)));
+            return df.getOWLObjectIntersectionOf(ce.operands()
+                    .map(o -> o.accept(this)).collect(toSet()));
         }
 
         @Override
         public OWLClassExpression visit(@Nonnull OWLObjectUnionOf ce) {
-            return df.getOWLObjectUnionOf(set(ce.operands(),
-                    o -> o.accept(this)));
+            return df.getOWLObjectUnionOf(ce.operands()
+                    .map(o -> o.accept(this)).collect(toSet()));
         }
 
         @Override
@@ -336,8 +329,8 @@ public abstract class AbstractMacroExpansionVisitor implements
     public OWLAxiom visit(@Nonnull OWLDisjointClassesAxiom ax) {
         Set<OWLClassExpression> ops = new HashSet<>();
         ax.classExpressions().forEach(op -> ops.add(op.accept(classVisitor)));
-        return df.getOWLDisjointClassesAxiom(set(ax.classExpressions(),
-                o -> o.accept(classVisitor)));
+        return df.getOWLDisjointClassesAxiom(ax.classExpressions()
+                .map(o -> o.accept(classVisitor)).collect(toSet()));
     }
 
     @Override

@@ -41,7 +41,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     @Nonnull
     private final OWLClassExpression expression;
     @Nonnull
-    private final List<OWLPropertyExpression> propertyExpressions;
+    private final List<? extends OWLPropertyExpression> propertyExpressions;
 
     /**
      * @param expression
@@ -88,7 +88,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     }
 
     @Override
-    public Stream<OWLPropertyExpression> propertyExpressions() {
+    public Stream<? extends OWLPropertyExpression> propertyExpressions() {
         return propertyExpressions.stream();
     }
 

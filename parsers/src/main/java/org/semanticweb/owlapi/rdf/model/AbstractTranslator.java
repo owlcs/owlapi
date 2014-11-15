@@ -1058,8 +1058,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                         XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
-    private void processIfAnonymous(@Nonnull Stream<OWLIndividual> inds,
-            OWLAxiom root) {
+    private void processIfAnonymous(
+            @Nonnull Stream<? extends OWLIndividual> inds, OWLAxiom root) {
         inds.forEach(i -> processIfAnonymous(i, root));
     }
 

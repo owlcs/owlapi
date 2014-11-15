@@ -31,13 +31,13 @@ public interface OWLNaryBooleanClassExpression extends
     /** @return the class expressions */
     @Deprecated
     @Nonnull
-    default Set<OWLClassExpression> getOperands() {
+    default Set<? extends OWLClassExpression> getOperands() {
         return operands().collect(toSet());
     }
 
     /** @return the class expressions */
     @Nonnull
-    Stream<OWLClassExpression> operands();
+    Stream<? extends OWLClassExpression> operands();
 
     /**
      * Gets the class expressions returned by {@link #getOperands()} as a list
@@ -46,7 +46,7 @@ public interface OWLNaryBooleanClassExpression extends
      * @return The class expressions as a list.
      */
     @Nonnull
-    default List<OWLClassExpression> getOperandsAsList() {
+    default List<? extends OWLClassExpression> getOperandsAsList() {
         return operands().collect(toList());
     }
 }

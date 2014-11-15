@@ -624,7 +624,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     public void visit(@Nonnull OWLObjectIntersectionOf ce) {
         writeOpenBracket();
         write(AND);
-        List<OWLClassExpression> operands = sort(ce.operands());
+        List<? extends OWLClassExpression> operands = sort(ce.operands());
         int size = operands.size();
         if (size > 0) {
             int indent = getIndent();
@@ -642,7 +642,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     public void visit(@Nonnull OWLObjectUnionOf ce) {
         writeOpenBracket();
         write(OR);
-        List<OWLClassExpression> operands = sort(ce.operands());
+        List<? extends OWLClassExpression> operands = sort(ce.operands());
         int size = operands.size();
         if (size > 0) {
             int indent = getIndent();

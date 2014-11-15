@@ -48,7 +48,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLPropertyExpression> getPropertyExpressions() {
+    default Set<? extends OWLPropertyExpression> getPropertyExpressions() {
         return propertyExpressions().collect(toSet());
     }
 
@@ -58,7 +58,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @return The set of property expression that form the key
      */
     @Nonnull
-    Stream<OWLPropertyExpression> propertyExpressions();
+    Stream<? extends OWLPropertyExpression> propertyExpressions();
 
     /**
      * Gets the set of object property expressions that make up the key. This is
@@ -72,7 +72,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
+    default Set<? extends OWLObjectPropertyExpression>
+            getObjectPropertyExpressions() {
         return objectPropertiesInSignature().collect(toSet());
     }
 
@@ -87,7 +88,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      *         this axiom
      */
     @Nonnull
-    default Stream<OWLObjectPropertyExpression> objectPropertyExpressions() {
+    default Stream<? extends OWLObjectPropertyExpression>
+            objectPropertyExpressions() {
         return propertyExpressions()
                 .filter(p -> p.isObjectPropertyExpression()).map(
                         p -> (OWLObjectPropertyExpression) p);
@@ -105,7 +107,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
+    default Set<? extends OWLDataPropertyExpression>
+            getDataPropertyExpressions() {
         return dataPropertyExpressions().collect(toSet());
     }
 
@@ -120,7 +123,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      *         this axiom
      */
     @Nonnull
-    default Stream<OWLDataPropertyExpression> dataPropertyExpressions() {
+    default Stream<? extends OWLDataPropertyExpression>
+            dataPropertyExpressions() {
         return propertyExpressions().filter(p -> p.isDataPropertyExpression())
                 .map(p -> (OWLDataPropertyExpression) p);
     }

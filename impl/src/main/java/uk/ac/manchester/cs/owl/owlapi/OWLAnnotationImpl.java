@@ -35,7 +35,7 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<OWLAnnotation> anns;
+    private final List<? extends OWLAnnotation> anns;
 
     @Override
     protected int index() {
@@ -59,7 +59,7 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
     }
 
     @Override
-    public Stream<OWLAnnotation> annotations() {
+    public Stream<? extends OWLAnnotation> annotations() {
         return anns.stream();
     }
 

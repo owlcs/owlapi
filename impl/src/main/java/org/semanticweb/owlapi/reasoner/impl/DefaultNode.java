@@ -200,7 +200,8 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         if (!(obj instanceof Node)) {
             return false;
         }
-        Node<?> other = (Node<?>) obj;
+        @SuppressWarnings("unchecked")
+        Node<E> other = (Node<E>) obj;
         return entities.equals(other.entities().collect(toSet()));
     }
 

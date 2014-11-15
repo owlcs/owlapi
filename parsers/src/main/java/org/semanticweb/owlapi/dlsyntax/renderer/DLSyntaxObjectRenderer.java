@@ -714,7 +714,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        for (Iterator<OWLIndividual> it = ce.individuals().iterator(); it
+        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it
                 .hasNext();) {
             write("{");
             it.next().accept(this);
@@ -770,7 +770,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (Iterator<OWLLiteral> it = node.values().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it
+                .hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");

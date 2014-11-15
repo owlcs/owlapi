@@ -196,7 +196,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          */
         @Nonnull
         public Set<OWLClassExpression> replaceBottom(
-                @Nonnull Stream<OWLClassExpression> exps) {
+                @Nonnull Stream<? extends OWLClassExpression> exps) {
             checkNotNull(exps, "exps cannot be null");
             return exps.map(ce -> replaceBottom(ce)).collect(toSet());
         }

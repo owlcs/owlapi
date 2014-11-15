@@ -430,7 +430,8 @@ public class OWLAPIObo2Owl {
      */
     protected void postProcess(@Nonnull OWLOntology ontology) {
         IRI pIRI = null;
-        for (OWLAnnotation ann : ontology.annotations().collect(toSet())) {
+        Set<? extends OWLAnnotation> collect = ontology.annotations().collect(toSet());
+        for (OWLAnnotation ann : collect) {
             if (Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation
                     .sameIRI(ann.getProperty())) {
                 OWLAnnotationValue v = ann.getValue();

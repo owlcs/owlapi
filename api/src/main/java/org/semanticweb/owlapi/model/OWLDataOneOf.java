@@ -37,7 +37,7 @@ public interface OWLDataOneOf extends OWLDataRange {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLLiteral> getValues() {
+    default Set<? extends OWLLiteral> getValues() {
         return values().collect(toSet());
     }
 
@@ -47,7 +47,7 @@ public interface OWLDataOneOf extends OWLDataRange {
      * @return The values that this data range consists of.
      */
     @Nonnull
-    Stream<OWLLiteral> values();
+    Stream<? extends OWLLiteral> values();
 
     @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {

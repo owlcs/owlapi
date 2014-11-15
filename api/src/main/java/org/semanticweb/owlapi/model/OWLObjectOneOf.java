@@ -39,7 +39,7 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLIndividual> getIndividuals() {
+    default Set<? extends OWLIndividual> getIndividuals() {
         return individuals().collect(toSet());
     }
 
@@ -51,7 +51,7 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      *         class expression.
      */
     @Nonnull
-    Stream<OWLIndividual> individuals();
+    Stream<? extends OWLIndividual> individuals();
 
     /**
      * Simplifies this enumeration to a union of singleton nominals.

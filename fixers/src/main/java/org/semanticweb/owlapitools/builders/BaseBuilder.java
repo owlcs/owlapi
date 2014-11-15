@@ -82,7 +82,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public B withAnnotations(@Nonnull Collection<OWLAnnotation> arg) {
+    public B withAnnotations(@Nonnull Collection<? extends OWLAnnotation> arg) {
         annotations.addAll(arg);
         return (B) this;
     }
@@ -94,7 +94,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public B withAnnotations(@Nonnull Stream<OWLAnnotation> arg) {
+    public B withAnnotations(@Nonnull Stream<? extends OWLAnnotation> arg) {
         arg.forEach(a -> annotations.add(a));
         return (B) this;
     }

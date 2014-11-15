@@ -312,7 +312,7 @@ public abstract class TestBase {
         return reannotated;
     }
 
-    private Set<OWLAnnotation> reannotate(Stream<OWLAnnotation> anns) {
+    private Set<OWLAnnotation> reannotate(Stream<? extends OWLAnnotation> anns) {
         OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING);
         Set<OWLAnnotation> toReturn = new HashSet<>();
         anns.forEach(a -> {

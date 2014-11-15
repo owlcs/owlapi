@@ -309,8 +309,8 @@ class LiteralFoldingEqualityTester {
         return false;
     }
 
-    public static boolean equalLiterals(Iterator<OWLLiteral> ai,
-            Iterator<OWLLiteral> bi) {
+    public static boolean equalLiterals(Iterator<? extends OWLLiteral> ai,
+            Iterator<? extends OWLLiteral> bi) {
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
@@ -368,8 +368,9 @@ class LiteralFoldingEqualityTester {
         }
     }
 
-    private static boolean equalIndividuals(Iterator<OWLIndividual> ai,
-            Iterator<OWLIndividual> bi) {
+    private static boolean equalIndividuals(
+            Iterator<? extends OWLIndividual> ai,
+            Iterator<? extends OWLIndividual> bi) {
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
@@ -458,8 +459,8 @@ class LiteralFoldingEqualityTester {
     }
 
     private static boolean equalObjectPropertyExpressions(
-            Iterator<OWLObjectPropertyExpression> ai,
-            Iterator<OWLObjectPropertyExpression> bi) {
+            Iterator<? extends OWLObjectPropertyExpression> ai,
+            Iterator<? extends OWLObjectPropertyExpression> bi) {
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
@@ -484,8 +485,8 @@ class LiteralFoldingEqualityTester {
     }
 
     private static boolean equalDataPropertyExpressions(
-            Iterator<OWLDataPropertyExpression> ai,
-            Iterator<OWLDataPropertyExpression> bi) {
+            Iterator<? extends OWLDataPropertyExpression> ai,
+            Iterator<? extends OWLDataPropertyExpression> bi) {
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
@@ -536,8 +537,8 @@ class LiteralFoldingEqualityTester {
         }
     }
 
-    private static boolean equalDataRanges(Iterator<OWLDataRange> ai,
-            Iterator<OWLDataRange> bi) {
+    private static boolean equalDataRanges(Iterator<? extends OWLDataRange> ai,
+            Iterator<? extends OWLDataRange> bi) {
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
@@ -658,8 +659,9 @@ class LiteralFoldingEqualityTester {
                 .iterator());
     }
 
-    public static boolean equalAnnotations(@Nonnull Iterator<OWLAnnotation> ai,
-            @Nonnull Iterator<OWLAnnotation> bi) {
+    public static boolean equalAnnotations(
+            @Nonnull Iterator<? extends OWLAnnotation> ai,
+            @Nonnull Iterator<? extends OWLAnnotation> bi) {
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
@@ -1438,7 +1440,8 @@ class LiteralFoldingEqualityTester {
     }
 
     private static boolean equalClassExpressions(
-            Iterator<OWLClassExpression> ai, Iterator<OWLClassExpression> bi) {
+            Iterator<? extends OWLClassExpression> ai,
+            Iterator<? extends OWLClassExpression> bi) {
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;

@@ -74,15 +74,16 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
 
-    private static final OWLClassExpressionVisitorEx<Stream<OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Stream<OWLClassExpression>>() {
+    private static final OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>>() {
 
         @Override
-        public Stream<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
+        public Stream<? extends OWLClassExpression> visit(
+                OWLObjectIntersectionOf ce) {
             return ce.operands();
         }
 
         @Override
-        public Stream<OWLClassExpression> doDefault(Object o) {
+        public Stream<? extends OWLClassExpression> doDefault(Object o) {
             return Stream.empty();
         }
     };

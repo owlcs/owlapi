@@ -45,7 +45,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
     @Nonnull
     private final OWLClass owlClass;
     @Nonnull
-    private final List<OWLClassExpression> classExpressions;
+    private final List<? extends OWLClassExpression> classExpressions;
 
     /**
      * @param owlClass
@@ -66,7 +66,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public Stream<OWLClassExpression> classExpressions() {
+    public Stream<? extends OWLClassExpression> classExpressions() {
         return classExpressions.stream();
     }
 

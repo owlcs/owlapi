@@ -37,7 +37,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<OWLLiteral> values;
+    private final List<? extends OWLLiteral> values;
 
     @Override
     protected int index() {
@@ -59,7 +59,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     @Override
-    public Stream<OWLLiteral> values() {
+    public Stream<? extends OWLLiteral> values() {
         return values.stream();
     }
 

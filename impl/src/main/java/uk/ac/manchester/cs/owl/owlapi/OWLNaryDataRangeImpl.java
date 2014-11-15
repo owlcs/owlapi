@@ -36,7 +36,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<OWLDataRange> operands;
+    private final List<? extends OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(
             @Nonnull Collection<? extends OWLDataRange> operands) {
@@ -45,7 +45,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Stream<OWLDataRange> operands() {
+    public Stream<? extends OWLDataRange> operands() {
         return operands.stream();
     }
 

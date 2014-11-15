@@ -221,8 +221,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        for (Iterator<OWLClassExpression> it = ce.operands().iterator(); it
-                .hasNext();) {
+        for (Iterator<? extends OWLClassExpression> it = ce.operands()
+                .iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -352,8 +352,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        for (Iterator<OWLClassExpression> it = ce.operands().iterator(); it
-                .hasNext();) {
+        for (Iterator<? extends OWLClassExpression> it = ce.operands()
+                .iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -370,7 +370,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        for (Iterator<OWLIndividual> it = ce.individuals().iterator(); it
+        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it
                 .hasNext();) {
             writeOpenBrace();
             it.next().accept(this);
@@ -893,7 +893,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (Iterator<OWLLiteral> it = node.values().iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it
+                .hasNext();) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -1065,7 +1066,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        for (Iterator<OWLDataRange> it = node.operands().iterator(); it
+        for (Iterator<? extends OWLDataRange> it = node.operands().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -1078,7 +1079,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        for (Iterator<OWLDataRange> it = node.operands().iterator(); it
+        for (Iterator<? extends OWLDataRange> it = node.operands().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {

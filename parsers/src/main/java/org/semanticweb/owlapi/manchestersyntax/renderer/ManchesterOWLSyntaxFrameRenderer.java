@@ -1045,7 +1045,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                         .iterator(); it.hasNext();) {
                     OWLPropertyAssertionAxiom<?, ?> ax = it.next();
                     fireSectionItemPrepared(FACTS.toString());
-                    Iterator<OWLAnnotation> annos = ax.annotations().iterator();
+                    Iterator<? extends OWLAnnotation> annos = ax.annotations()
+                            .iterator();
                     boolean isNotEmpty = annos.hasNext();
                     if (isNotEmpty) {
                         writeAnnotations(ax.annotations().iterator());

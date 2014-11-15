@@ -13,10 +13,10 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.stream.Collectors.toList;
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -42,7 +42,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<OWLIndividual> values;
+    private final List<? extends OWLIndividual> values;
 
     @Override
     protected int index() {
@@ -59,13 +59,21 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
                 .sorted().collect(toList());
     }
 
+    /**
+     * @param value
+     *        value for oneof
+     */
+    public OWLObjectOneOfImpl(@Nonnull OWLIndividual value) {
+        values = Arrays.asList(checkNotNull(value, "value cannot be null"));
+    }
+
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_ONE_OF;
     }
 
     @Override
-    public Stream<OWLIndividual> individuals() {
+    public Stream<? extends OWLIndividual> individuals() {
         return values.stream();
     }
 
@@ -75,7 +83,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
             return this;
         } else {
             Set<OWLClassExpression> ops = new HashSet<>();
-            values.forEach(i -> ops.add(new OWLObjectOneOfImpl(createSet(i))));
+            individuals().forEach(i -> ops.add(new OWLObjectOneOfImpl(i)));
             return new OWLObjectUnionOfImpl(ops);
         }
     }

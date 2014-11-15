@@ -60,11 +60,6 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
     }
 
     @Override
-    public Stream<OWLAnnotation> annotations() {
-        return Stream.empty();
-    }
-
-    @Override
     public OWLAnnotationProperty getProperty() {
         return property;
     }
