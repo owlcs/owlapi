@@ -50,7 +50,7 @@ public class SpecificOntologyChangeBroadcastStrategy implements
             List<? extends OWLOntologyChange> changes) {
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
-        List<OWLOntologyChange> broadcastChanges = changes.stream()
+        List<? extends OWLOntologyChange> broadcastChanges = changes.stream()
                 .filter(c -> c.getOntology().equals(ontology))
                 .collect(toList());
         listener.ontologiesChanged(broadcastChanges);

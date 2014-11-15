@@ -195,30 +195,25 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return imports.stream(this).mapToInt(o -> o.getAxiomCount()).sum();
     }
 
-    @SuppressWarnings("unchecked")
-    private static Stream<OWLAxiom> asAxiomStream(Stream<? extends OWLAxiom> s) {
-        return (Stream<OWLAxiom>) s;
-    }
-
     @Nonnull
     @Override
-    public Stream<? extends OWLAxiom> tboxAxioms(Imports imports) {
+    public Stream<OWLAxiom> tboxAxioms(Imports imports) {
         return AxiomType.TBoxAxiomTypes.stream().flatMap(
-                t -> asAxiomStream(axioms(t, imports)));
+                t -> axioms(t, imports));
     }
 
     @Nonnull
     @Override
-    public Stream<? extends OWLAxiom> aboxAxioms(Imports imports) {
+    public Stream<OWLAxiom> aboxAxioms(Imports imports) {
         return AxiomType.ABoxAxiomTypes.stream().flatMap(
-                t -> asAxiomStream(axioms(t, imports)));
+                t -> axioms(t, imports));
     }
 
     @Nonnull
     @Override
-    public Stream<? extends OWLAxiom> rboxAxioms(Imports imports) {
+    public Stream<OWLAxiom> rboxAxioms(Imports imports) {
         return AxiomType.RBoxAxiomTypes.stream().flatMap(
-                t -> asAxiomStream(axioms(t, imports)));
+                t -> axioms(t, imports));
     }
 
     @Override
