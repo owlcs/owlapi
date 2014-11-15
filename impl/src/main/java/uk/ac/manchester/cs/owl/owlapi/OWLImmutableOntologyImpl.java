@@ -202,21 +202,21 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Nonnull
     @Override
-    public Stream<? super OWLAxiom> tboxAxioms(Imports imports) {
+    public Stream<? extends OWLAxiom> tboxAxioms(Imports imports) {
         return AxiomType.TBoxAxiomTypes.stream().flatMap(
                 t -> asAxiomStream(axioms(t, imports)));
     }
 
     @Nonnull
     @Override
-    public Stream<? super OWLAxiom> aboxAxioms(Imports imports) {
+    public Stream<? extends OWLAxiom> aboxAxioms(Imports imports) {
         return AxiomType.ABoxAxiomTypes.stream().flatMap(
                 t -> asAxiomStream(axioms(t, imports)));
     }
 
     @Nonnull
     @Override
-    public Stream<? super OWLAxiom> rboxAxioms(Imports imports) {
+    public Stream<? extends OWLAxiom> rboxAxioms(Imports imports) {
         return AxiomType.RBoxAxiomTypes.stream().flatMap(
                 t -> asAxiomStream(axioms(t, imports)));
     }

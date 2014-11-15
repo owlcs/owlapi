@@ -251,7 +251,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      */
     @Deprecated
     @Nonnull
-    default Set<? super OWLAxiom> getTBoxAxioms(
+    default Set<? extends OWLAxiom> getTBoxAxioms(
             @Nonnull Imports includeImportsClosure) {
         return tboxAxioms(includeImportsClosure).collect(toSet());
     }
@@ -268,7 +268,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes.
      */
     @Nonnull
-    Stream<? super OWLAxiom> tboxAxioms(@Nonnull Imports includeImportsClosure);
+    Stream<? extends OWLAxiom>
+            tboxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the ABox for this ontology, i.e., the ones
@@ -283,7 +284,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      */
     @Deprecated
     @Nonnull
-    default Set<? super OWLAxiom> getABoxAxioms(
+    default Set<? extends OWLAxiom> getABoxAxioms(
             @Nonnull Imports includeImportsClosure) {
         return aboxAxioms(includeImportsClosure).collect(toSet());
     }
@@ -300,7 +301,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes.
      */
     @Nonnull
-    Stream<? super OWLAxiom> aboxAxioms(@Nonnull Imports includeImportsClosure);
+    Stream<? extends OWLAxiom>
+            aboxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the RBox for this ontology, i.e., the ones
@@ -315,7 +317,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      */
     @Deprecated
     @Nonnull
-    default Set<? super OWLAxiom> getRBoxAxioms(
+    default Set<? extends OWLAxiom> getRBoxAxioms(
             @Nonnull Imports includeImportsClosure) {
         return rboxAxioms(includeImportsClosure).collect(toSet());
     }
@@ -332,7 +334,8 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      *         changes.
      */
     @Nonnull
-    Stream<? super OWLAxiom> rboxAxioms(@Nonnull Imports includeImportsClosure);
+    Stream<? extends OWLAxiom>
+            rboxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the set of general axioms in this ontology. This includes:

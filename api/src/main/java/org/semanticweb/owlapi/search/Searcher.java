@@ -291,9 +291,8 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> equivalent(
-            @Nonnull Stream<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
-        return (Stream<C>) axioms.flatMap(ax -> equivalent(ax));
+            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        return axioms.flatMap(ax -> equivalent(ax, type));
     }
 
     /**
@@ -309,6 +308,25 @@ public final class Searcher {
     @Nonnull
     public static <C extends OWLObject> Stream<C> equivalent(
             @Nonnull OWLAxiom axiom) {
+        return axiom.accept(new EquivalentVisitor<C>(true));
+    }
+
+    /**
+     * Retrieve equivalent entities from an axiom, including individuals from
+     * sameAs axioms.
+     * 
+     * @param axiom
+     *        axiom
+     * @param type
+     *        type returned
+     * @param <C>
+     *        type contained in the returned collection
+     * @return equivalent entities
+     */
+    @Nonnull
+    public static <C extends OWLObject> Stream<C> equivalent(
+            @Nonnull OWLAxiom axiom,
+            @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(true));
     }
 
