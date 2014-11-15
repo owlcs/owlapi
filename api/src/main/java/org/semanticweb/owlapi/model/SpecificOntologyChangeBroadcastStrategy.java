@@ -16,6 +16,7 @@ import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -50,9 +51,10 @@ public class SpecificOntologyChangeBroadcastStrategy implements
             List<? extends OWLOntologyChange> changes) {
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
-        List<? extends OWLOntologyChange> broadcastChanges = changes.stream()
-                .filter(c -> c.getOntology().equals(ontology))
-                .collect(toList());
+        @SuppressWarnings("unchecked")
+        Stream<OWLOntologyChange> filter = (Stream<OWLOntologyChange>) changes
+                .stream().filter(c -> c.getOntology().equals(ontology));
+        List<OWLOntologyChange> broadcastChanges = filter.collect(toList());
         listener.ontologiesChanged(broadcastChanges);
     }
 }
