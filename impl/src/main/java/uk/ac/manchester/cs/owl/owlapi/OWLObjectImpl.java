@@ -101,7 +101,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected static List<OWLAnnotation> asAnnotations(
             Collection<OWLAnnotation> anns) {
         if (anns.isEmpty()) {

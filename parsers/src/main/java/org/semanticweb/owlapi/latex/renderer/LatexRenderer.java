@@ -76,30 +76,28 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 w.write("\\subsection*{Classes}\n\n");
             }
             for (OWLClass cls : clses) {
-                writeEntity(o, w, renderer, cls, sortAxioms(o.axioms(cls)));
+                writeEntity(w, renderer, cls, sortAxioms(o.axioms(cls)));
             }
             w.write("\\section*{Object properties}");
-            sortEntities(o.objectPropertiesInSignature())
-                    .forEach(
-                            p -> writeEntity(o, w, renderer, p,
-                                    sortAxioms(o.axioms(p))));
+            sortEntities(o.objectPropertiesInSignature()).forEach(
+                    p -> writeEntity(w, renderer, p, sortAxioms(o.axioms(p))));
             w.write("\\section*{Data properties}");
             o.dataPropertiesInSignature()
                     .sorted(entityComparator)
                     .forEach(
-                            prop -> writeEntity(o, w, renderer, prop,
+                            prop -> writeEntity(w, renderer, prop,
                                     sortAxioms(o.axioms(prop))));
             w.write("\\section*{Individuals}");
             o.individualsInSignature()
                     .sorted(entityComparator)
                     .forEach(
-                            i -> writeEntity(o, w, renderer, i,
+                            i -> writeEntity(w, renderer, i,
                                     sortAxioms(o.axioms(i))));
             w.write("\\section*{Datatypes}");
             o.datatypesInSignature()
                     .sorted(entityComparator)
                     .forEach(
-                            type -> writeEntity(o, w, renderer, type,
+                            type -> writeEntity(w, renderer, type,
                                     sortAxioms(o.axioms(type, EXCLUDED))));
             w.write("\\end{document}\n");
             w.flush();
@@ -108,9 +106,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
         }
     }
 
-    protected void writeEntity(OWLOntology ontology, LatexWriter w,
-            LatexObjectVisitor renderer, OWLEntity cls,
-            Collection<? extends OWLAxiom> axioms) {
+    protected void writeEntity(LatexWriter w, LatexObjectVisitor renderer,
+            OWLEntity cls, Collection<? extends OWLAxiom> axioms) {
         writeEntitySection(cls, w);
         for (OWLAxiom ax : axioms) {
             renderer.setSubject(cls);

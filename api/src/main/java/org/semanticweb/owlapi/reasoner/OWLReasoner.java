@@ -115,14 +115,14 @@ import org.semanticweb.owlapi.util.Version;
  * convenience methods on {@link NodeSet} and
  * {@link org.semanticweb.owlapi.reasoner.Node} that can be used to directly
  * access the entities in a {@code NodeSet} without having to iterate over the
- * nodes and entities in a {@code NodeSet}. For example, a "plain" set of
+ * nodes and entities in a {@code NodeSet}. For example, a "plain" stream of
  * classes contained inside the {@code Nodes} contained inside a {@code NodeSet}
- * can easily be obtained using the {@link NodeSet#getFlattened()} method. In
- * this case we could quickly obtain {@code &#123;C, D, F&#125;} as the direct
+ * can easily be obtained using the {@link NodeSet#entities()} method. In this
+ * case we could quickly obtain {@code &#123;C, D, F&#125;} as the direct
  * subclasses of {@code A} simply by using the
  * {@link #getSubClasses(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}
  * (with boolean=true) method on {@code OWLReasoner} and then we could use the
- * {@link NodeSet#getFlattened()} method on the retuned {@code NodeSet} . <br>
+ * {@link NodeSet#entities()} method on the retuned {@code NodeSet} . <br>
  * Asking for equivalent classes of a class (expression) returns a {@code Node}
  * that contains classes that are equivalent to the class (expression) . For
  * example, asking for the equivalent classes of {@code owl:Nothing} (i.e.

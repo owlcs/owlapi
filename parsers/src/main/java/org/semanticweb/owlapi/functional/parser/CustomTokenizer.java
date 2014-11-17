@@ -106,19 +106,19 @@ class CustomTokenizer implements TokenManager {
         }
     }
 
-    private Token readTextualToken(char c) throws IOException {
-        if (c >= '0' && c <= '9') {
-            return readNumber(c);
+    private Token readTextualToken(char _c) throws IOException {
+        if (_c >= '0' && _c <= '9') {
+            return readNumber(_c);
         }
         buf.setLength(0);
-        buf.append(c);
+        buf.append(_c);
         int colonIndex = -1;
-        if (c == ':') {
+        if (_c == ':') {
             colonIndex = 0;
         }
         loop: while (true) {
             try {
-                c = readChar();
+                char c = readChar();
                 switch (c) {
                     case '=':
                     case '"':
@@ -365,11 +365,11 @@ class CustomTokenizer implements TokenManager {
         }
     }
 
-    private Token readNumber(char c) throws IOException {
+    private Token readNumber(char _c) throws IOException {
         buf.setLength(0);
-        buf.append(c);
+        buf.append(_c);
         while (true) {
-            c = readChar();
+            char c = readChar();
             if (!Character.isDigit(c)) {
                 unread(c);
                 return makeToken(OWLFunctionalSyntaxParserConstants.INT,
