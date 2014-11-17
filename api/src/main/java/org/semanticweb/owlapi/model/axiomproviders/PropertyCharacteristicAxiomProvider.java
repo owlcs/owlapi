@@ -57,7 +57,7 @@ public interface PropertyCharacteristicAxiomProvider {
     @Nonnull
     OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -83,7 +83,7 @@ public interface PropertyCharacteristicAxiomProvider {
     OWLInverseFunctionalObjectPropertyAxiom
             getOWLInverseFunctionalObjectPropertyAxiom(
                     @Nonnull OWLObjectPropertyExpression property,
-                    @Nonnull Set<? extends OWLAnnotation> annotations);
+                    @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -107,7 +107,7 @@ public interface PropertyCharacteristicAxiomProvider {
     @Nonnull
     OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -132,7 +132,7 @@ public interface PropertyCharacteristicAxiomProvider {
     @Nonnull
     OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -156,7 +156,7 @@ public interface PropertyCharacteristicAxiomProvider {
     @Nonnull
     OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param propertyExpression
@@ -182,7 +182,7 @@ public interface PropertyCharacteristicAxiomProvider {
     @Nonnull
     OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression propertyExpression,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -208,7 +208,7 @@ public interface PropertyCharacteristicAxiomProvider {
     @Nonnull
     OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -232,5 +232,5 @@ public interface PropertyCharacteristicAxiomProvider {
     @Nonnull
     OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

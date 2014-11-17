@@ -55,5 +55,5 @@ public interface PropertyChainAxiomProvider {
     OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
             @Nonnull List<? extends OWLObjectPropertyExpression> chain,
             @Nonnull OWLObjectPropertyExpression superProperty,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

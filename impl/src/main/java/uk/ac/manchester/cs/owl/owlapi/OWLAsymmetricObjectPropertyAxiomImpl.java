@@ -41,7 +41,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
      */
     public OWLAsymmetricObjectPropertyAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 

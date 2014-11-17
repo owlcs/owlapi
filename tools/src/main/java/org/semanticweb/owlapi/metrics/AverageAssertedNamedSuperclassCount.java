@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.search.Searcher.sup;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.List;
@@ -55,15 +55,15 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         int total = 0;
         int count = 0;
         Set<OWLClass> processedClasses = new HashSet<>();
-        for (OWLOntology ont : getOntologies().collect(toList())) {
-            for (OWLClass cls : ont.classesInSignature().collect(toList())) {
+        for (OWLOntology ont : asList(getOntologies())) {
+            for (OWLClass cls : asList(ont.classesInSignature())) {
                 if (!processedClasses.contains(cls)) {
                     count++;
                     int prevTotal = total;
                     processedClasses.add(cls);
-                    for (OWLClassExpression desc : sup(
+                    for (OWLClassExpression desc : asList(sup(
                             ont.subClassAxiomsForSubClass(cls),
-                            OWLClassExpression.class).collect(toList())) {
+                            OWLClassExpression.class))) {
                         if (!desc.isAnonymous()) {
                             total++;
                         }

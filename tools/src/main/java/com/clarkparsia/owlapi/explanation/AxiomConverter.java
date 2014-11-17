@@ -1,7 +1,7 @@
 package com.clarkparsia.owlapi.explanation;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -54,7 +54,7 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
     @Nonnull
     private OWLObjectIntersectionOf
             and(@Nonnull Stream<OWLClassExpression> set) {
-        return factory.getOWLObjectIntersectionOf(set.collect(toList()));
+        return factory.getOWLObjectIntersectionOf(asList(set));
     }
 
     @Nonnull

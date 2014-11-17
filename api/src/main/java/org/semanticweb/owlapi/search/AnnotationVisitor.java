@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.search;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 
@@ -24,8 +24,7 @@ class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
     @Nonnull
     @Override
     public Set<C> doDefault(@Nonnull Object object) {
-        return ((HasAnnotations) object).annotations().map(a -> get(a))
-                .collect(toSet());
+        return asSet(((HasAnnotations) object).annotations().map(a -> get(a)));
     }
 
     @Nonnull

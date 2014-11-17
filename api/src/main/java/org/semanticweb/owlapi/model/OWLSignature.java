@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -44,7 +44,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Deprecated
     @Nonnull
     default Set<OWLClass> getClassesInSignature(@Nonnull Imports imports) {
-        return classesInSignature(imports).collect(toSet());
+        return asSet(classesInSignature(imports));
     }
 
     /**
@@ -74,8 +74,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Nonnull
     default Set<OWLObjectProperty> getObjectPropertiesInSignature(
             @Nonnull Imports includeImportsClosure) {
-        return objectPropertiesInSignature(includeImportsClosure).collect(
-                toSet());
+        return asSet(objectPropertiesInSignature(includeImportsClosure));
     }
 
     /**
@@ -109,8 +108,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Nonnull
     default Set<OWLDataProperty> getDataPropertiesInSignature(
             @Nonnull Imports includeImportsClosure) {
-        return dataPropertiesInSignature(includeImportsClosure)
-                .collect(toSet());
+        return asSet(dataPropertiesInSignature(includeImportsClosure));
     }
 
     /**
@@ -142,7 +140,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Nonnull
     default Set<OWLNamedIndividual> getIndividualsInSignature(
             @Nonnull Imports includeImportsClosure) {
-        return individualsInSignature(includeImportsClosure).collect(toSet());
+        return asSet(individualsInSignature(includeImportsClosure));
     }
 
     /**
@@ -172,8 +170,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Nonnull
     default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
             @Nonnull Imports includeImportsClosure) {
-        return referencedAnonymousIndividuals(includeImportsClosure).collect(
-                toSet());
+        return asSet(referencedAnonymousIndividuals(includeImportsClosure));
     }
 
     /**
@@ -199,7 +196,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Deprecated
     @Nonnull
     default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
-        return referencedAnonymousIndividuals().collect(toSet());
+        return asSet(referencedAnonymousIndividuals());
     }
 
     /**
@@ -223,7 +220,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Deprecated
     default Set<OWLDatatype> getDatatypesInSignature(
             @Nonnull Imports includeImportsClosure) {
-        return datatypesInSignature(includeImportsClosure).collect(toSet());
+        return asSet(datatypesInSignature(includeImportsClosure));
     }
 
     /**
@@ -254,8 +251,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Nonnull
     default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
             @Nonnull Imports includeImportsClosure) {
-        return annotationPropertiesInSignature(includeImportsClosure).collect(
-                toSet());
+        return asSet(annotationPropertiesInSignature(includeImportsClosure));
     }
 
     /**
@@ -494,7 +490,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     @Nonnull
     default Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri,
             @Nonnull Imports includeImportsClosure) {
-        return entitiesInSignature(iri, includeImportsClosure).collect(toSet());
+        return asSet(entitiesInSignature(iri, includeImportsClosure));
     }
 
     /**

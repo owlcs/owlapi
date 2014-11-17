@@ -53,5 +53,5 @@ public interface ClassAssertionProvider extends LiteralProvider {
     OWLClassAssertionAxiom getOWLClassAssertionAxiom(
             @Nonnull OWLClassExpression classExpression,
             @Nonnull OWLIndividual individual,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

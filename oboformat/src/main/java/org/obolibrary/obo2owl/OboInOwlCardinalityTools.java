@@ -1,8 +1,8 @@
 package org.obolibrary.obo2owl;
 
-import static java.util.stream.Collectors.toSet;
 import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -213,8 +213,7 @@ public final class OboInOwlCardinalityTools {
             @Nullable AnnotationCardinalityConfictHandler handler,
             @Nonnull OWLOntologyManager manager)
             throws AnnotationCardinalityException {
-        Set<OWLAnnotation> annotations = ontology.annotations()
-                .collect(toSet());
+        Set<OWLAnnotation> annotations = asSet(ontology.annotations());
         Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<>();
         for (OWLAnnotation annotation : annotations) {
             OWLAnnotationProperty current = annotation.getProperty();
@@ -262,8 +261,8 @@ public final class OboInOwlCardinalityTools {
             @Nullable AnnotationCardinalityConfictHandler handler,
             @Nonnull OWLOntologyManager manager) {
         Map<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>> groupedAxioms = new HashMap<>();
-        for (OWLAnnotationAssertionAxiom axiom : ontology
-                .annotationAssertionAxioms(owlClass.getIRI()).collect(toSet())) {
+        for (OWLAnnotationAssertionAxiom axiom : asSet(ontology
+                .annotationAssertionAxioms(owlClass.getIRI()))) {
             OWLAnnotationProperty current = axiom.getProperty();
             if (properties.contains(current)) {
                 Set<OWLAnnotationAssertionAxiom> set = groupedAxioms

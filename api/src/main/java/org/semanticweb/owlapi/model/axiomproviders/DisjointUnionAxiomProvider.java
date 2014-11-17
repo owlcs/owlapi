@@ -54,5 +54,5 @@ public interface DisjointUnionAxiomProvider {
     @Nonnull
     OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(@Nonnull OWLClass owlClass,
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

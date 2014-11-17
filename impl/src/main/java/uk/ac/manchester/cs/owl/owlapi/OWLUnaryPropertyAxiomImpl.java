@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
  *        property type
  */
 public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImpl implements
-        OWLUnaryPropertyAxiom<P> {
+        extends OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -44,7 +43,7 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      *        annotations
      */
     public OWLUnaryPropertyAxiomImpl(@Nonnull P property,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
     }

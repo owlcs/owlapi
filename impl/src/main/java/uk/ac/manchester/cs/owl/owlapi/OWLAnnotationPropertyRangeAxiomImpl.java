@@ -50,7 +50,7 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
      */
     public OWLAnnotationPropertyRangeAxiomImpl(
             @Nonnull OWLAnnotationProperty property, @Nonnull IRI range,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
         this.range = checkNotNull(range, "range cannot be null");

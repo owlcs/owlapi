@@ -51,7 +51,7 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
      */
     public OWLDatatypeDefinitionAxiomImpl(@Nonnull OWLDatatype datatype,
             @Nonnull OWLDataRange dataRange,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");

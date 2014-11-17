@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -45,21 +45,19 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     @Nonnull
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
-        return Stream
-                .of(getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION)
+        return asSet(Stream.of(
+                getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION)
                         .flatMap(ax -> ax.getProperty().signature()),
-                        getOntology()
-                                .axioms(AxiomType.DATA_PROPERTY_ASSERTION)
-                                .map(ax -> ax.getProperty().asOWLDataProperty()),
-                        getOntology().annotationPropertiesInSignature())
-                .flatMap(x -> x).collect(toSet());
+                getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION).map(
+                        ax -> ax.getProperty().asOWLDataProperty()),
+                getOntology().annotationPropertiesInSignature())
+                .flatMap(x -> x));
     }
 
     /** @return entities with invalid qnames */
     @Nonnull
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
-        return getEntitiesThatRequireNamespaces().stream()
-                .filter(e -> !e.getIRI().getRemainder().isPresent())
-                .collect(toSet());
+        return asSet(getEntitiesThatRequireNamespaces().stream().filter(
+                e -> !e.getIRI().getRemainder().isPresent()));
     }
 }

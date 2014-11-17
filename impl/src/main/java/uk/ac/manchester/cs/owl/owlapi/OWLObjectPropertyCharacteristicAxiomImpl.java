@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
-        OWLPropertyAxiomImpl implements
-        OWLObjectPropertyCharacteristicAxiom {
+        OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -44,7 +43,7 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
      */
     public OWLObjectPropertyCharacteristicAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
     }

@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -202,7 +202,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         }
         @SuppressWarnings("unchecked")
         Node<E> other = (Node<E>) obj;
-        return entities.equals(other.entities().collect(toSet()));
+        return entities.equals(asSet(other.entities()));
     }
 
     @Override

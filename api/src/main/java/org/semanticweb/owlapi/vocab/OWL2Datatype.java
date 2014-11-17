@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.providers.DatatypeProvider;
  * @since 2.2.0
  */
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
+
 
 
 
@@ -89,8 +90,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     /** XSD_DATE_TIME_STAMP. */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
     @Nonnull
-    private static final Set<IRI> ALL_IRIS = Stream.of(values())
-            .map(v -> v.iri).collect(toSet());
+    private static final Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(
+            v -> v.iri));
 
     /**
      * Gets all of the built in datatype IRIs.
@@ -330,7 +331,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
          */
         @Deprecated
         public Set<OWLFacet> getFacets() {
-            return facets().collect(toSet());
+            return asSet(facets());
         }
 
         /** @return facets */

@@ -659,9 +659,8 @@ class LiteralFoldingEqualityTester {
                 .iterator());
     }
 
-    public static boolean equalAnnotations(
-            @Nonnull Iterator<? extends OWLAnnotation> ai,
-            @Nonnull Iterator<? extends OWLAnnotation> bi) {
+    public static boolean equalAnnotations(@Nonnull Iterator<OWLAnnotation> ai,
+            @Nonnull Iterator<OWLAnnotation> bi) {
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;

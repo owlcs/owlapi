@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
@@ -59,7 +58,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      */
     public SWRLRuleImpl(@Nonnull Set<? extends SWRLAtom> body,
             @Nonnull Set<? extends SWRLAtom> head,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.head = new LinkedHashSet<>(checkNotNull(head,
                 "head cannot be null"));
@@ -170,10 +169,10 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
         @Override
         public SWRLRule visit(SWRLRule node) {
-            Set<SWRLAtom> nodebody = node.body()
-                    .map(a -> (SWRLAtom) a.accept(this)).collect(toSet());
-            Set<SWRLAtom> nodehead = node.head()
-                    .map(a -> (SWRLAtom) a.accept(this)).collect(toSet());
+            Set<SWRLAtom> nodebody = asSet(node.body().map(
+                    a -> (SWRLAtom) a.accept(this)));
+            Set<SWRLAtom> nodehead = asSet(node.head().map(
+                    a -> (SWRLAtom) a.accept(this)));
             return new SWRLRuleImpl(nodebody, nodehead, NO_ANNOTATIONS);
         }
 

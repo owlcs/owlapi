@@ -59,7 +59,7 @@ public interface DataAssertionProvider extends LiteralProvider {
     OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -181,5 +181,5 @@ public interface DataAssertionProvider extends LiteralProvider {
             getOWLNegativeDataPropertyAssertionAxiom(
                     @Nonnull OWLDataPropertyExpression property,
                     @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object,
-                    @Nonnull Set<? extends OWLAnnotation> annotations);
+                    @Nonnull Set<OWLAnnotation> annotations);
 }

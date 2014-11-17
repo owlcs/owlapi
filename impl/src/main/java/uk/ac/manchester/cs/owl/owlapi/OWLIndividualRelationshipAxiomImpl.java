@@ -57,7 +57,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
      */
     public OWLIndividualRelationshipAxiomImpl(@Nonnull OWLIndividual subject,
             @Nonnull P property, @Nonnull O object,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");

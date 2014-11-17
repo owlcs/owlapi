@@ -103,14 +103,14 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
 
     @SuppressWarnings("unchecked")
     protected static List<OWLAnnotation> asAnnotations(
-            Collection<? extends OWLAnnotation> anns) {
+            Collection<OWLAnnotation> anns) {
         if (anns.isEmpty()) {
             return emptyList();
         }
         if (anns.size() == 1) {
             return Collections.singletonList(anns.iterator().next());
         }
-        return (List<OWLAnnotation>) sortOptionally(anns);
+        return sortOptionally(anns);
     }
 
     @Override

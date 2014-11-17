@@ -1,7 +1,7 @@
 package org.obolibrary.obo2owl;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
 import java.util.Set;
@@ -32,9 +32,10 @@ public class CommentRemarkConversionTest extends OboFormatTestBasics {
         OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(
                 OWLManager.createOWLOntologyManager());
         OWLOntology owlOntology = obo2Owl.convert(obo);
-        Set<String> comments = owlOntology.annotations(df.getRDFSComment())
-                .map(a -> a.getValue()).filter(a -> a instanceof OWLLiteral)
-                .map(a -> ((OWLLiteral) a).getLiteral()).collect(toSet());
+        Set<String> comments = asSet(owlOntology
+                .annotations(df.getRDFSComment()).map(a -> a.getValue())
+                .filter(a -> a instanceof OWLLiteral)
+                .map(a -> ((OWLLiteral) a).getLiteral()));
         // check that all remarks have been translated to rdfs:comment
         assertEquals(remarks.size(), comments.size());
         assertTrue(comments.containsAll(remarks));

@@ -48,7 +48,7 @@ public class OWLDataPropertyRangeAxiomImpl extends
     public OWLDataPropertyRangeAxiomImpl(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange range,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 

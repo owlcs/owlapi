@@ -1,8 +1,8 @@
 package org.obolibrary.obo2owl;
 
-import static java.util.stream.Collectors.toSet;
 import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
 import java.io.IOException;
@@ -430,7 +430,7 @@ public class OWLAPIObo2Owl {
      */
     protected void postProcess(@Nonnull OWLOntology ontology) {
         IRI pIRI = null;
-        Set<? extends OWLAnnotation> collect = ontology.annotations().collect(toSet());
+        Set<OWLAnnotation> collect = asSet(ontology.annotations());
         for (OWLAnnotation ann : collect) {
             if (Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation
                     .sameIRI(ann.getProperty())) {
@@ -880,7 +880,7 @@ public class OWLAPIObo2Owl {
     @Nonnull
     protected OWLAxiom trUnionOf(OWLClass cls,
             @Nonnull Collection<Clause> clauses) {
-        Set<? extends OWLAnnotation> annotations = trAnnotations(clauses);
+        Set<OWLAnnotation> annotations = trAnnotations(clauses);
         Set<OWLClassExpression> eSet = new HashSet<>();
         eSet.add(cls);
         Set<OWLClassExpression> iSet = new HashSet<>();
@@ -917,7 +917,7 @@ public class OWLAPIObo2Owl {
      */
     protected OWLAxiom trIntersectionOf(OWLClass cls,
             @Nonnull Collection<Clause> clauses) {
-        Set<? extends OWLAnnotation> annotations = trAnnotations(clauses);
+        Set<OWLAnnotation> annotations = trAnnotations(clauses);
         Set<OWLClassExpression> eSet = new HashSet<>();
         eSet.add(cls);
         Set<OWLClassExpression> iSet = new HashSet<>();
@@ -1006,7 +1006,7 @@ public class OWLAPIObo2Owl {
     protected OWLAxiom trTermClause(@Nonnull OWLClass cls, String tag,
             @Nonnull Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
-        Set<? extends OWLAnnotation> annotations = trAnnotations(clause);
+        Set<OWLAnnotation> annotations = trAnnotations(clause);
         OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
         // 5.2.2
         // The gci_relation qualifier translate cls to a class expression
@@ -1363,7 +1363,7 @@ public class OWLAPIObo2Owl {
      * @return the set of annotations
      */
     @Nullable
-    protected Set<? extends OWLAnnotation> trAnnotations(
+    protected Set<OWLAnnotation> trAnnotations(
             @Nonnull Collection<Clause> clauses) {
         Set<OWLAnnotation> anns = new HashSet<>();
         clauses.forEach(c -> trAnnotations(c, anns));

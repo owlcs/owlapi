@@ -12,12 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -288,7 +288,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     @Nonnull
     protected static <T extends OWLObject> List<T> sort(
             @Nonnull Stream<T> objects) {
-        return sort(objects.collect(toList()));
+        return sort(asList(objects));
     }
 
     protected void writeOpenBracket() {
@@ -440,7 +440,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLOntology ontology) {
-        Set<OWLClass> classes = ontology.classesInSignature().collect(toSet());
+        Set<OWLClass> classes = asSet(ontology.classesInSignature());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLThing());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
@@ -474,8 +474,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> pStream = equivalent(ontology
                     .equivalentObjectPropertiesAxioms(property));
-            Collection<OWLObjectPropertyExpression> properties = pStream
-                    .collect(toList());
+            Collection<OWLObjectPropertyExpression> properties = asList(pStream);
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
                 write(DEFINE_ROLE);

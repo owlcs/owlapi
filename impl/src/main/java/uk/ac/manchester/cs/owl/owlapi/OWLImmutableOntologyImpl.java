@@ -12,9 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -243,9 +242,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
         @SuppressWarnings("unchecked")
-        Set<OWLAxiom> filter = ((Stream<OWLAxiom>) axioms(axiom.getAxiomType())
-                .filter(ax -> ax.equalsIgnoreAnnotations(axiom)))
-                .collect(toSet());
+        Set<OWLAxiom> filter = asSet((Stream<OWLAxiom>) axioms(
+                axiom.getAxiomType()).filter(
+                ax -> ax.equalsIgnoreAnnotations(axiom)));
         if (containsAxiom(axiom)) {
             filter.add(axiom);
         }
@@ -264,9 +263,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
             Imports imports) {
-        return imports.stream(this)
-                .flatMap(o -> o.getAxiomsIgnoreAnnotations(axiom).stream())
-                .collect(toSet());
+        return asSet(imports.stream(this).flatMap(
+                o -> o.getAxiomsIgnoreAnnotations(axiom).stream()));
     }
 
     @Override

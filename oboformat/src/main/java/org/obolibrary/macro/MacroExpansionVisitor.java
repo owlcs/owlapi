@@ -1,6 +1,6 @@
 package org.obolibrary.macro;
 
-import static java.util.stream.Collectors.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +55,7 @@ public class MacroExpansionVisitor {
     public OWLOntology expandAll() {
         Set<OWLAxiom> newAxioms = new HashSet<>();
         Set<OWLAxiom> rmAxioms = new HashSet<>();
-        for (OWLAxiom ax : inputOntology.axioms().collect(toSet())) {
+        for (OWLAxiom ax : asSet(inputOntology.axioms())) {
             OWLAxiom exAx = ax;
             if (ax instanceof OWLSubClassOfAxiom) {
                 exAx = visitor.visit((OWLSubClassOfAxiom) ax);
@@ -98,8 +98,7 @@ public class MacroExpansionVisitor {
             // we assume it is a class
             IRI axValIRI = (IRI) ax.getValue();
             OWLClass axValClass = visitor.df.getOWLClass(axValIRI);
-            if (inputOntology.declarationAxioms(axValClass).collect(toList())
-                    .isEmpty()) {
+            if (asList(inputOntology.declarationAxioms(axValClass)).isEmpty()) {
                 OWLDeclarationAxiom newAx = visitor.df
                         .getOWLDeclarationAxiom(axValClass);
                 manager.addAxiom(inputOntology, newAx);

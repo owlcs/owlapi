@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
@@ -45,8 +44,9 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
      */
     public OWLNaryBooleanClassExpressionImpl(
             @Nonnull Collection<? extends OWLClassExpression> operands) {
-        this.operands = checkNotNull(operands, "operands cannot be null")
-                .stream().sorted().collect(toList());
+        Collection<? extends OWLClassExpression> ops = checkNotNull(operands,
+                "operands cannot be null");
+        this.operands = asList(ops.stream().sorted());
     }
 
     @Override

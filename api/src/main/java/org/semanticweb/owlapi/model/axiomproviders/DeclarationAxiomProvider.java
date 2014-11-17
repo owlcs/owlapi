@@ -52,7 +52,7 @@ public interface DeclarationAxiomProvider {
      */
     @Nonnull
     OWLDeclarationAxiom getOWLDeclarationAxiom(@Nonnull OWLEntity owlEntity,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param datatype
@@ -80,5 +80,5 @@ public interface DeclarationAxiomProvider {
     @Nonnull
     OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(
             @Nonnull OWLDatatype datatype, @Nonnull OWLDataRange dataRange,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

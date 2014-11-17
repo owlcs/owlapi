@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -769,12 +769,12 @@ public class TutorialSnippetsTestCase {
         // We now add all subclasses (direct and indirect) of the chosen
         // classes.
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
-        Set<OWLEntity> seedSig = sig
+        Set<OWLEntity> seedSig = asSet(sig
                 .stream()
                 .filter(e -> e.isOWLClass())
                 .flatMap(
                         e -> reasoner.getSubClasses(e.asOWLClass(), false)
-                                .entities()).collect(toSet());
+                                .entities()));
         seedSig.addAll(sig);
         // We now extract a locality-based module. STAR provides the smallest
         // ones

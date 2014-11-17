@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -269,9 +269,8 @@ public class SerializationTest {
         copy.ontologies().forEach(
                 ont -> assertEquals(
                         "Troubles with ontology " + ont.getOntologyID(),
-                        m.getOntology(
+                        asSet(m.getOntology(
                                 ont.getOntologyID().getOntologyIRI().get())
-                                .axioms().collect(toSet()), ont.axioms()
-                                .collect(toSet())));
+                                .axioms()), asSet(ont.axioms())));
     }
 }

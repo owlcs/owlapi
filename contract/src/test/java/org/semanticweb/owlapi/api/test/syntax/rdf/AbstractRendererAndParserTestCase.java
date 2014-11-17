@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
-import static java.util.stream.Collectors.*;
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.File;
 import java.util.Set;
@@ -83,10 +83,10 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
         man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI
                 .create(tempFile.toURI()));
-        Set<OWLLogicalAxiom> aMinusB = ontA.logicalAxioms().collect(toSet());
-        aMinusB.removeAll(ontB.axioms().collect(toList()));
-        Set<OWLLogicalAxiom> bMinusA = ontB.logicalAxioms().collect(toSet());
-        bMinusA.removeAll(ontA.axioms().collect(toList()));
+        Set<OWLLogicalAxiom> aMinusB = asSet(ontA.logicalAxioms());
+        aMinusB.removeAll(asList(ontB.axioms()));
+        Set<OWLLogicalAxiom> bMinusA = asSet(ontB.logicalAxioms());
+        bMinusA.removeAll(asList(ontA.axioms()));
         StringBuilder msg = new StringBuilder();
         if (aMinusB.isEmpty() && bMinusA.isEmpty()) {
             msg.append("Ontology save/load roundtrip OK.\n");

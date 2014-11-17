@@ -1,7 +1,7 @@
 package org.obolibrary.obo2owl;
 
-import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import org.junit.Test;
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
@@ -49,8 +49,8 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
         OWLAnnotationProperty defProperty = factory
                 .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115);
         int counter = 0;
-        for (OWLAnnotationAssertionAxiom ax : owlOntology
-                .annotationAssertionAxioms(c.getIRI()).collect(toList())) {
+        for (OWLAnnotationAssertionAxiom ax : asList(owlOntology
+                .annotationAssertionAxioms(c.getIRI()))) {
             if (ax.getProperty().equals(defProperty)) {
                 counter++;
                 assertTrue(ax.getValue() instanceof OWLLiteral);

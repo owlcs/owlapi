@@ -1,7 +1,7 @@
 package org.obolibrary.macro;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 
@@ -33,8 +33,7 @@ public class ExpandExpressionGCITest extends OboFormatTestBasics {
                 .getAxioms(AxiomType.EQUIVALENT_CLASSES);
         assertEquals(2, equivalentClassesAxioms.size());
         for (OWLEquivalentClassesAxiom eca : equivalentClassesAxioms) {
-            Set<OWLClassExpression> ces = eca.classExpressions().collect(
-                    toSet());
+            Set<OWLClassExpression> ces = asSet(eca.classExpressions());
             OWLClass clst4 = df.getOWLClass("http://purl.obolibrary.org/obo/",
                     "TEST_4");
             OWLObjectPropertyExpression p = df.getOWLObjectProperty(

@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.axioms;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -42,7 +42,7 @@ public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
         axioms.add(Declaration(NamedIndividual(IRI("http://www.semanticweb.org/ontologies/declarations#ni"))));
         axioms.add(Declaration(AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/declarations#ap"))));
         axioms.add(Declaration(Datatype(IRI("http://www.semanticweb.org/ontologies/declarations#dt"))));
-        assertEquals(getOnt().axioms().collect(toSet()), axioms);
+        assertEquals(asSet(getOnt().axioms()), axioms);
     }
 
     @Nonnull

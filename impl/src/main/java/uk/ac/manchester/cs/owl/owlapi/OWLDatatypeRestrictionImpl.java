@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
@@ -57,9 +56,9 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
     public OWLDatatypeRestrictionImpl(@Nonnull OWLDatatype datatype,
             @Nonnull Collection<OWLFacetRestriction> facetRestrictions) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        this.facetRestrictions = checkNotNull(facetRestrictions,
-                "facetRestrictions cannot be null").stream().sorted()
-                .collect(toList());
+        Collection<OWLFacetRestriction> facets = checkNotNull(
+                facetRestrictions, "facetRestrictions cannot be null");
+        this.facetRestrictions = asList(facets.stream().sorted());
     }
 
     @Override

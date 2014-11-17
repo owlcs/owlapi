@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -107,7 +107,7 @@ public class OwlStringTools {
             OWLOntology ontology = translationManager.createOntology();
             p.parse(documentSource, ontology,
                     translationManager.getOntologyLoaderConfiguration());
-            return ontology.axioms().collect(toSet());
+            return asSet(ontology.axioms());
         } catch (UnloadableImportException | OWLOntologyCreationException
                 | OWLParserException e) {
             throw new OWLRuntimeException(e);

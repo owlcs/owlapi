@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -296,34 +296,34 @@ public class InitVisitorFactory {
             if (named) {
                 stream = stream.filter(c -> !c.isAnonymous());
             }
-            return (Collection<K>) stream.collect(toList());
+            return (Collection<K>) asList(stream);
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(
                 @Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.properties().collect(toList());
+            return (Collection<K>) asList(axiom.properties());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
-            return (Collection<K>) axiom.individuals().collect(toList());
+            return (Collection<K>) asList(axiom.individuals());
         }
 
         @Nonnull
         @Override
         public Collection<K>
                 visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.properties().collect(toList());
+            return (Collection<K>) asList(axiom.properties());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(
                 @Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.properties().collect(toList());
+            return (Collection<K>) asList(axiom.properties());
         }
 
         @Nonnull
@@ -336,7 +336,7 @@ public class InitVisitorFactory {
         @Override
         public Collection<K> visit(
                 @Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.properties().collect(toList());
+            return (Collection<K>) asList(axiom.properties());
         }
 
         @Nonnull
@@ -346,20 +346,20 @@ public class InitVisitorFactory {
             if (named) {
                 stream = stream.filter(c -> !c.isAnonymous());
             }
-            return (Collection<K>) stream.collect(toList());
+            return (Collection<K>) asList(stream);
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLSameIndividualAxiom axiom) {
-            return (Collection<K>) axiom.individuals().collect(toList());
+            return (Collection<K>) asList(axiom.individuals());
         }
 
         @Nonnull
         @Override
         public Collection<K> visit(
                 @Nonnull OWLInverseObjectPropertiesAxiom axiom) {
-            return (Collection<K>) axiom.properties().collect(toList());
+            return (Collection<K>) asList(axiom.properties());
         }
     }
 

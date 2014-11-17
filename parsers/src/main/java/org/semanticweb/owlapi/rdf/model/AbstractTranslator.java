@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 
@@ -820,7 +820,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             @Nonnull OWLObject subj, @Nonnull IRI pred,
             @Nonnull Stream<? extends OWLObject> obj) {
         addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred),
-                translateList(obj.collect(toList())));
+                translateList(asList(obj)));
     }
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
@@ -1039,7 +1039,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private void addListTriples(@Nonnull OWLObject subject, @Nonnull IRI pred,
             @Nonnull Stream<? extends OWLObject> objects) {
         addTriple(getResourceNode(subject), getPredicateNode(pred),
-                translateList(objects.collect(toList())));
+                translateList(asList(objects)));
     }
 
     private void
@@ -1047,7 +1047,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                     @Nonnull Stream<? extends OWLObject> objects,
                     @Nonnull IRI listType) {
         addTriple(getResourceNode(subject), getPredicateNode(pred),
-                translateList(objects.collect(toList()), listType));
+                translateList(asList(objects), listType));
     }
 
     @Nonnull
@@ -1091,7 +1091,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void addPairwise(@Nonnull OWLAxiom axiom,
             @Nonnull Stream<? extends OWLObject> objects, @Nonnull IRI iri) {
-        List<? extends OWLObject> objectList = objects.collect(toList());
+        List<? extends OWLObject> objectList = asList(objects);
         for (int i = 0; i < objectList.size(); i++) {
             for (int j = i; j < objectList.size(); j++) {
                 if (i != j) {

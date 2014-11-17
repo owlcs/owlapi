@@ -46,7 +46,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
      */
     public OWLEquivalentClassesAxiomImpl(
             @Nonnull Collection<? extends OWLClassExpression> classExpressions,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 

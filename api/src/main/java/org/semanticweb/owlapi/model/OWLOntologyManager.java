@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.File;
 import java.io.InputStream;
@@ -64,7 +64,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      */
     @Nonnull
     default Set<OWLOntology> getOntologies(@Nonnull OWLAxiom axiom) {
-        return ontologies(axiom).collect(toSet());
+        return asSet(ontologies(axiom));
     }
 
     /**
@@ -91,7 +91,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     @Deprecated
     @Nonnull
     default Set<OWLOntology> getVersions(@Nonnull IRI ontology) {
-        return versions(ontology).collect(toSet());
+        return asSet(versions(ontology));
     }
 
     /**
@@ -164,7 +164,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     @Nonnull
     default Set<OWLOntologyID> getOntologyIDsByVersion(
             @Nonnull IRI ontologyVersionIRI) {
-        return ontologyIDsByVersion(ontologyVersionIRI).collect(toSet());
+        return asSet(ontologyIDsByVersion(ontologyVersionIRI));
     }
 
     /**
@@ -235,7 +235,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     @Deprecated
     @Nonnull
     default Set<OWLOntology> getDirectImports(@Nonnull OWLOntology ontology) {
-        return directImports(ontology).collect(toSet());
+        return asSet(directImports(ontology));
     }
 
     /**
@@ -269,7 +269,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     @Deprecated
     @Nonnull
     default Set<OWLOntology> getImports(@Nonnull OWLOntology ontology) {
-        return imports(ontology).collect(toSet());
+        return asSet(imports(ontology));
     }
 
     /**
@@ -305,7 +305,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     @Deprecated
     @Nonnull
     default Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology) {
-        return importsClosure(ontology).collect(toSet());
+        return asSet(importsClosure(ontology));
     }
 
     /**

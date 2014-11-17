@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi.api.test.swrl;
 
-import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -98,10 +98,10 @@ public class SWRLAtomOrderingRoundTripTestCase {
         SWRLRule parsedRule = rules.iterator().next();
         assertThat(parsedRule, is(equalTo(rule)));
         List<SWRLAtom> originalBody = new ArrayList<>(body);
-        List<SWRLAtom> parsedBody = parsedRule.body().collect(toList());
+        List<SWRLAtom> parsedBody = asList(parsedRule.body());
         assertThat(parsedBody, is(equalTo(originalBody)));
         List<SWRLAtom> originalHead = new ArrayList<>(head);
-        List<SWRLAtom> parsedHead = parsedRule.head().collect(toList());
+        List<SWRLAtom> parsedHead = asList(parsedRule.head());
         assertThat(originalHead, is(equalTo(parsedHead)));
     }
 

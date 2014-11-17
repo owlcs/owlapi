@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.model.AxiomType.*;
 import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -303,9 +303,8 @@ public class OWLObjectPropertyManager {
                     nonSimpleProperties.addAll(rtc);
                 }
             }
-            nonSimpleProperties.addAll(nonSimpleProperties.stream()
-                    .map(p -> p.getInverseProperty().getSimplified())
-                    .collect(toSet()));
+            nonSimpleProperties.addAll(asSet(nonSimpleProperties.stream().map(
+                    p -> p.getInverseProperty().getSimplified())));
             simpleDirty = false;
         }
         return nonSimpleProperties;
@@ -364,8 +363,8 @@ public class OWLObjectPropertyManager {
 
     @Nonnull
     private Set<OWLObjectPropertyExpression> getReferencedProperties() {
-        return ontologies().flatMap(o -> o.objectPropertiesInSignature())
-                .map(p -> p.getSimplified()).collect(toSet());
+        return asSet(ontologies().flatMap(o -> o.objectPropertiesInSignature())
+                .map(p -> p.getSimplified()));
     }
 
     /**

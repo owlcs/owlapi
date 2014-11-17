@@ -63,7 +63,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
     @Nonnull
     OWLSameIndividualAxiom getOWLSameIndividualAxiom(
             @Nonnull Set<? extends OWLIndividual> individuals,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param individuals
@@ -101,5 +101,5 @@ public interface IndividualAssertionProvider extends LiteralProvider {
     @Nonnull
     OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
             @Nonnull Set<? extends OWLIndividual> individuals,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

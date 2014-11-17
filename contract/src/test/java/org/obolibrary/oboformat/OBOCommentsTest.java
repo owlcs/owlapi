@@ -1,7 +1,7 @@
 package org.obolibrary.oboformat;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -24,7 +24,7 @@ public class OBOCommentsTest extends TestBase {
                 + "data-version: beta2 ! WSIO Beta 2\n";
         OWLOntology o2 = loadOntologyFromString(in2, IRI.create("urn:test2"),
                 new OBODocumentFormat());
-        assertEquals(o1.axioms().collect(toSet()), o2.axioms().collect(toSet()));
+        assertEquals(asSet(o1.axioms()), asSet(o2.axioms()));
     }
 
     @Test

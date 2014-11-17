@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -86,8 +86,8 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLOntology ontology) {
-        return ontology.logicalAxioms().flatMap(ax -> ax.accept(this).stream())
-                .collect(toSet());
+        return asSet(ontology.logicalAxioms().flatMap(
+                ax -> ax.accept(this).stream()));
     }
 
     @Override
@@ -132,8 +132,8 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointClassesAxiom axiom) {
-        return axiom.classExpressions().flatMap(ce -> ce.accept(this).stream())
-                .collect(toSet());
+        return asSet(axiom.classExpressions().flatMap(
+                ce -> ce.accept(this).stream()));
     }
 
     @Override
@@ -219,8 +219,8 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointUnionAxiom axiom) {
-        return axiom.classExpressions().flatMap(ce -> ce.accept(this).stream())
-                .collect(toSet());
+        return asSet(axiom.classExpressions().flatMap(
+                ce -> ce.accept(this).stream()));
     }
 
     @Override
@@ -235,8 +235,8 @@ public class OWLClassExpressionCollector implements
 
     @Override
     public Set<OWLClassExpression> visit(OWLEquivalentClassesAxiom axiom) {
-        return axiom.classExpressions().flatMap(ce -> ce.accept(this).stream())
-                .collect(toSet());
+        return asSet(axiom.classExpressions().flatMap(
+                ce -> ce.accept(this).stream()));
     }
 
     @Override

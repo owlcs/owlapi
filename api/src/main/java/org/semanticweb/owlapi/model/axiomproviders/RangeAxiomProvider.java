@@ -61,7 +61,7 @@ public interface RangeAxiomProvider {
     OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLClassExpression range,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -91,7 +91,7 @@ public interface RangeAxiomProvider {
     OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange owlDataRange,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param prop
@@ -119,5 +119,5 @@ public interface RangeAxiomProvider {
     @Nonnull
     OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(
             @Nonnull OWLAnnotationProperty prop, @Nonnull IRI range,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

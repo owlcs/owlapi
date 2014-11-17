@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.model.EntityType.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -88,8 +88,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     COMMENT("comment", ANNOTATION_PROPERTY);
 //@formatter:on
     /** All IRIs. */
-    public static final Set<IRI> ALL_IRIS = stream().map(v -> v.getIRI())
-            .collect(toSet());
+    public static final Set<IRI> ALL_IRIS = asSet(stream().map(v -> v.getIRI()));
     @Nonnull
     private final String localName;
     @Nonnull
@@ -132,9 +131,9 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static Set<OWLAnnotationProperty> getAnnotationProperties(
             AnnotationPropertyProvider dataFactory) {
-        return stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY))
-                .map(v -> dataFactory.getOWLAnnotationProperty(v.iri))
-                .collect(toSet());
+        return asSet(stream().filter(
+                v -> v.entityType.equals(ANNOTATION_PROPERTY)).map(
+                v -> dataFactory.getOWLAnnotationProperty(v.iri)));
     }
 
     /**
@@ -144,9 +143,8 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static Set<OWLObjectProperty> getObjectProperties(
             OWLDataFactory dataFactory) {
-        return stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY))
-                .map(v -> dataFactory.getOWLObjectProperty(v.iri))
-                .collect(toSet());
+        return asSet(stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY))
+                .map(v -> dataFactory.getOWLObjectProperty(v.iri)));
     }
 
     /**
@@ -156,9 +154,8 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static Set<OWLDataProperty> getDataProperties(
             OWLDataFactory dataFactory) {
-        return stream().filter(v -> v.entityType.equals(DATA_PROPERTY))
-                .map(v -> dataFactory.getOWLDataProperty(v.iri))
-                .collect(toSet());
+        return asSet(stream().filter(v -> v.entityType.equals(DATA_PROPERTY))
+                .map(v -> dataFactory.getOWLDataProperty(v.iri)));
     }
 
     /**
@@ -167,8 +164,8 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * @return set of SKOS classes
      */
     public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
-        return stream().filter(v -> v.entityType.equals(CLASS))
-                .map(v -> dataFactory.getOWLClass(v.iri)).collect(toSet());
+        return asSet(stream().filter(v -> v.entityType.equals(CLASS)).map(
+                v -> dataFactory.getOWLClass(v.iri)));
     }
 
     @Override

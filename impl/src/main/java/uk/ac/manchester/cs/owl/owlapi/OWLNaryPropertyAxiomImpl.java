@@ -55,7 +55,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     @SuppressWarnings("unchecked")
     public OWLNaryPropertyAxiomImpl(
             @Nonnull Collection<? extends P> properties,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
         this.properties = (List<P>) CollectionFactory
@@ -63,8 +63,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     }
 
     @SafeVarargs
-    OWLNaryPropertyAxiomImpl(
-            @Nonnull Collection<? extends OWLAnnotation> annotations,
+    OWLNaryPropertyAxiomImpl(@Nonnull Collection<OWLAnnotation> annotations,
             P... properties) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");

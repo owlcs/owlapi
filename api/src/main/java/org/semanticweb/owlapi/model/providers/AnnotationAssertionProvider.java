@@ -73,7 +73,7 @@ public interface AnnotationAssertionProvider extends LiteralProvider {
             @Nonnull OWLAnnotationProperty property,
             @Nonnull OWLAnnotationSubject subject,
             @Nonnull OWLAnnotationValue value,
-            @Nonnull Collection<? extends OWLAnnotation> annotations);
+            @Nonnull Collection<OWLAnnotation> annotations);
 
     /**
      * @param subject
@@ -88,7 +88,7 @@ public interface AnnotationAssertionProvider extends LiteralProvider {
     OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
             @Nonnull OWLAnnotationSubject subject,
             @Nonnull OWLAnnotation annotation,
-            @Nonnull Collection<? extends OWLAnnotation> annotations);
+            @Nonnull Collection<OWLAnnotation> annotations);
 
     /**
      * Gets an annotation assertion that specifies that an IRI is deprecated.

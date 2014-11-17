@@ -44,7 +44,7 @@ public class OWLSubDataPropertyOfAxiomImpl extends
     public OWLSubDataPropertyOfAxiomImpl(
             @Nonnull OWLDataPropertyExpression subProperty,
             @Nonnull OWLDataPropertyExpression superProperty,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
 

@@ -55,7 +55,7 @@ public interface AnnotationProvider {
     default OWLAnnotation getOWLAnnotation(
             @Nonnull OWLAnnotationProperty property,
             @Nonnull OWLAnnotationValue value,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return getOWLAnnotation(property, value, annotations.stream());
     }
 
@@ -89,7 +89,8 @@ public interface AnnotationProvider {
      *        A stream of annotations. Cannot be null or contain nulls.
      * @return The annotation on the specified property with the specified value
      */
-    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
-            OWLAnnotationValue value,
-            @Nonnull Stream<? extends OWLAnnotation> annotations);
+    public OWLAnnotation
+            getOWLAnnotation(OWLAnnotationProperty property,
+                    OWLAnnotationValue value,
+                    @Nonnull Stream<OWLAnnotation> annotations);
 }

@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.imports;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 
@@ -40,14 +40,14 @@ public class ManualImportsTestCase extends TestBase {
                 .createOntology(IRI("http://semanticweb.org/ontologies/base"));
         IRI importedIRI = IRI("http://semanticweb.org/ontologies/imported");
         OWLOntology importedOnt = m.createOntology(importedIRI);
-        Set<OWLOntology> preImportsClosureCache = m.importsClosure(baseOnt)
-                .collect(toSet());
+        Set<OWLOntology> preImportsClosureCache = asSet(m
+                .importsClosure(baseOnt));
         assertTrue(preImportsClosureCache.contains(baseOnt));
         assertFalse(preImportsClosureCache.contains(importedOnt));
         m.applyChange(new AddImport(baseOnt, m.getOWLDataFactory()
                 .getOWLImportsDeclaration(importedIRI)));
-        Set<OWLOntology> postImportsClosureCache = m.importsClosure(baseOnt)
-                .collect(toSet());
+        Set<OWLOntology> postImportsClosureCache = asSet(m
+                .importsClosure(baseOnt));
         assertTrue(postImportsClosureCache.contains(baseOnt));
         assertTrue(postImportsClosureCache.contains(importedOnt));
     }

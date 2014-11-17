@@ -49,7 +49,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
      */
     public OWLSubClassOfAxiomImpl(@Nonnull OWLClassExpression subClass,
             @Nonnull OWLClassExpression superClass,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subClass = checkNotNull(subClass, "subClass cannot be null");
         this.superClass = checkNotNull(superClass, "superClass cannot be null");

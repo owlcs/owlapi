@@ -33,8 +33,8 @@ package org.semanticweb.owlapi.change;/*
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.Set;
@@ -106,10 +106,8 @@ public class ConvertPropertyAssertionsToAnnotations extends
     @Nonnull
     private Collection<OWLNamedIndividual> getPunnedIndividuals(
             @Nonnull Stream<OWLNamedIndividual> individuals) {
-        return individuals.filter(
-                i -> ontologies().anyMatch(
-                        o -> o.containsClassInSignature(i.getIRI()))).collect(
-                toList());
+        return asList(individuals.filter(i -> ontologies().anyMatch(
+                o -> o.containsClassInSignature(i.getIRI()))));
     }
 
     private void generateChanges() {

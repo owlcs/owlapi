@@ -51,7 +51,7 @@ public class OWLDataPropertyAssertionAxiomImpl
     public OWLDataPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLLiteral value,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(subject, property, value, annotations);
     }
 

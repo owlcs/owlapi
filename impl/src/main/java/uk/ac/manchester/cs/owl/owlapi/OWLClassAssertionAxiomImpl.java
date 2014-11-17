@@ -52,7 +52,7 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
      */
     public OWLClassAssertionAxiomImpl(@Nonnull OWLIndividual individual,
             @Nonnull OWLClassExpression classExpression,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.individual = checkNotNull(individual, "individual cannot be null");
         this.classExpression = checkNotNull(classExpression,

@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static java.util.stream.Collectors.*;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -128,8 +128,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, Declaration(d));
         OWLOntology roundtripped = roundTrip(o,
                 new ManchesterSyntaxDocumentFormat());
-        assertEquals(o.axioms().collect(toSet()), roundtripped.axioms()
-                .collect(toSet()));
+        assertEquals(asSet(o.axioms()), asSet(roundtripped.axioms()));
     }
 
     @Test(expected = ParserException.class)
@@ -157,7 +156,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "</owl:DatatypeProperty></rdf:RDF>";
         String expression = "yearValue some ";
         OWLOntology wine = loadOntologyFromString(onto);
-        List<OWLOntology> ontologies = m.ontologies().collect(toList());
+        List<OWLOntology> ontologies = asList(m.ontologies());
         ShortFormProvider sfp = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                 wine.getOWLOntologyManager().getOntologyFormat(wine));
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
@@ -185,8 +184,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "Rule: \n xsd:decimal(?<urn:swrl#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl#p>, ?<urn:swrl#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl#p>)";
         OWLOntology o = loadOntologyFromString(inputManSyntax);
         OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
-        assertEquals(o.logicalAxioms().collect(toSet()), o1.logicalAxioms()
-                .collect(toSet()));
+        assertEquals(asSet(o.logicalAxioms()), asSet(o1.logicalAxioms()));
     }
 
     @Test
@@ -216,8 +214,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
         OWLOntology o = loadOntologyFromString(inputManSyntax);
         OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
-        assertEquals(o.logicalAxioms().collect(toSet()), o1.logicalAxioms()
-                .collect(toSet()));
+        assertEquals(asSet(o.logicalAxioms()), asSet(o1.logicalAxioms()));
     }
 
     @Test
@@ -228,7 +225,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "Class: Person\n Annotations:  rdfs:comment \"Represents the set of all people.\"\n"
                 + "Class: Man\n Annotations: rdfs:comment \"States that every man is a person.\"\n SubClassOf:  Person";
         OWLOntology o = loadOntologyFromString(input);
-        Set<OWLAxiom> axioms = o.axioms().collect(toSet());
+        Set<OWLAxiom> axioms = asSet(o.axioms());
         OWLClass person = Class(IRI("http://example.com/owl/families/Person"));
         OWLClass man = Class(IRI("http://example.com/owl/families/Man"));
         assertTrue(axioms.contains(Declaration(person)));
@@ -275,7 +272,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Arrays.asList(df.getRDFSLabel()),
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                m.ontologies().collect(toList()), sfp);
+                asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
@@ -335,7 +332,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Arrays.asList(df.getRDFSLabel()),
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                m.ontologies().collect(toList()), sfp);
+                asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
@@ -396,7 +393,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Arrays.asList(df.getRDFSLabel()),
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                m.ontologies().collect(toList()), sfp);
+                asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
@@ -432,7 +429,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Arrays.asList(df.getRDFSLabel()),
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                m.ontologies().collect(toList()), sfp);
+                asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(in);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(

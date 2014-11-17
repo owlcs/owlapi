@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -49,8 +49,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     /** LANG_RANGE. */       LANG_RANGE      (Namespaces.RDF, "langRange",       "langRange");
 //@formatter:on
     /** All facet iris. */
-    public static final Set<IRI> FACET_IRIS = stream().map(v -> v.iri).collect(
-            toSet());
+    public static final Set<IRI> FACET_IRIS = asSet(stream().map(v -> v.iri));
 
     private static Stream<OWLFacet> stream() {
         return Stream.of(values());
@@ -140,7 +139,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 
     /** @return all facets */
     public static Set<String> getFacets() {
-        return stream().map(v -> v.getSymbolicForm()).collect(toSet());
+        return asSet(stream().map(v -> v.getSymbolicForm()));
     }
 
     @Override

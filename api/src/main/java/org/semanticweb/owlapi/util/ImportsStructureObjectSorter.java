@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -79,13 +79,12 @@ public class ImportsStructureObjectSorter<O> {
      */
     @Nonnull
     public Map<OWLOntology, Set<O>> getObjects() {
-        List<OWLOntology> imports = ontology.importsClosure().collect(toList());
+        List<OWLOntology> imports = asList(ontology.importsClosure());
         Collections.reverse(imports);
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<>();
         Set<O> processed = new HashSet<>();
-        imports.forEach(ont -> ontology2EntityMap.put(ont, objectSelector
-                .getObjects(ont).stream().filter(o -> processed.add(o))
-                .collect(toSet())));
+        imports.forEach(ont -> ontology2EntityMap.put(ont, asSet(objectSelector
+                .objects(ont).filter(o -> processed.add(o)))));
         return ontology2EntityMap;
     }
 
@@ -103,7 +102,7 @@ public class ImportsStructureObjectSorter<O> {
         @Deprecated
         @Nonnull
         default Set<O> getObjects(@Nonnull OWLOntology ontology) {
-            return objects(ontology).collect(toSet());
+            return asSet(objects(ontology));
         }
 
         /**

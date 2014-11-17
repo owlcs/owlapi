@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.api.test;
 import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.InputStream;
 import java.util.Collection;
@@ -93,8 +94,8 @@ public class GuessRDFSPropertyTypeTestCase {
             @Nonnull String expectedDomain, @Nonnull String expectedRange,
             @Nonnull String expectedSuperProperty) {
         IRI p11IRI = prefixOWLOntologyFormat.getIRI(propertyName);
-        Set<OWLEntity> hadParticipant = cidocOntology.entitiesInSignature(
-                p11IRI).collect(toSet());
+        Set<OWLEntity> hadParticipant = asSet(cidocOntology
+                .entitiesInSignature(p11IRI));
         assertEquals("should have found " + propertyName, 1,
                 hadParticipant.size());
         OWLEntity entity = hadParticipant.iterator().next();
@@ -115,7 +116,7 @@ public class GuessRDFSPropertyTypeTestCase {
             @Nonnull String expectedSuperProperty) {
         Stream<OWLClassExpression> rangeStream = Searcher.range(cidocOntology
                 .objectPropertyRangeAxioms(p11property));
-        Collection<OWLClassExpression> ranges = rangeStream.collect(toSet());
+        Collection<OWLClassExpression> ranges = asSet(rangeStream);
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
         IRI rangeIRI = range.getIRI();
@@ -126,7 +127,7 @@ public class GuessRDFSPropertyTypeTestCase {
         assertEquals("range", expectedIRI, rangeIRI);
         Stream<OWLClassExpression> domainStream = Searcher.domain(cidocOntology
                 .objectPropertyDomainAxioms(p11property));
-        Collection<OWLClassExpression> domains = domainStream.collect(toSet());
+        Collection<OWLClassExpression> domains = asSet(domainStream);
         assertEquals("should have 1 domain", 1, domains.size());
         HasIRI domain = (HasIRI) domains.iterator().next();
         IRI domainIRI = domain.getIRI();
@@ -135,8 +136,7 @@ public class GuessRDFSPropertyTypeTestCase {
         Stream<OWLObjectPropertyExpression> superStream = Searcher
                 .sup(cidocOntology.axioms(Filters.subObjectPropertyWithSub,
                         p11property, INCLUDED));
-        Collection<OWLObjectPropertyExpression> superProperties = superStream
-                .collect(toSet());
+        Collection<OWLObjectPropertyExpression> superProperties = asSet(superStream);
         // Set<OWLPropertyExpression> superProperties =
         // p11_property.getSuperProperties(cidocOntology);
         assertEquals("should have 1 super Property", 1, superProperties.size());
@@ -152,7 +152,7 @@ public class GuessRDFSPropertyTypeTestCase {
             @Nonnull String expectedSuperProperty) {
         Stream<OWLClassExpression> rangeClasses = Searcher.range(cidocOntology
                 .dataPropertyRangeAxioms(p11property));
-        Collection<OWLClassExpression> ranges = rangeClasses.collect(toSet());
+        Collection<OWLClassExpression> ranges = asSet(rangeClasses);
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
         IRI rangeIRI = range.getIRI();
@@ -163,7 +163,7 @@ public class GuessRDFSPropertyTypeTestCase {
         assertEquals("range", expectedIRI, rangeIRI);
         Stream<OWLClassExpression> domainStream = Searcher.domain(cidocOntology
                 .dataPropertyDomainAxioms(p11property));
-        Collection<OWLClassExpression> domains = domainStream.collect(toSet());
+        Collection<OWLClassExpression> domains = asSet(domainStream);
         // p11_property .getDomains(cidocOntology);
         assertEquals("should have 1 domain", 1, domains.size());
         HasIRI domain = (HasIRI) domains.iterator().next();
@@ -187,10 +187,10 @@ public class GuessRDFSPropertyTypeTestCase {
 
     @Test
     public void testObjectPropertyAndDataPropertySetsNonTriviallyDisjoint() {
-        Set<OWLObjectProperty> objectProperties = cidocOntology
-                .objectPropertiesInSignature().collect(toSet());
-        Set<OWLDataProperty> dataProperties = cidocOntology
-                .dataPropertiesInSignature().collect(toSet());
+        Set<OWLObjectProperty> objectProperties = asSet(cidocOntology
+                .objectPropertiesInSignature());
+        Set<OWLDataProperty> dataProperties = asSet(cidocOntology
+                .dataPropertiesInSignature());
         assertFalse("should have some object Properties",
                 objectProperties.isEmpty());
         assertFalse("should have some data Properties",

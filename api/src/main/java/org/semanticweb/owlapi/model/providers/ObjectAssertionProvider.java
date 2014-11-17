@@ -58,7 +58,7 @@ public interface ObjectAssertionProvider extends LiteralProvider {
     OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLIndividual individual, @Nonnull OWLIndividual object,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -97,5 +97,5 @@ public interface ObjectAssertionProvider extends LiteralProvider {
                     @Nonnull OWLObjectPropertyExpression property,
                     @Nonnull OWLIndividual subject,
                     @Nonnull OWLIndividual object,
-                    @Nonnull Set<? extends OWLAnnotation> annotations);
+                    @Nonnull Set<OWLAnnotation> annotations);
 }

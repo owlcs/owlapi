@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
  *        property type
  */
 public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImpl implements
-        OWLSubPropertyAxiom<P> {
+        extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -50,7 +49,7 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
      */
     public OWLSubPropertyAxiomImpl(@Nonnull P subProperty,
             @Nonnull P superProperty,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subProperty = checkNotNull(subProperty,
                 "subProperty cannot be null");

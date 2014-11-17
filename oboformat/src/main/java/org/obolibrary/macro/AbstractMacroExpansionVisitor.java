@@ -1,9 +1,9 @@
 package org.obolibrary.macro;
 
-import static java.util.stream.Collectors.toSet;
 import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -96,14 +96,14 @@ public abstract class AbstractMacroExpansionVisitor implements
 
         @Override
         public OWLClassExpression visit(@Nonnull OWLObjectIntersectionOf ce) {
-            return df.getOWLObjectIntersectionOf(ce.operands()
-                    .map(o -> o.accept(this)).collect(toSet()));
+            return df.getOWLObjectIntersectionOf(asSet(ce.operands().map(
+                    o -> o.accept(this))));
         }
 
         @Override
         public OWLClassExpression visit(@Nonnull OWLObjectUnionOf ce) {
-            return df.getOWLObjectUnionOf(ce.operands()
-                    .map(o -> o.accept(this)).collect(toSet()));
+            return df.getOWLObjectUnionOf(asSet(ce.operands().map(
+                    o -> o.accept(this))));
         }
 
         @Override
@@ -307,8 +307,8 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     protected IRI valFromOneOf(Object filler) {
-        Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).individuals()
-                .collect(toSet());
+        Set<OWLIndividual> inds = asSet(
+                ((OWLObjectOneOf) filler).individuals(), OWLIndividual.class);
         if (inds.size() == 1) {
             OWLIndividual ind = inds.iterator().next();
             if (ind instanceof OWLNamedIndividual) {
@@ -329,8 +329,8 @@ public abstract class AbstractMacroExpansionVisitor implements
     public OWLAxiom visit(@Nonnull OWLDisjointClassesAxiom ax) {
         Set<OWLClassExpression> ops = new HashSet<>();
         ax.classExpressions().forEach(op -> ops.add(op.accept(classVisitor)));
-        return df.getOWLDisjointClassesAxiom(ax.classExpressions()
-                .map(o -> o.accept(classVisitor)).collect(toSet()));
+        return df.getOWLDisjointClassesAxiom(asSet(ax.classExpressions().map(
+                o -> o.accept(classVisitor))));
     }
 
     @Override
@@ -353,8 +353,8 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     @Override
     public OWLAxiom visit(@Nonnull OWLDisjointUnionAxiom ax) {
-        Set<OWLClassExpression> descs = ax.classExpressions()
-                .map(op -> op.accept(classVisitor)).collect(toSet());
+        Set<OWLClassExpression> descs = asSet(ax.classExpressions().map(
+                op -> op.accept(classVisitor)));
         return df.getOWLDisjointUnionAxiom(ax.getOWLClass(), descs);
     }
 
@@ -376,8 +376,8 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     @Override
     public OWLAxiom visit(@Nonnull OWLEquivalentClassesAxiom ax) {
-        Set<OWLClassExpression> ops = ax.classExpressions()
-                .map(op -> op.accept(classVisitor)).collect(toSet());
+        Set<OWLClassExpression> ops = asSet(ax.classExpressions().map(
+                op -> op.accept(classVisitor)));
         return df.getOWLEquivalentClassesAxiom(ops);
     }
 }

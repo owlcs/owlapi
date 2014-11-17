@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -39,7 +39,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Deprecated
     @Nonnull
     default Set<SWRLAtom> getBody() {
-        return body().collect(toSet());
+        return asSet(body());
     }
 
     /**
@@ -61,7 +61,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Deprecated
     @Nonnull
     default Set<SWRLAtom> getHead() {
-        return head().collect(toSet());
+        return asSet(head());
     }
 
     /**
@@ -94,7 +94,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Deprecated
     @Nonnull
     default Set<SWRLVariable> getVariables() {
-        return variables().collect(toSet());
+        return asSet(variables());
     }
 
     /**
@@ -123,7 +123,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Deprecated
     @Nonnull
     default Set<OWLClassExpression> getClassAtomPredicates() {
-        return classAtomPredicates().collect(toSet());
+        return asSet(classAtomPredicates());
     }
 
     /**

@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -308,8 +308,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> descs = axiom.classExpressions().collect(
-                toList());
+        List<OWLClassExpression> descs = asList(axiom.classExpressions());
         for (int i = 0; i < descs.size() - 1; i++) {
             for (int j = i + 1; j < descs.size(); j++) {
                 descs.get(i).accept(this);
@@ -355,7 +354,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        write(axiom.properties().collect(toList()), EQUIVALENT_TO, false);
+        write(asList(axiom.properties()), EQUIVALENT_TO, false);
     }
 
     @Override
@@ -366,17 +365,17 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        write(axiom.individuals().collect(toList()), NOT_EQUAL, false);
+        write(asList(axiom.individuals()), NOT_EQUAL, false);
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        write(axiom.properties().collect(toList()), DISJOINT_WITH, false);
+        write(asList(axiom.properties()), DISJOINT_WITH, false);
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        write(axiom.properties().collect(toList()), DISJOINT_WITH, false);
+        write(asList(axiom.properties()), DISJOINT_WITH, false);
     }
 
     private void writeRangeAxiom(@Nonnull OWLPropertyRangeAxiom<?, ?> axiom) {
@@ -434,7 +433,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept(this);
         write(EQUAL);
-        write(axiom.classExpressions().collect(toList()), OR, false);
+        write(asList(axiom.classExpressions()), OR, false);
     }
 
     @Override
@@ -463,7 +462,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        write(axiom.properties().collect(toList()), EQUIVALENT_TO, false);
+        write(asList(axiom.properties()), EQUIVALENT_TO, false);
     }
 
     @Override
@@ -482,7 +481,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        write(axiom.classExpressions().collect(toList()), EQUIVALENT_TO, false);
+        write(asList(axiom.classExpressions()), EQUIVALENT_TO, false);
     }
 
     @Override
@@ -547,7 +546,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        write(axiom.individuals().collect(toList()), EQUAL, false);
+        write(asList(axiom.individuals()), EQUAL, false);
     }
 
     @Override
@@ -582,11 +581,11 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(SWRLRule rule) {
-        write(rule.head().collect(toList()), WEDGE, false);
+        write(asList(rule.head()), WEDGE, false);
         writeSpace();
         write(IMPLIES);
         writeSpace();
-        write(rule.body().collect(toList()), WEDGE, false);
+        write(asList(rule.body()), WEDGE, false);
     }
 
     @Override
@@ -602,12 +601,12 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        write(ce.operands().collect(toList()), AND, true);
+        write(asList(ce.operands()), AND, true);
     }
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        write(ce.operands().collect(toList()), OR, true);
+        write(asList(ce.operands()), OR, true);
     }
 
     @Override
@@ -893,11 +892,11 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        write(node.operands().collect(toList()), AND, true);
+        write(asList(node.operands()), AND, true);
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        write(node.operands().collect(toList()), OR, true);
+        write(asList(node.operands()), OR, true);
     }
 }

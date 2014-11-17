@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -143,9 +143,8 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
             @Nonnull Collection<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
         Set<AxiomType<?>> disallowed = Sets.newHashSet(axiomTypes);
-        return sourceAxioms.stream()
-                .filter(a -> !disallowed.contains(a.getAxiomType()))
-                .collect(toSet());
+        return asSet(sourceAxioms.stream().filter(
+                a -> !disallowed.contains(a.getAxiomType())));
     }
 
     /**
@@ -165,9 +164,8 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
             @Nonnull Collection<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
         Set<AxiomType<?>> allowed = Sets.newHashSet(axiomTypes);
-        return sourceAxioms.stream()
-                .filter(a -> allowed.contains(a.getAxiomType()))
-                .collect(toSet());
+        return asSet(sourceAxioms.stream().filter(
+                a -> allowed.contains(a.getAxiomType())));
     }
 
     /**
@@ -269,8 +267,8 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
                     HAS_KEY);
     /** Axiom types. */
     @Nonnull
-    public static final Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = AXIOM_TYPES
-            .stream().filter(a -> a.isLogical).collect(toSet());
+    public static final Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = asSet(AXIOM_TYPES
+            .stream().filter(a -> a.isLogical));
     private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps
             .uniqueIndex(AXIOM_TYPES, t -> t.getName());
     private static final Map<Class<?>, AxiomType<?>> CLASS_TYPE_MAP = Maps

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -40,7 +40,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Deprecated
     @Nonnull
     default Set<OWLAxiom> getAxioms(@Nonnull Imports includeImportsClosure) {
-        return axioms(includeImportsClosure).collect(toSet());
+        return asSet(axioms(includeImportsClosure));
     }
 
     /**
@@ -81,7 +81,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     default Set<OWLLogicalAxiom> getLogicalAxioms(
             @Nonnull Imports includeImportsClosure) {
-        return logicalAxioms(includeImportsClosure).collect(toSet());
+        return asSet(logicalAxioms(includeImportsClosure));
     }
 
     /**
@@ -131,7 +131,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     default <T extends OWLAxiom> Set<T> getAxioms(
             @Nonnull AxiomType<T> axiomType,
             @Nonnull Imports includeImportsClosure) {
-        return axioms(axiomType, includeImportsClosure).collect(toSet());
+        return asSet(axioms(axiomType, includeImportsClosure));
     }
 
     /**
@@ -263,7 +263,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Deprecated
     @Nonnull
     default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity) {
-        return referencingAxioms(owlEntity).collect(toSet());
+        return asSet(referencingAxioms(owlEntity));
     }
 
     /**
@@ -301,8 +301,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
             @Nonnull Imports includeImportsClosure) {
-        return referencingAxioms(owlEntity, includeImportsClosure).collect(
-                toSet());
+        return asSet(referencingAxioms(owlEntity, includeImportsClosure));
     }
 
     /**
@@ -349,7 +348,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Deprecated
     @Nonnull
     default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls) {
-        return axioms(cls).collect(toSet());
+        return asSet(axioms(cls));
     }
 
     /**
@@ -398,7 +397,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls,
             @Nonnull Imports includeImportsClosure) {
-        return axioms(cls, includeImportsClosure).collect(toSet());
+        return asSet(axioms(cls, includeImportsClosure));
     }
 
     // Axioms that form part of a description of a named entity
@@ -457,7 +456,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     default Set<OWLObjectPropertyAxiom> getAxioms(
             @Nonnull OWLObjectPropertyExpression property) {
-        return axioms(property).collect(toSet());
+        return asSet(axioms(property));
     }
 
     /**
@@ -523,7 +522,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     default Set<OWLObjectPropertyAxiom> getAxioms(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull Imports includeImportsClosure) {
-        return axioms(property, includeImportsClosure).collect(toSet());
+        return asSet(axioms(property, includeImportsClosure));
     }
 
     /**
@@ -585,7 +584,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     default Set<OWLDataPropertyAxiom> getAxioms(
             @Nonnull OWLDataProperty property) {
-        return axioms(property).collect(toSet());
+        return asSet(axioms(property));
     }
 
     /**
@@ -640,7 +639,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     default Set<OWLDataPropertyAxiom> getAxioms(
             @Nonnull OWLDataProperty property,
             @Nonnull Imports includeImportsClosure) {
-        return axioms(property, includeImportsClosure).collect(toSet());
+        return asSet(axioms(property, includeImportsClosure));
     }
 
     /**
@@ -699,7 +698,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     default Set<OWLIndividualAxiom>
             getAxioms(@Nonnull OWLIndividual individual) {
-        return axioms(individual).collect(toSet());
+        return asSet(axioms(individual));
     }
 
     /**
@@ -760,7 +759,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     default Set<OWLIndividualAxiom> getAxioms(
             @Nonnull OWLIndividual individual,
             @Nonnull Imports includeImportsClosure) {
-        return axioms(individual, includeImportsClosure).collect(toSet());
+        return asSet(axioms(individual, includeImportsClosure));
     }
 
     /**
@@ -815,7 +814,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     default Set<OWLAnnotationAxiom> getAxioms(
             @Nonnull OWLAnnotationProperty property) {
-        return axioms(property).collect(toSet());
+        return asSet(axioms(property));
     }
 
     /**
@@ -870,7 +869,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     default Set<OWLAnnotationAxiom> getAxioms(
             @Nonnull OWLAnnotationProperty property,
             @Nonnull Imports includeImportsClosure) {
-        return axioms(property, includeImportsClosure).collect(toSet());
+        return asSet(axioms(property, includeImportsClosure));
     }
 
     /**
@@ -909,7 +908,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(
             @Nonnull OWLDatatype datatype) {
-        return axioms(datatype).collect(toSet());
+        return asSet(axioms(datatype));
     }
 
     /**
@@ -937,7 +936,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(
             @Nonnull OWLDatatype datatype,
             @Nonnull Imports includeImportsClosure) {
-        return axioms(datatype, includeImportsClosure).collect(toSet());
+        return asSet(axioms(datatype, includeImportsClosure));
     }
 
     /**

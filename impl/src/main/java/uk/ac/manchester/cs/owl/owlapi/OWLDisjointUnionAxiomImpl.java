@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
@@ -57,12 +56,12 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
      */
     public OWLDisjointUnionAxiomImpl(@Nonnull OWLClass owlClass,
             @Nonnull Collection<? extends OWLClassExpression> classExpressions,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
-        this.classExpressions = checkNotNull(classExpressions,
-                "classExpressions cannot be null").stream().sorted()
-                .collect(toList());
+        Collection<? extends OWLClassExpression> classes = checkNotNull(
+                classExpressions, "classExpressions cannot be null");
+        this.classExpressions = asList(classes.stream().sorted());
     }
 
     @Override

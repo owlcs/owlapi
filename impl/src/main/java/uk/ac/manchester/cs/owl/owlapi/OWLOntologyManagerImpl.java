@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -371,7 +371,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public List<OWLOntology> getSortedImportsClosure(OWLOntology ontology) {
-        return ontology.importsClosure().sorted().collect(toList());
+        return asList(ontology.importsClosure().sorted());
     }
 
     /**
@@ -457,8 +457,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Stream<? extends OWLAxiom> axioms) {
-        List<AddAxiom> changes = axioms.map(ax -> new AddAxiom(ont, ax))
-                .collect(toList());
+        List<AddAxiom> changes = asList(axioms.map(ax -> new AddAxiom(ont, ax)));
         return applyChanges(changes);
     }
 
@@ -533,8 +532,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 .getNewOntologyID());
         OWLOntology o = setID.getOntology();
         if (existingOntology != null && !o.equals(existingOntology)) {
-            if (!o.axioms().collect(toSet())
-                    .equals(existingOntology.axioms().collect(toSet()))) {
+            if (!asSet(o.axioms()).equals(asSet(existingOntology.axioms()))) {
                 LOGGER.error(
                         "OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}",
                         existingOntology);
@@ -616,7 +614,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntology ont = createOntology(ontologyIRI);
         Function<? super OWLOntology, ? extends Stream<? extends OWLAxiom>> mapper = o -> copyLogicalAxiomsOnly ? o
                 .logicalAxioms() : o.axioms();
-        addAxioms(ont, ontologies.flatMap(mapper).collect(toSet()));
+        addAxioms(ont, asSet(ontologies.flatMap(mapper)));
         return ont;
     }
 

@@ -44,7 +44,7 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
      *        annotations on the axiom
      */
     public OWLDeclarationAxiomImpl(@Nonnull OWLEntity entity,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.entity = checkNotNull(entity, "entity cannot be null");
     }

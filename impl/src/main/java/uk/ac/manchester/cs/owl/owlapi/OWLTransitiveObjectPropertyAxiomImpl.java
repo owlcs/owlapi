@@ -42,7 +42,7 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends
      */
     public OWLTransitiveObjectPropertyAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 

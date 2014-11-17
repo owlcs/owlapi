@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi.api.test.swrl;
 
-import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,7 +66,7 @@ public class SWRLAtomOrderingTestCase {
 
     @Test
     public void shouldPreserveBodyOrdering() {
-        List<SWRLAtom> ruleImplBody = rule.body().collect(toList());
+        List<SWRLAtom> ruleImplBody = asList(rule.body());
         List<SWRLAtom> specifiedBody = new ArrayList<>(body);
         assertThat(ruleImplBody, is(equalTo(specifiedBody)));
     }

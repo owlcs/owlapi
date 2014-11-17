@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -37,7 +36,7 @@ public interface HasAnnotations {
      *         ontologies. Use the EntitySearcher methods for that purpose.
      */
     @Nonnull
-    default Stream<? extends OWLAnnotation> annotations() {
+    default Stream<OWLAnnotation> annotations() {
         return Stream.empty();
     }
 
@@ -52,7 +51,7 @@ public interface HasAnnotations {
      *        annotation property or the annotation value
      */
     @Nonnull
-    default Stream<? extends OWLAnnotation> annotations(
+    default Stream<OWLAnnotation> annotations(
             @Nonnull Predicate<OWLAnnotation> p) {
         return annotations().filter(p);
     }
@@ -67,8 +66,7 @@ public interface HasAnnotations {
      *        annotation property to filter on
      */
     @Nonnull
-    default Stream<? extends OWLAnnotation> annotations(
-            @Nonnull OWLAnnotationProperty p) {
+    default Stream<OWLAnnotation> annotations(@Nonnull OWLAnnotationProperty p) {
         return annotations().filter(a -> a.getProperty().equals(p));
     }
 
@@ -88,8 +86,8 @@ public interface HasAnnotations {
      */
     @Deprecated
     @Nonnull
-    default Set<? extends OWLAnnotation> getAnnotations() {
-        return annotations().collect(toSet());
+    default Set<OWLAnnotation> getAnnotations() {
+        return asSet(annotations());
     }
 
     /**
@@ -104,9 +102,9 @@ public interface HasAnnotations {
      */
     @Deprecated
     @Nonnull
-    default Set<? extends OWLAnnotation> getAnnotations(
+    default Set<OWLAnnotation> getAnnotations(
             @Nonnull OWLAnnotationProperty annotationProperty) {
-        return annotations(a -> a.getProperty().equals(annotationProperty))
-                .collect(Collectors.toSet());
+        return asSet(annotations(a -> a.getProperty()
+                .equals(annotationProperty)));
     }
 }

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -81,8 +81,8 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
     protected abstract Stream<E> getEntities(@Nonnull OWLOntology ont);
 
     protected Set<E> getAllEntities(OWLReasoner reasoner) {
-        return reasoner.getRootOntology().importsClosure()
-                .flatMap(o -> getEntities(o)).collect(toSet());
+        return asSet(reasoner.getRootOntology().importsClosure()
+                .flatMap(o -> getEntities(o)));
     }
 
     @Override

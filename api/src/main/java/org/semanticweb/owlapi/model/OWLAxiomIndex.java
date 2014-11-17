@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Navigation.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
 import java.util.Set;
@@ -60,8 +60,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
             @Nonnull Navigation forSubPosition) {
-        return axioms(type, entity, includeImports, forSubPosition).collect(
-                toSet());
+        return asSet(axioms(type, entity, includeImports, forSubPosition));
     }
 
     /**
@@ -115,7 +114,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
             @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition) {
-        return axioms(type, entity, forSubPosition).collect(toSet());
+        return asSet(axioms(type, entity, forSubPosition));
     }
 
     /**
@@ -165,8 +164,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default <T extends OWLAxiom> Collection<T> filterAxioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
             @Nonnull Imports includeImportsClosure) {
-        Stream<T> axioms = axioms(filter, key, includeImportsClosure);
-        return axioms.collect(toSet());
+        return asSet(axioms(filter, key, includeImportsClosure));
     }
 
     /**
@@ -209,11 +207,11 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default <T extends OWLAxiom> Collection<T> filterAxioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key) {
-        Stream<T> axioms = axioms(filter, key);
-        return axioms.collect(toSet());
+        return asSet(axioms(filter, key));
     }
 
-    /** Generic filter type for further refining search by axiom type. The
+    /**
+     * Generic filter type for further refining search by axiom type. The
      * returned axioms are both belonging to one of the types listed by the
      * filter and satisfying its pass condition.
      * 
@@ -286,8 +284,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition) {
-        return axioms(type, explicitClass, entity, forSubPosition).collect(
-                toSet());
+        return asSet(axioms(type, explicitClass, entity, forSubPosition));
     }
 
     /**
@@ -346,8 +343,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
             @Nonnull Navigation forSubPosition) {
-        return axioms(type, explicitClass, entity, includeImports,
-                forSubPosition).collect(toSet());
+        return asSet(axioms(type, explicitClass, entity, includeImports,
+                forSubPosition));
     }
 
     /**
@@ -397,7 +394,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLSubAnnotationPropertyOfAxiom>
             getSubAnnotationPropertyOfAxioms(
                     @Nonnull OWLAnnotationProperty subProperty) {
-        return subAnnotationPropertyOfAxioms(subProperty).collect(toSet());
+        return asSet(subAnnotationPropertyOfAxioms(subProperty));
     }
 
     /**
@@ -425,7 +422,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLAnnotationPropertyDomainAxiom>
             getAnnotationPropertyDomainAxioms(
                     @Nonnull OWLAnnotationProperty property) {
-        return annotationPropertyDomainAxioms(property).collect(toSet());
+        return asSet(annotationPropertyDomainAxioms(property));
     }
 
     /**
@@ -453,7 +450,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLAnnotationPropertyRangeAxiom>
             getAnnotationPropertyRangeAxioms(
                     @Nonnull OWLAnnotationProperty property) {
-        return annotationPropertyRangeAxioms(property).collect(toSet());
+        return asSet(annotationPropertyRangeAxioms(property));
     }
 
     /**
@@ -543,7 +540,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(
             @Nonnull OWLClass cls) {
-        return subClassAxiomsForSubClass(cls).collect(toSet());
+        return asSet(subClassAxiomsForSubClass(cls));
     }
 
     /**
@@ -574,7 +571,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(
             @Nonnull OWLClass cls) {
-        return subClassAxiomsForSuperClass(cls).collect(toSet());
+        return asSet(subClassAxiomsForSuperClass(cls));
     }
 
     /**
@@ -604,7 +601,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(
             @Nonnull OWLClass cls) {
-        return equivalentClassesAxioms(cls).collect(toSet());
+        return asSet(equivalentClassesAxioms(cls));
     }
 
     /**
@@ -634,7 +631,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(
             @Nonnull OWLClass cls) {
-        return disjointClassesAxioms(cls).collect(toSet());
+        return asSet(disjointClassesAxioms(cls));
     }
 
     /**
@@ -666,7 +663,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(
             @Nonnull OWLClass owlClass) {
-        return disjointUnionAxioms(owlClass).collect(toSet());
+        return asSet(disjointUnionAxioms(owlClass));
     }
 
     /**
@@ -696,7 +693,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Deprecated
     @Nonnull
     default Set<OWLHasKeyAxiom> getHasKeyAxioms(@Nonnull OWLClass cls) {
-        return hasKeyAxioms(cls).collect(toSet());
+        return asSet(hasKeyAxioms(cls));
     }
 
     /**
@@ -727,8 +724,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLSubObjectPropertyOfAxiom>
             getObjectSubPropertyAxiomsForSubProperty(
                     @Nonnull OWLObjectPropertyExpression subProperty) {
-        return objectSubPropertyAxiomsForSubProperty(subProperty).collect(
-                toSet());
+        return asSet(objectSubPropertyAxiomsForSubProperty(subProperty));
     }
 
     /**
@@ -763,8 +759,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLSubObjectPropertyOfAxiom>
             getObjectSubPropertyAxiomsForSuperProperty(
                     @Nonnull OWLObjectPropertyExpression superProperty) {
-        return objectSubPropertyAxiomsForSuperProperty(superProperty).collect(
-                toSet());
+        return asSet(objectSubPropertyAxiomsForSuperProperty(superProperty));
     }
 
     /**
@@ -798,7 +793,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
             @Nonnull OWLObjectPropertyExpression property) {
-        return objectPropertyDomainAxioms(property).collect(toSet());
+        return asSet(objectPropertyDomainAxioms(property));
     }
 
     /**
@@ -831,7 +826,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(
             @Nonnull OWLObjectPropertyExpression property) {
-        return objectPropertyRangeAxioms(property).collect(toSet());
+        return asSet(objectPropertyRangeAxioms(property));
     }
 
     /**
@@ -866,7 +861,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLInverseObjectPropertiesAxiom>
             getInverseObjectPropertyAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return inverseObjectPropertyAxioms(property).collect(toSet());
+        return asSet(inverseObjectPropertyAxioms(property));
     }
 
     /**
@@ -903,7 +898,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLEquivalentObjectPropertiesAxiom>
             getEquivalentObjectPropertiesAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return equivalentObjectPropertiesAxioms(property).collect(toSet());
+        return asSet(equivalentObjectPropertiesAxioms(property));
     }
 
     /**
@@ -940,7 +935,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLDisjointObjectPropertiesAxiom>
             getDisjointObjectPropertiesAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return disjointObjectPropertiesAxioms(property).collect(toSet());
+        return asSet(disjointObjectPropertiesAxioms(property));
     }
 
     /**
@@ -975,7 +970,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLFunctionalObjectPropertyAxiom>
             getFunctionalObjectPropertyAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return functionalObjectPropertyAxioms(property).collect(toSet());
+        return asSet(functionalObjectPropertyAxioms(property));
     }
 
     /**
@@ -1008,7 +1003,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLInverseFunctionalObjectPropertyAxiom>
             getInverseFunctionalObjectPropertyAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return inverseFunctionalObjectPropertyAxioms(property).collect(toSet());
+        return asSet(inverseFunctionalObjectPropertyAxioms(property));
     }
 
     /**
@@ -1041,7 +1036,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLSymmetricObjectPropertyAxiom>
             getSymmetricObjectPropertyAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return symmetricObjectPropertyAxioms(property).collect(toSet());
+        return asSet(symmetricObjectPropertyAxioms(property));
     }
 
     /**
@@ -1074,7 +1069,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLAsymmetricObjectPropertyAxiom>
             getAsymmetricObjectPropertyAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return asymmetricObjectPropertyAxioms(property).collect(toSet());
+        return asSet(asymmetricObjectPropertyAxioms(property));
     }
 
     /**
@@ -1107,7 +1102,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLReflexiveObjectPropertyAxiom>
             getReflexiveObjectPropertyAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return reflexiveObjectPropertyAxioms(property).collect(toSet());
+        return asSet(reflexiveObjectPropertyAxioms(property));
     }
 
     /**
@@ -1140,7 +1135,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLIrreflexiveObjectPropertyAxiom>
             getIrreflexiveObjectPropertyAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return irreflexiveObjectPropertyAxioms(property).collect(toSet());
+        return asSet(irreflexiveObjectPropertyAxioms(property));
     }
 
     /**
@@ -1173,7 +1168,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLTransitiveObjectPropertyAxiom>
             getTransitiveObjectPropertyAxioms(
                     @Nonnull OWLObjectPropertyExpression property) {
-        return transitiveObjectPropertyAxioms(property).collect(toSet());
+        return asSet(transitiveObjectPropertyAxioms(property));
     }
 
     /**
@@ -1208,8 +1203,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLSubDataPropertyOfAxiom>
             getDataSubPropertyAxiomsForSubProperty(
                     @Nonnull OWLDataProperty subProperty) {
-        return dataSubPropertyAxiomsForSubProperty(subProperty)
-                .collect(toSet());
+        return asSet(dataSubPropertyAxiomsForSubProperty(subProperty));
     }
 
     /**
@@ -1244,8 +1238,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLSubDataPropertyOfAxiom>
             getDataSubPropertyAxiomsForSuperProperty(
                     @Nonnull OWLDataPropertyExpression superProperty) {
-        return dataSubPropertyAxiomsForSuperProperty(superProperty).collect(
-                toSet());
+        return asSet(dataSubPropertyAxiomsForSuperProperty(superProperty));
     }
 
     /**
@@ -1279,7 +1272,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(
             @Nonnull OWLDataProperty property) {
-        return dataPropertyDomainAxioms(property).collect(toSet());
+        return asSet(dataPropertyDomainAxioms(property));
     }
 
     /**
@@ -1312,7 +1305,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(
             @Nonnull OWLDataProperty property) {
-        return dataPropertyRangeAxioms(property).collect(toSet());
+        return asSet(dataPropertyRangeAxioms(property));
     }
 
     /**
@@ -1347,7 +1340,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default
             Set<OWLEquivalentDataPropertiesAxiom>
             getEquivalentDataPropertiesAxioms(@Nonnull OWLDataProperty property) {
-        return equivalentDataPropertiesAxioms(property).collect(toSet());
+        return asSet(equivalentDataPropertiesAxioms(property));
     }
 
     /**
@@ -1380,7 +1373,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLDisjointDataPropertiesAxiom>
             getDisjointDataPropertiesAxioms(@Nonnull OWLDataProperty property) {
-        return disjointDataPropertiesAxioms(property).collect(toSet());
+        return asSet(disjointDataPropertiesAxioms(property));
     }
 
     /**
@@ -1413,7 +1406,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLFunctionalDataPropertyAxiom>
             getFunctionalDataPropertyAxioms(
                     @Nonnull OWLDataPropertyExpression property) {
-        return functionalDataPropertyAxioms(property).collect(toSet());
+        return asSet(functionalDataPropertyAxioms(property));
     }
 
     /**
@@ -1448,7 +1441,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
             @Nonnull OWLIndividual individual) {
-        return classAssertionAxioms(individual).collect(toSet());
+        return asSet(classAssertionAxioms(individual));
     }
 
     /**
@@ -1482,7 +1475,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
             @Nonnull OWLClassExpression ce) {
-        return classAssertionAxioms(ce).collect(toSet());
+        return asSet(classAssertionAxioms(ce));
     }
 
     /**
@@ -1515,7 +1508,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
             @Nonnull OWLIndividual individual) {
-        return dataPropertyAssertionAxioms(individual).collect(toSet());
+        return asSet(dataPropertyAssertionAxioms(individual));
     }
 
     /**
@@ -1547,7 +1540,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLObjectPropertyAssertionAxiom>
             getObjectPropertyAssertionAxioms(@Nonnull OWLIndividual individual) {
-        return objectPropertyAssertionAxioms(individual).collect(toSet());
+        return asSet(objectPropertyAssertionAxioms(individual));
     }
 
     /**
@@ -1580,8 +1573,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLNegativeObjectPropertyAssertionAxiom>
             getNegativeObjectPropertyAssertionAxioms(
                     @Nonnull OWLIndividual individual) {
-        return negativeObjectPropertyAssertionAxioms(individual).collect(
-                toSet());
+        return asSet(negativeObjectPropertyAssertionAxioms(individual));
     }
 
     /**
@@ -1615,7 +1607,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     default Set<OWLNegativeDataPropertyAssertionAxiom>
             getNegativeDataPropertyAssertionAxioms(
                     @Nonnull OWLIndividual individual) {
-        return negativeDataPropertyAssertionAxioms(individual).collect(toSet());
+        return asSet(negativeDataPropertyAssertionAxioms(individual));
     }
 
     /**
@@ -1648,7 +1640,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLSameIndividualAxiom> getSameIndividualAxioms(
             @Nonnull OWLIndividual individual) {
-        return sameIndividualAxioms(individual).collect(toSet());
+        return asSet(sameIndividualAxioms(individual));
     }
 
     /**
@@ -1681,7 +1673,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
             @Nonnull OWLIndividual individual) {
-        return differentIndividualAxioms(individual).collect(toSet());
+        return asSet(differentIndividualAxioms(individual));
     }
 
     /**
@@ -1713,7 +1705,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(
             @Nonnull OWLDatatype datatype) {
-        return datatypeDefinitions(datatype).collect(toSet());
+        return asSet(datatypeDefinitions(datatype));
     }
 
     /**

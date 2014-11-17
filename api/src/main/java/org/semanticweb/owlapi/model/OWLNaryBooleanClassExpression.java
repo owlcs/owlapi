@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.List;
 import java.util.Set;
@@ -32,7 +32,7 @@ public interface OWLNaryBooleanClassExpression extends
     @Deprecated
     @Nonnull
     default Set<? extends OWLClassExpression> getOperands() {
-        return operands().collect(toSet());
+        return asSet(operands());
     }
 
     /** @return the class expressions */
@@ -47,6 +47,6 @@ public interface OWLNaryBooleanClassExpression extends
      */
     @Nonnull
     default List<? extends OWLClassExpression> getOperandsAsList() {
-        return operands().collect(toList());
+        return asList(operands());
     }
 }

@@ -69,7 +69,7 @@ public interface DisjointAxiomProvider {
     @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param properties
@@ -110,7 +110,7 @@ public interface DisjointAxiomProvider {
     @Nonnull
     OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
             @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param dataProperties
@@ -148,5 +148,5 @@ public interface DisjointAxiomProvider {
     @Nonnull
     OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
             @Nonnull Set<? extends OWLDataPropertyExpression> properties,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

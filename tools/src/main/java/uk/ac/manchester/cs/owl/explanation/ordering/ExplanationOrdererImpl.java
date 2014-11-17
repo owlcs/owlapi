@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -161,19 +161,16 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private Set<OWLAxiom> getTargetAxioms(@Nonnull OWLEntity target) {
         Set<OWLAxiom> axioms = new HashSet<>();
         if (target.isOWLClass()) {
-            axioms.addAll(ont.axioms(target.asOWLClass()).collect(toList()));
+            add(axioms, ont.axioms(target.asOWLClass()));
         }
         if (target.isOWLObjectProperty()) {
-            axioms.addAll(ont.axioms(target.asOWLObjectProperty()).collect(
-                    toList()));
+            add(axioms, ont.axioms(target.asOWLObjectProperty()));
         }
         if (target.isOWLDataProperty()) {
-            axioms.addAll(ont.axioms(target.asOWLDataProperty()).collect(
-                    toList()));
+            add(axioms, ont.axioms(target.asOWLDataProperty()));
         }
         if (target.isOWLNamedIndividual()) {
-            axioms.addAll(ont.axioms(target.asOWLNamedIndividual()).collect(
-                    toList()));
+            add(axioms, ont.axioms(target.asOWLNamedIndividual()));
         }
         return axioms;
     }
@@ -346,8 +343,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      */
     protected void indexAxiomsByRHSEntities(@Nonnull OWLObject rhs,
             @Nonnull OWLAxiom axiom) {
-        getIndexedSet(axiom, entitiesByAxiomRHS, true).addAll(
-                rhs.signature().collect(toList()));
+        add(getIndexedSet(axiom, entitiesByAxiomRHS, true), rhs.signature());
     }
 
     /** The properties first comparator. */

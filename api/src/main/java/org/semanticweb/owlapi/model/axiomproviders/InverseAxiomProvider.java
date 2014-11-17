@@ -52,5 +52,5 @@ public interface InverseAxiomProvider {
     OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
             @Nonnull OWLObjectPropertyExpression forwardProperty,
             @Nonnull OWLObjectPropertyExpression inverseProperty,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

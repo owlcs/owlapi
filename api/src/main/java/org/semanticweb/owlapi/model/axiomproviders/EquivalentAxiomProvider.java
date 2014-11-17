@@ -57,7 +57,7 @@ public interface EquivalentAxiomProvider {
     @Nonnull
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param classExpressions
@@ -101,7 +101,7 @@ public interface EquivalentAxiomProvider {
     @Nonnull
     default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
             @Nonnull OWLClassExpression clsA, @Nonnull OWLClassExpression clsB,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return getOWLEquivalentClassesAxiom(
                 CollectionFactory.createSet(clsA, clsB), annotations);
     }
@@ -131,7 +131,7 @@ public interface EquivalentAxiomProvider {
     @Nonnull
     OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
             @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param properties
@@ -178,7 +178,7 @@ public interface EquivalentAxiomProvider {
             getOWLEquivalentObjectPropertiesAxiom(
                     @Nonnull OWLObjectPropertyExpression propertyA,
                     @Nonnull OWLObjectPropertyExpression propertyB,
-                    @Nonnull Set<? extends OWLAnnotation> annotations) {
+                    @Nonnull Set<OWLAnnotation> annotations) {
         return getOWLEquivalentObjectPropertiesAxiom(
                 CollectionFactory.createSet(propertyA, propertyB), annotations);
     }
@@ -207,7 +207,7 @@ public interface EquivalentAxiomProvider {
     @Nonnull
     OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
             @Nonnull Set<? extends OWLDataPropertyExpression> properties,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param properties
@@ -253,7 +253,7 @@ public interface EquivalentAxiomProvider {
             getOWLEquivalentDataPropertiesAxiom(
                     @Nonnull OWLDataPropertyExpression propertyA,
                     @Nonnull OWLDataPropertyExpression propertyB,
-                    @Nonnull Set<? extends OWLAnnotation> annotations) {
+                    @Nonnull Set<OWLAnnotation> annotations) {
         return getOWLEquivalentDataPropertiesAxiom(
                 CollectionFactory.createSet(propertyA, propertyB), annotations);
     }

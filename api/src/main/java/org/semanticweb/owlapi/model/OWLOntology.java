@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.OutputStream;
 import java.util.Collection;
@@ -171,7 +171,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     @Deprecated
     @Nonnull
     default Set<OWLOntology> getImports() {
-        return imports().collect(toSet());
+        return asSet(imports());
     }
 
     /**
@@ -210,7 +210,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     @Deprecated
     @Nonnull
     default Set<OWLImportsDeclaration> getImportsDeclarations() {
-        return importsDeclarations().collect(toSet());
+        return asSet(importsDeclarations());
     }
 
     /**
@@ -252,7 +252,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     @Deprecated
     @Nonnull
     default Set<OWLAxiom> getTBoxAxioms(@Nonnull Imports includeImportsClosure) {
-        return tboxAxioms(includeImportsClosure).collect(toSet());
+        return asSet(tboxAxioms(includeImportsClosure));
     }
 
     /**
@@ -283,7 +283,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     @Deprecated
     @Nonnull
     default Set<OWLAxiom> getABoxAxioms(@Nonnull Imports includeImportsClosure) {
-        return aboxAxioms(includeImportsClosure).collect(toSet());
+        return asSet(aboxAxioms(includeImportsClosure));
     }
 
     /**
@@ -314,7 +314,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     @Deprecated
     @Nonnull
     default Set<OWLAxiom> getRBoxAxioms(@Nonnull Imports includeImportsClosure) {
-        return rboxAxioms(includeImportsClosure).collect(toSet());
+        return asSet(rboxAxioms(includeImportsClosure));
     }
 
     /**
@@ -349,7 +349,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     @Deprecated
     @Nonnull
     default Set<OWLClassAxiom> getGeneralClassAxioms() {
-        return generalClassAxioms().collect(toSet());
+        return asSet(generalClassAxioms());
     }
 
     /**
@@ -392,7 +392,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     @Deprecated
     @Nonnull
     default Set<OWLEntity> getSignature(@Nonnull Imports imports) {
-        return signature(imports).collect(toSet());
+        return asSet(signature(imports));
     }
 
     /**

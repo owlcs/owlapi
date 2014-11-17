@@ -12,9 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -54,12 +53,11 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     public OWLHasKeyAxiomImpl(
             @Nonnull OWLClassExpression expression,
             @Nonnull Collection<? extends OWLPropertyExpression> propertyExpressions,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
         checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
-        this.propertyExpressions = propertyExpressions.stream().sorted()
-                .collect(toList());
+        this.propertyExpressions = asList(propertyExpressions.stream().sorted());
     }
 
     @Override

@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -84,7 +85,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
             @Nonnull OWLDocumentFormat format)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         Set<OWLAxiom> annotationAxioms = new HashSet<>();
-        Set<OWLAxiom> axioms = ontology.axioms().collect(toSet());
+        Set<OWLAxiom> axioms = asSet(ontology.axioms());
         for (OWLAxiom ax : axioms) {
             if (ax.isAnnotationAxiom()) {
                 annotationAxioms.add(ax);

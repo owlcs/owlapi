@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.latex.renderer;
 
-import static java.util.stream.Collectors.toList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -409,8 +409,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> classExpressions = axiom.classExpressions()
-                .collect(toList());
+        List<OWLClassExpression> classExpressions = asList(axiom
+                .classExpressions());
         if (classExpressions.size() != 2) {
             for (OWLClassExpression left : classExpressions) {
                 for (OWLClassExpression right : classExpressions) {
@@ -461,8 +461,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        List<OWLClassExpression> classExpressions = axiom.classExpressions()
-                .collect(toList());
+        List<OWLClassExpression> classExpressions = asList(axiom
+                .classExpressions());
         if (classExpressions.size() > 2) {
             Set<Set<OWLClassExpression>> rendered = new HashSet<>();
             for (OWLClassExpression left : classExpressions) {

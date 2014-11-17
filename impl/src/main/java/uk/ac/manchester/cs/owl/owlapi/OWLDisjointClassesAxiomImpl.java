@@ -45,7 +45,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
      */
     public OWLDisjointClassesAxiomImpl(
             @Nonnull Collection<? extends OWLClassExpression> classExpressions,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 

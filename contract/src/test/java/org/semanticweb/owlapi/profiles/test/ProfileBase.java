@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.profiles.test;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import javax.annotation.Nonnull;
 
@@ -65,7 +65,7 @@ public class ProfileBase {
     void compareOntologies(@Nonnull String in1, @Nonnull String in2) {
         OWLOntology o1 = o(in1);
         OWLOntology o2 = o(in2);
-        assertEquals(o1.axioms().collect(toSet()), o2.axioms().collect(toSet()));
+        assertEquals(asSet(o1.axioms()), asSet(o2.axioms()));
     }
 
     protected void test(@Nonnull String in, boolean el, boolean ql, boolean rl,

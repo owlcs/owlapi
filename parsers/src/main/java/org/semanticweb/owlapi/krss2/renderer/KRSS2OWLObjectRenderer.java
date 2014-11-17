@@ -12,12 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -178,8 +178,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLClass eachClass : ontology.classesInSignature().collect(
-                toList())) {
+        for (OWLClass eachClass : asList(ontology.classesInSignature())) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
                 writeOpenBracket();
@@ -192,9 +191,9 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 flatten(superClasses.iterator());
                 writeCloseBracket(); // ==> end definition of primitive-concept
                 writeln();
-                Collection<OWLClassExpression> classes = equivalent(
+                Collection<OWLClassExpression> classes = asList(equivalent(
                         ontology.equivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class).collect(toList());
+                        OWLClassExpression.class));
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -208,9 +207,9 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Collection<OWLClassExpression> classes = equivalent(
+                Collection<OWLClassExpression> classes = asList(equivalent(
                         ontology.equivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class).collect(toList());
+                        OWLClassExpression.class));
                 if (classes.isEmpty()) {
                     // ?
                     writeCloseBracket();
@@ -237,8 +236,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
             }
         }
         ontology.generalClassAxioms().forEach(a -> a.accept(this));
-        for (OWLObjectProperty property : ontology
-                .objectPropertiesInSignature().collect(toList())) {
+        for (OWLObjectProperty property : asList(ontology
+                .objectPropertiesInSignature())) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);

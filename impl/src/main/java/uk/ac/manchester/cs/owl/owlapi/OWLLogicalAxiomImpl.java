@@ -24,8 +24,8 @@ import org.semanticweb.owlapi.model.OWLLogicalAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLLogicalAxiomImpl extends
-        OWLAxiomImpl implements OWLLogicalAxiom {
+public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements
+        OWLLogicalAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -33,8 +33,7 @@ public abstract class OWLLogicalAxiomImpl extends
      * @param annotations
      *        annotations on the axiom
      */
-    protected OWLLogicalAxiomImpl(
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+    protected OWLLogicalAxiomImpl(@Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
     }
 }

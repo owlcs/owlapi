@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -80,7 +80,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
             writeAxiom(entity, ax, writer);
             endWritingAxiom(writer);
         }
-        List<OWLAxiom> usages = ont.referencingAxioms(entity).collect(toList());
+        List<OWLAxiom> usages = asList(ont.referencingAxioms(entity));
         usages.removeAll(axioms);
         beginWritingUsage(usages.size(), writer);
         for (OWLAxiom usage : usages) {
@@ -97,7 +97,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
     private void write(@Nonnull OWLOntology ont, @Nonnull OWLEntity entity,
             @Nonnull Stream<? extends OWLAxiom> axioms,
             @Nonnull PrintWriter writer) {
-        write(ont, entity, axioms.collect(toSet()), writer);
+        write(ont, entity, asSet(axioms), writer);
     }
 
     protected void writeAxiom(@Nullable OWLEntity subject,

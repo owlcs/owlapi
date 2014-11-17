@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @since 2.0.0
  */
 public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
+
 
 
 
@@ -214,18 +215,17 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 
     /** Set of all IRIs for this enum values. */
     @Nonnull
-    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = Stream.of(values())
-            .map(i -> i.getIRI()).collect(toSet());
+    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = asSet(Stream.of(
+            values()).map(i -> i.getIRI()));
     /**
      * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
      * seeAlso , isDefinedBy , incompatibleWith , deprecated.
      */
     @Nonnull
-    public static final Set<IRI> BUILT_IN_AP_IRIS = Stream
-            .of(RDFS_LABEL, RDFS_COMMENT, OWL_VERSION_INFO,
-                    OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION,
-                    RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH,
-                    OWL_DEPRECATED).map(i -> i.getIRI()).collect(toSet());
+    public static final Set<IRI> BUILT_IN_AP_IRIS = asSet(Stream.of(RDFS_LABEL,
+            RDFS_COMMENT, OWL_VERSION_INFO, OWL_BACKWARD_COMPATIBLE_WITH,
+            OWL_PRIOR_VERSION, RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY,
+            OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED).map(i -> i.getIRI()));
 
     @Nonnull
     @Override

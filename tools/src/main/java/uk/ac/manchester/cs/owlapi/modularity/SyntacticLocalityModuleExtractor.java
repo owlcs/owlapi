@@ -12,10 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owlapi.modularity;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -230,7 +229,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
         rootOntology = checkNotNull(ont, "ont cannot be null");
-        List<OWLAxiom> collect = axs.collect(toList());
+        List<OWLAxiom> collect = asList(axs);
         ontologyAxiomSet = new OntologyAxiomSet(collect);
         ontology = checkNotNull(createOntology(man, ont, collect.stream()));
     }
@@ -427,16 +426,16 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all entity declaration axioms
         // Adding all entity annotation axioms
         for (OWLEntity entity : sig) {
-            List<OWLDeclarationAxiom> declarationAxioms = ontology
-                    .declarationAxioms(entity).collect(toList());
+            List<OWLDeclarationAxiom> declarationAxioms = asList(ontology
+                    .declarationAxioms(entity));
             enrichedModule.addAll(declarationAxioms);
             if (LOGGER.isInfoEnabled()) {
                 declarationAxioms.forEach(a -> LOGGER.info(
                         "  Added entity declaration axiom:   {}",
                         minusOntologyURI(a.toString())));
             }
-            Collection<OWLAxiom> axioms = ontology.axioms(Filters.annotations,
-                    entity.getIRI(), INCLUDED).collect(toList());
+            Collection<OWLAxiom> axioms = asList(ontology.axioms(
+                    Filters.annotations, entity.getIRI(), INCLUDED));
             enrichedModule.addAll(axioms);
             if (LOGGER.isInfoEnabled()) {
                 axioms.forEach(a -> LOGGER.info(
@@ -448,19 +447,17 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all different-individuals axioms
         for (OWLEntity entity : sig) {
             if (entity.isOWLNamedIndividual()) {
-                List<OWLSameIndividualAxiom> sameIndividualAxioms = ontology
-                        .sameIndividualAxioms(entity.asOWLNamedIndividual())
-                        .collect(toList());
+                List<OWLSameIndividualAxiom> sameIndividualAxioms = asList(ontology
+                        .sameIndividualAxioms(entity.asOWLNamedIndividual()));
                 enrichedModule.addAll(sameIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
                     sameIndividualAxioms.forEach(i -> LOGGER.info(
                             "  Added same individual axiom:   {}",
                             minusOntologyURI(i.toString())));
                 }
-                List<OWLDifferentIndividualsAxiom> differentIndividualAxioms = ontology
-                        .differentIndividualAxioms(
-                                entity.asOWLNamedIndividual())
-                        .collect(toList());
+                List<OWLDifferentIndividualsAxiom> differentIndividualAxioms = asList(ontology
+                        .differentIndividualAxioms(entity
+                                .asOWLNamedIndividual()));
                 enrichedModule.addAll(differentIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
                     differentIndividualAxioms.forEach(a -> LOGGER.info(
@@ -547,7 +544,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 } else {
                     nodes = reasoner.getSubClasses(ent, false);
                 }
-                superOrSubClasses.addAll(nodes.entities().collect(toList()));
+                add(superOrSubClasses, nodes.entities());
             }
         } else if (superOrSubClassLevel > 0) {
             Queue<OWLClass> toBeSuClassedNow;
@@ -559,11 +556,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 for (OWLClassExpression ce : toBeSuClassedNow) {
                     Set<OWLClass> suClasses;
                     if (superVsSub) {
-                        suClasses = reasoner.getSuperClasses(ce, true)
-                                .entities().collect(toSet());
+                        suClasses = asSet(reasoner.getSuperClasses(ce, true)
+                                .entities());
                     } else {
-                        suClasses = reasoner.getSubClasses(ce, true).entities()
-                                .collect(toSet());
+                        suClasses = asSet(reasoner.getSubClasses(ce, true)
+                                .entities());
                     }
                     for (OWLClass suClass : suClasses) {
                         if (!classesInSig.contains(suClass)

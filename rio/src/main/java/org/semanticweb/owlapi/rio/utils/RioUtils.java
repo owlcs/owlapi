@@ -35,9 +35,10 @@
  */
 package org.semanticweb.owlapi.rio.utils;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+
 import java.util.Collection;
 import java.util.Collections;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -135,10 +136,8 @@ public final class RioUtils {
             return Collections.singletonList(vf.createStatement(subject,
                     predicate, object));
         } else {
-            return Stream
-                    .of(contexts)
-                    .map((x) -> vf.createStatement(subject, predicate, object,
-                            x)).collect(Collectors.toList());
+            return asList(Stream.of(contexts).map(
+                    (x) -> vf.createStatement(subject, predicate, object, x)));
         }
     }
 

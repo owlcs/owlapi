@@ -1,7 +1,7 @@
 package org.obolibrary.macro;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -32,8 +32,8 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
                 outputOntology.subClassAxiomsForSubClass(cls).iterator().next()
                         .toString());
         cls = df.getOWLClass("http://purl.obolibrary.org/obo/", "TEST_4");
-        Set<OWLEquivalentClassesAxiom> ecas = outputOntology
-                .equivalentClassesAxioms(cls).collect(toSet());
+        Set<OWLEquivalentClassesAxiom> ecas = asSet(outputOntology
+                .equivalentClassesAxioms(cls));
         AtomicBoolean ok = new AtomicBoolean(false);
         for (OWLEquivalentClassesAxiom eca : ecas) {
             eca.classExpressions()

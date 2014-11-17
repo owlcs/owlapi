@@ -50,7 +50,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
      *        annotations
      */
     public OWLPropertyRangeAxiomImpl(@Nonnull P property, @Nonnull R range,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(property, annotations);
         this.range = checkNotNull(range, "range cannot be null");
     }

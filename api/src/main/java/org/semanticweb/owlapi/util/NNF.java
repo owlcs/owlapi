@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 
@@ -209,8 +210,8 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
-                Set<OWLClassExpression> ops = ce.operands()
-                        .map(p -> p.accept(this)).collect(toSet());
+                Set<OWLClassExpression> ops = asSet(ce.operands().map(
+                        p -> p.accept(this)));
                 if (negated) {
                     return dataFactory.getOWLObjectUnionOf(ops);
                 } else {
@@ -220,8 +221,8 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLClassExpression visit(OWLObjectUnionOf ce) {
-                Set<OWLClassExpression> ops = ce.operands()
-                        .map(p -> p.accept(this)).collect(toSet());
+                Set<OWLClassExpression> ops = asSet(ce.operands().map(
+                        p -> p.accept(this)));
                 if (negated) {
                     // Flip to an intersection
                     return dataFactory.getOWLObjectIntersectionOf(ops);
@@ -468,8 +469,8 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = axiom.classExpressions()
-                .map(p -> p.accept(classVisitor)).collect(toSet());
+        Set<OWLClassExpression> ops = asSet(axiom.classExpressions().map(
+                p -> p.accept(classVisitor)));
         return dataFactory.getOWLDisjointClassesAxiom(ops);
     }
 
@@ -533,8 +534,8 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> ops = axiom.classExpressions()
-                .map(p -> p.accept(classVisitor)).collect(toSet());
+        Set<OWLClassExpression> ops = asSet(axiom.classExpressions().map(
+                p -> p.accept(classVisitor)));
         return dataFactory.getOWLDisjointUnionAxiom(axiom.getOWLClass(), ops);
     }
 
@@ -582,8 +583,8 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = axiom.classExpressions()
-                .map(p -> p.accept(classVisitor)).collect(toSet());
+        Set<OWLClassExpression> ops = asSet(axiom.classExpressions().map(
+                p -> p.accept(classVisitor)));
         return dataFactory.getOWLEquivalentClassesAxiom(ops);
     }
 

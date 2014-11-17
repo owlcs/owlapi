@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
-import static java.util.stream.Collectors.*;
 import static org.junit.Assert.assertNotNull;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
 import java.io.ByteArrayOutputStream;
@@ -571,9 +571,9 @@ public class Examples extends TestBase {
         // do anything that's necessary, e.g., print them out
         // System.out.println("Referenced class: " + cls);
         // We should also find that B is an ASSERTED superclass of A
-        Iterable<OWLClassExpression> superClasses = sup(
+        Iterable<OWLClassExpression> superClasses = asList(sup(
                 ontology.axioms(Filters.subClassWithSub, clsA, INCLUDED),
-                OWLClassExpression.class).collect(toList());
+                OWLClassExpression.class));
         // Now save the ontology. The ontology will be saved to the location
         // where we loaded it from, in the default ontology format
         manager.saveOntology(ontology);
@@ -1044,7 +1044,7 @@ public class Examples extends TestBase {
         // class B and class C. In this case, we don't particularly care about
         // the equivalences, so we will flatten this set of sets and print the
         // result
-        Set<OWLClass> clses = subClses.entities().collect(toSet());
+        Set<OWLClass> clses = asSet(subClses.entities());
         // System.out.println("Subclasses of vegetarian: ");
         // for (OWLClass cls : clses) {
         // System.out.println("    " + cls);
@@ -1067,8 +1067,8 @@ public class Examples extends TestBase {
         // The reasoner returns a NodeSet again. This time the NodeSet contains
         // individuals. Again, we just want the individuals, so get a flattened
         // set.
-        Set<OWLNamedIndividual> individuals = individualsNodeSet.entities()
-                .collect(toSet());
+        Set<OWLNamedIndividual> individuals = asSet(individualsNodeSet
+                .entities());
         // System.out.println("Instances of pet: ");
         // for (OWLNamedIndividual ind : individuals) {
         // System.out.println("    " + ind);
@@ -1089,8 +1089,7 @@ public class Examples extends TestBase {
         // Now ask the reasoner for the has_pet property values for Mick
         NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
                 .getObjectPropertyValues(mick, hasPet);
-        Set<OWLNamedIndividual> values = petValuesNodeSet.entities().collect(
-                toSet());
+        Set<OWLNamedIndividual> values = asSet(petValuesNodeSet.entities());
         // System.out.println("The has_pet property values for Mick are: ");
         // for (OWLNamedIndividual ind : values) {
         // System.out.println("    " + ind);
@@ -1618,7 +1617,7 @@ public class Examples extends TestBase {
             if (OWLClass.class.isAssignableFrom(ent.getClass())) {
                 NodeSet<OWLClass> subClasses = reasoner.getSubClasses(
                         (OWLClass) ent, false);
-                seedSig.addAll(subClasses.entities().collect(toList()));
+                seedSig.addAll(asList(subClasses.entities()));
             }
         }
         // Output for debugging purposes

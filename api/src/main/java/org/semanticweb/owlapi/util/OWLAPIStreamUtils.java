@@ -1,8 +1,11 @@
 package org.semanticweb.owlapi.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -12,6 +15,30 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /** A few util methods for common stream operations. */
 public class OWLAPIStreamUtils {
+
+    public static <T> Set<T> asSet(Stream<T> s) {
+        Set<T> set = new LinkedHashSet<>();
+        s.forEach(x -> set.add(x));
+        return set;
+    }
+
+    public static <T> Set<T> asSet(Stream<?> s, Class<T> type) {
+        Set<T> set = new LinkedHashSet<>();
+        s.forEach(x -> set.add((T) x));
+        return set;
+    }
+
+    public static <T> List<T> asList(Stream<T> s) {
+        List<T> set = new ArrayList<>();
+        s.forEach(x -> set.add(x));
+        return set;
+    }
+
+    public static <T> List<T> asList(Stream<?> s, Class<T> type) {
+        List<T> set = new ArrayList<>();
+        s.forEach(x -> set.add((T) x));
+        return set;
+    }
 
     public static boolean contains(Stream<?> s, Object o) {
         return s.anyMatch(x -> x.equals(o));

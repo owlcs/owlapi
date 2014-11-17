@@ -67,5 +67,5 @@ public interface HasKeyAxiomProvider {
     @Nonnull
     OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
             @Nonnull Set<? extends OWLPropertyExpression> objectProperties,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -101,7 +101,7 @@ public class StructuralTransformation implements Serializable {
     public Set<OWLAxiom> getTransformedAxioms(@Nonnull Set<OWLAxiom> axioms) {
         checkNotNull(axioms, "axioms cannot be null");
         signature.clear();
-        axioms.forEach(ax -> signature.addAll(ax.signature().collect(toList())));
+        axioms.forEach(ax -> add(signature, ax.signature()));
         AxiomRewriter rewriter = new AxiomRewriter();
         Set<OWLAxiom> transformedAxioms = new HashSet<>();
         for (OWLAxiom ax : axioms) {
@@ -154,8 +154,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public OWLClassExpression visit(OWLObjectAllValuesFrom ce) {
-            if (signature.containsAll(ce.getFiller().signature()
-                    .collect(toList()))) {
+            if (signature.containsAll(asList(ce.getFiller().signature()))) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, ce.getFiller().accept(this)));
                 return ldf.getOWLObjectAllValuesFrom(ce.getProperty(), name);
@@ -175,8 +174,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public OWLClassExpression visit(OWLObjectExactCardinality ce) {
-            if (signature.containsAll(ce.getFiller().signature()
-                    .collect(toList()))) {
+            if (signature.containsAll(asList(ce.getFiller().signature()))) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, ce.getFiller().accept(this)));
                 return ldf.getOWLObjectExactCardinality(ce.getCardinality(),
@@ -195,8 +193,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public OWLClassExpression visit(OWLObjectMaxCardinality ce) {
-            if (signature.containsAll(ce.getFiller().signature()
-                    .collect(toList()))) {
+            if (signature.containsAll(asList(ce.getFiller().signature()))) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, ce.getFiller().accept(this)));
                 return ldf.getOWLObjectMaxCardinality(ce.getCardinality(),
@@ -207,8 +204,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public OWLClassExpression visit(OWLObjectMinCardinality ce) {
-            if (signature.containsAll(ce.getFiller().signature()
-                    .collect(toList()))) {
+            if (signature.containsAll(asList(ce.getFiller().signature()))) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, ce.getFiller().accept(this)));
                 return ldf.getOWLObjectMinCardinality(ce.getCardinality(),
@@ -302,8 +298,7 @@ public class StructuralTransformation implements Serializable {
         public Set<OWLAxiom> visit(OWLDifferentIndividualsAxiom axiom) {
             // Explode into pairwise nominals?
             Set<OWLAxiom> axioms = new HashSet<>();
-            List<OWLIndividual> individuals = axiom.individuals().collect(
-                    toList());
+            List<OWLIndividual> individuals = asList(axiom.individuals());
             for (int i = 0; i < individuals.size(); i++) {
                 for (int j = i + 1; j < individuals.size(); j++) {
                     axioms.addAll(subClassOf(
@@ -324,8 +319,7 @@ public class StructuralTransformation implements Serializable {
         public Set<OWLAxiom> visit(OWLDisjointDataPropertiesAxiom axiom) {
             // Explode
             Set<OWLAxiom> axioms = new HashSet<>();
-            List<OWLDataPropertyExpression> props = axiom.properties().collect(
-                    toList());
+            List<OWLDataPropertyExpression> props = asList(axiom.properties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
                     axioms.add(df.getOWLDisjointDataPropertiesAxiom(
@@ -338,8 +332,7 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Set<OWLAxiom> visit(OWLDisjointObjectPropertiesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<>();
-            List<OWLObjectPropertyExpression> props = axiom.properties()
-                    .collect(toList());
+            List<OWLObjectPropertyExpression> props = asList(axiom.properties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
                     axioms.add(df.getOWLDisjointObjectPropertiesAxiom(
@@ -352,12 +345,11 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Set<OWLAxiom> visit(OWLDisjointUnionAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.addAll(df.getOWLEquivalentClassesAxiom(
-                    axiom.getOWLClass(),
-                    df.getOWLObjectUnionOf(axiom.classExpressions().collect(
-                            toSet()))).accept(this));
+            axioms.addAll(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
+                    df.getOWLObjectUnionOf(asSet(axiom.classExpressions())))
+                    .accept(this));
             axioms.addAll(df.getOWLDisjointClassesAxiom(
-                    axiom.classExpressions().collect(toSet())).accept(this));
+                    asSet(axiom.classExpressions())).accept(this));
             return axioms;
         }
 
@@ -369,8 +361,7 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Set<OWLAxiom> visit(OWLEquivalentDataPropertiesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<>();
-            List<OWLDataPropertyExpression> props = axiom.properties().collect(
-                    toList());
+            List<OWLDataPropertyExpression> props = asList(axiom.properties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
                     axioms.add(df.getOWLDisjointDataPropertiesAxiom(
@@ -385,8 +376,7 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Set<OWLAxiom> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<>();
-            List<OWLObjectPropertyExpression> props = axiom.properties()
-                    .collect(toList());
+            List<OWLObjectPropertyExpression> props = asList(axiom.properties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
                     axioms.add(df.getOWLDisjointObjectPropertiesAxiom(

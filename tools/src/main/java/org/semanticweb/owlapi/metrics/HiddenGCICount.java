@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static java.util.stream.Collectors.toList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.HashSet;
 import java.util.List;
@@ -69,14 +69,14 @@ public class HiddenGCICount extends IntegerValuedMetric {
     protected Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<>();
         Set<OWLClass> result = new HashSet<>();
-        for (OWLOntology ont : getOntologies().collect(toList())) {
-            for (OWLClass cls : ont.classesInSignature().collect(toList())) {
+        for (OWLOntology ont : asList(getOntologies())) {
+            for (OWLClass cls : asList(ont.classesInSignature())) {
                 if (!processed.contains(cls)) {
                     processed.add(cls);
                 } else {
                     boolean foundEquivalentClassesAxiom = false;
                     boolean foundSubClassAxiom = false;
-                    for (OWLOntology o : getOntologies().collect(toList())) {
+                    for (OWLOntology o : asList(getOntologies())) {
                         if (!foundEquivalentClassesAxiom) {
                             foundEquivalentClassesAxiom = o
                                     .equivalentClassesAxioms(cls).count() > 0;

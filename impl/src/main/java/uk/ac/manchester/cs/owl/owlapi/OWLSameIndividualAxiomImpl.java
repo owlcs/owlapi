@@ -50,7 +50,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
      */
     public OWLSameIndividualAxiomImpl(
             @Nonnull Collection<? extends OWLIndividual> individuals,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 

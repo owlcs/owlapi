@@ -1,7 +1,7 @@
 package org.obolibrary.obo2owl;
 
-import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.List;
@@ -97,10 +97,9 @@ public class BFOROXrefTest extends OboFormatTestBasics {
     private static void assertAnnotationPropertyCountEquals(
             @Nonnull OWLOntology owlOnt, @Nonnull IRI subjectIRI,
             OWLAnnotationProperty property, int expected) {
-        List<OWLAnnotationAssertionAxiom> matches = owlOnt
-                .annotationAssertionAxioms(subjectIRI)
-                .filter(ax -> ax.getProperty().equals(property))
-                .collect(toList());
+        List<OWLAnnotationAssertionAxiom> matches = asList(owlOnt
+                .annotationAssertionAxioms(subjectIRI).filter(
+                        ax -> ax.getProperty().equals(property)));
         assertEquals(subjectIRI + " has too many annotations of type "
                 + property + ":\n\t" + matches, expected, matches.size());
     }

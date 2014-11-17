@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.rdf;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.util.ArrayList;
@@ -221,9 +221,9 @@ public abstract class RDFRendererBase {
 
     private void renderOntologyComponents() {
         renderInOntologySignatureEntities(OWLDocumentFormat
-                .determineIllegalPunnings(shouldInsertDeclarations(), ontology
-                        .signature().collect(toList()), ontology
-                        .getPunnedIRIs(INCLUDED)));
+                .determineIllegalPunnings(shouldInsertDeclarations(),
+                        asList(ontology.signature()),
+                        ontology.getPunnedIRIs(INCLUDED)));
         renderAnonymousIndividuals();
         renderUntypedIRIAnnotationAssertions();
         renderGeneralAxioms();
@@ -329,12 +329,11 @@ public abstract class RDFRendererBase {
     }
 
     private void renderAnonymousIndividuals() {
-        for (OWLAnonymousIndividual anonInd : ontology
-                .referencedAnonymousIndividuals().collect(toList())) {
+        for (OWLAnonymousIndividual anonInd : asList(ontology
+                .referencedAnonymousIndividuals())) {
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new HashSet<>();
-            for (OWLAxiom ax : ontology.referencingAxioms(anonInd).collect(
-                    toList())) {
+            for (OWLAxiom ax : asList(ontology.referencingAxioms(anonInd))) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
                     OWLObject obj = AxiomSubjectProviderEx.getSubject(ax);
                     if (!obj.equals(anonInd)) {
@@ -353,8 +352,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() {
-        List<SWRLRule> ruleAxioms = ontology.axioms(AxiomType.SWRL_RULE)
-                .collect(toList());
+        List<SWRLRule> ruleAxioms = asList(ontology.axioms(AxiomType.SWRL_RULE));
         createGraph(ruleAxioms.stream());
         if (!ruleAxioms.isEmpty()) {
             writeBanner(RULES_BANNER_TEXT);
@@ -390,7 +388,7 @@ public abstract class RDFRendererBase {
     @Nonnull
     private List<OWLAxiom> getGeneralAxioms() {
         List<OWLAxiom> generalAxioms = new ArrayList<>();
-        generalAxioms.addAll(ontology.generalClassAxioms().collect(toList()));
+        add(generalAxioms, ontology.generalClassAxioms());
         generalAxioms.addAll(ontology
                 .getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
         for (OWLDisjointClassesAxiom ax : ontology
@@ -506,7 +504,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLClass cls) {
-                for (OWLAxiom ax : ontology.axioms(cls).collect(toList())) {
+                for (OWLAxiom ax : asList(ontology.axioms(cls))) {
                     if (ax instanceof OWLDisjointClassesAxiom) {
                         OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
                         if (disjAx.classExpressions().count() > 2) {
@@ -528,8 +526,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLNamedIndividual individual) {
-                for (OWLAxiom ax : ontology.axioms(individual)
-                        .collect(toList())) {
+                for (OWLAxiom ax : asList(ontology.axioms(individual))) {
                     if (ax instanceof OWLDifferentIndividualsAxiom) {
                         continue;
                     }
@@ -541,8 +538,8 @@ public abstract class RDFRendererBase {
                 // As they will have subject and object inverted, we need to
                 // collect them here, otherwise the triple will not be included
                 // because the subject will not match
-                for (OWLAxiom ax : ontology.referencingAxioms(individual)
-                        .collect(toList())) {
+                for (OWLAxiom ax : asList(ontology
+                        .referencingAxioms(individual))) {
                     if (ax instanceof OWLObjectPropertyAssertionAxiom) {
                         OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
                         if (candidate.getProperty().isAnonymous()
@@ -555,7 +552,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLDataProperty property) {
-                for (OWLAxiom ax : ontology.axioms(property).collect(toList())) {
+                for (OWLAxiom ax : asList(ontology.axioms(property))) {
                     if (ax instanceof OWLDisjointDataPropertiesAxiom
                             && ((OWLDisjointDataPropertiesAxiom) ax)
                                     .properties().count() > 2) {
@@ -618,8 +615,9 @@ public abstract class RDFRendererBase {
     @Nonnull
     private static List<OWLEntity> toSortedSet(
             @Nonnull Stream<? extends OWLEntity> entities) {
-        return entities.sorted((o1, o2) -> o1.getIRI().compareTo(o2.getIRI()))
-                .collect(toList());
+        Stream<? extends OWLEntity> sorted = entities.sorted((o1, o2) -> o1
+                .getIRI().compareTo(o2.getIRI()));
+        return asList(sorted, OWLEntity.class);
     }
 
     /** Render anonymous roots. */

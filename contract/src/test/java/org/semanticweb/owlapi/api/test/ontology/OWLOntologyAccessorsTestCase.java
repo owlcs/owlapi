@@ -12,14 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Filters.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 
@@ -440,10 +439,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.classAssertionAxioms(indA), ax));
         assertTrue(contains(ont.classAssertionAxioms(clsA), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        assertTrue(instances(ont.classAssertionAxioms(indA)).collect(toSet())
-                .contains(indA));
-        assertTrue(types(ont.classAssertionAxioms(indA)).collect(toSet())
-                .contains(clsA));
+        assertTrue(contains(instances(ont.classAssertionAxioms(indA)), indA));
+        assertTrue(contains(types(ont.classAssertionAxioms(indA)), clsA));
     }
 
     @Test
@@ -520,8 +517,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.sameIndividualAxioms(indB), ax));
         assertTrue(contains(ont.sameIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        Collection<OWLObject> equivalent = equivalent(
-                ont.sameIndividualAxioms(indA)).collect(toSet());
+        Collection<OWLObject> equivalent = asSet(equivalent(ont
+                .sameIndividualAxioms(indA)));
         assertTrue(equivalent.contains(indB));
         assertTrue(equivalent.contains(indC));
     }
@@ -540,8 +537,8 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(contains(ont.differentIndividualAxioms(indB), ax));
         assertTrue(contains(ont.differentIndividualAxioms(indC), ax));
         assertTrue(contains(ont.axioms(indA), ax));
-        Collection<OWLObject> different = different(
-                ont.differentIndividualAxioms(indA)).collect(toSet());
+        Collection<OWLObject> different = asSet(different(ont
+                .differentIndividualAxioms(indA)));
         assertTrue(different.contains(indB));
         assertTrue(different.contains(indC));
     }

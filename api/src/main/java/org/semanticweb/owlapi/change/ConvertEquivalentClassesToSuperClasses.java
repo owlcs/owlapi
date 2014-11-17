@@ -33,8 +33,8 @@ package org.semanticweb.owlapi.change;/*
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -146,8 +146,9 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private Set<OWLClassExpression> getClassExpressions(
             @Nonnull OWLClassExpression desc) {
         if (splitIntersections) {
-            Set<OWLClassExpression> result = desc.accept(INTERSECTION_SPLITTER)
-                    .collect(toSet());
+            Set<OWLClassExpression> result = asSet(
+                    desc.accept(INTERSECTION_SPLITTER),
+                    OWLClassExpression.class);
             if (result.isEmpty()) {
                 result.add(desc);
             }

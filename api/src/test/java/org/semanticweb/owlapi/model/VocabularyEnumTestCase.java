@@ -13,9 +13,9 @@
 package org.semanticweb.owlapi.model;
 
 import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.*;
 
 import java.util.Collection;
@@ -57,7 +57,7 @@ public class VocabularyEnumTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        return concat(
+        return asList(concat(
                 stream(DublinCoreVocabulary.values()).map(
                         (input) -> new Object[] { input, DC }),
                 stream(OWLRDFVocabulary.values())
@@ -72,8 +72,7 @@ public class VocabularyEnumTestCase {
                 stream(SWRLVocabulary.values()).map(
                         (input) -> new Object[] { input, SWRL }),
                 stream(XSDVocabulary.values()).map(
-                        (input) -> new Object[] { input, XSD })).collect(
-                toList());
+                        (input) -> new Object[] { input, XSD })));
     }
 
     @SafeVarargs

@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.renderer;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
@@ -314,8 +314,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private void writeDeclarations(@Nonnull OWLEntity entity,
             @Nonnull Set<OWLAxiom> alreadyWrittenAxioms,
             Collection<IRI> illegals) {
-        Collection<OWLDeclarationAxiom> axioms = ont.declarationAxioms(entity)
-                .collect(toList());
+        Collection<OWLDeclarationAxiom> axioms = asList(ont
+                .declarationAxioms(entity));
         for (OWLDeclarationAxiom ax : axioms) {
             if (alreadyWrittenAxioms.add(ax)) {
                 ax.accept(this);
@@ -404,7 +404,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(@Nonnull Stream<? extends OWLObject> objects) {
-        write(objects.collect(toList()));
+        write(asList(objects));
     }
 
     private void write(@Nonnull List<? extends OWLObject> objects) {
@@ -538,8 +538,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> classExpressions = axiom.classExpressions()
-                .collect(toList());
+        List<OWLClassExpression> classExpressions = asList(axiom
+                .classExpressions());
         if (classExpressions.size() < 2) {
             // TODO log
             return;
@@ -551,8 +551,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
-        Set<OWLDataPropertyExpression> properties = axiom.properties().collect(
-                toSet());
+        Set<OWLDataPropertyExpression> properties = asSet(axiom.properties());
         if (properties.size() < 2) {
             // TODO log
             return;
@@ -564,8 +563,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
-        Set<OWLObjectPropertyExpression> properties = axiom.properties()
-                .collect(toSet());
+        Set<OWLObjectPropertyExpression> properties = asSet(axiom.properties());
         if (properties.size() < 2) {
             // TODO log
             return;
@@ -597,8 +595,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-        List<OWLClassExpression> classExpressions = axiom.classExpressions()
-                .collect(toList());
+        List<OWLClassExpression> classExpressions = asList(axiom
+                .classExpressions());
         if (classExpressions.size() < 2) {
             // TODO log
             return;
@@ -610,8 +608,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
-        Set<OWLDataPropertyExpression> properties = axiom.properties().collect(
-                toSet());
+        Set<OWLDataPropertyExpression> properties = asSet(axiom.properties());
         if (properties.size() < 2) {
             // TODO log
             return;
@@ -623,8 +620,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
-        Set<OWLObjectPropertyExpression> properties = axiom.properties()
-                .collect(toSet());
+        Set<OWLObjectPropertyExpression> properties = asSet(axiom.properties());
         if (properties.size() < 2) {
             // TODO log
             return;

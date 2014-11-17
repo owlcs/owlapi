@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.PrintWriter;
 import java.util.Set;
@@ -70,9 +70,8 @@ public class Debugger {
         /* Write a header */
         renderer.header();
         /* Collect the unsatisfiable classes that aren't bottom. */
-        Set<OWLClass> unsatisfiables = ontology.classesInSignature()
-                .filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing())
-                .collect(toSet());
+        Set<OWLClass> unsatisfiables = asSet(ontology.classesInSignature()
+                .filter(c -> !checker.isSatisfiable(c) && !c.isOWLNothing()));
         writer.println("<h1>Ontology Debugging Report</h1>");
         writer.println("<br>Ontology: " + ontology.getOntologyID() + "<br>");
         if (unsatisfiables.isEmpty()) {

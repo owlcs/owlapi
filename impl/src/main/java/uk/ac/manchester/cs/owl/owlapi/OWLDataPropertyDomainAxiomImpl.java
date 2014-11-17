@@ -49,7 +49,7 @@ public class OWLDataPropertyDomainAxiomImpl extends
     public OWLDataPropertyDomainAxiomImpl(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLClassExpression domain,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 

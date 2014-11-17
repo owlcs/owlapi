@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.oboformat;
 
-import static java.util.stream.Collectors.toList;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -61,8 +61,7 @@ public class OBOFormatRenderer implements OWLRenderer {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(
                     ontology.getOWLOntologyManager());
             final OBODoc result = translator.convert(ontology);
-            boolean hasImports = !ontology.imports().collect(toList())
-                    .isEmpty();
+            boolean hasImports = !asList(ontology.imports()).isEmpty();
             NameProvider nameProvider;
             if (hasImports) {
                 // if the ontology has imports

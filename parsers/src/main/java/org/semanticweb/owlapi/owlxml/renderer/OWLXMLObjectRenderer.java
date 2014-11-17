@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.owlxml.renderer;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.ArrayList;
@@ -150,7 +150,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         // treat declarations separately from other axioms
         Collection<OWLDeclarationAxiom> declarations = ontology
                 .getAxioms(AxiomType.DECLARATION);
-        Set<OWLEntity> declared = ontology.signature().collect(toSet());
+        Set<OWLEntity> declared = asSet(ontology.signature());
         for (OWLDeclarationAxiom ax : declarations) {
             ax.accept(this);
             declared.remove(ax.getEntity());
@@ -165,9 +165,9 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             }
             if (addMissing) {
                 Collection<IRI> illegalPunnings = OWLDocumentFormat
-                        .determineIllegalPunnings(addMissing, ontology
-                                .signature().collect(toList()), ontology
-                                .getPunnedIRIs(Imports.INCLUDED));
+                        .determineIllegalPunnings(addMissing,
+                                asList(ontology.signature()),
+                                ontology.getPunnedIRIs(Imports.INCLUDED));
                 for (OWLEntity e : declared) {
                     if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
                             && !ontology.isDeclared(e, Imports.INCLUDED)) {

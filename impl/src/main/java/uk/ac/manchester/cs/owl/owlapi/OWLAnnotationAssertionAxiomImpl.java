@@ -57,7 +57,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
             @Nonnull OWLAnnotationSubject subject,
             @Nonnull OWLAnnotationProperty property,
             @Nonnull OWLAnnotationValue value,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");

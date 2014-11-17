@@ -50,7 +50,7 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
      */
     public OWLAnnotationPropertyDomainAxiomImpl(
             @Nonnull OWLAnnotationProperty property, @Nonnull IRI domain,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
         this.property = checkNotNull(property, "property cannot be null");

@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -57,11 +57,8 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);
         assertEquals(ontology, loadOntology3);
-        assertEquals(ontology.axioms().collect(toSet()), loadOntology.axioms()
-                .collect(toSet()));
-        assertEquals(ontology.axioms().collect(toSet()), loadOntology2.axioms()
-                .collect(toSet()));
-        assertEquals(ontology.axioms().collect(toSet()), loadOntology3.axioms()
-                .collect(toSet()));
+        assertEquals(asSet(ontology.axioms()), asSet(loadOntology.axioms()));
+        assertEquals(asSet(ontology.axioms()), asSet(loadOntology2.axioms()));
+        assertEquals(asSet(ontology.axioms()), asSet(loadOntology3.axioms()));
     }
 }

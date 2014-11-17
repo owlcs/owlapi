@@ -50,7 +50,7 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     public OWLSubAnnotationPropertyOfAxiomImpl(
             @Nonnull OWLAnnotationProperty subProperty,
             @Nonnull OWLAnnotationProperty superProperty,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subProperty = checkNotNull(subProperty,
                 "subProperty cannot be null");

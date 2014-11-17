@@ -44,7 +44,7 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
      */
     public OWLReflexiveObjectPropertyAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 

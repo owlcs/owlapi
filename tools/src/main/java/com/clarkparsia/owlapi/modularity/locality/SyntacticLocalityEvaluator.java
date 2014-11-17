@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.modularity.locality;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.EnumSet;
@@ -328,8 +328,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         // bot-equivalent.
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            Collection<OWLClassExpression> disjs = axiom.classExpressions()
-                    .collect(toList());
+            Collection<OWLClassExpression> disjs = asList(axiom
+                    .classExpressions());
             int size = disjs.size();
             if (size == 1) {
                 // XXX actually being here means the axiom is not OWL 2
@@ -358,8 +358,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    Collection<OWLDataPropertyExpression> disjs = axiom
-                            .properties().collect(toList());
+                    Collection<OWLDataPropertyExpression> disjs = asList(axiom
+                            .properties());
                     int size = disjs.size();
                     if (size == 1) {
                         // XXX actually being here means the axiom is not OWL 2
@@ -395,8 +395,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    Collection<OWLObjectPropertyExpression> disjs = axiom
-                            .properties().collect(toList());
+                    Collection<OWLObjectPropertyExpression> disjs = asList(axiom
+                            .properties());
                     int size = disjs.size();
                     if (size == 1) {
                         // XXX actually being here means the axiom is not OWL 2
@@ -432,8 +432,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
-            Collection<OWLClassExpression> rhs = axiom.classExpressions()
-                    .collect(toSet());
+            Collection<OWLClassExpression> rhs = asSet(
+                    axiom.classExpressions(), OWLClassExpression.class);
             if (localityCls == LocalityClass.BOTTOM_BOTTOM) {
                 // TODO (TS): "!signature.contains(lhs)" is not enough
                 // because lhs could be bot
@@ -534,8 +534,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            Collection<OWLDataPropertyExpression> eqs = axiom.properties()
-                    .collect(toList());
+            Collection<OWLDataPropertyExpression> eqs = asList(axiom
+                    .properties());
             int size = eqs.size();
             if (size == 1) {
                 isLocal = true;
@@ -552,8 +552,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            Collection<OWLObjectPropertyExpression> eqs = axiom.properties()
-                    .collect(toList());
+            Collection<OWLObjectPropertyExpression> eqs = asList(axiom
+                    .properties());
             int size = eqs.size();
             if (size == 1) {
                 isLocal = true;

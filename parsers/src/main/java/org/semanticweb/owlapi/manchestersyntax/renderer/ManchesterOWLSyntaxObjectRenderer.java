@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.Writer;
 import java.util.Collection;
@@ -58,7 +58,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Nonnull
     protected static <T extends OWLObject> List<T> sort(
             @Nonnull Stream<T> objects) {
-        return sort(objects.collect(toList()));
+        return sort(asList(objects));
     }
 
     protected void write(@Nonnull List<? extends OWLObject> objects,
@@ -80,7 +80,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     protected void write(@Nonnull Stream<? extends OWLObject> objects,
             @Nonnull ManchesterOWLSyntax delimeter, boolean newline) {
-        write(objects.collect(toList()), delimeter, newline);
+        write(asList(objects), delimeter, newline);
     }
 
     protected void writeCommaSeparatedList(
@@ -511,8 +511,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
             @Nonnull ManchesterOWLSyntax binaryKeyword,
             @Nonnull Stream<? extends OWLObject> objects,
             @Nonnull ManchesterOWLSyntax naryKeyword) {
-        writeBinaryOrNaryList(binaryKeyword, objects.collect(toList()),
-                naryKeyword);
+        writeBinaryOrNaryList(binaryKeyword, asList(objects), naryKeyword);
     }
 
     @Override
@@ -629,7 +628,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         setAxiomWriting();
         axiom.getOWLClass().accept(this);
         write(DISJOINT_UNION_OF);
-        writeCommaSeparatedList(axiom.classExpressions().collect(toList()));
+        writeCommaSeparatedList(asList(axiom.classExpressions()));
         restore();
     }
 
@@ -960,8 +959,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {}
 
-    protected void writeAnnotations(
-            @Nonnull Iterator<? extends OWLAnnotation> annoIt) {
+    protected void writeAnnotations(@Nonnull Iterator<OWLAnnotation> annoIt) {
         if (!annoIt.hasNext()) {
             return;
         }

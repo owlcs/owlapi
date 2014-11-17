@@ -46,7 +46,7 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
      */
     public OWLEquivalentObjectPropertiesAxiomImpl(
             @Nonnull Collection<? extends OWLObjectPropertyExpression> properties,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 

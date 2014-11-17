@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
-import static java.util.stream.Collectors.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -215,7 +215,7 @@ class DLQueryEngine {
                 .parseClassExpression(classExpressionString);
         NodeSet<OWLClass> superClasses = reasoner.getSuperClasses(
                 classExpression, direct);
-        return superClasses.entities().collect(toSet());
+        return asSet(superClasses.entities());
     }
 
     /**
@@ -236,8 +236,8 @@ class DLQueryEngine {
                 .parseClassExpression(classExpressionString);
         Node<OWLClass> equivalentClasses = reasoner
                 .getEquivalentClasses(classExpression);
-        return equivalentClasses.entities()
-                .filter(c -> c.equals(classExpression)).collect(toSet());
+        return asSet(equivalentClasses.entities().filter(
+                c -> c.equals(classExpression)));
     }
 
     /**
@@ -260,7 +260,7 @@ class DLQueryEngine {
                 .parseClassExpression(classExpressionString);
         NodeSet<OWLClass> subClasses = reasoner.getSubClasses(classExpression,
                 direct);
-        return subClasses.entities().collect(toSet());
+        return asSet(subClasses.entities());
     }
 
     /**
@@ -283,7 +283,7 @@ class DLQueryEngine {
                 .parseClassExpression(classExpressionString);
         NodeSet<OWLNamedIndividual> individuals = reasoner.getInstances(
                 classExpression, direct);
-        return individuals.entities().collect(toSet());
+        return asSet(individuals.entities());
     }
 }
 
@@ -309,8 +309,7 @@ class DLQueryParser {
             @Nonnull ShortFormProvider shortFormProvider) {
         this.rootOntology = rootOntology;
         OWLOntologyManager manager = rootOntology.getOWLOntologyManager();
-        List<OWLOntology> importsClosure = rootOntology.importsClosure()
-                .collect(toList());
+        List<OWLOntology> importsClosure = asList(rootOntology.importsClosure());
         // Create a bidirectional short form provider to do the actual mapping.
         // It will generate names using the input
         // short form provider.

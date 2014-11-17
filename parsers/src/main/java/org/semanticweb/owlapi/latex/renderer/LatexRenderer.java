@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.latex.renderer;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -110,7 +110,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     protected void writeEntity(OWLOntology ontology, LatexWriter w,
             LatexObjectVisitor renderer, OWLEntity cls,
-            Collection<OWLAxiom> axioms) {
+            Collection<? extends OWLAxiom> axioms) {
         writeEntitySection(cls, w);
         for (OWLAxiom ax : axioms) {
             renderer.setSubject(cls);
@@ -121,12 +121,12 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private <T extends OWLEntity> Collection<T>
             sortEntities(Stream<T> entities) {
-        return entities.sorted(entityComparator).collect(toList());
+        return asList(entities.sorted(entityComparator));
     }
 
-    private static Collection<OWLAxiom> sortAxioms(
+    private static Collection<? extends OWLAxiom> sortAxioms(
             Stream<? extends OWLAxiom> axioms) {
-        return axioms.sorted(new OWLAxiomComparator()).collect(toList());
+        return asList(axioms.sorted(new OWLAxiomComparator()));
     }
 
     private static class OWLAxiomComparator implements Comparator<OWLAxiom>,

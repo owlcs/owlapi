@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.List;
 import java.util.Map;
@@ -125,11 +125,9 @@ public class PropertyAssertionValueShortFormProvider implements
         OWLObject candidateValue = null;
         int lastURIMatchIndex = Integer.MAX_VALUE;
         int lastLangMatchIndex = Integer.MAX_VALUE;
-        for (OWLOntology ontology : ontologySetProvider.ontologies().collect(
-                toList())) {
-            for (OWLObjectPropertyAssertionAxiom ax : ontology
-                    .objectPropertyAssertionAxioms(individual)
-                    .collect(toList())) {
+        for (OWLOntology ontology : asList(ontologySetProvider.ontologies())) {
+            for (OWLObjectPropertyAssertionAxiom ax : asList(ontology
+                    .objectPropertyAssertionAxioms(individual))) {
                 int index = properties.indexOf(ax.getProperty());
                 if (index == -1) {
                     continue;
@@ -138,8 +136,8 @@ public class PropertyAssertionValueShortFormProvider implements
                     candidateValue = ax.getObject();
                 }
             }
-            for (OWLDataPropertyAssertionAxiom ax : ontology
-                    .dataPropertyAssertionAxioms(individual).collect(toList())) {
+            for (OWLDataPropertyAssertionAxiom ax : asList(ontology
+                    .dataPropertyAssertionAxioms(individual))) {
                 int index = properties.indexOf(ax.getProperty());
                 if (index == -1) {
                     continue;

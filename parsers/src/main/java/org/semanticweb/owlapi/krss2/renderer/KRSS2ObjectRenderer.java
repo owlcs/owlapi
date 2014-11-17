@@ -12,11 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.renderer;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -307,8 +307,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     @Override
     public void visit(OWLOntology ontology) {
         reset();
-        for (OWLClass eachClass : ontology.classesInSignature().collect(
-                toList())) {
+        for (OWLClass eachClass : asList(ontology.classesInSignature())) {
             if (ignoreDeclarations) {
                 if (ontology.axioms(eachClass).count() == 1
                         && ontology.declarationAxioms(eachClass).count() == 1) {
@@ -327,9 +326,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                         KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
-                Collection<OWLClassExpression> classes = equivalent(
+                Collection<OWLClassExpression> classes = asList(equivalent(
                         ontology.equivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class).collect(toList());
+                        OWLClassExpression.class));
                 for (OWLClassExpression description : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -347,9 +346,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                         KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
-                Collection<OWLClassExpression> supclasses = sup(
+                Collection<OWLClassExpression> supclasses = asList(sup(
                         ontology.subClassAxiomsForSubClass(eachClass),
-                        OWLClassExpression.class).collect(toList());
+                        OWLClassExpression.class));
                 for (OWLClassExpression description : supclasses) {
                     writeOpenBracket();
                     write(eachClass);
@@ -371,16 +370,15 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> streamp = equivalent(ontology
                     .equivalentObjectPropertiesAxioms(property));
-            Collection<OWLObjectPropertyExpression> properties = streamp
-                    .collect(toSet());
+            Collection<OWLObjectPropertyExpression> properties = asSet(streamp);
             boolean isPrimitive = properties.isEmpty();
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
-                Collection<OWLObjectPropertyExpression> superProperties = sup(
+                Collection<OWLObjectPropertyExpression> superProperties = asSet(sup(
                         ontology.axioms(Filters.subObjectPropertyWithSub,
                                 property, INCLUDED),
-                        OWLObjectPropertyExpression.class).collect(toSet());
+                        OWLObjectPropertyExpression.class));
                 int superSize = superProperties.size();
                 if (superSize == 1) {
                     writeSpace();
@@ -489,8 +487,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeln();
             }
         }
-        for (OWLNamedIndividual individual : sort(ontology
-                .individualsInSignature().collect(toList()))) {
+        for (OWLNamedIndividual individual : sort(asList(ontology
+                .individualsInSignature()))) {
             if (ignoreDeclarations) {
                 if (ontology.axioms(individual, EXCLUDED).count() == 1
                         && ontology.declarationAxioms(individual).count() == 1) {
@@ -720,9 +718,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     protected
             Set<OWLSubPropertyChainOfAxiom>
             getPropertyChainSubPropertyAxiomsFor(OWLPropertyExpression property) {
-        return ont.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF)
-                .filter(a -> a.getSuperProperty().equals(property))
-                .collect(toSet());
+        return asSet(ont.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF).filter(
+                a -> a.getSuperProperty().equals(property)));
     }
 
     protected void reset() {

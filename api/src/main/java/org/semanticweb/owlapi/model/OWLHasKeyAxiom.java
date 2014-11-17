@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -49,7 +49,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     @Deprecated
     @Nonnull
     default Set<? extends OWLPropertyExpression> getPropertyExpressions() {
-        return propertyExpressions().collect(toSet());
+        return asSet(propertyExpressions());
     }
 
     /**
@@ -74,7 +74,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     @Nonnull
     default Set<? extends OWLObjectPropertyExpression>
             getObjectPropertyExpressions() {
-        return objectPropertiesInSignature().collect(toSet());
+        return asSet(objectPropertiesInSignature());
     }
 
     /**
@@ -109,7 +109,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     @Nonnull
     default Set<? extends OWLDataPropertyExpression>
             getDataPropertyExpressions() {
-        return dataPropertyExpressions().collect(toSet());
+        return asSet(dataPropertyExpressions());
     }
 
     /**

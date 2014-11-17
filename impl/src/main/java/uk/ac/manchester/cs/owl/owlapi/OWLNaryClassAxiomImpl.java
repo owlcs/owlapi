@@ -52,7 +52,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     @SuppressWarnings("unchecked")
     public OWLNaryClassAxiomImpl(
             @Nonnull Collection<? extends OWLClassExpression> classExpressions,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(classExpressions, "classExpressions cannot be null");
         this.classExpressions = (List<OWLClassExpression>) sortOptionally(classExpressions);

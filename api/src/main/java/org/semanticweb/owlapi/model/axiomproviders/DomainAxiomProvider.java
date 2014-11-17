@@ -60,7 +60,7 @@ public interface DomainAxiomProvider {
     OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLClassExpression classExpression,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -90,7 +90,7 @@ public interface DomainAxiomProvider {
     OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLClassExpression domain,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param prop
@@ -119,5 +119,5 @@ public interface DomainAxiomProvider {
     @Nonnull
     OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(
             @Nonnull OWLAnnotationProperty prop, @Nonnull IRI domain,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

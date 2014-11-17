@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.debugging;
 
-import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -174,7 +174,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 continue;
             }
             // Collect the entities that have been used in the axiom
-            for (OWLEntity curObj : ax.signature().collect(toList())) {
+            for (OWLEntity curObj : asList(ax.signature())) {
                 if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                     int added = expandWithDefiningAxioms(curObj, remainingSpace);
                     axiomsAdded += added;
@@ -202,7 +202,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 continue;
             }
             // Keep track of the number of axioms that have been added
-            for (OWLEntity curObj : ax.signature().collect(toSet())) {
+            for (OWLEntity curObj : asSet(ax.signature())) {
                 if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                     int added = expandWithReferencingAxioms(curObj,
                             expansionLimit);
@@ -233,17 +233,17 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private int expandWithDefiningAxioms(@Nonnull OWLEntity obj, int limit) {
         Set<OWLAxiom> expansionAxioms = new HashSet<>();
         if (obj instanceof OWLClass) {
-            expansionAxioms.addAll(getOWLOntology().axioms((OWLClass) obj,
-                    INCLUDED).collect(toList()));
+            add(expansionAxioms,
+                    getOWLOntology().axioms((OWLClass) obj, INCLUDED));
         } else if (obj instanceof OWLObjectProperty) {
-            expansionAxioms.addAll(getOWLOntology().axioms(
-                    (OWLObjectProperty) obj, INCLUDED).collect(toList()));
+            add(expansionAxioms,
+                    getOWLOntology().axioms((OWLObjectProperty) obj, INCLUDED));
         } else if (obj instanceof OWLDataProperty) {
-            expansionAxioms.addAll(getOWLOntology().axioms(
-                    (OWLDataProperty) obj, INCLUDED).collect(toList()));
+            add(expansionAxioms,
+                    getOWLOntology().axioms((OWLDataProperty) obj, INCLUDED));
         } else if (obj instanceof OWLIndividual) {
-            expansionAxioms.addAll(getOWLOntology().axioms((OWLIndividual) obj,
-                    INCLUDED).collect(toList()));
+            add(expansionAxioms,
+                    getOWLOntology().axioms((OWLIndividual) obj, INCLUDED));
         }
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
@@ -262,8 +262,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private int expandWithReferencingAxioms(@Nonnull OWLEntity obj, int limit) {
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        Set<OWLAxiom> expansionAxioms = getOWLOntology().referencingAxioms(obj,
-                INCLUDED).collect(toSet());
+        Set<OWLAxiom> expansionAxioms = asSet(getOWLOntology()
+                .referencingAxioms(obj, INCLUDED));
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }

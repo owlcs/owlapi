@@ -45,7 +45,7 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
      */
     public OWLFunctionalDataPropertyAxiomImpl(
             @Nonnull OWLDataPropertyExpression property,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 

@@ -60,7 +60,7 @@ public interface SubAxiomProvider {
     OWLSubClassOfAxiom getOWLSubClassOfAxiom(
             @Nonnull OWLClassExpression subClass,
             @Nonnull OWLClassExpression superClass,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param subProperty
@@ -90,7 +90,7 @@ public interface SubAxiomProvider {
     OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
             @Nonnull OWLObjectPropertyExpression subProperty,
             @Nonnull OWLObjectPropertyExpression superProperty,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param subProperty
@@ -120,7 +120,7 @@ public interface SubAxiomProvider {
     OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
             @Nonnull OWLDataPropertyExpression subProperty,
             @Nonnull OWLDataPropertyExpression superProperty,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /**
      * @param sub
@@ -151,5 +151,5 @@ public interface SubAxiomProvider {
     OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
             @Nonnull OWLAnnotationProperty sub,
             @Nonnull OWLAnnotationProperty sup,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+            @Nonnull Set<OWLAnnotation> annotations);
 }

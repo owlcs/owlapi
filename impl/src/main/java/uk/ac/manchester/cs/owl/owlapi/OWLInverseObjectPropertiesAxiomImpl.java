@@ -58,7 +58,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     public OWLInverseObjectPropertiesAxiomImpl(
             @Nonnull OWLObjectPropertyExpression first,
             @Nonnull OWLObjectPropertyExpression second,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+            @Nonnull Collection<OWLAnnotation> annotations) {
         super(new TreeSet<>(Arrays.asList(
                 checkNotNull(first, "first cannot be null"),
                 checkNotNull(second, "second cannot be null"))), annotations);

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -107,7 +107,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
     @Deprecated
     @Nonnull
     default Set<E> getEntities() {
-        return entities().collect(toSet());
+        return asSet(entities());
     }
 
     /**

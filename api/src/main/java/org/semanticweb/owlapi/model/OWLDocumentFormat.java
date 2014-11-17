@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static java.util.stream.Collectors.toSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -80,8 +80,7 @@ public interface OWLDocumentFormat extends Serializable {
         if (ontology.isDeclared(entity, Imports.INCLUDED)) {
             return false;
         }
-        Set<OWLOntology> transitiveImports = ontology.imports()
-                .collect(toSet());
+        Set<OWLOntology> transitiveImports = asSet(ontology.imports());
         if (!transitiveImports.contains(ontology)) {
             // See if the entity should be declared in an imported ontology
             for (OWLOntology importedOntology : transitiveImports) {
