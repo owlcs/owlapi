@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -77,6 +78,9 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Set<OWLDisjointClassesAxiom> asPairwiseAxioms() {
+        if (classExpressions.size() == 2) {
+            return CollectionFactory.createSet(this);
+        }
         Set<OWLDisjointClassesAxiom> result = new HashSet<>();
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             for (int j = i + 1; j < classExpressions.size(); j++) {
