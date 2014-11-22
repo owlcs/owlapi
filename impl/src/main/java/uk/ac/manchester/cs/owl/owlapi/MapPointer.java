@@ -17,6 +17,7 @@ import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -147,7 +148,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             return this;
         }
         if (visitor instanceof InitVisitor) {
-            for (V ax : (Set<V>) i.getAxiomsByType().getValues(type)) {
+            for (V ax : (Collection<V>) i.getAxiomsByType().getValues(type)) {
                 K key = ax.accept((InitVisitor<K>) visitor);
                 // this can only be null because the visitor return nulls in
                 // methods that do not declare it
@@ -156,7 +157,7 @@ public class MapPointer<K, V extends OWLAxiom> {
                 }
             }
         } else {
-            for (V ax : (Set<V>) i.getAxiomsByType().getValues(type)) {
+            for (V ax : (Collection<V>) i.getAxiomsByType().getValues(type)) {
                 Collection<K> keys = ax
                         .accept((InitCollectionVisitor<K>) visitor);
                 for (K key : keys) {
@@ -364,12 +365,12 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     @Nonnull
-    private Set<V> get(K k) {
+    private Iterable<V> get(K k) {
         Set<V> t = map.get(k);
         if (t == null) {
             return CollectionFactory.emptySet();
         }
-        return t;
+        return new ArrayList<>(t);
     }
 
     /**
