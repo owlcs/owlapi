@@ -1,3 +1,21 @@
+4.0.1 22 November 2014
+
+Features:
+    trimToSize available to cut ontology internals collections to minimal size after loading (Simon Spero)
+    various memory optimizations and caching of rarely used values removed (Simon Spero)
+    use of Trove collections for ontology internals
+    OBOFormat: Configuration option to skip validation before writing OBO file #290
+
+Bugs:
+    fix a multithread bug revealed by owlapitools tests
+    fix #299 roundtrip errors on TriX and various other syntaxes
+    fix #292 SWRL rules saved by older versions of OWLAPI/Protege lose annotations
+    fix #288 Errors with object property assertions with inverseOf properties
+    fix #289 Manchester syntax errors: inverse() not recognized, SWRL rules rendered twice
+    fix #287 Error parsing RDF/Turtle with triple quoted literals - mismatching single and double quotes
+    fix #281 OntologyIRIShortFormProvider does wrong shortform generation
+
+
 4.0.0 10 September 2014
 
 Supported Java versions: Java 7, Java 8
