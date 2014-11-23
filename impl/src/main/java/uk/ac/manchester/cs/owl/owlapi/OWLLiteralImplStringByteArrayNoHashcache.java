@@ -55,6 +55,14 @@ public class OWLLiteralImplStringByteArrayNoHashcache implements OWLLiteral, Cha
         }
     }
 
+    /**
+     *
+     * @param bytes  Array is shared, not copied;
+     */
+    public OWLLiteralImplStringByteArrayNoHashcache(byte[] bytes) {
+        this.bytes = bytes;
+    }
+
     @Override
     public int length() {
         return bytes.length;
