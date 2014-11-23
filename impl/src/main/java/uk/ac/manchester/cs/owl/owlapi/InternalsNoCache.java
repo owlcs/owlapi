@@ -12,14 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
-
-import java.io.Serializable;
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -30,7 +22,16 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** no cache used @author ignazio */
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.Serializable;
+import java.util.Locale;
+
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
+
+/**
+ * no cache used @author ignazio
+ */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     private static final long serialVersionUID = 40000L;
@@ -62,15 +63,15 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private final boolean useCompression;
 
     /**
-     * @param useCompression
-     *        true if compression of literals should be used
+     * @param useCompression true if compression of literals should be used
      */
     public InternalsNoCache(boolean useCompression) {
         this.useCompression = useCompression;
     }
 
     @Override
-    public void purge() {}
+    public void purge() {
+    }
 
     @Override
     public OWLClass getOWLClass(IRI iri) {
@@ -112,8 +113,32 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         if (useCompression) {
             return new OWLLiteralImpl(value, "",
                     getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+        } else {
+            // TODO:  temporary heuristic to possibly avoid too bad speed tradeoffs. Maybe use of compress flag.
+
+            if (value.length() > 40) {
+                return new OWLLiteralImplString(value);
+            } else {
+                if (areAllCharsLessThan256(value)) {
+                    return new OWLLiteralImplStringByteArrayNoHashcache(value);
+                } else {
+                    return new OWLLiteralImplStringCharArrayNoHashcache(value);
+                }
+            }
         }
-        return new OWLLiteralImplString(value);
+    }
+
+    /**
+     * Check to see if all UTF-16 characters in string have code points that can fit in 8-bits
+     * @param s string to check
+     */
+    private static  boolean areAllCharsLessThan256(CharSequence s) {
+        for(int i=0;i<s.length();i++) {
+            if(s.charAt(i) > 255) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -148,7 +173,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWLDatatype datatype) {
+                                    @Nonnull OWLDatatype datatype) {
         OWLLiteral literal;
         if (datatype.isRDFPlainLiteral()) {
             int sep = lexicalValue.lastIndexOf('@');
@@ -216,13 +241,13 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     @Nonnull
     protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
-            OWLDatatype datatype) {
+                                         OWLDatatype datatype) {
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
     @Nonnull
     protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
-            String lang, OWLDatatype datatype) {
+                                         String lang, OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
             if (datatype == null || datatype.isRDFPlainLiteral()) {
