@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -30,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
@@ -94,10 +96,19 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     /**
      * @param entities
-     *        the set of entities to add
+     *        the entities to add
      */
-    public DefaultNode(@Nonnull Set<E> entities) {
+    public DefaultNode(@Nonnull Collection<E> entities) {
         this.entities.addAll(checkNotNull(entities, "entities cannot be null"));
+    }
+
+    /**
+     * @param entities
+     *        the entities to add
+     */
+    public DefaultNode(@Nonnull Stream<E> entities) {
+        OWLAPIStreamUtils.add(this.entities,
+                checkNotNull(entities, "entities cannot be null"));
     }
 
     protected DefaultNode() {}
