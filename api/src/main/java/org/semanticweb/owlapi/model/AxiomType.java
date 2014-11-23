@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -269,6 +270,11 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
     @Nonnull
     public static final Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = asSet(AXIOM_TYPES
             .stream().filter(a -> a.isLogical));
+    /** Logical axioms and declarations */
+    @Nonnull
+    public static final Set<AxiomType<?>> LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES = asSet(Stream
+            .concat(AXIOM_TYPES.stream().filter(a -> a.isLogical),
+                    Stream.of(DECLARATION)));
     private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps
             .uniqueIndex(AXIOM_TYPES, t -> t.getName());
     private static final Map<Class<?>, AxiomType<?>> CLASS_TYPE_MAP = Maps
