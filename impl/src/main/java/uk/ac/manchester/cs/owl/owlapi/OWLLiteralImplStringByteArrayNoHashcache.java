@@ -346,4 +346,13 @@ public class OWLLiteralImplStringByteArrayNoHashcache implements OWLLiteral, Cha
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral>of(this);
     }
+
+    /**
+     * package local getter.  Does <b>not</b> make defensive copy.
+     * @return
+     */
+    @Nonnull
+     byte[] getBytes() {
+        return bytes;
+    }
 }

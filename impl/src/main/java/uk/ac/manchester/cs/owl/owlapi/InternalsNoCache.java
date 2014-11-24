@@ -116,7 +116,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         } else {
             // TODO:  temporary heuristic to possibly avoid too bad speed tradeoffs. Maybe use of compress flag.
 
-            if (value.length() > 40) {
+            if (value.length() > 256) {
                 return new OWLLiteralImplString(value);
             } else {
                 if (areAllCharsLessThan256(value)) {
