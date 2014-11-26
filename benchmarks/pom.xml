@@ -27,9 +27,10 @@ questions.
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>owlapi-parent</artifactId>
         <groupId>net.sourceforge.owlapi</groupId>
+        <artifactId>owlapi-parent</artifactId>
         <version>4.0.1-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
 
     <groupId>net.sourceforge.owlapi</groupId>
