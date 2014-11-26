@@ -30,7 +30,6 @@ questions.
         <artifactId>owlapi-parent</artifactId>
         <groupId>net.sourceforge.owlapi</groupId>
         <version>4.0.1-SNAPSHOT</version>
-        <relativePath>../</relativePath>
     </parent>
 
     <groupId>net.sourceforge.owlapi</groupId>
