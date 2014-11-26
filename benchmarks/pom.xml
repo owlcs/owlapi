@@ -32,8 +32,9 @@ questions.
         <version>4.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-
+    <groupId>net.sourceforge.owlapi</groupId>
     <artifactId>benchmarks</artifactId>
+    <version>4.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Auto-generated JMH benchmark</name>
