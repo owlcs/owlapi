@@ -46,7 +46,7 @@ questions.
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>owlapi-apibinding</artifactId>
+            <artifactId>owlapi-distribution</artifactId>
             <version>${project.version}</version>
         </dependency>
 
