@@ -27,14 +27,14 @@ questions.
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>owlapi-parent</artifactId>
         <groupId>net.sourceforge.owlapi</groupId>
-        <version>4.0.1-SNAPSHOT</version>
-        <relativePath>../</relativePath>
+        <artifactId>owlapi-parent</artifactId>
+        <version>4.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-
     <groupId>net.sourceforge.owlapi</groupId>
     <artifactId>benchmarks</artifactId>
+    <version>4.0.1</version>
     <packaging>jar</packaging>
 
     <name>Auto-generated JMH benchmark</name>
@@ -46,7 +46,7 @@ questions.
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>owlapi-apibinding</artifactId>
+            <artifactId>owlapi-distribution</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -115,7 +115,7 @@ questions.
                 </executions>
             </plugin>
         </plugins>
-        <pluginManagement>
+       <!-- <pluginManagement>
             <plugins>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
@@ -154,7 +154,7 @@ questions.
                     <version>2.17</version>
                 </plugin>
             </plugins>
-        </pluginManagement>
+        </pluginManagement>   -->
     </build>
 
 </project>
