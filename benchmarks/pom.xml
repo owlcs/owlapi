@@ -33,7 +33,6 @@ questions.
         <relativePath>../</relativePath>
     </parent>
 
-    <groupId>net.sourceforge.owlapi</groupId>
     <artifactId>benchmarks</artifactId>
     <packaging>jar</packaging>
 
