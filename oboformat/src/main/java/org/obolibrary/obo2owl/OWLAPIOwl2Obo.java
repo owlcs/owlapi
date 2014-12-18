@@ -1654,6 +1654,14 @@ public class OWLAPIOwl2Obo {
         if (set.isEmpty()) {
             return;
         }
+        // check whether the entity is an alt_id
+        Optional<String> altIdOptional = isAltId(set, entity);
+        if (altIdOptional.isPresent()) {
+            // TODO make sure that the alt_id is declared in the appropriate
+            // frame
+            return;
+        }
+        // translate
         Frame f = null;
         if (entity instanceof OWLClass) {
             f = getTermFrame(entity.asOWLClass());
@@ -1675,6 +1683,51 @@ public class OWLAPIOwl2Obo {
             set.forEach(a -> tr(a, f1));
             add(f);
         }
+    }
+
+    /**
+     * Check the annotations of entity for axioms declaring it to be an obsolete
+     * entity, with 'obsolescence reason' being 'term merge', and a non-empty
+     * 'replaced by' literal.
+     * 
+     * @param annotations
+     *        set of annotations for the entity
+     * @param entity
+     * @return replaced_by if it is an alt_id
+     */
+    @Nonnull
+    private Optional<String> isAltId(
+            Set<OWLAnnotationAssertionAxiom> annotations, OWLEntity entity) {
+        String altId = null;
+        boolean isMerged = false;
+        boolean isDeprecated = false;
+        for (OWLAnnotationAssertionAxiom axiom : annotations) {
+            OWLAnnotationProperty prop = axiom.getProperty();
+            if (prop.isDeprecated()) {
+                isDeprecated = true;
+            } else if (Obo2OWLConstants.IRI_IAO_0000231.equals(prop.getIRI())) {
+                OWLAnnotationValue value = axiom.getValue();
+                Optional<IRI> asIRI = value.asIRI();
+                if (asIRI.isPresent()) {
+                    isMerged = Obo2OWLConstants.IRI_IAO_0000227.equals(asIRI
+                            .get());
+                }
+            } else if (Obo2OWLVocabulary.IRI_IAO_0100001.iri.equals(prop
+                    .getIRI())) {
+                OWLAnnotationValue value = axiom.getValue();
+                Optional<OWLLiteral> asLiteral = value.asLiteral();
+                if (asLiteral.isPresent()) {
+                    altId = asLiteral.get().getLiteral();
+                }
+            }
+        }
+        Optional<String> result;
+        if (altId != null && isMerged && isDeprecated) {
+            result = Optional.of(altId);
+        } else {
+            result = Optional.empty();
+        }
+        return result;
     }
 
     /**
