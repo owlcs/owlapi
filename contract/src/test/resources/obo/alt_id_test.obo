@@ -1,0 +1,20 @@
+format-version: 1.2
+ontology: test
+
+[Term]
+id: TEST:0001
+name: test1
+alt_id: TEST:1000
+
+[Term]
+id: TEST:0002
+name: test2
+
+[Typedef]
+id: TEST_REL:0001
+name: rel1
+alt_id: TEST_REL:1000
+
+[Typedef]
+id: TEST_REL:0002
+name: rel2
