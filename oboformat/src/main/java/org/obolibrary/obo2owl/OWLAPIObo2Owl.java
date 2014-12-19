@@ -722,7 +722,7 @@ public class OWLAPIObo2Owl {
             Collection<Clause> clauses = termFrame.getClauses(t);
             if (OboFormatTag.TAG_ALT_ID.getTag().equals(t)) {
                 // Generate deprecated and replaced_by details for alternate identifier
-                Set<OWLAxiom> axioms = translateAltIds(clauses, termFrame.getId(), true);
+                Set<OWLAxiom> axioms = translateAltIds(clauses, cls.getIRI(), true);
                 if (!axioms.isEmpty()) {
                     add(axioms);
                 }
@@ -739,13 +739,13 @@ public class OWLAPIObo2Owl {
      * Generate axioms for the alternate identifiers of an {@link OWLClass} or {@link OWLObjectProperty}.
      * 
      * @param clauses collection of alt_id clauses
-     * @param replacedBy OBO style ID
+     * @param replacedBy IRI of the enity
      * @param isClass set to true if the alt_id is represents a class, false in case of an property
      * @return set of axioms generated for the alt_id clauses
      */
     @Nonnull
     protected Set<OWLAxiom> translateAltIds(
-            @Nonnull Collection<Clause> clauses, @Nonnull String replacedBy, 
+            @Nonnull Collection<Clause> clauses, @Nonnull IRI replacedBy, 
             boolean isClass) {
         Set<OWLAxiom> axioms = new HashSet<>();
         for(Clause clause : clauses) {
@@ -771,7 +771,7 @@ public class OWLAPIObo2Owl {
                     altIdEntity.getIRI(),
                     fac.getOWLAnnotation( fac.getOWLAnnotationProperty(
                             Obo2OWLVocabulary.IRI_IAO_0100001.iri),
-                        fac.getOWLLiteral(replacedBy))));
+                        replacedBy)));
                 // annotate with obo:IAO_0000231=obo:IAO_0000227
                 // 'has obsolescence reason' 'terms merged'
                 axioms.add(fac.getOWLAnnotationAssertionAxiom(
@@ -914,6 +914,8 @@ public class OWLAPIObo2Owl {
                     if (axiom != null) {
                         add(axiom);
                     }
+                } else if (tagConstant == OboFormatTag.TAG_ALT_ID) {
+                    add(translateAltIds(clauses, p.getIRI(), false));
                 } else {
                     for (Clause clause : clauses) {
                         add(trTypedefClause(p, tag, clause));
