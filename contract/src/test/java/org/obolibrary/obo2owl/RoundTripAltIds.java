@@ -54,9 +54,9 @@ public class RoundTripAltIds extends RoundTripTest {
             } else if (Obo2OWLVocabulary.IRI_IAO_0100001.iri.equals(prop
                     .getIRI())) {
                 OWLAnnotationValue value = axiom.getValue();
-                Optional<OWLLiteral> asLiteral = value.asLiteral();
-                if (asLiteral.isPresent()) {
-                    altId = asLiteral.get().getLiteral();
+                Optional<IRI> asIRI = value.asIRI();
+                if (asIRI.isPresent()) {
+                    altId = OWLAPIOwl2Obo.getIdentifier(asIRI.get());
                 }
             }
         }
