@@ -1654,20 +1654,26 @@ public class OWLAPIOwl2Obo {
         if (set.isEmpty()) {
             return;
         }
+        boolean isClass = entity.isOWLClass();
+        boolean isObjectProperty = entity.isOWLObjectProperty();
+        boolean isAnnotationProperty = entity.isOWLAnnotationProperty();
         // check whether the entity is an alt_id
         Optional<String> altIdOptional = isAltId(set, entity);
         if (altIdOptional.isPresent()) {
-            // TODO make sure that the alt_id is declared in the appropriate
-            // frame
+            // the entity will not be translated
+            // instead create the appropriate alt_id in the replaced_by frame
+            String currentId = getIdentifier(entity.getIRI());
+            addAltId(altIdOptional.get(), currentId, isClass, isObjectProperty);
+            // TODO add unrelated annotations to untranslatableAxioms axioms
             return;
         }
         // translate
         Frame f = null;
-        if (entity instanceof OWLClass) {
+        if (isClass) {
             f = getTermFrame(entity.asOWLClass());
-        } else if (entity instanceof OWLObjectProperty) {
+        } else if (isObjectProperty) {
             f = getTypedefFrame(entity.asOWLObjectProperty());
-        } else if (entity instanceof OWLAnnotationProperty) {
+        } else if (isAnnotationProperty) {
             for (OWLAxiom a : set) {
                 OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) a;
                 OWLAnnotationProperty prop = ax.getProperty();
@@ -1682,6 +1688,31 @@ public class OWLAPIOwl2Obo {
             Frame f1 = f;
             set.forEach(a -> tr(a, f1));
             add(f);
+        }
+    }
+
+    private void addAltId(@Nonnull String replacedBy, @Nonnull String altId,
+            boolean isClass, boolean isProperty) {
+        Frame replacedByFrame = null;
+        if (isClass) {
+            replacedByFrame = getTermFrame(replacedBy);
+        } else if (isProperty) {
+            replacedByFrame = getTypedefFrame(replacedBy);
+        }
+        if (replacedByFrame != null) {
+            boolean addClause = true;
+            // check existing alt_ids to avoid duplicate clauses
+            Collection<Clause> existing = replacedByFrame
+                    .getClauses(OboFormatTag.TAG_ALT_ID);
+            for (Clause clause : existing) {
+                if (altId.equals(clause.getValue(String.class))) {
+                    addClause = false;
+                }
+            }
+            if (addClause) {
+                replacedByFrame.addClause(new Clause(OboFormatTag.TAG_ALT_ID,
+                        altId));
+            }
         }
     }
 
@@ -1718,6 +1749,13 @@ public class OWLAPIOwl2Obo {
                 Optional<OWLLiteral> asLiteral = value.asLiteral();
                 if (asLiteral.isPresent()) {
                     altId = asLiteral.get().getLiteral();
+                } else {
+                    // fallback: also check for an IRI
+                    Optional<IRI> asIRI = value.asIRI();
+                    if (asIRI.isPresent()) {
+                        // translate IRI to OBO style ID
+                        altId = getIdentifier(asIRI.get());
+                    }
                 }
             }
         }
@@ -2002,6 +2040,10 @@ public class OWLAPIOwl2Obo {
      */
     protected Frame getTermFrame(@Nonnull OWLClass entity) {
         String id = getIdentifier(entity.getIRI());
+        return getTermFrame(id);
+    }
+
+    private Frame getTermFrame(@Nonnull String id) {
         Frame f = getObodoc().getTermFrame(id);
         if (f == null) {
             f = new Frame(FrameType.TERM);
@@ -2019,8 +2061,12 @@ public class OWLAPIOwl2Obo {
      *        the entity
      * @return the typedef frame
      */
-    protected Frame getTypedefFrame(OWLEntity entity) {
+    protected Frame getTypedefFrame(@Nonnull OWLEntity entity) {
         String id = getIdentifier(entity);
+        return getTypedefFrame(id);
+    }
+
+    private Frame getTypedefFrame(@Nonnull String id) {
         Frame f = getObodoc().getTypedefFrame(id);
         if (f == null) {
             f = new Frame(FrameType.TYPEDEF);
