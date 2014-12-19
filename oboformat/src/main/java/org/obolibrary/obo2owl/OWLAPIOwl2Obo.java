@@ -1658,13 +1658,16 @@ public class OWLAPIOwl2Obo {
         boolean isObjectProperty = entity.isOWLObjectProperty();
         boolean isAnnotationProperty = entity.isOWLAnnotationProperty();
         // check whether the entity is an alt_id
-        Optional<String> altIdOptional = isAltId(set, entity);
+        Optional<OboAltIdCheckResult> altIdOptional = checkForOboAltId(set,
+                entity);
         if (altIdOptional.isPresent()) {
             // the entity will not be translated
             // instead create the appropriate alt_id in the replaced_by frame
             String currentId = getIdentifier(entity.getIRI());
-            addAltId(altIdOptional.get(), currentId, isClass, isObjectProperty);
-            // TODO add unrelated annotations to untranslatableAxioms axioms
+            addAltId(altIdOptional.get().replacedBy, currentId, isClass,
+                    isObjectProperty);
+            // add unrelated annotations to untranslatableAxioms axioms
+            untranslatableAxioms.addAll(altIdOptional.get().unrelated);
             return;
         }
         // translate
@@ -1717,9 +1720,25 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * Check the annotations of entity for axioms declaring it to be an obsolete
+     * Helper class: allow to return two values for the alt id check.
+     */
+    private static class OboAltIdCheckResult {
+
+        final String replacedBy;
+        final Set<OWLAnnotationAssertionAxiom> unrelated;
+
+        OboAltIdCheckResult(@Nonnull String replacedBy,
+                @Nonnull Set<OWLAnnotationAssertionAxiom> unrelated) {
+            this.replacedBy = replacedBy;
+            this.unrelated = unrelated;
+        }
+    }
+
+    /**
+     * Check the entity annotations for axioms declaring it to be an obsolete
      * entity, with 'obsolescence reason' being 'term merge', and a non-empty
-     * 'replaced by' literal.
+     * 'replaced by' literal. This corresponds to an OBO alternate identifier.
+     * Track non related annotations.
      * 
      * @param annotations
      *        set of annotations for the entity
@@ -1727,11 +1746,12 @@ public class OWLAPIOwl2Obo {
      * @return replaced_by if it is an alt_id
      */
     @Nonnull
-    private Optional<String> isAltId(
+    private Optional<OboAltIdCheckResult> checkForOboAltId(
             Set<OWLAnnotationAssertionAxiom> annotations, OWLEntity entity) {
-        String altId = null;
+        String replacedBy = null;
         boolean isMerged = false;
         boolean isDeprecated = false;
+        final Set<OWLAnnotationAssertionAxiom> unrelatedAxioms = new HashSet<>();
         for (OWLAnnotationAssertionAxiom axiom : annotations) {
             OWLAnnotationProperty prop = axiom.getProperty();
             if (prop.isDeprecated()) {
@@ -1742,26 +1762,33 @@ public class OWLAPIOwl2Obo {
                 if (asIRI.isPresent()) {
                     isMerged = Obo2OWLConstants.IRI_IAO_0000227.equals(asIRI
                             .get());
+                } else {
+                    unrelatedAxioms.add(axiom);
                 }
             } else if (Obo2OWLVocabulary.IRI_IAO_0100001.iri.equals(prop
                     .getIRI())) {
                 OWLAnnotationValue value = axiom.getValue();
                 Optional<OWLLiteral> asLiteral = value.asLiteral();
                 if (asLiteral.isPresent()) {
-                    altId = asLiteral.get().getLiteral();
+                    replacedBy = asLiteral.get().getLiteral();
                 } else {
                     // fallback: also check for an IRI
                     Optional<IRI> asIRI = value.asIRI();
                     if (asIRI.isPresent()) {
                         // translate IRI to OBO style ID
-                        altId = getIdentifier(asIRI.get());
+                        replacedBy = getIdentifier(asIRI.get());
+                    } else {
+                        unrelatedAxioms.add(axiom);
                     }
                 }
+            } else {
+                unrelatedAxioms.add(axiom);
             }
         }
-        Optional<String> result;
-        if (altId != null && isMerged && isDeprecated) {
-            result = Optional.of(altId);
+        Optional<OboAltIdCheckResult> result;
+        if (replacedBy != null && isMerged && isDeprecated) {
+            result = Optional.of(new OboAltIdCheckResult(replacedBy,
+                    unrelatedAxioms));
         } else {
             result = Optional.empty();
         }

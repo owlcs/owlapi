@@ -1,8 +1,9 @@
 package org.obolibrary.obo2owl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
@@ -18,11 +19,13 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+@SuppressWarnings("javadoc")
 public class Owl2OboAltIdTest extends OboFormatTestBasics {
 
     @Test
@@ -30,26 +33,23 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLDataFactory f = m.getOWLDataFactory();
         OWLOntology simple = m.createOntology(IRI.generateDocumentIRI());
-
         // add class A
         OWLClass classA = f.getOWLClass(IRI
                 .create(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "TEST_0001"));
         m.addAxiom(simple, f.getOWLDeclarationAxiom(classA));
         // add a label and OBO style ID
         addLabelAndId(classA, "test1", "TEST:0001", simple);
-
         // add deprecated class B as an alternate ID for A
         OWLClass classB = f.getOWLClass(IRI
                 .create(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "TEST_0002"));
         m.addAxiom(simple, f.getOWLDeclarationAxiom(classB));
         setAltId(classB, "TEST:0001", simple);
         // add comment to alt_id class, which is not expressible in OBO
-        addAnnotation(classB, f.getRDFSComment(), f.getOWLLiteral("Comment"), simple);
-
+        addAnnotation(classB, f.getRDFSComment(), f.getOWLLiteral("Comment"),
+                simple);
         // translate to OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(m);
         OBODoc oboDoc = owl2obo.convert(simple);
-
         // check result: expect only one term frame for class TEST:0001 with
         // alt_id Test:0002
         Collection<Frame> termFrames = oboDoc.getTermFrames();
@@ -61,12 +61,24 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         assertEquals(1, altIdClauses.size());
         String altId = altIdClauses.iterator().next().getValue(String.class);
         assertEquals("TEST:0002", altId);
-
         // roundtrip back to OWL, check that comment is still there
-        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(
+                OWLManager.createOWLOntologyManager());
         OWLOntology roundTripped = obo2owl.convert(oboDoc);
-        Set<OWLAnnotationAssertionAxiom> annotations = roundTripped.getAnnotationAssertionAxioms(classB.getIRI());
-        assertEquals(4, annotations.size()); // three for the alt-id plus one for the comment
+        Set<OWLAnnotationAssertionAxiom> annotations = roundTripped
+                .getAnnotationAssertionAxioms(classB.getIRI());
+        assertEquals(4, annotations.size()); // three for the alt-id plus one
+                                             // for the comment
+        String comment = null;
+        for (OWLAnnotationAssertionAxiom ax : annotations) {
+            if (ax.getProperty().isComment()) {
+                Optional<OWLLiteral> asLiteral = ax.getValue().asLiteral();
+                if (asLiteral.isPresent()) {
+                    comment = asLiteral.get().getLiteral();
+                }
+            }
+        }
+        assertEquals("Comment", comment);
     }
 
     @Test
@@ -74,26 +86,23 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLDataFactory f = m.getOWLDataFactory();
         OWLOntology simple = m.createOntology(IRI.generateDocumentIRI());
-
         // add prop1
         OWLObjectProperty p1 = f.getOWLObjectProperty(IRI
                 .create(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "TEST_0001"));
         m.addAxiom(simple, f.getOWLDeclarationAxiom(p1));
         // add label and OBO style id for
         addLabelAndId(p1, "prop1", "TEST:0001", simple);
-
         // add deprecated prop 2 as an alternate ID for prop 1
         OWLObjectProperty p2 = f.getOWLObjectProperty(IRI
                 .create(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "TEST_0002"));
         m.addAxiom(simple, f.getOWLDeclarationAxiom(p2));
         setAltId(p2, "TEST:0002", simple);
         // add comment to alt_id class, which is not expressible in OBO
-        addAnnotation(p2, f.getRDFSComment(), f.getOWLLiteral("Comment"), simple);
-
+        addAnnotation(p2, f.getRDFSComment(), f.getOWLLiteral("Comment"),
+                simple);
         // translate to OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(m);
         OBODoc oboDoc = owl2obo.convert(simple);
-
         // check result: expect only one typdef frame for prop TEST:0001 with
         // alt_id Test:0002
         Collection<Frame> termFrames = oboDoc.getTypedefFrames();
@@ -105,12 +114,24 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         assertEquals(1, altIdClauses.size());
         String altId = altIdClauses.iterator().next().getValue(String.class);
         assertEquals("TEST:0002", altId);
-
         // roundtrip back to OWL, check that comment is still there
-        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(
+                OWLManager.createOWLOntologyManager());
         OWLOntology roundTripped = obo2owl.convert(oboDoc);
-        Set<OWLAnnotationAssertionAxiom> annotations = roundTripped.getAnnotationAssertionAxioms(p2.getIRI());
-        assertEquals(4, annotations.size()); // three for the alt-id plus one for the comment
+        Set<OWLAnnotationAssertionAxiom> annotations = roundTripped
+                .getAnnotationAssertionAxioms(p2.getIRI());
+        assertEquals(4, annotations.size()); // three for the alt-id plus one
+                                             // for the comment
+        String comment = null;
+        for (OWLAnnotationAssertionAxiom ax : annotations) {
+            if (ax.getProperty().isComment()) {
+                Optional<OWLLiteral> asLiteral = ax.getValue().asLiteral();
+                if (asLiteral.isPresent()) {
+                    comment = asLiteral.get().getLiteral();
+                }
+            }
+        }
+        assertEquals("Comment", comment);
     }
 
     private void addLabelAndId(OWLNamedObject obj, String label, String id,
