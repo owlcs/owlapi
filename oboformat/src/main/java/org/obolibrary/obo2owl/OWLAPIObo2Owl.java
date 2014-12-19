@@ -739,7 +739,7 @@ public class OWLAPIObo2Owl {
      * Generate axioms for the alternate identifiers of an {@link OWLClass} or {@link OWLObjectProperty}.
      * 
      * @param clauses collection of alt_id clauses
-     * @param replacedBy IRI of the enity
+     * @param replacedBy IRI of the entity
      * @param isClass set to true if the alt_id is represents a class, false in case of an property
      * @return set of axioms generated for the alt_id clauses
      */
