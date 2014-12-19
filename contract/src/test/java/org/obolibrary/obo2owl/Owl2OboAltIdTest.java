@@ -18,11 +18,15 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+import com.google.common.base.Optional;
+
+@SuppressWarnings("javadoc")
 public class Owl2OboAltIdTest extends OboFormatTestBasics {
 
     @Test
@@ -67,6 +71,16 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         OWLOntology roundTripped = obo2owl.convert(oboDoc);
         Set<OWLAnnotationAssertionAxiom> annotations = roundTripped.getAnnotationAssertionAxioms(classB.getIRI());
         assertEquals(4, annotations.size()); // three for the alt-id plus one for the comment
+        String comment = null;
+        for (OWLAnnotationAssertionAxiom ax : annotations) {
+            if (ax.getProperty().isComment()) {
+                Optional<OWLLiteral> asLiteral = ax.getValue().asLiteral();
+                if (asLiteral.isPresent()) {
+                    comment = asLiteral.get().getLiteral();
+                }
+            }
+        }
+        assertEquals("Comment", comment);
     }
 
     @Test
@@ -111,6 +125,16 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         OWLOntology roundTripped = obo2owl.convert(oboDoc);
         Set<OWLAnnotationAssertionAxiom> annotations = roundTripped.getAnnotationAssertionAxioms(p2.getIRI());
         assertEquals(4, annotations.size()); // three for the alt-id plus one for the comment
+        String comment = null;
+        for (OWLAnnotationAssertionAxiom ax : annotations) {
+            if (ax.getProperty().isComment()) {
+                Optional<OWLLiteral> asLiteral = ax.getValue().asLiteral();
+                if (asLiteral.isPresent()) {
+                    comment = asLiteral.get().getLiteral();
+                }
+            }
+        }
+        assertEquals("Comment", comment);
     }
 
     private void addLabelAndId(OWLNamedObject obj, String label, String id,
