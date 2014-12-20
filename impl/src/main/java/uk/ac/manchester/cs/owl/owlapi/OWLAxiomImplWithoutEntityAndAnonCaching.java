@@ -61,8 +61,8 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
             if (annotations.size() == 1) {
-                OWLAnnotation tmp = annotations.iterator().next();
-                this.annotations = Collections.singletonList(tmp);
+                this.annotations = Collections.singletonList(annotations
+                        .iterator().next());
             } else {
                 this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
             }
