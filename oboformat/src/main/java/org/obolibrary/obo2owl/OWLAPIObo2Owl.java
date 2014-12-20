@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -719,6 +720,13 @@ public class OWLAPIObo2Owl {
         for (String t : termFrame.getTags()) {
             // System.out.println("tag:"+tag);
             Collection<Clause> clauses = termFrame.getClauses(t);
+            if (OboFormatTag.TAG_ALT_ID.getTag().equals(t)) {
+                // Generate deprecated and replaced_by details for alternate identifier
+                Set<OWLAxiom> axioms = translateAltIds(clauses, cls.getIRI(), true);
+                if (!axioms.isEmpty()) {
+                    add(axioms);
+                }
+            }
             Set<OWLAxiom> axioms = trTermFrameClauses(cls, clauses, t);
             if (!axioms.isEmpty()) {
                 add(axioms);
@@ -728,6 +736,55 @@ public class OWLAPIObo2Owl {
     }
 
     /**
+     * Generate axioms for the alternate identifiers of an {@link OWLClass} or {@link OWLObjectProperty}.
+     * 
+     * @param clauses collection of alt_id clauses
+     * @param replacedBy IRI of the entity
+     * @param isClass set to true if the alt_id is represents a class, false in case of an property
+     * @return set of axioms generated for the alt_id clauses
+     */
+    @Nonnull
+    protected Set<OWLAxiom> translateAltIds(
+            @Nonnull Collection<Clause> clauses, @Nonnull IRI replacedBy, 
+            boolean isClass) {
+        Set<OWLAxiom> axioms = new HashSet<>();
+        for(Clause clause : clauses) {
+            final String altId = clause.getValue(String.class);
+            if (altId != null) {
+                final OWLEntity altIdEntity;
+                if (isClass) {
+                    altIdEntity = trClass(altId);
+                }
+                else {
+                    IRI altIdIRI = oboIdToIRI(altId);
+                    altIdEntity = fac.getOWLObjectProperty(altIdIRI);
+                }
+                // entity declaration axiom
+                axioms.add(fac.getOWLDeclarationAxiom(altIdEntity));
+                // annotate as deprecated
+                axioms.add(fac.getOWLAnnotationAssertionAxiom(
+                    altIdEntity.getIRI(), fac.getOWLAnnotation(
+                        fac.getOWLDeprecated(),
+                        fac.getOWLLiteral(true))));
+                // annotate with replaced_by (IAO_0100001)
+                axioms.add(fac.getOWLAnnotationAssertionAxiom(
+                    altIdEntity.getIRI(),
+                    fac.getOWLAnnotation( fac.getOWLAnnotationProperty(
+                            Obo2OWLVocabulary.IRI_IAO_0100001.iri),
+                        replacedBy)));
+                // annotate with obo:IAO_0000231=obo:IAO_0000227
+                // 'has obsolescence reason' 'terms merged'
+                axioms.add(fac.getOWLAnnotationAssertionAxiom(
+                    altIdEntity.getIRI(), fac.getOWLAnnotation(
+                        fac.getOWLAnnotationProperty(
+                            Obo2OWLConstants.IRI_IAO_0000231),
+                        Obo2OWLConstants.IRI_IAO_0000227)));
+            }
+        }
+        return axioms;
+    }
+
+	/**
      * Tr term frame clauses.
      * 
      * @param cls
@@ -857,6 +914,8 @@ public class OWLAPIObo2Owl {
                     if (axiom != null) {
                         add(axiom);
                     }
+                } else if (tagConstant == OboFormatTag.TAG_ALT_ID) {
+                    add(translateAltIds(clauses, p.getIRI(), false));
                 } else {
                     for (Clause clause : clauses) {
                         add(trTypedefClause(p, tag, clause));

@@ -1605,12 +1605,28 @@ public class OWLAPIOwl2Obo {
         if (set.isEmpty()) {
             return;
         }
+        boolean isClass = entity.isOWLClass();
+        boolean isObjectProperty = entity.isOWLObjectProperty();
+        boolean isAnnotationProperty = entity.isOWLAnnotationProperty();
+        // check whether the entity is an alt_id
+        Optional<OboAltIdCheckResult> altIdOptional = checkForOboAltId(set, entity);
+        if (altIdOptional.isPresent()) {
+            // the entity will not be translated
+            // instead create the appropriate alt_id in the replaced_by frame
+            String currentId = getIdentifier(entity.getIRI());
+            addAltId(altIdOptional.get().replacedBy, currentId, isClass, isObjectProperty);
+            // add unrelated annotations to untranslatableAxioms axioms
+            untranslatableAxioms.addAll(altIdOptional.get().unrelated);
+            return;
+        }
+
+        // translate
         Frame f = null;
-        if (entity instanceof OWLClass) {
+        if (isClass) {
             f = getTermFrame(entity.asOWLClass());
-        } else if (entity instanceof OWLObjectProperty) {
+        } else if (isObjectProperty) {
             f = getTypedefFrame(entity.asOWLObjectProperty());
-        } else if (entity instanceof OWLAnnotationProperty) {
+        } else if (isAnnotationProperty) {
             for (OWLAxiom a : set) {
                 OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) a;
                 OWLAnnotationProperty prop = ax.getProperty();
@@ -1628,6 +1644,107 @@ public class OWLAPIOwl2Obo {
             }
             add(f);
         }
+    }
+    
+    private void addAltId(@Nonnull String replacedBy, @Nonnull String altId, boolean isClass, boolean isProperty) {
+        Frame replacedByFrame = null;
+        if (isClass) {
+            replacedByFrame = getTermFrame(replacedBy);
+        }
+        else if (isProperty) {
+            replacedByFrame = getTypedefFrame(replacedBy);
+        }
+        if (replacedByFrame != null) {
+            boolean addClause = true;
+            // check existing alt_ids to avoid duplicate clauses
+            Collection<Clause> existing = replacedByFrame.getClauses(OboFormatTag.TAG_ALT_ID);
+            for (Clause clause : existing) {
+                if (altId.equals(clause.getValue(String.class))){
+                    addClause = false;
+                }
+            }
+            if (addClause) {
+                replacedByFrame.addClause(new Clause(OboFormatTag.TAG_ALT_ID, altId));
+            }
+        }
+    }
+
+    /**
+     * Helper class: allow to return two values for the alt id check.
+     */
+    private static class OboAltIdCheckResult {
+        final String replacedBy;
+        final Set<OWLAnnotationAssertionAxiom> unrelated;
+
+        OboAltIdCheckResult(@Nonnull String replacedBy,
+                @Nonnull Set<OWLAnnotationAssertionAxiom> unrelated) {
+            this.replacedBy = replacedBy;
+            this.unrelated = unrelated;
+        }
+    }
+
+    /**
+     * Check the entity annotations for axioms declaring it to be an obsolete
+     * entity, with 'obsolescence reason' being 'term merge', and a non-empty
+     * 'replaced by' literal. This corresponds to an OBO alternate identifier.
+     * Track non related annotations.
+     * 
+     * @param annotations
+     *            set of annotations for the entity
+     * @param entity
+     * @return replaced_by if it is an alt_id
+     */
+    @Nonnull
+    private Optional<OboAltIdCheckResult> checkForOboAltId(Set<OWLAnnotationAssertionAxiom> annotations, OWLEntity entity) {
+        String replacedBy = null;
+        boolean isMerged = false;
+        boolean isDeprecated = false;
+        final Set<OWLAnnotationAssertionAxiom> unrelatedAxioms = new HashSet<>();
+        for (OWLAnnotationAssertionAxiom axiom : annotations) {
+            OWLAnnotationProperty prop = axiom.getProperty();
+            if (prop.isDeprecated()) {
+                isDeprecated = true;
+            }
+            else if (Obo2OWLConstants.IRI_IAO_0000231.equals(prop.getIRI())) {
+                OWLAnnotationValue value = axiom.getValue();
+                Optional<IRI> asIRI = value.asIRI();
+                if (asIRI.isPresent()) {
+                    isMerged = Obo2OWLConstants.IRI_IAO_0000227.equals(asIRI.get());
+                }
+                else {
+                    unrelatedAxioms.add(axiom);
+                }
+            }
+            else if (Obo2OWLVocabulary.IRI_IAO_0100001.iri.equals(prop.getIRI())) {
+                OWLAnnotationValue value = axiom.getValue();
+                Optional<OWLLiteral> asLiteral = value.asLiteral();
+                if (asLiteral.isPresent()) {
+                    replacedBy = asLiteral.get().getLiteral();
+                }
+                else {
+                    // fallback: also check for an IRI
+                    Optional<IRI> asIRI = value.asIRI();
+                    if (asIRI.isPresent()) {
+                        // translate IRI to OBO style ID
+                        replacedBy = getIdentifier(asIRI.get());
+                    }
+                    else {
+                        unrelatedAxioms.add(axiom);
+                    }
+                }
+            }
+            else {
+                unrelatedAxioms.add(axiom);
+            }
+        }
+        Optional<OboAltIdCheckResult> result;
+        if (replacedBy != null && isMerged && isDeprecated) {
+            result = Optional.of(new OboAltIdCheckResult(replacedBy, unrelatedAxioms));
+        }
+        else {
+            result = Optional.absent();
+        }
+        return result;
     }
 
     /**
@@ -1904,6 +2021,10 @@ public class OWLAPIOwl2Obo {
      */
     protected Frame getTermFrame(@Nonnull OWLClass entity) {
         String id = getIdentifier(entity.getIRI());
+        return getTermFrame(id);
+    }
+
+    private Frame getTermFrame(@Nonnull String id) {
         Frame f = getObodoc().getTermFrame(id);
         if (f == null) {
             f = new Frame(FrameType.TERM);
@@ -1921,8 +2042,12 @@ public class OWLAPIOwl2Obo {
      *        the entity
      * @return the typedef frame
      */
-    protected Frame getTypedefFrame(OWLEntity entity) {
+    protected Frame getTypedefFrame(@Nonnull OWLEntity entity) {
         String id = getIdentifier(entity);
+        return getTypedefFrame(id);
+    }
+
+    private Frame getTypedefFrame(@Nonnull String id) {
         Frame f = getObodoc().getTypedefFrame(id);
         if (f == null) {
             f = new Frame(FrameType.TYPEDEF);
