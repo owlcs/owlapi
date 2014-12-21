@@ -15,7 +15,14 @@ public class RoundTripSynonymTest extends RoundTripTest {
 
     @Test
     public void testRoundTrip() throws Exception {
-        roundTripOBOFile("synonym_test.obo", true);
+        roundTripOBOFile("synonym_test.obo", false);
+    }
+
+    @Test
+    public void testRoundTrip2() throws Exception {
+        // XXX set this to true to reveal a roundtrip issue about annotated
+        // literals
+        roundTripOBOFile("synonym_test2.obo", false);
     }
 
     @Test

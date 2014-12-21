@@ -1,0 +1,10 @@
+format-version: 1.4
+ontology: subset_test
+
+[Term]
+id: GO:0009579
+name: thylakoid
+namespace: cellular_component
+def: "A membranous cellular." [GOC:ds, GOC:mtg_sensu, ISBN:0198506732 "Oxford Dictionary of Biochemistry and Molecular Biology"]
+comment: A thylakoid is not considered an organelle, but some thylakoids are part of organelles.
+xref: Wikipedia:Thylakoid

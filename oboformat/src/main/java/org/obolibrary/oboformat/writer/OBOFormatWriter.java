@@ -273,12 +273,7 @@ public class OBOFormatWriter {
             throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, HeaderTagsComparator.INSTANCE);
-        write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"),
-                writer, nameProvider);
         for (String tag : tags) {
-            if (tag.equals(OboFormatTag.TAG_FORMAT_VERSION.getTag())) {
-                continue;
-            }
             List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
             Collections.sort(clauses, ClauseComparator.INSTANCE);
             for (Clause clause : clauses) {
