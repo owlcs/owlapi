@@ -23,7 +23,7 @@
  * questions.
  */
 
-package net.sourceforge.owlapi;
+package org.semanticweb.owlapi.benchmarks;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
