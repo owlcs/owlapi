@@ -301,12 +301,7 @@ public class OBOFormatWriter {
             NameProvider nameProvider) throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, HeaderTagsComparator.instance);
-        write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"),
-                writer, nameProvider);
         for (String tag : tags) {
-            if (tag.equals(OboFormatTag.TAG_FORMAT_VERSION.getTag())) {
-                continue;
-            }
             List<Clause> clauses = new ArrayList<Clause>(frame.getClauses(tag));
             Collections.sort(clauses, ClauseComparator.instance);
             for (Clause clause : clauses) {

@@ -1,10 +1,14 @@
 package org.obolibrary.oboformat.model;
 
+import javax.annotation.Nonnull;
+
 /** qualifier value */
 public class QualifierValue implements Comparable<QualifierValue> {
 
+    @Nonnull
     protected String qualifier;
-    protected Object value;
+    @Nonnull
+    protected String value;
 
     /**
      * @param q
@@ -12,12 +16,13 @@ public class QualifierValue implements Comparable<QualifierValue> {
      * @param v
      *        value
      */
-    public QualifierValue(String q, String v) {
+    public QualifierValue(@Nonnull String q, @Nonnull String v) {
         qualifier = q;
         value = v;
     }
 
     /** @return qualifier */
+    @Nonnull
     public String getQualifier() {
         return qualifier;
     }
@@ -26,12 +31,13 @@ public class QualifierValue implements Comparable<QualifierValue> {
      * @param qualifier
      *        qualifier
      */
-    public void setQualifier(String qualifier) {
+    public void setQualifier(@Nonnull String qualifier) {
         this.qualifier = qualifier;
     }
 
     /** @return value */
-    public Object getValue() {
+    @Nonnull
+    public String getValue() {
         return value;
     }
 
@@ -39,22 +45,22 @@ public class QualifierValue implements Comparable<QualifierValue> {
      * @param value
      *        value
      */
-    public void setValue(Object value) {
+    public void setValue(@Nonnull String value) {
         this.value = value;
     }
 
+    @Nonnull
     @Override
     public String toString() {
-        return "{" + qualifier + "=" + value + "}";
+        return '{' + qualifier + '=' + value + '}';
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
+        int prime = 31;
         int result = 1;
-        result = prime * result
-                + (qualifier == null ? 0 : qualifier.hashCode());
-        result = prime * result + (value == null ? 0 : value.hashCode());
+        result = prime * result + qualifier.hashCode();
+        result = prime * result + value.hashCode();
         return result;
     }
 
@@ -70,17 +76,8 @@ public class QualifierValue implements Comparable<QualifierValue> {
             return false;
         }
         QualifierValue other = (QualifierValue) obj;
-        if (qualifier == null) {
-            if (other.qualifier != null) {
-                return false;
-            }
-        } else if (!qualifier.equals(other.qualifier)) {
+        if (!qualifier.equals(other.qualifier)) {
             return false;
-        }
-        if (value == null) {
-            if (other.value != null) {
-                return false;
-            }
         } else if (!value.equals(other.value)) {
             return false;
         }

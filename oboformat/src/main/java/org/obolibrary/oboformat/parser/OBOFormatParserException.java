@@ -1,19 +1,15 @@
 package org.obolibrary.oboformat.parser;
 
+import javax.annotation.Nonnull;
+
 /** The Class OBOFormatParserException. */
 public class OBOFormatParserException extends OBOFormatException {
 
-    // generated
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 7346016707770104873L;
-    /** The line no. */
+    private static final long serialVersionUID = 40000L;
     private final int lineNo;
-    /** The line. */
     private final String line;
 
     /**
-     * Instantiates a new oBO format parser exception.
-     * 
      * @param message
      *        the message
      * @param e
@@ -31,8 +27,6 @@ public class OBOFormatParserException extends OBOFormatException {
     }
 
     /**
-     * Instantiates a new oBO format parser exception.
-     * 
      * @param message
      *        the message
      * @param lineNo
@@ -47,10 +41,8 @@ public class OBOFormatParserException extends OBOFormatException {
     }
 
     /**
-     * Instantiates a new oBO format parser exception.
-     * 
      * @param e
-     *        the e
+     *        the cause
      * @param lineNo
      *        the line no
      * @param line
@@ -62,35 +54,24 @@ public class OBOFormatParserException extends OBOFormatException {
         this.line = line;
     }
 
-    /**
-     * Gets the line no.
-     * 
-     * @return the lineNo
-     */
+    /** @return the lineNo */
     public int getLineNo() {
         return lineNo;
     }
 
-    /**
-     * Gets the line.
-     * 
-     * @return the line
-     */
+    /** @return the line */
     public String getLine() {
         return line;
     }
 
+    @Nonnull
     @Override
     public String getMessage() {
-        StringBuilder sb = new StringBuilder("LINENO: ");
-        sb.append(lineNo);
-        sb.append(" - ");
-        sb.append(super.getMessage());
-        sb.append("\nLINE: ");
-        sb.append(line);
-        return sb.toString();
+        return "LINENO: " + lineNo + " - " + super.getMessage() + "\nLINE: "
+                + line;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return getMessage();

@@ -33,7 +33,7 @@ public class RoundTripTest extends OboFormatTestBasics {
     }
 
     public List<Diff> roundTripOBODoc(OBODoc obodoc, boolean isExpectRoundtrip)
-            throws OWLOntologyCreationException {
+            throws OWLOntologyCreationException, IOException {
         OWLOntology oo = convert(obodoc);
         OBODoc obodoc2 = convert(oo);
         try {
@@ -49,9 +49,14 @@ public class RoundTripTest extends OboFormatTestBasics {
             fail("No IOExceptions allowed");
         }
         OBODocDiffer dd = new OBODocDiffer();
-        List<Diff> diffs = dd.getDiffs(obodoc, obodoc2);
+        List<Diff> diffs = OBODocDiffer.getDiffs(obodoc, obodoc2);
         if (isExpectRoundtrip) {
-            assertEquals("Expected no diffs", 0, diffs.size());
+            if (diffs.size() > 0) {
+                String s1 = writeOBO(obodoc, "");
+                String s2 = writeOBO(obodoc2, "");
+                assertEquals(s1, s2);
+            }
+            // assertEquals("Expected no diffs", 0, diffs.size());
         }
         return diffs;
     }

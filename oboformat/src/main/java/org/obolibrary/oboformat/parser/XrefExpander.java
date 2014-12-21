@@ -2,11 +2,9 @@ package org.obolibrary.oboformat.parser;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
 
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -15,16 +13,21 @@ import org.obolibrary.oboformat.model.FrameMergeException;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** xref expander */
 public class XrefExpander {
 
-    private static Logger LOG = Logger.getLogger(XrefExpander.class.getName());
+    protected static final Logger LOG = LoggerFactory
+            .getLogger(XrefExpander.class);
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
-    Map<String, Rule> treatMap = new HashMap<String, Rule>();
-    Map<String, OBODoc> targetDocMap = new HashMap<String, OBODoc>();
+    @Nonnull
+    Map<String, Rule> treatMap = new HashMap<>();
+    @Nonnull
+    Map<String, OBODoc> targetDocMap = new HashMap<>();
 
     /**
      * @param src
@@ -32,7 +35,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(OBODoc src) throws InvalidXrefMapException {
+    public XrefExpander(@Nonnull OBODoc src) {
         sourceOBODoc = src;
         Frame shf = src.getHeaderFrame();
         String ontId = shf.getTagValue(OboFormatTag.TAG_ONTOLOGY, String.class);
@@ -53,8 +56,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(OBODoc src, String targetBase)
-            throws InvalidXrefMapException {
+    public XrefExpander(OBODoc src, String targetBase) {
         sourceOBODoc = src;
         this.targetBase = targetBase;
         setUp();
@@ -68,7 +70,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(OBODoc src, OBODoc tgt) throws InvalidXrefMapException {
+    public XrefExpander(OBODoc src, OBODoc tgt) {
         sourceOBODoc = src;
         targetOBODoc = tgt;
         setUp();
@@ -78,18 +80,16 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public void setUp() throws InvalidXrefMapException {
+    public final void setUp() {
         // required for translation of IDs
         // obo2owl = new Obo2Owl();
         // obo2owl.setObodoc(sourceOBODoc);
-        Set<String> relationsUsed = new HashSet<String>();
-        Map<String, String> relationsUseByIdSpace = new HashMap<String, String>();
+        Map<String, String> relationsUseByIdSpace = new HashMap<>();
         for (Clause c : sourceOBODoc.getHeaderFrame().getClauses()) {
             String[] parts;
             String v = c.getValue(String.class);
             if (v == null) {
-                LOG.log(Level.SEVERE,
-                        "problem with header clause in xref expansion: " + c);
+                LOG.error("problem with header clause in xref expansion: {}", c);
                 continue;
             }
             parts = v.split("\\s");
@@ -104,7 +104,6 @@ public class XrefExpander {
                 addRule(idSpace, new GenusDifferentiaExpansion(parts[1],
                         parts[2]));
                 // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some "+oboIdToIRI(parts[2]));
-                relationsUsed.add(parts[1]);
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
             } else if (c.getTag().equals(
@@ -113,7 +112,6 @@ public class XrefExpander {
                 addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1],
                         parts[2]));
                 // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some "+oboIdToIRI(parts[2]));
-                relationsUsed.add(parts[1]);
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
             } else if (c.getTag().equals(
@@ -125,7 +123,6 @@ public class XrefExpander {
             } else if (c.getTag().equals(
                     OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag())) {
                 addRule(idSpace, new RelationshipExpansion(parts[1]));
-                relationsUsed.add(parts[1]);
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
             } else {
@@ -150,8 +147,7 @@ public class XrefExpander {
                         try {
                             tgt.addTypedefFrame(tdf);
                         } catch (FrameMergeException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
+                            LOG.debug("frame merge failed", e);
                         }
                     }
                 }
@@ -171,7 +167,7 @@ public class XrefExpander {
         return targetDocMap.get(idSpace);
     }
 
-    private void addRule(String db, Rule rule) throws InvalidXrefMapException {
+    private void addRule(String db, @Nonnull Rule rule) {
         if (treatMap.containsKey(db)) {
             throw new InvalidXrefMapException(db);
         }
@@ -197,7 +193,7 @@ public class XrefExpander {
         }
     }
 
-    private String getIDSpace(String x) {
+    private static String getIDSpace(@Nonnull String x) {
         String[] parts = x.split(":", 2);
         return parts[0];
     }
@@ -217,18 +213,20 @@ public class XrefExpander {
          * @param xRef
          *        xref
          */
-        public abstract void expand(Frame sf, String id, String xRef);
+        public abstract void expand(@Nonnull Frame sf, String id, String xRef);
 
+        @Nonnull
         protected Frame getTargetFrame(String id) {
             Frame f = getTargetDoc(idSpace).getTermFrame(id);
             if (f == null) {
+                f = new Frame();
+                f.setId(id);
                 try {
-                    f = new Frame();
-                    f.setId(id);
                     getTargetDoc(idSpace).addTermFrame(f);
                 } catch (FrameMergeException e) {
                     // this should be impossible
-                    e.printStackTrace();
+                    LOG.error("Frame merge exceptions should not be possible",
+                            e);
                 }
             }
             return f;
@@ -239,7 +237,7 @@ public class XrefExpander {
     public class EquivalenceExpansion extends Rule {
 
         @Override
-        public void expand(Frame sf, String id, String xRef) {
+        public void expand(@Nonnull Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO, xRef);
             sf.addClause(c);
         }
@@ -258,8 +256,8 @@ public class XrefExpander {
     /** genus diff expansion */
     public class GenusDifferentiaExpansion extends Rule {
 
-        protected String rel;
-        protected String tgt;
+        protected final String rel;
+        protected final String tgt;
 
         /**
          * @param rel
@@ -286,8 +284,8 @@ public class XrefExpander {
     /** reverse genus differentia expansion */
     public class ReverseGenusDifferentiaExpansion extends Rule {
 
-        protected String rel;
-        protected String tgt;
+        protected final String rel;
+        protected final String tgt;
 
         /**
          * @param rel
@@ -324,7 +322,7 @@ public class XrefExpander {
     /** relationship expansion */
     public class RelationshipExpansion extends Rule {
 
-        protected String rel;
+        protected final String rel;
 
         /**
          * @param rel

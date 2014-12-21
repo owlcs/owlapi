@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,25 +36,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo.parser;
+package org.coode.owlapi.obo12.parser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Jan-2007
+ * Author: Matthew Horridge<br>
+ * Stanford University<br>
+ * Bio-Medical Informatics Research Group<br>
+ * Date: 19/04/2012
  */
-public class OBOOntologyFormat extends OWLOntologyFormat {
+class OBOFrame {
 
-    /**
-     * Key for validation parameter. Currently supports Boolean.TRUE and
-     * Boolean.FALSE. No parameter is interpreted as TRUE.
-     */
-    public static final String VALIDATION = "obo.validation";
-    private static final long serialVersionUID = 30406L;
+    private String frameType;
+    private final List<OBOTagValuePair> tagValuePairs;
 
-    @Override
-    public String toString() {
-        return "OBO Format";
+    public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
+        this.tagValuePairs = tagValuePairs;
+    }
+
+    public OBOFrame(String frameType, List<OBOTagValuePair> tagValuePairs) {
+        this.frameType = frameType;
+        this.tagValuePairs = new ArrayList<>(tagValuePairs);
+    }
+
+    public String getFrameType() {
+        return frameType;
+    }
+
+    public List<OBOTagValuePair> getTagValuePairs() {
+        return Collections.unmodifiableList(tagValuePairs);
+    }
+
+    public boolean isHeaderFrame() {
+        return frameType == null;
+    }
+
+    public boolean isTypeDefFrame() {
+        return OBOVocabulary.TYPEDEF.getName().equals(frameType);
     }
 }

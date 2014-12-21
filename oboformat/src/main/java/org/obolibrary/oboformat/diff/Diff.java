@@ -1,5 +1,7 @@
 package org.obolibrary.oboformat.diff;
 
+import javax.annotation.Nonnull;
+
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 
@@ -7,12 +9,12 @@ import org.obolibrary.oboformat.model.Frame;
 public class Diff {
 
     String type;
-    String frameType;
+    final String frameType;
     Frame frame1;
     Frame frame2;
     Clause clause1;
     Clause clause2;
-    int frameNum;
+    final int frameNum;
 
     /**
      * @param ftype
@@ -116,9 +118,10 @@ public class Diff {
         this.clause2 = clause2;
     }
 
+    @Nonnull
     @Override
     public String toString() {
-        return type + " " + frameType + " Frame1="
+        return type + ' ' + frameType + " Frame1="
                 + (frame1 == null ? "-" : frame1.getId()) + " Frame2="
                 + (frame2 == null ? "-" : frame2.getId()) + " Clause1="
                 + (clause1 == null ? "-" : clause1) + " Clause2="

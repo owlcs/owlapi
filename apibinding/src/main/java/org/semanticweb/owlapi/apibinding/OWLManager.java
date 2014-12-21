@@ -43,8 +43,6 @@ import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
 import org.coode.owlapi.latex.LatexOntologyStorer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
 import org.coode.owlapi.obo12.parser.OBO12ParserFactory;
-import org.coode.owlapi.oboformat.OBOFormatParserFactory;
-import org.coode.owlapi.oboformat.OBOFormatStorer;
 import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.coode.owlapi.owlxmlparser.OWLXMLParserFactory;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
@@ -54,6 +52,8 @@ import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
+import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParserFactory;
+import org.semanticweb.owlapi.oboformat.OBOFormatStorer;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
@@ -79,7 +79,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
         OWLParserFactoryRegistry registry = OWLParserFactoryRegistry
                 .getInstance();
         registry.registerParserFactory(new OBO12ParserFactory());
-        registry.registerParserFactory(new OBOFormatParserFactory());
+        registry.registerParserFactory(new OBOFormatOWLAPIParserFactory());
         registry.registerParserFactory(new ManchesterOWLSyntaxParserFactory());
         registry.registerParserFactory(new KRSS2OWLParserFactory());
         registry.registerParserFactory(new TurtleOntologyParserFactory());

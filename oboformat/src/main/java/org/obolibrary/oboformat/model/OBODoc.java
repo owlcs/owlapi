@@ -8,6 +8,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
@@ -18,20 +21,22 @@ public class OBODoc {
     /** The header frame. */
     protected Frame headerFrame;
     /** The term frame map. */
-    protected Map<String, Frame> termFrameMap = new HashMap<String, Frame>();
+    @Nonnull
+    protected final Map<String, Frame> termFrameMap = new HashMap<>();
     /** The typedef frame map. */
-    protected Map<String, Frame> typedefFrameMap = new HashMap<String, Frame>();
+    @Nonnull
+    protected final Map<String, Frame> typedefFrameMap = new HashMap<>();
     /** The instance frame map. */
-    protected Map<String, Frame> instanceFrameMap = new HashMap<String, Frame>();
+    @Nonnull
+    protected final Map<String, Frame> instanceFrameMap = new HashMap<>();
     /** The annotation frames. */
-    protected Collection<Frame> annotationFrames = new LinkedList<Frame>();
+    @Nonnull
+    protected final Collection<Frame> annotationFrames = new LinkedList<>();
     /** The imported obo docs. */
-    protected Collection<OBODoc> importedOBODocs = new LinkedList<OBODoc>();
+    protected Collection<OBODoc> importedOBODocs = new LinkedList<>();
 
     /** default constructor. */
-    public OBODoc() {
-        super();
-    }
+    public OBODoc() {}
 
     /** @return the header frame */
     public Frame getHeaderFrame() {
@@ -47,16 +52,22 @@ public class OBODoc {
     }
 
     /** @return the term frames */
+    @SuppressWarnings("null")
+    @Nonnull
     public Collection<Frame> getTermFrames() {
         return termFrameMap.values();
     }
 
     /** @return the typedef frames */
+    @SuppressWarnings("null")
+    @Nonnull
     public Collection<Frame> getTypedefFrames() {
         return typedefFrameMap.values();
     }
 
     /** @return the instance frames */
+    @SuppressWarnings("null")
+    @Nonnull
     public Collection<Frame> getInstanceFrames() {
         return instanceFrameMap.values();
     }
@@ -66,6 +77,7 @@ public class OBODoc {
      *        the id
      * @return the term frame
      */
+    @Nullable
     public Frame getTermFrame(String id) {
         return getTermFrame(id, false);
     }
@@ -77,14 +89,15 @@ public class OBODoc {
      *        the follow import
      * @return the term frame
      */
+    @Nullable
     public Frame getTermFrame(String id, boolean followImport) {
-        if (followImport == false) {
+        if (!followImport) {
             return termFrameMap.get(id);
         }
         // this set is used to check for cycles
-        Set<String> visited = new HashSet<String>();
+        Set<String> visited = new HashSet<>();
         visited.add(getHeaderDescriptor());
-        return _getTermFrame(id, visited);
+        return getTermFrame(id, visited);
     }
 
     /**
@@ -94,7 +107,8 @@ public class OBODoc {
      *        the visited docs
      * @return the frame
      */
-    private Frame _getTermFrame(String id, Set<String> visitedDocs) {
+    @Nullable
+    private Frame getTermFrame(String id, @Nonnull Set<String> visitedDocs) {
         Frame f = termFrameMap.get(id);
         if (f != null) {
             return f;
@@ -117,6 +131,7 @@ public class OBODoc {
      *        the id
      * @return the typedef frame
      */
+    @Nullable
     public Frame getTypedefFrame(String id) {
         return getTypedefFrame(id, false);
     }
@@ -128,14 +143,15 @@ public class OBODoc {
      *        the follow imports
      * @return the typedef frame
      */
+    @Nullable
     public Frame getTypedefFrame(String id, boolean followImports) {
-        if (followImports == false) {
+        if (!followImports) {
             return typedefFrameMap.get(id);
         }
         // this set is used to check for cycles
-        Set<String> visited = new HashSet<String>();
+        Set<String> visited = new HashSet<>();
         visited.add(getHeaderDescriptor());
-        return _getTypedefFrame(id, visited);
+        return getTypedefFrame(id, visited);
     }
 
     /**
@@ -145,7 +161,8 @@ public class OBODoc {
      *        the visited docs
      * @return the frame
      */
-    private Frame _getTypedefFrame(String id, Set<String> visitedDocs) {
+    @Nullable
+    private Frame getTypedefFrame(String id, @Nonnull Set<String> visitedDocs) {
         Frame f = typedefFrameMap.get(id);
         if (f != null) {
             return f;
@@ -193,7 +210,7 @@ public class OBODoc {
      */
     public void addImportedOBODoc(OBODoc doc) {
         if (importedOBODocs == null) {
-            importedOBODocs = new ArrayList<OBODoc>();
+            importedOBODocs = new ArrayList<>();
         }
         importedOBODocs.add(doc);
     }
@@ -206,7 +223,7 @@ public class OBODoc {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void addFrame(Frame f) throws FrameMergeException {
+    public void addFrame(@Nonnull Frame f) throws FrameMergeException {
         if (f.getType() == FrameType.TERM) {
             addTermFrame(f);
         } else if (f.getType() == FrameType.TYPEDEF) {
@@ -224,7 +241,7 @@ public class OBODoc {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void addTermFrame(Frame f) throws FrameMergeException {
+    public void addTermFrame(@Nonnull Frame f) throws FrameMergeException {
         String id = f.getId();
         if (termFrameMap.containsKey(id)) {
             termFrameMap.get(id).merge(f);
@@ -241,7 +258,7 @@ public class OBODoc {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void addTypedefFrame(Frame f) throws FrameMergeException {
+    public void addTypedefFrame(@Nonnull Frame f) throws FrameMergeException {
         String id = f.getId();
         if (typedefFrameMap.containsKey(id)) {
             typedefFrameMap.get(id).merge(f);
@@ -258,7 +275,7 @@ public class OBODoc {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void addInstanceFrame(Frame f) throws FrameMergeException {
+    public void addInstanceFrame(@Nonnull Frame f) throws FrameMergeException {
         String id = f.getId();
         if (instanceFrameMap.containsKey(id)) {
             instanceFrameMap.get(id).merge(f);
@@ -274,7 +291,8 @@ public class OBODoc {
      *        prefix
      * @return IRI prefix as string
      */
-    public String getIDSpace(String prefix) {
+    @Nullable
+    public static String getIDSpace(@Nonnull String prefix) {
         // built-in
         if (prefix.equals("RO")) {
             return "http://purl.obolibrary.org/obo/RO_";
@@ -288,8 +306,8 @@ public class OBODoc {
      *        the prefix
      * @return true, if is treat xrefs as equivalent
      */
-    public boolean isTreatXrefsAsEquivalent(String prefix) {
-        if (prefix != null && prefix.equals("RO")) {
+    public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
+        if ("RO".equals(prefix)) {
             return true;
         }
         return false;
@@ -303,14 +321,18 @@ public class OBODoc {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void mergeContents(OBODoc extDoc) throws FrameMergeException {
+    public void mergeContents(@Nonnull OBODoc extDoc)
+            throws FrameMergeException {
         for (Frame f : extDoc.getTermFrames()) {
+            assert f != null;
             addTermFrame(f);
         }
         for (Frame f : extDoc.getTypedefFrames()) {
+            assert f != null;
             addTypedefFrame(f);
         }
         for (Frame f : extDoc.getInstanceFrames()) {
+            assert f != null;
             addInstanceFrame(f);
         }
     }
@@ -351,13 +373,15 @@ public class OBODoc {
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return getHeaderDescriptor();
     }
 
     /** @return the header descriptor */
+    @Nonnull
     private String getHeaderDescriptor() {
-        return "OBODoc(" + headerFrame + ")";
+        return "OBODoc(" + headerFrame + ')';
     }
 }

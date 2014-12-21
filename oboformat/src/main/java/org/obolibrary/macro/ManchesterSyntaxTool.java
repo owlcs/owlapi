@@ -3,8 +3,10 @@ package org.obolibrary.macro;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.coode.owlapi.manchesterowlsyntax.OntologyAxiomPair;
@@ -31,10 +33,13 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * wrapper for parsing Manchester Syntax.
@@ -43,15 +48,28 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
  */
 public class ManchesterSyntaxTool {
 
-    private static final Logger log = Logger
-            .getLogger(ManchesterSyntaxTool.class.getName());
-    protected IRIShortFormProvider iriShortFormProvider;
-    private OWLDataFactory dataFactory;
-    private OWLEntityChecker entityChecker;
-    private ShortFormProvider shortFormProvider;
-    private BidirectionalShortFormProviderAdapter bidirectionalShortFormProvider;
-    private volatile boolean disposed = false;
-    private Object disposedLock = new Object();
+    private static final Logger LOG = LoggerFactory
+            .getLogger(ManchesterSyntaxTool.class);
+    @Nonnull
+    protected final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
+    @Nonnull
+    private final OWLDataFactory dataFactory;
+    @Nonnull
+    private final AdvancedEntityChecker entityChecker;
+    @Nonnull
+    private final ShortFormProvider shortFormProvider = new ShortFormProvider() {
+
+        @Override
+        public void dispose() {
+            // do nothing
+        }
+
+        @Override
+        public String getShortForm(@Nonnull OWLEntity entity) {
+            return iriShortFormProvider.getShortForm(entity.getIRI());
+        }
+    };
+    private final AtomicBoolean disposed = new AtomicBoolean(false);
 
     /**
      * Create a new parser instance for the given ontology. By default, this
@@ -61,8 +79,8 @@ public class ManchesterSyntaxTool {
      * @param inputOntology
      *        inputOntology
      */
-    public ManchesterSyntaxTool(OWLOntology inputOntology) {
-        this(inputOntology, null, true);
+    public ManchesterSyntaxTool(@Nonnull OWLOntology inputOntology) {
+        this(inputOntology, null);
     }
 
     /**
@@ -75,61 +93,22 @@ public class ManchesterSyntaxTool {
      * @param auxiliaryOntologies
      *        set of additional ontologies or null
      */
-    public ManchesterSyntaxTool(OWLOntology inputOntology,
-            Collection<OWLOntology> auxiliaryOntologies) {
-        this(inputOntology, auxiliaryOntologies, true);
-    }
-
-    /**
-     * Create a new parser instance for the given ontologies.
-     * 
-     * @param inputOntology
-     *        inputOntology
-     * @param auxiliaryOntologies
-     *        set of additional ontologies or null
-     * @param resolveEntities
-     *        set to true, to enable resolution of OWLObjects via their
-     *        identifier or rdfs:label
-     */
-    public ManchesterSyntaxTool(OWLOntology inputOntology,
-            Collection<OWLOntology> auxiliaryOntologies, boolean resolveEntities) {
-        super();
+    public ManchesterSyntaxTool(@Nonnull OWLOntology inputOntology,
+            @Nullable Collection<OWLOntology> auxiliaryOntologies) {
         OWLOntologyManager manager = inputOntology.getOWLOntologyManager();
         dataFactory = manager.getOWLDataFactory();
-        Set<OWLOntology> ontologies;
+        Set<OWLOntology> ontologies = new HashSet<>(
+                inputOntology.getImportsClosure());
         if (auxiliaryOntologies != null && !auxiliaryOntologies.isEmpty()) {
-            ontologies = new HashSet<OWLOntology>();
-            ontologies.addAll(inputOntology.getImportsClosure());
             for (OWLOntology auxOnt : auxiliaryOntologies) {
                 ontologies.addAll(auxOnt.getImportsClosure());
             }
-        } else {
-            ontologies = inputOntology.getImportsClosure();
         }
-        // re-use the same short form provider for translation and parsing
-        iriShortFormProvider = new SimpleIRIShortFormProvider();
-        shortFormProvider = new ShortFormProvider() {
-
-            @Override
-            public void dispose() {
-                // do nothing
-            }
-
-            @Override
-            public String getShortForm(OWLEntity owlEntity) {
-                return iriShortFormProvider.getShortForm(owlEntity.getIRI());
-            }
-        };
-        bidirectionalShortFormProvider = new BidirectionalShortFormProviderAdapter(
-                manager, ontologies, shortFormProvider);
-        final ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
-                bidirectionalShortFormProvider);
-        if (resolveEntities) {
-            entityChecker = new AdvancedEntityChecker(defaultInstance,
-                    ontologies, inputOntology.getOWLOntologyManager());
-        } else {
-            entityChecker = defaultInstance;
-        }
+        ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
+                new BidirectionalShortFormProviderAdapter(manager, ontologies,
+                        shortFormProvider));
+        entityChecker = new AdvancedEntityChecker(defaultInstance, ontologies,
+                inputOntology.getOWLOntologyManager());
     }
 
     /**
@@ -142,10 +121,9 @@ public class ManchesterSyntaxTool {
      *         parser exception
      */
     public Set<OntologyAxiomPair> parseManchesterExpressionFrames(
-            String expression) throws ParserException {
+            @Nonnull String expression) {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
-        Set<OntologyAxiomPair> set = parser.parseFrames();
-        return set;
+        return parser.parseFrames();
     }
 
     /**
@@ -157,26 +135,23 @@ public class ManchesterSyntaxTool {
      * @throws ParserException
      *         parser exception
      */
-    public OWLClassExpression parseManchesterExpression(String expression)
-            throws ParserException {
+    public OWLClassExpression parseManchesterExpression(
+            @Nonnull String expression) {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
-        OWLClassExpression ce = parser.parseClassExpression();
-        return ce;
+        return parser.parseClassExpression();
     }
 
-    private ManchesterOWLSyntaxEditorParser createParser(String expression) {
-        synchronized (disposedLock) {
-            if (disposed) {
-                throw new RuntimeException(
-                        "Illegal State: Trying to use an disposed instance.");
-            }
+    @Nonnull
+    private ManchesterOWLSyntaxEditorParser createParser(
+            @Nonnull String expression) {
+        if (disposed.get()) {
+            throw new OWLRuntimeException(
+                    "Illegal State: Trying to use an disposed instance.");
         }
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(entityChecker);
-        if (log.isLoggable(Level.WARNING)) {
-            log.log(Level.WARNING, "parsing:" + expression);
-        }
+        LOG.info("parsing: {}", expression);
         return parser;
     }
 
@@ -187,12 +162,10 @@ public class ManchesterSyntaxTool {
      *        iri
      * @return short form
      */
-    public String getId(IRI iri) {
-        synchronized (disposedLock) {
-            if (disposed) {
-                throw new RuntimeException(
-                        "Illegal State: Trying to use an disposed instance.");
-            }
+    public String getId(@Nonnull IRI iri) {
+        if (disposed.get()) {
+            throw new OWLRuntimeException(
+                    "Illegal State: Trying to use an disposed instance.");
         }
         return iriShortFormProvider.getShortForm(iri);
     }
@@ -205,12 +178,10 @@ public class ManchesterSyntaxTool {
      *        entity
      * @return short form
      */
-    public String getId(OWLEntity entity) {
-        synchronized (disposedLock) {
-            if (disposed) {
-                throw new RuntimeException(
-                        "Illegal State: Trying to use an disposed instance.");
-            }
+    public String getId(@Nonnull OWLEntity entity) {
+        if (disposed.get()) {
+            throw new OWLRuntimeException(
+                    "Illegal State: Trying to use an disposed instance.");
         }
         return shortFormProvider.getShortForm(entity);
     }
@@ -229,7 +200,7 @@ public class ManchesterSyntaxTool {
 
         private final OWLEntityChecker defaultInstance;
         private final Set<OWLOntology> ontologies;
-        private OWLOntologyManager manager;
+        private final OWLOntologyManager manager;
 
         /**
          * @param defaultInstance
@@ -241,27 +212,27 @@ public class ManchesterSyntaxTool {
          */
         AdvancedEntityChecker(OWLEntityChecker defaultInstance,
                 Set<OWLOntology> ontologies, OWLOntologyManager manager) {
-            super();
             this.defaultInstance = defaultInstance;
             this.ontologies = ontologies;
             this.manager = manager;
         }
 
+        @Nullable
         @Override
-        public OWLClass getOWLClass(String name) {
+        public OWLClass getOWLClass(@Nonnull String name) {
             OWLClass owlClass = defaultInstance.getOWLClass(name);
             if (owlClass == null) {
                 IRI iri = getIRI(name);
                 if (iri != null) {
                     owlClass = getOWLClass(iri);
-                    if (owlClass == null) {}
                 }
             }
             return owlClass;
         }
 
+        @Nullable
         @Override
-        public OWLObjectProperty getOWLObjectProperty(String name) {
+        public OWLObjectProperty getOWLObjectProperty(@Nonnull String name) {
             OWLObjectProperty owlObjectProperty = defaultInstance
                     .getOWLObjectProperty(name);
             if (owlObjectProperty == null) {
@@ -278,8 +249,9 @@ public class ManchesterSyntaxTool {
             return defaultInstance.getOWLDataProperty(name);
         }
 
+        @Nullable
         @Override
-        public OWLNamedIndividual getOWLIndividual(String name) {
+        public OWLNamedIndividual getOWLIndividual(@Nonnull String name) {
             OWLNamedIndividual owlIndividual = defaultInstance
                     .getOWLIndividual(name);
             if (owlIndividual == null) {
@@ -301,7 +273,9 @@ public class ManchesterSyntaxTool {
             return defaultInstance.getOWLAnnotationProperty(name);
         }
 
-        IRI getIRI(String name) {
+        @SuppressWarnings("null")
+        @Nullable
+        IRI getIRI(@Nonnull String name) {
             if (isQuoted(name)) {
                 // anything in '....' quotes is a label
                 return getIRIByLabel(name.substring(1, name.length() - 1));
@@ -314,15 +288,16 @@ public class ManchesterSyntaxTool {
             return getIRIByIdentifier(name);
         }
 
-        private boolean isQuoted(String s) {
-            final int length = s.length();
-            if (length > 2) {
+        private static boolean isQuoted(@Nonnull String s) {
+            int length = s.length();
+            if (length >= 2) {
                 return s.charAt(0) == '\'' && s.charAt(length - 1) == '\'';
             }
             return false;
         }
 
-        IRI getIRIByIdentifier(String id) {
+        @Nullable
+        IRI getIRIByIdentifier(@Nonnull String id) {
             OWLAPIObo2Owl b = new OWLAPIObo2Owl(manager);
             b.setObodoc(new OBODoc());
             return b.oboIdToIRI(id);
@@ -335,25 +310,39 @@ public class ManchesterSyntaxTool {
          *        label
          * @return {@link IRI} or null
          */
-        IRI getIRIByLabel(String label) {
-            IRI iri = null;
+        @Nullable
+        IRI getIRIByLabel(@Nonnull String label) {
             for (OWLOntology o : ontologies) {
                 Set<OWLAnnotationAssertionAxiom> aas = o
                         .getAxioms(AxiomType.ANNOTATION_ASSERTION);
                 for (OWLAnnotationAssertionAxiom aa : aas) {
                     OWLAnnotationValue v = aa.getValue();
                     OWLAnnotationProperty property = aa.getProperty();
-                    if (v instanceof OWLLiteral && property.isLabel()) {
-                        if (label.equals(((OWLLiteral) v).getLiteral())) {
-                            OWLAnnotationSubject obj = aa.getSubject();
-                            if (obj instanceof IRI) {
-                                return (IRI) obj;
-                            }
+                    if (isMatchingLabel(label, v, property)) {
+                        OWLAnnotationSubject obj = aa.getSubject();
+                        if (obj instanceof IRI) {
+                            return (IRI) obj;
                         }
                     }
                 }
             }
-            return iri;
+            return null;
+        }
+
+        /**
+         * @param label
+         *        label to match
+         * @param v
+         *        annotation value
+         * @param property
+         *        property to check
+         * @return true if property is a label, v is a literal and v matches
+         *         label
+         */
+        protected boolean isMatchingLabel(String label, OWLAnnotationValue v,
+                OWLAnnotationProperty property) {
+            return property.isLabel() && v instanceof OWLLiteral
+                    && label.equals(((OWLLiteral) v).getLiteral());
         }
 
         /**
@@ -364,11 +353,12 @@ public class ManchesterSyntaxTool {
          *        iri
          * @return {@link OWLClass} or null
          */
-        OWLClass getOWLClass(IRI iri) {
+        @Nullable
+        OWLClass getOWLClass(@Nonnull IRI iri) {
             for (OWLOntology o : ontologies) {
                 OWLClass c = o.getOWLOntologyManager().getOWLDataFactory()
                         .getOWLClass(iri);
-                if (o.getDeclarationAxioms(c).size() > 0) {
+                if (!o.getDeclarationAxioms(c).isEmpty()) {
                     return c;
                 }
                 if (o.getOWLOntologyManager().getOWLDataFactory()
@@ -387,11 +377,11 @@ public class ManchesterSyntaxTool {
          *        iri
          * @return {@link OWLNamedIndividual} or null
          */
-        OWLNamedIndividual getOWLIndividual(IRI iri) {
+        @Nullable
+        OWLNamedIndividual getOWLIndividual(@Nonnull IRI iri) {
             for (OWLOntology o : ontologies) {
-                OWLDataFactory dataFactory = o.getOWLOntologyManager()
-                        .getOWLDataFactory();
-                OWLNamedIndividual c = dataFactory.getOWLNamedIndividual(iri);
+                OWLNamedIndividual c = o.getOWLOntologyManager()
+                        .getOWLDataFactory().getOWLNamedIndividual(iri);
                 for (OWLDeclarationAxiom da : o.getDeclarationAxioms(c)) {
                     if (da.getEntity() instanceof OWLNamedIndividual) {
                         return (OWLNamedIndividual) da.getEntity();
@@ -409,12 +399,12 @@ public class ManchesterSyntaxTool {
          *        iri
          * @return {@link OWLObjectProperty} or null
          */
-        OWLObjectProperty getOWLObjectProperty(IRI iri) {
+        @Nullable
+        OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri) {
             for (OWLOntology o : ontologies) {
-                OWLDataFactory dataFactory = o.getOWLOntologyManager()
-                        .getOWLDataFactory();
-                OWLObjectProperty p = dataFactory.getOWLObjectProperty(iri);
-                if (o.getDeclarationAxioms(p).size() > 0) {
+                OWLObjectProperty p = o.getOWLOntologyManager()
+                        .getOWLDataFactory().getOWLObjectProperty(iri);
+                if (!o.getDeclarationAxioms(p).isEmpty()) {
                     return p;
                 }
             }
@@ -427,17 +417,8 @@ public class ManchesterSyntaxTool {
      * remove also the listeners registered with the ontology manager.
      */
     public void dispose() {
-        synchronized (disposedLock) {
-            if (!disposed) {
-                disposed = true;
-                iriShortFormProvider = null;
-                dataFactory = null;
-                entityChecker = null;
-                shortFormProvider.dispose();
-                shortFormProvider = null;
-                bidirectionalShortFormProvider.dispose();
-                bidirectionalShortFormProvider = null;
-            }
+        if (!disposed.getAndSet(true)) {
+            shortFormProvider.dispose();
         }
     }
 }

@@ -6,12 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.obolibrary.oboformat.parser.OBOFormatParser;
 
 /**
  * Diffs two OBO Documents. Performs structural diffing only - does not use
@@ -28,8 +29,11 @@ public class OBODocDiffer {
      *        doc2
      * @return list of diffs
      */
-    public List<Diff> getDiffs(OBODoc doc1, OBODoc doc2) {
-        List<Diff> diffs = new ArrayList<Diff>();
+    @SuppressWarnings("null")
+    @Nonnull
+    public static List<Diff>
+            getDiffs(@Nonnull OBODoc doc1, @Nonnull OBODoc doc2) {
+        List<Diff> diffs = new ArrayList<>();
         diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(),
                 doc2.getHeaderFrame()));
         diffs.addAll(getDiffs("Term", doc1.getTermFrames(),
@@ -42,10 +46,13 @@ public class OBODocDiffer {
     }
 
     // FRAME LISTS
-    private List<Diff> getDiffsAsym(String ftype, Collection<Frame> fl1,
-            Collection<Frame> fl2, int n, boolean isCheckFrame) {
-        List<Diff> diffs = new ArrayList<Diff>();
-        Map<String, Frame> fm2 = new HashMap<String, Frame>();
+    @SuppressWarnings("null")
+    @Nonnull
+    private static List<Diff> getDiffsAsym(String ftype,
+            @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2,
+            int n, boolean isCheckFrame) {
+        List<Diff> diffs = new ArrayList<>();
+        Map<String, Frame> fm2 = new HashMap<>();
         for (Frame f : fl2) {
             fm2.put(f.getId(), f);
         }
@@ -63,16 +70,20 @@ public class OBODocDiffer {
         return diffs;
     }
 
-    private List<Diff> getDiffs(String ftype, Collection<Frame> fl1,
-            Collection<Frame> fl2) {
+    @Nonnull
+    private static List<Diff> getDiffs(String ftype,
+            @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2) {
         List<Diff> diffs = getDiffsAsym(ftype, fl1, fl2, 1, true);
         diffs.addAll(getDiffsAsym(ftype, fl1, fl2, 2, false));
         return diffs;
     }
 
     // FRAMES
-    private List<Diff> getDiffsAsym(String ftype, Frame f1, Frame f2, int n) {
-        List<Diff> diffs = new ArrayList<Diff>();
+    @SuppressWarnings("null")
+    @Nonnull
+    private static List<Diff> getDiffsAsym(String ftype, @Nonnull Frame f1,
+            @Nonnull Frame f2, int n) {
+        List<Diff> diffs = new ArrayList<>();
         for (Clause c : f1.getClauses()) {
             boolean isMatched = false;
             for (Clause c2 : f2.getClauses()) {
@@ -82,12 +93,8 @@ public class OBODocDiffer {
                         if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
                             String a1 = c.getValue(Xref.class).getAnnotation();
                             String a2 = c2.getValue(Xref.class).getAnnotation();
-                            if (a1 != a2) {
-                                isMatched = false;
-                                if (a1 != null && a2 != null) {
-                                    isMatched = a1.equals(a2);
-                                }
-                            }
+                            isMatched = a1 == null && a2 == null || a1 != null
+                                    && a1.equals(a2);
                         }
                         break;
                     }
@@ -100,26 +107,11 @@ public class OBODocDiffer {
         return diffs;
     }
 
-    private List<Diff> getDiffs(String ftype, Frame f1, Frame f2) {
+    @Nonnull
+    private static List<Diff> getDiffs(String ftype, @Nonnull Frame f1,
+            @Nonnull Frame f2) {
         List<Diff> diffs = getDiffsAsym(ftype, f1, f2, 1);
         diffs.addAll(getDiffsAsym(ftype, f2, f1, 2));
         return diffs;
-    }
-
-    /**
-     * @param args
-     *        args
-     * @throws Exception
-     *         Exception
-     */
-    public static void main(String[] args) throws Exception {
-        OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc1 = p.parse(args[0]);
-        OBODoc obodoc2 = p.parse(args[1]);
-        OBODocDiffer dd = new OBODocDiffer();
-        List<Diff> diffs = dd.getDiffs(obodoc1, obodoc2);
-        for (Diff d : diffs) {
-            System.out.println(d);
-        }
     }
 }

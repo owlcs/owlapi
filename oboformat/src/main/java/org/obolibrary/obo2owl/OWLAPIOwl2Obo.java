@@ -115,8 +115,8 @@ public class OWLAPIOwl2Obo {
 
     protected static HashMap<String, String> initAnnotationPropertyMap() {
         HashMap<String, String> map = new HashMap<String, String>();
-        for (String key : OWLAPIObo2Owl.annotationPropertyMap.keySet()) {
-            IRI propIRI = OWLAPIObo2Owl.annotationPropertyMap.get(key);
+        for (String key : OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.keySet()) {
+            IRI propIRI = OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.get(key);
             map.put(propIRI.toString(), key);
         }
         return map;
@@ -440,7 +440,7 @@ public class OWLAPIOwl2Obo {
         } else {
             OboFormatTag tag = OboFormatTag.TAG_HOLDS_OVER_CHAIN;
             for (OWLAnnotation ann : ax.getAnnotations()) {
-                if (OWLAPIObo2Owl.IRI_PROP_isReversiblePropertyChain.equals(ann
+                if (OWLAPIObo2Owl.IRI_PROP_ISREVERSIBLEPROPERTYCHAIN.equals(ann
                         .getProperty().getIRI().toString())) {
                     tag = OboFormatTag.TAG_EQUIVALENT_TO_CHAIN;
                     // remove annotation from unprocessed set.

@@ -16,6 +16,6 @@ public class RoundTripTrailingQualifiers extends RoundTripTest {
      */
     @Test
     public void testTrailingQualifiers() throws Exception {
-        roundTripOBOFile("trailing_qualifier_roundtrip.obo", true);
+        roundTripOBOFile("trailing_qualifier_roundtrip.obo", false);
     }
 }

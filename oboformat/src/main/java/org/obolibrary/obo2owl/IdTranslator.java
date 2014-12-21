@@ -3,6 +3,9 @@ package org.obolibrary.obo2owl;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -14,15 +17,18 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class IdTranslator {
 
-    String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
-    private Map<String, String> idspaceMap = new HashMap<String, String>();
+    @Nonnull
+    static final String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
+    @Nonnull
+    private final Map<String, String> idspaceMap = new HashMap<>();
 
     /**
      * @param iri
      *        iri
      * @return string for iri
      */
-    public String translateIRI(IRI iri) {
+    @Nullable
+    public static String translateIRI(@SuppressWarnings("unused") IRI iri) {
         return null;
     }
 
@@ -31,17 +37,17 @@ public class IdTranslator {
      *        id
      * @return string for id
      */
-    public String translateIdToIRIString(String id) {
+    @Nullable
+    public String translateIdToIRIString(@Nonnull String id) {
         if (isURI(id)) {
             return id;
         }
         if (id.contains(":")) {
             // PREFIXED ID
-            int p = id.lastIndexOf(":");
+            int p = id.lastIndexOf(':');
             String prefix = id.substring(0, p);
             String localId = id.substring(p + 1);
-            if (localId.length() > 0
-                    && localId.replaceAll("[0-9]", "").length() == 0) {
+            if (!localId.isEmpty() && localId.replaceAll("[0-9]", "").isEmpty()) {
                 // CANONICAL
                 return expandPrefix(prefix) + localId;
             }
@@ -57,7 +63,7 @@ public class IdTranslator {
      *        id
      * @return boolean
      */
-    public boolean isURI(String id) {
+    public static boolean isURI(@Nonnull String id) {
         if (id.startsWith("http:") || id.startsWith("ftp:")
                 || id.startsWith("https:")) {
             return true;
@@ -78,6 +84,6 @@ public class IdTranslator {
         if (idspaceMap.containsKey(prefix)) {
             return idspaceMap.get(prefix);
         }
-        return OBO_IRI_PREFIX + prefix + "_";
+        return OBO_IRI_PREFIX + prefix + '_';
     }
 }

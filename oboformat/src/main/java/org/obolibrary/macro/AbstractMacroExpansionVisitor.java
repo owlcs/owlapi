@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.semanticweb.owlapi.model.IRI;
@@ -88,6 +89,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Empty abstract visitor for macro expansion. This class allows to minimize the
@@ -98,18 +101,19 @@ public abstract class AbstractMacroExpansionVisitor implements
         OWLClassExpressionVisitorEx<OWLClassExpression>,
         OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
 
-    final Logger log;
+    static final Logger LOG = LoggerFactory
+            .getLogger(AbstractMacroExpansionVisitor.class);
     final OWLDataFactory dataFactory;
+    @Nonnull
     final Map<IRI, String> expandAssertionToMap;
+    @Nonnull
     final Map<IRI, String> expandExpressionMap;
 
-    protected AbstractMacroExpansionVisitor(OWLOntology inputOntology,
-            Logger log) {
-        super();
-        this.log = log;
+    @SuppressWarnings("null")
+    protected AbstractMacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
         dataFactory = inputOntology.getOWLOntologyManager().getOWLDataFactory();
-        expandExpressionMap = new HashMap<IRI, String>();
-        expandAssertionToMap = new HashMap<IRI, String>();
+        expandExpressionMap = new HashMap<>();
+        expandAssertionToMap = new HashMap<>();
         OWLAnnotationProperty expandExpressionAP = dataFactory
                 .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000424
                         .getIRI());
@@ -118,162 +122,163 @@ public abstract class AbstractMacroExpansionVisitor implements
                         .getIRI());
         for (OWLObjectProperty p : inputOntology
                 .getObjectPropertiesInSignature()) {
-            for (OWLAnnotation a : p.getAnnotations(inputOntology,
-                    expandExpressionAP)) {
-                OWLAnnotationValue v = a.getValue();
-                if (v instanceof OWLLiteral) {
-                    String str = ((OWLLiteral) v).getLiteral();
-                    if (log.isLoggable(Level.WARNING)) {
-                        log.log(Level.WARNING, "mapping " + p + " to " + str);
+            for (OWLOntology o : inputOntology.getImportsClosure()) {
+                for (OWLAnnotation a : p.getAnnotations(o, expandExpressionAP)) {
+                    OWLAnnotationValue v = a.getValue();
+                    if (v instanceof OWLLiteral) {
+                        String str = ((OWLLiteral) v).getLiteral();
+                        LOG.info("mapping {} to {}", p, str);
+                        expandExpressionMap.put(p.getIRI(), str);
                     }
-                    expandExpressionMap.put(p.getIRI(), str);
                 }
             }
         }
         for (OWLAnnotationProperty p : inputOntology
                 .getAnnotationPropertiesInSignature()) {
-            for (OWLAnnotation a : p.getAnnotations(inputOntology,
-                    expandAssertionAP)) {
-                OWLAnnotationValue v = a.getValue();
-                if (v instanceof OWLLiteral) {
-                    String str = ((OWLLiteral) v).getLiteral();
-                    if (log.isLoggable(Level.WARNING)) {
-                        log.log(Level.WARNING, "assertion mapping " + p
-                                + " to " + str);
+            for (OWLOntology o : inputOntology.getImportsClosure()) {
+                for (OWLAnnotation a : p.getAnnotations(o, expandAssertionAP)) {
+                    OWLAnnotationValue v = a.getValue();
+                    if (v instanceof OWLLiteral) {
+                        String str = ((OWLLiteral) v).getLiteral();
+                        LOG.info("assertion mapping {} to {}", p, str);
+                        expandAssertionToMap.put(p.getIRI(), str);
                     }
-                    expandAssertionToMap.put(p.getIRI(), str);
                 }
             }
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectIntersectionOf desc) {
-        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : desc.getOperands()) {
+    public OWLClassExpression visit(@Nonnull OWLObjectIntersectionOf ce) {
+        Set<OWLClassExpression> ops = new HashSet<>();
+        for (OWLClassExpression op : ce.getOperands()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getOWLObjectIntersectionOf(ops);
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectUnionOf desc) {
-        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : desc.getOperands()) {
+    public OWLClassExpression visit(@Nonnull OWLObjectUnionOf ce) {
+        Set<OWLClassExpression> ops = new HashSet<>();
+        for (OWLClassExpression op : ce.getOperands()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getOWLObjectUnionOf(ops);
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectComplementOf desc) {
-        return dataFactory.getOWLObjectComplementOf(desc.getOperand().accept(
-                this));
+    public OWLClassExpression visit(@Nonnull OWLObjectComplementOf ce) {
+        return dataFactory.getOWLObjectComplementOf(ce.getOperand()
+                .accept(this));
     }
 
+    @Nonnull
     @Override
-    public OWLClassExpression visit(OWLObjectSomeValuesFrom desc) {
-        OWLClassExpression filler = desc.getFiller();
-        OWLObjectPropertyExpression p = desc.getProperty();
+    public OWLClassExpression visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+        OWLClassExpression filler = ce.getFiller();
+        OWLObjectPropertyExpression p = ce.getProperty();
         OWLClassExpression result = null;
         if (p instanceof OWLObjectProperty) {
             result = expandOWLObjSomeVal(filler, p);
         }
         if (result == null) {
-            result = dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(),
+            result = dataFactory.getOWLObjectSomeValuesFrom(ce.getProperty(),
                     filler.accept(this));
         }
         return result;
     }
 
+    @Nullable
     protected abstract OWLClassExpression expandOWLObjSomeVal(
-            OWLClassExpression filler, OWLObjectPropertyExpression p);
+            @Nonnull OWLClassExpression filler,
+            @Nonnull OWLObjectPropertyExpression p);
 
+    @Nonnull
     @Override
-    public OWLClassExpression visit(OWLObjectHasValue desc) {
+    public OWLClassExpression visit(@Nonnull OWLObjectHasValue ce) {
         OWLClassExpression result = null;
-        OWLIndividual filler = desc.getValue();
-        OWLObjectPropertyExpression p = desc.getProperty();
+        OWLIndividual filler = ce.getFiller();
+        OWLObjectPropertyExpression p = ce.getProperty();
         if (p instanceof OWLObjectProperty) {
-            result = expandOWLObjHasVal(desc, filler, p);
+            result = expandOWLObjHasVal(ce, filler, p);
         }
         if (result == null) {
-            result = dataFactory.getOWLObjectHasValue(desc.getProperty(),
-                    filler);
+            result = dataFactory.getOWLObjectHasValue(ce.getProperty(), filler);
         }
         return result;
     }
 
+    @Nullable
     protected abstract OWLClassExpression expandOWLObjHasVal(
-            OWLObjectHasValue desc, OWLIndividual filler,
-            OWLObjectPropertyExpression p);
+            @Nonnull OWLObjectHasValue desc, @Nonnull OWLIndividual filler,
+            @Nonnull OWLObjectPropertyExpression p);
 
     @Override
-    public OWLClassExpression visit(OWLObjectAllValuesFrom desc) {
-        return desc.getFiller().accept(this);
+    public OWLClassExpression visit(@Nonnull OWLObjectAllValuesFrom ce) {
+        return ce.getFiller().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectMinCardinality desc) {
-        OWLClassExpression filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLObjectMinCardinality(desc.getCardinality(),
-                desc.getProperty(), filler);
+    public OWLClassExpression visit(@Nonnull OWLObjectMinCardinality ce) {
+        OWLClassExpression filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLObjectMinCardinality(ce.getCardinality(),
+                ce.getProperty(), filler);
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectExactCardinality desc) {
-        return desc.asIntersectionOfMinMax().accept(this);
+    public OWLClassExpression visit(@Nonnull OWLObjectExactCardinality ce) {
+        return ce.asIntersectionOfMinMax().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectMaxCardinality desc) {
-        OWLClassExpression filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLObjectMaxCardinality(desc.getCardinality(),
-                desc.getProperty(), filler);
+    public OWLClassExpression visit(@Nonnull OWLObjectMaxCardinality ce) {
+        OWLClassExpression filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLObjectMaxCardinality(ce.getCardinality(),
+                ce.getProperty(), filler);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataSomeValuesFrom desc) {
-        OWLDataRange filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLDataSomeValuesFrom(desc.getProperty(), filler);
+    public OWLClassExpression visit(@Nonnull OWLDataSomeValuesFrom ce) {
+        OWLDataRange filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLDataSomeValuesFrom(ce.getProperty(), filler);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataAllValuesFrom desc) {
-        OWLDataRange filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLDataAllValuesFrom(desc.getProperty(), filler);
+    public OWLClassExpression visit(@Nonnull OWLDataAllValuesFrom ce) {
+        OWLDataRange filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLDataAllValuesFrom(ce.getProperty(), filler);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataHasValue desc) {
-        return desc.asSomeValuesFrom().accept(this);
+    public OWLClassExpression visit(@Nonnull OWLDataHasValue ce) {
+        return ce.asSomeValuesFrom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataExactCardinality desc) {
-        return desc.asIntersectionOfMinMax().accept(this);
+    public OWLClassExpression visit(@Nonnull OWLDataExactCardinality ce) {
+        return ce.asIntersectionOfMinMax().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataMaxCardinality desc) {
-        int card = desc.getCardinality();
-        OWLDataRange filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLDataMaxCardinality(card, desc.getProperty(),
+    public OWLClassExpression visit(@Nonnull OWLDataMaxCardinality ce) {
+        int card = ce.getCardinality();
+        OWLDataRange filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLDataMaxCardinality(card, ce.getProperty(),
                 filler);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataMinCardinality desc) {
-        int card = desc.getCardinality();
-        OWLDataRange filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLDataMinCardinality(card, desc.getProperty(),
+    public OWLClassExpression visit(@Nonnull OWLDataMinCardinality ce) {
+        int card = ce.getCardinality();
+        OWLDataRange filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLDataMinCardinality(card, ce.getProperty(),
                 filler);
     }
 
     @Override
-    public OWLDataRange visit(OWLDataOneOf node) {
+    public OWLDataRange visit(@Nonnull OWLDataOneOf node) {
         // Encode as a data union of and return result
-        Set<OWLDataOneOf> oneOfs = new HashSet<OWLDataOneOf>();
+        Set<OWLDataOneOf> oneOfs = new HashSet<>();
         for (OWLLiteral lit : node.getValues()) {
             oneOfs.add(dataFactory.getOWLDataOneOf(lit));
         }
@@ -281,8 +286,8 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     @Override
-    public OWLDataRange visit(OWLDataIntersectionOf node) {
-        Set<OWLDataRange> ops = new HashSet<OWLDataRange>();
+    public OWLDataRange visit(@Nonnull OWLDataIntersectionOf node) {
+        Set<OWLDataRange> ops = new HashSet<>();
         for (OWLDataRange op : node.getOperands()) {
             ops.add(op.accept(this));
         }
@@ -290,29 +295,25 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     @Override
-    public OWLDataRange visit(OWLDataUnionOf node) {
-        Set<OWLDataRange> ops = new HashSet<OWLDataRange>();
+    public OWLDataRange visit(@Nonnull OWLDataUnionOf node) {
+        Set<OWLDataRange> ops = new HashSet<>();
         for (OWLDataRange op : node.getOperands()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getOWLDataUnionOf(ops);
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Conversion of non-class expressions to MacroExpansionVisitor
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public OWLAxiom visit(OWLSubClassOfAxiom axiom) {
+    public OWLAxiom visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return dataFactory.getOWLSubClassOfAxiom(
                 axiom.getSubClass().accept(this),
                 axiom.getSuperClass().accept(this));
     }
 
     @Override
-    public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
+    public OWLAxiom visit(@Nonnull OWLDisjointClassesAxiom axiom) {
+        Set<OWLClassExpression> ops = new HashSet<>();
         for (OWLClassExpression op : axiom.getClassExpressions()) {
             ops.add(op.accept(this));
         }
@@ -320,26 +321,26 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     @Override
-    public OWLAxiom visit(OWLDataPropertyDomainAxiom axiom) {
+    public OWLAxiom visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         return dataFactory.getOWLDataPropertyDomainAxiom(axiom.getProperty(),
                 axiom.getDomain().accept(this));
     }
 
     @Override
-    public OWLAxiom visit(OWLObjectPropertyDomainAxiom axiom) {
+    public OWLAxiom visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         return dataFactory.getOWLObjectPropertyDomainAxiom(axiom.getProperty(),
                 axiom.getDomain().accept(this));
     }
 
     @Override
-    public OWLAxiom visit(OWLObjectPropertyRangeAxiom axiom) {
+    public OWLAxiom visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         return dataFactory.getOWLObjectPropertyRangeAxiom(axiom.getProperty(),
                 axiom.getRange().accept(this));
     }
 
     @Override
-    public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+    public OWLAxiom visit(@Nonnull OWLDisjointUnionAxiom axiom) {
+        Set<OWLClassExpression> descs = new HashSet<>();
         for (OWLClassExpression op : axiom.getClassExpressions()) {
             descs.add(op.accept(this));
         }
@@ -347,13 +348,13 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     @Override
-    public OWLAxiom visit(OWLDataPropertyRangeAxiom axiom) {
+    public OWLAxiom visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         return dataFactory.getOWLDataPropertyRangeAxiom(axiom.getProperty(),
                 axiom.getRange().accept(this));
     }
 
     @Override
-    public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
+    public OWLAxiom visit(@Nonnull OWLClassAssertionAxiom axiom) {
         if (axiom.getClassExpression().isAnonymous()) {
             return dataFactory.getOWLClassAssertionAxiom(axiom
                     .getClassExpression().accept(this), axiom.getIndividual());
@@ -362,8 +363,8 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     @Override
-    public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
+    public OWLAxiom visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
+        Set<OWLClassExpression> ops = new HashSet<>();
         for (OWLClassExpression op : axiom.getClassExpressions()) {
             ops.add(op.accept(this));
         }
@@ -371,18 +372,18 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLClass desc) {
-        return desc;
+    public OWLClassExpression visit(OWLClass ce) {
+        return ce;
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectHasSelf desc) {
-        return desc;
+    public OWLClassExpression visit(OWLObjectHasSelf ce) {
+        return ce;
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectOneOf desc) {
-        return desc;
+    public OWLClassExpression visit(OWLObjectOneOf ce) {
+        return ce;
     }
 
     @Override
@@ -403,11 +404,6 @@ public abstract class AbstractMacroExpansionVisitor implements
     @Override
     public OWLDataRange visit(OWLDatatypeRestriction node) {
         return node;
-    }
-
-    @Override
-    public OWLDataRange visit(OWLFacetRestriction node) {
-        return null;
     }
 
     @Override
@@ -557,6 +553,11 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     @Override
     public OWLDataRange visit(OWLLiteral node) {
+        return null;
+    }
+
+    @Override
+    public OWLDataRange visit(OWLFacetRestriction node) {
         return null;
     }
 }

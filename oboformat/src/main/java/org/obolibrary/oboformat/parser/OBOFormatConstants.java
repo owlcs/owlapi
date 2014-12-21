@@ -2,14 +2,20 @@ package org.obolibrary.oboformat.parser;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /** oboformat constants */
+@SuppressWarnings("null")
 public class OBOFormatConstants {
 
     /** oboformat tags */
     public enum OboFormatTag {
+
+
 
         //@formatter:off
         /**TAG_FORMAT_VERSION*/ TAG_FORMAT_VERSION("format-version"),
@@ -77,20 +83,27 @@ public class OBOFormatConstants {
         /**TAG_LOGICAL_DEFINITION_VIEW_RELATION*/ TAG_LOGICAL_DEFINITION_VIEW_RELATION("logical-definition-view-relation"),
         
         // these are keywords, not tags, but we keep them here for convenience
-        /**TAG_SCOPE*/ TAG_SCOPE("scope"), // implicit, in synonymtypedef
-        /**TAG_HAS_SYNONYM_TYPE*/ TAG_HAS_SYNONYM_TYPE("has_synonym_type"), // implicit, in synonym
-        /**TAG_BROAD*/ TAG_BROAD("BROAD"),
-        /**TAG_NARROW*/ TAG_NARROW("NARROW"),
-        /**TAG_EXACT*/ TAG_EXACT("EXACT"),
-        /**TAG_RELATED*/ TAG_RELATED("RELATED");
-        //@formatter:on
-        private String tag;
+        /**scope*/ 
+        TAG_SCOPE("scope"), 
+        /** implicit, in synonymtypedef*/
+        TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
+        /** implicit, in synonym*/
+        /**broad*/
+        TAG_BROAD("BROAD"), 
+        /**narrow*/
+        TAG_NARROW("NARROW"),
+        /**exact*/
+        TAG_EXACT("EXACT"),
+        /**related*/
+        TAG_RELATED("RELATED");
+        @Nonnull
+        private final  String tag;
 
-        OboFormatTag(String tag) {
+        OboFormatTag(@Nonnull String tag) {
             this.tag = tag;
         }
 
-        /** @return tag */
+        /** @return tag */@Nonnull 
         public String getTag() {
             return tag;
         }
@@ -101,37 +114,41 @@ public class OBOFormatConstants {
         }
     }
 
-    /** tags */
-    public final static Set<String> TAGS;
-    private static Hashtable<String, OboFormatTag> tagsTable;
-    static {
-        tagsTable = new Hashtable<String, OBOFormatConstants.OboFormatTag>();
+    
+    private static final Map<String, OboFormatTag> TAGSTABLE=initTagsTable();
+    static Map<String, OboFormatTag> initTagsTable(){
+        Map<String, OboFormatTag> tags = new HashMap<>();
         for (OboFormatTag tag : OboFormatTag.values()) {
-            tagsTable.put(tag.getTag(), tag);
+            tags.put(tag.getTag(), tag);
         }
-        TAGS = tagsTable.keySet();
+        return tags;
     }
+    /** tags */@Nonnull
+    public static final Set<String> TAGS=TAGSTABLE.keySet();
 
-    /**
-     * @param tag
-     *        tag
-     * @return oboformat tag
-     */
+    /** @param tag
+     *            tag
+     * @return oboformat tag */
     public static OboFormatTag getTag(String tag) {
-        return tagsTable.get(tag);
+        return TAGSTABLE.get(tag);
     }
 
-    /**
-     * Date format for OboFormatTag.TAG_DATE Use Thread local to ensure thread
-     * safety, as {@link SimpleDateFormat} is not thread safe.
-     */
+    /** Date format for OboFormatTag.TAG_DATE Use Thread local to ensure thread
+     * safety, as {@link SimpleDateFormat} is not thread safe. 
+     * @deprecated use headerDateFormat() - ThreadLocal do not work nicely with web applications*/
+    @Deprecated
     public static final ThreadLocal<DateFormat> headerDateFormat = new ThreadLocal<DateFormat>() {
-
+        @Nonnull
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("dd:MM:yyyy HH:mm");
         }
     };
+    /** @return Date format for OboFormatTag.TAG_DATE*/
+    public static final DateFormat headerDateFormat() {
+            return new SimpleDateFormat("dd:MM:yyyy HH:mm");
+        }
+    
     /** UTF-8 default encoding */
     public static final String DEFAULT_CHARACTER_ENCODING = "UTF-8";
 }

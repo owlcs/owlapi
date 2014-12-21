@@ -2,8 +2,9 @@ package org.obolibrary.macro;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.coode.owlapi.manchesterowlsyntax.OntologyAxiomPair;
 import org.semanticweb.owlapi.expression.ParserException;
@@ -26,23 +27,28 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author cjm TODO - allow use of prefixes */
 public class MacroExpansionVisitor {
 
-    protected static final Logger log = Logger
-            .getLogger(MacroExpansionVisitor.class.getName());
-    private OWLOntology inputOntology;
-    private OWLOntologyManager manager;
-    private Visitor visitor;
+    protected static final Logger LOG = LoggerFactory
+            .getLogger(MacroExpansionVisitor.class);
+    @Nonnull
+    private final OWLOntology inputOntology;
+    @Nonnull
+    private final OWLOntologyManager manager;
+    @Nonnull
+    private final Visitor visitor;
+    @Nonnull
     protected ManchesterSyntaxTool manchesterSyntaxTool;
 
     /**
      * @param inputOntology
      *        inputOntology
      */
-    public MacroExpansionVisitor(OWLOntology inputOntology) {
-        super();
+    public MacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
         this.inputOntology = inputOntology;
         visitor = new Visitor(inputOntology);
         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
@@ -51,8 +57,8 @@ public class MacroExpansionVisitor {
 
     /** @return ontology with expanded macros */
     public OWLOntology expandAll() {
-        Set<OWLAxiom> newAxioms = new HashSet<OWLAxiom>();
-        Set<OWLAxiom> rmAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> newAxioms = new HashSet<>();
+        Set<OWLAxiom> rmAxioms = new HashSet<>();
         for (OWLAxiom ax : inputOntology.getAxioms()) {
             OWLAxiom exAx = ax;
             if (ax instanceof OWLSubClassOfAxiom) {
@@ -85,17 +91,19 @@ public class MacroExpansionVisitor {
         return inputOntology;
     }
 
-    private Set<OWLAxiom> expand(OWLAnnotationAssertionAxiom ax) {
+    @SuppressWarnings("null")
+    @Nonnull
+    private Set<OWLAxiom> expand(@Nonnull OWLAnnotationAssertionAxiom ax) {
         OWLAnnotationProperty prop = ax.getProperty();
         String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
-        HashSet<OWLAxiom> setAx = new HashSet<OWLAxiom>();
+        HashSet<OWLAxiom> setAx = new HashSet<>();
         if (expandTo != null) {
             // when expanding assertions, the axiom is an annotation assertion,
             // and the value may be not be explicitly declared. If it is not,
             // we assume it is a class
             IRI axValIRI = (IRI) ax.getValue();
             OWLClass axValClass = visitor.dataFactory.getOWLClass(axValIRI);
-            if (inputOntology.getDeclarationAxioms(axValClass).size() == 0) {
+            if (inputOntology.getDeclarationAxioms(axValClass).isEmpty()) {
                 OWLDeclarationAxiom newAx = visitor.dataFactory
                         .getOWLDeclarationAxiom(axValClass);
                 manager.addAxiom(inputOntology, newAx);
@@ -108,16 +116,12 @@ public class MacroExpansionVisitor {
                 // then add the declarations at this point
                 manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
             }
-            if (log.isLoggable(Level.WARNING)) {
-                log.log(Level.WARNING, "Template to Expand" + expandTo);
-            }
+            LOG.info("Template to Expand {}", expandTo);
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
             expandTo = expandTo.replaceAll("\\?Y",
                     manchesterSyntaxTool.getId(axValIRI));
-            if (log.isLoggable(Level.WARNING)) {
-                log.log(Level.WARNING, "Expanding " + expandTo);
-            }
+            LOG.info("Expanding {}", expandTo);
             try {
                 Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool
                         .parseManchesterExpressionFrames(expandTo);
@@ -125,7 +129,7 @@ public class MacroExpansionVisitor {
                     setAx.add(axp.getAxiom());
                 }
             } catch (Exception ex) {
-                log.log(Level.SEVERE, ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
             }
             // TODO:
         }
@@ -134,19 +138,22 @@ public class MacroExpansionVisitor {
 
     private class Visitor extends AbstractMacroExpansionVisitor {
 
-        Visitor(OWLOntology inputOntology) {
-            super(inputOntology, MacroExpansionVisitor.log);
+        Visitor(@Nonnull OWLOntology inputOntology) {
+            super(inputOntology);
         }
 
+        @Nullable
         @Override
         protected OWLClassExpression expandOWLObjSomeVal(
-                OWLClassExpression filler, OWLObjectPropertyExpression p) {
+                @Nonnull OWLClassExpression filler,
+                @Nonnull OWLObjectPropertyExpression p) {
             return expandObject(filler, p);
         }
 
         @Override
-        protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
-                OWLIndividual filler, OWLObjectPropertyExpression p) {
+        protected OWLClassExpression expandOWLObjHasVal(
+                @Nonnull OWLObjectHasValue desc, OWLIndividual filler,
+                @Nonnull OWLObjectPropertyExpression p) {
             OWLClassExpression result = expandObject(filler, p);
             if (result != null) {
                 result = dataFactory.getOWLObjectSomeValuesFrom(
@@ -155,8 +162,10 @@ public class MacroExpansionVisitor {
             return result;
         }
 
+        @SuppressWarnings("null")
+        @Nullable
         OWLClassExpression expandObject(Object filler,
-                OWLObjectPropertyExpression p) {
+                @Nonnull OWLObjectPropertyExpression p) {
             OWLClassExpression result = null;
             IRI iri = ((OWLObjectProperty) p).getIRI();
             IRI templateVal = null;
@@ -182,7 +191,7 @@ public class MacroExpansionVisitor {
                         result = manchesterSyntaxTool
                                 .parseManchesterExpression(exStr);
                     } catch (ParserException e) {
-                        log.log(Level.SEVERE, e.getMessage(), e);
+                        LOG.error(e.getMessage(), e);
                     }
                 }
             }

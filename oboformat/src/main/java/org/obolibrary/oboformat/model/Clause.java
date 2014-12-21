@@ -4,21 +4,27 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 /** Clause */
 public class Clause {
 
     protected String tag;
-    protected final Collection<Object> values = new ArrayList<Object>();
-    protected final Collection<Xref> xrefs = new ArrayList<Xref>();
-    protected final Collection<QualifierValue> qualifierValues = new ArrayList<QualifierValue>();
+    @Nonnull
+    protected final Collection<Object> values = new ArrayList<>();
+    @Nonnull
+    protected final Collection<Xref> xrefs = new ArrayList<>();
+    @Nonnull
+    protected final Collection<QualifierValue> qualifierValues = new ArrayList<>();
 
     /**
      * @param tag
      *        tag
      */
-    public Clause(OboFormatTag tag) {
+    public Clause(@Nonnull OboFormatTag tag) {
         this(tag.getTag());
     }
 
@@ -27,7 +33,6 @@ public class Clause {
      *        tag
      */
     public Clause(String tag) {
-        super();
         this.tag = tag;
     }
 
@@ -48,7 +53,7 @@ public class Clause {
      * @param value
      *        value
      */
-    public Clause(OboFormatTag tag, String value) {
+    public Clause(@Nonnull OboFormatTag tag, String value) {
         this(tag.getTag(), value);
     }
 
@@ -59,9 +64,7 @@ public class Clause {
      *             variable.
      */
     @Deprecated
-    public Clause() {
-        super();
-    }
+    public Clause() {}
 
     /** @return tag */
     public String getTag() {
@@ -71,14 +74,13 @@ public class Clause {
     /**
      * @param tag
      *        tag
-     * @deprecated Using this method makes the hashcode variable.
      */
-    @Deprecated
     public void setTag(String tag) {
         this.tag = tag;
     }
 
     /** @return values */
+    @Nonnull
     public Collection<Object> getValues() {
         return values;
     }
@@ -87,7 +89,7 @@ public class Clause {
      * @param values
      *        values
      */
-    public void setValues(Collection<Object> values) {
+    public void setValues(@Nonnull Collection<Object> values) {
         this.values.clear();
         this.values.addAll(values);
     }
@@ -110,6 +112,7 @@ public class Clause {
     }
 
     /** @return value */
+    @Nullable
     public Object getValue() {
         Object value = null;
         if (!values.isEmpty()) {
@@ -122,10 +125,11 @@ public class Clause {
      * @param cls
      *        cls
      * @param <T>
-     *        class type
+     *        value type
      * @return value
      */
-    public <T> T getValue(Class<T> cls) {
+    @Nullable
+    public <T> T getValue(@Nonnull Class<T> cls) {
         Object value = getValue();
         if (value != null && value.getClass().isAssignableFrom(cls)) {
             return cls.cast(value);
@@ -134,6 +138,7 @@ public class Clause {
     }
 
     /** @return value2 */
+    @Nullable
     public Object getValue2() {
         Object value = null;
         if (values.size() > 1) {
@@ -148,10 +153,11 @@ public class Clause {
      * @param cls
      *        cls
      * @param <T>
-     *        class type
+     *        value type
      * @return value2
      */
-    public <T> T getValue2(Class<T> cls) {
+    @Nullable
+    public <T> T getValue2(@Nonnull Class<T> cls) {
         Object value = getValue2();
         if (value != null && value.getClass().isAssignableFrom(cls)) {
             return cls.cast(value);
@@ -160,6 +166,7 @@ public class Clause {
     }
 
     /** @return xrefs */
+    @Nonnull
     public Collection<Xref> getXrefs() {
         return xrefs;
     }
@@ -168,7 +175,7 @@ public class Clause {
      * @param xrefs
      *        xrefs
      */
-    public void setXrefs(Collection<Xref> xrefs) {
+    public void setXrefs(@Nonnull Collection<Xref> xrefs) {
         this.xrefs.clear();
         this.xrefs.addAll(xrefs);
     }
@@ -182,6 +189,7 @@ public class Clause {
     }
 
     /** @return qualifier values */
+    @Nonnull
     public Collection<QualifierValue> getQualifierValues() {
         return qualifierValues;
     }
@@ -190,7 +198,8 @@ public class Clause {
      * @param qualifierValues
      *        qualifierValues
      */
-    public void setQualifierValues(Collection<QualifierValue> qualifierValues) {
+    public void setQualifierValues(
+            @Nonnull Collection<QualifierValue> qualifierValues) {
         this.qualifierValues.clear();
         this.qualifierValues.addAll(qualifierValues);
     }
@@ -203,18 +212,17 @@ public class Clause {
         qualifierValues.add(qv);
     }
 
+    @SuppressWarnings("null")
+    @Nonnull
     @Override
     public String toString() {
-        if (values == null) {
-            return tag + "=null";
-        }
         StringBuilder sb = new StringBuilder(tag);
         sb.append('(');
         for (Object ob : values) {
             sb.append(' ');
             sb.append(ob);
         }
-        if (qualifierValues != null) {
+        if (!qualifierValues.isEmpty()) {
             sb.append('{');
             for (QualifierValue qv : qualifierValues) {
                 sb.append(qv);
@@ -222,7 +230,7 @@ public class Clause {
             }
             sb.append('}');
         }
-        if (xrefs != null) {
+        if (!xrefs.isEmpty()) {
             sb.append('[');
             for (Xref x : xrefs) {
                 sb.append(x);
@@ -234,9 +242,10 @@ public class Clause {
         return sb.toString();
     }
 
-    private boolean collectionsEquals(Collection<?> c1, Collection<?> c2) {
-        if (c1 == null || c1.size() == 0) {
-            return c2 == null || c2.size() == 0;
+    private static boolean collectionsEquals(@Nullable Collection<?> c1,
+            @Nullable Collection<?> c2) {
+        if (c1 == null || c1.isEmpty()) {
+            return c2 == null || c2.isEmpty();
         }
         if (c2 == null) {
             return false;
@@ -262,14 +271,14 @@ public class Clause {
     }
 
     @Override
-    public boolean equals(Object e) {
-        if (e == null || !(e instanceof Clause)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Clause)) {
             return false;
         }
-        if (e == this) {
+        if (obj == this) {
             return true;
         }
-        Clause other = (Clause) e;
+        Clause other = (Clause) obj;
         if (!getTag().equals(other.getTag())) {
             return false;
         }
@@ -277,21 +286,25 @@ public class Clause {
             // special case for comparing booleans
             // this is a bit of a hack - ideally owl2obo would use the correct
             // types
-            if (!getValue().equals(other.getValue())) {
-                if (getValue().equals(Boolean.TRUE)
-                        && other.getValue().equals("true")) {
-                    // special case - OK
-                } else if (other.getValue().equals(Boolean.TRUE)
-                        && getValue().equals("true")) {
-                    // special case - OK
-                } else if (getValue().equals(Boolean.FALSE)
-                        && other.getValue().equals("false")) {
-                    // special case - OK
-                } else if (other.getValue().equals(Boolean.FALSE)
-                        && getValue().equals("false")) {
-                    // special case - OK
-                } else {
-                    return false;
+            Object v1 = getValue();
+            Object v2 = other.getValue();
+            if (v1 != v2) {
+                if (v1 != null) {
+                    if (!v1.equals(v2)) {
+                        if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
+                            // special case - OK
+                        } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
+                            // special case - OK
+                        } else if (Boolean.FALSE.equals(v1)
+                                && "false".equals(v2)) {
+                            // special case - OK
+                        } else if (Boolean.FALSE.equals(v2)
+                                && "false".equals(v1)) {
+                            // special case - OK
+                        } else {
+                            return false;
+                        }
+                    }
                 }
             }
         } else {
@@ -308,19 +321,6 @@ public class Clause {
          * (other.getXrefs() != null && other.getXrefs().size() > 0) { return
          * false; } }
          */
-        if (qualifierValues != null) {
-            if (other.getQualifierValues() == null) {
-                return false;
-            }
-            if (!collectionsEquals(qualifierValues, other.getQualifierValues())) {
-                return false;
-            }
-        } else {
-            if (other.getQualifierValues() != null
-                    && other.getQualifierValues().size() > 0) {
-                return false;
-            }
-        }
-        return true;
+        return collectionsEquals(qualifierValues, other.getQualifierValues());
     }
 }

@@ -36,25 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo.parser;
+package org.coode.owlapi.obo12.parser;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Jan-2007
+ * Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group<br>
+ * Date: 10-Jan-2007<br>
+ * <br>
  */
-public class OBOOntologyFormat extends OWLOntologyFormat {
+@SuppressWarnings("javadoc")
+public interface OBOParserHandler {
 
-    /**
-     * Key for validation parameter. Currently supports Boolean.TRUE and
-     * Boolean.FALSE. No parameter is interpreted as TRUE.
-     */
-    public static final String VALIDATION = "obo.validation";
-    private static final long serialVersionUID = 30406L;
+    void startHeader();
 
-    @Override
-    public String toString() {
-        return "OBO Format";
-    }
+    void endHeader();
+
+    void startFrame(String name);
+
+    void endFrame();
+
+    void handleTagValue(@Nonnull String tag, @Nonnull String value,
+            @Nonnull String qualifierBlock, @Nonnull String comment);
 }

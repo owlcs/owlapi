@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2011, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,25 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.obo.parser;
-
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+package org.coode.owlapi.obo12.parser;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Jan-2007
+ * Author: Matthew Horridge<br>
+ * Stanford University<br>
+ * Bio-Medical Informatics Research Group<br>
+ * Date: 18/04/2012
  */
-public class OBOOntologyFormat extends OWLOntologyFormat {
-
-    /**
-     * Key for validation parameter. Currently supports Boolean.TRUE and
-     * Boolean.FALSE. No parameter is interpreted as TRUE.
-     */
-    public static final String VALIDATION = "obo.validation";
-    private static final long serialVersionUID = 30406L;
-
-    @Override
-    public String toString() {
-        return "OBO Format";
-    }
+public enum SynonymScope {
+    /** exact synonym */
+    EXACT,
+    /** less specific */
+    BROAD,
+    /** more specific */
+    NARROW,
+    /** related */
+    RELATED
 }

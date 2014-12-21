@@ -5,6 +5,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -14,6 +17,7 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
@@ -30,7 +34,7 @@ public class OwlStringTools {
     public static class OwlStringException extends Exception {
 
         // generated
-        private static final long serialVersionUID = 5909865427436329918L;
+        private static final long serialVersionUID = 40000L;
 
         /**
          * @param cause
@@ -54,8 +58,10 @@ public class OwlStringTools {
      *         OwlStringException
      * @see #translate(String, OWLOntologyManager)
      */
-    public static String translate(Set<OWLAxiom> axioms,
-            OWLOntologyManager translationManager) throws OwlStringException {
+    @Nullable
+    public static String translate(@Nullable Set<OWLAxiom> axioms,
+            @Nonnull OWLOntologyManager translationManager)
+            throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
         }
@@ -86,8 +92,10 @@ public class OwlStringTools {
      *         OwlStringException
      * @see #translate(Set,OWLOntologyManager)
      */
-    public static Set<OWLAxiom> translate(String axioms,
-            OWLOntologyManager translationManager) throws OwlStringException {
+    @Nullable
+    public static Set<OWLAxiom> translate(@Nullable String axioms,
+            @Nonnull OWLOntologyManager translationManager,
+            OWLOntologyLoaderConfiguration config) throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
         }
@@ -96,7 +104,7 @@ public class OwlStringTools {
             OWLOntologyDocumentSource documentSource = new StringDocumentSource(
                     axioms);
             OWLOntology ontology = translationManager.createOntology();
-            p.parse(documentSource, ontology);
+            p.parse(documentSource, ontology, config);
             return ontology.getAxioms();
         } catch (UnloadableImportException e) {
             throw new OwlStringException(e);
