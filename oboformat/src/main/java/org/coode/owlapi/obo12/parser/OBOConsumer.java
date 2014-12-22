@@ -47,8 +47,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -86,10 +84,10 @@ class OBOConsumer implements OBOParserHandler {
     private static final Logger LOGGER = Logger.getLogger(OBOConsumer.class
             .getName());
     private static final String IMPORT_TAG_NAME = "import";
-    @Nonnull
+    
     private final OWLOntologyLoaderConfiguration configuration;
     private final OWLOntologyManager owlOntologyManager;
-    @Nonnull
+    
     private final OWLOntology ontology;
     private boolean inHeader;
     private String currentId;
@@ -100,24 +98,24 @@ class OBOConsumer implements OBOParserHandler {
     private boolean termType;
     private boolean typedefType;
     private boolean instanceType;
-    @Nonnull
+    
     private final Set<OWLClassExpression> intersectionOfOperands;
-    @Nonnull
-    private final Set<OWLClassExpression> unionOfOperands = new HashSet<>();
-    private Map<String, IRI> uriCache = new HashMap<>();
-    private final Map<String, IRI> symbolicIdCache = new HashMap<>();
-    private final Map<String, IRI> tagIRICache = new HashMap<>();
+    
+    private final Set<OWLClassExpression> unionOfOperands = new HashSet<OWLClassExpression>();
+    private Map<String, IRI> uriCache = new HashMap<String, IRI>();
+    private final Map<String, IRI> symbolicIdCache = new HashMap<String, IRI>();
+    private final Map<String, IRI> tagIRICache = new HashMap<String, IRI>();
     private final IDSpaceManager idSpaceManager = new IDSpaceManager();
     private String ontologyTagValue = "";
     private String dataVersionTagValue = "";
 
-    public OBOConsumer(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
+    public OBOConsumer( OWLOntology ontology,
+             OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
         this.configuration = configuration;
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
-        intersectionOfOperands = new HashSet<>();
-        uriCache = new HashMap<>();
+        intersectionOfOperands = new HashSet<OWLClassExpression>();
+        uriCache = new HashMap<String, IRI>();
         for (OBOVocabulary v : OBOVocabulary.values()) {
             tagIRICache.put(v.getName(), v.getIRI());
         }
@@ -143,7 +141,7 @@ class OBOConsumer implements OBOParserHandler {
         return owlOntologyManager;
     }
 
-    @Nonnull
+    
     public OWLOntology getOntology() {
         return ontology;
     }
@@ -255,7 +253,7 @@ class OBOConsumer implements OBOParserHandler {
     }
 
     private void setupTagHandlers() {
-        handlerMap = new HashMap<>();
+        handlerMap = new HashMap<String, TagValueHandler>();
         addTagHandler(new OntologyTagValueHandler(this));
         addTagHandler(new IDTagValueHandler(this));
         addTagHandler(new NameTagValueHandler(this));
@@ -429,7 +427,7 @@ class OBOConsumer implements OBOParserHandler {
         }
     }
 
-    @Nonnull
+    
     public String unescapeTagValue(String value) {
         String unquoted;
         if (value.startsWith("\"") && value.endsWith("\"")) {
@@ -478,7 +476,7 @@ class OBOConsumer implements OBOParserHandler {
      * @throws NullPointerException
      *         if tagName is null.
      */
-    @Nonnull
+    
     public IRI getIRIFromTagName(String tagName) {
         IRI tagIRI = tagIRICache.get(tagName);
         if (tagIRI != null) {
@@ -498,12 +496,12 @@ class OBOConsumer implements OBOParserHandler {
      *        The OBO ID
      * @return An IRI obtained from the translation of the OBO ID.
      */
-    @Nonnull
+    
     public IRI getIRIFromOBOId(String oboId) {
         return getIRI(oboId);
     }
 
-    @Nonnull
+    
     public IRI getRelationIRIFromSymbolicIdOrOBOId(String symbolicIdOrOBOId) {
         IRI fullIRI = symbolicIdCache.get(symbolicIdOrOBOId);
         if (fullIRI != null) {
@@ -519,7 +517,7 @@ class OBOConsumer implements OBOParserHandler {
         }
     }
 
-    @Nonnull
+    
     private IRI getIRI(String s) {
         String trimmed = s.trim();
         IRI iri = uriCache.get(trimmed);
@@ -542,7 +540,7 @@ class OBOConsumer implements OBOParserHandler {
     private static final int XREF_ID_GROUP = 1;
     private static final int XREF_QUOTED_STRING_GROUP = 3;
 
-    public OWLAnnotation parseXRef(@Nonnull String xref) {
+    public OWLAnnotation parseXRef( String xref) {
         Matcher matcher = XREF_PATTERN.matcher(xref);
         if (matcher.matches()) {
             OWLDataFactory df = getDataFactory();
@@ -550,8 +548,8 @@ class OBOConsumer implements OBOParserHandler {
             // the quoted string is a description of the xref. I can't find
             // anywhere to put this.
             // Just add as a comment for now
-            @Nonnull
-            Set<OWLAnnotation> xrefDescriptions = new HashSet<>();
+            
+            Set<OWLAnnotation> xrefDescriptions = new HashSet<OWLAnnotation>();
             if (xrefQuotedString != null) {
                 xrefDescriptions.add(df.getOWLAnnotation(df.getRDFSComment(),
                         df.getOWLLiteral(xrefQuotedString)));

@@ -125,7 +125,11 @@ class OWLOBO12Parser extends AbstractOWLParser {
             } else {
                 throw new OWLParserException(e);
             }
-        } catch (TokenMgrError | OWLOntologyInputSourceException | IOException e) {
+        } catch (TokenMgrError e) {
+            throw new OWLParserException(e);
+        } catch (OWLOntologyInputSourceException e) {
+            throw new OWLParserException(e);
+        } catch (IOException e) {
             throw new OWLParserException(e);
         }
         OBO12DocumentFormat format = new OBO12DocumentFormat();

@@ -3,9 +3,6 @@ package org.obolibrary.obo2owl;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -17,17 +14,17 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class IdTranslator {
 
-    @Nonnull
+    
     static final String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
-    @Nonnull
-    private final Map<String, String> idspaceMap = new HashMap<>();
+    
+    private final Map<String, String> idspaceMap = new HashMap<String, String>();
 
     /**
      * @param iri
      *        iri
      * @return string for iri
      */
-    @Nullable
+    
     public static String translateIRI(@SuppressWarnings("unused") IRI iri) {
         return null;
     }
@@ -37,8 +34,8 @@ public class IdTranslator {
      *        id
      * @return string for id
      */
-    @Nullable
-    public String translateIdToIRIString(@Nonnull String id) {
+    
+    public String translateIdToIRIString( String id) {
         if (isURI(id)) {
             return id;
         }
@@ -63,7 +60,7 @@ public class IdTranslator {
      *        id
      * @return boolean
      */
-    public static boolean isURI(@Nonnull String id) {
+    public static boolean isURI( String id) {
         if (id.startsWith("http:") || id.startsWith("ftp:")
                 || id.startsWith("https:")) {
             return true;

@@ -3,8 +3,8 @@ package org.obolibrary.oboformat.parser;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -13,21 +13,17 @@ import org.obolibrary.oboformat.model.FrameMergeException;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** xref expander */
 public class XrefExpander {
 
-    protected static final Logger LOG = LoggerFactory
-            .getLogger(XrefExpander.class);
+    protected static final Logger LOG = Logger.getLogger(XrefExpander.class
+            .getName());
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
-    @Nonnull
-    Map<String, Rule> treatMap = new HashMap<>();
-    @Nonnull
-    Map<String, OBODoc> targetDocMap = new HashMap<>();
+    Map<String, Rule> treatMap = new HashMap<String, XrefExpander.Rule>();
+    Map<String, OBODoc> targetDocMap = new HashMap<String, OBODoc>();
 
     /**
      * @param src
@@ -35,7 +31,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(@Nonnull OBODoc src) {
+    public XrefExpander(OBODoc src) {
         sourceOBODoc = src;
         Frame shf = src.getHeaderFrame();
         String ontId = shf.getTagValue(OboFormatTag.TAG_ONTOLOGY, String.class);
@@ -84,12 +80,13 @@ public class XrefExpander {
         // required for translation of IDs
         // obo2owl = new Obo2Owl();
         // obo2owl.setObodoc(sourceOBODoc);
-        Map<String, String> relationsUseByIdSpace = new HashMap<>();
+        Map<String, String> relationsUseByIdSpace = new HashMap<String, String>();
         for (Clause c : sourceOBODoc.getHeaderFrame().getClauses()) {
             String[] parts;
             String v = c.getValue(String.class);
             if (v == null) {
-                LOG.error("problem with header clause in xref expansion: {}", c);
+                LOG.log(Level.SEVERE,
+                        "problem with header clause in xref expansion: {}", c);
                 continue;
             }
             parts = v.split("\\s");
@@ -147,7 +144,7 @@ public class XrefExpander {
                         try {
                             tgt.addTypedefFrame(tdf);
                         } catch (FrameMergeException e) {
-                            LOG.debug("frame merge failed", e);
+                            LOG.log(Level.FINE, "frame merge failed", e);
                         }
                     }
                 }
@@ -167,7 +164,7 @@ public class XrefExpander {
         return targetDocMap.get(idSpace);
     }
 
-    private void addRule(String db, @Nonnull Rule rule) {
+    private void addRule(String db, Rule rule) {
         if (treatMap.containsKey(db)) {
             throw new InvalidXrefMapException(db);
         }
@@ -193,7 +190,7 @@ public class XrefExpander {
         }
     }
 
-    private static String getIDSpace(@Nonnull String x) {
+    private static String getIDSpace(String x) {
         String[] parts = x.split(":", 2);
         return parts[0];
     }
@@ -213,9 +210,8 @@ public class XrefExpander {
          * @param xRef
          *        xref
          */
-        public abstract void expand(@Nonnull Frame sf, String id, String xRef);
+        public abstract void expand(Frame sf, String id, String xRef);
 
-        @Nonnull
         protected Frame getTargetFrame(String id) {
             Frame f = getTargetDoc(idSpace).getTermFrame(id);
             if (f == null) {
@@ -225,8 +221,8 @@ public class XrefExpander {
                     getTargetDoc(idSpace).addTermFrame(f);
                 } catch (FrameMergeException e) {
                     // this should be impossible
-                    LOG.error("Frame merge exceptions should not be possible",
-                            e);
+                    LOG.log(Level.SEVERE,
+                            "Frame merge exceptions should not be possible", e);
                 }
             }
             return f;
@@ -237,7 +233,7 @@ public class XrefExpander {
     public class EquivalenceExpansion extends Rule {
 
         @Override
-        public void expand(@Nonnull Frame sf, String id, String xRef) {
+        public void expand(Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO, xRef);
             sf.addClause(c);
         }

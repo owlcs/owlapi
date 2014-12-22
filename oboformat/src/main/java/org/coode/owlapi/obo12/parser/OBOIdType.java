@@ -41,8 +41,6 @@ package org.coode.owlapi.obo12.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
@@ -160,7 +158,7 @@ enum OBOIdType {
      * @param oboId
      * @return the translated iri
      */
-    @Nonnull
+    
     public IRI getIRIFromOBOId(OWLOntologyID ontologyID,
             IDSpaceManager idSpaceManager, String oboId) {
         return translator.getIRIFromOBOId(ontologyID, idSpaceManager, oboId);

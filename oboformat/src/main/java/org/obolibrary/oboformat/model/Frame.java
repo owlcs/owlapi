@@ -5,9 +5,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
@@ -53,7 +50,7 @@ public class Frame {
 
     /** Init clauses. */
     protected final void init() {
-        clauses = new ArrayList<>();
+        clauses = new ArrayList<Clause>();
     }
 
     /** @return the type */
@@ -92,9 +89,9 @@ public class Frame {
      *        the tag
      * @return the clauses for tag
      */
-    @Nonnull
+    
     public Collection<Clause> getClauses(String tag) {
-        Collection<Clause> cls = new ArrayList<>();
+        Collection<Clause> cls = new ArrayList<Clause>();
         for (Clause cl : clauses) {
             if (cl.getTag().equals(tag)) {
                 cls.add(cl);
@@ -108,8 +105,8 @@ public class Frame {
      *        the tag
      * @return the clauses for tag
      */
-    @Nonnull
-    public Collection<Clause> getClauses(@Nonnull OboFormatTag tag) {
+    
+    public Collection<Clause> getClauses( OboFormatTag tag) {
         return getClauses(tag.getTag());
     }
 
@@ -118,7 +115,7 @@ public class Frame {
      *        the tag
      * @return null if no value set, otherwise first value
      */
-    @Nullable
+    
     public Clause getClause(String tag) {
         for (Clause cl : clauses) {
             if (cl.getTag().equals(tag)) {
@@ -134,8 +131,8 @@ public class Frame {
      *        the tag
      * @return the clause for tag
      */
-    @Nullable
-    public Clause getClause(@Nonnull OboFormatTag tag) {
+    
+    public Clause getClause( OboFormatTag tag) {
         return getClause(tag.getTag());
     }
 
@@ -175,7 +172,7 @@ public class Frame {
      *        the tag
      * @return the tag value for tag
      */
-    @Nullable
+    
     public Object getTagValue(String tag) {
         Clause clause = getClause(tag);
         if (clause == null) {
@@ -189,8 +186,8 @@ public class Frame {
      *        the tag
      * @return the tag value for tag
      */
-    @Nullable
-    public Object getTagValue(@Nonnull OboFormatTag tag) {
+    
+    public Object getTagValue( OboFormatTag tag) {
         return getTagValue(tag.getTag());
     }
 
@@ -204,8 +201,8 @@ public class Frame {
      * @return the tag value for tag and class
      */
     @SuppressWarnings("null")
-    @Nullable
-    public <T> T getTagValue(String tag, @Nonnull Class<T> cls) {
+    
+    public <T> T getTagValue(String tag,  Class<T> cls) {
         if (getClause(tag) == null) {
             return null;
         }
@@ -225,8 +222,8 @@ public class Frame {
      *        the cls
      * @return the tag value for tag and class
      */
-    @Nullable
-    public <T> T getTagValue(@Nonnull OboFormatTag tag, @Nonnull Class<T> cls) {
+    
+    public <T> T getTagValue( OboFormatTag tag,  Class<T> cls) {
         return getTagValue(tag.getTag(), cls);
     }
 
@@ -235,8 +232,8 @@ public class Frame {
      *        the tag
      * @return the tag values for tag
      */
-    @Nonnull
-    public Collection<Object> getTagValues(@Nonnull OboFormatTag tag) {
+    
+    public Collection<Object> getTagValues( OboFormatTag tag) {
         return getTagValues(tag.getTag());
     }
 
@@ -245,9 +242,9 @@ public class Frame {
      *        the tag
      * @return the tag values for tag
      */
-    @Nonnull
+    
     public Collection<Object> getTagValues(String tag) {
-        Collection<Object> vals = new ArrayList<>();
+        Collection<Object> vals = new ArrayList<Object>();
         for (Clause c : getClauses(tag)) {
             vals.add(c.getValue());
         }
@@ -263,9 +260,9 @@ public class Frame {
      *        the cls
      * @return the tag values for tag and class
      */
-    @Nonnull
-    public <T> Collection<T> getTagValues(@Nonnull OboFormatTag tag,
-            @Nonnull Class<T> cls) {
+    
+    public <T> Collection<T> getTagValues( OboFormatTag tag,
+             Class<T> cls) {
         return getTagValues(tag.getTag(), cls);
     }
 
@@ -278,9 +275,9 @@ public class Frame {
      *        the cls
      * @return the tag values for tag and class
      */
-    @Nonnull
-    public <T> Collection<T> getTagValues(String tag, @Nonnull Class<T> cls) {
-        Collection<T> vals = new ArrayList<>();
+    
+    public <T> Collection<T> getTagValues(String tag,  Class<T> cls) {
+        Collection<T> vals = new ArrayList<T>();
         for (Clause c : getClauses(tag)) {
             vals.add(c.getValue(cls));
         }
@@ -293,9 +290,9 @@ public class Frame {
      * @return the tag xrefs for tg
      */
     @SuppressWarnings("null")
-    @Nonnull
+    
     public Collection<Xref> getTagXrefs(String tag) {
-        Collection<Xref> xrefs = new ArrayList<>();
+        Collection<Xref> xrefs = new ArrayList<Xref>();
         for (Object ob : getClause(tag).getValues()) {
             if (ob instanceof Xref) {
                 xrefs.add((Xref) ob);
@@ -305,9 +302,9 @@ public class Frame {
     }
 
     /** @return the tags */
-    @Nonnull
+    
     public Set<String> getTags() {
-        Set<String> tags = new HashSet<>();
+        Set<String> tags = new HashSet<String>();
         for (Clause cl : getClauses()) {
             tags.add(cl.getTag());
         }
@@ -320,7 +317,7 @@ public class Frame {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void merge(@Nonnull Frame extFrame) throws FrameMergeException {
+    public void merge( Frame extFrame) throws FrameMergeException {
         if (this == extFrame) {
             return;
         }
@@ -397,7 +394,7 @@ public class Frame {
      *         frame structure exception
      */
     @SuppressWarnings("null")
-    private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags)
+    private void checkMaxOneCardinality( OboFormatTag... tags)
             throws FrameStructureException {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {

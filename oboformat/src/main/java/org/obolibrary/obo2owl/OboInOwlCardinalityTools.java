@@ -7,9 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
@@ -25,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Tools for checking and fixing cardinality constrains for OBO ontologies in
@@ -34,8 +31,8 @@ import org.slf4j.LoggerFactory;
  */
 public final class OboInOwlCardinalityTools {
 
-    protected static final Logger LOGGER = LoggerFactory
-            .getLogger(OboInOwlCardinalityTools.class);
+    protected static final Logger LOGGER = Logger
+            .getLogger(OboInOwlCardinalityTools.class.getName());
 
     private OboInOwlCardinalityTools() {}
 
@@ -60,11 +57,9 @@ public final class OboInOwlCardinalityTools {
          * @throws AnnotationCardinalityException
          *         AnnotationCardinalityException
          */
-        @Nonnull
-        List<OWLAnnotationAssertionAxiom> handleConflict(
-                @Nonnull OWLEntity entity,
-                @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms)
+        List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity,
+                OWLAnnotationProperty property,
+                Collection<OWLAnnotationAssertionAxiom> axioms)
                 throws AnnotationCardinalityException;
 
         /**
@@ -80,10 +75,8 @@ public final class OboInOwlCardinalityTools {
          * @throws AnnotationCardinalityException
          *         AnnotationCardinalityException
          */
-        @Nonnull
-        List<OWLAnnotation> handleConflict(
-                @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotation> ontologyAnnotations)
+        List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
+                Collection<OWLAnnotation> ontologyAnnotations)
                 throws AnnotationCardinalityException;
     }
 
@@ -103,9 +96,8 @@ public final class OboInOwlCardinalityTools {
          * @param axioms
          *        axioms
          */
-        void reportConflict(@Nonnull OWLEntity entity,
-                @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms);
+        void reportConflict(OWLEntity entity, OWLAnnotationProperty property,
+                Collection<OWLAnnotationAssertionAxiom> axioms);
 
         /**
          * Report a conflict for a given annotation property and ontology
@@ -116,8 +108,8 @@ public final class OboInOwlCardinalityTools {
          * @param ontologyAnnotations
          *        ontologyAnnotations
          */
-        void reportConflict(@Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotation> ontologyAnnotations);
+        void reportConflict(OWLAnnotationProperty property,
+                Collection<OWLAnnotation> ontologyAnnotations);
     }
 
     /**
@@ -137,8 +129,7 @@ public final class OboInOwlCardinalityTools {
          * @param cause
          *        cause
          */
-        public AnnotationCardinalityException(@Nonnull String message,
-                @Nonnull Throwable cause) {
+        public AnnotationCardinalityException(String message, Throwable cause) {
             super(message, cause);
         }
 
@@ -148,7 +139,7 @@ public final class OboInOwlCardinalityTools {
          * @param message
          *        message
          */
-        public AnnotationCardinalityException(@Nonnull String message) {
+        public AnnotationCardinalityException(String message) {
             super(message);
         }
     }
@@ -168,10 +159,9 @@ public final class OboInOwlCardinalityTools {
      *         handler
      * @see Frame#check() for implementation in OBO
      */
-    public static void checkAnnotationCardinality(
-            @Nonnull OWLOntology ontology,
-            @Nullable AnnotationCardinalityReporter reporter,
-            @Nullable AnnotationCardinalityConfictHandler handler)
+    public static void checkAnnotationCardinality(OWLOntology ontology,
+            AnnotationCardinalityReporter reporter,
+            AnnotationCardinalityConfictHandler handler)
             throws AnnotationCardinalityException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
@@ -205,10 +195,9 @@ public final class OboInOwlCardinalityTools {
         }
     }
 
-    @Nonnull
     private static Set<OWLAnnotationProperty> getProperties(
-            @Nonnull OWLDataFactory factory, @Nonnull OboFormatTag... tags) {
-        Set<OWLAnnotationProperty> set = new HashSet<>();
+            OWLDataFactory factory, OboFormatTag... tags) {
+        Set<OWLAnnotationProperty> set = new HashSet<OWLAnnotationProperty>();
         for (OboFormatTag tag : tags) {
             IRI iri = OWLAPIObo2Owl.trTagToIRI(tag.getTag());
             OWLAnnotationProperty property = factory
@@ -219,14 +208,12 @@ public final class OboInOwlCardinalityTools {
     }
 
     private static void checkOntologyAnnotations(
-            @Nonnull Set<OWLAnnotationProperty> properties,
-            @Nonnull OWLOntology ontology,
-            @Nullable AnnotationCardinalityReporter reporter,
-            @Nullable AnnotationCardinalityConfictHandler handler,
-            @Nonnull OWLOntologyManager manager)
-            throws AnnotationCardinalityException {
+            Set<OWLAnnotationProperty> properties, OWLOntology ontology,
+            AnnotationCardinalityReporter reporter,
+            AnnotationCardinalityConfictHandler handler,
+            OWLOntologyManager manager) throws AnnotationCardinalityException {
         Set<OWLAnnotation> annotations = ontology.getAnnotations();
-        Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<>();
+        Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<OWLAnnotationProperty, Set<OWLAnnotation>>();
         for (OWLAnnotation annotation : annotations) {
             OWLAnnotationProperty current = annotation.getProperty();
             if (properties.contains(current)) {
@@ -235,7 +222,7 @@ public final class OboInOwlCardinalityTools {
                     groupedAnnotations.put(current,
                             Collections.singleton(annotation));
                 } else if (set.size() == 1) {
-                    set = new HashSet<>(set);
+                    set = new HashSet<OWLAnnotation>(set);
                     set.add(annotation);
                     groupedAnnotations.put(current, set);
                 } else {
@@ -272,16 +259,14 @@ public final class OboInOwlCardinalityTools {
         }
     }
 
-    private static void checkOwlEntity(@Nonnull OWLEntity owlClass,
-            @Nonnull Set<OWLAnnotationProperty> properties,
-            @Nonnull OWLOntology ontology,
-            @Nullable AnnotationCardinalityReporter reporter,
-            @Nullable AnnotationCardinalityConfictHandler handler,
-            @Nonnull OWLOntologyManager manager)
-            throws AnnotationCardinalityException {
+    private static void checkOwlEntity(OWLEntity owlClass,
+            Set<OWLAnnotationProperty> properties, OWLOntology ontology,
+            AnnotationCardinalityReporter reporter,
+            AnnotationCardinalityConfictHandler handler,
+            OWLOntologyManager manager) throws AnnotationCardinalityException {
         Set<OWLAnnotationAssertionAxiom> axioms = ontology
                 .getAnnotationAssertionAxioms(owlClass.getIRI());
-        Map<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>> groupedAxioms = new HashMap<>();
+        Map<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>> groupedAxioms = new HashMap<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>>();
         for (OWLAnnotationAssertionAxiom axiom : axioms) {
             OWLAnnotationProperty current = axiom.getProperty();
             if (properties.contains(current)) {
@@ -290,7 +275,7 @@ public final class OboInOwlCardinalityTools {
                 if (set == null) {
                     groupedAxioms.put(current, Collections.singleton(axiom));
                 } else if (set.size() == 1) {
-                    set = new HashSet<>(set);
+                    set = new HashSet<OWLAnnotationAssertionAxiom>(set);
                     set.add(axiom);
                     groupedAxioms.put(current, set);
                 } else {
@@ -337,9 +322,8 @@ public final class OboInOwlCardinalityTools {
      *         handler
      * @see #DEFAULT_HANDLER
      */
-    public static void
-            checkAnnotationCardinality(@Nonnull OWLOntology ontology)
-                    throws AnnotationCardinalityException {
+    public static void checkAnnotationCardinality(OWLOntology ontology)
+            throws AnnotationCardinalityException {
         checkAnnotationCardinality(ontology, null, DEFAULT_HANDLER);
     }
 
@@ -352,29 +336,26 @@ public final class OboInOwlCardinalityTools {
      * @param reporter
      *        used to report violations
      */
-    public static void checkAnnotationCardinality(
-            @Nonnull OWLOntology ontology,
+    public static void checkAnnotationCardinality(OWLOntology ontology,
             AnnotationCardinalityReporter reporter) {
         try {
             checkAnnotationCardinality(ontology, reporter, null);
         } catch (AnnotationCardinalityException e) {
             // this will not happen as no handler is registered
-            LOGGER.error(
+            LOGGER.log(
+                    Level.SEVERE,
                     "Cardinality exception during report: This isn't supposed to happen.",
                     e);
         }
     }
 
     /** default handler */
-    @Nonnull
     public static final AnnotationCardinalityConfictHandler DEFAULT_HANDLER = new AnnotationCardinalityConfictHandler() {
 
-        @Nonnull
         @Override
         public List<OWLAnnotationAssertionAxiom> handleConflict(
-                @Nonnull OWLEntity entity,
-                @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms)
+                OWLEntity entity, OWLAnnotationProperty property,
+                Collection<OWLAnnotationAssertionAxiom> axioms)
                 throws AnnotationCardinalityException {
             if (axioms.size() > 1) {
                 String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
@@ -383,19 +364,18 @@ public final class OboInOwlCardinalityTools {
                 }
                 // take the first one in the collection
                 // (may be random)
-                LOGGER.info("Fixing multiple {} tags for entity: {}", tag,
-                        entity.getIRI());
+                LOGGER.log(Level.INFO, "Fixing multiple {} tags for entity: {}"
+                        + tag + entity.getIRI());
                 return listOfFirst(axioms);
             }
             throw new AnnotationCardinalityException(
                     "Could not resolve conflict for property: " + property);
         }
 
-        @Nonnull
         @Override
         public List<OWLAnnotation> handleConflict(
-                @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotation> ontologyAnnotations)
+                OWLAnnotationProperty property,
+                Collection<OWLAnnotation> ontologyAnnotations)
                 throws AnnotationCardinalityException {
             if (ontologyAnnotations.size() > 1) {
                 String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
@@ -404,7 +384,7 @@ public final class OboInOwlCardinalityTools {
                 }
                 // take the first one in the collection
                 // (may be random)
-                LOGGER.info(
+                LOGGER.log(Level.INFO,
                         "Fixing multiple ontolgy annotations with, tag: {}",
                         tag);
                 return listOfFirst(ontologyAnnotations);
@@ -415,7 +395,6 @@ public final class OboInOwlCardinalityTools {
     };
 
     @SuppressWarnings("null")
-    @Nonnull
     static <T> List<T> listOfFirst(Collection<T> t) {
         return Collections.singletonList(t.iterator().next());
     }

@@ -5,8 +5,6 @@ import java.io.Writer;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.coode.owlapi.functionalrenderer.OWLObjectRenderer;
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
@@ -33,8 +31,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, OWLOntologyFormat format)
+    protected void storeOntology( OWLOntology ontology,
+             Writer writer, OWLOntologyFormat format)
             throws OWLOntologyStorageException {
         try {
             OWLObjectRenderer renderer = new OWLObjectRenderer(ontology, writer);
@@ -50,12 +48,12 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLOntologyStorer {
             PrefixManager {
 
         private static final long serialVersionUID = 40000L;
-        @Nonnull
+        
         private final OWLOntology ontology;
-        @Nonnull
+        
         private final PrefixManager delegate;
 
-        LabelPrefixManager(@Nonnull OWLOntology ontology) {
+        LabelPrefixManager( OWLOntology ontology) {
             this.ontology = ontology;
             OWLOntologyFormat ontologyFormat = ontology.getOWLOntologyManager()
                     .getOntologyFormat(ontology);

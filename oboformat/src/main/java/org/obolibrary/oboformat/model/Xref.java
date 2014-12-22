@@ -1,11 +1,10 @@
 package org.obolibrary.oboformat.model;
 
-import javax.annotation.Nonnull;
 
 /** Xref */
 public class Xref {
 
-    @Nonnull
+    
     String idref;
     String annotation;
 
@@ -13,12 +12,12 @@ public class Xref {
      * @param idref
      *        idref
      */
-    public Xref(@Nonnull String idref) {
+    public Xref( String idref) {
         this.idref = idref;
     }
 
     /** @return idref */
-    @Nonnull
+    
     public String getIdref() {
         return idref;
     }
@@ -27,7 +26,7 @@ public class Xref {
      * @param idref
      *        idref
      */
-    public void setIdref(@Nonnull String idref) {
+    public void setIdref( String idref) {
         this.idref = idref;
     }
 

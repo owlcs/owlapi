@@ -4,27 +4,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 /** Clause */
 public class Clause {
 
     protected String tag;
-    @Nonnull
-    protected final Collection<Object> values = new ArrayList<>();
-    @Nonnull
-    protected final Collection<Xref> xrefs = new ArrayList<>();
-    @Nonnull
-    protected final Collection<QualifierValue> qualifierValues = new ArrayList<>();
+    
+    protected final Collection<Object> values = new ArrayList<Object>();
+    
+    protected final Collection<Xref> xrefs = new ArrayList<Xref>();
+    
+    protected final Collection<QualifierValue> qualifierValues = new ArrayList<QualifierValue>();
 
     /**
      * @param tag
      *        tag
      */
-    public Clause(@Nonnull OboFormatTag tag) {
+    public Clause( OboFormatTag tag) {
         this(tag.getTag());
     }
 
@@ -53,7 +50,7 @@ public class Clause {
      * @param value
      *        value
      */
-    public Clause(@Nonnull OboFormatTag tag, String value) {
+    public Clause( OboFormatTag tag, String value) {
         this(tag.getTag(), value);
     }
 
@@ -80,7 +77,7 @@ public class Clause {
     }
 
     /** @return values */
-    @Nonnull
+    
     public Collection<Object> getValues() {
         return values;
     }
@@ -89,7 +86,7 @@ public class Clause {
      * @param values
      *        values
      */
-    public void setValues(@Nonnull Collection<Object> values) {
+    public void setValues( Collection<Object> values) {
         this.values.clear();
         this.values.addAll(values);
     }
@@ -112,7 +109,7 @@ public class Clause {
     }
 
     /** @return value */
-    @Nullable
+    
     public Object getValue() {
         Object value = null;
         if (!values.isEmpty()) {
@@ -128,8 +125,8 @@ public class Clause {
      *        value type
      * @return value
      */
-    @Nullable
-    public <T> T getValue(@Nonnull Class<T> cls) {
+    
+    public <T> T getValue( Class<T> cls) {
         Object value = getValue();
         if (value != null && value.getClass().isAssignableFrom(cls)) {
             return cls.cast(value);
@@ -138,7 +135,7 @@ public class Clause {
     }
 
     /** @return value2 */
-    @Nullable
+    
     public Object getValue2() {
         Object value = null;
         if (values.size() > 1) {
@@ -156,8 +153,8 @@ public class Clause {
      *        value type
      * @return value2
      */
-    @Nullable
-    public <T> T getValue2(@Nonnull Class<T> cls) {
+    
+    public <T> T getValue2( Class<T> cls) {
         Object value = getValue2();
         if (value != null && value.getClass().isAssignableFrom(cls)) {
             return cls.cast(value);
@@ -166,7 +163,7 @@ public class Clause {
     }
 
     /** @return xrefs */
-    @Nonnull
+    
     public Collection<Xref> getXrefs() {
         return xrefs;
     }
@@ -175,7 +172,7 @@ public class Clause {
      * @param xrefs
      *        xrefs
      */
-    public void setXrefs(@Nonnull Collection<Xref> xrefs) {
+    public void setXrefs( Collection<Xref> xrefs) {
         this.xrefs.clear();
         this.xrefs.addAll(xrefs);
     }
@@ -189,7 +186,7 @@ public class Clause {
     }
 
     /** @return qualifier values */
-    @Nonnull
+    
     public Collection<QualifierValue> getQualifierValues() {
         return qualifierValues;
     }
@@ -199,7 +196,7 @@ public class Clause {
      *        qualifierValues
      */
     public void setQualifierValues(
-            @Nonnull Collection<QualifierValue> qualifierValues) {
+             Collection<QualifierValue> qualifierValues) {
         this.qualifierValues.clear();
         this.qualifierValues.addAll(qualifierValues);
     }
@@ -213,7 +210,7 @@ public class Clause {
     }
 
     @SuppressWarnings("null")
-    @Nonnull
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(tag);
@@ -242,8 +239,8 @@ public class Clause {
         return sb.toString();
     }
 
-    private static boolean collectionsEquals(@Nullable Collection<?> c1,
-            @Nullable Collection<?> c2) {
+    private static boolean collectionsEquals( Collection<?> c1,
+             Collection<?> c2) {
         if (c1 == null || c1.isEmpty()) {
             return c2 == null || c2.isEmpty();
         }

@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
@@ -17,19 +14,19 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public class Obo2OWLConstants {
 
     /** default iri */
-    @Nonnull
+    
     public static final String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
     /** OIO vocabulary prefix */
-    @Nonnull
+    
     public static final String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
-
     /** IRI for the 'has obsolescence reason' annotation property */
-    @Nonnull
-    public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX+"IAO_0000231");
-
+    
+    public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX
+            + "IAO_0000231");
     /** IRI for the 'terms merged' individual */
-    @Nonnull
-    public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX+"IAO_0000227");
+    
+    public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX
+            + "IAO_0000227");
 
     /**
      * @param d
@@ -37,8 +34,8 @@ public class Obo2OWLConstants {
      * @return formatted string
      */
     @SuppressWarnings("null")
-    @Nonnull
-    public static synchronized String format(@Nonnull Date d) {
+    
+    public static synchronized String format( Date d) {
         return FORMATTER.format(d);
     }
 
@@ -78,19 +75,19 @@ public class Obo2OWLConstants {
         /**IRI_OIO_NamespaceIdRule*/    IRI_OIO_NamespaceIdRule(OIOVOCAB_IRI_PREFIX, "NamespaceIdRule", "namespace-id-rule", OboFormatTag.TAG_NAMESPACE_ID_RULE.getTag()),
         /**IRI_OIO_LogicalDefinitionViewRelation*/          IRI_OIO_LogicalDefinitionViewRelation(OIOVOCAB_IRI_PREFIX, "logical-definition-view-relation", "logical-definition-view-relation", OboFormatTag.TAG_LOGICAL_DEFINITION_VIEW_RELATION.getTag());
         //@formatter:on
-        @Nonnull
+        
         final IRI iri;
-        @Nonnull
+        
         final String namespace;
-        @Nonnull
+        
         final String shortName;
-        @Nonnull
+        
         final String label;
-        @Nonnull
+        
         final String mappedTag;
 
-        Obo2OWLVocabulary(@Nonnull String namespce, @Nonnull String shortName,
-                @Nonnull String label, @Nonnull String mappedTag) {
+        Obo2OWLVocabulary( String namespce,  String shortName,
+                 String label,  String mappedTag) {
             iri = IRI.create(namespce + shortName);
             this.shortName = shortName;
             namespace = namespce;
@@ -99,13 +96,13 @@ public class Obo2OWLConstants {
         }
 
         /** @return short name */
-        @Nonnull
+        
         public String getShortName() {
             return shortName;
         }
 
         /** @return namespace */
-        @Nonnull
+        
         public String getNamespace() {
             return namespace;
         }
@@ -116,13 +113,13 @@ public class Obo2OWLConstants {
         }
 
         /** @return label */
-        @Nonnull
+        
         public String getLabel() {
             return label;
         }
 
         /** @return mapped tag */
-        @Nonnull
+        
         public String getMappedTag() {
             return mappedTag;
         }
@@ -133,7 +130,7 @@ public class Obo2OWLConstants {
          * @return true if e has the same iri as the enum value, false if e is
          *         null or has a different iri
          */
-        public boolean sameIRI(@Nullable OWLEntity e) {
+        public boolean sameIRI( OWLEntity e) {
             // if a null value is passed in, then no match
             if (e == null) {
                 return false;
@@ -145,7 +142,7 @@ public class Obo2OWLConstants {
     private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = initTagsToVocab();
 
     static Map<String, Obo2OWLVocabulary> initTagsToVocab() {
-        Map<String, Obo2OWLVocabulary> tags = new HashMap<>();
+        Map<String, Obo2OWLVocabulary> tags = new HashMap<String, Obo2OWLVocabulary>();
         for (Obo2OWLVocabulary vocab : Obo2OWLVocabulary.values()) {
             tags.put(vocab.mappedTag, vocab);
         }

@@ -6,14 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /** oboformat constants */
 @SuppressWarnings("null")
 public class OBOFormatConstants {
 
     /** oboformat tags */
     public enum OboFormatTag {
+
 
 
 
@@ -96,14 +95,14 @@ public class OBOFormatConstants {
         TAG_EXACT("EXACT"),
         /**related*/
         TAG_RELATED("RELATED");
-        @Nonnull
+        
         private final  String tag;
 
-        OboFormatTag(@Nonnull String tag) {
+        OboFormatTag( String tag) {
             this.tag = tag;
         }
 
-        /** @return tag */@Nonnull 
+        /** @return tag */ 
         public String getTag() {
             return tag;
         }
@@ -117,13 +116,13 @@ public class OBOFormatConstants {
     
     private static final Map<String, OboFormatTag> TAGSTABLE=initTagsTable();
     static Map<String, OboFormatTag> initTagsTable(){
-        Map<String, OboFormatTag> tags = new HashMap<>();
+        Map<String, OboFormatTag> tags = new HashMap<String, OboFormatTag>();
         for (OboFormatTag tag : OboFormatTag.values()) {
             tags.put(tag.getTag(), tag);
         }
         return tags;
     }
-    /** tags */@Nonnull
+    /** tags */
     public static final Set<String> TAGS=TAGSTABLE.keySet();
 
     /** @param tag
@@ -138,7 +137,7 @@ public class OBOFormatConstants {
      * @deprecated use headerDateFormat() - ThreadLocal do not work nicely with web applications*/
     @Deprecated
     public static final ThreadLocal<DateFormat> headerDateFormat = new ThreadLocal<DateFormat>() {
-        @Nonnull
+        
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("dd:MM:yyyy HH:mm");

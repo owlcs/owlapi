@@ -13,9 +13,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -25,16 +24,13 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** implements the OBO Format 1.4 specification. */
 public class OBOFormatParser {
 
-    static final Logger LOG = LoggerFactory.getLogger(OBOFormatParser.class);
+    static final Logger LOG = Logger.getLogger(OBOFormatParser.class.getName());
 
     // TODO use this to validate date strings for OboFormatTag.TAG_CREATION_DATE
-    @Nonnull
     protected static SimpleDateFormat getISODateFormat() {
         return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     }
@@ -68,7 +64,6 @@ public class OBOFormatParser {
             return line.charAt(pos - 1);
         }
 
-        @Nullable
         public String rest() {
             prepare();
             if (line == null) {
@@ -121,12 +116,11 @@ public class OBOFormatParser {
             return line == null;
         }
 
-        @Nonnull
         public static String getTag() {
             return "";
         }
 
-        public boolean consume(@Nonnull String s) {
+        public boolean consume(String s) {
             String r = rest();
             if (r == null) {
                 return false;
@@ -146,7 +140,6 @@ public class OBOFormatParser {
             return line.substring(pos).indexOf(c);
         }
 
-        @Nonnull
         @Override
         public String toString() {
             return line + "//" + pos + " LINE:" + lineNo;
@@ -207,8 +200,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    @Nonnull
-    public OBODoc parse(@Nonnull String fn) throws IOException {
+    public OBODoc parse(String fn) throws IOException {
         if (fn.startsWith("http:")) {
             return parse(new URL(fn));
         }
@@ -226,7 +218,6 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    @Nonnull
     public OBODoc parse(File file) throws IOException {
         location = file;
         BufferedReader in = new BufferedReader(new InputStreamReader(
@@ -250,8 +241,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    @Nonnull
-    public OBODoc parse(@Nonnull URL url) throws IOException {
+    public OBODoc parse(URL url) throws IOException {
         location = url;
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(url.openStream(),
@@ -270,15 +260,13 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    @Nonnull
     public OBODoc parseURL(String urlstr) throws IOException {
         URL url = new URL(urlstr);
         return parse(url);
     }
 
     @SuppressWarnings("null")
-    @Nonnull
-    private String resolvePath(@Nonnull String inputPath) {
+    private String resolvePath(String inputPath) {
         String path = inputPath;
         if (!(path.startsWith("http:") || path.startsWith("file:") || path
                 .startsWith("https:"))) {
@@ -308,14 +296,13 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    @Nonnull
     public OBODoc parse(BufferedReader reader) throws IOException {
         setReader(reader);
         OBODoc obodoc = new OBODoc();
         parseOBODoc(obodoc);
         // handle imports
         Frame hf = obodoc.getHeaderFrame();
-        List<OBODoc> imports = new LinkedList<>();
+        List<OBODoc> imports = new LinkedList<OBODoc>();
         if (hf != null) {
             for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
                 @SuppressWarnings("null")
@@ -351,7 +338,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public void parseOBODoc(@Nonnull OBODoc obodoc) {
+    public void parseOBODoc(OBODoc obodoc) {
         Frame h = new Frame(FrameType.HEADER);
         obodoc.setHeaderFrame(h);
         parseHeaderFrame(h);
@@ -370,7 +357,7 @@ public class OBOFormatParser {
         }
     }
 
-    private static void addOboNamespace(@Nullable Collection<Frame> frames,
+    private static void addOboNamespace(Collection<Frame> frames,
             String defaultOboNamespace) {
         if (frames != null && !frames.isEmpty()) {
             for (Frame termFrame : frames) {
@@ -392,9 +379,8 @@ public class OBOFormatParser {
      *         dangling reference error
      */
     @SuppressWarnings("null")
-    @Nonnull
-    public List<String> checkDanglingReferences(@Nonnull OBODoc doc) {
-        List<String> danglingReferences = new ArrayList<>();
+    public List<String> checkDanglingReferences(OBODoc doc) {
+        List<String> danglingReferences = new ArrayList<String>();
         // check term frames
         for (Frame f : doc.getTermFrames()) {
             for (String tag : f.getTags()) {
@@ -472,9 +458,8 @@ public class OBOFormatParser {
         return danglingReferences;
     }
 
-    @Nullable
     private String checkRelation(String relId, String tag, String frameId,
-            @Nonnull OBODoc doc) {
+            OBODoc doc) {
         if (doc.getTypedefFrame(relId, followImport) == null) {
             return "The relation '" + relId + "' reference in" + " the tag '"
                     + tag + " ' in the frame of id '" + frameId
@@ -483,9 +468,8 @@ public class OBOFormatParser {
         return null;
     }
 
-    @Nullable
     private String checkClassReference(String classId, String tag,
-            String frameId, @Nonnull OBODoc doc) {
+            String frameId, OBODoc doc) {
         if (doc.getTermFrame(classId, followImport) == null) {
             return "The class '" + classId + "' reference in" + " the tag '"
                     + tag + " ' in the frame of id '" + frameId
@@ -500,7 +484,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public void parseHeaderFrame(@Nonnull Frame h) {
+    public void parseHeaderFrame(Frame h) {
         while (parseHeaderClauseNl(h)) {}
     }
 
@@ -513,7 +497,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    protected boolean parseHeaderClauseNl(@Nonnull Frame h) {
+    protected boolean parseHeaderClauseNl(Frame h) {
         parseZeroOrMoreWsOptCmtNl();
         if (stream.peekCharIs('[') || stream.eof()) {
             return false;
@@ -524,7 +508,7 @@ public class OBOFormatParser {
         return true;
     }
 
-    protected void parseHeaderClause(@Nonnull Frame h) {
+    protected void parseHeaderClause(Frame h) {
         String t = getParseTag();
         Clause cl = new Clause(t);
         OboFormatTag tag = OBOFormatConstants.getTag(t);
@@ -559,14 +543,15 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public void parseEntityFrame(@Nonnull OBODoc obodoc) {
+    public void parseEntityFrame(OBODoc obodoc) {
         parseZeroOrMoreWsOptCmtNl();
         String rest = stream.rest();
         if (rest != null && rest.startsWith("[Term]")) {
             parseTermFrame(obodoc);
         } else if (rest != null && rest.startsWith("[Instance]")) {
-            LOG.error("Error: Instance frames are not supported yet. Parsing stopped at line: "
-                    + stream.getLineNo());
+            LOG.log(Level.SEVERE,
+                    "Error: Instance frames are not supported yet. Parsing stopped at line: "
+                            + stream.getLineNo());
             while (!stream.eof()) {
                 stream.advanceLine();
             }
@@ -587,7 +572,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public void parseTermFrame(@Nonnull OBODoc obodoc) {
+    public void parseTermFrame(OBODoc obodoc) {
         Frame f = new Frame(FrameType.TERM);
         parseZeroOrMoreWsOptCmtNl();
         if (stream.consume("[Term]")) {
@@ -620,7 +605,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    protected void parseTermFrameClauseEOL(@Nonnull Frame f) {
+    protected void parseTermFrameClauseEOL(Frame f) {
         // comment line:
         if (stream.peekCharIs('!')) {
             parseHiddenComment();
@@ -637,7 +622,6 @@ public class OBOFormatParser {
      *         parser exception
      * @return parsed clause
      */
-    @Nonnull
     public Clause parseTermFrameClause() {
         String t = getParseTag();
         Clause cl = new Clause(t);
@@ -725,7 +709,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public void parseTypedefFrame(@Nonnull OBODoc obodoc) {
+    public void parseTypedefFrame(OBODoc obodoc) {
         Frame f = new Frame(FrameType.TYPEDEF);
         parseZeroOrMoreWsOptCmtNl();
         if (stream.consume("[Typedef]")) {
@@ -758,7 +742,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    protected void parseTypedefFrameClauseEOL(@Nonnull Frame f) {
+    protected void parseTypedefFrameClauseEOL(Frame f) {
         // comment line:
         if (stream.peekCharIs('!')) {
             parseHiddenComment();
@@ -775,7 +759,6 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    @Nonnull
     public Clause parseTypedefFrameClause() {
         String t = getParseTag();
         if (t.equals("is_metadata")) {
@@ -885,7 +868,6 @@ public class OBOFormatParser {
     // TVP
     // ----------------------------------------
     @SuppressWarnings("null")
-    @Nonnull
     private String getParseTag() {
         if (stream.eof()) {
             error("Expected an id tag, not end of file.");
@@ -910,11 +892,11 @@ public class OBOFormatParser {
         return mapDeprecatedTag(tag);
     }
 
-    private void parseIdRef(@Nonnull Clause cl) {
+    private void parseIdRef(Clause cl) {
         parseIdRef(cl, false);
     }
 
-    private void parseIdRef(@Nonnull Clause cl, boolean optional) {
+    private void parseIdRef(Clause cl, boolean optional) {
         String id = getParseUntil(" !{");
         if (!optional && id.length() < 1) {
             error("");
@@ -922,17 +904,17 @@ public class OBOFormatParser {
         cl.addValue(id);
     }
 
-    private void parseIdRefPair(@Nonnull Clause cl) {
+    private void parseIdRefPair(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
         parseIdRef(cl);
     }
 
-    private void parsePerson(@Nonnull Clause cl) {
+    private void parsePerson(Clause cl) {
         parseUnquotedString(cl);
     }
 
-    private boolean parseISODate(@Nonnull Clause cl) {
+    private boolean parseISODate(Clause cl) {
         String dateStr = getParseUntil(" !{");
         // Date date;
         // try {
@@ -945,7 +927,7 @@ public class OBOFormatParser {
          */
     }
 
-    private void parseSubsetdef(@Nonnull Clause cl) {
+    private void parseSubsetdef(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
         if (stream.consume("\"")) {
@@ -959,7 +941,7 @@ public class OBOFormatParser {
         parseHiddenComment();
     }
 
-    private void parseSynonymTypedef(@Nonnull Clause cl) {
+    private void parseSynonymTypedef(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
         if (stream.consume("\"")) {
@@ -978,7 +960,7 @@ public class OBOFormatParser {
         parseHiddenComment();
     }
 
-    private void parseHeaderDate(@Nonnull Clause cl) {
+    private void parseHeaderDate(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!");
         v = removeTrailingWS(v);
@@ -992,7 +974,7 @@ public class OBOFormatParser {
         }
     }
 
-    private boolean parseImport(@Nonnull Clause cl) {
+    private boolean parseImport(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!{");
         v = removeTrailingWS(v);
@@ -1007,7 +989,7 @@ public class OBOFormatParser {
         return true;
     }
 
-    private void parseIdSpace(@Nonnull Clause cl) {
+    private void parseIdSpace(Clause cl) {
         parseZeroOrMoreWs();
         parseIdRefPair(cl);
         parseZeroOrMoreWs();
@@ -1024,13 +1006,13 @@ public class OBOFormatParser {
         parseHiddenComment();
     }
 
-    private void parseRelationship(@Nonnull Clause cl) {
+    private void parseRelationship(Clause cl) {
         parseIdRef(cl);
         parseOneOrMoreWs();
         parseIdRef(cl);
     }
 
-    private void parsePropertyValue(@Nonnull Clause cl) {
+    private void parsePropertyValue(Clause cl) {
         // parse a pair or triple
         // the first and second value, may be quoted strings
         if (stream.peekCharIs('\"')) {
@@ -1064,7 +1046,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    private void parseTermIntersectionOf(@Nonnull Clause cl) {
+    private void parseTermIntersectionOf(Clause cl) {
         parseIdRef(cl);
         // consumed the first ID
         parseZeroOrMoreWs();
@@ -1077,7 +1059,7 @@ public class OBOFormatParser {
         }
     }
 
-    private void parseTypedefIntersectionOf(@Nonnull Clause cl) {
+    private void parseTypedefIntersectionOf(Clause cl) {
         // single values only
         parseIdRef(cl);
     }
@@ -1085,8 +1067,7 @@ public class OBOFormatParser {
     // ----------------------------------------
     // Synonyms
     // ----------------------------------------
-    private boolean parseDeprecatedSynonym(@Nonnull String tag,
-            @Nonnull Clause cl) {
+    private boolean parseDeprecatedSynonym(String tag, Clause cl) {
         String scope = null;
         if (tag.equals("exact_synonym")) {
             scope = OboFormatTag.TAG_EXACT.getTag();
@@ -1111,7 +1092,7 @@ public class OBOFormatParser {
         return false;
     }
 
-    private void parseSynonym(@Nonnull Clause cl) {
+    private void parseSynonym(Clause cl) {
         if (stream.consume("\"")) {
             String syn = getParseUntilAdv("\"");
             cl.setValue(syn);
@@ -1133,7 +1114,7 @@ public class OBOFormatParser {
     // ----------------------------------------
     // Definitions
     // ----------------------------------------
-    private void parseDef(@Nonnull Clause cl) {
+    private void parseDef(Clause cl) {
         if (stream.consume("\"")) {
             String def = getParseUntilAdv("\"");
             cl.setValue(def);
@@ -1144,7 +1125,7 @@ public class OBOFormatParser {
         }
     }
 
-    private void parseOwlDef(@Nonnull Clause cl) {
+    private void parseOwlDef(Clause cl) {
         if (stream.consume("\"")) {
             String def = getParseUntilAdv("\"");
             cl.setValue(def);
@@ -1158,7 +1139,7 @@ public class OBOFormatParser {
     // ----------------------------------------
     // XrefLists - e.g. [A:1, B:2, ... ]
     // ----------------------------------------
-    private void parseXrefList(@Nonnull Clause cl, boolean optional) {
+    private void parseXrefList(Clause cl, boolean optional) {
         if (stream.consume("[")) {
             parseZeroOrMoreXrefs(cl);
             parseZeroOrMoreWs();
@@ -1173,7 +1154,7 @@ public class OBOFormatParser {
         }
     }
 
-    private boolean parseZeroOrMoreXrefs(@Nonnull Clause cl) {
+    private boolean parseZeroOrMoreXrefs(Clause cl) {
         if (parseXref(cl)) {
             while (stream.consume(",") && parseXref(cl)) {}
         }
@@ -1181,7 +1162,7 @@ public class OBOFormatParser {
     }
 
     // an xref that supports a value of values in a clause
-    private boolean parseXref(@Nonnull Clause cl) {
+    private boolean parseXref(Clause cl) {
         parseZeroOrMoreWs();
         String id = getParseUntil("\",]!{", true);
         if (!id.isEmpty()) {
@@ -1202,7 +1183,7 @@ public class OBOFormatParser {
     }
 
     // an xref that is a direct value of a clause
-    private boolean parseDirectXref(@Nonnull Clause cl) {
+    private boolean parseDirectXref(Clause cl) {
         parseZeroOrMoreWs();
         String id = getParseUntil("\",]!{", true);
         id = id.trim();
@@ -1224,7 +1205,7 @@ public class OBOFormatParser {
     // ----------------------------------------
     // Qualifier Value blocks - e.g. {a="1",b="foo", ...}
     // ----------------------------------------
-    private void parseQualifierBlock(@Nonnull Clause cl) {
+    private void parseQualifierBlock(Clause cl) {
         if (stream.consume("{")) {
             parseZeroOrMoreQuals(cl);
             parseZeroOrMoreWs();
@@ -1235,13 +1216,13 @@ public class OBOFormatParser {
         }
     }
 
-    private void parseZeroOrMoreQuals(@Nonnull Clause cl) {
+    private void parseZeroOrMoreQuals(Clause cl) {
         if (parseQual(cl)) {
             while (stream.consume(",") && parseQual(cl)) {}
         }
     }
 
-    private boolean parseQual(@Nonnull Clause cl) {
+    private boolean parseQual(Clause cl) {
         parseZeroOrMoreWs();
         String rest = stream.rest();
         assert rest != null;
@@ -1271,7 +1252,7 @@ public class OBOFormatParser {
     // ----------------------------------------
     // Other
     // ----------------------------------------
-    private void parseBoolean(@Nonnull Clause cl) {
+    private void parseBoolean(Clause cl) {
         if (stream.consume("true")) {
             cl.setValue(true);
         } else if (stream.consume("false")) {
@@ -1281,7 +1262,7 @@ public class OBOFormatParser {
         }
     }
 
-    protected void parseIdLine(@Nonnull Frame f) {
+    protected void parseIdLine(Frame f) {
         String t = getParseTag();
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         if (tag != OboFormatTag.TAG_ID) {
@@ -1307,7 +1288,7 @@ public class OBOFormatParser {
      * @throws OBOFormatParserException
      *         parser exception
      */
-    public void parseEOL(@Nonnull Clause cl) {
+    public void parseEOL(Clause cl) {
         parseZeroOrMoreWs();
         parseQualifierBlock(cl);
         parseHiddenComment();
@@ -1321,7 +1302,7 @@ public class OBOFormatParser {
         }
     }
 
-    protected void parseUnquotedString(@Nonnull Clause cl) {
+    protected void parseUnquotedString(Clause cl) {
         parseZeroOrMoreWs();
         String v = getParseUntil("!{");
         // strip whitespace from the end - TODO
@@ -1396,22 +1377,18 @@ public class OBOFormatParser {
         }
     }
 
-    @Nonnull
-    private String getParseUntilAdv(@Nonnull String compl) {
+    private String getParseUntilAdv(String compl) {
         String ret = getParseUntil(compl);
         stream.advance(1);
         return ret;
     }
 
-    @Nonnull
-    private String getParseUntil(@Nonnull String compl) {
+    private String getParseUntil(String compl) {
         return getParseUntil(compl, false);
     }
 
     @SuppressWarnings("null")
-    @Nonnull
-    private String
-            getParseUntil(@Nonnull String compl, boolean commaWhitespace) {
+    private String getParseUntil(String compl, boolean commaWhitespace) {
         String r = stream.rest();
         assert r != null;
         int i = 0;
@@ -1479,8 +1456,7 @@ public class OBOFormatParser {
         return ret;
     }
 
-    @Nonnull
-    private static String mapDeprecatedTag(@Nonnull String tag) {
+    private static String mapDeprecatedTag(String tag) {
         if (tag.equals("inverse_of_on_instance_level")) {
             return OboFormatTag.TAG_INVERSE_OF.getTag();
         }
@@ -1496,7 +1472,7 @@ public class OBOFormatParser {
         return tag;
     }
 
-    private static String removeTrailingWS(@Nonnull String s) {
+    private static String removeTrailingWS(String s) {
         // TODO make this more efficient
         return s.replaceAll("\\s*$", "");
     }
@@ -1506,6 +1482,7 @@ public class OBOFormatParser {
     }
 
     private void warn(String message) {
-        LOG.warn("LINE: {} {}  LINE:\n{}", stream.lineNo, message, stream.line);
+        LOG.log(Level.WARNING, "LINE: {} {}  LINE:\n{}" + stream.lineNo
+                + message + stream.line);
     }
 }

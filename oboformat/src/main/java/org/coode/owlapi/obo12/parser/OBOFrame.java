@@ -1,33 +1,33 @@
 /*
  * This file is part of the OWL API.
- *  
+ *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
  * Copyright (C) 2011, The University of Manchester
- *  
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see http://www.gnu.org/licenses/.
  *
- *  
+ *
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
  * Copyright 2011, The University of Manchester
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -38,7 +38,9 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Author: Matthew Horridge<br>
@@ -46,53 +48,33 @@ import javax.annotation.Nonnull;
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012
  */
-@SuppressWarnings("all")
-class OBOTagValuePair {
+class OBOFrame {
 
-    @Nonnull
-    private String tagName;
-    @Nonnull
-    private String value;
-    @Nonnull
-    private String qualifier;
-    @Nonnull
-    private String comment;
+    private String frameType;
+    private final List<OBOTagValuePair> tagValuePairs;
 
-    /**
-     * @param tagName
-     * @param value
-     * @param qualifier
-     * @param comment
-     */
-    public OBOTagValuePair(@Nonnull String tagName, @Nonnull String value,
-            @Nonnull String qualifier, @Nonnull String comment) {
-        this.tagName = tagName;
-        this.value = value;
-        this.qualifier = qualifier;
-        this.comment = comment;
+    public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
+        this.tagValuePairs = tagValuePairs;
     }
 
-    /** @return the tag name */
-    @Nonnull
-    public String getTagName() {
-        return tagName;
+    public OBOFrame(String frameType, List<OBOTagValuePair> tagValuePairs) {
+        this.frameType = frameType;
+        this.tagValuePairs = new ArrayList<OBOTagValuePair>(tagValuePairs);
     }
 
-    /** @return the value */
-    @Nonnull
-    public String getValue() {
-        return value;
+    public String getFrameType() {
+        return frameType;
     }
 
-    /** @return the qualifier */
-    @Nonnull
-    public String getQualifier() {
-        return qualifier;
+    public List<OBOTagValuePair> getTagValuePairs() {
+        return Collections.unmodifiableList(tagValuePairs);
     }
 
-    /** @return the comment */
-    @Nonnull
-    public String getComment() {
-        return comment;
+    public boolean isHeaderFrame() {
+        return frameType == null;
+    }
+
+    public boolean isTypeDefFrame() {
+        return OBOVocabulary.TYPEDEF.getName().equals(frameType);
     }
 }

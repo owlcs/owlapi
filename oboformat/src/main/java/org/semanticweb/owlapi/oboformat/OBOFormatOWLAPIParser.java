@@ -17,9 +17,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.coode.owlapi.obo.parser.OBOOntologyFormat;
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -42,10 +39,10 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
-    @Nonnull
+    
     @Override
     public OWLOntologyFormat parse(IRI documentIRI,
-            @Nonnull OWLOntology ontology) throws IOException {
+             OWLOntology ontology) throws IOException {
         try {
             parse(documentIRI, null, ontology);
         } catch (OBOFormatParserException e) {
@@ -56,11 +53,11 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return new OBOOntologyFormat();
     }
 
-    @Nonnull
+    
     @Override
     public OWLOntologyFormat parse(
-            @Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology,
+             OWLOntologyDocumentSource documentSource,
+             OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) throws IOException {
         // XXX configuration is not used
         try {
@@ -75,9 +72,9 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @SuppressWarnings("null")
     private static OWLOntology
-            parse(@Nullable IRI iri,
-                    @Nullable OWLOntologyDocumentSource source,
-                    @Nonnull OWLOntology in) throws IOException,
+            parse( IRI iri,
+                     OWLOntologyDocumentSource source,
+                     OWLOntology in) throws IOException,
                     OWLOntologyCreationException {
         if (iri == null && source == null) {
             throw new IllegalArgumentException(

@@ -35,8 +35,6 @@
 */
 package org.semanticweb.owlapi.oboformat;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -49,7 +47,7 @@ public class OBOFormatOWLAPIParserFactory implements OWLParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    @Nonnull
+    
     public OWLParser createParser() {
         return new OBOFormatOWLAPIParser();
     }

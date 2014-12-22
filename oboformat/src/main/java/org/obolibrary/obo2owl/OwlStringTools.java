@@ -5,9 +5,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -58,9 +55,9 @@ public class OwlStringTools {
      *         OwlStringException
      * @see #translate(String, OWLOntologyManager)
      */
-    @Nullable
-    public static String translate(@Nullable Set<OWLAxiom> axioms,
-            @Nonnull OWLOntologyManager translationManager)
+    
+    public static String translate( Set<OWLAxiom> axioms,
+             OWLOntologyManager translationManager)
             throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
@@ -92,9 +89,9 @@ public class OwlStringTools {
      *         OwlStringException
      * @see #translate(Set,OWLOntologyManager)
      */
-    @Nullable
-    public static Set<OWLAxiom> translate(@Nullable String axioms,
-            @Nonnull OWLOntologyManager translationManager,
+    
+    public static Set<OWLAxiom> translate( String axioms,
+             OWLOntologyManager translationManager,
             OWLOntologyLoaderConfiguration config) throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
