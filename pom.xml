@@ -41,8 +41,8 @@
 
 
 	<issueManagement>
-		<system>sourceforge</system>
-		<url>http://sourceforge.net/tracker/?group_id=90989</url>
+		<system>GitHub</system>
+		<url>https://github.com/owlcs/owlapi/issues</url>
 	</issueManagement>
 
 
@@ -183,7 +183,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
+						<version>1.5</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -291,7 +291,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.2</version>
+				<version>1.6.3</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
