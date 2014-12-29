@@ -62,6 +62,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
@@ -2240,7 +2241,7 @@ class OWLLiteralElementHandler extends OWLElementHandler<OWLLiteral> {
 
     @Override
     void endElement() {
-        if (iri != null && !iri.isPlainLiteral()) {
+        if (iri != null && !(iri.isPlainLiteral() || iri.equals(OWL2Datatype.RDF_LANG_STRING.getIRI()))) {
             literal = df.getOWLLiteral(getText(),
                     df.getOWLDatatype(verifyNotNull(iri)));
         } else {

@@ -24,7 +24,7 @@ import com.google.common.base.Optional;
 import java.util.Set;
 
 /**
- * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL
+ * An OWLLiteral whose datatype is RDF_LANG_STRING or XSD_STRING
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
@@ -37,7 +37,15 @@ public class OWLLiteralImplPlain extends
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
+    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
+            OWL2Datatype.RDF_LANG_STRING);
+    @Nonnull
+    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(
+            OWL2Datatype.XSD_STRING);
+    @Nonnull
     private final String literal;
+    @Nonnull
+    private final OWLDatatype datatype;
     @Nonnull
     private final String lang;
 
@@ -49,10 +57,12 @@ public class OWLLiteralImplPlain extends
      */
     public OWLLiteralImplPlain(@Nonnull String literal, @Nullable String lang) {
         this.literal = literal;
-        if (lang == null || lang.length() == 0) {
+        if (lang == null || lang.isEmpty()) {
             this.lang = "";
+            this.datatype = XSD_STRING;
         } else {
-            this.lang = lang;
+            this.lang = lang.trim();
+            this.datatype = RDF_LANG_STRING;
         }
         hashCode = getHashCode();
     }
@@ -77,7 +87,7 @@ public class OWLLiteralImplPlain extends
 
     @Override
     public boolean hasLang() {
-        return !lang.equals("");
+        return !lang.isEmpty();
     }
 
     @Override
@@ -87,7 +97,7 @@ public class OWLLiteralImplPlain extends
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return true;
+        return false;
     }
 
     @Override
@@ -143,7 +153,7 @@ public class OWLLiteralImplPlain extends
 
     @Override
     public OWLDatatype getDatatype() {
-        return RDF_PLAIN_LITERAL;
+        return this.datatype;
     }
 
     @Override
@@ -186,10 +196,6 @@ public class OWLLiteralImplPlain extends
                 return false;
             }
             OWLLiteral other = (OWLLiteral) obj;
-            if (other instanceof OWLLiteralImplPlain) {
-                return literal.equals(((OWLLiteralImplPlain) other).literal)
-                        && lang.equals(other.getLang());
-            }
             return getLiteral().equals(other.getLiteral())
                     && getDatatype().equals(other.getDatatype())
                     && lang.equals(other.getLang());
@@ -224,11 +230,11 @@ public class OWLLiteralImplPlain extends
         if (diff != 0) {
             return diff;
         }
-        diff = getDatatype().compareTo(other.getDatatype());
-        if (diff != 0) {
+        diff = lang.compareToIgnoreCase(other.getLang());
+        if(diff != 0) {
             return diff;
         }
-        return lang.compareTo(other.getLang());
+        return getDatatype().compareTo(other.getDatatype());
     }
 
     @Override

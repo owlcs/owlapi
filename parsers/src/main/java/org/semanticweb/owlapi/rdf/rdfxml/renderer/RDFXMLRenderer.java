@@ -256,12 +256,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 }
             } else {
                 RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
-                if (!rdfLiteralNode.isPlainLiteral()) {
-                    writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
-                } else if (rdfLiteralNode.hasLang()) {
+                if (rdfLiteralNode.hasLang()) {
                     writer.writeLangAttribute(rdfLiteralNode.getLang());
+                } else if (!rdfLiteralNode.isPlainLiteral()) {
+                    writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
                 }
-                writer.writeTextContent(rdfLiteralNode.getLexicalValue());
+               	writer.writeTextContent(rdfLiteralNode.getLexicalValue());
             }
             writer.writeEndElement();
         }

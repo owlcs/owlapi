@@ -199,8 +199,13 @@ public class TurtleRenderer extends RDFRendererBase {
                 write(node.getLexicalValue());
             } else {
                 writeStringLiteral(node.getLexicalValue());
-                write("^^");
-                write(node.getDatatype());
+                if (node.hasLang()) {
+                    write("@");
+                    write(node.getLang());
+                } else {
+	                write("^^");
+	                write(node.getDatatype());
+                }
             }
         } else {
             writeStringLiteral(node.getLexicalValue());

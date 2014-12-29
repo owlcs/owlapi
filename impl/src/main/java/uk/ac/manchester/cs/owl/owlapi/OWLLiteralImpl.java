@@ -54,6 +54,12 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
+    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
+            OWL2Datatype.RDF_LANG_STRING);
+    @Nonnull
+    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(
+            OWL2Datatype.XSD_STRING);
+    @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
     private final String language;
@@ -80,21 +86,21 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
                 "literal cannot be null"));
         if (lang == null || lang.isEmpty()) {
             language = "";
-            if (datatype == null) {
-                this.datatype = RDF_PLAIN_LITERAL;
+            if (datatype == null || datatype.equals(RDF_PLAIN_LITERAL) || datatype.equals(XSD_STRING)) {
+                this.datatype = XSD_STRING;
             } else {
                 this.datatype = datatype;
             }
         } else {
-            if (datatype != null && !datatype.isRDFPlainLiteral()) {
+            if (datatype != null && !(datatype.equals(RDF_LANG_STRING) || datatype.equals(RDF_PLAIN_LITERAL))) {
                 // ERROR: attempting to build a literal with a language tag and
-                // type different from plain literal
+                // type different from plain literal or lang string
                 throw new OWLRuntimeException(
                         "Error: cannot build a literal with type: "
                                 + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
-            this.datatype = RDF_PLAIN_LITERAL;
+            this.datatype = RDF_LANG_STRING;
         }
         hashcode = getHashCode();
     }

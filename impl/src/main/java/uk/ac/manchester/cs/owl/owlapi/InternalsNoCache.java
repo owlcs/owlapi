@@ -38,6 +38,9 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private static final OWLDatatype PLAIN = new OWL2DatatypeImpl(
             RDF_PLAIN_LITERAL);
     @Nonnull
+    private static final OWLDatatype LANGSTRING = new OWL2DatatypeImpl(
+            RDF_LANG_STRING);
+    @Nonnull
     private static final OWLDatatype XSDBOOLEAN = new OWL2DatatypeImpl(
             XSD_BOOLEAN);
     @Nonnull
@@ -48,6 +51,9 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     @Nonnull
     private static final OWLDatatype XSDINTEGER = new OWL2DatatypeImpl(
             XSD_INTEGER);
+    @Nonnull
+    private static final OWLDatatype XSDSTRING = new OWL2DatatypeImpl(
+            XSD_STRING);
     @Nonnull
     private static final OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(
             RDFS_LITERAL);
@@ -110,8 +116,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     @Override
     public OWLLiteral getOWLLiteral(@Nonnull String value) {
         if (useCompression) {
-            return new OWLLiteralImpl(value, "",
-                    getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+            return new OWLLiteralImpl(value, "", XSDSTRING);
         }
         return new OWLLiteralImplString(value);
     }
@@ -124,10 +129,17 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         } else {
             normalisedLang = lang.trim().toLowerCase(Locale.ENGLISH);
         }
-        if (useCompression) {
-            return new OWLLiteralImpl(literal, normalisedLang, null);
+        if (normalisedLang.isEmpty()) {
+            if (useCompression) {
+                return new OWLLiteralImpl(literal, null, XSDSTRING);
+            }
+            return new OWLLiteralImplString(literal);
+        } else {
+            if (useCompression) {
+                return new OWLLiteralImpl(literal, normalisedLang, null);
+            }
+            return new OWLLiteralImplPlain(literal, normalisedLang);
         }
-        return new OWLLiteralImplPlain(literal, normalisedLang);
     }
 
     @Override
@@ -150,14 +162,14 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
             @Nonnull OWLDatatype datatype) {
         OWLLiteral literal;
-        if (datatype.isRDFPlainLiteral()) {
+        if (datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
             int sep = lexicalValue.lastIndexOf('@');
             if (sep != -1) {
                 String lex = lexicalValue.substring(0, sep);
                 String lang = lexicalValue.substring(sep + 1);
-                literal = getBasicLiteral(lex, lang, getRDFPlainLiteral());
+                literal = getBasicLiteral(lex, lang, LANGSTRING);
             } else {
-                literal = getBasicLiteral(lexicalValue, datatype);
+                literal = getBasicLiteral(lexicalValue, XSDSTRING);
             }
         } else {
             // check the special cases
@@ -225,7 +237,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             String lang, OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
-            if (datatype == null || datatype.isRDFPlainLiteral()) {
+            if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(RDF_LANG_STRING)) {
                 literal = new OWLLiteralImplPlain(lexicalValue, lang);
             } else {
                 literal = new OWLLiteralImpl(lexicalValue, lang, datatype);
