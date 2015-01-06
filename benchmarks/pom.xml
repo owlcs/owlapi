@@ -51,6 +51,11 @@ questions.
         </dependency>
 
         <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-ncbitaxon</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
 
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>

@@ -273,6 +273,17 @@ public class OBOFormatWriter {
             throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, HeaderTagsComparator.INSTANCE);
+        // cmungall: Hardcoding 1.2 is deliberate.
+        // obof1.2 never really had much of a spec to speak of, just a guide. We
+        // initiated the attempt to make a proper spec and named this 1.4
+        // (ignoring the abandoned common logic 1.3 spec...). Formally, 1.4 is
+        // actually a subset of 1.2 (as formally as you can get with the 1.2
+        // guide), because 1.2 allows open-ended tag values.
+        // We opted to write 1.2 in the header because every document produced
+        // should be a valid 1.2 doc, and we wanted people to be able to use it
+        // without worrying about downstream underspecified ad-hoc parsers
+        // throwing a wobbly when they see something other than 1.2 in the
+        // header.
         write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"),
                 writer, nameProvider);
         for (String tag : tags) {

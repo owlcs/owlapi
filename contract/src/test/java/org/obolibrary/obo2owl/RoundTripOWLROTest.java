@@ -61,8 +61,7 @@ public class RoundTripOWLROTest extends RoundTripTest {
         convert(oboDoc2);
         // check that the two oboDocs are equal
         List<Diff> diffs = OBODocDiffer.getDiffs(oboDoc1, oboDoc2);
-        assertEquals(
-                "Expected one diff, the oboformat diff is missing from the conversion",
-                1, diffs.size());
+        // the input uses version 1.4, but the output is hardcoded to be 1.2
+        assertEquals(1, diffs.size());
     }
 }
