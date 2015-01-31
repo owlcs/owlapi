@@ -19,7 +19,17 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.ClassExpressionType;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -99,13 +109,10 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLObjectOneOf)) {
-                return false;
-            }
-            return ((OWLObjectOneOf) obj).getIndividuals().equals(values);
+        if (!(obj instanceof OWLObjectOneOf)) {
+            return false;
         }
-        return false;
+        return ((OWLObjectOneOf) obj).getIndividuals().equals(values);
     }
 
     @Override
