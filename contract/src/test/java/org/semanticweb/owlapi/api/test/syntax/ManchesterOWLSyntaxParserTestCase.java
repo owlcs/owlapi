@@ -73,11 +73,11 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>"
                 + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>"
                 + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "Ontology: <urn:test>" + "AnnotationProperty: rdfs:label"
-                + "AnnotationProperty: o:bob" + "Annotations: "
-                + "rdfs:label \"bob-label\"@en" + "Datatype: rdf:PlainLiteral",
-                saveOntology(o).toString().replace("\n", "")
-                        .replace("    ", ""));
+                + "Ontology: <urn:test>" + "AnnotationProperty: o:bob"
+                + "Annotations: " + "rdfs:label \"bob-label\"@en"
+                + "AnnotationProperty: rdfs:label"
+                + "Datatype: rdf:PlainLiteral", saveOntology(o).toString()
+                .replace("\n", "").replace("    ", ""));
         OWLOntology o2 = roundTrip(o);
         equal(o, o2);
     }
