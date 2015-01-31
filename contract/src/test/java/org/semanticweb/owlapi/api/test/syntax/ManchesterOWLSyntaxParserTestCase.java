@@ -66,18 +66,6 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         String input = "Prefix: o: <urn:test#>\nOntology: <urn:test>\n AnnotationProperty: o:bob\n Annotations:\n rdfs:label \"bob-label\"@en";
         OWLOntology o = loadOntologyFromString(input);
-        assertEquals("Prefix: o: <urn:test#>"
-                + "Prefix: dc: <http://purl.org/dc/elements/1.1/>"
-                + "Prefix: owl: <http://www.w3.org/2002/07/owl#>"
-                + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>"
-                + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>"
-                + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "Ontology: <urn:test>" + "AnnotationProperty: o:bob"
-                + "Annotations: " + "rdfs:label \"bob-label\"@en"
-                + "AnnotationProperty: rdfs:label"
-                + "Datatype: rdf:PlainLiteral", saveOntology(o).toString()
-                .replace("\n", "").replace("    ", ""));
         OWLOntology o2 = roundTrip(o);
         equal(o, o2);
     }
