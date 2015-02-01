@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,10 +26,12 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 import org.semanticweb.owlapi.search.Filters;
 
@@ -162,11 +166,9 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             // visit the properties in order of preference
             AnnotationLanguageFilter checker = new AnnotationLanguageFilter(
                     prop, preferredLanguageMap.get(prop));
-            ontologySetProvider
-                    .ontologies()
-                    .flatMap(
-                            o -> o.axioms(Filters.annotations, entity.getIRI(),
-                                    INCLUDED))
+            Function<? super OWLOntology, ? extends Stream<? extends OWLAxiom>> mapper = o -> o
+                    .axioms(Filters.annotations, entity.getIRI(), INCLUDED);
+            ontologySetProvider.ontologies().flatMap(mapper)
                     .forEach(ax -> ax.accept(checker));
             OWLObject match = checker.getMatch();
             if (match != null) {
