@@ -36,12 +36,13 @@
 		<!-- The distribution module is a single-jar build of the whole OWL API. -->
 		<module>distribution</module>
 		<module>osgidistribution</module>
+		<module>benchmarks</module>
 	</modules>
 
 
 	<issueManagement>
-		<system>sourceforge</system>
-		<url>http://sourceforge.net/tracker/?group_id=90989</url>
+		<system>GitHub</system>
+		<url>https://github.com/owlcs/owlapi/issues</url>
 	</issueManagement>
 
 
@@ -182,7 +183,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
+						<version>1.5</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -237,7 +238,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.2</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
@@ -287,12 +288,17 @@
 					<argLine>-Xmx1024M -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>
-			<!-- the FindBugs plugin for extra checks -->
-			<!--plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> 
-				<version>2.5.3</version> <executions> <execution> <id>findbugs-check</id> 
-				<phase>verify</phase> <goals> <goal>check</goal> </goals> <configuration> 
-				<failOnError>false</failOnError> </configuration> </execution> </executions> 
-			</plugin-->
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.3</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
