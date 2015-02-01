@@ -706,13 +706,15 @@ public class OWLAPIObo2Owl {
     /**
      * Generate axioms for the alternate identifiers of an {@link OWLClass} or
      * {@link OWLObjectProperty}.
+     * 
      * @param clauses
      *        collection of alt_id clauses
      * @param replacedBy
      *        IRI of the enity
      * @param isClass
      *        set to true if the alt_id is represents a class, false in case of
-     *        an property @return set of axioms generated for the alt_id clauses
+     *        an property
+     * @return set of axioms generated for the alt_id clauses
      */
     @Nonnull
     protected Set<OWLAxiom> translateAltIds(
@@ -1132,13 +1134,14 @@ public class OWLAPIObo2Owl {
             String tag, @Nonnull Clause clause) {
         OWLAxiom ax = null;
         Object v = clause.getValue();
+        assert v != null;
         Set<OWLAnnotation> annotations = trAnnotations(clause);
         OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
         if (tagConstant == OboFormatTag.TAG_IS_A) {
             ax = fac.getOWLSubObjectPropertyOfAxiom(p,
                     trObjectProp((String) v), annotations);
         } else if (tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
-            IRI relId = oboIdToIRI((String) clause.getValue());
+            IRI relId = oboIdToIRI((String) v);
             OWLAnnotationProperty metaProp = typedefToAnnotationProperty
                     .get(relId.toString());
             if (metaProp != null) {
@@ -1560,6 +1563,7 @@ public class OWLAPIObo2Owl {
      *        the class id
      * @return the oWL class
      */
+    @Nonnull
     protected OWLClass trClass(@Nonnull String classId) {
         return fac.getOWLClass(oboIdToIRI(classId));
     }
@@ -1571,6 +1575,7 @@ public class OWLAPIObo2Owl {
      *        the v
      * @return the oWL class expression
      */
+    @Nonnull
     protected OWLClassExpression trClass(@Nonnull Object v) {
         return trClass((String) v);
     }

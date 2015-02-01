@@ -636,12 +636,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                 a -> a.containsEntityInSignature((OWLEntity) entity));
     }
 
+    @SuppressWarnings("unchecked")
     @Nonnull
     @Override
     public <T extends OWLAxiom> Stream<T> axioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
             Imports imports) {
-        return imports.stream(this).flatMap(o -> o.axioms(filter, key));
+        return imports.stream(this).flatMap(
+                o -> (Stream<T>) o.axioms(filter, key));
     }
 
     @Nonnull

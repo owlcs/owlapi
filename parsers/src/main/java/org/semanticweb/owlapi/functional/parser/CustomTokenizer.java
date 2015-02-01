@@ -56,7 +56,7 @@ class CustomTokenizer implements TokenManager {
                     default:
                         return readTextualToken(c);
                 }
-            } catch (@SuppressWarnings("unused") IOException e) {
+            } catch (IOException e) {
                 return makeToken(EOF, "");
             }
         }
@@ -101,7 +101,7 @@ class CustomTokenizer implements TokenManager {
                     return makeToken(FULLIRI, buf.toString());
                 }
             }
-        } catch (@SuppressWarnings("unused") IOException e) {
+        } catch (IOException e) {
             return makeToken(ERROR, "<");
         }
     }
@@ -140,7 +140,7 @@ class CustomTokenizer implements TokenManager {
                     default:
                         buf.append(c);
                 }
-            } catch (@SuppressWarnings("unused") EOFException eof) {
+            } catch (EOFException eof) {
                 break;
             }
         }

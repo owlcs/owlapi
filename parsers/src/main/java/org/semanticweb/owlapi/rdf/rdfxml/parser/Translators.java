@@ -357,7 +357,7 @@ public class Translators {
             }
             try {
                 return Integer.parseInt(literal.getLiteral().trim());
-            } catch (@SuppressWarnings("unused") NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 return 0;
             }
         }

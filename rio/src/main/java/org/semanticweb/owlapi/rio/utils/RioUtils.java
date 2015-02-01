@@ -102,7 +102,7 @@ public final class RioUtils {
         if (triple.getSubject() instanceof RDFResourceIRI) {
             try {
                 subject = vf.createURI(triple.getSubject().getIRI().toString());
-            } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
+            } catch (IllegalArgumentException iae) {
                 LOGGER.error("Subject URI was invalid: {}", triple);
                 return Collections.emptyList();
             }
@@ -113,14 +113,14 @@ public final class RioUtils {
         }
         try {
             predicate = vf.createURI(triple.getPredicate().getIRI().toString());
-        } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
+        } catch (IllegalArgumentException iae) {
             LOGGER.error("Predicate URI was invalid: {}", triple);
             return Collections.emptyList();
         }
         if (triple.getObject() instanceof RDFResourceIRI) {
             try {
                 object = vf.createURI(triple.getObject().getIRI().toString());
-            } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
+            } catch (IllegalArgumentException iae) {
                 LOGGER.error("Object URI was invalid: {}", triple);
                 return Collections.emptyList();
             }

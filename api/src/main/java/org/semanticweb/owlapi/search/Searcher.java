@@ -365,9 +365,8 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> different(
-            @Nonnull Stream<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
-        return axioms.flatMap(ax -> different(ax));
+            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        return axioms.flatMap(ax -> different(ax, type));
     }
 
     /**
@@ -383,6 +382,25 @@ public final class Searcher {
     @Nonnull
     public static <C extends OWLObject> Stream<C> different(
             @Nonnull OWLAxiom axiom) {
+        return axiom.accept(new EquivalentVisitor<C>(false));
+    }
+
+    /**
+     * Retrieve disjoint entities from an axiom, including individuals from
+     * differentFrom axioms.
+     * 
+     * @param <C>
+     *        returned type
+     * @param axiom
+     *        axiom
+     * @param type
+     *        witness for returned type
+     * @return disjoint entities
+     */
+    @Nonnull
+    public static <C extends OWLObject> Stream<C> different(
+            @Nonnull OWLAxiom axiom,
+            @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(false));
     }
 
@@ -419,9 +437,8 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> sub(
-            @Nonnull Stream<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
-        return axioms.map(ax -> sub(ax));
+            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        return axioms.map(ax -> sub(ax, type));
     }
 
     /**
@@ -441,6 +458,25 @@ public final class Searcher {
     }
 
     /**
+     * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A
+     * mixture of axiom types can be passed in, as long as the entity type they
+     * contain is compatible with the return type for the collection.
+     * 
+     * @param <C>
+     *        returned type
+     * @param axiom
+     *        axiom
+     * @param type
+     *        witness for returned type
+     * @return sub expressions
+     */
+    @Nonnull
+    public static <C extends OWLObject> C sub(@Nonnull OWLAxiom axiom,
+            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+        return axiom.accept(new SupSubVisitor<C>(false));
+    }
+
+    /**
      * Retrieve the super part of axioms, i.e., superclass or superproperty. A
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
@@ -455,9 +491,8 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> sup(
-            @Nonnull Stream<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
-        return axioms.map(ax -> sup(ax));
+            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        return axioms.map(ax -> sup(ax, type));
     }
 
     /**
@@ -495,6 +530,25 @@ public final class Searcher {
     }
 
     /**
+     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A
+     * mixture of axiom types can be passed in, as long as the entity type they
+     * contain is compatible with the return type for the collection.
+     * 
+     * @param <C>
+     *        returned type
+     * @param axiom
+     *        axiom
+     * @param type
+     *        witness for returned type
+     * @return sub expressions
+     */
+    @Nonnull
+    public static <C extends OWLObject> C sup(@Nonnull OWLAxiom axiom,
+            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+        return axiom.accept(new SupSubVisitor<C>(true));
+    }
+
+    /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be
      * passed in.
      * 
@@ -525,9 +579,8 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> domain(
-            @Nonnull Stream<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
-        return axioms.map(ax -> domain(ax));
+            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        return axioms.map(ax -> domain(ax, type));
     }
 
     /**
@@ -542,6 +595,24 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> C domain(@Nonnull OWLAxiom axiom) {
+        return axiom.accept(new DomainVisitor<C>());
+    }
+
+    /**
+     * Retrieve the domains from domain axioms. A mixture of axiom types can be
+     * passed in.
+     * 
+     * @param <C>
+     *        returned type
+     * @param axiom
+     *        axiom
+     * @param type
+     *        witness for returned type
+     * @return sub expressions
+     */
+    @Nonnull
+    public static <C extends OWLObject> C domain(@Nonnull OWLAxiom axiom,
+            @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new DomainVisitor<C>());
     }
 
@@ -576,9 +647,8 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> range(
-            @Nonnull Stream<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
-        return axioms.map(ax -> range(ax));
+            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        return axioms.map(ax -> range(ax, type));
     }
 
     /**
@@ -593,6 +663,24 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> C range(@Nonnull OWLAxiom axiom) {
+        return axiom.accept(new RangeVisitor<C>());
+    }
+
+    /**
+     * Retrieve the ranges from a range axiom. A mixture of axiom types can be
+     * passed in.
+     * 
+     * @param <C>
+     *        returned type
+     * @param axiom
+     *        axiom
+     * @param type
+     *        witness for returned type
+     * @return sub expressions
+     */
+    @Nonnull
+    public static <C extends OWLObject> C range(@Nonnull OWLAxiom axiom,
+            @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new RangeVisitor<C>());
     }
 

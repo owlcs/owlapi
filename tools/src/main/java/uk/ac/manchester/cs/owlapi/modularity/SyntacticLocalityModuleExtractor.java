@@ -205,7 +205,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             @Nonnull OWLOntology ont, @Nonnull Stream<OWLAxiom> axs) {
         try {
             return man.createOntology(axs);
-        } catch (@SuppressWarnings("unused") OWLOntologyCreationException e) {
+        } catch (OWLOntologyCreationException e) {
             return ont;
         }
     }

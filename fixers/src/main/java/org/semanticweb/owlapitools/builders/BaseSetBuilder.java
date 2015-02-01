@@ -79,7 +79,7 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
      * @return builder
      */
     @Nonnull
-    @SuppressWarnings({ "unchecked", "null" })
+    @SuppressWarnings({ "unchecked" })
     public B withItems(@Nonnull Stream<? extends I> arg) {
         arg.forEach(x -> withItem(x));
         return (B) this;

@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
@@ -35,7 +34,8 @@ public class RoundTripAltIds extends RoundTripTest {
         checkAsAltId(alt_id_r1, owl, "TEST_REL:0001");
     }
 
-    private void checkAsAltId(IRI iri, OWLOntology ont, String replacedBy) {
+    private static void
+            checkAsAltId(IRI iri, OWLOntology ont, String replacedBy) {
         String altId = null;
         boolean isMerged = false;
         boolean isDeprecated = false;

@@ -160,7 +160,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                         try {
                             float f = Float.parseFloat(lexicalValue);
                             literal = getOWLLiteral(f);
-                        } catch (@SuppressWarnings("unused") NumberFormatException e) {
+                        } catch (NumberFormatException e) {
                             literal = getBasicLiteral(lexicalValue, datatype);
                         }
                     }
@@ -177,7 +177,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                             // ints - not all values are
                             literal = getOWLLiteral(Integer
                                     .parseInt(lexicalValue));
-                        } catch (@SuppressWarnings("unused") NumberFormatException ex) {
+                        } catch (NumberFormatException ex) {
                             // try as a big decimal
                             literal = getBasicLiteral(lexicalValue, datatype);
                         }
@@ -185,7 +185,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                 } else {
                     literal = getBasicLiteral(lexicalValue, datatype);
                 }
-            } catch (@SuppressWarnings("unused") NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 // some literal is malformed, i.e., wrong format
                 literal = getBasicLiteral(lexicalValue, datatype);
             }

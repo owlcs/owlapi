@@ -86,7 +86,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         annotationPropertiesByURI = buildCache();
     }
 
-    @SuppressWarnings({ "unchecked", "null" })
+    @SuppressWarnings({ "unchecked" })
     protected enum Buildable {
         OWLCLASS {
 

@@ -79,7 +79,7 @@ public class Utf8TestCase extends TestBase {
             parser.parse(new StreamDocumentSource(in), m.createOntology(),
                     config);
             fail("parsing should have failed, invalid input");
-        } catch (@SuppressWarnings("unused") Exception ex) {
+        } catch (Exception ex) {
             // expected to fail, but actual exception depends on the parsers in
             // the classpath
         }
