@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -166,8 +165,8 @@ public class TestCornerCasesTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(input);
         assertTrue(saveOntology(o).toString().contains("-INF"));
         OWLOntology o1 = roundTrip(o);
-        assertTrue("Obtologies were supposed to be the same",
-                equalStreams(o.logicalAxioms(), o1.logicalAxioms()));
+        assertEquals("Ontologies were supposed to be the same",
+                o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
     @Test
@@ -185,7 +184,7 @@ public class TestCornerCasesTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(input);
         assertTrue(saveOntology(o).toString().contains("-INF"));
         OWLOntology o1 = roundTrip(o);
-        assertTrue("Obtologies were supposed to be the same",
-                equalStreams(o.logicalAxioms(), o1.logicalAxioms()));
+        assertEquals("Ontologies were supposed to be the same",
+                o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 }
