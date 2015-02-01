@@ -320,7 +320,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     @Override
     public void visit(@Nonnull OWLAnonymousIndividual individual) {
-        write(individual.toString());
+        write(individual.toStringID());
     }
 
     @Override
