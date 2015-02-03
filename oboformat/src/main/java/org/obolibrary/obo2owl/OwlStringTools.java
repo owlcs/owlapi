@@ -1,10 +1,5 @@
 package org.obolibrary.obo2owl;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.Set;
-
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -17,6 +12,11 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Set;
 
 /**
  * Tools to read and write a set of owl axioms to/from a string. Used to
@@ -53,7 +53,7 @@ public class OwlStringTools {
      * @return string or null
      * @throws OwlStringException
      *         OwlStringException
-     * @see #translate(String, OWLOntologyManager)
+     * @see #translate(String, OWLOntologyManager,org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration)
      */
     
     public static String translate( Set<OWLAxiom> axioms,
