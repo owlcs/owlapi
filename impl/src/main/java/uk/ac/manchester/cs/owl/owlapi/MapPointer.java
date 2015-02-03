@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
@@ -188,9 +189,37 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return value
      */
     @Nonnull
-    public synchronized Iterable<V> getValues(K key) {
+    public synchronized List<V> getValues(K key) {
         init();
         return get(key);
+    }
+
+    /**
+     * @param <T>
+     *        type of key
+     * @param filter
+     *        filter to satisfy
+     * @param key
+     *        key
+     * @return set of values
+     */
+    @Nonnull
+    public <T> Collection<OWLAxiom> filterAxioms(
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull T key) {
+        init();
+        List<OWLAxiom> toReturn = new ArrayList<>();
+        for (AxiomType<?> at : filter.getAxiomTypes()) {
+            Collection<V> collection = map.get(at);
+            if (collection != null) {
+                for (OWLAxiom ax : collection) {
+                    assert ax != null;
+                    if (filter.pass(ax, key)) {
+                        toReturn.add(ax);
+                    }
+                }
+            }
+        }
+        return toReturn;
     }
 
     /**
@@ -390,10 +419,10 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     @Nonnull
-    private Iterable<V> get(K k) {
+    private List<V> get(K k) {
         Collection<V> t = map.get(k);
         if (t == null) {
-            return CollectionFactory.emptySet();
+            return CollectionFactory.emptyList();
         }
         return new ArrayList<>(t);
     }
