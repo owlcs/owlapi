@@ -19,7 +19,20 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.DataRangeType;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
+import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
+import org.semanticweb.owlapi.model.OWLDataVisitor;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -104,15 +117,15 @@ public class OWLDatatypeRestrictionImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLDatatypeRestriction)) {
-                return false;
-            }
-            OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
-            return other.getDatatype().equals(datatype)
-                    && other.getFacetRestrictions().equals(facetRestrictions);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!(obj instanceof OWLDatatypeRestriction)) {
+            return false;
+        }
+        OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
+        return other.getDatatype().equals(datatype)
+                && other.getFacetRestrictions().equals(facetRestrictions);
     }
 
     @Override

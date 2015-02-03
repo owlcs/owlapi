@@ -32,9 +32,9 @@ public abstract class OWLRestrictionImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLRestriction;
+        if (obj == this) {
+            return true;
         }
-        return false;
+        return obj instanceof OWLRestriction;
     }
 }

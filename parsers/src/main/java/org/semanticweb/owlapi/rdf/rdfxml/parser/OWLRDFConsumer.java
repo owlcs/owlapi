@@ -2042,12 +2042,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
                 if (consume) {
                     objects.remove(object);
                 }
-                if (objects.isEmpty()) {
-                    predObjMap.remove(predicate);
-                    if (predObjMap.isEmpty()) {
-                        resTriplesBySubject.remove(subject);
-                    }
-                }
+                // if (objects.isEmpty()) {
+                // predObjMap.remove(predicate);
+                // if (predObjMap.isEmpty()) {
+                // resTriplesBySubject.remove(subject);
+                // }
+                // }
                 return object;
             }
         }
@@ -2200,12 +2200,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
                 if (objects.contains(object)) {
                     if (consume) {
                         objects.remove(object);
-                        if (objects.isEmpty()) {
-                            predObjMap.remove(predicate);
-                            if (predObjMap.isEmpty()) {
-                                resTriplesBySubject.remove(subject);
-                            }
-                        }
+                        // if (objects.isEmpty()) {
+                        // predObjMap.remove(predicate);
+                        // if (predObjMap.isEmpty()) {
+                        // resTriplesBySubject.remove(subject);
+                        // }
+                        // }
                     }
                     return true;
                 }
@@ -2467,17 +2467,17 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the iterator
      */
     protected void iterateResourceTriples(ResourceTripleIterator iterator) {
-        for (IRI subject : new ArrayList<>(resTriplesBySubject.keySet())) {
+        for (IRI subject : resTriplesBySubject.keySet()) {
             Map<IRI, Collection<IRI>> map = resTriplesBySubject.get(subject);
             if (map == null) {
                 continue;
             }
-            for (IRI predicate : new ArrayList<>(map.keySet())) {
+            for (IRI predicate : map.keySet()) {
                 Collection<IRI> objects = map.get(predicate);
                 if (objects == null) {
                     continue;
                 }
-                for (IRI object : new ArrayList<>(objects)) {
+                for (IRI object : objects.toArray(new IRI[objects.size()])) {
                     assert subject != null;
                     assert predicate != null;
                     assert object != null;

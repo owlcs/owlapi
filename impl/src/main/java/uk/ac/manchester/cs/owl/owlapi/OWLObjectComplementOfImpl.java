@@ -14,12 +14,21 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.ClassExpressionType;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-
-import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -73,13 +82,10 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLObjectComplementOf)) {
-                return false;
-            }
-            return ((OWLObjectComplementOf) obj).getOperand().equals(operand);
+        if (!(obj instanceof OWLObjectComplementOf)) {
+            return false;
         }
-        return false;
+        return ((OWLObjectComplementOf) obj).getOperand().equals(operand);
     }
 
     @Override

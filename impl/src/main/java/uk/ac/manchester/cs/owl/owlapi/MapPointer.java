@@ -20,6 +20,7 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
@@ -33,8 +34,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
@@ -56,8 +55,7 @@ import com.google.common.collect.Iterables;
 public class MapPointer<K, V extends OWLAxiom> {
 
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
-    private static final int DEFAULT_INITIAL_CAPACITY = 2;
-    private static Logger logger = LoggerFactory.getLogger(MapPointer.class);
+    private static final int DEFAULT_INITIAL_CAPACITY = 5;
     @Nullable
     private final AxiomType<?> type;
     @Nullable
@@ -67,7 +65,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     protected final Internals i;
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
-    private final THashMap<K, Set<V>> map = new THashMap<>(17, 0.75F);
+    private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);
+    private boolean neverTrimmed = true;
 
     /**
      * @param t
@@ -269,6 +268,9 @@ public class MapPointer<K, V extends OWLAxiom> {
     /** @return number of mapping contained */
     public synchronized int size() {
         init();
+        if (neverTrimmed) {
+            trimToSize();
+        }
         return size;
     }
 
@@ -279,7 +281,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private boolean putInternal(K k, V v) {
-        Set<V> set = map.get(k);
+        Collection<V> set = map.get(k);
         if (set == null) {
             set = Collections.singleton(v);
             map.put(k, set);
@@ -297,8 +299,10 @@ public class MapPointer<K, V extends OWLAxiom> {
             if (set.contains(v)) {
                 return false;
             } else {
-                set = makeSet(set);
+                set = makeSet(set, v);
                 map.put(k, set);
+                size++;
+                return true;
             }
         }
         boolean added = set.add(v);
@@ -309,7 +313,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private boolean containsEntry(K k, V v) {
-        Set<V> t = map.get(k);
+        Collection<V> t = map.get(k);
         if (t == null) {
             return false;
         }
@@ -317,7 +321,10 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private boolean removeInternal(K k, V v) {
-        Set<V> t = map.get(k);
+        if (neverTrimmed) {
+            trimToSize();
+        }
+        Collection<V> t = map.get(k);
         if (t == null) {
             return false;
         }
@@ -340,22 +347,40 @@ public class MapPointer<K, V extends OWLAxiom> {
         return removed;
     }
 
-    private Set<V> makeSet() {
-        return makeSet(DEFAULT_INITIAL_CAPACITY);
+    private static class THashSetForSet<E> extends THashSet<E> {
+
+        private boolean constructing = true;
+
+        public THashSetForSet(Collection<E> set, E toAdd, int capacity,
+                float load) {
+            super(capacity, load);
+            for (E e : set) {
+                add(e);
+            }
+            add(toAdd);
+            constructing = false;
+        }
+
+        @Override
+        protected boolean equals(Object notnull, Object two) {
+            // shortcut: during construction from a set, no element is
+            // duplicate. The extra element is also guaranteed to be unique,
+            // given the use made in this class.
+            if (constructing) {
+                return notnull == two;
+            }
+            return super.equals(notnull, two);
+        }
     }
 
-    private Set<V> makeSet(int initialCapacity) {
-        return makeSet(initialCapacity, DEFAULT_LOAD_FACTOR);
-    }
-
-    private THashSet<V> makeSet(int initialCapacity, float loadFactor) {
-        return new THashSet<>(initialCapacity, loadFactor);
-    }
-
-    private Set<V> makeSet(Collection<V> collection) {
-        Set<V> result = makeSet();
-        result.addAll(collection);
-        return result;
+    private Collection<V> makeSet(Collection<V> collection, V extra) {
+        if (neverTrimmed) {
+            List<V> list = new ArrayList<>(collection);
+            list.add(extra);
+            return list;
+        }
+        return new THashSetForSet<>(collection, extra,
+                DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
 
     @SuppressWarnings("null")
@@ -366,7 +391,7 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     @Nonnull
     private Iterable<V> get(K k) {
-        Set<V> t = map.get(k);
+        Collection<V> t = map.get(k);
         if (t == null) {
             return CollectionFactory.emptySet();
         }
@@ -386,9 +411,15 @@ public class MapPointer<K, V extends OWLAxiom> {
     public void trimToSize() {
         if (initialized) {
             map.trimToSize();
-            for (Map.Entry<K, Set<V>> entry : map.entrySet()) {
-                Set<V> set = entry.getValue();
-                if (set instanceof THashSet) {
+            neverTrimmed = false;
+            for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
+                Collection<V> set = entry.getValue();
+                if (set instanceof ArrayList) {
+                    THashSet<V> value = new THashSet<>(set);
+                    entry.setValue(value);
+                    size = size - set.size() + value.size();
+                    value.trimToSize();
+                } else if (set instanceof THashSet) {
                     THashSet<V> vs = (THashSet<V>) set;
                     vs.trimToSize();
                     totalInUse.addAndGet(set.size());
