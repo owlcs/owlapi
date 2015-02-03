@@ -53,12 +53,11 @@ public class OwlStringTools {
      * @return string or null
      * @throws OwlStringException
      *         OwlStringException
-     * @see #translate(String, OWLOntologyManager)
+     * @see #translate(String,
+     *      OWLOntologyManager,org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration)
      */
-    
-    public static String translate( Set<OWLAxiom> axioms,
-             OWLOntologyManager translationManager)
-            throws OwlStringException {
+    public static String translate(Set<OWLAxiom> axioms,
+            OWLOntologyManager translationManager) throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
         }
@@ -84,14 +83,15 @@ public class OwlStringTools {
      *        axioms
      * @param translationManager
      *        translationManager
+     * @param config
+     *        the loader configuration, passed to the parser
      * @return set of axioms or null
      * @throws OwlStringException
      *         OwlStringException
      * @see #translate(Set,OWLOntologyManager)
      */
-    
-    public static Set<OWLAxiom> translate( String axioms,
-             OWLOntologyManager translationManager,
+    public static Set<OWLAxiom> translate(String axioms,
+            OWLOntologyManager translationManager,
             OWLOntologyLoaderConfiguration config) throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
