@@ -103,17 +103,20 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLNaryPropertyAxiom)) {
-                return false;
-            }
-            if (obj instanceof OWLNaryPropertyAxiomImpl) {
-                return properties
-                        .equals(((OWLNaryPropertyAxiomImpl<?>) obj).properties);
-            }
-            return compareObjectOfSameType((OWLNaryPropertyAxiom<?>) obj) == 0;
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLNaryPropertyAxiom)) {
+            return false;
+        }
+        if (obj instanceof OWLNaryPropertyAxiomImpl) {
+            return properties
+                    .equals(((OWLNaryPropertyAxiomImpl<?>) obj).properties);
+        }
+        return compareObjectOfSameType((OWLNaryPropertyAxiom<?>) obj) == 0;
     }
 
     @Override

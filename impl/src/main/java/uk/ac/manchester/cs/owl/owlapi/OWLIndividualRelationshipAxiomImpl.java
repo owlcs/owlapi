@@ -103,16 +103,19 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLPropertyAssertionAxiom)) {
-                return false;
-            }
-            OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) obj;
-            return other.getSubject().equals(subject)
-                    && other.getProperty().equals(property)
-                    && other.getObject().equals(o);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLPropertyAssertionAxiom)) {
+            return false;
+        }
+        OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) obj;
+        return other.getSubject().equals(subject)
+                && other.getProperty().equals(property)
+                && other.getObject().equals(o);
     }
 
     @Override

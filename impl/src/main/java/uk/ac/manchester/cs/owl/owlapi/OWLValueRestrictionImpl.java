@@ -49,12 +49,15 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLHasValueRestriction<?>)) {
-                return false;
-            }
-            return ((OWLHasValueRestriction<?>) obj).getFiller().equals(value);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLHasValueRestriction<?>)) {
+            return false;
+        }
+        return ((OWLHasValueRestriction<?>) obj).getFiller().equals(value);
     }
 }

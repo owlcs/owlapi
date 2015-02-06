@@ -88,17 +88,20 @@ public abstract class OWLNaryIndividualAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLNaryIndividualAxiom)) {
-                return false;
-            }
-            if (obj instanceof OWLNaryIndividualAxiomImpl) {
-                return individuals
-                        .equals(((OWLNaryIndividualAxiomImpl) obj).individuals);
-            }
-            return compareObjectOfSameType((OWLNaryIndividualAxiom) obj) == 0;
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLNaryIndividualAxiom)) {
+            return false;
+        }
+        if (obj instanceof OWLNaryIndividualAxiomImpl) {
+            return individuals
+                    .equals(((OWLNaryIndividualAxiomImpl) obj).individuals);
+        }
+        return compareObjectOfSameType((OWLNaryIndividualAxiom) obj) == 0;
     }
 
     @Override

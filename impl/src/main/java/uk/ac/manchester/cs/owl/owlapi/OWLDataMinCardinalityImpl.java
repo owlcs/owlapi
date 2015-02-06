@@ -60,10 +60,13 @@ public class OWLDataMinCardinalityImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLDataMinCardinality;
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLDataMinCardinality;
     }
 
     @Override

@@ -150,6 +150,9 @@ public abstract class OWLAxiomImplWithEntityAndAnonCaching extends
         if (obj == this) {
             return true;
         }
+        if (obj == null || hashCode() != obj.hashCode()) {
+            return false;
+        }
         if (!(obj instanceof OWLAxiom)) {
             return false;
         }

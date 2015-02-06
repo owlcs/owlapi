@@ -71,7 +71,13 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLDisjointClassesAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLDisjointClassesAxiom;
     }
 
     @Override
