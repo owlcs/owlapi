@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -876,15 +875,7 @@ public class Internals implements Serializable {
     @Nonnull
     public <K> Collection<OWLAxiom> filterAxioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
-        Collection<OWLAxiom> toReturn = new ArrayList<>();
-        for (AxiomType<?> at : filter.getAxiomTypes()) {
-            for (OWLAxiom t : getAxiomsByType().getValues(at)) {
-                if (filter.pass(t, key)) {
-                    toReturn.add(t);
-                }
-            }
-        }
-        return toReturn;
+        return getAxiomsByType().filterAxioms(filter, key);
     }
 
     /**

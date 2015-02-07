@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.SmallSet;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
@@ -221,6 +222,30 @@ public class MapPointer<K, V extends OWLAxiom> {
             return Stream.empty();
         }
         return ((Collection<O>) t).stream();
+    }
+
+    /**
+     * @param <T>
+     *        type of key
+     * @param filter
+     *        filter to satisfy
+     * @param key
+     *        key
+     * @return set of values
+     */
+    @Nonnull
+    public <T> Collection<OWLAxiom> filterAxioms(
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull T key) {
+        init();
+        List<OWLAxiom> toReturn = new ArrayList<>();
+        for (AxiomType<?> at : filter.getAxiomTypes()) {
+            Collection<V> collection = map.get(at);
+            if (collection != null) {
+                collection.stream().filter(x -> filter.pass(x, key))
+                        .forEach(x -> toReturn.add(x));
+            }
+        }
+        return toReturn;
     }
 
     /**
