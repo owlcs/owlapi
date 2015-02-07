@@ -12,12 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owlapi.modularity;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +25,9 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.search.Filters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -434,13 +433,19 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                         "  Added entity declaration axiom:   {}",
                         minusOntologyURI(a.toString())));
             }
-            Collection<OWLAxiom> axioms = asList(ontology.axioms(
-                    Filters.annotations, entity.getIRI(), INCLUDED));
-            enrichedModule.addAll(axioms);
-            if (LOGGER.isInfoEnabled()) {
-                axioms.forEach(a -> LOGGER.info(
-                        "  Added entity annotation axiom:   {}",
-                        minusOntologyURI(a.toString())));
+        }
+        Set<IRI> iris = new HashSet<>(sig.size());
+        for (OWLEntity i : sig) {
+            iris.add(i.getIRI());
+        }
+        for (OWLAnnotationAssertionAxiom annotation : ontology
+                .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            if (iris.contains(annotation.getSubject())) {
+                enrichedModule.add(annotation);
+                if (LOGGER.isInfoEnabled()) {
+                    LOGGER.info("  Added entity annotation axiom:   {}",
+                            minusOntologyURI(annotation.toString()));
+                }
             }
         }
         // Adding all same-individuals axioms
