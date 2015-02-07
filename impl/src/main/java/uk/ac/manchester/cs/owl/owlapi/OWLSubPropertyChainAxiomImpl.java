@@ -98,6 +98,9 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (!super.equals(obj)) {
             return false;
         }

@@ -206,16 +206,19 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLLiteral)) {
-                return false;
-            }
-            OWLLiteral other = (OWLLiteral) obj;
-            return literal.get().equals(other.getLiteral())
-                    && datatype.equals(other.getDatatype())
-                    && language.equals(other.getLang());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLLiteral)) {
+            return false;
+        }
+        OWLLiteral other = (OWLLiteral) obj;
+        return literal.get().equals(other.getLiteral())
+                && datatype.equals(other.getDatatype())
+                && language.equals(other.getLang());
     }
 
     @Override

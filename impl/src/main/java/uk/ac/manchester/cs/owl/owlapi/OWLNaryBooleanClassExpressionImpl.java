@@ -56,19 +56,21 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLNaryBooleanClassExpression)) {
-                return false;
-            }
-            if (obj instanceof OWLNaryBooleanClassExpressionImpl) {
-                return ((OWLNaryBooleanClassExpressionImpl) obj).operands
-                        .equals(operands);
-            }
-            return equalStreams(
-                    ((OWLNaryBooleanClassExpression) obj).operands(),
-                    operands());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLNaryBooleanClassExpression)) {
+            return false;
+        }
+        if (obj instanceof OWLNaryBooleanClassExpressionImpl) {
+            return ((OWLNaryBooleanClassExpressionImpl) obj).operands
+                    .equals(operands);
+        }
+        return equalStreams(((OWLNaryBooleanClassExpression) obj).operands(),
+                operands());
     }
 
     @Override

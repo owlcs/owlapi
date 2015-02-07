@@ -61,11 +61,14 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLObjectRestriction
-                    && getProperty().equals(
-                            ((OWLObjectRestriction) obj).getProperty());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLObjectRestriction
+                && getProperty().equals(
+                        ((OWLObjectRestriction) obj).getProperty());
     }
 }

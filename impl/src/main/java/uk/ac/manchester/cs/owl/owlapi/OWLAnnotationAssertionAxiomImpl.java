@@ -135,17 +135,20 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            // superclass is responsible for null, identity, owlaxiom type and
-            // annotations
-            if (!(obj instanceof OWLAnnotationAssertionAxiom)) {
-                return false;
-            }
-            OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
-            return subject.equals(other.getSubject())
-                    && property.equals(other.getProperty())
-                    && value.equals(other.getValue());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        // superclass is responsible for null, identity, owlaxiom type and
+        // annotations
+        if (!(obj instanceof OWLAnnotationAssertionAxiom)) {
+            return false;
+        }
+        OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
+        return subject.equals(other.getSubject())
+                && property.equals(other.getProperty())
+                && value.equals(other.getValue());
     }
 }

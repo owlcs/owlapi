@@ -54,9 +54,12 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLDataAllValuesFrom;
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLDataAllValuesFrom;
     }
 }

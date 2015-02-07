@@ -66,12 +66,15 @@ public class OWLObjectHasValueImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLObjectHasValue
-                    && getProperty().equals(
-                            ((OWLObjectHasValue) obj).getProperty());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLObjectHasValue
+                && getProperty()
+                        .equals(((OWLObjectHasValue) obj).getProperty());
     }
 
     @Override

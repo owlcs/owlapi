@@ -99,16 +99,19 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            // superclass is responsible for null, identity, owlaxiom type and
-            // annotations
-            if (!(obj instanceof OWLAnnotationPropertyDomainAxiom)) {
-                return false;
-            }
-            OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) obj;
-            return property.equals(other.getProperty())
-                    && domain.equals(other.getDomain());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        // superclass is responsible for null, identity, owlaxiom type and
+        // annotations
+        if (!(obj instanceof OWLAnnotationPropertyDomainAxiom)) {
+            return false;
+        }
+        OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) obj;
+        return property.equals(other.getProperty())
+                && domain.equals(other.getDomain());
     }
 }

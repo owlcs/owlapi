@@ -69,15 +69,18 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLSubPropertyAxiom)) {
-                return false;
-            }
-            OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) obj;
-            return other.getSubProperty().equals(subProperty)
-                    && other.getSuperProperty().equals(superProperty);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLSubPropertyAxiom)) {
+            return false;
+        }
+        OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) obj;
+        return other.getSubProperty().equals(subProperty)
+                && other.getSuperProperty().equals(superProperty);
     }
 
     @Override

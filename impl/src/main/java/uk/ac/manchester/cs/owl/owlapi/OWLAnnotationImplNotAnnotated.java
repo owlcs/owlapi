@@ -93,13 +93,19 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj) && obj instanceof OWLAnnotation) {
-            OWLAnnotation other = (OWLAnnotation) obj;
-            return other.getProperty().equals(property)
-                    && other.getValue().equals(value)
-                    && equalStreams(other.annotations(), annotations());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLAnnotation)) {
+            return false;
+        }
+        OWLAnnotation other = (OWLAnnotation) obj;
+        return other.getProperty().equals(property)
+                && other.getValue().equals(value)
+                && equalStreams(other.annotations(), annotations());
     }
 
     @Override

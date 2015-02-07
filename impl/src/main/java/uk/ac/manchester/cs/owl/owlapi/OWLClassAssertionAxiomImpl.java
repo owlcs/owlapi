@@ -86,15 +86,18 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLClassAssertionAxiom)) {
-                return false;
-            }
-            OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
-            return other.getIndividual().equals(individual)
-                    && other.getClassExpression().equals(classExpression);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLClassAssertionAxiom)) {
+            return false;
+        }
+        OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
+        return other.getIndividual().equals(individual)
+                && other.getClassExpression().equals(classExpression);
     }
 
     @Override

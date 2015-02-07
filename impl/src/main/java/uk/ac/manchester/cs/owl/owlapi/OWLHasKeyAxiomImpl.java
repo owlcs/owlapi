@@ -103,17 +103,20 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            // superclass is responsible for null, identity, owlaxiom type and
-            // annotations
-            if (!(obj instanceof OWLHasKeyAxiom)) {
-                return false;
-            }
-            OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
-            return expression.equals(other.getClassExpression())
-                    && compareStreams(propertyExpressions(),
-                            other.propertyExpressions()) == 0;
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        // superclass is responsible for null, identity, owlaxiom type and
+        // annotations
+        if (!(obj instanceof OWLHasKeyAxiom)) {
+            return false;
+        }
+        OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
+        return expression.equals(other.getClassExpression())
+                && compareStreams(propertyExpressions(),
+                        other.propertyExpressions()) == 0;
     }
 }

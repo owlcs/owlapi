@@ -59,13 +59,16 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLDataComplementOf)) {
-                return false;
-            }
-            return ((OWLDataComplementOf) obj).getDataRange().equals(dataRange);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLDataComplementOf)) {
+            return false;
+        }
+        return ((OWLDataComplementOf) obj).getDataRange().equals(dataRange);
     }
 
     @Override

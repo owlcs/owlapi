@@ -59,12 +59,14 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLObjectHasSelf
-                    && getProperty().equals(
-                            ((OWLObjectHasSelf) obj).getProperty());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLObjectHasSelf
+                && getProperty().equals(((OWLObjectHasSelf) obj).getProperty());
     }
 
     @Override

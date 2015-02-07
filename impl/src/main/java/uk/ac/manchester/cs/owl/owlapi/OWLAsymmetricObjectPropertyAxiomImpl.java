@@ -64,8 +64,13 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj)
-                && obj instanceof OWLAsymmetricObjectPropertyAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLAsymmetricObjectPropertyAxiom;
     }
 
     @Override

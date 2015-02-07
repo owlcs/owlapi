@@ -66,12 +66,16 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLDataHasValue
-                    && getProperty().equals(
-                            ((OWLDataHasValue) obj).getProperty());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLDataHasValue)) {
+            return false;
+        }
+        return getProperty().equals(((OWLDataHasValue) obj).getProperty());
     }
 
     @Override

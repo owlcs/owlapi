@@ -87,8 +87,13 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj)
-                && obj instanceof OWLNegativeDataPropertyAssertionAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLNegativeDataPropertyAssertionAxiom;
     }
 
     @Override

@@ -61,13 +61,16 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLPropertyDomainAxiom)) {
-                return false;
-            }
-            return ((OWLPropertyDomainAxiom<?>) obj).getDomain().equals(domain);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLPropertyDomainAxiom)) {
+            return false;
+        }
+        return ((OWLPropertyDomainAxiom<?>) obj).getDomain().equals(domain);
     }
 
     @Override

@@ -130,15 +130,18 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof SWRLRule)) {
-                return false;
-            }
-            SWRLRule other = (SWRLRule) obj;
-            return equalStreams(body(), other.body())
-                    && equalStreams(head(), other.head());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof SWRLRule)) {
+            return false;
+        }
+        SWRLRule other = (SWRLRule) obj;
+        return equalStreams(body(), other.body())
+                && equalStreams(head(), other.head());
     }
 
     @Override

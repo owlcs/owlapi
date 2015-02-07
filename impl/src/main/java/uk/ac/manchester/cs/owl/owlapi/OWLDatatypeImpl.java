@@ -137,10 +137,16 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj) && obj instanceof OWLDatatype) {
-            return ((OWLDatatype) obj).getIRI().equals(getIRI());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLDatatype)) {
+            return false;
+        }
+        return ((OWLDatatype) obj).getIRI().equals(getIRI());
     }
 
     @Override

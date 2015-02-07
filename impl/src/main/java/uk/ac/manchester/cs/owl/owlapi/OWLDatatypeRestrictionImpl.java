@@ -78,22 +78,23 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLDatatypeRestriction)) {
-                return false;
-            }
-            if (obj instanceof OWLDatatypeRestrictionImpl) {
-                return datatype
-                        .equals(((OWLDatatypeRestrictionImpl) obj).datatype)
-                        && facetRestrictions
-                                .equals(((OWLDatatypeRestrictionImpl) obj).facetRestrictions);
-            }
-            OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
-            return other.getDatatype().equals(datatype)
-                    && equalStreams(other.facetRestrictions(),
-                            facetRestrictions());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLDatatypeRestriction)) {
+            return false;
+        }
+        if (obj instanceof OWLDatatypeRestrictionImpl) {
+            return datatype.equals(((OWLDatatypeRestrictionImpl) obj).datatype)
+                    && facetRestrictions
+                            .equals(((OWLDatatypeRestrictionImpl) obj).facetRestrictions);
+        }
+        OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
+        return other.getDatatype().equals(datatype)
+                && equalStreams(other.facetRestrictions(), facetRestrictions());
     }
 
     @Override

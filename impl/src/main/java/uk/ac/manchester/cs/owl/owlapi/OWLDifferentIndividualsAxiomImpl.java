@@ -105,7 +105,13 @@ public class OWLDifferentIndividualsAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLDifferentIndividualsAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLDifferentIndividualsAxiom;
     }
 
     @Override

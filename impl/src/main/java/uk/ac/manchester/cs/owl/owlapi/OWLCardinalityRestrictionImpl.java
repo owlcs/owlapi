@@ -52,14 +52,17 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
     @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLCardinalityRestriction)) {
-                return false;
-            }
-            OWLCardinalityRestriction<F> other = (OWLCardinalityRestriction<F>) obj;
-            return other.getCardinality() == cardinality
-                    && other.getFiller().equals(filler);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLCardinalityRestriction)) {
+            return false;
+        }
+        OWLCardinalityRestriction<F> other = (OWLCardinalityRestriction<F>) obj;
+        return other.getCardinality() == cardinality
+                && other.getFiller().equals(filler);
     }
 }

@@ -55,13 +55,15 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLUnaryPropertyAxiom)) {
-                return false;
-            }
-            return ((OWLUnaryPropertyAxiom<?>) obj).getProperty().equals(
-                    property);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLUnaryPropertyAxiom)) {
+            return false;
+        }
+        return ((OWLUnaryPropertyAxiom<?>) obj).getProperty().equals(property);
     }
 }

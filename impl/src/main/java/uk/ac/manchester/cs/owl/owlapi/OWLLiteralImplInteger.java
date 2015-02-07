@@ -77,17 +77,21 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLLiteralImplInteger) {
-                OWLLiteralImplInteger other = (OWLLiteralImplInteger) obj;
-                return literal == other.literal;
-            }
-            if (obj instanceof OWLLiteral) {
-                return getDatatype().equals(((OWLLiteral) obj).getDatatype())
-                        && getLiteral().equals(((OWLLiteral) obj).getLiteral());
-            }
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (obj instanceof OWLLiteralImplInteger) {
+            OWLLiteralImplInteger other = (OWLLiteralImplInteger) obj;
+            return literal == other.literal;
+        }
+        if (!(obj instanceof OWLLiteral)) {
+            return false;
+        }
+        return ((OWLLiteral) obj).isInteger()
+                && literal == ((OWLLiteral) obj).parseInteger();
     }
 
     @Override

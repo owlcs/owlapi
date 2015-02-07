@@ -54,13 +54,16 @@ public abstract class OWLDataPropertyCharacteristicAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLDataPropertyCharacteristicAxiom)) {
-                return false;
-            }
-            return ((OWLDataPropertyCharacteristicAxiom) obj).getProperty()
-                    .equals(property);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLDataPropertyCharacteristicAxiom)) {
+            return false;
+        }
+        return ((OWLDataPropertyCharacteristicAxiom) obj).getProperty().equals(
+                property);
     }
 }

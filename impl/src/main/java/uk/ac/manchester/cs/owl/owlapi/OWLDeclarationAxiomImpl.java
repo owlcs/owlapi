@@ -69,14 +69,18 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            // superclass is responsible for null, identity, owlaxiom type and
-            // annotations
-            if (obj instanceof OWLDeclarationAxiom) {
-                return ((OWLDeclarationAxiom) obj).getEntity().equals(entity);
-            }
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        // superclass is responsible for null, identity, owlaxiom type and
+        // annotations
+        if (!(obj instanceof OWLDeclarationAxiom)) {
+            return false;
+        }
+        return ((OWLDeclarationAxiom) obj).getEntity().equals(entity);
     }
 
     @Override

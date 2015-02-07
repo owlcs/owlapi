@@ -208,22 +208,25 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLLiteral)) {
-                return false;
-            }
-            OWLLiteral other = (OWLLiteral) obj;
-            if (other instanceof OWLLiteralImplNoCompression) {
-                return literal
-                        .equals(((OWLLiteralImplNoCompression) other).literal)
-                        && datatype.equals(other.getDatatype())
-                        && language.equals(other.getLang());
-            }
-            return literal.equals(other.getLiteral())
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLLiteral)) {
+            return false;
+        }
+        OWLLiteral other = (OWLLiteral) obj;
+        if (other instanceof OWLLiteralImplNoCompression) {
+            return literal
+                    .equals(((OWLLiteralImplNoCompression) other).literal)
                     && datatype.equals(other.getDatatype())
                     && language.equals(other.getLang());
         }
-        return false;
+        return literal.equals(other.getLiteral())
+                && datatype.equals(other.getDatatype())
+                && language.equals(other.getLang());
     }
 
     @Override

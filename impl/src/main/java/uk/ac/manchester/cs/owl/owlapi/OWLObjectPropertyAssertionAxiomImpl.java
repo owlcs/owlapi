@@ -81,8 +81,13 @@ public class OWLObjectPropertyAssertionAxiomImpl
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj)
-                && obj instanceof OWLObjectPropertyAssertionAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLObjectPropertyAssertionAxiom;
     }
 
     @Override

@@ -70,7 +70,13 @@ public class OWLDataPropertyDomainAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLDataPropertyDomainAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLDataPropertyDomainAxiom;
     }
 
     @Override

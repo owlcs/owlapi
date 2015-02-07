@@ -48,12 +48,15 @@ public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange>
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLQuantifiedRestriction) {
-                return ((OWLQuantifiedRestriction<?>) obj).getFiller().equals(
-                        filler);
-            }
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLQuantifiedRestriction)) {
+            return false;
+        }
+        return ((OWLQuantifiedRestriction<?>) obj).getFiller().equals(filler);
     }
 }

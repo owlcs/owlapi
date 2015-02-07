@@ -83,6 +83,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || hashCode() != obj.hashCode()) {
+            return false;
+        }
         if (!super.equals(obj)) {
             return false;
         }

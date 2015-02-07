@@ -66,7 +66,13 @@ public class OWLSubObjectPropertyOfAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLSubObjectPropertyOfAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLSubObjectPropertyOfAxiom;
     }
 
     @Override

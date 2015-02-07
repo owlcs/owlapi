@@ -77,17 +77,21 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLLiteralImplFloat) {
-                OWLLiteralImplFloat other = (OWLLiteralImplFloat) obj;
-                return literal == other.literal;
-            }
-            if (obj instanceof OWLLiteral) {
-                return getDatatype().equals(((OWLLiteral) obj).getDatatype())
-                        && getLiteral().equals(((OWLLiteral) obj).getLiteral());
-            }
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (obj instanceof OWLLiteralImplFloat) {
+            OWLLiteralImplFloat other = (OWLLiteralImplFloat) obj;
+            return literal == other.literal;
+        }
+        if (!(obj instanceof OWLLiteral)) {
+            return false;
+        }
+        return ((OWLLiteral) obj).isFloat()
+                && Float.compare(literal, ((OWLLiteral) obj).parseFloat()) == 0;
     }
 
     @Override

@@ -77,18 +77,21 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLLiteralImplBoolean) {
-                OWLLiteralImplBoolean other = (OWLLiteralImplBoolean) obj;
-                return literal == other.literal;
-            }
-            if (obj instanceof OWLLiteral) {
-                return InternalizedEntities.XSDBOOLEAN
-                        .equals(((OWLLiteral) obj).getDatatype())
-                        && getLiteral().equals(((OWLLiteral) obj).getLiteral());
-            }
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (obj instanceof OWLLiteralImplBoolean) {
+            OWLLiteralImplBoolean other = (OWLLiteralImplBoolean) obj;
+            return literal == other.literal;
+        }
+        if (!(obj instanceof OWLLiteral)) {
+            return false;
+        }
+        return ((OWLLiteral) obj).isBoolean()
+                && literal == ((OWLLiteral) obj).parseBoolean();
     }
 
     @Override

@@ -156,14 +156,16 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLClass)) {
-                return false;
-            }
-            IRI otherIRI = ((OWLClass) obj).getIRI();
-            return otherIRI.equals(iri);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLClass)) {
+            return false;
+        }
+        return ((OWLClass) obj).getIRI().equals(iri);
     }
 
     @Override

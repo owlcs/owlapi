@@ -64,16 +64,19 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLDataOneOf)) {
-                return false;
-            }
-            if (obj instanceof OWLDataOneOfImpl) {
-                return values.equals(((OWLDataOneOfImpl) obj).values);
-            }
-            return equalStreams(((OWLDataOneOf) obj).values(), values());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLDataOneOf)) {
+            return false;
+        }
+        if (obj instanceof OWLDataOneOfImpl) {
+            return values.equals(((OWLDataOneOfImpl) obj).values);
+        }
+        return equalStreams(((OWLDataOneOf) obj).values(), values());
     }
 
     @Override

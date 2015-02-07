@@ -99,16 +99,19 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            // superclass is responsible for null, identity, owlaxiom type and
-            // annotations
-            if (!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
-                return false;
-            }
-            OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-            return property.equals(other.getProperty())
-                    && range.equals(other.getRange());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        // superclass is responsible for null, identity, owlaxiom type and
+        // annotations
+        if (!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
+            return false;
+        }
+        OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
+        return property.equals(other.getProperty())
+                && range.equals(other.getRange());
     }
 }

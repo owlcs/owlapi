@@ -53,14 +53,16 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLObjectInverseOf)) {
-                return false;
-            }
-            return ((OWLObjectInverseOf) obj).getInverse().equals(
-                    inverseProperty);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLObjectInverseOf)) {
+            return false;
+        }
+        return ((OWLObjectInverseOf) obj).getInverse().equals(inverseProperty);
     }
 
     @Override

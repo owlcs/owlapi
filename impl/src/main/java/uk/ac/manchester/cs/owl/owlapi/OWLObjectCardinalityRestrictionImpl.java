@@ -53,13 +53,17 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLObjectCardinalityRestriction) {
-                return getProperty().equals(
-                        ((OWLObjectCardinalityRestriction) obj).getProperty());
-            }
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLObjectCardinalityRestriction)) {
+            return false;
+        }
+        return getProperty().equals(
+                ((OWLObjectCardinalityRestriction) obj).getProperty());
     }
 
     @Override

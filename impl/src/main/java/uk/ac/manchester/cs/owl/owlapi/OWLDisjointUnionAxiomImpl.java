@@ -91,21 +91,24 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            // superclass is responsible for null, identity, owlaxiom type and
-            // annotations
-            if (!(obj instanceof OWLDisjointUnionAxiom)) {
-                return false;
-            }
-            if (obj instanceof OWLDisjointUnionAxiomImpl) {
-                return classExpressions
-                        .equals(((OWLDisjointUnionAxiomImpl) obj).classExpressions);
-            }
-            return ((OWLDisjointUnionAxiom) obj).getOWLClass().equals(owlClass)
-                    && equalStreams(classExpressions(),
-                            ((OWLDisjointUnionAxiom) obj).classExpressions());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        // superclass is responsible for null, identity, owlaxiom type and
+        // annotations
+        if (!(obj instanceof OWLDisjointUnionAxiom)) {
+            return false;
+        }
+        if (obj instanceof OWLDisjointUnionAxiomImpl) {
+            return classExpressions
+                    .equals(((OWLDisjointUnionAxiomImpl) obj).classExpressions);
+        }
+        return ((OWLDisjointUnionAxiom) obj).getOWLClass().equals(owlClass)
+                && equalStreams(classExpressions(),
+                        ((OWLDisjointUnionAxiom) obj).classExpressions());
     }
 
     @Override

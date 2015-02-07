@@ -26,9 +26,12 @@ public abstract class OWLPropertyExpressionImpl extends OWLObjectImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLPropertyExpression;
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLPropertyExpression;
     }
 }

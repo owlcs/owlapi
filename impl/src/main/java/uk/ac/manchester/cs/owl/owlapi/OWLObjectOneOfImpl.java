@@ -90,17 +90,19 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLObjectOneOf)) {
-                return false;
-            }
-            if (obj instanceof OWLObjectOneOfImpl) {
-                return values.equals(((OWLObjectOneOfImpl) obj).values);
-            }
-            return equalStreams(((OWLObjectOneOf) obj).individuals(),
-                    individuals());
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLObjectOneOf)) {
+            return false;
+        }
+        if (obj instanceof OWLObjectOneOfImpl) {
+            return values.equals(((OWLObjectOneOfImpl) obj).values);
+        }
+        return equalStreams(((OWLObjectOneOf) obj).individuals(), individuals());
     }
 
     @Override

@@ -98,8 +98,13 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj)
-                && obj instanceof OWLDisjointObjectPropertiesAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLDisjointObjectPropertiesAxiom;
     }
 
     @Override

@@ -64,13 +64,16 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLObjectComplementOf)) {
-                return false;
-            }
-            return ((OWLObjectComplementOf) obj).getOperand().equals(operand);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLObjectComplementOf)) {
+            return false;
+        }
+        return ((OWLObjectComplementOf) obj).getOperand().equals(operand);
     }
 
     @Override

@@ -62,13 +62,16 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLPropertyRangeAxiom)) {
-                return false;
-            }
-            return ((OWLPropertyRangeAxiom<?, ?>) obj).getRange().equals(range);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLPropertyRangeAxiom)) {
+            return false;
+        }
+        return ((OWLPropertyRangeAxiom<?, ?>) obj).getRange().equals(range);
     }
 
     @Override

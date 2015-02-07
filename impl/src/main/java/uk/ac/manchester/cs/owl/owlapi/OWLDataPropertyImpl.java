@@ -94,14 +94,16 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLDataProperty)) {
-                return false;
-            }
-            IRI otherIRI = ((OWLDataProperty) obj).getIRI();
-            return otherIRI.equals(iri);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof OWLDataProperty)) {
+            return false;
+        }
+        return ((OWLDataProperty) obj).getIRI().equals(iri);
     }
 
     @Override
