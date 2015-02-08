@@ -10,57 +10,51 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.anonymous;
+package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 3.1.0
+ * @since 2.2.0
  */
-public class AnonymousIndividualRoundtripTestCase extends
-        AbstractAxiomsRoundTrippingTestCase {
-
-    @Nonnull
-    @Override
-    protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<>();
-        OWLAnonymousIndividual ind = AnonymousIndividual();
-        OWLClass cls = Class(iri("A"));
-        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop,
-                cls.getIRI(), ind);
-        axioms.add(ax);
-        axioms.add(Declaration(cls));
-        return axioms;
-    }
+public class AxiomAnnotationsAndIdividualAnnotationsRoundTrippingTestCase
+        extends AbstractRoundTrippingTestCase {
 
     @Override
-    @Test
-    public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(getOnt(),
-                new FunctionalSyntaxDocumentFormat());
-        equal(o1, o2);
+    protected OWLOntology createOntology() {
+        OWLOntology ont = getOWLOntology("OntA");
+        OWLAnnotationProperty prop = AnnotationProperty(OWLRDFVocabulary.RDFS_LABEL
+                .getIRI());
+        addAxiom(ont, Declaration(prop));
+        OWLEntity entity = NamedIndividual(IRI("http://www.another.com/ont#peter"));
+        Set<OWLAnnotation> entityAnnotations = new HashSet<>();
+        for (int i = 0; i < 2; i++) {
+            OWLLiteral lit = Literal("EntityAnnotation " + (i + 1));
+            entityAnnotations.add(df.getOWLAnnotation(RDFSLabel(), lit));
+        }
+        addAxiom(ont, Declaration(entity, entityAnnotations));
+        Set<OWLAnnotation> annotations = new HashSet<>();
+        for (int i = 0; i < 2; i++) {
+            OWLLiteral lit = Literal("Annotation " + (i + 1));
+            annotations.add(df.getOWLAnnotation(RDFSLabel(), lit));
+        }
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(
+                prop, entity.getIRI(), Literal("X", "en"), annotations);
+        addAxiom(ont, ax);
+        return ont;
     }
 }
