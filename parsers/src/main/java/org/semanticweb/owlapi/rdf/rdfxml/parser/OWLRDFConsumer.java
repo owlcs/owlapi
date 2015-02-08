@@ -285,6 +285,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         tripleLogger = new TripleLogger();
     }
 
+    @Override
+    public void addPrefix(String abbreviation, String value) {
+        if (ontologyFormat.isPrefixOWLOntologyFormat()) {
+            ontologyFormat.asPrefixOWLOntologyFormat().setPrefix(abbreviation,
+                    value);
+        }
+    }
+
     /**
      * Sets the iRI provider.
      * 
