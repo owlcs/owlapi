@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -64,13 +63,6 @@ public class RDFXMLParser extends AbstractOWLParser {
                     assert uri != null;
                     super.startPrefixMapping(prefix, uri);
                     format.setPrefix(prefix, uri);
-                }
-
-                @Override
-                public void startElement(String uri, String localName,
-                        String qName, Attributes attributes)
-                        throws SAXException {
-                    super.startElement(uri, localName, qName, attributes);
                 }
             };
             OWLRDFConsumer consumer = new OWLRDFConsumer(ontology,
