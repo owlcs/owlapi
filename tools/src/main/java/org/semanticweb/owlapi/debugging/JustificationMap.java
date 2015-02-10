@@ -65,8 +65,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -82,14 +82,11 @@ public class JustificationMap {
     @Nonnull
     private final Set<OWLAxiom> usedAxioms = new HashSet<>();
     @Nonnull
-    private final Multimap<OWLAxiom, OWLAxiom> map = LinkedHashMultimap
-            .create();
+    private final Multimap<OWLAxiom, OWLAxiom> map = MultimapBuilder.hashKeys()
+            .arrayListValues().build();
     @Nonnull
-    private final Multimap<OWLEntity, OWLAxiom> axiomsByRHS = LinkedHashMultimap
-            .create();
-    @Nonnull
-    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = LinkedHashMultimap
-            .create();
+    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = MultimapBuilder
+            .hashKeys().arrayListValues().build();
     @Nonnull
     private final OWLClassExpression desc;
 
@@ -112,11 +109,6 @@ public class JustificationMap {
         for (OWLAxiom ax : axioms) {
             OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
             ax.accept(extractor);
-            Set<OWLEntity> rhscollected = new HashSet<>();
-            OWLEntityCollector rhsCollector = new OWLEntityCollector(
-                    rhscollected);
-            extractor.getRHS().forEach(r -> r.accept(rhsCollector));
-            rhscollected.forEach(r -> axiomsByRHS.put(r, ax));
             Set<OWLEntity> lhscollected = new HashSet<>();
             OWLEntityCollector lhsCollector = new OWLEntityCollector(
                     lhscollected);
