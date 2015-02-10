@@ -1425,6 +1425,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         litTriplesBySubject.clear();
         singleValuedLitTriplesByPredicate.clear();
         singleValuedResTriplesByPredicate.clear();
+        guessedDeclarations.clear();
     }
 
     @Override
