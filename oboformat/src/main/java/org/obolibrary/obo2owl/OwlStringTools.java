@@ -1,5 +1,10 @@
 package org.obolibrary.obo2owl;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Set;
+
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -12,11 +17,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.Set;
 
 /**
  * Tools to read and write a set of owl axioms to/from a string. Used to
@@ -53,12 +53,11 @@ public class OwlStringTools {
      * @return string or null
      * @throws OwlStringException
      *         OwlStringException
-     * @see #translate(String, OWLOntologyManager,org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration)
+     * @see #translate(String,
+     *      OWLOntologyManager,org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration)
      */
-    
-    public static String translate( Set<OWLAxiom> axioms,
-             OWLOntologyManager translationManager)
-            throws OwlStringException {
+    public static String translate(Set<OWLAxiom> axioms,
+            OWLOntologyManager translationManager) throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
         }
@@ -84,14 +83,15 @@ public class OwlStringTools {
      *        axioms
      * @param translationManager
      *        translationManager
+     * @param config
+     *        the loader configuration, passed to the parser
      * @return set of axioms or null
      * @throws OwlStringException
      *         OwlStringException
      * @see #translate(Set,OWLOntologyManager)
      */
-    
-    public static Set<OWLAxiom> translate( String axioms,
-             OWLOntologyManager translationManager,
+    public static Set<OWLAxiom> translate(String axioms,
+            OWLOntologyManager translationManager,
             OWLOntologyLoaderConfiguration config) throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
