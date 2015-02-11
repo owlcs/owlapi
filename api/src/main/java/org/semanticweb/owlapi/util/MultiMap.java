@@ -342,7 +342,7 @@ public class MultiMap<Key, Value> implements Serializable {
 
     /** @return true if all value collections are equal */
     public boolean isValueSetsEqual() {
-        if (map.size() < DEFAULT_INITIAL_CAPACITY) {
+        if (map.size() < 2) {
             return true;
         }
         List<Collection<Value>> list = new ArrayList<Collection<Value>>(
