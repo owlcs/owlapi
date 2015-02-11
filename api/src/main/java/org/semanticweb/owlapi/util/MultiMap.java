@@ -38,8 +38,9 @@
  */
 package org.semanticweb.owlapi.util;
 
-import gnu.trove.map.hash.THashMap;
-import gnu.trove.set.hash.THashSet;
+import gnu.trove.map.hash.TCustomHashMap;
+import gnu.trove.set.hash.TCustomHashSet;
+import gnu.trove.strategy.HashingStrategy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -59,7 +60,10 @@ import java.util.Set;
 public class MultiMap<Key, Value> implements Serializable {
 
     private static final long serialVersionUID = 30406L;
+    private static final int DEFAULT_INITIAL_CAPACITY = 5;
+    private static final float DEFAULT_LOAD_FACTOR = 0.75f;
     private final Map<Key, Collection<Value>> map;
+    private final HashcodeGuardedHashingStrategy<Object> keyHashcodeGuardedHashingStrategy = new HashcodeGuardedHashingStrategy<Object>();
     private int size = 0;
     private boolean useSets = true;
     private boolean threadSafe = false;
@@ -76,11 +80,9 @@ public class MultiMap<Key, Value> implements Serializable {
     public MultiMap(boolean threadsafe) {
         threadSafe = threadsafe;
         if (threadSafe) {
-            map = Collections
-                    .synchronizedMap(new THashMap<Key, Collection<Value>>(17,
-                            0.75F));
+            map = Collections.synchronizedMap(createMap());
         } else {
-            map = new THashMap<Key, Collection<Value>>(17, 0.75F);
+            map = createMap();
         }
     }
 
@@ -118,20 +120,56 @@ public class MultiMap<Key, Value> implements Serializable {
     protected Collection<Value> createCollection() {
         Collection<Value> toReturn;
         if (useSets) {
+            Set<Value> set = createSet(DEFAULT_INITIAL_CAPACITY,
+                    DEFAULT_LOAD_FACTOR);
             if (threadSafe) {
-                toReturn = Collections.synchronizedSet(new THashSet<Value>(2,
-                        0.75F));
+                toReturn = Collections.synchronizedSet(set);
             } else {
-                toReturn = new THashSet<Value>(2, 0.75F);
+                toReturn = set;
             }
         } else {
+            ArrayList<Value> list = new ArrayList<Value>();
             if (threadSafe) {
-                toReturn = Collections.synchronizedList(new ArrayList<Value>());
+                toReturn = Collections.synchronizedList(list);
             } else {
-                toReturn = new ArrayList<Value>();
+                toReturn = list;
             }
         }
         return toReturn;
+    }
+
+    private static class HashcodeGuardedHashingStrategy<Value> implements
+            HashingStrategy<Value> {
+
+        @Override
+        public int computeHashCode(Value object) {
+            return object.hashCode();
+        }
+
+        @Override
+        public boolean equals(Value o1, Value o2) {
+            if (o1 == o2) {
+                return true;
+            }
+            if (o1 == null || o2 == null) {
+                return false;
+            }
+            if (computeHashCode(o1) != computeHashCode(o2)) {
+                return false;
+            }
+            return o1.equals(o2);
+        }
+    }
+
+    protected Map<Key, Collection<Value>> createMap() {
+        return new TCustomHashMap<Key, Collection<Value>>(
+                keyHashcodeGuardedHashingStrategy, 17, DEFAULT_LOAD_FACTOR);
+    }
+
+    private Set<Value> createSet(int initialCapacity, float loadFactor) {
+        return new TCustomHashSet<Value>(keyHashcodeGuardedHashingStrategy,
+                initialCapacity, loadFactor);
+        // return new THashSet<Value>(initialCapacity, loadFactor);
     }
 
     /**
