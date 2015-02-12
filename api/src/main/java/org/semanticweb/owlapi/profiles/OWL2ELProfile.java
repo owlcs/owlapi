@@ -330,8 +330,6 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLDisjointClassesAxiom axiom) {
-            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
-                    axiom));
             return null;
         }
 
