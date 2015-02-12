@@ -1146,7 +1146,7 @@ public class Profile3TestCase extends ProfileBase {
                 + "<owl:Class rdf:about=\"urn:test#B\"/></owl:disjointWith></owl:Class>"
                 + "<first:A rdf:about=\"urn:test#a\"/><owl:Thing rdf:about=\"urn:test#a\"/>"
                 + "<first:B rdf:about=\"urn:test#b\"/><owl:Thing rdf:about=\"urn:test#b\"/></rdf:RDF>";
-        test(premiseOntology, false, false, false, true);
+        test(premiseOntology, true, false, false, true);
     }
 
     @Test
