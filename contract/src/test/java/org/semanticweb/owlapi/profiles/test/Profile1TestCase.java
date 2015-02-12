@@ -60,8 +60,8 @@ public class Profile1TestCase extends ProfileBase {
                 + "<owl:Class rdf:about=\"Boy\" />"
                 + "<owl:Class rdf:about=\"Girl\" /><rdf:Description rdf:about=\"Boy\"><owl:disjointWith rdf:resource=\"Girl\" /></rdf:Description><Boy rdf:about=\"Stewie\" /><Girl rdf:about=\"Stewie\" /></rdf:RDF>";
         String fspremiseOntology = "Prefix( :=<http://example.org/> ) Ontology( Declaration( Class( :Boy ) ) Declaration( Class( :Girl ) ) DisjointClasses( :Boy :Girl ) ClassAssertion( :Boy :Stewie ) ClassAssertion( :Girl :Stewie ))";
-        test(premiseOntology, false, false, false, true);
-        test(fspremiseOntology, false, false, false, true);
+        test(premiseOntology, true, false, false, true);
+        test(fspremiseOntology, true, false, false, true);
     }
 
     @Test
@@ -317,8 +317,8 @@ public class Profile1TestCase extends ProfileBase {
                 + "<owl:Class rdf:about=\"Boy\" />"
                 + "<owl:Class rdf:about=\"Girl\" /><rdf:Description rdf:about=\"Boy\"><owl:disjointWith rdf:resource=\"Girl\" /></rdf:Description><Boy rdf:about=\"Stewie\" /></rdf:RDF>";
         String fspremiseOntology = "Prefix( :=<http://example.org/> )Ontology( Declaration( Class( :Boy ) ) Declaration( Class( :Girl ) ) DisjointClasses( :Boy :Girl ) ClassAssertion( :Boy :Stewie ))";
-        test(premiseOntology, false, false, false, true);
-        test(fspremiseOntology, false, false, false, true);
+        test(premiseOntology, true, false, false, true);
+        test(fspremiseOntology, true, false, false, true);
     }
 
     @Test
@@ -330,8 +330,8 @@ public class Profile1TestCase extends ProfileBase {
                 + "<owl:Class rdf:about=\"Dog\" /><owl:AllDisjointClasses><owl:members rdf:parseType=\"Collection\"><rdf:Description rdf:about=\"Boy\" /><rdf:Description rdf:about=\"Girl\" /><rdf:Description rdf:about=\"Dog\" /></owl:members></owl:AllDisjointClasses><Boy rdf:about=\"Stewie\" /></rdf:RDF>";
         String fspremiseOntology = "Prefix( :=<http://example.org/> ) Ontology(\n"
                 + " Declaration( Class( :Boy ) ) Declaration( Class( :Girl ) ) Declaration( Class( :Dog ) ) DisjointClasses( :Boy :Girl :Dog ) ClassAssertion( :Boy :Stewie ))";
-        test(premiseOntology, false, false, false, true);
-        test(fspremiseOntology, false, false, false, true);
+        test(premiseOntology, true, false, false, true);
+        test(fspremiseOntology, true, false, false, true);
     }
 
     @Test
@@ -619,7 +619,7 @@ public class Profile1TestCase extends ProfileBase {
                 + "<owl:Class rdf:about=\"urn:test#A\"/></rdfs:range></owl:ObjectProperty><owl:ObjectProperty rdf:about=\"urn:test#q\"><rdfs:subPropertyOf rdf:resource=\"urn:test#r\"/><rdfs:range>"
                 + "<owl:Class rdf:about=\"urn:test#B\"/></rdfs:range></owl:ObjectProperty>"
                 + "<owl:Class rdf:about=\"urn:test#A\"><owl:disjointWith rdf:resource=\"urn:test#B\"/></owl:Class></rdf:RDF>";
-        test(premiseOntology, false, false, false, true);
+        test(premiseOntology, true, false, false, true);
     }
 
     @Test
@@ -629,7 +629,7 @@ public class Profile1TestCase extends ProfileBase {
                 + "<owl:Class rdf:about=\"urn:test#A\"/></rdfs:range></owl:ObjectProperty><owl:ObjectProperty rdf:about=\"urn:test#q\"><rdfs:subPropertyOf rdf:resource=\"urn:test#r\"/><rdfs:range>"
                 + "<owl:Class rdf:about=\"urn:test#B\"/></rdfs:range></owl:ObjectProperty>"
                 + "<owl:Class rdf:about=\"urn:test#A\"><owl:disjointWith rdf:resource=\"urn:test#B\"/></owl:Class></rdf:RDF>";
-        test(premiseOntology, false, false, false, true);
+        test(premiseOntology, true, false, false, true);
     }
 
     @Test

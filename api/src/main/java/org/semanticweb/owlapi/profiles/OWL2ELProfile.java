@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
@@ -270,12 +269,6 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
-                    axiom));
-        }
-
-        @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
                     axiom));
         }
