@@ -848,8 +848,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
         if (loadCount.get() != importsLoadCount.get()) {
-            System.err
-                    .println("Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
+            logger.warning("Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
         }
         fireStartedLoadingEvent(new OWLOntologyID(ontologyIRI),
                 documentSource.getDocumentIRI(), loadCount.get() > 0);
