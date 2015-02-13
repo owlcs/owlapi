@@ -14,14 +14,25 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLDataVisitor;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.google.common.base.Optional;
-
-import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -152,16 +163,20 @@ public class OWLLiteralImplDouble extends
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLLiteralImplDouble) {
-                OWLLiteralImplDouble other = (OWLLiteralImplDouble) obj;
-                return literal == other.literal
-                        && datatype.equals(other.getDatatype());
-            }
-            if (obj instanceof OWLLiteral) {
-                return datatype.equals(((OWLLiteral) obj).getDatatype())
-                        && getLiteral().equals(((OWLLiteral) obj).getLiteral());
-            }
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (obj instanceof OWLLiteralImplDouble) {
+            OWLLiteralImplDouble other = (OWLLiteralImplDouble) obj;
+            return literal == other.literal;
+        }
+        if (obj instanceof OWLLiteral) {
+            return ((OWLLiteral) obj).isDouble()
+                    && Double
+                            .compare(literal, ((OWLLiteral) obj).parseDouble()) == 0;
         }
         return false;
     }

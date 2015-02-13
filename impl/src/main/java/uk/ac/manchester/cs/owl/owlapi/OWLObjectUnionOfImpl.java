@@ -57,10 +57,13 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            return obj instanceof OWLObjectUnionOf;
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLObjectUnionOf;
     }
 
     @Nonnull

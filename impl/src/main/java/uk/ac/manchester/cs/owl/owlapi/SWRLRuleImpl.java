@@ -226,14 +226,17 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImplWithEntityAndAnonCaching
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof SWRLRule)) {
-                return false;
-            }
-            SWRLRule other = (SWRLRule) obj;
-            return other.getBody().equals(body) && other.getHead().equals(head);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof SWRLRule)) {
+            return false;
+        }
+        SWRLRule other = (SWRLRule) obj;
+        return other.getBody().equals(body) && other.getHead().equals(head);
     }
 
     @Override

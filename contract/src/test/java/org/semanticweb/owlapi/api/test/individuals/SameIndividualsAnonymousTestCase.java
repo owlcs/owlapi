@@ -19,8 +19,14 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -39,5 +45,15 @@ public class SameIndividualsAnonymousTestCase extends
         // in OWL 2, but it should at least round trip
         axioms.add(SameIndividual(AnonymousIndividual(), AnonymousIndividual()));
         return axioms;
+    }
+
+    @Override
+    @Test
+    public void roundTripRDFXMLAndFunctionalShouldBeSame()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(getOnt(),
+                new FunctionalSyntaxDocumentFormat());
+        equal(o1, o2);
     }
 }

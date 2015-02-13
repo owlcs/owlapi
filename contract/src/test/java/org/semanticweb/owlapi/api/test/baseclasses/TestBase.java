@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -105,6 +106,22 @@ public abstract class TestBase {
     @Nonnull
     protected <S> Set<S> singleton(S s) {
         return Collections.singleton(s);
+    }
+
+    protected Set<OWLAxiom>
+            stripSimpleDeclarations(Collection<OWLAxiom> axioms) {
+        Set<OWLAxiom> toReturn = new HashSet<>();
+        for (OWLAxiom ax : axioms) {
+            if (!isSimpleDeclaration(ax)) {
+                toReturn.add(ax);
+            }
+        }
+        return toReturn;
+    }
+
+    protected boolean isSimpleDeclaration(OWLAxiom ax) {
+        return ax.isOfType(AxiomType.DECLARATION)
+                && ax.getAnnotations().isEmpty();
     }
 
     public boolean equal(@Nonnull OWLOntology ont1, @Nonnull OWLOntology ont2) {

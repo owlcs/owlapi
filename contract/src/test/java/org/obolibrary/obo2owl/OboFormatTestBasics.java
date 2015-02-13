@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -39,7 +40,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 @SuppressWarnings({ "javadoc", "null" })
-public class OboFormatTestBasics {
+public class OboFormatTestBasics extends TestBase {
 
     @Nonnull
     protected OBODoc parseOBOURL(String fn) throws IOException {

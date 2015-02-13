@@ -91,17 +91,20 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            // superclass is responsible for null, identity, owlaxiom type and
-            // annotations
-            if (!(obj instanceof OWLSubClassOfAxiom)) {
-                return false;
-            }
-            OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) obj;
-            return other.getSubClass().equals(subClass)
-                    && other.getSuperClass().equals(superClass);
+        if (this == obj) {
+            return true;
         }
-        return false;
+        if (!super.equals(obj)) {
+            return false;
+        }
+        // superclass is responsible for null, identity, owlaxiom type and
+        // annotations
+        if (!(obj instanceof OWLSubClassOfAxiom)) {
+            return false;
+        }
+        OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) obj;
+        return other.getSubClass().equals(subClass)
+                && other.getSuperClass().equals(superClass);
     }
 
     @Override

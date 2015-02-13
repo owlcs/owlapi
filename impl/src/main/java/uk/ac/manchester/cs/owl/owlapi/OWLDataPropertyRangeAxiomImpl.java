@@ -73,7 +73,13 @@ public class OWLDataPropertyRangeAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLDataPropertyRangeAxiom;
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return obj instanceof OWLDataPropertyRangeAxiom;
     }
 
     @Override

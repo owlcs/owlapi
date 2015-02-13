@@ -29,6 +29,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -40,6 +41,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
 
@@ -130,7 +132,29 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             }
             consumer = inputConsumer;
             inputConsumer.startModel(getBaseIRI());
-            parserFactory.newSAXParser().parse(source, this);
+            SAXParser newSAXParser = parserFactory.newSAXParser();
+            newSAXParser.setProperty(
+                    "http://xml.org/sax/properties/declaration-handler",
+                    new DeclHandler() {
+
+                        @Override
+                        public void
+                                internalEntityDecl(String name, String value) {
+                            consumer.addPrefix(name, value);
+                        }
+
+                        @Override
+                        public void externalEntityDecl(String name,
+                                String publicId, String systemId) {}
+
+                        @Override
+                        public void elementDecl(String name, String model) {}
+
+                        @Override
+                        public void attributeDecl(String eName, String aName,
+                                String type, String mode, String value) {}
+                    });
+            newSAXParser.parse(source, this);
             inputConsumer.endModel();
         } catch (ParserConfigurationException e) {
             throw new SAXException("Parser configuration exception", e);
