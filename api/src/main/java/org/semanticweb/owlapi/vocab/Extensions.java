@@ -4,14 +4,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
-import org.coode.owlapi.obo.parser.OBOOntologyFormat;
-import org.coode.owlapi.turtle.TurtleOntologyFormat;
-import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
@@ -22,23 +14,36 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public enum Extensions {
     /** RDF/XML, common extensions: owl, rdf, rdfs */
-    RDFXML(RDFXMLOntologyFormat.class, ".owl", ".rdf", ".rdfs"),
+    RDFXML(
+            "org.semanticweb.owlapi.model.OWLOntologyFormat",
+            ".owl",
+            ".rdf",
+            ".rdfs"),
     /** OWL/XML, common extensions: xml, owl, rdf */
-    OWLXML(OWLXMLOntologyFormat.class, ".xml", ".owl", ".rdf"),
+    OWLXML(
+            "org.semanticweb.owlapi.io.OWLXMLOntologyFormat",
+            ".xml",
+            ".owl",
+            ".rdf"),
     /** Turtle, common extensions: ttl, owl */
-    TURTLE(TurtleOntologyFormat.class, ".ttl", ".owl"),
+    TURTLE("org.coode.owlapi.turtle.TurtleOntologyFormat", ".ttl", ".owl"),
     /** OBO, common extensions: obo */
-    OBO(OBOOntologyFormat.class, ".obo"),
+    OBO("org.coode.owlapi.obo.parser.OBOOntologyFormat", ".obo"),
     /** Manchester OWL syntax, common extensions: omn, owl */
-    MANCHESTERSYNTAX(ManchesterOWLSyntaxOntologyFormat.class, ".omn", ".owl"),
+    MANCHESTERSYNTAX(
+            "org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat",
+            ".omn",
+            ".owl"),
     /** Functional sytax, common extensions: fss, owl */
-    FUNCTIONALSYNTAX(OWLFunctionalSyntaxOntologyFormat.class, ".fss", ".owl");
+    FUNCTIONALSYNTAX(
+            "org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat",
+            ".fss",
+            ".owl");
 
     private List<String> extensions;
-    private Class<? extends OWLOntologyFormat> documentFormat;
+    private String documentFormat;
 
-    private Extensions(Class<? extends OWLOntologyFormat> d,
-            String... knownExtensions) {
+    private Extensions(String d, String... knownExtensions) {
         documentFormat = d;
         extensions = Arrays.asList(knownExtensions);
     }
@@ -46,7 +51,6 @@ public enum Extensions {
     /**
      * @return common extensions for this type
      */
-    @Nonnull
     public Iterable<String> getCommonExtensions() {
         return extensions;
     }
@@ -56,11 +60,13 @@ public enum Extensions {
      *        the format for which extensions are desired
      * @return common extensions list. Empty list if no matching type is found.
      */
-    @Nonnull
     public static Iterable<String> getCommonExtensions(
             Class<? extends OWLOntologyFormat> format) {
+        if (format == null) {
+            return Collections.emptyList();
+        }
         for (Extensions e : values()) {
-            if (e.documentFormat.equals(format)) {
+            if (e.documentFormat.equals(format.getCanonicalName())) {
                 return e.getCommonExtensions();
             }
         }
