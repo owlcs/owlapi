@@ -455,6 +455,14 @@ public class OWLRDFConsumer implements RDFConsumer {
         this(ontology, checker, configuration);
     }
 
+    @Override
+    public void addPrefix(String abbreviation, String value) {
+        if (ontologyFormat.isPrefixOWLOntologyFormat()) {
+            ontologyFormat.asPrefixOWLOntologyFormat().setPrefix(abbreviation,
+                    value);
+        }
+    }
+
     /**
      * Sets the iRI provider.
      * 

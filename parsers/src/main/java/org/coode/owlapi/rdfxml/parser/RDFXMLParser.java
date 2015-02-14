@@ -52,13 +52,12 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.rdf.syntax.RDFParser;
-import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006
  */
 public class RDFXMLParser extends AbstractOWLParser {
 
@@ -85,12 +84,6 @@ public class RDFXMLParser extends AbstractOWLParser {
                         throws SAXException {
                     super.startPrefixMapping(prefix, IRI);
                     format.setPrefix(prefix, IRI);
-                }
-
-                @Override
-                public void startElement(String namespaceIRI, String localName,
-                        String qName, Attributes atts) throws SAXException {
-                    super.startElement(namespaceIRI, localName, qName, atts);
                 }
             };
             IRIProvider prov = new IRIProvider() {

@@ -72,6 +72,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
 
@@ -146,7 +147,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @throws IOException
      *         IOException
      */
-    public void parse(InputSource source, RDFConsumer consumer)
+    public void parse(InputSource source, final RDFConsumer consumer)
             throws SAXException, IOException {
         String systemID = source.getSystemId();
         try {
@@ -160,6 +161,27 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             m_consumer = consumer;
             m_consumer.startModel(m_baseIRI.toString());
             SAXParser parser = s_parserFactory.newSAXParser();
+            parser.setProperty(
+                    "http://xml.org/sax/properties/declaration-handler",
+                    new DeclHandler() {
+
+                        @Override
+                        public void
+                                internalEntityDecl(String name, String value) {
+                            consumer.addPrefix(name, value);
+                        }
+
+                        @Override
+                        public void externalEntityDecl(String name,
+                                String publicId, String systemId) {}
+
+                        @Override
+                        public void elementDecl(String name, String model) {}
+
+                        @Override
+                        public void attributeDecl(String eName, String aName,
+                                String type, String mode, String value) {}
+                    });
             parser.parse(source, this);
             m_consumer.endModel();
         } catch (ParserConfigurationException e) {

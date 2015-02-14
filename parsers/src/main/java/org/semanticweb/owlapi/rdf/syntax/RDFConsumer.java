@@ -161,4 +161,15 @@ public interface RDFConsumer {
      * @return blank iri remapping i, or i if i has not been remapped earlier.
      */
     String remapOnlyIfRemapped(String i);
+
+    /**
+     * Add a prefix to the underlying ontology format, if prefixes are
+     * supported.
+     * 
+     * @param abbreviation
+     *        short name for prefix
+     * @param value
+     *        replacement for short version
+     */
+    void addPrefix(String abbreviation, String value);
 }
