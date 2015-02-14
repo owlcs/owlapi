@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedObject;
@@ -62,6 +63,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLProperty;
@@ -413,10 +415,11 @@ public class OWLAPIObo2Owl {
         for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
             String path = getURI(cl.getValue().toString());
             IRI importIRI = IRI.create(path);
-            manager.loadOntology(importIRI);
-            AddImport ai = new AddImport(in,
-                    fac.getOWLImportsDeclaration(importIRI));
-            manager.applyChange(ai);
+            OWLImportsDeclaration owlImportsDeclaration = fac
+                    .getOWLImportsDeclaration(importIRI);
+            manager.makeLoadImportRequest(owlImportsDeclaration,
+                    new OWLOntologyLoaderConfiguration());
+            AddImport ai = new AddImport(in, owlImportsDeclaration);
         }
         postProcess(in);
         return in;
