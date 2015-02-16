@@ -40,7 +40,7 @@ package org.semanticweb.owlapi.util;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Logger;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  *         Informatics Group, Date: 27-Jul-2007
  */
 public class InferredOntologyGenerator {
-
+    private static Logger logger =   Logger.getLogger(InferredOntologyGenerator.class.getName());
     // The reasoner which is used to compute the inferred axioms
     private final OWLReasoner reasoner;
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators;
@@ -146,8 +146,12 @@ public class InferredOntologyGenerator {
             throws OWLOntologyChangeException {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
-            for (OWLAxiom ax : axiomGenerator.createAxioms(manager, reasoner)) {
-                changes.add(new AddAxiom(ontology, ax));
+            try {
+                for (OWLAxiom ax : axiomGenerator.createAxioms(manager, reasoner)) {
+                    changes.add(new AddAxiom(ontology, ax));
+                }
+            } catch (Exception e) {
+                logger.warning("Error generating axioms for " + axiomGenerator.getLabel() +": " +  e); //To change body of catch statement use File | Settings | File Templates.
             }
         }
         manager.applyChanges(changes);
