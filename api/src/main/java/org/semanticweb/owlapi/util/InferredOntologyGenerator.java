@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
@@ -38,6 +39,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  */
 public class InferredOntologyGenerator {
 
+    private static Logger logger = Logger
+            .getLogger(InferredOntologyGenerator.class.getName());
     // The reasoner which is used to compute the inferred axioms
     @Nonnull
     private final OWLReasoner reasoner;
@@ -132,9 +135,14 @@ public class InferredOntologyGenerator {
         checkNotNull(ontology, "ontology cannot be null");
         List<AddAxiom> changes = new ArrayList<>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
-            for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {
-                assert ax != null;
-                changes.add(new AddAxiom(ontology, ax));
+            try {
+                for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {
+                    assert ax != null;
+                    changes.add(new AddAxiom(ontology, ax));
+                }
+            } catch (Exception e) {
+                logger.warning("Error generating axioms for "
+                        + axiomGenerator.getLabel() + ": " + e);
             }
         }
         ontology.getOWLOntologyManager().applyChanges(changes);
