@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -151,7 +152,8 @@ public class InferredOntologyGenerator {
                     changes.add(new AddAxiom(ontology, ax));
                 }
             } catch (Exception e) {
-                logger.warning("Error generating axioms for " + axiomGenerator.getLabel() +": " +  e); //To change body of catch statement use File | Settings | File Templates.
+                logger.log(Level.WARNING,
+                        "Error generating " + axiomGenerator.getLabel() + "axioms using  " + reasoner.getReasonerName() + ", version " + reasoner.getReasonerVersion(), e); //To change body of catch statement use File | Settings | File Templates.
             }
         }
         manager.applyChanges(changes);
