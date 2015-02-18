@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedObject;
@@ -60,6 +61,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLProperty;
@@ -424,9 +426,11 @@ public class OWLAPIObo2Owl {
         for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
             String path = getURI(cl.getValue().toString());
             IRI importIRI = IRI.create(path);
-            manager.loadOntology(importIRI);
-            AddImport ai = new AddImport(in,
-                    fac.getOWLImportsDeclaration(importIRI));
+            OWLImportsDeclaration owlImportsDeclaration = fac
+                    .getOWLImportsDeclaration(importIRI);
+            manager.makeLoadImportRequest(owlImportsDeclaration,
+                    new OWLOntologyLoaderConfiguration());
+            AddImport ai = new AddImport(in, owlImportsDeclaration);
             manager.applyChange(ai);
         }
         postProcess(in);
@@ -721,8 +725,10 @@ public class OWLAPIObo2Owl {
             // System.out.println("tag:"+tag);
             Collection<Clause> clauses = termFrame.getClauses(t);
             if (OboFormatTag.TAG_ALT_ID.getTag().equals(t)) {
-                // Generate deprecated and replaced_by details for alternate identifier
-                Set<OWLAxiom> axioms = translateAltIds(clauses, cls.getIRI(), true);
+                // Generate deprecated and replaced_by details for alternate
+                // identifier
+                Set<OWLAxiom> axioms = translateAltIds(clauses, cls.getIRI(),
+                        true);
                 if (!axioms.isEmpty()) {
                     add(axioms);
                 }
@@ -736,26 +742,30 @@ public class OWLAPIObo2Owl {
     }
 
     /**
-     * Generate axioms for the alternate identifiers of an {@link OWLClass} or {@link OWLObjectProperty}.
+     * Generate axioms for the alternate identifiers of an {@link OWLClass} or
+     * {@link OWLObjectProperty}.
      * 
-     * @param clauses collection of alt_id clauses
-     * @param replacedBy IRI of the entity
-     * @param isClass set to true if the alt_id is represents a class, false in case of an property
+     * @param clauses
+     *        collection of alt_id clauses
+     * @param replacedBy
+     *        IRI of the entity
+     * @param isClass
+     *        set to true if the alt_id is represents a class, false in case of
+     *        an property
      * @return set of axioms generated for the alt_id clauses
      */
     @Nonnull
     protected Set<OWLAxiom> translateAltIds(
-            @Nonnull Collection<Clause> clauses, @Nonnull IRI replacedBy, 
+            @Nonnull Collection<Clause> clauses, @Nonnull IRI replacedBy,
             boolean isClass) {
         Set<OWLAxiom> axioms = new HashSet<>();
-        for(Clause clause : clauses) {
+        for (Clause clause : clauses) {
             final String altId = clause.getValue(String.class);
             if (altId != null) {
                 final OWLEntity altIdEntity;
                 if (isClass) {
                     altIdEntity = trClass(altId);
-                }
-                else {
+                } else {
                     IRI altIdIRI = oboIdToIRI(altId);
                     altIdEntity = fac.getOWLObjectProperty(altIdIRI);
                 }
@@ -763,28 +773,28 @@ public class OWLAPIObo2Owl {
                 axioms.add(fac.getOWLDeclarationAxiom(altIdEntity));
                 // annotate as deprecated
                 axioms.add(fac.getOWLAnnotationAssertionAxiom(
-                    altIdEntity.getIRI(), fac.getOWLAnnotation(
-                        fac.getOWLDeprecated(),
-                        fac.getOWLLiteral(true))));
+                        altIdEntity.getIRI(),
+                        fac.getOWLAnnotation(fac.getOWLDeprecated(),
+                                fac.getOWLLiteral(true))));
                 // annotate with replaced_by (IAO_0100001)
                 axioms.add(fac.getOWLAnnotationAssertionAxiom(
-                    altIdEntity.getIRI(),
-                    fac.getOWLAnnotation( fac.getOWLAnnotationProperty(
-                            Obo2OWLVocabulary.IRI_IAO_0100001.iri),
-                        replacedBy)));
+                        altIdEntity.getIRI(),
+                        fac.getOWLAnnotation(
+                                fac.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0100001.iri),
+                                replacedBy)));
                 // annotate with obo:IAO_0000231=obo:IAO_0000227
                 // 'has obsolescence reason' 'terms merged'
                 axioms.add(fac.getOWLAnnotationAssertionAxiom(
-                    altIdEntity.getIRI(), fac.getOWLAnnotation(
-                        fac.getOWLAnnotationProperty(
-                            Obo2OWLConstants.IRI_IAO_0000231),
-                        Obo2OWLConstants.IRI_IAO_0000227)));
+                        altIdEntity.getIRI(),
+                        fac.getOWLAnnotation(
+                                fac.getOWLAnnotationProperty(Obo2OWLConstants.IRI_IAO_0000231),
+                                Obo2OWLConstants.IRI_IAO_0000227)));
             }
         }
         return axioms;
     }
 
-	/**
+    /**
      * Tr term frame clauses.
      * 
      * @param cls
