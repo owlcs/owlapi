@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -53,6 +54,15 @@ public class OWLObjectPropertyNodeSet extends
      */
     public OWLObjectPropertyNodeSet(
             @Nonnull Set<Node<OWLObjectPropertyExpression>> nodes) {
+        super(nodes);
+    }
+
+    /**
+     * @param nodes
+     *        nodes to include
+     */
+    public OWLObjectPropertyNodeSet(
+            @Nonnull Stream<Node<OWLObjectPropertyExpression>> nodes) {
         super(nodes);
     }
 

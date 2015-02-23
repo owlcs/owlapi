@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -51,6 +52,14 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
      *        the nodes to be contained
      */
     public OWLDataPropertyNodeSet(@Nonnull Set<Node<OWLDataProperty>> nodes) {
+        super(nodes);
+    }
+
+    /**
+     * @param nodes
+     *        the nodes to be contained
+     */
+    public OWLDataPropertyNodeSet(@Nonnull Stream<Node<OWLDataProperty>> nodes) {
         super(nodes);
     }
 

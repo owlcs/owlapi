@@ -65,6 +65,14 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
     }
 
+    /**
+     * @param nodes
+     *        a set of nodes to be contained
+     */
+    public DefaultNodeSet(@Nonnull Stream<Node<E>> nodes) {
+        addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
+    }
+
     @Nonnull
     @Override
     public Stream<Node<E>> nodes() {
