@@ -52,6 +52,24 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
     @Nonnull
     <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor);
 
+    /** @param visitor
+     *        visitor to apply to all pairwise elements in this axiom
+     */
+    @Nonnull
+    void forEach(OWLPairwiseVoidVisitor<C> visitor);
+
+    /** @param visitor
+     *        visitor to apply to all pairwise elements in this axiom
+     * @return collection of all visitor return values that are not null
+     */
+    boolean anyMatch(OWLPairwiseBooleanVisitor<C> visitor);
+
+    /** @param visitor
+     *        visitor to apply to all pairwise elements in this axiom
+     * @return collection of all visitor return values that are not null
+     */
+    boolean allMatch(OWLPairwiseBooleanVisitor<C> visitor);
+
     /**
      * Splits this axiom to pairs, including annotations. This method implements
      * the process described at http://www.w3.org/TR/owl2-mapping-to-rdf/#

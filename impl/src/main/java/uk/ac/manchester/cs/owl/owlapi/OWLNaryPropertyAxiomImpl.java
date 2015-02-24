@@ -28,7 +28,9 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLPairwiseBooleanVisitor;
 import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
+import org.semanticweb.owlapi.model.OWLPairwiseVoidVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -119,5 +121,40 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
             }
         }
         return l;
+    }
+
+    @Override
+    public void forEach(OWLPairwiseVoidVisitor<P> visitor) {
+        for (int i = 0; i < properties.size() - 1; i++) {
+            for (int j = i + 1; j < properties.size(); j++) {
+                visitor.visit(properties.get(i), properties.get(j));
+            }
+        }
+    }
+
+    @Override
+    public boolean anyMatch(OWLPairwiseBooleanVisitor<P> visitor) {
+        for (int i = 0; i < properties.size() - 1; i++) {
+            for (int j = i + 1; j < properties.size(); j++) {
+                boolean b = visitor.visit(properties.get(i), properties.get(j));
+                if (b) {
+                    return b;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean allMatch(OWLPairwiseBooleanVisitor<P> visitor) {
+        for (int i = 0; i < properties.size() - 1; i++) {
+            for (int j = i + 1; j < properties.size(); j++) {
+                boolean b = visitor.visit(properties.get(i), properties.get(j));
+                if (!b) {
+                    return b;
+                }
+            }
+        }
+        return true;
     }
 }
