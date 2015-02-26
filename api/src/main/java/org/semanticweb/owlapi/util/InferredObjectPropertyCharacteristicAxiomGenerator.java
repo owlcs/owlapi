@@ -12,18 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
@@ -86,18 +82,11 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
     private static boolean triviallyTransitiveCheck(
             @Nonnull OWLObjectProperty property, OWLReasoner reasoner,
             OWLDataFactory df) {
-        if (!reasoner
-                .isEntailmentCheckingSupported(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
-            return true;
-        }
-        OWLAnonymousIndividual a = df.getOWLAnonymousIndividual();
-        OWLAnonymousIndividual b = df.getOWLAnonymousIndividual();
-        OWLAnonymousIndividual c = df.getOWLAnonymousIndividual();
-        Set<OWLAxiom> trivialityCheckAxioms = new HashSet<>(
-                Arrays.<OWLAxiom> asList(
-                        df.getOWLObjectPropertyAssertionAxiom(property, a, b),
-                        df.getOWLObjectPropertyAssertionAxiom(property, b, c)));
-        return !reasoner.isEntailed(trivialityCheckAxioms);
+		// create R some (R some owl:Thing) class
+		OWLObjectSomeValuesFrom chain = df.getOWLObjectSomeValuesFrom(property,
+				df.getOWLObjectSomeValuesFrom(property, df.getOWLThing()));
+		// if chain is unsatisfiable, then the property is trivially transitive
+		return !reasoner.isSatisfiable(chain);
     }
 
     protected static void addIfEntailed(
