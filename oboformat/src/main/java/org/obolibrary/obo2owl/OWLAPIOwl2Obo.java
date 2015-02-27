@@ -1740,8 +1740,7 @@ public class OWLAPIOwl2Obo {
      * Track non related annotations.
      * 
      * @param annotations
-     *        set of annotations for the entity
-     * @return replaced_by if it is an alt_id
+     *        set of annotations for the entity @return replaced_by if it is an alt_id
      */
     @Nonnull
     private static Optional<OboAltIdCheckResult> checkForOboAltId(

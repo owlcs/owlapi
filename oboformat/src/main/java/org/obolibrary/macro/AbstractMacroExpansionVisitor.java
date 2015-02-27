@@ -1,20 +1,25 @@
 package org.obolibrary.macro;
 
+import static java.util.stream.Collectors.toSet;
 import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.obolibrary.obo2owl.Obo2OWLConstants;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -72,18 +77,41 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     static final Logger LOG = LoggerFactory
             .getLogger(AbstractMacroExpansionVisitor.class);
+    static public final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections
+            .emptySet();
     final OWLDataFactory df;
     @Nonnull
     final Map<IRI, String> expandAssertionToMap;
     @Nonnull
     protected final Map<IRI, String> expandExpressionMap;
+    @Nonnull
     protected OWLDataVisitorEx<OWLDataRange> rangeVisitor;
+    @Nonnull
     protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
+
+    public OWLAnnotationProperty getOIO_ISEXPANSION() {
+        return OIO_ISEXPANSION;
+    }
+
+    final protected OWLAnnotationProperty OIO_ISEXPANSION;
+
+    public OWLAnnotation getExpansionMarkerAnnotation() {
+        return expansionMarkerAnnotation;
+    }
+
+    final protected OWLAnnotation expansionMarkerAnnotation;
+    private boolean shouldAddExpansionMarker = false;
 
     @Override
     public OWLAxiom doDefault(Object o) {
         return (OWLAxiom) o;
+    }
+
+    protected AbstractMacroExpansionVisitor(@Nonnull OWLOntology ontology,
+            boolean shouldAddExpansionMarker) {
+        this(ontology);
+        this.shouldAddExpansionMarker = shouldAddExpansionMarker;
     }
 
     /**
@@ -232,7 +260,7 @@ public abstract class AbstractMacroExpansionVisitor implements
      * @param input
      *        ontology
      */
-    public void rebuild(OWLOntology input) {
+    public void rebuild(@Nonnull OWLOntology input) {
         manchesterSyntaxTool = new ManchesterSyntaxTool(input);
     }
 
@@ -261,6 +289,10 @@ public abstract class AbstractMacroExpansionVisitor implements
                         }));
         o.annotationPropertiesInSignature()
                 .forEach(p -> expandAssertions(o, p));
+        OIO_ISEXPANSION = df.getOWLAnnotationProperty(IRI.create(
+                Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
+        expansionMarkerAnnotation = df.getOWLAnnotation(OIO_ISEXPANSION,
+                df.getOWLLiteral(true));
     }
 
     protected void expandAssertions(OWLOntology o, OWLAnnotationProperty p) {
@@ -294,9 +326,10 @@ public abstract class AbstractMacroExpansionVisitor implements
         return result;
     }
 
-    protected OWLClassExpression resultFromVal(IRI iri, IRI templateVal) {
+    protected OWLClassExpression
+            resultFromVal(IRI iri, @Nonnull IRI templateVal) {
         String tStr = expandExpressionMap.get(iri);
-        String exStr = tStr.replaceAll("\\?Y",
+        String exStr = tStr.replace("?Y",
                 manchesterSyntaxTool.getId(templateVal));
         try {
             return manchesterSyntaxTool.parseManchesterExpression(exStr);
@@ -320,64 +353,139 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     // Conversion of non-class expressions to MacroExpansionVisitor
     @Override
-    public OWLAxiom visit(@Nonnull OWLSubClassOfAxiom ax) {
-        return df.getOWLSubClassOfAxiom(ax.getSubClass().accept(classVisitor),
-                ax.getSuperClass().accept(classVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLDisjointClassesAxiom ax) {
-        Set<OWLClassExpression> ops = new HashSet<>();
-        ax.classExpressions().forEach(op -> ops.add(op.accept(classVisitor)));
-        return df.getOWLDisjointClassesAxiom(asSet(ax.classExpressions().map(
-                o -> o.accept(classVisitor))));
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLDataPropertyDomainAxiom ax) {
-        return df.getOWLDataPropertyDomainAxiom(ax.getProperty(), ax
-                .getDomain().accept(classVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLObjectPropertyDomainAxiom ax) {
-        return df.getOWLObjectPropertyDomainAxiom(ax.getProperty(), ax
-                .getDomain().accept(classVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLObjectPropertyRangeAxiom ax) {
-        return df.getOWLObjectPropertyRangeAxiom(ax.getProperty(), ax
-                .getRange().accept(classVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLDisjointUnionAxiom ax) {
-        Set<OWLClassExpression> descs = asSet(ax.classExpressions().map(
-                op -> op.accept(classVisitor)));
-        return df.getOWLDisjointUnionAxiom(ax.getOWLClass(), descs);
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLDataPropertyRangeAxiom ax) {
-        return df.getOWLDataPropertyRangeAxiom(ax.getProperty(), ax.getRange()
-                .accept(rangeVisitor));
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLClassAssertionAxiom ax) {
-        if (ax.getClassExpression().isAnonymous()) {
-            return df.getOWLClassAssertionAxiom(
-                    ax.getClassExpression().accept(classVisitor),
-                    ax.getIndividual());
+    public OWLAxiom visit(OWLSubClassOfAxiom axiom) {
+        OWLClassExpression subClass = axiom.getSubClass();
+        OWLClassExpression newSubclass = subClass.accept(classVisitor);
+        OWLClassExpression superClass = axiom.getSuperClass();
+        OWLClassExpression newSuperclass = superClass.accept(classVisitor);
+        if (subClass.equals(newSubclass) && superClass.equals(newSuperclass)) {
+            return axiom;
+        } else {
+            return df.getOWLSubClassOfAxiom(newSubclass, newSuperclass,
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
         }
-        return ax;
+    }
+
+    @Nonnull
+    public Set<OWLAnnotation> getAnnotationsWithOptionalExpansionMarker(
+            OWLAxiom axiom) {
+        Set<OWLAnnotation> annotations = axiom.annotations().collect(toSet());
+        if (shouldAddExpansionMarker) {
+            annotations.add(expansionMarkerAnnotation);
+        }
+        return annotations;
     }
 
     @Override
-    public OWLAxiom visit(@Nonnull OWLEquivalentClassesAxiom ax) {
-        Set<OWLClassExpression> ops = asSet(ax.classExpressions().map(
-                op -> op.accept(classVisitor)));
-        return df.getOWLEquivalentClassesAxiom(ops);
+    public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
+        Set<OWLClassExpression> ops = new HashSet<>();
+        AtomicBoolean sawChange = new AtomicBoolean(false);
+        axiom.classExpressions().forEach(op -> {
+            OWLClassExpression newOp = op.accept(classVisitor);
+            ops.add(newOp);
+            if (!op.equals(newOp)) {
+                sawChange.set(true);
+            }
+        });
+        if (!sawChange.get()) {
+            return axiom;
+        }
+        return df.getOWLDisjointClassesAxiom(ops,
+                getAnnotationsWithOptionalExpansionMarker(axiom));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
+        Set<OWLClassExpression> newOps = new HashSet<>();
+        AtomicBoolean sawChange = new AtomicBoolean(false);
+        axiom.classExpressions().forEach(op -> {
+            OWLClassExpression newOp = op.accept(classVisitor);
+            newOps.add(newOp);
+            if (!op.equals(newOp)) {
+                sawChange.set(true);
+            }
+        });
+        if (!sawChange.get()) {
+            return axiom;
+        }
+        return df.getOWLDisjointUnionAxiom(axiom.getOWLClass(), newOps,
+                getAnnotationsWithOptionalExpansionMarker(axiom));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLDataPropertyDomainAxiom axiom) {
+        OWLClassExpression domain = axiom.getDomain();
+        OWLClassExpression newDomain = domain.accept(classVisitor);
+        if (domain.equals(newDomain)) {
+            return axiom;
+        }
+        return df.getOWLDataPropertyDomainAxiom(axiom.getProperty(), newDomain,
+                getAnnotationsWithOptionalExpansionMarker(axiom));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLObjectPropertyDomainAxiom axiom) {
+        OWLClassExpression domain = axiom.getDomain();
+        OWLClassExpression newDomain = domain.accept(classVisitor);
+        if (domain.equals(newDomain)) {
+            return axiom;
+        }
+        return df.getOWLObjectPropertyDomainAxiom(axiom.getProperty(),
+                newDomain, getAnnotationsWithOptionalExpansionMarker(axiom));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLObjectPropertyRangeAxiom axiom) {
+        OWLClassExpression range = axiom.getRange();
+        OWLClassExpression newRange = range.accept(classVisitor);
+        if (range.equals(newRange)) {
+            return axiom;
+        }
+        return df.getOWLObjectPropertyRangeAxiom(axiom.getProperty(), newRange,
+                getAnnotationsWithOptionalExpansionMarker(axiom));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLDataPropertyRangeAxiom axiom) {
+        OWLDataRange range = axiom.getRange();
+        OWLDataRange newRange = range.accept(rangeVisitor);
+        if (range.equals(newRange)) {
+            return axiom;
+        }
+        return df.getOWLDataPropertyRangeAxiom(axiom.getProperty(), newRange,
+                getAnnotationsWithOptionalExpansionMarker(axiom));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
+        OWLClassExpression classExpression = axiom.getClassExpression();
+        if (classExpression.isAnonymous()) {
+            OWLClassExpression newClassExpression = classExpression
+                    .accept(classVisitor);
+            if (!classExpression.equals(newClassExpression)) {
+                return df.getOWLClassAssertionAxiom(newClassExpression,
+                        axiom.getIndividual(),
+                        getAnnotationsWithOptionalExpansionMarker(axiom));
+            }
+        }
+        return axiom;
+    }
+
+    @Override
+    public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
+        Set<OWLClassExpression> newExpressions = new HashSet<>();
+        AtomicBoolean sawChange = new AtomicBoolean(false);
+        axiom.classExpressions().forEach(op -> {
+            OWLClassExpression newExpression = op.accept(classVisitor);
+            newExpressions.add(newExpression);
+            if (!op.equals(newExpression)) {
+                sawChange.set(true);
+            }
+        });
+        if (!sawChange.get()) {
+            return axiom;
+        }
+        return df.getOWLEquivalentClassesAxiom(newExpressions,
+                getAnnotationsWithOptionalExpansionMarker(axiom));
     }
 }

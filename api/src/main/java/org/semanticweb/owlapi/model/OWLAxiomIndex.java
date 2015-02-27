@@ -522,8 +522,23 @@ public interface OWLAxiomIndex extends HasImportsClosure {
     @Nonnull
     default Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
             @Nonnull OWLAnnotationSubject entity) {
+        return annotationAssertionAxioms(entity, EXCLUDED);
+    }
+
+    /**
+     * Gets the axioms that annotate the specified entity.
+     * 
+     * @param entity
+     *        The entity whose annotations are to be retrieved.
+     * @param imports
+     *        imports included or excluded
+     * @return the axioms matching the search. The set is a copy of the data.
+     */
+    @Nonnull
+    default Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
+            @Nonnull OWLAnnotationSubject entity, Imports imports) {
         return axioms(OWLAnnotationAssertionAxiom.class,
-                OWLAnnotationSubject.class, entity, EXCLUDED, IN_SUB_POSITION);
+                OWLAnnotationSubject.class, entity, imports, IN_SUB_POSITION);
     }
 
     // Classes
