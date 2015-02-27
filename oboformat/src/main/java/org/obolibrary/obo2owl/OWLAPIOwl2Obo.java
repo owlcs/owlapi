@@ -1589,7 +1589,7 @@ public class OWLAPIOwl2Obo {
          * this id space is stripped indvId = indvId.replaceFirst(".*:", "");
          * c.addValue(indvId); c.addValue(indvId); String nameValue = ""; String
          * scopeValue = null; for(OWLAnnotation ann:
-         * indv.getAnnotations(owlOntology)){ String propId =
+         * indv.getAnnotationsWithOptionalExpansionMarker(owlOntology)){ String propId =
          * ann.getProperty().getIRI().toString(); String value = ((OWLLiteral)
          * ann.getValue()).getLiteral();
          * if(OWLRDFVocabulary.RDFS_LABEL.getIRI().toString().equals(propId)){
@@ -1606,7 +1606,7 @@ public class OWLAPIOwl2Obo {
          * subsetdef/synonymtypedef // gets placed in a temp ID space, and only
          * this id space is stripped indvId = indvId.replaceFirst(".*:", "");
          * c.addValue(indvId); String nameValue = ""; for(OWLAnnotation ann:
-         * indv.getAnnotations(owlOntology)){ String propId =
+         * indv.getAnnotationsWithOptionalExpansionMarker(owlOntology)){ String propId =
          * ann.getProperty().getIRI().toString(); String value = ((OWLLiteral)
          * ann.getValue()).getLiteral();
          * if(OWLRDFVocabulary.RDFS_LABEL.getIRI().toString().equals(propId)){
