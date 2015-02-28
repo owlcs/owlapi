@@ -1,7 +1,6 @@
 package org.obolibrary.macro;
 
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.obolibrary.obo2owl.RoundTripTest;
 import org.semanticweb.owlapi.model.AxiomType;
