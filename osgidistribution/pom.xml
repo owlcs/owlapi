@@ -63,6 +63,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Implementation-Version>${project.version}</Implementation-Version>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
 						<Embed-Dependency>guava, trove4j</Embed-Dependency>
 						<Export-Package>
