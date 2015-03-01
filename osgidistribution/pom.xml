@@ -96,6 +96,7 @@
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
+						<phase>install</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -126,7 +127,7 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>package</phase>
+						<phase>install</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
