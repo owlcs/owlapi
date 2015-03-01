@@ -163,6 +163,36 @@
 							</instructions>
 						</configuration>
 					</plugin>
+					<!-- We need to configure the Source Plugin for deploying the sources. -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- We need to configure the Javadoc Plugin for deploying the Javadocs -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.8.1</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
@@ -191,6 +221,7 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
+						<phase>install</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -206,6 +237,7 @@
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
+						<phase>install</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
