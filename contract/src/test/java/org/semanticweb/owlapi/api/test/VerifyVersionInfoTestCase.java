@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -19,6 +20,8 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.semanticweb.owlapi.test.IntegrationTest;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,6 +29,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 @SuppressWarnings("javadoc")
+@Category(IntegrationTest.class)
 public class VerifyVersionInfoTestCase {
 
     @Test
@@ -40,12 +44,8 @@ public class VerifyVersionInfoTestCase {
             Node n = list.item(i);
             if (n instanceof Element
                     && ((Element) n).getTagName().equals("version")) {
-                String version = n.getTextContent();
-                if (!version.equals(info.getVersion())) {
-                    System.out
-                            .println("VerifyVersionInfo.checkMatchVersion() WARNING: update the version in VersionInfo");
-                }
-                // assertEquals(version, info.getVersion());
+                String version = ((Element) n).getTextContent();
+                assertEquals(version, info.getVersion());
                 found = true;
             }
         }
@@ -60,12 +60,8 @@ public class VerifyVersionInfoTestCase {
                     Node n = list.item(i);
                     if (n instanceof Element
                             && ((Element) n).getTagName().equals("version")) {
-                        String version = n.getTextContent();
-                        if (!version.equals(info.getVersion())) {
-                            System.out
-                                    .println("VerifyVersionInfo.checkMatchVersion() WARNING: update the version in VersionInfo");
-                        }
-                        // assertEquals(version, info.getVersion());
+                        String version = ((Element) n).getTextContent();
+                        assertEquals(version, info.getVersion());
                         found = true;
                     }
                 }
