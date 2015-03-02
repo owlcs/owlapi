@@ -46,10 +46,17 @@ package org.coode.xml;
  */
 public class XMLWriterPreferences {
 
-    private static XMLWriterPreferences instance = new XMLWriterPreferences();
     private boolean useNamespaceEntities;
     private boolean indenting;
     private int indentSize;
+
+    static ThreadLocal<XMLWriterPreferences> xmlWriterPreferencesThreadLocal = new ThreadLocal<XMLWriterPreferences>() {
+
+        @Override
+        protected XMLWriterPreferences initialValue() {
+            return new XMLWriterPreferences();
+        }
+    };
 
     private XMLWriterPreferences() {
         useNamespaceEntities = false;
@@ -59,7 +66,7 @@ public class XMLWriterPreferences {
 
     /** @return instance */
     public static XMLWriterPreferences getInstance() {
-        return instance;
+        return xmlWriterPreferencesThreadLocal.get();
     }
 
     /** @return use namespace entities */

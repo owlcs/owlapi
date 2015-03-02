@@ -64,6 +64,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class XMLWriterImpl implements XMLWriter {
 
+    private final XMLWriterPreferences instance = XMLWriterPreferences.getInstance();
     private Stack<XMLElement> elementStack;
     protected Writer writer;
     private String encoding = "";
@@ -305,7 +306,7 @@ public class XMLWriterImpl implements XMLWriter {
             encodingString = " encoding=\"" + encoding + "\"";
         }
         writer.write("<?xml version=\"1.0\"" + encodingString + "?>\n");
-        if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {
+        if (instance.isUseNamespaceEntities()) {
             writeEntities(rootElement);
         }
         preambleWritten = true;
@@ -494,7 +495,7 @@ public class XMLWriterImpl implements XMLWriter {
             writer.write(attr);
             writer.write('=');
             writer.write('"');
-            if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {
+            if (instance.isUseNamespaceEntities()) {
                 writer.write(swapForEntity(XMLUtils.escapeXML(val)));
             } else {
                 writer.write(XMLUtils.escapeXML(val));
@@ -525,9 +526,9 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         private void insertIndentation() throws IOException {
-            if (XMLWriterPreferences.getInstance().isIndenting()) {
+            if (instance.isIndenting()) {
                 for (int i = 0; i < indentation
-                        * XMLWriterPreferences.getInstance().getIndentSize(); i++) {
+                        * instance.getIndentSize(); i++) {
                     writer.write(' ');
                 }
             }
