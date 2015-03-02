@@ -84,29 +84,45 @@ import org.xml.sax.helpers.LocatorImpl;
 @SuppressWarnings("unused")
 public class RDFParser extends DefaultHandler implements RDFConstants {
 
-    protected static final Locator s_nullDocumentLocator = new LocatorImpl();
-    protected static final SAXParserFactory s_parserFactory = buildFactory();
+    private static ThreadLocal<Locator> locatorThreadLocal = new ThreadLocal<Locator>() {
+        @Override
+        protected Locator initialValue() {
+            return new LocatorImpl();
+        }
+    };
+
+    protected static Locator getLocator() {
+        return locatorThreadLocal.get();
+    }
+    private static ThreadLocal<SAXParserFactory> saxParserFactoryThreadLocal = new ThreadLocal<SAXParserFactory>() {
+
+        @Override
+        protected SAXParserFactory initialValue() {
+            try {
+                System.setProperty("entityExpansionLimit", "100000000");
+                SAXParserFactory factory = SAXParserFactory.newInstance();
+                factory.setNamespaceAware(true);
+                factory.setValidating(false);
+                factory.setFeature(
+                        "http://apache.org/xml/features/nonvalidating/load-external-dtd",
+                        false);
+                return factory;
+            } catch (SAXNotRecognizedException e) {
+                throw new OWLRuntimeException(e);
+            } catch (SAXNotSupportedException e) {
+                throw new OWLRuntimeException(e);
+            } catch (ParserConfigurationException e) {
+                throw new OWLRuntimeException(e);
+            }
+        }
+    };
     private Map<String, String> resolvedIRIs = new HashMap<String, String>();
     protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
 
-    static SAXParserFactory buildFactory() {
-        try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            factory.setNamespaceAware(true);
-            factory.setValidating(false);
-            factory.setFeature(
-                    "http://apache.org/xml/features/nonvalidating/load-external-dtd",
-                    false);
-            return factory;
-        } catch (SAXNotRecognizedException e) {
-            throw new OWLRuntimeException(e);
-        } catch (SAXNotSupportedException e) {
-            throw new OWLRuntimeException(e);
-        } catch (ParserConfigurationException e) {
-            throw new OWLRuntimeException(e);
-        }
+    protected static SAXParserFactory getSaxParserFactory() {
+        SAXParserFactory saxParserFactory = saxParserFactoryThreadLocal.get();
+        return saxParserFactory;
     }
-
     /** Registered error handler. */
     protected ErrorHandler m_errorHandler;
     /** Stack of base IRIs. */
@@ -151,7 +167,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             throws SAXException, IOException {
         String systemID = source.getSystemId();
         try {
-            m_documentLocator = s_nullDocumentLocator;
+            m_documentLocator = getLocator();
             if (systemID != null) {
                 m_baseIRI = IRI.create(new URI(source.getSystemId()));
             } else {
@@ -160,7 +176,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             }
             m_consumer = consumer;
             m_consumer.startModel(m_baseIRI.toString());
-            SAXParser parser = s_parserFactory.newSAXParser();
+            SAXParser parser = getSaxParserFactory().newSAXParser();
             parser.setProperty(
                     "http://xml.org/sax/properties/declaration-handler",
                     new DeclHandler() {
