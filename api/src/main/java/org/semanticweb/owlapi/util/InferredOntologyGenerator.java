@@ -16,15 +16,17 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Generates an ontology based on inferred axioms which are essentially supplied
@@ -38,6 +40,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  */
 public class InferredOntologyGenerator {
 
+    private static Logger logger = LoggerFactory
+            .getLogger(InferredOntologyGenerator.class.getName());
     // The reasoner which is used to compute the inferred axioms
     @Nonnull
     private final OWLReasoner reasoner;
@@ -130,10 +134,19 @@ public class InferredOntologyGenerator {
             @Nonnull OWLOntology ontology) {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
-        List<AddAxiom> changes = new ArrayList<>();
-        axiomGenerators.stream()
-                .flatMap(g -> g.createAxioms(df, reasoner).stream())
-                .forEach(ax -> changes.add(new AddAxiom(ontology, ax)));
-        ontology.getOWLOntologyManager().applyChanges(changes);
+        axiomGenerators.stream().flatMap(g -> generate(df, g))
+                .forEach(ax -> ontology.addAxiom(ax));
+    }
+
+    protected Stream<? extends OWLAxiom> generate(@Nonnull OWLDataFactory df,
+            InferredAxiomGenerator<? extends OWLAxiom> g) {
+        try {
+            return g.createAxioms(df, reasoner).stream();
+        } catch (Exception e) {
+            logger.warn("Error generating {} axioms using {}, version {}",
+                    g.getLabel(), reasoner.getReasonerName(),
+                    reasoner.getReasonerVersion(), e);
+            return Stream.empty();
+        }
     }
 }
