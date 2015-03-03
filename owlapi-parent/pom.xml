@@ -17,7 +17,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.0.1</version>
+	<version>4.0.2-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -36,12 +36,13 @@
 		<!-- The distribution module is a single-jar build of the whole OWL API. -->
 		<module>distribution</module>
 		<module>osgidistribution</module>
+		<module>benchmarks</module>
 	</modules>
 
 
 	<issueManagement>
-		<system>sourceforge</system>
-		<url>http://sourceforge.net/tracker/?group_id=90989</url>
+		<system>GitHub</system>
+		<url>https://github.com/owlcs/owlapi/issues</url>
 	</issueManagement>
 
 
@@ -182,7 +183,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
+						<version>1.5</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -205,25 +206,6 @@
 								<Export-Package>{local-packages}</Export-Package>
 							</instructions>
 						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>2.3</version>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>shade</goal>
-								</goals>
-								<configuration>
-									<transformers>
-										<transformer
-											implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-									</transformers>
-								</configuration>
-							</execution>
-						</executions>
 					</plugin>
 				</plugins>
 			</build>
@@ -290,7 +272,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.2</version>
+				<version>1.6.3</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
