@@ -31,6 +31,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.SAXParsers;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
