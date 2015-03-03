@@ -309,9 +309,12 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18.1</version>
 				<configuration>
-						<excludedGroups>org.semanticweb.owlapi.test.IntegrationTest</excludedGroups>
+					<excludedGroups>org.semanticweb.owlapi.test.IntegrationTest</excludedGroups>
 					<printSummary>false</printSummary>
-					<argLine>-Xmx1024M -Djava.awt.headless=true</argLine>
+					<parallel>all</parallel>
+					<threadCount>1</threadCount>
+					<perCoreThreadCount>true</perCoreThreadCount>
+					<argLine>-Xmx2G -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
