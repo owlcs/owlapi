@@ -28,9 +28,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
@@ -55,8 +52,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     @Nonnull
     protected static final Locator nullDocumentLocator = new LocatorImpl();
-    protected static final SAXParserFactory parserFactory = SAXParsers
-            .initFactory();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
     protected final Map<String, IRI> uriCache = new HashMap<>();
     /** Registered error handler. */
@@ -132,32 +127,27 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             }
             consumer = inputConsumer;
             inputConsumer.startModel(getBaseIRI());
-            SAXParser newSAXParser = parserFactory.newSAXParser();
-            newSAXParser.setProperty(
-                    "http://xml.org/sax/properties/declaration-handler",
-                    new DeclHandler() {
+            DeclHandler handler = new DeclHandler() {
 
-                        @Override
-                        public void
-                                internalEntityDecl(String name, String value) {
-                            consumer.addPrefix(name, value);
-                        }
+                @Override
+                public void internalEntityDecl(String name, String value) {
+                    consumer.addPrefix(name, value);
+                }
 
-                        @Override
-                        public void externalEntityDecl(String name,
-                                String publicId, String systemId) {}
+                @Override
+                public void externalEntityDecl(String name, String publicId,
+                        String systemId) {}
 
-                        @Override
-                        public void elementDecl(String name, String model) {}
+                @Override
+                public void elementDecl(String name, String model) {}
 
-                        @Override
-                        public void attributeDecl(String eName, String aName,
-                                String type, String mode, String value) {}
-                    });
-            newSAXParser.parse(source, this);
+                @Override
+                public void attributeDecl(String eName, String aName,
+                        String type, String mode, String value) {}
+            };
+            SAXParsers.initParserWithOWLAPIStandards(handler).parse(source,
+                    this);
             inputConsumer.endModel();
-        } catch (ParserConfigurationException e) {
-            throw new SAXException("Parser configuration exception", e);
         } catch (URISyntaxException e) {
             throw new SAXException("Invalid SystemID '" + systemID
                     + "'of the supplied input source.", e);

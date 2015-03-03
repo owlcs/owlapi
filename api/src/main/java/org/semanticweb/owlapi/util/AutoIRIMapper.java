@@ -30,14 +30,12 @@ import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.xml.sax.Attributes;
@@ -193,10 +191,7 @@ public class AutoIRIMapper extends DefaultHandler implements
                 BufferedInputStream delegate = new BufferedInputStream(in);
                 InputStream is = OWLOntologyDocumentSourceBase.wrap(delegate);) {
             currentFile = file;
-            SAXParser parser = SAXParsers.initFactory().newSAXParser();
-            parser.parse(is, this);
-        } catch (ParserConfigurationException e) {
-            throw new OWLRuntimeException(e);
+            SAXParsers.initParserWithOWLAPIStandards(null).parse(is, this);
         } catch (Exception e) {
             // if we can't parse a file, then we can't map it
         }

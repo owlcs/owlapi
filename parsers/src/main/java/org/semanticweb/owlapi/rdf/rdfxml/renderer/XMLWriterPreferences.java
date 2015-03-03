@@ -35,6 +35,21 @@ public final class XMLWriterPreferences {
         indentSize = 4;
     }
 
+    /**
+     * @return copy of the current XMLWriterPreferences instance. Passing this
+     *         to an XML writer breaks the link between multiple threads
+     *         changing the settings. The class should be rewritten to be
+     *         immutable but this would break the current interface.
+     */
+    @Nonnull
+    public synchronized XMLWriterPreferences copy() {
+        XMLWriterPreferences p = new XMLWriterPreferences();
+        p.setIndenting(indenting);
+        p.setIndentSize(indentSize);
+        p.setUseNamespaceEntities(useNamespaceEntities);
+        return p;
+    }
+
     /** @return the only instance */
     public static XMLWriterPreferences getInstance() {
         return INSTANCE;
@@ -49,7 +64,8 @@ public final class XMLWriterPreferences {
      * @param useNamespaceEntities
      *        useNamespaceEntities
      */
-    public void setUseNamespaceEntities(boolean useNamespaceEntities) {
+    public synchronized void setUseNamespaceEntities(
+            boolean useNamespaceEntities) {
         this.useNamespaceEntities = useNamespaceEntities;
     }
 
@@ -62,7 +78,7 @@ public final class XMLWriterPreferences {
      * @param indenting
      *        indenting
      */
-    public void setIndenting(boolean indenting) {
+    public synchronized void setIndenting(boolean indenting) {
         this.indenting = indenting;
     }
 
@@ -75,7 +91,7 @@ public final class XMLWriterPreferences {
      * @param indentSize
      *        indentSize
      */
-    public void setIndentSize(int indentSize) {
+    public synchronized void setIndentSize(int indentSize) {
         this.indentSize = indentSize;
     }
 }
