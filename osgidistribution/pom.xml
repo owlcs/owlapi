@@ -96,11 +96,11 @@
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
-						<phase>install</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
 						<configuration>
+							<skip>${no-javadoc}</skip>
 							<includeDependencySources>true</includeDependencySources>
 							<dependencySourceIncludes>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-api</dependencySourceInclude>
@@ -127,7 +127,6 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>install</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
