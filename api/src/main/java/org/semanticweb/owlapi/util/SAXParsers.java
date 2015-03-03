@@ -12,9 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.xml.sax.SAXException;
+import org.xml.sax.ext.DeclHandler;
 
 /**
  * @author ignazio
@@ -29,8 +33,6 @@ public final class SAXParsers {
      *         not loading external dtds.
      */
     public static SAXParserFactory initFactory() {
-        System.setProperty("entityExpansionLimit", "100000000");
-        System.setProperty("jdk.xml.entityExpansionLimit", "100000000");
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(false);
         try {
@@ -38,10 +40,33 @@ public final class SAXParsers {
                     "http://apache.org/xml/features/nonvalidating/load-external-dtd",
                     false);
             factory.setFeature("http://xml.org/sax/features/validation", false);
-        } catch (Exception e) {
+        } catch (ParserConfigurationException | SAXException e) {
             throw new OWLRuntimeException(e);
         }
         factory.setNamespaceAware(true);
         return factory;
+    }
+
+    /**
+     * @param handler
+     *        declaration handler, optional. Used for entity detection for reuse
+     *        in parser output.
+     * @return new SaxParser, intialized with optional declaration handler and
+     *         larger entity expansion limit
+     */
+    public static SAXParser initParserWithOWLAPIStandards(DeclHandler handler) {
+        try {
+            SAXParser parser = initFactory().newSAXParser();
+            parser.setProperty("entityExpansionLimit", "100000000");
+            parser.setProperty("jdk.xml.entityExpansionLimit", "100000000");
+            if (handler != null) {
+                parser.setProperty(
+                        "http://xml.org/sax/properties/declaration-handler",
+                        handler);
+            }
+            return parser;
+        } catch (ParserConfigurationException | SAXException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 }

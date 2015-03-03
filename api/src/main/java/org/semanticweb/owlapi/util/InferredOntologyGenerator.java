@@ -25,6 +25,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Generates an ontology based on inferred axioms which are essentially supplied
@@ -38,6 +40,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  */
 public class InferredOntologyGenerator {
 
+    private static Logger logger = LoggerFactory
+            .getLogger(InferredOntologyGenerator.class.getName());
     // The reasoner which is used to compute the inferred axioms
     @Nonnull
     private final OWLReasoner reasoner;
@@ -132,9 +136,15 @@ public class InferredOntologyGenerator {
         checkNotNull(ontology, "ontology cannot be null");
         List<AddAxiom> changes = new ArrayList<>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
-            for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {
-                assert ax != null;
-                changes.add(new AddAxiom(ontology, ax));
+            try {
+                for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {
+                    assert ax != null;
+                    changes.add(new AddAxiom(ontology, ax));
+                }
+            } catch (Exception e) {
+                logger.warn("Error generating {} axioms using {}, version {}",
+                        axiomGenerator.getLabel(), reasoner.getReasonerName(),
+                        reasoner.getReasonerVersion(), e);
             }
         }
         ontology.getOWLOntologyManager().applyChanges(changes);

@@ -3,6 +3,7 @@ package org.obolibrary.macro;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.obolibrary.obo2owl.Obo2OWLConstants;
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -108,14 +110,35 @@ public abstract class AbstractMacroExpansionVisitor extends
 
     static final Logger LOG = LoggerFactory
             .getLogger(AbstractMacroExpansionVisitor.class);
+    static public final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections
+            .emptySet();
     final OWLDataFactory dataFactory;
     @Nonnull
     final Map<IRI, String> expandAssertionToMap;
     @Nonnull
     final Map<IRI, String> expandExpressionMap;
 
+    public OWLAnnotationProperty getOIO_ISEXPANSION() {
+        return OIO_ISEXPANSION;
+    }
+
+    final protected OWLAnnotationProperty OIO_ISEXPANSION;
+
+    public OWLAnnotation getExpansionMarkerAnnotation() {
+        return expansionMarkerAnnotation;
+    }
+
+    final protected OWLAnnotation expansionMarkerAnnotation;
+    private boolean shouldAddExpansionMarker = false;
+
+    protected AbstractMacroExpansionVisitor(OWLOntology ontology,
+            boolean shouldAddExpansionMarker) {
+        this(ontology);
+        this.shouldAddExpansionMarker = shouldAddExpansionMarker;
+    }
+
     @SuppressWarnings("null")
-    protected AbstractMacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
+    protected AbstractMacroExpansionVisitor(OWLOntology inputOntology) {
         super(null);
         dataFactory = inputOntology.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<>();
@@ -126,6 +149,10 @@ public abstract class AbstractMacroExpansionVisitor extends
         OWLAnnotationProperty expandAssertionAP = dataFactory
                 .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000425
                         .getIRI());
+        OIO_ISEXPANSION = dataFactory.getOWLAnnotationProperty(IRI.create(
+                Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
+        expansionMarkerAnnotation = dataFactory.getOWLAnnotation(
+                OIO_ISEXPANSION, dataFactory.getOWLLiteral(true));
         for (OWLObjectProperty p : inputOntology
                 .getObjectPropertiesInSignature()) {
             for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
@@ -312,69 +339,152 @@ public abstract class AbstractMacroExpansionVisitor extends
     // Conversion of non-class expressions to MacroExpansionVisitor
     @Override
     public OWLAxiom visit(@Nonnull OWLSubClassOfAxiom axiom) {
-        return dataFactory.getOWLSubClassOfAxiom(
-                axiom.getSubClass().accept(this),
-                axiom.getSuperClass().accept(this));
+        OWLClassExpression subClass = axiom.getSubClass();
+        OWLClassExpression newSubclass = subClass.accept(this);
+        OWLClassExpression superClass = axiom.getSuperClass();
+        OWLClassExpression newSuperclass = superClass.accept(this);
+        if (subClass.equals(newSubclass) && superClass.equals(newSuperclass)) {
+            return axiom;
+        } else {
+            return dataFactory.getOWLSubClassOfAxiom(newSubclass,
+                    newSuperclass,
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
+        }
+    }
+
+    public Set<OWLAnnotation> getAnnotationsWithOptionalExpansionMarker(
+            OWLAxiom axiom) {
+        if (shouldAddExpansionMarker) {
+            Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
+                    axiom.getAnnotations());
+            annotations.add(expansionMarkerAnnotation);
+            return annotations;
+        } else {
+            return axiom.getAnnotations();
+        }
     }
 
     @Override
     public OWLAxiom visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         Set<OWLClassExpression> ops = new HashSet<>();
+        boolean sawChange = false;
         for (OWLClassExpression op : axiom.getClassExpressions()) {
-            ops.add(op.accept(this));
+            OWLClassExpression newOp = op.accept(this);
+            ops.add(newOp);
+            if (!op.equals(newOp)) {
+                sawChange = true;
+            }
         }
-        return dataFactory.getOWLDisjointClassesAxiom(ops);
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
-        return dataFactory.getOWLDataPropertyDomainAxiom(axiom.getProperty(),
-                axiom.getDomain().accept(this));
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
-        return dataFactory.getOWLObjectPropertyDomainAxiom(axiom.getProperty(),
-                axiom.getDomain().accept(this));
-    }
-
-    @Override
-    public OWLAxiom visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
-        return dataFactory.getOWLObjectPropertyRangeAxiom(axiom.getProperty(),
-                axiom.getRange().accept(this));
+        if (sawChange) {
+            return dataFactory.getOWLDisjointClassesAxiom(ops,
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
+        } else {
+            return axiom;
+        }
     }
 
     @Override
     public OWLAxiom visit(@Nonnull OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> descs = new HashSet<>();
+        Set<OWLClassExpression> newOps = new HashSet<OWLClassExpression>();
+        boolean sawChange = false;
         for (OWLClassExpression op : axiom.getClassExpressions()) {
-            descs.add(op.accept(this));
+            OWLClassExpression newOp = op.accept(this);
+            newOps.add(newOp);
+            if (!op.equals(newOp)) {
+                sawChange = true;
+            }
         }
-        return dataFactory.getOWLDisjointUnionAxiom(axiom.getOWLClass(), descs);
+        if (!sawChange) {
+            return axiom;
+        }
+        return dataFactory.getOWLDisjointUnionAxiom(axiom.getOWLClass(),
+                newOps, getAnnotationsWithOptionalExpansionMarker(axiom));
+    }
+
+    @Override
+    public OWLAxiom visit(OWLDataPropertyDomainAxiom axiom) {
+        OWLClassExpression domain = axiom.getDomain();
+        OWLClassExpression newDomain = domain.accept(this);
+        if (domain.equals(newDomain)) {
+            return axiom;
+        } else {
+            return dataFactory.getOWLDataPropertyDomainAxiom(
+                    axiom.getProperty(), newDomain,
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
+        }
+    }
+
+    @Override
+    public OWLAxiom visit(OWLObjectPropertyDomainAxiom axiom) {
+        OWLClassExpression domain = axiom.getDomain();
+        OWLClassExpression newDomain = domain.accept(this);
+        if (domain.equals(newDomain)) {
+            return axiom;
+        } else {
+            return dataFactory.getOWLObjectPropertyDomainAxiom(
+                    axiom.getProperty(), newDomain,
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
+        }
+    }
+
+    @Override
+    public OWLAxiom visit(OWLObjectPropertyRangeAxiom axiom) {
+        OWLClassExpression range = axiom.getRange();
+        OWLClassExpression newRange = range.accept(this);
+        if (range.equals(newRange)) {
+            return axiom;
+        } else {
+            return dataFactory.getOWLObjectPropertyRangeAxiom(
+                    axiom.getProperty(), newRange,
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
+        }
     }
 
     @Override
     public OWLAxiom visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
-        return dataFactory.getOWLDataPropertyRangeAxiom(axiom.getProperty(),
-                axiom.getRange().accept(this));
+        OWLDataRange range = axiom.getRange();
+        OWLDataRange newRange = range.accept(this);
+        if (range.equals(newRange)) {
+            return axiom;
+        } else {
+            return dataFactory.getOWLDataPropertyRangeAxiom(
+                    axiom.getProperty(), newRange,
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
+        }
     }
 
     @Override
     public OWLAxiom visit(@Nonnull OWLClassAssertionAxiom axiom) {
-        if (axiom.getClassExpression().isAnonymous()) {
-            return dataFactory.getOWLClassAssertionAxiom(axiom
-                    .getClassExpression().accept(this), axiom.getIndividual());
+        OWLClassExpression classExpression = axiom.getClassExpression();
+        if (classExpression.isAnonymous()) {
+            OWLClassExpression newClassExpression = classExpression
+                    .accept(this);
+            if (!classExpression.equals(newClassExpression)) {
+                return dataFactory.getOWLClassAssertionAxiom(
+                        newClassExpression, axiom.getIndividual(),
+                        getAnnotationsWithOptionalExpansionMarker(axiom));
+            }
         }
         return axiom;
     }
 
     @Override
     public OWLAxiom visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = new HashSet<>();
-        for (OWLClassExpression op : axiom.getClassExpressions()) {
-            ops.add(op.accept(this));
+        Set<OWLClassExpression> newExpressions = new HashSet<OWLClassExpression>();
+        boolean sawChange = false;
+        for (OWLClassExpression expression : axiom.getClassExpressions()) {
+            OWLClassExpression newExpression = expression.accept(this);
+            newExpressions.add(newExpression);
+            if (!expression.equals(newExpression)) {
+                sawChange = true;
+            }
         }
-        return dataFactory.getOWLEquivalentClassesAxiom(ops);
+        if (sawChange) {
+            return dataFactory.getOWLEquivalentClassesAxiom(newExpressions,
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
+        } else {
+            return axiom;
+        }
     }
 
     @Override

@@ -2,10 +2,7 @@ package org.obolibrary.macro;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -33,10 +30,9 @@ import org.slf4j.LoggerFactory;
 public class MacroExpansionGCIVisitor {
 
     protected static final Logger LOG = LoggerFactory
-            .getLogger(MacroExpansionGCIVisitor.class);
+            .getLogger(MacroExpansionGCIVisitor.class.getName());
     private final OWLOntology inputOntology;
     private final OWLOntologyManager outputManager;
-    @Nonnull
     private final OWLOntology outputOntology;
     protected final ManchesterSyntaxTool manchesterSyntaxTool;
     private final GCIVisitor visitor;
@@ -47,8 +43,8 @@ public class MacroExpansionGCIVisitor {
      * @param outputManager
      *        outputManager
      */
-    public MacroExpansionGCIVisitor(@Nonnull OWLOntology inputOntology,
-            @Nonnull OWLOntologyManager outputManager) {
+    public MacroExpansionGCIVisitor(OWLOntology inputOntology,
+            OWLOntologyManager outputManager) {
         this.inputOntology = inputOntology;
         visitor = new GCIVisitor(inputOntology);
         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
@@ -61,7 +57,7 @@ public class MacroExpansionGCIVisitor {
         }
     }
 
-    protected void output(@Nullable OWLAxiom axiom) {
+    protected void output(OWLAxiom axiom) {
         if (axiom == null) {
             LOG.error("no axiom");
             return;
@@ -92,11 +88,11 @@ public class MacroExpansionGCIVisitor {
     }
 
     @SuppressWarnings("null")
-    private void expand(@Nonnull OWLAnnotationAssertionAxiom ax) {
+    private void expand(OWLAnnotationAssertionAxiom ax) {
         OWLAnnotationProperty prop = ax.getProperty();
         String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
         if (expandTo != null) {
-            LOG.info("Template to Expand{}", expandTo);
+            LOG.info("Template to Expand {}", expandTo);
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
             expandTo = expandTo.replaceAll("\\?Y",
@@ -116,15 +112,13 @@ public class MacroExpansionGCIVisitor {
 
     private class GCIVisitor extends AbstractMacroExpansionVisitor {
 
-        GCIVisitor(@Nonnull OWLOntology inputOntology) {
+        GCIVisitor(OWLOntology inputOntology) {
             super(inputOntology);
         }
 
-        @Nullable
         @Override
         protected OWLClassExpression expandOWLObjSomeVal(
-                OWLClassExpression filler,
-                @Nonnull OWLObjectPropertyExpression p) {
+                OWLClassExpression filler, OWLObjectPropertyExpression p) {
             OWLClassExpression gciRHS = expandObject(filler, p);
             if (gciRHS != null) {
                 OWLClassExpression gciLHS = dataFactory
@@ -136,11 +130,9 @@ public class MacroExpansionGCIVisitor {
             return gciRHS;
         }
 
-        @Nullable
         @Override
         protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
-                @Nonnull OWLIndividual filler,
-                @Nonnull OWLObjectPropertyExpression p) {
+                OWLIndividual filler, OWLObjectPropertyExpression p) {
             OWLClassExpression gciRHS = expandObject(filler, p);
             if (gciRHS != null) {
                 OWLClassExpression gciLHS = dataFactory.getOWLObjectHasValue(p,
@@ -153,9 +145,8 @@ public class MacroExpansionGCIVisitor {
         }
 
         @SuppressWarnings("null")
-        @Nullable
         private OWLClassExpression expandObject(Object filler,
-                @Nonnull OWLObjectPropertyExpression p) {
+                OWLObjectPropertyExpression p) {
             OWLClassExpression result = null;
             IRI iri = ((OWLObjectProperty) p).getIRI();
             IRI templateVal = null;
@@ -180,7 +171,7 @@ public class MacroExpansionGCIVisitor {
                     try {
                         result = manchesterSyntaxTool
                                 .parseManchesterExpression(exStr);
-                    } catch (ParserException e) {
+                    } catch (OWLParserException e) {
                         LOG.error(e.getMessage(), e);
                     }
                 }

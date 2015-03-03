@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.obolibrary.obo2owl.RoundTripTest;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /*
  * 
@@ -24,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ExpandTaxonConstraintsTest extends RoundTripTest {
 
     @Test
-    public void testExpand() {
+    public void testExpand() throws OWLOntologyStorageException {
         OWLOntology ontology = convert(parseOBOFile("taxon_constraints.obo"));
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology);
         OWLOntology outputOntology = mev.expandAll();
