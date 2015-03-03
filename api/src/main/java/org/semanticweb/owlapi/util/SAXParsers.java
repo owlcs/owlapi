@@ -57,8 +57,9 @@ public final class SAXParsers {
     public static SAXParser initParserWithOWLAPIStandards(DeclHandler handler) {
         try {
             SAXParser parser = initFactory().newSAXParser();
-            parser.setProperty("entityExpansionLimit", "100000000");
-            parser.setProperty("jdk.xml.entityExpansionLimit", "100000000");
+            parser.setProperty(
+                    "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit",
+                    "100000000");
             if (handler != null) {
                 parser.setProperty(
                         "http://xml.org/sax/properties/declaration-handler",

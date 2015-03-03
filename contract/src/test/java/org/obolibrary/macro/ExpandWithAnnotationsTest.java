@@ -9,7 +9,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-public class ExpandWithAnnotations extends OboFormatTestBasics {
+public class ExpandWithAnnotationsTest extends OboFormatTestBasics {
 
     @Test
     public void testExpand() throws Exception {
