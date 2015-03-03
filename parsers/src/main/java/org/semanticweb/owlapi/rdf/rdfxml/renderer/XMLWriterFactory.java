@@ -40,6 +40,7 @@ public class XMLWriterFactory {
     public static XMLWriter createXMLWriter(@Nonnull PrintWriter writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
             @Nonnull String xmlBase) {
-        return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase);
+        return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase,
+                XMLWriterPreferences.getInstance().copy());
     }
 }

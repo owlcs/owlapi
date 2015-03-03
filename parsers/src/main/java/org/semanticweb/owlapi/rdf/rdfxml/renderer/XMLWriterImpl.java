@@ -55,6 +55,7 @@ public class XMLWriterImpl implements XMLWriter {
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
     private static final String PERCENT_ENTITY = "&#37;";
+    protected final XMLWriterPreferences xmlPreferences;
 
     /**
      * @param writer
@@ -63,15 +64,18 @@ public class XMLWriterImpl implements XMLWriter {
      *        xmlWriterNamespaceManager
      * @param xmlBase
      *        xmlBase
+     * @param preferences
+     *        xml writer preferences instance
      */
     public XMLWriterImpl(@Nonnull PrintWriter writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
-            @Nonnull String xmlBase) {
+            @Nonnull String xmlBase, @Nonnull XMLWriterPreferences preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
         this.xmlWriterNamespaceManager = checkNotNull(
                 xmlWriterNamespaceManager,
                 "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
+        xmlPreferences = checkNotNull(preferences, "preferences cannot be null");
         elementStack = new Stack<>();
         setupEntities();
     }
@@ -234,7 +238,7 @@ public class XMLWriterImpl implements XMLWriter {
             encodingString = " encoding=\"" + encoding + '"';
         }
         writer.write("<?xml version=\"1.0\"" + encodingString + "?>\n");
-        if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {
+        if (xmlPreferences.isUseNamespaceEntities()) {
             writeEntities(rootElement);
         }
         preambleWritten = true;
@@ -396,7 +400,7 @@ public class XMLWriterImpl implements XMLWriter {
             writer.write(attr);
             writer.write('=');
             writer.write('"');
-            if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {
+            if (xmlPreferences.isUseNamespaceEntities()) {
                 writer.write(swapForEntity(XMLUtils.escapeXML(val)));
             } else {
                 writer.write(XMLUtils.escapeXML(val));
@@ -427,9 +431,9 @@ public class XMLWriterImpl implements XMLWriter {
         }
 
         private void insertIndentation() {
-            if (XMLWriterPreferences.getInstance().isIndenting()) {
+            if (xmlPreferences.isIndenting()) {
                 for (int i = 0; i < indentation
-                        * XMLWriterPreferences.getInstance().getIndentSize(); i++) {
+                        * xmlPreferences.getIndentSize(); i++) {
                     writer.write(' ');
                 }
             }

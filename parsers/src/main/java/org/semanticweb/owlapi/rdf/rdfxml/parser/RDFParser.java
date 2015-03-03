@@ -55,8 +55,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     @Nonnull
     protected static final Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
-    protected static final SAXParserFactory PARSERFACTORY = SAXParsers
-            .initFactory();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
     protected final Map<String, IRI> uriCache = new HashMap<>();
     /** Registered error handler. */
@@ -131,20 +129,16 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             baseIRI = IRI.create(new URI(source.getSystemId()));
             consumer = inputConsumer;
             inputConsumer.startModel(getBaseIRI());
-            SAXParser newSAXParser = PARSERFACTORY.newSAXParser();
-            newSAXParser.setProperty(
-                    "http://xml.org/sax/properties/declaration-handler",
-                    new DeclHandler() {
+            DeclHandler handler = new DeclHandler() {
 
                         @Override
-                        public void
-                                internalEntityDecl(String name, String value) {
+                public void internalEntityDecl(String name, String value) {
                             consumer.addPrefix(name, value);
                         }
 
                         @Override
-                        public void externalEntityDecl(String name,
-                                String publicId, String systemId) {}
+                public void externalEntityDecl(String name, String publicId,
+                        String systemId) {}
 
                         @Override
                         public void elementDecl(String name, String model) {}
@@ -152,11 +146,10 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                         @Override
                         public void attributeDecl(String eName, String aName,
                                 String type, String mode, String value) {}
-                    });
-            newSAXParser.parse(source, this);
+            };
+            SAXParsers.initParserWithOWLAPIStandards(handler).parse(source,
+                    this);
             inputConsumer.endModel();
-        } catch (ParserConfigurationException e) {
-            throw new SAXException("Parser configuration exception", e);
         } catch (URISyntaxException e) {
             throw new SAXException("Invalid SystemID '" + systemID
                     + "'of the supplied input source.", e);

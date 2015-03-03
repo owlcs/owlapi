@@ -14,10 +14,6 @@ package org.semanticweb.owlapi.owlxml.parser;
 
 import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -51,16 +47,13 @@ public class OWLXMLParser extends AbstractOWLParser {
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
-            SAXParserFactory factory = SAXParsers.initFactory();
-            SAXParser parser = factory.newSAXParser();
             InputSource isrc = getInputSource(documentSource, configuration);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology,
                     configuration);
-            parser.parse(isrc, handler);
+            SAXParsers.initParserWithOWLAPIStandards(null).parse(isrc, handler);
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             return format;
-        } catch (ParserConfigurationException | SAXException | IOException
-                | OWLOntologyInputSourceException e) {
+        } catch (SAXException | IOException | OWLOntologyInputSourceException e) {
             // General exception
             throw new OWLParserException(e);
         }
