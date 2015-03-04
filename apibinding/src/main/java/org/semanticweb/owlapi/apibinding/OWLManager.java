@@ -78,14 +78,12 @@ public class OWLManager implements OWLOntologyManagerFactory {
         // Register useful parsers
         OWLParserFactoryRegistry registry = OWLParserFactoryRegistry
                 .getInstance();
-        registry.registerParserFactory(new OBO12ParserFactory());
-        registry.registerParserFactory(new OBOFormatOWLAPIParserFactory());
-        registry.registerParserFactory(new ManchesterOWLSyntaxParserFactory());
-        registry.registerParserFactory(new KRSS2OWLParserFactory());
-        registry.registerParserFactory(new TurtleOntologyParserFactory());
-        registry.registerParserFactory(new OWLFunctionalSyntaxParserFactory());
-        registry.registerParserFactory(new OWLXMLParserFactory());
-        registry.registerParserFactory(new RDFXMLParserFactory());
+        registry.registerParserFactories(new RDFXMLParserFactory(),
+                new OWLXMLParserFactory(),
+                new OWLFunctionalSyntaxParserFactory(),
+                new TurtleOntologyParserFactory(), new KRSS2OWLParserFactory(),
+                new ManchesterOWLSyntaxParserFactory(),
+                new OBOFormatOWLAPIParserFactory(), new OBO12ParserFactory());
     }
 
     @Override

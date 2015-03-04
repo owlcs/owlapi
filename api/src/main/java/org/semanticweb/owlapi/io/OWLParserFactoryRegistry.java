@@ -38,9 +38,9 @@
  */
 package org.semanticweb.owlapi.io;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * The {@code OWLParserFactoryRegistry} provides a central point for the
@@ -55,8 +55,7 @@ import java.util.List;
 public class OWLParserFactoryRegistry {
 
     private static final OWLParserFactoryRegistry instance = new OWLParserFactoryRegistry();
-    private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(
-            10);
+    private final List<OWLParserFactory> parserFactories = new CopyOnWriteArrayList<OWLParserFactory>();
 
     private OWLParserFactoryRegistry() {}
 
@@ -66,7 +65,7 @@ public class OWLParserFactoryRegistry {
     }
 
     /** clear all registered parser factories. */
-    public void clearParserFactories() {
+    public synchronized void clearParserFactories() {
         parserFactories.clear();
     }
 
@@ -79,8 +78,20 @@ public class OWLParserFactoryRegistry {
      * @param parserFactory
      *        the parser factory to register
      */
-    public void registerParserFactory(OWLParserFactory parserFactory) {
+    public synchronized void registerParserFactory(
+            OWLParserFactory parserFactory) {
         parserFactories.add(0, parserFactory);
+    }
+
+    /**
+     * @param factories
+     *        the parser factories to register
+     */
+    public synchronized void registerParserFactories(
+            OWLParserFactory... factories) {
+        for (OWLParserFactory p : factories) {
+            parserFactories.add(p);
+        }
     }
 
     /**
