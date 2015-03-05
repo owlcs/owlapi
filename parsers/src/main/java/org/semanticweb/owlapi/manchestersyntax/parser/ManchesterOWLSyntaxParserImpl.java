@@ -2190,7 +2190,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                     ont.getOWLOntologyManager().makeLoadImportRequest(decl,
                             getOntologyLoaderConfiguration());
                     OWLOntology imported = ont.getOWLOntologyManager()
-                            .getOntology(decl.getIRI());
+                            .getImportedOntology(decl);
                     imported.axioms(AxiomType.DECLARATION).forEach(
                             d -> processDeclaredEntities(d));
                 }
