@@ -2230,8 +2230,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 ont.getOWLOntologyManager().makeLoadImportRequest(decl,
                         getOntologyLoaderConfiguration());
                 imports.add(new AddImport(ont, decl));
-                OWLOntology imported = ont.getOWLOntologyManager().getOntology(
-                        decl.getIRI());
+                OWLOntology imported = ont.getOWLOntologyManager()
+                        .getImportedOntology(decl);
                 imported.axioms(AxiomType.DECLARATION).forEach(
                         d -> processDeclaredEntities(d));
             } else if (PREFIX.matches(section)) {
