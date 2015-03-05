@@ -38,11 +38,14 @@
  */
 package org.coode.owlapi.manchesterowlsyntax;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-May-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-May-2007
  */
 public class ManchesterOWLSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
 
@@ -51,5 +54,10 @@ public class ManchesterOWLSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
     @Override
     public String toString() {
         return "Manchester OWL Syntax";
+    }
+
+    @Override
+    public Collection<String> getCommonExtensions() {
+        return Arrays.asList(".omn");
     }
 }

@@ -38,11 +38,14 @@
  */
 package org.coode.owlapi.turtle;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Jan-2008
  */
 public class TurtleOntologyFormat extends RDFOntologyFormat {
 
@@ -51,5 +54,10 @@ public class TurtleOntologyFormat extends RDFOntologyFormat {
     @Override
     public String toString() {
         return "Turtle";
+    }
+
+    @Override
+    public Collection<String> getCommonExtensions() {
+        return Arrays.asList(".ttl");
     }
 }

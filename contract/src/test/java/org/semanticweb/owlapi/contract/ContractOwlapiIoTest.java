@@ -482,9 +482,6 @@ public class ContractOwlapiIoTest {
     public void shouldTestRDFOntologyFormat() throws Exception {
         RDFOntologyFormat testSubject0 = new RDFOntologyFormat() {
 
-            /**
-             * 
-             */
             private static final long serialVersionUID = 30406L;
         };
         RDFParserMetaData result0 = testSubject0.getOntologyLoaderMetaData();

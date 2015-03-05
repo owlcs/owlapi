@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.vocab;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,25 +21,19 @@ public enum Extensions {
             ".rdf",
             ".rdfs"),
     /** OWL/XML, common extensions: xml, owl, rdf */
-    OWLXML(
-            "org.semanticweb.owlapi.io.OWLXMLOntologyFormat",
-            ".xml",
-            ".owl",
-            ".rdf"),
+    OWLXML("org.semanticweb.owlapi.io.OWLXMLOntologyFormat", ".xml"),
     /** Turtle, common extensions: ttl, owl */
-    TURTLE("org.coode.owlapi.turtle.TurtleOntologyFormat", ".ttl", ".owl"),
+    TURTLE("org.coode.owlapi.turtle.TurtleOntologyFormat", ".ttl"),
     /** OBO, common extensions: obo */
     OBO("org.coode.owlapi.obo.parser.OBOOntologyFormat", ".obo"),
     /** Manchester OWL syntax, common extensions: omn, owl */
     MANCHESTERSYNTAX(
             "org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat",
-            ".omn",
-            ".owl"),
+            ".omn"),
     /** Functional sytax, common extensions: fss, owl */
     FUNCTIONALSYNTAX(
             "org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat",
-            ".fss",
-            ".owl");
+            ".fss");
 
     private List<String> extensions;
     private String documentFormat;
@@ -51,7 +46,7 @@ public enum Extensions {
     /**
      * @return common extensions for this type
      */
-    public Iterable<String> getCommonExtensions() {
+    public Collection<String> getCommonExtensions() {
         return extensions;
     }
 
@@ -60,7 +55,7 @@ public enum Extensions {
      *        the format for which extensions are desired
      * @return common extensions list. Empty list if no matching type is found.
      */
-    public static Iterable<String> getCommonExtensions(
+    public static Collection<String> getCommonExtensions(
             Class<? extends OWLOntologyFormat> format) {
         if (format == null) {
             return Collections.emptyList();
@@ -71,5 +66,21 @@ public enum Extensions {
             }
         }
         return Collections.emptyList();
+    }
+
+    /**
+     * @param format
+     *        the format for which extensions are desired
+     * @return common extensions list. Empty list if no matching type is found.
+     */
+    public static Collection<String> getCommonExtensions(
+            OWLOntologyFormat format) {
+        if (format == null) {
+            return Collections.emptyList();
+        }
+        if (format.getCommonExtensions().isEmpty()) {
+            return getCommonExtensions(format.getClass());
+        }
+        return format.getCommonExtensions();
     }
 }

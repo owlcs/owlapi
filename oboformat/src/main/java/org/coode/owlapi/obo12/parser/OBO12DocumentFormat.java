@@ -38,6 +38,9 @@
  */
 package org.coode.owlapi.obo12.parser;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
@@ -76,5 +79,10 @@ public class OBO12DocumentFormat extends OWLOntologyFormat {
     @Override
     public String toString() {
         return "OBO 1.2 Format";
+    }
+
+    @Override
+    public Collection<String> getCommonExtensions() {
+        return Arrays.asList(".obo");
     }
 }

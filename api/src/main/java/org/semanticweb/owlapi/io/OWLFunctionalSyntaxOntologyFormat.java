@@ -38,11 +38,14 @@
  */
 package org.semanticweb.owlapi.io;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 02-Jan-2007
  */
 public class OWLFunctionalSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
 
@@ -51,5 +54,10 @@ public class OWLFunctionalSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
     @Override
     public String toString() {
         return "OWL Functional Syntax";
+    }
+
+    @Override
+    public Collection<String> getCommonExtensions() {
+        return Arrays.asList(".fss");
     }
 }

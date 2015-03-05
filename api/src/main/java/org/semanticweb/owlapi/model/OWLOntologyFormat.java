@@ -39,6 +39,8 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -169,5 +171,13 @@ public abstract class OWLOntologyFormat implements Serializable {
         private static final long serialVersionUID = 30406L;
 
         public NullLoaderMetaData() {}
+    }
+
+    /**
+     * @return common extensions list. Empty list if no matching type is found.
+     *         Note that this list is only a suggestion, not prescriptive.
+     */
+    public Collection<String> getCommonExtensions() {
+        return Collections.emptyList();
     }
 }
