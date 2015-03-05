@@ -2211,7 +2211,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                     ont.getOWLOntologyManager().makeLoadImportRequest(decl,
                             configuration);
                     OWLOntology imported = ont.getOWLOntologyManager()
-                            .getOntology(decl.getIRI());
+                            .getImportedOntology(decl);
                     for (OWLDeclarationAxiom declaration : imported
                             .getAxioms(AxiomType.DECLARATION)) {
                         processDeclaredEntities(declaration);
@@ -2227,8 +2227,8 @@ public class ManchesterOWLSyntaxEditorParser implements
                 ont.getOWLOntologyManager().makeLoadImportRequest(decl,
                         configuration);
                 imports.add(new AddImport(ont, decl));
-                OWLOntology imported = ont.getOWLOntologyManager().getOntology(
-                        decl.getIRI());
+                OWLOntology imported = ont.getOWLOntologyManager()
+                        .getImportedOntology(decl);
                 for (OWLDeclarationAxiom declaration : imported
                         .getAxioms(AxiomType.DECLARATION)) {
                     processDeclaredEntities(declaration);
