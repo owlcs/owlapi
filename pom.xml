@@ -353,6 +353,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
 						<Implementation-Version>${project.version}</Implementation-Version>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
