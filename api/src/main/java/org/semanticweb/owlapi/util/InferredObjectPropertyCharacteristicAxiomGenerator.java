@@ -38,16 +38,12 @@
  */
 package org.semanticweb.owlapi.util;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /**
@@ -107,18 +103,11 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
      */
     private boolean triviallyTransitiveCheck(OWLObjectProperty property,
             OWLReasoner reasoner, OWLDataFactory df) {
-        if (!reasoner
-                .isEntailmentCheckingSupported(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
-            return true;
-        }
-        OWLAnonymousIndividual a = df.getOWLAnonymousIndividual();
-        OWLAnonymousIndividual b = df.getOWLAnonymousIndividual();
-        OWLAnonymousIndividual c = df.getOWLAnonymousIndividual();
-        Set<OWLAxiom> trivialityCheckAxioms = new HashSet<OWLAxiom>(
-                Arrays.asList(
-                        df.getOWLObjectPropertyAssertionAxiom(property, a, b),
-                        df.getOWLObjectPropertyAssertionAxiom(property, b, c)));
-        return !reasoner.isEntailed(trivialityCheckAxioms);
+        // create R some (R some owl:Thing) class
+        OWLObjectSomeValuesFrom chain = df.getOWLObjectSomeValuesFrom(property,
+                df.getOWLObjectSomeValuesFrom(property, df.getOWLThing()));
+        // if chain is unsatisfiable, then the property is trivially transitive
+        return !reasoner.isSatisfiable(chain);
     }
 
     protected void addIfEntailed(OWLObjectPropertyCharacteristicAxiom axiom,
