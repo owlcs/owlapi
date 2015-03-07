@@ -5,6 +5,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<version>3.5.2</version>
 	<artifactId>owlapi-testsupport</artifactId>
+	<packaging>jar</packaging>
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
@@ -44,7 +45,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>
