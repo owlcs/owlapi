@@ -7,3 +7,5 @@ target/
 bin/
 .idea
 .DS_Store
+felix-cache
+dependency-reduced-pom.xml
