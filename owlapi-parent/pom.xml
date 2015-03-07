@@ -282,7 +282,7 @@
 				<configuration>
 					<serverId>ossrh</serverId>
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -321,9 +321,10 @@
 		</plugins>
 	</build>
 
-	<!-- Specify the encoding of the source files. -->
 	<properties>
+	<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<!-- remove this line for releases, if the release process fails because of missing javadoc jars-->
 		<no-javadoc>true</no-javadoc>
 	</properties>
 
