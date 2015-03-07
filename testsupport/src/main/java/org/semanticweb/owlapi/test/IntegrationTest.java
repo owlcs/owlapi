@@ -1,5 +1,8 @@
 package org.semanticweb.owlapi.test;
 
-
-public interface IntegrationTest {
-}
+/**
+ * Marker interface for integration tests.
+ * 
+ * @author ses
+ */
+public interface IntegrationTest {}

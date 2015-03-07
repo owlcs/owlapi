@@ -18,12 +18,13 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.5.1-SNAPSHOT</version>
+	<version>3.5.2</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
 
 	<modules>
+		<module>testsupport</module>
 		<module>api</module>
 		<module>impl</module>
 		<module>tools</module>
@@ -64,15 +65,15 @@
 			<version>3.0.3</version>
 		</dependency>
 		<dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -84,7 +85,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>17.0</version>
+			<version>18.0</version>
 		</dependency>
 	</dependencies>
 
@@ -149,12 +150,46 @@
 						<extensions>true</extensions>
 						<configuration>
 							<instructions>
+								<Implementation-Version>${project.version}</Implementation-Version>
 								<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 								<Bundle-Name>${project.artifactId}</Bundle-Name>
 								<Export-Package>{local-packages}</Export-Package>
 							</instructions>
 						</configuration>
 					</plugin>
+					<!-- We need to configure the Source Plugin for deploying the sources. -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- We need to configure the Javadoc Plugin for deploying the Javadocs -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.8.1</version>
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
@@ -201,6 +236,9 @@
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						<configuration>
+						 	<skip>${no-javadoc}</skip>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -208,11 +246,33 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.17</version>
+				<version>2.18.1</version>
 				<configuration>
+					<excludedGroups>org.semanticweb.owlapi.test.IntegrationTest</excludedGroups>
 					<printSummary>false</printSummary>
-					<argLine>-Xmx1024M -Djava.awt.headless=true</argLine>
+					<parallel>all</parallel>
+					<threadCount>1</threadCount>
+					<perCoreThreadCount>true</perCoreThreadCount>
+					<argLine>-Xmx2G -Djava.awt.headless=true</argLine>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					<groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
@@ -225,6 +285,21 @@
 					<autoReleaseAfterClose>false</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Implementation-Version>${project.version}</Implementation-Version>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>${project.artifactId}</Bundle-Name>
+						<Export-Package>{local-packages}</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+
 			<!-- the FindBugs plugin for extra checks -->
 			<!--plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -249,6 +324,7 @@
 	<!-- Specify the encoding of the source files. -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<no-javadoc>true</no-javadoc>
 	</properties>
 
 	<!-- Parameters for the Source Code Management system. -->
