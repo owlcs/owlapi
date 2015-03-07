@@ -63,9 +63,18 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+                        <Implementation-Title>${project.name}</Implementation-Title>
+                        <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                        <Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
-						<Embed-Dependency>guava, trove4j</Embed-Dependency>
-						<Export-Package>
+						<Bundle-Version>${project.version}</Bundle-Version>
+                        <Embed-Dependency>
+                           !artifactId=slf4j-api,groupId=${project.groupId};inline=false;scope=compile|runtime|provided,*;scope=compile|runtime|provided;inline=false
+                        </Embed-Dependency>
+                        <Embed-Directory>lib</Embed-Directory>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <_exportcontents>
+                            !org.semanticweb.owlapi.test.*
 							com.clarkparsia.*,
 							de.uulm.*,
 							org.coode.*,
@@ -79,17 +88,29 @@
 						javax.xml.*, org.xml.sax.*
 						</Import-Package>
 					</instructions>
-				<!--	<executions>
-						<execution>
-							<id>bundle-manifest</id>
-							<phase>install</phase>
-							<goals>
-								<goal>manifest</goal>
-							</goals>
-						</execution>
-					</executions>  -->
 				</configuration>
 			</plugin>
+
+			<plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
+                   <forkCount>0</forkCount>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.8.1</version>
