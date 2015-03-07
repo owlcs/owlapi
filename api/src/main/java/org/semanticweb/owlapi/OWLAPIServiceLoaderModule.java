@@ -12,12 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
+import com.google.common.collect.Iterables;
+import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
-
 import javax.inject.Provider;
-
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -30,10 +32,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
-
-import com.google.common.collect.Sets;
-import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * owlapi module for dynamic loading - uses ServiceLoader to add extra bindings
@@ -41,7 +41,7 @@ import com.google.inject.multibindings.Multibinder;
  */
 @OwlapiModule
 public class OWLAPIServiceLoaderModule extends AbstractModule {
-
+    private static Logger logger = LoggerFactory.getLogger(OWLAPIServiceLoaderModule.class);
     @Override
     protected void configure() {
         loadInstancesFromServiceLoader(OWLParser.class);
@@ -63,7 +63,6 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
                 binder.addBinding().toInstance(o);
             }
         } catch (ServiceConfigurationError e) {
-            e.printStackTrace(System.out);
             throw new OWLRuntimeException("Injection failed for " + type, e);
         }
     }
@@ -75,17 +74,22 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
      */
     protected <T> Iterable<T> load(Class<T> type) {
         // J2EE compatible search
-        Collection<T> list = Sets.newHashSet(ServiceLoader.load(type));
+        Collection<T> result = new HashSet<>();
+        try {
+            Iterables.addAll(result, ServiceLoader.load(type));
+        } catch (ServiceConfigurationError e) {
+            logger.debug("ServiceLoading: ", e); //To change body of catch statement use File | Settings | File Templates.
+        }
         // in OSGi, the context class loader is likely null.
         // This would trigger the use of the system class loader, which would
         // not see the OWLAPI jar, nor any other jar containing implementations.
         // In that case, use this class classloader to load, at a minimum, the
         // services provided by the OWLAPI jar itself.
-        if (list.isEmpty()) {
-            list = Sets.newHashSet(ServiceLoader.load(type, getClass()
-                    .getClassLoader()));
+        if (result.isEmpty()) {
+            ClassLoader classLoader = getClass().getClassLoader();
+            Iterables.addAll(result, ServiceLoader.load(type, classLoader));
         }
-        return list;
+        return result;
     }
 
     protected <T, F extends Provider<T>> void loadFactories(Class<F> factory,
@@ -99,7 +103,6 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
                 binder.addBinding().toInstance(o.get());
             }
         } catch (ServiceConfigurationError e) {
-            e.printStackTrace(System.out);
             throw new OWLRuntimeException("Injection failed for factory: "
                     + factory + " type: " + type, e);
         }
@@ -113,7 +116,6 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
                 binder.addBinding().toInstance(o);
             }
         } catch (ServiceConfigurationError e) {
-            e.printStackTrace(System.out);
             throw new OWLRuntimeException(
                     "Injection failed for OWLOntologyManager factory", e);
         }
