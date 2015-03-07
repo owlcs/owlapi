@@ -58,24 +58,24 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.framework</artifactId>
-            <version>4.6.0</version>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>4.6.0</version>
 			<scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>1.4.0</version>
 			<scope>test</scope>
-        </dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.7</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
@@ -88,18 +88,20 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-                        <Implementation-Title>${project.name}</Implementation-Title>
-                        <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
-                        <Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						<Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
-                        <Embed-Dependency>
-                           !artifactId=slf4j-api,groupId=${project.groupId};inline=false;scope=compile|runtime|provided,*;scope=compile|runtime|provided;inline=false
-                        </Embed-Dependency>
-                        <Embed-Directory>lib</Embed-Directory>
-                        <Embed-Transitive>true</Embed-Transitive>
-                        <_exportcontents>
-                            !org.semanticweb.owlapi.test.*
+						<Embed-Dependency>
+							!artifactId=slf4j-api,
+							groupId=${project.groupId};inline=true;scope=compile|runtime|provided,
+							groupId=!${project.groupId};scope=compile|runtime|provided;inline=false
+						</Embed-Dependency>
+						<Embed-Directory>lib</Embed-Directory>
+						<Embed-Transitive>true</Embed-Transitive>
+						<_exportcontents>
+							!org.semanticweb.owlapi.test.*
 							com.clarkparsia.*,
 							de.uulm.*,
 							org.coode.*,
@@ -108,33 +110,33 @@
 							org.obolibrary.*
 						</_exportcontents>
 						<Import-Package>
-						!javax.swing, !javax.annotation, !sun.misc, 
-						!javax.crypto.*, !javax.imageio, !org.ietf.jgss, 
-						javax.xml.*, org.xml.sax.*
+							!javax.swing, !javax.annotation, !sun.misc,
+							!javax.crypto.*, !javax.imageio, !org.ietf.jgss,
+							javax.xml.*, org.xml.sax.*
 						</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>
 
 			<plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.18.1</version>
-                <configuration>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                    <groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
-                   <forkCount>0</forkCount>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					<groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
+					<forkCount>0</forkCount>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
