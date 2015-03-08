@@ -75,7 +75,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -201,12 +201,46 @@
 						<extensions>true</extensions>
 						<configuration>
 							<instructions>
+								<Implementation-Version>${project.version}</Implementation-Version>
 								<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 								<Bundle-Name>${project.artifactId}</Bundle-Name>
 								<Export-Package>{local-packages}</Export-Package>
 							</instructions>
 						</configuration>
 					</plugin>
+					<!-- We need to configure the Source Plugin for deploying the sources. -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- We need to configure the Javadoc Plugin for deploying the Javadocs -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.8.1</version>
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
@@ -256,6 +290,9 @@
 						<goals>
 							<goal>jar</goal>
 						</goals>
+						<configuration>
+							<skip>${no-javadoc}</skip>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -263,11 +300,34 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.17</version>
+				<version>2.18.1</version>
 				<configuration>
+					<excludes>
+						<exclude>**/*IntegrationTestCase.java</exclude>
+					</excludes>
 					<printSummary>false</printSummary>
-					<argLine>-Xmx1024M -Djava.awt.headless=true</argLine>
+					<parallel>all</parallel>
+					<threadCount>1</threadCount>
+					<perCoreThreadCount>true</perCoreThreadCount>
+					<argLine>-Xmx2G -Djava.awt.headless=true</argLine>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<includes>
+						<include>**/*IntegrationTestCase.java</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
@@ -280,23 +340,27 @@
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
-			<!-- the FindBugs plugin for extra checks -->
-			<!--plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.5.3</version>
-				<executions>
-					<execution>
-						<id>findbugs-check</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
 						<configuration>
-							<failOnError>false</failOnError>
+					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Version>${project.version}</Implementation-Version>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>${project.artifactId}</Bundle-Name>
+						<Export-Package>{local-packages}</Export-Package>
+					</instructions>
 						</configuration>
-					</execution>
-				</executions>
+			</plugin>
+
+			<!-- the FindBugs plugin for extra checks -->
+			<!--plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> 
+				<version>2.5.3</version> <executions> <execution> <id>findbugs-check</id> 
+				<phase>verify</phase> <goals> <goal>check</goal> </goals> <configuration> 
+				<failOnError>false</failOnError> </configuration> </execution> </executions> 
 				</plugin -->
 		</plugins>
 	</build>
@@ -304,6 +368,7 @@
 	<!-- Specify the encoding of the source files. -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<no-javadoc>true</no-javadoc>
 	</properties>
 
 	<!-- Parameters for the Source Code Management system. -->
