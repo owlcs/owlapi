@@ -339,11 +339,8 @@ public class OWLAPIObo2Owl {
      * @param in
      *        the in
      * @return the oWL ontology
-     * @throws OWLOntologyCreationException
-     *         the oWL ontology creation exception
      */
-    public OWLOntology convert(OBODoc doc, @Nonnull OWLOntology in)
-            throws OWLOntologyCreationException {
+    public OWLOntology convert(OBODoc doc, @Nonnull OWLOntology in) {
         obodoc = doc;
         init(in.getOWLOntologyManager());
         return tr(in);
@@ -355,12 +352,9 @@ public class OWLAPIObo2Owl {
      * @param in
      *        the in
      * @return the oWL ontology
-     * @throws OWLOntologyCreationException
-     *         the oWL ontology creation exception
      */
     @Nonnull
-    protected OWLOntology tr(@Nonnull OWLOntology in)
-            throws OWLOntologyCreationException {
+    protected OWLOntology tr(@Nonnull OWLOntology in) {
         setOwlOntology(in);
         Frame hf = obodoc.getHeaderFrame();
         Clause ontClause = hf.getClause(OboFormatTag.TAG_ONTOLOGY);

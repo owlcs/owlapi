@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /** OBOformat parser. */
@@ -51,8 +50,8 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
             OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(in.getOWLOntologyManager());
             bridge.convert(obodoc, in);
             return new OBODocumentFormat();
-        } catch (OBOFormatParserException | OWLOntologyCreationException
-                | IOException | OWLOntologyInputSourceException e) {
+        } catch (OBOFormatParserException | IOException
+                | OWLOntologyInputSourceException e) {
             throw new OWLParserException(e);
         }
     }

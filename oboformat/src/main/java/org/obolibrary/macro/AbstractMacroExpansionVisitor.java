@@ -76,8 +76,7 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     static final Logger LOG = LoggerFactory
             .getLogger(AbstractMacroExpansionVisitor.class);
-    static public final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections
-            .emptySet();
+    static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
     final OWLDataFactory df;
     @Nonnull
     final Map<IRI, String> expandAssertionToMap;
@@ -89,12 +88,18 @@ public abstract class AbstractMacroExpansionVisitor implements
     protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
 
+    /**
+     * @return value for OIO isexpansion
+     */
     public OWLAnnotationProperty getOIO_ISEXPANSION() {
         return OIO_ISEXPANSION;
     }
 
     final protected OWLAnnotationProperty OIO_ISEXPANSION;
 
+    /**
+     * @return value for expansion annotation
+     */
     public OWLAnnotation getExpansionMarkerAnnotation() {
         return expansionMarkerAnnotation;
     }
@@ -365,6 +370,11 @@ public abstract class AbstractMacroExpansionVisitor implements
         }
     }
 
+    /**
+     * @param axiom
+     *        annotation source
+     * @return new set of annotations
+     */
     @Nonnull
     public Set<OWLAnnotation> getAnnotationsWithOptionalExpansionMarker(
             OWLAxiom axiom) {

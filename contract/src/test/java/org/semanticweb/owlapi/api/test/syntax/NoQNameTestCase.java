@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 
@@ -61,8 +60,7 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
     }
 
     @Override
-    public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() {
         // Test meaningless in this case, as the RDF/XML serialization does not
         // exist
     }

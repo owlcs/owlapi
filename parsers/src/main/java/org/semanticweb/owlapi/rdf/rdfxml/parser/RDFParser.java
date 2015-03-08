@@ -28,9 +28,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
@@ -131,21 +128,21 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             inputConsumer.startModel(getBaseIRI());
             DeclHandler handler = new DeclHandler() {
 
-                        @Override
+                @Override
                 public void internalEntityDecl(String name, String value) {
-                            consumer.addPrefix(name, value);
-                        }
+                    consumer.addPrefix(name, value);
+                }
 
-                        @Override
+                @Override
                 public void externalEntityDecl(String name, String publicId,
                         String systemId) {}
 
-                        @Override
-                        public void elementDecl(String name, String model) {}
+                @Override
+                public void elementDecl(String name, String model) {}
 
-                        @Override
-                        public void attributeDecl(String eName, String aName,
-                                String type, String mode, String value) {}
+                @Override
+                public void attributeDecl(String eName, String aName,
+                        String type, String mode, String value) {}
             };
             SAXParsers.initParserWithOWLAPIStandards(handler).parse(source,
                     this);

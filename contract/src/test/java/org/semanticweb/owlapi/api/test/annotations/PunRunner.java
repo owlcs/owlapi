@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+@SuppressWarnings("javadoc")
 public class PunRunner extends org.junit.runner.Runner {
 
     private final Class testClass;
@@ -57,7 +58,7 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     private Description suiteDescription;
-    private Map<Description, TestSetting> testSettings = new HashMap<Description, TestSetting>();
+    private Map<Description, TestSetting> testSettings = new HashMap<>();
 
     @Override
     public Description getDescription() {
@@ -171,7 +172,7 @@ public class PunRunner extends org.junit.runner.Runner {
                     OWLAnnotationProperty annotationProperty,
                     OWLOntologyManager manager, OWLEntity... entities)
                     throws OWLOntologyCreationException {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLDataFactory dataFactory = manager.getOWLDataFactory();
         axioms.add(dataFactory.getOWLDeclarationAxiom(annotationProperty));
         for (OWLEntity entity : entities) {

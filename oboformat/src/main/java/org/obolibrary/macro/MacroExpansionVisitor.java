@@ -36,32 +36,46 @@ public class MacroExpansionVisitor {
     protected static final Logger LOG = LoggerFactory
             .getLogger(MacroExpansionVisitor.class);
     @Nonnull
-    private final OWLOntology inputOntology;
+    protected final OWLOntology inputOntology;
     @Nonnull
-    private final OWLOntologyManager manager;
+    protected final OWLOntologyManager manager;
     @Nonnull
     protected final Visitor visitor;
     protected final AbstractDataVisitorEx dataVisitor;
     protected boolean shouldTransferAnnotations = false;
-    private final boolean shouldAddExpansionMarker;
+    protected final boolean shouldAddExpansionMarker;
     protected Set<OWLAnnotation> extraAnnotations;
 
-    public MacroExpansionVisitor(OWLOntology ontology) {
+    /**
+     * @param ontology
+     *        ontology to use
+     */
+    public MacroExpansionVisitor(@Nonnull OWLOntology ontology) {
         this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, false,
                 false);
     }
 
     /**
      * @param ontology
+     *        ontology to use
      * @param shouldAddExpansionMarker
+     *        true if expansions should be added
      */
-    public MacroExpansionVisitor(OWLOntology ontology,
+    public MacroExpansionVisitor(@Nonnull OWLOntology ontology,
             boolean shouldAddExpansionMarker) {
         this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, false,
                 shouldAddExpansionMarker);
     }
 
-    public MacroExpansionVisitor(OWLOntology ontology,
+    /**
+     * @param ontology
+     *        ontology to use
+     * @param shouldTransferAnnotations
+     *        true if annotations should be transferred
+     * @param shouldAddExpansionMarker
+     *        true if expansions should be added
+     */
+    public MacroExpansionVisitor(@Nonnull OWLOntology ontology,
             boolean shouldTransferAnnotations, boolean shouldAddExpansionMarker) {
         this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS,
                 shouldTransferAnnotations, shouldAddExpansionMarker);
@@ -73,7 +87,9 @@ public class MacroExpansionVisitor {
      * @param extraAnnotations
      *        extra annotations to add
      * @param shouldTransferAnnotations
+     *        true if annotations should be transferred
      * @param shouldAddExpansionMarker
+     *        true if expansions should be added
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology inputOntology,
             Set<OWLAnnotation> extraAnnotations,
@@ -88,6 +104,9 @@ public class MacroExpansionVisitor {
         dataVisitor = new AbstractDataVisitorEx(manager.getOWLDataFactory());
     }
 
+    /**
+     * @return new MacroExpansions
+     */
     public MacroExpansions getMacroExpansions() {
         return new MacroExpansions();
     }
@@ -104,8 +123,8 @@ public class MacroExpansionVisitor {
 
     private class MacroExpansions {
 
-        private Set<OWLAxiom> newAxioms = new HashSet<OWLAxiom>();
-        private Set<OWLAxiom> rmAxioms = new HashSet<OWLAxiom>();
+        private Set<OWLAxiom> newAxioms = new HashSet<>();
+        private Set<OWLAxiom> rmAxioms = new HashSet<>();
 
         public MacroExpansions() {
             for (OWLSubClassOfAxiom axiom : inputOntology
@@ -153,7 +172,7 @@ public class MacroExpansionVisitor {
             AtomicBoolean expandedSomething = new AtomicBoolean(false);
             try {
                 if (expandTo != null) {
-                    Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
+                    Set<OWLAnnotation> annotations = new HashSet<>(
                             extraAnnotations);
                     if (shouldAddExpansionMarker) {
                         annotations.add(visitor.getExpansionMarkerAnnotation());
@@ -251,10 +270,17 @@ public class MacroExpansionVisitor {
         }
     }
 
+    /**
+     * @return true if annotations should be transferred
+     */
     public boolean shouldTransferAnnotations() {
         return shouldTransferAnnotations;
     }
 
+    /**
+     * @param shouldTransferAnnotations
+     *        new value
+     */
     public void setShouldTransferAnnotations(boolean shouldTransferAnnotations) {
         this.shouldTransferAnnotations = shouldTransferAnnotations;
     }

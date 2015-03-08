@@ -38,8 +38,16 @@ public class MacroExpansionGCIVisitor {
     protected final OWLOntology outputOntology;
     protected final AbstractDataVisitorEx dataVisitor;
     protected boolean preserveAnnotationsWhenExpanding = false;
-    private final boolean shouldAddExpansionMarker;
+    protected final boolean shouldAddExpansionMarker;
 
+    /**
+     * @param inputOntology
+     *        ontology to use
+     * @param outputManager
+     *        manager for ontology creation
+     * @param preserveAnnotationsWhenExpanding
+     *        true if annotations should be preserved when expanding
+     */
     public MacroExpansionGCIVisitor(OWLOntology inputOntology,
             OWLOntologyManager outputManager,
             boolean preserveAnnotationsWhenExpanding) {
@@ -213,10 +221,17 @@ public class MacroExpansionGCIVisitor {
         }
     }
 
+    /**
+     * @return true if annotations should be preserved
+     */
     public boolean shouldPreserveAnnotationsWhenExpanding() {
         return preserveAnnotationsWhenExpanding;
     }
 
+    /**
+     * @param preserveAnnotationsWhenExpanding
+     *        new value
+     */
     public void setPreserveAnnotationsWhenExpanding(
             boolean preserveAnnotationsWhenExpanding) {
         this.preserveAnnotationsWhenExpanding = preserveAnnotationsWhenExpanding;
