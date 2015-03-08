@@ -874,7 +874,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void translateAnnotations(@Nonnull OWLAxiom ax) {
         translateAnonymousNode(ax);
-        ax.annotations().forEach(a -> translateAnnotation(ax, a));
+        ax.annotations().sorted().forEach(a -> translateAnnotation(ax, a));
     }
 
     /**
@@ -912,8 +912,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 .getProperty().getIRI());
         addTriple(annotation, OWL_ANNOTATED_TARGET.getIRI(),
                 annotation.getValue());
-        annotation.annotations().forEach(
-                a -> translateAnnotation(annotation, a));
+        annotation.annotations().sorted()
+                .forEach(a -> translateAnnotation(annotation, a));
     }
 
     @Override
