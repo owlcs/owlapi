@@ -12,17 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-
+import gnu.trove.map.hash.THashMap;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -146,6 +144,14 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
             OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 
+    static final THashMap<IRI, Integer> specialPredicateRanks = new THashMap<>();
+
+    static {
+        for (int i = 0; i < ORDERED_URIS.size(); i++) {
+            specialPredicateRanks.put(ORDERED_URIS.get(i), i);
+        }
+    }
+
     private static int getIndex(IRI iri) {
         int index = ORDERED_URIS.indexOf(iri);
         if (index == -1) {
@@ -157,8 +163,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     @Override
     public int compareTo(RDFTriple o) {
         // compare by predicate, then subject, then object
-        int diff = getIndex(predicate.getIRI())
-                - getIndex(o.predicate.getIRI());
+        int diff = comparePredicates(this.predicate, o.predicate);
         if (diff == 0) {
             diff = subject.compareTo(o.subject);
         }
@@ -166,5 +171,28 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             diff = object.compareTo(o.object);
         }
         return diff;
+    }
+
+    private int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
+        IRI predicateIRI = predicate.getIRI();
+        Integer specialPredicateRank = specialPredicateRanks.get(predicateIRI);
+        IRI otherPredicateIRI = otherPredicate.getIRI();
+        Integer otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
+        if (specialPredicateRank != null) {
+            if (otherSpecialPredicateRank != null) {
+                return specialPredicateRank - otherSpecialPredicateRank;
+
+            } else {
+                return -1;
+            }
+        } else {
+            if (otherSpecialPredicateRank != null) {
+                return +1;
+            } else {
+                return predicateIRI.compareTo(otherPredicateIRI);
+            }
+        }
+
+
     }
 }
