@@ -570,33 +570,33 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         if (includeImportsClosure == INCLUDED) {
             for (OWLOntology o : getImportsClosure()) {
                 for (OWLEntity e : o.getClassesInSignature(EXCLUDED)) {
-                    if (test.add(e.getIRI())) {
+                    if (!test.add(e.getIRI())) {
                         punned.add(e.getIRI());
                     }
                 }
                 for (OWLEntity e : o.getDataPropertiesInSignature(EXCLUDED)) {
-                    if (test.add(e.getIRI())) {
+                    if (!test.add(e.getIRI())) {
                         punned.add(e.getIRI());
                     }
                 }
                 for (OWLEntity e : o.getObjectPropertiesInSignature(EXCLUDED)) {
-                    if (test.add(e.getIRI())) {
+                    if (!test.add(e.getIRI())) {
                         punned.add(e.getIRI());
                     }
                 }
                 for (OWLEntity e : o
                         .getAnnotationPropertiesInSignature(EXCLUDED)) {
-                    if (test.add(e.getIRI())) {
+                    if (!test.add(e.getIRI())) {
                         punned.add(e.getIRI());
                     }
                 }
                 for (OWLEntity e : o.getDatatypesInSignature(EXCLUDED)) {
-                    if (test.add(e.getIRI())) {
+                    if (!test.add(e.getIRI())) {
                         punned.add(e.getIRI());
                     }
                 }
                 for (OWLEntity e : o.getIndividualsInSignature(EXCLUDED)) {
-                    if (test.add(e.getIRI())) {
+                    if (!test.add(e.getIRI())) {
                         punned.add(e.getIRI());
                     }
                 }
@@ -605,39 +605,40 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                 return CollectionFactory.<IRI> emptySet();
             }
             return punned;
-        }
-        for (OWLEntity e : getClassesInSignature(EXCLUDED)) {
-            punned.add(e.getIRI());
-        }
-        for (OWLEntity e : getDataPropertiesInSignature(EXCLUDED)) {
-            if (test.add(e.getIRI())) {
-                punned.add(e.getIRI());
+        } else {
+            for (OWLEntity e : getClassesInSignature(EXCLUDED)) {
+                test.add(e.getIRI());
             }
-        }
-        for (OWLEntity e : getObjectPropertiesInSignature(EXCLUDED)) {
-            if (test.add(e.getIRI())) {
-                punned.add(e.getIRI());
+            for (OWLEntity e : getDataPropertiesInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
             }
-        }
-        for (OWLEntity e : getAnnotationPropertiesInSignature(EXCLUDED)) {
-            if (test.add(e.getIRI())) {
-                punned.add(e.getIRI());
+            for (OWLEntity e : getObjectPropertiesInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
             }
-        }
-        for (OWLEntity e : getDatatypesInSignature(EXCLUDED)) {
-            if (test.add(e.getIRI())) {
-                punned.add(e.getIRI());
+            for (OWLEntity e : getAnnotationPropertiesInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
             }
-        }
-        for (OWLEntity e : getIndividualsInSignature(EXCLUDED)) {
-            if (test.add(e.getIRI())) {
-                punned.add(e.getIRI());
+            for (OWLEntity e : getDatatypesInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
             }
+            for (OWLEntity e : getIndividualsInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
+            }
+            if (punned.isEmpty()) {
+                return CollectionFactory.<IRI>emptySet();
+            }
+            return punned;
         }
-        if (punned.isEmpty()) {
-            return CollectionFactory.<IRI> emptySet();
-        }
-        return punned;
     }
 
     @Override
