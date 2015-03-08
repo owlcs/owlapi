@@ -91,6 +91,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.parameters.Navigation;
+import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
@@ -873,8 +874,20 @@ public class Internals implements Serializable {
      * @return set of values
      */
     @Nonnull
-    public <K> Collection<OWLAxiom> filterAxioms(
+    public <K> Collection<? extends OWLAxiom> filterAxioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
+        if (filter == Filters.annotations) {
+            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional = get(
+                    OWLAnnotationSubject.class,
+                    OWLAnnotationAssertionAxiom.class);
+            if (mapPointerOptional.isPresent()) {
+                MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> mapPointer = mapPointerOptional
+                        .get();
+                Collection<OWLAnnotationAssertionAxiom> values = mapPointer
+                        .getValues((OWLAnnotationSubject) key);
+                return values;
+            }
+        }
         return getAxiomsByType().filterAxioms(filter, key);
     }
 
