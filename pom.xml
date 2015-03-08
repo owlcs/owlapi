@@ -23,7 +23,6 @@
 	<url>http://owlapi.sourceforge.net/</url>
 
 	<modules>
-		<module>testsupport</module>
 		<module>api</module>
 		<module>impl</module>
 		<module>tools</module>
@@ -83,12 +82,6 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-testsupport</artifactId>
-			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -298,7 +291,7 @@
 							<goal>jar</goal>
 						</goals>
 						<configuration>
-						 	<skip>${no-javadoc}</skip>
+							<skip>${no-javadoc}</skip>
 						</configuration>
 					</execution>
 				</executions>
@@ -309,7 +302,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18.1</version>
 				<configuration>
-					<excludedGroups>org.semanticweb.owlapi.test.IntegrationTest</excludedGroups>
+					<excludes>
+						<exclude>**/*IntegrationTestCase.java</exclude>
+					</excludes>
 					<printSummary>false</printSummary>
 					<parallel>all</parallel>
 					<threadCount>1</threadCount>
@@ -322,9 +317,8 @@
 				<version>2.18.1</version>
 				<configuration>
 					<includes>
-						<include>**/*.java</include>
+						<include>**/*IntegrationTestCase.java</include>
 					</includes>
-					<groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
 				</configuration>
 				<executions>
 					<execution>
@@ -363,22 +357,10 @@
 			</plugin>
 
 			<!-- the FindBugs plugin for extra checks -->
-			<!--plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>2.5.3</version>
-				<executions>
-					<execution>
-						<id>findbugs-check</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<failOnError>false</failOnError>
-						</configuration>
-					</execution>
-				</executions>
+			<!--plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>findbugs-maven-plugin</artifactId> 
+				<version>2.5.3</version> <executions> <execution> <id>findbugs-check</id> 
+				<phase>verify</phase> <goals> <goal>check</goal> </goals> <configuration> 
+				<failOnError>false</failOnError> </configuration> </execution> </executions> 
 				</plugin -->
 		</plugins>
 	</build>

@@ -23,9 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Category(IntegrationTest.class)
-public class BundleIsLoadableTest {
+public class BundleIsLoadableIntegrationTestCase {
     @SuppressWarnings("UnusedDeclaration")
-    private static Logger logger = LoggerFactory.getLogger(BundleIsLoadableTest.class);
+    private static Logger logger = LoggerFactory.getLogger(BundleIsLoadableIntegrationTestCase.class);
 
     @Test
     public void startBundle() throws MalformedURLException, BundleException, ClassNotFoundException, IllegalAccessException, InstantiationException {
