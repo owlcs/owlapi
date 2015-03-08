@@ -14,8 +14,11 @@ package org.semanticweb.owlapi.rdf;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -303,7 +307,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderUntypedIRIAnnotationAssertions() {
-        Set<IRI> annotatedIRIs = new HashSet<>();
+        Set<IRI> annotatedIRIs = new TreeSet<>();
         for (OWLAnnotationAssertionAxiom ax : ontology
                 .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
             OWLAnnotationSubject subject = ax.getSubject();
@@ -364,13 +368,20 @@ public abstract class RDFRendererBase {
     }
 
     private void renderGeneralAxioms() {
-        createGraph(getGeneralAxioms().stream());
-        Set<RDFResourceBlankNode> rootNodes = graph.getRootAnonymousNodes();
-        if (!rootNodes.isEmpty()) {
-            writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
-            beginObject();
-            renderAnonRoots();
-            endObject();
+        boolean haveWrittenBanner = false;
+        List<OWLAxiom> generalAxioms = getGeneralAxioms();
+        for (OWLAxiom axiom : generalAxioms) {
+            createGraph(Stream.of(axiom));
+            Set<RDFResourceBlankNode> rootNodes = graph.getRootAnonymousNodes();
+            if (!rootNodes.isEmpty()) {
+                if (!haveWrittenBanner) {
+                    writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
+                    haveWrittenBanner = true;
+                }
+                beginObject();
+                renderAnonRoots();
+                endObject();
+            }
         }
     }
 
@@ -413,6 +424,7 @@ public abstract class RDFRendererBase {
                 generalAxioms.add(ax);
             }
         }
+        generalAxioms.sort(null);
         return generalAxioms;
     }
 
@@ -492,7 +504,7 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(@Nonnull OWLEntity entity,
             Collection<IRI> illegalPuns) {
-        final Set<OWLAxiom> axioms = new HashSet<>();
+        final Set<OWLAxiom> axioms = new TreeSet<>();
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
             add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(),
@@ -601,10 +613,35 @@ public abstract class RDFRendererBase {
         return format == null || format.isAddMissingTypes();
     }
 
+    private int nextBlankNodeId = 1;
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+            new IdentityHashingStrategy<>());
+
+    private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
+
+        public SequentialBlankNodeRDFTranslator() {
+            super(ontology.getOWLOntologyManager(), ontology,
+                    shouldInsertDeclarations());
+        }
+
+        @Override
+        protected RDFResourceBlankNode getAnonymousNode(Object key) {
+            checkNotNull(key, "key cannot be null");
+            if (key instanceof OWLAnonymousIndividual) {
+                OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+                key = anonymousIndividual.getID().getID();
+            }
+            int id = blankNodeMap.get(key);
+            if (id == 0) {
+                id = nextBlankNodeId++;
+                blankNodeMap.put(key, id);
+            }
+            return new RDFResourceBlankNode(id);
+        }
+    }
+
     protected void createGraph(@Nonnull Stream<? extends OWLObject> objects) {
-        RDFTranslator translator = new RDFTranslator(
-                ontology.getOWLOntologyManager(), ontology,
-                shouldInsertDeclarations());
+        RDFTranslator translator = new SequentialBlankNodeRDFTranslator();
         objects.forEach(obj -> obj.accept(translator));
         graph = translator.getGraph();
     }
@@ -621,7 +658,8 @@ public abstract class RDFRendererBase {
 
     /** Render anonymous roots. */
     public void renderAnonRoots() {
-        graph.getRootAnonymousNodes().forEach(node -> render(node));
+        graph.getRootAnonymousNodes().stream().sorted()
+                .forEach(node -> render(node));
     }
 
     /**
