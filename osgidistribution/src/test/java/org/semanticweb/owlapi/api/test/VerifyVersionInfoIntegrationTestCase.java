@@ -12,60 +12,22 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-
-import javax.xml.parsers.DocumentBuilderFactory;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.semanticweb.owlapi.test.IntegrationTest;
 import org.semanticweb.owlapi.util.VersionInfo;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 @SuppressWarnings("javadoc")
 @Category(IntegrationTest.class)
 public class VerifyVersionInfoIntegrationTestCase {
 
     @Test
-    public void checkMatchVersion() throws Exception {
-        // given
+    public void checkMatchVersion() {
+        // This test will fail after setting the release version if the fallback
+        // has not been updated.
         VersionInfo info = VersionInfo.getVersionInfo();
-        Document doc = DocumentBuilderFactory.newInstance()
-                .newDocumentBuilder().parse(new File("pom.xml"));
-        NodeList list = doc.getDocumentElement().getChildNodes();
-        boolean found = false;
-        for (int i = 0; i < list.getLength() && !found; i++) {
-            Node n = list.item(i);
-            if (n instanceof Element
-                    && ((Element) n).getTagName().equals("version")) {
-                String version = ((Element) n).getTextContent();
-                assertEquals(version, info.getVersion());
-                found = true;
-            }
-        }
-        if (!found) {
-            File file = new File("../pom.xml");
-            if (file.exists()) {
-                doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                        .parse(file);
-                list = doc.getDocumentElement().getChildNodes();
-                found = false;
-                for (int i = 0; i < list.getLength() && !found; i++) {
-                    Node n = list.item(i);
-                    if (n instanceof Element
-                            && ((Element) n).getTagName().equals("version")) {
-                        String version = ((Element) n).getTextContent();
-                        assertEquals(version, info.getVersion());
-                        found = true;
-                    }
-                }
-            }
-        }
-        assertTrue("Cannot find the version in the pom file", found);
+        assertEquals("5.0.0-ALPHA", info.getVersion());
     }
 }
