@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
@@ -326,25 +327,95 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<IRI> getPunnedIRIs(Imports imports) {
+    public Set<IRI> getPunnedIRIs(Imports includeImportsClosure) {
         Set<IRI> punned = new HashSet<>();
         Set<IRI> test = new HashSet<>();
-        imports.stream(this)
-                .flatMap(
-                        o -> Stream
-                                .of(o.classesInSignature(),
-                                        o.dataPropertiesInSignature(),
-                                        o.objectPropertiesInSignature(),
-                                        o.annotationPropertiesInSignature(),
-                                        o.datatypesInSignature(),
-                                        o.individualsInSignature())
-                                .flatMap(s -> s)
-                                .filter(e -> test.add(e.getIRI())))
-                .forEach(e -> punned.add(e.getIRI()));
-        if (punned.isEmpty()) {
-            return Collections.emptySet();
+        if (includeImportsClosure == INCLUDED) {
+            for (OWLOntology o : getImportsClosure()) {
+                for (OWLEntity e : o.getClassesInSignature(EXCLUDED)) {
+                    if (!test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o.getDataPropertiesInSignature(EXCLUDED)) {
+                    if (!test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o.getObjectPropertiesInSignature(EXCLUDED)) {
+                    if (!test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o
+                        .getAnnotationPropertiesInSignature(EXCLUDED)) {
+                    if (!test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o.getDatatypesInSignature(EXCLUDED)) {
+                    if (!test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o.getIndividualsInSignature(EXCLUDED)) {
+                    if (!test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+            }
+            if (punned.isEmpty()) {
+                return Collections.emptySet();
+            }
+            return punned;
+        } else {
+            for (OWLEntity e : getClassesInSignature(EXCLUDED)) {
+                test.add(e.getIRI());
+            }
+            for (OWLEntity e : getDataPropertiesInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
+            }
+            for (OWLEntity e : getObjectPropertiesInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
+            }
+            for (OWLEntity e : getAnnotationPropertiesInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
+            }
+            for (OWLEntity e : getDatatypesInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
+            }
+            for (OWLEntity e : getIndividualsInSignature(EXCLUDED)) {
+                if (!test.add(e.getIRI())) {
+                    punned.add(e.getIRI());
+                }
+            }
+            if (punned.isEmpty()) {
+                return Collections.emptySet();
+            }
+            return punned;
         }
-        return punned;
+    }
+
+    @Override
+    public boolean containsReference(@Nonnull OWLEntity entity,
+            Imports includeImportsClosure) {
+        if (includeImportsClosure == EXCLUDED) {
+            return ints.containsReference(entity);
+        }
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.containsReference(entity, EXCLUDED)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
