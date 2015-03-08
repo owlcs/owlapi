@@ -14,10 +14,11 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -26,14 +27,12 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
-import org.semanticweb.owlapi.search.Filters;
 
 /**
  * A short form provider that generates short forms based on entity annotation
@@ -162,14 +161,14 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     @Nonnull
     @Override
     public String getShortForm(@Nonnull OWLEntity entity) {
+        Stream<OWLOntology> onts = ontologySetProvider.ontologies();
+        Set<OWLAnnotationAssertionAxiom> flatMap = asSet(onts.flatMap(o -> o
+                .annotationAssertionAxioms(entity.getIRI(), INCLUDED)));
         for (OWLAnnotationProperty prop : annotationProperties) {
             // visit the properties in order of preference
             AnnotationLanguageFilter checker = new AnnotationLanguageFilter(
                     prop, preferredLanguageMap.get(prop));
-            Function<? super OWLOntology, ? extends Stream<? extends OWLAxiom>> mapper = o -> o
-                    .axioms(Filters.annotations, entity.getIRI(), INCLUDED);
-            ontologySetProvider.ontologies().flatMap(mapper)
-                    .forEach(ax -> ax.accept(checker));
+            flatMap.forEach(ax -> ax.accept(checker));
             OWLObject match = checker.getMatch();
             if (match != null) {
                 return getRendering(match);

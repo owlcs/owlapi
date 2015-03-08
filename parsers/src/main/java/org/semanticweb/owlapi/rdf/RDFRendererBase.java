@@ -65,7 +65,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
-import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
@@ -496,8 +495,8 @@ public abstract class RDFRendererBase {
         final Set<OWLAxiom> axioms = new HashSet<>();
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
-            axioms.addAll(ontology.axioms(Filters.annotations, entity.getIRI(),
-                    INCLUDED).collect(toList()));
+            add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(),
+                    INCLUDED));
         }
         add(ontology.declarationAxioms(entity), axioms);
         entity.accept(new OWLEntityVisitor() {

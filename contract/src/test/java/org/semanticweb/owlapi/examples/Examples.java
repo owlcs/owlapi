@@ -1286,7 +1286,7 @@ public class Examples extends TestBase {
         OWLAnnotationProperty label = df.getRDFSLabel();
         ont.classesInSignature().forEach(
                 c -> annotations(
-                        ont.axioms(Filters.annotations, c.getIRI(), INCLUDED),
+                        ont.annotationAssertionAxioms(c.getIRI(), INCLUDED),
                         label).map(a -> a.getValue().asLiteral())
                         .filter(v -> v.isPresent() && v.get().hasLang("pt"))
                         .forEach(

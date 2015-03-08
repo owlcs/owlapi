@@ -63,7 +63,6 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.search.Filters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -277,7 +276,7 @@ public abstract class AbstractMacroExpansionVisitor implements
         expandAssertionToMap = new HashMap<>();
         o.objectPropertiesInSignature().forEach(
                 p -> annotations(
-                        o.axioms(Filters.annotations, p.getIRI(), INCLUDED),
+                        o.annotationAssertionAxioms(p.getIRI(), INCLUDED),
                         df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI()))
                         .forEach(a -> {
                             OWLAnnotationValue v = a.getValue();
@@ -296,7 +295,7 @@ public abstract class AbstractMacroExpansionVisitor implements
     }
 
     protected void expandAssertions(OWLOntology o, OWLAnnotationProperty p) {
-        annotations(o.axioms(Filters.annotations, p.getIRI(), INCLUDED),
+        annotations(o.annotationAssertionAxioms(p.getIRI(), INCLUDED),
                 df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI()))
                 .map(a -> a.getValue().asLiteral()).filter(v -> v.isPresent())
                 .forEach(v -> {
