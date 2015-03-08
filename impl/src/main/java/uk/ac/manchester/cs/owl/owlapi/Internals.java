@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.AxiomType.*;
+import org.semanticweb.owlapi.search.Filters;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
@@ -877,8 +878,18 @@ public class Internals implements Serializable {
      * @return set of values
      */
     @Nonnull
-    public <K> Collection<OWLAxiom> filterAxioms(
+    public <K> Collection<? extends OWLAxiom> filterAxioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
+        if(filter == Filters.annotations) {
+            Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional =
+                    get(OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
+            if(mapPointerOptional.isPresent()) {
+                MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>  mapPointer = mapPointerOptional.get();
+                Collection<OWLAnnotationAssertionAxiom> values = mapPointer.getValues((OWLAnnotationSubject) key);
+                return values;
+            }
+
+        }
         return getAxiomsByType().filterAxioms(filter, key);
     }
 
