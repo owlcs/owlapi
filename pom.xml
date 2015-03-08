@@ -215,25 +215,6 @@
 							</instructions>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>2.3</version>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>shade</goal>
-								</goals>
-								<configuration>
-									<transformers>
-										<transformer
-											implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-									</transformers>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
 					<!-- We need to configure the Source Plugin for deploying the sources. -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -372,6 +353,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
 						<Implementation-Version>${project.version}</Implementation-Version>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
