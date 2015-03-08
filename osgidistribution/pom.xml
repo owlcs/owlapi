@@ -215,12 +215,11 @@
 							de.uulm.*;-split-package:=merge-first,
 						</_exportcontents>
 						<Import-Package>
-							!sun.misc,
-							net.sf.ehcache.*;resolution:=optional,
-							net.spy.memcached.*;resolution:=optional,
-							org.slf4j.impl;resolution:=optional,
-							!org.slif4j.impl,
-							*
+							!net.sf.ehcache,!sun.misc,!javax.swing, !net.spy.memcached,
+							org.slf4j.*, org.openrdf.*,info.aduna.*,
+							javax.crypto, javax.crypto.spec, javax.imageio, 
+							javax.net.*, javax.security.*, javax.xml.*, org.ietf.jgss, 
+							org.slf4j.*, org.w3c.dom.*, org.xml.sax.*
 						</Import-Package>
 					</instructions>
 				</configuration>
