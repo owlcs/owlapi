@@ -38,7 +38,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
-import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
@@ -537,8 +536,9 @@ public abstract class RDFRendererBase {
         final Set<OWLAxiom> axioms = new TreeSet<>();
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
-            axioms.addAll(ontology.filterAxioms(Filters.annotations,
-                    entity.getIRI(), INCLUDED));
+            for (OWLOntology o : ontology.getImportsClosure()) {
+                axioms.addAll(o.getAnnotationAssertionAxioms(entity.getIRI()));
+            }
         }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {

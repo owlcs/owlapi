@@ -1,6 +1,6 @@
 package org.obolibrary.macro;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.util.Collections;
@@ -93,7 +93,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.OWLDataVisitorExAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,27 +154,31 @@ public abstract class AbstractMacroExpansionVisitor extends
                 OIO_ISEXPANSION, dataFactory.getOWLLiteral(true));
         for (OWLObjectProperty p : inputOntology
                 .getObjectPropertiesInSignature()) {
-            for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
-                    Filters.annotations, p.getIRI(), INCLUDED),
-                    expandExpressionAP)) {
-                OWLAnnotationValue v = a.getValue();
-                if (v instanceof OWLLiteral) {
-                    String str = ((OWLLiteral) v).getLiteral();
-                    LOG.info("mapping {} to {}", p, str);
-                    expandExpressionMap.put(p.getIRI(), str);
+            for (OWLOntology o : inputOntology.getImportsClosure()) {
+                for (OWLAnnotation a : annotations(
+                        o.getAnnotationAssertionAxioms(p.getIRI()),
+                        expandExpressionAP)) {
+                    OWLAnnotationValue v = a.getValue();
+                    if (v instanceof OWLLiteral) {
+                        String str = ((OWLLiteral) v).getLiteral();
+                        LOG.info("mapping {} to {}", p, str);
+                        expandExpressionMap.put(p.getIRI(), str);
+                    }
                 }
             }
         }
         for (OWLAnnotationProperty p : inputOntology
                 .getAnnotationPropertiesInSignature(EXCLUDED)) {
-            for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
-                    Filters.annotations, p.getIRI(), INCLUDED),
-                    expandAssertionAP)) {
-                OWLAnnotationValue v = a.getValue();
-                if (v instanceof OWLLiteral) {
-                    String str = ((OWLLiteral) v).getLiteral();
-                    LOG.info("assertion mapping {} to {}", p, str);
-                    expandAssertionToMap.put(p.getIRI(), str);
+            for (OWLOntology o : inputOntology.getImportsClosure()) {
+                for (OWLAnnotation a : annotations(
+                        o.getAnnotationAssertionAxioms(p.getIRI()),
+                        expandAssertionAP)) {
+                    OWLAnnotationValue v = a.getValue();
+                    if (v instanceof OWLLiteral) {
+                        String str = ((OWLLiteral) v).getLiteral();
+                        LOG.info("assertion mapping {} to {}", p, str);
+                        expandAssertionToMap.put(p.getIRI(), str);
+                    }
                 }
             }
         }
