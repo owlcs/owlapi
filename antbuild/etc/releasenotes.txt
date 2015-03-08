@@ -1,3 +1,30 @@
+3.5.2 7 March 2015
+
+Features
+Major reworking of the osgi bundle. Everything is embedded transitively, except for slf4j-api.
+Formats have suggested extensions as well.
+Simplify the trivially transitive check
+Support preserving, transferring, and adding annotations during OBO Macro expansion
+Allow ELK to be used with protege's classification result display panel. Some reasoners may not support OWLReasoner::isEntailed.
+Use custom trove hashmap and hashset, with a strategy that checks for hashcode equality before trying full equality check
+Configuration option to skip validation before writing OBO file #290
+
+Bug fixes
+Amend factory registry to allow multithread manipulation
+Fix imports in OWL Manchester Notation fail #347
+Solve some thread safety issues in XML parsers and storers by using thread locals instead of statics.
+Add legacy files  to the OSGI distribution for  version 3.5 backwards compatibility
+Fix #338 OWL-API: DOCTYPE declaration missing in XML serialization
+Fix ELProfile incorrectly rejects DisjointClasses axioms. #343
+Fix javadoc bug in oboformat  (hard error with jdk8 )
+Fix #297 ManchesterSyntax rendering prints annotations twice.
+Fix #292 SWRL rules saved by older versions of OWLAPI/Protege lose annotations
+Removed nondeterminism from facet order
+Fix #288 Errors with object property assertions with inverseOf properties
+Fix #289 Manchester syntax errors: inverse() not recognized, SWRL rules rendered twice
+Fix #282 Bug with compareTo in 3.5.1
+Fix #281 OntologyIRIShortFormProvider does wrong shortform generation
+
 3.5.1 10 September 2014
 
 Bugs:
