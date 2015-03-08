@@ -12,10 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
-
+import com.google.common.base.Optional;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,16 +21,16 @@ import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.TreeSet;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
-
-import com.google.common.base.Optional;
 
 /**
  * An abstract translator that can produce an RDF graph from an OWLOntology.
@@ -884,7 +881,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void translateAnnotations(@Nonnull OWLAxiom ax) {
         translateAnonymousNode(ax);
-        for (OWLAnnotation anno : ax.getAnnotations()) {
+        Set<OWLAnnotation> annotations = new TreeSet<>(ax.getAnnotations());
+        for (OWLAnnotation anno : annotations) {
             assert anno != null;
             translateAnnotation(ax, anno);
         }
@@ -912,7 +910,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             processIfAnonymous(ind);
         }
         // If the annotation doesn't have annotations on it then we're done
-        if (annotation.getAnnotations().isEmpty()) {
+        Set<OWLAnnotation> annotations = annotation.getAnnotations();
+        if (annotations.isEmpty()) {
             return;
         }
         // The annotation has annotations on it so we need to reify the
@@ -925,7 +924,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 .getProperty().getIRI());
         addTriple(annotation, OWL_ANNOTATED_TARGET.getIRI(),
                 annotation.getValue());
-        for (OWLAnnotation anno : annotation.getAnnotations()) {
+        annotations = new TreeSet<>(annotations);
+        for (OWLAnnotation anno : annotations) {
             assert anno != null;
             translateAnnotation(annotation, anno);
         }
