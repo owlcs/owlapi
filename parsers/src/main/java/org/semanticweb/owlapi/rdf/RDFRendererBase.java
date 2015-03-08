@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-
+import com.google.common.base.Optional;
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,53 +25,23 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import java.util.TreeSet;
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
-
-import com.google.common.base.Optional;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -355,7 +325,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderUntypedIRIAnnotationAssertions() throws IOException {
-        Set<IRI> annotatedIRIs = new HashSet<>();
+        Set<IRI> annotatedIRIs = new TreeSet<>();
         for (OWLAnnotationAssertionAxiom ax : ontology
                 .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
             OWLAnnotationSubject subject = ax.getSubject();
@@ -423,14 +393,21 @@ public abstract class RDFRendererBase {
     }
 
     private void renderGeneralAxioms() throws IOException {
+        boolean haveWrittenBanner=false;
         Set<OWLAxiom> generalAxioms = getGeneralAxioms();
-        createGraph(generalAxioms);
-        Set<RDFResourceBlankNode> rootNodes = graph.getRootAnonymousNodes();
-        if (!rootNodes.isEmpty()) {
-            writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
-            beginObject();
-            renderAnonRoots();
-            endObject();
+        for (OWLAxiom axiom : generalAxioms) {
+            Set<OWLAxiom> axiomSet = Collections.singleton(axiom);
+            createGraph(axiomSet);
+            Set<RDFResourceBlankNode> rootNodes = (graph.getRootAnonymousNodes());
+            if (!rootNodes.isEmpty()) {
+                if(!haveWrittenBanner) {
+                    writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
+                    haveWrittenBanner = true;
+                }
+                beginObject();
+                renderAnonRoots();
+                endObject();
+            }
         }
     }
 
@@ -446,7 +423,7 @@ public abstract class RDFRendererBase {
      */
     @Nonnull
     private Set<OWLAxiom> getGeneralAxioms() {
-        Set<OWLAxiom> generalAxioms = new HashSet<>();
+        Set<OWLAxiom> generalAxioms = new TreeSet<>();
         generalAxioms.addAll(ontology.getGeneralClassAxioms());
         generalAxioms.addAll(ontology
                 .getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
@@ -556,7 +533,7 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(@Nonnull OWLEntity entity,
             Collection<IRI> illegalPuns) {
-        final Set<OWLAxiom> axioms = new HashSet<>();
+        final Set<OWLAxiom> axioms = new TreeSet<>();
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
             for (OWLOntology o : ontology.getImportsClosure()) {
@@ -667,10 +644,32 @@ public abstract class RDFRendererBase {
         return format == null || format.isAddMissingTypes();
     }
 
+    private int nextBlankNodeId=1;
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(new IdentityHashingStrategy<>());
+    private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
+        public SequentialBlankNodeRDFTranslator() {
+            super(RDFRendererBase.this.ontology.getOWLOntologyManager(), RDFRendererBase.this.ontology, RDFRendererBase.this.shouldInsertDeclarations());
+        }
+
+        @Override
+        protected RDFResourceBlankNode getAnonymousNode(Object key) {
+            checkNotNull(key, "key cannot be null");
+            if (key instanceof OWLAnonymousIndividual) {
+                OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+                key=anonymousIndividual.getID().getID();
+            }
+            int id = blankNodeMap.get(key);
+            if(id == 0) {
+                id = nextBlankNodeId++;
+                blankNodeMap.put(key,id);
+            }
+
+            return new RDFResourceBlankNode(id);
+        }
+    }
+
     protected void createGraph(@Nonnull Set<? extends OWLObject> objects) {
-        RDFTranslator translator = new RDFTranslator(
-                ontology.getOWLOntologyManager(), ontology,
-                shouldInsertDeclarations());
+        RDFTranslator translator = new SequentialBlankNodeRDFTranslator();
         for (OWLObject obj : objects) {
             obj.accept(translator);
         }
@@ -693,7 +692,8 @@ public abstract class RDFRendererBase {
      *         io error
      */
     public void renderAnonRoots() throws IOException {
-        for (RDFResourceBlankNode node : graph.getRootAnonymousNodes()) {
+        Set<RDFResourceBlankNode> rootAnonymousNodes = new TreeSet<>( graph.getRootAnonymousNodes());
+        for (RDFResourceBlankNode node : rootAnonymousNodes) {
             assert node != null;
             render(node);
         }
@@ -771,4 +771,5 @@ public abstract class RDFRendererBase {
             return o1.getIRI().compareTo(o2.getIRI());
         }
     }
+
 }
