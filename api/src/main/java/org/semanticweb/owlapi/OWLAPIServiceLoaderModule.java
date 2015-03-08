@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
@@ -30,8 +31,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Iterables;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
@@ -41,6 +44,9 @@ import com.google.inject.multibindings.Multibinder;
  */
 @OwlapiModule
 public class OWLAPIServiceLoaderModule extends AbstractModule {
+
+    private static Logger logger = LoggerFactory
+            .getLogger(OWLAPIServiceLoaderModule.class);
 
     @Override
     protected void configure() {
@@ -61,7 +67,6 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
             load(type).forEach(o -> binder.addBinding().toInstance(o));
         } catch (ServiceConfigurationError e) {
-            e.printStackTrace(System.out);
             throw new OWLRuntimeException("Injection failed for " + type, e);
         }
     }
@@ -75,17 +80,22 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
      */
     protected <T> Iterable<T> load(Class<T> type) {
         // J2EE compatible search
-        Collection<T> list = Sets.newHashSet(ServiceLoader.load(type));
+        Collection<T> result = new HashSet<>();
+        try {
+            Iterables.addAll(result, ServiceLoader.load(type));
+        } catch (ServiceConfigurationError e) {
+            logger.debug("ServiceLoading: ", e);
+        }
         // in OSGi, the context class loader is likely null.
         // This would trigger the use of the system class loader, which would
         // not see the OWLAPI jar, nor any other jar containing implementations.
         // In that case, use this class classloader to load, at a minimum, the
         // services provided by the OWLAPI jar itself.
-        if (list.isEmpty()) {
-            list = Sets.newHashSet(ServiceLoader.load(type, getClass()
-                    .getClassLoader()));
+        if (result.isEmpty()) {
+            ClassLoader classLoader = getClass().getClassLoader();
+            Iterables.addAll(result, ServiceLoader.load(type, classLoader));
         }
-        return list;
+        return result;
     }
 
     protected <T, F extends Provider<T>> void loadFactories(Class<F> factory,
@@ -99,7 +109,6 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
                 binder.addBinding().toInstance(o.get());
             });
         } catch (ServiceConfigurationError e) {
-            e.printStackTrace(System.out);
             throw new OWLRuntimeException("Injection failed for factory: "
                     + factory + " type: " + type, e);
         }
@@ -112,7 +121,6 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
             load(OWLOntologyManagerFactory.class).forEach(
                     o -> binder.addBinding().toInstance(o));
         } catch (ServiceConfigurationError e) {
-            e.printStackTrace(System.out);
             throw new OWLRuntimeException(
                     "Injection failed for OWLOntologyManager factory", e);
         }
