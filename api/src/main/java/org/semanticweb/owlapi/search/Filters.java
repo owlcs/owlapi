@@ -282,7 +282,11 @@ public class Filters {
     /**
      * filter returning annotation assertions where the subject matches the
      * input key.
+     * 
+     * @deprecated use the OWLOntology:getAnnotationAssertionAxioms() in place
+     *             of this filter as it is much faster, thanks to indexing.
      */
+    @Deprecated
     @Nonnull
     public static final OWLAxiomSearchFilter annotations = new AxiomFilter<OWLAnnotationAssertionAxiom>(
             AxiomType.ANNOTATION_ASSERTION) {

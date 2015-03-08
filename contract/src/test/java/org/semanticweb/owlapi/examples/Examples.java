@@ -1303,12 +1303,15 @@ public class Examples extends TestBase {
                 .getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
         for (OWLClass cls : ont.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : annotations(ont.filterAxioms(
-                    Filters.annotations, cls.getIRI(), INCLUDED), label)) {
-                if (annotation.getValue() instanceof OWLLiteral) {
-                    OWLLiteral val = (OWLLiteral) annotation.getValue();
-                    if (val.hasLang("pt")) {
-                        // System.out.println(cls + " -> " + val.getLiteral());
+            for (OWLOntology o : ont.getImportsClosure()) {
+                for (OWLAnnotation annotation : annotations(
+                        o.getAnnotationAssertionAxioms(cls.getIRI()), label)) {
+                    if (annotation.getValue() instanceof OWLLiteral) {
+                        OWLLiteral val = (OWLLiteral) annotation.getValue();
+                        if (val.hasLang("pt")) {
+                            // System.out.println(cls + " -> " +
+                            // val.getLiteral());
+                        }
                     }
                 }
             }
