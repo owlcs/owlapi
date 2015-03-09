@@ -12,37 +12,31 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
+import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -59,6 +53,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Nonnull
     private final OWLDocumentFormat format;
 
+    ShortFormProvider labelMaker;
     /**
      * @param ontology
      *        ontology
@@ -89,6 +84,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
         String base = base(defaultNamespace);
         writer = new RDFXMLWriter(XMLWriterFactory.createXMLWriter(
                 checkNotNull(w, "w cannot be null"), qnameManager, base));
+
+        Map<OWLAnnotationProperty, List<String>> prefLangMap=new HashMap<>();
+        OWLOntologyManager manager = ontology.getOWLOntologyManager();
+        OWLDataFactory df = manager.getOWLDataFactory();
+        OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
+        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),prefLangMap, manager);
     }
 
     @SuppressWarnings("null")
@@ -129,42 +130,50 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Override
     protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(ind,
-                "ind cannot be null").getIRI().toString()));
+        writeCommentForEntity("ind", ind);
     }
+
 
     @Override
     protected void writeClassComment(@Nonnull OWLClass cls) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(cls,
-                "cls cannot be null").getIRI().toString()));
+        writeCommentForEntity("cls", cls);
     }
 
     @Override
     protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
-                "prop cannot be null").getIRI().toString()));
+        writeCommentForEntity("prop", prop);
     }
 
     @Override
     protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
-                "prop cannot be null").getIRI().toString()));
+        writeCommentForEntity("prop", prop);
     }
 
     @Override
     protected void writeAnnotationPropertyComment(
             @Nonnull OWLAnnotationProperty prop) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
-                "prop cannot be null").getIRI().toString()));
+        writeCommentForEntity("prop", prop);
     }
 
     @Override
     protected void writeDatatypeComment(@Nonnull OWLDatatype datatype)
             throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(datatype,
-                "datatype cannot be null").getIRI().toString()));
+        writeCommentForEntity("datatype", datatype);
+    }
+
+    private void writeCommentForEntity(String msg, OWLEntity entity) throws IOException {
+        checkNotNull(entity, msg + " cannot be null");
+        String iriString = entity.getIRI().toString();
+        String labelString = labelMaker.getShortForm(entity);
+        String commentString = null;
+        if(!iriString.equals(labelString)) {
+            commentString= labelString;
+        }  else {
+            commentString = iriString;
+        }
+        writer.writeComment(XMLUtils.escapeXML(commentString));
     }
 
     @Override

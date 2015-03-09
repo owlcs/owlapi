@@ -355,7 +355,7 @@ public abstract class RDFRendererBase {
                 .getReferencedAnonymousIndividuals(EXCLUDED)) {
             assert anonInd != null;
             boolean anonRoot = true;
-            Set<OWLAxiom> axioms = new HashSet<>();
+            Set<OWLAxiom> axioms = new TreeSet<>();
             for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, EXCLUDED)) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
                     assert ax != null;
@@ -377,7 +377,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() throws IOException {
-        Set<SWRLRule> ruleAxioms = ontology.getAxioms(AxiomType.SWRL_RULE);
+        Set<SWRLRule> ruleAxioms = new TreeSet<>(ontology.getAxioms(AxiomType.SWRL_RULE));
         createGraph(ruleAxioms);
         if (!ruleAxioms.isEmpty()) {
             writeBanner(RULES_BANNER_TEXT);
@@ -477,7 +477,7 @@ public abstract class RDFRendererBase {
         if (id.isPresent()) {
             return new RDFResourceIRI(id.get());
         } else {
-            return new RDFResourceBlankNode(System.identityHashCode(ontology));
+            return getBlankNodeFor(ontology);
         }
     }
 
@@ -515,8 +515,7 @@ public abstract class RDFRendererBase {
                 @Nonnull
                 @Override
                 public RDFNode visit(OWLAnonymousIndividual individual) {
-                    return new RDFResourceBlankNode(
-                            System.identityHashCode(individual));
+                    return getBlankNodeFor(individual);
                 }
 
                 @Nonnull
@@ -646,6 +645,16 @@ public abstract class RDFRendererBase {
 
     private int nextBlankNodeId=1;
     private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(new IdentityHashingStrategy<>());
+    @Nonnull
+    private RDFResourceBlankNode getBlankNodeFor(Object key) {
+        int id = blankNodeMap.get(key);
+        if(id == 0) {
+            id = nextBlankNodeId++;
+            blankNodeMap.put(key,id);
+        }
+
+        return new RDFResourceBlankNode(id);
+    }
     private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
         public SequentialBlankNodeRDFTranslator() {
             super(RDFRendererBase.this.ontology.getOWLOntologyManager(), RDFRendererBase.this.ontology, RDFRendererBase.this.shouldInsertDeclarations());
@@ -658,15 +667,10 @@ public abstract class RDFRendererBase {
                 OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
                 key=anonymousIndividual.getID().getID();
             }
-            int id = blankNodeMap.get(key);
-            if(id == 0) {
-                id = nextBlankNodeId++;
-                blankNodeMap.put(key,id);
-            }
-
-            return new RDFResourceBlankNode(id);
+            return getBlankNodeFor(key);
         }
     }
+
 
     protected void createGraph(@Nonnull Set<? extends OWLObject> objects) {
         RDFTranslator translator = new SequentialBlankNodeRDFTranslator();

@@ -14,14 +14,7 @@ package org.semanticweb.owlapi.rdf.model;
 
 import com.google.common.base.Optional;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.*;
@@ -332,7 +325,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             addPairwise(axiom, axiom.getClassExpressions(),
                     OWL_EQUIVALENT_CLASS.getIRI());
         } else {
-            for (OWLEquivalentClassesAxiom ax : axiom.splitToAnnotatedPairs()) {
+            Set<OWLEquivalentClassesAxiom> owlEquivalentClassesAxioms = new TreeSet<>(axiom.splitToAnnotatedPairs());
+            for (OWLEquivalentClassesAxiom ax : owlEquivalentClassesAxioms) {
                 ax.accept(this);
             }
         }
@@ -355,8 +349,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
+        Set<OWLClassExpression> classExpressions = axiom.getClassExpressions();
+        List<OWLClassExpression> list = new ArrayList<>(classExpressions);
+        Collections.sort(list);
         addSingleTripleAxiom(axiom, axiom.getOWLClass(),
-                OWL_DISJOINT_UNION_OF.getIRI(), axiom.getClassExpressions());
+                OWL_DISJOINT_UNION_OF.getIRI(), list);
     }
 
     @Override
@@ -377,8 +374,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             addPairwise(axiom, axiom.getProperties(),
                     OWL_EQUIVALENT_PROPERTY.getIRI());
         } else {
-            for (OWLEquivalentObjectPropertiesAxiom ax : axiom
-                    .splitToAnnotatedPairs()) {
+            Set<OWLEquivalentObjectPropertiesAxiom> pairs = getSortedAxioms(axiom.splitToAnnotatedPairs());
+            for (OWLEquivalentObjectPropertiesAxiom ax : pairs) {
                 ax.accept(this);
             }
         }
@@ -517,8 +514,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(@Nonnull OWLHasKeyAxiom axiom) {
+        Set<OWLPropertyExpression> propertyExpressions = axiom.getPropertyExpressions();
+        List<OWLPropertyExpression> list = new ArrayList<>(propertyExpressions);
+        Collections.sort(list);
         addSingleTripleAxiom(axiom, axiom.getClassExpression(),
-                OWL_HAS_KEY.getIRI(), axiom.getPropertyExpressions());
+                OWL_HAS_KEY.getIRI(), list);
     }
 
     @Override
@@ -575,14 +575,12 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         translateAnonymousNode(axiom);
-        for (OWLAnnotation anno : axiom.getAnnotations()) {
-            addTriple(axiom, anno.getProperty().getIRI(), anno.getValue());
-        }
         addTriple(axiom, RDF_TYPE.getIRI(),
                 OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         addTriple(axiom, OWL_SOURCE_INDIVIDUAL.getIRI(), axiom.getSubject());
         addTriple(axiom, OWL_ASSERTION_PROPERTY.getIRI(), axiom.getProperty());
         addTriple(axiom, OWL_TARGET_VALUE.getIRI(), axiom.getObject());
+        translateAnnotations(axiom);
         processIfAnonymous(axiom.getSubject(), axiom);
     }
 
@@ -825,9 +823,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
             @Nonnull OWLObject subj, @Nonnull IRI pred,
-            @Nonnull Collection<? extends OWLObject> obj) {
+            @Nonnull List<? extends OWLObject> obj) {
         addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred),
-                translateList(new ArrayList<>(obj)));
+                translateList(obj));
     }
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
@@ -881,8 +879,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void translateAnnotations(@Nonnull OWLAxiom ax) {
         translateAnonymousNode(ax);
-        Set<OWLAnnotation> annotations = new TreeSet<>(ax.getAnnotations());
-        for (OWLAnnotation anno : annotations) {
+        for (OWLAnnotation anno : new TreeSet<>(ax.getAnnotations())) {
             assert anno != null;
             translateAnnotation(ax, anno);
         }
@@ -1056,8 +1053,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void addListTriples(@Nonnull OWLObject subject, @Nonnull IRI pred,
             @Nonnull Set<? extends OWLObject> objects) {
+        ArrayList<OWLObject> list = new ArrayList<>(objects);
+        Collections.sort(list);
         addTriple(getResourceNode(subject), getPredicateNode(pred),
-                translateList(new ArrayList<>(objects)));
+                translateList(list));
     }
 
     private void addTriple(@Nonnull OWLObject subject, @Nonnull IRI pred,
@@ -1077,6 +1076,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void processIfAnonymous(@Nonnull Set<OWLIndividual> inds,
             OWLAxiom root) {
+        inds = new TreeSet<>(inds);
         for (OWLIndividual ind : inds) {
             assert ind != null;
             processIfAnonymous(ind, root);
@@ -1091,14 +1091,12 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ont.getAxioms(ind, Imports.EXCLUDED)) {
+                for (OWLAxiom ax : getSortedIndividualAxioms(ind)) {
                     if (root == null || !root.equals(ax)) {
                         ax.accept(this);
                     }
                 }
-                for (OWLAnnotationAssertionAxiom ax : ont
-                        .getAnnotationAssertionAxioms(ind
-                                .asOWLAnonymousIndividual())) {
+                for (OWLAnnotationAssertionAxiom ax : getSortedAxioms(getAnnotationAssertionsForAnonymous(ind))) {
                     ax.accept(this);
                 }
             }
@@ -1110,12 +1108,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ont.getAxioms(ind, Imports.EXCLUDED)) {
+                Set<OWLIndividualAxiom> axioms = getSortedIndividualAxioms(ind);
+                for (OWLAxiom ax : axioms) {
                     ax.accept(this);
                 }
-                for (OWLAnnotationAssertionAxiom ax : ont
-                        .getAnnotationAssertionAxioms(ind
-                                .asOWLAnonymousIndividual())) {
+                for (OWLAnnotationAssertionAxiom ax : getSortedAxioms(getAnnotationAssertionsForAnonymous(ind))) {
                     ax.accept(this);
                 }
             }
@@ -1123,10 +1120,27 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         }
     }
 
+    @Nonnull
+    private <T> TreeSet<T> getSortedAxioms(Set<T> axioms) {
+        return new TreeSet<T>(axioms);
+    }
+
+    @Nonnull
+    private Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionsForAnonymous(@Nonnull OWLIndividual ind) {
+        OWLAnonymousIndividual owlAnonymousIndividual = ind.asOWLAnonymousIndividual();
+        return ont.getAnnotationAssertionAxioms(owlAnonymousIndividual);
+    }
+
+    @Nonnull
+    private SortedSet<OWLIndividualAxiom> getSortedIndividualAxioms(@Nonnull OWLIndividual ind) {
+        return getSortedAxioms(ont.getAxioms(ind, Imports.EXCLUDED));
+    }
+
     @SuppressWarnings("null")
     private void addPairwise(@Nonnull OWLAxiom axiom,
             @Nonnull Collection<? extends OWLObject> objects, @Nonnull IRI iri) {
         List<? extends OWLObject> objectList = new ArrayList<>(objects);
+        Collections.sort(objectList);
         for (int i = 0; i < objectList.size(); i++) {
             for (int j = i; j < objectList.size(); j++) {
                 if (i != j) {
@@ -1156,9 +1170,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             addPairwiseClassExpressions(@Nonnull OWLAxiom axiom,
                     @Nonnull Set<OWLClassExpression> classExpressions,
                     @Nonnull IRI iri) {
-        List<OWLClassExpression> classExpressionList = new ArrayList<>(
-                classExpressions);
-        addPairwise(axiom, classExpressionList, iri);
+        addPairwise(axiom, classExpressions, iri);
     }
 
     /**
