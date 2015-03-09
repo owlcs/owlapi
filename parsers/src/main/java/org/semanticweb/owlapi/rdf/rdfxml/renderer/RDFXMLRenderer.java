@@ -18,8 +18,11 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -40,7 +43,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
+import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
+import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
 
 /**
@@ -57,6 +63,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private final RDFXMLNamespaceManager qnameManager;
     @Nonnull
     private final OWLDocumentFormat format;
+    private ShortFormProvider labelMaker;
 
     /**
      * @param ontology
@@ -88,6 +95,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
         String base = base(defaultNamespace);
         writer = new RDFXMLWriter(XMLWriterFactory.createXMLWriter(
                 checkNotNull(w, "w cannot be null"), qnameManager, base));
+        Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
+        OWLOntologyManager manager = ontology.getOWLOntologyManager();
+        OWLAnnotationProperty labelProp = manager.getOWLDataFactory()
+                .getRDFSLabel();
+        labelMaker = new AnnotationValueShortFormProvider(
+                Collections.singletonList(labelProp), prefLangMap, manager);
     }
 
     @Nonnull
@@ -126,39 +139,46 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     @Override
     protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind) {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(ind,
-                "ind cannot be null").getIRI().toString()));
+        writeCommentForEntity("ind cannot be null", ind);
     }
 
     @Override
     protected void writeClassComment(@Nonnull OWLClass cls) {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(cls,
-                "cls cannot be null").getIRI().toString()));
+        writeCommentForEntity("cls cannot be null", cls);
     }
 
     @Override
     protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop) {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
-                "prop cannot be null").getIRI().toString()));
+        writeCommentForEntity("prop cannot be null", prop);
     }
 
     @Override
     protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop) {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
-                "prop cannot be null").getIRI().toString()));
+        writeCommentForEntity("prop cannot be null", prop);
     }
 
     @Override
     protected void writeAnnotationPropertyComment(
             @Nonnull OWLAnnotationProperty prop) {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(prop,
-                "prop cannot be null").getIRI().toString()));
+        writeCommentForEntity("prop cannot be null", prop);
     }
 
     @Override
     protected void writeDatatypeComment(@Nonnull OWLDatatype datatype) {
-        writer.writeComment(XMLUtils.escapeXML(checkNotNull(datatype,
-                "datatype cannot be null").getIRI().toString()));
+        writeCommentForEntity("datatype cannot be null", datatype);
+    }
+
+    private void writeCommentForEntity(String msg, OWLEntity entity) {
+        checkNotNull(entity, msg);
+        String iriString = entity.getIRI().toString();
+        String labelString = labelMaker.getShortForm(entity);
+        String commentString = null;
+        if (!iriString.equals(labelString)) {
+            commentString = labelString;
+        } else {
+            commentString = iriString;
+        }
+        writer.writeComment(XMLUtils.escapeXML(commentString));
     }
 
     @Override
