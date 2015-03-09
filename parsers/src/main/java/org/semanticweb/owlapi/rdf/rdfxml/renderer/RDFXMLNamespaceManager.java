@@ -12,19 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -57,7 +54,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
             entities.add(ax.getProperty().asOWLDataProperty());
         }
         entities.addAll(getOntology().getAnnotationPropertiesInSignature(
-                EXCLUDED));
+                INCLUDED));
         return entities;
     }
 
