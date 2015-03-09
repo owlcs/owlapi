@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -45,13 +46,14 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     @Nonnull
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
-        return asSet(Stream.of(
-                getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION)
+        return asSet(Stream
+                .of(getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION)
                         .flatMap(ax -> ax.getProperty().signature()),
-                getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION).map(
-                        ax -> ax.getProperty().asOWLDataProperty()),
-                getOntology().annotationPropertiesInSignature())
-                .flatMap(x -> x));
+                        getOntology()
+                                .axioms(AxiomType.DATA_PROPERTY_ASSERTION)
+                                .map(ax -> ax.getProperty().asOWLDataProperty()),
+                        getOntology().annotationPropertiesInSignature(
+                                Imports.INCLUDED)).flatMap(x -> x));
     }
 
     /** @return entities with invalid qnames */
