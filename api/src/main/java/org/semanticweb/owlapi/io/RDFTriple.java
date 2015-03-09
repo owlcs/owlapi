@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
@@ -139,16 +140,42 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     private static final List<IRI> ORDERED_URIS = Arrays.asList(
-            RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(),
-            OWL_EQUIVALENT_CLASS.getIRI(), RDFS_SUBCLASS_OF.getIRI(),
-            OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
-            OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
+            RDF_TYPE.getIRI(),
+            RDFS_LABEL.getIRI(),
+            OWL_DEPRECATED.getIRI(),
+            RDFS_COMMENT.getIRI(),
+            RDFS_IS_DEFINED_BY.getIRI(),
+            RDF_FIRST.getIRI(),
+            RDF_REST.getIRI(),
+            OWL_EQUIVALENT_CLASS.getIRI(),
+            OWL_EQUIVALENT_PROPERTY.getIRI(),
+            RDFS_SUBCLASS_OF.getIRI(),
+            RDFS_SUB_PROPERTY_OF.getIRI(),
+            RDFS_DOMAIN.getIRI(),
+            RDFS_RANGE.getIRI(),
+            OWL_DISJOINT_WITH.getIRI(),
+            OWL_ON_PROPERTY.getIRI(),
+            OWL_DATA_RANGE.getIRI(),
+            OWL_ON_CLASS.getIRI(),
+
+            OWL_ANNOTATED_SOURCE.getIRI(),
+            OWL_ANNOTATED_PROPERTY.getIRI(),
+            OWL_ANNOTATED_TARGET.getIRI()
+    );
 
     static final THashMap<IRI, Integer> specialPredicateRanks = new THashMap<>();
 
     static {
+        int nextId=1;
         for (int i = 0; i < ORDERED_URIS.size(); i++) {
-            specialPredicateRanks.put(ORDERED_URIS.get(i), i);
+            specialPredicateRanks.put(ORDERED_URIS.get(i), nextId++);
+        }
+
+        for (OWLRDFVocabulary vocabulary : OWLRDFVocabulary.values()) {
+            IRI iri = vocabulary.getIRI();
+            if(!specialPredicateRanks.containsKey(iri)) {
+                specialPredicateRanks.put(iri,nextId++);
+            }
         }
     }
 
