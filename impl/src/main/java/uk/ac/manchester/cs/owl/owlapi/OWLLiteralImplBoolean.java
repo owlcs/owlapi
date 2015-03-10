@@ -204,7 +204,7 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
         if (compareTo != 0) {
             return compareTo;
         }
-        return Boolean.compare(literal, other.parseBoolean());
+        return Boolean.valueOf(literal).compareTo(Boolean.valueOf(other.parseBoolean()));
     }
 
     @Override

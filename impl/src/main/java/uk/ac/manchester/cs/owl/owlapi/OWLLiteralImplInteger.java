@@ -204,7 +204,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
         if (compareTo != 0) {
             return compareTo;
         }
-        return Integer.compare(literal, other.parseInteger());
+        return Integer.valueOf(literal).compareTo(Integer.valueOf(other.parseInteger()));
     }
 
     @Override
