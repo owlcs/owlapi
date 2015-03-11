@@ -1274,12 +1274,28 @@ public class OWLAPIOwl2Obo {
         if (set.isEmpty()) {
             return;
         }
+        boolean isClass = entity.isOWLClass();
+        boolean isObjectProperty = entity.isOWLObjectProperty();
+        boolean isAnnotationProperty = entity.isOWLAnnotationProperty();
+        // check whether the entity is an alt_id
+        OboAltIdCheckResult altIdOptional = checkForOboAltId(set, entity);
+        if (altIdOptional != null) {
+            // the entity will not be translated
+            // instead create the appropriate alt_id in the replaced_by frame
+            String currentId = getIdentifier(entity.getIRI());
+            addAltId(altIdOptional.replacedBy, currentId, isClass,
+                    isObjectProperty);
+            // add unrelated annotations to untranslatableAxioms axioms
+            untranslatableAxioms.addAll(altIdOptional.unrelated);
+            return;
+        }
+        // translate
         Frame f = null;
-        if (entity instanceof OWLClass) {
+        if (isClass) {
             f = getTermFrame(entity.asOWLClass());
-        } else if (entity instanceof OWLObjectProperty) {
+        } else if (isObjectProperty) {
             f = getTypedefFrame(entity.asOWLObjectProperty());
-        } else if (entity instanceof OWLAnnotationProperty) {
+        } else if (isAnnotationProperty) {
             for (OWLAnnotationAssertionAxiom ax : set) {
                 OWLAnnotationProperty prop = ax.getProperty();
                 String tag = owlObjectToTag(prop);
@@ -1294,8 +1310,99 @@ public class OWLAPIOwl2Obo {
                 tr(aanAx, f);
             }
             add(f);
-            return;
         }
+    }
+
+    private void addAltId(String replacedBy, String altId, boolean isClass,
+            boolean isProperty) {
+        Frame replacedByFrame = null;
+        if (isClass) {
+            replacedByFrame = getTermFrame(replacedBy);
+        } else if (isProperty) {
+            replacedByFrame = getTypedefFrame(replacedBy);
+        }
+        if (replacedByFrame != null) {
+            boolean addClause = true;
+            // check existing alt_ids to avoid duplicate clauses
+            Collection<Clause> existing = replacedByFrame
+                    .getClauses(OboFormatTag.TAG_ALT_ID);
+            for (Clause clause : existing) {
+                if (altId.equals(clause.getValue(String.class))) {
+                    addClause = false;
+                }
+            }
+            if (addClause) {
+                replacedByFrame.addClause(new Clause(OboFormatTag.TAG_ALT_ID,
+                        altId));
+            }
+        }
+    }
+
+    /**
+     * Helper class: allow to return two values for the alt id check.
+     */
+    private static class OboAltIdCheckResult {
+
+        final String replacedBy;
+        final Set<OWLAnnotationAssertionAxiom> unrelated;
+
+        OboAltIdCheckResult(String replacedBy,
+                Set<OWLAnnotationAssertionAxiom> unrelated) {
+            this.replacedBy = replacedBy;
+            this.unrelated = unrelated;
+        }
+    }
+
+    /**
+     * Check the entity annotations for axioms declaring it to be an obsolete
+     * entity, with 'obsolescence reason' being 'term merge', and a non-empty
+     * 'replaced by' literal. This corresponds to an OBO alternate identifier.
+     * Track non related annotations.
+     * 
+     * @param annotations
+     *        set of annotations for the entity
+     * @param entity
+     * @return replaced_by if it is an alt_id
+     */
+    private OboAltIdCheckResult checkForOboAltId(
+            Set<OWLAnnotationAssertionAxiom> annotations, OWLEntity entity) {
+        String replacedBy = null;
+        boolean isMerged = false;
+        boolean isDeprecated = false;
+        final Set<OWLAnnotationAssertionAxiom> unrelatedAxioms = new HashSet<OWLAnnotationAssertionAxiom>();
+        for (OWLAnnotationAssertionAxiom axiom : annotations) {
+            OWLAnnotationProperty prop = axiom.getProperty();
+            if (prop.isDeprecated()) {
+                isDeprecated = true;
+            } else if (Obo2OWLConstants.IRI_IAO_0000231.equals(prop.getIRI())) {
+                OWLAnnotationValue value = axiom.getValue();
+                if (value instanceof IRI) {
+                    isMerged = Obo2OWLConstants.IRI_IAO_0000227.equals(value);
+                } else {
+                    unrelatedAxioms.add(axiom);
+                }
+            } else if (Obo2OWLVocabulary.IRI_IAO_0100001.iri.equals(prop
+                    .getIRI())) {
+                OWLAnnotationValue value = axiom.getValue();
+                if (value instanceof OWLLiteral) {
+                    replacedBy = ((OWLLiteral) value).getLiteral();
+                } else {
+                    // fallback: also check for an IRI
+                    if (value instanceof IRI) {
+                        // translate IRI to OBO style ID
+                        replacedBy = getIdentifier((IRI) value);
+                    } else {
+                        unrelatedAxioms.add(axiom);
+                    }
+                }
+            } else {
+                unrelatedAxioms.add(axiom);
+            }
+        }
+        if (replacedBy != null && isMerged && isDeprecated) {
+            return new OboAltIdCheckResult(replacedBy, unrelatedAxioms);
+        }
+        return null;
     }
 
     /**
@@ -1551,6 +1658,10 @@ public class OWLAPIOwl2Obo {
 
     protected Frame getTermFrame(OWLClass entity) {
         String id = getIdentifierUsingBaseOntology(entity.getIRI());
+        return getTermFrame(id);
+    }
+
+    private Frame getTermFrame(String id) {
         Frame f = obodoc.getTermFrame(id);
         if (f == null) {
             f = new Frame(FrameType.TERM);
@@ -1563,6 +1674,10 @@ public class OWLAPIOwl2Obo {
 
     protected Frame getTypedefFrame(OWLEntity entity) {
         String id = this.getIdentifier(entity);
+        return getTypedefFrame(id);
+    }
+
+    private Frame getTypedefFrame(String id) {
         Frame f = obodoc.getTypedefFrame(id);
         if (f == null) {
             f = new Frame(FrameType.TYPEDEF);
