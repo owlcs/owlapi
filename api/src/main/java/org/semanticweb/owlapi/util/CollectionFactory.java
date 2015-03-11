@@ -317,8 +317,13 @@ public class CollectionFactory {
 
         @Override
         public Iterator<T> iterator() {
-            Set<T> set = backingMap.keySet();
+            Set<T> set = getMapKeySet(backingMap);
             return set.iterator();
+        }
+
+        private  Set<T> getMapKeySet(Map<T, Set<T>> map) {
+            Set<T> keySetView = (Set<T>) map.keySet();
+            return keySetView;
         }
 
         @Override
@@ -355,13 +360,13 @@ public class CollectionFactory {
 
         @Override
         public Object[] toArray() {
-            Set<T> set = backingMap.keySet();
+            Set<T> set = getMapKeySet(backingMap);
             return set.toArray();
         }
 
         @Override
         public <Type> Type[] toArray(Type[] a) {
-            Set<T> set = backingMap.keySet();
+            Set<T> set = getMapKeySet(backingMap);
             return set.toArray(a);
         }
 
@@ -375,9 +380,11 @@ public class CollectionFactory {
                 return true;
             }
             if (obj instanceof SyncSet) {
-                Set<T> set = this.backingMap.keySet();
+                Set<T> set = getMapKeySet(backingMap);
+                SyncSet obj1 = (SyncSet) obj;
+                Set<T> keySetView = getMapKeySet(obj1.backingMap);
                 return set.equals(
-                        ((SyncSet) obj).backingMap.keySet());
+                        keySetView);
             }
             if (obj instanceof Collection) {
                 return new HashSet<T>(this).equals(obj);
