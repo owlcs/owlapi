@@ -18,13 +18,12 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.5.2</version>
+	<version>3.5.3-SNAPSHOT</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
 
 	<modules>
-		<module>testsupport</module>
 		<module>api</module>
 		<module>impl</module>
 		<module>tools</module>
@@ -39,8 +38,8 @@
 
 
 	<issueManagement>
-		<system>sourceforge</system>
-		<url>http://sourceforge.net/tracker/?group_id=90989</url>
+		<system>GitHub</system>
+		<url>https://github.com/owlcs/owlapi/issues</url>
 	</issueManagement>
 
 
@@ -132,7 +131,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
+						<version>1.5</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
@@ -230,6 +229,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.8.1</version>
+				<configuration>
+					<show>public</show>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -248,7 +250,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18.1</version>
 				<configuration>
-					<excludedGroups>org.semanticweb.owlapi.test.IntegrationTest</excludedGroups>
+					<excludes>
+						<exclude>**/*IntegrationTestCase.java</exclude>
+					</excludes>
 					<printSummary>false</printSummary>
 					<parallel>all</parallel>
 					<threadCount>1</threadCount>
@@ -261,9 +265,8 @@
 				<version>2.18.1</version>
 				<configuration>
 					<includes>
-						<include>**/*.java</include>
+						<include>**/*IntegrationTestCase.java</include>
 					</includes>
-					<groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
 				</configuration>
 				<executions>
 					<execution>
@@ -277,7 +280,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.2</version>
+				<version>1.6.3</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>
@@ -292,6 +295,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
 						<Implementation-Version>${project.version}</Implementation-Version>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>

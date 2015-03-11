@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 
@@ -9,7 +8,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
-import org.semanticweb.owlapi.test.IntegrationTest;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -53,12 +51,12 @@ public class VerifyVersionInfoTestCase {
                     if (n instanceof Element
                             && ((Element) n).getTagName().equals("version")) {
                         String version = ((Element) n).getTextContent();
-/*
-                        if (!version.equals(info.getVersion())) {
-                            System.out
-                                    .println("VerifyVersionInfo.checkMatchVersion() WARNING: update the version in VersionInfo");
-                        }
-*/
+                        /*
+                                                if (!version.equals(info.getVersion())) {
+                                                    System.out
+                                                            .println("VerifyVersionInfo.checkMatchVersion() WARNING: update the version in VersionInfo");
+                                                }
+                        */
                         assertEquals(version, info.getVersion());
                         found = true;
                     }
