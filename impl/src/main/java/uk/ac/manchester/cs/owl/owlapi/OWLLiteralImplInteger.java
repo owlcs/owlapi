@@ -49,8 +49,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006
  */
 public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
 
@@ -195,8 +195,14 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
+        int diff = 0;
+        if (object instanceof OWLLiteralImplInteger) {
+            OWLLiteralImplInteger integer = (OWLLiteralImplInteger) object;
+            diff = literal - integer.literal;
+            return diff;
+        }
         OWLLiteral other = (OWLLiteral) object;
-        int diff = getLiteral().compareTo(other.getLiteral());
+        diff = getLiteral().compareTo(other.getLiteral());
         if (diff != 0) {
             return diff;
         }
@@ -204,7 +210,8 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
         if (compareTo != 0) {
             return compareTo;
         }
-        return Integer.valueOf(literal).compareTo(Integer.valueOf(other.parseInteger()));
+        int otherValue = other.parseInteger();
+        return literal - otherValue;
     }
 
     @Override

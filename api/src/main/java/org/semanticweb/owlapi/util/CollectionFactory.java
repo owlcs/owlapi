@@ -317,7 +317,13 @@ public class CollectionFactory {
 
         @Override
         public Iterator<T> iterator() {
-            return backingMap.keySet().iterator();
+            Set<T> set = getMapKeySet(backingMap);
+            return set.iterator();
+        }
+
+        private  Set<T> getMapKeySet(Map<T, Set<T>> map) {
+            Set<T> keySetView = (Set<T>) map.keySet();
+            return keySetView;
         }
 
         @Override
@@ -342,7 +348,8 @@ public class CollectionFactory {
         @Override
         public boolean retainAll(Collection<?> c) {
             boolean toReturn = false;
-            for (Map.Entry<T, Set<T>> e : backingMap.entrySet()) {
+            Set<Map.Entry<T, Set<T>>> entries = backingMap.entrySet();
+            for (Map.Entry<T, Set<T>> e : entries) {
                 if (!c.contains(e.getKey())) {
                     toReturn = true;
                     backingMap.remove(e.getKey());
@@ -353,12 +360,14 @@ public class CollectionFactory {
 
         @Override
         public Object[] toArray() {
-            return backingMap.keySet().toArray();
+            Set<T> set = getMapKeySet(backingMap);
+            return set.toArray();
         }
 
         @Override
         public <Type> Type[] toArray(Type[] a) {
-            return backingMap.keySet().toArray(a);
+            Set<T> set = getMapKeySet(backingMap);
+            return set.toArray(a);
         }
 
         @SuppressWarnings("rawtypes")
@@ -371,8 +380,11 @@ public class CollectionFactory {
                 return true;
             }
             if (obj instanceof SyncSet) {
-                return this.backingMap.keySet().equals(
-                        ((SyncSet) obj).backingMap.keySet());
+                Set<T> set = getMapKeySet(backingMap);
+                SyncSet obj1 = (SyncSet) obj;
+                Set<T> keySetView = getMapKeySet(obj1.backingMap);
+                return set.equals(
+                        keySetView);
             }
             if (obj instanceof Collection) {
                 return new HashSet<T>(this).equals(obj);
