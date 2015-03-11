@@ -317,7 +317,8 @@ public class CollectionFactory {
 
         @Override
         public Iterator<T> iterator() {
-            return backingMap.keySet().iterator();
+            Set<T> set = backingMap.keySet();
+            return set.iterator();
         }
 
         @Override
@@ -342,7 +343,8 @@ public class CollectionFactory {
         @Override
         public boolean retainAll(Collection<?> c) {
             boolean toReturn = false;
-            for (Map.Entry<T, Set<T>> e : backingMap.entrySet()) {
+            Set<Map.Entry<T, Set<T>>> entries = backingMap.entrySet();
+            for (Map.Entry<T, Set<T>> e : entries) {
                 if (!c.contains(e.getKey())) {
                     toReturn = true;
                     backingMap.remove(e.getKey());
@@ -353,12 +355,14 @@ public class CollectionFactory {
 
         @Override
         public Object[] toArray() {
-            return backingMap.keySet().toArray();
+            Set<T> set = backingMap.keySet();
+            return set.toArray();
         }
 
         @Override
         public <Type> Type[] toArray(Type[] a) {
-            return backingMap.keySet().toArray(a);
+            Set<T> set = backingMap.keySet();
+            return set.toArray(a);
         }
 
         @SuppressWarnings("rawtypes")
@@ -371,7 +375,8 @@ public class CollectionFactory {
                 return true;
             }
             if (obj instanceof SyncSet) {
-                return this.backingMap.keySet().equals(
+                Set<T> set = this.backingMap.keySet();
+                return set.equals(
                         ((SyncSet) obj).backingMap.keySet());
             }
             if (obj instanceof Collection) {

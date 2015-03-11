@@ -195,8 +195,15 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
+      int diff = 0;
+        if (object instanceof OWLLiteralImplInteger) {
+            OWLLiteralImplInteger integer = (OWLLiteralImplInteger) object;
+            diff = literal - integer.literal;
+            return diff;
+        }
+
         OWLLiteral other = (OWLLiteral) object;
-        int diff = getLiteral().compareTo(other.getLiteral());
+         diff = getLiteral().compareTo(other.getLiteral());
         if (diff != 0) {
             return diff;
         }
@@ -204,7 +211,8 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
         if (compareTo != 0) {
             return compareTo;
         }
-        return Integer.compare(literal, other.parseInteger());
+        int otherValue = other.parseInteger();
+        return literal - otherValue;
     }
 
     @Override

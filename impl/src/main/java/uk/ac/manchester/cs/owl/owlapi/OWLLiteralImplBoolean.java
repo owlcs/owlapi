@@ -195,6 +195,11 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
+        if (object instanceof OWLLiteralImplBoolean) {
+            OWLLiteralImplBoolean aBoolean = (OWLLiteralImplBoolean) object;
+            boolean other = aBoolean.literal;
+            return compareBoolean(literal, other);
+        }
         OWLLiteral other = (OWLLiteral) object;
         int diff = getLiteral().compareTo(other.getLiteral());
         if (diff != 0) {
@@ -204,7 +209,21 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
         if (compareTo != 0) {
             return compareTo;
         }
-        return Boolean.compare(literal, other.parseBoolean());
+        return compareBoolean(literal, other.parseBoolean());
+    }
+
+    private static int compareBoolean(boolean a, boolean b) {
+        if (a) {
+            if (b) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else if (!b) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 
     @Override
