@@ -46,6 +46,7 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Nonnull
     protected abstract OWLOntology createOntology();
 
+    @Nonnull
     protected OWLOntology getOnt() {
         return ont;
     }

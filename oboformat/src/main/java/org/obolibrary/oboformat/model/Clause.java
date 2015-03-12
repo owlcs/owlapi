@@ -2,7 +2,7 @@ package org.obolibrary.oboformat.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -14,7 +14,7 @@ public class Clause {
 
     protected String tag;
     @Nonnull
-    protected final Collection<Object> values = new ArrayList<>();
+    protected final List<Object> values = new ArrayList<>();
     @Nonnull
     protected final Collection<Xref> xrefs = new ArrayList<>();
     @Nonnull
@@ -116,7 +116,7 @@ public class Clause {
     public Object getValue() {
         Object value = null;
         if (!values.isEmpty()) {
-            value = values.iterator().next();
+            value = values.get(0);
         }
         return value;
     }
@@ -142,9 +142,7 @@ public class Clause {
     public Object getValue2() {
         Object value = null;
         if (values.size() > 1) {
-            Iterator<Object> iterator = values.iterator();
-            iterator.next();
-            value = iterator.next();
+            value = values.get(1);
         }
         return value;
     }

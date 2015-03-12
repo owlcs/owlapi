@@ -6,13 +6,13 @@ package org.semanticweb.owlapi;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
+import java.util.Map;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 import org.apache.felix.framework.FrameworkFactory;
 import org.junit.Test;
@@ -26,18 +26,17 @@ import org.semanticweb.owlapi.test.IntegrationTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("javadoc")
 @Category(IntegrationTest.class)
 public class BundleIsLoadableIntegrationTestCase {
 
-    @SuppressWarnings("UnusedDeclaration")
     private static Logger logger = LoggerFactory
             .getLogger(BundleIsLoadableIntegrationTestCase.class);
 
     @Test
-    public void startBundle() throws MalformedURLException, BundleException,
-            ClassNotFoundException, IllegalAccessException,
-            InstantiationException {
-        HashMap configuration = new HashMap();
+    public void startBundle() throws BundleException, ClassNotFoundException,
+            IllegalAccessException, InstantiationException {
+        Map<String, String> configuration = new HashMap<>();
         configuration.put("org.osgi.framework.storage.clean", "onFirstInit");
         configuration.put("felix.log.level", "4");
         String path = new File("felix-cache").getAbsolutePath();
@@ -65,48 +64,45 @@ public class BundleIsLoadableIntegrationTestCase {
         BundleContext context = framework.getBundleContext();
         assertNotNull("context is null", context);
         try {
-            URL simpleLoggerURL;
-            Bundle simpleLoggerBundle = context.installBundle(getJarURL(
-                    "slf4j-simple").toString());
+            String simple = getJarURL("slf4j-simple");
+            if (simple.isEmpty()) {
+                logger.info("Can't install simple logger;");
+            }
+            Bundle simpleLoggerBundle = context.installBundle(simple);
             System.out.println(simpleLoggerBundle);
-            simpleLoggerURL = getJarURL("slf4j-api");
-            simpleLoggerBundle = context.installBundle(getJarURL("slf4j-api")
-                    .toString());
+            String api = getJarURL("slf4j-api");
+            if (api.isEmpty()) {
+                logger.info("Can't install simple logger;");
+            }
+            simpleLoggerBundle = context.installBundle(api);
             simpleLoggerBundle.start();
         } catch (Throwable e) {
-            logger.info("Can't install simple logger;", e); // To change body of
-                                                            // catch statement
-                                                            // use File |
-                                                            // Settings | File
-                                                            // Templates.
+            logger.info("Can't install simple logger;", e);
         }
         Bundle bundle = context.installBundle(uri.toString());
         assertNotNull(bundle);
         bundle.start();
         assertEquals("bundle state", bundle.getState(), Bundle.ACTIVE);
-        Class owlManagerClass = null;
-        owlManagerClass = bundle
+        Class<?> owlManagerClass = bundle
                 .loadClass("org.semanticweb.owlapi.apibinding.OWLManager");
         assertNotNull("no class owlmanager", owlManagerClass);
-        Object o = owlManagerClass.newInstance();
+        owlManagerClass.newInstance();
         assertNotEquals(
                 "OWLManager class from bundle class loader  equals OWLManager class from system class path",
                 OWLManager.class, owlManagerClass);
     }
 
-    @Nullable
-    private URL getJarURL(String jarNameFragment) {
-        URL simpleLoggerURL = null;
+    @Nonnull
+    private String getJarURL(String jarNameFragment) {
         ClassLoader classLoader = getClass().getClassLoader();
         if (classLoader instanceof URLClassLoader) {
-            URLClassLoader urlClassLoader = (URLClassLoader) classLoader;
-            for (URL url : urlClassLoader.getURLs()) {
-                if (url.toString().contains(jarNameFragment)) {
-                    simpleLoggerURL = url;
-                    break;
+            for (URL url : ((URLClassLoader) classLoader).getURLs()) {
+                String string = url.toString();
+                if (string.contains(jarNameFragment)) {
+                    return string;
                 }
             }
         }
-        return simpleLoggerURL;
+        return "";
     }
 }

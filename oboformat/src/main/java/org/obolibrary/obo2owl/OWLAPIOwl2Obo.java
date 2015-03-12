@@ -1696,6 +1696,7 @@ public class OWLAPIOwl2Obo {
      * @param annotations
      *        set of annotations for the entity
      * @param entity
+     *        entity
      * @return replaced_by if it is an alt_id
      */
     @Nonnull

@@ -151,9 +151,13 @@ public class PunRunner extends org.junit.runner.Runner {
      * @param entities
      *        entities
      * @throws OWLOntologyCreationException
+     *         ontology cannot be created
      * @throws OWLOntologyStorageException
+     *         ontology cannot be stored
      * @throws IllegalAccessException
+     *         class cannot be accessed
      * @throws InstantiationException
+     *         class cannot be instantiated
      */
     public void runTestForAnnotationsOnPunnedEntitiesForFormat(
             Class<? extends PrefixDocumentFormat> formatClass,
@@ -195,6 +199,7 @@ public class PunRunner extends org.junit.runner.Runner {
      * @throws OWLOntologyCreationException
      *         if the ontology cannot be created
      */
+    @Nonnull
     public static OWLOntology
             makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
                     @Nonnull OWLAnnotationProperty annotationProperty,
@@ -223,6 +228,7 @@ public class PunRunner extends org.junit.runner.Runner {
      * @throws OWLOntologyStorageException
      *         if the ontology cannot be saved
      */
+    @Nonnull
     public static ByteArrayInputStream saveForRereading(@Nonnull OWLOntology o,
             @Nonnull PrefixDocumentFormat format, OWLOntologyManager manager)
             throws OWLOntologyStorageException {

@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
- * Legacy class to support protege dependencies  Protege
- * Provides ordering and indenting of explanations based on various ordering
- * heuristics.
+ * Legacy class to support protege dependencies Protege Provides ordering and
+ * indenting of explanations based on various ordering heuristics.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 11-Jan-2008
@@ -61,18 +60,24 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @Deprecated
 public class DefaultExplanationOrderer implements ExplanationOrderer {
 
+    private static class BasicMapper implements OWLOntologyIRIMapper {
+
+        private static final long serialVersionUID = 40000L;
+
+        public BasicMapper() {}
+
+        @Override
+        public IRI getDocumentIRI(IRI ontologyIRI) {
+            return ontologyIRI;
+        }
+    }
+
     private ExplanationOrdererImpl delegate;
 
     @SuppressWarnings("javadoc")
     public DefaultExplanationOrderer() {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        man.addIRIMapper(new OWLOntologyIRIMapper() {
-
-            @Override
-            public IRI getDocumentIRI(IRI ontologyIRI) {
-                return ontologyIRI;
-            }
-        });
+        man.addIRIMapper(new BasicMapper());
         delegate = new ExplanationOrdererImpl(man);
     }
 

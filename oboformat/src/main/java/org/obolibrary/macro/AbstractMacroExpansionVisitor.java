@@ -6,6 +6,7 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -109,20 +110,25 @@ public abstract class AbstractMacroExpansionVisitor extends
 
     static final Logger LOG = LoggerFactory
             .getLogger(AbstractMacroExpansionVisitor.class);
-    static public final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections
-            .emptySet();
+    static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
     final OWLDataFactory dataFactory;
     @Nonnull
     final Map<IRI, String> expandAssertionToMap;
     @Nonnull
     final Map<IRI, String> expandExpressionMap;
 
+    /**
+     * @return is expansion property
+     */
     public OWLAnnotationProperty getOIO_ISEXPANSION() {
         return OIO_ISEXPANSION;
     }
 
     final protected OWLAnnotationProperty OIO_ISEXPANSION;
 
+    /**
+     * @return expansion annotation
+     */
     public OWLAnnotation getExpansionMarkerAnnotation() {
         return expansionMarkerAnnotation;
     }
@@ -355,10 +361,16 @@ public abstract class AbstractMacroExpansionVisitor extends
         }
     }
 
+    /**
+     * @param axiom
+     *        axiom providing annotations
+     * @return annotations
+     */
+    @Nonnull
     public Set<OWLAnnotation> getAnnotationsWithOptionalExpansionMarker(
             OWLAxiom axiom) {
         if (shouldAddExpansionMarker) {
-            Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
+            Set<OWLAnnotation> annotations = new LinkedHashSet<>(
                     axiom.getAnnotations());
             annotations.add(expansionMarkerAnnotation);
             return annotations;
@@ -388,7 +400,7 @@ public abstract class AbstractMacroExpansionVisitor extends
 
     @Override
     public OWLAxiom visit(@Nonnull OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> newOps = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> newOps = new HashSet<>();
         boolean sawChange = false;
         for (OWLClassExpression op : axiom.getClassExpressions()) {
             OWLClassExpression newOp = op.accept(this);
@@ -473,7 +485,7 @@ public abstract class AbstractMacroExpansionVisitor extends
 
     @Override
     public OWLAxiom visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> newExpressions = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> newExpressions = new HashSet<>();
         boolean sawChange = false;
         for (OWLClassExpression expression : axiom.getClassExpressions()) {
             OWLClassExpression newExpression = expression.accept(this);

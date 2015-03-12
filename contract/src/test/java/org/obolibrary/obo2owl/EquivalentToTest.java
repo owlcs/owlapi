@@ -63,6 +63,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
         // OBODoc tests
         // test ECA between named classes is persisted using correct tag
         Frame tf = obodoc.getTermFrame("X:1");
+        assert tf != null;
         Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
         assertEquals(1, cs.size());
         Object v = cs.iterator().next().getValue();
@@ -70,6 +71,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
         // test ECA between named class and anon class is persisted as
         // genus-differentia intersection_of tags
         tf = obodoc.getTermFrame("X:1");
+        assert tf != null;
         cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         assertEquals(2, cs.size());
         boolean okGenus = false;
@@ -92,8 +94,10 @@ public class EquivalentToTest extends OboFormatTestBasics {
         assertTrue(okDifferentia);
         // check reciprocal direction
         Frame tf2 = obodoc.getTermFrame("X:2");
+        assert tf2 != null;
         Collection<Clause> cs2 = tf2.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
         Frame tf1 = obodoc.getTermFrame("X:1");
+        assert tf1 != null;
         Collection<Clause> cs1 = tf1.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
         boolean ok = false;
         if (cs2.size() == 1) {
