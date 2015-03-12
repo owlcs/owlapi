@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tukaani.xz.XZInputStream;
 
 import com.google.common.base.Charsets;
 
@@ -50,6 +51,7 @@ public class DocumentSources {
     private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern
             .compile(".*owl|rdf|xml|mos");
+    private static final String acceptableContentEncoding = "xz,gzip,deflate";
     @Nonnull
     private static final String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
 
@@ -160,7 +162,8 @@ public class DocumentSources {
             URLConnection conn = originalURL.openConnection();
             conn.addRequestProperty("Accept", REQUESTTYPES);
             if (config.isAcceptingHTTPCompression()) {
-                conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
+                conn.setRequestProperty("Accept-Encoding",
+                        acceptableContentEncoding);
             }
             int connectionTimeout = config.getConnectionTimeout();
             conn.setConnectTimeout(connectionTimeout);
@@ -183,7 +186,7 @@ public class DocumentSources {
                         conn.addRequestProperty("Accept", REQUESTTYPES);
                         if (config.isAcceptingHTTPCompression()) {
                             conn.setRequestProperty("Accept-Encoding",
-                                    "gzip, deflate");
+                                    acceptableContentEncoding);
                         }
                         conn.setConnectTimeout(connectionTimeout);
                     }
@@ -257,19 +260,36 @@ public class DocumentSources {
     private static InputStream getInputStreamFromContentEncoding(
             @Nonnull URLConnection conn, @Nullable String contentEncoding)
             throws IOException {
-        InputStream is;
-        if ("gzip".equals(contentEncoding)) {
-            LOGGER.info("URL connection input stream is compressed using gzip");
-            is = new BufferedInputStream(new GZIPInputStream(
-                    conn.getInputStream()));
-        } else if ("deflate".equals(contentEncoding)) {
-            LOGGER.info("URL connection input stream is compressed using deflate");
-            is = wrap(new InflaterInputStream(conn.getInputStream(),
-                    new Inflater(true)));
-        } else {
-            is = wrap(conn.getInputStream());
+        InputStream in = conn.getInputStream();
+        if (contentEncoding != null) {
+            if ("xz".equals(contentEncoding)) {
+                LOGGER.info("URL connection input stream is compressed using xz");
+                return new BufferedInputStream(new XZInputStream(in));
+            }
+            if ("gzip".equals(contentEncoding)) {
+                LOGGER.info("URL connection input stream is compressed using gzip");
+                return new BufferedInputStream(new GZIPInputStream(in));
+            }
+            if ("deflate".equals(contentEncoding)) {
+                LOGGER.info("URL connection input stream is compressed using deflate");
+                return wrap(new InflaterInputStream(in, new Inflater(true)));
+            }
         }
-        return is;
+        String fileName = getFileNameFromContentDisposition(conn);
+        if (fileName == null && conn.getURL() != null) {
+            fileName = conn.getURL().toString();
+        }
+        if (fileName != null) {
+            if (fileName.endsWith(".gz")) {
+                LOGGER.info("URL connection has no content encoding but name ends with .gz");
+                return new BufferedInputStream(new GZIPInputStream(in));
+            }
+            if (fileName.endsWith(".xz")) {
+                LOGGER.info("URL connection has no content encoding but name ends with .xz");
+                return new BufferedInputStream(new XZInputStream(in));
+            }
+        }
+        return wrap(in);
     }
 
     private static boolean isZipName(@Nonnull IRI documentIRI,
