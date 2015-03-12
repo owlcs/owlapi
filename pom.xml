@@ -325,6 +325,7 @@
 					</execution>
 				</executions>
 				<configuration>
+				<ignores><ignore>com.sun.management.*</ignore></ignores>
 					<signature>
 						<groupId>org.codehaus.mojo.signature</groupId>
 						<artifactId>java17</artifactId>
@@ -381,9 +382,10 @@
 	</build>
 
 	<properties>
-	<!-- Specify the encoding of the source files. -->
+		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<!-- remove this line for releases, if the release process fails because of missing javadoc jars-->
+		<!-- remove this line for releases, if the release process fails because 
+			of missing javadoc jars -->
 		<no-javadoc>true</no-javadoc>
 	</properties>
 
