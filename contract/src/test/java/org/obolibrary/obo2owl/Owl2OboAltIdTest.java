@@ -44,7 +44,7 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         OWLClass classB = df.getOWLClass(IRI
                 .create(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "TEST_0002"));
         m.addAxiom(simple, df.getOWLDeclarationAxiom(classB));
-        setAltId(classB, "TEST:0001", simple);
+        setAltId(classB, simple);
         // add comment to alt_id class, which is not expressible in OBO
         addAnnotation(classB, df.getRDFSComment(), df.getOWLLiteral("Comment"),
                 simple);
@@ -95,7 +95,7 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         OWLObjectProperty p2 = df.getOWLObjectProperty(IRI
                 .create(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "TEST_0002"));
         m.addAxiom(simple, df.getOWLDeclarationAxiom(p2));
-        setAltId(p2, "TEST:0002", simple);
+        setAltId(p2, simple);
         // add comment to alt_id class, which is not expressible in OBO
         addAnnotation(p2, df.getRDFSComment(), df.getOWLLiteral("Comment"),
                 simple);
@@ -142,8 +142,7 @@ public class Owl2OboAltIdTest extends OboFormatTestBasics {
         addAnnotation(obj, idProp, f.getOWLLiteral(id), o);
     }
 
-    private static void setAltId(OWLNamedObject obj, String replacedBy,
-            OWLOntology o) {
+    private static void setAltId(OWLNamedObject obj, OWLOntology o) {
         OWLDataFactory f = o.getOWLOntologyManager().getOWLDataFactory();
         addAnnotation(
                 obj,

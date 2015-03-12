@@ -1609,8 +1609,7 @@ public class OWLAPIOwl2Obo {
         boolean isObjectProperty = entity.isOWLObjectProperty();
         boolean isAnnotationProperty = entity.isOWLAnnotationProperty();
         // check whether the entity is an alt_id
-        Optional<OboAltIdCheckResult> altIdOptional = checkForOboAltId(set,
-                entity);
+        Optional<OboAltIdCheckResult> altIdOptional = checkForOboAltId(set);
         if (altIdOptional.isPresent()) {
             // the entity will not be translated
             // instead create the appropriate alt_id in the replaced_by frame
@@ -1694,14 +1693,13 @@ public class OWLAPIOwl2Obo {
      * Track non related annotations.
      * 
      * @param annotations
-     *        set of annotations for the entity
-     * @param entity
-     *        entity
-     * @return replaced_by if it is an alt_id
+     *        set of annotations for the entity @return replaced_by if it is an
+     *        alt_id
+     * @return optional check result
      */
     @Nonnull
     private static Optional<OboAltIdCheckResult> checkForOboAltId(
-            Set<OWLAnnotationAssertionAxiom> annotations, OWLEntity entity) {
+            Set<OWLAnnotationAssertionAxiom> annotations) {
         String replacedBy = null;
         boolean isMerged = false;
         boolean isDeprecated = false;

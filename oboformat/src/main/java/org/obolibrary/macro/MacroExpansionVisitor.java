@@ -37,6 +37,7 @@ public class MacroExpansionVisitor {
 
     protected static final Logger LOG = LoggerFactory
             .getLogger(MacroExpansionVisitor.class.getName());
+    @Nonnull
     protected final OWLOntology inputOntology;
     protected final OWLOntologyManager manager;
     protected final Visitor visitor;
@@ -111,7 +112,7 @@ public class MacroExpansionVisitor {
     }
 
     /** @return ontology with expanded macros */
-    public @Nullable OWLOntology expandAll() {
+    public OWLOntology expandAll() {
         MacroExpansions macroExpansions = new MacroExpansions();
         Set<OWLAxiom> newAxioms = macroExpansions.getNewAxioms();
         Set<OWLAxiom> rmAxioms = macroExpansions.getRmAxioms();
@@ -122,8 +123,8 @@ public class MacroExpansionVisitor {
 
     private class MacroExpansions {
 
-        private Set<OWLAxiom> newAxioms = new HashSet<OWLAxiom>();
-        private Set<OWLAxiom> rmAxioms = new HashSet<OWLAxiom>();
+        private Set<OWLAxiom> newAxioms = new HashSet<>();
+        private Set<OWLAxiom> rmAxioms = new HashSet<>();
 
         public MacroExpansions() {
             for (OWLSubClassOfAxiom axiom : inputOntology
@@ -168,11 +169,11 @@ public class MacroExpansionVisitor {
         private boolean expand(OWLAnnotationAssertionAxiom axiom) {
             OWLAnnotationProperty prop = axiom.getProperty();
             String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
-            HashSet<OWLAxiom> declarations = new HashSet<OWLAxiom>();
+            HashSet<OWLAxiom> declarations = new HashSet<>();
             boolean expandedSomething = false;
             try {
                 if (expandTo != null) {
-                    Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
+                    Set<OWLAnnotation> annotations = new HashSet<>(
                             extraAnnotations);
                     if (shouldAddExpansionMarker) {
                         annotations.add(visitor.getExpansionMarkerAnnotation());

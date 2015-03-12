@@ -91,7 +91,7 @@ public class InferredOntologyGenerator {
     /** @return the axiom generators */
     @Nonnull
     public List<InferredAxiomGenerator<?>> getAxiomGenerators() {
-        return new ArrayList<InferredAxiomGenerator<?>>(axiomGenerators);
+        return new ArrayList<>(axiomGenerators);
     }
 
     /**

@@ -85,17 +85,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -1720,50 +1710,5 @@ class LiteralFoldingEqualityTester {
             return false;
         }
         return a.equals(b);
-    }
-
-    public static boolean equals(SWRLClassAtom a, SWRLClassAtom b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean equals(SWRLDataRangeAtom a, SWRLDataRangeAtom b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean equals(SWRLObjectPropertyAtom a,
-            SWRLObjectPropertyAtom b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean
-            equals(SWRLDataPropertyAtom a, SWRLDataPropertyAtom b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean equals(SWRLBuiltInAtom a, SWRLBuiltInAtom b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean equals(SWRLVariable a, SWRLVariable b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean equals(SWRLIndividualArgument a,
-            SWRLIndividualArgument b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean equals(SWRLLiteralArgument a, SWRLLiteralArgument b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean equals(SWRLSameIndividualAtom a,
-            SWRLSameIndividualAtom b) {
-        throw new AbstractMethodError();
-    }
-
-    public static boolean equals(SWRLDifferentIndividualsAtom a,
-            SWRLDifferentIndividualsAtom b) {
-        throw new AbstractMethodError();
     }
 }

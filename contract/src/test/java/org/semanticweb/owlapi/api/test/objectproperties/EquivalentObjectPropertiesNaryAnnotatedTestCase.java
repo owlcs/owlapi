@@ -20,8 +20,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -39,8 +37,7 @@ public class EquivalentObjectPropertiesNaryAnnotatedTestCase extends
 
     @Override
     @Test
-    public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() {
         // Serializations are structurally different because of nary equivalent
         // axioms
     }

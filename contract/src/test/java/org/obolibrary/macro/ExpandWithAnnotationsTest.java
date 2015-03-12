@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ExpandWithAnnotationsTest extends OboFormatTestBasics {
 
     @Test
-    public void testExpand() throws Exception {
+    public void testExpand() {
         OWLOntology ontology = convert(parseOBOFile("annotated_no_overlap.obo"));
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology, true,
                 true);

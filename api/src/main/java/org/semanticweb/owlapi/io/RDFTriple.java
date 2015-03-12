@@ -167,14 +167,6 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         }
     }
 
-    private static int getIndex(IRI iri) {
-        int index = ORDERED_URIS.indexOf(iri);
-        if (index == -1) {
-            index = ORDERED_URIS.size();
-        }
-        return index;
-    }
-
     @Override
     public int compareTo(RDFTriple o) {
         // compare by predicate, then subject, then object

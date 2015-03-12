@@ -424,55 +424,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         });
     }
 
-    private List<? extends OWLAxiom> getSortedAxiomsForEntity(
-            @Nonnull OWLEntity entity) {
-        return entity
-                .accept(new OWLEntityVisitorEx<List<? extends OWLAxiom>>() {
-
-                    @Nonnull
-                    @Override
-                    public List<? extends OWLAxiom>
-                            visit(@Nonnull OWLClass cls) {
-                        return sortAxioms(ont.getAxioms(cls, EXCLUDED));
-                    }
-
-                    @Nonnull
-                    @Override
-                    public List<? extends OWLAxiom> visit(
-                            @Nonnull OWLObjectProperty property) {
-                        return sortAxioms(ont.getAxioms(property, EXCLUDED));
-                    }
-
-                    @Nonnull
-                    @Override
-                    public List<? extends OWLAxiom> visit(
-                            @Nonnull OWLDataProperty property) {
-                        return sortAxioms(ont.getAxioms(property, EXCLUDED));
-                    }
-
-                    @Nonnull
-                    @Override
-                    public List<? extends OWLAxiom> visit(
-                            @Nonnull OWLNamedIndividual individual) {
-                        return sortAxioms(ont.getAxioms(individual, EXCLUDED));
-                    }
-
-                    @Nonnull
-                    @Override
-                    public List<? extends OWLAxiom> visit(
-                            @Nonnull OWLDatatype datatype) {
-                        return sortAxioms(ont.getAxioms(datatype, EXCLUDED));
-                    }
-
-                    @Nonnull
-                    @Override
-                    public List<? extends OWLAxiom> visit(
-                            @Nonnull OWLAnnotationProperty property) {
-                        return sortAxioms(ont.getAxioms(property, EXCLUDED));
-                    }
-                });
-    }
-
     @Nonnull
     protected List<? extends OWLAxiom> sortAxioms(
             @Nonnull Set<? extends OWLAxiom> axioms) {
@@ -555,7 +506,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                 annotationAssertionAxioms);
     }
 
-    protected void writeAnnotations2(@Nonnull OWLEntity entity,
+    protected void writeAnnotations2(
+            @SuppressWarnings("unused") @Nonnull OWLEntity entity,
             @Nonnull Set<OWLAxiom> alreadyWrittenAxioms,
             List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms) {
         for (OWLAnnotationAxiom ax : annotationAssertionAxioms) {

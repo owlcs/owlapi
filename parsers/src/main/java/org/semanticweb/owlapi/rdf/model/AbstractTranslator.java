@@ -1138,7 +1138,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Nonnull
     private static <T> TreeSet<T> getSortedAxioms(Set<T> axioms) {
-        return new TreeSet<T>(axioms);
+        return new TreeSet<>(axioms);
     }
 
     @Nonnull

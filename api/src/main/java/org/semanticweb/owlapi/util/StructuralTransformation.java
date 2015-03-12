@@ -402,6 +402,7 @@ public class StructuralTransformation implements Serializable {
             return axioms;
         }
 
+        @SuppressWarnings("unused")
         @Override
         public Set<OWLAxiom> visit(OWLDisjointClassesAxiom axiom) {
             // Explode
@@ -453,6 +454,7 @@ public class StructuralTransformation implements Serializable {
             return toSet(axiom);
         }
 
+        @SuppressWarnings("unused")
         @Override
         public Set<OWLAxiom> visit(OWLEquivalentClassesAxiom axiom) {
             return new HashSet<OWLAxiom>(axiom.asOWLSubClassOfAxioms());

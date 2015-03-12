@@ -30,7 +30,6 @@ import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.parsers.SAXParser;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
