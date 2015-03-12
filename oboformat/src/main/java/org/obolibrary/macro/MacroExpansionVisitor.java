@@ -34,12 +34,12 @@ public class MacroExpansionVisitor {
 
     protected static final Logger LOG = LoggerFactory
             .getLogger(MacroExpansionVisitor.class.getName());
-    private final OWLOntology inputOntology;
-    private final OWLOntologyManager manager;
-    private final Visitor visitor;
+    protected final OWLOntology inputOntology;
+    protected final OWLOntologyManager manager;
+    protected final Visitor visitor;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
     protected boolean shouldTransferAnnotations = false;
-    private final boolean shouldAddExpansionMarker;
+    protected final boolean shouldAddExpansionMarker;
     protected Set<OWLAnnotation> extraAnnotations;
 
     public MacroExpansionVisitor(OWLOntology ontology) {
@@ -49,7 +49,9 @@ public class MacroExpansionVisitor {
 
     /**
      * @param ontology
+     *        ontology to visit
      * @param shouldAddExpansionMarker
+     *        true if expansion should be added
      */
     public MacroExpansionVisitor(OWLOntology ontology,
             boolean shouldAddExpansionMarker) {

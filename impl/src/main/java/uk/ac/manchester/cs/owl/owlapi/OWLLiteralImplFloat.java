@@ -80,10 +80,10 @@ public class OWLLiteralImplFloat extends
     }
 
     private int getHashCode() {
-        int hashCode = 277;
-        hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode = hashCode * 37 + (int) (literal * 65536);
-        return hashCode;
+        int code = 277;
+        code = code * 37 + getDatatype().hashCode();
+        code = code * 37 + (int) (literal * 65536);
+        return code;
     }
 
     @SuppressWarnings("null")

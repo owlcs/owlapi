@@ -12,16 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import gnu.trove.map.hash.THashMap;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -140,41 +143,26 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     private static final List<IRI> ORDERED_URIS = Arrays.asList(
-            RDF_TYPE.getIRI(),
-            RDFS_LABEL.getIRI(),
-            OWL_DEPRECATED.getIRI(),
-            RDFS_COMMENT.getIRI(),
-            RDFS_IS_DEFINED_BY.getIRI(),
-            RDF_FIRST.getIRI(),
-            RDF_REST.getIRI(),
-            OWL_EQUIVALENT_CLASS.getIRI(),
-            OWL_EQUIVALENT_PROPERTY.getIRI(),
-            RDFS_SUBCLASS_OF.getIRI(),
-            RDFS_SUB_PROPERTY_OF.getIRI(),
-            RDFS_DOMAIN.getIRI(),
-            RDFS_RANGE.getIRI(),
-            OWL_DISJOINT_WITH.getIRI(),
-            OWL_ON_PROPERTY.getIRI(),
-            OWL_DATA_RANGE.getIRI(),
-            OWL_ON_CLASS.getIRI(),
-
-            OWL_ANNOTATED_SOURCE.getIRI(),
-            OWL_ANNOTATED_PROPERTY.getIRI(),
-            OWL_ANNOTATED_TARGET.getIRI()
-    );
-
+            RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(), OWL_DEPRECATED.getIRI(),
+            RDFS_COMMENT.getIRI(), RDFS_IS_DEFINED_BY.getIRI(),
+            RDF_FIRST.getIRI(), RDF_REST.getIRI(),
+            OWL_EQUIVALENT_CLASS.getIRI(), OWL_EQUIVALENT_PROPERTY.getIRI(),
+            RDFS_SUBCLASS_OF.getIRI(), RDFS_SUB_PROPERTY_OF.getIRI(),
+            RDFS_DOMAIN.getIRI(), RDFS_RANGE.getIRI(),
+            OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
+            OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI(),
+            OWL_ANNOTATED_SOURCE.getIRI(), OWL_ANNOTATED_PROPERTY.getIRI(),
+            OWL_ANNOTATED_TARGET.getIRI());
     static final THashMap<IRI, Integer> specialPredicateRanks = new THashMap<>();
-
     static {
-        int nextId=1;
+        int nextId = 1;
         for (int i = 0; i < ORDERED_URIS.size(); i++) {
             specialPredicateRanks.put(ORDERED_URIS.get(i), nextId++);
         }
-
         for (OWLRDFVocabulary vocabulary : OWLRDFVocabulary.values()) {
             IRI iri = vocabulary.getIRI();
-            if(!specialPredicateRanks.containsKey(iri)) {
-                specialPredicateRanks.put(iri,nextId++);
+            if (!specialPredicateRanks.containsKey(iri)) {
+                specialPredicateRanks.put(iri, nextId++);
             }
         }
     }
@@ -190,7 +178,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     @Override
     public int compareTo(RDFTriple o) {
         // compare by predicate, then subject, then object
-        int diff = comparePredicates(this.predicate, o.predicate);
+        int diff = comparePredicates(predicate, o.predicate);
         if (diff == 0) {
             diff = subject.compareTo(o.subject);
         }
@@ -200,15 +188,16 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return diff;
     }
 
-    private int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
+    private static int comparePredicates(RDFResourceIRI predicate,
+            RDFResourceIRI otherPredicate) {
         IRI predicateIRI = predicate.getIRI();
         Integer specialPredicateRank = specialPredicateRanks.get(predicateIRI);
         IRI otherPredicateIRI = otherPredicate.getIRI();
-        Integer otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
+        Integer otherSpecialPredicateRank = specialPredicateRanks
+                .get(otherPredicateIRI);
         if (specialPredicateRank != null) {
             if (otherSpecialPredicateRank != null) {
                 return specialPredicateRank - otherSpecialPredicateRank;
-
             } else {
                 return -1;
             }
@@ -219,7 +208,5 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
                 return predicateIRI.compareTo(otherPredicateIRI);
             }
         }
-
-
     }
 }

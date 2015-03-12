@@ -1699,7 +1699,7 @@ public class OWLAPIOwl2Obo {
      * @return replaced_by if it is an alt_id
      */
     @Nonnull
-    private Optional<OboAltIdCheckResult> checkForOboAltId(
+    private static Optional<OboAltIdCheckResult> checkForOboAltId(
             Set<OWLAnnotationAssertionAxiom> annotations, OWLEntity entity) {
         String replacedBy = null;
         boolean isMerged = false;

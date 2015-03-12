@@ -1,8 +1,5 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
-/**
- * Created by ses on 3/2/15.
- */
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
@@ -14,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -35,11 +34,18 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+/**
+ * Created by ses on 3/2/15.
+ */
 public class PunRunner extends org.junit.runner.Runner {
 
-    private final Class testClass;
+    private final Class<?> testClass;
 
-    public PunRunner(Class testClass) {
+    /**
+     * @param testClass
+     *        test class
+     */
+    public PunRunner(Class<?> testClass) {
         this.testClass = testClass;
         System.err.println("PunRunner started");
     }
@@ -57,7 +63,7 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     private Description suiteDescription;
-    private Map<Description, TestSetting> testSettings = new HashMap<Description, TestSetting>();
+    private Map<Description, TestSetting> testSettings = new HashMap<>();
 
     @Override
     public Description getDescription() {
@@ -67,7 +73,8 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     private void addAllTests() {
-        DefaultPrefixManager pm = new DefaultPrefixManager("http://localhost#");
+        DefaultPrefixManager pm = new DefaultPrefixManager(null, null,
+                "http://localhost#");
         OWLDataFactory df = OWLManager.getOWLDataFactory();
         List<? extends OWLEntity> entities = Arrays.asList(
                 df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
@@ -138,6 +145,16 @@ public class PunRunner extends org.junit.runner.Runner {
         }
     }
 
+    /**
+     * @param formatClass
+     *        format class
+     * @param entities
+     *        entities
+     * @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     public void runTestForAnnotationsOnPunnedEntitiesForFormat(
             Class<? extends PrefixDocumentFormat> formatClass,
             OWLEntity... entities) throws OWLOntologyCreationException,
@@ -150,12 +167,13 @@ public class PunRunner extends org.junit.runner.Runner {
             df = ontologyManager.getOWLDataFactory();
         }
         OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(
-                ":ap", new DefaultPrefixManager("http://localhost#"));
+                ":ap",
+                new DefaultPrefixManager(null, null, "http://localhost#"));
         OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
                 annotationProperty, ontologyManager, entities);
         for (int i = 0; i < 10; i++) {
             PrefixDocumentFormat format = formatClass.newInstance();
-            format.setPrefixManager(new DefaultPrefixManager(
+            format.setPrefixManager(new DefaultPrefixManager(null, null,
                     "http://localhost#"));
             ByteArrayInputStream in = saveForRereading(o, format,
                     ontologyManager);
@@ -166,12 +184,23 @@ public class PunRunner extends org.junit.runner.Runner {
                 o.getAxioms(AxiomType.ANNOTATION_ASSERTION).size());
     }
 
+    /**
+     * @param annotationProperty
+     *        annotation property
+     * @param manager
+     *        manager
+     * @param entities
+     *        entities
+     * @return new ontology
+     * @throws OWLOntologyCreationException
+     *         if the ontology cannot be created
+     */
     public static OWLOntology
             makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
-                    OWLAnnotationProperty annotationProperty,
+                    @Nonnull OWLAnnotationProperty annotationProperty,
                     OWLOntologyManager manager, OWLEntity... entities)
                     throws OWLOntologyCreationException {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLDataFactory dataFactory = manager.getOWLDataFactory();
         axioms.add(dataFactory.getOWLDeclarationAxiom(annotationProperty));
         for (OWLEntity entity : entities) {
@@ -183,8 +212,19 @@ public class PunRunner extends org.junit.runner.Runner {
         return manager.createOntology(axioms);
     }
 
-    public static ByteArrayInputStream saveForRereading(OWLOntology o,
-            PrefixDocumentFormat format, OWLOntologyManager manager)
+    /**
+     * @param o
+     *        ontology to save
+     * @param format
+     *        format to use
+     * @param manager
+     *        manager
+     * @return input stream with the saved ontology
+     * @throws OWLOntologyStorageException
+     *         if the ontology cannot be saved
+     */
+    public static ByteArrayInputStream saveForRereading(@Nonnull OWLOntology o,
+            @Nonnull PrefixDocumentFormat format, OWLOntologyManager manager)
             throws OWLOntologyStorageException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         manager.saveOntology(o, format, out);
