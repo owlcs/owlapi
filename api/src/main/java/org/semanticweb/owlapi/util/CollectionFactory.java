@@ -90,6 +90,7 @@ public class CollectionFactory {
      *        list to sort
      * @return sorted input list
      */
+    @Nonnull
     public static <T extends OWLObject> List<T> sortOptionally(
             @Nonnull List<T> toReturn) {
         try {
