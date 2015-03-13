@@ -804,7 +804,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getIRI()));
         }
-        addTriple(node, RDF_TYPE.getIRI(), VARIABLE.getIRI());
+        if (!ont.containsIndividualInSignature(node.getIRI())) {
+            addTriple(node, RDF_TYPE.getIRI(), VARIABLE.getIRI());
+        }
     }
 
     @Override
