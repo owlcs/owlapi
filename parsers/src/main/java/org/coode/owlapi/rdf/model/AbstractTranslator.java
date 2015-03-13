@@ -810,7 +810,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getIRI()));
         }
-        addTriple(node, RDF_TYPE.getIRI(), VARIABLE.getIRI());
+        if (!ontology.containsIndividualInSignature(node.getIRI())) {
+            addTriple(node, RDF_TYPE.getIRI(), VARIABLE.getIRI());
+        }
     }
 
     @Override
