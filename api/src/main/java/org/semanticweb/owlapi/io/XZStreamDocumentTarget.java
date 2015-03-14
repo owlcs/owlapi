@@ -33,8 +33,8 @@ import com.google.common.io.Closeables;
  * An ontology document target which can write to a XZ stream. Notice that this
  * works best when the output stream is closed explicitly in the client code.
  * 
- * @author ignazio
- * @since 3.4.8
+ * @author ses
+ * @since 4.0.2
  */
 public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
         AutoCloseable {

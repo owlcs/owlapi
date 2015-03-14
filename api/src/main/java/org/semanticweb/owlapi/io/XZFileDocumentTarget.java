@@ -12,53 +12,50 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import com.google.common.io.Closeables;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.tukaani.xz.FilterOptions;
 import org.tukaani.xz.LZMA2Options;
 import org.tukaani.xz.UnsupportedOptionsException;
 import org.tukaani.xz.XZOutputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.google.common.io.Closeables;
 
 /**
  * An ontology document target which can write to a XZ File. Notice that this
  * works best when the output stream is closed explicitly in the client code.
  *
- * @author ignazio
- * @since 3.4.8
+ * @author ses
+ * @since 4.0.2
  */
-public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoCloseable {
+public class XZFileDocumentTarget implements OWLOntologyDocumentTarget,
+        AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(XZFileDocumentTarget.class);
-
     @Nonnull
     private final File out;
     private final FilterOptions[] filterOptions;
     private OutputStream outputStream;
 
     /**
-     * @param os            the actual file
-     * @param filterOptions Settings for XZ compression
+     * @param os
+     *        the actual file
+     * @param filterOptions
+     *        Settings for XZ compression
      */
-    public XZFileDocumentTarget(@Nonnull File os, FilterOptions... filterOptions) {
+    public XZFileDocumentTarget(@Nonnull File os,
+            FilterOptions... filterOptions) {
         out = os;
         this.filterOptions = filterOptions;
     }
@@ -66,11 +63,14 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     /**
      * Construct an XZ document target using the selected compression preset
      *
-     * @param os          target File
-     * @param presetLevel LZMA2 Compression preset level
+     * @param os
+     *        target File
+     * @param presetLevel
+     *        LZMA2 Compression preset level
      * @return
      */
-    public XZFileDocumentTarget(File os, int presetLevel) throws UnsupportedOptionsException {
+    public XZFileDocumentTarget(File os, int presetLevel)
+            throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
 
@@ -79,21 +79,25 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
     }
 
     @Nonnull
-
     @Override
     public Optional<OutputStream> getOutputStream() {
-            try {
-                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(out));
-                outputStream = new XZOutputStream(bufferedOutputStream, filterOptions);
-            } catch (IOException e) {
+        try {
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
+                    new FileOutputStream(out));
+            outputStream = new XZOutputStream(bufferedOutputStream,
+                    filterOptions);
+        } catch (IOException e) {
             LOGGER.error("Cannot create output stream", e);
-            return Optional.empty();}return Optional.of(outputStream);}
-
+            return Optional.empty();
+        }
+        return Optional.of(outputStream);
+    }
 
     @Override
     public Optional<IRI> getDocumentIRI() {
         return Optional.of(IRI.create(out));
     }
+
     @Override
     public void close() throws Exception {
         OutputStream outputStream = this.outputStream;

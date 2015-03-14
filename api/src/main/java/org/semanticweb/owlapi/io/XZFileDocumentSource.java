@@ -15,12 +15,8 @@ package org.semanticweb.owlapi.io;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -28,18 +24,17 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.tukaani.xz.XZInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tukaani.xz.XZInputStream;
 
 /**
  * An ontology document source which can read from a XZ (LZMA) compressed File.
  * 
- * @author ignazio
- * @since 3.4.8
+ * @author ses
+ * @since 4.0.2
  */
 public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
-
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(XZFileDocumentSource.class);
@@ -54,7 +49,8 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        The file that the ontology representation will be read from.
      */
     public XZFileDocumentSource(@Nonnull File is) {
-        super("file:ontology", null, null);file=is;
+        super("file:ontology", null, null);
+        file = is;
     }
 
     /**
@@ -70,20 +66,18 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public XZFileDocumentSource(@Nonnull File stream,
-                                @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
-                                @Nullable String mime) {
+    public XZFileDocumentSource(@Nonnull File stream, @Nonnull IRI documentIRI,
+            @Nullable OWLDocumentFormat format, @Nullable String mime) {
         super(documentIRI, format, mime);
-    
-    file = stream;
+        file = stream;
     }
-
 
     @Nonnull
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return Optional.of(DocumentSources.wrap(new XZInputStream(new BufferedInputStream(new FileInputStream(file)))));
+            return Optional.of(DocumentSources.wrap(new XZInputStream(
+                    new BufferedInputStream(new FileInputStream(file)))));
         } catch (IOException e) {
             LOGGER.error("File cannot be found or opened", e);
             failedOnStreams.set(true);

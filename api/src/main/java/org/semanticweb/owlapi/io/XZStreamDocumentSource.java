@@ -16,6 +16,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -24,15 +27,15 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.tukaani.xz.XZInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tukaani.xz.XZInputStream;
 
 /**
  * An ontology document source which can read from a XZ stream.
  * 
- * @author ignazio
- * @since 3.4.8
+ * @author ses
+ * @since 4.0.2
  */
 public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
@@ -90,15 +93,31 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
         }
     }
 
-
     @Override
     public Optional<InputStream> getInputStream() {
         if (buffer == null) {
             return Optional.empty();
         }
         try {
-            return Optional.of(DocumentSources.wrap(new XZInputStream(new ByteArrayInputStream(buffer))));
+            return Optional.of(DocumentSources.wrap(new XZInputStream(
+                    new ByteArrayInputStream(buffer))));
         } catch (IOException e) {
+            LOGGER.error("Buffer cannot be opened", e);
+            failedOnStreams.set(true);
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<Reader> getReader() {
+        try {
+            Optional<InputStream> inputStream = getInputStream();
+            if (!inputStream.isPresent()) {
+                return Optional.empty();
+            }
+            return Optional
+                    .of(new InputStreamReader(inputStream.get(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
             return Optional.empty();
