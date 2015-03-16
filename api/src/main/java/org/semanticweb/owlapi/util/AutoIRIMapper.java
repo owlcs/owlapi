@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-
+import com.google.common.io.Closeables;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,7 +26,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -35,6 +35,8 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.xml.sax.Attributes;
@@ -81,6 +83,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         fileExtensions.add("xml");
         fileExtensions.add("rdf");
         fileExtensions.add("omn");
+        fileExtensions.add("ofn");
         mapped = false;
         handlerMap.put(Namespaces.RDF + "RDF",
                 new RDFXMLOntologyRootElementHandler());
@@ -170,6 +173,8 @@ public class AutoIRIMapper extends DefaultHandler implements
                 } else {
                     if (file.getName().endsWith(".obo")) {
                         oboFileMap.put(file.getName(), IRI.create(file));
+                    } else if (file.getName().endsWith(".ofn")) {
+                        parseFSSFile(file);
                     } else if (file.getName().endsWith(".omn")) {
                         parseManchesterSyntaxFile(file);
                     } else {
@@ -184,6 +189,38 @@ public class AutoIRIMapper extends DefaultHandler implements
             }
         }
     }
+
+    static Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
+
+    /**
+     * Search first 100 lines for FSS style Ontology(&lt;IRI&gt; ...
+     * @param file
+     */
+    private void parseFSSFile(File file) {
+        Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(
+                    file), "UTF-8"));
+            String line = "";
+            IRI ontologyIRI = null;
+            Matcher m = pattern.matcher(line);
+          int n=0;
+            while ((line = br.readLine()) != null && n++ < 100) {
+                m.reset(line);
+                if (m.matches()) {
+                    ontologyIRI = IRI.create(m.group(1));
+                    addMapping(ontologyIRI, file);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            // if we can't parse a file, then we can't map it
+        } finally {
+            Closeables.closeQuietly(br);
+        }
+    }
+
 
     private void parseFile(File file) {
         try (FileInputStream in = new FileInputStream(file);
