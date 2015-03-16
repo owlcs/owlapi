@@ -191,6 +191,10 @@ public class AutoIRIMapper extends DefaultHandler implements
 
     static Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
 
+    /**
+     * Search first 100 lines for FSS style Ontology(&lt;IRI&gt; ...
+     * @param file
+     */
     private void parseFSSFile(File file) {
         Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
         BufferedReader br = null;
@@ -200,7 +204,8 @@ public class AutoIRIMapper extends DefaultHandler implements
             String line = "";
             IRI ontologyIRI = null;
             Matcher m = pattern.matcher(line);
-            while ((line = br.readLine()) != null) {
+          int n=0;
+            while ((line = br.readLine()) != null && n++ < 100) {
                 m.reset(line);
                 if (m.matches()) {
                     ontologyIRI = IRI.create(m.group(1));
