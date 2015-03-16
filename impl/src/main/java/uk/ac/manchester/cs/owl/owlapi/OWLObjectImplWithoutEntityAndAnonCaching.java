@@ -12,15 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import org.semanticweb.owlapi.io.ToStringRenderer;
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.HashCode;
-import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-
-import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Collection;
@@ -30,6 +21,28 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.io.ToStringRenderer;
+import org.semanticweb.owlapi.model.HasAnonymousIndividuals;
+import org.semanticweb.owlapi.model.HasSignature;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.HashCode;
+import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -50,7 +63,8 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
 
-    private void readObject(java.io.ObjectInputStream stream)
+    @SuppressWarnings("unused")
+    private static void readObject(java.io.ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
     }

@@ -123,6 +123,7 @@ public class MutableTree<N> implements Tree<N> {
         return parent;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public List<Tree<N>> getChildren() {
         return new ArrayList<Tree<N>>(children);

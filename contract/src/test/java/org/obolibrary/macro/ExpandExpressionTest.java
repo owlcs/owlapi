@@ -9,7 +9,6 @@ import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -23,8 +22,6 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
     @Test
     public void testExpand() {
         OWLOntology ontology = convert(parseOBOFile("no_overlap.obo"));
-        OWLDataFactory df = ontology.getOWLOntologyManager()
-                .getOWLDataFactory();
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology);
         OWLOntology outputOntology = mev.expandAll();
         OWLClass cls = df.getOWLClass(IRI

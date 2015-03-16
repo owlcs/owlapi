@@ -18,7 +18,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -36,8 +35,8 @@ public class InferredEquivalentClassAxiomGenerator extends
     @Override
     protected void addAxioms(OWLClass entity, @Nonnull OWLReasoner reasoner,
             OWLDataFactory dataFactory, Set<OWLEquivalentClassesAxiom> result) {
-        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(
-                reasoner.getEquivalentClasses(entity).getEntities());
+        Set<OWLClass> equivalentClasses = new HashSet<>(reasoner
+                .getEquivalentClasses(entity).getEntities());
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {
             result.add(dataFactory

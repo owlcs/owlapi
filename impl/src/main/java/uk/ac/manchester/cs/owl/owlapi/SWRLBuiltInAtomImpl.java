@@ -93,6 +93,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
         return new ArrayList<>(args);
     }
 
+    @SuppressWarnings("unused")
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         return new ArrayList<SWRLArgument>(args);

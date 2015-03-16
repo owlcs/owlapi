@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.tukaani.xz.XZInputStream;
 import org.xml.sax.InputSource;
 
 /**
@@ -62,6 +63,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern
             .compile(".*owl|rdf|xml|mos");
+    private final String acceptableContentEncoding = "xz,gzip,deflate";
 
     protected AbstractOWLParser() {}
 
@@ -93,7 +95,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         URLConnection conn = originalURL.openConnection();
         conn.addRequestProperty("Accept", requestType);
         if (config.isAcceptingHTTPCompression()) {
-            conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
+            conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
         }
         int connectionTimeout = config.getConnectionTimeout();
         conn.setConnectTimeout(connectionTimeout);
@@ -116,7 +118,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                     conn.addRequestProperty("Accept", requestType);
                     if (config.isAcceptingHTTPCompression()) {
                         conn.setRequestProperty("Accept-Encoding",
-                                "gzip, deflate");
+                                acceptableContentEncoding);
                     }
                     conn.setConnectTimeout(connectionTimeout);
                 }
@@ -171,17 +173,37 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     private static InputStream getInputStreamFromContentEncoding(
             @Nonnull URLConnection conn, @Nullable String contentEncoding)
             throws IOException {
-        InputStream is;
-        if ("gzip".equals(contentEncoding)) {
-            LOGGER.info("URL connection input stream is compressed using gzip");
-            is = new BufferedInputStream(new GZIPInputStream(
-                    conn.getInputStream()));
-        } else if ("deflate".equals(contentEncoding)) {
-            LOGGER.info("URL connection input stream is compressed using deflate");
-            is = OWLOntologyDocumentSourceBase.wrap(new InflaterInputStream(
-                    conn.getInputStream(), new Inflater(true)));
+        InputStream is = null;
+
+        InputStream connInputStream = conn.getInputStream();
+        if (contentEncoding != null) {
+            if ("xz".equals(contentEncoding)) {
+                LOGGER.info("URL connection input stream is compressed using xz");
+                is = new BufferedInputStream(new XZInputStream(connInputStream));
+            } else if ("gzip".equals(contentEncoding)) {
+                LOGGER.info("URL connection input stream is compressed using gzip");
+                is = new BufferedInputStream(new GZIPInputStream(connInputStream));
+            } else if ("deflate".equals(contentEncoding)) {
+                LOGGER.info("URL connection input stream is compressed using deflate");
+                is = OWLOntologyDocumentSourceBase.wrap(new InflaterInputStream(connInputStream, new Inflater(true)));
+            }
         } else {
-            is = OWLOntologyDocumentSourceBase.wrap(conn.getInputStream());
+            String fileName = getFileNameFromContentDisposition(conn);
+            if(fileName == null && conn.getURL() != null) {
+                fileName  = conn.getURL().toString();
+            }
+            if (fileName != null) {
+                if (fileName.endsWith(".gz")) {
+                    LOGGER.info("URL connection has no content encoding but name ends with .gz");
+                    is = new BufferedInputStream(new GZIPInputStream(connInputStream));
+                } else if (fileName.endsWith(".xz")) {
+                    LOGGER.info("URL connection has no content encoding but name ends with .xz");
+                    is = new BufferedInputStream(new XZInputStream(connInputStream));
+                }
+            }
+        }
+        if (is == null) {
+            is = OWLOntologyDocumentSourceBase.wrap(connInputStream);
         }
         return is;
     }

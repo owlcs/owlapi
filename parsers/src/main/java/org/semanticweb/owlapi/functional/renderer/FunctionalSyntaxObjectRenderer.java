@@ -12,7 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.renderer;
 
-import com.google.common.base.Optional;
+import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
@@ -24,19 +28,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
-import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+
+import com.google.common.base.Optional;
 
 /**
  * The Class OWLObjectRenderer.
@@ -47,7 +51,8 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
  */
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
-    private DefaultPrefixManager defaultPrefixManager;
+    @Nonnull
+    private DefaultPrefixManager defaultPrefixManager = new DefaultPrefixManager();
     private PrefixManager prefixManager;
     protected final OWLOntology ont;
     private final Writer writer;
@@ -66,7 +71,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             Writer writer) {
         ont = ontology;
         this.writer = writer;
-        defaultPrefixManager = new DefaultPrefixManager();
         prefixManager = defaultPrefixManager;
         OWLDocumentFormat ontologyFormat = ontology.getOWLOntologyManager()
                 .getOntologyFormat(ontology);
@@ -97,10 +101,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory df = manager.getOWLDataFactory();
-        OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap, manager,
+        OWLAnnotationProperty labelProp = df
+                .getOWLAnnotationProperty(RDFS_LABEL.getIRI());
+        labelMaker = new AnnotationValueShortFormProvider(
+                Collections.singletonList(labelProp), prefLangMap, manager,
                 defaultPrefixManager);
-
         focusedObject = ontology.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLThing();
     }
@@ -123,7 +128,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         this.prefixManager = prefixManager;
         if (prefixManager instanceof DefaultPrefixManager) {
             defaultPrefixManager = (DefaultPrefixManager) prefixManager;
-
         }
     }
 
@@ -149,7 +153,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @SuppressWarnings("null")
-    protected void writePrefixes() {
+    protected @Nullable void writePrefixes() {
         for (Map.Entry<String, String> e : prefixManager
                 .getPrefixName2PrefixMap().entrySet()) {
             writePrefix(e.getKey(), e.getValue());
@@ -196,7 +200,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @SuppressWarnings("null")
     @Override
-    public void visit(@Nonnull OWLOntology ontology) {
+    public @Nullable void visit(@Nonnull OWLOntology ontology) {
         writePrefixes();
         writeReturn();
         writeReturn();
@@ -225,35 +229,41 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         Collection<IRI> illegals = OWLDocumentFormatImpl
-                .determineIllegalPunnings(addMissingDeclarations, ontology.getSignature(),
-                        ont.getPunnedIRIs(INCLUDED));
+                .determineIllegalPunnings(addMissingDeclarations,
+                        ontology.getSignature(), ont.getPunnedIRIs(INCLUDED));
         for (OWLEntity ent : sortOptionally(ontology.getSignature())) {
             writeDeclarations(ent, writtenAxioms, illegals);
         }
-
         // writeEntities(sortedSignature, writtenAxioms);
-
-        writeSortedEntities("Annotation Properties", "Annotation Property", ontology.getAnnotationPropertiesInSignature(EXCLUDED), writtenAxioms);
-        writeSortedEntities("Object Properties", "Object Property", ontology.getObjectPropertiesInSignature(), writtenAxioms);
-        writeSortedEntities("Data Properties", "Data Property", ontology.getDataPropertiesInSignature(), writtenAxioms);
-        writeSortedEntities("Datatypes", "Datatype", ontology.getDatatypesInSignature(), writtenAxioms);
-        writeSortedEntities("Classes", "Class", ontology.getClassesInSignature(), writtenAxioms);
-        writeSortedEntities("Named Individuals", "Individual", ontology.getIndividualsInSignature(), writtenAxioms);
-
-
+        writeSortedEntities("Annotation Properties", "Annotation Property",
+                ontology.getAnnotationPropertiesInSignature(EXCLUDED),
+                writtenAxioms);
+        writeSortedEntities("Object Properties", "Object Property",
+                ontology.getObjectPropertiesInSignature(), writtenAxioms);
+        writeSortedEntities("Data Properties", "Data Property",
+                ontology.getDataPropertiesInSignature(), writtenAxioms);
+        writeSortedEntities("Datatypes", "Datatype",
+                ontology.getDatatypesInSignature(), writtenAxioms);
+        writeSortedEntities("Classes", "Class",
+                ontology.getClassesInSignature(), writtenAxioms);
+        writeSortedEntities("Named Individuals", "Individual",
+                ontology.getIndividualsInSignature(), writtenAxioms);
         TreeSet<OWLAxiom> otherAxioms = new TreeSet<>(ontology.getAxioms());
         otherAxioms.removeAll(writtenAxioms);
         for (OWLAxiom ax : otherAxioms) {
-                ax.accept(this);
-                writeReturn();
+            ax.accept(this);
+            writeReturn();
         }
         writeCloseBracket();
         flush();
     }
 
-    private void writeSortedEntities(String bannerComment, String entityTypeName, Set<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
+    private void writeSortedEntities(String bannerComment,
+            String entityTypeName, Set<? extends OWLEntity> entities,
+            Set<OWLAxiom> writtenAxioms) {
         if (entities.size() > 0) {
-            writeEntities(bannerComment, entityTypeName, sortOptionally(entities), writtenAxioms);
+            writeEntities(bannerComment, entityTypeName,
+                    sortOptionally(entities), writtenAxioms);
             writeln();
         }
     }
@@ -262,30 +272,35 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
     }
 
-    private void writeln(String s) {
+    private void writeln(@Nonnull String s) {
         write(s);
         writeReturn();
     }
 
-    private void writeEntities(String comment, String entityTypeName, List<? extends OWLEntity> entities, Set<OWLAxiom> writtenAxioms) {
+    private @Nullable void writeEntities(String comment, String entityTypeName,
+            List<? extends OWLEntity> entities,
+            @Nonnull Set<OWLAxiom> writtenAxioms) {
         boolean haveWrittenBanner = false;
         for (OWLEntity owlEntity : entities) {
-
             Set<? extends OWLAxiom> axiomsForEntity = getUnsortedAxiomsForEntity(owlEntity);
-            for (Iterator<? extends OWLAxiom> iterator = axiomsForEntity.iterator(); iterator.hasNext(); ) {
+            for (Iterator<? extends OWLAxiom> iterator = axiomsForEntity
+                    .iterator(); iterator.hasNext();) {
                 OWLAxiom axiom = iterator.next();
                 if (writtenAxioms.contains(axiom)) {
                     iterator.remove();
                 }
             }
-            Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms = ont.getAnnotationAssertionAxioms(owlEntity.getIRI());
-            for (Iterator<OWLAnnotationAssertionAxiom> iterator = annotationAssertionAxioms.iterator(); iterator.hasNext(); ) {
+            Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms = ont
+                    .getAnnotationAssertionAxioms(owlEntity.getIRI());
+            for (Iterator<OWLAnnotationAssertionAxiom> iterator = annotationAssertionAxioms
+                    .iterator(); iterator.hasNext();) {
                 OWLAnnotationAssertionAxiom axiom = iterator.next();
                 if (writtenAxioms.contains(axiom)) {
                     iterator.remove();
                 }
             }
-            if (axiomsForEntity.size() == 0 && annotationAssertionAxioms.size() == 0) {
+            if (axiomsForEntity.size() == 0
+                    && annotationAssertionAxioms.size() == 0) {
                 continue;
             }
             if (!haveWrittenBanner) {
@@ -295,14 +310,15 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                 writeln();
                 haveWrittenBanner = true;
             }
-
-
-            writeEntity2(owlEntity, entityTypeName, sortAxioms(axiomsForEntity), sortOptionally(annotationAssertionAxioms), writtenAxioms);
+            writeEntity2(owlEntity, entityTypeName,
+                    sortAxioms(axiomsForEntity),
+                    sortOptionally(annotationAssertionAxioms), writtenAxioms);
         }
     }
 
     @Nonnull
-    private static Set<OWLAnnotation> getSortedAnnotations(HasAnnotations annotationBearer) {
+    private static Set<OWLAnnotation> getSortedAnnotations(
+            HasAnnotations annotationBearer) {
         return new TreeSet<>(annotationBearer.getAnnotations());
     }
 
@@ -321,28 +337,37 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writeEntity(@Nonnull OWLEntity entity,
-                               @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
-        writeEntity2(entity, "", sortAxioms(getUnsortedAxiomsForEntity(entity)), sortOptionally(ont.getAnnotationAssertionAxioms(entity.getIRI())), alreadyWrittenAxioms);
-
+            @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
+        writeEntity2(
+                entity,
+                "",
+                sortAxioms(getUnsortedAxiomsForEntity(entity)),
+                sortOptionally(ont.getAnnotationAssertionAxioms(entity.getIRI())),
+                alreadyWrittenAxioms);
     }
 
-    protected void writeEntity2(@Nonnull OWLEntity entity,
-                                String entityTypeName, @Nonnull List<? extends OWLAxiom> axiomsForEntity,
-                                @Nonnull List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms,
-                                @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
-        writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" +getEntityLabel(entity)  + ")");
+    protected
+            void
+            writeEntity2(
+                    @Nonnull OWLEntity entity,
+                    String entityTypeName,
+                    @Nonnull List<? extends OWLAxiom> axiomsForEntity,
+                    @Nonnull List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms,
+                    @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
+        writeln("# " + entityTypeName + ": " + getIRIString(entity) + " ("
+                + getEntityLabel(entity) + ")");
         writeln();
         setFocusedObject(entity);
-        writeAnnotations2(entity, alreadyWrittenAxioms, annotationAssertionAxioms);
-        List<? extends OWLAxiom> axs = (axiomsForEntity);
+        writeAnnotations2(entity, alreadyWrittenAxioms,
+                annotationAssertionAxioms);
+        List<? extends OWLAxiom> axs = axiomsForEntity;
         for (OWLAxiom ax : axs) {
-
             if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
                 continue;
             }
             if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
                     && ((OWLDisjointClassesAxiom) ax).getClassExpressions()
-                    .size() > 2) {
+                            .size() > 2) {
                 continue;
             }
             ax.accept(this);
@@ -353,112 +378,64 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Nonnull
-    private Set<? extends OWLAxiom> getUnsortedAxiomsForEntity(@Nonnull OWLEntity entity) {
+    private Set<? extends OWLAxiom> getUnsortedAxiomsForEntity(
+            @Nonnull OWLEntity entity) {
         return entity.accept(new OWLEntityVisitorEx<Set<? extends OWLAxiom>>() {
 
             @Nonnull
             @Override
             public Set<? extends OWLAxiom> visit(@Nonnull OWLClass cls) {
-                return (ont.getAxioms(cls, EXCLUDED));
+                return ont.getAxioms(cls, EXCLUDED);
             }
 
             @Nonnull
             @Override
             public Set<? extends OWLAxiom> visit(
                     @Nonnull OWLObjectProperty property) {
-                return (ont.getAxioms(property, EXCLUDED));
+                return ont.getAxioms(property, EXCLUDED);
             }
 
             @Nonnull
             @Override
             public Set<? extends OWLAxiom> visit(
                     @Nonnull OWLDataProperty property) {
-                return (ont.getAxioms(property, EXCLUDED));
+                return ont.getAxioms(property, EXCLUDED);
             }
 
             @Nonnull
             @Override
             public Set<? extends OWLAxiom> visit(
                     @Nonnull OWLNamedIndividual individual) {
-                return (ont.getAxioms(individual, EXCLUDED));
+                return ont.getAxioms(individual, EXCLUDED);
             }
 
             @Nonnull
             @Override
             public Set<? extends OWLAxiom> visit(@Nonnull OWLDatatype datatype) {
-                return (ont.getAxioms(datatype, EXCLUDED));
+                return ont.getAxioms(datatype, EXCLUDED);
             }
 
             @Nonnull
             @Override
-            public Set<? extends OWLAxiom> visit(@Nonnull OWLAnnotationProperty property) {
-                return (ont.getAxioms(property, EXCLUDED));
+            public Set<? extends OWLAxiom> visit(
+                    @Nonnull OWLAnnotationProperty property) {
+                return ont.getAxioms(property, EXCLUDED);
             }
-
-        });
-    }
-
-    private List<? extends OWLAxiom> getSortedAxiomsForEntity(@Nonnull OWLEntity entity) {
-        return entity.accept(new OWLEntityVisitorEx<List<? extends OWLAxiom>>() {
-
-            @Nonnull
-            @Override
-            public List<? extends OWLAxiom> visit(@Nonnull OWLClass cls) {
-                return sortAxioms(ont.getAxioms(cls, EXCLUDED));
-            }
-
-            @Nonnull
-            @Override
-            public List<? extends OWLAxiom> visit(
-                    @Nonnull OWLObjectProperty property) {
-                return sortAxioms(ont.getAxioms(property, EXCLUDED));
-            }
-
-            @Nonnull
-            @Override
-            public List<? extends OWLAxiom> visit(
-                    @Nonnull OWLDataProperty property) {
-                return sortAxioms(ont.getAxioms(property, EXCLUDED));
-            }
-
-            @Nonnull
-            @Override
-            public List<? extends OWLAxiom> visit(
-                    @Nonnull OWLNamedIndividual individual) {
-                return sortAxioms(ont.getAxioms(individual, EXCLUDED));
-            }
-
-            @Nonnull
-            @Override
-            public List<? extends OWLAxiom> visit(@Nonnull OWLDatatype datatype) {
-                return sortAxioms(ont.getAxioms(datatype, EXCLUDED));
-            }
-
-            @Nonnull
-            @Override
-            public List<? extends OWLAxiom> visit(@Nonnull OWLAnnotationProperty property) {
-                return sortAxioms(ont.getAxioms(property, EXCLUDED));
-            }
-
         });
     }
 
     @Nonnull
-    private List<? extends OWLAxiom> sortAxioms(Set<? extends OWLAxiom> axioms) {
+    protected List<? extends OWLAxiom> sortAxioms(
+            @Nonnull Set<? extends OWLAxiom> axioms) {
         return sortOptionally(axioms);
     }
 
-
     @Nonnull
     private String getIRIString(@Nonnull OWLEntity entity) {
-        if (defaultPrefixManager != null) {
-            return defaultPrefixManager.getShortForm(entity);
-        } else {
-            return entity.getIRI().toString();
-        }
+        return defaultPrefixManager.getShortForm(entity);
     }
 
-    private String getEntityLabel(OWLEntity entity) {
+    private String getEntityLabel(@Nonnull OWLEntity entity) {
         return labelMaker.getShortForm(entity);
     }
 
@@ -472,7 +449,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     @Nonnull
     protected Set<OWLAxiom> writeDeclarations(@Nonnull OWLEntity entity) {
         Set<OWLAxiom> axioms = new HashSet<>();
-        Set<OWLDeclarationAxiom> declarationAxioms = ont.getDeclarationAxioms(entity);
+        Set<OWLDeclarationAxiom> declarationAxioms = ont
+                .getDeclarationAxioms(entity);
         for (OWLAxiom ax : sortOptionally(declarationAxioms)) {
             ax.accept(this);
             axioms.add(ax);
@@ -524,18 +502,21 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
         List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms = sortOptionally(ont
                 .getAnnotationAssertionAxioms(entity.getIRI()));
-        writeAnnotations2(entity, alreadyWrittenAxioms, annotationAssertionAxioms);
+        writeAnnotations2(entity, alreadyWrittenAxioms,
+                annotationAssertionAxioms);
     }
 
-    protected void writeAnnotations2(@Nonnull OWLEntity entity,
-                                     @Nonnull Set<OWLAxiom> alreadyWrittenAxioms,
-                                     List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms) {
+    protected void writeAnnotations2(
+            @SuppressWarnings("unused") @Nonnull OWLEntity entity,
+            @Nonnull Set<OWLAxiom> alreadyWrittenAxioms,
+            List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms) {
         for (OWLAnnotationAxiom ax : annotationAssertionAxioms) {
             ax.accept(this);
             writeReturn();
         }
         alreadyWrittenAxioms.addAll(annotationAssertionAxioms);
     }
+
     /**
      * Write.
      * 
@@ -729,7 +710,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             // TODO log
             return;
         }
-
         writeAxiomStart(DISJOINT_DATA_PROPERTIES, axiom);
         write(sortOptionally(properties));
         writeAxiomEnd();
@@ -971,7 +951,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @SuppressWarnings("null")
-    private <F extends OWLPropertyRange> void writeRestriction(
+    private @Nullable <F extends OWLPropertyRange> void writeRestriction(
             @Nonnull OWLXMLVocabulary v,
             @Nonnull OWLCardinalityRestriction<F> restriction,
             @Nonnull OWLPropertyExpression p) {
@@ -1138,7 +1118,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         write(DATATYPE_RESTRICTION);
         writeOpenBracket();
         node.getDatatype().accept(this);
-        Set<OWLFacetRestriction> facetRestrictions = node.getFacetRestrictions();
+        Set<OWLFacetRestriction> facetRestrictions = node
+                .getFacetRestrictions();
         List<OWLFacetRestriction> restrictionList = sortOptionally(facetRestrictions);
         for (OWLFacetRestriction restriction : restrictionList) {
             writeSpace();
@@ -1220,9 +1201,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeOpenBracket();
         Set<OWLObjectPropertyExpression> objectPropertyExpressions = axiom
                 .getObjectPropertyExpressions();
-
         List<OWLObjectPropertyExpression> expressions = sortOptionally(objectPropertyExpressions);
-        for (Iterator<? extends OWLPropertyExpression> it = expressions.iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLPropertyExpression> it = expressions
+                .iterator(); it.hasNext();) {
             OWLPropertyExpression prop = it.next();
             prop.accept(this);
             if (it.hasNext()) {
@@ -1235,7 +1216,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         Set<OWLDataPropertyExpression> dataPropertyExpressions = axiom
                 .getDataPropertyExpressions();
         List<OWLDataPropertyExpression> expressionList = sortOptionally(dataPropertyExpressions);
-        for (Iterator<? extends OWLPropertyExpression> it = expressionList.iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLPropertyExpression> it = expressionList
+                .iterator(); it.hasNext();) {
             OWLPropertyExpression prop = it.next();
             prop.accept(this);
             if (it.hasNext()) {

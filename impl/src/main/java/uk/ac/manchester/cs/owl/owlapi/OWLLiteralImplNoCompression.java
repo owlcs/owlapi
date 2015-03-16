@@ -200,31 +200,31 @@ public class OWLLiteralImplNoCompression extends
     }
 
     private final int getHashCode() {
-        int hashCode = 277;
-        hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode *= 37;
+        int code = 277;
+        code = code * 37 + getDatatype().hashCode();
+        code *= 37;
         try {
             if (isInteger()) {
-                hashCode += parseInteger() * 65536;
+                code += parseInteger() * 65536;
             } else if (isDouble()) {
-                hashCode += (int) parseDouble() * 65536;
+                code += (int) parseDouble() * 65536;
             } else if (isFloat()) {
-                hashCode += (int) parseFloat() * 65536;
+                code += (int) parseFloat() * 65536;
             } else if (isBoolean()) {
-                hashCode += parseBoolean() ? 65536 : 0;
+                code += parseBoolean() ? 65536 : 0;
             } else {
-                hashCode += getLiteral().hashCode() * 65536;
+                code += getLiteral().hashCode() * 65536;
             }
         } catch (NumberFormatException e) {
             // it is possible that a literal does not have a value that's valid
             // for its datatype; not very useful for a consistent ontology but
             // some W3C reasoner tests use them
-            hashCode += getLiteral().hashCode() * 65536;
+            code += getLiteral().hashCode() * 65536;
         }
         if (hasLang()) {
-            hashCode = hashCode * 37 + getLang().hashCode();
+            code = code * 37 + getLang().hashCode();
         }
-        return hashCode;
+        return code;
     }
 
     @Override
