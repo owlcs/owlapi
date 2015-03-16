@@ -22,11 +22,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,8 +56,8 @@ import com.google.common.base.Splitter;
  * @since 2.0.0
  */
 @HasPriority(1)
-public class AutoIRIMapper extends DefaultHandler implements
-        OWLOntologyIRIMapper, Serializable {
+public class AutoIRIMapper extends DefaultHandler
+    implements OWLOntologyIRIMapper, Serializable {
 
     private static final long serialVersionUID = 40000L;
     private final Set<String> fileExtensions = new HashSet<>();
@@ -77,17 +80,18 @@ public class AutoIRIMapper extends DefaultHandler implements
      */
     public AutoIRIMapper(@Nonnull File rootDirectory, boolean recursive) {
         directoryPath = checkNotNull(rootDirectory,
-                "rootDirectory cannot be null").getAbsolutePath();
+            "rootDirectory cannot be null").getAbsolutePath();
         this.recursive = recursive;
         fileExtensions.add("owl");
         fileExtensions.add("xml");
         fileExtensions.add("rdf");
         fileExtensions.add("omn");
+        fileExtensions.add("ofn");
         mapped = false;
         handlerMap.put(Namespaces.RDF + "RDF",
-                new RDFXMLOntologyRootElementHandler());
+            new RDFXMLOntologyRootElementHandler());
         handlerMap.put(OWLXMLVocabulary.ONTOLOGY.toString(),
-                new OWLXMLOntologyRootElementHandler());
+            new OWLXMLOntologyRootElementHandler());
     }
 
     protected File getDirectory() {
@@ -171,25 +175,55 @@ public class AutoIRIMapper extends DefaultHandler implements
         for (File file : files) {
             if (file.isDirectory() && recursive) {
                 processFile(file);
-                continue;
-            }
-            if (file.getName().endsWith(".obo")) {
+            } else if (file.getName().endsWith(".obo")) {
                 oboFileMap.put(file.getName(), IRI.create(file));
-                continue;
-            }
-            if (file.getName().endsWith(".omn")) {
+            } else if (file.getName().endsWith(".ofn")) {
+                parseFSSFile(file);
+            } else if (file.getName().endsWith(".omn")) {
                 parseManchesterSyntaxFile(file);
-                continue;
-            }
-            fileExtensions.stream().filter(ext -> file.getName().endsWith(ext))
+            } else {
+                fileExtensions.stream()
+                    .filter(ext -> file.getName().endsWith(ext))
                     .forEach(x -> parseFile(file));
+            }
+        }
+    }
+
+    static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
+
+    /**
+     * Search first 100 lines for FSS style Ontology(&lt;IRI&gt; ...
+     * 
+     * @param file
+     *        the file to parse
+     */
+    private void parseFSSFile(@Nonnull File file) {
+        try (InputStream input = new FileInputStream(file);
+            Reader reader = new InputStreamReader(input, "UTF-8");
+            BufferedReader br = new BufferedReader(reader)) {
+            String line = "";
+            IRI ontologyIRI = null;
+            Matcher m = pattern.matcher(line);
+            int n = 0;
+            while ((line = br.readLine()) != null && n++ < 100) {
+                m.reset(line);
+                if (m.matches()) {
+                    String group = m.group(1);
+                    assert group != null;
+                    ontologyIRI = IRI.create(group);
+                    addMapping(ontologyIRI, file);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            // if we can't parse a file, then we can't map it
         }
     }
 
     private void parseFile(File file) {
         try (FileInputStream in = new FileInputStream(file);
-                BufferedInputStream delegate = new BufferedInputStream(in);
-                InputStream is = DocumentSources.wrap(delegate);) {
+            BufferedInputStream delegate = new BufferedInputStream(in);
+            InputStream is = DocumentSources.wrap(delegate);) {
             currentFile = file;
             SAXParsers.initParserWithOWLAPIStandards(null).parse(is, this);
         } catch (Exception e) {
@@ -198,8 +232,10 @@ public class AutoIRIMapper extends DefaultHandler implements
     }
 
     private void parseManchesterSyntaxFile(@Nonnull File file) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                new FileInputStream(file), StandardCharsets.UTF_8))) {
+        try (FileInputStream input = new FileInputStream(file);
+            InputStreamReader reader = new InputStreamReader(input,
+                StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(reader)) {
             // Ontology: <URI>
             String line = br.readLine();
             while (line != null) {
@@ -213,7 +249,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         }
     }
 
-    private IRI parseManLine(File file, String line) {
+    private IRI parseManLine(@Nonnull File file, @Nonnull String line) {
         for (String tok : Splitter.on(" ").split(line)) {
             if (tok.startsWith("<") && tok.endsWith(">")) {
                 IRI iri = unquote(tok);
@@ -231,12 +267,14 @@ public class AutoIRIMapper extends DefaultHandler implements
      */
     @Nonnull
     static IRI unquote(String tok) {
-        return IRI.create(tok.substring(1, tok.length() - 1));
+        String substring = tok.substring(1, tok.length() - 1);
+        assert substring != null;
+        return IRI.create(substring);
     }
 
     @Override
     public void startElement(String uri, String localName, String qName,
-            Attributes attributes) throws SAXException {
+        Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
             IRI ontologyIRI = handler.handle(attributes);
@@ -262,8 +300,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         StringBuilder sb = new StringBuilder("AutoIRIMapper: (");
         sb.append(ontologyIRI2PhysicalURIMap.size()).append(" ontologies)\n");
         ontologyIRI2PhysicalURIMap.forEach((k, v) -> sb.append("    ")
-                .append(k.toQuotedString()).append(" -> ").append(v)
-                .append('\n'));
+            .append(k.toQuotedString()).append(" -> ").append(v).append('\n'));
         return sb.toString();
     }
 
@@ -288,8 +325,8 @@ public class AutoIRIMapper extends DefaultHandler implements
      * A handler to handle RDF/XML files. The xml:base (if present) is taken to
      * be the ontology URI of the ontology document being parsed.
      */
-    private static class RDFXMLOntologyRootElementHandler implements
-            OntologyRootElementHandler, Serializable {
+    private static class RDFXMLOntologyRootElementHandler
+        implements OntologyRootElementHandler, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
@@ -299,7 +336,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         @Override
         public IRI handle(Attributes attributes) {
             String baseValue = attributes.getValue(Namespaces.XML.toString(),
-                    "base");
+                "base");
             if (baseValue == null) {
                 return null;
             }
@@ -308,8 +345,8 @@ public class AutoIRIMapper extends DefaultHandler implements
     }
 
     /** A handler that can handle OWL/XML files. */
-    private static class OWLXMLOntologyRootElementHandler implements
-            OntologyRootElementHandler, Serializable {
+    private static class OWLXMLOntologyRootElementHandler
+        implements OntologyRootElementHandler, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
@@ -318,7 +355,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         @Override
         public IRI handle(Attributes attributes) {
             String ontURI = attributes.getValue(Namespaces.OWL.toString(),
-                    "ontologyIRI");
+                "ontologyIRI");
             if (ontURI == null) {
                 ontURI = attributes.getValue("ontologyIRI");
             }
