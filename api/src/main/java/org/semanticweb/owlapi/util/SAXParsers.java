@@ -17,7 +17,11 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.ext.DeclHandler;
 
 /**
@@ -25,6 +29,9 @@ import org.xml.sax.ext.DeclHandler;
  * @since 4.0.0
  */
 public final class SAXParsers {
+
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(SAXParsers.class);
 
     private SAXParsers() {}
 
@@ -57,14 +64,30 @@ public final class SAXParsers {
     public static SAXParser initParserWithOWLAPIStandards(DeclHandler handler) {
         try {
             SAXParser parser = initFactory().newSAXParser();
-            // parser.setProperty("entityExpansionLimit", "100000000");
-            parser.setProperty(
-                    "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit",
-                    "100000000");
-            if (handler != null) {
+            try {
                 parser.setProperty(
-                        "http://xml.org/sax/properties/declaration-handler",
-                        handler);
+                        "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit",
+                        "100000000");
+            } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
+                LOGGER.warn("http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit not supported by parser type "
+                        + parser.getClass().getName());
+                try {
+                    parser.setProperty("entityExpansionLimit", "100000000");
+                } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
+                    LOGGER.warn("entityExpansionLimit not supported by parser type "
+                            + parser.getClass().getName());
+                }
+            }
+            if (handler != null) {
+                try {
+                    parser.setProperty(
+                            "http://xml.org/sax/properties/declaration-handler",
+                            handler);
+                } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
+                    LOGGER.warn("http://xml.org/sax/properties/declaration-handler not supported by parser type "
+                            + parser.getClass().getName()
+                            + ": entity declarations will not be roundtripped.");
+                }
             }
             return parser;
         } catch (ParserConfigurationException | SAXException e) {
