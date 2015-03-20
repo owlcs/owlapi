@@ -174,6 +174,7 @@ public class OWLLiteralImplInteger extends
         }
         if (obj instanceof OWLLiteral) {
             return ((OWLLiteral) obj).isInteger()
+                    && ((OWLLiteral) obj).getLiteral().charAt(0) != '0'
                     && literal == ((OWLLiteral) obj).parseInteger();
         }
         return false;

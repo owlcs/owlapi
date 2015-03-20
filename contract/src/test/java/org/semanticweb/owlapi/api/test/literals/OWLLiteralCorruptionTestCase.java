@@ -12,14 +12,24 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.literals;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Literal;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings({ "javadoc", "null" })
-public class OWLLiteralCorruptionTestCase {
+public class OWLLiteralCorruptionTestCase extends TestBase {
 
     @Test
     public void shouldroundTripLiteral() {
@@ -34,5 +44,50 @@ public class OWLLiteralCorruptionTestCase {
         testString = sb.toString();
         OWLLiteral literal = Literal(testString);
         assertEquals("Out = in ? false", literal.getLiteral(), testString);
+    }
+
+    @Test
+    public void shouldRoundtripPaddedLiterals()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String in = "Prefix(:=<urn:test#>)\n"
+                + "Prefix(a:=<urn:test#>)\n"
+                + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n"
+                + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)\n"
+                + "Prefix(test:=<urn:test#>)\n"
+                + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+                + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+                + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+                + "Ontology(<urn:test>\n"
+                + "DataPropertyAssertion(:dp :c \"1\"^^xsd:integer) "
+                + "DataPropertyAssertion(:dp :c \"01\"^^xsd:integer) "
+                + "DataPropertyAssertion(:dp :c \"1\"^^xsd:short))";
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(in,
+                IRI.create("urn:test"), new FunctionalSyntaxDocumentFormat(),
+                null));
+        OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
+        equal(o, o2);
+        OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#dp"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
+                .create("urn:test#c"));
+        assertTrue(o.getAxioms().contains(
+                df.getOWLDataPropertyAssertionAxiom(p, i,
+                        df.getOWLLiteral("01", df.getIntegerOWLDatatype()))));
+        assertTrue(o.getAxioms().contains(
+                df.getOWLDataPropertyAssertionAxiom(p, i,
+                        df.getOWLLiteral("1", df.getIntegerOWLDatatype()))));
+        assertTrue(o.getAxioms().contains(
+                df.getOWLDataPropertyAssertionAxiom(
+                        p,
+                        i,
+                        df.getOWLLiteral("1",
+                                OWL2Datatype.XSD_SHORT.getDatatype(df)))));
+    }
+
+    @Test
+    public void shouldNotFindPaddedLiteralsEqualToNonPadded() {
+        assertNotEquals(df.getOWLLiteral("01", df.getIntegerOWLDatatype()),
+                df.getOWLLiteral("1", df.getIntegerOWLDatatype()));
+        assertNotEquals(df.getOWLLiteral("1", df.getIntegerOWLDatatype()),
+                df.getOWLLiteral("01", df.getIntegerOWLDatatype()));
     }
 }
