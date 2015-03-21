@@ -2137,7 +2137,18 @@ public class TripleHandlers {
                             object);
                 }
             } else {
-                if (isAnnotationPropertyOnly(subject) && !isAnonymous(object)) {
+                if (isObjectPropertyStrict(subject)
+                        && consumer.isClassExpression(object)) {
+                    translateAsObjectPropertyRange(subject, predicate, object);
+                } else if (isDataPropertyStrict(subject)
+                        && consumer.isDataRange(object)) {
+                    translateAsDataPropertyRange(subject, predicate, object);
+                } else if (consumer.isAnnotationProperty(subject)
+                        && !consumer.isAnonymousNode(object)) {
+                    translateAsAnnotationPropertyRange(subject, predicate,
+                            object);
+                } else if (isAnnotationPropertyOnly(subject)
+                        && !isAnonymous(object)) {
                     translateAsAnnotationPropertyRange(subject, predicate,
                             object);
                 } else if (isClassExpressionLax(object)) {
