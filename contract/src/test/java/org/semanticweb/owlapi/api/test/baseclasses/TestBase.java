@@ -87,11 +87,12 @@ public abstract class TestBase {
     @Nonnull
     protected OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     @Nonnull
-    protected OWLDataFactory df = OWLManager.getOWLDataFactory();
+    protected final OWLDataFactory df = OWLManager.getOWLDataFactory();
     @Nonnull
     protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
     @Nonnull
-    protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
+    protected final OWLOntologyManager m1 = OWLManager
+            .createOWLOntologyManager();
 
     @Nonnull
     protected <T> Optional<T> of(T t) {

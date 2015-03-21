@@ -374,6 +374,8 @@ class CustomTokenizer implements TokenManager {
                 unread(c);
                 return makeToken(OWLFunctionalSyntaxParserConstants.INT,
                         buf.toString());
+            } else {
+                buf.append(c);
             }
         }
     }
