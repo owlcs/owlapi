@@ -12,7 +12,7 @@
 		<relativePath>../</relativePath>
 	</parent>
 	<properties>
-        <sesame.version>2.8.0</sesame.version>
+		<sesame.version>2.8.0</sesame.version>
 	</properties>
 
 	<!-- NOTE: These dependency declarations are only required to sort this 
@@ -58,25 +58,25 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-fixers</artifactId>
 			<version>${project.version}</version>
-            <scope>provided</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-rio</artifactId>
 			<version>${project.version}</version>
-            <scope>provided</scope>
+			<scope>provided</scope>
 		</dependency>
-				<dependency>
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-compatibility</artifactId>
-            <scope>provided</scope>
 			<version>${project.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-model</artifactId>
 			<version>${sesame.version}</version>
-            <scope>runtime</scope>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
@@ -162,24 +162,18 @@
 			<version>0.6.1</version>
 			<scope>runtime</scope>
 		</dependency>
-	<!--	<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>2.9.0</version>
-			<scope>runtime</scope>
-		</dependency> -->
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.framework</artifactId>
-            <version>4.6.0</version>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+			<version>4.6.0</version>
 			<scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<version>1.4.0</version>
 			<scope>test</scope>
-        </dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
@@ -187,6 +181,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.tukaani</groupId>
+			<artifactId>xz</artifactId>
+			<version>1.5</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -199,18 +198,20 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-                        <Implementation-Title>${project.name}</Implementation-Title>
-                        <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
-                        <Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						<Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
-                        <Embed-Dependency>
-                           !artifactId=slf4j-api,groupId=${project.groupId};inline=false;scope=compile|runtime|provided,*;scope=compile|runtime|provided;inline=false
-                        </Embed-Dependency>
-                        <Embed-Directory>lib</Embed-Directory>
-                        <Embed-Transitive>true</Embed-Transitive>
-                        <_exportcontents>
-                            !org.semanticweb.owlapi.test.*
+						<Embed-Dependency>
+							!artifactId=slf4j-api,
+							groupId=${project.groupId};inline=true;scope=compile|runtime|provided,
+							groupId=!${project.groupId};scope=compile|runtime|provided;inline=false
+						</Embed-Dependency>
+						<Embed-Directory>lib</Embed-Directory>
+						<Embed-Transitive>true</Embed-Transitive>
+						<_exportcontents>
+							!org.semanticweb.owlapi.test.*
 							com.clarkparsia.*,
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
@@ -231,29 +232,46 @@
 
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					<groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
+					<forkCount>0</forkCount>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.18.1</version>
-                <configuration>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                    <groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
-                   <forkCount>0</forkCount>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
+					<groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-
-            <plugin>
+			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.8.1</version>
 				<executions>

@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-distribution</artifactId>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 	<name>OWLAPI Distribution</name>
 
 	<parent>
@@ -40,6 +40,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-parsers</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-oboformat</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -53,25 +58,22 @@
 			<artifactId>owlapi-rio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-				<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-parsers</artifactId>
+			<artifactId>owlapi-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-model</artifactId>
 			<version>${sesame.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-api</artifactId>
 			<version>${sesame.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
@@ -151,6 +153,11 @@
 			<version>0.6.1</version>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.tukaani</groupId>
+			<artifactId>xz</artifactId>
+			<version>1.5</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -163,14 +170,34 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						<Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
-						<Export-Package>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Embed-Dependency>
+							!artifactId=slf4j-api,
+							groupId=${project.groupId};inline=true;scope=compile|runtime|provided,
+							groupId=!${project.groupId};scope=compile|runtime|provided;inline=false
+						</Embed-Dependency>
+						<Embed-Directory>lib</Embed-Directory>
+						<Embed-Transitive>true</Embed-Transitive>
+						<_exportcontents>
+							!org.semanticweb.owlapi.test.*
 							com.clarkparsia.*,
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
 							uk.ac.manchester.*;-split-package:=merge-first,
-							org.obolibrary.*
-						</Export-Package>
+							org.obolibrary.*;-split-package:=merge-first,
+						</_exportcontents>
+						<Import-Package>
+							!sun.misc,
+							net.sf.ehcache.*;resolution:=optional,
+							net.spy.memcached.*;resolution:=optional,
+							org.slf4j.impl;resolution:=optional,
+							!org.slif4j.impl,
+							*
+						</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>
