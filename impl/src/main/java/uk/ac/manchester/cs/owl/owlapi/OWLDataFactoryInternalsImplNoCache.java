@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Set;
+import org.semanticweb.owlapi.model.*;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
 import java.io.Serializable;
@@ -20,18 +22,10 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** no cache used @author ignazio */
-public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
+public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals, Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -65,7 +59,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
      * @param useCompression
      *        true if compression of literals should be used
      */
-    public InternalsNoCache(boolean useCompression) {
+    public OWLDataFactoryInternalsImplNoCache(boolean useCompression) {
         this.useCompression = useCompression;
     }
 
@@ -270,4 +264,10 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     public OWLDatatype getRDFPlainLiteral() {
         return PLAIN;
     }
+
+    @Override
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value, @Nonnull Set<? extends OWLAnnotation> annotations) {
+        return new OWLAnnotationImpl(property, value, annotations);
+    }
+
 }

@@ -59,7 +59,18 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Nonnull private static final OWLDataProperty        OWL_TOP_DATA_PROPERTY        = new OWLDataPropertyImpl(       OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
     @Nonnull private static final OWLDataProperty        OWL_BOTTOM_DATA_PROPERTY     = new OWLDataPropertyImpl(       OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     //@formatter:on
-    protected OWLDataFactoryInternals data;
+    protected OWLDataFactoryInternals dataFactoryInternals;
+
+    public boolean isCachingEnabled() {
+        return cachingEnabled;
+    }
+
+    public boolean isCompressionEnabled() {
+        return compressionEnabled;
+    }
+
+    private boolean cachingEnabled;
+    private boolean compressionEnabled;
 
     /** default constructor */
     public OWLDataFactoryImpl() {
@@ -67,22 +78,24 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     }
 
     /**
-     * @param cache
+     * @param cachingEnabled
      *        true if objects should be cached
-     * @param useCompression
+     * @param compressionEnabled
      *        true if literals should be compressed
      */
-    public OWLDataFactoryImpl(boolean cache, boolean useCompression) {
-        if (cache) {
-            data = new OWLDataFactoryInternalsImpl(useCompression);
+    public OWLDataFactoryImpl(boolean cachingEnabled, boolean compressionEnabled) {
+        this.cachingEnabled = cachingEnabled;
+        this.compressionEnabled = compressionEnabled;
+        if (this.cachingEnabled) {
+            dataFactoryInternals = new OWLDataFactoryInternalsImpl(this.compressionEnabled);
         } else {
-            data = new InternalsNoCache(useCompression);
+            dataFactoryInternals = new OWLDataFactoryInternalsImplNoCache(this.compressionEnabled);
         }
     }
 
     @Override
     public void purge() {
-        data.purge();
+        dataFactoryInternals.purge();
     }
 
     private static void
@@ -137,7 +150,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLClass getOWLClass(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        return data.getOWLClass(iri);
+        return dataFactoryInternals.getOWLClass(iri);
     }
 
     @Override
@@ -209,7 +222,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             @Nonnull PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "abbreviatedIRI cannot be null");
         checkNotNull(prefixManager, "prefixManager cannot be null");
-        return data.getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
+        return dataFactoryInternals.getOWLDatatype(prefixManager.getIRI(abbreviatedIRI));
     }
 
     @Nonnull
@@ -251,19 +264,19 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        return data.getOWLObjectProperty(iri);
+        return dataFactoryInternals.getOWLObjectProperty(iri);
     }
 
     @Override
     public OWLDataProperty getOWLDataProperty(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        return data.getOWLDataProperty(iri);
+        return dataFactoryInternals.getOWLDataProperty(iri);
     }
 
     @Override
     public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        return data.getOWLNamedIndividual(iri);
+        return dataFactoryInternals.getOWLNamedIndividual(iri);
     }
 
     @Override
@@ -306,7 +319,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLDatatype getOWLDatatype(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        return data.getOWLDatatype(iri);
+        return dataFactoryInternals.getOWLDatatype(iri);
     }
 
     @Override
@@ -319,7 +332,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     @Override
     public OWLLiteral getOWLLiteral(boolean value) {
-        return data.getOWLLiteral(value);
+        return dataFactoryInternals.getOWLLiteral(value);
     }
 
     @Nonnull
@@ -1704,7 +1717,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        return data.getOWLAnnotationProperty(iri);
+        return dataFactoryInternals.getOWLAnnotationProperty(iri);
     }
 
     @Nonnull
@@ -1722,7 +1735,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         checkNotNull(property, "property cannot be null");
         checkNotNull(value, "value cannot be null");
         checkAnnotations(annotations);
-        return new OWLAnnotationImpl(property, value, annotations);
+        return dataFactoryInternals.getOWLAnnotation(property, value, annotations);
     }
 
     @Nonnull
@@ -1961,63 +1974,63 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
         checkNotNull(lexicalValue, "lexicalValue cannot be null");
         checkNotNull(datatype, "datatype cannot be null");
-        return data.getOWLLiteral(lexicalValue, datatype);
+        return dataFactoryInternals.getOWLLiteral(lexicalValue, datatype);
     }
 
     @Override
     public OWLLiteral getOWLLiteral(int value) {
-        return data.getOWLLiteral(value);
+        return dataFactoryInternals.getOWLLiteral(value);
     }
 
     @Override
     public OWLLiteral getOWLLiteral(double value) {
-        return data.getOWLLiteral(value);
+        return dataFactoryInternals.getOWLLiteral(value);
     }
 
     @Override
     public OWLLiteral getOWLLiteral(float value) {
-        return data.getOWLLiteral(value);
+        return dataFactoryInternals.getOWLLiteral(value);
     }
 
     @Override
     public OWLLiteral getOWLLiteral(String value) {
         checkNotNull(value, "value cannot be null");
-        return data.getOWLLiteral(value);
+        return dataFactoryInternals.getOWLLiteral(value);
     }
 
     @Override
     public OWLLiteral getOWLLiteral(String literal, String lang) {
         checkNotNull(literal, "literal cannot be null");
-        return data.getOWLLiteral(literal, lang);
+        return dataFactoryInternals.getOWLLiteral(literal, lang);
     }
 
     @Override
     public OWLDatatype getBooleanOWLDatatype() {
-        return data.getBooleanOWLDatatype();
+        return dataFactoryInternals.getBooleanOWLDatatype();
     }
 
     @Override
     public OWLDatatype getDoubleOWLDatatype() {
-        return data.getDoubleOWLDatatype();
+        return dataFactoryInternals.getDoubleOWLDatatype();
     }
 
     @Override
     public OWLDatatype getFloatOWLDatatype() {
-        return data.getFloatOWLDatatype();
+        return dataFactoryInternals.getFloatOWLDatatype();
     }
 
     @Override
     public OWLDatatype getIntegerOWLDatatype() {
-        return data.getIntegerOWLDatatype();
+        return dataFactoryInternals.getIntegerOWLDatatype();
     }
 
     @Override
     public OWLDatatype getTopDatatype() {
-        return data.getTopDatatype();
+        return dataFactoryInternals.getTopDatatype();
     }
 
     @Override
     public OWLDatatype getRDFPlainLiteral() {
-        return data.getRDFPlainLiteral();
+        return dataFactoryInternals.getRDFPlainLiteral();
     }
 }
