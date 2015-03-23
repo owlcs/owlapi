@@ -14,17 +14,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
 
+import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author ignazio Mutable state in an OWLDataFactory is encapsulated by this
@@ -171,4 +165,16 @@ public interface OWLDataFactoryInternals extends Serializable {
     /** @return plain literal datatype */
     @Nonnull
     OWLDatatype getRDFPlainLiteral();
+
+    /**
+     * construct an OWLAnnotation
+     * @param property
+     * @param value
+     * @param annotations
+     * @return
+     */
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
+                                          OWLAnnotationValue value,
+                                          @Nonnull Set<? extends OWLAnnotation> annotations);
+
 }
