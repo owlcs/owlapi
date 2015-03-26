@@ -84,7 +84,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFactoryNotFoundException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -101,7 +100,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -335,7 +333,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         // recorded, based on the mappers, but an ontology has not been stored
         // in ontologiesByID
         if (result == null) {
-            IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
+            IRI documentIRI = getDocumentIRIFromMappers(ontologyID);
             if (documentIRI == null) {
                 if (!ontologyID.isAnonymous()) {
                     documentIRI = ontologyID.getDefaultDocumentIRI().orNull();
@@ -699,7 +697,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (ontology != null) {
             throw new OWLOntologyAlreadyExistsException(ontologyID);
         }
-        IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
+        IRI documentIRI = getDocumentIRIFromMappers(ontologyID);
         if (documentIRI == null) {
             if (!ontologyID.isAnonymous()) {
                 documentIRI = ontologyID.getDefaultDocumentIRI().orNull();
@@ -848,7 +846,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             return ontByID;
         }
         OWLOntologyID id = new OWLOntologyID(of(ontologyIRI), absent());
-        IRI documentIRI = getDocumentIRIFromMappers(id, true);
+        IRI documentIRI = getDocumentIRIFromMappers(id);
         if (documentIRI != null) {
             if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
                 throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
@@ -1241,32 +1239,22 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      *         {@code null} if no physical URI can be found.
      */
     @Nullable
-    private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID,
-            boolean quiet) {
+    private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID) {
         Optional<IRI> defIRI = ontologyID.getDefaultDocumentIRI();
         if (!defIRI.isPresent()) {
             return null;
         }
         for (OWLOntologyIRIMapper mapper : documentMappers) {
             IRI documentIRI = mapper
-                    .getDocumentIRI(verifyNotNull(defIRI.get()));
+                    .getDocumentIRI(defIRI.get());
             if (documentIRI != null) {
                 return documentIRI;
             }
         }
-        if (!quiet) {
-            throw new OWLOntologyIRIMappingNotFoundException(
-                    verifyNotNull(ontologyID.getDefaultDocumentIRI().get()));
-        } else {
-            return null;
-        }
+        return defIRI.get();
     }
 
-    protected final void installDefaultURIMappers() {
-        // By defaut install the default mapper that simply maps
-        // ontology URIs to themselves.
-        documentMappers.add(new NonMappingOntologyIRIMapper());
-    }
+    protected final void installDefaultURIMappers() {    }
 
     protected final void installDefaultOntologyFactories() {
         // The default factories are the ones that can load

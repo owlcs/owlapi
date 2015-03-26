@@ -18,9 +18,7 @@ import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -55,16 +53,7 @@ public class OWLAPIImplModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        configureOntologyFactories();
-        configureIRIMappers();
-    }
-
-    protected void configureIRIMappers() {
-        multibind(OWLOntologyIRIMapper.class, NonMappingOntologyIRIMapper.class);
-    }
-
-    protected void configureOntologyFactories() {
-        multibind(OWLOntologyFactory.class, EmptyInMemOWLOntologyFactory.class,
+          multibind(OWLOntologyFactory.class, EmptyInMemOWLOntologyFactory.class,
                 ParsableOWLOntologyFactory.class);
     }
 

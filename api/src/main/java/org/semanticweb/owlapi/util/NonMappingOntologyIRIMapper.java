@@ -25,8 +25,10 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
+ * @deprecated not useful. If no mapping is found, the code already returns the input IRI.
  */
 @HasPriority(10)
+@Deprecated
 public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper,
         Serializable {
 
