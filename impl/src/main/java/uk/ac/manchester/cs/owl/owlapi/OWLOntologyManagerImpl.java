@@ -79,7 +79,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFactoryNotFoundException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -95,7 +94,6 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
-import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -274,7 +272,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         // recorded, based on the mappers, but an ontology has not been stored
         // in ontologiesByID
         if (result == null) {
-            IRI documentIRI = getDocumentIRIFromMappers(id, true);
+            IRI documentIRI = getDocumentIRIFromMappers(id);
             if (documentIRI == null) {
                 if (!id.isAnonymous()) {
                     documentIRI = id.getDefaultDocumentIRI().orElse(null);
@@ -578,7 +576,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (ontology != null) {
             throw new OWLOntologyAlreadyExistsException(ontologyID);
         }
-        IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
+        IRI documentIRI = getDocumentIRIFromMappers(ontologyID);
         if (documentIRI == null) {
             if (!ontologyID.isAnonymous()) {
                 documentIRI = ontologyID.getDefaultDocumentIRI().orElse(null);
@@ -694,8 +692,18 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             return ontByID;
         }
         OWLOntologyID id = new OWLOntologyID(of(iri), Optional.empty());
-        IRI documentIRI = getDocumentIRIFromMappers(id, true);
-        if (documentIRI == null) {
+        IRI documentIRI = getDocumentIRIFromMappers(id);
+        if (documentIRI != null) {
+            if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
+                throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
+            }
+            // The ontology might be being loaded, but its IRI might
+            // not have been set (as is probably the case with RDF/XML!)
+            OWLOntology ontByDocumentIRI = getOntologyByDocumentIRI(documentIRI);
+            if (ontByDocumentIRI != null) {
+                return ontByDocumentIRI;
+            }
+        } else {
             // Nothing we can do here. We can't get a document IRI to load
             // the ontology from.
             throw new OntologyIRIMappingNotFoundException(iri);
@@ -1004,31 +1012,22 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      *         {@code null} if no physical URI can be found.
      */
     @Nullable
-    private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID,
-            boolean quiet) {
+    private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID) {
         Optional<IRI> defIRI = ontologyID.getDefaultDocumentIRI();
         if (!defIRI.isPresent()) {
             return null;
         }
         for (OWLOntologyIRIMapper mapper : documentMappers) {
             IRI documentIRI = mapper
-                    .getDocumentIRI(verifyNotNull(defIRI.get()));
+                    .getDocumentIRI(defIRI.get());
             if (documentIRI != null) {
                 return documentIRI;
             }
         }
-        if (!quiet) {
-            throw new OWLOntologyIRIMappingNotFoundException(
-                    verifyNotNull(ontologyID.getDefaultDocumentIRI().get()));
-        }
-        return null;
+        return defIRI.get();
     }
 
-    protected final void installDefaultURIMappers() {
-        // By defaut install the default mapper that simply maps
-        // ontology URIs to themselves.
-        documentMappers.add(new NonMappingOntologyIRIMapper());
-    }
+    protected final void installDefaultURIMappers() {    }
 
     protected final void installDefaultOntologyFactories() {
         // The default factories are the ones that can load

@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -49,7 +48,6 @@ public class OWLOntologyManagerImplTestCase {
         OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
         manager.getOntologyFactories().add(
                 new EmptyInMemOWLOntologyFactory(builder));
-        manager.getIRIMappers().add(new NonMappingOntologyIRIMapper());
     }
 
     @Test
