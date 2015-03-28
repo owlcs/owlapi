@@ -41,8 +41,8 @@ package org.coode.owlapi.obo12.parser;
 import java.util.Collections;
 import java.util.List;
 
+import org.semanticweb.owlapi.io.LegacyOWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * Date: 10-Jan-2007<br>
  * <br>
  */
-public class OBO12ParserFactory implements OWLParserFactory {
+public class OBO12ParserFactory implements LegacyOWLParserFactory {
 
     private static final long serialVersionUID = 40000L;
 

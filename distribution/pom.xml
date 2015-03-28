@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.0.2-SNAPSHOT</version>
+		<version>4.0.2</version>
 		<relativePath>../</relativePath>
 	</parent>
 	<properties>
@@ -67,91 +67,76 @@
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-model</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-api</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-languages</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-datatypes</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-binary</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-n3</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-nquads</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-ntriples</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-rdfjson</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-rdfxml</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-trix</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-turtle</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-trig</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.github.jsonld-java</groupId>
 			<artifactId>jsonld-java-sesame</artifactId>
 			<version>0.5.0</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.semarglproject</groupId>
 			<artifactId>semargl-sesame</artifactId>
 			<version>0.6.1</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.tukaani</groupId>
@@ -176,8 +161,7 @@
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Embed-Dependency>
-							!artifactId=slf4j-api,
-							groupId=${project.groupId};inline=true;scope=compile|runtime|provided,
+							groupId=${project.groupId};inline=true,
 							groupId=!${project.groupId};scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<Embed-Directory>lib</Embed-Directory>
@@ -195,7 +179,7 @@
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
 							org.slf4j.impl;resolution:=optional,
-							!org.slif4j.impl,
+							!org.slf4j.impl,
 							*
 						</Import-Package>
 					</instructions>

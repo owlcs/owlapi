@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -28,6 +28,8 @@ public class VerifyVersionInfoIntegrationTestCase {
         // This test will fail after setting the release version if the fallback
         // has not been updated.
         VersionInfo info = VersionInfo.getVersionInfo();
-        assertEquals("4.0.2-SNAPSHOT", info.getVersion());
+        assertNotNull("info is null??!!?", info);
+        String version = info.getVersion();
+        assertTrue(version.equals("4.0.2") || version.startsWith("4.0.2."));
     }
 }

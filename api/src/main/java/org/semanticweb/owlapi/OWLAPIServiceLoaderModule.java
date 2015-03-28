@@ -12,15 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
-import com.google.common.collect.Iterables;
-import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
+
 import javax.inject.Provider;
+
 import org.semanticweb.owlapi.annotations.OwlapiModule;
+import org.semanticweb.owlapi.io.LegacyOWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -35,22 +35,30 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Iterables;
+import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
+
 /**
  * owlapi module for dynamic loading - uses ServiceLoader to add extra bindings
  * for OWLParser, OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper
  */
 @OwlapiModule
 public class OWLAPIServiceLoaderModule extends AbstractModule {
-    private static Logger logger = LoggerFactory.getLogger(OWLAPIServiceLoaderModule.class);
+
+    private static Logger logger = LoggerFactory
+            .getLogger(OWLAPIServiceLoaderModule.class);
+
     @Override
     protected void configure() {
         loadInstancesFromServiceLoader(OWLParser.class);
         loadInstancesFromServiceLoader(OWLStorer.class);
         loadInstancesFromServiceLoader(OWLOntologyFactory.class);
         loadInstancesFromServiceLoader(OWLOntologyIRIMapper.class);
-        loadFactories(OWLDocumentFormatFactory.class, OWLDocumentFormat.class);
-        loadFactories(OWLParserFactory.class, OWLParser.class);
-        loadFactories(OWLStorerFactory.class, OWLStorer.class);
+        loadFactories(OWLDocumentFormatFactory.class,OWLDocumentFormatFactory.class, OWLDocumentFormat.class);
+        loadFactories(OWLParserFactory.class,OWLParserFactory.class, OWLParser.class);
+        loadFactories(OWLParserFactory.class,LegacyOWLParserFactory.class, OWLParser.class);
+        loadFactories(OWLStorerFactory.class,OWLStorerFactory.class, OWLStorer.class);
         loadOntologyManagerFactory();
         bind(OWLOntologyLoaderConfiguration.class).toProvider(
                 OWLAPIConfigProvider.class);
@@ -78,7 +86,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         try {
             Iterables.addAll(result, ServiceLoader.load(type));
         } catch (ServiceConfigurationError e) {
-            logger.debug("ServiceLoading: ", e); //To change body of catch statement use File | Settings | File Templates.
+            logger.debug("ServiceLoading: ", e); 
         }
         // in OSGi, the context class loader is likely null.
         // This would trigger the use of the system class loader, which would
@@ -92,13 +100,13 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         return result;
     }
 
-    protected <T, F extends Provider<T>> void loadFactories(Class<F> factory,
+    protected <T, F extends Provider<T>> void loadFactories(Class<F> factory, Class<? extends F> factorySubType,
             Class<T> type) {
         try {
             Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(),
                     factory);
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            for (F o : load(factory)) {
+            for (F o : load(factorySubType)) {
                 factoryBinder.addBinding().toInstance(o);
                 binder.addBinding().toInstance(o.get());
             }
