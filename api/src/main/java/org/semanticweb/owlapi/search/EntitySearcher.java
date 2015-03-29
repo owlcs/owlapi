@@ -43,8 +43,10 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -432,6 +434,177 @@ public class EntitySearcher {
             @Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getSubProperties(e, o));
+        }
+        return collection;
+    }
+
+    /**
+     * Gets the properties which are asserted to be sub-properties of this
+     * property in the specified ontology.
+     * 
+     * @param e
+     *        entity
+     * @param ontology
+     *        The ontology to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
+     * @return A set of properties such that for each property {@code p} in the
+     *         set, it is the case that {@code ontology} contains an
+     *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
+     *         this property.
+     * @since 3.2
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P>
+            getSubProperties(@Nonnull P e, @Nonnull OWLOntology ontology) {
+        return Searcher.sub(ontology.filterAxioms(subPropertiesFilter(e), e, EXCLUDED));
+    }
+
+    protected static <P extends OWLPropertyExpression> OWLAxiomSearchFilter
+            subPropertiesFilter(P e) {
+        OWLAxiomSearchFilter filter = null;
+        if (e.isDataPropertyExpression()) {
+            filter = subDataPropertyWithSuper;
+        }
+        if (e.isObjectPropertyExpression()) {
+            filter = subObjectPropertyWithSuper;
+        }
+        filter = subAnnotationWithSuper;
+        return filter;
+    }
+
+    /**
+     * Gets the properties which are asserted to be sub-properties of this
+     * property in the specified ontology.
+     * 
+     * @param e
+     *        entity
+     * @param ontology
+     *        The ontology to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
+     * @param imports
+     *        if true include imports closure
+     * @return A set of properties such that for each property {@code p} in the
+     *         set, it is the case that {@code ontology} contains an
+     *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
+     *         this property.
+     * @since 3.2
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P>
+            getSubProperties(@Nonnull P e, @Nonnull OWLOntology ontology,
+                    boolean imports) {
+        return Searcher.sub(ontology.filterAxioms(subPropertiesFilter(e),
+                e, imports ? INCLUDED : EXCLUDED));
+    }
+
+    /**
+     * Gets the properties which are asserted to be sub-properties of this
+     * property in the specified ontology.
+     * 
+     * @param e
+     *        entity
+     * @param ontologies
+     *        The ontologies to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
+     * @return A set of properties such that for each property {@code p} in the
+     *         set, it is the case that {@code ontology} contains an
+     *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
+     *         this property.
+     * @since 3.2
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P>
+            getSubProperties(@Nonnull P e,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<P> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getSubProperties(e, o));
+        }
+        return collection;
+    }
+    /**
+     * Gets the properties which are asserted to be sub-properties of this
+     * property in the specified ontology.
+     * 
+     * @param e
+     *        entity
+     * @param ontology
+     *        The ontology to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
+     * @return A set of properties such that for each property {@code p} in the
+     *         set, it is the case that {@code ontology} contains an
+     *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
+     *         this property.
+     * @since 3.2
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P>
+            getSuperProperties(@Nonnull P e, @Nonnull OWLOntology ontology) {
+        return Searcher.sub(ontology.filterAxioms(superPropertiesFilter(e), e, EXCLUDED));
+    }
+
+    protected static <P extends OWLPropertyExpression> OWLAxiomSearchFilter
+            superPropertiesFilter(P e) {
+        OWLAxiomSearchFilter filter = null;
+        if (e.isDataPropertyExpression()) {
+            filter = subDataPropertyWithSub;
+        }
+        if (e.isObjectPropertyExpression()) {
+            filter = subObjectPropertyWithSub;
+        }
+        filter = subAnnotationWithSub;
+        return filter;
+    }
+
+    /**
+     * Gets the properties which are asserted to be sub-properties of this
+     * property in the specified ontology.
+     * 
+     * @param e
+     *        entity
+     * @param ontology
+     *        The ontology to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
+     * @param imports
+     *        if true include imports closure
+     * @return A set of properties such that for each property {@code p} in the
+     *         set, it is the case that {@code ontology} contains an
+     *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
+     *         this property.
+     * @since 3.2
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P>
+            getSuperProperties(@Nonnull P e, @Nonnull OWLOntology ontology,
+                    boolean imports) {
+        return Searcher.sub(ontology.filterAxioms(superPropertiesFilter(e),
+                e, imports ? INCLUDED : EXCLUDED));
+    }
+
+    /**
+     * Gets the properties which are asserted to be sub-properties of this
+     * property in the specified ontology.
+     * 
+     * @param e
+     *        entity
+     * @param ontologies
+     *        The ontologies to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
+     * @return A set of properties such that for each property {@code p} in the
+     *         set, it is the case that {@code ontology} contains an
+     *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
+     *         this property.
+     * @since 3.2
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P>
+            getSuperProperties(@Nonnull P e,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<P> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
             collection.addAll(getSubProperties(e, o));
@@ -938,6 +1111,58 @@ public class EntitySearcher {
             getEquivalentProperties(@Nonnull OWLDataProperty e,
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getEquivalentProperties(e, o));
+        }
+        return collection;
+    }
+
+    /**
+     * A convenience method that examines the axioms in the specified ontology
+     * and returns the class expressions corresponding to equivalent classes of
+     * this class.
+     * 
+     * @param e
+     *        entity
+     * @param ontology
+     *        The ontology to be examined for axioms
+     * @return A {@code Set} of {@code OWLClassExpression}s that represent the
+     *         equivalent classes of this class, that have been asserted in the
+     *         specified ontology.
+     */
+    @Nonnull
+    public static
+            <P extends OWLPropertyExpression>
+            Collection<P>
+            getEquivalentProperties(@Nonnull P e, @Nonnull OWLOntology ontology) {
+        if (e.isDataPropertyExpression()) {
+            return Searcher.equivalent(ontology
+                    .getEquivalentDataPropertiesAxioms((OWLDataProperty) e));
+        }
+        return Searcher
+                .equivalent(ontology
+                        .getEquivalentObjectPropertiesAxioms((OWLObjectPropertyExpression) e));
+    }
+
+    /**
+     * A convenience method that examines the axioms in the specified ontologies
+     * and returns the class expressions corresponding to equivalent classes of
+     * this class.
+     * 
+     * @param e
+     *        entity
+     * @param ontologies
+     *        The ontologies to be examined for axioms
+     * @return A {@code Set} of {@code OWLClassExpression}s that represent the
+     *         equivalent classes of this class, that have been asserted in the
+     *         specified ontologies.
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P>
+            getEquivalentProperties(@Nonnull P e,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<P> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
             collection.addAll(getEquivalentProperties(e, o));
