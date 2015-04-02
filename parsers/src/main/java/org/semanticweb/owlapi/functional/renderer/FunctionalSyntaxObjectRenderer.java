@@ -30,7 +30,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.*;
@@ -153,7 +152,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @SuppressWarnings("null")
-    protected @Nullable void writePrefixes() {
+    protected void writePrefixes() {
         for (Map.Entry<String, String> e : prefixManager
                 .getPrefixName2PrefixMap().entrySet()) {
             writePrefix(e.getKey(), e.getValue());
@@ -200,7 +199,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @SuppressWarnings("null")
     @Override
-    public @Nullable void visit(@Nonnull OWLOntology ontology) {
+    public void visit(@Nonnull OWLOntology ontology) {
         writePrefixes();
         writeReturn();
         writeReturn();
@@ -277,7 +276,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
     }
 
-    private @Nullable void writeEntities(String comment, String entityTypeName,
+    private void writeEntities(String comment, String entityTypeName,
             List<? extends OWLEntity> entities,
             @Nonnull Set<OWLAxiom> writtenAxioms) {
         boolean haveWrittenBanner = false;
@@ -951,7 +950,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @SuppressWarnings("null")
-    private @Nullable <F extends OWLPropertyRange> void writeRestriction(
+    private <F extends OWLPropertyRange> void writeRestriction(
             @Nonnull OWLXMLVocabulary v,
             @Nonnull OWLCardinalityRestriction<F> restriction,
             @Nonnull OWLPropertyExpression p) {
