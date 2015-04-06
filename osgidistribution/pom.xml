@@ -191,7 +191,7 @@
 						<Embed-Directory>lib</Embed-Directory>
 						<Embed-Transitive>true</Embed-Transitive>
 						<_exportcontents>
-							!org.semanticweb.owlapi.test.*
+							!org.semanticweb.owlapi.test.*,
 							com.clarkparsia.*,
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
@@ -199,6 +199,18 @@
 							org.obolibrary.*;-split-package:=merge-first,
 							org.coode.*;-split-package:=merge-first,
 							de.uulm.*;-split-package:=merge-first,
+							com.fasterxml.jackson.*;-split-package:=merge-first,
+							com.github.jsonldjava.*;-split-package:=merge-first,
+							com.google.common.*;-split-package:=merge-first,
+							com.google.thirdparty.*;-split-package:=merge-first,
+							com.google.inject.*;-split-package:=merge-first,
+							org.semarglproject.*;-split-package:=merge-first,
+							org.apache.commons.*;-split-package:=merge-first,
+							org.apache.http.*;-split-package:=merge-first,
+							org.aopalliance.*;-split-package:=merge-first,
+							gnu.trove.*;-split-package:=merge-first,
+							javax.annotation.*;-split-package:=merge-first,
+							javax.inject.*;-split-package:=merge-first
 						</_exportcontents>
 						<Import-Package>
 							!sun.misc,
