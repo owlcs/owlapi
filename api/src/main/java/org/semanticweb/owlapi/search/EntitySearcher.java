@@ -1209,6 +1209,48 @@ public class EntitySearcher {
         }
         return collection;
     }
+    /**
+     * Gets the classes which have been asserted to be disjoint with this class
+     * by axioms in the specified ontology.
+     * 
+     * @param e
+     *        entity
+     * @param ontology
+     *        The ontology to search for disjoint class axioms
+     * @return A {@code Set} of {@code OWLClassExpression}s that represent the
+     *         disjoint classes of this class.
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P> getDisjointProperties(
+            @Nonnull P e, @Nonnull OWLOntology ontology) {
+        if(e.isDataPropertyExpression()) {
+            return Searcher.different(ontology.getDisjointDataPropertiesAxioms((OWLDataProperty)e));
+        }
+        return Searcher.different(ontology.getDisjointObjectPropertiesAxioms((OWLObjectPropertyExpression)e));
+    }
+
+    /**
+     * Gets the classes which have been asserted to be disjoint with this class
+     * by axioms in the specified ontologies.
+     * 
+     * @param e
+     *        entity
+     * @param ontologies
+     *        The ontologies to search for disjoint class axioms
+     * @return A {@code Set} of {@code OWLClassExpression}s that represent the
+     *         disjoint classes of this class.
+     */
+    @Nonnull
+    public static <P extends OWLPropertyExpression> Collection<P> getDisjointProperties(
+            @Nonnull P e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<P> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getDisjointProperties(e, o));
+        }
+        return collection;
+    }
 
     /**
      * A convenience method that examines the axioms in the specified ontology
