@@ -13,8 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import gnu.trove.map.hash.THashMap;
-import gnu.trove.set.hash.THashSet;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -36,11 +34,13 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
+import com.google.common.collect.Iterables;
+
+import gnu.trove.map.hash.THashMap;
+import gnu.trove.set.hash.THashSet;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 import uk.ac.manchester.cs.owl.owlapi.util.collections.SmallSet;
-
-import com.google.common.collect.Iterables;
 
 /**
  * * Objects that identify contained maps - so that getting the keys of a
@@ -444,7 +444,8 @@ public class MapPointer<K, V extends OWLAxiom> {
             for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
                 Collection<V> set = entry.getValue();
                 if (set instanceof ArrayList) {
-                    THashSet<V> value = new THashSet<>(set);
+                    THashSet<V> value = new THashSet<>(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
+                    value.addAll(set);
                     entry.setValue(value);
                     size = size - set.size() + value.size();
                     value.trimToSize();
