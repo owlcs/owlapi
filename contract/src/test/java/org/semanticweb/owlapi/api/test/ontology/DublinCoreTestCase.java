@@ -41,7 +41,7 @@ public class DublinCoreTestCase extends AbstractFileTestCase {
     public void testAnnotationProperties() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
-            assertTrue(ontology.containsAnnotationPropertyInSignature(
+            assertTrue(vocabulary.getIRI().toString(),ontology.containsAnnotationPropertyInSignature(
                     vocabulary.getIRI(), EXCLUDED));
         }
     }
