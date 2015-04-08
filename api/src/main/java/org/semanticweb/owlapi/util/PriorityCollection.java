@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 
 import com.google.common.collect.Iterators;
@@ -22,16 +24,27 @@ import com.google.common.collect.Iterators;
  *        type of the collection
  * @since 4.0.0
  */
-public class PriorityCollection<T extends Serializable> implements Iterable<T>,
-        Serializable {
+public class PriorityCollection<T extends Serializable>
+        implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 40000L;
     @SuppressWarnings("null")
     @Nonnull
     private final List<T> delegate = Collections
             .synchronizedList(new ArrayList<T>());
+    private final HasOntologyLoaderConfiguration configurationHolder;
 
-    /** @return true if the collection is empty */
+    /**
+     * @param sorting
+     *        the configuration holder for sort settings.
+     */
+    public PriorityCollection(HasOntologyLoaderConfiguration sorting) {
+        this.configurationHolder = sorting;
+    }
+
+    /**
+     * @return true if the collection is empty
+     */
     public boolean isEmpty() {
         return delegate.isEmpty();
     }
@@ -44,17 +57,38 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     }
 
     private void sort() {
-        Collections.sort(delegate, new HasPriorityComparator<>());
+        configurationHolder.getOntologyLoaderConfiguration()
+                .getPriorityCollectionSorting().sort(delegate);
+    }
+
+    private void sortSet() {
+        configurationHolder.getOntologyLoaderConfiguration()
+                .getPriorityCollectionSorting().sortInputSet(delegate);
     }
 
     /**
      * @param c
      *        collection of elements to set. Existing elements will be removed,
-     *        and the priority collection will be sorted by HasPriority.
+     *        and the priority collection will be sorted according to the
+     *        PriorityCollectionSorting value for the manager configuration.
      */
     public void set(Iterable<T> c) {
         clear();
         add(c);
+    }
+
+    /**
+     * @param c
+     *        collection of elements to set. Existing elements will be removed,
+     *        and the priority collection will be sorted according to the
+     *        PriorityCollectionSorting value for the manager configuration.
+     */
+    public void set(Set<T> c) {
+        clear();
+        for (T t : c) {
+            delegate.add(t);
+        }
+        sortSet();
     }
 
     /**
@@ -71,28 +105,32 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     }
 
     /**
-     * add the arguments and sort according to priority
+     * add the arguments and sort according to the PriorityCollectionSorting
+     * value for the manager configuration
      * 
      * @param c
      *        list of elements to add
      */
     @SafeVarargs
     public final void add(T... c) {
+        int i = 0;
         for (T t : c) {
-            delegate.add(t);
+            delegate.add(i++, t);
         }
         sort();
     }
 
     /**
-     * add the arguments and sort according to priority
+     * add the arguments and sort according to the PriorityCollectionSorting
+     * value for the manager configuration
      * 
      * @param c
      *        list of elements to add
      */
     public void add(Iterable<T> c) {
+        int i = 0;
         for (T t : c) {
-            delegate.add(t);
+            delegate.add(i++, t);
         }
         sort();
     }
@@ -135,7 +173,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      */
     public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {
         checkNotNull(mimeType, "MIME-Type cannot be null");
-        PriorityCollection<T> pc = new PriorityCollection<>();
+        PriorityCollection<T> pc = new PriorityCollection<>(
+                configurationHolder);
         // adding directly to the delegate. No need to order because insertion
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {

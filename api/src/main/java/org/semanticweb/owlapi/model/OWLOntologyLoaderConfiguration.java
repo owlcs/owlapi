@@ -80,6 +80,32 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     private boolean strict = false;
     /** true if Dublin Core */
     private boolean treatDublinCoreAsBuiltIn = true;
+    /**sort configuration for priority collections*/
+    private PriorityCollectionSorting priorityCollectionSorting=PriorityCollectionSorting.ON_SET_INJECTION_ONLY;
+
+    /**
+     * Set the priorty collection sorting option.
+     * 
+     * @param sorting the sorting option to be used.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the new sorting option set.
+     */
+    public OWLOntologyLoaderConfiguration setPriorityCollectionSorting(
+            PriorityCollectionSorting sorting) {
+        if(priorityCollectionSorting==sorting) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.priorityCollectionSorting=sorting;
+        return configuration;
+    }
+
+    /**
+     * @return The {@code PriorityCollectionSorting} for this configuration. It determines how parsers, storers and mappers are ordered.
+     * Default is {@link PriorityCollectionSorting#ON_SET_INJECTION_ONLY}
+     */
+    public PriorityCollectionSorting getPriorityCollectionSorting() {
+        return priorityCollectionSorting;
+    }
 
     /**
      * Adds an ontology document IRI to the list of ontology imports that will

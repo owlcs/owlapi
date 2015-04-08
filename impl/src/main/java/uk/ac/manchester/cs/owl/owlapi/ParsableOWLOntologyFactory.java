@@ -56,13 +56,14 @@ import org.slf4j.LoggerFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
+public class ParsableOWLOntologyFactory
+        extends AbstractInMemOWLOntologyFactory {
 
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ParsableOWLOntologyFactory.class);
-    private final Set<String> parsableSchemes = new HashSet<>(Arrays.asList(
-            "http", "https", "file", "ftp"));
+    private final Set<String> parsableSchemes = new HashSet<>(
+            Arrays.asList("http", "https", "file", "ftp"));
 
     /**
      * @param builder
@@ -94,8 +95,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         if (documentSource.isInputStreamAvailable()) {
             return true;
         }
-        if (parsableSchemes.contains(documentSource.getDocumentIRI()
-                .getScheme())) {
+        if (parsableSchemes
+                .contains(documentSource.getDocumentIRI().getScheme())) {
             return true;
         }
         // If we can open an input stream then we can attempt to parse the
@@ -121,7 +122,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler handler,
             OWLOntologyLoaderConfiguration configuration)
-            throws OWLOntologyCreationException {
+                    throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers. If the
         // ontology is parsed successfully then we break out and return the
         // ontology.
@@ -146,7 +147,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // select a parser if the input source has format information and MIME
         // information
         PriorityCollection<OWLParserFactory> parsers = getParsers(
-                documentSource, manager.getOntologyParsers());
+                documentSource, manager, manager.getOntologyParsers());
         for (OWLParserFactory parserFactory : parsers) {
             OWLParser parser = parserFactory.createParser();
             try {
@@ -202,12 +203,15 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * 
      * @param documentSource
      *        document source
+     * @param manager
+     *        manager carrying a configuration
      * @param parsers
      *        parsers
      * @return selected parsers
      */
     private static PriorityCollection<OWLParserFactory> getParsers(
             OWLOntologyDocumentSource documentSource,
+            OWLOntologyManager manager,
             PriorityCollection<OWLParserFactory> parsers) {
         if (parsers.isEmpty()) {
             return parsers;
@@ -220,7 +224,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         if (documentSource.isFormatKnown()) {
             OWLDocumentFormat format = documentSource.getFormat();
             assert format != null;
-            candidateParsers = getParsersByFormat(format, parsers);
+            candidateParsers = getParsersByFormat(format, manager, parsers);
         }
         if (candidateParsers.isEmpty() && documentSource.isMIMETypeKnown()) {
             String mimeType = documentSource.getMIMEType();
@@ -238,14 +242,17 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * 
      * @param format
      *        document format
+     * @param manager
+     *        manager carrying the configuration
      * @param parsers
      *        parsers
      * @return candidate parsers
      */
     private static PriorityCollection<OWLParserFactory> getParsersByFormat(
-            @Nonnull OWLDocumentFormat format,
+            @Nonnull OWLDocumentFormat format, OWLOntologyManager manager,
             PriorityCollection<OWLParserFactory> parsers) {
-        PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>();
+        PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>(
+                manager);
         for (OWLParserFactory parser : parsers) {
             if (parser.getSupportedFormat().getKey().equals(format.getKey())) {
                 candidateParsers.add(parser);

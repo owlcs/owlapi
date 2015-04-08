@@ -129,13 +129,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     protected final Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = createSyncMap();
     @Nonnull
-    protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<>();
+    protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<>(this);
     @Nonnull
-    protected final PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<>();
+    protected final PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<>(this);
     @Nonnull
-    protected final PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>();
+    protected final PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>(this);
     @Nonnull
-    protected final PriorityCollection<OWLStorerFactory> ontologyStorers = new PriorityCollection<>();
+    protected final PriorityCollection<OWLStorerFactory> ontologyStorers = new PriorityCollection<>(this);
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
     protected final AtomicInteger loadCount = new AtomicInteger(0);
     protected final AtomicInteger importsLoadCount = new AtomicInteger(0);
