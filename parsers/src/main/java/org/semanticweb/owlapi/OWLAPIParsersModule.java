@@ -15,30 +15,14 @@ package org.semanticweb.owlapi;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.OwlapiModule;
-import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory;
-import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
-import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserFactory;
-import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory;
-import org.semanticweb.owlapi.latex.renderer.LatexStorerFactory;
-import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParserFactory;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
-import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterSyntaxStorerFactory;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLStorerFactory;
-import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory;
-import org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorerFactory;
-import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
-import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory;
-import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorerFactory;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
 import com.google.inject.Provides;
-import com.google.inject.multibindings.Multibinder;
 
 /**
  * OWLAPI module. Bindings can be overridden by subclassing this class, to allow
@@ -49,35 +33,6 @@ public class OWLAPIParsersModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        // Loading these using META-INF/services now
-        // configureParsers();
-        // configureStorers();
-    }
-
-    protected void configureStorers() {
-        multibind(OWLStorerFactory.class, RDFXMLStorerFactory.class,
-                OWLXMLStorerFactory.class, FunctionalSyntaxStorerFactory.class,
-                ManchesterSyntaxStorerFactory.class,
-                KRSS2OWLSyntaxStorerFactory.class, TurtleStorerFactory.class,
-                LatexStorerFactory.class);
-    }
-
-    protected void configureParsers() {
-        multibind(OWLParserFactory.class,
-                ManchesterOWLSyntaxOntologyParserFactory.class,
-                KRSS2OWLParserFactory.class, TurtleOntologyParserFactory.class,
-                OWLFunctionalSyntaxOWLParserFactory.class,
-                OWLXMLParserFactory.class, RDFXMLParserFactory.class);
-    }
-
-    @SafeVarargs
-    private final <T> Multibinder<T> multibind(Class<T> type,
-            @Nonnull Class<? extends T>... implementations) {
-        Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-        for (Class<? extends T> i : implementations) {
-            binder.addBinding().to(i);
-        }
-        return binder;
     }
 
     /**
