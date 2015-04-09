@@ -21,13 +21,12 @@ import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
-import org.semanticweb.owlapi.oboformat.OWLAPIOBOModule;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule;
 
 /**
  * Provides a point of convenience for creating an {@code OWLOntologyManager}
@@ -42,7 +41,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
     private static final long serialVersionUID = 40000L;
     private static final Injector INJECTOR = Guice.createInjector(
             new OWLAPIImplModule(), new OWLAPIParsersModule(),
-            new OWLAPIOBOModule(), new OWLAPIServiceLoaderModule());
+            new OWLAPIServiceLoaderModule());
 
     @Override
     public OWLOntologyManager get() {
