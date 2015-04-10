@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
@@ -125,12 +127,12 @@ public class RDFParserTestCase extends TestBase {
         OWLObjectProperty relatedTo = df.getOWLObjectProperty(
                 IRI.create("http://bibframe.org/vocab/relatedTo"));
         OWLOntology o = loadOntologyFromString(in);
-        for (OWLSubAnnotationPropertyOfAxiom ax : o
-                .getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
-            if (ax.getSuperProperty().getIRI().equals(relatedTo.getIRI())) {
-                fail(ax.toString());
-            }
-        }
+        Set<OWLSubAnnotationPropertyOfAxiom> axioms1 = o
+                .getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF);
+        assertEquals(0, axioms1.size());
+        Set<OWLSubObjectPropertyOfAxiom> axioms2 = o
+                .getAxioms(AxiomType.SUB_OBJECT_PROPERTY);
+        assertEquals(1, axioms2.size());
     }
 
 }
