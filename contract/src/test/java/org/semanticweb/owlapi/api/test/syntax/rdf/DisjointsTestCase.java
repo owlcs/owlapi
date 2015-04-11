@@ -22,16 +22,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
+import javax.annotation.Nonnull;
 
 /**
  * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
@@ -50,9 +45,15 @@ public class DisjointsTestCase extends TestBase {
 
     @Before
     public void setUpManager() {
-        OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
-        m.getOntologyFactories().add(new EmptyInMemOWLOntologyFactory(builder),
-                new ParsableOWLOntologyFactory(builder));
+        OWLOntologyBuilder builder = new OWLOntologyBuilder() {
+            @Nonnull
+            @Override
+            public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+                                                 @Nonnull OWLOntologyID ontologyID) {
+                return new OWLOntologyImpl(manager, ontologyID);
+            }
+        };
+        m.getOntologyFactories().add(new OWLOntologyFactoryImpl(builder));
     }
 
     @Test

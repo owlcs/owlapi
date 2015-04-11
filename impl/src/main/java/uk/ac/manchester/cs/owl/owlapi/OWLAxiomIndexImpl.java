@@ -212,8 +212,7 @@ public abstract class OWLAxiomIndexImpl extends
     }
 
     @Override
-    public Set<OWLEquivalentObjectPropertiesAxiom>
-            getEquivalentObjectPropertiesAxioms(
+    public Set<OWLEquivalentObjectPropertiesAxiom>getEquivalentObjectPropertiesAxioms(
                     OWLObjectPropertyExpression property) {
         return getAxioms(OWLEquivalentObjectPropertiesAxiom.class,
                 OWLObjectPropertyExpression.class, property, EXCLUDED,

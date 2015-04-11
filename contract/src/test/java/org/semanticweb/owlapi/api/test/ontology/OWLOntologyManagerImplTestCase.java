@@ -15,22 +15,18 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
+import org.semanticweb.owlapi.model.*;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -44,10 +40,17 @@ public class OWLOntologyManagerImplTestCase {
 
     @Before
     public void setUp() {
-        manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
+        manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
+        OWLOntologyBuilder builder = new OWLOntologyBuilder() {
+            @Nonnull
+            @Override
+            public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+                                                 @Nonnull OWLOntologyID ontologyID) {
+                return new OWLOntologyImpl(manager, ontologyID);
+            }
+        };
         manager.getOntologyFactories().add(
-                new EmptyInMemOWLOntologyFactory(builder));
+                new OWLOntologyFactoryImpl(builder));
     }
 
     @Test

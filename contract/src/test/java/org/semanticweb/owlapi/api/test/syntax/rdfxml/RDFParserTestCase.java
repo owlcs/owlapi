@@ -19,19 +19,24 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -46,7 +51,14 @@ public class RDFParserTestCase extends TestBase {
         // Use the reference implementation
         m.getOntologyStorers().set(new RDFXMLStorerFactory());
         m.getOntologyFactories().set(
-                new ParsableOWLOntologyFactory(new OWLOntologyBuilderImpl()));
+                new OWLOntologyFactoryImpl(new OWLOntologyBuilder() {
+                    @Nonnull
+                    @Override
+                    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+                                                         @Nonnull OWLOntologyID ontologyID) {
+                        return new OWLOntologyImpl(manager, ontologyID);
+                    }
+                }));
     }
 
     @Test

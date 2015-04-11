@@ -14,47 +14,61 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
 
+import com.google.inject.assistedinject.FactoryModuleBuilder;
 import org.semanticweb.owlapi.annotations.OwlapiModule;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
+import org.semanticweb.owlapi.model.*;
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import com.google.inject.multibindings.Multibinder;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.*;
 
-/**
- * OWLAPI impl module. Bindings can be overridden by subclassing this class, to
- * allow to replace part of the configuration without having to rewrite all of
- * it.
- */
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 @OwlapiModule
 public class OWLAPIImplModule extends AbstractModule {
 
-    @Nonnull
-    @Provides
-    protected static OWLDataFactory provideOWLDataFactory() {
-        return new OWLDataFactoryImpl(true, false);
-    }
-
-    @Nonnull
-    @Provides
-    protected static OWLOntologyManager provideOWLOntologyManager(
-            @Nonnull OWLDataFactory df) {
-        return new OWLOntologyManagerImpl(df);
-    }
-
-    @Nonnull
-    @Provides
-    protected static OWLOntologyBuilder provideOWLOntologyBuilder() {
-        return new OWLOntologyBuilderImpl();
-    }
-
     @Override
     protected void configure() {
-          multibind(OWLOntologyFactory.class, EmptyInMemOWLOntologyFactory.class,
-                ParsableOWLOntologyFactory.class);
+
+        bind(boolean.class)
+                .annotatedWith(CachingEnabled.class)
+                .toInstance(true);
+
+        bind(boolean.class)
+                .annotatedWith(CompressionEnabled.class)
+                .toInstance(false);
+
+        bind(OWLDataFactory.class)
+                .to(OWLDataFactoryImpl.class)
+                .asEagerSingleton();
+
+        bind(ReadWriteLock.class)
+                .to(ReentrantReadWriteLock.class)
+                .asEagerSingleton();
+
+        bind(OWLOntologyManager.class)
+                .to(OWLOntologyManagerImpl.class)
+                .asEagerSingleton();
+
+        bind(OWLOntologyManager.class)
+                .annotatedWith(NonConcurrentDelegate.class)
+                .to(OWLOntologyManagerImpl.class)
+                .asEagerSingleton();
+
+        bind(OWLOntologyBuilder.class)
+                .to(ConcurrentOWLOntologyBuilder.class);
+
+        bind(OWLOntologyBuilder.class)
+                .annotatedWith(NonConcurrentDelegate.class)
+                .to(NonConcurrentOWLOntologyBuilder.class);
+
+        install(new FactoryModuleBuilder()
+                .implement(OWLOntology.class, OWLOntologyImpl.class)
+                .build(OWLOntologyImplementationFactory.class));
+
+        multibind(OWLOntologyFactory.class, OWLOntologyFactoryImpl.class);
+
+
     }
 
     @SafeVarargs
