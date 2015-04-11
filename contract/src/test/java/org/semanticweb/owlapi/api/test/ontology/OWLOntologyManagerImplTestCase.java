@@ -27,10 +27,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -46,8 +46,7 @@ public class OWLOntologyManagerImplTestCase {
     public void setUp() {
         manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
-        manager.getOntologyFactories().add(
-                new EmptyInMemOWLOntologyFactory(builder));
+        manager.getOntologyFactories().set(new ParsableOWLOntologyFactory(builder));
     }
 
     @Test

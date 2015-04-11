@@ -53,8 +53,7 @@ public class OWLAPIImplModule extends AbstractModule {
 
     @Override
     protected void configure() {
-          multibind(OWLOntologyFactory.class, EmptyInMemOWLOntologyFactory.class,
-                ParsableOWLOntologyFactory.class);
+          multibind(OWLOntologyFactory.class, ParsableOWLOntologyFactory.class);
     }
 
     @SafeVarargs

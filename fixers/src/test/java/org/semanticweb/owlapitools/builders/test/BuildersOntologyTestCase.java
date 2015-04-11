@@ -16,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +37,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -82,10 +80,10 @@ import org.semanticweb.owlapitools.builders.BuilderSubObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderSymmetricObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderTransitiveObjectProperty;
 
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class BuildersOntologyTestCase {
@@ -151,9 +149,8 @@ public class BuildersOntologyTestCase {
     @Nonnull
     private OWLOntologyManager getManager() {
         OWLOntologyManager instance = new OWLOntologyManagerImpl(df);
-        instance.setOntologyFactories(Collections
-                .singleton((OWLOntologyFactory) new EmptyInMemOWLOntologyFactory(
-                        new OWLOntologyBuilderImpl())));
+        instance.getOntologyFactories().set( new ParsableOWLOntologyFactory(
+                        new OWLOntologyBuilderImpl()));
         return instance;
     }
 
