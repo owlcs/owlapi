@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.rdf;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -76,6 +74,9 @@ import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 import com.google.common.base.Optional;
+
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -570,9 +571,7 @@ public abstract class RDFRendererBase {
         final Set<OWLAxiom> axioms = new TreeSet<>();
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
-            for (OWLOntology o : ontology.getImportsClosure()) {
-                axioms.addAll(o.getAnnotationAssertionAxioms(entity.getIRI()));
-            }
+            axioms.addAll(ontology.getAnnotationAssertionAxioms(entity.getIRI()));
         }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {
