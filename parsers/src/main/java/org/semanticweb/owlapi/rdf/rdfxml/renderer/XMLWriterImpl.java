@@ -438,7 +438,12 @@ public class XMLWriterImpl implements XMLWriter {
 
         private void writeTextContent() throws IOException {
             if (textContent != null) {
-                writer.write(XMLUtils.escapeXML(textContent));
+                // only escape the data if this is not an XML literal
+                if("http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral".equals(attributes.get("rdf:datatype"))) {
+                    writer.write(textContent);
+                } else {
+                    writer.write(XMLUtils.escapeXML(textContent));
+                }
             }
         }
 

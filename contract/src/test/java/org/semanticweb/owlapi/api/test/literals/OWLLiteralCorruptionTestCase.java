@@ -45,6 +45,18 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         OWLLiteral literal = Literal(testString);
         assertEquals("Out = in ? false", literal.getLiteral(), testString);
     }
+    @Test
+    public void shouldRoundTripXMLLiteral() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String literal="<div xmlns='http://www.w3.org/1999/xhtml'><h3>[unknown]</h3><p>(describe NameGroup \"[unknown]\")</p></div>";
+        OWLOntology o=m.createOntology();
+        OWLDataProperty p=df.getOWLDataProperty(IRI.create("urn:test#p"));
+        OWLLiteral l=df.getOWLLiteral(literal, OWL2Datatype.RDF_XML_LITERAL);
+        OWLNamedIndividual i=df.getOWLNamedIndividual(IRI.create("urn:test#i"));
+        m.addAxiom(o, df.getOWLDataPropertyAssertionAxiom(p, i, l));
+        String string = saveOntology(o).toString();
+        assertTrue(string.contains(literal));
+    }
+    
 
     @Test
     public void shouldRoundtripPaddedLiterals()
