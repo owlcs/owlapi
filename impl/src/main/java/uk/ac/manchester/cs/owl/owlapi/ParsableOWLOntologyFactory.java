@@ -25,7 +25,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -75,16 +74,18 @@ public class ParsableOWLOntologyFactory
         super(builder);
     }
 
+    /**
+     * Overriden - We don't create new empty ontologies - this isn't our
+     * responsibility.
+     * 
+     * @param documentIRI
+     *        ignored
+     * @return false
+     */
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyManager manager,
-            OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler) {
-        OWLOntology ont = super.createOWLOntology(manager, ontologyID,
-                documentIRI, handler);
-        handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
-        return ont;
+    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
+        return false;
     }
-
 
     @Override
     public boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource) {

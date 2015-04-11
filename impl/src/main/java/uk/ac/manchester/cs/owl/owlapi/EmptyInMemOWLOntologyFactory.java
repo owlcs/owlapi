@@ -13,57 +13,59 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
-import org.semanticweb.owlapi.annotations.OwlapiModule;
-import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
-import com.google.inject.multibindings.Multibinder;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * OWLAPI impl module. Bindings can be overridden by subclassing this class, to
- * allow to replace part of the configuration without having to rewrite all of
- * it.
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0
  */
-@OwlapiModule
-public class OWLAPIImplModule extends AbstractModule {
+public class EmptyInMemOWLOntologyFactory extends
+        AbstractInMemOWLOntologyFactory {
 
-    @Nonnull
-    @Provides
-    protected static OWLDataFactory provideOWLDataFactory() {
-        return new OWLDataFactoryImpl(true, false);
+    private static final long serialVersionUID = 40000L;
+
+    /**
+     * @param builder
+     *        injected ontology builder
+     */
+    @Inject
+    public EmptyInMemOWLOntologyFactory(@Nonnull OWLOntologyBuilder builder) {
+        super(builder);
     }
 
     @Nonnull
-    @Provides
-    protected static OWLOntologyManager provideOWLOntologyManager(
-            @Nonnull OWLDataFactory df) {
-        return new OWLOntologyManagerImpl(df);
-    }
-
-    @Nonnull
-    @Provides
-    protected static OWLOntologyBuilder provideOWLOntologyBuilder() {
-        return new OWLOntologyBuilderImpl();
+    @Override
+    public OWLOntology loadOWLOntology(OWLOntologyManager manager,
+            OWLOntologyDocumentSource documentSource,
+            OWLOntologyCreationHandler handler,
+            OWLOntologyLoaderConfiguration configuration) {
+        throw new OWLRuntimeException(new UnsupportedOperationException(
+                "Cannot load OWL ontologies in an empty factory."));
     }
 
     @Override
-    protected void configure() {
-          multibind(OWLOntologyFactory.class, EmptyInMemOWLOntologyFactory.class,
-                ParsableOWLOntologyFactory.class);
+    public OWLOntology createOWLOntology(OWLOntologyManager manager,
+            OWLOntologyID ontologyID, IRI documentIRI,
+            OWLOntologyCreationHandler handler) {
+        OWLOntology ont = super.createOWLOntology(manager, ontologyID,
+                documentIRI, handler);
+        handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
+        return ont;
     }
 
-    @SafeVarargs
-    private final <T> Multibinder<T> multibind(Class<T> type,
-            @Nonnull Class<? extends T>... implementations) {
-        Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-        for (Class<? extends T> i : implementations) {
-            binder.addBinding().to(i);
-        }
-        return binder;
+    @Override
+    public boolean canLoad(OWLOntologyDocumentSource documentSource) {
+        return false;
     }
 }

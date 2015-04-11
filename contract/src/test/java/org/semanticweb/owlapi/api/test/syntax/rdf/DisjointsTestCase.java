@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
@@ -50,7 +51,8 @@ public class DisjointsTestCase extends TestBase {
     @Before
     public void setUpManager() {
         OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
-        m.getOntologyFactories().set(new ParsableOWLOntologyFactory(builder));
+        m.getOntologyFactories().add(new EmptyInMemOWLOntologyFactory(builder),
+                new ParsableOWLOntologyFactory(builder));
     }
 
     @Test
