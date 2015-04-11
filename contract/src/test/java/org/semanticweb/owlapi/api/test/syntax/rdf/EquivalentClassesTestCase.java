@@ -29,7 +29,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  *         Informatics Group
  * @since 2.0.0
  */
-public class EquivalentClassesTestCase extends AbstractRendererAndParser {
+public class EquivalentClassesTestCase
+    extends AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override

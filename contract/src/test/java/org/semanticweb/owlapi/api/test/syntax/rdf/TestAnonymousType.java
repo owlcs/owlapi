@@ -34,15 +34,11 @@ public class TestAnonymousType extends AbstractRendererAndParserTestCase {
     @Override
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
-        OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(
+        OWLClassExpression desc = df.getOWLObjectComplementOf(
                 createClass());
         OWLIndividual ind = createIndividual();
-        axioms.add(getDataFactory().getOWLClassAssertionAxiom(desc, ind));
+        axioms.add(df.getOWLClassAssertionAxiom(desc, ind));
         return axioms;
     }
 
-    @Override
-    protected String getClassExpression() {
-        return "Anonymous type test case";
-    }
 }

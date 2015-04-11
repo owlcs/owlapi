@@ -31,19 +31,14 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class TestNegativeDataPropertyAssertionAxiom extends
         AbstractRendererAndParserTestCase {
 
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Negative data property assertion test case";
-    }
 
     @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual subj = createIndividual();
         OWLDataProperty prop = createDataProperty();
-        OWLLiteral obj = getDataFactory().getOWLLiteral("TestConstant");
-        OWLAxiom ax = getDataFactory()
+        OWLLiteral obj = df.getOWLLiteral("TestConstant");
+        OWLAxiom ax = df
                 .getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj);
         return singleton(ax);
     }

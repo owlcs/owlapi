@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.io.File;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -26,63 +25,48 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({ "javadoc", "serial" })
 public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
-    @Nonnull
-    private final OWLOntologyManager man = new OWLOntologyManagerImpl(
-            new OWLDataFactoryImpl());
-
     @Before
-    public void setUp() {
-        OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
-        man.getOntologyFactories().add(
-                new EmptyInMemOWLOntologyFactory(builder),
-                new ParsableOWLOntologyFactory(builder));
-        man.getOntologyStorers().add(new RDFXMLStorerFactory());
-        man.getOntologyParsers().add(new RDFXMLParserFactory());
-    }
+    public void setUpManager() {
+        m.getOntologyFactories()
+            .add(new OWLOntologyFactoryImpl(new OWLOntologyBuilder() {
 
-    @Nonnull
-    public OWLOntologyManager getManager() {
-        return man;
-    }
-
-    @Nonnull
-    protected OWLDataFactory getDataFactory() {
-        return man.getOWLDataFactory();
+                @Nonnull
+                @Override
+                public OWLOntology createOWLOntology(
+                    @Nonnull OWLOntologyManager manager,
+                    @Nonnull OWLOntologyID ontologyID) {
+                    return new OWLOntologyImpl(manager, ontologyID);
+                }
+            }));
+        m.getOntologyStorers().add(new RDFXMLStorerFactory());
     }
 
     @Test
     public void testSaveAndReload() throws Exception {
-        OWLOntology ontA = man.createOntology(IRI
-                .create("http://rdfxmltests/ontology"));
+        OWLOntology ontA = m
+            .createOntology(IRI.create("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
-            man.applyChange(new AddAxiom(ontA, ax));
+            m.applyChange(new AddAxiom(ontA, ax));
         }
-        File tempFile = folder.newFile("Ontology.owlapi");
-        man.saveOntology(ontA, IRI.create(tempFile.toURI()));
-        man.removeOntology(ontA);
-        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI
-                .create(tempFile.toURI()));
+        OWLOntology ontB = roundTrip(ontA);
         Set<OWLLogicalAxiom> aMinusB = asSet(ontA.logicalAxioms());
         aMinusB.removeAll(asList(ontB.axioms()));
         Set<OWLLogicalAxiom> bMinusA = asSet(ontB.logicalAxioms());
@@ -93,12 +77,12 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
             msg.append("=> ").append(aMinusB.size())
-                    .append(" axioms lost in roundtripping.\n");
+                .append(" axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : aMinusB) {
                 msg.append(axiom + "\n");
             }
             msg.append("=> ").append(bMinusA.size())
-                    .append(" axioms added after roundtripping.\n");
+                .append(" axioms added after roundtripping.\n");
             for (OWLAxiom axiom : bMinusA) {
                 msg.append(axiom + "\n");
             }
@@ -107,6 +91,4 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
     }
 
     protected abstract Set<OWLAxiom> getAxioms();
-
-    protected abstract String getClassExpression();
 }

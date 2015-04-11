@@ -21,7 +21,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
+import com.google.inject.assistedinject.Assisted;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -53,8 +55,10 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
      * @param ontologyID
      *        ontology id
      */
-    public OWLOntologyImpl(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntologyID ontologyID) {
+    @Inject
+    public OWLOntologyImpl(
+            @Nonnull OWLOntologyManager manager,
+            @Nonnull @Assisted OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 

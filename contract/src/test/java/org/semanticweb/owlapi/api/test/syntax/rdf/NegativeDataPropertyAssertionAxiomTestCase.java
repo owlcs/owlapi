@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * @since 2.0.0
  */
 public class NegativeDataPropertyAssertionAxiomTestCase extends
-        AbstractRendererAndParser {
+ AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override

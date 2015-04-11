@@ -30,11 +30,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class TestNegativeObjectPropertyAssertionAxiom extends
         AbstractRendererAndParserTestCase {
 
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Negative object property assertion test case";
-    }
 
     @Nonnull
     @Override
@@ -42,7 +37,7 @@ public class TestNegativeObjectPropertyAssertionAxiom extends
         OWLIndividual subj = createIndividual();
         OWLObjectProperty prop = createObjectProperty();
         OWLIndividual obj = createIndividual();
-        OWLAxiom ax = getDataFactory()
+        OWLAxiom ax = df
                 .getOWLNegativeObjectPropertyAssertionAxiom(prop, subj, obj);
         return singleton(ax);
     }

@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.api.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -52,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
@@ -69,12 +68,9 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-
 import com.google.common.collect.Sets;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 @SuppressWarnings("javadoc")
 public class Builder {
@@ -154,10 +150,9 @@ public class Builder {
     // no parsers and storers injected
     @Nonnull
     private OWLOntologyManager getManager() {
-        OWLOntologyManager instance = new OWLOntologyManagerImpl(df);
-        instance.setOntologyFactories(Collections
-                .singleton((OWLOntologyFactory) new EmptyInMemOWLOntologyFactory(
-                        new OWLOntologyBuilderImpl())));
+        OWLOntologyManager instance = OWLManager.createOWLOntologyManager();
+        instance.getOntologyParsers().clear();
+        instance.getOntologyStorers().clear();
         return instance;
     }
 

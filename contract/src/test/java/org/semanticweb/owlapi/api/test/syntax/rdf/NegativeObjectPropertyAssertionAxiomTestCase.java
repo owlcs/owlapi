@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * @since 2.0.0
  */
 public class NegativeObjectPropertyAssertionAxiomTestCase extends
-        AbstractRendererAndParser {
+ AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override

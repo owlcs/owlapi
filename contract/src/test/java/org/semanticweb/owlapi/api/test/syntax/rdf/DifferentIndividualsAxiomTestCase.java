@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  * @since 2.0.0
  */
 public class DifferentIndividualsAxiomTestCase extends
-        AbstractRendererAndParser {
+ AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override

@@ -10,53 +10,84 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.syntax.rdf;
+package org.semanticweb.owlapi.rdf;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
+import java.io.File;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import javax.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
-public abstract class AbstractRendererAndParser extends TestBase {
+@SuppressWarnings({ "javadoc", "null" })
+public abstract class AbstractRendererAndParserTestCase extends TestBase {
+
+    @Nonnull
+    private final OWLOntologyManager man = new OWLOntologyManagerImpl(
+            new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
 
     @Before
-    public void setUpManager() {
-        m.getOntologyFactories().add(
-                new ParsableOWLOntologyFactory(new OWLOntologyBuilderImpl()));
-        m.getOntologyStorers().add(new RDFXMLStorerFactory());
+    public void setUp() {
+        OWLOntologyBuilder builder = new OWLOntologyBuilder() {
+            @Nonnull
+            @Override
+            public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+                                                 @Nonnull OWLOntologyID ontologyID) {
+                return new OWLOntologyImpl(manager, ontologyID);
+            }
+        };
+        man.getOntologyFactories().add(new OWLOntologyFactoryImpl(builder));
+        man.getOntologyStorers().add(new RDFXMLStorerFactory());
+        man.getOntologyParsers().add(new RDFXMLParserFactory());
+    }
+
+    @Nonnull
+    public OWLOntologyManager getManager() {
+        return man;
+    }
+
+    @Nonnull
+    protected OWLDataFactory getDataFactory() {
+        return man.getOWLDataFactory();
     }
 
     @Test
     public void testSaveAndReload() throws Exception {
-        OWLOntology ontA = m.createOntology(IRI("http://rdfxmltests/ontology"));
+        OWLOntology ontA = man.createOntology(IRI
+                .create("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
-            m.applyChange(new AddAxiom(ontA, ax));
+            man.applyChange(new AddAxiom(ontA, ax));
         }
-        OWLOntology ontB = roundTrip(ontA);
-        Set<OWLLogicalAxiom> aMinusB = asSet(ontA.logicalAxioms());
-        aMinusB.removeAll(asList(ontB.axioms()));
-        Set<OWLLogicalAxiom> bMinusA = ontB.logicalAxioms().collect(toSet());
-        bMinusA.removeAll(asList(ontA.axioms()));
+        // OWLOntologyAnnotationAxiom anno =
+        // getDataFactory().getOWLOntologyAnnotationAxiom(ontA,
+        // getDataFactory().getCommentAnnotation(getClassExpression()));
+        // man.applyChange(new AddAxiom(ontA, anno));
+        File tempFile = folder.newFile("Ontology.owlapi");
+        man.saveOntology(ontA, IRI.create(tempFile.toURI()));
+        man.removeOntology(ontA);
+        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI
+                .create(tempFile.toURI()));
+        Set<OWLLogicalAxiom> aMinusB = ontA.getLogicalAxioms();
+        aMinusB.removeAll(ontB.getAxioms());
+        Set<OWLLogicalAxiom> bMinusA = ontB.getLogicalAxioms();
+        bMinusA.removeAll(ontA.getAxioms());
         StringBuilder msg = new StringBuilder();
         if (aMinusB.isEmpty() && bMinusA.isEmpty()) {
             msg.append("Ontology save/load roundtrip OK.\n");
@@ -77,4 +108,6 @@ public abstract class AbstractRendererAndParser extends TestBase {
     }
 
     protected abstract Set<OWLAxiom> getAxioms();
+
+    protected abstract String getClassExpression();
 }

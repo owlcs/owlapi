@@ -47,8 +47,4 @@ public class TestQCR extends AbstractRendererAndParserTestCase {
         return singleton(ax);
     }
 
-    @Override
-    protected String getClassExpression() {
-        return "Qualified Cardinality";
-    }
 }

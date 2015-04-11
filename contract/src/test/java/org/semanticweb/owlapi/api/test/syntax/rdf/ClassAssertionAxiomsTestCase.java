@@ -27,7 +27,8 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  *         Informatics Group
  * @since 2.0.0
  */
-public class ClassAssertionAxiomsTestCase extends AbstractRendererAndParser {
+public class ClassAssertionAxiomsTestCase
+    extends AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override

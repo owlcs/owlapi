@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  *         Informatics Group
  * @since 2.1.0
  */
-public class AnonymousTypeTestCase extends AbstractRendererAndParser {
+public class AnonymousTypeTestCase extends AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override

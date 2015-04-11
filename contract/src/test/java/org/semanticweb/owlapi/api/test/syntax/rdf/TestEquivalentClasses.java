@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -31,11 +29,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class TestEquivalentClasses extends AbstractRendererAndParserTestCase {
 
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Equivalent classes axioms test case";
-    }
 
     @Override
     protected Set<OWLAxiom> getAxioms() {

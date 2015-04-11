@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 
@@ -37,8 +38,10 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -83,12 +86,12 @@ import org.semanticweb.owlapitools.builders.BuilderSubObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderSymmetricObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderTransitiveObjectProperty;
 
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-
 import com.google.common.collect.Sets;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
 @SuppressWarnings({ "javadoc" })
 public class BuildersOntologyTestCase {
@@ -147,10 +150,16 @@ public class BuildersOntologyTestCase {
     // no parsers and storers injected
     @Nonnull
     private OWLOntologyManager getManager() {
-        OWLOntologyManager instance = new OWLOntologyManagerImpl(df);
+        OWLOntologyManager instance = new OWLOntologyManagerImpl(df, new ReentrantReadWriteLock());
         instance.setOntologyFactories(Collections
-                .singleton((OWLOntologyFactory) new EmptyInMemOWLOntologyFactory(
-                        new OWLOntologyBuilderImpl())));
+                .singleton((OWLOntologyFactory) new OWLOntologyFactoryImpl(new OWLOntologyBuilder() {
+                    @Nonnull
+                    @Override
+                    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+                                                         @Nonnull OWLOntologyID ontologyID) {
+                        return new OWLOntologyImpl(manager, ontologyID);
+                    }
+                })));
         return instance;
     }
 

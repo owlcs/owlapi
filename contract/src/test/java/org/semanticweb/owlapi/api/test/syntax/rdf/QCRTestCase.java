@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  *         Informatics Group
  * @since 2.1.1
  */
-public class QCRTestCase extends AbstractRendererAndParser {
+public class QCRTestCase extends AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override

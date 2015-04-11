@@ -27,6 +27,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.providers.ClassProvider;
@@ -59,8 +60,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
      * @param compressionEnabled
      *        true if literals should be compressed
      */
-    public OWLDataFactoryImpl(boolean cachingEnabled,
-        boolean compressionEnabled) {
+    @Inject
+    public OWLDataFactoryImpl(@CachingEnabled boolean cachingEnabled, @CompressionEnabled boolean compressionEnabled) {
         this.cachingEnabled = cachingEnabled;
         this.compressionEnabled = compressionEnabled;
         if (this.cachingEnabled) {

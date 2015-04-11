@@ -30,11 +30,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 public class TestDifferentIndividualsAxiom extends
         AbstractRendererAndParserTestCase {
 
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Different individuals axioms test case";
-    }
+
 
     @Nonnull
     @Override
@@ -43,7 +39,7 @@ public class TestDifferentIndividualsAxiom extends
         for (int i = 0; i < 5; i++) {
             individuals.add(createIndividual());
         }
-        OWLAxiom ax = getDataFactory().getOWLDifferentIndividualsAxiom(
+        OWLAxiom ax = df.getOWLDifferentIndividualsAxiom(
                 individuals);
         return singleton(ax);
     }

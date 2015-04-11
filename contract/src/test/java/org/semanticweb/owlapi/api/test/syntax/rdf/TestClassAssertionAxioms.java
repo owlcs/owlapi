@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -29,17 +27,12 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  */
 public class TestClassAssertionAxioms extends AbstractRendererAndParserTestCase {
 
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Class assertion axioms test case";
-    }
 
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual ind = createIndividual();
         OWLClass cls = createClass();
-        OWLAxiom ax = getDataFactory().getOWLClassAssertionAxiom(cls, ind);
+        OWLAxiom ax = df.getOWLClassAssertionAxiom(cls, ind);
         return singleton(ax);
     }
 }
