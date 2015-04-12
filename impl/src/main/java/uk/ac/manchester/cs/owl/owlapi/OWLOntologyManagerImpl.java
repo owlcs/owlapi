@@ -1229,12 +1229,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * 
      * @param ontologyID
      *        The ontology ID for which a document IRI is to be retrieved
-     * @param quiet
-     *        If set to {@code true} and a mapping can't be found then a value
-     *        of {@code null} is returned. If set to {@code false} and a mapping
-     *        can't be found then an exception
-     *        {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
-     *        is thrown.
      * @return The document IRI that corresponds to the ontology IRI, or
      *         {@code null} if no physical URI can be found.
      */
@@ -1244,14 +1238,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (!defIRI.isPresent()) {
             return null;
         }
+        IRI iri = defIRI.get();
+        assert iri!=null;
         for (OWLOntologyIRIMapper mapper : documentMappers) {
-            IRI documentIRI = mapper
-                    .getDocumentIRI(defIRI.get());
+            IRI documentIRI = mapper.getDocumentIRI(iri);
             if (documentIRI != null) {
                 return documentIRI;
             }
         }
-        return defIRI.get();
+        return iri;
     }
 
     protected final void installDefaultURIMappers() {    }

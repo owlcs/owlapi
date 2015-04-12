@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import com.google.common.io.Closeables;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,6 +29,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -35,13 +37,13 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.google.common.io.Closeables;
 
 /**
  * A mapper which given a root folder attempts to automatically discover and map
@@ -190,14 +192,13 @@ public class AutoIRIMapper extends DefaultHandler implements
         }
     }
 
-    static Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
+    static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
 
     /**
      * Search first 100 lines for FSS style Ontology(&lt;IRI&gt; ...
-     * @param file
+     * @param file the file to parse
      */
-    private void parseFSSFile(File file) {
-        Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
+    private void parseFSSFile(@Nonnull File file) {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(

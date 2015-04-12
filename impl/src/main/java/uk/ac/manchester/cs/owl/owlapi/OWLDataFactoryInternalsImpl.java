@@ -12,22 +12,35 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import com.google.common.collect.Interner;
-import com.google.common.collect.Interners;
 import java.lang.ref.WeakReference;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.semanticweb.owlapi.model.*;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.WeakIndexCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.google.common.collect.Interner;
+import com.google.common.collect.Interners;
 
 /** @author ignazio */
 public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCache {
@@ -109,7 +122,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         }
         annotationsCache = annotationsCacheBuilder.build(new CacheLoader<OWLAnnotation, OWLAnnotation>() {
             @Override
-            public OWLAnnotation load(OWLAnnotation key) throws Exception {
+            public OWLAnnotation load(OWLAnnotation key) {
                 return key;
             }
         });

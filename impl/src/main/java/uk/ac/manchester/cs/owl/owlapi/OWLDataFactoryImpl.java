@@ -61,10 +61,16 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     //@formatter:on
     protected OWLDataFactoryInternals dataFactoryInternals;
 
+    /**
+     * @return true if caching is enabled
+     */
     public boolean isCachingEnabled() {
         return cachingEnabled;
     }
 
+    /**
+     * @return true if compression is enabled
+     */
     public boolean isCompressionEnabled() {
         return compressionEnabled;
     }

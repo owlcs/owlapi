@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import com.google.common.io.Closeables;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,14 +21,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+
 import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import org.tukaani.xz.FilterOptions;
 import org.tukaani.xz.LZMA2Options;
 import org.tukaani.xz.UnsupportedOptionsException;
 import org.tukaani.xz.XZOutputStream;
+
+import com.google.common.io.Closeables;
 
 /**
  * An ontology document target which can write to a XZ File. Notice that this
@@ -57,13 +61,17 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoClos
      *
      * @param os          target File
      * @param presetLevel LZMA2 Compression preset level
-     * @return
+     * @throws UnsupportedOptionsException if the options selected are not acceptable
      */
-    public XZFileDocumentTarget(File os, int presetLevel) throws UnsupportedOptionsException {
+    public XZFileDocumentTarget(@Nonnull File os, int presetLevel) throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
-
-    public XZFileDocumentTarget(File file) {
+    /**
+     * Construct an XZ document target
+     *
+     * @param file          target File
+     */
+    public XZFileDocumentTarget(@Nonnull File file) {
         this(file, new LZMA2Options());
     }
     @Override
