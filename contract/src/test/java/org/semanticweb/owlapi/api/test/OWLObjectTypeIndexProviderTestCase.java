@@ -15,8 +15,10 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -67,6 +69,10 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 @SuppressWarnings({ "javadoc" })
 public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
+    @BeforeClass
+    public static void setUp() {
+        Builder.setDF(OWLManager.getOWLDataFactory());
+    }
     Builder b = new Builder();
     OWLObjectTypeIndexProvider t = new OWLObjectTypeIndexProvider();
 

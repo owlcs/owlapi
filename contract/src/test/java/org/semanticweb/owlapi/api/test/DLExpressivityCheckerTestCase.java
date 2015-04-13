@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -48,6 +49,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
+        Builder.setDF(OWLManager.getOWLDataFactory());
         Builder b = new Builder();
         Map<OWLAxiom, String> map = new LinkedHashMap<>();
         map.put(b.dRange(), "AL(D)");

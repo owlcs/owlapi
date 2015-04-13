@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxOWLParserFactory;
 import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxStorerFactory;
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
@@ -78,6 +79,7 @@ public class ParsersStorersTestCase extends TestBase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
+        Builder.setDF(OWLManager.getOWLDataFactory());
         Builder b = new Builder();
         Collection<Object[]> toReturn = new ArrayList<>();
         for (OWLAxiom ax : b.all()) {

@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
@@ -42,6 +43,7 @@ public class VisitorsTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
+        Builder.setDF(OWLManager.getOWLDataFactory());
         Builder b = new Builder();
         Map<OWLObject, String> map = new LinkedHashMap<>();
         map.put(b.rule(),

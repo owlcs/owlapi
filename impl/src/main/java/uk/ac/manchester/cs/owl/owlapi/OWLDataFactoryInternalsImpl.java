@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -104,7 +105,8 @@ public class OWLDataFactoryInternalsImpl
      * @param useCompression
      *        true if literals should be compressed
      */
-    public OWLDataFactoryInternalsImpl(boolean useCompression) {
+    @Inject
+    public OWLDataFactoryInternalsImpl(@CompressionEnabled boolean useCompression) {
         super(useCompression);
         classesByURI = buildCache();
         objectPropertiesByURI = buildCache();

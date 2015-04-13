@@ -70,13 +70,15 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 import com.google.common.collect.Sets;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-
 @SuppressWarnings("javadoc")
 public class Builder {
 
     @Nonnull
-    private final OWLDataFactory df = new OWLDataFactoryImpl(true, false);
+    private static OWLDataFactory df;
+
+    public static void setDF(OWLDataFactory datafactory) {
+        df=datafactory;
+    }
     @Nonnull
     private final OWLAnnotationProperty ap = df
             .getOWLAnnotationProperty("urn:test#ann");
