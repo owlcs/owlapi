@@ -28,7 +28,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.multibindings.Multibinder;
 
+import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentOWLOntologyBuilder;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentDelegate;
 import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentOWLOntologyBuilder;
 
@@ -38,8 +40,25 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.NonConcurrentOWLOntologyBuilder
 @OwlapiModule
 public class OWLAPIImplModule extends AbstractModule {
 
+    private final Concurrency concurrency;
+
+    public OWLAPIImplModule(Concurrency concurrency) {
+        this.concurrency = concurrency;
+    }
+
     @Override
     protected void configure() {
+
+        if (concurrency == Concurrency.CONCURRENT) {
+            bind(ReadWriteLock.class)
+                    .to(ReentrantReadWriteLock.class)
+                    .asEagerSingleton();
+        }
+        else {
+            bind(ReadWriteLock.class)
+                    .to(NoOpReadWriteLock.class)
+                    .asEagerSingleton();
+        }
 
         bind(boolean.class)
                 .annotatedWith(CachingEnabled.class)
@@ -51,10 +70,6 @@ public class OWLAPIImplModule extends AbstractModule {
 
         bind(OWLDataFactory.class)
                 .to(OWLDataFactoryImpl.class)
-                .asEagerSingleton();
-
-        bind(ReadWriteLock.class)
-                .to(ReentrantReadWriteLock.class)
                 .asEagerSingleton();
 
         bind(OWLOntologyManager.class)
