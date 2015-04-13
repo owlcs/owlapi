@@ -27,8 +27,25 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 @OwlapiModule
 public class OWLAPIImplModule extends AbstractModule {
 
+    private final Concurrency concurrency;
+
+    public OWLAPIImplModule(Concurrency concurrency) {
+        this.concurrency = concurrency;
+    }
+
     @Override
     protected void configure() {
+
+        if (concurrency == Concurrency.CONCURRENT) {
+            bind(ReadWriteLock.class)
+                    .to(ReentrantReadWriteLock.class)
+                    .asEagerSingleton();
+        }
+        else {
+            bind(ReadWriteLock.class)
+                    .to(NoOpReadWriteLock.class)
+                    .asEagerSingleton();
+        }
 
         bind(boolean.class)
                 .annotatedWith(CachingEnabled.class)
@@ -40,10 +57,6 @@ public class OWLAPIImplModule extends AbstractModule {
 
         bind(OWLDataFactory.class)
                 .to(OWLDataFactoryImpl.class)
-                .asEagerSingleton();
-
-        bind(ReadWriteLock.class)
-                .to(ReentrantReadWriteLock.class)
                 .asEagerSingleton();
 
         bind(OWLOntologyManager.class)

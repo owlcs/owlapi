@@ -28,6 +28,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
 
 /**
  * Provides a point of convenience for creating an {@code OWLOntologyManager}
@@ -41,12 +42,6 @@ public class OWLManager implements OWLOntologyManagerFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    private static Injector createInjector() {
-        return Guice.createInjector(
-                new OWLAPIImplModule(),
-                new OWLAPIParsersModule(),
-                new OWLAPIServiceLoaderModule());
-    }
 
     @Override
     public OWLOntologyManager get() {
@@ -61,10 +56,17 @@ public class OWLManager implements OWLOntologyManagerFactory {
      */
     @Nonnull
     public static OWLOntologyManager createOWLOntologyManager() {
-        Injector injector = createInjector();
-        OWLOntologyManager instance = injector.getInstance(OWLOntologyManager.class);
-        injector.injectMembers(instance);
-        return verifyNotNull(instance);
+        return instatiateOWLOntologyManager(Concurrency.NON_CONCURRENT);
+    }
+
+    /**
+     * Creates an OWL ontology manager that is configured with the standard parsers and storers and provides
+     * locking for concurrent access.
+     * @return The new manager.
+     */
+    @Nonnull
+    public static OWLOntologyManager createConcurrentOWLOntologyManager() {
+        return instatiateOWLOntologyManager(Concurrency.CONCURRENT);
     }
 
     /**
@@ -74,13 +76,29 @@ public class OWLManager implements OWLOntologyManagerFactory {
      */
     @Nonnull
     public static OWLDataFactory getOWLDataFactory() {
-        return verifyNotNull(createInjector().getInstance(OWLDataFactory.class));
+        return verifyNotNull(createInjector(Concurrency.NON_CONCURRENT).getInstance(OWLDataFactory.class));
     }
 
     /**
      * @return an initialized manchester syntax parser for parsing strings
      */
     public static ManchesterOWLSyntaxParser createManchesterParser() {
-        return createInjector().getInstance(ManchesterOWLSyntaxParser.class);
+        return createInjector(Concurrency.NON_CONCURRENT).getInstance(ManchesterOWLSyntaxParser.class);
     }
+
+    private static Injector createInjector(Concurrency concurrency) {
+        return Guice.createInjector(
+                new OWLAPIImplModule(concurrency),
+                new OWLAPIParsersModule(),
+                new OWLAPIServiceLoaderModule());
+    }
+
+
+    private static OWLOntologyManager instatiateOWLOntologyManager(Concurrency concurrency) {
+        Injector injector = createInjector(concurrency);
+        OWLOntologyManager instance = injector.getInstance(OWLOntologyManager.class);
+        injector.injectMembers(instance);
+        return verifyNotNull(instance);
+    }
+
 }
