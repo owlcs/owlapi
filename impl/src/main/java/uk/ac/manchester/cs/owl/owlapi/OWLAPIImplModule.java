@@ -48,16 +48,15 @@ public class OWLAPIImplModule extends AbstractModule {
         }
 
         bind(boolean.class)
-                .annotatedWith(CachingEnabled.class)
-                .toInstance(true);
-
-        bind(boolean.class)
                 .annotatedWith(CompressionEnabled.class)
                 .toInstance(false);
 
         bind(OWLDataFactory.class)
                 .to(OWLDataFactoryImpl.class)
                 .asEagerSingleton();
+
+        bind(OWLDataFactoryInternals.class)
+                .to(OWLDataFactoryInternalsImpl.class);
 
         bind(OWLOntologyManager.class)
                 .to(OWLOntologyManagerImpl.class)

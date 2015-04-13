@@ -64,17 +64,13 @@ import org.semanticweb.owlapitools.builders.BuilderSubDataProperty;
 import org.semanticweb.owlapitools.builders.BuilderSubObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderSymmetricObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderTransitiveObjectProperty;
-
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.*;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class BuildersOntologyTestCase {
 
     @Nonnull
-    private final OWLDataFactory df = new OWLDataFactoryImpl(true, false);
+    private final OWLDataFactory df = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
     @Nonnull
     private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
             .create("urn:test#ann"));
