@@ -1,6 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
 import javax.annotation.Nonnull;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -11,7 +12,7 @@ import java.util.concurrent.locks.Lock;
  * Stanford Center for Biomedical Informatics Research
  * 13/04/15
  */
-class NoOpLock implements Lock {
+class NoOpLock implements Lock, Serializable {
 
     public static final NoOpCondition NO_OP_CONDITION = new NoOpCondition();
 
@@ -43,7 +44,7 @@ class NoOpLock implements Lock {
         return NO_OP_CONDITION;
     }
 
-    private static class NoOpCondition implements Condition {
+    private static class NoOpCondition implements Condition, Serializable {
 
         @Override
         public void await() throws InterruptedException {
