@@ -465,16 +465,18 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     @Override
-    public Set<OWLOntology> getVersions(IRI ontology) {
+    public Set<OWLOntology> getVersions(IRI ontologyIRI) {
         readLock.lock();
         try {
-            Set<OWLOntology> onts = new HashSet<>();
+            Set<OWLOntology> result = new HashSet<>();
             for (OWLOntology ont : getOntologies()) {
-                if (ontology.equals(ont.getOntologyID().getOntologyIRI().get())) {
-                    onts.add(ont);
+                OWLOntologyID ontId = ont.getOntologyID();
+                Optional<IRI> ontIRI = ontId.getOntologyIRI();
+                if (ontIRI.isPresent() &&  ontIRI.get().equals(ontologyIRI)) {
+                    result.add(ont);
                 }
             }
-            return onts;
+            return result;
         } finally {
             readLock.unlock();
         }
