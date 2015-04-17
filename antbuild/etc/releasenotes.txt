@@ -1,3 +1,39 @@
+4.0.2 17 April 2015
+Features:
+Simple OWL/FSS IRI sniffing for AutoIRIMapper.
+Fix #373 Individuals in SWRL rules get extra type
+XZ compression support
+Sorting of FunctionalSyntaxObjectRenderer
+Sort untyped IRI Annotation Assertions. Sort general axioms, then render each axiom individually (this is probably  not  necessary anymore). Sort axioms when creating a graph. Create inner subclass of  RDFTranslator that uses allocates sequentially numbered blank nodes, keeping track of allocated ids in a map in the owning ontology. This map persists for the life of the renderer, and can retain some garbage longer than necessary because blank nodes (actually because sublists). A weak map would waste more memory on average.
+Sort axiom Annotations, if they are output using the translateAnnotations method. Negative property assertions not yet ordered; neither are nary axioms and class expressions.
+Add legacy files  to the OSGI distribution for  version 3.5 backwards compatibility.
+Some reasoners may not support certain types of reasoning. They may also not support OWLReasoner::isEntailed, and hence may return false for all calls to  OWLReasoner::isEntailmentCheckingSupported.
+Support preserving, transferring, and adding annotations during OBO Macro expansion
+Add Extensions to link document formats and common file extensions
+Optimise annotation lookup for module extraction enrichment
+Change strategy for MapPointer storage: do all initial insertions in a list, and turn it into a THashSet upon first call to trimToSize or any get/size calls
+Add benchmarking util to load ontology then dump to an hprof file for use with MAT
+Improve conversion from OWL to OBO, add test case
+
+Bug fixes:
+Fix PriorityCollectionSorting should be fixed at manager creation time #395
+Fix OWLOntologyManagerImpl.getVersions() calls get() on Optional without checking if the contained value is present #401
+Fix XMLLiterals should be output as XML, not quoted XML #333
+Fix Should RDF/XML Renderer include annotation assertions from the entire closure? #371
+Fix Using a PriorityCollection for IRI mappers (and perhaps other things) is confusing #386
+Fix THashSets got left using default load factor (0.50) after construction is finished. #380
+Fix RDF Consumer failing to guess property types #322
+Fix NonMappingOntologyIRIMapper confuses extra OWLOntologyIRIMapper implementations #383
+Fix Data property with xsd:integer range parsed as Object property (RDF/XML source) #378
+Fix imports in OWL Manchester Notation fail #347
+Fix ELProfile incorrectly rejects DisjointClasses axioms. #343
+Fix OWLRDFConsumer fills guessed type declaration table with blank nodes #336
+Fix #338 OWL-API: DOCTYPE declaration missing in XML serialization
+Fix #337 Axiom Equality short-circuits are in the wrong place
+Fixed bug when rendering anonymous individual in Manchester OWL syntax.
+Reverted incorrect settiong of all packaging types to bundle
+
+
 4.0.1 22 November 2014
 
 Features:
