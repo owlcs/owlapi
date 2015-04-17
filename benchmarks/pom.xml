@@ -20,12 +20,12 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.0.2-SNAPSHOT</version>
+		<version>4.0.2</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>benchmarks</artifactId>
-	<version>4.0.2-SNAPSHOT</version>
+	<version>4.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>Auto-generated JMH benchmark</name>
