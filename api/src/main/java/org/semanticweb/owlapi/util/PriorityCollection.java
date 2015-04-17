@@ -11,8 +11,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.MIMETypeAware;
+import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
 import com.google.common.collect.Iterators;
 
@@ -32,14 +32,14 @@ public class PriorityCollection<T extends Serializable>
     @Nonnull
     private final List<T> delegate = Collections
             .synchronizedList(new ArrayList<T>());
-    private final HasOntologyLoaderConfiguration configurationHolder;
+    private final PriorityCollectionSorting sorting;
 
     /**
      * @param sorting
-     *        the configuration holder for sort settings.
+     *        the sort settings.
      */
-    public PriorityCollection(HasOntologyLoaderConfiguration sorting) {
-        this.configurationHolder = sorting;
+    public PriorityCollection(PriorityCollectionSorting sorting) {
+        this.sorting = sorting;
     }
 
     /**
@@ -57,13 +57,11 @@ public class PriorityCollection<T extends Serializable>
     }
 
     private void sort() {
-        configurationHolder.getOntologyLoaderConfiguration()
-                .getPriorityCollectionSorting().sort(delegate);
+        sorting.sort(delegate);
     }
 
     private void sortSet() {
-        configurationHolder.getOntologyLoaderConfiguration()
-                .getPriorityCollectionSorting().sortInputSet(delegate);
+        sorting.sortInputSet(delegate);
     }
 
     /**
@@ -174,7 +172,7 @@ public class PriorityCollection<T extends Serializable>
     public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {
         checkNotNull(mimeType, "MIME-Type cannot be null");
         PriorityCollection<T> pc = new PriorityCollection<>(
-                configurationHolder);
+sorting);
         // adding directly to the delegate. No need to order because insertion
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {

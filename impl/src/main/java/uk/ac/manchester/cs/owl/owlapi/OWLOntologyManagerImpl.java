@@ -92,6 +92,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.model.OWLStorerNotFoundException;
+import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -128,14 +129,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     protected final Map<OWLOntologyID, OWLDocumentFormat> ontologyFormatsByOntology = createSyncMap();
     @Nonnull
     protected final Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = createSyncMap();
-    @Nonnull
-    protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<>(this);
-    @Nonnull
-    protected final PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<>(this);
-    @Nonnull
-    protected final PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>(this);
-    @Nonnull
-    protected final PriorityCollection<OWLStorerFactory> ontologyStorers = new PriorityCollection<>(this);
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
     protected final AtomicInteger loadCount = new AtomicInteger(0);
     protected final AtomicInteger importsLoadCount = new AtomicInteger(0);
@@ -165,16 +158,39 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @SuppressWarnings("null")
     @Nonnull
     private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
+    @Nonnull
+    protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers;
+    @Nonnull
+    protected final PriorityCollection<OWLOntologyFactory> ontologyFactories;
+    @Nonnull
+    protected final PriorityCollection<OWLParserFactory> parserFactories;
+    @Nonnull
+    protected final PriorityCollection<OWLStorerFactory> ontologyStorers;
+
+    /**
+     * @param dataFactory
+     *        data factory
+     * @param sorting
+     *        sorting option for PriorityCollections
+     */
+    public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory,
+        @Nonnull PriorityCollectionSorting sorting) {
+        this.dataFactory = checkNotNull(dataFactory,
+                "dataFactory cannot be null");
+        documentMappers = new PriorityCollection<>(sorting);
+        ontologyFactories = new PriorityCollection<>(sorting);
+        parserFactories = new PriorityCollection<>(sorting);
+        ontologyStorers = new PriorityCollection<>(sorting);
+        installDefaultURIMappers();
+        installDefaultOntologyFactories();
+    }
 
     /**
      * @param dataFactory
      *        data factory
      */
     public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory,
-                "dataFactory cannot be null");
-        installDefaultURIMappers();
-        installDefaultOntologyFactories();
+        this(dataFactory, PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
     }
 
     @Override

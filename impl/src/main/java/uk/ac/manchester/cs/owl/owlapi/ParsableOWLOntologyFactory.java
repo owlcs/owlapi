@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
@@ -147,7 +148,7 @@ public class ParsableOWLOntologyFactory
         // select a parser if the input source has format information and MIME
         // information
         PriorityCollection<OWLParserFactory> parsers = getParsers(
-                documentSource, manager, manager.getOntologyParsers());
+            documentSource, manager.getOntologyParsers());
         for (OWLParserFactory parserFactory : parsers) {
             OWLParser parser = parserFactory.createParser();
             try {
@@ -203,15 +204,12 @@ public class ParsableOWLOntologyFactory
      * 
      * @param documentSource
      *        document source
-     * @param manager
-     *        manager carrying a configuration
      * @param parsers
      *        parsers
      * @return selected parsers
      */
     private static PriorityCollection<OWLParserFactory> getParsers(
             OWLOntologyDocumentSource documentSource,
-            OWLOntologyManager manager,
             PriorityCollection<OWLParserFactory> parsers) {
         if (parsers.isEmpty()) {
             return parsers;
@@ -224,7 +222,7 @@ public class ParsableOWLOntologyFactory
         if (documentSource.isFormatKnown()) {
             OWLDocumentFormat format = documentSource.getFormat();
             assert format != null;
-            candidateParsers = getParsersByFormat(format, manager, parsers);
+            candidateParsers = getParsersByFormat(format, parsers);
         }
         if (candidateParsers.isEmpty() && documentSource.isMIMETypeKnown()) {
             String mimeType = documentSource.getMIMEType();
@@ -242,17 +240,15 @@ public class ParsableOWLOntologyFactory
      * 
      * @param format
      *        document format
-     * @param manager
-     *        manager carrying the configuration
      * @param parsers
      *        parsers
      * @return candidate parsers
      */
     private static PriorityCollection<OWLParserFactory> getParsersByFormat(
-            @Nonnull OWLDocumentFormat format, OWLOntologyManager manager,
-            PriorityCollection<OWLParserFactory> parsers) {
+        @Nonnull OWLDocumentFormat format,
+        PriorityCollection<OWLParserFactory> parsers) {
         PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>(
-                manager);
+            PriorityCollectionSorting.ALWAYS);
         for (OWLParserFactory parser : parsers) {
             if (parser.getSupportedFormat().getKey().equals(format.getKey())) {
                 candidateParsers.add(parser);
