@@ -756,10 +756,18 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Nonnull
     private static <T> Set<T> asSet(Iterable<T> i) {
-        List<T> list = new ArrayList<>();
+        if (i instanceof Set) {
+            // in this case we can use a list for the defensive copy
+            List<T> list = new ArrayList<>();
         Iterables.addAll(list, i);
-        return CollectionFactory
+            return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(list);
+        }
+        // if the input is not a set, we need to make sure there are no
+        // duplicates
+        Set<T> set = new HashSet<>();
+        Iterables.addAll(set, i);
+        return set;
     }
 
     @Override
