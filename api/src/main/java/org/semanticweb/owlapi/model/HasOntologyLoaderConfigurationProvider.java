@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
-
-import com.google.inject.Provider;
+import javax.inject.Provider;
 
 /**
  * An interface for objects that allow a loader configuration provider to be

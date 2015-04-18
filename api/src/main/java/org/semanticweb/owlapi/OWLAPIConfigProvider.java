@@ -14,10 +14,11 @@ package org.semanticweb.owlapi;
 
 import java.io.Serializable;
 
+import javax.inject.Provider;
+
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-import com.google.inject.Provider;
 
 /**
  * Default configuration provider.

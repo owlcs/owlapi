@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
+import javax.inject.Provider;
 
-import com.google.inject.Provider;
 
 /**
  * An ontology manager factory is responsible from creating new ontology

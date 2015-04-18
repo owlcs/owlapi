@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi;
 
 import javax.annotation.Nonnull;
+import javax.inject.Provider;
 
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
@@ -21,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Provider;
 import com.google.inject.Provides;
 
 /**
