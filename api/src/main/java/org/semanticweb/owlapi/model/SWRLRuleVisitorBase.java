@@ -27,7 +27,6 @@ public interface SWRLRuleVisitorBase extends OWLVisitorBase {
      * @param node
      *        node to visit
      */
-    @Nonnull
     default void visit(@Nonnull SWRLRule node) {
         doDefault(node);
     }

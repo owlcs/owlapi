@@ -27,7 +27,6 @@ public interface OWLDataEntityVisitorBase extends OWLVisitorBase {
      * @param node
      *        node to visit
      */
-    @Nonnull
     default void visit(@Nonnull OWLDatatype node) {
         doDefault(node);
     }

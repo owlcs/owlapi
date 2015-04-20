@@ -72,7 +72,6 @@ public interface OWLProfileViolationVisitor {
      *        object to visit @deprecated use doDefault() instead
      */
     @Deprecated
-    @Nonnull
     default void getDefaultReturnValue(@Nonnull OWLProfileViolation object) {
         doDefault(object);
     }
@@ -83,7 +82,6 @@ public interface OWLProfileViolationVisitor {
      * @param object
      *        The object that was visited.
      */
-    @Nonnull
     default void doDefault(
             @SuppressWarnings("unused") @Nonnull OWLProfileViolation object) {}
 

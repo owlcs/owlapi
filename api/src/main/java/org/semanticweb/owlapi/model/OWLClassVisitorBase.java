@@ -31,7 +31,6 @@ public interface OWLClassVisitorBase extends OWLVisitorBase {
      * @param ce
      *        ce to visit
      */
-    @Nonnull
     default void visit(@Nonnull OWLClass ce) {
         doDefault(ce);
     }

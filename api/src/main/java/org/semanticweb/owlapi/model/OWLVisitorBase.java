@@ -13,7 +13,6 @@ public interface OWLVisitorBase {
      * @deprecated use doDefault() instead
      */
     @Deprecated
-    @Nonnull
     default void getDefaultReturnValue(@Nonnull Object object) {
         doDefault(object);
     }
@@ -24,7 +23,6 @@ public interface OWLVisitorBase {
      * @param object
      *        The object that was visited.
      */
-    @Nonnull
     default void doDefault(@SuppressWarnings("unused") @Nonnull Object object) {}
 
     /**

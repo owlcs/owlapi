@@ -27,7 +27,6 @@ public interface OWLIndividualEntityVisitorBase extends OWLVisitorBase {
      * @param individual
      *        individual to visit
      */
-    @Nonnull
     default void visit(@Nonnull OWLNamedIndividual individual) {
         doDefault(individual);
     }

@@ -55,7 +55,6 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
     /** @param visitor
      *        visitor to apply to all pairwise elements in this axiom
      */
-    @Nonnull
     void forEach(OWLPairwiseVoidVisitor<C> visitor);
 
     /** @param visitor

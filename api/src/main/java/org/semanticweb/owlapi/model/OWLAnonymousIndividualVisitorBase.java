@@ -27,7 +27,6 @@ public interface OWLAnonymousIndividualVisitorBase extends OWLVisitorBase {
      * @param individual
      *        object to visit
      */
-    @Nonnull
     default void visit(@Nonnull OWLAnonymousIndividual individual) {
         doDefault(individual);
     }
