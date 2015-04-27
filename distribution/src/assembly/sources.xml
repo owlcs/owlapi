@@ -53,5 +53,13 @@
 			<directory>../contract/src/main/java</directory>
 			<outputDirectory>.</outputDirectory>
 		</fileSet>
+		<fileSet>
+			<directory>../contract/src/test/java/org/semanticweb/owlapi/examples</directory>
+			<outputDirectory>.</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>../contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial</directory>
+			<outputDirectory>.</outputDirectory>
+		</fileSet>
 	</fileSets>
 </assembly>

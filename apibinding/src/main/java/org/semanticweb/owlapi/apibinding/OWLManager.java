@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.apibinding;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 
 import org.semanticweb.owlapi.OWLAPIParsersModule;
 import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
