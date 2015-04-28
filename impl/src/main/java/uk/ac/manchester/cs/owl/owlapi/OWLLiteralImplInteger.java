@@ -91,6 +91,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
             return false;
         }
         return ((OWLLiteral) obj).isInteger()
+        && ((OWLLiteral) obj).getLiteral().charAt(0) != '0'
                 && literal == ((OWLLiteral) obj).parseInteger();
     }
 
