@@ -13,12 +13,15 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -147,4 +150,20 @@ public interface OWLDataFactoryInternals extends Serializable {
      */
     @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable String lang);
+
+    /**
+     * Construct an OWLAnnotation.
+     * 
+     * @param property
+     *        the annotation property
+     * @param value
+     *        the annotation value
+     * @param annotations
+     *        annotations on the annotation
+     * @return new annotation
+     */
+    @Nonnull
+    OWLAnnotation getOWLAnnotation(@Nonnull OWLAnnotationProperty property,
+        @Nonnull OWLAnnotationValue value,
+        @Nonnull Stream<OWLAnnotation> annotations);
 }

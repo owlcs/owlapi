@@ -13,26 +13,45 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.WeakIndexCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/** @author ignazio */
-public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
+/**
+ * @author ignazio
+ */
+public class OWLDataFactoryInternalsImpl
+    extends OWLDataFactoryInternalsImplNoCache {
+
+    private static Logger logger = LoggerFactory
+        .getLogger(OWLDataFactoryInternalsImpl.class);
     private static final long serialVersionUID = 40000L;
+    private AtomicInteger annotationsCount = new AtomicInteger(0);
 
-    protected class BuildableWeakIndexCache<V extends OWLEntity> extends
-            WeakIndexCache<IRI, V> {
+    protected class BuildableWeakIndexCache<V extends OWLEntity>
+        extends WeakIndexCache<IRI, V> {
 
         private static final long serialVersionUID = 40000L;
 
@@ -67,10 +86,19 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
 
     @Nonnull
-    protected final <V extends OWLEntity> BuildableWeakIndexCache<V>
-            buildCache() {
+    protected final <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
         return new BuildableWeakIndexCache<>();
     }
+
+    /**
+     * Annotations Cache uses a loading cache as a size limited Interner; the
+     * value of the loader is simply the key. As with an interner, each access
+     * constructs a new object that is discarded if the key is used. Most
+     * annotations will only be used once; however some annotations may be
+     * reused extremely frequently. for ontologies in the OBO family, a few
+     * annotations will be reused extremely frequently.
+     */
+    private transient final LoadingCache<OWLAnnotation, OWLAnnotation> annotationsCache;
 
     /**
      * @param useCompression
@@ -84,12 +112,27 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         datatypesByURI = buildCache();
         individualsByURI = buildCache();
         annotationPropertiesByURI = buildCache();
+        CacheBuilder<Object, Object> annotationsCacheBuilder = CacheBuilder
+            .newBuilder().maximumSize(512)
+            .expireAfterAccess(2, TimeUnit.MINUTES);
+        if (logger.isDebugEnabled()) {
+            annotationsCacheBuilder.recordStats();
+        }
+        annotationsCache = annotationsCacheBuilder
+            .build(new CacheLoader<OWLAnnotation, OWLAnnotation>() {
+
+                @Override
+                public OWLAnnotation load(OWLAnnotation key) throws Exception {
+                    return key;
+                }
+            });
     }
 
     @SuppressWarnings({ "unchecked" })
     protected enum Buildable {
         OWLCLASS {
 
+            @Nonnull
             @Override
             OWLClass build(@Nonnull IRI iri) {
                 return new OWLClassImpl(iri);
@@ -97,6 +140,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLOBJECTPROPERTY {
 
+            @Nonnull
             @Override
             OWLObjectProperty build(@Nonnull IRI iri) {
                 return new OWLObjectPropertyImpl(iri);
@@ -104,6 +148,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLDATAPROPERTY {
 
+            @Nonnull
             @Override
             OWLDataProperty build(@Nonnull IRI iri) {
                 return new OWLDataPropertyImpl(iri);
@@ -111,6 +156,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLNAMEDINDIVIDUAL {
 
+            @Nonnull
             @Override
             OWLNamedIndividual build(@Nonnull IRI iri) {
                 return new OWLNamedIndividualImpl(iri);
@@ -118,6 +164,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLDATATYPE {
 
+            @Nonnull
             @Override
             OWLDatatype build(@Nonnull IRI iri) {
                 return new OWLDatatypeImpl(iri);
@@ -125,6 +172,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLANNOTATIONPROPERTY {
 
+            @Nonnull
             @Override
             OWLAnnotationProperty build(@Nonnull IRI iri) {
                 return new OWLAnnotationPropertyImpl(iri);
@@ -149,12 +197,12 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         datatypesByURI.clear();
         individualsByURI.clear();
         annotationPropertiesByURI.clear();
+        annotationsCache.invalidateAll();
     }
 
     @Nonnull
     @Override
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
-        // XXX these buildable can be replaced with suppliers
         return objectPropertiesByURI.cache(iri, Buildable.OWLOBJECTPROPERTY);
     }
 
@@ -180,6 +228,42 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
         return annotationPropertiesByURI.cache(iri,
-                Buildable.OWLANNOTATIONPROPERTY);
+            Buildable.OWLANNOTATIONPROPERTY);
+    }
+
+    /*
+       Use a guava weak String interner for language tags.
+     */
+    @Override
+    public OWLLiteral getOWLLiteral(String literal, String lang) {
+        return super.getOWLLiteral(literal, lang(lang));
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    private static String lang(String l) {
+        if (l == null) {
+            return "";
+        }
+        return l.trim().toLowerCase().intern();
+    }
+
+    @Override
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
+        OWLAnnotationValue value, Stream<OWLAnnotation> annotations) {
+        OWLAnnotation key = new OWLAnnotationImpl(property, value, annotations);
+        try {
+            OWLAnnotation annotation = annotationsCache.get(key);
+            if (logger.isDebugEnabled()) {
+                int n = annotationsCount.incrementAndGet();
+                if (n % 1000 == 0) {
+                    logger.debug("{}: Annotations Cache stats: {}", n,
+                        annotationsCache.stats());
+                }
+            }
+            return annotation;
+        } catch (ExecutionException e) {
+            return key;
+        }
     }
 }
