@@ -1863,8 +1863,15 @@ public class TripleHandlers {
                 } else if (isApLax(s) && !isAnon(o)) {
                     translateAsAnnotationPropertyRange(s, p, o);
                 }
-            } else {
-                if (isAnnotationPropertyOnly(s) && !isAnon(o)) {
+            } else if (isObjectPropertyStrict(s)
+                && consumer.isClassExpression(o)) {
+                translateAsObjectPropertyRange(s, p, o);
+            } else if (isDataPropertyStrict(s) && consumer.isDataRange(o)) {
+                translateAsDataPropertyRange(s, p, o);
+            } else if (consumer.isAnnotationProperty(s)
+                && !consumer.isAnonymousNode(o)) {
+                translateAsAnnotationPropertyRange(s, p, o);
+            } else if (isAnnotationPropertyOnly(s) && !isAnon(o)) {
                     translateAsAnnotationPropertyRange(s, p, o);
                 } else if (isCeLax(o)) {
                     addOp(s, false);
@@ -1883,7 +1890,7 @@ public class TripleHandlers {
                     translateAsAnnotationPropertyRange(s, p, o);
                 }
             }
-        }
+
 
         private void translateAsAnnotationPropertyRange(@Nonnull IRI s,
                 @Nonnull IRI p, @Nonnull IRI o) {

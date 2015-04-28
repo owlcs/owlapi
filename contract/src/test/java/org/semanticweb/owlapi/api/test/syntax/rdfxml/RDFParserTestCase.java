@@ -12,20 +12,21 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
+import static org.junit.Assert.assertFalse;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 /**
@@ -34,18 +35,14 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
-public class RDFParserTestCase {
-
-    private OWLOntologyManager man;
+public class RDFParserTestCase extends TestBase {
 
     @Before
     public void setUp() {
         // Use the reference implementation
-        man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        man.getOntologyStorers().add(new RDFXMLStorerFactory());
-        ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory(
-                new OWLOntologyBuilderImpl());
-        man.getOntologyFactories().add(factory);
+        m.getOntologyStorers().set(new RDFXMLStorerFactory());
+        m.getOntologyFactories().set(
+                new ParsableOWLOntologyFactory(new OWLOntologyBuilderImpl()));
     }
 
     @Test
@@ -62,12 +59,49 @@ public class RDFParserTestCase {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
                     if (ontologyFile.getName().endsWith(".rdf")
                             || ontologyFile.getName().endsWith(".owlapi")) {
-                        OWLOntology ont = man
+                        OWLOntology ont = m
                                 .loadOntologyFromOntologyDocument(ontologyFile);
-                        man.removeOntology(ont);
+                        m.removeOntology(ont);
+                    }
                     }
                 }
             }
         }
+
+    @Test
+    public void shouldParseDataProperty() throws OWLOntologyCreationException {
+        String in = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<!DOCTYPE rdf:RDF [\n"
+                + "    <!ENTITY b 'http://www.loa-cnr.it/ontologies/ExtendedDnS.owl#'>\n"
+                + "    <!ENTITY k 'http://www.loa-cnr.it/ontologies/Plans.owl#'>\n"
+                + "    <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>\n"
+                + "    <!ENTITY xsd 'http://www.w3.org/2001/XMLSchema#'>\n"
+                + "]>\n"
+                + "\n"
+                + "<rdf:RDF\n"
+                + "    xml:base=\"http://www.loa-cnr.it/ontologies/DLP_397.owl\"\n"
+                + "    xmlns:b=\"http://www.loa-cnr.it/ontologies/ExtendedDnS.owl#\"\n"
+                + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+                + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
+                + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\n"
+                + "\n"
+                + "<owl:Ontology rdf:about=\"\"/>\n"
+                + "\n"
+                + "<owl:Class rdf:about=\"&b;task\">\n"
+                + "    <rdfs:comment rdf:datatype=\"&xsd;string\">A course used to sequence activities or other controllable perdurants (some states, processes), usually within methods. They must be defined by a method, but can be *used* by other kinds of descriptions. They are desire targets of some role played by an agent. Tasks can be complex, and ordered according to an abstract succession relation. Tasks can relate to ground activities or decision making; the last kind deals with typical flowchart content. A task is different both from a flowchart node, and from an action or action type.Tasks can be considered shortcuts for plans, since at least one role played by an agent has a desire attitude towards them (possibly different from the one that puts the task into action). In principle, tasks could be transformed into explicit plans.</rdfs:comment>\n"
+                + "</owl:Class>\n"
+                + "\n"
+                + "<owl:DatatypeProperty rdf:about=\"&k;iteration-cardinality\">\n"
+                + "    <rdfs:comment rdf:datatype=\"&xsd;string\">iteration cardinality can be used to state in a task how many times an action should be repeated</rdfs:comment>\n"
+                + "    <rdfs:domain rdf:resource=\"&b;task\"/>\n"
+                + "    <rdfs:range rdf:resource=\"&xsd;integer\"/>\n"
+                + "</owl:DatatypeProperty>\n"
+                + "<owl:Datatype rdf:about=\"&xsd;decimal\"/>\n"
+                + "<owl:Datatype rdf:about=\"&xsd;integer\"/>\n"
+                + "<owl:Datatype rdf:about=\"&xsd;string\"/>\n" + "</rdf:RDF>";
+        OWLOntology o = loadOntologyFromString(in);
+        assertFalse(o
+                .containsObjectPropertyInSignature(IRI
+                        .create("http://www.loa-cnr.it/ontologies/Plans.owl#iteration-cardinality")));
     }
 }
