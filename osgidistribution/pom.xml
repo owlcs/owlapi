@@ -22,145 +22,131 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-apibinding</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-api</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-tools</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-impl</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-parsers</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-oboformat</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-fixers</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-rio</artifactId>
 			<version>${project.version}</version>
-			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-api</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-compatibility</artifactId>
-			<scope>provided</scope>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-model</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-api</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-languages</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-datatypes</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-binary</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-n3</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-nquads</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-ntriples</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-rdfjson</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-rdfxml</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-trix</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-turtle</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-trig</artifactId>
 			<version>${sesame.version}</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.github.jsonld-java</groupId>
 			<artifactId>jsonld-java-sesame</artifactId>
 			<version>0.5.0</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.semarglproject</groupId>
 			<artifactId>semargl-sesame</artifactId>
 			<version>0.6.1</version>
-			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.tukaani</groupId>
+			<artifactId>xz</artifactId>
+			<version>1.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
@@ -188,7 +174,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>2.3.7</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -205,7 +191,7 @@
 						<Embed-Directory>lib</Embed-Directory>
 						<Embed-Transitive>true</Embed-Transitive>
 						<_exportcontents>
-							!org.semanticweb.owlapi.test.*
+							!org.semanticweb.owlapi.test.*,
 							com.clarkparsia.*,
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
@@ -213,16 +199,70 @@
 							org.obolibrary.*;-split-package:=merge-first,
 							org.coode.*;-split-package:=merge-first,
 							de.uulm.*;-split-package:=merge-first,
+							com.fasterxml.jackson.*;-split-package:=merge-first,
+							com.github.jsonldjava.*;-split-package:=merge-first,
+							com.google.common.*;-split-package:=merge-first,
+							com.google.thirdparty.*;-split-package:=merge-first,
+							com.google.inject.*;-split-package:=merge-first,
+							org.semarglproject.*;-split-package:=merge-first,
+							org.apache.commons.*;-split-package:=merge-first,
+							org.apache.http.*;-split-package:=merge-first,
+							org.aopalliance.*;-split-package:=merge-first,
+							gnu.trove.*;-split-package:=merge-first,
+							javax.annotation.*;-split-package:=merge-first,
+							javax.inject.*;-split-package:=merge-first
 						</_exportcontents>
 						<Import-Package>
-							!net.sf.ehcache,!sun.misc,!javax.swing, !net.spy.memcached,
-							org.slf4j.*, org.openrdf.*,info.aduna.*,
-							javax.crypto, javax.crypto.spec, javax.imageio, 
-							javax.net.*, javax.security.*, javax.xml.*, org.ietf.jgss, 
-							org.slf4j.*, org.w3c.dom.*, org.xml.sax.*
+							!sun.misc,
+							net.sf.ehcache.*;resolution:=optional,
+							net.spy.memcached.*;resolution:=optional,
+							org.slf4j.impl;resolution:=optional,
+							!org.slf4j.impl,
+							*
 						</Import-Package>
 					</instructions>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<excludes>
+									<exclude>org.apache.felix:org.osgi.core</exclude>
+									<exclude>org.openrdf.sesame:*</exclude>
+									<exclude>com.fasterxml.jackson.core:*</exclude>
+									<exclude>com.github.jsonld-java:*</exclude>
+									<exclude>com.fasterxml.jackson.core:*</exclude>
+									<exclude>org.apache.httpcomponents:*</exclude>
+									<exclude>commons-codec:commons-codec:*</exclude>
+									<exclude>org.slf4j:*</exclude>
+									<exclude>org.semarglproject:*</exclude>
+									<exclude>com.google.guava:*</exclude>
+									<exclude>com.google.inject:*</exclude>
+									<exclude>javax.inject:*</exclude>
+									<exclude>aopalliance:*</exclude>
+									<exclude>com.google.inject.extensions:*</exclude>
+									<exclude>com.google.code.findbugs:*</exclude>
+									<exclude>org.slf4j:slf4j-api</exclude>
+									<exclude>org.apache.directory.studio:*</exclude>
+									<exclude>commons-io:*</exclude>
+								</excludes>
+							</artifactSet>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>

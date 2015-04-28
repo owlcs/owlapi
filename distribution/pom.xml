@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-distribution</artifactId>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 	<name>OWLAPI Distribution</name>
 
 	<parent>
@@ -25,17 +25,17 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-api</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-tools</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-impl</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-parsers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -55,96 +55,8 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-parsers</artifactId>
+			<artifactId>owlapi-api</artifactId>
 			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-model</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-api</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-languages</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-datatypes</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-binary</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-n3</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-nquads</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-ntriples</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-rdfjson</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-rdfxml</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-trix</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-turtle</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-trig</artifactId>
-			<version>${sesame.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.jsonld-java</groupId>
-			<artifactId>jsonld-java-sesame</artifactId>
-			<version>0.5.0</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.semarglproject</groupId>
-			<artifactId>semargl-sesame</artifactId>
-			<version>0.6.1</version>
-			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
@@ -154,18 +66,42 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.5.3</version>
+				<version>2.3.7</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						<Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
-						<Export-Package>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Embed-Dependency>
+							owlapi-api;inline=true,
+							owlapi-apibinding;inline=true,
+							owlapi-fixers;inline=true,
+							owlapi-impl;inline=true,
+							owlapi-oboformat;inline=true,
+							owlapi-parsers;inline=true,
+							owlapi-rio;inline=true,
+							owlapi-tools;inline=true
+						</Embed-Dependency>
+						<Embed-Transitive>false</Embed-Transitive>
+						<_exportcontents>
+							!org.semanticweb.owlapi.test.*
 							com.clarkparsia.*,
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
 							uk.ac.manchester.*;-split-package:=merge-first,
-							org.obolibrary.*
-						</Export-Package>
+							org.obolibrary.*;-split-package:=merge-first,
+						</_exportcontents>
+						<Import-Package>
+							!sun.misc,
+							net.sf.ehcache.*;resolution:=optional,
+							net.spy.memcached.*;resolution:=optional,
+							org.slf4j.impl;resolution:=optional,
+							!org.slf4j.impl,
+							*
+						</Import-Package>
 					</instructions>
 				</configuration>
 			</plugin>
@@ -200,6 +136,8 @@
 									<exclude>org.slf4j:slf4j-api</exclude>
 									<exclude>org.apache.directory.studio:*</exclude>
 									<exclude>commons-io:*</exclude>
+									<exclude>org.tukaani:*</exclude>
+									<exclude>net.sf.trove4j:*</exclude>
 								</excludes>
 							</artifactSet>
 							<transformers>
@@ -228,7 +166,7 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-parsers</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboformat</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-fixers</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>

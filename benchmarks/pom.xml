@@ -29,12 +29,12 @@ questions.
     <parent>
         <groupId>net.sourceforge.owlapi</groupId>
         <artifactId>owlapi-parent</artifactId>
-        <version>4.0.1</version>
+        <version>5.0.0-ALPHA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>net.sourceforge.owlapi</groupId>
     <artifactId>benchmarks</artifactId>
-    <version>4.0.1</version>
+    <version>5.0.0-ALPHA</version>
     <packaging>jar</packaging>
 
     <name>Auto-generated JMH benchmark</name>
@@ -79,7 +79,12 @@ questions.
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
-
+				<executions>
+					<execution>
+						<id>package_only</id>
+						<phase>package</phase>
+					</execution>
+				</executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
