@@ -234,7 +234,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return set of values
      */
     @Nonnull
-    public <T> Collection<OWLAxiom> filterAxioms(
+    public synchronized <T> Collection<OWLAxiom> filterAxioms(
             @Nonnull OWLAxiomSearchFilter filter, @Nonnull T key) {
         init();
         List<OWLAxiom> toReturn = new ArrayList<>();
@@ -458,7 +458,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * Trims the capacity of the map entries . An application can use this
      * operation to minimize the storage of the map pointer instance.
      */
-    public void trimToSize() {
+    public synchronized void trimToSize() {
         if (initialized) {
             map.trimToSize();
             neverTrimmed = false;
