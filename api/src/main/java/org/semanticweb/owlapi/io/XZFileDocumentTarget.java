@@ -63,18 +63,19 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget,
     /**
      * Construct an XZ document target using the selected compression preset
      *
-     * @param os
-     *        target File
-     * @param presetLevel
-     *        LZMA2 Compression preset level
-     * @return
+     * @param os          target File
+     * @param presetLevel LZMA2 Compression preset level
+     * @throws UnsupportedOptionsException if the options selected are not acceptable
      */
-    public XZFileDocumentTarget(File os, int presetLevel)
-            throws UnsupportedOptionsException {
+    public XZFileDocumentTarget(@Nonnull File os, int presetLevel) throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
-
-    public XZFileDocumentTarget(File file) {
+    /**
+     * Construct an XZ document target
+     *
+     * @param file          target File
+     */
+    public XZFileDocumentTarget(@Nonnull File file) {
         this(file, new LZMA2Options());
     }
 

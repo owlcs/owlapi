@@ -17,6 +17,7 @@ public class XZStreamDocumentSourceTestCase {
 
     @Test
     public void testReadKoalaDoc() throws IOException {
+        @SuppressWarnings("null")
         XZStreamDocumentSource source = new XZStreamDocumentSource(getClass()
                 .getResourceAsStream("/koala.owl.xz"));
         Optional<Reader> reader = source.getReader();

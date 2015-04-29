@@ -24,7 +24,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -124,8 +123,6 @@ public class RDFParserTestCase extends TestBase {
                 + "  <rdf:Property rdf:about=\"http://bibframe.org/vocab/partOf\">\n"
                 + "    <rdfs:subPropertyOf rdf:resource=\"http://bibframe.org/vocab/relatedTo\"/>\n"
                 + "  </rdf:Property>\n" + "</rdf:RDF>";
-        OWLObjectProperty relatedTo = df.getOWLObjectProperty(
-                IRI.create("http://bibframe.org/vocab/relatedTo"));
         OWLOntology o = loadOntologyFromString(in);
         Set<OWLSubAnnotationPropertyOfAxiom> axioms1 = o
                 .getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF);
