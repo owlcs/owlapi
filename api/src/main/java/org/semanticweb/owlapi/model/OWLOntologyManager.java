@@ -954,7 +954,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * 
      * @param ontology
      *        The ontology whose document IRI is to be obtained.
-     * @return The document IRI of the ontology or {@code null}.
+     * @return The document IRI of the ontology.
      * @throws UnknownOWLOntologyException
      *         If the specified ontology is not managed by this manager.
      */
