@@ -99,6 +99,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+@SuppressWarnings("null")
 class LiteralFoldingEqualityTester {
 
     public static boolean equalAxiom(OWLAxiom a, OWLAxiom b) {

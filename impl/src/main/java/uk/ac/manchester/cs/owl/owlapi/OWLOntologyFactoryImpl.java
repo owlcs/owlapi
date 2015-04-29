@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.PriorityCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Matthew Horridge
@@ -57,7 +55,6 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyFactoryImpl.class);
 
     private final Set<String> parsableSchemes = new HashSet<>(Arrays.asList("http", "https", "file", "ftp"));
 
@@ -89,7 +86,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
                                          @Nonnull OWLOntologyID ontologyID,
                                          @Nonnull IRI documentIRI,
-                                         @Nonnull OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+        @Nonnull OWLOntologyCreationHandler handler) {
         OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
         handler.ontologyCreated(ont);
         handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());

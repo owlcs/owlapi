@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

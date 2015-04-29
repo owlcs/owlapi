@@ -1,12 +1,12 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Matthew Horridge
@@ -18,7 +18,7 @@ public class NoOpReadWriteLock_TestCase {
     private NoOpReadWriteLock lock;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         lock = new NoOpReadWriteLock();
     }
 

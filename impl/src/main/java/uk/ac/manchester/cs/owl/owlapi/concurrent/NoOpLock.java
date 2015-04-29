@@ -1,28 +1,25 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
+import javax.annotation.Nonnull;
+
 /**
- * Matthew Horridge
- * Stanford Center for Biomedical Informatics Research
- * 13/04/15
+ * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
 class NoOpLock implements Lock, Serializable {
 
     public static final NoOpCondition NO_OP_CONDITION = new NoOpCondition();
 
     @Override
-    public void lock() {
-    }
+    public void lock() {}
 
     @Override
-    public void lockInterruptibly() throws InterruptedException {
-    }
+    public void lockInterruptibly() {}
 
     @Override
     public boolean tryLock() {
@@ -30,13 +27,12 @@ class NoOpLock implements Lock, Serializable {
     }
 
     @Override
-    public boolean tryLock(long time, @Nonnull TimeUnit unit) throws InterruptedException {
+    public boolean tryLock(long time, @Nonnull TimeUnit unit) {
         return true;
     }
 
     @Override
-    public void unlock() {
-    }
+    public void unlock() {}
 
     @Override
     @Nonnull
@@ -46,35 +42,33 @@ class NoOpLock implements Lock, Serializable {
 
     private static class NoOpCondition implements Condition, Serializable {
 
-        @Override
-        public void await() throws InterruptedException {
-        }
+        public NoOpCondition() {}
 
         @Override
-        public void awaitUninterruptibly() {
-        }
+        public void await() {}
 
         @Override
-        public long awaitNanos(long nanosTimeout) throws InterruptedException {
+        public void awaitUninterruptibly() {}
+
+        @Override
+        public long awaitNanos(long nanosTimeout) {
             return 0;
         }
 
         @Override
-        public boolean await(long time, TimeUnit unit) throws InterruptedException {
+        public boolean await(long time, TimeUnit unit) {
             return true;
         }
 
         @Override
-        public boolean awaitUntil(@Nonnull Date deadline) throws InterruptedException {
+        public boolean awaitUntil(@Nonnull Date deadline) {
             return true;
         }
 
         @Override
-        public void signal() {
-        }
+        public void signal() {}
 
         @Override
-        public void signalAll() {
-        }
+        public void signalAll() {}
     }
 }

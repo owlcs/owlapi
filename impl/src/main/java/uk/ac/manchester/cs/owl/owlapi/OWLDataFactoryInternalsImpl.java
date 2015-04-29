@@ -124,7 +124,7 @@ public class OWLDataFactoryInternalsImpl
             .build(new CacheLoader<OWLAnnotation, OWLAnnotation>() {
 
                 @Override
-                public OWLAnnotation load(OWLAnnotation key) throws Exception {
+                public OWLAnnotation load(OWLAnnotation key) {
                     return key;
                 }
             });

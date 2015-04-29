@@ -30,7 +30,7 @@ public class OWLManagerTestCase {
     }
 
     @Test
-    public void shouldCreateOntologyWithCorrectManager() throws Exception {
+    public void shouldCreateOntologyWithCorrectManager() {
         assertThat(ontology.getOWLOntologyManager(), is(manager));
     }
 

@@ -1,13 +1,13 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.concurrent.TimeUnit;
-
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Matthew Horridge
@@ -19,7 +19,7 @@ public class NoOpLock_TestCase {
     private NoOpLock lock;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         lock = new NoOpLock();
     }
 
@@ -34,7 +34,7 @@ public class NoOpLock_TestCase {
     }
 
     @Test
-    public void shouldReturn_true_When_tryLockWithTimeOut() throws InterruptedException {
+    public void shouldReturn_true_When_tryLockWithTimeOut() {
         assertThat(lock.tryLock(3, mock(TimeUnit.class)), is(true));
     }
 }

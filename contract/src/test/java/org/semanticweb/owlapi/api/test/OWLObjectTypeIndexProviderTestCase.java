@@ -66,7 +66,7 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLObjectPropertyAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLSameIndividualAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({ "javadoc", "null" })
 public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @BeforeClass

@@ -8,6 +8,8 @@ import static org.mockito.Mockito.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,10 +40,14 @@ public class ConcurrentOWLOntologyBuilder_TestCase {
     @Mock
     private Lock readLock, writeLock;
 
+    @SuppressWarnings("null")
     @Mock
+    @Nonnull
     private OWLOntologyManager manager;
 
+    @SuppressWarnings("null")
     @Mock
+    @Nonnull
     private OWLOntologyID ontologyId;
 
     @Mock

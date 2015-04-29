@@ -41,7 +41,7 @@ public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         iterable = Arrays.asList(element);

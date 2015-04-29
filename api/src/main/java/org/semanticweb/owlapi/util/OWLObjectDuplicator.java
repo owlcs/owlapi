@@ -770,6 +770,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     }
 
     @SuppressWarnings("unchecked")
+    @Nonnull
     protected <O> O get(OWLObject o) {
         return (O) o.accept(this);
     }
