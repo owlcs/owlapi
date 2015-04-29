@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
@@ -219,7 +220,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     private static PriorityCollection<OWLParserFactory> getParsersByFormat(
             @Nonnull OWLDocumentFormat format,
             PriorityCollection<OWLParserFactory> parsers) {
-        PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>();
+        PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>(
+            PriorityCollectionSorting.NEVER);
         for (OWLParserFactory parser : parsers) {
             if (parser.getSupportedFormat().getKey().equals(format.getKey())) {
                 candidateParsers.add(parser);

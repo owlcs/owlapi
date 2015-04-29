@@ -87,6 +87,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.model.OWLStorerNotFoundException;
+import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -123,13 +124,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     protected final Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = createSyncMap();
     @Nonnull
-    protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<>();
+    protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<>(
+        PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
     @Nonnull
-    protected final PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<>();
+    protected final PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<>(
+        PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
     @Nonnull
-    protected final PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>();
+    protected final PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>(
+        PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
     @Nonnull
-    protected final PriorityCollection<OWLStorerFactory> ontologyStorers = new PriorityCollection<>();
+    protected final PriorityCollection<OWLStorerFactory> ontologyStorers = new PriorityCollection<>(
+        PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
     protected final AtomicInteger loadCount = new AtomicInteger(0);
     protected final AtomicInteger importsLoadCount = new AtomicInteger(0);

@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory;
 import org.semanticweb.owlapi.latex.renderer.LatexStorerFactory;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterSyntaxStorerFactory;
 import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.oboformat.OBOFormatStorerFactory;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorerFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
@@ -51,7 +52,7 @@ public class PriorityCollectionTestCase {
                         new KRSS2OWLSyntaxStorerFactory().get(),
                         new TurtleStorerFactory().get(),
                         new LatexStorerFactory().get());
-        PriorityCollection<OWLStorer> pc = new PriorityCollection<>();
+        PriorityCollection<OWLStorer> pc = new PriorityCollection<>(PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
         pc.set(storers);
         assertEquals(pc.toString(), storers.size(), pc.size());
     }
