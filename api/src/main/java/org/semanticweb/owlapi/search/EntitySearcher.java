@@ -539,9 +539,19 @@ public class EntitySearcher {
      *         disjoint classes of this class.
      */
     @Nonnull
-    public static Stream<OWLDataPropertyExpression> getDisjointProperties(
-            @Nonnull OWLDataProperty e, @Nonnull OWLOntology ontology) {
-        return Searcher.different(ontology.disjointDataPropertiesAxioms(e));
+    public static <P extends OWLPropertyExpression> Stream<P> getDisjointProperties(
+        @Nonnull P e, @Nonnull OWLOntology ontology) {
+        if (e.isObjectPropertyExpression()) {
+            // XXX add methods to avoid casting
+            return Searcher.different(ontology.disjointObjectPropertiesAxioms(
+                (OWLObjectPropertyExpression) e));
+        }
+        if (e.isDataPropertyExpression()) {
+            return Searcher.different(
+                ontology.disjointDataPropertiesAxioms((OWLDataProperty) e));
+        }
+        // else e must have been an annotation property. No disjoints on those
+        return Stream.empty();
     }
 
     /**
@@ -556,8 +566,8 @@ public class EntitySearcher {
      *         disjoint classes of this class.
      */
     @Nonnull
-    public static Stream<OWLDataPropertyExpression>
-            getDisjointProperties(@Nonnull OWLDataProperty e,
+    public static <P extends OWLPropertyExpression> Stream<P> getDisjointProperties(
+        @Nonnull P e,
                     @Nonnull Stream<OWLOntology> ontologies) {
         return ontologies.flatMap(o -> getDisjointProperties(e, o));
     }
@@ -603,41 +613,6 @@ public class EntitySearcher {
         return ontologies.flatMap(o -> getEquivalentProperties(e, o));
     }
 
-    /**
-     * Gets the classes which have been asserted to be disjoint with this class
-     * by axioms in the specified ontology.
-     * 
-     * @param e
-     *        entity
-     * @param ontology
-     *        The ontology to search for disjoint class axioms
-     * @return A {@code Set} of {@code OWLClassExpression}s that represent the
-     *         disjoint classes of this class.
-     */
-    @Nonnull
-    public static Stream<OWLObjectPropertyExpression> getDisjointProperties(
-            @Nonnull OWLObjectPropertyExpression e,
-            @Nonnull OWLOntology ontology) {
-        return Searcher.different(ontology.disjointObjectPropertiesAxioms(e));
-    }
-
-    /**
-     * Gets the classes which have been asserted to be disjoint with this class
-     * by axioms in the specified ontologies.
-     * 
-     * @param e
-     *        entity
-     * @param ontologies
-     *        The ontologies to search for disjoint class axioms
-     * @return A {@code Set} of {@code OWLClassExpression}s that represent the
-     *         disjoint classes of this class.
-     */
-    @Nonnull
-    public static Stream<OWLObjectPropertyExpression> getDisjointProperties(
-            @Nonnull OWLObjectPropertyExpression e,
-            @Nonnull Stream<OWLOntology> ontologies) {
-        return ontologies.flatMap(o -> getDisjointProperties(e, o));
-    }
 
     /**
      * Gets the individuals that have been asserted to be an instance of this
@@ -711,7 +686,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Stream<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity e,
-            @Nonnull OWLOntology ontology, Imports includeImports) {
+        @Nonnull OWLOntology ontology, @Nonnull Imports includeImports) {
         return ontology.referencingAxioms(e, includeImports);
     }
 
@@ -1238,7 +1213,7 @@ public class EntitySearcher {
      * @return true if a is contained
      */
     public static boolean containsAxiom(@Nonnull OWLAxiom a,
-            @Nonnull OWLOntology o, Imports imports) {
+        @Nonnull OWLOntology o, @Nonnull Imports imports) {
         return o.containsAxiom(a, imports, CONSIDER_AXIOM_ANNOTATIONS);
     }
 
@@ -1255,7 +1230,7 @@ public class EntitySearcher {
      * @return true if a is contained
      */
     public static boolean containsAxiom(@Nonnull OWLAxiom a,
-            @Nonnull Iterable<OWLOntology> ontologies, Imports imports) {
+        @Nonnull Iterable<OWLOntology> ontologies, @Nonnull Imports imports) {
         for (OWLOntology o : ontologies) {
             if (containsAxiom(a, o, imports)) {
                 return true;
@@ -1316,7 +1291,7 @@ public class EntitySearcher {
      * @return matching axioms
      */
     public static Collection<OWLAxiom> getAxiomsIgnoreAnnotations(
-            @Nonnull OWLAxiom a, @Nonnull OWLOntology o, Imports imports) {
+        @Nonnull OWLAxiom a, @Nonnull OWLOntology o, @Nonnull Imports imports) {
         return o.getAxiomsIgnoreAnnotations(a, imports);
     }
 
