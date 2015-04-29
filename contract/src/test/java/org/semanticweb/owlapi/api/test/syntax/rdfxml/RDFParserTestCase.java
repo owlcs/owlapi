@@ -12,18 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
@@ -104,4 +109,30 @@ public class RDFParserTestCase extends TestBase {
                 .containsObjectPropertyInSignature(IRI
                         .create("http://www.loa-cnr.it/ontologies/Plans.owl#iteration-cardinality")));
     }
+
+    @Test
+    public void shouldLoadSubPropertiesAsObjectProperties()
+            throws OWLOntologyCreationException {
+        String in = "<rdf:RDF xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:marc-fields=\"http://bibframe.org/marc/\" xmlns:rda-fields=\"http://bibframe.org/rda/\" xmlns:bf-abstract=\"http://bibframe.org/model-abstract/\" xmlns:bframe=\"http://bibframe.org/vocab/frame\" xmlns:bfmain=\"http://bibframe.org/vocab/main\" xml:base=\"http://bibframe.org/vocab/\">\n"
+                + "  <owl:Ontology rdf:about=\"\">\n" + "  </owl:Ontology>\n"
+                + "  <rdfs:Class rdf:about=\"http://bibframe.org/vocab/Resource\">\n"
+                + "  </rdfs:Class>\n"
+                + "  <rdf:Property rdf:about=\"http://bibframe.org/vocab/relatedTo\">\n"
+                + "    <rdfs:domain rdf:resource=\"http://bibframe.org/vocab/Resource\"/>\n"
+                + "    <rdfs:range rdf:resource=\"http://bibframe.org/vocab/Resource\"/>\n"
+                + "  </rdf:Property>\n"
+                + "  <rdf:Property rdf:about=\"http://bibframe.org/vocab/partOf\">\n"
+                + "    <rdfs:subPropertyOf rdf:resource=\"http://bibframe.org/vocab/relatedTo\"/>\n"
+                + "  </rdf:Property>\n" + "</rdf:RDF>";
+        OWLObjectProperty relatedTo = df.getOWLObjectProperty(
+                IRI.create("http://bibframe.org/vocab/relatedTo"));
+        OWLOntology o = loadOntologyFromString(in);
+        Set<OWLSubAnnotationPropertyOfAxiom> axioms1 = o
+                .getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF);
+        assertEquals(0, axioms1.size());
+        Set<OWLSubObjectPropertyOfAxiom> axioms2 = o
+                .getAxioms(AxiomType.SUB_OBJECT_PROPERTY);
+        assertEquals(1, axioms2.size());
+    }
+
 }

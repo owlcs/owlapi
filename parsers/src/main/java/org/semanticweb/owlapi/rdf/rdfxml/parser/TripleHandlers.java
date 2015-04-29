@@ -2075,12 +2075,18 @@ public class TripleHandlers {
             } else if (isDPLax(s) && isDPLax(o)) {
                 translateSubDataProperty(s, p, o);
             } else if (!isStrict()) {
-                OWLAnnotationProperty subAnnoProp = df
+                if (consumer.isObjectProperty(o)) {
+                    translateSubObjectProperty(s, p, o);
+                } else if (consumer.isDataProperty(o)) {
+                    translateSubDataProperty(s, p, o);
+                } else {
+                    OWLAnnotationProperty subAnnoProp = df
                         .getOWLAnnotationProperty(s);
-                OWLAnnotationProperty superAnnoProp = df
+                    OWLAnnotationProperty superAnnoProp = df
                         .getOWLAnnotationProperty(o);
-                add(df.getOWLSubAnnotationPropertyOfAxiom(subAnnoProp,
+                    add(df.getOWLSubAnnotationPropertyOfAxiom(subAnnoProp,
                         superAnnoProp, anns()));
+                }
                 consume(s, p, o);
             }
         }

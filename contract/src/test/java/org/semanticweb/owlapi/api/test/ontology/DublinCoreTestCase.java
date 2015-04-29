@@ -13,10 +13,14 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+
+import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
 /**
@@ -25,14 +29,20 @@ import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
-public class DublinCoreTestCase extends TestBase {
+public class DublinCoreTestCase extends AbstractFileRoundTrippingTestCase {
+
+    @Nonnull
+    @Override
+    protected String getFileName() {
+        return "dublincore.rdf";
+    }
 
     @Test
-    public void testAnnotationProperties() {
-        OWLOntology ontology = loadOntology("dublincore.rdf");
+    public void testAnnotationProperties() throws OWLOntologyCreationException {
+        OWLOntology ontology = createOntology();
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
-            assertTrue(ontology
-                    .containsAnnotationPropertyInSignature(vocabulary.getIRI()));
+            assertTrue(vocabulary.getIRI().toString(),ontology.containsAnnotationPropertyInSignature(
+                    vocabulary.getIRI(), EXCLUDED));
         }
     }
 }
