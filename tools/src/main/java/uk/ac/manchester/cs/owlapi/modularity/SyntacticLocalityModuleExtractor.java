@@ -58,7 +58,7 @@ import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(SyntacticLocalityModuleExtractor.class);
+        .getLogger(SyntacticLocalityModuleExtractor.class);
 
     /**
      * Auxiliary inner class for the representation of the associated ontology
@@ -201,10 +201,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @Nonnull
     private static OWLOntology createOntology(@Nonnull OWLOntologyManager man,
-            @Nonnull OWLOntology ont, @Nonnull Stream<OWLAxiom> axs) {
+        @Nonnull OWLOntology ont, @Nonnull Stream<OWLAxiom> axs) {
         try {
             return man.createOntology(axs);
-        } catch (OWLOntologyCreationException e) {
+        } catch (@SuppressWarnings("unused") OWLOntologyCreationException e) {
             return ont;
         }
     }
@@ -223,8 +223,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the type of module this extractor will construct
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man,
-            @Nonnull OWLOntology ont, @Nonnull Stream<OWLAxiom> axs,
-            @Nonnull ModuleType moduleType) {
+        @Nonnull OWLOntology ont, @Nonnull Stream<OWLAxiom> axs,
+        @Nonnull ModuleType moduleType) {
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
         rootOntology = checkNotNull(ont, "ont cannot be null");
@@ -245,7 +245,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the type of module this extractor will construct
      */
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man,
-            @Nonnull OWLOntology ont, @Nonnull ModuleType moduleType) {
+        @Nonnull OWLOntology ont, @Nonnull ModuleType moduleType) {
         this(man, ont, asAxiomSet(ont), moduleType);
     }
 
@@ -295,12 +295,12 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @Nonnull
     boolean[] extractLogicalAxioms(@Nonnull boolean[] subOnt,
-            @Nonnull Set<OWLEntity> signature,
-            @Nonnull LocalityClass localityClass) {
+        @Nonnull Set<OWLEntity> signature,
+        @Nonnull LocalityClass localityClass) {
         boolean[] mod = ontologyAxiomSet.getSubset(false);
         boolean[] q2 = ontologyAxiomSet.cloneSubset(subOnt);
         SyntacticLocalityEvaluator sle = new SyntacticLocalityEvaluator(
-                localityClass);
+            localityClass);
         boolean change = true;
         int loopNumber = 0;
         while (change) {
@@ -311,15 +311,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 if (q2[i]) {
                     if (!sle.isLocal(ontologyAxiomSet.getAxiom(i), signature)) {
                         if (LOGGER.isInfoEnabled()) {
-                            LOGGER.info(
-                                    "      Non-local axiom:   {}",
-                                    minusOntologyURI(ontologyAxiomSet.getAxiom(
-                                            i).toString()));
+                            LOGGER.info("      Non-local axiom:   {}",
+                                minusOntologyURI(
+                                    ontologyAxiomSet.getAxiom(i).toString()));
                         }
                         mod[i] = true;
                         q2[i] = false;
                         int oldSize = signature.size();
-                        add(ontologyAxiomSet.getAxiom(i).signature(), signature);
+                        add(ontologyAxiomSet.getAxiom(i).signature(),
+                            signature);
                         // only triggering a change when the signature has
                         // changed doesn't improve performance
                         if (signature.size() > oldSize) {
@@ -328,10 +328,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                         }
                     } else {
                         if (LOGGER.isInfoEnabled()) {
-                            LOGGER.info(
-                                    "      Local axiom:       {}",
-                                    minusOntologyURI(ontologyAxiomSet.getAxiom(
-                                            i).toString()));
+                            LOGGER.info("      Local axiom:       {}",
+                                minusOntologyURI(
+                                    ontologyAxiomSet.getAxiom(i).toString()));
                         }
                     }
                 }
@@ -359,12 +358,12 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @Nonnull
     Set<OWLAxiom> extract(@Nonnull Set<OWLAxiom> subOnt,
-            @Nonnull Set<OWLEntity> signature,
-            @Nonnull LocalityClass localityClass, boolean verbose) {
+        @Nonnull Set<OWLEntity> signature, @Nonnull LocalityClass localityClass,
+        boolean verbose) {
         HashSet<OWLAxiom> mod = new HashSet<>();
         HashSet<OWLAxiom> q2 = new HashSet<>(subOnt);
         SyntacticLocalityEvaluator sle = new SyntacticLocalityEvaluator(
-                localityClass);
+            localityClass);
         boolean change = true;
         int loopNumber = 0;
         while (change) {
@@ -378,7 +377,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 if (!sle.isLocal(ax, signature)) {
                     if (verbose) {
                         LOGGER.info("      Non-local axiom:   {}",
-                                minusOntologyURI(ax.toString()));
+                            minusOntologyURI(ax.toString()));
                     }
                     mod.add(ax);
                     q2remove.add(ax);
@@ -395,7 +394,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 } else {
                     if (verbose) {
                         LOGGER.info("      Local axiom:       {}",
-                                minusOntologyURI(ax.toString()));
+                            minusOntologyURI(ax.toString()));
                     }
                 }
             }
@@ -419,18 +418,19 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @Nonnull
     Set<OWLAxiom> enrich(@Nonnull Set<OWLAxiom> module,
-            @Nonnull Set<OWLEntity> sig) {
+        @Nonnull Set<OWLEntity> sig) {
         Set<OWLAxiom> enrichedModule = new HashSet<>(module);
-        LOGGER.info("\nEnriching with declaration axioms, annotation axioms, same/different individual axioms ...");
+        LOGGER.info(
+            "\nEnriching with declaration axioms, annotation axioms, same/different individual axioms ...");
         // Adding all entity declaration axioms
         // Adding all entity annotation axioms
         for (OWLEntity entity : sig) {
-            List<OWLDeclarationAxiom> declarationAxioms = asList(ontology
-                    .declarationAxioms(entity));
+            List<OWLDeclarationAxiom> declarationAxioms = asList(
+                ontology.declarationAxioms(entity));
             enrichedModule.addAll(declarationAxioms);
             if (LOGGER.isInfoEnabled()) {
-                declarationAxioms.forEach(a -> LOGGER.info(
-                        "  Added entity declaration axiom:   {}",
+                declarationAxioms.forEach(
+                    a -> LOGGER.info("  Added entity declaration axiom:   {}",
                         minusOntologyURI(a.toString())));
             }
         }
@@ -439,12 +439,12 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             iris.add(i.getIRI());
         }
         for (OWLAnnotationAssertionAxiom annotation : ontology
-                .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
             if (iris.contains(annotation.getSubject())) {
                 enrichedModule.add(annotation);
                 if (LOGGER.isInfoEnabled()) {
                     LOGGER.info("  Added entity annotation axiom:   {}",
-                            minusOntologyURI(annotation.toString()));
+                        minusOntologyURI(annotation.toString()));
                 }
             }
         }
@@ -452,22 +452,23 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all different-individuals axioms
         for (OWLEntity entity : sig) {
             if (entity.isOWLNamedIndividual()) {
-                List<OWLSameIndividualAxiom> sameIndividualAxioms = asList(ontology
+                List<OWLSameIndividualAxiom> sameIndividualAxioms = asList(
+                    ontology
                         .sameIndividualAxioms(entity.asOWLNamedIndividual()));
                 enrichedModule.addAll(sameIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
-                    sameIndividualAxioms.forEach(i -> LOGGER.info(
-                            "  Added same individual axiom:   {}",
+                    sameIndividualAxioms.forEach(
+                        i -> LOGGER.info("  Added same individual axiom:   {}",
                             minusOntologyURI(i.toString())));
                 }
-                List<OWLDifferentIndividualsAxiom> differentIndividualAxioms = asList(ontology
-                        .differentIndividualAxioms(entity
-                                .asOWLNamedIndividual()));
+                List<OWLDifferentIndividualsAxiom> differentIndividualAxioms = asList(
+                    ontology.differentIndividualAxioms(
+                        entity.asOWLNamedIndividual()));
                 enrichedModule.addAll(differentIndividualAxioms);
                 if (LOGGER.isInfoEnabled()) {
                     differentIndividualAxioms.forEach(a -> LOGGER.info(
-                            "  Added different individual axiom:   {}",
-                            minusOntologyURI(a.toString())));
+                        "  Added different individual axiom:   {}",
+                        minusOntologyURI(a.toString())));
                 }
             }
         }
@@ -495,10 +496,12 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @param sig
      *        the sig
      */
-    void outputSignature(@Nonnull String preamble, @Nonnull Set<OWLEntity> sig) {
+    void outputSignature(@Nonnull String preamble,
+        @Nonnull Set<OWLEntity> sig) {
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info(preamble);
-            sig.forEach(e -> LOGGER.info("  {}", minusOntologyURI(e.toString())));
+            sig.forEach(
+                e -> LOGGER.info("  {}", minusOntologyURI(e.toString())));
         }
     }
 
@@ -513,9 +516,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @Nonnull
     Set<OWLAxiom> extractUnnestedModule(@Nonnull Set<OWLEntity> sig,
-            @Nonnull LocalityClass cls) {
+        @Nonnull LocalityClass cls) {
         outputSignature("\nExtracting " + cls
-                + " module for the following seed signature ... ", sig);
+            + " module for the following seed signature ... ", sig);
         boolean[] subOnt = ontologyAxiomSet.getSubset(true);
         Set<OWLEntity> signature = new HashSet<>(sig);
         boolean[] module = extractLogicalAxioms(subOnt, signature, cls);
@@ -538,8 +541,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @Nonnull
     static Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel,
-            boolean superVsSub, @Nonnull OWLReasoner reasoner,
-            @Nonnull Set<OWLClass> classesInSig) {
+        boolean superVsSub, @Nonnull OWLReasoner reasoner,
+        @Nonnull Set<OWLClass> classesInSig) {
         Set<OWLClass> superOrSubClasses = new HashSet<>();
         if (superOrSubClassLevel < 0) {
             for (OWLClassExpression ent : classesInSig) {
@@ -561,15 +564,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 for (OWLClassExpression ce : toBeSuClassedNow) {
                     Set<OWLClass> suClasses;
                     if (superVsSub) {
-                        suClasses = asSet(reasoner.getSuperClasses(ce, true)
-                                .entities());
+                        suClasses = asSet(
+                            reasoner.getSuperClasses(ce, true).entities());
                     } else {
-                        suClasses = asSet(reasoner.getSubClasses(ce, true)
-                                .entities());
+                        suClasses = asSet(
+                            reasoner.getSubClasses(ce, true).entities());
                     }
                     for (OWLClass suClass : suClasses) {
                         if (!classesInSig.contains(suClass)
-                                && !suClassesToBeAdded.contains(suClass)) {
+                            && !suClassesToBeAdded.contains(suClass)) {
                             toBeSuClassedNext.add(suClass);
                             suClassesToBeAdded.add(suClass);
                         }
@@ -596,7 +599,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @Nonnull
     Set<OWLEntity> enrichSignature(@Nonnull Set<OWLEntity> sig,
-            int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
+        int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
         Set<OWLEntity> enrichedSig = new HashSet<>(sig);
         Set<OWLClass> classesInSig = new HashSet<>();
         for (OWLEntity ent : sig) {
@@ -606,11 +609,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
         if (superClassLevel != 0) {
             enrichedSig.addAll(SuperOrSubClasses(superClassLevel, true,
-                    reasoner, classesInSig));
+                reasoner, classesInSig));
         }
         if (subClassLevel != 0) {
-            enrichedSig.addAll(SuperOrSubClasses(subClassLevel, false,
-                    reasoner, classesInSig));
+            enrichedSig.addAll(SuperOrSubClasses(subClassLevel, false, reasoner,
+                classesInSig));
         }
         return enrichedSig;
     }
@@ -644,7 +647,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        included for which the class hierarchy computed by the reasoner
      *        contains a path of length at most superClassLevel downwards from C
      *        to some class from the signature.</li>
-     *        <li>If superClassLevel = 0, then no super-/subclasses are added.</li>
+     *        <li>If superClassLevel = 0, then no super-/subclasses are added.
+     *        </li>
      *        <li>If superClassLevel lesser than 0, then all direct and indirect
      *        super-/subclasses of any class in the signature are added.</li>
      *        </ul>
@@ -658,15 +662,16 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     @Override
     @Nonnull
     public Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> sig,
-            int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
+        int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
         Set<OWLEntity> enrichedSig = enrichSignature(sig, superClassLevel,
-                subClassLevel, reasoner);
+            subClassLevel, reasoner);
         switch (moduleType) {
             case TOP:
-                return extractUnnestedModule(enrichedSig, LocalityClass.TOP_TOP);
+                return extractUnnestedModule(enrichedSig,
+                    LocalityClass.TOP_TOP);
             case BOT:
                 return extractUnnestedModule(enrichedSig,
-                        LocalityClass.BOTTOM_BOTTOM);
+                    LocalityClass.BOTTOM_BOTTOM);
             case STAR:
                 boolean[] subOnt = ontologyAxiomSet.getSubset(true);
                 boolean nextStepNecessary = true;
@@ -674,16 +679,18 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 LocalityClass localityClass = LocalityClass.BOTTOM_BOTTOM;
                 Set<OWLEntity> seedSig = new HashSet<>(enrichedSig);
                 while (nextStepNecessary) {
-                    outputSignature("\nExtracting " + localityClass
+                    outputSignature(
+                        "\nExtracting " + localityClass
                             + " module for the following seed signature: ",
-                            enrichedSig);
+                        enrichedSig);
                     int previousModuleSize = ontologyAxiomSet
-                            .subsetCardinality(subOnt);
+                        .subsetCardinality(subOnt);
                     seedSig = new HashSet<>(enrichedSig);
                     subOnt = extractLogicalAxioms(subOnt, seedSig,
-                            localityClass);
-                    if (ontologyAxiomSet.subsetCardinality(subOnt) == previousModuleSize
-                            && !inFirstStep) {
+                        localityClass);
+                    if (ontologyAxiomSet
+                        .subsetCardinality(subOnt) == previousModuleSize
+                        && !inFirstStep) {
                         nextStepNecessary = false;
                     }
                     inFirstStep = false;
@@ -696,23 +703,22 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 Set<OWLAxiom> moduleAsSet = ontologyAxiomSet.toSet(subOnt);
                 return enrich(moduleAsSet, seedSig);
             default:
-                throw new OWLRuntimeException("Unsupported module type: "
-                        + moduleType);
+                throw new OWLRuntimeException(
+                    "Unsupported module type: " + moduleType);
         }
     }
 
     @Override
     public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         return extractAsOntology(signature, iri, 0, 0, null);
     }
 
     @Override
     public OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature,
-            @Nonnull IRI iri, int superClassLevel, int subClassLevel,
-            OWLReasoner reasoner) throws OWLOntologyCreationException {
+        @Nonnull IRI iri, int superClassLevel, int subClassLevel,
+        OWLReasoner reasoner) throws OWLOntologyCreationException {
         return manager.createOntology(
-                extract(signature, superClassLevel, subClassLevel, reasoner),
-                iri);
+            extract(signature, superClassLevel, subClassLevel, reasoner), iri);
     }
 }

@@ -51,7 +51,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final LiteralWrapper literal;
     @Nonnull
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
-            OWL2Datatype.RDF_PLAIN_LITERAL);
+        OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
@@ -74,9 +74,9 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
      *        or it MUST be RDFPlainLiteral
      */
     public OWLLiteralImpl(@Nonnull String literal, @Nullable String lang,
-            @Nullable OWLDatatype datatype) {
-        this.literal = new LiteralWrapper(checkNotNull(literal,
-                "literal cannot be null"));
+        @Nullable OWLDatatype datatype) {
+        this.literal = new LiteralWrapper(
+            checkNotNull(literal, "literal cannot be null"));
         if (lang == null || lang.isEmpty()) {
             language = "";
             if (datatype == null) {
@@ -89,8 +89,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal
                 throw new OWLRuntimeException(
-                        "Error: cannot build a literal with type: "
-                                + datatype.getIRI() + " and language: " + lang);
+                    "Error: cannot build a literal with type: "
+                        + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
@@ -106,7 +106,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Override
     public boolean isRDFPlainLiteral() {
         return datatype.getIRI()
-                .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+            .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -217,8 +217,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         }
         OWLLiteral other = (OWLLiteral) obj;
         return literal.get().equals(other.getLiteral())
-                && datatype.equals(other.getDatatype())
-                && language.equals(other.getLang());
+            && datatype.equals(other.getDatatype())
+            && language.equals(other.getLang());
     }
 
     @Override
@@ -247,7 +247,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 try {
                     bytes = compress(s);
                     l = null;
-                } catch (IOException e) {
+                } catch (@SuppressWarnings("unused") IOException e) {
                     // some problem happened - defaulting to no compression
                     l = s;
                     bytes = null;

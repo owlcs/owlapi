@@ -1048,7 +1048,7 @@ public class OWLAPIOwl2Obo {
                 try {
                     clause.addValue(OBOFormatConstants.headerDateFormat()
                         .parseObject(value));
-                } catch (ParseException e) {
+                } catch (@SuppressWarnings("unused") ParseException e) {
                     error("Could not parse date string: " + value, true);
                     return false;
                 }

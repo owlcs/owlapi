@@ -56,7 +56,7 @@ class CustomTokenizer implements TokenManager {
                     default:
                         return readTextualToken(c);
                 }
-            } catch (IOException e) {
+            } catch (@SuppressWarnings("unused") IOException e) {
                 return makeToken(EOF, "");
             }
         }
@@ -80,7 +80,7 @@ class CustomTokenizer implements TokenManager {
                     c = readChar();
                     if (c != '\\' && c != '\"') {
                         return makeToken(ERROR,
-                                "Bad escape sequence in StringLiteral");
+                            "Bad escape sequence in StringLiteral");
                     }
                     // fallthrough
                     //$FALL-THROUGH$
@@ -101,7 +101,7 @@ class CustomTokenizer implements TokenManager {
                     return makeToken(FULLIRI, buf.toString());
                 }
             }
-        } catch (IOException e) {
+        } catch (@SuppressWarnings("unused") IOException e) {
             return makeToken(ERROR, "<");
         }
     }
@@ -140,13 +140,14 @@ class CustomTokenizer implements TokenManager {
                     default:
                         buf.append(c);
                 }
-            } catch (EOFException eof) {
+            } catch (@SuppressWarnings("unused") EOFException eof) {
                 break;
             }
         }
         String s = buf.toString();
         if (colonIndex >= 0) {
-            // System.out.println("colonIndex >=0 - so expect abbreviated IRI from "
+            // System.out.println("colonIndex >=0 - so expect abbreviated IRI
+            // from "
             // + buf);
             if (colonIndex == s.length() - 1) {
                 return makeToken(PNAME_NS, s);
@@ -154,7 +155,8 @@ class CustomTokenizer implements TokenManager {
                 if (s.startsWith("_:")) {
                     return makeToken(NODEID, s);
                 }
-                return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
+                return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN,
+                    s);
             }
         }
         switch (s) {
@@ -373,7 +375,7 @@ class CustomTokenizer implements TokenManager {
             if (!Character.isDigit(c)) {
                 unread(c);
                 return makeToken(OWLFunctionalSyntaxParserConstants.INT,
-                        buf.toString());
+                    buf.toString());
             } else {
                 buf.append(c);
             }

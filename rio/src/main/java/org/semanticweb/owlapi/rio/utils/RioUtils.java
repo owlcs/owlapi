@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
 public final class RioUtils {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(RioUtils.class);
+        .getLogger(RioUtils.class);
 
     private RioUtils() {}
 
@@ -93,7 +93,7 @@ public final class RioUtils {
      *         RDFTriple in each of the given contexts.
      */
     public static Collection<Statement> tripleAsStatements(
-            final RDFTriple triple, final Resource... contexts) {
+        final RDFTriple triple, final Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactoryImpl vf = ValueFactoryImpl.getInstance();
         Resource subject;
@@ -102,7 +102,7 @@ public final class RioUtils {
         if (triple.getSubject() instanceof RDFResourceIRI) {
             try {
                 subject = vf.createURI(triple.getSubject().getIRI().toString());
-            } catch (IllegalArgumentException iae) {
+            } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
                 LOGGER.error("Subject URI was invalid: {}", triple);
                 return Collections.emptyList();
             }
@@ -113,14 +113,14 @@ public final class RioUtils {
         }
         try {
             predicate = vf.createURI(triple.getPredicate().getIRI().toString());
-        } catch (IllegalArgumentException iae) {
+        } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
             LOGGER.error("Predicate URI was invalid: {}", triple);
             return Collections.emptyList();
         }
         if (triple.getObject() instanceof RDFResourceIRI) {
             try {
                 object = vf.createURI(triple.getObject().getIRI().toString());
-            } catch (IllegalArgumentException iae) {
+            } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
                 LOGGER.error("Object URI was invalid: {}", triple);
                 return Collections.emptyList();
             }
@@ -133,11 +133,11 @@ public final class RioUtils {
             object = node(triple.getObject(), vf);
         }
         if (contexts == null || contexts.length == 0) {
-            return Collections.singletonList(vf.createStatement(subject,
-                    predicate, object));
+            return Collections
+                .singletonList(vf.createStatement(subject, predicate, object));
         } else {
-            return asList(Stream.of(contexts).map(
-                    (x) -> vf.createStatement(subject, predicate, object, x)));
+            return asList(Stream.of(contexts)
+                .map((x) -> vf.createStatement(subject, predicate, object, x)));
         }
     }
 
@@ -149,20 +149,20 @@ public final class RioUtils {
      * @return value
      */
     protected static Value literal(final ValueFactoryImpl vf,
-            final RDFLiteral literalObject) {
+        final RDFLiteral literalObject) {
         Value object;
         // TODO: When updating to Sesame-2.8 the following may need to be
         // rewritten
         if (literalObject.isPlainLiteral()) {
             if (literalObject.hasLang()) {
                 object = vf.createLiteral(literalObject.getLexicalValue(),
-                        literalObject.getLang());
+                    literalObject.getLang());
             } else {
                 object = vf.createLiteral(literalObject.getLexicalValue());
             }
         } else {
             object = vf.createLiteral(literalObject.getLexicalValue(),
-                    vf.createURI(literalObject.getDatatype().toString()));
+                vf.createURI(literalObject.getDatatype().toString()));
         }
         return object;
     }

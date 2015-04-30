@@ -38,7 +38,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * 
  * @author ignazio
  */
-public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals, Serializable {
+public class OWLDataFactoryInternalsImplNoCache
+    implements OWLDataFactoryInternals, Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nullable
@@ -95,7 +96,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     public OWLLiteral getOWLLiteral(@Nonnull String value) {
         if (useCompression) {
             return new OWLLiteralImpl(value, "",
-                    getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+                getOWLDatatype(XSDVocabulary.STRING.getIRI()));
         }
         return new OWLLiteralImplString(value);
     }
@@ -131,7 +132,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
 
     @Override
     public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWLDatatype datatype) {
+        @Nonnull OWLDatatype datatype) {
         OWLLiteral literal;
         if (datatype.isRDFPlainLiteral()) {
             int sep = lexicalValue.lastIndexOf('@');
@@ -148,22 +149,22 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
                 if (datatype.isString()) {
                     literal = getOWLLiteral(lexicalValue);
                 } else if (datatype.isBoolean()) {
-                    literal = getOWLLiteral(isBooleanTrueValue(lexicalValue
-                            .trim()));
+                    literal = getOWLLiteral(
+                        isBooleanTrueValue(lexicalValue.trim()));
                 } else if (datatype.isFloat()) {
                     if (lexicalValue.trim().equals("-0.0")) {
                         // according to some W3C test, this needs to be
                         // different from 0.0; Java floats disagree
                         if (negativeFloatZero == null) {
                             negativeFloatZero = getBasicLiteral("-0.0",
-                                    XSDFLOAT);
+                                XSDFLOAT);
                         }
                         literal = negativeFloatZero;
                     } else {
                         try {
                             float f = Float.parseFloat(lexicalValue);
                             literal = getOWLLiteral(f);
-                        } catch (NumberFormatException e) {
+                        } catch (@SuppressWarnings("unused") NumberFormatException e) {
                             literal = getBasicLiteral(lexicalValue, datatype);
                         }
                     }
@@ -178,9 +179,9 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
                         try {
                             // this is fine for values that can be parsed as
                             // ints - not all values are
-                            literal = getOWLLiteral(Integer
-                                    .parseInt(lexicalValue));
-                        } catch (NumberFormatException ex) {
+                            literal = getOWLLiteral(
+                                Integer.parseInt(lexicalValue));
+                        } catch (@SuppressWarnings("unused") NumberFormatException ex) {
                             // try as a big decimal
                             literal = getBasicLiteral(lexicalValue, datatype);
                         }
@@ -188,7 +189,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
                 } else {
                     literal = getBasicLiteral(lexicalValue, datatype);
                 }
-            } catch (NumberFormatException e) {
+            } catch (@SuppressWarnings("unused") NumberFormatException e) {
                 // some literal is malformed, i.e., wrong format
                 literal = getBasicLiteral(lexicalValue, datatype);
             }
@@ -198,13 +199,13 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
 
     @Nonnull
     protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
-            OWLDatatype datatype) {
+        OWLDatatype datatype) {
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
     @Nonnull
     protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
-            String lang, OWLDatatype datatype) {
+        String lang, OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
             if (datatype == null || datatype.isRDFPlainLiteral()) {
@@ -214,7 +215,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
             }
         } else {
             literal = new OWLLiteralImplNoCompression(lexicalValue, lang,
-                    datatype);
+                datatype);
         }
         return literal;
     }
