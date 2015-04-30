@@ -94,7 +94,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 public class BuildersOntologyTestCase {
 
     @Nonnull
-    private final OWLDataFactory df = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
+    private final OWLDataFactory df = new OWLDataFactoryImpl(
+        new OWLDataFactoryInternalsImplNoCache(false));
     @Nonnull
     private final OWLAnnotationProperty ap = df
         .getOWLAnnotationProperty("urn:test#ann");
@@ -106,6 +107,7 @@ public class BuildersOntologyTestCase {
     private final OWLLiteral lit = df.getOWLLiteral(false);
     @Nonnull
     private final IRI iri = IRI.create("urn:test#iri");
+    @SuppressWarnings("null")
     @Nonnull
     private final Set<OWLAnnotation> annotations = Sets
         .newHashSet(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
@@ -115,22 +117,28 @@ public class BuildersOntologyTestCase {
     private final OWLNamedIndividual i = df.getOWLNamedIndividual("urn:test#i");
     @Nonnull
     private final OWLDatatype d = df.getOWLDatatype("urn:test#datatype");
+    @SuppressWarnings("null")
     @Nonnull
     private final Set<OWLDataProperty> dps = Sets
         .newHashSet(df.getOWLDataProperty(iri), dp);
+    @SuppressWarnings("null")
     @Nonnull
     private final Set<OWLObjectProperty> ops = Sets
         .newHashSet(df.getOWLObjectProperty(iri), op);
+    @SuppressWarnings("null")
     @Nonnull
     private final Set<OWLClass> classes = Sets.newHashSet(df.getOWLClass(iri),
         ce);
+    @SuppressWarnings("null")
     @Nonnull
     private final Set<OWLNamedIndividual> inds = Sets.newHashSet(i,
         df.getOWLNamedIndividual(iri));
+    @SuppressWarnings("null")
     @Nonnull
     private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("v1"),
         Arrays.asList((SWRLDArgument) df.getSWRLVariable("var3"),
             df.getSWRLVariable("var4")));
+    @SuppressWarnings("null")
     @Nonnull
     private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("v2"),
         Arrays.asList((SWRLDArgument) df.getSWRLVariable("var5"),

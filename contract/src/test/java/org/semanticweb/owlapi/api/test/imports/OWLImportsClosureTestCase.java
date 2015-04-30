@@ -41,13 +41,13 @@ public class OWLImportsClosureTestCase extends TestBase {
      */
     @Test
     public void testImportsClosure() throws OWLOntologyCreationException {
-        OWLOntology ontA = m.createOntology(IRI
-                .getNextDocumentIRI("urn:testontology"));
-        OWLOntology ontB = m.createOntology(IRI
-                .getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontA = m
+            .createOntology(IRI.getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontB = m
+            .createOntology(IRI.getNextDocumentIRI("urn:testontology"));
         assertTrue(contains(m.importsClosure(ontA), ontA));
-        OWLImportsDeclaration importsDeclaration = ImportsDeclaration(ontB
-                .getOntologyID().getOntologyIRI().get());
+        OWLImportsDeclaration importsDeclaration = ImportsDeclaration(
+            get(ontB.getOntologyID().getOntologyIRI()));
         m.applyChange(new AddImport(ontA, importsDeclaration));
         assertTrue(contains(m.importsClosure(ontA), ontB));
         m.applyChange(new RemoveImport(ontA, importsDeclaration));

@@ -2185,13 +2185,16 @@ public class ManchesterOWLSyntaxParserImpl
                     false);
                 for (OWLImportsDeclaration decl : header
                     .getImportsDeclarations()) {
+                    assert decl != null;
                     imports.add(new AddImport(ont, decl));
                     ont.getOWLOntologyManager().makeLoadImportRequest(decl,
                         getOntologyLoaderConfiguration());
                     OWLOntology imported = ont.getOWLOntologyManager()
                         .getImportedOntology(decl);
-                    imported.axioms(AxiomType.DECLARATION)
-                        .forEach(d -> processDeclaredEntities(d));
+                    if (imported != null) {
+                        imported.axioms(AxiomType.DECLARATION)
+                            .forEach(d -> processDeclaredEntities(d));
+                    }
                 }
                 for (OWLAnnotation anno : header.getAnnotations()) {
                     ontologyAnnotations
@@ -2231,8 +2234,10 @@ public class ManchesterOWLSyntaxParserImpl
                 imports.add(new AddImport(ont, decl));
                 OWLOntology imported = ont.getOWLOntologyManager()
                     .getImportedOntology(decl);
-                imported.axioms(AxiomType.DECLARATION)
-                    .forEach(d -> processDeclaredEntities(d));
+                if (imported != null) {
+                    imported.axioms(AxiomType.DECLARATION)
+                        .forEach(d -> processDeclaredEntities(d));
+                }
             } else if (PREFIX.matches(section)) {
                 parsePrefixDeclaration()
                     .forEach((k, v) -> pm.setPrefix(k, v.toString()));

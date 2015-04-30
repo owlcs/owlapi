@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.io.File;
@@ -88,6 +87,12 @@ public abstract class TestBase {
     protected final OWLOntologyBuilder builder = (om,
         id) -> new OWLOntologyImpl(om, id);
 
+    @SuppressWarnings("null")
+    @Nonnull
+    protected <T> T get(Optional<T> t) {
+        return t.get();
+    }
+
     protected OWLOntologyLoaderConfiguration getConfiguration() {
         return new OWLOntologyLoaderConfiguration();
     }
@@ -104,6 +109,7 @@ public abstract class TestBase {
         }
     }
 
+    @Nonnull
     private static final File resources() {
         File f = new File("contract/src/test/resources/");
         if (f.exists()) {
@@ -128,7 +134,7 @@ public abstract class TestBase {
     @Rule
     public Timeout timeout = new Timeout(1000000);
     @Nonnull
-    protected OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
+    protected final OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     @Nonnull
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
     @Nonnull

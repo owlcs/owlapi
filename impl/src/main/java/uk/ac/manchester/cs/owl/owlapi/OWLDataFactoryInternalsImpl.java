@@ -106,7 +106,8 @@ public class OWLDataFactoryInternalsImpl
      *        true if literals should be compressed
      */
     @Inject
-    public OWLDataFactoryInternalsImpl(@CompressionEnabled boolean useCompression) {
+    public OWLDataFactoryInternalsImpl(
+        @CompressionEnabled boolean useCompression) {
         super(useCompression);
         classesByURI = buildCache();
         objectPropertiesByURI = buildCache();
@@ -264,7 +265,8 @@ public class OWLDataFactoryInternalsImpl
                 }
             }
             return annotation;
-        } catch (ExecutionException e) {
+        } catch (@SuppressWarnings("unused") ExecutionException e) {
+            // if any exception is raised, just return the input key
             return key;
         }
     }

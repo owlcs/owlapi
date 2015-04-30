@@ -30,8 +30,14 @@ import org.xml.sax.ext.DeclHandler;
  */
 public final class SAXParsers {
 
+    private static final String VALIDATION = "http://xml.org/sax/features/validation";
+    private static final String LOAD_EXTERNAL_DTD = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+    private static final String ERROR_TEMPLATE = " not supported by parser type {}, error message: {}";
+    private static final String DECLARATION_HANDLER = "http://xml.org/sax/properties/declaration-handler";
+    private static final String EXPANSION_LIMIT = "entityExpansionLimit";
+    private static final String ORACLE_EXPANSION_LIMIT = "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit";
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(SAXParsers.class);
+        .getLogger(SAXParsers.class);
 
     private SAXParsers() {}
 
@@ -43,10 +49,8 @@ public final class SAXParsers {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(false);
         try {
-            factory.setFeature(
-                    "http://apache.org/xml/features/nonvalidating/load-external-dtd",
-                    false);
-            factory.setFeature("http://xml.org/sax/features/validation", false);
+            factory.setFeature(LOAD_EXTERNAL_DTD, false);
+            factory.setFeature(VALIDATION, false);
         } catch (ParserConfigurationException | SAXException e) {
             throw new OWLRuntimeException(e);
         }
@@ -65,28 +69,27 @@ public final class SAXParsers {
         try {
             SAXParser parser = initFactory().newSAXParser();
             try {
-            parser.setProperty(
-                    "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit",
-                    "100000000");
+                parser.setProperty(ORACLE_EXPANSION_LIMIT, "100000000");
             } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
-                LOGGER.warn("http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit not supported by parser type "
-                        + parser.getClass().getName());
+                LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE,
+                    parser.getClass().getName(), e.getMessage());
                 try {
-                    parser.setProperty("entityExpansionLimit", "100000000");
-                } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
-                    LOGGER.warn("entityExpansionLimit not supported by parser type "
-                            + parser.getClass().getName());
+                    parser.setProperty(EXPANSION_LIMIT, "100000000");
+                } catch (SAXNotRecognizedException
+                    | SAXNotSupportedException ex) {
+                    LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE,
+                        parser.getClass().getName(), ex.getMessage());
                 }
             }
             if (handler != null) {
                 try {
-                parser.setProperty(
-                        "http://xml.org/sax/properties/declaration-handler",
-                        handler);
-                } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
-                    LOGGER.warn("http://xml.org/sax/properties/declaration-handler not supported by parser type "
-                            + parser.getClass().getName()
-                            + ": entity declarations will not be roundtripped.");
+                    parser.setProperty(DECLARATION_HANDLER, handler);
+                } catch (SAXNotRecognizedException
+                    | SAXNotSupportedException e) {
+                    LOGGER.warn(
+                        DECLARATION_HANDLER + ERROR_TEMPLATE
+                            + " Entity declarations will not be roundtripped.",
+                        parser.getClass().getName(), e.getMessage());
                 }
             }
             return parser;

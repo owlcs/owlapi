@@ -56,7 +56,8 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
-        assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
+        assertTrue(
+            ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
     }
 
     @Test
@@ -65,14 +66,15 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAnnotation anno = Annotation(annoProp, annoLiteral);
         OWLAxiom axiom = SubClassOf(Class(iri("A")), Class(iri("B")),
-                singleton(anno));
+            singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
-        assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
+        assertTrue(
+            ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
         assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
         assertTrue(ont.containsAxiom(axiom.getAxiomWithoutAnnotations(),
-                EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
+            EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
     }
 
     @Test
@@ -99,7 +101,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax1()
-            throws Exception {
+        throws Exception {
         runTestOntologyContainsAxioms1(new FunctionalSyntaxDocumentFormat());
     }
 
@@ -118,16 +120,16 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms1(
-            @Nonnull OWLDocumentFormat format) throws Exception {
+        @Nonnull OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1A");
         @Nonnull
-        IRI ont1iri = ont1.getOntologyID().getOntologyIRI().get();
+        IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
         OWLOntology ont2 = getOWLOntology("testont2A");
         @Nonnull
-        IRI ont2iri = ont2.getOntologyID().getOntologyIRI().get();
+        IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
-        ont1.getOWLOntologyManager().applyChange(
-                new AddImport(ont2, ont2import));
+        ont1.getOWLOntologyManager()
+            .applyChange(new AddImport(ont2, ont2import));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAxiom axannoPropdecl = Declaration(annoProp);
         ont1.getOWLOntologyManager().addAxiom(ont1, axannoPropdecl);
@@ -140,7 +142,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLAxiom axBdecl = Declaration(b, singleton(inont2anno));
         ont2.getOWLOntologyManager().addAxiom(ont2, axBdecl);
         OWLAxiom axAsubB = SubClassOf(Class(iri("A")), Class(iri("B")),
-                singleton(inont2anno));
+            singleton(inont2anno));
         ont2.getOWLOntologyManager().addAxiom(ont2, axAsubB);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(containsConsiderEx(ont1, axannoPropdecl));
@@ -170,9 +172,9 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         ont2.getOWLOntologyManager().saveOntology(ont2, format, writer2);
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         OWLOntology ont1L = man
-                .loadOntologyFromOntologyDocument(savedLocation1);
+            .loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man
-                .loadOntologyFromOntologyDocument(savedLocation2);
+            .loadOntologyFromOntologyDocument(savedLocation2);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(containsConsiderEx(ont1L, axannoPropdecl));
         assertFalse(containsConsiderEx(ont2L, axannoPropdecl));
@@ -211,7 +213,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax2()
-            throws Exception {
+        throws Exception {
         runTestOntologyContainsAxioms2(new FunctionalSyntaxDocumentFormat());
     }
 
@@ -222,14 +224,14 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms2(
-            @Nonnull OWLDocumentFormat format) throws Exception {
+        @Nonnull OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1B");
-        IRI ont1iri = ont1.getOntologyID().getOntologyIRI().get();
+        IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
         OWLOntology ont2 = getOWLOntology("testont2B");
-        IRI ont2iri = ont2.getOntologyID().getOntologyIRI().get();
+        IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
-        ont2.getOWLOntologyManager().applyChange(
-                new AddImport(ont2, ont2import));
+        ont2.getOWLOntologyManager()
+            .applyChange(new AddImport(ont2, ont2import));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAxiom axAnnoPropDecl = Declaration(annoProp);
         ont1.getOWLOntologyManager().addAxiom(ont1, axAnnoPropDecl);
@@ -242,7 +244,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLAxiom axBDecl = Declaration(b, singleton(inOnt2Anno));
         ont2.getOWLOntologyManager().addAxiom(ont2, axBDecl);
         OWLAxiom axAsubB = SubClassOf(Class(iri("A")), Class(iri("B")),
-                singleton(inOnt2Anno));
+            singleton(inOnt2Anno));
         ont2.getOWLOntologyManager().addAxiom(ont2, axAsubB);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(containsConsiderEx(ont1, axAnnoPropDecl));
@@ -273,12 +275,12 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         @SuppressWarnings("unused")
         OWLOntology ont1L = man
-                .loadOntologyFromOntologyDocument(savedLocation1);
+            .loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man
-                .loadOntologyFromOntologyDocument(savedLocation2);
+            .loadOntologyFromOntologyDocument(savedLocation2);
         ont2L.imports().forEach(o -> o.axioms().forEach(ax -> {
             assertTrue(containsConsiderEx(o, ax));
             assertFalse(containsConsiderEx(ont2L, ax));
-        }));
+        } ));
     }
 }

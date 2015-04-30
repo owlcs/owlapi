@@ -162,7 +162,7 @@ public final class OWLAPIPreconditions {
      *        true if the input can be empty
      */
     public static void checkIterableNotNull(@Nonnull Collection<?> o,
-        String name, boolean emptyAllowed) {
+        @Nonnull String name, boolean emptyAllowed) {
         checkNotNull(o, name);
         if (!emptyAllowed && o.isEmpty()) {
             throw new IllegalArgumentException(name + " or empty");
@@ -178,26 +178,47 @@ public final class OWLAPIPreconditions {
      * @param emptyAllowed
      *        true if the input can be empty
      */
-    public static void checkIterableNotNull(@Nonnull Object[] o, String name,
-        boolean emptyAllowed) {
+    public static void checkIterableNotNull(@Nonnull Object[] o,
+        @Nonnull String name, boolean emptyAllowed) {
         checkNotNull(o, name);
         if (!emptyAllowed && o.length == 0) {
             throw new IllegalArgumentException(name + " or empty");
         }
     }
 
+    /**
+     * Wrapper to allow non null annotations.
+     * 
+     * @return empty optional instance
+     */
     @SuppressWarnings("null")
     @Nonnull
     public static <T> Optional<T> emptyOptional() {
         return Optional.empty();
     }
 
+    /**
+     * Wrapper to allow non null annotations.
+     * 
+     * @param t
+     *        type for the returned optional
+     * @return empty optional instance
+     */
     @SuppressWarnings("null")
     @Nonnull
-    public static <T> Optional<T> emptyOptional(Class<T> t) {
+    public static <T> Optional<T> emptyOptional(
+        @SuppressWarnings("unused") Class<T> t) {
         return Optional.empty();
     }
 
+    /**
+     * Wrapper to allow non null annotations.
+     * 
+     * @param t
+     *        instance to wrap. Can be null (the result will be
+     *        Optional.empty())
+     * @return optional instance (content can be absent)
+     */
     @SuppressWarnings("null")
     @Nonnull
     public static <T> Optional<T> optional(T t) {

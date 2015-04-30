@@ -159,7 +159,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private transient List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<>();
     @Nonnull
     private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
-    @SuppressWarnings("null")
     @Nonnull
     private transient Optional<OWLOntologyLoaderConfiguration> config = emptyOptional();
     @Nonnull

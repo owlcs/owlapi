@@ -20,6 +20,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLException;
@@ -39,7 +40,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * @since 2.0.0
  */
 @SuppressWarnings({ "javadoc" })
-public class OWLOntologyManagerImplTestCase {
+public class OWLOntologyManagerImplTestCase extends TestBase {
 
     private OWLOntologyManager manager;
 
@@ -73,7 +74,7 @@ public class OWLOntologyManagerImplTestCase {
             .createOntology(IRI.getNextDocumentIRI("urn:testontology"));
         OWLImportsDeclaration decl = manager.getOWLDataFactory()
             .getOWLImportsDeclaration(
-                ontB.getOntologyID().getOntologyIRI().get());
+                get(ontB.getOntologyID().getOntologyIRI()));
         manager.applyChange(new AddImport(ontA, decl));
         assertTrue(contains(manager.directImports(ontA), ontB));
         manager.removeOntology(ontB);
@@ -91,10 +92,10 @@ public class OWLOntologyManagerImplTestCase {
             .createOntology(IRI.getNextDocumentIRI("urn:testontology"));
         OWLImportsDeclaration declA = manager.getOWLDataFactory()
             .getOWLImportsDeclaration(
-                ontB.getOntologyID().getOntologyIRI().get());
+                get(ontB.getOntologyID().getOntologyIRI()));
         OWLImportsDeclaration declB = manager.getOWLDataFactory()
             .getOWLImportsDeclaration(
-                ontC.getOntologyID().getOntologyIRI().get());
+                get(ontC.getOntologyID().getOntologyIRI()));
         manager.applyChange(new AddImport(ontA, declA));
         manager.applyChange(new AddImport(ontB, declB));
         assertTrue(contains(manager.importsClosure(ontA), ontA));

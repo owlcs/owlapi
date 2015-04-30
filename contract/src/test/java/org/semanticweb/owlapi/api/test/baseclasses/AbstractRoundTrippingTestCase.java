@@ -47,6 +47,7 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Nonnull
     protected abstract OWLOntology createOntology();
 
+    @Nonnull
     protected OWLOntology getOnt() {
         return ont;
     }
@@ -115,12 +116,12 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
         assertEquals(stripSimpleDeclarations(ont.getAxioms()),
-                stripSimpleDeclarations(o1.getAxioms()));
+            stripSimpleDeclarations(o1.getAxioms()));
         assertEquals(stripSimpleDeclarations(o1.getAxioms()),
-                stripSimpleDeclarations(o2.getAxioms()));
+            stripSimpleDeclarations(o2.getAxioms()));
     }
 }

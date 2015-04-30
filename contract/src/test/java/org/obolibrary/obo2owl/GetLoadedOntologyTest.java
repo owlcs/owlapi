@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Optional;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
@@ -12,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings({ "javadoc" })
-public class GetLoadedOntologyTest {
+public class GetLoadedOntologyTest extends TestBase {
 
     @Test
     public void testConvert() throws Exception {
@@ -26,7 +27,7 @@ public class GetLoadedOntologyTest {
         assertTrue(origOnt.getAxiomCount() > 0);
         Optional<IRI> ontologyIRI = origOnt.getOntologyID().getOntologyIRI();
         assertTrue(ontologyIRI.isPresent());
-        OWLOntology newOnt = manager.getOntology(ontologyIRI.get());
+        OWLOntology newOnt = manager.getOntology(get(ontologyIRI));
         assertNotNull(newOnt);
     }
 }

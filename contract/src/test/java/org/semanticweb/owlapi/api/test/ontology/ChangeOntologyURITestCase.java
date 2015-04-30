@@ -40,10 +40,10 @@ public class ChangeOntologyURITestCase extends TestBase {
         IRI newIRI = IRI("http://www.semanticweb.org/ontologies/ontB");
         OWLOntology ont = m.createOntology(oldIRI);
         OWLOntology importingOnt = m
-                .createOntology(IRI("http://www.semanticweb.org/ontologies/ontC"));
-        m.applyChange(new AddImport(importingOnt, m.getOWLDataFactory()
-                .getOWLImportsDeclaration(
-                        ont.getOntologyID().getOntologyIRI().get())));
+            .createOntology(IRI("http://www.semanticweb.org/ontologies/ontC"));
+        m.applyChange(new AddImport(importingOnt,
+            m.getOWLDataFactory().getOWLImportsDeclaration(
+                get(ont.getOntologyID().getOntologyIRI()))));
         assertTrue(m.contains(oldIRI));
         OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(m);
         m.applyChanges(changer.getChanges(ont, newIRI));
@@ -57,11 +57,11 @@ public class ChangeOntologyURITestCase extends TestBase {
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), newIRI);
         assertTrue(m.importsClosure(importingOnt).anyMatch(o -> o.equals(ont)));
         assertNotNull("ontology should not be null",
-                m.getOntologyDocumentIRI(ont));
+            m.getOntologyDocumentIRI(ont));
         // Document IRI will still be the same (in this case the old ont URI)
         assertEquals(m.getOntologyDocumentIRI(ont), oldIRI);
         assertNotNull("ontology format should not be null",
-                m.getOntologyFormat(ont));
+            m.getOntologyFormat(ont));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class ChangeOntologyURITestCase extends TestBase {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         manager.createOntology(IRI.create("http://www.test.com/123"));
         OWLOntologyID anonymousId = OWLManager.createOWLOntologyManager()
-                .createOntology().getOntologyID();
+            .createOntology().getOntologyID();
         manager.contains(anonymousId);
     }
 }

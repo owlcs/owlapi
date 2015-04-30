@@ -215,7 +215,7 @@ public class AutoIRIMapper extends DefaultHandler
                     break;
                 }
             }
-        } catch (IOException e) {
+        } catch (@SuppressWarnings("unused") IOException e) {
             // if we can't parse a file, then we can't map it
         }
     }
@@ -226,7 +226,7 @@ public class AutoIRIMapper extends DefaultHandler
             InputStream is = DocumentSources.wrap(delegate);) {
             currentFile = file;
             SAXParsers.initParserWithOWLAPIStandards(null).parse(is, this);
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             // if we can't parse a file, then we can't map it
         }
     }
@@ -244,7 +244,7 @@ public class AutoIRIMapper extends DefaultHandler
                 }
                 line = br.readLine();
             }
-        } catch (IOException e) {
+        } catch (@SuppressWarnings("unused") IOException e) {
             // if we can't parse a file, then we can't map it
         }
     }

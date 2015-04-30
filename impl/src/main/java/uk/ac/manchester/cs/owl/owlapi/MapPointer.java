@@ -161,6 +161,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (visitor == null) {
             return this;
         }
+        assert visitor != null;
         if (visitor instanceof InitVisitor) {
             for (V ax : (Collection<V>) i.getAxiomsByType().getValues(type)) {
                 K key = ax.accept((InitVisitor<K>) visitor);
@@ -299,6 +300,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        key to look up
      * @return true if there are values for key
      */
+    @SuppressWarnings("null")
     @Nonnull
     public synchronized Boolean containsKey(K key) {
         init();
@@ -448,6 +450,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             DEFAULT_LOAD_FACTOR);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     private Stream<V> values() {
         return map.values().stream().flatMap(s -> s.stream());
