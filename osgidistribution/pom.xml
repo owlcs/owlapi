@@ -214,6 +214,7 @@
 						</_exportcontents>
 						<Import-Package>
 							!sun.misc,
+							!com.google.inject.internal.*,
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
 							org.slf4j.impl;resolution:=optional,
