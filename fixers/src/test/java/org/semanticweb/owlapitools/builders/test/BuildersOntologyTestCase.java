@@ -16,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,10 +37,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -100,7 +96,7 @@ public class BuildersOntologyTestCase {
     private final OWLDataFactory df = new OWLDataFactoryImpl(true, false);
     @Nonnull
     private final OWLAnnotationProperty ap = df
-            .getOWLAnnotationProperty("urn:test#ann");
+        .getOWLAnnotationProperty("urn:test#ann");
     @Nonnull
     private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test#op");
     @Nonnull
@@ -110,8 +106,8 @@ public class BuildersOntologyTestCase {
     @Nonnull
     private final IRI iri = IRI.create("urn:test#iri");
     @Nonnull
-    private final Set<OWLAnnotation> annotations = Sets.newHashSet(df
-            .getOWLAnnotation(ap, df.getOWLLiteral("test")));
+    private final Set<OWLAnnotation> annotations = Sets
+        .newHashSet(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
     @Nonnull
     private final OWLClass ce = df.getOWLClass("urn:test#c");
     @Nonnull
@@ -119,27 +115,25 @@ public class BuildersOntologyTestCase {
     @Nonnull
     private final OWLDatatype d = df.getOWLDatatype("urn:test#datatype");
     @Nonnull
-    private final Set<OWLDataProperty> dps = Sets.newHashSet(
-            df.getOWLDataProperty(iri), dp);
+    private final Set<OWLDataProperty> dps = Sets
+        .newHashSet(df.getOWLDataProperty(iri), dp);
     @Nonnull
-    private final Set<OWLObjectProperty> ops = Sets.newHashSet(
-            df.getOWLObjectProperty(iri), op);
+    private final Set<OWLObjectProperty> ops = Sets
+        .newHashSet(df.getOWLObjectProperty(iri), op);
     @Nonnull
     private final Set<OWLClass> classes = Sets.newHashSet(df.getOWLClass(iri),
-            ce);
+        ce);
     @Nonnull
     private final Set<OWLNamedIndividual> inds = Sets.newHashSet(i,
-            df.getOWLNamedIndividual(iri));
+        df.getOWLNamedIndividual(iri));
     @Nonnull
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(
-            IRI.create("v1"),
-            Arrays.asList((SWRLDArgument) df.getSWRLVariable("var3"),
-                    df.getSWRLVariable("var4")));
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("v1"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable("var3"),
+            df.getSWRLVariable("var4")));
     @Nonnull
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(
-            IRI.create("v2"),
-            Arrays.asList((SWRLDArgument) df.getSWRLVariable("var5"),
-                    df.getSWRLVariable("var6")));
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("v2"),
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable("var5"),
+            df.getSWRLVariable("var6")));
     @Nonnull
     private final Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));
     @Nonnull
@@ -150,305 +144,299 @@ public class BuildersOntologyTestCase {
     // no parsers and storers injected
     @Nonnull
     private OWLOntologyManager getManager() {
-        OWLOntologyManager instance = new OWLOntologyManagerImpl(df, new ReentrantReadWriteLock());
-        instance.setOntologyFactories(Collections
-                .singleton((OWLOntologyFactory) new OWLOntologyFactoryImpl(new OWLOntologyBuilder() {
-                    @Nonnull
-                    @Override
-                    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-                                                         @Nonnull OWLOntologyID ontologyID) {
-                        return new OWLOntologyImpl(manager, ontologyID);
-                    }
-                })));
+        OWLOntologyManager instance = new OWLOntologyManagerImpl(df,
+            new ReentrantReadWriteLock());
+        instance.getOntologyFactories().set(
+            new OWLOntologyFactoryImpl((o, id) -> new OWLOntologyImpl(o, id)));
         return instance;
     }
 
     @Test
     public void shouldBuildAnnotationAssertion()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderAnnotationAssertion(df)
-                .withAnnotations(annotations).withProperty(ap).withSubject(iri)
-                .withValue(lit);
+            .withAnnotations(annotations).withProperty(ap).withSubject(iri)
+            .withValue(lit);
         OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(ap, iri, lit,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildAnnotationPropertyDomain()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderAnnotationPropertyDomain(df)
-                .withProperty(ap).withDomain(iri).withAnnotations(annotations);
+            .withProperty(ap).withDomain(iri).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLAnnotationPropertyDomainAxiom(ap, iri,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildAnnotationPropertyRange()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderAnnotationPropertyRange(df)
-                .withProperty(ap).withRange(iri).withAnnotations(annotations);
+            .withProperty(ap).withRange(iri).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLAnnotationPropertyRangeAxiom(ap, iri,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildAsymmetricObjectProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderAsymmetricObjectProperty(df)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLAsymmetricObjectPropertyAxiom(op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
-    public void shouldBuildClassAssertion() throws OWLOntologyCreationException {
+    public void shouldBuildClassAssertion()
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderClassAssertion(df).withClass(ce)
-                .withIndividual(i).withAnnotations(annotations);
+            .withIndividual(i).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLClassAssertionAxiom(ce, i, annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDataPropertyAssertion()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderDataPropertyAssertion(df)
-                .withProperty(dp).withSubject(i).withValue(lit)
-                .withAnnotations(annotations);
+            .withProperty(dp).withSubject(i).withValue(lit)
+            .withAnnotations(annotations);
         OWLAxiom expected = df.getOWLDataPropertyAssertionAxiom(dp, i, lit,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDataPropertyDomain()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderDataPropertyDomain(df).withProperty(dp)
-                .withDomain(ce).withAnnotations(annotations);
+            .withDomain(ce).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLDataPropertyDomainAxiom(dp, ce,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDataPropertyRange()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderDataPropertyRange(df).withProperty(dp)
-                .withRange(d).withAnnotations(annotations);
+            .withRange(d).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLDataPropertyRangeAxiom(dp, d, annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDatatypeDefinition()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderDatatypeDefinition(df).with(d)
-                .withType(df.getDoubleOWLDatatype())
-                .withAnnotations(annotations);
+            .withType(df.getDoubleOWLDatatype()).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLDatatypeDefinitionAxiom(d,
-                df.getDoubleOWLDatatype(), annotations);
+            df.getDoubleOWLDatatype(), annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDeclaration() throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderDeclaration(df).withEntity(ce)
-                .withAnnotations(annotations);
+            .withAnnotations(annotations);
         OWLAxiom expected = df.getOWLDeclarationAxiom(ce, annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDifferentIndividuals()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderDifferentIndividuals(df).withItem(i)
-                .withItem(df.getOWLNamedIndividual(iri));
+            .withItem(df.getOWLNamedIndividual(iri));
         OWLAxiom expected = df.getOWLDifferentIndividualsAxiom(i,
-                df.getOWLNamedIndividual(iri));
+            df.getOWLNamedIndividual(iri));
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDisjointClasses()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderDisjointClasses(df).withItem(ce)
-                .withItem(df.getOWLClass(iri));
+            .withItem(df.getOWLClass(iri));
         OWLAxiom expected = df.getOWLDisjointClassesAxiom(ce,
-                df.getOWLClass(iri));
+            df.getOWLClass(iri));
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDisjointDataProperties()
-            throws OWLOntologyCreationException {
-        Builder<?> builder = new BuilderDisjointDataProperties(df).withItems(
-                dps).withAnnotations(annotations);
+        throws OWLOntologyCreationException {
+        Builder<?> builder = new BuilderDisjointDataProperties(df)
+            .withItems(dps).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLDisjointDataPropertiesAxiom(dps,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDisjointObjectProperties()
-            throws OWLOntologyCreationException {
-        Builder<?> builder = new BuilderDisjointObjectProperties(df).withItems(
-                ops).withAnnotations(annotations);
+        throws OWLOntologyCreationException {
+        Builder<?> builder = new BuilderDisjointObjectProperties(df)
+            .withItems(ops).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLDisjointObjectPropertiesAxiom(ops,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildDisjointUnion() throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderDisjointUnion(df).withClass(ce)
-                .withItems(classes).withAnnotations(annotations);
+            .withItems(classes).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLDisjointUnionAxiom(ce, classes,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildEquivalentClasses()
-            throws OWLOntologyCreationException {
-        Builder<?> builder = new BuilderEquivalentClasses(df)
-                .withItems(classes).withAnnotations(annotations);
+        throws OWLOntologyCreationException {
+        Builder<?> builder = new BuilderEquivalentClasses(df).withItems(classes)
+            .withAnnotations(annotations);
         OWLAxiom expected = df.getOWLEquivalentClassesAxiom(classes,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildEquivalentDataProperties()
-            throws OWLOntologyCreationException {
-        Builder<?> builder = new BuilderEquivalentDataProperties(df).withItems(
-                dps).withAnnotations(annotations);
+        throws OWLOntologyCreationException {
+        Builder<?> builder = new BuilderEquivalentDataProperties(df)
+            .withItems(dps).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLEquivalentDataPropertiesAxiom(dps,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildEquivalentObjectProperties()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderEquivalentObjectProperties(df)
-                .withItems(ops).withAnnotations(annotations);
+            .withItems(ops).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLEquivalentObjectPropertiesAxiom(ops,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildFunctionalDataProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderFunctionalDataProperty(df)
-                .withProperty(dp).withAnnotations(annotations);
+            .withProperty(dp).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLFunctionalDataPropertyAxiom(dp,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildFunctionalObjectProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderFunctionalObjectProperty(df)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLFunctionalObjectPropertyAxiom(op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildHasKey() throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderHasKey(df).withAnnotations(annotations)
-                .withClass(ce).withItems(ops);
+            .withClass(ce).withItems(ops);
         OWLAxiom expected = df.getOWLHasKeyAxiom(ce, ops, annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildInverseFunctionalObjectProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderInverseFunctionalObjectProperty(df)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLInverseFunctionalObjectPropertyAxiom(op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildInverseObjectProperties()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderInverseObjectProperties(df)
-                .withProperty(op).withInverseProperty(op)
-                .withAnnotations(annotations);
+            .withProperty(op).withInverseProperty(op)
+            .withAnnotations(annotations);
         OWLAxiom expected = df.getOWLInverseObjectPropertiesAxiom(op, op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildIrreflexiveObjectProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderIrreflexiveObjectProperty(df)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLIrreflexiveObjectPropertyAxiom(op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildNegativeDataPropertyAssertion()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderNegativeDataPropertyAssertion(df)
-                .withAnnotations(annotations).withProperty(dp).withValue(lit)
-                .withSubject(i);
+            .withAnnotations(annotations).withProperty(dp).withValue(lit)
+            .withSubject(i);
         OWLAxiom expected = df.getOWLNegativeDataPropertyAssertionAxiom(dp, i,
-                lit, annotations);
+            lit, annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildNegativeObjectPropertyAssertion()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderNegativeObjectPropertyAssertion(df)
-                .withAnnotations(annotations).withProperty(op).withValue(i)
-                .withSubject(i);
-        OWLAxiom expected = df.getOWLNegativeObjectPropertyAssertionAxiom(op,
-                i, i, annotations);
+            .withAnnotations(annotations).withProperty(op).withValue(i)
+            .withSubject(i);
+        OWLAxiom expected = df.getOWLNegativeObjectPropertyAssertionAxiom(op, i,
+            i, annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildObjectPropertyAssertion()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderObjectPropertyAssertion(df)
-                .withProperty(op).withSubject(i).withValue(i)
-                .withAnnotations(annotations);
+            .withProperty(op).withSubject(i).withValue(i)
+            .withAnnotations(annotations);
         OWLAxiom expected = df.getOWLObjectPropertyAssertionAxiom(op, i, i,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildObjectPropertyDomain()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderObjectPropertyDomain(df).withDomain(ce)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLObjectPropertyDomainAxiom(op, ce,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildObjectPropertyRange()
-            throws OWLOntologyCreationException {
-        Builder<?> builder = new BuilderObjectPropertyRange(df)
-                .withProperty(op).withRange(ce).withAnnotations(annotations);
+        throws OWLOntologyCreationException {
+        Builder<?> builder = new BuilderObjectPropertyRange(df).withProperty(op)
+            .withRange(ce).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLObjectPropertyRangeAxiom(op, ce,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
@@ -456,71 +444,70 @@ public class BuildersOntologyTestCase {
     public void shouldBuildPropertyChain() throws OWLOntologyCreationException {
         List<OWLObjectProperty> chain = new ArrayList<>(ops);
         BuilderPropertyChain builder = new BuilderPropertyChain(df)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         for (OWLObjectPropertyExpression p : chain) {
             builder.withPropertyInChain(p);
         }
         OWLAxiom expected = df.getOWLSubPropertyChainOfAxiom(chain, op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildReflexiveObjectProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderReflexiveObjectProperty(df)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLReflexiveObjectPropertyAxiom(op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
-    public void shouldBuildSameIndividual() throws OWLOntologyCreationException {
+    public void shouldBuildSameIndividual()
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderSameIndividual(df).withItems(inds)
-                .withAnnotations(annotations);
+            .withAnnotations(annotations);
         OWLAxiom expected = df.getOWLSameIndividualAxiom(inds, annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildSubAnnotationPropertyOf()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderSubAnnotationPropertyOf(df).withSub(ap)
-                .withSup(df.getRDFSLabel()).withAnnotations(annotations);
+            .withSup(df.getRDFSLabel()).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLSubAnnotationPropertyOfAxiom(ap,
-                df.getRDFSLabel(), annotations);
+            df.getRDFSLabel(), annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildSubClass() throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderSubClass(df)
-                .withAnnotations(annotations).withSub(ce)
-                .withSup(df.getOWLThing());
+            .withAnnotations(annotations).withSub(ce).withSup(df.getOWLThing());
         OWLAxiom expected = df.getOWLSubClassOfAxiom(ce, df.getOWLThing(),
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildSubDataProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderSubDataProperty(df).withSub(dp)
-                .withSup(df.getOWLTopDataProperty());
+            .withSup(df.getOWLTopDataProperty());
         OWLAxiom expected = df.getOWLSubDataPropertyOfAxiom(dp,
-                df.getOWLTopDataProperty());
+            df.getOWLTopDataProperty());
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildSubObjectProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderSubObjectProperty(df).withSub(op)
-                .withSup(df.getOWLTopObjectProperty())
-                .withAnnotations(annotations);
+            .withSup(df.getOWLTopObjectProperty()).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLSubObjectPropertyOfAxiom(op,
-                df.getOWLTopObjectProperty(), annotations);
+            df.getOWLTopObjectProperty(), annotations);
         checkAxiom(builder, expected);
     }
 
@@ -533,26 +520,26 @@ public class BuildersOntologyTestCase {
 
     @Test
     public void shouldBuildSymmetricObjectProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderSymmetricObjectProperty(df)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLSymmetricObjectPropertyAxiom(op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     @Test
     public void shouldBuildTransitiveObjectProperty()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         Builder<?> builder = new BuilderTransitiveObjectProperty(df)
-                .withProperty(op).withAnnotations(annotations);
+            .withProperty(op).withAnnotations(annotations);
         OWLAxiom expected = df.getOWLTransitiveObjectPropertyAxiom(op,
-                annotations);
+            annotations);
         checkAxiom(builder, expected);
     }
 
     protected void checkAxiom(Builder<?> builder, OWLAxiom expected)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology();
         builder.applyChanges(o);
         assertTrue(o.containsAxiom(expected));

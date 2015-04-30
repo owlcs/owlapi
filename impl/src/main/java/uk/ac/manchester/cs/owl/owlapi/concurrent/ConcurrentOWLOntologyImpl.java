@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -2737,6 +2738,777 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
             return delegate.applyDirectChange(change);
         } finally {
             writeLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDisjointObjectPropertiesAxiom> disjointObjectPropertiesAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.disjointObjectPropertiesAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLObjectProperty> objectPropertiesInSignature() {
+        readLock.lock();
+        try {
+            return delegate.objectPropertiesInSignature();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
+        OWLAnnotationSubject entity) {
+        readLock.lock();
+        try {
+            return delegate.annotationAssertionAxioms(entity);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(
+        OWLAnnotationSubject entity, Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.annotationAssertionAxioms(entity, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
+        readLock.lock();
+        try {
+            return delegate.annotationPropertiesInSignature();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnnotationProperty> annotationPropertiesInSignature(
+        Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.annotationPropertiesInSignature(imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnnotation> annotations() {
+        readLock.lock();
+        try {
+            return delegate.annotations();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnnotation> annotations(OWLAnnotationProperty p) {
+        readLock.lock();
+        try {
+            return delegate.annotations(p);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnnotation> annotations(Predicate<OWLAnnotation> p) {
+        readLock.lock();
+        try {
+            return delegate.annotations(p);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
+        readLock.lock();
+        try {
+            return delegate.anonymousIndividuals();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAsymmetricObjectPropertyAxiom> asymmetricObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.asymmetricObjectPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public <T extends OWLAxiom> Stream<T> axioms(Class<T> type,
+        OWLObject entity, Navigation forSubPosition) {
+        readLock.lock();
+        try {
+            return delegate.axioms(type, entity, forSubPosition);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAxiom> axioms(Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.axioms(imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAnnotationAxiom> axioms(OWLAnnotationProperty property,
+        Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.axioms(property, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLClassAxiom> axioms(OWLClass cls, Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.axioms(cls, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDataPropertyAxiom> axioms(OWLDataProperty property,
+        Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.axioms(property, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDatatypeDefinitionAxiom> axioms(OWLDatatype datatype,
+        Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.axioms(datatype, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLIndividualAxiom> axioms(OWLIndividual individual,
+        Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.axioms(individual, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLObjectPropertyAxiom> axioms(
+        OWLObjectPropertyExpression property, Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.axioms(property, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLClassAssertionAxiom> classAssertionAxioms(
+        OWLClassExpression ce) {
+        readLock.lock();
+        try {
+            return delegate.classAssertionAxioms(ce);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLClassAssertionAxiom> classAssertionAxioms(
+        OWLIndividual individual) {
+        readLock.lock();
+        try {
+            return delegate.classAssertionAxioms(individual);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLClass> classesInSignature() {
+        readLock.lock();
+        try {
+            return delegate.classesInSignature();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLClass> classesInSignature(Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.classesInSignature(imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDataProperty> dataPropertiesInSignature() {
+        readLock.lock();
+        try {
+            return delegate.dataPropertiesInSignature();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDataProperty> dataPropertiesInSignature(Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.dataPropertiesInSignature(imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDataPropertyAssertionAxiom> dataPropertyAssertionAxioms(
+        OWLIndividual individual) {
+        readLock.lock();
+        try {
+            return delegate.dataPropertyAssertionAxioms(individual);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDataPropertyDomainAxiom> dataPropertyDomainAxioms(
+        OWLDataProperty property) {
+        readLock.lock();
+        try {
+            return delegate.dataPropertyDomainAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDataPropertyRangeAxiom> dataPropertyRangeAxioms(
+        OWLDataProperty property) {
+        readLock.lock();
+        try {
+            return delegate.dataPropertyRangeAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSubProperty(
+        OWLDataProperty subProperty) {
+        readLock.lock();
+        try {
+            return delegate.dataSubPropertyAxiomsForSubProperty(subProperty);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSuperProperty(
+        OWLDataPropertyExpression superProperty) {
+        readLock.lock();
+        try {
+            return delegate
+                .dataSubPropertyAxiomsForSuperProperty(superProperty);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDatatype> datatypesInSignature() {
+        readLock.lock();
+        try {
+            return delegate.datatypesInSignature();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDatatype> datatypesInSignature(Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.datatypesInSignature(imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDeclarationAxiom> declarationAxioms(OWLEntity subject) {
+        readLock.lock();
+        try {
+            return delegate.declarationAxioms(subject);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDifferentIndividualsAxiom> differentIndividualAxioms(
+        OWLIndividual individual) {
+        readLock.lock();
+        try {
+            return delegate.differentIndividualAxioms(individual);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDisjointClassesAxiom> disjointClassesAxioms(OWLClass cls) {
+        readLock.lock();
+        try {
+            return delegate.disjointClassesAxioms(cls);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDisjointDataPropertiesAxiom> disjointDataPropertiesAxioms(
+        OWLDataProperty property) {
+        readLock.lock();
+        try {
+            return delegate.disjointDataPropertiesAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLDisjointUnionAxiom> disjointUnionAxioms(
+        OWLClass owlClass) {
+        readLock.lock();
+        try {
+            return delegate.disjointUnionAxioms(owlClass);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLEntity> entitiesInSignature(IRI iri, Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.entitiesInSignature(iri, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLEquivalentClassesAxiom> equivalentClassesAxioms(
+        OWLClass cls) {
+        readLock.lock();
+        try {
+            return delegate.equivalentClassesAxioms(cls);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLEquivalentDataPropertiesAxiom> equivalentDataPropertiesAxioms(
+        OWLDataProperty property) {
+        readLock.lock();
+        try {
+            return delegate.equivalentDataPropertiesAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLEquivalentObjectPropertiesAxiom> equivalentObjectPropertiesAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.equivalentObjectPropertiesAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public <T extends OWLAxiom> Collection<T> filterAxioms(
+        OWLAxiomSearchFilter filter, Object key) {
+        readLock.lock();
+        try {
+            return delegate.filterAxioms(filter, key);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxioms(
+        OWLDataPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.functionalDataPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLFunctionalObjectPropertyAxiom> functionalObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.functionalObjectPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+        OWLAnnotationSubject entity, Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.getAnnotationAssertionAxioms(entity, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Set<OWLAnnotation> getAnnotations(
+        OWLAnnotationProperty annotationProperty) {
+        readLock.lock();
+        try {
+            return delegate.getAnnotations(annotationProperty);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
+        Class<? extends OWLObject> explicitClass, OWLObject entity,
+        Navigation forSubPosition) {
+        readLock.lock();
+        try {
+            return delegate.getAxioms(type, explicitClass, entity,
+                forSubPosition);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
+        OWLObject entity, Navigation forSubPosition) {
+        readLock.lock();
+        try {
+            return delegate.getAxioms(type, entity, forSubPosition);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public OWLDocumentFormat getFormat() {
+        readLock.lock();
+        try {
+            return delegate.getFormat();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
+        readLock.lock();
+        try {
+            return delegate.getReferencedAnonymousIndividuals();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLHasKeyAxiom> hasKeyAxioms(OWLClass cls) {
+        readLock.lock();
+        try {
+            return delegate.hasKeyAxioms(cls);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLNamedIndividual> individualsInSignature() {
+        readLock.lock();
+        try {
+            return delegate.individualsInSignature();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLNamedIndividual> individualsInSignature(Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.individualsInSignature(imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLInverseFunctionalObjectPropertyAxiom> inverseFunctionalObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.inverseFunctionalObjectPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLInverseObjectPropertiesAxiom> inverseObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.inverseObjectPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLIrreflexiveObjectPropertyAxiom> irreflexiveObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.irreflexiveObjectPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLLogicalAxiom> logicalAxioms(Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.logicalAxioms(imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLNegativeDataPropertyAssertionAxiom> negativeDataPropertyAssertionAxioms(
+        OWLIndividual individual) {
+        readLock.lock();
+        try {
+            return delegate.negativeDataPropertyAssertionAxioms(individual);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLNegativeObjectPropertyAssertionAxiom> negativeObjectPropertyAssertionAxioms(
+        OWLIndividual individual) {
+        readLock.lock();
+        try {
+            return delegate.negativeObjectPropertyAssertionAxioms(individual);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLClassExpression> nestedClassExpressions() {
+        readLock.lock();
+        try {
+            return delegate.nestedClassExpressions();
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLObjectProperty> objectPropertiesInSignature(
+        Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.objectPropertiesInSignature(imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLObjectPropertyAssertionAxiom> objectPropertyAssertionAxioms(
+        OWLIndividual individual) {
+        readLock.lock();
+        try {
+            return delegate.objectPropertyAssertionAxioms(individual);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLObjectPropertyDomainAxiom> objectPropertyDomainAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.objectPropertyDomainAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLObjectPropertyRangeAxiom> objectPropertyRangeAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.objectPropertyRangeAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsForSubProperty(
+        OWLObjectPropertyExpression subProperty) {
+        readLock.lock();
+        try {
+            return delegate.objectSubPropertyAxiomsForSubProperty(subProperty);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsForSuperProperty(
+        OWLObjectPropertyExpression superProperty) {
+        readLock.lock();
+        try {
+            return delegate
+                .objectSubPropertyAxiomsForSuperProperty(superProperty);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLReflexiveObjectPropertyAxiom> reflexiveObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.reflexiveObjectPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLSameIndividualAxiom> sameIndividualAxioms(
+        OWLIndividual individual) {
+        readLock.lock();
+        try {
+            return delegate.sameIndividualAxioms(individual);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLSubClassOfAxiom> subClassAxiomsForSubClass(OWLClass cls) {
+        readLock.lock();
+        try {
+            return delegate.subClassAxiomsForSubClass(cls);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLSubClassOfAxiom> subClassAxiomsForSuperClass(
+        OWLClass cls) {
+        readLock.lock();
+        try {
+            return delegate.subClassAxiomsForSuperClass(cls);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLSymmetricObjectPropertyAxiom> symmetricObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.symmetricObjectPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLTransitiveObjectPropertyAxiom> transitiveObjectPropertyAxioms(
+        OWLObjectPropertyExpression property) {
+        readLock.lock();
+        try {
+            return delegate.transitiveObjectPropertyAxioms(property);
+        } finally {
+            readLock.unlock();
         }
     }
 }

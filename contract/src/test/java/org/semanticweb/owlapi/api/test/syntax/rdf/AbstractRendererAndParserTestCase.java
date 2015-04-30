@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -27,36 +25,24 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", "serial" })
+@SuppressWarnings({ "javadoc" })
 public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
     @Before
     public void setUpManager() {
-        m.getOntologyFactories()
-            .add(new OWLOntologyFactoryImpl(new OWLOntologyBuilder() {
-
-                @Nonnull
-                @Override
-                public OWLOntology createOWLOntology(
-                    @Nonnull OWLOntologyManager manager,
-                    @Nonnull OWLOntologyID ontologyID) {
-                    return new OWLOntologyImpl(manager, ontologyID);
-                }
-            }));
-        m.getOntologyStorers().add(new RDFXMLStorerFactory());
+        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
+        m.getOntologyStorers().set(new RDFXMLStorerFactory());
+        m.getOntologyParsers().set(new RDFXMLParserFactory());
     }
 
     @Test

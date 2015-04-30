@@ -19,8 +19,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -31,12 +29,8 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 
 /**
  * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
@@ -55,21 +49,13 @@ public class DisjointsTestCase extends TestBase {
 
     @Before
     public void setUpManager() {
-        OWLOntologyBuilder builder = new OWLOntologyBuilder() {
-            @Nonnull
-            @Override
-            public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-                                                 @Nonnull OWLOntologyID ontologyID) {
-                return new OWLOntologyImpl(manager, ontologyID);
-            }
-        };
         m.getOntologyFactories().add(new OWLOntologyFactoryImpl(builder));
     }
 
     @Test
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = m.createOntology(IRI
-                .getNextDocumentIRI("urntests#uri"));
+        OWLOntology ontA = m
+            .createOntology(IRI.getNextDocumentIRI("urntests#uri"));
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
         OWLObjectProperty prop = createObjectProperty();
