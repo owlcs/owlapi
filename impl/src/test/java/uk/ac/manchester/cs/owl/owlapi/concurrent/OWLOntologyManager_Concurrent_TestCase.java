@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -146,9 +147,20 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_contains_with_readLock_2() {
-        OWLOntologyID arg0 = new OWLOntologyID();
+        OWLOntologyID arg0 = new OWLOntologyID(IRI.create("urn:test:ontology"));
         manager.contains(arg0);
         verifyReadLock_LockUnlock();
+    }
+
+    @Test
+    public void shouldCall_contains_with_no_readLock_onAnonymous() {
+        // anonymous ontology ids are never contained, no need to engage locks
+        OWLOntologyID arg0 = new OWLOntologyID();
+        manager.contains(arg0);
+        verify(readLock, never()).lock();
+        verify(readLock, never()).unlock();
+        verify(writeLock, never()).lock();
+        verify(writeLock, never()).unlock();
     }
 
     @Test
@@ -712,15 +724,23 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_addAxioms_with_writeLock() {
-        OWLOntology arg0 = mock(OWLMutableOntology.class);
+        OWLOntology arg0 = mockOntology();
         Set<OWLAxiom> axioms = Sets.newHashSet(mock(OWLAxiom.class));
         manager.addAxioms(arg0, axioms);
         verifyWriteLock_LockUnlock();
     }
 
+    protected OWLMutableOntology mockOntology() {
+        OWLMutableOntology mock = mock(OWLMutableOntology.class);
+        when(mock.getOntologyID()).thenReturn(
+            new OWLOntologyID(Optional.of(IRI.create("urn:mock:ontology")),
+                Optional.<IRI> empty()));
+        return mock;
+    }
+
     @Test
     public void shouldCall_addAxiom_with_writeLock() {
-        OWLOntology arg0 = mock(OWLMutableOntology.class);
+        OWLOntology arg0 = mockOntology();
         OWLAxiom arg1 = mock(OWLAxiom.class);
         manager.addAxiom(arg0, arg1);
         verifyWriteLock_LockUnlock();
@@ -735,7 +755,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_removeAxiom_with_writeLock() {
-        OWLOntology arg0 = mock(OWLMutableOntology.class);
+        OWLOntology arg0 = mockOntology();
         OWLAxiom arg1 = mock(OWLAxiom.class);
         manager.removeAxiom(arg0, arg1);
         verifyWriteLock_LockUnlock();

@@ -23,7 +23,6 @@
 	<url>http://owlapi.sourceforge.net/</url>
 
 	<modules>
-		<module>testsupport</module>
 		<module>api</module>
 		<module>impl</module>
 		<module>tools</module>
@@ -86,12 +85,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-testsupport</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
@@ -99,17 +92,17 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>4.0-beta5</version>
+			<version>4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-assistedinject</artifactId>
+			<version>4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
-			<version>4.0-beta5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-assisted-inject</artifactId>
-			<version>4.0-beta</version>
+			<version>4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
@@ -220,25 +213,6 @@
 							</instructions>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>2.3</version>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>shade</goal>
-								</goals>
-								<configuration>
-									<transformers>
-										<transformer
-											implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-									</transformers>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
 					<!-- We need to configure the Source Plugin for deploying the sources. -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -333,7 +307,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18.1</version>
 				<configuration>
-					<excludedGroups>org.semanticweb.owlapi.test.IntegrationTest</excludedGroups>
+					<excludes>
+						<exclude>**/*IntegrationTestCase.java</exclude>
+					</excludes>
 					<printSummary>false</printSummary>
 					<parallel>all</parallel>
 					<threadCount>1</threadCount>
@@ -346,9 +322,8 @@
 				<version>2.18.1</version>
 				<configuration>
 					<includes>
-						<include>**/*.java</include>
+						<include>**/*IntegrationTestCase.java</include>
 					</includes>
-					<groups>org.semanticweb.owlapi.test.IntegrationTest</groups>
 				</configuration>
 				<executions>
 					<execution>
@@ -373,10 +348,11 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.7</version>
+				<version>2.5.3</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
 						<Implementation-Version>${project.version}</Implementation-Version>
 						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
 						<Bundle-Name>${project.artifactId}</Bundle-Name>
