@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(GZipStreamDocumentSource.class);
+        .getLogger(GZipStreamDocumentSource.class);
     private byte[] buffer;
 
     /**
@@ -66,8 +68,8 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public GZipStreamDocumentSource(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(stream);
     }
@@ -93,15 +95,15 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         if (buffer == null) {
-            return Optional.empty();
+            return emptyOptional();
         }
         try {
-            return Optional.of(DocumentSources.wrap(new GZIPInputStream(
-                    new ByteArrayInputStream(buffer))));
+            return optional(DocumentSources
+                .wrap(new GZIPInputStream(new ByteArrayInputStream(buffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 }

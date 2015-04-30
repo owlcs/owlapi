@@ -12,9 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.parser;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
+
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -49,27 +50,33 @@ public class ManchesterOWLSyntaxOntologyHeader {
      *        the imports declarations
      */
     public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
-            @Nonnull Set<OWLAnnotation> annotations,
-            Set<OWLImportsDeclaration> importsDeclarations) {
-        ontologyID = new OWLOntologyID(Optional.ofNullable(ontologyIRI),
-                Optional.ofNullable(versionIRI));
+        @Nonnull Set<OWLAnnotation> annotations,
+        Set<OWLImportsDeclaration> importsDeclarations) {
+        ontologyID = new OWLOntologyID(optional(ontologyIRI),
+            optional(versionIRI));
         this.annotations = new ArrayList<>(annotations);
         this.importsDeclarations = new ArrayList<>(importsDeclarations);
     }
 
-    /** @return the ontology ID */
+    /**
+     * @return the ontology ID
+     */
     @Nonnull
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
-    /** @return the annotations */
+    /**
+     * @return the annotations
+     */
     @Nonnull
     public Collection<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
-    /** @return the imports declarations */
+    /**
+     * @return the imports declarations
+     */
     @Nonnull
     public Collection<OWLImportsDeclaration> getImportsDeclarations() {
         return importsDeclarations;

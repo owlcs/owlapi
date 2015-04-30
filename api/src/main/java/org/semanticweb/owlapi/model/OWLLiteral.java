@@ -12,14 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
+
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
 /**
- * Represents a <a
- * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Literals"
- * >Literal</a> in the OWL 2 Specification.
+ * Represents a
+ * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Literals" >
+ * Literal</a> in the OWL 2 Specification.
  * <p>
  * Each literal consists of a lexical form, which is a string, and a datatype. A
  * literal consisting of a lexical form {@code "abc"} and a datatype identified
@@ -38,7 +40,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
-        OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
+    OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
 
     /**
      * Determines if the datatype of this literal is {@code rdf:PlainLiteral}.
@@ -134,7 +136,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      */
     default int parseInteger() {
         throw new NumberFormatException(getClass().getName()
-                + " does not have an int value but has " + getLiteral());
+            + " does not have an int value but has " + getLiteral());
     }
 
     /**
@@ -161,7 +163,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      */
     default boolean parseBoolean() {
         throw new OWLRuntimeException(getClass().getName()
-                + " does not have a boolean value but has " + getLiteral());
+            + " does not have a boolean value but has " + getLiteral());
     }
 
     /**
@@ -188,7 +190,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      */
     default double parseDouble() {
         throw new NumberFormatException(getClass().getName()
-                + " does not have a double value but has " + getLiteral());
+            + " does not have a double value but has " + getLiteral());
     }
 
     /**
@@ -215,12 +217,12 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      */
     default float parseFloat() {
         throw new NumberFormatException(getClass().getName()
-                + " does not have a float value but has " + getLiteral());
+            + " does not have a float value but has " + getLiteral());
     }
 
     @Override
     default Optional<OWLLiteral> asLiteral() {
-        return Optional.<OWLLiteral> of(this);
+        return optional(this);
     }
 
     /**

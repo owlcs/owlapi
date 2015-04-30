@@ -53,17 +53,16 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
      *        the ontologies to use
      */
     public AmalgamateSubClassAxioms(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull Set<OWLOntology> ontologies) {
+        @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        for (OWLOntology ont : checkNotNull(ontologies,
-                "ontologies cannot be null")) {
-            ont.classesInSignature().forEach(cls -> amalgamate(ont, cls));
-        }
+        checkNotNull(ontologies, "ontologies cannot be null");
+        ontologies.forEach(
+            o -> o.classesInSignature().forEach(cls -> amalgamate(o, cls)));
     }
 
-    protected void amalgamate(OWLOntology ont, OWLClass cls) {
-        List<OWLSubClassOfAxiom> axioms = asList(ont
-                .subClassAxiomsForSubClass(cls));
+    protected void amalgamate(OWLOntology ont, @Nonnull OWLClass cls) {
+        List<OWLSubClassOfAxiom> axioms = asList(
+            ont.subClassAxiomsForSubClass(cls));
         if (axioms.size() < 2) {
             return;
         }
@@ -71,8 +70,8 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
         axioms.forEach(ax -> {
             addChange(new RemoveAxiom(ont, ax));
             superClasses.add(ax.getSuperClass());
-        });
+        } );
         addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls,
-                df.getOWLObjectIntersectionOf(superClasses))));
+            df.getOWLObjectIntersectionOf(superClasses))));
     }
 }

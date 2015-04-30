@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.search;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
+
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -58,10 +60,10 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLLiteral> values(
-            @Nonnull Stream<OWLDataPropertyAssertionAxiom> axioms,
-            @Nullable OWLDataPropertyExpression p) {
+        @Nonnull Stream<OWLDataPropertyAssertionAxiom> axioms,
+        @Nullable OWLDataPropertyExpression p) {
         return axioms.filter(ax -> p == null || ax.getProperty().equals(p))
-                .map(ax -> ax.getObject()).distinct();
+            .map(ax -> ax.getObject()).distinct();
     }
 
     /**
@@ -75,10 +77,10 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLIndividual> values(
-            @Nonnull Stream<OWLObjectPropertyAssertionAxiom> axioms,
-            @Nullable OWLObjectPropertyExpression p) {
+        @Nonnull Stream<OWLObjectPropertyAssertionAxiom> axioms,
+        @Nullable OWLObjectPropertyExpression p) {
         return axioms.filter(ax -> p == null || ax.getProperty().equals(p))
-                .map(ax -> ax.getObject());
+            .map(ax -> ax.getObject());
     }
 
     /**
@@ -92,10 +94,10 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLLiteral> negValues(
-            @Nonnull Stream<OWLNegativeDataPropertyAssertionAxiom> axioms,
-            @Nullable OWLDataPropertyExpression p) {
+        @Nonnull Stream<OWLNegativeDataPropertyAssertionAxiom> axioms,
+        @Nullable OWLDataPropertyExpression p) {
         return axioms.filter(ax -> p == null || ax.getProperty().equals(p))
-                .map(ax -> ax.getObject());
+            .map(ax -> ax.getObject());
     }
 
     /**
@@ -109,10 +111,10 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLIndividual> negValues(
-            @Nonnull Stream<OWLNegativeObjectPropertyAssertionAxiom> axioms,
-            @Nullable OWLObjectPropertyExpression p) {
+        @Nonnull Stream<OWLNegativeObjectPropertyAssertionAxiom> axioms,
+        @Nullable OWLObjectPropertyExpression p) {
         return axioms.filter(ax -> p == null || ax.getProperty().equals(p))
-                .map(ax -> ax.getObject());
+            .map(ax -> ax.getObject());
     }
 
     /**
@@ -124,7 +126,7 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLClassExpression> types(
-            @Nonnull Stream<OWLClassAssertionAxiom> axioms) {
+        @Nonnull Stream<OWLClassAssertionAxiom> axioms) {
         return axioms.map(ax -> ax.getClassExpression());
     }
 
@@ -137,7 +139,7 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLIndividual> instances(
-            @Nonnull Stream<OWLClassAssertionAxiom> axioms) {
+        @Nonnull Stream<OWLClassAssertionAxiom> axioms) {
         return axioms.map(ax -> ax.getIndividual());
     }
 
@@ -152,13 +154,13 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLObjectPropertyExpression> inverse(
-            @Nonnull Stream<OWLInverseObjectPropertiesAxiom> axioms,
-            @Nonnull OWLObjectPropertyExpression p) {
+        @Nonnull Stream<OWLInverseObjectPropertiesAxiom> axioms,
+        @Nonnull OWLObjectPropertyExpression p) {
         return axioms.map(ax -> getInverse(p, ax));
     }
 
     protected static OWLObjectPropertyExpression getInverse(
-            OWLObjectPropertyExpression p, OWLInverseObjectPropertiesAxiom ax) {
+        OWLObjectPropertyExpression p, OWLInverseObjectPropertiesAxiom ax) {
         if (ax.getFirstProperty().equals(p)) {
             return ax.getSecondProperty();
         } else {
@@ -175,7 +177,7 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLAnnotationValue> values(
-            @Nonnull Stream<OWLAnnotation> annotations) {
+        @Nonnull Stream<OWLAnnotation> annotations) {
         return values(annotations, null);
     }
 
@@ -190,11 +192,10 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLAnnotationValue> values(
-            @Nonnull Stream<OWLAnnotation> annotations,
-            @Nullable OWLAnnotationProperty p) {
-        return annotations
-                .filter(ax -> p == null || ax.getProperty().equals(p)).map(
-                        ax -> ax.getValue());
+        @Nonnull Stream<OWLAnnotation> annotations,
+        @Nullable OWLAnnotationProperty p) {
+        return annotations.filter(ax -> p == null || ax.getProperty().equals(p))
+            .map(ax -> ax.getValue());
     }
 
     /**
@@ -208,7 +209,7 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLAnnotation> annotations(
-            @Nonnull Stream<? extends OWLAxiom> axioms) {
+        @Nonnull Stream<? extends OWLAxiom> axioms) {
         return annotations(axioms, null);
     }
 
@@ -225,8 +226,8 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLAnnotation> annotations(
-            @Nonnull Stream<? extends OWLAxiom> axioms,
-            @Nullable OWLAnnotationProperty p) {
+        @Nonnull Stream<? extends OWLAxiom> axioms,
+        @Nullable OWLAnnotationProperty p) {
         return axioms.flatMap(ax -> annotations(ax, p)).distinct();
     }
 
@@ -243,11 +244,11 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<OWLAnnotation> annotations(@Nonnull OWLAxiom axiom,
-            @Nullable OWLAnnotationProperty p) {
-        Stream<OWLAnnotation> stream = Stream.empty();
+        @Nullable OWLAnnotationProperty p) {
+        Stream<OWLAnnotation> stream = empty();
         if (axiom instanceof OWLAnnotationAssertionAxiom) {
-            stream = Stream.of(((OWLAnnotationAssertionAxiom) axiom)
-                    .getAnnotation());
+            stream = Stream
+                .of(((OWLAnnotationAssertionAxiom) axiom).getAnnotation());
         }
         stream = Stream.concat(stream, axiom.annotations());
         if (p != null) {
@@ -271,7 +272,7 @@ public final class Searcher {
     @Nonnull
     @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Stream<C> equivalent(
-            @Nonnull Stream<? extends OWLAxiom> axioms) {
+        @Nonnull Stream<? extends OWLAxiom> axioms) {
         return (Stream<C>) equivalent(axioms, OWLObject.class);
     }
 
@@ -291,7 +292,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> equivalent(
-            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
         return axioms.flatMap(ax -> equivalent(ax, type));
     }
 
@@ -307,7 +308,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> equivalent(
-            @Nonnull OWLAxiom axiom) {
+        @Nonnull OWLAxiom axiom) {
         return axiom.accept(new EquivalentVisitor<C>(true));
     }
 
@@ -325,8 +326,8 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> equivalent(
-            @Nonnull OWLAxiom axiom,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+        @Nonnull OWLAxiom axiom,
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(true));
     }
 
@@ -345,7 +346,7 @@ public final class Searcher {
     @Nonnull
     @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Stream<C> different(
-            @Nonnull Stream<? extends OWLAxiom> axioms) {
+        @Nonnull Stream<? extends OWLAxiom> axioms) {
         return (Stream<C>) different(axioms, OWLObject.class);
     }
 
@@ -365,7 +366,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> different(
-            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
         return axioms.flatMap(ax -> different(ax, type));
     }
 
@@ -381,7 +382,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> different(
-            @Nonnull OWLAxiom axiom) {
+        @Nonnull OWLAxiom axiom) {
         return axiom.accept(new EquivalentVisitor<C>(false));
     }
 
@@ -399,8 +400,8 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> different(
-            @Nonnull OWLAxiom axiom,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+        @Nonnull OWLAxiom axiom,
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(false));
     }
 
@@ -418,7 +419,7 @@ public final class Searcher {
     @Nonnull
     @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Stream<C> sub(
-            @Nonnull Stream<? extends OWLAxiom> axioms) {
+        @Nonnull Stream<? extends OWLAxiom> axioms) {
         return (Stream<C>) sub(axioms, OWLObject.class);
     }
 
@@ -437,7 +438,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> sub(
-            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
         return axioms.map(ax -> sub(ax, type));
     }
 
@@ -472,7 +473,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> C sub(@Nonnull OWLAxiom axiom,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new SupSubVisitor<C>(false));
     }
 
@@ -491,7 +492,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> sup(
-            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
         return axioms.map(ax -> sup(ax, type));
     }
 
@@ -509,7 +510,7 @@ public final class Searcher {
     @Nonnull
     @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Stream<C> sup(
-            @Nonnull Stream<? extends OWLAxiom> axioms) {
+        @Nonnull Stream<? extends OWLAxiom> axioms) {
         return (Stream<C>) sup(axioms, OWLObject.class);
     }
 
@@ -544,7 +545,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> C sup(@Nonnull OWLAxiom axiom,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new SupSubVisitor<C>(true));
     }
 
@@ -561,7 +562,7 @@ public final class Searcher {
     @Nonnull
     @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Stream<C> domain(
-            @Nonnull Stream<? extends OWLAxiom> axioms) {
+        @Nonnull Stream<? extends OWLAxiom> axioms) {
         return (Stream<C>) domain(axioms, OWLObject.class);
     }
 
@@ -579,7 +580,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> domain(
-            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
         return axioms.map(ax -> domain(ax, type));
     }
 
@@ -612,7 +613,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> C domain(@Nonnull OWLAxiom axiom,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new DomainVisitor<C>());
     }
 
@@ -629,7 +630,7 @@ public final class Searcher {
     @Nonnull
     @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Stream<C> range(
-            @Nonnull Stream<? extends OWLAxiom> axioms) {
+        @Nonnull Stream<? extends OWLAxiom> axioms) {
         return (Stream<C>) range(axioms, OWLObject.class);
     }
 
@@ -647,7 +648,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> Stream<C> range(
-            @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
+        @Nonnull Stream<? extends OWLAxiom> axioms, @Nonnull Class<C> type) {
         return axioms.map(ax -> range(ax, type));
     }
 
@@ -680,7 +681,7 @@ public final class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> C range(@Nonnull OWLAxiom axiom,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         return axiom.accept(new RangeVisitor<C>());
     }
 
@@ -707,7 +708,7 @@ public final class Searcher {
      */
     @Nonnull
     public static Stream<IRI> ontologyIRIs(Stream<OWLOntologyID> ids) {
-        return ids.filter(i -> i.getOntologyIRI().isPresent()).map(
-                i -> i.getOntologyIRI().get());
+        return ids.filter(i -> i.getOntologyIRI().isPresent())
+            .map(i -> i.getOntologyIRI().get());
     }
 }

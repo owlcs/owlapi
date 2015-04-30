@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -81,8 +82,8 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        internals containing this pointer
      */
     public MapPointer(@Nullable AxiomType<?> t,
-            @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
-            @Nonnull Internals i) {
+        @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
+        @Nonnull Internals i) {
         type = t;
         visitor = v;
         this.initialized = initialized;
@@ -139,7 +140,9 @@ public class MapPointer<K, V extends OWLAxiom> {
         return set;
     }
 
-    /** @return true if initialized */
+    /**
+     * @return true if initialized
+     */
     public synchronized boolean isInitialized() {
         return initialized;
     }
@@ -170,7 +173,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         } else {
             for (V ax : (Collection<V>) i.getAxiomsByType().getValues(type)) {
                 Collection<K> keys = ax
-                        .accept((InitCollectionVisitor<K>) visitor);
+                    .accept((InitCollectionVisitor<K>) visitor);
                 for (K key : keys) {
                     putInternal(key, ax);
                 }
@@ -185,7 +188,9 @@ public class MapPointer<K, V extends OWLAxiom> {
         return initialized + map.toString();
     }
 
-    /** @return keyset */
+    /**
+     * @return keyset
+     */
     @Nonnull
     public synchronized Collection<K> keySet() {
         init();
@@ -215,11 +220,11 @@ public class MapPointer<K, V extends OWLAxiom> {
     @SuppressWarnings("unchecked")
     @Nonnull
     public synchronized <O extends V> Stream<O> values(K key,
-            @SuppressWarnings("unused") Class<O> classType) {
+        @SuppressWarnings("unused") Class<O> classType) {
         init();
         Collection<V> t = map.get(key);
         if (t == null) {
-            return Stream.empty();
+            return empty();
         }
         return ((Collection<O>) t).stream();
     }
@@ -235,14 +240,14 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     @Nonnull
     public synchronized <T> Collection<OWLAxiom> filterAxioms(
-            @Nonnull OWLAxiomSearchFilter filter, @Nonnull T key) {
+        @Nonnull OWLAxiomSearchFilter filter, @Nonnull T key) {
         init();
         List<OWLAxiom> toReturn = new ArrayList<>();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             Collection<V> collection = map.get(at);
             if (collection != null) {
                 collection.stream().filter(x -> filter.pass(x, key))
-                        .forEach(x -> toReturn.add(x));
+                    .forEach(x -> toReturn.add(x));
             }
         }
         return toReturn;
@@ -312,14 +317,18 @@ public class MapPointer<K, V extends OWLAxiom> {
         return containsEntry(key, value);
     }
 
-    /** @return all values contained */
+    /**
+     * @return all values contained
+     */
     @Nonnull
     public synchronized Stream<V> getAllValues() {
         init();
         return values();
     }
 
-    /** @return number of mapping contained */
+    /**
+     * @return number of mapping contained
+     */
     public synchronized int size() {
         init();
         if (neverTrimmed) {
@@ -328,7 +337,9 @@ public class MapPointer<K, V extends OWLAxiom> {
         return size;
     }
 
-    /** @return true if empty */
+    /**
+     * @return true if empty
+     */
     public synchronized boolean isEmpty() {
         init();
         return size == 0;
@@ -406,7 +417,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         private boolean constructing = true;
 
         public THashSetForSet(Collection<E> set, E toAdd, int capacity,
-                float load) {
+            float load) {
             super(capacity, load);
             for (E e : set) {
                 add(e);
@@ -433,8 +444,8 @@ public class MapPointer<K, V extends OWLAxiom> {
             list.add(extra);
             return list;
         }
-        return new THashSetForSet<>(collection, extra,
-                DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
+        return new THashSetForSet<>(collection, extra, DEFAULT_INITIAL_CAPACITY,
+            DEFAULT_LOAD_FACTOR);
     }
 
     @Nonnull

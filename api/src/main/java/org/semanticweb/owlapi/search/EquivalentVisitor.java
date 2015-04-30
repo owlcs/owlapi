@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.search;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
+
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -16,8 +18,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 
 @SuppressWarnings("unchecked")
-class EquivalentVisitor<C extends OWLObject> implements
-        OWLAxiomVisitorEx<Stream<C>> {
+class EquivalentVisitor<C extends OWLObject>
+    implements OWLAxiomVisitorEx<Stream<C>> {
 
     private final boolean equiv;
 
@@ -27,7 +29,7 @@ class EquivalentVisitor<C extends OWLObject> implements
 
     @Override
     public Stream<C> doDefault(Object o) {
-        return Stream.empty();
+        return empty();
     }
 
     @Nonnull

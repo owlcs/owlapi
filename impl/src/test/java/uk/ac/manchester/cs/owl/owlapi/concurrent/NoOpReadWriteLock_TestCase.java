@@ -9,10 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Matthew Horridge
- * Stanford Center for Biomedical Informatics Research
- * 13/04/15
+ * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
+@SuppressWarnings("javadoc")
 public class NoOpReadWriteLock_TestCase {
 
     private NoOpReadWriteLock lock;

@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -17,11 +17,13 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  * @author ignazio
  * @since 4.0.0
  */
-public abstract class OWLOntologyDocumentSourceBase implements
-        OWLOntologyDocumentSource {
+public abstract class OWLOntologyDocumentSourceBase
+    implements OWLOntologyDocumentSource {
 
     private final IRI documentIRI;
+    @Nonnull
     private final Optional<OWLDocumentFormat> format;
+    @Nonnull
     private final Optional<String> mimeType;
     protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
     protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
@@ -37,9 +39,9 @@ public abstract class OWLOntologyDocumentSourceBase implements
      *        mime type. If null or empty, it is considered unspecified.
      */
     public OWLOntologyDocumentSourceBase(@Nonnull IRI iri,
-            @Nullable OWLDocumentFormat format, @Nullable String mime) {
-        this.format = Optional.ofNullable(format);
-        mimeType = Optional.ofNullable(mime);
+        @Nullable OWLDocumentFormat format, @Nullable String mime) {
+        this.format = optional(format);
+        mimeType = optional(mime);
         documentIRI = checkNotNull(iri, "document iri cannot be null");
     }
 
@@ -54,7 +56,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
      *        mime type. If null or empty, it is considered unspecified.
      */
     public OWLOntologyDocumentSourceBase(@Nonnull String iriPrefix,
-            @Nullable OWLDocumentFormat format, @Nullable String mime) {
+        @Nullable OWLDocumentFormat format, @Nullable String mime) {
         this(IRI.getNextDocumentIRI(iriPrefix), format, mime);
     }
 

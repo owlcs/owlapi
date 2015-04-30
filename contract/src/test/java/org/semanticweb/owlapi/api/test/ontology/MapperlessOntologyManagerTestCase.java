@@ -14,9 +14,9 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
-import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -48,54 +48,57 @@ public class MapperlessOntologyManagerTestCase extends TestBase {
     }
 
     @Test
-    public void testCreateOntologyWithIRI() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithIRI()
+        throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(ONTOLOGY_IRI);
-        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
-                .get());
+        assertEquals(ONTOLOGY_IRI,
+            ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
     public void testCreateOntologyWithAxioms()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(new HashSet<OWLAxiom>());
         assertNotNull("ontology should not be null",
-                manager.getOntologyDocumentIRI(ontology));
+            manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
     public void testCreateOntologyWithAxiomsAndIRI()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(new HashSet<OWLAxiom>(),
-                ONTOLOGY_IRI);
-        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
-                .get());
+            ONTOLOGY_IRI);
+        assertEquals(ONTOLOGY_IRI,
+            ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
     public void testCreateOntologyWithIdWithVersionIRI()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         IRI versionIRI = IRI("http://version/1");
-        OWLOntologyID id = new OWLOntologyID(of(ONTOLOGY_IRI), of(versionIRI));
+        OWLOntologyID id = new OWLOntologyID(optional(ONTOLOGY_IRI), optional(versionIRI));
         OWLOntology ontology = manager.createOntology(id);
-        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
-                .get());
-        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI().get());
+        assertEquals(ONTOLOGY_IRI,
+            ontology.getOntologyID().getOntologyIRI().get());
+        assertEquals(versionIRI,
+            ontology.getOntologyID().getVersionIRI().get());
         assertEquals(versionIRI, manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
     public void testCreateOntologyWithId() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntologyID id = new OWLOntologyID(of(ONTOLOGY_IRI), Optional.empty());
+        OWLOntologyID id = new OWLOntologyID(optional(ONTOLOGY_IRI),
+            emptyOptional(IRI.class));
         OWLOntology ontology = manager.createOntology(id);
-        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
-                .get());
+        assertEquals(ONTOLOGY_IRI,
+            ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
 }

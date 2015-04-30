@@ -70,8 +70,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
-        OWLOntology, Serializable {
+public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
+    implements OWLOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -93,7 +93,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
      *        ontology id
      */
     public OWLImmutableOntologyImpl(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntologyID ontologyID) {
+        @Nonnull OWLOntologyID ontologyID) {
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();
@@ -103,9 +103,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public String toString() {
         StringBuilder sb = new StringBuilder(100);
         sb.append("Ontology(").append(ontologyID).append(") [Axioms: ")
-                .append(ints.getAxiomCount()).append(" Logical Axioms: ")
-                .append(ints.getLogicalAxiomCount())
-                .append("] First 20 axioms: {");
+            .append(ints.getAxiomCount()).append(" Logical Axioms: ")
+            .append(ints.getLogicalAxiomCount()).append("] First 20 axioms: {");
         ints.getAxioms().limit(20).forEach(a -> sb.append(a).append(' '));
         sb.append('}');
         return sb.toString();
@@ -158,7 +157,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public boolean containsAxiom(@Nonnull OWLAxiom axiom) {
         return Internals.contains(ints.getAxiomsByType(), axiom.getAxiomType(),
-                axiom);
+            axiom);
     }
 
     @Override
@@ -185,9 +184,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType,
-            Imports imports) {
+        Imports imports) {
         return imports.stream(this).mapToInt(o -> o.getAxiomCount(axiomType))
-                .sum();
+            .sum();
     }
 
     @Override
@@ -198,28 +197,28 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Nonnull
     @Override
     public Stream<OWLAxiom> tboxAxioms(Imports imports) {
-        return AxiomType.TBoxAxiomTypes.stream().flatMap(
-                t -> axioms(t, imports));
+        return AxiomType.TBoxAxiomTypes.stream()
+            .flatMap(t -> axioms(t, imports));
     }
 
     @Nonnull
     @Override
     public Stream<OWLAxiom> aboxAxioms(Imports imports) {
-        return AxiomType.ABoxAxiomTypes.stream().flatMap(
-                t -> axioms(t, imports));
+        return AxiomType.ABoxAxiomTypes.stream()
+            .flatMap(t -> axioms(t, imports));
     }
 
     @Nonnull
     @Override
     public Stream<OWLAxiom> rboxAxioms(Imports imports) {
-        return AxiomType.RBoxAxiomTypes.stream().flatMap(
-                t -> axioms(t, imports));
+        return AxiomType.RBoxAxiomTypes.stream()
+            .flatMap(t -> axioms(t, imports));
     }
 
     @Override
     public int getLogicalAxiomCount(Imports imports) {
         return imports.stream(this).mapToInt(o -> o.getLogicalAxiomCount())
-                .sum();
+            .sum();
     }
 
     @Nonnull
@@ -235,17 +234,17 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public boolean containsAxiom(@Nonnull OWLAxiom axiom, Imports imports,
-            AxiomAnnotations ignoreAnnotations) {
-        return imports.stream(this).anyMatch(
-                o -> ignoreAnnotations.contains(o, axiom));
+        AxiomAnnotations ignoreAnnotations) {
+        return imports.stream(this)
+            .anyMatch(o -> ignoreAnnotations.contains(o, axiom));
     }
 
     @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
         @SuppressWarnings("unchecked")
-        Set<OWLAxiom> filter = asSet((Stream<OWLAxiom>) axioms(
-                axiom.getAxiomType()).filter(
-                ax -> ax.equalsIgnoreAnnotations(axiom)));
+        Set<OWLAxiom> filter = asSet(
+            (Stream<OWLAxiom>) axioms(axiom.getAxiomType())
+                .filter(ax -> ax.equalsIgnoreAnnotations(axiom)));
         if (containsAxiom(axiom)) {
             filter.add(axiom);
         }
@@ -257,40 +256,40 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         if (containsAxiom(axiom)) {
             return true;
         }
-        return axioms(axiom.getAxiomType()).anyMatch(
-                ax -> ax.equalsIgnoreAnnotations(axiom));
+        return axioms(axiom.getAxiomType())
+            .anyMatch(ax -> ax.equalsIgnoreAnnotations(axiom));
     }
 
     @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
-            Imports imports) {
-        return asSet(imports.stream(this).flatMap(
-                o -> o.getAxiomsIgnoreAnnotations(axiom).stream()));
+        Imports imports) {
+        return asSet(imports.stream(this)
+            .flatMap(o -> o.getAxiomsIgnoreAnnotations(axiom).stream()));
     }
 
     @Override
     public boolean containsClassInSignature(IRI iri, Imports imports) {
-        return imports.stream(this).anyMatch(
-                o -> o.containsClassInSignature(iri));
+        return imports.stream(this)
+            .anyMatch(o -> o.containsClassInSignature(iri));
     }
 
     @Override
     public boolean containsObjectPropertyInSignature(IRI iri, Imports imports) {
-        return imports.stream(this).anyMatch(
-                o -> o.containsObjectPropertyInSignature(iri));
+        return imports.stream(this)
+            .anyMatch(o -> o.containsObjectPropertyInSignature(iri));
     }
 
     @Override
     public boolean containsDataPropertyInSignature(IRI iri, Imports imports) {
-        return imports.stream(this).anyMatch(
-                o -> o.containsDataPropertyInSignature(iri));
+        return imports.stream(this)
+            .anyMatch(o -> o.containsDataPropertyInSignature(iri));
     }
 
     @Override
     public boolean containsAnnotationPropertyInSignature(IRI iri,
-            Imports imports) {
-        boolean result = imports.stream(this).anyMatch(
-                o -> o.containsAnnotationPropertyInSignature(iri));
+        Imports imports) {
+        boolean result = imports.stream(this)
+            .anyMatch(o -> o.containsAnnotationPropertyInSignature(iri));
         if (result) {
             return result;
         }
@@ -298,32 +297,33 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     private boolean checkOntologyAnnotations(OWLAnnotationProperty p) {
-        return ints.getOntologyAnnotations().anyMatch(
-                ann -> ann.getProperty().equals(p));
+        return ints.getOntologyAnnotations()
+            .anyMatch(ann -> ann.getProperty().equals(p));
     }
 
     @Override
     public boolean containsIndividualInSignature(IRI iri, Imports imports) {
-        return imports.stream(this).anyMatch(
-                o -> o.containsIndividualInSignature(iri));
+        return imports.stream(this)
+            .anyMatch(o -> o.containsIndividualInSignature(iri));
     }
 
     @Override
     public boolean containsDatatypeInSignature(IRI iri, Imports imports) {
-        return imports.stream(this).anyMatch(
-                o -> o.containsDatatypeInSignature(iri));
+        return imports.stream(this)
+            .anyMatch(o -> o.containsDatatypeInSignature(iri));
     }
 
     @Override
     public Stream<OWLEntity> entitiesInSignature(@Nonnull IRI iri) {
         Predicate<? super OWLEntity> matchIRI = c -> c.getIRI().equals(iri);
-        return Stream.of(classesInSignature().filter(matchIRI),
+        return Stream
+            .of(classesInSignature().filter(matchIRI),
                 objectPropertiesInSignature().filter(matchIRI),
                 dataPropertiesInSignature().filter(matchIRI),
                 individualsInSignature().filter(matchIRI),
                 datatypesInSignature().filter(matchIRI),
-                annotationPropertiesInSignature().filter(matchIRI)).flatMap(
-                x -> x);
+                annotationPropertiesInSignature().filter(matchIRI))
+            .flatMap(x -> x);
     }
 
     @Override
@@ -348,7 +348,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                     }
                 }
                 for (OWLEntity e : o
-                        .getAnnotationPropertiesInSignature(EXCLUDED)) {
+                    .getAnnotationPropertiesInSignature(EXCLUDED)) {
                     if (!test.add(e.getIRI())) {
                         punned.add(e.getIRI());
                     }
@@ -406,7 +406,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public boolean containsReference(@Nonnull OWLEntity entity,
-            Imports includeImportsClosure) {
+        Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return ints.containsReference(entity);
         }
@@ -432,16 +432,17 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public Stream<OWLEntity> signature() {
-        return Stream.of(classesInSignature(), objectPropertiesInSignature(),
+        return Stream
+            .of(classesInSignature(), objectPropertiesInSignature(),
                 dataPropertiesInSignature(), individualsInSignature(),
                 datatypesInSignature(), annotationPropertiesInSignature())
-                .flatMap(x -> x);
+            .flatMap(x -> x);
     }
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
         return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
-                .keySet().stream();
+            .keySet().stream();
     }
 
     @Override
@@ -452,39 +453,39 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
         return ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet()
-                .stream();
+            .stream();
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
         return ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet()
-                .stream();
+            .stream();
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).get()
-                .keySet().stream();
+        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).get().keySet()
+            .stream();
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
         return ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet()
-                .stream();
+            .stream();
     }
 
     @Override
     public Stream<OWLAnonymousIndividual> referencedAnonymousIndividuals() {
         return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
-                .keySet().stream();
+            .keySet().stream();
     }
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
         return Stream.concat(
-                ints.get(OWLAnnotationProperty.class, OWLAxiom.class,
-                        Navigation.IN_SUB_POSITION).get().keySet().stream(),
-                ints.getOntologyAnnotations().map(a -> a.getProperty()));
+            ints.get(OWLAnnotationProperty.class, OWLAxiom.class,
+                Navigation.IN_SUB_POSITION).get().keySet().stream(),
+            ints.getOntologyAnnotations().map(a -> a.getProperty()));
     }
 
     @Nonnull
@@ -531,8 +532,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return ontologyID.hashCode();
     }
 
-    private class OWLEntityReferenceChecker implements OWLEntityVisitor,
-            Serializable {
+    private class OWLEntityReferenceChecker
+        implements OWLEntityVisitor, Serializable {
 
         OWLEntityReferenceChecker() {}
 
@@ -548,50 +549,51 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         @Override
         public void visit(@Nonnull OWLClass cls) {
             ref = OWLImmutableOntologyImpl.this.ints
-                    .containsClassInSignature(cls);
+                .containsClassInSignature(cls);
         }
 
         @Override
         public void visit(@Nonnull OWLDatatype datatype) {
             ref = OWLImmutableOntologyImpl.this.ints
-                    .containsDatatypeInSignature(datatype);
+                .containsDatatypeInSignature(datatype);
         }
 
         @Override
         public void visit(@Nonnull OWLNamedIndividual individual) {
             ref = OWLImmutableOntologyImpl.this.ints
-                    .containsIndividualInSignature(individual);
+                .containsIndividualInSignature(individual);
         }
 
         @Override
         public void visit(@Nonnull OWLDataProperty property) {
             ref = OWLImmutableOntologyImpl.this.ints
-                    .containsDataPropertyInSignature(property);
+                .containsDataPropertyInSignature(property);
         }
 
         @Override
         public void visit(@Nonnull OWLObjectProperty property) {
             ref = OWLImmutableOntologyImpl.this.ints
-                    .containsObjectPropertyInSignature(property);
+                .containsObjectPropertyInSignature(property);
         }
 
         @Override
         public void visit(@Nonnull OWLAnnotationProperty property) {
             ref = OWLImmutableOntologyImpl.this.ints
-                    .containsAnnotationPropertyInSignature(property);
+                .containsAnnotationPropertyInSignature(property);
         }
     }
 
     @Override
     public Stream<OWLClassAxiom> axioms(OWLClass cls) {
-        return ints.get(OWLClass.class, OWLClassAxiom.class).get()
-                .values(cls, OWLClassAxiom.class);
+        return ints.get(OWLClass.class, OWLClassAxiom.class).get().values(cls,
+            OWLClassAxiom.class);
     }
 
     @Override
     public Stream<OWLObjectPropertyAxiom> axioms(
-            OWLObjectPropertyExpression property) {
-        return Stream.of(asymmetricObjectPropertyAxioms(property),
+        OWLObjectPropertyExpression property) {
+        return Stream
+            .of(asymmetricObjectPropertyAxioms(property),
                 reflexiveObjectPropertyAxioms(property),
                 symmetricObjectPropertyAxioms(property),
                 irreflexiveObjectPropertyAxioms(property),
@@ -604,28 +606,28 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                 disjointObjectPropertiesAxioms(property),
                 objectPropertyRangeAxioms(property),
                 objectSubPropertyAxiomsForSubProperty(property))
-                .flatMap(x -> x);
+            .flatMap(x -> x);
     }
 
     @Override
     public Stream<OWLDataPropertyAxiom> axioms(OWLDataProperty property) {
         return Stream.of(dataPropertyDomainAxioms(property),
-                equivalentDataPropertiesAxioms(property),
-                disjointDataPropertiesAxioms(property),
-                dataPropertyRangeAxioms(property),
-                functionalDataPropertyAxioms(property),
-                dataSubPropertyAxiomsForSubProperty(property)).flatMap(x -> x);
+            equivalentDataPropertiesAxioms(property),
+            disjointDataPropertiesAxioms(property),
+            dataPropertyRangeAxioms(property),
+            functionalDataPropertyAxioms(property),
+            dataSubPropertyAxiomsForSubProperty(property)).flatMap(x -> x);
     }
 
     @Override
     public Stream<OWLIndividualAxiom> axioms(OWLIndividual individual) {
         return Stream.of(classAssertionAxioms(individual),
-                objectPropertyAssertionAxioms(individual),
-                dataPropertyAssertionAxioms(individual),
-                negativeObjectPropertyAssertionAxioms(individual),
-                negativeDataPropertyAssertionAxioms(individual),
-                sameIndividualAxioms(individual),
-                differentIndividualAxioms(individual)).flatMap(x -> x);
+            objectPropertyAssertionAxioms(individual),
+            dataPropertyAssertionAxioms(individual),
+            negativeObjectPropertyAssertionAxioms(individual),
+            negativeDataPropertyAssertionAxioms(individual),
+            sameIndividualAxioms(individual),
+            differentIndividualAxioms(individual)).flatMap(x -> x);
     }
 
     @Override
@@ -639,30 +641,33 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             return ints.getReferencingAxioms((OWLEntity) owlEntity);
         } else if (owlEntity instanceof OWLAnonymousIndividual) {
             return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
-                    .values((OWLAnonymousIndividual) owlEntity, OWLAxiom.class);
+                .values((OWLAnonymousIndividual) owlEntity, OWLAxiom.class);
         } else if (owlEntity instanceof IRI) {
             Set<OWLAxiom> axioms = new HashSet<>();
             // axioms referring entities with this IRI, data property assertions
             // with IRI as subject, annotations with IRI as subject or object.
-            entitiesInSignature((IRI) owlEntity).forEach(
-                    e -> add(referencingAxioms(e), axioms));
-            for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (OWL2Datatype.XSD_ANY_URI.matches(ax.getObject()
-                        .getDatatype())) {
+            entitiesInSignature((IRI) owlEntity)
+                .forEach(e -> add(referencingAxioms(e), axioms));
+            for (OWLDataPropertyAssertionAxiom ax : getAxioms(
+                AxiomType.DATA_PROPERTY_ASSERTION)) {
+                if (OWL2Datatype.XSD_ANY_URI
+                    .matches(ax.getObject().getDatatype())) {
                     if (ax.getObject().getLiteral()
-                            .equals(owlEntity.toString())) {
+                        .equals(owlEntity.toString())) {
                         axioms.add(ax);
                     }
                 }
             }
-            for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            for (OWLAnnotationAssertionAxiom ax : getAxioms(
+                AxiomType.ANNOTATION_ASSERTION)) {
                 if (ax.getSubject().equals(owlEntity)) {
                     axioms.add(ax);
                 } else if (ax.getValue().asLiteral().isPresent()) {
                     Optional<OWLLiteral> lit = ax.getValue().asLiteral();
-                    if (OWL2Datatype.XSD_ANY_URI.matches(lit.get()
-                            .getDatatype())) {
-                        if (lit.get().getLiteral().equals(owlEntity.toString())) {
+                    if (OWL2Datatype.XSD_ANY_URI
+                        .matches(lit.get().getDatatype())) {
+                        if (lit.get().getLiteral()
+                            .equals(owlEntity.toString())) {
                             axioms.add(ax);
                         }
                     }
@@ -671,70 +676,72 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             return axioms.stream();
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
-            for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (OWL2Datatype.XSD_ANY_URI.matches(ax.getObject()
-                        .getDatatype())) {
+            for (OWLDataPropertyAssertionAxiom ax : getAxioms(
+                AxiomType.DATA_PROPERTY_ASSERTION)) {
+                if (OWL2Datatype.XSD_ANY_URI
+                    .matches(ax.getObject().getDatatype())) {
                     if (ax.getObject().equals(owlEntity)) {
                         axioms.add(ax);
                     }
                 }
             }
-            for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            for (OWLAnnotationAssertionAxiom ax : getAxioms(
+                AxiomType.ANNOTATION_ASSERTION)) {
                 if (owlEntity.equals(ax.getValue().asLiteral().orElse(null))) {
                     axioms.add(ax);
                 }
             }
             return axioms.stream();
         }
-        return Stream.empty();
+        return empty();
     }
 
     // OWLAxiomIndex
     @Override
     @SuppressWarnings("unchecked")
     public <A extends OWLAxiom> Stream<A> axioms(@Nonnull Class<A> type,
-            @Nonnull Class<? extends OWLObject> explicitClass,
-            @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition) {
-        Optional<MapPointer<OWLObject, A>> optional = ints.get(
-                (Class<OWLObject>) explicitClass, type, forSubPosition);
+        @Nonnull Class<? extends OWLObject> explicitClass,
+        @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition) {
+        Optional<MapPointer<OWLObject, A>> optional = ints
+            .get((Class<OWLObject>) explicitClass, type, forSubPosition);
         if (optional.isPresent()) {
             return optional.get().values(entity, type);
         }
         if (!(entity instanceof OWLEntity)) {
-            return Stream.empty();
+            return empty();
         }
-        return axioms(AxiomType.getTypeForClass(type)).filter(
-                a -> a.containsEntityInSignature((OWLEntity) entity));
+        return axioms(AxiomType.getTypeForClass(type))
+            .filter(a -> a.containsEntityInSignature((OWLEntity) entity));
     }
 
     @SuppressWarnings("unchecked")
     @Nonnull
     @Override
     public <T extends OWLAxiom> Stream<T> axioms(
-            @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
-            Imports imports) {
-        return imports.stream(this).flatMap(
-                o -> (Stream<T>) o.axioms(filter, key));
+        @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
+        Imports imports) {
+        return imports.stream(this)
+            .flatMap(o -> (Stream<T>) o.axioms(filter, key));
     }
 
     @Nonnull
     @SuppressWarnings("unchecked")
     @Override
     public <T extends OWLAxiom> Stream<T> axioms(
-            @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key) {
+        @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key) {
         Collection<T> c = (Collection<T>) ints.filterAxioms(filter, key);
         return c.stream();
     }
 
     @Override
     public boolean contains(@Nonnull OWLAxiomSearchFilter filter,
-            @Nonnull Object key) {
+        @Nonnull Object key) {
         return ints.contains(filter, key);
     }
 
     @Override
     public boolean contains(@Nonnull OWLAxiomSearchFilter filter,
-            @Nonnull Object key, Imports imports) {
+        @Nonnull Object key, Imports imports) {
         return imports.stream(this).anyMatch(o -> o.contains(filter, key));
     }
 

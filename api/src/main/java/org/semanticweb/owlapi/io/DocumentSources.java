@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -43,14 +43,14 @@ import com.google.common.base.Charsets;
 public class DocumentSources {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(DocumentSources.class);
+        .getLogger(DocumentSources.class);
     private static final String ZIP_FILE_EXTENSION = ".zip";
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern
-            .compile(".*filename=\"([^\\s;]*)\".*");
+        .compile(".*filename=\"([^\\s;]*)\".*");
     private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern
-            .compile(".*owl|rdf|xml|mos");
+        .compile(".*owl|rdf|xml|mos");
     private static final String acceptableContentEncoding = "xz,gzip,deflate";
     @Nonnull
     private static final String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
@@ -74,14 +74,14 @@ public class DocumentSources {
      *         if an IO related exception is thrown.
      */
     public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
-            OWLOntologyLoaderConfiguration configuration, Charset encoding)
+        OWLOntologyLoaderConfiguration configuration, Charset encoding)
             throws OWLOntologyInputSourceException {
         Optional<Reader> reader = source.getReader();
         if (reader.isPresent()) {
             return new BufferedReader(reader.get());
         }
-        return new BufferedReader(new InputStreamReader(wrapInput(source,
-                configuration), encoding));
+        return new BufferedReader(
+            new InputStreamReader(wrapInput(source, configuration), encoding));
     }
 
     /**
@@ -101,7 +101,7 @@ public class DocumentSources {
      *         if an IO related exception is thrown.
      */
     public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
-            OWLOntologyLoaderConfiguration configuration)
+        OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyInputSourceException {
         return wrapInputAsReader(source, configuration, Charsets.UTF_8);
     }
@@ -121,7 +121,7 @@ public class DocumentSources {
      *         if an IO related exception is thrown.
      */
     public static InputStream wrapInput(OWLOntologyDocumentSource source,
-            OWLOntologyLoaderConfiguration configuration)
+        OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyInputSourceException {
         Optional<InputStream> input = source.getInputStream();
         if (!input.isPresent()) {
@@ -133,7 +133,7 @@ public class DocumentSources {
             return new BufferedInputStream(input.get());
         }
         throw new OWLOntologyInputSourceException(
-                "No input reader can be found");
+            "No input reader can be found");
     }
 
     /**
@@ -152,9 +152,8 @@ public class DocumentSources {
      */
     @SuppressWarnings("resource")
     @Nonnull
-    public static Optional<InputStream> getInputStream(
-            @Nonnull IRI documentIRI,
-            @Nonnull OWLOntologyLoaderConfiguration config)
+    public static Optional<InputStream> getInputStream(@Nonnull IRI documentIRI,
+        @Nonnull OWLOntologyLoaderConfiguration config)
             throws OWLOntologyInputSourceException {
         try {
             URL originalURL = documentIRI.toURI().toURL();
@@ -163,19 +162,20 @@ public class DocumentSources {
             conn.addRequestProperty("Accept", REQUESTTYPES);
             if (config.isAcceptingHTTPCompression()) {
                 conn.setRequestProperty("Accept-Encoding",
-                        acceptableContentEncoding);
+                    acceptableContentEncoding);
             }
             int connectionTimeout = config.getConnectionTimeout();
             conn.setConnectTimeout(connectionTimeout);
-            if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
+            if (conn instanceof HttpURLConnection
+                && config.isFollowRedirects()) {
                 // follow redirects to HTTPS
                 HttpURLConnection con = (HttpURLConnection) conn;
                 con.connect();
                 int responseCode = con.getResponseCode();
                 // redirect
                 if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
-                        || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                        || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                    || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+                    || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
                     String location = con.getHeaderField("Location");
                     URL newURL = new URL(location);
                     String newProtocol = newURL.getProtocol();
@@ -186,7 +186,7 @@ public class DocumentSources {
                         conn.addRequestProperty("Accept", REQUESTTYPES);
                         if (config.isAcceptingHTTPCompression()) {
                             conn.setRequestProperty("Accept-Encoding",
-                                    acceptableContentEncoding);
+                                acceptableContentEncoding);
                         }
                         conn.setConnectTimeout(connectionTimeout);
                     }
@@ -198,20 +198,21 @@ public class DocumentSources {
             while (count < config.getRetriesToAttempt() && is == null) {
                 try {
                     is = getInputStreamFromContentEncoding(conn,
-                            contentEncoding);
+                        contentEncoding);
                 } catch (SocketTimeoutException e) {
                     count++;
                     if (count == 5) {
                         throw new OWLOntologyInputSourceException(
-                                "cannot connect to " + documentIRI
-                                        + "; retry limit exhausted", e);
+                            "cannot connect to " + documentIRI
+                                + "; retry limit exhausted",
+                            e);
                     }
-                    conn.setConnectTimeout(connectionTimeout
-                            + connectionTimeout * count);
+                    conn.setConnectTimeout(
+                        connectionTimeout + connectionTimeout * count);
                 }
             }
             if (is == null) {
-                return Optional.empty();
+                return emptyOptional();
             }
             if (isZipName(documentIRI, conn)) {
                 ZipInputStream zis = new ZipInputStream(is);
@@ -227,7 +228,7 @@ public class DocumentSources {
             } else {
                 is = wrap(is);
             }
-            return Optional.of(is);
+            return optional(is);
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
         }
@@ -244,8 +245,8 @@ public class DocumentSources {
     public static InputStream wrap(@Nonnull InputStream delegate) {
         checkNotNull(delegate, "delegate cannot be null");
         return new BOMInputStream(delegate, ByteOrderMark.UTF_8,
-                ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
-                ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
+            ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
+            ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
     }
 
     private static boolean couldBeOntology(@Nullable ZipEntry zipEntry) {
@@ -253,25 +254,28 @@ public class DocumentSources {
             return false;
         }
         return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName())
-                .matches();
+            .matches();
     }
 
     @Nonnull
     private static InputStream getInputStreamFromContentEncoding(
-            @Nonnull URLConnection conn, @Nullable String contentEncoding)
+        @Nonnull URLConnection conn, @Nullable String contentEncoding)
             throws IOException {
         InputStream in = conn.getInputStream();
         if (contentEncoding != null) {
             if ("xz".equals(contentEncoding)) {
-                LOGGER.info("URL connection input stream is compressed using xz");
+                LOGGER
+                    .info("URL connection input stream is compressed using xz");
                 return new BufferedInputStream(new XZInputStream(in));
             }
             if ("gzip".equals(contentEncoding)) {
-                LOGGER.info("URL connection input stream is compressed using gzip");
+                LOGGER.info(
+                    "URL connection input stream is compressed using gzip");
                 return new BufferedInputStream(new GZIPInputStream(in));
             }
             if ("deflate".equals(contentEncoding)) {
-                LOGGER.info("URL connection input stream is compressed using deflate");
+                LOGGER.info(
+                    "URL connection input stream is compressed using deflate");
                 return wrap(new InflaterInputStream(in, new Inflater(true)));
             }
         }
@@ -281,11 +285,13 @@ public class DocumentSources {
         }
         if (fileName != null) {
             if (fileName.endsWith(".gz")) {
-                LOGGER.info("URL connection has no content encoding but name ends with .gz");
+                LOGGER.info(
+                    "URL connection has no content encoding but name ends with .gz");
                 return new BufferedInputStream(new GZIPInputStream(in));
             }
             if (fileName.endsWith(".xz")) {
-                LOGGER.info("URL connection has no content encoding but name ends with .xz");
+                LOGGER.info(
+                    "URL connection has no content encoding but name ends with .xz");
                 return new BufferedInputStream(new XZInputStream(in));
             }
         }
@@ -293,7 +299,7 @@ public class DocumentSources {
     }
 
     private static boolean isZipName(@Nonnull IRI documentIRI,
-            @Nonnull URLConnection connection) {
+        @Nonnull URLConnection connection) {
         if (isZipFileName(documentIRI.toString())) {
             return true;
         } else {
@@ -304,22 +310,22 @@ public class DocumentSources {
 
     @Nullable
     private static String getFileNameFromContentDisposition(
-            @Nonnull URLConnection connection) {
+        @Nonnull URLConnection connection) {
         String contentDispositionHeaderValue = connection
-                .getHeaderField(CONTENT_DISPOSITION_HEADER);
+            .getHeaderField(CONTENT_DISPOSITION_HEADER);
         if (contentDispositionHeaderValue != null) {
             Matcher matcher = CONTENT_DISPOSITION_FILE_NAME_PATTERN
-                    .matcher(contentDispositionHeaderValue);
+                .matcher(contentDispositionHeaderValue);
             if (matcher.matches()) {
                 return matcher
-                        .group(CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP);
+                    .group(CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP);
             }
         }
         return null;
     }
 
     private static boolean isZipFileName(@Nonnull String fileName) {
-        return fileName.toLowerCase(Locale.getDefault()).endsWith(
-                ZIP_FILE_EXTENSION);
+        return fileName.toLowerCase(Locale.getDefault())
+            .endsWith(ZIP_FILE_EXTENSION);
     }
 }

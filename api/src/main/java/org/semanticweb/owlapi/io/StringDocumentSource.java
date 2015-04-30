@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -78,7 +78,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public StringDocumentSource(@Nonnull String string,
-            @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
+        @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
         super(documentIRI, f, mime);
         this.string = checkNotNull(string, "string cannot be null");
     }
@@ -96,13 +96,13 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public StringDocumentSource(@Nonnull String string, @Nonnull String prefix,
-            OWLDocumentFormat f, String mime) {
+        OWLDocumentFormat f, String mime) {
         super(prefix, f, mime);
         this.string = checkNotNull(string, "string cannot be null");
     }
 
     @Override
     public Optional<Reader> getReader() {
-        return Optional.of(new StringReader(string));
+        return optional(new StringReader(string));
     }
 }

@@ -161,8 +161,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
     @SuppressWarnings("null")
     @Nonnull
-    private transient Optional<OWLOntologyLoaderConfiguration> config = Optional
-        .empty();
+    private transient Optional<OWLOntologyLoaderConfiguration> config = emptyOptional();
     @Nonnull
     protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers;
     @Nonnull
@@ -229,7 +228,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyLoaderConfiguration newConfig) {
         writeLock.lock();
         try {
-            config = Optional.ofNullable(newConfig);
+            config = optional(newConfig);
         } finally {
             writeLock.unlock();
         }
@@ -243,7 +242,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             if (config.isPresent()) {
                 return config.get();
             }
-            config = Optional.of(configProvider.get());
+            config = optional(configProvider.get());
             return config.get();
         } finally {
             readLock.unlock();
@@ -791,7 +790,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         try {
             if (contains(ontologyIRI)) {
                 throw new OWLOntologyAlreadyExistsException(
-                    new OWLOntologyID(of(ontologyIRI), Optional.empty()));
+                    new OWLOntologyID(of(ontologyIRI), emptyOptional()));
             }
             OWLOntology ont = createOntology(ontologyIRI);
             Function<? super OWLOntology, ? extends Stream<? extends OWLAxiom>> mapper = o -> copyLogicalAxiomsOnly
@@ -810,7 +809,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         try {
             if (contains(ontologyIRI)) {
                 throw new OWLOntologyAlreadyExistsException(
-                    new OWLOntologyID(of(ontologyIRI), Optional.empty()));
+                    new OWLOntologyID(of(ontologyIRI), emptyOptional()));
             }
             OWLOntology ont = createOntology(ontologyIRI);
             addAxioms(ont, axioms);
@@ -892,7 +891,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             if (ontByID != null) {
                 return ontByID;
             }
-            OWLOntologyID id = new OWLOntologyID(of(iri), Optional.empty());
+            OWLOntologyID id = new OWLOntologyID(of(iri), emptyOptional());
             IRI documentIRI = getDocumentIRIFromMappers(id);
             if (documentIRI != null) {
                 if (documentIRIsByID.values().contains(documentIRI)
@@ -1013,7 +1012,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     "Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
             }
             fireStartedLoadingEvent(
-                new OWLOntologyID(of(ontologyIRI), Optional.empty()),
+                new OWLOntologyID(of(ontologyIRI), emptyOptional()),
                 documentSource.getDocumentIRI(), loadCount.get() > 0);
             loadCount.incrementAndGet();
             broadcastChanges.set(false);
@@ -1408,8 +1407,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private void readObject(java.io.ObjectInputStream stream)
         throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
-        config = Optional
-            .ofNullable((OWLOntologyLoaderConfiguration) stream.readObject());
+        config = optional((OWLOntologyLoaderConfiguration) stream.readObject());
         listenerMap = new ConcurrentHashMap<>();
         impendingChangeListenerMap = new ConcurrentHashMap<>();
         vetoListeners = new ArrayList<>();
@@ -1813,6 +1811,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Nonnull
     protected <T> Optional<T> of(T t) {
-        return Optional.ofNullable(t);
+        return optional(t);
     }
 }

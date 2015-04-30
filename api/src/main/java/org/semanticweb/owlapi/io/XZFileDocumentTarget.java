@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,11 +40,11 @@ import com.google.common.io.Closeables;
  * @author ses
  * @since 4.0.2
  */
-public class XZFileDocumentTarget implements OWLOntologyDocumentTarget,
-        AutoCloseable {
+public class XZFileDocumentTarget
+    implements OWLOntologyDocumentTarget, AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(XZFileDocumentTarget.class);
+        .getLogger(XZFileDocumentTarget.class);
     @Nonnull
     private final File out;
     private final FilterOptions[] filterOptions;
@@ -55,7 +57,7 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget,
      *        Settings for XZ compression
      */
     public XZFileDocumentTarget(@Nonnull File os,
-            FilterOptions... filterOptions) {
+        FilterOptions... filterOptions) {
         out = os;
         this.filterOptions = filterOptions;
     }
@@ -63,17 +65,23 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget,
     /**
      * Construct an XZ document target using the selected compression preset
      *
-     * @param os          target File
-     * @param presetLevel LZMA2 Compression preset level
-     * @throws UnsupportedOptionsException if the options selected are not acceptable
+     * @param os
+     *        target File
+     * @param presetLevel
+     *        LZMA2 Compression preset level
+     * @throws UnsupportedOptionsException
+     *         if the options selected are not acceptable
      */
-    public XZFileDocumentTarget(@Nonnull File os, int presetLevel) throws UnsupportedOptionsException {
+    public XZFileDocumentTarget(@Nonnull File os, int presetLevel)
+        throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
+
     /**
      * Construct an XZ document target
      *
-     * @param file          target File
+     * @param file
+     *        target File
      */
     public XZFileDocumentTarget(@Nonnull File file) {
         this(file, new LZMA2Options());
@@ -84,19 +92,19 @@ public class XZFileDocumentTarget implements OWLOntologyDocumentTarget,
     public Optional<OutputStream> getOutputStream() {
         try {
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
-                    new FileOutputStream(out));
+                new FileOutputStream(out));
             outputStream = new XZOutputStream(bufferedOutputStream,
-                    filterOptions);
+                filterOptions);
         } catch (IOException e) {
             LOGGER.error("Cannot create output stream", e);
-            return Optional.empty();
+            return emptyOptional();
         }
-        return Optional.of(outputStream);
+        return optional(outputStream);
     }
 
     @Override
     public Optional<IRI> getDocumentIRI() {
-        return Optional.of(IRI.create(out));
+        return optional(IRI.create(out));
     }
 
     @Override

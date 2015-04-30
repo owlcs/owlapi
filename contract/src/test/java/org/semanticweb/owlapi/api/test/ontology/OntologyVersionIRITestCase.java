@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.IRI;
@@ -32,7 +33,7 @@ public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
     protected OWLOntology createOntology() {
         IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/version");
-        OWLOntologyID ontologyID = new OWLOntologyID(of(ontIRI), of(versionIRI));
+        OWLOntologyID ontologyID = new OWLOntologyID(optional(ontIRI), optional(versionIRI));
         try {
             return m.createOntology(ontologyID);
         } catch (OWLOntologyCreationException e) {

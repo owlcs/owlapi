@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,11 +43,11 @@ import org.slf4j.LoggerFactory;
  *        will download the ontologies multiple times too, until parsing fails.
  *        Both issues could be addressed with a local file copy.
  */
-public abstract class StreamDocumentSourceBase extends
-        OWLOntologyDocumentSourceBase {
+public abstract class StreamDocumentSourceBase
+    extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(StreamDocumentSourceBase.class);
+        .getLogger(StreamDocumentSourceBase.class);
     protected byte[] byteBuffer;
     private Charset encoding = StandardCharsets.UTF_8;
     private boolean streamAvailable = false;
@@ -66,7 +66,7 @@ public abstract class StreamDocumentSourceBase extends
      *        mime type
      */
     public StreamDocumentSourceBase(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
+        @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
         streamAvailable = true;
@@ -86,14 +86,14 @@ public abstract class StreamDocumentSourceBase extends
      *        mime type
      */
     public StreamDocumentSourceBase(@Nonnull Reader stream,
-            @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
+        @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
         super(documentIRI, format, mime);
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
         if (stream instanceof InputStreamReader) {
-            encoding = Charset.forName(((InputStreamReader) stream)
-                    .getEncoding());
+            encoding = Charset
+                .forName(((InputStreamReader) stream).getEncoding());
         }
         readIntoBuffer(stream);
         streamAvailable = false;
@@ -113,7 +113,7 @@ public abstract class StreamDocumentSourceBase extends
      *        mime type
      */
     protected StreamDocumentSourceBase(@Nonnull InputStream stream,
-            @Nonnull String prefix, OWLDocumentFormat format, String mime) {
+        @Nonnull String prefix, OWLDocumentFormat format, String mime) {
         super(prefix, format, mime);
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
         streamAvailable = true;
@@ -133,14 +133,14 @@ public abstract class StreamDocumentSourceBase extends
      *        mime type
      */
     protected StreamDocumentSourceBase(@Nonnull Reader stream,
-            @Nonnull String prefix, OWLDocumentFormat format, String mime) {
+        @Nonnull String prefix, OWLDocumentFormat format, String mime) {
         super(prefix, format, mime);
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
         if (stream instanceof InputStreamReader) {
-            encoding = Charset.forName(((InputStreamReader) stream)
-                    .getEncoding());
+            encoding = Charset
+                .forName(((InputStreamReader) stream).getEncoding());
         }
         readIntoBuffer(stream);
         streamAvailable = false;
@@ -201,31 +201,32 @@ public abstract class StreamDocumentSourceBase extends
     @Override
     public Optional<InputStream> getInputStream() {
         if (!streamAvailable) {
-            return Optional.empty();
+            return emptyOptional();
         }
         try {
-            return Optional.of(DocumentSources.wrap(new GZIPInputStream(
-                    new ByteArrayInputStream(byteBuffer))));
+            return optional(DocumentSources.wrap(
+                new GZIPInputStream(new ByteArrayInputStream(byteBuffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 
     @Override
     public Optional<Reader> getReader() {
         if (streamAvailable) {
-            return Optional.empty();
+            return emptyOptional();
         }
         try {
-            return Optional.of(new InputStreamReader(DocumentSources
-                    .wrap(new GZIPInputStream(new ByteArrayInputStream(
-                            byteBuffer))), encoding));
+            return optional(new InputStreamReader(
+                DocumentSources.wrap(
+                    new GZIPInputStream(new ByteArrayInputStream(byteBuffer))),
+                encoding));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 }

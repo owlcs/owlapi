@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -47,9 +46,10 @@ public class OWLOntologyIRIChanger {
      * @param owlOntologyManager
      *        the ontology manager to use
      */
-    public OWLOntologyIRIChanger(@Nonnull OWLOntologyManager owlOntologyManager) {
+    public OWLOntologyIRIChanger(
+        @Nonnull OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = checkNotNull(owlOntologyManager,
-                "owlOntologyManager cannot be null");
+            "owlOntologyManager cannot be null");
     }
 
     /**
@@ -65,22 +65,21 @@ public class OWLOntologyIRIChanger {
      */
     @Nonnull
     public List<OWLOntologyChange> getChanges(@Nonnull OWLOntology ontology,
-            @Nonnull IRI newIRI) {
+        @Nonnull IRI newIRI) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new SetOntologyID(ontology, new OWLOntologyID(Optional
-                .of(newIRI), ontology.getOntologyID().getVersionIRI())));
-        OWLImportsDeclaration owlImport = owlOntologyManager
-                .getOWLDataFactory().getOWLImportsDeclaration(newIRI);
+        changes
+            .add(new SetOntologyID(ontology, new OWLOntologyID(optional(newIRI),
+                ontology.getOntologyID().getVersionIRI())));
+        OWLImportsDeclaration owlImport = owlOntologyManager.getOWLDataFactory()
+            .getOWLImportsDeclaration(newIRI);
         IRI ontIRI = ontology.getOntologyID().getOntologyIRI().get();
-        owlOntologyManager.ontologies().forEach(
-                ont -> {
-                    ont.importsDeclarations()
-                            .filter(decl -> decl.getIRI().equals(ontIRI))
-                            .forEach(decl -> {
-                                changes.add(new RemoveImport(ont, decl));
-                                changes.add(new AddImport(ont, owlImport));
-                            });
-                });
+        owlOntologyManager.ontologies().forEach(ont -> {
+            ont.importsDeclarations()
+                .filter(decl -> decl.getIRI().equals(ontIRI)).forEach(decl -> {
+                changes.add(new RemoveImport(ont, decl));
+                changes.add(new AddImport(ont, owlImport));
+            } );
+        } );
         return changes;
     }
 }

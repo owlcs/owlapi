@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
+
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Optional;
@@ -26,7 +28,7 @@ import javax.annotation.Nonnull;
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
 
     @Nonnull
-    private final Optional<Writer> writer = Optional.of(new StringWriter());
+    private final Optional<Writer> writer = optional(new StringWriter());
 
     @Nonnull
     @Override

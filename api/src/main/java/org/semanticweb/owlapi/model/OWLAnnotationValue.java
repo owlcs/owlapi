@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -51,7 +53,7 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      */
     @Nonnull
     default Optional<OWLLiteral> asLiteral() {
-        return Optional.empty();
+        return emptyOptional();
     }
 
     /**
@@ -60,7 +62,7 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      */
     @Nonnull
     default Optional<IRI> asIRI() {
-        return Optional.empty();
+        return emptyOptional();
     }
 
     /**
@@ -69,6 +71,6 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      */
     @Nonnull
     default Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return Optional.empty();
+        return emptyOptional();
     }
 }

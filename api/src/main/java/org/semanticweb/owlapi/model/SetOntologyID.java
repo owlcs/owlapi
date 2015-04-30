@@ -12,9 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.util.Optional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -43,10 +41,10 @@ public class SetOntologyID extends OWLOntologyChange {
      *        The ontology ID
      */
     public SetOntologyID(@Nonnull OWLOntology ont,
-            @Nonnull OWLOntologyID ontologyID) {
+        @Nonnull OWLOntologyID ontologyID) {
         super(ont);
         this.ontologyID = checkNotNull(ont.getOntologyID(),
-                "ontology id cannot be null");
+            "ontology id cannot be null");
         newOntologyID = checkNotNull(ontologyID, "ontology id cannot be null");
     }
 
@@ -60,8 +58,8 @@ public class SetOntologyID extends OWLOntologyChange {
      *        The ontology iri
      */
     public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull IRI ontologyIRI) {
-        this(ont, new OWLOntologyID(Optional.of(ontologyIRI),
-                Optional.<IRI> empty()));
+        this(ont,
+            new OWLOntologyID(optional(ontologyIRI), emptyOptional(IRI.class)));
     }
 
     @Override
@@ -101,7 +99,7 @@ public class SetOntologyID extends OWLOntologyChange {
     @Override
     public String toString() {
         return String.format("SetOntologyID(%s OntologyID(%s))", newOntologyID,
-                ontologyID);
+            ontologyID);
     }
 
     @Override
@@ -119,6 +117,6 @@ public class SetOntologyID extends OWLOntologyChange {
         }
         SetOntologyID change = (SetOntologyID) obj;
         return change.ontologyID.equals(ontologyID)
-                && change.newOntologyID.equals(newOntologyID);
+            && change.newOntologyID.equals(newOntologyID);
     }
 }

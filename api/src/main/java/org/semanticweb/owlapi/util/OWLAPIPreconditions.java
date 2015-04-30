@@ -124,7 +124,7 @@ public final class OWLAPIPreconditions {
      *         if object is negative
      */
     public static void checkNotNegative(@Nonnegative long object,
-            @Nonnull String message) {
+        @Nonnull String message) {
         if (object < 0) {
             throw new IllegalArgumentException(message);
         }
@@ -144,8 +144,8 @@ public final class OWLAPIPreconditions {
      *         if object is null
      */
     @Nonnull
-    public static <T> T
-            checkNotNull(Optional<T> object, @Nonnull String message) {
+    public static <T> T checkNotNull(Optional<T> object,
+        @Nonnull String message) {
         if (object == null || !object.isPresent()) {
             throw new IllegalArgumentException(message);
         }
@@ -162,7 +162,7 @@ public final class OWLAPIPreconditions {
      *        true if the input can be empty
      */
     public static void checkIterableNotNull(@Nonnull Collection<?> o,
-            String name, boolean emptyAllowed) {
+        String name, boolean emptyAllowed) {
         checkNotNull(o, name);
         if (!emptyAllowed && o.isEmpty()) {
             throw new IllegalArgumentException(name + " or empty");
@@ -179,10 +179,28 @@ public final class OWLAPIPreconditions {
      *        true if the input can be empty
      */
     public static void checkIterableNotNull(@Nonnull Object[] o, String name,
-            boolean emptyAllowed) {
+        boolean emptyAllowed) {
         checkNotNull(o, name);
         if (!emptyAllowed && o.length == 0) {
             throw new IllegalArgumentException(name + " or empty");
         }
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    public static <T> Optional<T> emptyOptional() {
+        return Optional.empty();
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    public static <T> Optional<T> emptyOptional(Class<T> t) {
+        return Optional.empty();
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    public static <T> Optional<T> optional(T t) {
+        return Optional.ofNullable(t);
     }
 }

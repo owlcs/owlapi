@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(GZipFileDocumentTarget.class);
+        .getLogger(GZipFileDocumentTarget.class);
     @Nonnull
     private final File out;
 
@@ -50,15 +52,15 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
     @Override
     public Optional<OutputStream> getOutputStream() {
         try {
-            return Optional.of(new GZIPOutputStream(new FileOutputStream(out)));
+            return optional(new GZIPOutputStream(new FileOutputStream(out)));
         } catch (IOException e) {
             LOGGER.error("Cannot create output stream", e);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 
     @Override
     public Optional<IRI> getDocumentIRI() {
-        return Optional.of(IRI.create(out));
+        return optional(IRI.create(out));
     }
 }

@@ -13,8 +13,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-
-import java.util.Optional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -35,14 +34,16 @@ public class RenameToExistingOntologyTestCase extends TestBase {
 
     @Test(expected = OWLOntologyRenameException.class)
     public void testRenameToExistingOntology()
-            throws OWLOntologyCreationException {
-        IRI ontologyAIRI = IRI("http://www.semanticweb.org/ontologies/ontologyA");
+        throws OWLOntologyCreationException {
+        IRI ontologyAIRI = IRI(
+            "http://www.semanticweb.org/ontologies/ontologyA");
         OWLOntology onto = m.createOntology(ontologyAIRI);
         m.addAxiom(onto,
-                df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
-        IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/ontologyB");
+            df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
+        IRI ontologyBIRI = IRI(
+            "http://www.semanticweb.org/ontologies/ontologyB");
         OWLOntology ontologyB = m.createOntology(ontologyBIRI);
-        m.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(
-                of(ontologyAIRI), Optional.empty())));
+        m.applyChange(new SetOntologyID(ontologyB,
+            new OWLOntologyID(optional(ontologyAIRI), emptyOptional(IRI.class))));
     }
 }

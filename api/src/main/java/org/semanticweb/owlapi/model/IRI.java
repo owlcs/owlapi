@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.File;
 import java.net.URI;
@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
-        SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
+    SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -63,14 +63,16 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         for (int i = 0; i < colonIndex; i++) {
             char ch = namespace.charAt(i);
             if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.'
-                    && ch != '+' && ch != '-') {
+                && ch != '+' && ch != '-') {
                 return false;
             }
         }
         return true;
     }
 
-    /** @return the IRI scheme, e.g., http, urn */
+    /**
+     * @return the IRI scheme, e.g., http, urn
+     */
     @Nullable
     public String getScheme() {
         int colonIndex = namespace.indexOf(':');
@@ -80,7 +82,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return namespace.substring(0, colonIndex);
     }
 
-    /** @return the prefix */
+    /**
+     * @return the prefix
+     */
     @Nonnull
     public String getNamespace() {
         return namespace;
@@ -116,9 +120,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     public boolean isReservedVocabulary() {
         return Namespaces.OWL.inNamespace(namespace)
-                || Namespaces.RDF.inNamespace(namespace)
-                || Namespaces.RDFS.inNamespace(namespace)
-                || Namespaces.XSD.inNamespace(namespace);
+            || Namespaces.RDF.inNamespace(namespace)
+            || Namespaces.RDFS.inNamespace(namespace)
+            || Namespaces.XSD.inNamespace(namespace);
     }
 
     /**
@@ -155,7 +159,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     public boolean isPlainLiteral() {
         return remainder.equals("PlainLiteral")
-                && Namespaces.RDF.inNamespace(namespace);
+            && Namespaces.RDF.inNamespace(namespace);
     }
 
     /**
@@ -178,9 +182,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     public Optional<String> getRemainder() {
         if (remainder.isEmpty()) {
-            return Optional.empty();
+            return emptyOptional();
         }
-        return Optional.of(remainder);
+        return optional(remainder);
     }
 
     /**
@@ -226,7 +230,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     public static IRI create(@Nullable String prefix, @Nullable String suffix) {
         if (prefix == null && suffix == null) {
             throw new IllegalArgumentException(
-                    "prefix and suffix cannot both be null");
+                "prefix and suffix cannot both be null");
         }
         if (prefix == null) {
             return create(suffix);
@@ -344,11 +348,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     protected Optional<String> asOptional(String suffix) {
         if (suffix == null) {
-            return Optional.empty();
+            return emptyOptional();
         } else if (suffix.isEmpty()) {
-            return Optional.empty();
+            return emptyOptional();
         }
-        return Optional.ofNullable(suffix);
+        return optional(suffix);
     }
 
     protected IRI(@Nonnull String s) {
@@ -476,7 +480,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     @Override
     public Optional<IRI> asIRI() {
-        return Optional.of(this);
+        return optional(this);
     }
 
     @Override
@@ -492,6 +496,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         }
         IRI other = (IRI) obj;
         return remainder.equals(other.remainder)
-                && other.namespace.equals(namespace);
+            && other.namespace.equals(namespace);
     }
 }

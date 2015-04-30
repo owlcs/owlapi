@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(FileDocumentTarget.class);
+        .getLogger(FileDocumentTarget.class);
     @Nonnull
     private final File file;
 
@@ -55,30 +55,29 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
         this.file = checkNotNull(file, "file cannot be null");
     }
 
-    @Nonnull
     @Override
     public Optional<Writer> getWriter() {
         try {
-            return Optional.of(new BufferedWriter(new FileWriter(file)));
+            return optional(new BufferedWriter(new FileWriter(file)));
         } catch (IOException e) {
             LOGGER.error("Writer cannot be created", e);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 
     @Override
     public Optional<OutputStream> getOutputStream() {
         try {
-            return Optional.of(new BufferedOutputStream(new FileOutputStream(
-                    file)));
+            return optional(
+                new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             LOGGER.error("Input stream cannot be created", e);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 
     @Override
     public Optional<IRI> getDocumentIRI() {
-        return Optional.of(IRI.create(file));
+        return optional(IRI.create(file));
     }
 }

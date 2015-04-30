@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles.violations;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -52,22 +54,25 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
 
     @Override
     public <O> Optional<O> accept(
-            @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+        @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
         return toString("Ontology version IRI not absolute: %s",
-                getExpression());
+            getExpression());
     }
 
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
-        return list(new SetOntologyID(ontology, new OWLOntologyID(
-                Optional.of(IRI.create("urn:profilesrepair:ontology#",
-                        "replaced")), Optional.of(IRI.create(
-                        "urn:profilesrepair:ontology#", "replaced1")))));
+        return list(
+            new SetOntologyID(ontology,
+                new OWLOntologyID(
+                    optional(IRI.create("urn:profilesrepair:ontology#",
+                        "replaced")),
+                optional(
+                    IRI.create("urn:profilesrepair:ontology#", "replaced1")))));
     }
 }

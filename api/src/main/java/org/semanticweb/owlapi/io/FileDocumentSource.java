@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(FileDocumentSource.class);
+        .getLogger(FileDocumentSource.class);
     @Nonnull
     private final File file;
 
@@ -77,7 +77,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public FileDocumentSource(@Nonnull File file, OWLDocumentFormat format,
-            String mime) {
+        String mime) {
         super(IRI.create(file), format, mime);
         this.file = checkNotNull(file, "file cannot be null");
     }
@@ -86,11 +86,11 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return Optional.of(DocumentSources.wrap(new FileInputStream(file)));
+            return optional(DocumentSources.wrap(new FileInputStream(file)));
         } catch (FileNotFoundException e) {
             LOGGER.error("File cannot be found", e);
             failedOnStreams.set(true);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 }

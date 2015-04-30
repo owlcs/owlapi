@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -40,7 +42,7 @@ import org.tukaani.xz.XZInputStream;
 public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(XZStreamDocumentSource.class);
+        .getLogger(XZStreamDocumentSource.class);
     private byte[] buffer;
 
     /**
@@ -69,8 +71,8 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public XZStreamDocumentSource(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(stream);
     }
@@ -96,15 +98,15 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         if (buffer == null) {
-            return Optional.empty();
+            return emptyOptional();
         }
         try {
-            return Optional.of(DocumentSources.wrap(new XZInputStream(
-                    new ByteArrayInputStream(buffer))));
+            return optional(DocumentSources
+                .wrap(new XZInputStream(new ByteArrayInputStream(buffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 
@@ -113,14 +115,13 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
         try {
             Optional<InputStream> inputStream = getInputStream();
             if (!inputStream.isPresent()) {
-                return Optional.empty();
+                return emptyOptional();
             }
-            return Optional
-                    .of(new InputStreamReader(inputStream.get(), "UTF-8"));
+            return optional(new InputStreamReader(inputStream.get(), "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 }

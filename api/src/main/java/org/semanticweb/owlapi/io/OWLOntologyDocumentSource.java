@@ -12,12 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -52,8 +53,9 @@ public interface OWLOntologyDocumentSource {
      * @return A new {@code Reader} which the ontology can be read from, wrapped
      *         in an Optional.
      */
+    @Nonnull
     default Optional<Reader> getReader() {
-        return Optional.empty();
+        return emptyOptional();
     }
 
     /**
@@ -67,7 +69,7 @@ public interface OWLOntologyDocumentSource {
      */
     @Nonnull
     default Optional<InputStream> getInputStream() {
-        return Optional.empty();
+        return emptyOptional();
     }
 
     /**
@@ -82,17 +84,18 @@ public interface OWLOntologyDocumentSource {
      * @return format for the ontology. If none is known, return
      *         Optional.absent.
      */
-    @Nullable
+    @Nonnull
     default Optional<OWLDocumentFormat> getFormat() {
-        return Optional.empty();
+        return emptyOptional();
     }
 
     /**
      * @return MIME type for this source, if one is specified. If none is known,
      *         return Optional.absent.
      */
+    @Nonnull
     default Optional<String> getMIMEType() {
-        return Optional.empty();
+        return emptyOptional();
     }
 
     /**

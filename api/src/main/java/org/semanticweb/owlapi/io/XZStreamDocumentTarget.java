@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -36,11 +36,11 @@ import com.google.common.io.Closeables;
  * @author ses
  * @since 4.0.2
  */
-public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
-        AutoCloseable {
+public class XZStreamDocumentTarget
+    implements OWLOntologyDocumentTarget, AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(XZStreamDocumentTarget.class);
+        .getLogger(XZStreamDocumentTarget.class);
     private final OutputStream outputStream;
     private XZOutputStream xzOutputStream;
     private FilterOptions filterOptions[];
@@ -53,7 +53,7 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
      *        LZMA2 Options.
      */
     public XZStreamDocumentTarget(OutputStream os,
-            FilterOptions... filterOptions) {
+        FilterOptions... filterOptions) {
         outputStream = os;
         if (filterOptions.length == 0) {
             filterOptions = new FilterOptions[] { new LZMA2Options() };
@@ -70,7 +70,7 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
      *         if an unsupported preset level is supplied
      */
     public XZStreamDocumentTarget(OutputStream os, int presetLevel)
-            throws UnsupportedOptionsException {
+        throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
 
@@ -79,13 +79,14 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
     public Optional<OutputStream> getOutputStream() {
         if (xzOutputStream == null) {
             try {
-                xzOutputStream = new XZOutputStream(outputStream, filterOptions);
+                xzOutputStream = new XZOutputStream(outputStream,
+                    filterOptions);
             } catch (IOException e) {
                 LOGGER.error("Fille cannot be found or opened", e);
-                return Optional.empty();
+                return emptyOptional();
             }
         }
-        return Optional.of(verifyNotNull(xzOutputStream));
+        return optional(verifyNotNull(xzOutputStream));
     }
 
     @Override

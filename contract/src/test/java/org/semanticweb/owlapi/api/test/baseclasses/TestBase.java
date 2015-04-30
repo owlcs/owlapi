@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.io.File;
@@ -134,11 +135,6 @@ public abstract class TestBase {
     protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
     @Nonnull
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
-
-    @Nonnull
-    protected <T> Optional<T> of(T t) {
-        return Optional.ofNullable(t);
-    }
 
     @Nonnull
     protected <S> Set<S> singleton(S s) {

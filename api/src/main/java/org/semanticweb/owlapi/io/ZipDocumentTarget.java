@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(ZipDocumentTarget.class);
+        .getLogger(ZipDocumentTarget.class);
     private final File file;
 
     /**
@@ -54,16 +54,16 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
         if (parentFile.exists() || parentFile.mkdirs()) {
             ZipOutputStream os;
             try {
-                os = new ZipOutputStream(new BufferedOutputStream(
-                        new FileOutputStream(file)));
+                os = new ZipOutputStream(
+                    new BufferedOutputStream(new FileOutputStream(file)));
                 os.putNextEntry(new ZipEntry("ontology.txt"));
-                return Optional.of(os);
+                return optional(os);
             } catch (IOException e) {
                 LOGGER.error("Cannot create or find file", e);
-                return Optional.empty();
+                return emptyOptional();
             }
         }
         LOGGER.error("Could not create directories: {}", parentFile);
-        return Optional.empty();
+        return emptyOptional();
     }
 }

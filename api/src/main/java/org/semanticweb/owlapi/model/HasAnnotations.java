@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -37,7 +37,7 @@ public interface HasAnnotations {
      */
     @Nonnull
     default Stream<OWLAnnotation> annotations() {
-        return Stream.empty();
+        return empty();
     }
 
     /**
@@ -52,7 +52,7 @@ public interface HasAnnotations {
      */
     @Nonnull
     default Stream<OWLAnnotation> annotations(
-            @Nonnull Predicate<OWLAnnotation> p) {
+        @Nonnull Predicate<OWLAnnotation> p) {
         return annotations().filter(p);
     }
 
@@ -66,7 +66,8 @@ public interface HasAnnotations {
      *        annotation property to filter on
      */
     @Nonnull
-    default Stream<OWLAnnotation> annotations(@Nonnull OWLAnnotationProperty p) {
+    default Stream<OWLAnnotation> annotations(
+        @Nonnull OWLAnnotationProperty p) {
         return annotations().filter(a -> a.getProperty().equals(p));
     }
 
@@ -103,8 +104,8 @@ public interface HasAnnotations {
     @Deprecated
     @Nonnull
     default Set<OWLAnnotation> getAnnotations(
-            @Nonnull OWLAnnotationProperty annotationProperty) {
-        return asSet(annotations(a -> a.getProperty()
-                .equals(annotationProperty)));
+        @Nonnull OWLAnnotationProperty annotationProperty) {
+        return asSet(
+            annotations(a -> a.getProperty().equals(annotationProperty)));
     }
 }

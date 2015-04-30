@@ -2,12 +2,12 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -732,9 +732,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     protected OWLMutableOntology mockOntology() {
         OWLMutableOntology mock = mock(OWLMutableOntology.class);
-        when(mock.getOntologyID()).thenReturn(
-            new OWLOntologyID(Optional.of(IRI.create("urn:mock:ontology")),
-                Optional.<IRI> empty()));
+        when(mock.getOntologyID()).thenReturn(new OWLOntologyID(
+            optional(IRI.create("urn:mock:ontology")), emptyOptional()));
         return mock;
     }
 

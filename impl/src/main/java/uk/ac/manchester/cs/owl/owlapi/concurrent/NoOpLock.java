@@ -27,7 +27,7 @@ class NoOpLock implements Lock, Serializable {
     }
 
     @Override
-    public boolean tryLock(long time, @Nonnull TimeUnit unit) {
+    public boolean tryLock(long time, TimeUnit unit) {
         return true;
     }
 
@@ -61,7 +61,7 @@ class NoOpLock implements Lock, Serializable {
         }
 
         @Override
-        public boolean awaitUntil(@Nonnull Date deadline) {
+        public boolean awaitUntil(Date deadline) {
             return true;
         }
 

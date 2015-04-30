@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,7 +38,7 @@ import org.slf4j.LoggerFactory;
 public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(GZipFileDocumentSource.class);
+        .getLogger(GZipFileDocumentSource.class);
     @Nonnull
     private final File file;
 
@@ -66,8 +68,8 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public GZipFileDocumentSource(@Nonnull File stream,
-            @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         file = stream;
     }
@@ -76,12 +78,12 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return Optional.of(DocumentSources.wrap(new GZIPInputStream(
-                    new FileInputStream(file))));
+            return optional(DocumentSources
+                .wrap(new GZIPInputStream(new FileInputStream(file))));
         } catch (IOException e) {
             LOGGER.error("File cannot be found or opened", e);
             failedOnStreams.set(true);
-            return Optional.empty();
+            return emptyOptional();
         }
     }
 }

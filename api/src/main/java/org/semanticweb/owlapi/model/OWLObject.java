@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -26,10 +26,10 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLObject extends Comparable<OWLObject>, Serializable,
-        HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
-        HasClassesInSignature, HasObjectPropertiesInSignature,
-        HasDataPropertiesInSignature, HasIndividualsInSignature,
-        HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
+    HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
+    HasClassesInSignature, HasObjectPropertiesInSignature,
+    HasDataPropertiesInSignature, HasIndividualsInSignature,
+    HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
 
     /**
      * Gets all of the nested (includes top level) class expressions that are
@@ -55,7 +55,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      */
     @Nonnull
     default Stream<OWLClassExpression> nestedClassExpressions() {
-        return Stream.empty();
+        return empty();
     }
 
     /**

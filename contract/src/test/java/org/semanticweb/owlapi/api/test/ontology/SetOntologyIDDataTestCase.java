@@ -14,8 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-
-import java.util.Optional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import javax.annotation.Nonnull;
 
@@ -43,8 +42,8 @@ public class SetOntologyIDDataTestCase {
     @Before
     public void setUp() {
         when(mockOntology.getOntologyID()).thenReturn(
-                new OWLOntologyID(Optional.of(IRI.create("urn:test:onto1")),
-                        Optional.of(IRI.create("urn:test:onto1_1"))));
+            new OWLOntologyID(optional(IRI.create("urn:test:onto1")),
+                optional(IRI.create("urn:test:onto1_1"))));
     }
 
     @Nonnull
