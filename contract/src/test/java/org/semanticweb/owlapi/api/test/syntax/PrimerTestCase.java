@@ -35,7 +35,7 @@ public class PrimerTestCase extends TestBase {
     OWL2DLProfile profile = new OWL2DLProfile();
 
     @Before
-    public void setUp() {
+    public void setUpProfile() {
         assertTrue(profile.checkOntology(func).isInProfile());
     }
 

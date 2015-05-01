@@ -212,6 +212,29 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
+    public void clearOntologies() {
+        writeLock.lock();
+        try {
+            documentIRIsByID.clear();
+            impendingChangeListenerMap.clear();
+            importedIRIs.clear();
+            importsClosureCache.clear();
+            listenerMap.clear();
+            loaderListeners.clear();
+            missingImportsListeners.clear();
+            ontologiesByID.values().forEach(o -> o.setOWLOntologyManager(null));
+            ontologiesByID.clear();
+            ontologyConfigurationsByOntologyID.clear();
+            ontologyFormatsByOntology.clear();
+            ontologyIDsByImportsDeclaration.clear();
+            progressListeners.clear();
+            vetoListeners.clear();
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
     public void setOntologyLoaderConfigurationProvider(
         @Nonnull Provider<OWLOntologyLoaderConfiguration> provider) {
         writeLock.lock();

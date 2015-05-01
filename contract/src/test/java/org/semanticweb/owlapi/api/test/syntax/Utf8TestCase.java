@@ -17,17 +17,14 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayInputStream;
-import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -123,8 +120,7 @@ public class Utf8TestCase extends TestBase {
             + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
             + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
             + "</rdf:RDF>";
-        OWLOntology o1 = m.loadOntologyFromOntologyDocument(
-            new ReaderDocumentSource(new StringReader(onto1)));
+        OWLOntology o1 = loadOntologyFromString(onto1);
         String onto2 = "<!DOCTYPE rdf:RDF [\n"
             + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
             + "<rdf:RDF \n" + "xml:base=\n"
@@ -137,9 +133,7 @@ public class Utf8TestCase extends TestBase {
             + "<owl:Ontology rdf:about=\"#\" />\n"
             + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
             + "</rdf:RDF>";
-        OWLOntology o2 = OWLManager.createOWLOntologyManager()
-            .loadOntologyFromOntologyDocument(
-                new ReaderDocumentSource(new StringReader(onto2)));
+        OWLOntology o2 = loadOntologyFromString(onto2);
         equal(o1, o2);
     }
 

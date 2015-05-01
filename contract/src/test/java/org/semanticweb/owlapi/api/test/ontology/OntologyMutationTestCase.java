@@ -38,18 +38,18 @@ public class OntologyMutationTestCase extends TestBase {
 
     @Test
     public void testAddAxiom() {
-        OWLOntology ont = getOWLOntology("OntA");
+        OWLOntology ont = getOWLOntology();
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
+        ont.getOWLOntologyManager()
+            .addOntologyChangeListener(new OWLOntologyChangeListener() {
 
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        chgs.addAll(changes);
-                    }
-                });
+                @Override
+                public void ontologiesChanged(
+                    @Nonnull List<? extends OWLOntologyChange> changes) {
+                    chgs.addAll(changes);
+                }
+            });
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -57,18 +57,18 @@ public class OntologyMutationTestCase extends TestBase {
 
     @Test
     public void testAddAxioms() {
-        OWLOntology ont = getOWLOntology("OntB");
+        OWLOntology ont = getOWLOntology();
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
+        ont.getOWLOntologyManager()
+            .addOntologyChangeListener(new OWLOntologyChangeListener() {
 
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        chgs.addAll(changes);
-                    }
-                });
+                @Override
+                public void ontologiesChanged(
+                    @Nonnull List<? extends OWLOntologyChange> changes) {
+                    chgs.addAll(changes);
+                }
+            });
         ont.getOWLOntologyManager().addAxioms(ont, singleton(ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -76,18 +76,18 @@ public class OntologyMutationTestCase extends TestBase {
 
     @Test
     public void testApplyChange() {
-        OWLOntology ont = getOWLOntology("OntC");
+        OWLOntology ont = getOWLOntology();
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
+        ont.getOWLOntologyManager()
+            .addOntologyChangeListener(new OWLOntologyChangeListener() {
 
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        chgs.addAll(changes);
-                    }
-                });
+                @Override
+                public void ontologiesChanged(
+                    @Nonnull List<? extends OWLOntologyChange> changes) {
+                    chgs.addAll(changes);
+                }
+            });
         ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -95,18 +95,18 @@ public class OntologyMutationTestCase extends TestBase {
 
     @Test
     public void testApplyChanges() {
-        OWLOntology ont = getOWLOntology("OntD");
+        OWLOntology ont = getOWLOntology();
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(
-                new OWLOntologyChangeListener() {
+        ont.getOWLOntologyManager()
+            .addOntologyChangeListener(new OWLOntologyChangeListener() {
 
-                    @Override
-                    public void ontologiesChanged(
-                            @Nonnull List<? extends OWLOntologyChange> changes) {
-                        chgs.addAll(changes);
-                    }
-                });
+                @Override
+                public void ontologiesChanged(
+                    @Nonnull List<? extends OWLOntologyChange> changes) {
+                    chgs.addAll(changes);
+                }
+            });
         ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));

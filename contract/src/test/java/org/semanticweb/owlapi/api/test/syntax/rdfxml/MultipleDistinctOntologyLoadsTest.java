@@ -48,7 +48,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
     IRI v2 = IRI("http://test.example.org/ontology/0139/version:2");
 
     @Before
-    public void setUp() {
+    public void setUpManager() {
         manager = OWLManager.createOWLOntologyManager();
     }
 

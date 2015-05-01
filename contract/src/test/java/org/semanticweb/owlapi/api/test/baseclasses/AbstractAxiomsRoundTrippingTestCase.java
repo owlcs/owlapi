@@ -27,18 +27,17 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class AbstractAxiomsRoundTrippingTestCase extends
-        AbstractRoundTrippingTestCase {
+public abstract class AbstractAxiomsRoundTrippingTestCase
+    extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         ont.getOWLOntologyManager().addAxioms(ont, createAxioms());
         ont.signature()
-                .filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-                .forEach(
-                        e -> ont.getOWLOntologyManager().addAxiom(ont,
-                                Declaration(e)));
+            .filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
+            .forEach(
+                e -> ont.getOWLOntologyManager().addAxiom(ont, Declaration(e)));
         return ont;
     }
 

@@ -31,24 +31,25 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.2.0
  */
-public class AxiomAnnotationsRoundTrippingTestCase extends
-        AbstractRoundTrippingTestCase {
+public class AxiomAnnotationsRoundTrippingTestCase
+    extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("OntA");
-        OWLAnnotationProperty prop = AnnotationProperty(OWLRDFVocabulary.RDFS_LABEL
-                .getIRI());
+        OWLOntology ont = getOWLOntology();
+        OWLAnnotationProperty prop = AnnotationProperty(
+            OWLRDFVocabulary.RDFS_LABEL.getIRI());
         addAxiom(ont, Declaration(prop));
         Set<OWLAnnotation> annotations = new HashSet<>();
         for (int i = 0; i < 2; i++) {
             OWLLiteral lit = Literal("Annotation " + (i + 1));
             annotations.add(df.getOWLAnnotation(RDFSLabel(), lit));
         }
-        OWLEntity entity = NamedIndividual(IRI("http://www.another.com/ont#peter"));
+        OWLEntity entity = NamedIndividual(
+            IRI("http://www.another.com/ont#peter"));
         addAxiom(ont, Declaration(entity));
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(
-                prop, entity.getIRI(), Literal("X", "en"), annotations);
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(prop,
+            entity.getIRI(), Literal("X", "en"), annotations);
         addAxiom(ont, ax);
         return ont;
     }

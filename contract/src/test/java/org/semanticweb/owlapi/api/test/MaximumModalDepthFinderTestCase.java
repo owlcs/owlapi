@@ -24,14 +24,12 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.MaximumModalDepthFinder;
 
 @SuppressWarnings({ "javadoc" })
 @RunWith(Parameterized.class)
-public class MaximumModalDepthFinderTestCase extends TestBase {
+public class MaximumModalDepthFinderTestCase {
 
     private OWLObject object;
     private int expected;
@@ -44,7 +42,6 @@ public class MaximumModalDepthFinderTestCase extends TestBase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        Builder.setDF(OWLManager.getOWLDataFactory());
         Builder b = new Builder();
         Map<OWLObject, Integer> map = new LinkedHashMap<>();
         map.put(b.ann(), 0);

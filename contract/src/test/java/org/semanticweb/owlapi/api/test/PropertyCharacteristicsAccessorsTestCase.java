@@ -33,7 +33,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testTransitive() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isTransitive(prop, ont));
         OWLAxiom ax = TransitiveObjectProperty(prop);
@@ -43,7 +43,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testSymmetric() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isSymmetric(prop, ont));
         OWLAxiom ax = SymmetricObjectProperty(prop);
@@ -53,7 +53,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testAsymmetric() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isAsymmetric(prop, ont));
         OWLAxiom ax = AsymmetricObjectProperty(prop);
@@ -63,7 +63,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testReflexive() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isReflexive(prop, ont));
         OWLAxiom ax = ReflexiveObjectProperty(prop);
@@ -73,7 +73,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testIrreflexive() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isIrreflexive(prop, ont));
         OWLAxiom ax = IrreflexiveObjectProperty(prop);
@@ -83,7 +83,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testFunctional() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isFunctional(prop, ont));
         OWLAxiom ax = FunctionalObjectProperty(prop);
@@ -93,7 +93,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testInverseFunctional() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isInverseFunctional(prop, ont));
         OWLAxiom ax = InverseFunctionalObjectProperty(prop);
@@ -103,7 +103,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
 
     @Test
     public void testFunctionalDataProperty() {
-        OWLOntology ont = getOWLOntology("Ont");
+        OWLOntology ont = getOWLOntology();
         OWLDataProperty prop = DataProperty(iri("prop"));
         assertFalse(isFunctional(prop, ont));
         OWLAxiom ax = FunctionalDataProperty(prop);

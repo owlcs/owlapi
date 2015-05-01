@@ -38,8 +38,10 @@ public class OntologyURITestCase extends TestBase {
     public void testOntologyID() {
         IRI iriA = IRI("http://www.another.com/ont");
         IRI iriB = IRI("http://www.another.com/ont/version");
-        OWLOntologyID ontIDBoth = new OWLOntologyID(optional(iriA), optional(iriB));
-        OWLOntologyID ontIDBoth2 = new OWLOntologyID(optional(iriA), optional(iriB));
+        OWLOntologyID ontIDBoth = new OWLOntologyID(optional(iriA),
+            optional(iriB));
+        OWLOntologyID ontIDBoth2 = new OWLOntologyID(optional(iriA),
+            optional(iriB));
         assertEquals(ontIDBoth, ontIDBoth2);
         OWLOntologyID ontIDURIOnly = new OWLOntologyID(optional(iriA),
             emptyOptional(IRI.class));
@@ -63,16 +65,16 @@ public class OntologyURITestCase extends TestBase {
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDuplicateOntologyURI() throws OWLOntologyCreationException {
-        IRI uri = IRI("http://www.another.com/ont");
+        IRI uri = IRI.getNextDocumentIRI("http://www.another.com/ont");
         m.createOntology(uri);
         m.createOntology(uri);
     }
 
     @Test
     public void testSetOntologyURI() throws OWLOntologyCreationException {
-        IRI iri = IRI("http://www.another.com/ont");
+        IRI iri = IRI.getNextDocumentIRI("http://www.another.com/ont");
         OWLOntology ont = m.createOntology(iri);
-        IRI newIRI = IRI("http://www.another.com/newont");
+        IRI newIRI = IRI.getNextDocumentIRI("http://www.another.com/newont");
         SetOntologyID sou = new SetOntologyID(ont,
             new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
         m.applyChange(sou);
@@ -83,20 +85,21 @@ public class OntologyURITestCase extends TestBase {
 
     @Test
     public void testVersionURI() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI("http://www.another.com/ont");
-        IRI verIRI = IRI("http://www.another.com/ont/versions/1.0.0");
-        OWLOntology ont = m
-            .createOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
+        IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
+        IRI verIRI = IRI
+            .getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
+        OWLOntology ont = m.createOntology(
+            new OWLOntologyID(optional(ontIRI), optional(verIRI)));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
     }
 
     @Test
     public void testNullVersionURI() throws OWLOntologyCreationException {
-        IRI ontIRI = IRI("http://www.another.com/ont");
+        IRI ontIRI = IRI.getNextDocumentIRI("http://www.another.com/ont");
         IRI verIRI = null;
-        OWLOntology ont = m
-            .createOntology(new OWLOntologyID(optional(ontIRI), optional(verIRI)));
+        OWLOntology ont = m.createOntology(
+            new OWLOntologyID(optional(ontIRI), optional(verIRI)));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertFalse(ont.getOntologyID().getVersionIRI().isPresent());
     }

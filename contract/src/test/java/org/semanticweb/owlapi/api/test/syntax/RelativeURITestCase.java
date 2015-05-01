@@ -39,9 +39,9 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLOntology ont = getOWLOntology("Ont");
-        OWLClass cls = Class(IRI(ont.getOntologyID().getOntologyIRI().get()
-                + "/Office"));
+        OWLOntology ont = getOWLOntology();
+        OWLClass cls = Class(
+            IRI(ont.getOntologyID().getOntologyIRI().get() + "/Office"));
         Set<OWLAxiom> axs = new HashSet<>();
         axs.add(Declaration(cls));
         return axs;
@@ -50,23 +50,23 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Test
     public void shouldThrowMeaningfulException() throws Exception {
         expectedException.expect(OWLRDFXMLParserException.class);
-        expectedException
-                .expectMessage("[line=1:column=378] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ");
+        expectedException.expectMessage(
+            "[line=1:column=378] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ");
         // on Java 6 for Mac the following assertion does not work: the root
         // exception does not have a message.
         // expectedException
-        // .expectMessage(" reason is: Illegal character in fragment at index 21: http://example.com/#1#2");
-        String rdfContent = ""
-                + "<rdf:RDF"
-                + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
-                + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
-                + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\""
-                + "    xmlns=\"http://example.org/rdfxmlparserbug#\""
-                + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">"
-                + "  <owl:Ontology rdf:about=\"http://example.org/rdfxmlparserbug\"/>"
-                + "  <owl:Thing rdf:about=\"http://example.com/#1#2\">"
-                + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>"
-                + "  </owl:Thing>" + "</rdf:RDF>";
+        // .expectMessage(" reason is: Illegal character in fragment at index
+        // 21: http://example.com/#1#2");
+        String rdfContent = "" + "<rdf:RDF"
+            + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
+            + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
+            + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\""
+            + "    xmlns=\"http://example.org/rdfxmlparserbug#\""
+            + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">"
+            + "  <owl:Ontology rdf:about=\"http://example.org/rdfxmlparserbug\"/>"
+            + "  <owl:Thing rdf:about=\"http://example.com/#1#2\">"
+            + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>"
+            + "  </owl:Thing>" + "</rdf:RDF>";
         OWLOntology ontology = m.createOntology();
         RDFXMLParser parser = new RDFXMLParser();
         parser.parse(new StringDocumentSource(rdfContent), ontology, config);

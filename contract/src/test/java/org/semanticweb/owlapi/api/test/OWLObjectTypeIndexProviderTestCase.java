@@ -15,10 +15,7 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -67,12 +64,8 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLSameIndividualAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
 @SuppressWarnings({ "javadoc", "null" })
-public class OWLObjectTypeIndexProviderTestCase extends TestBase {
+public class OWLObjectTypeIndexProviderTestCase {
 
-    @BeforeClass
-    public static void setUp() {
-        Builder.setDF(OWLManager.getOWLDataFactory());
-    }
     Builder b = new Builder();
     OWLObjectTypeIndexProvider t = new OWLObjectTypeIndexProvider();
 
@@ -438,7 +431,8 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion73() {
-        OWLObjectIntersectionOfImpl mock = mock(OWLObjectIntersectionOfImpl.class);
+        OWLObjectIntersectionOfImpl mock = mock(
+            OWLObjectIntersectionOfImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3001);
     }
@@ -466,14 +460,16 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion79() {
-        OWLObjectSomeValuesFromImpl mock = mock(OWLObjectSomeValuesFromImpl.class);
+        OWLObjectSomeValuesFromImpl mock = mock(
+            OWLObjectSomeValuesFromImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3005);
     }
 
     @Test
     public void testAssertion81() {
-        OWLObjectAllValuesFromImpl mock = mock(OWLObjectAllValuesFromImpl.class);
+        OWLObjectAllValuesFromImpl mock = mock(
+            OWLObjectAllValuesFromImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3006);
     }
@@ -487,21 +483,24 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion84() {
-        OWLObjectMinCardinalityImpl mock = mock(OWLObjectMinCardinalityImpl.class);
+        OWLObjectMinCardinalityImpl mock = mock(
+            OWLObjectMinCardinalityImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3008);
     }
 
     @Test
     public void testAssertion86() {
-        OWLObjectExactCardinalityImpl mock = mock(OWLObjectExactCardinalityImpl.class);
+        OWLObjectExactCardinalityImpl mock = mock(
+            OWLObjectExactCardinalityImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3009);
     }
 
     @Test
     public void testAssertion88() {
-        OWLObjectMaxCardinalityImpl mock = mock(OWLObjectMaxCardinalityImpl.class);
+        OWLObjectMaxCardinalityImpl mock = mock(
+            OWLObjectMaxCardinalityImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3010);
     }
@@ -543,7 +542,8 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion97() {
-        OWLDataExactCardinalityImpl mock = mock(OWLDataExactCardinalityImpl.class);
+        OWLDataExactCardinalityImpl mock = mock(
+            OWLDataExactCardinalityImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3016);
     }
@@ -585,7 +585,8 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion106() {
-        OWLDatatypeRestrictionImpl mock = mock(OWLDatatypeRestrictionImpl.class);
+        OWLDatatypeRestrictionImpl mock = mock(
+            OWLDatatypeRestrictionImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 4006);
     }
@@ -613,7 +614,8 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion111() {
-        SWRLObjectPropertyAtomImpl mock = mock(SWRLObjectPropertyAtomImpl.class);
+        SWRLObjectPropertyAtomImpl mock = mock(
+            SWRLObjectPropertyAtomImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 6003);
     }
@@ -641,7 +643,8 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion116() {
-        SWRLIndividualArgumentImpl mock = mock(SWRLIndividualArgumentImpl.class);
+        SWRLIndividualArgumentImpl mock = mock(
+            SWRLIndividualArgumentImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 6007);
     }
@@ -655,14 +658,16 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion119() {
-        SWRLSameIndividualAtomImpl mock = mock(SWRLSameIndividualAtomImpl.class);
+        SWRLSameIndividualAtomImpl mock = mock(
+            SWRLSameIndividualAtomImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 6009);
     }
 
     @Test
     public void testAssertion74() {
-        SWRLDifferentIndividualsAtomImpl mock = mock(SWRLDifferentIndividualsAtomImpl.class);
+        SWRLDifferentIndividualsAtomImpl mock = mock(
+            SWRLDifferentIndividualsAtomImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 6010);
     }
@@ -718,7 +723,8 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
 
     @Test
     public void testAssertion104() {
-        OWLAnonymousIndividualImpl mock = mock(OWLAnonymousIndividualImpl.class);
+        OWLAnonymousIndividualImpl mock = mock(
+            OWLAnonymousIndividualImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 1007);
     }

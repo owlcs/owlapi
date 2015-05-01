@@ -27,12 +27,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.2.0
  */
-public class ObjectPropertyChainRoundTrippingTestCase extends
-        AbstractRoundTrippingTestCase {
+public class ObjectPropertyChainRoundTrippingTestCase
+    extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("OntA");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty propA = ObjectProperty(iri("propA"));
         OWLObjectProperty propB = ObjectProperty(iri("propB"));
         OWLObjectProperty propC = ObjectProperty(iri("propC"));

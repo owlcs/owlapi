@@ -42,13 +42,13 @@ public class StructuralReasonerTestCase extends TestBase {
         OWLClass clsA = Class(iri("A"));
         OWLClass clsAp = Class(iri("Ap"));
         OWLClass clsB = Class(iri("B"));
-        OWLOntology ont = getOWLOntology("ont");
+        OWLOntology ont = getOWLOntology();
         OWLOntologyManager man = ont.getOWLOntologyManager();
         man.addAxiom(ont, EquivalentClasses(OWLThing(), clsX));
         man.addAxiom(ont, SubClassOf(clsB, clsA));
         man.addAxiom(ont, EquivalentClasses(clsA, clsAp));
         StructuralReasoner reasoner = new StructuralReasoner(ont,
-                new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
+            new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
         testClassHierarchy(reasoner);
         man.addAxiom(ont, SubClassOf(clsA, OWLThing()));
         testClassHierarchy(reasoner);
@@ -68,18 +68,18 @@ public class StructuralReasonerTestCase extends TestBase {
         assertEquals(1, subsOfAp.nodes().count());
         assertTrue(subsOfAp.containsEntity(clsB));
         Node<OWLClass> topNode = reasoner.getTopClassNode();
-        NodeSet<OWLClass> subsOfTop = reasoner.getSubClasses(
-                topNode.getRepresentativeElement(), true);
+        NodeSet<OWLClass> subsOfTop = reasoner
+            .getSubClasses(topNode.getRepresentativeElement(), true);
         assertEquals(1, subsOfTop.nodes().count());
         assertTrue(subsOfTop.containsEntity(clsA));
-        NodeSet<OWLClass> descOfTop = reasoner.getSubClasses(
-                topNode.getRepresentativeElement(), false);
+        NodeSet<OWLClass> descOfTop = reasoner
+            .getSubClasses(topNode.getRepresentativeElement(), false);
         assertEquals(3, descOfTop.nodes().count());
         assertTrue(descOfTop.containsEntity(clsA));
         assertTrue(descOfTop.containsEntity(clsB));
         assertTrue(descOfTop.containsEntity(OWLNothing()));
         NodeSet<OWLClass> supersOfTop = reasoner.getSuperClasses(OWLThing(),
-                false);
+            false);
         assertTrue(supersOfTop.isEmpty());
         NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(clsA, false);
         assertTrue(supersOfA.isTopSingleton());

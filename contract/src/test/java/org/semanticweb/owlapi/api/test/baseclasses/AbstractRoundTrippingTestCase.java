@@ -13,9 +13,13 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -29,6 +33,7 @@ import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TrigDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -42,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Nonnull
-    private final OWLOntology ont = createOntology();
+    private OWLOntology ont;
 
     @Nonnull
     protected abstract OWLOntology createOntology();
@@ -50,6 +55,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Nonnull
     protected OWLOntology getOnt() {
         return ont;
+    }
+
+    @Before
+    public void setUp() {
+        ont = createOntology();
     }
 
     @Test
@@ -119,9 +129,8 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
-        assertEquals(stripSimpleDeclarations(ont.getAxioms()),
-            stripSimpleDeclarations(o1.getAxioms()));
-        assertEquals(stripSimpleDeclarations(o1.getAxioms()),
-            stripSimpleDeclarations(o2.getAxioms()));
+        Set<OWLAxiom> o1axioms = stripSimpleDeclarations(asSet(o1.axioms()));
+        assertEquals(stripSimpleDeclarations(asSet(ont.axioms())), o1axioms);
+        assertEquals(o1axioms, stripSimpleDeclarations(asSet(o2.axioms())));
     }
 }

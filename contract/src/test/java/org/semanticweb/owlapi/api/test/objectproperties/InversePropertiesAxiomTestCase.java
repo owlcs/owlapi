@@ -22,16 +22,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Management Group
  * @since 2.2.0
  */
-public class InversePropertiesAxiomTestCase extends
-        AbstractRoundTrippingTestCase {
+public class InversePropertiesAxiomTestCase
+    extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("ont");
-        ont.getOWLOntologyManager().addAxiom(
-                ont,
-                InverseObjectProperties(ObjectProperty(iri("p")),
-                        ObjectProperty(iri("q"))));
+        OWLOntology ont = getOWLOntology();
+        ont.getOWLOntologyManager().addAxiom(ont, InverseObjectProperties(
+            ObjectProperty(iri("p")), ObjectProperty(iri("q"))));
         return ont;
     }
 }

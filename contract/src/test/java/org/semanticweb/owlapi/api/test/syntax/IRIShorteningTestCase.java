@@ -28,14 +28,14 @@ public class IRIShorteningTestCase extends TestBase {
     public void testIriEqualToPrefixNotShortenedInFSS() throws Exception {
         OWLOntology o = createTestOntology();
         String output = saveOntology(o, new FunctionalSyntaxDocumentFormat())
-                .toString();
+            .toString();
         matchExact(output, "NamedIndividual(rdf:)", false);
         matchExact(output, "NamedIndividual(rdf:type)", true);
     }
 
     public void matchExact(String output, String text, boolean expected) {
-        String message = "should " + (expected ? "" : "not ") + "contain"
-                + text + " - " + output;
+        String message = "should " + (expected ? "" : "not ") + "contain" + text
+            + " - " + output;
         assertEquals(message, expected, output.contains(text));
     }
 
@@ -56,10 +56,10 @@ public class IRIShorteningTestCase extends TestBase {
 
     @Nonnull
     private OWLOntology createTestOntology()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology();
-        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF
-                .getPrefixIRI()));
+        OWLNamedIndividual i = df
+            .getOWLNamedIndividual(IRI(Namespaces.RDF.getPrefixIRI()));
         m.addAxiom(o, df.getOWLDeclarationAxiom(i));
         i = df.getOWLNamedIndividual(OWLRDFVocabulary.RDF_TYPE);
         m.addAxiom(o, df.getOWLDeclarationAxiom(i));

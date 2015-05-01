@@ -47,7 +47,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         parse(text1);
     }
 
-    private OWLClassExpression parse(@Nonnull String text) {
+    private static OWLClassExpression parse(@Nonnull String text) {
         MockEntityChecker checker = new MockEntityChecker(df);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text);
@@ -88,7 +88,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         public OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
                 return factory
-                        .getOWLDataProperty("http://protege.org/Test.owl#p");
+                    .getOWLDataProperty("http://protege.org/Test.owl#p");
             } else {
                 return null;
             }

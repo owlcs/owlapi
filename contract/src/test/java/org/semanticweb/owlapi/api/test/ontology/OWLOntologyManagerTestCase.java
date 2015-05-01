@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import org.junit.Test;
@@ -36,118 +35,136 @@ public class OWLOntologyManagerTestCase extends TestBase {
 
     @Test
     public void testCreateAnonymousOntology()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntology ontology = m.createOntology();
         assertNotNull("ontology should not be null", ontology);
         assertNotNull("ontology id should not be null",
-                ontology.getOntologyID());
-        assertFalse(ontology.getOntologyID().getDefaultDocumentIRI()
-                .isPresent());
+            ontology.getOntologyID());
+        assertFalse(
+            ontology.getOntologyID().getDefaultDocumentIRI().isPresent());
         assertFalse(ontology.getOntologyID().getOntologyIRI().isPresent());
         assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
         assertNotNull("iri should not be null",
-                m.getOntologyDocumentIRI(ontology));
+            m.getOntologyDocumentIRI(ontology));
     }
 
     @Test
-    public void testCreateOntologyWithIRI() throws OWLOntologyCreationException {
-        IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
+    public void testCreateOntologyWithIRI()
+        throws OWLOntologyCreationException {
+        IRI ontologyIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology");
         OWLOntology ontology = m.createOntology(ontologyIRI);
         assertNotNull("ontology should not be null", ontology);
         assertNotNull("ontology id should not be null",
-                ontology.getOntologyID());
-        assertEquals(ontologyIRI, ontology.getOntologyID()
-                .getDefaultDocumentIRI().get());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI()
-                .get());
+            ontology.getOntologyID());
+        assertEquals(ontologyIRI,
+            ontology.getOntologyID().getDefaultDocumentIRI().get());
+        assertEquals(ontologyIRI,
+            ontology.getOntologyID().getOntologyIRI().get());
         assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
         assertEquals(ontologyIRI, m.getOntologyDocumentIRI(ontology));
     }
 
     @Test
     public void testCreateOntologyWithIRIAndVersionIRI()
-            throws OWLOntologyCreationException {
-        IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
-        IRI versionIRI = IRI("http://www.semanticweb.org/ontologies/ontology/version");
-        OWLOntology ontology = m.createOntology(new OWLOntologyID(
-                optional(ontologyIRI), optional(versionIRI)));
+        throws OWLOntologyCreationException {
+        IRI ontologyIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology");
+        IRI versionIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology/version");
+        OWLOntology ontology = m.createOntology(
+            new OWLOntologyID(optional(ontologyIRI), optional(versionIRI)));
         assertNotNull("ontology should not be null", ontology);
         assertNotNull("ontology id should not be null",
-                ontology.getOntologyID());
-        assertEquals(versionIRI, ontology.getOntologyID()
-                .getDefaultDocumentIRI().get());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI()
-                .get());
-        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI().get());
+            ontology.getOntologyID());
+        assertEquals(versionIRI,
+            ontology.getOntologyID().getDefaultDocumentIRI().get());
+        assertEquals(ontologyIRI,
+            ontology.getOntologyID().getOntologyIRI().get());
+        assertEquals(versionIRI,
+            ontology.getOntologyID().getVersionIRI().get());
         assertEquals(versionIRI, m.getOntologyDocumentIRI(ontology));
     }
 
     @Test
     public void testCreateOntologyWithIRIWithMapper()
-            throws OWLOntologyCreationException {
-        IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
-        IRI documentIRI = IRI("file:documentIRI");
+        throws OWLOntologyCreationException {
+        IRI ontologyIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology");
+        IRI documentIRI = IRI.getNextDocumentIRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
         m.getIRIMappers().add(mapper);
         OWLOntology ontology = m.createOntology(ontologyIRI);
         assertNotNull("ontology should not be null", ontology);
         assertNotNull("ontology id should not be null",
-                ontology.getOntologyID());
-        assertEquals(ontologyIRI, ontology.getOntologyID()
-                .getDefaultDocumentIRI().get());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI()
-                .get());
+            ontology.getOntologyID());
+        assertEquals(ontologyIRI,
+            ontology.getOntologyID().getDefaultDocumentIRI().get());
+        assertEquals(ontologyIRI,
+            ontology.getOntologyID().getOntologyIRI().get());
         assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
         assertEquals(documentIRI, m.getOntologyDocumentIRI(ontology));
     }
 
     @Test
     public void testCreateOntologyWithIRIAndVersionIRIWithMapper()
-            throws OWLOntologyCreationException {
-        IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
-        IRI versionIRI = IRI("http://www.semanticweb.org/ontologies/ontology/version");
-        IRI documentIRI = IRI("file:documentIRI");
+        throws OWLOntologyCreationException {
+        IRI ontologyIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology");
+        IRI versionIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology/version");
+        IRI documentIRI = IRI.getNextDocumentIRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(versionIRI, documentIRI);
         m.getIRIMappers().add(mapper);
-        OWLOntology ontology = m.createOntology(new OWLOntologyID(
-                optional(ontologyIRI), optional(versionIRI)));
+        OWLOntology ontology = m.createOntology(
+            new OWLOntologyID(optional(ontologyIRI), optional(versionIRI)));
         assertNotNull("ontology should not be null", ontology);
         assertNotNull("ontology id should not be null",
-                ontology.getOntologyID());
-        assertEquals(versionIRI, ontology.getOntologyID()
-                .getDefaultDocumentIRI().get());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI()
-                .get());
-        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI().get());
+            ontology.getOntologyID());
+        assertEquals(versionIRI,
+            ontology.getOntologyID().getDefaultDocumentIRI().get());
+        assertEquals(ontologyIRI,
+            ontology.getOntologyID().getOntologyIRI().get());
+        assertEquals(versionIRI,
+            ontology.getOntologyID().getVersionIRI().get());
         assertEquals(documentIRI, m.getOntologyDocumentIRI(ontology));
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testCreateDuplicateOntologyWithIRI()
-            throws OWLOntologyCreationException {
-        IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
+        throws OWLOntologyCreationException {
+        IRI ontologyIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology");
         m.createOntology(ontologyIRI);
         m.createOntology(ontologyIRI);
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testCreateDuplicateOntologyWithIRIAndVersionIRI()
-            throws OWLOntologyCreationException {
-        IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
-        IRI versionIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
-        m.createOntology(new OWLOntologyID(optional(ontologyIRI), optional(versionIRI)));
-        m.createOntology(new OWLOntologyID(optional(ontologyIRI), optional(versionIRI)));
+        throws OWLOntologyCreationException {
+        IRI ontologyIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology");
+        IRI versionIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology");
+        m.createOntology(
+            new OWLOntologyID(optional(ontologyIRI), optional(versionIRI)));
+        m.createOntology(
+            new OWLOntologyID(optional(ontologyIRI), optional(versionIRI)));
     }
 
     @Test(expected = OWLOntologyDocumentAlreadyExistsException.class)
     public void testCreateDuplicatedDocumentIRI()
-            throws OWLOntologyCreationException {
-        IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
-        IRI ontologyIRI2 = IRI("http://www.semanticweb.org/ontologies/ontology2");
-        IRI documentIRI = IRI("file:documentIRI");
+        throws OWLOntologyCreationException {
+        IRI ontologyIRI = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology");
+        IRI ontologyIRI2 = IRI.getNextDocumentIRI(
+            "http://www.semanticweb.org/ontologies/ontology2");
+        IRI documentIRI = IRI.getNextDocumentIRI("file:documentIRI");
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI, documentIRI));
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
-        m.createOntology(new OWLOntologyID(optional(ontologyIRI), optional((IRI) null)));
-        m.createOntology(new OWLOntologyID(optional(ontologyIRI2), optional((IRI) null)));
+        m.createOntology(
+            new OWLOntologyID(optional(ontologyIRI), optional((IRI) null)));
+        m.createOntology(
+            new OWLOntologyID(optional(ontologyIRI2), optional((IRI) null)));
     }
 }

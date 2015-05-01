@@ -41,7 +41,6 @@ public class OWLManager implements OWLOntologyManagerFactory {
 
     private static final long serialVersionUID = 40000L;
 
-
     @Override
     public OWLOntologyManager get() {
         return createOWLOntologyManager();
@@ -59,8 +58,9 @@ public class OWLManager implements OWLOntologyManagerFactory {
     }
 
     /**
-     * Creates an OWL ontology manager that is configured with the standard parsers and storers and provides
-     * locking for concurrent access.
+     * Creates an OWL ontology manager that is configured with the standard
+     * parsers and storers and provides locking for concurrent access.
+     * 
      * @return The new manager.
      */
     @Nonnull
@@ -75,29 +75,29 @@ public class OWLManager implements OWLOntologyManagerFactory {
      */
     @Nonnull
     public static OWLDataFactory getOWLDataFactory() {
-        return verifyNotNull(createInjector(Concurrency.NON_CONCURRENT).getInstance(OWLDataFactory.class));
+        return verifyNotNull(createInjector(Concurrency.NON_CONCURRENT)
+            .getInstance(OWLDataFactory.class));
     }
 
     /**
      * @return an initialized manchester syntax parser for parsing strings
      */
     public static ManchesterOWLSyntaxParser createManchesterParser() {
-        return createInjector(Concurrency.NON_CONCURRENT).getInstance(ManchesterOWLSyntaxParser.class);
+        return createInjector(Concurrency.NON_CONCURRENT)
+            .getInstance(ManchesterOWLSyntaxParser.class);
     }
 
     private static Injector createInjector(Concurrency concurrency) {
-        return Guice.createInjector(
-                new OWLAPIImplModule(concurrency),
-                new OWLAPIParsersModule(),
-                new OWLAPIServiceLoaderModule());
+        return Guice.createInjector(new OWLAPIImplModule(concurrency),
+            new OWLAPIParsersModule(), new OWLAPIServiceLoaderModule());
     }
 
-
-    private static OWLOntologyManager instatiateOWLOntologyManager(Concurrency concurrency) {
+    private static OWLOntologyManager instatiateOWLOntologyManager(
+        Concurrency concurrency) {
         Injector injector = createInjector(concurrency);
-        OWLOntologyManager instance = injector.getInstance(OWLOntologyManager.class);
+        OWLOntologyManager instance = injector
+            .getInstance(OWLOntologyManager.class);
         injector.injectMembers(instance);
         return verifyNotNull(instance);
     }
-
 }

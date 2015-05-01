@@ -48,7 +48,7 @@ public class TestImportByLocationTestCase extends TestBase {
     }
 
     private OWLOntology createOntologyFile(@Nonnull IRI iri, @Nonnull File f)
-            throws Exception {
+        throws Exception {
         OWLOntology a = m1.createOntology(iri);
         OutputStream out = new FileOutputStream(f);
         m1.saveOntology(a, out);

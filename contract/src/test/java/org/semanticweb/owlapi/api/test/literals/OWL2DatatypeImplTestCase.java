@@ -40,14 +40,14 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     private OWLDatatype plainLiteral;
 
     @Before
-    public void setUp() {
+    public void setUpLiteral() {
         plainLiteral = OWL2Datatype.RDF_PLAIN_LITERAL.getDatatype(df);
     }
 
     @Test
     public void getBuiltInDatatype() {
         assertEquals(OWL2Datatype.RDF_PLAIN_LITERAL,
-                plainLiteral.getBuiltInDatatype());
+            plainLiteral.getBuiltInDatatype());
     }
 
     @Test
@@ -105,7 +105,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     @Test
     public void isTopDatatype() {
         OWLDatatype rdfsLiteralDatatype = OWL2Datatype.RDFS_LITERAL
-                .getDatatype(df);
+            .getDatatype(df);
         assertTrue(rdfsLiteralDatatype.isTopDatatype());
         assertFalse(plainLiteral.isTopDatatype());
     }
@@ -189,21 +189,21 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     public void toStringID() {
         assertNotNull(plainLiteral.toStringID());
         assertEquals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI().toString(),
-                plainLiteral.toStringID());
+            plainLiteral.toStringID());
     }
 
     @Test
     public void getIRI() {
         assertNotNull(plainLiteral.getIRI());
         assertEquals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI(),
-                plainLiteral.getIRI());
+            plainLiteral.getIRI());
     }
 
     @Test
     public void shouldEquals() {
         assertEquals(plainLiteral, plainLiteral);
         assertEquals(plainLiteral,
-                OWL2Datatype.RDF_PLAIN_LITERAL.getDatatype(df));
+            OWL2Datatype.RDF_PLAIN_LITERAL.getDatatype(df));
         assertNotSame(plainLiteral, OWL2Datatype.XSD_STRING.getDatatype(df));
     }
 
@@ -245,8 +245,8 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     @Test
     public void isTopEntity() {
         assertTrue(OWL2Datatype.RDFS_LITERAL.getDatatype(df).isTopDatatype());
-        assertFalse(OWL2Datatype.RDF_PLAIN_LITERAL.getDatatype(df)
-                .isTopDatatype());
+        assertFalse(
+            OWL2Datatype.RDF_PLAIN_LITERAL.getDatatype(df).isTopDatatype());
     }
 
     @Test

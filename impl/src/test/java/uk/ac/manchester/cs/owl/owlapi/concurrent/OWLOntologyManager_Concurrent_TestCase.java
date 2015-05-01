@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import javax.annotation.Nonnull;
 import javax.inject.Provider;
 
 import org.junit.Before;
@@ -211,7 +212,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
         verifyReadLock_LockUnlock();
     }
 
-    private IRI mockIRI() {
+    @Nonnull
+    private static IRI mockIRI() {
         return IRI.create("http://owlapi.sourceforge.net/stuff");
     }
 

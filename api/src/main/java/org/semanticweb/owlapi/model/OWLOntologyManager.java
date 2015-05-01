@@ -54,6 +54,12 @@ public interface OWLOntologyManager
     Serializable {
 
     /**
+     * Clear all ontologies, listeners and maps from the manager. Leave injected
+     * factories, storers and parsers.
+     */
+    public void clearOntologies();
+
+    /**
      * Gets the ontologies that are managed by this manager that contain the
      * specified axiom.
      * 

@@ -74,12 +74,7 @@ import com.google.common.collect.Sets;
 public class Builder {
 
     @Nonnull
-    private static OWLDataFactory df;
-
-    public static void setDF(@Nonnull OWLDataFactory datafactory) {
-        df = datafactory;
-    }
-
+    private static OWLDataFactory df = OWLManager.getOWLDataFactory();
     @Nonnull
     private final OWLAnnotationProperty ap = df
         .getOWLAnnotationProperty("urn:test#ann");

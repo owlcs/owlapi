@@ -50,15 +50,17 @@ import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 public class TestDisjointsTestCase extends TestBase {
 
     @Before
-    public void setUp() {
-        m.setOntologyStorers(singleton((OWLStorerFactory) new RDFXMLStorerFactory()));
-        m.setOntologyParsers(singleton((OWLParserFactory) new RDFXMLParserFactory()));
+    public void setUpStorers() {
+        m.setOntologyStorers(
+            singleton((OWLStorerFactory) new RDFXMLStorerFactory()));
+        m.setOntologyParsers(
+            singleton((OWLParserFactory) new RDFXMLParserFactory()));
     }
 
     @Test
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = m.createOntology(IRI
-                .getNextDocumentIRI("urntests#uri"));
+        OWLOntology ontA = m
+            .createOntology(IRI.getNextDocumentIRI("urntests#uri"));
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
         OWLObjectProperty prop = createObjectProperty();

@@ -53,7 +53,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     @Test
     public void testOntologyContainsPlainAxiom() {
         OWLAxiom axiom = SubClassOf(Class(iri("A")), Class(iri("B")));
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology();
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(
@@ -67,7 +67,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLAnnotation anno = Annotation(annoProp, annoLiteral);
         OWLAxiom axiom = SubClassOf(Class(iri("A")), Class(iri("B")),
             singleton(anno));
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology();
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(
@@ -121,10 +121,10 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms1(
         @Nonnull OWLDocumentFormat format) throws Exception {
-        OWLOntology ont1 = getOWLOntology("testont1A");
+        OWLOntology ont1 = getOWLOntology();
         @Nonnull
         IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
-        OWLOntology ont2 = getOWLOntology("testont2A");
+        OWLOntology ont2 = getOWLOntology();
         @Nonnull
         IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
@@ -225,9 +225,9 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms2(
         @Nonnull OWLDocumentFormat format) throws Exception {
-        OWLOntology ont1 = getOWLOntology("testont1B");
+        OWLOntology ont1 = getOWLOntology();
         IRI ont1iri = get(ont1.getOntologyID().getOntologyIRI());
-        OWLOntology ont2 = getOWLOntology("testont2B");
+        OWLOntology ont2 = getOWLOntology();
         IRI ont2iri = get(ont2.getOntologyID().getOntologyIRI());
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
         ont2.getOWLOntologyManager()

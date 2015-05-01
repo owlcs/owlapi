@@ -37,16 +37,17 @@ public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAnnotation anno = df.getOWLAnnotation(annoProp, annoLiteral);
         OWLAxiom axiom = df.getOWLSubClassOfAxiom(Class(iri("A")),
-                Class(iri("B")), singleton(anno));
-        OWLOntology ont = getOWLOntology("testont");
+            Class(iri("B")), singleton(anno));
+        OWLOntology ont = getOWLOntology();
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.getAxiomsIgnoreAnnotations(axiom).contains(axiom));
-        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom).contains(
-                axiom.getAxiomWithoutAnnotations()));
-        assertTrue(ont.getAxiomsIgnoreAnnotations(
-                axiom.getAxiomWithoutAnnotations()).contains(axiom));
-        assertFalse(ont.getAxiomsIgnoreAnnotations(
-                axiom.getAxiomWithoutAnnotations()).contains(
-                axiom.getAxiomWithoutAnnotations()));
+        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom)
+            .contains(axiom.getAxiomWithoutAnnotations()));
+        assertTrue(
+            ont.getAxiomsIgnoreAnnotations(axiom.getAxiomWithoutAnnotations())
+                .contains(axiom));
+        assertFalse(
+            ont.getAxiomsIgnoreAnnotations(axiom.getAxiomWithoutAnnotations())
+                .contains(axiom.getAxiomWithoutAnnotations()));
     }
 }

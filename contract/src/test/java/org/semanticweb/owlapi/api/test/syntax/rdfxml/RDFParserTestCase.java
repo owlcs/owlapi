@@ -41,7 +41,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
 public class RDFParserTestCase extends TestBase {
 
     @Before
-    public void setUp() {
+    public void setUpStorers() {
         // Use the reference implementation
         m.getOntologyStorers().set(new RDFXMLStorerFactory());
         m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));

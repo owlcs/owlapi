@@ -26,8 +26,6 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
@@ -36,7 +34,7 @@ import com.google.common.collect.Sets;
 
 @SuppressWarnings({ "javadoc" })
 @RunWith(Parameterized.class)
-public class OWLClassExpressionCollectorTestCase extends TestBase {
+public class OWLClassExpressionCollectorTestCase {
 
     private static final String CI = "<urn:test#c>";
     private static final String IRII = "<urn:test#iri>";
@@ -62,7 +60,7 @@ public class OWLClassExpressionCollectorTestCase extends TestBase {
     private Set<String> expected;
 
     public OWLClassExpressionCollectorTestCase(OWLAxiom object,
-            String[] expected) {
+        String[] expected) {
         this.object = object;
         this.expected = Sets.newHashSet(expected);
     }
@@ -70,7 +68,6 @@ public class OWLClassExpressionCollectorTestCase extends TestBase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        Builder.setDF(OWLManager.getOWLDataFactory());
         Builder b = new Builder();
         Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
         String[] empty = new String[] {};

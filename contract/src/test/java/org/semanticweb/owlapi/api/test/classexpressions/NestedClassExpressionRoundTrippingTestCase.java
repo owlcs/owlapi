@@ -26,17 +26,17 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.2.0
  */
-public class NestedClassExpressionRoundTrippingTestCase extends
-        AbstractRoundTrippingTestCase {
+public class NestedClassExpressionRoundTrippingTestCase
+    extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("OntA");
+        OWLOntology ont = getOWLOntology();
         OWLObjectProperty prop = ObjectProperty(iri("propP"));
         OWLClass clsA = Class(iri("A"));
         OWLClass clsB = Class(iri("B"));
         OWLClassExpression desc = ObjectSomeValuesFrom(prop,
-                ObjectSomeValuesFrom(prop, clsB));
+            ObjectSomeValuesFrom(prop, clsB));
         OWLAxiom ax = SubClassOf(clsA, desc);
         addAxiom(ont, ax);
         addAxiom(ont, Declaration(clsA));

@@ -24,15 +24,13 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.HornAxiomVisitorEx;
 
 @SuppressWarnings({ "javadoc" })
 @RunWith(Parameterized.class)
-public class HornAxiomVisitorExTestCase extends TestBase {
+public class HornAxiomVisitorExTestCase {
 
     private OWLAxiom object;
     private Boolean b;
@@ -45,7 +43,6 @@ public class HornAxiomVisitorExTestCase extends TestBase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        Builder.setDF(OWLManager.getOWLDataFactory());
         Builder b = new Builder();
         Map<OWLObject, Boolean> map = new LinkedHashMap<>();
         map.put(b.ann(), Boolean.TRUE);

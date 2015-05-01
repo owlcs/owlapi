@@ -26,8 +26,6 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectComponentCollector;
@@ -36,7 +34,7 @@ import com.google.common.collect.Sets;
 
 @SuppressWarnings({ "javadoc" })
 @RunWith(Parameterized.class)
-public class OWLObjectComponentCollectorTestCase extends TestBase {
+public class OWLObjectComponentCollectorTestCase {
 
     private static final String CI = "<urn:test#c>";
     private static final String C = "urn:test#c";
@@ -184,7 +182,7 @@ public class OWLObjectComponentCollectorTestCase extends TestBase {
     private Set<String> expected;
 
     public OWLObjectComponentCollectorTestCase(OWLAxiom object,
-            String[] expected) {
+        String[] expected) {
         this.object = object;
         this.expected = Sets.newHashSet(expected);
     }
@@ -192,7 +190,6 @@ public class OWLObjectComponentCollectorTestCase extends TestBase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        Builder.setDF(OWLManager.getOWLDataFactory());
         Builder b = new Builder();
         Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
         map.put(b.dRange(), new String[] { DT, DP, DPI, DPR, DTI });
@@ -216,12 +213,13 @@ public class OWLObjectComponentCollectorTestCase extends TestBase {
         map.put(b.ifp(), new String[] { OP, OPI, IFP });
         map.put(b.iop(), new String[] { OP, OPI, IOP });
         map.put(b.irr(), new String[] { OP, OPI, IRR });
-        map.put(b.ndp(), new String[] { BLN, DP, I, DPI, II, ANDP, FALSE, BLN });
+        map.put(b.ndp(),
+            new String[] { BLN, DP, I, DPI, II, ANDP, FALSE, BLN });
         map.put(b.nop(), new String[] { I, OP, OPI, II, ANOP });
         map.put(b.opa(), new String[] { I, OP, OPI, II, AOP });
         map.put(b.opaInv(), new String[] { I, OP, OPI, INVERSE, II, AOINV });
-        map.put(b.opaInvj(), new String[] { I, J, OP, OPI, INVERSE, II, JI,
-                AOPJ });
+        map.put(b.opaInvj(),
+            new String[] { I, J, OP, OPI, INVERSE, II, JI, AOPJ });
         map.put(b.oDom(), new String[] { C, OP, CI, OPI, OPD });
         map.put(b.oRange(), new String[] { C, OP, CI, OPI, OPR });
         map.put(b.chain(), new String[] { IRI, OP, IRII, OPI, SUBO });
@@ -231,31 +229,32 @@ public class OWLObjectComponentCollectorTestCase extends TestBase {
         map.put(b.subClass(), new String[] { TOP, C, THING, CI, SUBC });
         map.put(b.subData(), new String[] { TOPDT, DP, TDT, DPI, SUBD });
         map.put(b.subObject(), new String[] { TOPOP, OP, TOPO, OPI, SUBOP });
-        map.put(b.rule(), new String[] { SHORTRULE, v34, var236, v3, v4, var5,
-                var6 });
+        map.put(b.rule(),
+            new String[] { SHORTRULE, v34, var236, v3, v4, var5, var6 });
         map.put(b.symm(), new String[] { OP, OPI, SYMM });
         map.put(b.trans(), new String[] { OP, OPI, T });
-        map.put(b.hasKey(), new String[] { C, DP, IRI, OP, CI, IRII, OPI, DPI,
-                HASKEY });
+        map.put(b.hasKey(),
+            new String[] { C, DP, IRI, OP, CI, IRII, OPI, DPI, HASKEY });
         map.put(b.ann(), new String[] { IRI, AANN });
         map.put(b.asymm(), new String[] { OP, OPI, asymm });
         map.put(b.annDom(), new String[] { ANN, IRI, ANNI, APD });
         map.put(b.annRange(), new String[] { ANN, IRI, ANNI, APR });
         map.put(b.ass(), new String[] { C, I, CI, II, ACL });
         map.put(b.assAnd(),
-                new String[] { C, I, IRI, CI, IRII, II, ACLAND, AND });
+            new String[] { C, I, IRI, CI, IRII, II, ACLAND, AND });
         map.put(b.assOr(), new String[] { C, I, IRI, CI, IRII, II, ACLOR, OR });
         map.put(b.dRangeAnd(), new String[] { BLN, DT, DP, DPI, DPRAND, DTI,
-                DONEOF, DAND, FALSE, BLN });
+            DONEOF, DAND, FALSE, BLN });
         map.put(b.dRangeOr(), new String[] { BLN, DT, DP, DPI, DOR, DPROR, DTI,
-                DONEOF, FALSE, BLN });
+            DONEOF, FALSE, BLN });
         map.put(b.assNot(), new String[] { C, I, CI, II, CNOT, NOT });
         map.put(b.assNotAnon(), new String[] { C, CI, ID, ACNOT, NOT });
         map.put(b.assSome(),
-                new String[] { C, I, OP, CI, OPI, II, ACSOME, SOME });
+            new String[] { C, I, OP, CI, OPI, II, ACSOME, SOME });
         map.put(b.assAll(), new String[] { C, I, OP, CI, OPI, II, ACALL, ALL });
         map.put(b.assHas(), new String[] { I, OP, OPI, II, ACHAS, HAS });
-        map.put(b.assMin(), new String[] { C, I, OP, CI, OPI, II, AOMIN, OMIN });
+        map.put(b.assMin(),
+            new String[] { C, I, OP, CI, OPI, II, AOMIN, OMIN });
         map.put(b.assMax(), new String[] { C, I, OP, CI, OPI, II, AOMAX, MAX });
         map.put(b.assEq(), new String[] { C, I, OP, CI, OPI, II, AOEQ, OEQ });
         map.put(b.assHasSelf(), new String[] { I, OP, OPI, II, ASELF, SELF });
@@ -266,21 +265,22 @@ public class OWLObjectComponentCollectorTestCase extends TestBase {
         map.put(b.assDMin(), new String[] { DP, I, DPI, II, ADMIN, DMIN });
         map.put(b.assDMax(), new String[] { DP, I, DPI, II, ADMAX, DMAX });
         map.put(b.assDEq(), new String[] { DP, I, DPI, II, ADEQ, DEQ });
-        map.put(b.dOneOf(), new String[] { BLN, DP, DPI, ADONEOF, FALSE, BLN,
-                DONEOF });
-        map.put(b.dNot(), new String[] { BLN, DP, DPI, DPRNOT, DNOT, FALSE,
-                BLN, DONEOF });
+        map.put(b.dOneOf(),
+            new String[] { BLN, DP, DPI, ADONEOF, FALSE, BLN, DONEOF });
+        map.put(b.dNot(),
+            new String[] { BLN, DP, DPI, DPRNOT, DNOT, FALSE, BLN, DONEOF });
         map.put(b.dRangeRestrict(), new String[] { DB, DP, DPI, MINMAX,
-                MINMXSIX, MIN5, MAXSIX, FIVE, SIX, DB });
-        map.put(b.assD(), new String[] { BLN, DP, I, DPI, II, dpafalse, FALSE,
-                BLN });
-        map.put(b.assDPlain(), new String[] { plain, DP, I, DPI, II, adp,
-                plain, "\"string\"@en" });
+            MINMXSIX, MIN5, MAXSIX, FIVE, SIX, DB });
+        map.put(b.assD(),
+            new String[] { BLN, DP, I, DPI, II, dpafalse, FALSE, BLN });
+        map.put(b.assDPlain(), new String[] { plain, DP, I, DPI, II, adp, plain,
+            "\"string\"@en" });
         map.put(b.dDom(), new String[] { DP, DPI, dpdomain });
-        map.put(b.bigRule(), new String[] { FALSE, var6, var5, v1, v4, v34, v3,
-                v2, var2, OPI, var236, FALSE, diffvar2, DP, VAR1, CI, DT, BLN,
-                IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI, classvar2,
-                IRII, I, rule, DTI, II, DPI });
+        map.put(b.bigRule(),
+            new String[] { FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI,
+                var236, FALSE, diffvar2, DP, VAR1, CI, DT, BLN, IRII, opavar2,
+                DRA, II, BLN, dpvar2, OP, C, IRI, classvar2, IRII, I, rule, DTI,
+                II, DPI });
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;

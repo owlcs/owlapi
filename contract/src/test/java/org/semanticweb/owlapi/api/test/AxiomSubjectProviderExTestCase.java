@@ -24,14 +24,12 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 
 @SuppressWarnings({ "javadoc" })
 @RunWith(Parameterized.class)
-public class AxiomSubjectProviderExTestCase extends TestBase {
+public class AxiomSubjectProviderExTestCase {
 
     private OWLAxiom object;
     private String expected;
@@ -44,7 +42,6 @@ public class AxiomSubjectProviderExTestCase extends TestBase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        Builder.setDF(OWLManager.getOWLDataFactory());
         Builder b = new Builder();
         Map<OWLAxiom, String> map = new LinkedHashMap<>();
         map.put(b.dDp(), "<urn:test#dp>");
@@ -73,12 +70,12 @@ public class AxiomSubjectProviderExTestCase extends TestBase {
         map.put(b.subData(), "<urn:test#dp>");
         map.put(b.subObject(), "<urn:test#op>");
         map.put(b.rule(),
-                "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
+            "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
         map.put(b.symm(), "<urn:test#op>");
         map.put(b.trans(), "<urn:test#op>");
         map.put(b.hasKey(), "<urn:test#c>");
         map.put(b.bigRule(),
-                "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
+            "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
         map.put(b.ann(), "urn:test#iri");
         map.put(b.asymm(), "<urn:test#op>");
         map.put(b.annDom(), "<urn:test#ann>");

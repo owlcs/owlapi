@@ -45,7 +45,7 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
     private OWLOntologyManager manager;
 
     @Before
-    public void setUp() {
+    public void setUpManager() {
         manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(),
             new ReentrantReadWriteLock());
         manager.getOntologyFactories().add(new OWLOntologyFactoryImpl(

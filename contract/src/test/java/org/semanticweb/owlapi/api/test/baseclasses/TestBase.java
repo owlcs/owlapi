@@ -30,6 +30,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
+import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
@@ -136,11 +138,24 @@ public abstract class TestBase {
     @Nonnull
     protected final OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     @Nonnull
-    protected OWLDataFactory df = OWLManager.getOWLDataFactory();
+    protected static OWLDataFactory df;
     @Nonnull
-    protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+    protected static OWLOntologyManager m;
     @Nonnull
-    protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
+    protected static OWLOntologyManager m1;
+
+    @BeforeClass
+    public static void setupManagers() {
+        df = OWLManager.getOWLDataFactory();
+        m = OWLManager.createOWLOntologyManager();
+        m1 = OWLManager.createOWLOntologyManager();
+    }
+
+    @After
+    public void tearDown() {
+        m.clearOntologies();
+        m1.clearOntologies();
+    }
 
     @Nonnull
     protected <S> Set<S> singleton(S s) {
@@ -335,7 +350,7 @@ public abstract class TestBase {
         return reannotated;
     }
 
-    private Set<OWLAnnotation> reannotate(Stream<OWLAnnotation> anns) {
+    private static Set<OWLAnnotation> reannotate(Stream<OWLAnnotation> anns) {
         OWLDatatype stringType = df.getOWLDatatype(OWL2Datatype.XSD_STRING);
         Set<OWLAnnotation> toReturn = new HashSet<>();
         anns.forEach(a -> {
@@ -405,14 +420,9 @@ public abstract class TestBase {
     private final String uriBase = "http://www.semanticweb.org/owlapi/test";
 
     @Nonnull
-    public OWLOntology getOWLOntology(String name) {
+    public OWLOntology getOWLOntology() {
         try {
-            IRI iri = IRI(uriBase + '/' + name);
-            if (m.contains(iri)) {
-                return m.getOntology(iri);
-            } else {
-                return m.createOntology(iri);
-            }
+            return m.createOntology(IRI.getNextDocumentIRI(uriBase));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

@@ -45,18 +45,18 @@ public class AnnotationAccessorsTestCase extends TestBase {
 
     @Nonnull
     private static final IRI SUBJECT = IRI
-            .create("http://owlapi.sourceforge.net/ontologies/test#X");
+        .create("http://owlapi.sourceforge.net/ontologies/test#X");
 
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
         return Arrays.asList(new Object[] { Class(SUBJECT) },
-                new Object[] { NamedIndividual(SUBJECT) },
-                new Object[] { DataProperty(SUBJECT) },
-                new Object[] { ObjectProperty(SUBJECT) },
-                new Object[] { Datatype(SUBJECT) },
-                new Object[] { AnnotationProperty(SUBJECT) },
-                new Object[] { AnonymousIndividual() });
+            new Object[] { NamedIndividual(SUBJECT) },
+            new Object[] { DataProperty(SUBJECT) },
+            new Object[] { ObjectProperty(SUBJECT) },
+            new Object[] { Datatype(SUBJECT) },
+            new Object[] { AnnotationProperty(SUBJECT) },
+            new Object[] { AnonymousIndividual() });
     }
 
     private OWLPrimitive e;
@@ -74,17 +74,18 @@ public class AnnotationAccessorsTestCase extends TestBase {
 
     @Test
     public void testClassAccessor() {
-        OWLOntology ont = getOWLOntology("ontology");
+        OWLOntology ont = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
         ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(
-                a -> a.equals(ax)));
+        assertTrue(
+            ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {
             assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
-                    .anyMatch(a -> a.equals(ax)));
+                .anyMatch(a -> a.equals(ax)));
             assertTrue(contains(
-                    annotations(ont.annotationAssertionAxioms(((OWLEntity) e)
-                            .getIRI())), ax.getAnnotation()));
+                annotations(
+                    ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())),
+                ax.getAnnotation()));
         }
     }
 }

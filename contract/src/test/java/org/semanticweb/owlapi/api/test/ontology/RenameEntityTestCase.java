@@ -47,7 +47,7 @@ public class RenameEntityTestCase extends TestBase {
 
     @Test
     public void testRenameClass() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology();
         OWLClass clsAIRI1 = Class(iri("ClsA1"));
         OWLClass clsAIRI2 = Class(iri("ClsA2"));
         OWLClass clsB = Class(iri("ClsB"));
@@ -64,8 +64,8 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(ObjectPropertyRange(propA, clsAIRI1));
         axioms1.add(DataPropertyDomain(propB, clsAIRI1));
         axioms1.add(ClassAssertion(clsAIRI1, indA));
-        axioms1.add(AnnotationAssertion(annoProp, clsAIRI1.getIRI(),
-                Literal("X")));
+        axioms1.add(
+            AnnotationAssertion(annoProp, clsAIRI1.getIRI(), Literal("X")));
         ont.getOWLOntologyManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(SubClassOf(clsAIRI2, clsB));
@@ -75,28 +75,28 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(ObjectPropertyRange(propA, clsAIRI2));
         axioms2.add(DataPropertyDomain(propB, clsAIRI2));
         axioms2.add(ClassAssertion(clsAIRI2, indA));
-        axioms2.add(AnnotationAssertion(annoProp, clsAIRI2.getIRI(),
-                Literal("X")));
+        axioms2.add(
+            AnnotationAssertion(annoProp, clsAIRI2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(
-                ont.getOWLOntologyManager(), singleton(ont));
+            ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(clsAIRI1,
-                clsAIRI2.getIRI());
+            clsAIRI2.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asSet(ont.axioms()), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(
-                clsAIRI2.getIRI(), clsAIRI1.getIRI());
+        List<OWLOntologyChange> changes2 = entityRenamer
+            .changeIRI(clsAIRI2.getIRI(), clsAIRI1.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
         assertEquals(asSet(ont.axioms()), axioms1);
     }
 
     @Test
     public void testRenameObjectProperty() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology();
         OWLClass clsA = Class(iri("ClsA"));
         OWLObjectProperty propA = ObjectProperty(iri("propA"));
         OWLObjectProperty propA2 = ObjectProperty(iri("propA2"));
         OWLObjectPropertyExpression propB = ObjectProperty(iri("propB"))
-                .getInverseProperty();
+            .getInverseProperty();
         OWLIndividual indA = NamedIndividual(iri("indA"));
         OWLIndividual indB = NamedIndividual(iri("indB"));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
@@ -115,7 +115,8 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(IrreflexiveObjectProperty(propA));
         axioms1.add(ObjectPropertyAssertion(propA, indA, indB));
         axioms1.add(NegativeObjectPropertyAssertion(propA, indA, indB));
-        axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
+        axioms1
+            .add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
         ont.getOWLOntologyManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(SubObjectPropertyOf(propA2, propB));
@@ -132,22 +133,23 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(IrreflexiveObjectProperty(propA2));
         axioms2.add(ObjectPropertyAssertion(propA2, indA, indB));
         axioms2.add(NegativeObjectPropertyAssertion(propA2, indA, indB));
-        axioms2.add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
+        axioms2
+            .add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(
-                ont.getOWLOntologyManager(), singleton(ont));
+            ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(propA,
-                propA2.getIRI());
+            propA2.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asSet(ont.axioms()), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(
-                propA2.getIRI(), propA.getIRI());
+        List<OWLOntologyChange> changes2 = entityRenamer
+            .changeIRI(propA2.getIRI(), propA.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
         assertEquals(asSet(ont.axioms()), axioms1);
     }
 
     @Test
     public void testRenameDataProperty() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology();
         OWLClass clsA = Class(iri("ClsA"));
         OWLDataProperty propA = DataProperty(iri("propA"));
         OWLDataProperty propA2 = DataProperty(iri("propA2"));
@@ -163,7 +165,8 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(FunctionalDataProperty(propA));
         axioms1.add(DataPropertyAssertion(propA, indA, Literal(33)));
         axioms1.add(NegativeDataPropertyAssertion(propA, indA, Literal(44)));
-        axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
+        axioms1
+            .add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
         ont.getOWLOntologyManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(SubDataPropertyOf(propA2, propB));
@@ -174,22 +177,23 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(FunctionalDataProperty(propA2));
         axioms2.add(DataPropertyAssertion(propA2, indA, Literal(33)));
         axioms2.add(NegativeDataPropertyAssertion(propA2, indA, Literal(44)));
-        axioms2.add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
+        axioms2
+            .add(AnnotationAssertion(annoProp, propA2.getIRI(), Literal("X")));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(
-                ont.getOWLOntologyManager(), singleton(ont));
+            ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(propA,
-                propA2.getIRI());
+            propA2.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asSet(ont.axioms()), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(
-                propA2.getIRI(), propA.getIRI());
+        List<OWLOntologyChange> changes2 = entityRenamer
+            .changeIRI(propA2.getIRI(), propA.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
         assertEquals(asSet(ont.axioms()), axioms1);
     }
 
     @Test
     public void testRenameIndividual() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology();
         OWLClass clsA = Class(iri("ClsA"));
         OWLDataProperty propA = DataProperty(iri("propA"));
         OWLObjectProperty propB = ObjectProperty(iri("propB"));
@@ -200,7 +204,8 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(ClassAssertion(clsA, indA));
         axioms1.add(DataPropertyAssertion(propA, indA, Literal(33)));
         axioms1.add(NegativeDataPropertyAssertion(propA, indA, Literal(44)));
-        axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
+        axioms1
+            .add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
         axioms1.add(ObjectPropertyAssertion(propB, indA, indB));
         axioms1.add(NegativeObjectPropertyAssertion(propB, indA, indB));
         ont.getOWLOntologyManager().addAxioms(ont, axioms1);
@@ -208,24 +213,25 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(ClassAssertion(clsA, indB));
         axioms2.add(DataPropertyAssertion(propA, indB, Literal(33)));
         axioms2.add(NegativeDataPropertyAssertion(propA, indB, Literal(44)));
-        axioms2.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
+        axioms2
+            .add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
         axioms2.add(ObjectPropertyAssertion(propB, indB, indB));
         axioms2.add(NegativeObjectPropertyAssertion(propB, indB, indB));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(
-                ont.getOWLOntologyManager(), singleton(ont));
+            ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(indA,
-                indB.getIRI());
+            indB.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asSet(ont.axioms()), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(
-                indB.getIRI(), indA.getIRI());
+        List<OWLOntologyChange> changes2 = entityRenamer
+            .changeIRI(indB.getIRI(), indA.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
         assertEquals(asSet(ont.axioms()), axioms1);
     }
 
     @Test
     public void testRenameDatatype() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology();
         OWLDatatype dtA = Datatype(iri("DtA"));
         OWLDatatype dtB = Datatype(iri("DtB"));
         OWLDatatype dtC = Datatype(iri("DtC"));
@@ -246,20 +252,20 @@ public class RenameEntityTestCase extends TestBase {
         axioms2.add(DataPropertyRange(propB, rng2R));
         axioms2.add(DataPropertyRange(propB, rng3R));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(
-                ont.getOWLOntologyManager(), singleton(ont));
+            ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(dtA,
-                dtC.getIRI());
+            dtC.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asSet(ont.axioms()), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(
-                dtC.getIRI(), dtA.getIRI());
+        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(dtC.getIRI(),
+            dtA.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
         assertTrue(equalStreams(ont.axioms(), axioms1.stream()));
     }
 
     @Test
     public void testRenameAnnotationProperty() {
-        OWLOntology ont = getOWLOntology("testont");
+        OWLOntology ont = getOWLOntology();
         OWLNamedIndividual indA = NamedIndividual(iri("indA"));
         OWLNamedIndividual indB = NamedIndividual(iri("indB"));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
@@ -267,25 +273,27 @@ public class RenameEntityTestCase extends TestBase {
         OWLAnnotationProperty annoProp2 = AnnotationProperty(iri("annoProp2"));
         Set<OWLAxiom> axioms1 = new HashSet<>();
         axioms1.add(Declaration(annoProp));
-        axioms1.add(AnnotationAssertion(annoProp, indA.getIRI(), indB.getIRI()));
+        axioms1
+            .add(AnnotationAssertion(annoProp, indA.getIRI(), indB.getIRI()));
         axioms1.add(SubAnnotationPropertyOf(annoProp, annoProp2));
         axioms1.add(AnnotationPropertyRange(annoProp, indA.getIRI()));
         axioms1.add(AnnotationPropertyDomain(annoProp, indA.getIRI()));
         ont.getOWLOntologyManager().addAxioms(ont, axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(Declaration(annoPropR));
-        axioms2.add(AnnotationAssertion(annoPropR, indA.getIRI(), indB.getIRI()));
+        axioms2
+            .add(AnnotationAssertion(annoPropR, indA.getIRI(), indB.getIRI()));
         axioms2.add(SubAnnotationPropertyOf(annoPropR, annoProp2));
         axioms2.add(AnnotationPropertyRange(annoPropR, indA.getIRI()));
         axioms2.add(AnnotationPropertyDomain(annoPropR, indA.getIRI()));
         OWLEntityRenamer entityRenamer = new OWLEntityRenamer(
-                ont.getOWLOntologyManager(), singleton(ont));
+            ont.getOWLOntologyManager(), singleton(ont));
         List<OWLOntologyChange> changes = entityRenamer.changeIRI(annoProp,
-                annoPropR.getIRI());
+            annoPropR.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes);
         assertEquals(asSet(ont.axioms()), axioms2);
-        List<OWLOntologyChange> changes2 = entityRenamer.changeIRI(
-                annoPropR.getIRI(), annoProp.getIRI());
+        List<OWLOntologyChange> changes2 = entityRenamer
+            .changeIRI(annoPropR.getIRI(), annoProp.getIRI());
         ont.getOWLOntologyManager().applyChanges(changes2);
         assertEquals(asSet(ont.axioms()), axioms1);
     }

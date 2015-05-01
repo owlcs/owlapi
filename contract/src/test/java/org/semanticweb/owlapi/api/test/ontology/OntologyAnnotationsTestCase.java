@@ -30,12 +30,13 @@ public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("AnnotationOntology");
-        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+        OWLOntology ont = getOWLOntology();
+        OWLAnnotationProperty prop = AnnotationProperty(IRI(
+            "http://www.semanticweb.org/ontologies/test/annotationont#prop"));
         OWLLiteral value = Literal(33);
         OWLAnnotation annotation = Annotation(prop, value);
-        ont.getOWLOntologyManager().applyChange(
-                new AddOntologyAnnotation(ont, annotation));
+        ont.getOWLOntologyManager()
+            .applyChange(new AddOntologyAnnotation(ont, annotation));
         ont.getOWLOntologyManager().addAxiom(ont, Declaration(prop));
         return ont;
     }

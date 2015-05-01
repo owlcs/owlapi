@@ -26,12 +26,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.2.0
  */
-public class AnonymousRootRoundTrippingTestCase extends
-        AbstractRoundTrippingTestCase {
+public class AnonymousRootRoundTrippingTestCase
+    extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
-        OWLOntology ont = getOWLOntology("OntA");
+        OWLOntology ont = getOWLOntology();
         Set<OWLIndividual> inds = new HashSet<>();
         for (int i = 0; i < 10; i++) {
             inds.add(createIndividual());

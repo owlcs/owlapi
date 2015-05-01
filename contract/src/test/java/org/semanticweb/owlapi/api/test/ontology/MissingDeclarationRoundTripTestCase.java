@@ -31,7 +31,8 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldFindOneAxiom() throws Exception {
-        OWLAnnotationProperty p = AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#p"));
+        OWLAnnotationProperty p = AnnotationProperty(
+            IRI("http://test.org/MissingDeclaration.owl#p"));
         OWLOntology ontology = createOntology(p);
         assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
@@ -44,7 +45,7 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Nonnull
     private OWLOntology createOntology(@Nonnull OWLAnnotationProperty p)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLClass a = Class(IRI("http://test.org/MissingDeclaration.owl#A"));
         OWLOntology ontology = m.createOntology();
         OWLAxiom axiom = AnnotationAssertion(p, a.getIRI(), Literal("Hello"));

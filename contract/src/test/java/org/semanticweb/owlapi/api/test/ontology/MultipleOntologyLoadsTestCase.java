@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Optional;
@@ -37,22 +36,24 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 public class MultipleOntologyLoadsTestCase extends TestBase {
 
     @Nonnull
-    private final Optional<IRI> v2 = optional(IRI("http://test.example.org/ontology/0139/version:2"));
+    private final Optional<IRI> v2 = optional(IRI
+        .getNextDocumentIRI("http://test.example.org/ontology/0139/version:2"));
     @Nonnull
-    private final Optional<IRI> v1 = optional(IRI("http://test.example.org/ontology/0139/version:1"));
+    private final Optional<IRI> v1 = optional(IRI
+        .getNextDocumentIRI("http://test.example.org/ontology/0139/version:1"));
     @Nonnull
-    private final Optional<IRI> i139 = optional(IRI("http://test.example.org/ontology/0139"));
+    private final Optional<IRI> i139 = optional(
+        IRI.getNextDocumentIRI("http://test.example.org/ontology/0139"));
     @Nonnull
-    private static final String INPUT = "<?xml version=\"1.0\"?>\n"
-        + "<rdf:RDF\n"
+    private final String INPUT = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF\n"
         + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
         + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
         + "    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
         + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\">\n"
-        + "  <rdf:Description rdf:about=\"http://test.example.org/ontology/0139\">\n"
+        + "  <rdf:Description rdf:about=\"" + i139.get().toString() + "\">\n"
         + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#Ontology\" />\n"
-        + "    <owl:versionIRI rdf:resource=\"http://test.example.org/ontology/0139/version:1\" />\n"
-        + "  </rdf:Description>  \n" + "</rdf:RDF>";
+        + "    <owl:versionIRI rdf:resource=\"" + v1.get().toString()
+        + "\" />\n" + "  </rdf:Description>  \n" + "</rdf:RDF>";
 
     @Test
     public void testMultipleVersionLoadChangeIRI() throws Exception {
