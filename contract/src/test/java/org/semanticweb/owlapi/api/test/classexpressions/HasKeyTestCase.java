@@ -40,12 +40,14 @@ public class HasKeyTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         OWLClass cls = Class(IRI("http://example.com/Person"));
-        OWLDataProperty propP = DataProperty(IRI("http://example.com/dataProperty"));
-        OWLObjectProperty propQ = ObjectProperty(IRI("http://example.com/objectPoperty"));
+        OWLDataProperty propP = DataProperty(
+            IRI("http://example.com/dataProperty"));
+        OWLObjectProperty propQ = ObjectProperty(
+            IRI("http://example.com/objectPoperty"));
         Set<OWLAxiom> axioms = new HashSet<>();
         OWLHasKeyAxiom owlHasKeyAxiom = HasKey(cls, propQ, propP);
         axioms.add(owlHasKeyAxiom);
-        Set<OWLAxiom> axioms2 = asSet(getOnt().axioms());
+        Set<OWLAxiom> axioms2 = asSet(createOntology().axioms());
         assertTrue(axioms2.containsAll(axioms));
     }
 

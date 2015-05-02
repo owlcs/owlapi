@@ -42,7 +42,7 @@ public class ObjectHasSelfTestCase extends AbstractFileRoundTrippingTestCase {
         OWLObjectProperty propP = ObjectProperty(iri("p"));
         axioms.add(SubClassOf(clsA, ObjectHasSelf(propP)));
         axioms.add(Declaration(propP));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

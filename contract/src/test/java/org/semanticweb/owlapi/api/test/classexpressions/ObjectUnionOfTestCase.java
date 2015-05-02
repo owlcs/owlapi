@@ -41,7 +41,7 @@ public class ObjectUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
         OWLClass clsB = Class(iri("B"));
         OWLClass clsC = Class(iri("C"));
         axioms.add(SubClassOf(clsA, ObjectUnionOf(clsB, clsC)));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

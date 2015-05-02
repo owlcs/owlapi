@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  *         Management Group
  * @since 3.0.0
  */
-public class SameIndividualsAnonymousTestCase extends
-        AbstractAxiomsRoundTrippingTestCase {
+public class SameIndividualsAnonymousTestCase
+    extends AbstractAxiomsRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -43,17 +43,18 @@ public class SameIndividualsAnonymousTestCase extends
         // Can't round trip more than two in RDF! Also, same individuals axiom
         // with anon individuals is not allowed
         // in OWL 2, but it should at least round trip
-        axioms.add(SameIndividual(AnonymousIndividual(), AnonymousIndividual()));
+        axioms
+            .add(SameIndividual(AnonymousIndividual(), AnonymousIndividual()));
         return axioms;
     }
 
     @Override
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(getOnt(),
-                new FunctionalSyntaxDocumentFormat());
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
         equal(o1, o2);
     }
 }

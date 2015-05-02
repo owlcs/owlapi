@@ -48,7 +48,7 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
         OWLClass clsA = Class(iri("A"));
         OWLClass clsB = Class(iri("B"));
         axioms.add(SubClassOf(clsA, clsB));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     /** Tests the isGCI method on OWLSubClassAxiom */

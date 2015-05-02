@@ -32,8 +32,8 @@ import org.semanticweb.owlapi.model.OWLClass;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class ObjectIntersectionOfTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class ObjectIntersectionOfTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
@@ -42,7 +42,7 @@ public class ObjectIntersectionOfTestCase extends
         OWLClass clsB = Class(iri("B"));
         OWLClass clsC = Class(iri("C"));
         axioms.add(SubClassOf(clsA, ObjectIntersectionOf(clsB, clsC)));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLDatatype;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class DataSomeValuesFromTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class DataSomeValuesFromTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
@@ -46,7 +46,7 @@ public class DataSomeValuesFromTestCase extends
         axioms.add(SubClassOf(clsA, DataSomeValuesFrom(propP, dt)));
         axioms.add(Declaration(dt));
         axioms.add(Declaration(propP));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

@@ -19,20 +19,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
-import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.NQuadsDocumentFormat;
-import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
-import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.TrigDocumentFormat;
-import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.formats.*;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -47,86 +35,76 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Nonnull
-    private OWLOntology ont;
-
-    @Nonnull
     protected abstract OWLOntology createOntology();
-
-    @Nonnull
-    protected OWLOntology getOnt() {
-        return ont;
-    }
-
-    @Before
-    public void setUp() {
-        ont = createOntology();
-    }
 
     @Test
     public void testRDFXML() throws Exception {
-        roundTripOntology(ont);
+        roundTripOntology(createOntology());
     }
 
     @Test
     public void testRDFJSON() throws Exception {
-        roundTripOntology(ont, new RDFJsonDocumentFormat());
+        roundTripOntology(createOntology(), new RDFJsonDocumentFormat());
     }
 
     @Test
     public void testOWLXML() throws Exception {
-        roundTripOntology(ont, new OWLXMLDocumentFormat());
+        roundTripOntology(createOntology(), new OWLXMLDocumentFormat());
     }
 
     @Test
     public void testFunctionalSyntax() throws Exception {
-        roundTripOntology(ont, new FunctionalSyntaxDocumentFormat());
+        roundTripOntology(createOntology(),
+            new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
     public void testTurtle() throws Exception {
-        roundTripOntology(ont, new TurtleDocumentFormat());
+        roundTripOntology(createOntology(), new TurtleDocumentFormat());
     }
 
     @Test
     public void testManchesterOWLSyntax() throws Exception {
-        roundTripOntology(ont, new ManchesterSyntaxDocumentFormat());
+        roundTripOntology(createOntology(),
+            new ManchesterSyntaxDocumentFormat());
     }
 
     @Test
     public void testTrig() throws Exception {
-        roundTripOntology(ont, new TrigDocumentFormat());
+        roundTripOntology(createOntology(), new TrigDocumentFormat());
     }
 
     @Test
     public void testJSONLD() throws Exception {
-        roundTripOntology(ont, new RDFJsonLDDocumentFormat());
+        roundTripOntology(createOntology(), new RDFJsonLDDocumentFormat());
     }
 
     @Test
     public void testNTriples() throws Exception {
-        roundTripOntology(ont, new NTriplesDocumentFormat());
+        roundTripOntology(createOntology(), new NTriplesDocumentFormat());
     }
 
     @Test
     public void testNQuads() throws Exception {
-        roundTripOntology(ont, new NQuadsDocumentFormat());
+        roundTripOntology(createOntology(), new NQuadsDocumentFormat());
     }
 
     public void testKRSS2() throws Exception {
-        roundTripOntology(ont, new KRSS2DocumentFormat());
+        roundTripOntology(createOntology(), new KRSS2DocumentFormat());
     }
 
     public void testKRSS() throws Exception {
-        roundTripOntology(ont, new KRSS2DocumentFormat());
+        roundTripOntology(createOntology(), new KRSS2DocumentFormat());
     }
 
     public void testDLSyntax() throws Exception {
-        roundTripOntology(ont, new DLSyntaxDocumentFormat());
+        roundTripOntology(createOntology(), new DLSyntaxDocumentFormat());
     }
 
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
         Set<OWLAxiom> o1axioms = stripSimpleDeclarations(asSet(o1.axioms()));

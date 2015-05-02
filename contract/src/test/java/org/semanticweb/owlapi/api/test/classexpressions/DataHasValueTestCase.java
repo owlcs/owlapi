@@ -46,7 +46,7 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
         axioms.add(SubClassOf(clsA, DataHasValue(propP, literal)));
         axioms.add(Declaration(propP));
         axioms.add(SubClassOf(clsA, DataHasValue(propP, stringLiteral)));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

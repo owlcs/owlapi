@@ -44,7 +44,7 @@ public class DataOneOfTestCase extends AbstractFileRoundTrippingTestCase {
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(p, oneOf);
         axioms.add(ax);
         axioms.add(Declaration(p));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

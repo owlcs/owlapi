@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class ComplexSubPropertyAxiomTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class ComplexSubPropertyAxiomTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testContains() {
@@ -47,7 +47,7 @@ public class ComplexSubPropertyAxiomTestCase extends
         chain.add(propP);
         chain.add(propQ);
         axioms.add(df.getOWLSubPropertyChainOfAxiom(chain, propR));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

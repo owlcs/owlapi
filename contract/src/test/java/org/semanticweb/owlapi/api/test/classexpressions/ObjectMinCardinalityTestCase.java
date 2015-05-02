@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class ObjectMinCardinalityTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class ObjectMinCardinalityTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
@@ -43,7 +43,7 @@ public class ObjectMinCardinalityTestCase extends
         OWLObjectProperty prop = ObjectProperty(iri("p"));
         axioms.add(Declaration(prop));
         axioms.add(SubClassOf(clsA, ObjectMinCardinality(3, prop, OWLThing())));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

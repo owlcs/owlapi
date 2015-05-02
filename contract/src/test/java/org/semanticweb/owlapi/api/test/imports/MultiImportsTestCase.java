@@ -36,25 +36,25 @@ public class MultiImportsTestCase extends TestBase {
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        m.get().getIRIMappers()
+        m.getIRIMappers()
             .add(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
-        m.get().loadOntologyFromOntologyDocument(
+        m.loadOntologyFromOntologyDocument(
             new File(RESOURCES, "/imports/D.owl"));
     }
 
     @Test
     public void testCyclicImports() throws OWLOntologyCreationException {
-        m.get().getIRIMappers()
+        m.getIRIMappers()
             .add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        m.get().loadOntologyFromOntologyDocument(
+        m.loadOntologyFromOntologyDocument(
             new File(RESOURCES, "/importscyclic/D.owl"));
     }
 
     @Test
     public void testCyclicImports2() throws OWLOntologyCreationException {
-        m.get().getIRIMappers()
+        m.getIRIMappers()
             .add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        m.get().loadOntologyFromOntologyDocument(
+        m.loadOntologyFromOntologyDocument(
             IRI.create(new File(RESOURCES, "importscyclic/D.owl")));
     }
 
@@ -67,19 +67,19 @@ public class MultiImportsTestCase extends TestBase {
         IRI bobsOntologyName = IRI.create(ns + "subject-bob");
         OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(
             ns + "subject-bob#subjectOnImmunosuppressantA2");
-        m.get().getIRIMappers()
+        m.getIRIMappers()
             .add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"),
                 IRI.create(new File(ontologyDirectory, "subject-amy.ttl"))));
-        m.get().getIRIMappers().add(new SimpleIRIMapper(bobsOntologyName,
+        m.getIRIMappers().add(new SimpleIRIMapper(bobsOntologyName,
             IRI.create(new File(ontologyDirectory, "subject-bob.ttl"))));
-        m.get().getIRIMappers()
+        m.getIRIMappers()
             .add(new SimpleIRIMapper(IRI.create(ns + "subject-sue"),
                 IRI.create(new File(ontologyDirectory, "subject-sue.ttl"))));
-        m.get().getIRIMappers()
+        m.getIRIMappers()
             .add(new SimpleIRIMapper(
                 IRI.create("http://www.w3.org/2013/12/FDA-TA/core"),
                 IRI.create(new File(ontologyDirectory, "core.ttl"))));
-        OWLOntology topLevelImport = m.get().loadOntologyFromOntologyDocument(
+        OWLOntology topLevelImport = m.loadOntologyFromOntologyDocument(
             new File(ontologyDirectory, "subjects.ttl"));
         assertTrue("Individuals about Bob are missing...",
             topLevelImport.containsEntityInSignature(bobsIndividual, INCLUDED));

@@ -57,11 +57,11 @@ public class MoveOntologyTestCase extends TestBase {
     public void testMove() throws OWLOntologyCreationException {
         OWLOntology o = loadOntologyFromString(s);
         OWLOntologyManager m2 = o.getOWLOntologyManager();
-        OWLOntology copy = m1.get().copyOntology(o, OntologyCopy.MOVE);
+        OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
         assertSame(o, copy);
-        assertEquals(m1.get(), copy.getOWLOntologyManager());
+        assertEquals(m1, copy.getOWLOntologyManager());
         assertFalse(m2.contains(o));
-        assertTrue(m1.get().contains(copy));
+        assertTrue(m1.contains(copy));
         assertNull(m2.getOntologyFormat(o));
     }
 
@@ -69,10 +69,10 @@ public class MoveOntologyTestCase extends TestBase {
     public void testShallow() throws OWLOntologyCreationException {
         OWLOntology o = loadOntologyFromString(s);
         OWLOntologyManager m2 = o.getOWLOntologyManager();
-        OWLOntology copy = m1.get().copyOntology(o, OntologyCopy.SHALLOW);
-        assertEquals(m1.get(), copy.getOWLOntologyManager());
+        OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW);
+        assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m2.contains(o));
-        assertTrue(m1.get().contains(copy));
+        assertTrue(m1.contains(copy));
         assertNotNull(m2.getOntologyFormat(o));
     }
 
@@ -80,11 +80,11 @@ public class MoveOntologyTestCase extends TestBase {
     public void testDeep() throws OWLOntologyCreationException {
         OWLOntology o = loadOntologyFromString(s);
         OWLOntologyManager m2 = o.getOWLOntologyManager();
-        OWLOntology copy = m1.get().copyOntology(o, OntologyCopy.DEEP);
-        assertEquals(m1.get(), copy.getOWLOntologyManager());
+        OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP);
+        assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m2.contains(o));
-        assertTrue(m1.get().contains(copy));
+        assertTrue(m1.contains(copy));
         assertNotNull(m2.getOntologyFormat(o));
-        assertNotNull(m1.get().getOntologyFormat(o));
+        assertNotNull(m1.getOntologyFormat(o));
     }
 }

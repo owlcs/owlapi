@@ -38,8 +38,8 @@ public class RDFParserTestCase extends TestBase {
     @Before
     public void setUpStorers() {
         // Use the reference implementation
-        m.get().getOntologyStorers().set(new RDFXMLStorerFactory());
-        m.get().getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
+        m.getOntologyStorers().set(new RDFXMLStorerFactory());
+        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
     }
 
     @Test
@@ -56,9 +56,9 @@ public class RDFParserTestCase extends TestBase {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
                     if (ontologyFile.getName().endsWith(".rdf")
                         || ontologyFile.getName().endsWith(".owlapi")) {
-                        OWLOntology ont = m.get()
+                        OWLOntology ont = m
                             .loadOntologyFromOntologyDocument(ontologyFile);
-                        m.get().removeOntology(ont);
+                        m.removeOntology(ont);
                     }
                 }
             }

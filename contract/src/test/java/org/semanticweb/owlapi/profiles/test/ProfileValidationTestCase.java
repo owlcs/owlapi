@@ -50,7 +50,7 @@ public class ProfileValidationTestCase extends TestBase {
         URL resourceURL = ProfileValidationTestCase.class
             .getResource("/all.rdf");
         IRI allTestURI = IRI.create(resourceURL);
-        OWLOntology testCasesOntology = m.get()
+        OWLOntology testCasesOntology = m
             .loadOntologyFromOntologyDocument(allTestURI);
         OWLClass profileIdentificationTestClass = Class(profile);
         OWLNamedIndividual el = df.getOWLNamedIndividual(elIRI);
@@ -114,7 +114,7 @@ public class ProfileValidationTestCase extends TestBase {
             if (negativeFinder.contains(rl)) {
                 checkProfile(ontology, new OWL2RLProfile(), false);
             }
-            m.get().removeOntology(ontology);
+            m.removeOntology(ontology);
         }
     }
 

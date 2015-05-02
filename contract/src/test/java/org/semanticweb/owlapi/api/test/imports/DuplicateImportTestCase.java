@@ -51,9 +51,9 @@ public class DuplicateImportTestCase extends TestBase {
         ontology.saveOntology(IRI.create(ontologyByName));
         ontology.saveOntology(IRI.create(ontologyByVersion));
         ontology.saveOntology(IRI.create(ontologyByOtherPath));
-        OWLOntology ontology1 = m1.get()
+        OWLOntology ontology1 = m1
             .createOntology(IRI.create(importsBothNameAndVersion));
-        OWLOntology ontology2 = m1.get()
+        OWLOntology ontology2 = m1
             .createOntology(IRI.create(importsBothNameAndOther));
         List<AddImport> changes = new ArrayList<>();
         changes.add(new AddImport(ontology1,
@@ -69,10 +69,8 @@ public class DuplicateImportTestCase extends TestBase {
         ontology1.saveOntology(IRI.create(importsBothNameAndVersion));
         ontology2.saveOntology(IRI.create(importsBothNameAndOther));
         // when
-        OWLOntology o1 = m.get()
-            .loadOntology(IRI.create(importsBothNameAndVersion));
-        OWLOntology o2 = m1.get()
-            .loadOntology(IRI.create(importsBothNameAndOther));
+        OWLOntology o1 = m.loadOntology(IRI.create(importsBothNameAndVersion));
+        OWLOntology o2 = m1.loadOntology(IRI.create(importsBothNameAndOther));
         // then
         assertNotNull(o1);
         assertNotNull(o2);

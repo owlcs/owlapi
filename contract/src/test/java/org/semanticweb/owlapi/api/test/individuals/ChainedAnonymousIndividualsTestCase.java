@@ -23,28 +23,22 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
  * @since 3.1.0
  */
-public class ChainedAnonymousIndividualsTestCase extends
-        AbstractAxiomsRoundTrippingTestCase {
+public class ChainedAnonymousIndividualsTestCase
+    extends AbstractAxiomsRoundTrippingTestCase {
 
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
-        IRI annoPropIRI = IRI("http://owlapi.sourceforge.net/ontology#annoProp");
+        IRI annoPropIRI = IRI(
+            "http://owlapi.sourceforge.net/ontology#annoProp");
         OWLAnnotationProperty property = AnnotationProperty(annoPropIRI);
         IRI subject = IRI("http://owlapi.sourceforge.net/ontology#subject");
         axioms.add(Declaration(NamedIndividual(subject)));
@@ -52,11 +46,11 @@ public class ChainedAnonymousIndividualsTestCase extends
         OWLAnonymousIndividual individual2 = AnonymousIndividual();
         OWLAnonymousIndividual individual3 = AnonymousIndividual();
         OWLAnnotationAssertionAxiom annoAssertion1 = AnnotationAssertion(
-                property, subject, individual1);
+            property, subject, individual1);
         OWLAnnotationAssertionAxiom annoAssertion2 = AnnotationAssertion(
-                property, individual1, individual2);
+            property, individual1, individual2);
         OWLAnnotationAssertionAxiom annoAssertion3 = AnnotationAssertion(
-                property, individual2, individual3);
+            property, individual2, individual3);
         axioms.add(annoAssertion1);
         axioms.add(annoAssertion2);
         axioms.add(annoAssertion3);
@@ -66,10 +60,10 @@ public class ChainedAnonymousIndividualsTestCase extends
     @Override
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(getOnt(),
-                new FunctionalSyntaxDocumentFormat());
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
         equal(o1, o2);
     }
 }

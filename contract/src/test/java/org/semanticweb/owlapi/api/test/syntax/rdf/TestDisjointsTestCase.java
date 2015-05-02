@@ -47,8 +47,8 @@ public class TestDisjointsTestCase extends TestBase {
 
     @Before
     public void setUpStorers() {
-        m.get().getOntologyStorers().set(new RDFXMLStorerFactory());
-        m.get().getOntologyParsers().set(new RDFXMLParserFactory());
+        m.getOntologyStorers().set(new RDFXMLStorerFactory());
+        m.getOntologyParsers().set(new RDFXMLParserFactory());
     }
 
     @Test

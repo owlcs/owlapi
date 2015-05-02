@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class ObjectSomeValuesFromTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class ObjectSomeValuesFromTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
@@ -45,7 +45,7 @@ public class ObjectSomeValuesFromTestCase extends
         axioms.add(SubClassOf(clsA, ObjectSomeValuesFrom(propP, clsB)));
         axioms.add(Declaration(clsB));
         axioms.add(Declaration(propP));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

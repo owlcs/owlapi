@@ -35,20 +35,20 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class DatatypeRestrictionTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class DatatypeRestrictionTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
         OWLDataRange dr = DatatypeRestriction(Integer(),
-                FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
-                FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal(30)));
+            FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
+            FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal(30)));
         OWLDataProperty p = DataProperty(iri("p"));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(p, dr);
         axioms.add(ax);
         axioms.add(Declaration(p));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

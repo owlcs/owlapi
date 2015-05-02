@@ -32,8 +32,8 @@ import org.semanticweb.owlapi.model.OWLClass;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class ObjectComplementOfTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class ObjectComplementOfTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
@@ -41,7 +41,7 @@ public class ObjectComplementOfTestCase extends
         OWLClass clsA = Class(iri("A"));
         OWLClass clsB = Class(iri("B"));
         axioms.add(SubClassOf(clsA, ObjectComplementOf(clsB)));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

@@ -47,7 +47,7 @@ public class DisjointsTestCase extends TestBase {
 
     @Before
     public void setUpManager() {
-        m.get().getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
+        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
     }
 
     @Test

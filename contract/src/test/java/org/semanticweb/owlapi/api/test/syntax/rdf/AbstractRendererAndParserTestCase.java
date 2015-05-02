@@ -38,9 +38,9 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
     @Before
     public void setUpManager() {
-        m.get().getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
-        m.get().getOntologyStorers().set(new RDFXMLStorerFactory());
-        m.get().getOntologyParsers().set(new RDFXMLParserFactory());
+        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
+        m.getOntologyStorers().set(new RDFXMLStorerFactory());
+        m.getOntologyParsers().set(new RDFXMLParserFactory());
     }
 
     @Test

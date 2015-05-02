@@ -51,8 +51,8 @@ public class OntologyURITestCase extends TestBase {
         IRI iri = IRI("http://www.another.com/ont");
         OWLOntology ont = getOWLOntology(iri);
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
-        assertTrue(m.get().contains(iri));
-        assertTrue(contains(m.get().ontologies(), ont));
+        assertTrue(m.contains(iri));
+        assertTrue(contains(m.ontologies(), ont));
         OWLOntologyID ontID = new OWLOntologyID(optional(iri),
             emptyOptional(IRI.class));
         assertEquals(ont.getOntologyID(), ontID);
@@ -73,8 +73,8 @@ public class OntologyURITestCase extends TestBase {
         SetOntologyID sou = new SetOntologyID(ont,
             new OWLOntologyID(optional(newIRI), emptyOptional(IRI.class)));
         ont.applyChange(sou);
-        assertFalse(m.get().contains(iri));
-        assertTrue(m.get().contains(newIRI));
+        assertFalse(m.contains(iri));
+        assertTrue(m.contains(newIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), newIRI);
     }
 

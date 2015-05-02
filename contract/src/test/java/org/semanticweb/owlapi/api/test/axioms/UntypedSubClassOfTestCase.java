@@ -32,8 +32,8 @@ import org.semanticweb.owlapi.model.OWLClass;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class UntypedSubClassOfTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class UntypedSubClassOfTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testContainsAxioms() {
@@ -41,7 +41,7 @@ public class UntypedSubClassOfTestCase extends
         OWLClass clsA = Class(iri("A"));
         OWLClass clsB = Class(iri("B"));
         axioms.add(SubClassOf(clsA, clsB));
-        assertEquals(axioms, asSet(getOnt().axioms()));
+        assertEquals(axioms, asSet(createOntology().axioms()));
     }
 
     @Nonnull

@@ -24,7 +24,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -47,6 +46,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
+import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -115,9 +116,11 @@ public abstract class TestBase {
     @Nonnull
     protected static OWLDataFactory df;
     @Nonnull
-    protected static ThreadLocal<OWLOntologyManager> m;
+    protected static OWLOntologyManager masterManager;
     @Nonnull
-    protected static ThreadLocal<OWLOntologyManager> m1;
+    protected OWLOntologyManager m;
+    @Nonnull
+    protected OWLOntologyManager m1;
 
     private static OWLOntologyManager newInstance() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -127,32 +130,21 @@ public abstract class TestBase {
     @BeforeClass
     public static void setupManagers() {
         df = OWLManager.getOWLDataFactory();
-        m = new ThreadLocal<OWLOntologyManager>() {
-
-            @Override
-            protected OWLOntologyManager initialValue() {
-                return newInstance();
-            }
-        };
-        m1 = new ThreadLocal<OWLOntologyManager>() {
-
-            @Override
-            protected OWLOntologyManager initialValue() {
-                return newInstance();
-            }
-        };
-    }
-
-    @After
-    public void tearDownManagers() {
-        m.get().clearOntologies();
-        m1.get().clearOntologies();
+        masterManager = OWLManager.createOWLOntologyManager();
     }
 
     @Before
     public void setupManagersClean() {
-        m.get().clearOntologies();
-        m1.get().clearOntologies();
+        m = new OWLOntologyManagerImpl(df, new NoOpReadWriteLock());
+        m.getOntologyFactories().set(masterManager.getOntologyFactories());
+        m.getOntologyParsers().set(masterManager.getOntologyParsers());
+        m.getOntologyStorers().set(masterManager.getOntologyStorers());
+        m.getIRIMappers().set(masterManager.getIRIMappers());
+        m1 = new OWLOntologyManagerImpl(df, new NoOpReadWriteLock());
+        m1.getOntologyFactories().set(masterManager.getOntologyFactories());
+        m1.getOntologyParsers().set(masterManager.getOntologyParsers());
+        m1.getOntologyStorers().set(masterManager.getOntologyStorers());
+        m1.getIRIMappers().set(masterManager.getIRIMappers());
     }
 
     @Nonnull
@@ -420,7 +412,7 @@ public abstract class TestBase {
     @Nonnull
     public OWLOntology getOWLOntology() {
         try {
-            return m.get().createOntology(IRI.getNextDocumentIRI(uriBase));
+            return m.createOntology(IRI.getNextDocumentIRI(uriBase));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -429,19 +421,19 @@ public abstract class TestBase {
     @Nonnull
     public OWLOntology getOWLOntology(IRI iri)
         throws OWLOntologyCreationException {
-        return m.get().createOntology(iri);
+        return m.createOntology(iri);
     }
 
     @Nonnull
     public OWLOntology getOWLOntology(OWLOntologyID iri)
         throws OWLOntologyCreationException {
-        return m.get().createOntology(iri);
+        return m.createOntology(iri);
     }
 
     @Nonnull
     public OWLOntology getAnonymousOWLOntology() {
         try {
-            return m.get().createOntology();
+            return m.createOntology();
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -450,7 +442,7 @@ public abstract class TestBase {
     public OWLOntology loadOntology(String fileName) {
         try {
             URL url = getClass().getResource('/' + fileName);
-            return m.get().loadOntologyFromOntologyDocument(
+            return m.loadOntologyFromOntologyDocument(
                 new IRIDocumentSource(IRI.create(url), null, null),
                 new OWLOntologyLoaderConfiguration()
                     .setReportStackTraces(true));

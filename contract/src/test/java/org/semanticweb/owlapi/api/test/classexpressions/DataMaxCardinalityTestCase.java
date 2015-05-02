@@ -33,17 +33,18 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class DataMaxCardinalityTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class DataMaxCardinalityTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass clsA = Class(iri("A"));
         OWLDataProperty prop = DataProperty(iri("p"));
-        axioms.add(SubClassOf(clsA, DataMaxCardinality(3, prop, TopDatatype())));
+        axioms
+            .add(SubClassOf(clsA, DataMaxCardinality(3, prop, TopDatatype())));
         axioms.add(Declaration(prop));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

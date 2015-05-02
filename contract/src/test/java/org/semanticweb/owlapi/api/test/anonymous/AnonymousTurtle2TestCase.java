@@ -27,7 +27,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  *         Management Group
  * @since 2.2.0
  */
-public class AnonymousTurtle2TestCase extends AbstractFileRoundTrippingTestCase {
+public class AnonymousTurtle2TestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -38,10 +39,10 @@ public class AnonymousTurtle2TestCase extends AbstractFileRoundTrippingTestCase 
     @Override
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(getOnt(),
-                new FunctionalSyntaxDocumentFormat());
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
         equal(o1, o2);
     }
 }

@@ -125,7 +125,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
             + "</owl:DatatypeProperty></rdf:RDF>";
         String expression = "yearValue some ";
         OWLOntology wine = loadOntologyFromString(onto);
-        List<OWLOntology> ontologies = asList(m.get().ontologies());
+        List<OWLOntology> ontologies = asList(m.ontologies());
         ShortFormProvider sfp = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
             wine.getOWLOntologyManager().getOntologyFormat(wine));
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
@@ -231,10 +231,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
             Arrays.asList(df.getRDFSLabel()),
-            Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
-            m.get());
+            Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-            asList(m.get().ontologies()), sfp);
+            asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
@@ -292,10 +291,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
             Arrays.asList(df.getRDFSLabel()),
-            Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
-            m.get());
+            Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-            asList(m.get().ontologies()), sfp);
+            asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
@@ -353,10 +351,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
             Arrays.asList(df.getRDFSLabel()),
-            Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
-            m.get());
+            Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-            asList(m.get().ontologies()), sfp);
+            asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
@@ -389,10 +386,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
             Arrays.asList(df.getRDFSLabel()),
-            Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
-            m.get());
+            Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-            asList(m.get().ontologies()), sfp);
+            asList(m.ontologies()), sfp);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(in);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(

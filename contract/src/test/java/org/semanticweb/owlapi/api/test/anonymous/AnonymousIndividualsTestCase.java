@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  *         Management Group
  * @since 3.0.0
  */
-public class AnonymousIndividualsTestCase extends
-        AbstractAxiomsRoundTrippingTestCase {
+public class AnonymousIndividualsTestCase
+    extends AbstractAxiomsRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -43,19 +43,19 @@ public class AnonymousIndividualsTestCase extends
         Set<OWLAxiom> axioms = new HashSet<>();
         OWLAnonymousIndividual ind = AnonymousIndividual();
         axioms.add(ObjectPropertyAssertion(ObjectProperty(iri("p")),
-                NamedIndividual(iri("i1")), ind));
+            NamedIndividual(iri("i1")), ind));
         axioms.add(ObjectPropertyAssertion(ObjectProperty(iri("p")), ind,
-                NamedIndividual(iri("i2"))));
+            NamedIndividual(iri("i2"))));
         return axioms;
     }
 
     @Override
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(getOnt(),
-                new FunctionalSyntaxDocumentFormat());
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
         equal(o1, o2);
     }
 }

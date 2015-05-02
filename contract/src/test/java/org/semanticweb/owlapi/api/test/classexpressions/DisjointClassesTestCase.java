@@ -41,7 +41,7 @@ public class DisjointClassesTestCase extends AbstractFileRoundTrippingTestCase {
         OWLClass clsB = Class(iri("B"));
         OWLClass clsC = Class(iri("C"));
         axioms.add(DisjointClasses(clsA, clsB, clsC));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

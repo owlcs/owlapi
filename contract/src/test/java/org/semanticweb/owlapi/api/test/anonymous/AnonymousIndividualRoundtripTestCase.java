@@ -23,22 +23,15 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
  * @since 3.1.0
  */
-public class AnonymousIndividualRoundtripTestCase extends
-        AbstractAxiomsRoundTrippingTestCase {
+public class AnonymousIndividualRoundtripTestCase
+    extends AbstractAxiomsRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -47,8 +40,8 @@ public class AnonymousIndividualRoundtripTestCase extends
         OWLAnonymousIndividual ind = AnonymousIndividual();
         OWLClass cls = Class(iri("A"));
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop,
-                cls.getIRI(), ind);
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(),
+            ind);
         axioms.add(ax);
         axioms.add(Declaration(cls));
         return axioms;
@@ -57,10 +50,10 @@ public class AnonymousIndividualRoundtripTestCase extends
     @Override
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(getOnt(),
-                new FunctionalSyntaxDocumentFormat());
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
         equal(o1, o2);
     }
 }

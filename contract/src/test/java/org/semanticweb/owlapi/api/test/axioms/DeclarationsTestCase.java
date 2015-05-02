@@ -36,13 +36,19 @@ public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<>();
-        axioms.add(Declaration(Class(IRI("http://www.semanticweb.org/ontologies/declarations#Cls"))));
-        axioms.add(Declaration(ObjectProperty(IRI("http://www.semanticweb.org/ontologies/declarations#op"))));
-        axioms.add(Declaration(DataProperty(IRI("http://www.semanticweb.org/ontologies/declarations#dp"))));
-        axioms.add(Declaration(NamedIndividual(IRI("http://www.semanticweb.org/ontologies/declarations#ni"))));
-        axioms.add(Declaration(AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/declarations#ap"))));
-        axioms.add(Declaration(Datatype(IRI("http://www.semanticweb.org/ontologies/declarations#dt"))));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        axioms.add(Declaration(Class(
+            IRI("http://www.semanticweb.org/ontologies/declarations#Cls"))));
+        axioms.add(Declaration(ObjectProperty(
+            IRI("http://www.semanticweb.org/ontologies/declarations#op"))));
+        axioms.add(Declaration(DataProperty(
+            IRI("http://www.semanticweb.org/ontologies/declarations#dp"))));
+        axioms.add(Declaration(NamedIndividual(
+            IRI("http://www.semanticweb.org/ontologies/declarations#ni"))));
+        axioms.add(Declaration(AnnotationProperty(
+            IRI("http://www.semanticweb.org/ontologies/declarations#ap"))));
+        axioms.add(Declaration(Datatype(
+            IRI("http://www.semanticweb.org/ontologies/declarations#dt"))));
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

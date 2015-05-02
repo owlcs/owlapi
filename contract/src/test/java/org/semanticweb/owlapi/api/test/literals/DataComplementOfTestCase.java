@@ -34,7 +34,8 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class DataComplementOfTestCase extends AbstractFileRoundTrippingTestCase {
+public class DataComplementOfTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
@@ -45,7 +46,7 @@ public class DataComplementOfTestCase extends AbstractFileRoundTrippingTestCase 
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(p, complement);
         axioms.add(ax);
         axioms.add(Declaration(p));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

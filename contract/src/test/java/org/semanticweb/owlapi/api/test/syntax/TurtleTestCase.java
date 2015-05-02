@@ -34,7 +34,7 @@ public class TurtleTestCase extends TestBase {
     public void testLoadingUTF8BOM() throws Exception {
         IRI uri = IRI
             .create(getClass().getResource("/ttl-with-bom.ttl").toURI());
-        m.get().loadOntologyFromOntologyDocument(uri);
+        m.loadOntologyFromOntologyDocument(uri);
     }
 
     @Nonnull

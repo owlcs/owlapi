@@ -42,7 +42,7 @@ public class ObjectOneOfTestCase extends AbstractFileRoundTrippingTestCase {
         OWLNamedIndividual indA = NamedIndividual(iri("a"));
         OWLNamedIndividual indB = NamedIndividual(iri("b"));
         axioms.add(SubClassOf(clsA, ObjectOneOf(indA, indB)));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

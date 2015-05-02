@@ -23,22 +23,15 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
  * @since 3.1.0
  */
-public class AnonymousIndividualsTestCase2 extends
-        AbstractAxiomsRoundTrippingTestCase {
+public class AnonymousIndividualsTestCase2
+    extends AbstractAxiomsRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -54,17 +47,18 @@ public class AnonymousIndividualsTestCase2 extends
         axioms.add(AnnotationAssertion(p, a.getIRI(), h));
         axioms.add(ClassAssertion(a, h));
         axioms.add(ObjectPropertyAssertion(q, h, i));
-        axioms.add(AnnotationAssertion(RDFSLabel(), h, Literal("Second", "en")));
+        axioms
+            .add(AnnotationAssertion(RDFSLabel(), h, Literal("Second", "en")));
         return axioms;
     }
 
     @Override
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o1 = roundTrip(getOnt(), new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(getOnt(),
-                new FunctionalSyntaxDocumentFormat());
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
         equal(o1, o2);
     }
 }

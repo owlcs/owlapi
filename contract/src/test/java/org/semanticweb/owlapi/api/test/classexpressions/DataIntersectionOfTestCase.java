@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class DataIntersectionOfTestCase extends
-        AbstractFileRoundTrippingTestCase {
+public class DataIntersectionOfTestCase
+    extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
@@ -45,10 +45,10 @@ public class DataIntersectionOfTestCase extends
         OWLDataRange intersection = df.getOWLDataIntersectionOf(intdr, floatdr);
         OWLDataProperty p = DataProperty(iri("p"));
         OWLDataPropertyRangeAxiom ax = df.getOWLDataPropertyRangeAxiom(p,
-                intersection);
+            intersection);
         axioms.add(ax);
         axioms.add(Declaration(p));
-        assertEquals(asSet(getOnt().axioms()), axioms);
+        assertEquals(asSet(createOntology().axioms()), axioms);
     }
 
     @Nonnull

@@ -40,7 +40,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         assertFalse(ontology.getOntologyID().getOntologyIRI().isPresent());
         assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
         assertNotNull("iri should not be null",
-            m.get().getOntologyDocumentIRI(ontology));
+            m.getOntologyDocumentIRI(ontology));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         assertEquals(ontologyIRI,
             ontology.getOntologyID().getOntologyIRI().get());
         assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
-        assertEquals(ontologyIRI, m.get().getOntologyDocumentIRI(ontology));
+        assertEquals(ontologyIRI, m.getOntologyDocumentIRI(ontology));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
             ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(versionIRI,
             ontology.getOntologyID().getVersionIRI().get());
-        assertEquals(versionIRI, m.get().getOntologyDocumentIRI(ontology));
+        assertEquals(versionIRI, m.getOntologyDocumentIRI(ontology));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
             "http://www.semanticweb.org/ontologies/ontology");
         IRI documentIRI = IRI.getNextDocumentIRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
-        m.get().getIRIMappers().add(mapper);
+        m.getIRIMappers().add(mapper);
         OWLOntology ontology = getOWLOntology(ontologyIRI);
         assertNotNull("ontology should not be null", ontology);
         assertNotNull("ontology id should not be null",
@@ -98,7 +98,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         assertEquals(ontologyIRI,
             ontology.getOntologyID().getOntologyIRI().get());
         assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
-        assertEquals(documentIRI, m.get().getOntologyDocumentIRI(ontology));
+        assertEquals(documentIRI, m.getOntologyDocumentIRI(ontology));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
             "http://www.semanticweb.org/ontologies/ontology/version");
         IRI documentIRI = IRI.getNextDocumentIRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(versionIRI, documentIRI);
-        m.get().getIRIMappers().add(mapper);
+        m.getIRIMappers().add(mapper);
         OWLOntology ontology = getOWLOntology(
             new OWLOntologyID(optional(ontologyIRI), optional(versionIRI)));
         assertNotNull("ontology should not be null", ontology);
@@ -122,7 +122,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
             ontology.getOntologyID().getOntologyIRI().get());
         assertEquals(versionIRI,
             ontology.getOntologyID().getVersionIRI().get());
-        assertEquals(documentIRI, m.get().getOntologyDocumentIRI(ontology));
+        assertEquals(documentIRI, m.getOntologyDocumentIRI(ontology));
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
@@ -155,10 +155,8 @@ public class OWLOntologyManagerTestCase extends TestBase {
         IRI ontologyIRI2 = IRI.getNextDocumentIRI(
             "http://www.semanticweb.org/ontologies/ontology2");
         IRI documentIRI = IRI.getNextDocumentIRI("file:documentIRI");
-        m.get().getIRIMappers()
-            .add(new SimpleIRIMapper(ontologyIRI, documentIRI));
-        m.get().getIRIMappers()
-            .add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
+        m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI, documentIRI));
+        m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
         getOWLOntology(
             new OWLOntologyID(optional(ontologyIRI), optional((IRI) null)));
         getOWLOntology(

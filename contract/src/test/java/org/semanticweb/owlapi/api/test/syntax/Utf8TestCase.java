@@ -99,7 +99,7 @@ public class Utf8TestCase extends TestBase {
             + "</rdf:RDF>";
         ByteArrayInputStream in = new ByteArrayInputStream(
             onto.getBytes(StandardCharsets.ISO_8859_1));
-        m.get().loadOntologyFromOntologyDocument(in);
+        m.loadOntologyFromOntologyDocument(in);
     }
 
     @Test

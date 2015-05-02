@@ -33,11 +33,10 @@ public abstract class AbstractAxiomsRoundTrippingTestCase
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology();
-        ont.getOWLOntologyManager().addAxioms(ont, createAxioms());
+        ont.addAxioms(createAxioms());
         ont.signature()
             .filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-            .forEach(
-                e -> ont.getOWLOntologyManager().addAxiom(ont, Declaration(e)));
+            .forEach(e -> ont.addAxiom(Declaration(e)));
         return ont;
     }
 
