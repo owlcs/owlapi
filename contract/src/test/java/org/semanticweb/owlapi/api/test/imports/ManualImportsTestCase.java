@@ -36,33 +36,33 @@ public class ManualImportsTestCase extends TestBase {
 
     @Test
     public void testManualImports() throws OWLOntologyCreationException {
-        OWLOntology baseOnt = m
-                .createOntology(IRI("http://semanticweb.org/ontologies/base"));
+        OWLOntology baseOnt = getOWLOntology(
+            IRI("http://semanticweb.org/ontologies/base"));
         IRI importedIRI = IRI("http://semanticweb.org/ontologies/imported");
-        OWLOntology importedOnt = m.createOntology(importedIRI);
-        Set<OWLOntology> preImportsClosureCache = asSet(m
-                .importsClosure(baseOnt));
+        OWLOntology importedOnt = getOWLOntology(importedIRI);
+        Set<OWLOntology> preImportsClosureCache = asSet(
+            baseOnt.importsClosure());
         assertTrue(preImportsClosureCache.contains(baseOnt));
         assertFalse(preImportsClosureCache.contains(importedOnt));
-        m.applyChange(new AddImport(baseOnt, m.getOWLDataFactory()
-                .getOWLImportsDeclaration(importedIRI)));
-        Set<OWLOntology> postImportsClosureCache = asSet(m
-                .importsClosure(baseOnt));
+        baseOnt.applyChange(
+            new AddImport(baseOnt, df.getOWLImportsDeclaration(importedIRI)));
+        Set<OWLOntology> postImportsClosureCache = asSet(
+            baseOnt.importsClosure());
         assertTrue(postImportsClosureCache.contains(baseOnt));
         assertTrue(postImportsClosureCache.contains(importedOnt));
     }
 
     @Test(expected = UnloadableImportException.class)
     public void shouldThrowExceptionWithDefaultImportsconfig()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n"
-                + "<rdf:RDF xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-                + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-                + "    <owl:Ontology rdf:about=\"http://www.semanticweb.org/fake/ontologies/2012/8/1\">\n"
-                + "        <owl:imports rdf:resource=\"http://localhost:1\"/>\n"
-                + "    </owl:Ontology>\n" + "</rdf:RDF>";
+            + "<rdf:RDF xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
+            + "    <owl:Ontology rdf:about=\"http://www.semanticweb.org/fake/ontologies/2012/8/1\">\n"
+            + "        <owl:imports rdf:resource=\"http://localhost:1\"/>\n"
+            + "    </owl:Ontology>\n" + "</rdf:RDF>";
         loadOntologyFromString(input);
     }
 }

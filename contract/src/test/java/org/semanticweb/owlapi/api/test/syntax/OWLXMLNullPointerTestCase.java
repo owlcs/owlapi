@@ -19,15 +19,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -44,35 +36,32 @@ public class OWLXMLNullPointerTestCase extends TestBase {
 
     @Test
     public void testRoundTrip() throws Exception {
-        OWLOntology ontology = m.createOntology(IRI(NS));
+        OWLOntology ontology = getOWLOntology(IRI(NS));
         OWLClass cheesy = Class(IRI(NS + "#CheeseyPizza"));
         OWLClass cheese = Class(IRI(NS + "#CheeseTopping"));
-        OWLObjectProperty hasTopping = df.getOWLObjectProperty(NS
-                + "#hasTopping");
+        OWLObjectProperty hasTopping = df
+            .getOWLObjectProperty(NS + "#hasTopping");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLLiteral lit = df.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION);
         OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(),
-                i, lit);
-        m.addAxiom(ontology, annAss);
+            i, lit);
         OWLAxiom classAss = df.getOWLClassAssertionAxiom(cheesy, i);
-        m.addAxiom(ontology, classAss);
         OWLIndividual j = df.getOWLAnonymousIndividual();
         OWLAxiom classAssj = df.getOWLClassAssertionAxiom(cheese, j);
-        m.addAxiom(ontology, classAssj);
         OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i,
-                j);
-        m.addAxiom(ontology, objAss);
+            j);
+        ontology.addAxioms(annAss, classAss, classAssj, objAss);
         roundTrip(ontology, new OWLXMLDocumentFormat());
     }
 
     @Test
     public void shouldParse() throws Exception {
-        OWLOntology o = m.createOntology(IRI.create("urn:test"));
+        OWLOntology o = getOWLOntology();
         OWLClass c = df.getOWLClass("urn:c");
         OWLObjectProperty p = df.getOWLObjectProperty("urn:p");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c,
-                df.getOWLObjectHasValue(p, i));
+            df.getOWLObjectHasValue(p, i));
         o.getOWLOntologyManager().addAxiom(o, sub);
         OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);

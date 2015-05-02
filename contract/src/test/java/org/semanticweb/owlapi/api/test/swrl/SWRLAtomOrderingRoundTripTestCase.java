@@ -22,17 +22,7 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /**
@@ -137,10 +127,10 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
 
     private void roundTrip(@Nonnull OWLDocumentFormat ontologyFormat)
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology ont = m.createOntology();
-        m.addAxiom(ont, rule);
+        OWLOntology ont = getOWLOntology();
+        ont.addAxiom(rule);
         StringDocumentTarget documentTarget = new StringDocumentTarget();
-        m.saveOntology(ont, ontologyFormat, documentTarget);
+        ont.saveOntology(ontologyFormat, documentTarget);
         OWLOntology ont2 = loadOntologyFromString(documentTarget);
         Set<SWRLRule> rules = ont2.getAxioms(AxiomType.SWRL_RULE);
         assertThat(rules.size(), is(1));

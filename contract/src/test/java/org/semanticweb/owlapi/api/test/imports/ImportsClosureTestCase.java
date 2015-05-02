@@ -33,14 +33,15 @@ public class ImportsClosureTestCase extends TestBase {
     @Test
     public void testImportsClosureUpdate() throws OWLOntologyCreationException {
         IRI aIRI = IRI("http://a.com");
-        OWLOntology ontA = m.createOntology(aIRI);
+        OWLOntology ontA = getOWLOntology(aIRI);
         IRI bIRI = IRI("http://b.com");
-        OWLOntology ontB = m.createOntology(bIRI);
-        m.applyChange(new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
-        assertEquals(2, m.importsClosure(ontA).count());
-        m.removeOntology(ontB);
-        assertEquals(1, m.importsClosure(ontA).count());
-        m.createOntology(bIRI);
-        assertEquals(2, m.importsClosure(ontA).count());
+        OWLOntology ontB = getOWLOntology(bIRI);
+        ontA.applyChange(
+            new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
+        assertEquals(2, m.get().importsClosure(ontA).count());
+        m.get().removeOntology(ontB);
+        assertEquals(1, m.get().importsClosure(ontA).count());
+        getOWLOntology(bIRI);
+        assertEquals(2, m.get().importsClosure(ontA).count());
     }
 }

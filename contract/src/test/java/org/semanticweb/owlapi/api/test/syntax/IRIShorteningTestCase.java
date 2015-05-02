@@ -57,12 +57,12 @@ public class IRIShorteningTestCase extends TestBase {
     @Nonnull
     private OWLOntology createTestOntology()
         throws OWLOntologyCreationException {
-        OWLOntology o = m.createOntology();
+        OWLOntology o = getOWLOntology();
         OWLNamedIndividual i = df
             .getOWLNamedIndividual(IRI(Namespaces.RDF.getPrefixIRI()));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(i));
+        o.addAxiom(df.getOWLDeclarationAxiom(i));
         i = df.getOWLNamedIndividual(OWLRDFVocabulary.RDF_TYPE);
-        m.addAxiom(o, df.getOWLDeclarationAxiom(i));
+        o.addAxiom(df.getOWLDeclarationAxiom(i));
         return o;
     }
 }

@@ -42,7 +42,7 @@ public class ObjectPropertyChainRoundTrippingTestCase
         props.add(propB);
         props.add(propC);
         OWLAxiom ax = SubPropertyChainOf(props, propD);
-        addAxiom(ont, ax);
+        ont.addAxiom(ax);
         return ont;
     }
 }

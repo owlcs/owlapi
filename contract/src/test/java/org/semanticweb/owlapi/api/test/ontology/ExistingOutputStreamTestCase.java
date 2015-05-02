@@ -44,7 +44,7 @@ public class ExistingOutputStreamTestCase extends TestBase {
 
     @Test
     public void testOutputStreamRemainsOpen() throws Exception {
-        OWLOntology ontology = m.createOntology();
+        OWLOntology ontology = getOWLOntology();
         saveOntology(ontology, new RDFXMLDocumentFormat());
         saveOntology(ontology, new OWLXMLDocumentFormat());
         saveOntology(ontology, new TurtleDocumentFormat());
@@ -56,9 +56,9 @@ public class ExistingOutputStreamTestCase extends TestBase {
     @Nonnull
     @Override
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
-            OWLDocumentFormat format) throws OWLOntologyStorageException {
+        OWLDocumentFormat format) throws OWLOntologyStorageException {
         BufferedOutputStream os = new BufferedOutputStream(
-                new ByteArrayOutputStream());
+            new ByteArrayOutputStream());
         o.getOWLOntologyManager().saveOntology(o, format, os);
         try {
             os.flush();

@@ -20,50 +20,42 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
  * @since 3.2.0
  */
-public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase {
+public class PrefixOntologyFormatTestCase
+    extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
-        OWLOntology ont;
-        try {
-            ont = m.createOntology();
-            PrefixDocumentFormat format = (PrefixDocumentFormat) ont
-                    .getOWLOntologyManager().getOntologyFormat(ont);
-            format.setDefaultPrefix("http://default.com");
-            format.setPrefix("a", "http://ontology.com/a#");
-            format.setPrefix("b", "http://ontology.com/b#");
-            return ont;
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLRuntimeException(e);
-        }
+        OWLOntology ont = getAnonymousOWLOntology();
+        PrefixDocumentFormat format = (PrefixDocumentFormat) ont.getFormat();
+        format.setDefaultPrefix("http://default.com");
+        format.setPrefix("a", "http://ontology.com/a#");
+        format.setPrefix("b", "http://ontology.com/b#");
+        return ont;
     }
 
     @Override
     public OWLOntology roundTripOntology(OWLOntology ont,
-            OWLDocumentFormat format) throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+        OWLDocumentFormat format)
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology ont2 = super.roundTripOntology(ont, format);
         OWLDocumentFormat ont2Format = ont2.getOWLOntologyManager()
-                .getOntologyFormat(ont2);
+            .getOntologyFormat(ont2);
         if (format instanceof PrefixDocumentFormat
-                && ont2Format instanceof PrefixDocumentFormat) {
+            && ont2Format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
             prefixFormat.getPrefixName2PrefixMap();
             PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
-            prefixFormat.prefixNames().forEach(
-                    prefixName -> {
-                        assertTrue(prefixFormat2
-                                .containsPrefixMapping(prefixName));
-                        assertEquals(prefixFormat.getPrefix(prefixName),
-                                prefixFormat2.getPrefix(prefixName));
-                    });
+            prefixFormat.prefixNames().forEach(prefixName -> {
+                assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
+                assertEquals(prefixFormat.getPrefix(prefixName),
+                    prefixFormat2.getPrefix(prefixName));
+            } );
         }
         return ont2;
     }

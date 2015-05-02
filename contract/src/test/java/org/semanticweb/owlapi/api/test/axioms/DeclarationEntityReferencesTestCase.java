@@ -18,13 +18,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.contains;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * A test case which ensures that an ontology contains entity references when
@@ -43,7 +37,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLClass cls = createClass();
         OWLAxiom ax = Declaration(cls);
         OWLOntology ont = getOWLOntology();
-        m.applyChange(new AddAxiom(ont, ax));
+        ont.addAxiom(ax);
         assertTrue(contains(ont.classesInSignature(), cls));
     }
 
@@ -52,7 +46,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLObjectProperty prop = createObjectProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = getOWLOntology();
-        m.applyChange(new AddAxiom(ont, ax));
+        ont.addAxiom(ax);
         assertTrue(contains(ont.objectPropertiesInSignature(), prop));
     }
 
@@ -61,7 +55,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLDataProperty prop = createDataProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = getOWLOntology();
-        m.applyChange(new AddAxiom(ont, ax));
+        ont.addAxiom(ax);
         assertTrue(contains(ont.dataPropertiesInSignature(), prop));
     }
 
@@ -70,7 +64,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
         OWLNamedIndividual ind = createIndividual();
         OWLAxiom ax = Declaration(ind);
         OWLOntology ont = getOWLOntology();
-        m.applyChange(new AddAxiom(ont, ax));
+        ont.addAxiom(ax);
         assertTrue(contains(ont.individualsInSignature(), ind));
     }
 }

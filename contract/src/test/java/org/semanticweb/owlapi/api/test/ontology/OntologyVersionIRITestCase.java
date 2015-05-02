@@ -32,10 +32,12 @@ public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() {
         IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/ontology");
-        IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/version");
-        OWLOntologyID ontologyID = new OWLOntologyID(optional(ontIRI), optional(versionIRI));
+        IRI versionIRI = IRI(
+            "http://www.semanticweb.org/owlapi/ontology/version");
+        OWLOntologyID ontologyID = new OWLOntologyID(optional(ontIRI),
+            optional(versionIRI));
         try {
-            return m.createOntology(ontologyID);
+            return getOWLOntology(ontologyID);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

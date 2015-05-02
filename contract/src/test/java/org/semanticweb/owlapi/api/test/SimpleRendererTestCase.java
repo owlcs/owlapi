@@ -19,18 +19,18 @@ public class SimpleRendererTestCase extends TestBase {
     public void shouldSetPrefixes() {
         testSubject.setPrefix("test", "urn:test#");
         assertEquals("test:t",
-                testSubject.getShortForm(IRI.create("urn:test#t")));
+            testSubject.getShortForm(IRI.create("urn:test#t")));
     }
 
     @Test
     public void shouldCopyPrefixesFromFormat()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         RDFXMLDocumentFormat f = new RDFXMLDocumentFormat();
-        OWLOntology o = m.createOntology();
-        m.setOntologyFormat(o, f);
+        OWLOntology o = getOWLOntology();
+        o.getOWLOntologyManager().setOntologyFormat(o, f);
         f.setPrefix("test", "urn:test#");
         testSubject.setPrefixesFromOntologyFormat(o, true);
         assertEquals("test:t",
-                testSubject.getShortForm(IRI.create("urn:test#t")));
+            testSubject.getShortForm(IRI.create("urn:test#t")));
     }
 }

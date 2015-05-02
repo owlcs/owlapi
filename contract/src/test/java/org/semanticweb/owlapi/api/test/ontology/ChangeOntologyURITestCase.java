@@ -18,12 +18,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 
 /**
@@ -38,30 +33,30 @@ public class ChangeOntologyURITestCase extends TestBase {
     public void testChangeURI() throws OWLOntologyCreationException {
         IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/ontA");
         IRI newIRI = IRI("http://www.semanticweb.org/ontologies/ontB");
-        OWLOntology ont = m.createOntology(oldIRI);
-        OWLOntology importingOnt = m
+        OWLOntology ont = m.get().createOntology(oldIRI);
+        OWLOntology importingOnt = m.get()
             .createOntology(IRI("http://www.semanticweb.org/ontologies/ontC"));
-        m.applyChange(new AddImport(importingOnt,
-            m.getOWLDataFactory().getOWLImportsDeclaration(
+        m.get().applyChange(new AddImport(importingOnt,
+            df.getOWLImportsDeclaration(
                 get(ont.getOntologyID().getOntologyIRI()))));
-        assertTrue(m.contains(oldIRI));
-        OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(m);
-        m.applyChanges(changer.getChanges(ont, newIRI));
-        assertFalse(m.contains(oldIRI));
-        assertTrue(m.contains(newIRI));
-        assertTrue(m.ontologies().anyMatch(o -> o.equals(ont)));
-        assertTrue(m.directImports(importingOnt).anyMatch(o -> o.equals(ont)));
-        OWLOntology ontology = m.getOntology(newIRI);
+        assertTrue(m.get().contains(oldIRI));
+        OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(m.get());
+        m.get().applyChanges(changer.getChanges(ont, newIRI));
+        assertFalse(m.get().contains(oldIRI));
+        assertTrue(m.get().contains(newIRI));
+        assertTrue(m.get().ontologies().anyMatch(o -> o.equals(ont)));
+        assertTrue(m.get().directImports(importingOnt).anyMatch(o -> o.equals(ont)));
+        OWLOntology ontology = m.get().getOntology(newIRI);
         assertNotNull("ontology should not be null", ontology);
         assertEquals(ontology, ont);
         assertEquals(ontology.getOntologyID().getOntologyIRI().get(), newIRI);
-        assertTrue(m.importsClosure(importingOnt).anyMatch(o -> o.equals(ont)));
+        assertTrue(m.get().importsClosure(importingOnt).anyMatch(o -> o.equals(ont)));
         assertNotNull("ontology should not be null",
-            m.getOntologyDocumentIRI(ont));
+            m.get().getOntologyDocumentIRI(ont));
         // Document IRI will still be the same (in this case the old ont URI)
-        assertEquals(m.getOntologyDocumentIRI(ont), oldIRI);
+        assertEquals(m.get().getOntologyDocumentIRI(ont), oldIRI);
         assertNotNull("ontology format should not be null",
-            m.getOntologyFormat(ont));
+            m.get().getOntologyFormat(ont));
     }
 
     @Test

@@ -28,8 +28,8 @@ public class BlankNodeTestCase extends TestBase {
 
     @Test
     public void testBlankNodes() throws OWLOntologyCreationException {
-        m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                "_:foo <http://example.com/> _:bar .", "string:ontology",
-                new TurtleDocumentFormat(), null));
+        loadOntologyFromString(
+            new StringDocumentSource("_:foo <http://example.com/> _:bar .",
+                "string:ontology", new TurtleDocumentFormat(), null));
     }
 }

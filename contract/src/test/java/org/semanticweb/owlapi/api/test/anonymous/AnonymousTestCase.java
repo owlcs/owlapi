@@ -14,22 +14,9 @@ package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("javadoc")
 public class AnonymousTestCase extends TestBase {
@@ -41,32 +28,28 @@ public class AnonymousTestCase extends TestBase {
         OWLObjectProperty p = ObjectProperty(IRI("urn:test#p"));
         OWLDataProperty q = DataProperty(IRI("urn:test#q"));
         OWLIndividual i = AnonymousIndividual();
-        OWLOntology ontology = m.createOntology();
-        List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new AddAxiom(ontology, SubClassOf(c, ObjectHasValue(p, i))));
-        changes.add(new AddAxiom(ontology, ClassAssertion(d, i)));
-        changes.add(new AddAxiom(ontology, DataPropertyAssertion(q, i,
-                Literal("hello"))));
-        m.applyChanges(changes);
-        OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
+        OWLOntology ontology = getOWLOntology();
+        ontology.addAxioms(SubClassOf(c, ObjectHasValue(p, i)),
+            ClassAssertion(d, i),
+            DataPropertyAssertion(q, i, Literal("hello")));
+        OWLOntology ontologyReloaded = loadOntologyFromString(
+            saveOntology(ontology));
         equal(ontology, ontologyReloaded);
     }
 
     @Test
     public void testRoundTripWithAnonymousIndividuals() throws Exception {
         String ns = "http://test.com/genid#";
-        IRI ont = IRI.create(ns + "ontology.owl");
         OWLNamedIndividual i = df.getOWLNamedIndividual(ns, "i");
         OWLObjectProperty p = df.getOWLObjectProperty(ns, "p");
         OWLDataProperty q = df.getOWLDataProperty(ns, "q");
-        OWLOntology ontology = m.createOntology(ont);
+        OWLOntology ontology = getOWLOntology();
         OWLIndividual ind = df.getOWLAnonymousIndividual();
         OWLObjectPropertyAssertionAxiom ax1 = df
-                .getOWLObjectPropertyAssertionAxiom(p, i, ind);
+            .getOWLObjectPropertyAssertionAxiom(p, i, ind);
         OWLDataPropertyAssertionAxiom ax2 = df
-                .getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
-        m.addAxiom(ontology, ax1);
-        m.addAxiom(ontology, ax2);
+            .getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
+        ontology.addAxioms(ax1, ax2);
         OWLOntology reload = roundTrip(ontology);
         equal(ontology, reload);
     }

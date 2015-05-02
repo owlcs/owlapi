@@ -27,26 +27,29 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 3.3.0
  */
-public abstract class AbstractLiteralWithEscapeTestCase extends
-        AbstractRoundTrippingTestCase {
+public abstract class AbstractLiteralWithEscapeTestCase
+    extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {
         OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#A"));
-        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://owlapi.sourceforge.net/ontology#prop"));
+        OWLAnnotationProperty prop = AnnotationProperty(
+            IRI("http://owlapi.sourceforge.net/ontology#prop"));
         OWLLiteral lit1 = Literal(getEscape());
         OWLLiteral lit2 = Literal("Start" + getEscape());
         OWLLiteral lit3 = Literal(getEscape() + "End");
         OWLLiteral lit4 = Literal("Start" + getEscape() + "End");
         OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop,
-                cls.getIRI(), lit1);
+            cls.getIRI(), lit1);
         OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop,
-                cls.getIRI(), lit2);
+            cls.getIRI(), lit2);
         OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop,
-                cls.getIRI(), lit3);
+            cls.getIRI(), lit3);
         OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop,
-                cls.getIRI(), lit4);
-        return Ontology(m, ax1, ax2, ax3, ax4, Declaration(cls));
+            cls.getIRI(), lit4);
+        OWLOntology o = getOWLOntology();
+        o.addAxioms(ax1, ax2, ax3, ax4, Declaration(cls));
+        return o;
     }
 
     @Nonnull

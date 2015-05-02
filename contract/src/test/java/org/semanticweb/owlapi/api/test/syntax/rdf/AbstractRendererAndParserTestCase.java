@@ -20,8 +20,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,17 +38,16 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
     @Before
     public void setUpManager() {
-        m.getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
-        m.getOntologyStorers().set(new RDFXMLStorerFactory());
-        m.getOntologyParsers().set(new RDFXMLParserFactory());
+        m.get().getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
+        m.get().getOntologyStorers().set(new RDFXMLStorerFactory());
+        m.get().getOntologyParsers().set(new RDFXMLParserFactory());
     }
 
     @Test
     public void testSaveAndReload() throws Exception {
-        OWLOntology ontA = m
-            .createOntology(IRI.create("http://rdfxmltests/ontology"));
+        OWLOntology ontA = getOWLOntology();
         for (OWLAxiom ax : getAxioms()) {
-            m.applyChange(new AddAxiom(ontA, ax));
+            ontA.addAxiom(ax);
         }
         OWLOntology ontB = roundTrip(ontA);
         Set<OWLLogicalAxiom> aMinusB = asSet(ontA.logicalAxioms());

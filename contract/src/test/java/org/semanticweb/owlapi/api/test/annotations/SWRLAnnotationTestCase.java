@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.api.test.annotations;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -28,15 +26,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings({ "javadoc", "null" })
 public class SWRLAnnotationTestCase extends TestBase {
@@ -75,11 +65,9 @@ public class SWRLAnnotationTestCase extends TestBase {
         assertTrue(ontology.containsAxiom(axiom));
     }
 
-    public OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntology ontology = m.createOntology(IRI(NS));
-        List<AddAxiom> changes = new ArrayList<>();
-        changes.add(new AddAxiom(ontology, axiom));
-        m.applyChanges(changes);
+    public OWLOntology createOntology() {
+        OWLOntology ontology = getOWLOntology();
+        ontology.addAxiom(axiom);
         return ontology;
     }
 

@@ -36,7 +36,7 @@ public class AnonymousRootRoundTrippingTestCase
         for (int i = 0; i < 10; i++) {
             inds.add(createIndividual());
         }
-        addAxiom(ont, df.getOWLDifferentIndividualsAxiom(inds));
+        ont.addAxiom(df.getOWLDifferentIndividualsAxiom(inds));
         return ont;
     }
 }

@@ -19,18 +19,13 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -46,27 +41,7 @@ import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,21 +115,44 @@ public abstract class TestBase {
     @Nonnull
     protected static OWLDataFactory df;
     @Nonnull
-    protected static OWLOntologyManager m;
+    protected static ThreadLocal<OWLOntologyManager> m;
     @Nonnull
-    protected static OWLOntologyManager m1;
+    protected static ThreadLocal<OWLOntologyManager> m1;
+
+    private static OWLOntologyManager newInstance() {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        return manager;
+    }
 
     @BeforeClass
     public static void setupManagers() {
         df = OWLManager.getOWLDataFactory();
-        m = OWLManager.createOWLOntologyManager();
-        m1 = OWLManager.createOWLOntologyManager();
+        m = new ThreadLocal<OWLOntologyManager>() {
+
+            @Override
+            protected OWLOntologyManager initialValue() {
+                return newInstance();
+            }
+        };
+        m1 = new ThreadLocal<OWLOntologyManager>() {
+
+            @Override
+            protected OWLOntologyManager initialValue() {
+                return newInstance();
+            }
+        };
     }
 
     @After
-    public void tearDown() {
-        m.clearOntologies();
-        m1.clearOntologies();
+    public void tearDownManagers() {
+        m.get().clearOntologies();
+        m1.get().clearOntologies();
+    }
+
+    @Before
+    public void setupManagersClean() {
+        m.get().clearOntologies();
+        m1.get().clearOntologies();
     }
 
     @Nonnull
@@ -422,7 +420,28 @@ public abstract class TestBase {
     @Nonnull
     public OWLOntology getOWLOntology() {
         try {
-            return m.createOntology(IRI.getNextDocumentIRI(uriBase));
+            return m.get().createOntology(IRI.getNextDocumentIRI(uriBase));
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    @Nonnull
+    public OWLOntology getOWLOntology(IRI iri)
+        throws OWLOntologyCreationException {
+        return m.get().createOntology(iri);
+    }
+
+    @Nonnull
+    public OWLOntology getOWLOntology(OWLOntologyID iri)
+        throws OWLOntologyCreationException {
+        return m.get().createOntology(iri);
+    }
+
+    @Nonnull
+    public OWLOntology getAnonymousOWLOntology() {
+        try {
+            return m.get().createOntology();
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -431,7 +450,7 @@ public abstract class TestBase {
     public OWLOntology loadOntology(String fileName) {
         try {
             URL url = getClass().getResource('/' + fileName);
-            return m.loadOntologyFromOntologyDocument(
+            return m.get().loadOntologyFromOntologyDocument(
                 new IRIDocumentSource(IRI.create(url), null, null),
                 new OWLOntologyLoaderConfiguration()
                     .setReportStackTraces(true));
@@ -447,7 +466,7 @@ public abstract class TestBase {
     }
 
     public void addAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom ax) {
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
     }
 
     public void roundTripOntology(@Nonnull OWLOntology ont)
@@ -483,10 +502,10 @@ public abstract class TestBase {
         format.setAddMissingTypes(true);
         if (logger.isTraceEnabled()) {
             StringDocumentTarget targetForDebug = new StringDocumentTarget();
-            m.saveOntology(ont, format, targetForDebug);
+            ont.saveOntology(format, targetForDebug);
             logger.trace(targetForDebug.toString());
         }
-        m.saveOntology(ont, format, target);
+        ont.saveOntology(format, target);
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()
             .loadOntologyFromOntologyDocument(

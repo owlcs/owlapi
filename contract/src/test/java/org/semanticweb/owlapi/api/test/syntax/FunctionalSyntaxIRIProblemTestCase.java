@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -31,28 +30,24 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
     @Test
     public void testmain() throws Exception {
-        OWLDataFactory factory = m.getOWLDataFactory();
-        OWLOntology ontology = m.createOntology(IRI("urn:testontology:o1"));
-        OWLObjectProperty p = factory
-                .getOWLObjectProperty("http://example.org/A_#part_of");
+        OWLOntology ontology = getOWLOntology();
+        OWLObjectProperty p = df
+            .getOWLObjectProperty("http://example.org/A_#part_of");
         OWLClass a = Class(IRI("http://example.org/A_A"));
         OWLClass b = Class(IRI("http://example.org/A_B"));
-        m.addAxiom(ontology, Declaration(p));
-        m.addAxiom(ontology, Declaration(a));
-        m.addAxiom(ontology, Declaration(b));
-        m.addAxiom(ontology,
-                SubClassOf(b, factory.getOWLObjectSomeValuesFrom(p, a)));
+        ontology.addAxioms(Declaration(p), Declaration(a), Declaration(b),
+            SubClassOf(b, df.getOWLObjectSomeValuesFrom(p, a)));
         OWLOntology loadOntology = roundTrip(ontology,
-                new RDFXMLDocumentFormat());
+            new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat functionalFormat = new FunctionalSyntaxDocumentFormat();
         functionalFormat.asPrefixOWLOntologyFormat().setPrefix("example",
-                "http://example.org/");
+            "http://example.org/");
         OWLOntology loadOntology2 = roundTrip(ontology, functionalFormat);
         // won't reach here if functional syntax fails - comment it out and
         // uncomment this to test Manchester
         ManchesterSyntaxDocumentFormat manchesterFormat = new ManchesterSyntaxDocumentFormat();
         manchesterFormat.asPrefixOWLOntologyFormat().setPrefix("example",
-                "http://example.org/");
+            "http://example.org/");
         OWLOntology loadOntology3 = roundTrip(ontology, manchesterFormat);
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);

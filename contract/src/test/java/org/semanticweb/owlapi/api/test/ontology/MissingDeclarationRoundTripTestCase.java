@@ -47,9 +47,9 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
     private OWLOntology createOntology(@Nonnull OWLAnnotationProperty p)
         throws OWLOntologyCreationException {
         OWLClass a = Class(IRI("http://test.org/MissingDeclaration.owl#A"));
-        OWLOntology ontology = m.createOntology();
+        OWLOntology ontology = getOWLOntology();
         OWLAxiom axiom = AnnotationAssertion(p, a.getIRI(), Literal("Hello"));
-        m.addAxiom(ontology, axiom);
+        ontology.addAxiom(axiom);
         return ontology;
     }
 }

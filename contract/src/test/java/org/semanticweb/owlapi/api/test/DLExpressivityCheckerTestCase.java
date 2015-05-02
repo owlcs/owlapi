@@ -14,12 +14,7 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
@@ -28,7 +23,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
@@ -134,7 +128,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     }
 
     public Set<OWLOntology> ont() throws OWLOntologyCreationException {
-        OWLMutableOntology o = (OWLMutableOntology) m.createOntology();
+        OWLOntology o = getOWLOntology();
         o.addAxiom(object);
         Set<OWLOntology> singleton = Collections.singleton(o);
         return singleton;

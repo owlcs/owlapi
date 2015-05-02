@@ -54,14 +54,14 @@ public class MultipleOntologyLoadsTest extends TestBase {
             optional(CREATEV2));
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV2));
-        OWLOntology initialOntology = m
-            .createOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = getOWLOntology(
+            initialUniqueOWLOntologyID);
         parseOnto(initialDocumentSource, initialOntology);
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV2));
         // when
         try {
-            m.createOntology(secondUniqueOWLOntologyID);
+            getOWLOntology(secondUniqueOWLOntologyID);
         } catch (OWLOntologyAlreadyExistsException e) {
             // then
             assertEquals(expected, e.getOntologyID());
@@ -77,14 +77,14 @@ public class MultipleOntologyLoadsTest extends TestBase {
             optional(CREATEV1));
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV1));
-        OWLOntology initialOntology = m
-            .createOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = getOWLOntology(
+            initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV1));
         // when
         try {
-            m.createOntology(secondUniqueOWLOntologyID);
+            getOWLOntology(secondUniqueOWLOntologyID);
         } catch (OWLOntologyAlreadyExistsException e) {
             // then
             assertEquals(expected, e.getOntologyID());
@@ -102,11 +102,10 @@ public class MultipleOntologyLoadsTest extends TestBase {
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV2));
         // when
-        OWLOntology initialOntology = m
-            .createOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = getOWLOntology(
+            initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
-        OWLOntology secondOntology = m
-            .createOntology(secondUniqueOWLOntologyID);
+        OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139,
@@ -128,10 +127,9 @@ public class MultipleOntologyLoadsTest extends TestBase {
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV2));
         // when
-        OWLOntology initialOntology = m.createOntology();
+        OWLOntology initialOntology = getAnonymousOWLOntology();
         parseOnto(documentSource, initialOntology);
-        OWLOntology secondOntology = m
-            .createOntology(secondUniqueOWLOntologyID);
+        OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139,
@@ -155,11 +153,10 @@ public class MultipleOntologyLoadsTest extends TestBase {
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV2));
         // when
-        OWLOntology initialOntology = m
-            .createOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = getOWLOntology(
+            initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
-        OWLOntology secondOntology = m
-            .createOntology(secondUniqueOWLOntologyID);
+        OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139,
@@ -179,8 +176,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV2));
         // when
-        OWLOntology secondOntology = m
-            .createOntology(secondUniqueOWLOntologyID);
+        OWLOntology secondOntology = getOWLOntology(secondUniqueOWLOntologyID);
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139,
@@ -196,8 +192,8 @@ public class MultipleOntologyLoadsTest extends TestBase {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
             optional(CREATE0139), optional(CREATEV1));
         // when
-        OWLOntology initialOntology = m
-            .createOntology(initialUniqueOWLOntologyID);
+        OWLOntology initialOntology = getOWLOntology(
+            initialUniqueOWLOntologyID);
         parseOnto(documentSource, initialOntology);
         // then
         assertEquals(CREATE0139,

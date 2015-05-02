@@ -33,13 +33,13 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
         IRI ontologyADocumentIRI = IRI
-                .create(DifferentPhysicalURISameOntologyIRITestCase.class
-                        .getResource('/' + ONTOLOGY_A).toURI());
+            .create(DifferentPhysicalURISameOntologyIRITestCase.class
+                .getResource('/' + ONTOLOGY_A).toURI());
         IRI ontologyADocumentIRIB = IRI
-                .create(DifferentPhysicalURISameOntologyIRITestCase.class
-                        .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
-        m.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
-        m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
+            .create(DifferentPhysicalURISameOntologyIRITestCase.class
+                .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
+        m.get().loadOntologyFromOntologyDocument(ontologyADocumentIRI);
+        m.get().loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
         fail("Expected an exception to say that the ontology already exists");
     }
 }

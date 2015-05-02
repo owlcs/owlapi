@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
@@ -47,8 +46,6 @@ public class ReasonerTestCase extends TestBase {
 
     @Nonnull
     private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-    @Nonnull
-    private final OWLOntology ont = createOntology();
     private OWLReasoner reasoner;
 
     @Nonnull
@@ -62,24 +59,18 @@ public class ReasonerTestCase extends TestBase {
         OWLClass clsF = getClsF();
         OWLClass clsG = getClsG();
         OWLClass clsK = getClsK();
-        OWLOntologyManager man = o.getOWLOntologyManager();
-        man.addAxiom(o, SubClassOf(clsG, OWLThing()));
-        man.addAxiom(o, SubClassOf(OWLThing(), clsG));
-        man.addAxiom(o, EquivalentClasses(clsA, clsB));
-        man.addAxiom(o, SubClassOf(clsC, clsB));
-        man.addAxiom(o, SubClassOf(clsD, clsA));
-        man.addAxiom(o, SubClassOf(clsD, clsF));
-        man.addAxiom(o, SubClassOf(clsF, clsD));
-        man.addAxiom(o, SubClassOf(clsE, clsC));
-        man.addAxiom(o, SubClassOf(clsK, clsD));
-        man.addAxiom(o, EquivalentClasses(clsK, OWLNothing()));
         OWLObjectPropertyExpression propP = getPropP();
         OWLObjectPropertyExpression propQ = getPropQ();
         OWLObjectPropertyExpression propR = getPropR();
         OWLObjectPropertyExpression propS = getPropS();
-        man.addAxiom(o, EquivalentObjectProperties(propP, propQ));
-        man.addAxiom(o, SubObjectPropertyOf(propP, propR));
-        man.addAxiom(o, InverseObjectProperties(propR, propS));
+        o.addAxioms(SubClassOf(clsG, OWLThing()), SubClassOf(OWLThing(), clsG),
+            EquivalentClasses(clsA, clsB), SubClassOf(clsC, clsB),
+            SubClassOf(clsD, clsA), SubClassOf(clsD, clsF),
+            SubClassOf(clsF, clsD), SubClassOf(clsE, clsC),
+            SubClassOf(clsK, clsD), EquivalentClasses(clsK, OWLNothing()),
+            EquivalentObjectProperties(propP, propQ),
+            SubObjectPropertyOf(propP, propR),
+            InverseObjectProperties(propR, propS));
         return o;
     }
 
@@ -145,8 +136,7 @@ public class ReasonerTestCase extends TestBase {
 
     @Before
     public void setUpOntoAndReasoner() {
-        createOntology();
-        reasoner = reasonerFactory.createReasoner(ont);
+        reasoner = reasonerFactory.createReasoner(createOntology());
     }
 
     @After
@@ -163,12 +153,6 @@ public class ReasonerTestCase extends TestBase {
     public void testGetVersion() {
         assertNotNull("version should not be null",
             reasoner.getReasonerVersion());
-    }
-
-    @Test
-    public void testGetRootOntology() {
-        assertEquals("ontology should be equal", reasoner.getRootOntology(),
-            ont);
     }
 
     @Test

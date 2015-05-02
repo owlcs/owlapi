@@ -21,13 +21,12 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class DisjointUnionTestCase extends TestBase {
 
     @Nonnull
-    public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
+    private static final String NS = "http://protege.org/protege/DisjointUnion.owl";
     @Nonnull
     public static final OWLClass A = Class(IRI(NS + "#A"));
     @Nonnull
@@ -36,9 +35,9 @@ public class DisjointUnionTestCase extends TestBase {
     public static final OWLClass C = Class(IRI(NS + "#C"));
 
     @Test
-    public void testDisjointUnion() throws OWLOntologyCreationException {
-        OWLOntology ontology = m.createOntology(IRI(NS));
-        m.addAxiom(ontology, DisjointUnion(A, B, C));
+    public void testDisjointUnion() {
+        OWLOntology ontology = getOWLOntology();
+        ontology.addAxiom(DisjointUnion(A, B, C));
         assertEquals(1, ontology.disjointUnionAxioms(A).count());
         assertEquals(0, ontology.disjointUnionAxioms(B).count());
     }

@@ -36,25 +36,26 @@ public class MultiImportsTestCase extends TestBase {
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        m.getIRIMappers().add(
-                new AutoIRIMapper(new File(RESOURCES, "imports"), true));
-        m.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
+        m.get().getIRIMappers()
+            .add(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
+        m.get().loadOntologyFromOntologyDocument(
+            new File(RESOURCES, "/imports/D.owl"));
     }
 
     @Test
     public void testCyclicImports() throws OWLOntologyCreationException {
-        m.getIRIMappers().add(
-                new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        m.loadOntologyFromOntologyDocument(new File(RESOURCES,
-                "/importscyclic/D.owl"));
+        m.get().getIRIMappers()
+            .add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        m.get().loadOntologyFromOntologyDocument(
+            new File(RESOURCES, "/importscyclic/D.owl"));
     }
 
     @Test
     public void testCyclicImports2() throws OWLOntologyCreationException {
-        m.getIRIMappers().add(
-                new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        m.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
-                "importscyclic/D.owl")));
+        m.get().getIRIMappers()
+            .add(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        m.get().loadOntologyFromOntologyDocument(
+            IRI.create(new File(RESOURCES, "importscyclic/D.owl")));
     }
 
     @Test
@@ -64,26 +65,23 @@ public class MultiImportsTestCase extends TestBase {
         File ontologyDirectory = new File(RESOURCES, "importNoOntology");
         String ns = "http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/";
         IRI bobsOntologyName = IRI.create(ns + "subject-bob");
-        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(ns
-                + "subject-bob#subjectOnImmunosuppressantA2");
-        m.getIRIMappers()
-                .add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"), IRI
-                        .create(new File(ontologyDirectory, "subject-amy.ttl"))));
-        m.getIRIMappers().add(
-                new SimpleIRIMapper(bobsOntologyName, IRI.create(new File(
-                        ontologyDirectory, "subject-bob.ttl"))));
-        m.getIRIMappers()
-                .add(new SimpleIRIMapper(IRI.create(ns + "subject-sue"), IRI
-                        .create(new File(ontologyDirectory, "subject-sue.ttl"))));
-        m.getIRIMappers().add(
-                new SimpleIRIMapper(IRI
-                        .create("http://www.w3.org/2013/12/FDA-TA/core"), IRI
-                        .create(new File(ontologyDirectory, "core.ttl"))));
-        OWLOntology topLevelImport = m
-                .loadOntologyFromOntologyDocument(new File(ontologyDirectory,
-                        "subjects.ttl"));
+        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(
+            ns + "subject-bob#subjectOnImmunosuppressantA2");
+        m.get().getIRIMappers()
+            .add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"),
+                IRI.create(new File(ontologyDirectory, "subject-amy.ttl"))));
+        m.get().getIRIMappers().add(new SimpleIRIMapper(bobsOntologyName,
+            IRI.create(new File(ontologyDirectory, "subject-bob.ttl"))));
+        m.get().getIRIMappers()
+            .add(new SimpleIRIMapper(IRI.create(ns + "subject-sue"),
+                IRI.create(new File(ontologyDirectory, "subject-sue.ttl"))));
+        m.get().getIRIMappers()
+            .add(new SimpleIRIMapper(
+                IRI.create("http://www.w3.org/2013/12/FDA-TA/core"),
+                IRI.create(new File(ontologyDirectory, "core.ttl"))));
+        OWLOntology topLevelImport = m.get().loadOntologyFromOntologyDocument(
+            new File(ontologyDirectory, "subjects.ttl"));
         assertTrue("Individuals about Bob are missing...",
-                topLevelImport.containsEntityInSignature(bobsIndividual,
-                        INCLUDED));
+            topLevelImport.containsEntityInSignature(bobsIndividual, INCLUDED));
     }
 }

@@ -37,7 +37,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isTransitive(prop, ont));
         OWLAxiom ax = TransitiveObjectProperty(prop);
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(isTransitive(prop, ont));
     }
 
@@ -47,7 +47,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isSymmetric(prop, ont));
         OWLAxiom ax = SymmetricObjectProperty(prop);
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(isSymmetric(prop, ont));
     }
 
@@ -57,7 +57,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isAsymmetric(prop, ont));
         OWLAxiom ax = AsymmetricObjectProperty(prop);
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(isAsymmetric(prop, ont));
     }
 
@@ -67,7 +67,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isReflexive(prop, ont));
         OWLAxiom ax = ReflexiveObjectProperty(prop);
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(isReflexive(prop, ont));
     }
 
@@ -77,7 +77,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isIrreflexive(prop, ont));
         OWLAxiom ax = IrreflexiveObjectProperty(prop);
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(isIrreflexive(prop, ont));
     }
 
@@ -87,7 +87,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isFunctional(prop, ont));
         OWLAxiom ax = FunctionalObjectProperty(prop);
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(isFunctional(prop, ont));
     }
 
@@ -97,7 +97,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         assertFalse(isInverseFunctional(prop, ont));
         OWLAxiom ax = InverseFunctionalObjectProperty(prop);
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(isInverseFunctional(prop, ont));
     }
 
@@ -107,7 +107,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
         OWLDataProperty prop = DataProperty(iri("prop"));
         assertFalse(isFunctional(prop, ont));
         OWLAxiom ax = FunctionalDataProperty(prop);
-        m.addAxiom(ont, ax);
+        ont.addAxiom(ax);
         assertTrue(isFunctional(prop, ont));
     }
 }

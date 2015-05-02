@@ -70,7 +70,7 @@ public class Utf8TestCase extends TestBase {
             onto.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         try {
-            parser.parse(new StreamDocumentSource(in), m.createOntology(),
+            parser.parse(new StreamDocumentSource(in), getOWLOntology(),
                 config);
             fail("parsing should have failed, invalid input");
         } catch (@SuppressWarnings("unused") Exception ex) {
@@ -99,7 +99,7 @@ public class Utf8TestCase extends TestBase {
             + "</rdf:RDF>";
         ByteArrayInputStream in = new ByteArrayInputStream(
             onto.getBytes(StandardCharsets.ISO_8859_1));
-        m.loadOntologyFromOntologyDocument(in);
+        m.get().loadOntologyFromOntologyDocument(in);
     }
 
     @Test
@@ -140,13 +140,13 @@ public class Utf8TestCase extends TestBase {
     @Test
     public void testPositiveUTF8roundTrip() throws Exception {
         String ns = "http://protege.org/UTF8.owl";
-        OWLOntology ontology = m.createOntology(IRI(ns));
+        OWLOntology ontology = getOWLOntology();
         OWLClass a = Class(IRI(ns + "#A"));
-        m.addAxiom(ontology, df.getOWLDeclarationAxiom(a));
+        ontology.addAxiom(df.getOWLDeclarationAxiom(a));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(),
             df.getOWLLiteral("Chinese=處方"));
         OWLAxiom axiom = df.getOWLAnnotationAssertionAxiom(a.getIRI(), ann);
-        m.addAxiom(ontology, axiom);
+        ontology.addAxiom(axiom);
         ontology = roundTrip(ontology, new FunctionalSyntaxDocumentFormat());
     }
 
@@ -175,10 +175,10 @@ public class Utf8TestCase extends TestBase {
     private OWLOntology createOriginalOntology(@Nonnull String ns,
         @Nonnull OWLClass c, @Nonnull String chinese)
             throws OWLOntologyCreationException {
-        OWLOntology ontology = m.createOntology(IRI(ns));
+        OWLOntology ontology = getOWLOntology(IRI(ns));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(),
             Literal(chinese));
-        m.addAxiom(ontology, annotationAxiom);
+        ontology.addAxiom(annotationAxiom);
         return ontology;
     }
 

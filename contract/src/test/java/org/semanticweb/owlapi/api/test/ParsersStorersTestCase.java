@@ -26,15 +26,7 @@ import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxOWLParserFactory;
 import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxStorerFactory;
-import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
-import org.semanticweb.owlapi.formats.KRSSDocumentFormat;
-import org.semanticweb.owlapi.formats.LatexDocumentFormat;
-import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.formats.*;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -48,14 +40,7 @@ import org.semanticweb.owlapi.krss2.renderer.KRSSSyntaxStorerFactory;
 import org.semanticweb.owlapi.latex.renderer.LatexStorerFactory;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParserFactory;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterSyntaxStorerFactory;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLMutableOntology;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLStorerFactory;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory;
@@ -87,7 +72,7 @@ public class ParsersStorersTestCase extends TestBase {
     }
 
     public OWLOntology ont() throws OWLOntologyCreationException {
-        OWLMutableOntology o = (OWLMutableOntology) m.createOntology();
+        OWLOntology o = getAnonymousOWLOntology();
         o.addAxiom(object);
         return o;
     }
@@ -97,7 +82,7 @@ public class ParsersStorersTestCase extends TestBase {
         boolean expectRoundtrip) throws Exception {
         StringDocumentTarget target = new StringDocumentTarget();
         s.createStorer().storeOntology(ont(), target, ontologyFormat);
-        OWLOntology o = m.createOntology();
+        OWLOntology o = getAnonymousOWLOntology();
         try {
             p.createParser().parse(new StringDocumentSource(target), o,
                 new OWLOntologyLoaderConfiguration());

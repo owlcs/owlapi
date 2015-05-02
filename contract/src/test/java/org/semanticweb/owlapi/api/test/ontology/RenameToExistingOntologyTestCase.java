@@ -17,12 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyRenameException;
-import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -37,13 +32,13 @@ public class RenameToExistingOntologyTestCase extends TestBase {
         throws OWLOntologyCreationException {
         IRI ontologyAIRI = IRI(
             "http://www.semanticweb.org/ontologies/ontologyA");
-        OWLOntology onto = m.createOntology(ontologyAIRI);
-        m.addAxiom(onto,
+        OWLOntology onto = getOWLOntology(ontologyAIRI);
+        onto.addAxiom(
             df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
         IRI ontologyBIRI = IRI(
             "http://www.semanticweb.org/ontologies/ontologyB");
-        OWLOntology ontologyB = m.createOntology(ontologyBIRI);
-        m.applyChange(new SetOntologyID(ontologyB,
-            new OWLOntologyID(optional(ontologyAIRI), emptyOptional(IRI.class))));
+        OWLOntology ontologyB = getOWLOntology(ontologyBIRI);
+        ontologyB.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(
+            optional(ontologyAIRI), emptyOptional(IRI.class))));
     }
 }

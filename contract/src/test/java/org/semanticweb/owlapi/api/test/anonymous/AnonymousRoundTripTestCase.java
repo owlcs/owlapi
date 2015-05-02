@@ -17,12 +17,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase extends TestBase {
@@ -35,15 +30,14 @@ public class AnonymousRoundTripTestCase extends TestBase {
         OWLAnonymousIndividual i = AnonymousIndividual();
         OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#p"));
         OWLObjectProperty q = ObjectProperty(IRI(ns + "#q"));
-        OWLOntology ontology = m.createOntology(IRI(ns));
+        OWLOntology ontology = getOWLOntology();
         OWLAnnotation annotation1 = df.getOWLAnnotation(p, h);
-        m.addAxiom(ontology,
-                df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));
-        m.addAxiom(ontology, ClassAssertion(a, h));
-        m.addAxiom(ontology, ObjectPropertyAssertion(q, h, i));
         OWLAnnotation annotation2 = df.getOWLAnnotation(df.getRDFSLabel(),
-                Literal("Second", "en"));
-        m.addAxiom(ontology, df.getOWLAnnotationAssertionAxiom(h, annotation2));
+            Literal("Second", "en"));
+        ontology.addAxioms(
+            df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1),
+            ClassAssertion(a, h), ObjectPropertyAssertion(q, h, i),
+            df.getOWLAnnotationAssertionAxiom(h, annotation2));
         roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
     }
 }

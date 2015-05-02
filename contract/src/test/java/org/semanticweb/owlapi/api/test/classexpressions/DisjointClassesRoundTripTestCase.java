@@ -59,10 +59,10 @@ public class DisjointClassesRoundTripTestCase extends TestBase {
         OWLClass d = Class(IRI(NS + "#D"));
         OWLClass e = Class(IRI(NS + "#E"));
         OWLClass f = Class(IRI(NS + "#F"));
-        OWLOntology ontology = m.createOntology(IRI(NS));
+        OWLOntology ontology = getOWLOntology();
         OWLDisjointClassesAxiom disjointClasses = DisjointClasses(
             ObjectUnionOf(c, d), ObjectUnionOf(c, e), ObjectUnionOf(c, f));
-        m.addAxiom(ontology, disjointClasses);
+        ontology.addAxioms(disjointClasses);
         return ontology;
     }
 }

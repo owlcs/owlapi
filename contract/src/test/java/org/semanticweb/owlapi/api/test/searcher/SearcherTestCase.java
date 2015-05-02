@@ -22,13 +22,7 @@ import java.util.Collection;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.Filters;
 
 @SuppressWarnings("javadoc")
@@ -37,7 +31,7 @@ public class SearcherTestCase extends TestBase {
     @Test
     public void shouldSearch() throws OWLOntologyCreationException {
         // given
-        OWLOntology o = m.createOntology();
+        OWLOntology o = getOWLOntology();
         OWLClass c = Class(IRI("urn:c"));
         OWLClass d = Class(IRI("urn:d"));
         OWLAxiom ax = SubClassOf(c, d);
@@ -48,9 +42,9 @@ public class SearcherTestCase extends TestBase {
 
     @Test
     public void shouldSearchObjectProperties()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         // given
-        OWLOntology o = m.createOntology();
+        OWLOntology o = getOWLOntology();
         OWLObjectProperty c = ObjectProperty(IRI("urn:c"));
         OWLObjectProperty d = ObjectProperty(IRI("urn:d"));
         OWLObjectProperty e = ObjectProperty(IRI("urn:e"));
@@ -65,21 +59,21 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax3);
         o.getOWLOntologyManager().addAxiom(o, ax4);
         assertTrue(o.getAxioms(AxiomType.SUB_OBJECT_PROPERTY).contains(ax));
-        Collection<OWLAxiom> axioms = asSet(o.axioms(
-                Filters.subObjectPropertyWithSuper, d, INCLUDED));
+        Collection<OWLAxiom> axioms = asSet(
+            o.axioms(Filters.subObjectPropertyWithSuper, d, INCLUDED));
         assertTrue(contains(sub(axioms.stream()), c));
         axioms = asSet(o.axioms(Filters.subObjectPropertyWithSub, c, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), d));
         assertTrue(contains(domain(o.objectPropertyDomainAxioms(c)), x));
-        assertTrue(contains(equivalent(o.equivalentObjectPropertiesAxioms(c)),
-                e));
+        assertTrue(
+            contains(equivalent(o.equivalentObjectPropertiesAxioms(c)), e));
     }
 
     @Test
     public void shouldSearchDataProperties()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         // given
-        OWLOntology o = m.createOntology();
+        OWLOntology o = getOWLOntology();
         OWLDataProperty c = DataProperty(IRI("urn:c"));
         OWLDataProperty d = DataProperty(IRI("urn:d"));
         OWLDataProperty e = DataProperty(IRI("urn:e"));
@@ -94,12 +88,13 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax4);
         assertTrue(o.getAxioms(AxiomType.SUB_DATA_PROPERTY).contains(ax));
         assertTrue(contains(
-                sub(o.axioms(Filters.subDataPropertyWithSuper, d, INCLUDED)), c));
-        Collection<OWLAxiom> axioms = asSet(o.axioms(
-                Filters.subDataPropertyWithSub, c, INCLUDED));
+            sub(o.axioms(Filters.subDataPropertyWithSuper, d, INCLUDED)), c));
+        Collection<OWLAxiom> axioms = asSet(
+            o.axioms(Filters.subDataPropertyWithSub, c, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), d));
         assertTrue(contains(domain(o.dataPropertyDomainAxioms(c)), x));
         assertTrue(contains(range(o.dataPropertyRangeAxioms(c)), Boolean()));
-        assertTrue(contains(equivalent(o.equivalentDataPropertiesAxioms(c)), e));
+        assertTrue(
+            contains(equivalent(o.equivalentDataPropertiesAxioms(c)), e));
     }
 }

@@ -36,22 +36,22 @@ public class TestImportByLocationTestCase extends TestBase {
         File f = folder.newFile("a.owl");
         createOntologyFile(IRI("http://a.com"), f);
         // have to load an ontology for it to get a document IRI
-        OWLOntology a = m.loadOntologyFromOntologyDocument(f);
-        IRI locA = m.getOntologyDocumentIRI(a);
+        OWLOntology a = m.get().loadOntologyFromOntologyDocument(f);
+        IRI locA = m.get().getOntologyDocumentIRI(a);
         IRI bIRI = IRI("http://b.com");
-        OWLOntology b = m.createOntology(bIRI);
+        OWLOntology b = getOWLOntology(bIRI);
         // import from the document location of a.owl (rather than the
         // ontology IRI)
-        m.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
+        b.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
         assertEquals(1, b.importsDeclarations().count());
         assertEquals(1, b.imports().count());
     }
 
     private OWLOntology createOntologyFile(@Nonnull IRI iri, @Nonnull File f)
         throws Exception {
-        OWLOntology a = m1.createOntology(iri);
+        OWLOntology a = m1.get().createOntology(iri);
         OutputStream out = new FileOutputStream(f);
-        m1.saveOntology(a, out);
+        a.saveOntology(out);
         out.close();
         return a;
     }

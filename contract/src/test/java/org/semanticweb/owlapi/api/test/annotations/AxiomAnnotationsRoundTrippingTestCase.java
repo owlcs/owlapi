@@ -18,12 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -39,7 +34,7 @@ public class AxiomAnnotationsRoundTrippingTestCase
         OWLOntology ont = getOWLOntology();
         OWLAnnotationProperty prop = AnnotationProperty(
             OWLRDFVocabulary.RDFS_LABEL.getIRI());
-        addAxiom(ont, Declaration(prop));
+        ont.addAxiom(Declaration(prop));
         Set<OWLAnnotation> annotations = new HashSet<>();
         for (int i = 0; i < 2; i++) {
             OWLLiteral lit = Literal("Annotation " + (i + 1));
@@ -47,10 +42,10 @@ public class AxiomAnnotationsRoundTrippingTestCase
         }
         OWLEntity entity = NamedIndividual(
             IRI("http://www.another.com/ont#peter"));
-        addAxiom(ont, Declaration(entity));
+        ont.addAxiom(Declaration(entity));
         OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(prop,
             entity.getIRI(), Literal("X", "en"), annotations);
-        addAxiom(ont, ax);
+        ont.addAxiom(ax);
         return ont;
     }
 }

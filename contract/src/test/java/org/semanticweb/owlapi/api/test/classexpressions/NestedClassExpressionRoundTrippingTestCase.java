@@ -38,9 +38,9 @@ public class NestedClassExpressionRoundTrippingTestCase
         OWLClassExpression desc = ObjectSomeValuesFrom(prop,
             ObjectSomeValuesFrom(prop, clsB));
         OWLAxiom ax = SubClassOf(clsA, desc);
-        addAxiom(ont, ax);
-        addAxiom(ont, Declaration(clsA));
-        addAxiom(ont, Declaration(clsB));
+        ont.addAxiom(ax);
+        ont.addAxiom(Declaration(clsA));
+        ont.addAxiom(Declaration(clsB));
         return ont;
     }
 }

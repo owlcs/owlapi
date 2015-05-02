@@ -22,15 +22,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
@@ -51,16 +47,13 @@ public class TestDisjointsTestCase extends TestBase {
 
     @Before
     public void setUpStorers() {
-        m.setOntologyStorers(
-            singleton((OWLStorerFactory) new RDFXMLStorerFactory()));
-        m.setOntologyParsers(
-            singleton((OWLParserFactory) new RDFXMLParserFactory()));
+        m.get().getOntologyStorers().set(new RDFXMLStorerFactory());
+        m.get().getOntologyParsers().set(new RDFXMLParserFactory());
     }
 
     @Test
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = m
-            .createOntology(IRI.getNextDocumentIRI("urntests#uri"));
+        OWLOntology ontA = getOWLOntology();
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
         OWLObjectProperty prop = createObjectProperty();
@@ -70,7 +63,7 @@ public class TestDisjointsTestCase extends TestBase {
         classExpressions.add(descA);
         classExpressions.add(descB);
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(classExpressions);
-        m.applyChange(new AddAxiom(ontA, ax));
+        ontA.addAxiom(ax);
         OWLOntology ontB = roundTrip(ontA, new RDFXMLDocumentFormat());
         assertTrue(ontB.containsAxiom(ax));
     }

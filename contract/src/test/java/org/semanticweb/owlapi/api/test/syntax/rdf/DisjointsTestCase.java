@@ -22,8 +22,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -49,13 +47,12 @@ public class DisjointsTestCase extends TestBase {
 
     @Before
     public void setUpManager() {
-        m.getOntologyFactories().add(new OWLOntologyFactoryImpl(builder));
+        m.get().getOntologyFactories().set(new OWLOntologyFactoryImpl(builder));
     }
 
     @Test
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = m
-            .createOntology(IRI.getNextDocumentIRI("urntests#uri"));
+        OWLOntology ontA = getOWLOntology();
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
         OWLObjectProperty prop = createObjectProperty();
@@ -65,7 +62,7 @@ public class DisjointsTestCase extends TestBase {
         classExpressions.add(descA);
         classExpressions.add(descB);
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(classExpressions);
-        m.applyChange(new AddAxiom(ontA, ax));
+        ontA.addAxiom(ax);
         OWLOntology ontB = roundTrip(ontA);
         assertTrue(contains(ontB.axioms(), ax));
     }
