@@ -23,29 +23,18 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import com.google.inject.assistedinject.Assisted;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLMutableOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.model.RemoveImport;
-import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
-import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+
+import com.google.inject.assistedinject.Assisted;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
-        OWLMutableOntology, Serializable {
+public class OWLOntologyImpl extends OWLImmutableOntologyImpl
+    implements OWLMutableOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
@@ -56,9 +45,8 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
      *        ontology id
      */
     @Inject
-    public OWLOntologyImpl(
-            @Nonnull OWLOntologyManager manager,
-            @Nonnull @Assisted OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(@Nonnull @Assisted OWLOntologyManager manager,
+        @Nonnull @Assisted OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 
@@ -76,7 +64,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
     @Nonnull
     @Override
     public List<OWLOntologyChange> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes) {
+        @Nonnull List<? extends OWLOntologyChange> changes) {
         List<OWLOntologyChange> appliedChanges = new ArrayList<>();
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         for (OWLOntologyChange change : changes) {
@@ -94,7 +82,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
 
     @Override
     public List<OWLOntologyChange> addAxioms(
-            Collection<? extends OWLAxiom> axioms) {
+        Collection<? extends OWLAxiom> axioms) {
         // XXX improve interface
         return getOWLOntologyManager().addAxioms(this, new HashSet<>(axioms));
     }
@@ -106,13 +94,13 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
 
     @Override
     public List<OWLOntologyChange> removeAxioms(
-            Collection<? extends OWLAxiom> axioms) {
-        return getOWLOntologyManager()
-                .removeAxioms(this, new HashSet<>(axioms));
+        Collection<? extends OWLAxiom> axioms) {
+        return getOWLOntologyManager().removeAxioms(this,
+            new HashSet<>(axioms));
     }
 
-    protected class OWLOntologyChangeFilter implements
-            OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
+    protected class OWLOntologyChangeFilter
+        implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
