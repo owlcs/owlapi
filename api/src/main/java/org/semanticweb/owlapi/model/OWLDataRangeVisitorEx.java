@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor return type
  */
+@ParametersAreNonnullByDefault
 public interface OWLDataRangeVisitorEx<O> extends OWLVisitorExBase<O> {
 
     /**
@@ -30,8 +31,7 @@ public interface OWLDataRangeVisitorEx<O> extends OWLVisitorExBase<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLDatatype node) {
+    default O visit(OWLDatatype node) {
         return doDefault(node);
     }
 
@@ -42,8 +42,7 @@ public interface OWLDataRangeVisitorEx<O> extends OWLVisitorExBase<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLDataOneOf node) {
+    default O visit(OWLDataOneOf node) {
         return doDefault(node);
     }
 
@@ -54,8 +53,7 @@ public interface OWLDataRangeVisitorEx<O> extends OWLVisitorExBase<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLDataComplementOf node) {
+    default O visit(OWLDataComplementOf node) {
         return doDefault(node);
     }
 
@@ -66,8 +64,7 @@ public interface OWLDataRangeVisitorEx<O> extends OWLVisitorExBase<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLDataIntersectionOf node) {
+    default O visit(OWLDataIntersectionOf node) {
         return doDefault(node);
     }
 
@@ -78,8 +75,7 @@ public interface OWLDataRangeVisitorEx<O> extends OWLVisitorExBase<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLDataUnionOf node) {
+    default O visit(OWLDataUnionOf node) {
         return doDefault(node);
     }
 
@@ -90,8 +86,7 @@ public interface OWLDataRangeVisitorEx<O> extends OWLVisitorExBase<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLDatatypeRestriction node) {
+    default O visit(OWLDatatypeRestriction node) {
         return doDefault(node);
     }
 }

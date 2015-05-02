@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -21,8 +21,9 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor type
  */
+@ParametersAreNonnullByDefault
 public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
-        SWRLRuleVisitorExBase<O> {
+    SWRLRuleVisitorExBase<O> {
 
     /**
      * visit SWRLClassAtom type
@@ -31,8 +32,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLClassAtom node) {
+    default O visit(SWRLClassAtom node) {
         return doDefault(node);
     }
 
@@ -43,8 +43,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLDataRangeAtom node) {
+    default O visit(SWRLDataRangeAtom node) {
         return doDefault(node);
     }
 
@@ -55,8 +54,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLObjectPropertyAtom node) {
+    default O visit(SWRLObjectPropertyAtom node) {
         return doDefault(node);
     }
 
@@ -67,8 +65,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLDataPropertyAtom node) {
+    default O visit(SWRLDataPropertyAtom node) {
         return doDefault(node);
     }
 
@@ -79,8 +76,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLBuiltInAtom node) {
+    default O visit(SWRLBuiltInAtom node) {
         return doDefault(node);
     }
 
@@ -91,8 +87,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLVariable node) {
+    default O visit(SWRLVariable node) {
         return doDefault(node);
     }
 
@@ -103,8 +98,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLIndividualArgument node) {
+    default O visit(SWRLIndividualArgument node) {
         return doDefault(node);
     }
 
@@ -115,8 +109,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLLiteralArgument node) {
+    default O visit(SWRLLiteralArgument node) {
         return doDefault(node);
     }
 
@@ -127,8 +120,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLSameIndividualAtom node) {
+    default O visit(SWRLSameIndividualAtom node) {
         return doDefault(node);
     }
 
@@ -139,8 +131,7 @@ public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
      *        node to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull SWRLDifferentIndividualsAtom node) {
+    default O visit(SWRLDifferentIndividualsAtom node) {
         return doDefault(node);
     }
 }

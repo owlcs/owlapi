@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor type
  */
+@ParametersAreNonnullByDefault
 public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
 
     /**
@@ -30,8 +31,7 @@ public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
      *        object to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+    default O visit(OWLAnnotationAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
@@ -42,8 +42,7 @@ public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
      *        object to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+    default O visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         return doDefault(axiom);
     }
 
@@ -54,8 +53,7 @@ public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
      *        object to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
+    default O visit(OWLAnnotationPropertyDomainAxiom axiom) {
         return doDefault(axiom);
     }
 
@@ -66,8 +64,7 @@ public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
      *        object to visit
      * @return visitor value
      */
-    @Nonnull
-    default O visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+    default O visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return doDefault(axiom);
     }
 }

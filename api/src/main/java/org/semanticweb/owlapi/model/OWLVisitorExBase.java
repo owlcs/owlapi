@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Base interface for visitors that return a value.
@@ -8,17 +8,19 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        return value
  */
+@ParametersAreNonnullByDefault
 public interface OWLVisitorExBase<O> {
 
     /**
      * @param object
      *        object to visit
+     * @param <T>
+     *        type visited
      * @return default value
      * @deprecated use doDefault() instead
      */
     @Deprecated
-    @Nonnull
-    default O getDefaultReturnValue(@Nonnull Object object) {
+    default <T> O getDefaultReturnValue(T object) {
         return doDefault(object);
     }
 
@@ -28,10 +30,11 @@ public interface OWLVisitorExBase<O> {
      * 
      * @param object
      *        The object that was visited.
+     * @param <T>
+     *        type visited
      * @return The default return value
      */
-    @Nonnull
-    default O doDefault(@SuppressWarnings("unused") @Nonnull Object object) {
+    default <T> O doDefault(@SuppressWarnings("unused") T object) {
         return null;
     }
 }
