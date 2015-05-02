@@ -24,7 +24,6 @@ import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
 
 @SuppressWarnings({ "javadoc" })
@@ -121,13 +120,13 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     }
 
     @Test
-    public void testAssertion() throws OWLOntologyCreationException {
+    public void testAssertion() {
         DLExpressivityChecker testsubject = new DLExpressivityChecker(ont());
         String result = testsubject.getDescriptionLogicName();
         assertEquals(expected, result);
     }
 
-    public Set<OWLOntology> ont() throws OWLOntologyCreationException {
+    public Set<OWLOntology> ont() {
         OWLOntology o = getOWLOntology();
         o.addAxiom(object);
         Set<OWLOntology> singleton = Collections.singleton(o);

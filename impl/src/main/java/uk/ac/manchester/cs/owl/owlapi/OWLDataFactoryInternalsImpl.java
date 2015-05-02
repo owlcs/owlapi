@@ -21,17 +21,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.WeakIndexCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,16 +33,16 @@ import com.google.common.cache.LoadingCache;
 /**
  * @author ignazio
  */
-public class OWLDataFactoryInternalsImpl
-    extends OWLDataFactoryInternalsImplNoCache {
+public class OWLDataFactoryInternalsImpl extends
+OWLDataFactoryInternalsImplNoCache {
 
-    private static Logger logger = LoggerFactory
-        .getLogger(OWLDataFactoryInternalsImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(
+    OWLDataFactoryInternalsImpl.class);
     private static final long serialVersionUID = 40000L;
     private AtomicInteger annotationsCount = new AtomicInteger(0);
 
-    protected class BuildableWeakIndexCache<V extends OWLEntity>
-        extends WeakIndexCache<IRI, V> {
+    protected class BuildableWeakIndexCache<V extends OWLEntity> extends
+    WeakIndexCache<IRI, V> {
 
         private static final long serialVersionUID = 40000L;
 
@@ -107,7 +97,7 @@ public class OWLDataFactoryInternalsImpl
      */
     @Inject
     public OWLDataFactoryInternalsImpl(
-        @CompressionEnabled boolean useCompression) {
+    @CompressionEnabled boolean useCompression) {
         super(useCompression);
         classesByURI = buildCache();
         objectPropertiesByURI = buildCache();
@@ -116,19 +106,18 @@ public class OWLDataFactoryInternalsImpl
         individualsByURI = buildCache();
         annotationPropertiesByURI = buildCache();
         CacheBuilder<Object, Object> annotationsCacheBuilder = CacheBuilder
-            .newBuilder().maximumSize(512)
-            .expireAfterAccess(2, TimeUnit.MINUTES);
+        .newBuilder().maximumSize(512).expireAfterAccess(2, TimeUnit.MINUTES);
         if (logger.isDebugEnabled()) {
             annotationsCacheBuilder.recordStats();
         }
-        annotationsCache = annotationsCacheBuilder
-            .build(new CacheLoader<OWLAnnotation, OWLAnnotation>() {
+        annotationsCache = annotationsCacheBuilder.build(
+        new CacheLoader<OWLAnnotation, OWLAnnotation>() {
 
-                @Override
-                public OWLAnnotation load(OWLAnnotation key) {
-                    return key;
-                }
-            });
+            @Override
+            public OWLAnnotation load(OWLAnnotation key) {
+                return key;
+            }
+        });
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -231,7 +220,7 @@ public class OWLDataFactoryInternalsImpl
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
         return annotationPropertiesByURI.cache(iri,
-            Buildable.OWLANNOTATIONPROPERTY);
+        Buildable.OWLANNOTATIONPROPERTY);
     }
 
     /*
@@ -242,7 +231,6 @@ public class OWLDataFactoryInternalsImpl
         return super.getOWLLiteral(literal, lang(lang));
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String lang(String l) {
         if (l == null) {
@@ -261,7 +249,7 @@ public class OWLDataFactoryInternalsImpl
                 int n = annotationsCount.incrementAndGet();
                 if (n % 1000 == 0) {
                     logger.debug("{}: Annotations Cache stats: {}", n,
-                        annotationsCache.stats());
+                    annotationsCache.stats());
                 }
             }
             return annotation;

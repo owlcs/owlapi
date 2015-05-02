@@ -33,7 +33,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     private OWLOntology o;
 
     @Before
-    public void setUpO() throws OWLOntologyCreationException {
+    public void setUpO() {
         o = getOWLOntology();
     }
 
@@ -51,8 +51,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         }
     }
 
-    private OWLOntology saveAndReload()
-        throws OWLOntologyStorageException, OWLOntologyCreationException {
+    private OWLOntology saveAndReload() throws OWLOntologyStorageException,
+        OWLOntologyCreationException {
         return roundTrip(o, new FunctionalSyntaxDocumentFormat());
     }
 
@@ -104,15 +104,15 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         // FSS/API etc created single element axiom.
         // but this is coding around a problem in the spec.
         checkSingletonDisjointFixup(e1, DisjointClasses(e1, e1));
-        checkSingletonDisjointFixup(OWLThing(),
-            DisjointClasses(OWLThing(), OWLThing()));
+        checkSingletonDisjointFixup(OWLThing(), DisjointClasses(OWLThing(),
+        OWLThing()));
         OWLDisjointClassesAxiom singleClassDisjointAxiom = DisjointClasses(e1);
         checkSingletonDisjointFixup(e1, singleClassDisjointAxiom);
         OWLAxiom validAxiom = DisjointClasses(e2, e3);
         // when
         addAxioms(singleClassDisjointAxiom, validAxiom);
         OWLOntology reloaded = roundTrip(o,
-            new FunctionalSyntaxDocumentFormat());
+        new FunctionalSyntaxDocumentFormat());
         // then
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
@@ -122,15 +122,15 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     protected void checkSingletonDisjointFixup(OWLClass e1,
         OWLDisjointClassesAxiom wrongAxiom) {
-        Set<OWLClassExpression> classExpressions = asSet(
-            wrongAxiom.classExpressions());
+        Set<OWLClassExpression> classExpressions = asSet(wrongAxiom
+        .classExpressions());
         assertEquals("should have two members", 2, classExpressions.size());
         assertTrue("contains e1", classExpressions.contains(e1));
         if (!e1.isOWLThing()) {
             assertTrue("contains Thing", classExpressions.contains(OWLThing()));
         } else {
-            assertTrue("contains Nothing",
-                classExpressions.contains(OWLNothing()));
+            assertTrue("contains Nothing", classExpressions.contains(
+            OWLNothing()));
         }
         assertTrue("is annotated", wrongAxiom.isAnnotated());
     }

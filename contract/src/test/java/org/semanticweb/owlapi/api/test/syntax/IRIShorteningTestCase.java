@@ -14,7 +14,6 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -28,14 +27,14 @@ public class IRIShorteningTestCase extends TestBase {
     public void testIriEqualToPrefixNotShortenedInFSS() throws Exception {
         OWLOntology o = createTestOntology();
         String output = saveOntology(o, new FunctionalSyntaxDocumentFormat())
-            .toString();
+        .toString();
         matchExact(output, "NamedIndividual(rdf:)", false);
         matchExact(output, "NamedIndividual(rdf:type)", true);
     }
 
     public void matchExact(String output, String text, boolean expected) {
         String message = "should " + (expected ? "" : "not ") + "contain" + text
-            + " - " + output;
+        + " - " + output;
         assertEquals(message, expected, output.contains(text));
     }
 
@@ -55,11 +54,10 @@ public class IRIShorteningTestCase extends TestBase {
     }
 
     @Nonnull
-    private OWLOntology createTestOntology()
-        throws OWLOntologyCreationException {
+    private OWLOntology createTestOntology() {
         OWLOntology o = getOWLOntology();
-        OWLNamedIndividual i = df
-            .getOWLNamedIndividual(IRI(Namespaces.RDF.getPrefixIRI()));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF
+        .getPrefixIRI()));
         o.addAxiom(df.getOWLDeclarationAxiom(i));
         i = df.getOWLNamedIndividual(OWLRDFVocabulary.RDF_TYPE);
         o.addAxiom(df.getOWLDeclarationAxiom(i));

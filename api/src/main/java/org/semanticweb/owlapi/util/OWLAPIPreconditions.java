@@ -191,7 +191,6 @@ public final class OWLAPIPreconditions {
      * 
      * @return empty optional instance
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Optional<T> emptyOptional() {
         return Optional.empty();
@@ -204,7 +203,6 @@ public final class OWLAPIPreconditions {
      *        type for the returned optional
      * @return empty optional instance
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Optional<T> emptyOptional(
         @SuppressWarnings("unused") Class<T> t) {
@@ -219,7 +217,6 @@ public final class OWLAPIPreconditions {
      *        Optional.empty())
      * @return optional instance (content can be absent)
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Optional<T> optional(T t) {
         return Optional.ofNullable(t);

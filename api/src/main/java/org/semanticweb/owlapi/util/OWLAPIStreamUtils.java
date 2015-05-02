@@ -1,13 +1,6 @@
 package org.semanticweb.owlapi.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
@@ -151,8 +144,8 @@ public class OWLAPIStreamUtils {
      */
     public static int compareStreams(Stream<? extends OWLObject> set1,
         Stream<? extends OWLObject> set2) {
-        return compareIterators(set1.sorted().iterator(),
-            set2.sorted().iterator());
+        return compareIterators(set1.sorted().iterator(), set2.sorted()
+        .iterator());
     }
 
     /**
@@ -230,7 +223,6 @@ public class OWLAPIStreamUtils {
      * 
      * @return empty stream
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Stream<T> empty() {
         return Stream.empty();

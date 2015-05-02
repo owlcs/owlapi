@@ -32,9 +32,7 @@ questions.
         <version>5.0.0-ALPHA</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>net.sourceforge.owlapi</groupId>
-    <artifactId>benchmarks</artifactId>
-    <version>5.0.0-ALPHA</version>
+    <artifactId>owlapi-benchmarks</artifactId>
     <packaging>jar</packaging>
 
     <name>Auto-generated JMH benchmark</name>

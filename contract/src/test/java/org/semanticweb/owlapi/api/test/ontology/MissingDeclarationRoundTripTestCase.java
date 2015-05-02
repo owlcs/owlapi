@@ -24,15 +24,14 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldFindOneAxiom() throws Exception {
-        OWLAnnotationProperty p = AnnotationProperty(
-            IRI("http://test.org/MissingDeclaration.owl#p"));
+        OWLAnnotationProperty p = AnnotationProperty(IRI(
+        "http://test.org/MissingDeclaration.owl#p"));
         OWLOntology ontology = createOntology(p);
         assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
@@ -44,8 +43,7 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
     }
 
     @Nonnull
-    private OWLOntology createOntology(@Nonnull OWLAnnotationProperty p)
-        throws OWLOntologyCreationException {
+    private OWLOntology createOntology(@Nonnull OWLAnnotationProperty p) {
         OWLClass a = Class(IRI("http://test.org/MissingDeclaration.owl#A"));
         OWLOntology ontology = getOWLOntology();
         OWLAxiom axiom = AnnotationAssertion(p, a.getIRI(), Literal("Hello"));

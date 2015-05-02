@@ -46,11 +46,11 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @since 2.0.0
  */
 public interface OWLOntology extends OWLObject, HasAnnotations,
-    HasDirectImports, HasImportsClosure, HasOntologyID, OWLAxiomCollection,
-    OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs,
-    OWLAxiomIndex, HasApplyChange, HasApplyChanges, HasDirectAddAxiom,
-    HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms,
-    HasApplyDirectChange, IsAnonymous {
+HasDirectImports, HasImportsClosure, HasOntologyID, OWLAxiomCollection,
+OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs,
+OWLAxiomIndex, HasApplyChange, HasApplyChanges, HasDirectAddAxiom,
+HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms,
+HasApplyDirectChange, IsAnonymous {
 
     // Default implementation of these mutating methods is to do nothing.
     // Adding them to this interface allows access without casting, since
@@ -88,7 +88,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
         return Collections.emptyList();
     }
 
-    @SuppressWarnings("null")
     @Override
     @Nonnull
     default List<OWLOntologyChange> addAxioms(@Nonnull OWLAxiom... axioms) {
@@ -543,7 +542,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
         @Nonnull OutputStream outputStream) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat,
-            outputStream);
+        outputStream);
     }
 
     /**
@@ -575,7 +574,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
         @Nonnull OWLOntologyDocumentTarget documentTarget)
             throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat,
-            documentTarget);
+        documentTarget);
     }
 
     @Override

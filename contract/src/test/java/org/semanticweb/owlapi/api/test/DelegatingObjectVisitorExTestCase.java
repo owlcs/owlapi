@@ -107,10 +107,8 @@ import org.semanticweb.owlapi.util.DelegatingObjectVisitorEx;
 @SuppressWarnings({ "javadoc" })
 public class DelegatingObjectVisitorExTestCase extends TestBase {
 
-    @SuppressWarnings("null")
     @Test
     public void testAssertion() {
-        @SuppressWarnings("unchecked")
         OWLObjectVisitorEx<Object> test = mock(OWLObjectVisitorEx.class);
         DelegatingObjectVisitorEx<Object> testsubject = new DelegatingObjectVisitorEx<>(
                 test);

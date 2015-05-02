@@ -17,12 +17,11 @@ public class XZStreamDocumentSourceTestCase {
 
     @Test
     public void testReadKoalaDoc() throws IOException {
-        @SuppressWarnings("null")
         XZStreamDocumentSource source = new XZStreamDocumentSource(getClass()
-                .getResourceAsStream("/koala.owl.xz"));
+        .getResourceAsStream("/koala.owl.xz"));
         Optional<Reader> reader = source.getReader();
         assertTrue("input stream available", source.getInputStream()
-                .isPresent());
+        .isPresent());
         assertTrue("input reader available", reader.isPresent());
         BufferedReader in = new BufferedReader(reader.get());
         int lineCount = 0;

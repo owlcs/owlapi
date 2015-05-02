@@ -19,51 +19,9 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLAnnotationImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLAnonymousIndividualImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLClassImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataAllValuesFromImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataComplementOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataExactCardinalityImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataHasValueImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataIntersectionOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataMaxCardinalityImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataMinCardinalityImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataOneOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataSomeValuesFromImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataUnionOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeRestrictionImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLFacetRestrictionImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectAllValuesFromImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectComplementOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectExactCardinalityImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectHasSelfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectHasValueImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectIntersectionOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectInverseOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectMaxCardinalityImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectMinCardinalityImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectOneOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLObjectUnionOfImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLBuiltInAtomImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLClassAtomImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLDataPropertyAtomImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLDataRangeAtomImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLDifferentIndividualsAtomImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLIndividualArgumentImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLLiteralArgumentImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLObjectPropertyAtomImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLSameIndividualAtomImpl;
-import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
+import uk.ac.manchester.cs.owl.owlapi.*;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class OWLObjectTypeIndexProviderTestCase {
 
     Builder b = new Builder();
@@ -432,7 +390,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion73() {
         OWLObjectIntersectionOfImpl mock = mock(
-            OWLObjectIntersectionOfImpl.class);
+        OWLObjectIntersectionOfImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3001);
     }
@@ -461,7 +419,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion79() {
         OWLObjectSomeValuesFromImpl mock = mock(
-            OWLObjectSomeValuesFromImpl.class);
+        OWLObjectSomeValuesFromImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3005);
     }
@@ -469,7 +427,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion81() {
         OWLObjectAllValuesFromImpl mock = mock(
-            OWLObjectAllValuesFromImpl.class);
+        OWLObjectAllValuesFromImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3006);
     }
@@ -484,7 +442,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion84() {
         OWLObjectMinCardinalityImpl mock = mock(
-            OWLObjectMinCardinalityImpl.class);
+        OWLObjectMinCardinalityImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3008);
     }
@@ -492,7 +450,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion86() {
         OWLObjectExactCardinalityImpl mock = mock(
-            OWLObjectExactCardinalityImpl.class);
+        OWLObjectExactCardinalityImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3009);
     }
@@ -500,7 +458,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion88() {
         OWLObjectMaxCardinalityImpl mock = mock(
-            OWLObjectMaxCardinalityImpl.class);
+        OWLObjectMaxCardinalityImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3010);
     }
@@ -543,7 +501,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion97() {
         OWLDataExactCardinalityImpl mock = mock(
-            OWLDataExactCardinalityImpl.class);
+        OWLDataExactCardinalityImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 3016);
     }
@@ -586,7 +544,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion106() {
         OWLDatatypeRestrictionImpl mock = mock(
-            OWLDatatypeRestrictionImpl.class);
+        OWLDatatypeRestrictionImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 4006);
     }
@@ -615,7 +573,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion111() {
         SWRLObjectPropertyAtomImpl mock = mock(
-            SWRLObjectPropertyAtomImpl.class);
+        SWRLObjectPropertyAtomImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 6003);
     }
@@ -644,7 +602,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion116() {
         SWRLIndividualArgumentImpl mock = mock(
-            SWRLIndividualArgumentImpl.class);
+        SWRLIndividualArgumentImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 6007);
     }
@@ -659,7 +617,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion119() {
         SWRLSameIndividualAtomImpl mock = mock(
-            SWRLSameIndividualAtomImpl.class);
+        SWRLSameIndividualAtomImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 6009);
     }
@@ -667,7 +625,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion74() {
         SWRLDifferentIndividualsAtomImpl mock = mock(
-            SWRLDifferentIndividualsAtomImpl.class);
+        SWRLDifferentIndividualsAtomImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 6010);
     }
@@ -724,7 +682,7 @@ public class OWLObjectTypeIndexProviderTestCase {
     @Test
     public void testAssertion104() {
         OWLAnonymousIndividualImpl mock = mock(
-            OWLAnonymousIndividualImpl.class);
+        OWLAnonymousIndividualImpl.class);
         t.visit(mock);
         assertEquals(t.getTypeIndex(mock), 1007);
     }

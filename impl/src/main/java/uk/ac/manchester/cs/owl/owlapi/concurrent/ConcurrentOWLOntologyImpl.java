@@ -33,80 +33,7 @@ import javax.inject.Inject;
  */
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi.model.OWLMutableOntology;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLPrimitive;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Imports;
@@ -116,7 +43,7 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
-@SuppressWarnings({ "null", "deprecation" })
+@SuppressWarnings({ "deprecation" })
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
 
     private static final long serialVersionUID = 40000L;
@@ -141,7 +68,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
      */
     @Inject
     public ConcurrentOWLOntologyImpl(@Nonnull OWLOntology delegate,
-        @Nonnull ReadWriteLock readWriteLock) {
+    @Nonnull ReadWriteLock readWriteLock) {
         this.delegate = verifyNotNull(delegate);
         verifyNotNull(readWriteLock);
         readLock = readWriteLock.readLock();
@@ -1856,7 +1783,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.getAxioms(aClass, aClass1, owlObject, imports,
-                navigation);
+            navigation);
         } finally {
             readLock.unlock();
         }
@@ -1869,7 +1796,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.axioms(aClass, aClass1, owlObject, imports,
-                navigation);
+            navigation);
         } finally {
             readLock.unlock();
         }
@@ -1880,8 +1807,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate
-                .getSubAnnotationPropertyOfAxioms(owlAnnotationProperty);
+            return delegate.getSubAnnotationPropertyOfAxioms(
+            owlAnnotationProperty);
         } finally {
             readLock.unlock();
         }
@@ -1892,8 +1819,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate
-                .getAnnotationPropertyDomainAxioms(owlAnnotationProperty);
+            return delegate.getAnnotationPropertyDomainAxioms(
+            owlAnnotationProperty);
         } finally {
             readLock.unlock();
         }
@@ -1904,8 +1831,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate
-                .getAnnotationPropertyRangeAxioms(owlAnnotationProperty);
+            return delegate.getAnnotationPropertyRangeAxioms(
+            owlAnnotationProperty);
         } finally {
             readLock.unlock();
         }
@@ -1916,8 +1843,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate
-                .annotationPropertyDomainAxioms(owlAnnotationProperty);
+            return delegate.annotationPropertyDomainAxioms(
+            owlAnnotationProperty);
         } finally {
             readLock.unlock();
         }
@@ -1928,8 +1855,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLAnnotationProperty owlAnnotationProperty) {
         readLock.lock();
         try {
-            return delegate
-                .annotationPropertyRangeAxioms(owlAnnotationProperty);
+            return delegate.annotationPropertyRangeAxioms(
+            owlAnnotationProperty);
         } finally {
             readLock.unlock();
         }
@@ -2027,7 +1954,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.getObjectSubPropertyAxiomsForSubProperty(
-                owlObjectPropertyExpression);
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2039,7 +1966,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.getObjectSubPropertyAxiomsForSuperProperty(
-                owlObjectPropertyExpression);
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2050,8 +1977,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getObjectPropertyDomainAxioms(owlObjectPropertyExpression);
+            return delegate.getObjectPropertyDomainAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2062,8 +1989,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getObjectPropertyRangeAxioms(owlObjectPropertyExpression);
+            return delegate.getObjectPropertyRangeAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2074,8 +2001,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getInverseObjectPropertyAxioms(owlObjectPropertyExpression);
+            return delegate.getInverseObjectPropertyAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2087,7 +2014,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.getEquivalentObjectPropertiesAxioms(
-                owlObjectPropertyExpression);
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2098,8 +2025,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getDisjointObjectPropertiesAxioms(owlObjectPropertyExpression);
+            return delegate.getDisjointObjectPropertiesAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2110,8 +2037,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getFunctionalObjectPropertyAxioms(owlObjectPropertyExpression);
+            return delegate.getFunctionalObjectPropertyAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2123,7 +2050,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.getInverseFunctionalObjectPropertyAxioms(
-                owlObjectPropertyExpression);
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2134,8 +2061,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getSymmetricObjectPropertyAxioms(owlObjectPropertyExpression);
+            return delegate.getSymmetricObjectPropertyAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2146,8 +2073,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getAsymmetricObjectPropertyAxioms(owlObjectPropertyExpression);
+            return delegate.getAsymmetricObjectPropertyAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2158,8 +2085,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getReflexiveObjectPropertyAxioms(owlObjectPropertyExpression);
+            return delegate.getReflexiveObjectPropertyAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2171,7 +2098,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.getIrreflexiveObjectPropertyAxioms(
-                owlObjectPropertyExpression);
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2182,8 +2109,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression owlObjectPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getTransitiveObjectPropertyAxioms(owlObjectPropertyExpression);
+            return delegate.getTransitiveObjectPropertyAxioms(
+            owlObjectPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2194,8 +2121,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLDataProperty owlDataProperty) {
         readLock.lock();
         try {
-            return delegate
-                .getDataSubPropertyAxiomsForSubProperty(owlDataProperty);
+            return delegate.getDataSubPropertyAxiomsForSubProperty(
+            owlDataProperty);
         } finally {
             readLock.unlock();
         }
@@ -2207,7 +2134,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.getDataSubPropertyAxiomsForSuperProperty(
-                owlDataPropertyExpression);
+            owlDataPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2262,8 +2189,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLDataPropertyExpression owlDataPropertyExpression) {
         readLock.lock();
         try {
-            return delegate
-                .getFunctionalDataPropertyAxioms(owlDataPropertyExpression);
+            return delegate.getFunctionalDataPropertyAxioms(
+            owlDataPropertyExpression);
         } finally {
             readLock.unlock();
         }
@@ -2318,8 +2245,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate
-                .getNegativeObjectPropertyAssertionAxioms(owlIndividual);
+            return delegate.getNegativeObjectPropertyAssertionAxioms(
+            owlIndividual);
         } finally {
             readLock.unlock();
         }
@@ -2330,8 +2257,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLIndividual owlIndividual) {
         readLock.lock();
         try {
-            return delegate
-                .getNegativeDataPropertyAssertionAxioms(owlIndividual);
+            return delegate.getNegativeDataPropertyAssertionAxioms(
+            owlIndividual);
         } finally {
             readLock.unlock();
         }
@@ -2825,8 +2752,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLDataPropertyExpression superProperty) {
         readLock.lock();
         try {
-            return delegate
-                .dataSubPropertyAxiomsForSuperProperty(superProperty);
+            return delegate.dataSubPropertyAxiomsForSuperProperty(
+            superProperty);
         } finally {
             readLock.unlock();
         }
@@ -3010,7 +2937,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         readLock.lock();
         try {
             return delegate.getAxioms(type, explicitClass, entity,
-                forSubPosition);
+            forSubPosition);
         } finally {
             readLock.unlock();
         }
@@ -3212,8 +3139,8 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         OWLObjectPropertyExpression superProperty) {
         readLock.lock();
         try {
-            return delegate
-                .objectSubPropertyAxiomsForSuperProperty(superProperty);
+            return delegate.objectSubPropertyAxiomsForSuperProperty(
+            superProperty);
         } finally {
             readLock.unlock();
         }
