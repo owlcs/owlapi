@@ -38,5 +38,17 @@ public interface HasDirectAddAxioms {
      */
     @Nonnull
     List<OWLOntologyChange> addAxioms(
-            @Nonnull Collection<? extends OWLAxiom> axioms);
+        @Nonnull Collection<? extends OWLAxiom> axioms);
+
+    /**
+     * A convenience method that adds a set of axioms to an ontology. The
+     * appropriate AddAxiom change objects are automatically generated.
+     * 
+     * @param axioms
+     *        The axioms to be added. Not {@code null}.
+     * @return A list of ontology changes that represent the changes which took
+     *         place in order to add the axioms.
+     */
+    @Nonnull
+    List<OWLOntologyChange> addAxioms(@Nonnull OWLAxiom... axioms);
 }
