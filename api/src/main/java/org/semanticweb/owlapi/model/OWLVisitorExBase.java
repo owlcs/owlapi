@@ -12,19 +12,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public interface OWLVisitorExBase<O> {
 
     /**
-     * @param object
-     *        object to visit
-     * @param <T>
-     *        type visited
-     * @return default value
-     * @deprecated use doDefault() instead
-     */
-    @Deprecated
-    default <T> O getDefaultReturnValue(T object) {
-        return doDefault(object);
-    }
-
-    /**
      * Gets the default return value for this visitor. By default, the default
      * is {@code null}
      * 
@@ -34,7 +21,9 @@ public interface OWLVisitorExBase<O> {
      *        type visited
      * @return The default return value
      */
+    @SuppressWarnings("null")
     default <T> O doDefault(@SuppressWarnings("unused") T object) {
+        // no other way to provide a default implementation
         return null;
     }
 }
