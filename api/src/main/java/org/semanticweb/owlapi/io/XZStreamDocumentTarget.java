@@ -36,11 +36,11 @@ import com.google.common.io.Closeables;
  * @author ses
  * @since 4.0.2
  */
-public class XZStreamDocumentTarget
-    implements OWLOntologyDocumentTarget, AutoCloseable {
+public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
+    AutoCloseable {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(XZStreamDocumentTarget.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+        XZStreamDocumentTarget.class);
     private final OutputStream outputStream;
     private XZOutputStream xzOutputStream;
     private FilterOptions filterOptions[];
@@ -91,8 +91,8 @@ public class XZStreamDocumentTarget
 
     @Override
     public void close() throws Exception {
-        XZOutputStream xzOutputStream = this.xzOutputStream;
-        this.xzOutputStream = null;
-        Closeables.close(xzOutputStream, false);
+        XZOutputStream toReturn = xzOutputStream;
+        xzOutputStream = null;
+        Closeables.close(toReturn, false);
     }
 }

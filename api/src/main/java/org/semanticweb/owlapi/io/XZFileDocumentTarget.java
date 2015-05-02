@@ -40,11 +40,11 @@ import com.google.common.io.Closeables;
  * @author ses
  * @since 4.0.2
  */
-public class XZFileDocumentTarget
-    implements OWLOntologyDocumentTarget, AutoCloseable {
+public class XZFileDocumentTarget implements OWLOntologyDocumentTarget,
+    AutoCloseable {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(XZFileDocumentTarget.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+        XZFileDocumentTarget.class);
     @Nonnull
     private final File out;
     private final FilterOptions[] filterOptions;
@@ -109,8 +109,8 @@ public class XZFileDocumentTarget
 
     @Override
     public void close() throws Exception {
-        OutputStream outputStream = this.outputStream;
-        this.outputStream = null;
-        Closeables.close(outputStream, false);
+        OutputStream toReturn = outputStream;
+        outputStream = null;
+        Closeables.close(toReturn, false);
     }
 }
