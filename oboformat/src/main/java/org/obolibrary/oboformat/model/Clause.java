@@ -8,10 +8,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Clause. */
 public class Clause {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
     protected String tag;
     @Nonnull
     protected final Collection<Object> values = new ArrayList<>();
@@ -127,12 +130,19 @@ public class Clause {
 
     /**
      * @return value
+     * @throws FrameStructureException
+     *         if there is no value
      */
-    @Nullable
-    public Object getValue() {
+    @Nonnull
+    public Object getValue() throws FrameStructureException {
         Object value = null;
         if (!values.isEmpty()) {
             value = values.iterator().next();
+        }
+        if (value == null) {
+            // TODO: Throw Exceptions
+            LOGGER.error("Cannot translate: {}", this);
+            throw new FrameStructureException("Clause value is null: " + this);
         }
         return value;
     }
@@ -144,25 +154,30 @@ public class Clause {
      *        value type
      * @return value
      */
-    @Nullable
+    @Nonnull
     public <T> T getValue(@Nonnull Class<T> cls) {
         Object value = getValue();
-        if (cls.isInstance(value)) {
-            return cls.cast(value);
-        }
-        return (T) null;
+        return cls.cast(value);
     }
 
     /**
      * @return value2
+     * @throws FrameStructureException
+     *         if there is no value
      */
-    @Nullable
-    public Object getValue2() {
+    @Nonnull
+    public Object getValue2() throws FrameStructureException {
         Object value = null;
         if (values.size() > 1) {
             Iterator<Object> iterator = values.iterator();
             iterator.next();
             value = iterator.next();
+        }
+        if (value == null) {
+            // TODO: Throw Exceptions
+            LOGGER.error("Cannot translate: {}", this);
+            throw new FrameStructureException("Clause second value is null: "
+                + this);
         }
         return value;
     }
@@ -174,13 +189,10 @@ public class Clause {
      *        value type
      * @return value2
      */
-    @Nullable
+    @Nonnull
     public <T> T getValue2(@Nonnull Class<T> cls) {
         Object value = getValue2();
-        if (cls.isInstance(value)) {
-            return cls.cast(value);
-        }
-        return (T) null;
+        return cls.cast(value);
     }
 
     /**
@@ -287,7 +299,7 @@ public class Clause {
     @Override
     public int hashCode() {
         return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode()
-        + 31 * 31 * values.hashCode() + (tag == null ? 0 : tag.hashCode());
+            + 31 * 31 * values.hashCode() + (tag == null ? 0 : tag.hashCode());
     }
 
     @Override
@@ -306,27 +318,29 @@ public class Clause {
             // special case for comparing booleans
             // this is a bit of a hack - ideally owl2obo would use the correct
             // types
-            Object v1 = getValue();
-            Object v2 = other.getValue();
-            if (v1 != v2) {
-                if (v1 != null) {
+            try {
+                Object v1 = getValue();
+                Object v2 = other.getValue();
+                if (v1 != v2) {
                     if (!v1.equals(v2)) {
                         if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
                             // special case - OK
                         } else if (Boolean.TRUE.equals(v2) && "true".equals(
-                        v1)) {
+                            v1)) {
                             // special case - OK
                         } else if (Boolean.FALSE.equals(v1) && "false".equals(
-                        v2)) {
+                            v2)) {
                             // special case - OK
                         } else if (Boolean.FALSE.equals(v2) && "false".equals(
-                        v1)) {
+                            v1)) {
                             // special case - OK
                         } else {
                             return false;
                         }
                     }
                 }
+            } catch (@SuppressWarnings("unused") FrameStructureException e) {
+                // this cannot happen as it's already been tested
             }
         } else {
             if (!getValues().equals(other.getValues())) {

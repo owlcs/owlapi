@@ -1,9 +1,7 @@
 package org.obolibrary.oboformat.model;
 
-import java.io.IOException;
-
 /** The Class DocumentStructureException. */
-public class DocumentStructureException extends IOException {
+public class DocumentStructureException extends RuntimeException {
 
     // generated
     private static final long serialVersionUID = 40000L;

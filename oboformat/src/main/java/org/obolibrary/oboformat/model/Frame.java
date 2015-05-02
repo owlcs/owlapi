@@ -3,6 +3,7 @@ package org.obolibrary.oboformat.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -17,14 +18,10 @@ public class Frame {
     /** The Enum FrameType. */
     public enum FrameType {
         /** HEADER. */
-        HEADER,
-        /** TERM. */
-        TERM,
-        /** TYPEDEF. */
-        TYPEDEF,
-        /** INSTANCE. */
-        INSTANCE,
-        /** ANNOTATION. */
+        HEADER, /** TERM. */
+        TERM, /** TYPEDEF. */
+        TYPEDEF, /** INSTANCE. */
+        INSTANCE, /** ANNOTATION. */
         ANNOTATION
     }
 
@@ -56,7 +53,9 @@ public class Frame {
         clauses = new ArrayList<>();
     }
 
-    /** @return the type */
+    /**
+     * @return the type
+     */
     public FrameType getType() {
         return type;
     }
@@ -69,7 +68,9 @@ public class Frame {
         this.type = type;
     }
 
-    /** @return the id */
+    /**
+     * @return the id
+     */
     public String getId() {
         return id;
     }
@@ -82,7 +83,9 @@ public class Frame {
         this.id = id;
     }
 
-    /** @return the clauses */
+    /**
+     * @return the clauses
+     */
     public Collection<Clause> getClauses() {
         return clauses;
     }
@@ -93,8 +96,8 @@ public class Frame {
      * @return the clauses for tag
      */
     @Nonnull
-    public Collection<Clause> getClauses(String tag) {
-        Collection<Clause> cls = new ArrayList<>();
+    public List<Clause> getClauses(String tag) {
+        List<Clause> cls = new ArrayList<>();
         for (Clause cl : clauses) {
             if (cl.getTag().equals(tag)) {
                 cls.add(cl);
@@ -109,7 +112,7 @@ public class Frame {
      * @return the clauses for tag
      */
     @Nonnull
-    public Collection<Clause> getClauses(@Nonnull OboFormatTag tag) {
+    public List<Clause> getClauses(@Nonnull OboFormatTag tag) {
         return getClauses(tag.getTag());
     }
 
@@ -204,7 +207,7 @@ public class Frame {
             return null;
         }
         Object value = getClause(tag).getValue();
-        if (value != null && value.getClass().isAssignableFrom(cls)) {
+        if (value.getClass().isAssignableFrom(cls)) {
             return cls.cast(value);
         }
         return null;
@@ -257,7 +260,7 @@ public class Frame {
      */
     @Nonnull
     public <T> Collection<T> getTagValues(@Nonnull OboFormatTag tag,
-            @Nonnull Class<T> cls) {
+        @Nonnull Class<T> cls) {
         return getTagValues(tag.getTag(), cls);
     }
 
@@ -293,7 +296,9 @@ public class Frame {
         return xrefs;
     }
 
-    /** @return the tags */
+    /**
+     * @return the tags
+     */
     @Nonnull
     public Set<String> getTags() {
         Set<String> tags = new HashSet<>();
@@ -331,45 +336,43 @@ public class Frame {
     public void check() throws FrameStructureException {
         if (FrameType.HEADER.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY,
-                    OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
-                    OboFormatTag.TAG_DEFAULT_NAMESPACE,
-                    OboFormatTag.TAG_SAVED_BY,
-                    OboFormatTag.TAG_AUTO_GENERATED_BY);
+                OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
+                OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY,
+                OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN,
-                    OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
-                    OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+                OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
+                OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
-            if (getClauses(OboFormatTag.TAG_ID).size() != 1) {
+            List<Clause> tagIdClauses = getClauses(OboFormatTag.TAG_ID);
+            if (tagIdClauses.size() != 1) {
                 throw new FrameStructureException(this,
-                        "cardinality of id field must be 1");
+                    "cardinality of id field must be 1");
             }
-            if (getClause(OboFormatTag.TAG_ID).getValue() == null) {
-                throw new FrameStructureException(this,
-                        "id field must not be null");
-            }
+            // this call will verify that the value is not null
+            tagIdClauses.get(0).getValue();
             if (getId() == null) {
                 throw new FrameStructureException(this, "id field must be set");
             }
         }
-        Collection<Clause> iClauses = getClauses(OboFormatTag.TAG_INTERSECTION_OF);
+        Collection<Clause> iClauses = getClauses(
+            OboFormatTag.TAG_INTERSECTION_OF);
         if (iClauses.size() == 1) {
             throw new FrameStructureException(this,
-                    "single intersection_of tags are not allowed");
+                "single intersection_of tags are not allowed");
         }
-        checkMaxOneCardinality(
-                OboFormatTag.TAG_IS_ANONYMOUS,
-                OboFormatTag.TAG_NAME,
-                // OboFormatTag.TAG_NAMESPACE,
-                OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT,
-                OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
-                OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
-                OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
-                OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
-                OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
-                OboFormatTag.TAG_CREATION_DATE);
+        checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS,
+            OboFormatTag.TAG_NAME,
+            // OboFormatTag.TAG_NAMESPACE,
+            OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT,
+            OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
+            OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
+            OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
+            OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+            OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
+            OboFormatTag.TAG_CREATION_DATE);
     }
 
     /**
@@ -381,11 +384,11 @@ public class Frame {
      *         frame structure exception
      */
     private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags)
-            throws FrameStructureException {
+        throws FrameStructureException {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
-                throw new FrameStructureException(this, "multiple "
-                        + tag.getTag() + " tags not allowed.");
+                throw new FrameStructureException(this, "multiple " + tag
+                    .getTag() + " tags not allowed.");
             }
         }
     }

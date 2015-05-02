@@ -19,8 +19,8 @@ import org.slf4j.LoggerFactory;
 /** Xref expander. */
 public class XrefExpander {
 
-    protected static final Logger LOG = LoggerFactory
-            .getLogger(XrefExpander.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(
+        XrefExpander.class);
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
@@ -87,41 +87,43 @@ public class XrefExpander {
         Map<String, String> relationsUseByIdSpace = new HashMap<>();
         for (Clause c : sourceOBODoc.getHeaderFrame().getClauses()) {
             String[] parts;
-            String v = c.getValue(String.class);
-            if (v == null) {
-                LOG.error("problem with header clause in xref expansion: {}", c);
-                continue;
-            }
+            String v = c.getValue().toString();
             parts = v.split("\\s");
             String relation = null;
             String idSpace = parts[0];
-            if (c.getTag().equals(
-                    OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag())) {
+            if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT
+                .getTag())) {
                 addRule(parts[0], new EquivalenceExpansion());
-                // addMacro(idSpace,"is_specific_equivalent_of","Class: ?X EquivalentTo: ?Y and "+oboIdToIRI(parts[1])+" some "+oboIdToIRI(parts[2]));
+                // addMacro(idSpace,"is_specific_equivalent_of","Class: ?X
+                // EquivalentTo: ?Y and "+oboIdToIRI(parts[1])+" some
+                // "+oboIdToIRI(parts[2]));
             } else if (c.getTag().equals(
-                    OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
+                OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
                 addRule(idSpace, new GenusDifferentiaExpansion(parts[1],
-                        parts[2]));
-                // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some "+oboIdToIRI(parts[2]));
+                    parts[2]));
+                // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y
+                // EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some
+                // "+oboIdToIRI(parts[2]));
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
             } else if (c.getTag().equals(
-                    OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA
-                            .getTag())) {
+                OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA
+                    .getTag())) {
                 addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1],
-                        parts[2]));
-                // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some "+oboIdToIRI(parts[2]));
+                    parts[2]));
+                // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y
+                // EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some
+                // "+oboIdToIRI(parts[2]));
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
             } else if (c.getTag().equals(
-                    OboFormatTag.TAG_TREAT_XREFS_AS_HAS_SUBCLASS.getTag())) {
+                OboFormatTag.TAG_TREAT_XREFS_AS_HAS_SUBCLASS.getTag())) {
                 addRule(idSpace, new HasSubClassExpansion());
-            } else if (c.getTag().equals(
-                    OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag())) {
+            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A
+                .getTag())) {
                 addRule(idSpace, new IsaExpansion());
             } else if (c.getTag().equals(
-                    OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag())) {
+                OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag())) {
                 addRule(idSpace, new RelationshipExpansion(parts[1]));
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
@@ -133,7 +135,7 @@ public class XrefExpander {
                 OBODoc tgt = new OBODoc();
                 Frame thf = new Frame(FrameType.HEADER);
                 thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, targetBase
-                        + "-" + idSpace.toLowerCase()));
+                    + "-" + idSpace.toLowerCase()));
                 tgt.setHeaderFrame(thf);
                 targetDocMap.put(idSpace, tgt);
                 sourceOBODoc.addImportedOBODoc(tgt);
@@ -182,12 +184,10 @@ public class XrefExpander {
             Collection<Clause> clauses = f.getClauses(OboFormatTag.TAG_XREF);
             for (Clause c : clauses) {
                 Xref x = c.getValue(Xref.class);
-                if (x != null) {
-                    String xid = x.getIdref();
-                    String s = getIDSpace(xid);
-                    if (treatMap.containsKey(s)) {
-                        treatMap.get(s).expand(f, id, xid);
-                    }
+                String xid = x.getIdref();
+                String s = getIDSpace(xid);
+                if (treatMap.containsKey(s)) {
+                    treatMap.get(s).expand(f, id, xid);
                 }
             }
         }
@@ -226,7 +226,7 @@ public class XrefExpander {
                 } catch (FrameMergeException e) {
                     // this should be impossible
                     LOG.error("Frame merge exceptions should not be possible",
-                            e);
+                        e);
                 }
             }
             return f;
