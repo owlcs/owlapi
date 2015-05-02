@@ -25,12 +25,12 @@ import com.google.common.collect.Iterators;
  * @since 4.0.0
  */
 public class PriorityCollection<T extends Serializable> implements Iterable<T>,
-Serializable {
+    Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final List<T> delegate = Collections.synchronizedList(
-    new ArrayList<T>());
+        new ArrayList<T>());
     private final PriorityCollectionSorting configurationHolder;
 
     /**
@@ -116,6 +116,18 @@ Serializable {
     }
 
     /**
+     * Add the argument and sort according to the PriorityCollectionSorting
+     * value for the manager configuration.
+     * 
+     * @param t
+     *        element to add
+     */
+    public void add(T t) {
+        delegate.add(0, t);
+        sort();
+    }
+
+    /**
      * Add the arguments and sort according to the PriorityCollectionSorting
      * value for the manager configuration.
      * 
@@ -168,7 +180,7 @@ Serializable {
     public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {
         checkNotNull(mimeType, "MIME-Type cannot be null");
         PriorityCollection<T> pc = new PriorityCollection<>(
-        configurationHolder);
+            configurationHolder);
         // adding directly to the delegate. No need to order because insertion
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {
