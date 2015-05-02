@@ -56,9 +56,10 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
         FilterOptions... filterOptions) {
         outputStream = os;
         if (filterOptions.length == 0) {
-            filterOptions = new FilterOptions[] { new LZMA2Options() };
+            this.filterOptions = new FilterOptions[] { new LZMA2Options() };
+        } else {
+            this.filterOptions = filterOptions;
         }
-        this.filterOptions = filterOptions;
     }
 
     /**
