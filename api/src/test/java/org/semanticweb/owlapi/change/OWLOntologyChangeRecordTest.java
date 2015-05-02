@@ -24,11 +24,13 @@ public class OWLOntologyChangeRecordTest {
         OWLOntologyChangeRecord idChangeRecord = new OWLOntologyChangeRecord(
             id1, new SetOntologyIDData(id2));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream);
-        out.writeObject(idChangeRecord);
-        out.close();
-        ObjectInputStream in = new ObjectInputStream(
-            new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
+        try (ObjectOutputStream out = new ObjectOutputStream(
+            byteArrayOutputStream)) {
+            out.writeObject(idChangeRecord);
+            out.close();
+        }
+        ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(
+            byteArrayOutputStream.toByteArray()));
         OWLOntologyChangeRecord recordIn = (OWLOntologyChangeRecord) in
             .readObject();
         assertEquals(idChangeRecord, recordIn);

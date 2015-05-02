@@ -22,11 +22,10 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  * @param <T>
  *        type in the collection
  */
-public class ConcurrentPriorityCollection<T extends Serializable> extends PriorityCollection<T> {
-
+public class ConcurrentPriorityCollection<T extends Serializable> extends
+    PriorityCollection<T> {
 
     private final Lock readLock;
-
     private final Lock writeLock;
 
     /**
@@ -99,6 +98,16 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
 
     @Override
     public void add(T... c) {
+        writeLock.lock();
+        try {
+            super.add(c);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public void add(T c) {
         writeLock.lock();
         try {
             super.add(c);
