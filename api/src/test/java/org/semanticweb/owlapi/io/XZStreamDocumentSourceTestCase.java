@@ -18,23 +18,23 @@ public class XZStreamDocumentSourceTestCase {
     @Test
     public void testReadKoalaDoc() throws IOException {
         XZStreamDocumentSource source = new XZStreamDocumentSource(getClass()
-        .getResourceAsStream("/koala.owl.xz"));
+            .getResourceAsStream("/koala.owl.xz"));
         Optional<Reader> reader = source.getReader();
         assertTrue("input stream available", source.getInputStream()
-        .isPresent());
+            .isPresent());
         assertTrue("input reader available", reader.isPresent());
-        BufferedReader in = new BufferedReader(reader.get());
-        int lineCount = 0;
-        int koalaCount = 0;
-        String line = null;
-        while ((line = in.readLine()) != null) {
-            lineCount++;
-            if (line.contains("Koala")) {
-                koalaCount++;
+        try (BufferedReader in = new BufferedReader(reader.get())) {
+            int lineCount = 0;
+            int koalaCount = 0;
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                lineCount++;
+                if (line.contains("Koala")) {
+                    koalaCount++;
+                }
             }
+            assertEquals("should have 3 Koalas", 3, koalaCount);
+            assertEquals("should have 250 lines", 250, lineCount);
         }
-        assertEquals("should have 3 Koalas", 3, koalaCount);
-        assertEquals("should have 250 lines", 250, lineCount);
-        in.close();
     }
 }
