@@ -29,25 +29,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -95,7 +77,7 @@ public class SerializationTest extends TestBase {
     @Nonnull
     Set<OWLDataPropertyExpression> setdp = new HashSet<>();
     @Nonnull
-    List<OWLObjectPropertyExpression> listowlobjectpropertyexpression = new ArrayList<>();
+    List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
     @Nonnull
     Set<OWLIndividual> setowlindividual = new HashSet<>();
     @Nonnull
@@ -115,106 +97,83 @@ public class SerializationTest extends TestBase {
 
     @Test
     public void testrun() throws Exception {
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        m.getIRIMappers().add(new AutoIRIMapper(new File("."), false));
+        m.getIRIMappers().set(new AutoIRIMapper(new File("."), false));
         OWLOntology o = m.loadOntologyFromOntologyDocument(
             getClass().getResourceAsStream("/pizza.owl"));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(df.getOWLClass(iri)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLClass(string, prefixmanager)));
-        m.addAxiom(o, df.getOWLEquivalentClassesAxiom(df.getOWLClass(iri), c));
-        m.addAxiom(o, df.getOWLDisjointClassesAxiom(df.getOWLClass(iri), c));
-        m.addAxiom(o, df.getOWLSubObjectPropertyOfAxiom(op, op));
-        m.addAxiom(o, df.getOWLSubPropertyChainOfAxiom(
-            listowlobjectpropertyexpression, op));
-        m.addAxiom(o, df.getOWLEquivalentObjectPropertiesAxiom(setop));
-        m.addAxiom(o, df.getOWLDisjointObjectPropertiesAxiom(setop));
-        m.addAxiom(o, df.getOWLInverseObjectPropertiesAxiom(op, op));
-        m.addAxiom(o, df.getOWLObjectPropertyDomainAxiom(op, c));
-        m.addAxiom(o, df.getOWLObjectPropertyRangeAxiom(op, c));
-        m.addAxiom(o, df.getOWLFunctionalObjectPropertyAxiom(op));
-        m.addAxiom(o,
-            df.getOWLAnnotationAssertionAxiom(ap, as, owlannotationvalue));
-        m.applyChange(new AddImport(o, df.getOWLImportsDeclaration(iri)));
-        m.addAxiom(o, df.getOWLAnnotationPropertyDomainAxiom(ap, iri));
-        m.addAxiom(o, df.getOWLAnnotationPropertyRangeAxiom(ap, iri));
-        m.addAxiom(o, df.getOWLSubAnnotationPropertyOfAxiom(ap, ap));
-        m.addAxiom(o, df.getOWLInverseFunctionalObjectPropertyAxiom(op));
-        m.addAxiom(o, df.getOWLReflexiveObjectPropertyAxiom(op));
-        m.addAxiom(o, df.getOWLIrreflexiveObjectPropertyAxiom(op));
-        m.addAxiom(o, df.getOWLSymmetricObjectPropertyAxiom(op));
-        m.addAxiom(o, df.getOWLAsymmetricObjectPropertyAxiom(op));
-        m.addAxiom(o, df.getOWLTransitiveObjectPropertyAxiom(op));
-        m.addAxiom(o, df.getOWLSubDataPropertyOfAxiom(dp, dp));
-        m.addAxiom(o, df.getOWLEquivalentDataPropertiesAxiom(setdp));
-        m.addAxiom(o, df.getOWLDisjointDataPropertiesAxiom(setdp));
-        m.addAxiom(o, df.getOWLDataPropertyDomainAxiom(dp, c));
-        m.addAxiom(o, df.getOWLDataPropertyRangeAxiom(dp, dr));
-        m.addAxiom(o, df.getOWLFunctionalDataPropertyAxiom(dp));
-        m.addAxiom(o, df.getOWLHasKeyAxiom(c, setowlpropertyexpression));
-        m.addAxiom(o, df.getOWLDatatypeDefinitionAxiom(owldatatype, dr));
-        m.addAxiom(o, df.getOWLSameIndividualAxiom(setowlindividual));
-        m.addAxiom(o, df.getOWLDifferentIndividualsAxiom(setowlindividual));
-        m.addAxiom(o, df.getOWLClassAssertionAxiom(c, ai));
-        m.addAxiom(o, df.getOWLObjectPropertyAssertionAxiom(op, ai, ai));
-        m.addAxiom(o,
-            df.getOWLNegativeObjectPropertyAssertionAxiom(op, ai, ai));
-        m.addAxiom(o, df.getOWLDataPropertyAssertionAxiom(dp, ai, owlliteral));
-        m.addAxiom(o,
-            df.getOWLNegativeDataPropertyAssertionAxiom(dp, ai, owlliteral));
-        m.addAxiom(o, df.getOWLInverseObjectPropertiesAxiom(op,
-            df.getOWLObjectInverseOf(op)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLDataExactCardinality(1, dp)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLDataMaxCardinality(1, dp)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLDataMinCardinality(1, dp)));
-        m.addAxiom(o, df.getOWLSubClassOfAxiom(c,
-            df.getOWLObjectExactCardinality(1, op)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLObjectMaxCardinality(1, op)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLObjectMinCardinality(1, op)));
-        m.addAxiom(o, df.getOWLDataPropertyRangeAxiom(dp,
-            df.getOWLDatatype(string, prefixmanager)));
-        m.addAxiom(o, df.getOWLDataPropertyAssertionAxiom(dp, ai,
-            df.getOWLLiteral(string, owldatatype)));
-        m.addAxiom(o, df.getOWLDataPropertyRangeAxiom(dp,
-            df.getOWLDataOneOf(owlliteral)));
-        m.addAxiom(o,
-            df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataUnionOf(dr)));
-        m.addAxiom(o, df.getOWLDataPropertyRangeAxiom(dp,
-            df.getOWLDataIntersectionOf(dr)));
-        m.addAxiom(o, df.getOWLDataPropertyRangeAxiom(dp,
-            df.getOWLDatatypeRestriction(owldatatype, owlfacet, owlliteral)));
-        m.addAxiom(o,
-            df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDatatypeRestriction(
-                owldatatype, df.getOWLFacetRestriction(owlfacet, 1))));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLObjectIntersectionOf(c,
-                df.getOWLClass(string, prefixmanager))));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLDataSomeValuesFrom(dp, dr)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLDataAllValuesFrom(dp, dr)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLDataHasValue(dp, owlliteral)));
-        m.addAxiom(o, df.getOWLSubClassOfAxiom(c,
-            df.getOWLObjectComplementOf(df.getOWLClass(iri))));
-        m.addAxiom(o, df.getOWLSubClassOfAxiom(c,
-            df.getOWLObjectOneOf(df.getOWLNamedIndividual(iri))));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLObjectAllValuesFrom(op, c)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLObjectSomeValuesFrom(op, c)));
-        m.addAxiom(o,
-            df.getOWLSubClassOfAxiom(c, df.getOWLObjectHasValue(op, ai)));
-        m.addAxiom(o, df.getOWLSubClassOfAxiom(c,
-            df.getOWLObjectUnionOf(df.getOWLClass(iri))));
-        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(iri,
-            df.getOWLAnnotation(ap, owlannotationvalue)));
-        m.addAxiom(o,
+        o.applyChange(new AddImport(o, df.getOWLImportsDeclaration(iri)));
+        o.addAxioms(df.getOWLDeclarationAxiom(df.getOWLClass(iri)),
+            sub(c, df.getOWLClass(string, prefixmanager)),
+            df.getOWLEquivalentClassesAxiom(df.getOWLClass(iri), c),
+            df.getOWLDisjointClassesAxiom(df.getOWLClass(iri), c),
+            df.getOWLSubObjectPropertyOfAxiom(op, op),
+            df.getOWLSubPropertyChainOfAxiom(listowlobjectproperties, op),
+            df.getOWLEquivalentObjectPropertiesAxiom(setop),
+            df.getOWLDisjointObjectPropertiesAxiom(setop),
+            df.getOWLInverseObjectPropertiesAxiom(op, op),
+            df.getOWLObjectPropertyDomainAxiom(op, c),
+            df.getOWLObjectPropertyRangeAxiom(op, c),
+            df.getOWLFunctionalObjectPropertyAxiom(op),
+            df.getOWLAnnotationAssertionAxiom(ap, as, owlannotationvalue),
+            df.getOWLAnnotationPropertyDomainAxiom(ap, iri),
+            df.getOWLAnnotationPropertyRangeAxiom(ap, iri),
+            df.getOWLSubAnnotationPropertyOfAxiom(ap, ap),
+            df.getOWLInverseFunctionalObjectPropertyAxiom(op),
+            df.getOWLReflexiveObjectPropertyAxiom(op),
+            df.getOWLIrreflexiveObjectPropertyAxiom(op),
+            df.getOWLSymmetricObjectPropertyAxiom(op),
+            df.getOWLAsymmetricObjectPropertyAxiom(op),
+            df.getOWLTransitiveObjectPropertyAxiom(op),
+            df.getOWLSubDataPropertyOfAxiom(dp, dp),
+            df.getOWLEquivalentDataPropertiesAxiom(setdp),
+            df.getOWLDisjointDataPropertiesAxiom(setdp),
+            df.getOWLDataPropertyDomainAxiom(dp, c),
+            df.getOWLDataPropertyRangeAxiom(dp, dr),
+            df.getOWLFunctionalDataPropertyAxiom(dp),
+            df.getOWLHasKeyAxiom(c, setowlpropertyexpression),
+            df.getOWLDatatypeDefinitionAxiom(owldatatype, dr),
+            df.getOWLSameIndividualAxiom(setowlindividual),
+            df.getOWLDifferentIndividualsAxiom(setowlindividual),
+            df.getOWLClassAssertionAxiom(c, ai),
+            df.getOWLObjectPropertyAssertionAxiom(op, ai, ai),
+            df.getOWLNegativeObjectPropertyAssertionAxiom(op, ai, ai),
+            df.getOWLDataPropertyAssertionAxiom(dp, ai, owlliteral),
+            df.getOWLNegativeDataPropertyAssertionAxiom(dp, ai, owlliteral),
+            df.getOWLInverseObjectPropertiesAxiom(op,
+                df.getOWLObjectInverseOf(op)),
+            sub(c, df.getOWLDataExactCardinality(1, dp)),
+            sub(c, df.getOWLDataMaxCardinality(1, dp)),
+            sub(c, df.getOWLDataMinCardinality(1, dp)),
+            sub(c, df.getOWLObjectExactCardinality(1, op)),
+            sub(c, df.getOWLObjectMaxCardinality(1, op)),
+            sub(c, df.getOWLObjectMinCardinality(1, op)),
+            df.getOWLDataPropertyRangeAxiom(dp,
+                df.getOWLDatatype(string, prefixmanager)),
+            df.getOWLDataPropertyAssertionAxiom(dp, ai,
+                df.getOWLLiteral(string, owldatatype)),
+            df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataOneOf(owlliteral)),
+            df.getOWLDataPropertyRangeAxiom(dp, df.getOWLDataUnionOf(dr)),
+            df.getOWLDataPropertyRangeAxiom(dp,
+                df.getOWLDataIntersectionOf(dr)),
+            df.getOWLDataPropertyRangeAxiom(dp,
+                df.getOWLDatatypeRestriction(owldatatype, owlfacet,
+                    owlliteral)),
+            df.getOWLDataPropertyRangeAxiom(dp,
+                df.getOWLDatatypeRestriction(owldatatype,
+                    df.getOWLFacetRestriction(owlfacet, 1))),
+            sub(c,
+                df.getOWLObjectIntersectionOf(c,
+                    df.getOWLClass(string, prefixmanager))),
+            sub(c, df.getOWLDataSomeValuesFrom(dp, dr)),
+            sub(c, df.getOWLDataAllValuesFrom(dp, dr)),
+            sub(c, df.getOWLDataHasValue(dp, owlliteral)),
+            sub(c, df.getOWLObjectComplementOf(df.getOWLClass(iri))),
+            sub(c, df.getOWLObjectOneOf(df.getOWLNamedIndividual(iri))),
+            sub(c, df.getOWLObjectAllValuesFrom(op, c)),
+            sub(c, df.getOWLObjectSomeValuesFrom(op, c)),
+            sub(c, df.getOWLObjectHasValue(op, ai)),
+            sub(c, df.getOWLObjectUnionOf(df.getOWLClass(iri))),
+            df.getOWLAnnotationAssertionAxiom(iri,
+                df.getOWLAnnotation(ap, owlannotationvalue)),
             df.getOWLAnnotationAssertionAxiom(
                 df.getOWLNamedIndividual(iri).getIRI(),
                 df.getOWLAnnotation(ap, owlannotationvalue)));
@@ -231,5 +190,9 @@ public class SerializationTest extends TestBase {
                 asSet(m.getOntology(get(ont.getOntologyID().getOntologyIRI()))
                     .axioms()),
                 asSet(ont.axioms())));
+    }
+
+    protected OWLAxiom sub(OWLClassExpression c, OWLClassExpression d) {
+        return df.getOWLSubClassOfAxiom(c, d);
     }
 }

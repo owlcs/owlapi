@@ -6,13 +6,11 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class RemapperTestCase extends TestBase {
@@ -28,11 +26,10 @@ public class RemapperTestCase extends TestBase {
         StringDocumentSource source = new StringDocumentSource(input);
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        m.getIRIMappers().add(mock);
+        m.getIRIMappers().set(mock);
         m.createOntology(remap);
         OWLOntology o = m.loadOntologyFromOntologyDocument(source);
-        assertEquals(1, o.getImportsDeclarations().size());
+        assertEquals(1, o.importsDeclarations().count());
         verify(mock).getDocumentIRI(testImport);
     }
 
@@ -50,11 +47,10 @@ public class RemapperTestCase extends TestBase {
         StringDocumentSource source = new StringDocumentSource(input);
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
         when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         m.getIRIMappers().set(mock);
         m.createOntology(remap);
         OWLOntology o = m.loadOntologyFromOntologyDocument(source);
-        assertEquals(1, o.getImportsDeclarations().size());
+        assertEquals(1, o.importsDeclarations().count());
         verify(mock).getDocumentIRI(testImport);
     }
 }
