@@ -307,6 +307,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18.1</version>
 				<configuration>
+				<includes>
+						<include>**/*TestCase.java, **/*Test.java</include>
+					</includes>
 					<excludes>
 						<exclude>**/*IntegrationTestCase.java</exclude>
 					</excludes>
