@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * Created by ses on 3/10/14.
  */
 @SuppressWarnings("javadoc")
-public class UndeclaredAnnotationTest extends TestBase {
+public class UndeclaredAnnotationTestCase extends TestBase {
 
     @Test
     public void testRDFXMLUsingUndeclaredAnnotationProperty()

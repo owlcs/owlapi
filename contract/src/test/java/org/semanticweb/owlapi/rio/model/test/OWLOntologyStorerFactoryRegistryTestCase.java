@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings("javadoc")
-public class OWLOntologyStorerFactoryRegistryTest {
+public class OWLOntologyStorerFactoryRegistryTestCase {
 
     private static final int EXPECTED_STORERS = 19;
 

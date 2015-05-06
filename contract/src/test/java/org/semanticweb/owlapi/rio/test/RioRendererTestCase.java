@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.rio.RioTurtleStorerFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings({ "javadoc", "null" })
-public class RioRendererTest {
+public class RioRendererTestCase {
 
     private ValueFactory vf;
     @Nonnull

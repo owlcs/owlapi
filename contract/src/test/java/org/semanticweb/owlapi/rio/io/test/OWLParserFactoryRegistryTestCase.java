@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings("javadoc")
-public class OWLParserFactoryRegistryTest {
+public class OWLParserFactoryRegistryTestCase {
 
     @Test
     public void setUp() {

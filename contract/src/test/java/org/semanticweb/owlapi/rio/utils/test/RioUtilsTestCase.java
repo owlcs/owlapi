@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings({ "javadoc" })
-public class RioUtilsTest {
+public class RioUtilsTestCase {
 
     private static final ValueFactory VF = ValueFactoryImpl.getInstance();
     private RDFTriple testOwlApiTripleAllIRI;

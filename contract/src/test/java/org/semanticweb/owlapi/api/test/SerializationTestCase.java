@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "javadoc" })
-public class SerializationTest extends TestBase {
+public class SerializationTestCase extends TestBase {
 
     @Nonnull
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
