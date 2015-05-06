@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
@@ -24,27 +25,32 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
+import com.google.common.collect.Sets;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
-        AbstractAxiomsRoundTrippingTestCase {
+public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase
+    extends AbstractAxiomsRoundTrippingTestCase {
+
+    OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
+    OWLLiteral lit = Literal("Test", "");
+    OWLAnnotation anno1 = df.getOWLAnnotation(prop, lit);
+    OWLAnnotationProperty prop2 = AnnotationProperty(iri("prop2"));
+    OWLAnnotation anno2 = df.getOWLAnnotation(prop2, lit);
+    Set<OWLAnnotation> annos = Sets.newHashSet(anno1, anno2);
+    private OWLAxiom ax;
+
+    public AbstractAnnotatedAxiomRoundTrippingTestCase(
+        Function<Set<OWLAnnotation>, OWLAxiom> f) {
+        ax = f.apply(annos);
+    }
 
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-        OWLLiteral lit = Literal("Test", "");
-        OWLAnnotation anno1 = df.getOWLAnnotation(prop, lit);
-        OWLAnnotationProperty prop2 = AnnotationProperty(iri("prop2"));
-        OWLAnnotation anno2 = df.getOWLAnnotation(prop2, lit);
-        Set<OWLAnnotation> annos = new HashSet<>();
-        // Add two annotations per axiom
-        annos.add(anno1);
-        annos.add(anno2);
-        OWLAxiom ax = getMainAxiom(annos);
         Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(ax.getAnnotatedAxiom(annos));
         axioms.add(Declaration(prop));
@@ -53,6 +59,4 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
         axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
         return axioms;
     }
-
-    protected abstract OWLAxiom getMainAxiom(@Nonnull Set<OWLAnnotation> annos);
 }

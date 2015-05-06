@@ -14,23 +14,49 @@ package org.semanticweb.owlapi.api.test.objectproperties;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
- * @since 3.0.0
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 3.1.0
  */
-public class ObjectPropertyAssertionAnnotatedTestCase extends
-        AbstractAnnotatedAxiomRoundTrippingTestCase {
+@SuppressWarnings("javadoc")
+@RunWith(Parameterized.class)
+public class AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase
+    extends AbstractAnnotatedAxiomRoundTrippingTestCase {
+
+    public AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase(
+        Function<Set<OWLAnnotation>, OWLAxiom> f) {
+        super(f);
+    }
+
+    @Parameters
+    public static List<Function<Set<OWLAnnotation>, OWLAxiom>> getData() {
+        return Arrays.asList(
+            a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B")),
+                Class(iri("C")), Class(iri("D"))),
+            a -> EquivalentDataProperties(a, DataProperty(iri("p")),
+                DataProperty(iri("q")), DataProperty(iri("r"))),
+            a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")),
+                ObjectProperty(iri("q")), ObjectProperty(iri("r"))));
+    }
 
     @Override
-    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return ObjectPropertyAssertion(ObjectProperty(iri("p")),
-                NamedIndividual(iri("i")), NamedIndividual(iri("j")), annos);
+    @Test
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() {
+        // Serializations are structurally different because of nary equivalent
+        // axioms
     }
 }

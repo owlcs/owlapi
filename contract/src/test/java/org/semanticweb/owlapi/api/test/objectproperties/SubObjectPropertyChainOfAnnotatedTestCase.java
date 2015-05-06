@@ -16,14 +16,9 @@ import static org.junit.Assert.assertNotEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
@@ -35,14 +30,13 @@ import com.google.common.collect.Lists;
  * @since 3.0.0
  */
 @SuppressWarnings({ "javadoc" })
-public class SubObjectPropertyChainOfAnnotatedTestCase extends
-        AbstractAnnotatedAxiomRoundTrippingTestCase {
+public class SubObjectPropertyChainOfAnnotatedTestCase
+    extends AbstractAnnotatedAxiomRoundTrippingTestCase {
 
-    @Override
-    protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        List<OWLObjectProperty> props = Arrays.asList(ObjectProperty(iri("p")),
-                ObjectProperty(iri("q")));
-        return SubPropertyChainOf(props, ObjectProperty(iri("r")), annos);
+    public SubObjectPropertyChainOfAnnotatedTestCase() {
+        super(a -> SubPropertyChainOf(
+            Arrays.asList(ObjectProperty(iri("p")), ObjectProperty(iri("q"))),
+            ObjectProperty(iri("r")), a));
     }
 
     @Test
@@ -50,14 +44,14 @@ public class SubObjectPropertyChainOfAnnotatedTestCase extends
         OWLObjectPropertyExpression p = df.getOWLObjectProperty("_:", "p");
         OWLObjectPropertyExpression q = df.getOWLObjectProperty("_:", "q");
         OWLObjectPropertyExpression r = df.getOWLObjectProperty("_:", "r");
-        OWLSubPropertyChainOfAxiom ax1 = df.getOWLSubPropertyChainOfAxiom(
-                Lists.newArrayList(p, q), r);
-        OWLSubPropertyChainOfAxiom ax2 = df.getOWLSubPropertyChainOfAxiom(
-                Lists.newArrayList(p, p), r);
+        OWLSubPropertyChainOfAxiom ax1 = df
+            .getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, q), r);
+        OWLSubPropertyChainOfAxiom ax2 = df
+            .getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, p), r);
         assertNotEquals("role chains should not be equal", ax1, ax2);
         int comparisonResult = ax1.compareTo(ax2);
         assertNotEquals("role chain comparision:\n " + ax1
-                + " should not compare to\n " + ax2 + " as 0\n", 0,
-                comparisonResult);
+            + " should not compare to\n " + ax2 + " as 0\n", 0,
+            comparisonResult);
     }
 }
