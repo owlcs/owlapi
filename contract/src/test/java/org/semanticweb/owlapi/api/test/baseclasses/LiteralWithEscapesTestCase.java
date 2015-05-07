@@ -14,8 +14,12 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
 
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -27,31 +31,50 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 3.3.0
  */
-public abstract class AbstractLiteralWithEscapeTestCase
-    extends AbstractRoundTrippingTestCase {
+@RunWith(Parameterized.class)
+public class LiteralWithEscapesTestCase extends
+AbstractRoundTrippingTestCase {
+
+    private String escape;
+
+    public LiteralWithEscapesTestCase(String s) {
+        escape = s;
+    }
+
+    @Parameters
+    public static List<String> getData() {
+        return Arrays.asList(
+        // LiteralWithBackslash
+        "\\",
+        // LiteralWithDoubleQuote
+        "\"",
+        // LiteralWithLeftAngle
+        "<",
+        // LiteralWithNewLine
+        "\n",
+        // LiteralWithSingleQuote
+        "\'");
+    }
 
     @Override
     protected OWLOntology createOntology() {
         OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#A"));
-        OWLAnnotationProperty prop = AnnotationProperty(
-            IRI("http://owlapi.sourceforge.net/ontology#prop"));
-        OWLLiteral lit1 = Literal(getEscape());
-        OWLLiteral lit2 = Literal("Start" + getEscape());
-        OWLLiteral lit3 = Literal(getEscape() + "End");
-        OWLLiteral lit4 = Literal("Start" + getEscape() + "End");
-        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop,
-            cls.getIRI(), lit1);
-        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop,
-            cls.getIRI(), lit2);
-        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop,
-            cls.getIRI(), lit3);
-        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop,
-            cls.getIRI(), lit4);
+        OWLAnnotationProperty prop = AnnotationProperty(IRI(
+        "http://owlapi.sourceforge.net/ontology#prop"));
+        OWLLiteral lit1 = Literal(escape);
+        OWLLiteral lit2 = Literal("Start" + escape);
+        OWLLiteral lit3 = Literal(escape + "End");
+        OWLLiteral lit4 = Literal("Start" + escape + "End");
+        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop, cls
+        .getIRI(), lit1);
+        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop, cls
+        .getIRI(), lit2);
+        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop, cls
+        .getIRI(), lit3);
+        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop, cls
+        .getIRI(), lit4);
         OWLOntology o = getOWLOntology();
         o.addAxioms(ax1, ax2, ax3, ax4, Declaration(cls));
         return o;
     }
-
-    @Nonnull
-    protected abstract String getEscape();
 }

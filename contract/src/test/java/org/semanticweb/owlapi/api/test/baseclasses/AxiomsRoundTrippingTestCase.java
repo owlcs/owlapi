@@ -13,12 +13,9 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LABEL;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -42,6 +39,100 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
     @Parameters
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
+        // ObjectPropertyChainRoundTripping
+        () -> {
+            Set<OWLAxiom> set = new HashSet<>();
+            OWLObjectProperty propA = ObjectProperty(iri("propA"));
+            OWLObjectProperty propB = ObjectProperty(iri("propB"));
+            OWLObjectProperty propC = ObjectProperty(iri("propC"));
+            OWLObjectProperty propD = ObjectProperty(iri("propD"));
+            List<OWLObjectProperty> props = new ArrayList<>();
+            props.add(propA);
+            props.add(propB);
+            props.add(propC);
+            OWLAxiom ax = SubPropertyChainOf(props, propD);
+            set.add(ax);
+            return set;
+        } ,
+        // AsymmetricPropertyRoundTrip
+        () -> Collections.<OWLAxiom> singleton(AsymmetricObjectProperty(
+        ObjectProperty(iri("p")))),
+        // AnonymousRootRoundTripping
+        () -> Collections.<OWLAxiom> singleton(DifferentIndividuals(
+        createIndividual(), createIndividual(), createIndividual(),
+        createIndividual(), createIndividual(), createIndividual(),
+        createIndividual(), createIndividual(), createIndividual(),
+        createIndividual())),
+        // NestedClassExpressionRoundTripping
+        () -> {
+            Set<OWLAxiom> set = new HashSet<>();
+            OWLObjectProperty prop = ObjectProperty(iri("propP"));
+            OWLClass clsA = Class(iri("A"));
+            OWLClass clsB = Class(iri("B"));
+            OWLClassExpression desc = ObjectSomeValuesFrom(prop,
+            ObjectSomeValuesFrom(prop, clsB));
+            OWLAxiom ax = SubClassOf(clsA, desc);
+            set.add(ax);
+            set.add(Declaration(clsA));
+            set.add(Declaration(clsB));
+            return set;
+        } ,
+        // AxiomAnnotationsRoundTripping
+        () -> {
+            Set<OWLAxiom> set = new HashSet<>();
+            OWLAnnotationProperty prop = AnnotationProperty(RDFS_LABEL
+            .getIRI());
+            set.add(Declaration(prop));
+            Set<OWLAnnotation> annotations = new HashSet<>();
+            for (int i = 0; i < 2; i++) {
+                OWLLiteral lit = Literal("Annotation " + (i + 1));
+                annotations.add(df.getOWLAnnotation(RDFSLabel(), lit));
+            }
+            OWLEntity entity = NamedIndividual(IRI(
+            "http://www.another.com/ont#peter"));
+            set.add(Declaration(entity));
+            OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(
+            prop, entity.getIRI(), Literal("X", "en"), annotations);
+            set.add(ax);
+            return set;
+        } ,
+        // AxiomAnnotationsAndIdividualAnnotationsRoundTripping
+        () -> {
+            Set<OWLAxiom> set = new HashSet<>();
+            set.add(Declaration(AnnotationProperty(RDFS_LABEL.getIRI())));
+            OWLEntity entity = NamedIndividual(IRI(
+            "http://www.another.com/ont#peter"));
+            Set<OWLAnnotation> entityAnnotations = new HashSet<>();
+            for (int i = 0; i < 2; i++) {
+                OWLLiteral lit = Literal("EntityAnnotation " + (i + 1));
+                entityAnnotations.add(Annotation(RDFSLabel(), lit));
+            }
+            set.add(Declaration(entity, entityAnnotations));
+            Set<OWLAnnotation> annotations = new HashSet<>();
+            for (int i = 0; i < 2; i++) {
+                OWLLiteral lit = Literal("Annotation " + (i + 1));
+                annotations.add(Annotation(RDFSLabel(), lit));
+            }
+            OWLAnnotationAssertionAxiom ax = AnnotationAssertion(
+            AnnotationProperty(RDFS_LABEL.getIRI()), entity.getIRI(), Literal(
+            "X", "en"), annotations);
+            set.add(ax);
+            return set;
+        } ,
+        // InversePropertiesAxiom2
+        () -> {
+            Set<OWLAxiom> set = new HashSet<>();
+            set.add(InverseObjectProperties(ObjectProperty(iri("q")),
+            ObjectProperty(iri("p"))));
+            return set;
+        } ,
+        // InversePropertiesAxiom
+        () -> {
+            Set<OWLAxiom> set = new HashSet<>();
+            set.add(InverseObjectProperties(ObjectProperty(iri("p")),
+            ObjectProperty(iri("q"))));
+            return set;
+        } ,
         // AnnotationAssertionWithIRI
         () -> {
             Set<OWLAxiom> axioms = new HashSet<>();
@@ -571,7 +662,7 @@ public class AxiomsRoundTrippingTestCase extends AxiomsRoundTrippingBase {
             Set<OWLAxiom> axioms = new HashSet<>();
             axioms.add(SymmetricObjectProperty(ObjectProperty(iri("p"))));
             return axioms;
-        } ,       // TransitiveObjectProperty
+        } ,             // TransitiveObjectProperty
         () -> {
             Set<OWLAxiom> axioms = new HashSet<>();
             axioms.add(TransitiveObjectProperty(ObjectProperty(iri("p"))));
