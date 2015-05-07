@@ -22,7 +22,7 @@ import java.util.function.Function;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotatedAxiomRountripTestCase
-    extends AbstractAnnotatedAxiomRoundTrippingTestCase {
+    extends AnnotatedAxiomRoundTrippingTestCase {
 
     public AnnotatedAxiomRountripTestCase(
         Function<Set<OWLAnnotation>, OWLAxiom> f) {
@@ -87,6 +87,8 @@ public class AnnotatedAxiomRountripTestCase
             a -> SubObjectPropertyOf(ObjectProperty(iri("p")),
                 ObjectProperty(iri("q")), a),
             a -> SymmetricObjectProperty(ObjectProperty(iri("p")), a),
-            a -> TransitiveObjectProperty(ObjectProperty(iri("p")), a));
+            a -> TransitiveObjectProperty(ObjectProperty(iri("p")), a),
+            a -> SubPropertyChainOf(Arrays.asList(ObjectProperty(iri("p")),
+                ObjectProperty(iri("q"))), ObjectProperty(iri("r")), a));
     }
 }

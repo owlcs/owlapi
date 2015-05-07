@@ -10,41 +10,42 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.objectproperties;
+package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class TransitiveObjectPropertyInverseTestCase extends
-        AbstractAxiomsRoundTrippingTestCase {
+public abstract class AxiomsRoundTrippingBase
+    extends AbstractRoundTrippingTestCase {
 
-    @Nonnull
-    @Override
-    protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<>();
-        axioms.add(TransitiveObjectProperty(ObjectProperty(iri("p"))
-                .getInverseProperty()));
-        return axioms;
+    protected interface AxiomBuilder {
+
+        Set<OWLAxiom> build();
+    }
+
+    private AxiomBuilder createAxioms;
+
+    public AxiomsRoundTrippingBase(AxiomBuilder f) {
+        createAxioms = f;
     }
 
     @Override
-    @Test
-    public void testManchesterOWLSyntax() {
-        // Can't represent inverse object property frames in Manchester OWL
-        // Syntax
-        // super.testManchesterOWLSyntax();
+    protected OWLOntology createOntology() {
+        OWLOntology ont = getOWLOntology();
+        ont.addAxioms(createAxioms.build());
+        ont.signature()
+            .filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
+            .forEach(e -> ont.addAxiom(Declaration(e)));
+        return ont;
     }
 }

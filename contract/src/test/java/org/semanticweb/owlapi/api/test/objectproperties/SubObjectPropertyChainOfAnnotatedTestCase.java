@@ -13,12 +13,9 @@
 package org.semanticweb.owlapi.api.test.objectproperties;
 
 import static org.junit.Assert.assertNotEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-
-import java.util.Arrays;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
@@ -30,14 +27,7 @@ import com.google.common.collect.Lists;
  * @since 3.0.0
  */
 @SuppressWarnings({ "javadoc" })
-public class SubObjectPropertyChainOfAnnotatedTestCase
-    extends AbstractAnnotatedAxiomRoundTrippingTestCase {
-
-    public SubObjectPropertyChainOfAnnotatedTestCase() {
-        super(a -> SubPropertyChainOf(
-            Arrays.asList(ObjectProperty(iri("p")), ObjectProperty(iri("q"))),
-            ObjectProperty(iri("r")), a));
-    }
+public class SubObjectPropertyChainOfAnnotatedTestCase extends TestBase {
 
     @Test
     public void testCompareRoleChains() {

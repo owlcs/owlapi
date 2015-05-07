@@ -23,7 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase
-    extends AbstractAnnotatedAxiomRoundTrippingTestCase {
+    extends AnnotatedAxiomRoundTrippingTestCase {
 
     public AnnotatedAxiomRoundtripExceptManchesterSyntaxTestCase(
         Function<Set<OWLAnnotation>, OWLAxiom> f) {

@@ -10,47 +10,48 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.individuals;
+package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
 
-import javax.annotation.Nonnull;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
-import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.model.*;
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class ClassAssertionWithAnonymousIndividualTestCase
-    extends AbstractAxiomsRoundTrippingTestCase {
+public abstract class AnnotatedAxiomRoundTrippingTestCase extends
+AxiomsRoundTrippingBase {
 
-    @Nonnull
-    @Override
-    protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<>();
-        OWLIndividual ind = AnonymousIndividual("a");
-        OWLClass cls = Class(iri("A"));
-        axioms.add(ClassAssertion(cls, ind));
-        axioms.add(Declaration(cls));
-        return axioms;
-    }
+    private static OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
+    private static OWLLiteral lit = Literal("Test", "");
+    private static OWLAnnotation anno1 = Annotation(prop, lit);
+    private static OWLAnnotationProperty prop2 = AnnotationProperty(iri(
+    "prop2"));
+    private static OWLAnnotation anno2 = Annotation(prop2, lit);
+    private static Set<OWLAnnotation> annos = Sets.newHashSet(anno1, anno2);
 
-    @Override
-    @Test
-    public void roundTripRDFXMLAndFunctionalShouldBeSame()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology ont = createOntology();
-        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
-        equal(o1, o2);
+    public AnnotatedAxiomRoundTrippingTestCase(
+    Function<Set<OWLAnnotation>, OWLAxiom> f) {
+        super(() -> {
+            Set<OWLAxiom> axioms = new HashSet<>();
+            OWLAxiom ax = f.apply(annos);
+            axioms.add(ax.getAnnotatedAxiom(annos));
+            axioms.add(Declaration(prop));
+            axioms.add(Declaration(prop2));
+            axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
+            axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
+            return axioms;
+        } );
     }
 }
