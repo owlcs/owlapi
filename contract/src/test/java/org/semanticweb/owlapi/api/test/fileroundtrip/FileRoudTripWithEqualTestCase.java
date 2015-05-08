@@ -10,43 +10,52 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.ontology;
+package org.semanticweb.owlapi.api.test.fileroundtrip;
 
-import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.Searcher.annotations;
-
-import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
+ * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group
- * @since 3.0.0
+ * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
-public class DeprecatedTestCase extends AbstractFileRoundTrippingTestCase {
+@RunWith(Parameterized.class)
+public class FileRoudTripWithEqualTestCase extends
+AbstractFileRoundTrippingTestCase {
 
-    @Test
-    public void testAnnotationAssertionsPresent() {
-        OWLOntology ont = createOntology();
-        OWLClass cls = Class(iri("http://www.semanticweb.org/owlapi/test#ClsA"));
-        annotations(ont.annotationAssertionAxioms(cls.getIRI(), INCLUDED))
-                .forEach(a -> a.isDeprecatedIRIAnnotation());
-        OWLDataProperty prop = DataProperty(iri("http://www.semanticweb.org/owlapi/test#prop"));
-        annotations(ont.annotationAssertionAxioms(prop.getIRI(), INCLUDED))
-                .forEach(a -> assertTrue(a.isDeprecatedIRIAnnotation()));
+    public FileRoudTripWithEqualTestCase(String f) {
+        super(f);
     }
 
-    @Nonnull
+    @Parameters
+    public static List<String> getData() {
+        return Arrays.asList(
+        // AnonymousTroublesomeConversion
+        "extraBlankNodes.owl",
+        // AnonymousTurtle2
+        "testBlankNodes2.ttl",
+        // AnonymousTurtleAssertion
+        "testBlankNodesAssertions.ttl");
+    }
+
     @Override
-    protected String getFileName() {
-        return "Deprecated.rdf";
+    @Test
+    public void roundTripRDFXMLAndFunctionalShouldBeSame()
+    throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology ont = createOntology();
+        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
+        equal(o1, o2);
     }
 }

@@ -10,47 +10,35 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.classexpressions;
+package org.semanticweb.owlapi.api.test.dataproperties;
 
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
-import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
- * @since 3.0.0
- */
 @SuppressWarnings("javadoc")
-public class ObjectSomeValuesFromTestCase
-    extends AbstractFileRoundTrippingTestCase {
-
-    @Test
-    public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<>();
-        OWLClass clsA = Class(iri("A"));
-        OWLClass clsB = Class(iri("B"));
-        OWLObjectProperty propP = ObjectProperty(iri("p"));
-        axioms.add(SubClassOf(clsA, ObjectSomeValuesFrom(propP, clsB)));
-        axioms.add(Declaration(clsB));
-        axioms.add(Declaration(propP));
-        assertEquals(asSet(createOntology().axioms()), axioms);
-    }
+public class DisjointUnionTestCase extends TestBase {
 
     @Nonnull
-    @Override
-    protected String getFileName() {
-        return "ObjectSomeValuesFrom.rdf";
+    private static final String NS = "http://protege.org/protege/DisjointUnion.owl";
+    @Nonnull
+    public static final OWLClass A = Class(IRI(NS + "#A"));
+    @Nonnull
+    public static final OWLClass B = Class(IRI(NS + "#B"));
+    @Nonnull
+    public static final OWLClass C = Class(IRI(NS + "#C"));
+
+    @Test
+    public void testDisjointUnion() {
+        OWLOntology ontology = getOWLOntology();
+        ontology.addAxiom(DisjointUnion(A, B, C));
+        assertEquals(1, ontology.disjointUnionAxioms(A).count());
+        assertEquals(0, ontology.disjointUnionAxioms(B).count());
     }
 }

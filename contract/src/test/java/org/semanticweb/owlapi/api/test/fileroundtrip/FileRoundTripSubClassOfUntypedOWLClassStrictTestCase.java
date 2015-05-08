@@ -10,42 +10,48 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.ontology;
+package org.semanticweb.owlapi.api.test.fileroundtrip;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import javax.annotation.Nonnull;
+import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
- * @since 3.0.0
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 3.2.3
  */
 @SuppressWarnings("javadoc")
-public class OntologyIRITestCase extends AbstractFileRoundTrippingTestCase {
+public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
+AbstractFileRoundTrippingTestCase {
+
+    public FileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
+        super("SubClassOfUntypedOWLClass.rdf");
+    }
 
     @Test
-    public void testCorrectOntologyIRI() {
+    public void testAxioms() {
         OWLOntology ont = createOntology();
-        OWLOntologyID id = ont.getOntologyID();
-        assertEquals("http://www.test.com/right.owl", id.getOntologyIRI().get()
-                .toString());
+        assertTrue(ont.getAxioms(AxiomType.SUBCLASS_OF).isEmpty());
+        OWLDocumentFormat format = ont.getOWLOntologyManager()
+        .getOntologyFormat(ont);
+        assertTrue(format instanceof RDFXMLDocumentFormat);
+        RDFXMLDocumentFormat rdfxmlFormat = (RDFXMLDocumentFormat) format;
+        Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()
+        .getUnparsedTriples();
+        assertEquals(1, triples.size());
     }
 
-    @Nonnull
     @Override
-    protected String getFileName() {
-        return "ontologyIRI.rdf";
-    }
-
-    @Override
-    public void testFunctionalSyntax() {
-        // XXX thi is failing for functional syntax
-        // super.testFunctionalSyntax();
+    protected OWLOntologyLoaderConfiguration getConfiguration() {
+        return super.getConfiguration().setStrict(true);
     }
 }
