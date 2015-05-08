@@ -10,7 +10,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.profiles.test;
+package org.semanticweb.owlapi.profiles;
 
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
@@ -25,11 +25,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.profiles.OWLProfile;
-import org.semanticweb.owlapi.profiles.OWLProfileViolation;
-import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
-import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
-import org.semanticweb.owlapi.profiles.Profiles;
 import org.semanticweb.owlapi.profiles.violations.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -43,34 +38,34 @@ public class OWLProfileTestCase extends TestBase {
     private static final OWLClass CL = Class(IRI("urn:test#fakeclass"));
     @Nonnull
     private static final OWLDataProperty DATAP = DataProperty(IRI(
-        "urn:datatype#fakedatatypeproperty"));
+    "urn:datatype#fakedatatypeproperty"));
     @Nonnull
     private static final OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE2 = DataPropertyRange(
-        DATAP, DatatypeRestriction(Integer(), FacetRestriction(
-            OWLFacet.LANG_RANGE, Literal(1))));
+    DATAP, DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.LANG_RANGE,
+    Literal(1))));
     @Nonnull
     private static final OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE = DataPropertyRange(
-        DATAP, DatatypeRestriction(Integer(), FacetRestriction(
-            OWLFacet.MAX_EXCLUSIVE, Literal(1))));
+    DATAP, DatatypeRestriction(Integer(), FacetRestriction(
+    OWLFacet.MAX_EXCLUSIVE, Literal(1))));
     @Nonnull
     private static final OWLObjectProperty OP = ObjectProperty(IRI(
-        "urn:datatype#fakeobjectproperty"));
+    "urn:datatype#fakeobjectproperty"));
     @Nonnull
     private static final OWLDatatype UNKNOWNFAKEDATATYPE = Datatype(IRI(START
-        + "unknownfakedatatype"));
+    + "unknownfakedatatype"));
     @Nonnull
     private static final OWLDatatype FAKEUNDECLAREDDATATYPE = Datatype(IRI(
-        "urn:datatype#fakeundeclareddatatype"));
+    "urn:datatype#fakeundeclareddatatype"));
     @Nonnull
     private static final OWLDatatype FAKEDATATYPE = Datatype(IRI(
-        "urn:datatype#fakedatatype"));
+    "urn:datatype#fakedatatype"));
     @Nonnull
     private static final IRI onto = IRI.create("urn:test#ontology");
     @Nonnull
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
     @Nonnull
     private static final OWLObjectProperty P = ObjectProperty(IRI(
-        "urn:test#objectproperty"));
+    "urn:test#objectproperty"));
     OWLOntology o;
 
     @Before
@@ -85,7 +80,7 @@ public class OWLProfileTestCase extends TestBase {
     }
 
     public void declare(@Nonnull OWLOntology ont,
-        @Nonnull OWLEntity... entities) {
+    @Nonnull OWLEntity... entities) {
         for (OWLEntity e : entities) {
             ont.addAxiom(Declaration(e));
         }
@@ -93,10 +88,10 @@ public class OWLProfileTestCase extends TestBase {
 
     @Nonnull
     Comparator<Class> comp = (o1, o2) -> o1.getSimpleName().compareTo(o2
-        .getSimpleName());
+    .getSimpleName());
 
     public void checkInCollection(@Nonnull List<OWLProfileViolation> violations,
-        Class[] inputList) {
+    Class[] inputList) {
         List<Class> list = new ArrayList<>(Arrays.asList(inputList));
         List<Class> list1 = new ArrayList<>();
         for (OWLProfileViolation v : violations) {
@@ -108,9 +103,9 @@ public class OWLProfileTestCase extends TestBase {
     }
 
     public void runAssert(@Nonnull OWLOntology ontology,
-        @Nonnull OWLProfile profile, int expected, Class[] expectedViolations) {
+    @Nonnull OWLProfile profile, int expected, Class[] expectedViolations) {
         List<OWLProfileViolation> violations = profile.checkOntology(ontology)
-            .getViolations();
+        .getViolations();
         assertEquals(violations.toString(), expected, violations.size());
         checkInCollection(violations, expectedViolations);
         for (OWLProfileViolation violation : violations) {
@@ -120,7 +115,7 @@ public class OWLProfileTestCase extends TestBase {
 
                 @Override
                 public Optional<String> doDefault(
-                    @Nonnull OWLProfileViolation object) {
+                @Nonnull OWLProfileViolation object) {
                     return optional(object.toString());
                 }
             });
@@ -133,7 +128,7 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLDatatype datatype)")
     public void shouldCreateViolationForOWLDatatypeInOWL2DLProfile() {
         declare(o, UNKNOWNFAKEDATATYPE, FAKEDATATYPE, Class(FAKEDATATYPE
-            .getIRI()), DATAP);
+        .getIRI()), DATAP);
         o.addAxiom(DataPropertyRange(DATAP, FAKEUNDECLAREDDATATYPE));
         int expected = 1;
         Class[] expectedViolations = { UseOfUndeclaredDatatype.class };
@@ -143,11 +138,11 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDatatypeDefinitionAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2DLProfile() {
         declare(o, Integer(), Boolean(), FAKEDATATYPE);
         o.addAxioms(DatatypeDefinition(Boolean(), Integer()),
-            DatatypeDefinition(FAKEDATATYPE, Integer()), DatatypeDefinition(
-                Integer(), FAKEDATATYPE));
+        DatatypeDefinition(FAKEDATATYPE, Integer()), DatatypeDefinition(
+        Integer(), FAKEDATATYPE));
         int expected = 4;
         Class[] expectedViolations = { CycleInDatatypeDefinition.class,
             CycleInDatatypeDefinition.class,
@@ -159,12 +154,12 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDatatypeDefinitionAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2DLProfileCycles() {
+    shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2DLProfileCycles() {
         OWLDatatype d = Datatype(IRI(START + "test"));
         declare(o, d, Integer(), Boolean(), FAKEDATATYPE);
         o.addAxioms(DatatypeDefinition(d, Boolean()), DatatypeDefinition(
-            Boolean(), d), DatatypeDefinition(FAKEDATATYPE, Integer()),
-            DatatypeDefinition(Integer(), FAKEDATATYPE));
+        Boolean(), d), DatatypeDefinition(FAKEDATATYPE, Integer()),
+        DatatypeDefinition(Integer(), FAKEDATATYPE));
         int expected = 9;
         Class[] expectedViolations = { CycleInDatatypeDefinition.class,
             CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class,
@@ -181,7 +176,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLObjectPropertyInOWL2DLProfile() {
         IRI iri = IRI(START + "test");
         declare(o, ObjectProperty(iri), DataProperty(iri), AnnotationProperty(
-            iri));
+        iri));
         o.addAxiom(SubObjectPropertyOf(OP, ObjectProperty(iri)));
         int expected = 4;
         Class[] expectedViolations = {
@@ -232,9 +227,9 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLAnnotationPropertyInOWL2DLProfile() {
         IRI iri = IRI(START + "test");
         declare(o, ObjectProperty(iri), DataProperty(iri), AnnotationProperty(
-            iri));
+        iri));
         o.addAxiom(SubAnnotationPropertyOf(AnnotationProperty(IRI(
-            "urn:test#t")), AnnotationProperty(iri)));
+        "urn:test#t")), AnnotationProperty(iri)));
         int expected = 4;
         Class[] expectedViolations = {
             UseOfReservedVocabularyForAnnotationPropertyIRI.class,
@@ -246,9 +241,9 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLOntology ontology)")
     public void shouldCreateViolationForOWLOntologyInOWL2DLProfile()
-        throws OWLOntologyCreationException {
+    throws OWLOntologyCreationException {
         o = m.createOntology(new OWLOntologyID(optional(IRI(START + "test")),
-            optional(IRI(START + "test1"))));
+        optional(IRI(START + "test1"))));
         int expected = 2;
         Class[] expectedViolations = {
             UseOfReservedVocabularyForOntologyIRI.class,
@@ -261,7 +256,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLClassInOWL2DLProfile() {
         declare(o, Class(IRI(START + "test")), FAKEDATATYPE);
         o.addAxiom(ClassAssertion(Class(FAKEDATATYPE.getIRI()),
-            AnonymousIndividual()));
+        AnonymousIndividual()));
         int expected = 2;
         Class[] expectedViolations = { UseOfUndeclaredClass.class,
             DatatypeIRIAlsoUsedAsClassIRI.class };
@@ -301,7 +296,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectIntersectionOf node)")
     public void
-        shouldCreateViolationForOWLObjectIntersectionOfInOWL2DLProfile() {
+    shouldCreateViolationForOWLObjectIntersectionOfInOWL2DLProfile() {
         declare(o, OP);
         o.addAxiom(ObjectPropertyRange(OP, ObjectIntersectionOf()));
         int expected = 1;
@@ -332,7 +327,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentClassesAxiom node)")
     public void
-        shouldCreateViolationForOWLEquivalentClassesAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLEquivalentClassesAxiomInOWL2DLProfile() {
         declare(o, OP);
         o.addAxiom(EquivalentClasses());
         int expected = 1;
@@ -343,7 +338,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointClassesAxiom node)")
     public void
-        shouldCreateViolationForOWLDisjointClassesAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLDisjointClassesAxiomInOWL2DLProfile() {
         declare(o, OP);
         o.addAxiom(DisjointClasses());
         int expected = 1;
@@ -367,7 +362,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentObjectPropertiesAxiom node)")
     public void
-        shouldCreateViolationForOWLEquivalentObjectPropertiesAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLEquivalentObjectPropertiesAxiomInOWL2DLProfile() {
         o.addAxiom(EquivalentObjectProperties());
         int expected = 1;
         Class[] expectedViolations = { InsufficientPropertyExpressions.class };
@@ -377,7 +372,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointDataPropertiesAxiom node)")
     public void
-        shouldCreateViolationForOWLDisjointDataPropertiesAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLDisjointDataPropertiesAxiomInOWL2DLProfile() {
         o.addAxiom(DisjointDataProperties());
         int expected = 1;
         Class[] expectedViolations = { InsufficientPropertyExpressions.class };
@@ -387,7 +382,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentDataPropertiesAxiom node)")
     public void
-        shouldCreateViolationForOWLEquivalentDataPropertiesAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLEquivalentDataPropertiesAxiomInOWL2DLProfile() {
         o.addAxiom(EquivalentDataProperties());
         int expected = 1;
         Class[] expectedViolations = { InsufficientPropertyExpressions.class };
@@ -407,7 +402,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLSameIndividualAxiom node)")
     public void
-        shouldCreateViolationForOWLSameIndividualAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLSameIndividualAxiomInOWL2DLProfile() {
         o.addAxiom(SameIndividual());
         int expected = 1;
         Class[] expectedViolations = { InsufficientIndividuals.class };
@@ -417,7 +412,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDifferentIndividualsAxiom node)")
     public void
-        shouldCreateViolationForOWLDifferentIndividualsAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLDifferentIndividualsAxiomInOWL2DLProfile() {
         o.addAxiom(DifferentIndividuals());
         int expected = 1;
         Class[] expectedViolations = { InsufficientIndividuals.class };
@@ -428,7 +423,7 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLNamedIndividual individual)")
     public void shouldCreateViolationForOWLNamedIndividualInOWL2DLProfile() {
         o.addAxiom(ClassAssertion(OWLThing(), NamedIndividual(IRI(START
-            + 'i'))));
+        + 'i'))));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfReservedVocabularyForIndividualIRI.class };
@@ -438,9 +433,9 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLSubDataPropertyOfAxiom axiom)")
     public void
-        shouldCreateViolationForOWLSubDataPropertyOfAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLSubDataPropertyOfAxiomInOWL2DLProfile() {
         o.addAxiom(SubDataPropertyOf(DF.getOWLTopDataProperty(), DF
-            .getOWLTopDataProperty()));
+        .getOWLTopDataProperty()));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom.class };
@@ -450,10 +445,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectMinCardinality desc)")
     public void
-        shouldCreateViolationForOWLObjectMinCardinalityInOWL2DLProfile() {
+    shouldCreateViolationForOWLObjectMinCardinalityInOWL2DLProfile() {
         declare(o, OP, CL);
         o.addAxioms(TransitiveObjectProperty(OP), SubClassOf(CL,
-            ObjectMinCardinality(1, OP, OWLThing())));
+        ObjectMinCardinality(1, OP, OWLThing())));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfNonSimplePropertyInCardinalityRestriction.class };
@@ -463,10 +458,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectMaxCardinality desc)")
     public void
-        shouldCreateViolationForOWLObjectMaxCardinalityInOWL2DLProfile() {
+    shouldCreateViolationForOWLObjectMaxCardinalityInOWL2DLProfile() {
         declare(o, OP, CL);
         o.addAxioms(TransitiveObjectProperty(OP), SubClassOf(CL,
-            ObjectMaxCardinality(1, OP, OWLThing())));
+        ObjectMaxCardinality(1, OP, OWLThing())));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfNonSimplePropertyInCardinalityRestriction.class };
@@ -476,10 +471,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectExactCardinality desc)")
     public void
-        shouldCreateViolationForOWLObjectExactCardinalityInOWL2DLProfile() {
+    shouldCreateViolationForOWLObjectExactCardinalityInOWL2DLProfile() {
         declare(o, OP, CL);
         o.addAxioms(TransitiveObjectProperty(OP), SubClassOf(CL,
-            ObjectExactCardinality(1, OP, OWLThing())));
+        ObjectExactCardinality(1, OP, OWLThing())));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfNonSimplePropertyInCardinalityRestriction.class };
@@ -491,7 +486,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLObjectHasSelfInOWL2DLProfile() {
         declare(o, OP);
         o.addAxioms(TransitiveObjectProperty(OP), ObjectPropertyRange(OP,
-            ObjectHasSelf(OP)));
+        ObjectHasSelf(OP)));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfNonSimplePropertyInObjectHasSelf.class };
@@ -501,7 +496,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLFunctionalObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLFunctionalObjectPropertyAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLFunctionalObjectPropertyAxiomInOWL2DLProfile() {
         declare(o, OP);
         o.addAxioms(TransitiveObjectProperty(OP), FunctionalObjectProperty(OP));
         int expected = 1;
@@ -513,10 +508,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLInverseFunctionalObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLInverseFunctionalObjectPropertyAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLInverseFunctionalObjectPropertyAxiomInOWL2DLProfile() {
         declare(o, OP);
         o.addAxioms(TransitiveObjectProperty(OP),
-            InverseFunctionalObjectProperty(OP));
+        InverseFunctionalObjectProperty(OP));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom.class };
@@ -526,10 +521,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLIrreflexiveObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLIrreflexiveObjectPropertyAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLIrreflexiveObjectPropertyAxiomInOWL2DLProfile() {
         declare(o, OP);
         o.addAxioms(TransitiveObjectProperty(OP), IrreflexiveObjectProperty(
-            OP));
+        OP));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfNonSimplePropertyInIrreflexivePropertyAxiom.class };
@@ -539,7 +534,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLAsymmetricObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLAsymmetricObjectPropertyAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLAsymmetricObjectPropertyAxiomInOWL2DLProfile() {
         declare(o, OP);
         o.addAxioms(TransitiveObjectProperty(OP), AsymmetricObjectProperty(OP));
         int expected = 1;
@@ -551,7 +546,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointObjectPropertiesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDisjointObjectPropertiesAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLDisjointObjectPropertiesAxiomInOWL2DLProfile() {
         declare(o, OP);
         o.addAxioms(TransitiveObjectProperty(OP), DisjointObjectProperties(OP));
         int expected = 2;
@@ -563,13 +558,13 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLSubPropertyChainOfAxiom axiom)")
     public void
-        shouldCreateViolationForOWLSubPropertyChainOfAxiomInOWL2DLProfile() {
+    shouldCreateViolationForOWLSubPropertyChainOfAxiomInOWL2DLProfile() {
         OWLObjectProperty op1 = ObjectProperty(IRI("urn:test#op"));
         declare(o, OP, op1);
         o.addAxioms(SubPropertyChainOf(Arrays.asList(op1), OP),
-            SubPropertyChainOf(Arrays.asList(OP, op1, OP), OP),
-            SubPropertyChainOf(Arrays.asList(OP, op1), OP), SubPropertyChainOf(
-                Arrays.asList(op1, OP, op1, OP), OP));
+        SubPropertyChainOf(Arrays.asList(OP, op1, OP), OP), SubPropertyChainOf(
+        Arrays.asList(OP, op1), OP), SubPropertyChainOf(Arrays.asList(op1, OP,
+        op1, OP), OP));
         int expected = 4;
         Class[] expectedViolations = { InsufficientPropertyExpressions.class,
             UseOfPropertyInChainCausesCycle.class,
@@ -581,9 +576,9 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLOntology ont)")
     public void shouldCreateViolationForOWLOntologyInOWL2Profile()
-        throws OWLOntologyCreationException {
+    throws OWLOntologyCreationException {
         o = m.createOntology(new OWLOntologyID(optional(IRI("test")), optional(
-            IRI("test1"))));
+        IRI("test1"))));
         int expected = 2;
         Class[] expectedViolations = { OntologyIRINotAbsolute.class,
             OntologyVersionIRINotAbsolute.class };
@@ -604,7 +599,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLLiteralInOWL2Profile() {
         declare(o, DATAP);
         o.addAxiom(DataPropertyAssertion(DATAP, AnonymousIndividual(), Literal(
-            "wrong", OWL2Datatype.XSD_INTEGER)));
+        "wrong", OWL2Datatype.XSD_INTEGER)));
         int expected = 1;
         Class[] expectedViolations = { LexicalNotInLexicalSpace.class };
         runAssert(o, Profiles.OWL2_FULL, expected, expectedViolations);
@@ -615,7 +610,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLDatatypeRestrictionInOWL2Profile() {
         declare(o, DATAP);
         o.addAxioms(DatatypeDefinition(Integer(), Boolean()),
-            DATA_PROPERTY_RANGE2);
+        DATA_PROPERTY_RANGE2);
         int expected = 4;
         Class[] expectedViolations = {
             UseOfBuiltInDatatypeInDatatypeDefinition.class,
@@ -627,7 +622,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDatatypeDefinitionAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2Profile() {
+    shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2Profile() {
         o.addAxiom(DatatypeDefinition(FAKEDATATYPE, Boolean()));
         int expected = 2;
         Class[] expectedViolations = { UseOfUndeclaredDatatype.class,
@@ -647,7 +642,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLAnonymousIndividual individual)")
     public void
-        shouldCreateViolationForOWLAnonymousIndividualInOWL2ELProfile() {
+    shouldCreateViolationForOWLAnonymousIndividualInOWL2ELProfile() {
         o.addAxiom(ClassAssertion(OWLThing(), DF.getOWLAnonymousIndividual()));
         int expected = 1;
         Class[] expectedViolations = { UseOfAnonymousIndividual.class };
@@ -677,7 +672,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDataExactCardinality desc)")
     public void
-        shouldCreateViolationForOWLDataExactCardinalityInOWL2ELProfile() {
+    shouldCreateViolationForOWLDataExactCardinalityInOWL2ELProfile() {
         declare(o, DATAP, CL, Integer());
         o.addAxiom(SubClassOf(CL, DataExactCardinality(1, DATAP, Integer())));
         int expected = 1;
@@ -708,7 +703,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectAllValuesFrom desc)")
     public void
-        shouldCreateViolationForOWLObjectAllValuesFromInOWL2ELProfile() {
+    shouldCreateViolationForOWLObjectAllValuesFromInOWL2ELProfile() {
         declare(o, OP, CL);
         o.addAxiom(SubClassOf(CL, ObjectAllValuesFrom(OP, OWLThing())));
         int expected = 1;
@@ -729,7 +724,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectExactCardinality desc)")
     public void
-        shouldCreateViolationForOWLObjectExactCardinalityInOWL2ELProfile() {
+    shouldCreateViolationForOWLObjectExactCardinalityInOWL2ELProfile() {
         declare(o, OP, CL);
         o.addAxiom(SubClassOf(CL, ObjectExactCardinality(1, OP, OWLThing())));
         int expected = 1;
@@ -740,7 +735,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectMaxCardinality desc)")
     public void
-        shouldCreateViolationForOWLObjectMaxCardinalityInOWL2ELProfile() {
+    shouldCreateViolationForOWLObjectMaxCardinalityInOWL2ELProfile() {
         declare(o, OP, CL);
         o.addAxiom(SubClassOf(CL, ObjectMaxCardinality(1, OP, OWLThing())));
         int expected = 1;
@@ -751,7 +746,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectMinCardinality desc)")
     public void
-        shouldCreateViolationForOWLObjectMinCardinalityInOWL2ELProfile() {
+    shouldCreateViolationForOWLObjectMinCardinalityInOWL2ELProfile() {
         declare(o, OP, CL);
         o.addAxiom(SubClassOf(CL, ObjectMinCardinality(1, OP, OWLThing())));
         int expected = 1;
@@ -764,7 +759,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLObjectOneOfInOWL2ELProfile() {
         declare(o, OP);
         o.addAxiom(ObjectPropertyRange(OP, ObjectOneOf(NamedIndividual(IRI(
-            "urn:test#i1")), NamedIndividual(IRI("urn:test#i2")))));
+        "urn:test#i1")), NamedIndividual(IRI("urn:test#i2")))));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfObjectOneOfWithMultipleIndividuals.class };
@@ -776,7 +771,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLObjectUnionOfInOWL2ELProfile() {
         declare(o, OP);
         o.addAxiom(ObjectPropertyRange(OP, ObjectUnionOf(OWLThing(),
-            OWLNothing())));
+        OWLNothing())));
         int expected = 1;
         Class[] expectedViolations = { UseOfIllegalClassExpression.class };
         runAssert(o, Profiles.OWL2_EL, expected, expectedViolations);
@@ -807,7 +802,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDatatypeRestriction node)")
     public void
-        shouldCreateViolationForOWLDatatypeRestrictionInOWL2ELProfile() {
+    shouldCreateViolationForOWLDatatypeRestrictionInOWL2ELProfile() {
         declare(o, DATAP);
         o.addAxiom(DATA_PROPERTY_RANGE);
         int expected = 1;
@@ -829,7 +824,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLAsymmetricObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLAsymmetricObjectPropertyAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLAsymmetricObjectPropertyAxiomInOWL2ELProfile() {
         declare(o, OP);
         o.addAxiom(AsymmetricObjectProperty(OP));
         int expected = 1;
@@ -840,7 +835,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointDataPropertiesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDisjointDataPropertiesAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLDisjointDataPropertiesAxiomInOWL2ELProfile() {
         OWLDataProperty dp = DataProperty(IRI("urn:test#other"));
         declare(o, DATAP, dp);
         o.addAxiom(DisjointDataProperties(DATAP, dp));
@@ -852,7 +847,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointObjectPropertiesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDisjointObjectPropertiesAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLDisjointObjectPropertiesAxiomInOWL2ELProfile() {
         OWLObjectProperty op1 = ObjectProperty(IRI("urn:test#test"));
         declare(o, OP, op1);
         o.addAxiom(DisjointObjectProperties(op1, OP));
@@ -874,7 +869,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLFunctionalObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLFunctionalObjectPropertyAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLFunctionalObjectPropertyAxiomInOWL2ELProfile() {
         declare(o, OP);
         o.addAxiom(FunctionalObjectProperty(OP));
         int expected = 1;
@@ -895,7 +890,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLInverseFunctionalObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLInverseFunctionalObjectPropertyAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLInverseFunctionalObjectPropertyAxiomInOWL2ELProfile() {
         declare(o, P);
         o.addAxiom(InverseFunctionalObjectProperty(P));
         int expected = 1;
@@ -906,7 +901,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLInverseObjectPropertiesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLInverseObjectPropertiesAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLInverseObjectPropertiesAxiomInOWL2ELProfile() {
         declare(o, P);
         OWLObjectProperty p1 = ObjectProperty(IRI("urn:test#objectproperty"));
         declare(o, p1);
@@ -919,7 +914,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLIrreflexiveObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLIrreflexiveObjectPropertyAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLIrreflexiveObjectPropertyAxiomInOWL2ELProfile() {
         declare(o, P);
         o.addAxiom(IrreflexiveObjectProperty(P));
         int expected = 1;
@@ -930,7 +925,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLSymmetricObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLSymmetricObjectPropertyAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLSymmetricObjectPropertyAxiomInOWL2ELProfile() {
         declare(o, P);
         o.addAxiom(SymmetricObjectProperty(P));
         int expected = 1;
@@ -942,7 +937,7 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(SWRLRule rule)")
     public void shouldCreateViolationForSWRLRuleInOWL2ELProfile() {
         o.addAxiom(DF.getSWRLRule(new HashSet<SWRLAtom>(),
-            new HashSet<SWRLAtom>()));
+        new HashSet<SWRLAtom>()));
         int expected = 1;
         Class[] expectedViolations = { UseOfIllegalAxiom.class };
         runAssert(o, Profiles.OWL2_EL, expected, expectedViolations);
@@ -951,7 +946,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLSubPropertyChainOfAxiom axiom)")
     public void
-        shouldCreateViolationForOWLSubPropertyChainOfAxiomInOWL2ELProfile() {
+    shouldCreateViolationForOWLSubPropertyChainOfAxiomInOWL2ELProfile() {
         OWLObjectProperty op1 = ObjectProperty(IRI("urn:test#op1"));
         OWLObjectProperty op2 = ObjectProperty(IRI("urn:test#op"));
         declare(o, op1, OP, op2, CL);
@@ -976,7 +971,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLAnonymousIndividual individual)")
     public void
-        shouldCreateViolationForOWLAnonymousIndividualInOWL2QLProfile() {
+    shouldCreateViolationForOWLAnonymousIndividualInOWL2QLProfile() {
         o.addAxiom(ClassAssertion(OWLThing(), DF.getOWLAnonymousIndividual()));
         int expected = 1;
         Class[] expectedViolations = { UseOfAnonymousIndividual.class };
@@ -998,7 +993,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLSubClassOfAxiomInOWL2QLProfile() {
         declare(o, OP);
         o.addAxiom(SubClassOf(ObjectComplementOf(OWLNothing()), ObjectUnionOf(
-            OWLThing(), OWLNothing())));
+        OWLThing(), OWLNothing())));
         int expected = 2;
         Class[] expectedViolations = { UseOfNonSubClassExpression.class,
             UseOfNonSuperClassExpression.class };
@@ -1008,9 +1003,9 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentClassesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLEquivalentClassesAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLEquivalentClassesAxiomInOWL2QLProfile() {
         o.addAxiom(EquivalentClasses(ObjectUnionOf(OWLNothing(), OWLThing()),
-            OWLNothing()));
+        OWLNothing()));
         int expected = 1;
         Class[] expectedViolations = { UseOfNonSubClassExpression.class };
         runAssert(o, Profiles.OWL2_QL, expected, expectedViolations);
@@ -1019,7 +1014,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointClassesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDisjointClassesAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLDisjointClassesAxiomInOWL2QLProfile() {
         o.addAxiom(DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
         int expected = 1;
         Class[] expectedViolations = { UseOfIllegalAxiom.class };
@@ -1029,10 +1024,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectPropertyDomainAxiom axiom)")
     public void
-        shouldCreateViolationForOWLObjectPropertyDomainAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLObjectPropertyDomainAxiomInOWL2QLProfile() {
         declare(o, OP);
         o.addAxiom(ObjectPropertyDomain(OP, ObjectUnionOf(OWLNothing(),
-            OWLThing())));
+        OWLThing())));
         int expected = 1;
         Class[] expectedViolations = { UseOfNonSuperClassExpression.class };
         runAssert(o, Profiles.OWL2_QL, expected, expectedViolations);
@@ -1041,10 +1036,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectPropertyRangeAxiom axiom)")
     public void
-        shouldCreateViolationForOWLObjectPropertyRangeAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLObjectPropertyRangeAxiomInOWL2QLProfile() {
         declare(o, OP);
         o.addAxiom(ObjectPropertyRange(OP, ObjectUnionOf(OWLNothing(),
-            OWLThing())));
+        OWLThing())));
         int expected = 1;
         Class[] expectedViolations = { UseOfNonSuperClassExpression.class };
         runAssert(o, Profiles.OWL2_QL, expected, expectedViolations);
@@ -1053,7 +1048,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLSubPropertyChainOfAxiom axiom)")
     public void
-        shouldCreateViolationForOWLSubPropertyChainOfAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLSubPropertyChainOfAxiomInOWL2QLProfile() {
         OWLObjectProperty op1 = ObjectProperty(IRI("urn:test#op"));
         declare(o, OP, op1);
         o.addAxiom(SubPropertyChainOf(Arrays.asList(OP, op1), OP));
@@ -1065,7 +1060,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLFunctionalObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLFunctionalObjectPropertyAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLFunctionalObjectPropertyAxiomInOWL2QLProfile() {
         declare(o, OP);
         o.addAxiom(FunctionalObjectProperty(OP));
         int expected = 1;
@@ -1076,7 +1071,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLInverseFunctionalObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLInverseFunctionalObjectPropertyAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLInverseFunctionalObjectPropertyAxiomInOWL2QLProfile() {
         declare(o, OP);
         o.addAxiom(InverseFunctionalObjectProperty(OP));
         int expected = 1;
@@ -1087,7 +1082,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLTransitiveObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLTransitiveObjectPropertyAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLTransitiveObjectPropertyAxiomInOWL2QLProfile() {
         declare(o, OP);
         o.addAxiom(TransitiveObjectProperty(OP));
         int expected = 1;
@@ -1098,7 +1093,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLFunctionalDataPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLFunctionalDataPropertyAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLFunctionalDataPropertyAxiomInOWL2QLProfile() {
         declare(o, DATAP);
         o.addAxiom(FunctionalDataProperty(DATAP));
         int expected = 1;
@@ -1109,10 +1104,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDataPropertyDomainAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDataPropertyDomainAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLDataPropertyDomainAxiomInOWL2QLProfile() {
         declare(o, DATAP, OP);
         o.addAxiom(DataPropertyDomain(DATAP, ObjectMaxCardinality(1, OP,
-            OWLNothing())));
+        OWLNothing())));
         int expected = 1;
         Class[] expectedViolations = { UseOfNonSuperClassExpression.class };
         runAssert(o, Profiles.OWL2_QL, expected, expectedViolations);
@@ -1121,7 +1116,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLClassAssertionAxiom axiom)")
     public void
-        shouldCreateViolationForOWLClassAssertionAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLClassAssertionAxiomInOWL2QLProfile() {
         OWLNamedIndividual i = NamedIndividual(IRI("urn:test#i"));
         declare(o, OP, i);
         o.addAxiom(ClassAssertion(ObjectSomeValuesFrom(OP, OWLThing()), i));
@@ -1133,9 +1128,9 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLSameIndividualAxiom axiom)")
     public void
-        shouldCreateViolationForOWLSameIndividualAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLSameIndividualAxiomInOWL2QLProfile() {
         o.addAxiom(SameIndividual(NamedIndividual(IRI("urn:test#individual1")),
-            NamedIndividual(IRI("urn:test#individual2"))));
+        NamedIndividual(IRI("urn:test#individual2"))));
         int expected = 1;
         Class[] expectedViolations = { UseOfIllegalAxiom.class };
         runAssert(o, Profiles.OWL2_QL, expected, expectedViolations);
@@ -1144,7 +1139,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLNegativeObjectPropertyAssertionAxiom axiom)")
     public void
-        shouldCreateViolationForOWLNegativeObjectPropertyAssertionAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLNegativeObjectPropertyAssertionAxiomInOWL2QLProfile() {
         declare(o, OP);
         OWLNamedIndividual i = NamedIndividual(IRI("urn:test#i"));
         OWLNamedIndividual i1 = NamedIndividual(IRI("urn:test#i"));
@@ -1158,7 +1153,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLNegativeDataPropertyAssertionAxiom axiom)")
     public void
-        shouldCreateViolationForOWLNegativeDataPropertyAssertionAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLNegativeDataPropertyAssertionAxiomInOWL2QLProfile() {
         declare(o, DATAP);
         OWLNamedIndividual i = NamedIndividual(IRI("urn:test#i"));
         declare(o, i);
@@ -1181,7 +1176,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLIrreflexiveObjectPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLIrreflexiveObjectPropertyAxiomInOWL2QLProfile() {
+    shouldCreateViolationForOWLIrreflexiveObjectPropertyAxiomInOWL2QLProfile() {
         declare(o, OP);
         o.addAxiom(IrreflexiveObjectProperty(OP));
         int expected = 1;
@@ -1193,7 +1188,7 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(SWRLRule rule)")
     public void shouldCreateViolationForSWRLRuleInOWL2QLProfile() {
         o.addAxiom(DF.getSWRLRule(new HashSet<SWRLAtom>(),
-            new HashSet<SWRLAtom>()));
+        new HashSet<SWRLAtom>()));
         int expected = 1;
         Class[] expectedViolations = { UseOfIllegalAxiom.class };
         runAssert(o, Profiles.OWL2_QL, expected, expectedViolations);
@@ -1222,7 +1217,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDatatypeRestriction node)")
     public void
-        shouldCreateViolationForOWLDatatypeRestrictionInOWL2QLProfile() {
+    shouldCreateViolationForOWLDatatypeRestrictionInOWL2QLProfile() {
         declare(o, DATAP);
         o.addAxiom(DATA_PROPERTY_RANGE);
         int expected = 1;
@@ -1244,10 +1239,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLClassAssertionAxiom axiom)")
     public void
-        shouldCreateViolationForOWLClassAssertionAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLClassAssertionAxiomInOWL2RLProfile() {
         declare(o, OP);
         o.addAxiom(ClassAssertion(ObjectMinCardinality(1, OP, OWLThing()),
-            NamedIndividual(IRI("urn:test#i"))));
+        NamedIndividual(IRI("urn:test#i"))));
         int expected = 1;
         Class[] expectedViolations = { UseOfNonSuperClassExpression.class };
         runAssert(o, Profiles.OWL2_RL, expected, expectedViolations);
@@ -1256,10 +1251,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDataPropertyDomainAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDataPropertyDomainAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLDataPropertyDomainAxiomInOWL2RLProfile() {
         declare(o, DATAP, OP);
         o.addAxiom(DataPropertyDomain(DATAP, ObjectMinCardinality(1, OP,
-            OWLThing())));
+        OWLThing())));
         int expected = 1;
         Class[] expectedViolations = { UseOfNonSuperClassExpression.class };
         runAssert(o, Profiles.OWL2_RL, expected, expectedViolations);
@@ -1268,7 +1263,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointClassesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDisjointClassesAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLDisjointClassesAxiomInOWL2RLProfile() {
         o.addAxiom(DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
         int expected = 1;
         Class[] expectedViolations = { UseOfIllegalAxiom.class };
@@ -1278,7 +1273,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDisjointDataPropertiesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDisjointDataPropertiesAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLDisjointDataPropertiesAxiomInOWL2RLProfile() {
         OWLDataProperty dp = DataProperty(IRI("urn:test#dproperty"));
         declare(o, DATAP, dp);
         o.addAxiom(DisjointDataProperties(DATAP, dp));
@@ -1300,9 +1295,9 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentClassesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLEquivalentClassesAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLEquivalentClassesAxiomInOWL2RLProfile() {
         o.addAxiom(EquivalentClasses(ObjectComplementOf(OWLThing()),
-            OWLNothing()));
+        OWLNothing()));
         int expected = 1;
         Class[] expectedViolations = {
             UseOfNonEquivalentClassExpression.class };
@@ -1312,7 +1307,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLEquivalentDataPropertiesAxiom axiom)")
     public void
-        shouldCreateViolationForOWLEquivalentDataPropertiesAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLEquivalentDataPropertiesAxiomInOWL2RLProfile() {
         OWLDataProperty dp = DataProperty(IRI("urn:test#test"));
         declare(o, DATAP, dp);
         o.addAxiom(EquivalentDataProperties(DATAP, dp));
@@ -1324,7 +1319,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLFunctionalDataPropertyAxiom axiom)")
     public void
-        shouldCreateViolationForOWLFunctionalDataPropertyAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLFunctionalDataPropertyAxiomInOWL2RLProfile() {
         declare(o, DATAP);
         o.addAxiom(FunctionalDataProperty(DATAP));
         int expected = 0;
@@ -1345,10 +1340,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectPropertyDomainAxiom axiom)")
     public void
-        shouldCreateViolationForOWLObjectPropertyDomainAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLObjectPropertyDomainAxiomInOWL2RLProfile() {
         declare(o, OP, OP);
         o.addAxiom(ObjectPropertyDomain(OP, ObjectMinCardinality(1, OP,
-            OWLThing())));
+        OWLThing())));
         int expected = 1;
         Class[] expectedViolations = { UseOfNonSuperClassExpression.class };
         runAssert(o, Profiles.OWL2_RL, expected, expectedViolations);
@@ -1357,10 +1352,10 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLObjectPropertyRangeAxiom axiom)")
     public void
-        shouldCreateViolationForOWLObjectPropertyRangeAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLObjectPropertyRangeAxiomInOWL2RLProfile() {
         declare(o, OP);
         o.addAxiom(ObjectPropertyRange(OP, ObjectMinCardinality(1, OP,
-            OWLThing())));
+        OWLThing())));
         int expected = 1;
         Class[] expectedViolations = { UseOfNonSuperClassExpression.class };
         runAssert(o, Profiles.OWL2_RL, expected, expectedViolations);
@@ -1370,7 +1365,7 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(OWLSubClassOfAxiom axiom)")
     public void shouldCreateViolationForOWLSubClassOfAxiomInOWL2RLProfile() {
         o.addAxiom(SubClassOf(ObjectComplementOf(OWLThing()), ObjectOneOf(
-            NamedIndividual(IRI("urn:test#test")))));
+        NamedIndividual(IRI("urn:test#test")))));
         int expected = 2;
         Class[] expectedViolations = { UseOfNonSubClassExpression.class,
             UseOfNonSuperClassExpression.class };
@@ -1381,7 +1376,7 @@ public class OWLProfileTestCase extends TestBase {
     @Tests(method = "public Object visit(SWRLRule rule)")
     public void shouldCreateViolationForSWRLRuleInOWL2RLProfile() {
         o.addAxiom(DF.getSWRLRule(new HashSet<SWRLAtom>(),
-            new HashSet<SWRLAtom>()));
+        new HashSet<SWRLAtom>()));
         int expected = 1;
         Class[] expectedViolations = { UseOfIllegalAxiom.class };
         runAssert(o, Profiles.OWL2_RL, expected, expectedViolations);
@@ -1402,7 +1397,7 @@ public class OWLProfileTestCase extends TestBase {
     public void shouldCreateViolationForOWLDataIntersectionOfInOWL2RLProfile() {
         declare(o, DATAP);
         o.addAxiom(DataPropertyRange(DATAP, DataIntersectionOf(Integer(),
-            Boolean())));
+        Boolean())));
         int expected = 1;
         Class[] expectedViolations = { UseOfIllegalDataRange.class };
         runAssert(o, Profiles.OWL2_RL, expected, expectedViolations);
@@ -1430,7 +1425,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDatatypeRestriction node)")
     public void
-        shouldCreateViolationForOWLDatatypeRestrictionInOWL2RLProfile() {
+    shouldCreateViolationForOWLDatatypeRestrictionInOWL2RLProfile() {
         declare(o, DATAP);
         o.addAxiom(DATA_PROPERTY_RANGE);
         int expected = 1;
@@ -1451,7 +1446,7 @@ public class OWLProfileTestCase extends TestBase {
     @Test
     @Tests(method = "public Object visit(OWLDatatypeDefinitionAxiom axiom)")
     public void
-        shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2RLProfile() {
+    shouldCreateViolationForOWLDatatypeDefinitionAxiomInOWL2RLProfile() {
         OWLDatatype datatype = Datatype(IRI("urn:test#datatype"));
         declare(o, datatype);
         o.addAxiom(DatatypeDefinition(datatype, Boolean()));

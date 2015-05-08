@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.profiles.test;
+package org.semanticweb.owlapi.profiles;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.profiles.Profiles.*;

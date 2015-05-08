@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.semanticweb.owlapi.rio.test;
+package org.semanticweb.owlapi.rio;
 
 import static org.junit.Assert.*;
 
@@ -27,11 +27,6 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.rio.RioManchesterSyntaxParserFactory;
-import org.semanticweb.owlapi.rio.RioNTriplesStorerFactory;
-import org.semanticweb.owlapi.rio.RioRDFXMLStorerFactory;
-import org.semanticweb.owlapi.rio.RioRenderer;
-import org.semanticweb.owlapi.rio.RioTurtleStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
@@ -70,25 +65,23 @@ public class RioRendererTestCase {
         // storerRegistry, parserRegistry);
         OWLOntologyManager testManager = OWLManager.createOWLOntologyManager();
         testManager.getOntologyStorers().set(new RioNTriplesStorerFactory(),
-                new RioRDFXMLStorerFactory(), new RioTurtleStorerFactory());
+        new RioRDFXMLStorerFactory(), new RioTurtleStorerFactory());
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
-        testOntologyKoala = testManager
-                .loadOntologyFromOntologyDocument(getClass()
-                        .getResourceAsStream("/koala.owl"));
+        testOntologyKoala = testManager.loadOntologyFromOntologyDocument(
+        getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
-        testOntologyEmptyStatement = vf
-                .createStatement(vf.createURI("urn:test:ontology:uri:1"),
-                        RDF.TYPE, OWL.ONTOLOGY);
+        testOntologyEmptyStatement = vf.createStatement(vf.createURI(
+        "urn:test:ontology:uri:1"), RDF.TYPE, OWL.ONTOLOGY);
         testRdfXmlStringWriter = new StringWriter();
         testRdfXmlRioWriter = Rio.createWriter(RDFFormat.RDFXML,
-                testRdfXmlStringWriter);
+        testRdfXmlStringWriter);
         testTurtleStringWriter = new StringWriter();
         testTurtleRioWriter = Rio.createWriter(RDFFormat.TURTLE,
-                testTurtleStringWriter);
+        testTurtleStringWriter);
         testNTriplesStringWriter = new StringWriter();
         testNTriplesRioWriter = Rio.createWriter(RDFFormat.NTRIPLES,
-                testNTriplesStringWriter);
+        testNTriplesStringWriter);
     }
 
     /* 
@@ -98,7 +91,7 @@ public class RioRendererTestCase {
     @Test
     public void testRenderEmptyStatementCollector() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
-                testHandlerStatementCollector, null);
+        testHandlerStatementCollector, null);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(1, testHandlerStatementCollector.getStatements().size());
@@ -106,7 +99,7 @@ public class RioRendererTestCase {
         // otherwise empty
         // ontology
         assertEquals(testOntologyEmptyStatement, testHandlerStatementCollector
-                .getStatements().iterator().next());
+        .getStatements().iterator().next());
     }
 
     /*
@@ -116,14 +109,14 @@ public class RioRendererTestCase {
     @Test
     public void testRenderEmptyRdfXmlWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
-                testRdfXmlRioWriter, null);
+        testRdfXmlRioWriter, null);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
-        assertTrue("Result was smaller than expected:" + result,
-                result.length() > 560);
-        assertTrue("Result was larger than expected:" + result,
-                result.length() < 590);
+        assertTrue("Result was smaller than expected:" + result, result
+        .length() > 560);
+        assertTrue("Result was larger than expected:" + result, result
+        .length() < 590);
     }
 
     /*
@@ -133,14 +126,14 @@ public class RioRendererTestCase {
     @Test
     public void testRenderEmptyTurtleWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
-                testTurtleRioWriter, null);
+        testTurtleRioWriter, null);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
-        assertTrue("Result was smaller than expected:" + result,
-                result.length() > 420);
-        assertTrue("Result was larger than expected:" + result,
-                result.length() < 450);
+        assertTrue("Result was smaller than expected:" + result, result
+        .length() > 420);
+        assertTrue("Result was larger than expected:" + result, result
+        .length() < 450);
     }
 
     /*
@@ -150,14 +143,14 @@ public class RioRendererTestCase {
     @Test
     public void testRenderEmptyNTriplesWriter() {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
-                testNTriplesRioWriter, null);
+        testNTriplesRioWriter, null);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
-        assertTrue("Result was smaller than expected:" + result,
-                result.length() > 190);
-        assertTrue("Result was larger than expected:" + result,
-                result.length() < 220);
+        assertTrue("Result was smaller than expected:" + result, result
+        .length() > 190);
+        assertTrue("Result was larger than expected:" + result, result
+        .length() < 220);
     }
 
     /*
@@ -167,15 +160,15 @@ public class RioRendererTestCase {
     @Test
     public void testRenderKoalaStatementCollector() {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
-                testHandlerStatementCollector, null);
+        testHandlerStatementCollector, null);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
         HashSet<Statement> resultStatements = new HashSet<>(
-                testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171,
-                resultStatements.size());
+        testHandlerStatementCollector.getStatements());
+        assertEquals("Duplicate statements were emitted", 171, resultStatements
+        .size());
     }
 
     /*
@@ -185,7 +178,7 @@ public class RioRendererTestCase {
     @Test
     public void testRenderKoalaRdfXmlWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
-                testRdfXmlRioWriter, null);
+        testRdfXmlRioWriter, null);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
@@ -193,11 +186,9 @@ public class RioRendererTestCase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length()
-                + " was not inside the expected bounds",
-                result.length() > 24000);
+        + " was not inside the expected bounds", result.length() > 24000);
         assertTrue("result.length()=" + result.length()
-                + " was not inside the expected bounds",
-                result.length() < 26000);
+        + " was not inside the expected bounds", result.length() < 26000);
         RDFParser parser = Rio.createParser(RDFFormat.RDFXML, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -209,9 +200,9 @@ public class RioRendererTestCase {
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
         HashSet<Statement> resultStatements = new HashSet<>(
-                testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171,
-                resultStatements.size());
+        testHandlerStatementCollector.getStatements());
+        assertEquals("Duplicate statements were emitted", 171, resultStatements
+        .size());
     }
 
     /*
@@ -221,7 +212,7 @@ public class RioRendererTestCase {
     @Test
     public void testRenderKoalaTurtleWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
-                testTurtleRioWriter, null);
+        testTurtleRioWriter, null);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
@@ -229,9 +220,9 @@ public class RioRendererTestCase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length()
-                + " was not inside the expected bounds", result.length() > 8250);
+        + " was not inside the expected bounds", result.length() > 8250);
         assertTrue("result.length()=" + result.length()
-                + " was not inside the expected bounds", result.length() < 9500);
+        + " was not inside the expected bounds", result.length() < 9500);
         RDFParser parser = Rio.createParser(RDFFormat.TURTLE, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -239,9 +230,9 @@ public class RioRendererTestCase {
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
         HashSet<Statement> resultStatements = new HashSet<>(
-                testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171,
-                resultStatements.size());
+        testHandlerStatementCollector.getStatements());
+        assertEquals("Duplicate statements were emitted", 171, resultStatements
+        .size());
     }
 
     /*
@@ -251,7 +242,7 @@ public class RioRendererTestCase {
     @Test
     public void testRenderKoalaNTriplesWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
-                testNTriplesRioWriter, null);
+        testNTriplesRioWriter, null);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
@@ -259,11 +250,9 @@ public class RioRendererTestCase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length()
-                + " was not inside the expected bounds",
-                result.length() > 26200);
+        + " was not inside the expected bounds", result.length() > 26200);
         assertTrue("result.length()=" + result.length()
-                + " was not inside the expected bounds",
-                result.length() < 27500);
+        + " was not inside the expected bounds", result.length() < 27500);
         RDFParser parser = Rio.createParser(RDFFormat.NTRIPLES, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -273,40 +262,36 @@ public class RioRendererTestCase {
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
         HashSet<Statement> resultStatements = new HashSet<>(
-                testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171,
-                resultStatements.size());
+        testHandlerStatementCollector.getStatements());
+        assertEquals("Duplicate statements were emitted", 171, resultStatements
+        .size());
     }
 
     @Test
     public void testRioOWLRDFParser() throws Exception {
         RDFParser parser = new RioManchesterSyntaxParserFactory().getParser();
         String inputManSyntax = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
-                + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-                + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
-                + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-                + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
-                + "Datatype: xsd:decimal\n"
-                + "Datatype: xsd:int\n"
-                + "Datatype: xsd:dateTime\n"
-                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n"
-                + "    Characteristics: \n"
-                + "        Functional\n"
-                + "    Range: \n"
-                + "        xsd:int\n"
-                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n"
-                + "    Range: \n"
-                + "        xsd:dateTime\n"
-                + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
-                + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n"
-                + "    Types: \n"
-                + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
-                + "Rule: \n"
-                + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
+        + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+        + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
+        + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+        + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+        + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
+        + "Datatype: xsd:decimal\n" + "Datatype: xsd:int\n"
+        + "Datatype: xsd:dateTime\n"
+        + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n"
+        + "    Characteristics: \n" + "        Functional\n" + "    Range: \n"
+        + "        xsd:int\n"
+        + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n"
+        + "    Range: \n" + "        xsd:dateTime\n"
+        + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
+        + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n"
+        + "    Types: \n"
+        + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
+        + "Rule: \n"
+        + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(inputManSyntax),
-                "http://www.owl-ontologies.com/Ontology1307394066.owl");
+        "http://www.owl-ontologies.com/Ontology1307394066.owl");
         assertEquals(36, testHandlerStatementCollector.getStatements().size());
     }
 }

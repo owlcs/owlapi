@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.profiles.test;
+package org.semanticweb.owlapi.profiles;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.rio.model.test;
+package org.semanticweb.owlapi.rio;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,7 +18,7 @@ public class OWLOntologyStorerFactoryRegistryTestCase {
     @Test
     public void setUp() {
         PriorityCollection<OWLStorerFactory> ontologyStorers = OWLManager
-                .createOWLOntologyManager().getOntologyStorers();
+        .createOWLOntologyManager().getOntologyStorers();
         assertEquals(EXPECTED_STORERS, ontologyStorers.size());
     }
 }

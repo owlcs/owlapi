@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.rio.io.test;
+package org.semanticweb.owlapi.rio;
 
 import static org.junit.Assert.assertTrue;
 
@@ -15,17 +15,6 @@ import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParserFactory;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory;
-import org.semanticweb.owlapi.rio.RioBinaryRdfParserFactory;
-import org.semanticweb.owlapi.rio.RioJsonLDParserFactory;
-import org.semanticweb.owlapi.rio.RioJsonParserFactory;
-import org.semanticweb.owlapi.rio.RioN3ParserFactory;
-import org.semanticweb.owlapi.rio.RioNQuadsParserFactory;
-import org.semanticweb.owlapi.rio.RioNTriplesParserFactory;
-import org.semanticweb.owlapi.rio.RioRDFXMLParserFactory;
-import org.semanticweb.owlapi.rio.RioRDFaParserFactory;
-import org.semanticweb.owlapi.rio.RioTrigParserFactory;
-import org.semanticweb.owlapi.rio.RioTrixParserFactory;
-import org.semanticweb.owlapi.rio.RioTurtleParserFactory;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
@@ -61,14 +50,14 @@ public class OWLParserFactoryRegistryTestCase {
         factories.add(RioTrixParserFactory.class);
         factories.add(RioRDFaParserFactory.class);
         PriorityCollection<OWLParserFactory> ontologyParsers = OWLManager
-                .createOWLOntologyManager().getOntologyParsers();
+        .createOWLOntologyManager().getOntologyParsers();
         Set<Class<? extends OWLParserFactory>> found = new HashSet<>();
         for (OWLParserFactory p : ontologyParsers) {
             found.add(p.getClass());
         }
         for (Class<? extends OWLParserFactory> p : factories) {
-            assertTrue("Expected among parsers: " + p.getSimpleName(),
-                    found.contains(p));
+            assertTrue("Expected among parsers: " + p.getSimpleName(), found
+            .contains(p));
         }
     }
 }
