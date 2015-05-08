@@ -10,16 +10,21 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.literals;
+package org.semanticweb.owlapi.api.test.baseclasses;
 
-import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.function.Function;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -27,29 +32,30 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
-public class BuiltInDatatypesTestCase extends TestBase {
+@RunWith(Parameterized.class)
+public class AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase
+    extends AnnotatedAxiomRoundTrippingTestCase {
 
-    @Test
-    public void testBuiltInDatatypes() {
-        OWL2Datatype dt = OWL2Datatype
-                .getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL);
-        assertNotNull("object should not be null", dt);
-        dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL);
-        assertNotNull("object should not be null", dt);
-        OWLDatatype datatype = df.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL);
-        assertNotNull("object should not be null", datatype);
-        OWL2Datatype test = datatype.getBuiltInDatatype();
-        assertEquals(test, dt);
+    public AnnotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase(
+        Function<Set<OWLAnnotation>, OWLAxiom> f) {
+        super(f);
     }
 
+    @Parameters
+    public static List<Function<Set<OWLAnnotation>, OWLAxiom>> getData() {
+        return Arrays.asList(
+            a -> EquivalentClasses(a, Class(iri("A")), Class(iri("B")),
+                Class(iri("C")), Class(iri("D"))),
+            a -> EquivalentDataProperties(a, DataProperty(iri("p")),
+                DataProperty(iri("q")), DataProperty(iri("r"))),
+            a -> EquivalentObjectProperties(a, ObjectProperty(iri("p")),
+                ObjectProperty(iri("q")), ObjectProperty(iri("r"))));
+    }
+
+    @Override
     @Test
-    public void testFailure() {
-        for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
-            OWLDatatype datatype = df.getOWLDatatype(type);
-            if (datatype.isBuiltIn()) {
-                OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
-                assertNotNull("object should not be null", builtInDatatype);
-            }
-        }
+    public void roundTripRDFXMLAndFunctionalShouldBeSame() {
+        // Serializations are structurally different because of nary equivalent
+        // axioms
     }
 }

@@ -57,6 +57,11 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.NoOpReadWriteLock;
 @SuppressWarnings({ "javadoc" })
 public abstract class TestBase {
 
+    protected interface AxiomBuilder {
+
+        Set<OWLAxiom> build();
+    }
+
     protected static final Logger logger = LoggerFactory.getLogger(
     TestBase.class);
     @Nonnull

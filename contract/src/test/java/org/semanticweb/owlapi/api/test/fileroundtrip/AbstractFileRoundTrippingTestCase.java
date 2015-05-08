@@ -21,11 +21,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 2.2.0
  */
 public abstract class AbstractFileRoundTrippingTestCase extends
-        AbstractRoundTrippingTestCase {
+AbstractRoundTrippingTestCase {
+
     protected String fileName;
-    
+
     public AbstractFileRoundTrippingTestCase(String f) {
-fileName=f;
+        fileName = f;
     }
 
     @Override
@@ -37,5 +38,4 @@ fileName=f;
         }
         return o;
     }
-
 }

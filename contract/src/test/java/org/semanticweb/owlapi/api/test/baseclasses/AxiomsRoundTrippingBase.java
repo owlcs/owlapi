@@ -15,9 +15,6 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -25,13 +22,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class AxiomsRoundTrippingBase
-    extends AbstractRoundTrippingTestCase {
-
-    protected interface AxiomBuilder {
-
-        Set<OWLAxiom> build();
-    }
+public abstract class AxiomsRoundTrippingBase extends
+AbstractRoundTrippingTestCase {
 
     private AxiomBuilder createAxioms;
 
@@ -43,9 +35,8 @@ public abstract class AxiomsRoundTrippingBase
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology();
         ont.addAxioms(createAxioms.build());
-        ont.signature()
-            .filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
-            .forEach(e -> ont.addAxiom(Declaration(e)));
+        ont.signature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e,
+        INCLUDED)).forEach(e -> ont.addAxiom(Declaration(e)));
         return ont;
     }
 }

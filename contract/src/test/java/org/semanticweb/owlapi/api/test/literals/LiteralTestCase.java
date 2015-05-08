@@ -10,24 +10,18 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.individuals;
+package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AxiomsRoundTrippingBase;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -35,8 +29,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
-public class LiteralTestCase  {
-
+public class LiteralTestCase extends TestBase {
 
     @Test
     public void testHasLangMethod() {
@@ -109,5 +102,29 @@ public class LiteralTestCase  {
         OWLLiteral zeroLiteral = Literal("0", OWL2Datatype.XSD_BOOLEAN);
         assertTrue(zeroLiteral.isBoolean());
         assertFalse(zeroLiteral.parseBoolean());
+    }
+
+    @Test
+    public void testBuiltInDatatypes() {
+        OWL2Datatype dt = OWL2Datatype.getDatatype(
+        OWLRDFVocabulary.RDF_PLAIN_LITERAL);
+        assertNotNull("object should not be null", dt);
+        dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL);
+        assertNotNull("object should not be null", dt);
+        OWLDatatype datatype = df.getOWLDatatype(OWLRDFVocabulary.RDFS_LITERAL);
+        assertNotNull("object should not be null", datatype);
+        OWL2Datatype test = datatype.getBuiltInDatatype();
+        assertEquals(test, dt);
+    }
+
+    @Test
+    public void testFailure() {
+        for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
+            OWLDatatype datatype = df.getOWLDatatype(type);
+            if (datatype.isBuiltIn()) {
+                OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();
+                assertNotNull("object should not be null", builtInDatatype);
+            }
+        }
     }
 }

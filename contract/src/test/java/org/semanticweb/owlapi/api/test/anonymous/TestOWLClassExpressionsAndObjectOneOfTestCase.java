@@ -10,34 +10,25 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.syntax.rdf;
+package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
+import static org.junit.Assert.assertNotNull;
 
-import java.util.HashSet;
-import java.util.Set;
+import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-import javax.annotation.Nonnull;
+@SuppressWarnings("javadoc")
+public class TestOWLClassExpressionsAndObjectOneOfTestCase extends TestBase {
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-
-/**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
- */
-public class DifferentIndividualsAxiomTestCase extends
- AbstractRendererAndParserTestCase {
-
-    @Nonnull
-    @Override
-    protected Set<OWLAxiom> getAxioms() {
-        Set<OWLIndividual> individuals = new HashSet<>();
-        for (int i = 0; i < 5; i++) {
-            individuals.add(createIndividual());
-        }
-        OWLAxiom ax = df.getOWLDifferentIndividualsAxiom(individuals);
-        return singleton(ax);
+    @Test
+    public void testAnonymous() throws OWLOntologyCreationException {
+        String text = "Prefix(:=<http://example.org/#>)\n "
+                + "Ontology(<http://example.org/>\n "
+                + "SubClassOf(\n:man\n ObjectSomeValuesFrom(\n :like\n "
+                + "ObjectOneOf(\n_:c\n)\n)\n)\n\n ClassAssertion(\n:car\n_:c\n)\n)";
+        OWLOntology o = loadOntologyFromString(text);
+        assertNotNull(o);
     }
 }
