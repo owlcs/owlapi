@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.profiles.test;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.profiles.Profiles.*;
 
 import javax.annotation.Nonnull;
 
@@ -11,8 +12,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.profiles.OWLProfileReport;
-import org.semanticweb.owlapi.profiles.Profiles;
 
 @SuppressWarnings("javadoc")
 public class ProfileBase {
@@ -24,44 +23,24 @@ public class ProfileBase {
         m = OWLManager.createOWLOntologyManager();
     }
 
-    private static OWLProfileReport el(OWLOntology in) {
-        return Profiles.OWL2_EL.checkOntology(in);
-    }
-
-    private static OWLProfileReport ql(OWLOntology in) {
-        return Profiles.OWL2_QL.checkOntology(in);
-    }
-
-    private static OWLProfileReport rl(OWLOntology in) {
-        return Profiles.OWL2_RL.checkOntology(in);
-    }
-
-    private static OWLProfileReport dl(OWLOntology in) {
-        return Profiles.OWL2_DL.checkOntology(in);
-    }
-
     @Nonnull
-        OWLOntology o(@Nonnull String in) {
+    OWLOntology o(@Nonnull String in) {
         try {
             return m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                in));
+            in));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
     protected void test(@Nonnull String in, boolean el, boolean ql, boolean rl,
-        boolean dl) {
+    boolean dl) {
         OWLOntology o = o(in);
         assertTrue("empty ontology", o.axioms().count() > 0);
-        OWLProfileReport elReport = el(o);
-        assertEquals(el, elReport.isInProfile());
-        OWLProfileReport qlReport = ql(o);
-        assertEquals(ql, qlReport.isInProfile());
-        OWLProfileReport rlReport = rl(o);
-        assertEquals(rl, rlReport.isInProfile());
-        OWLProfileReport dlReport = dl(o);
-        assertEquals(dl, dlReport.isInProfile());
+        assertEquals(el, OWL2_EL.checkOntology(o).isInProfile());
+        assertEquals(ql, OWL2_QL.checkOntology(o).isInProfile());
+        assertEquals(rl, OWL2_RL.checkOntology(o).isInProfile());
+        assertEquals(dl, OWL2_DL.checkOntology(o).isInProfile());
         m.removeOntology(o);
     }
 }
