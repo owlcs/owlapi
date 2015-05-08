@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 
@@ -40,7 +41,7 @@ public class AxiomSubjectProviderExTestCase {
     }
 
     @Nonnull
-    @Parameterized.Parameters
+    @Parameters
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String> map = new LinkedHashMap<>();
@@ -70,12 +71,12 @@ public class AxiomSubjectProviderExTestCase {
         map.put(b.subData(), "<urn:test#dp>");
         map.put(b.subObject(), "<urn:test#op>");
         map.put(b.rule(),
-            "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
+        "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
         map.put(b.symm(), "<urn:test#op>");
         map.put(b.trans(), "<urn:test#op>");
         map.put(b.hasKey(), "<urn:test#c>");
         map.put(b.bigRule(),
-            "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
+        "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
         map.put(b.ann(), "urn:test#iri");
         map.put(b.asymm(), "<urn:test#op>");
         map.put(b.annDom(), "<urn:test#ann>");

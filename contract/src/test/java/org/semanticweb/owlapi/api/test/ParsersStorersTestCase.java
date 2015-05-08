@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
@@ -62,13 +61,8 @@ public class ParsersStorersTestCase extends TestBase {
 
     @Nonnull
     @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
-        Builder b = new Builder();
-        Collection<Object[]> toReturn = new ArrayList<>();
-        for (OWLAxiom ax : b.all()) {
-            toReturn.add(new Object[] { ax });
-        }
-        return toReturn;
+    public static Collection<OWLAxiom> getData() {
+        return new Builder().all();
     }
 
     public OWLOntology ont() {
@@ -78,8 +72,8 @@ public class ParsersStorersTestCase extends TestBase {
     }
 
     public void test(OWLStorerFactory s, OWLParserFactory p,
-        OWLDocumentFormat ontologyFormat, boolean expectParse,
-        boolean expectRoundtrip) throws Exception {
+    OWLDocumentFormat ontologyFormat, boolean expectParse,
+    boolean expectRoundtrip) throws Exception {
         StringDocumentTarget target = new StringDocumentTarget();
         s.createStorer().storeOntology(ont(), target, ontologyFormat);
         OWLOntology o = getAnonymousOWLOntology();

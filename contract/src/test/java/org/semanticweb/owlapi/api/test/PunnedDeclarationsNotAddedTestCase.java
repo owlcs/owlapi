@@ -23,12 +23,10 @@ import org.semanticweb.owlapi.model.*;
 public class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @Parameters(name = "{0}")
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[] {
-            new FunctionalSyntaxDocumentFormat() }, new Object[] {
-                new OWLXMLDocumentFormat() }, new Object[] {
-                    new RDFXMLDocumentFormat() }, new Object[] {
-                        new TurtleDocumentFormat() });
+    public static Collection<OWLDocumentFormat> data() {
+        return Arrays.asList(new FunctionalSyntaxDocumentFormat(),
+        new OWLXMLDocumentFormat(), new RDFXMLDocumentFormat(),
+        new TurtleDocumentFormat());
     }
 
     @Nonnull
@@ -71,7 +69,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @Test
     public void shouldNotAddDeclarationsForIllegalPunnings()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = getOntologyWithPunnedInvalidDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri(
@@ -83,7 +81,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @Test
     public void shouldDeclareMissingEntities()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = getOntologyWithMissingDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLObjectProperty op = df.getOWLObjectProperty(iri(

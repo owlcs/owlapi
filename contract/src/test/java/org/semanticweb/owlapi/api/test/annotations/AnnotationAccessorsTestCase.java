@@ -25,14 +25,9 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPrimitive;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -44,19 +39,15 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
 public class AnnotationAccessorsTestCase extends TestBase {
 
     @Nonnull
-    private static final IRI SUBJECT = IRI
-        .create("http://owlapi.sourceforge.net/ontologies/test#X");
+    private static final IRI SUBJECT = IRI.create(
+    "http://owlapi.sourceforge.net/ontologies/test#X");
 
     @Nonnull
-    @Parameterized.Parameters
-    public static Collection<Object[]> getData() {
-        return Arrays.asList(new Object[] { Class(SUBJECT) },
-            new Object[] { NamedIndividual(SUBJECT) },
-            new Object[] { DataProperty(SUBJECT) },
-            new Object[] { ObjectProperty(SUBJECT) },
-            new Object[] { Datatype(SUBJECT) },
-            new Object[] { AnnotationProperty(SUBJECT) },
-            new Object[] { AnonymousIndividual() });
+    @Parameters
+    public static Collection<OWLPrimitive> getData() {
+        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT),
+        DataProperty(SUBJECT), ObjectProperty(SUBJECT), Datatype(SUBJECT),
+        AnnotationProperty(SUBJECT), AnonymousIndividual());
     }
 
     private OWLPrimitive e;
@@ -66,7 +57,8 @@ public class AnnotationAccessorsTestCase extends TestBase {
     }
 
     @Nonnull
-    private OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
+    private static OWLAnnotationAssertionAxiom
+    createAnnotationAssertionAxiom() {
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationValue value = Literal("value");
         return AnnotationAssertion(prop, SUBJECT, value);
@@ -77,15 +69,13 @@ public class AnnotationAccessorsTestCase extends TestBase {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
         ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(
-            ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a.equals(ax)));
+        assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a
+        .equals(ax)));
         if (e instanceof OWLEntity) {
             assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
-                .anyMatch(a -> a.equals(ax)));
-            assertTrue(contains(
-                annotations(
-                    ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())),
-                ax.getAnnotation()));
+            .anyMatch(a -> a.equals(ax)));
+            assertTrue(contains(annotations(ont.annotationAssertionAxioms(
+            ((OWLEntity) e).getIRI())), ax.getAnnotation()));
         }
     }
 }

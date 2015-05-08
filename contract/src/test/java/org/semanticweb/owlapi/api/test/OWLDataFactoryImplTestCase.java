@@ -52,11 +52,12 @@ public class OWLDataFactoryImplTestCase {
 
     @Nonnull
     @Parameterized.Parameters
-    public static Collection<Object[]> parameters() {
-        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
-        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
-        return Arrays.asList(new Object[] { noCaching },
-                new Object[] { withCaching });
+    public static Collection<OWLDataFactoryImpl> parameters() {
+        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(
+        new OWLDataFactoryInternalsImplNoCache(false));
+        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(
+        new OWLDataFactoryInternalsImplNoCache(false));
+        return Arrays.asList(noCaching, withCaching);
     }
 
     @Test
@@ -132,9 +133,9 @@ public class OWLDataFactoryImplTestCase {
     @Test
     public void getOWLBackwardCompatibleWith() {
         OWLAnnotationProperty call1 = dataFactory
-                .getOWLBackwardCompatibleWith();
+        .getOWLBackwardCompatibleWith();
         OWLAnnotationProperty call2 = dataFactory
-                .getOWLBackwardCompatibleWith();
+        .getOWLBackwardCompatibleWith();
         assertSame(call1, call2);
     }
 

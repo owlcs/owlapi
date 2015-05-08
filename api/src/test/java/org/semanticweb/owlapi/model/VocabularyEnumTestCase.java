@@ -26,14 +26,8 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
-import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
-import org.semanticweb.owlapi.vocab.SKOSVocabulary;
-import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
-import org.semanticweb.owlapi.vocab.SWRLVocabulary;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.junit.runners.Parameterized.Parameters;
+import org.semanticweb.owlapi.vocab.*;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -55,24 +49,18 @@ public class VocabularyEnumTestCase {
     }
 
     @Nonnull
-    @Parameterized.Parameters
+    @Parameters
     public static Collection<Object[]> getData() {
-        return asList(concat(
-                stream(DublinCoreVocabulary.values()).map(
-                        (input) -> new Object[] { input, DC }),
-                stream(OWLRDFVocabulary.values())
-                        .map((input) -> new Object[] { input,
-                                input.getNamespace() }),
-                stream(OWLXMLVocabulary.values()).map(
-                        (input) -> new Object[] { input, OWL }),
-                stream(SKOSVocabulary.values()).map(
-                        (input) -> new Object[] { input, SKOS }),
-                stream(SWRLBuiltInsVocabulary.values()).map(
-                        (input) -> new Object[] { input, SWRLB }),
-                stream(SWRLVocabulary.values()).map(
-                        (input) -> new Object[] { input, SWRL }),
-                stream(XSDVocabulary.values()).map(
-                        (input) -> new Object[] { input, XSD })));
+        return asList(concat(stream(DublinCoreVocabulary.values()).map((
+        input) -> new Object[] { input, DC }), stream(OWLRDFVocabulary.values())
+        .map((input) -> new Object[] { input, input.getNamespace() }), stream(
+        OWLXMLVocabulary.values()).map((input) -> new Object[] { input, OWL }),
+        stream(SKOSVocabulary.values()).map((input) -> new Object[] { input,
+            SKOS }), stream(SWRLBuiltInsVocabulary.values()).map((
+            input) -> new Object[] { input, SWRLB }), stream(SWRLVocabulary
+            .values()).map((input) -> new Object[] { input, SWRL }), stream(
+            XSDVocabulary.values()).map((input) -> new Object[] { input,
+                XSD })));
     }
 
     @SafeVarargs
@@ -86,12 +74,13 @@ public class VocabularyEnumTestCase {
 
     @Test
     public void getPrefixedNameShouldStartWithDublinCorePrefixName() {
-        assertThat(name.getPrefixedName(), startsWith(expected.getPrefixName()));
+        assertThat(name.getPrefixedName(), startsWith(expected
+        .getPrefixName()));
     }
 
     @Test
     public void getIRIShouldReturnAnIRIThatStartsWithDublinCorePrefix() {
-        assertThat(iri.getIRI().getNamespace(),
-                equalTo(expected.getPrefixIRI()));
+        assertThat(iri.getIRI().getNamespace(), equalTo(expected
+        .getPrefixIRI()));
     }
 }
