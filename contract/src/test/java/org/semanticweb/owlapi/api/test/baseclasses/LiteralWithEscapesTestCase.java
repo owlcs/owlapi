@@ -31,9 +31,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 3.3.0
  */
+@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class LiteralWithEscapesTestCase extends
-AbstractRoundTrippingTestCase {
+public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
 
     private String escape;
 
@@ -44,35 +44,35 @@ AbstractRoundTrippingTestCase {
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
-        // LiteralWithBackslash
-        "\\",
-        // LiteralWithDoubleQuote
-        "\"",
-        // LiteralWithLeftAngle
-        "<",
-        // LiteralWithNewLine
-        "\n",
-        // LiteralWithSingleQuote
-        "\'");
+            // LiteralWithBackslash
+            "\\",
+            // LiteralWithDoubleQuote
+            "\"",
+            // LiteralWithLeftAngle
+            "<",
+            // LiteralWithNewLine
+            "\n",
+            // LiteralWithSingleQuote
+            "\'");
     }
 
     @Override
     protected OWLOntology createOntology() {
         OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#A"));
         OWLAnnotationProperty prop = AnnotationProperty(IRI(
-        "http://owlapi.sourceforge.net/ontology#prop"));
+            "http://owlapi.sourceforge.net/ontology#prop"));
         OWLLiteral lit1 = Literal(escape);
         OWLLiteral lit2 = Literal("Start" + escape);
         OWLLiteral lit3 = Literal(escape + "End");
         OWLLiteral lit4 = Literal("Start" + escape + "End");
         OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop, cls
-        .getIRI(), lit1);
+            .getIRI(), lit1);
         OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop, cls
-        .getIRI(), lit2);
+            .getIRI(), lit2);
         OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop, cls
-        .getIRI(), lit3);
+            .getIRI(), lit3);
         OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop, cls
-        .getIRI(), lit4);
+            .getIRI(), lit4);
         OWLOntology o = getOWLOntology();
         o.addAxioms(ax1, ax2, ax3, ax4, Declaration(cls));
         return o;

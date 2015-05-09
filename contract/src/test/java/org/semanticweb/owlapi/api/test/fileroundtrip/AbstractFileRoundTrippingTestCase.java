@@ -20,8 +20,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Management Group
  * @since 2.2.0
  */
+@SuppressWarnings("javadoc")
 public abstract class AbstractFileRoundTrippingTestCase extends
-AbstractRoundTrippingTestCase {
+    AbstractRoundTrippingTestCase {
 
     protected String fileName;
 
