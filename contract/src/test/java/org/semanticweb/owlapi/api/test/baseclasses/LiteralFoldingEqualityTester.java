@@ -1,11 +1,9 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import java.util.Iterator;
-
-import javax.annotation.Nonnull;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 class LiteralFoldingEqualityTester {
@@ -18,152 +16,151 @@ class LiteralFoldingEqualityTester {
             return false;
         }
         if (a instanceof OWLAsymmetricObjectPropertyAxiom
-        && b instanceof OWLAsymmetricObjectPropertyAxiom) {
+            && b instanceof OWLAsymmetricObjectPropertyAxiom) {
             return equals((OWLAsymmetricObjectPropertyAxiom) a,
-            (OWLAsymmetricObjectPropertyAxiom) b);
+                (OWLAsymmetricObjectPropertyAxiom) b);
         } else if (a instanceof OWLClassAssertionAxiom
-        && b instanceof OWLClassAssertionAxiom) {
+            && b instanceof OWLClassAssertionAxiom) {
             return equals((OWLClassAssertionAxiom) a,
-            (OWLClassAssertionAxiom) b);
+                (OWLClassAssertionAxiom) b);
         } else if (a instanceof OWLDataPropertyAssertionAxiom
-        && b instanceof OWLDataPropertyAssertionAxiom) {
+            && b instanceof OWLDataPropertyAssertionAxiom) {
             return equals((OWLDataPropertyAssertionAxiom) a,
-            (OWLDataPropertyAssertionAxiom) b);
+                (OWLDataPropertyAssertionAxiom) b);
         } else if (a instanceof OWLDataPropertyDomainAxiom
-        && b instanceof OWLDataPropertyDomainAxiom) {
+            && b instanceof OWLDataPropertyDomainAxiom) {
             return equals((OWLDataPropertyDomainAxiom) a,
-            (OWLDataPropertyDomainAxiom) b);
+                (OWLDataPropertyDomainAxiom) b);
         } else if (a instanceof OWLDataPropertyRangeAxiom
-        && b instanceof OWLDataPropertyRangeAxiom) {
+            && b instanceof OWLDataPropertyRangeAxiom) {
             return equals((OWLDataPropertyRangeAxiom) a,
-            (OWLDataPropertyRangeAxiom) b);
+                (OWLDataPropertyRangeAxiom) b);
         } else if (a instanceof OWLDeclarationAxiom
-        && b instanceof OWLDeclarationAxiom) {
+            && b instanceof OWLDeclarationAxiom) {
             return equals((OWLDeclarationAxiom) a, (OWLDeclarationAxiom) b);
         } else if (a instanceof OWLDifferentIndividualsAxiom
-        && b instanceof OWLDifferentIndividualsAxiom) {
+            && b instanceof OWLDifferentIndividualsAxiom) {
             return equals((OWLDifferentIndividualsAxiom) a,
-            (OWLDifferentIndividualsAxiom) b);
+                (OWLDifferentIndividualsAxiom) b);
         } else if (a instanceof OWLDisjointClassesAxiom
-        && b instanceof OWLDisjointClassesAxiom) {
+            && b instanceof OWLDisjointClassesAxiom) {
             return equals((OWLDisjointClassesAxiom) a,
-            (OWLDisjointClassesAxiom) b);
+                (OWLDisjointClassesAxiom) b);
         } else if (a instanceof OWLDisjointDataPropertiesAxiom
-        && b instanceof OWLDisjointDataPropertiesAxiom) {
+            && b instanceof OWLDisjointDataPropertiesAxiom) {
             return equals((OWLDisjointDataPropertiesAxiom) a,
-            (OWLDisjointDataPropertiesAxiom) b);
+                (OWLDisjointDataPropertiesAxiom) b);
         } else if (a instanceof OWLDisjointObjectPropertiesAxiom
-        && b instanceof OWLDisjointObjectPropertiesAxiom) {
+            && b instanceof OWLDisjointObjectPropertiesAxiom) {
             return equals((OWLDisjointObjectPropertiesAxiom) a,
-            (OWLDisjointObjectPropertiesAxiom) b);
+                (OWLDisjointObjectPropertiesAxiom) b);
         } else if (a instanceof OWLDisjointUnionAxiom
-        && b instanceof OWLDisjointUnionAxiom) {
+            && b instanceof OWLDisjointUnionAxiom) {
             return equals((OWLDisjointUnionAxiom) a, (OWLDisjointUnionAxiom) b);
         } else if (a instanceof OWLEquivalentClassesAxiom
-        && b instanceof OWLEquivalentClassesAxiom) {
+            && b instanceof OWLEquivalentClassesAxiom) {
             return equals((OWLEquivalentClassesAxiom) a,
-            (OWLEquivalentClassesAxiom) b);
+                (OWLEquivalentClassesAxiom) b);
         } else if (a instanceof OWLEquivalentDataPropertiesAxiom
-        && b instanceof OWLEquivalentDataPropertiesAxiom) {
+            && b instanceof OWLEquivalentDataPropertiesAxiom) {
             return equals((OWLEquivalentDataPropertiesAxiom) a,
-            (OWLEquivalentDataPropertiesAxiom) b);
+                (OWLEquivalentDataPropertiesAxiom) b);
         } else if (a instanceof OWLEquivalentObjectPropertiesAxiom
-        && b instanceof OWLEquivalentObjectPropertiesAxiom) {
+            && b instanceof OWLEquivalentObjectPropertiesAxiom) {
             return equals((OWLEquivalentObjectPropertiesAxiom) a,
-            (OWLEquivalentObjectPropertiesAxiom) b);
+                (OWLEquivalentObjectPropertiesAxiom) b);
         } else if (a instanceof OWLFunctionalDataPropertyAxiom
-        && b instanceof OWLFunctionalDataPropertyAxiom) {
+            && b instanceof OWLFunctionalDataPropertyAxiom) {
             return equals((OWLFunctionalDataPropertyAxiom) a,
-            (OWLFunctionalDataPropertyAxiom) b);
+                (OWLFunctionalDataPropertyAxiom) b);
         } else if (a instanceof OWLFunctionalObjectPropertyAxiom
-        && b instanceof OWLFunctionalObjectPropertyAxiom) {
+            && b instanceof OWLFunctionalObjectPropertyAxiom) {
             return equals((OWLFunctionalObjectPropertyAxiom) a,
-            (OWLFunctionalObjectPropertyAxiom) b);
+                (OWLFunctionalObjectPropertyAxiom) b);
         } else if (a instanceof OWLHasKeyAxiom && b instanceof OWLHasKeyAxiom) {
             return equals((OWLHasKeyAxiom) a, (OWLHasKeyAxiom) b);
         } else if (a instanceof OWLInverseFunctionalObjectPropertyAxiom
-        && b instanceof OWLInverseFunctionalObjectPropertyAxiom) {
+            && b instanceof OWLInverseFunctionalObjectPropertyAxiom) {
             return equals((OWLInverseFunctionalObjectPropertyAxiom) a,
-            (OWLInverseFunctionalObjectPropertyAxiom) b);
+                (OWLInverseFunctionalObjectPropertyAxiom) b);
         } else if (a instanceof OWLInverseObjectPropertiesAxiom
-        && b instanceof OWLInverseObjectPropertiesAxiom) {
+            && b instanceof OWLInverseObjectPropertiesAxiom) {
             return equals((OWLInverseObjectPropertiesAxiom) a,
-            (OWLInverseObjectPropertiesAxiom) b);
+                (OWLInverseObjectPropertiesAxiom) b);
         } else if (a instanceof OWLIrreflexiveObjectPropertyAxiom
-        && b instanceof OWLIrreflexiveObjectPropertyAxiom) {
+            && b instanceof OWLIrreflexiveObjectPropertyAxiom) {
             return equals((OWLIrreflexiveObjectPropertyAxiom) a,
-            (OWLIrreflexiveObjectPropertyAxiom) b);
+                (OWLIrreflexiveObjectPropertyAxiom) b);
         } else if (a instanceof OWLNegativeDataPropertyAssertionAxiom
-        && b instanceof OWLNegativeDataPropertyAssertionAxiom) {
+            && b instanceof OWLNegativeDataPropertyAssertionAxiom) {
             return equals((OWLNegativeDataPropertyAssertionAxiom) a,
-            (OWLNegativeDataPropertyAssertionAxiom) b);
+                (OWLNegativeDataPropertyAssertionAxiom) b);
         } else if (a instanceof OWLNegativeObjectPropertyAssertionAxiom
-        && b instanceof OWLNegativeObjectPropertyAssertionAxiom) {
+            && b instanceof OWLNegativeObjectPropertyAssertionAxiom) {
             return equals((OWLNegativeObjectPropertyAssertionAxiom) a,
-            (OWLNegativeObjectPropertyAssertionAxiom) b);
+                (OWLNegativeObjectPropertyAssertionAxiom) b);
         } else if (a instanceof OWLObjectPropertyAssertionAxiom
-        && b instanceof OWLObjectPropertyAssertionAxiom) {
+            && b instanceof OWLObjectPropertyAssertionAxiom) {
             return equals((OWLObjectPropertyAssertionAxiom) a,
-            (OWLObjectPropertyAssertionAxiom) b);
+                (OWLObjectPropertyAssertionAxiom) b);
         } else if (a instanceof OWLSubPropertyChainOfAxiom
-        && b instanceof OWLSubPropertyChainOfAxiom) {
+            && b instanceof OWLSubPropertyChainOfAxiom) {
             return equals((OWLSubPropertyChainOfAxiom) a,
-            (OWLSubPropertyChainOfAxiom) b);
+                (OWLSubPropertyChainOfAxiom) b);
         } else if (a instanceof OWLObjectPropertyDomainAxiom
-        && b instanceof OWLObjectPropertyDomainAxiom) {
+            && b instanceof OWLObjectPropertyDomainAxiom) {
             return equals((OWLObjectPropertyDomainAxiom) a,
-            (OWLObjectPropertyDomainAxiom) b);
+                (OWLObjectPropertyDomainAxiom) b);
         } else if (a instanceof OWLObjectPropertyRangeAxiom
-        && b instanceof OWLObjectPropertyRangeAxiom) {
+            && b instanceof OWLObjectPropertyRangeAxiom) {
             return equals((OWLObjectPropertyRangeAxiom) a,
-            (OWLObjectPropertyRangeAxiom) b);
+                (OWLObjectPropertyRangeAxiom) b);
         } else if (a instanceof OWLReflexiveObjectPropertyAxiom
-        && b instanceof OWLReflexiveObjectPropertyAxiom) {
+            && b instanceof OWLReflexiveObjectPropertyAxiom) {
             return equals((OWLReflexiveObjectPropertyAxiom) a,
-            (OWLReflexiveObjectPropertyAxiom) b);
+                (OWLReflexiveObjectPropertyAxiom) b);
         } else if (a instanceof OWLSameIndividualAxiom
-        && b instanceof OWLSameIndividualAxiom) {
+            && b instanceof OWLSameIndividualAxiom) {
             return equals((OWLSameIndividualAxiom) a,
-            (OWLSameIndividualAxiom) b);
+                (OWLSameIndividualAxiom) b);
         } else if (a instanceof OWLSubClassOfAxiom
-        && b instanceof OWLSubClassOfAxiom) {
+            && b instanceof OWLSubClassOfAxiom) {
             return equals((OWLSubClassOfAxiom) a, (OWLSubClassOfAxiom) b);
         } else if (a instanceof OWLSubDataPropertyOfAxiom
-        && b instanceof OWLSubDataPropertyOfAxiom) {
+            && b instanceof OWLSubDataPropertyOfAxiom) {
             return equals((OWLSubDataPropertyOfAxiom) a,
-            (OWLSubDataPropertyOfAxiom) b);
+                (OWLSubDataPropertyOfAxiom) b);
         } else if (a instanceof OWLSubObjectPropertyOfAxiom
-        && b instanceof OWLSubObjectPropertyOfAxiom) {
+            && b instanceof OWLSubObjectPropertyOfAxiom) {
             return equals((OWLSubObjectPropertyOfAxiom) a,
-            (OWLSubObjectPropertyOfAxiom) b);
+                (OWLSubObjectPropertyOfAxiom) b);
         } else if (a instanceof OWLSymmetricObjectPropertyAxiom
-        && b instanceof OWLSymmetricObjectPropertyAxiom) {
+            && b instanceof OWLSymmetricObjectPropertyAxiom) {
             return equals((OWLSymmetricObjectPropertyAxiom) a,
-            (OWLSymmetricObjectPropertyAxiom) b);
+                (OWLSymmetricObjectPropertyAxiom) b);
         } else if (a instanceof OWLTransitiveObjectPropertyAxiom
-        && b instanceof OWLTransitiveObjectPropertyAxiom) {
+            && b instanceof OWLTransitiveObjectPropertyAxiom) {
             return equals((OWLTransitiveObjectPropertyAxiom) a,
-            (OWLTransitiveObjectPropertyAxiom) b);
+                (OWLTransitiveObjectPropertyAxiom) b);
         } else if (a instanceof OWLAnnotationAssertionAxiom
-        && b instanceof OWLAnnotationAssertionAxiom) {
+            && b instanceof OWLAnnotationAssertionAxiom) {
             return equals((OWLAnnotationAssertionAxiom) a,
-            (OWLAnnotationAssertionAxiom) b);
+                (OWLAnnotationAssertionAxiom) b);
         } else if (a instanceof OWLAnnotationPropertyDomainAxiom
-        && b instanceof OWLAnnotationPropertyDomainAxiom) {
+            && b instanceof OWLAnnotationPropertyDomainAxiom) {
             return equals((OWLAnnotationPropertyDomainAxiom) a,
-            (OWLAnnotationPropertyDomainAxiom) b);
+                (OWLAnnotationPropertyDomainAxiom) b);
         } else if (a instanceof OWLAnnotationPropertyRangeAxiom
-        && b instanceof OWLAnnotationPropertyRangeAxiom) {
+            && b instanceof OWLAnnotationPropertyRangeAxiom) {
             return equals((OWLAnnotationPropertyRangeAxiom) a,
-            (OWLAnnotationPropertyRangeAxiom) b);
+                (OWLAnnotationPropertyRangeAxiom) b);
         } else if (a instanceof OWLSubAnnotationPropertyOfAxiom
-        && b instanceof OWLSubAnnotationPropertyOfAxiom) {
-            return equals((OWLSubAnnotationPropertyOfAxiom) a,
-            (OWLSubAnnotationPropertyOfAxiom) b);
+            && b instanceof OWLSubAnnotationPropertyOfAxiom) {
+            return equals(a, b);
         } else if (a instanceof OWLDatatypeDefinitionAxiom
-        && b instanceof OWLDatatypeDefinitionAxiom) {
+            && b instanceof OWLDatatypeDefinitionAxiom) {
             return equals((OWLDatatypeDefinitionAxiom) a,
-            (OWLDatatypeDefinitionAxiom) b);
+                (OWLDatatypeDefinitionAxiom) b);
         } else {
             return false;
         }
@@ -200,7 +197,7 @@ class LiteralFoldingEqualityTester {
                 return true;
             }
             if (b.getDatatype().getIRI().equals(OWLRDFVocabulary.RDF_LANG_STRING
-            .getIRI()) && !a.getLang().equals("")) {
+                .getIRI()) && !a.getLang().equals("")) {
                 return true;
             }
         }
@@ -209,21 +206,11 @@ class LiteralFoldingEqualityTester {
                 return true;
             }
             if (a.getDatatype().getIRI().equals(OWLRDFVocabulary.RDF_LANG_STRING
-            .getIRI()) && !b.getLang().equals("")) {
+                .getIRI()) && !b.getLang().equals("")) {
                 return true;
             }
         }
         return false;
-    }
-
-    public static boolean equalLiterals(Iterator<? extends OWLLiteral> ai,
-        Iterator<? extends OWLLiteral> bi) {
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /*
@@ -237,21 +224,21 @@ class LiteralFoldingEqualityTester {
             return false;
         }
         if (a instanceof OWLClass && b instanceof OWLClass) {
-            return equals((OWLClass) a, (OWLClass) b);
+            return equals(a.getIRI(), b.getIRI());
         } else if (a instanceof OWLAnnotationProperty
-        && b instanceof OWLAnnotationProperty) {
-            return equals((OWLAnnotationProperty) a, (OWLAnnotationProperty) b);
+            && b instanceof OWLAnnotationProperty) {
+            return equals(a.getIRI(), b.getIRI());
         } else if (a instanceof OWLDatatype && b instanceof OWLDatatype) {
-            return equals((OWLDatatype) a, (OWLDatatype) b);
+            return equals(a.getIRI(), b.getIRI());
         } else if (a instanceof OWLObjectProperty
-        && b instanceof OWLObjectProperty) {
-            return equals((OWLObjectProperty) a, (OWLObjectProperty) b);
+            && b instanceof OWLObjectProperty) {
+            return equals(a.getIRI(), b.getIRI());
         } else if (a instanceof OWLDataProperty
-        && b instanceof OWLDataProperty) {
-            return equals((OWLDataProperty) a, (OWLDataProperty) b);
+            && b instanceof OWLDataProperty) {
+            return equals(a.getIRI(), b.getIRI());
         } else if (a instanceof OWLNamedIndividual
-        && b instanceof OWLNamedIndividual) {
-            return equals((OWLNamedIndividual) a, (OWLNamedIndividual) b);
+            && b instanceof OWLNamedIndividual) {
+            return equals(a.getIRI(), b.getIRI());
         } else {
             return false;
         }
@@ -264,21 +251,12 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (a instanceof OWLAnonymousIndividual
-        && b instanceof OWLAnonymousIndividual) {
-            return equals((OWLAnonymousIndividual) a,
-            (OWLAnonymousIndividual) b);
-        } else if (a instanceof OWLNamedIndividual
-        && b instanceof OWLNamedIndividual) {
-            return equals((OWLNamedIndividual) a, (OWLNamedIndividual) b);
-        } else {
-            return false;
-        }
+        return a.equals(b);
     }
 
-    private static boolean equalIndividuals(
-        Iterator<? extends OWLIndividual> ai,
-        Iterator<? extends OWLIndividual> bi) {
+    private static boolean equal(Stream<?> sai, Stream<?> sbi) {
+        Iterator<?> ai = sai.iterator();
+        Iterator<?> bi = sbi.iterator();
         while (ai.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
@@ -287,58 +265,7 @@ class LiteralFoldingEqualityTester {
         return true;
     }
 
-    public static boolean equals(OWLAnonymousIndividual a,
-        OWLAnonymousIndividual b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
-    }
-
-    public static boolean equals(OWLNamedIndividual a, OWLNamedIndividual b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
-    }
-
-    public static boolean equals(OWLClass a, OWLClass b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
-    }
-
-    public static boolean equals(OWLDatatype a, OWLDatatype b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
-    }
-
-    public static boolean equals(OWLObjectProperty a, OWLObjectProperty b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
-    }
-
-    public static boolean equals(OWLObjectInverseOf a, OWLObjectInverseOf b) {
+    public static boolean equals(Object a, Object b) {
         if (a == b) {
             return true;
         }
@@ -357,61 +284,21 @@ class LiteralFoldingEqualityTester {
             return false;
         }
         if (a instanceof OWLObjectProperty && b instanceof OWLObjectProperty) {
-            return equals((OWLObjectProperty) a, (OWLObjectProperty) b);
+            return equals(a.asOWLObjectProperty().getIRI(), b
+                .asOWLObjectProperty().getIRI());
         } else if (a instanceof OWLObjectInverseOf
-        && b instanceof OWLObjectInverseOf) {
-            return equals((OWLObjectInverseOf) a, (OWLObjectInverseOf) b);
+            && b instanceof OWLObjectInverseOf) {
+            return equals(((OWLObjectInverseOf) a).getInverse(),
+                ((OWLObjectInverseOf) b).getInverse());
         } else {
             return false;
         }
     }
 
-    private static boolean equalObjectPropertyExpressions(
-        Iterator<? extends OWLObjectPropertyExpression> ai,
-        Iterator<? extends OWLObjectPropertyExpression> bi) {
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean equals(OWLDataProperty a, OWLDataProperty b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
-    }
-
     private static boolean equals(OWLDataPropertyExpression a,
         OWLDataPropertyExpression b) {
-        return equals(a.asOWLDataProperty(), b.asOWLDataProperty());
-    }
-
-    private static boolean equalDataPropertyExpressions(
-        Iterator<? extends OWLDataPropertyExpression> ai,
-        Iterator<? extends OWLDataPropertyExpression> bi) {
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean equals(OWLAnnotationProperty a,
-        OWLAnnotationProperty b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
+        return equals(a.asOWLDataProperty().getIRI(), b.asOWLDataProperty()
+            .getIRI());
     }
 
     /*
@@ -425,34 +312,24 @@ class LiteralFoldingEqualityTester {
             return false;
         }
         if (a instanceof OWLDataComplementOf
-        && b instanceof OWLDataComplementOf) {
+            && b instanceof OWLDataComplementOf) {
             return equals((OWLDataComplementOf) a, (OWLDataComplementOf) b);
         } else if (a instanceof OWLDataIntersectionOf
-        && b instanceof OWLDataIntersectionOf) {
+            && b instanceof OWLDataIntersectionOf) {
             return equals((OWLDataIntersectionOf) a, (OWLDataIntersectionOf) b);
         } else if (a instanceof OWLDataOneOf && b instanceof OWLDataOneOf) {
             return equals((OWLDataOneOf) a, (OWLDataOneOf) b);
         } else if (a instanceof OWLDatatype && b instanceof OWLDatatype) {
-            return equals((OWLDatatype) a, (OWLDatatype) b);
+            return equals(a, b);
         } else if (a instanceof OWLDatatypeRestriction
-        && b instanceof OWLDatatypeRestriction) {
+            && b instanceof OWLDatatypeRestriction) {
             return equals((OWLDatatypeRestriction) a,
-            (OWLDatatypeRestriction) b);
+                (OWLDatatypeRestriction) b);
         } else if (a instanceof OWLDataUnionOf && b instanceof OWLDataUnionOf) {
             return equals((OWLDataUnionOf) a, (OWLDataUnionOf) b);
         } else {
             return false;
         }
-    }
-
-    private static boolean equalDataRanges(Iterator<? extends OWLDataRange> ai,
-        Iterator<? extends OWLDataRange> bi) {
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public static boolean equals(OWLDataComplementOf a, OWLDataComplementOf b) {
@@ -472,7 +349,7 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        return equalLiterals(a.values().iterator(), b.values().iterator());
+        return equal(a.values(), b.values());
     }
 
     public static boolean equals(OWLDataUnionOf a, OWLDataUnionOf b) {
@@ -482,8 +359,7 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        return equalDataRanges(a.operands().iterator(), b.operands()
-        .iterator());
+        return equal(a.operands(), b.operands());
     }
 
     private static boolean equals(OWLDataIntersectionOf a,
@@ -494,8 +370,7 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        return equalDataRanges(a.operands().iterator(), b.operands()
-        .iterator());
+        return equal(a.operands(), b.operands());
     }
 
     public static boolean equals(OWLDatatypeRestriction a,
@@ -506,11 +381,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equals(a.getDatatype(), b.getDatatype())) {
+        if (!equals(a.getDatatype().getIRI(), b.getDatatype().getIRI())) {
             return false;
         }
-        return equalFacetRestrictions(a.facetRestrictions().iterator(), b
-        .facetRestrictions().iterator());
+        return equal(a.facetRestrictions(), b.facetRestrictions());
     }
 
     public static boolean equals(OWLFacetRestriction a, OWLFacetRestriction b) {
@@ -529,26 +403,6 @@ class LiteralFoldingEqualityTester {
         return true;
     }
 
-    public static boolean equalFacetRestrictions(
-        Iterator<OWLFacetRestriction> ai, Iterator<OWLFacetRestriction> bi) {
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean equals(OWLFacet a, OWLFacet b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
-    }
-
     /*
      *  Annotation related types
      */
@@ -565,18 +419,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getValue(), b.getValue())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
-    }
-
-    public static boolean equalAnnotations(@Nonnull Iterator<OWLAnnotation> ai,
-        @Nonnull Iterator<OWLAnnotation> bi) {
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
-        }
-        return true;
+        return equal(a.annotations(), b.annotations());
     }
 
     private static boolean equals(OWLAnnotationSubject a,
@@ -590,9 +433,8 @@ class LiteralFoldingEqualityTester {
         if (a instanceof IRI && b instanceof IRI) {
             return equals((IRI) a, (IRI) b);
         } else if (a instanceof OWLAnonymousIndividual
-        && b instanceof OWLAnonymousIndividual) {
-            return equals((OWLAnonymousIndividual) a,
-            (OWLAnonymousIndividual) b);
+            && b instanceof OWLAnonymousIndividual) {
+            return a.equals(b);
         } else {
             return false;
         }
@@ -637,19 +479,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getValue(), b.getValue())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
-    }
-
-    public static boolean equals(OWLSubAnnotationPropertyOfAxiom a,
-        OWLSubAnnotationPropertyOfAxiom b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return a.equals(b);
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLAnnotationPropertyDomainAxiom a,
@@ -666,8 +496,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getDomain(), b.getDomain())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLAnnotationPropertyRangeAxiom a,
@@ -684,8 +513,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getRange(), b.getRange())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     // Declaration Axiom
@@ -699,8 +527,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getEntity(), b.getEntity())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     // Datatype Definition axiom
@@ -712,14 +539,13 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equals(a.getDatatype(), b.getDatatype())) {
+        if (!equals(a.getDatatype().getIRI(), b.getDatatype().getIRI())) {
             return false;
         }
         if (!equals(a.getDataRange(), b.getDataRange())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     // Individual related Axioms
@@ -740,8 +566,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getObject(), b.getObject())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLNegativeObjectPropertyAssertionAxiom a,
@@ -761,8 +586,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getObject(), b.getObject())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLDataPropertyAssertionAxiom a,
@@ -782,8 +606,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getObject(), b.getObject())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLNegativeDataPropertyAssertionAxiom a,
@@ -803,8 +626,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getObject(), b.getObject())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLClassAssertionAxiom a,
@@ -821,8 +643,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getClassExpression(), b.getClassExpression())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLSameIndividualAxiom a,
@@ -833,15 +654,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        Iterator<OWLIndividual> ai = a.individuals().iterator();
-        Iterator<OWLIndividual> bi = b.individuals().iterator();
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
+        if (!equal(a.individuals(), b.individuals())) {
+            return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLDifferentIndividualsAxiom a,
@@ -852,15 +668,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        Iterator<OWLIndividual> ai = a.individuals().iterator();
-        Iterator<OWLIndividual> bi = b.individuals().iterator();
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
+        if (!equal(a.individuals(), b.individuals())) {
+            return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     // Class Axioms
@@ -877,8 +688,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getSuperClass(), b.getSuperClass())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLEquivalentClassesAxiom a,
@@ -889,12 +699,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equalClassExpressions(a.classExpressions().iterator(), b
-        .classExpressions().iterator())) {
+        if (!equal(a.classExpressions(), b.classExpressions())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLDisjointClassesAxiom a,
@@ -905,12 +713,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equalClassExpressions(a.classExpressions().iterator(), b
-        .classExpressions().iterator())) {
+        if (!equal(a.classExpressions(), b.classExpressions())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLDisjointUnionAxiom a,
@@ -921,12 +727,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equalClassExpressions(a.classExpressions().iterator(), b
-        .classExpressions().iterator())) {
+        if (!equal(a.classExpressions(), b.classExpressions())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     // Property Axioms
@@ -942,8 +746,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getProperty(), b.getProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLReflexiveObjectPropertyAxiom a,
@@ -957,8 +760,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getProperty(), b.getProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLIrreflexiveObjectPropertyAxiom a,
@@ -972,8 +774,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getProperty(), b.getProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLFunctionalObjectPropertyAxiom a,
@@ -987,8 +788,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getProperty(), b.getProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLInverseFunctionalObjectPropertyAxiom a,
@@ -1002,8 +802,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getProperty(), b.getProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLSymmetricObjectPropertyAxiom a,
@@ -1017,8 +816,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getProperty(), b.getProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLTransitiveObjectPropertyAxiom a,
@@ -1032,8 +830,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getProperty(), b.getProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLFunctionalDataPropertyAxiom a,
@@ -1047,8 +844,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getProperty(), b.getProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     // Object Property Axioms
@@ -1066,8 +862,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getDomain(), b.getDomain())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLObjectPropertyRangeAxiom a,
@@ -1084,8 +879,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getRange(), b.getRange())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLEquivalentObjectPropertiesAxiom a,
@@ -1096,12 +890,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equalObjectPropertyExpressions(a.properties().iterator(), b
-        .properties().iterator())) {
+        if (!equal(a.properties(), b.properties())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLDisjointObjectPropertiesAxiom a,
@@ -1112,12 +904,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equalObjectPropertyExpressions(a.properties().iterator(), b
-        .properties().iterator())) {
+        if (!equal(a.properties(), b.properties())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLSubObjectPropertyOfAxiom a,
@@ -1134,8 +924,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getSuperProperty(), b.getSuperProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLSubPropertyChainOfAxiom a,
@@ -1149,12 +938,11 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getSuperProperty(), b.getSuperProperty())) {
             return false;
         }
-        if (!equalObjectPropertyExpressions(a.getPropertyChain().iterator(), b
-        .getPropertyChain().iterator())) {
+        if (!equal(a.getPropertyChain().stream(), b.getPropertyChain()
+            .stream())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLInverseObjectPropertiesAxiom a,
@@ -1183,8 +971,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getDomain(), b.getDomain())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLDataPropertyRangeAxiom a,
@@ -1201,8 +988,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getRange(), b.getRange())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLDisjointDataPropertiesAxiom a,
@@ -1213,12 +999,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equalDataPropertyExpressions(a.properties().iterator(), b
-        .properties().iterator())) {
+        if (!equal(a.properties(), b.properties())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLEquivalentDataPropertiesAxiom a,
@@ -1229,12 +1013,10 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equalDataPropertyExpressions(a.properties().iterator(), b
-        .properties().iterator())) {
+        if (!equal(a.properties(), b.properties())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     public static boolean equals(OWLSubDataPropertyOfAxiom a,
@@ -1251,8 +1033,7 @@ class LiteralFoldingEqualityTester {
         if (!equals(a.getSuperProperty(), b.getSuperProperty())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     // Has Key Axiom
@@ -1263,16 +1044,14 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (!equalDataPropertyExpressions(a.dataPropertyExpressions()
-        .iterator(), b.dataPropertyExpressions().iterator())) {
+        if (!equal(a.dataPropertyExpressions(), b.dataPropertyExpressions())) {
             return false;
         }
-        if (!equalObjectPropertyExpressions(a.objectPropertyExpressions()
-        .iterator(), b.objectPropertyExpressions().iterator())) {
+        if (!equal(a.objectPropertyExpressions(), b
+            .objectPropertyExpressions())) {
             return false;
         }
-        return equalAnnotations(a.annotations().iterator(), b.annotations()
-        .iterator());
+        return equal(a.annotations(), b.annotations());
     }
 
     /*
@@ -1285,102 +1064,79 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (a instanceof OWLClass && b instanceof OWLClass) {
-            return equals((OWLClass) a, (OWLClass) b);
+        if (a.isOWLClass() && b.isOWLClass()) {
+            return equals(a.asOWLClass().getIRI(), b.asOWLClass().getIRI());
         } else if (a instanceof OWLObjectIntersectionOf
-        && b instanceof OWLObjectIntersectionOf) {
+            && b instanceof OWLObjectIntersectionOf) {
             return equals((OWLObjectIntersectionOf) a,
-            (OWLObjectIntersectionOf) b);
+                (OWLObjectIntersectionOf) b);
         } else if (a instanceof OWLObjectUnionOf
-        && b instanceof OWLObjectUnionOf) {
+            && b instanceof OWLObjectUnionOf) {
             return equals((OWLObjectUnionOf) a, (OWLObjectUnionOf) b);
         } else if (a instanceof OWLObjectComplementOf
-        && b instanceof OWLObjectComplementOf) {
+            && b instanceof OWLObjectComplementOf) {
             return equals((OWLObjectComplementOf) a, (OWLObjectComplementOf) b);
         } else if (a instanceof OWLObjectSomeValuesFrom
-        && b instanceof OWLObjectSomeValuesFrom) {
+            && b instanceof OWLObjectSomeValuesFrom) {
             return equals((OWLObjectSomeValuesFrom) a,
-            (OWLObjectSomeValuesFrom) b);
+                (OWLObjectSomeValuesFrom) b);
         } else if (a instanceof OWLObjectAllValuesFrom
-        && b instanceof OWLObjectAllValuesFrom) {
+            && b instanceof OWLObjectAllValuesFrom) {
             return equals((OWLObjectAllValuesFrom) a,
-            (OWLObjectAllValuesFrom) b);
+                (OWLObjectAllValuesFrom) b);
         } else if (a instanceof OWLObjectHasValue
-        && b instanceof OWLObjectHasValue) {
+            && b instanceof OWLObjectHasValue) {
             return equals((OWLObjectHasValue) a, (OWLObjectHasValue) b);
         } else if (a instanceof OWLObjectMinCardinality
-        && b instanceof OWLObjectMinCardinality) {
+            && b instanceof OWLObjectMinCardinality) {
             return equals((OWLObjectMinCardinality) a,
-            (OWLObjectMinCardinality) b);
+                (OWLObjectMinCardinality) b);
         } else if (a instanceof OWLObjectExactCardinality
-        && b instanceof OWLObjectExactCardinality) {
+            && b instanceof OWLObjectExactCardinality) {
             return equals((OWLObjectExactCardinality) a,
-            (OWLObjectExactCardinality) b);
+                (OWLObjectExactCardinality) b);
         } else if (a instanceof OWLObjectMaxCardinality
-        && b instanceof OWLObjectMaxCardinality) {
+            && b instanceof OWLObjectMaxCardinality) {
             return equals((OWLObjectMaxCardinality) a,
-            (OWLObjectMaxCardinality) b);
+                (OWLObjectMaxCardinality) b);
         } else if (a instanceof OWLObjectHasSelf
-        && b instanceof OWLObjectHasSelf) {
+            && b instanceof OWLObjectHasSelf) {
             return equals((OWLObjectHasSelf) a, (OWLObjectHasSelf) b);
         } else if (a instanceof OWLObjectOneOf && b instanceof OWLObjectOneOf) {
             return equals((OWLObjectOneOf) a, (OWLObjectOneOf) b);
         } else if (a instanceof OWLDataSomeValuesFrom
-        && b instanceof OWLDataSomeValuesFrom) {
+            && b instanceof OWLDataSomeValuesFrom) {
             return equals((OWLDataSomeValuesFrom) a, (OWLDataSomeValuesFrom) b);
         } else if (a instanceof OWLDataAllValuesFrom
-        && b instanceof OWLDataAllValuesFrom) {
+            && b instanceof OWLDataAllValuesFrom) {
             return equals((OWLDataAllValuesFrom) a, (OWLDataAllValuesFrom) b);
         } else if (a instanceof OWLDataHasValue
-        && b instanceof OWLDataHasValue) {
+            && b instanceof OWLDataHasValue) {
             return equals((OWLDataHasValue) a, (OWLDataHasValue) b);
         } else if (a instanceof OWLDataMinCardinality
-        && b instanceof OWLDataMinCardinality) {
+            && b instanceof OWLDataMinCardinality) {
             return equals((OWLDataMinCardinality) a, (OWLDataMinCardinality) b);
         } else if (a instanceof OWLDataExactCardinality
-        && b instanceof OWLDataExactCardinality) {
+            && b instanceof OWLDataExactCardinality) {
             return equals((OWLDataExactCardinality) a,
-            (OWLDataExactCardinality) b);
+                (OWLDataExactCardinality) b);
         } else if (a instanceof OWLDataMaxCardinality
-        && b instanceof OWLDataMaxCardinality) {
+            && b instanceof OWLDataMaxCardinality) {
             return equals((OWLDataMaxCardinality) a, (OWLDataMaxCardinality) b);
         } else {
             return false;
         }
     }
 
-    private static boolean equalClassExpressions(
-        Iterator<? extends OWLClassExpression> ai,
-        Iterator<? extends OWLClassExpression> bi) {
-        while (ai.hasNext()) {
-            if (!equals(ai.next(), bi.next())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean equals(OWLObjectIntersectionOf a,
-        OWLObjectIntersectionOf b) {
+    public static boolean equals(OWLNaryBooleanClassExpression a,
+        OWLNaryBooleanClassExpression b) {
         if (a == b) {
             return true;
         }
         if (a == null || b == null) {
             return false;
         }
-        return equalClassExpressions(a.operands().iterator(), b.operands()
-        .iterator());
-    }
-
-    public static boolean equals(OWLObjectUnionOf a, OWLObjectUnionOf b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        return equalClassExpressions(a.operands().iterator(), b.operands()
-        .iterator());
+        return equal(a.operands(), b.operands());
     }
 
     public static boolean equals(OWLObjectComplementOf a,
@@ -1435,42 +1191,8 @@ class LiteralFoldingEqualityTester {
         return equals(a.getFiller(), b.getFiller());
     }
 
-    public static boolean equals(OWLObjectMinCardinality a,
-        OWLObjectMinCardinality b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        if (!equals(a.getProperty(), b.getProperty())) {
-            return false;
-        }
-        if (a.getCardinality() != b.getCardinality()) {
-            return false;
-        }
-        return equals(a.getFiller(), b.getFiller());
-    }
-
-    public static boolean equals(OWLObjectExactCardinality a,
-        OWLObjectExactCardinality b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        if (!equals(a.getProperty(), b.getProperty())) {
-            return false;
-        }
-        if (a.getCardinality() != b.getCardinality()) {
-            return false;
-        }
-        return equals(a.getFiller(), b.getFiller());
-    }
-
-    public static boolean equals(OWLObjectMaxCardinality a,
-        OWLObjectMaxCardinality b) {
+    public static boolean equals(OWLObjectCardinalityRestriction a,
+        OWLObjectCardinalityRestriction b) {
         if (a == b) {
             return true;
         }
@@ -1506,8 +1228,7 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        return equalIndividuals(a.individuals().iterator(), b.individuals()
-        .iterator());
+        return equal(a.individuals(), b.individuals());
     }
 
     public static boolean equals(OWLDataSomeValuesFrom a,
@@ -1551,42 +1272,8 @@ class LiteralFoldingEqualityTester {
         return equals(a.getFiller(), b.getFiller());
     }
 
-    public static boolean equals(OWLDataMinCardinality a,
-        OWLDataMinCardinality b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        if (!equals(a.getProperty(), b.getProperty())) {
-            return false;
-        }
-        if (a.getCardinality() != b.getCardinality()) {
-            return false;
-        }
-        return equals(a.getFiller(), b.getFiller());
-    }
-
-    public static boolean equals(OWLDataExactCardinality a,
-        OWLDataExactCardinality b) {
-        if (a == b) {
-            return true;
-        }
-        if (a == null || b == null) {
-            return false;
-        }
-        if (!equals(a.getProperty(), b.getProperty())) {
-            return false;
-        }
-        if (a.getCardinality() != b.getCardinality()) {
-            return false;
-        }
-        return equals(a.getFiller(), b.getFiller());
-    }
-
-    public static boolean equals(OWLDataMaxCardinality a,
-        OWLDataMaxCardinality b) {
+    public static boolean equals(OWLDataCardinalityRestriction a,
+        OWLDataCardinalityRestriction b) {
         if (a == b) {
             return true;
         }

@@ -15,126 +15,64 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
+@SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
 public class AxiomsRoundTrippingNoManchesterSyntaxTestCase extends
-AxiomsRoundTrippingBase {
+    AxiomsRoundTrippingBase {
 
     public AxiomsRoundTrippingNoManchesterSyntaxTestCase(AxiomBuilder f) {
         super(f);
     }
 
     @Override
-    public void testManchesterOWLSyntax() throws Exception {
+    public void testManchesterOWLSyntax() {
         // no valid Manchester OWL Syntax roundtrip
     }
 
     @Parameters
     public static List<AxiomBuilder> getData() {
+        OWLObjectPropertyExpression p = ObjectProperty(iri("p"))
+            .getInverseProperty();
+        OWLObjectPropertyExpression q = ObjectProperty(iri("q"))
+            .getInverseProperty();
+        OWLClass clsA = Class(iri("A"));
         return Arrays.asList(
-        // AsymmetricObjectPropertyInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(AsymmetricObjectProperty(ObjectProperty(iri("p"))
-            .getInverseProperty()));
-            return axioms;
-        } ,
-        // EquivalentObjectPropertiesWithInverses
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            OWLObjectProperty propA = ObjectProperty(iri("propA"));
-            OWLObjectProperty propB = ObjectProperty(iri("propB"));
-            axioms.add(EquivalentObjectProperties(propA.getInverseProperty(),
-            propB.getInverseProperty()));
-            axioms.add(Declaration(propA));
-            axioms.add(Declaration(propB));
-            return axioms;
-        } ,
-        // FunctionalObjectPropertyInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(FunctionalObjectProperty(ObjectProperty(iri("p"))
-            .getInverseProperty()));
-            return axioms;
-        } ,
-        // InverseFunctionalObjectPropertyInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(InverseFunctionalObjectProperty(ObjectProperty(iri("p"))
-            .getInverseProperty()));
-            return axioms;
-        } ,
-        // IrreflexiveObjectPropertyInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(IrreflexiveObjectProperty(ObjectProperty(iri("p"))
-            .getInverseProperty()));
-            return axioms;
-        } ,
-        // ObjectPropertyDomainInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(ObjectPropertyDomain(ObjectProperty(iri("p"))
-            .getInverseProperty(), Class(iri("A"))));
-            return axioms;
-        } ,
-        // ObjectPropertyRangeInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(ObjectPropertyRange(ObjectProperty(iri("p"))
-            .getInverseProperty(), Class(iri("A"))));
-            return axioms;
-        } ,
-        // ReflexiveObjectPropertyInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(ReflexiveObjectProperty(ObjectProperty(iri("p"))
-            .getInverseProperty()));
-            return axioms;
-        } ,
-        // SubObjectPropertyOfInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            OWLObjectPropertyExpression propA = ObjectProperty(iri("p"))
-            .getInverseProperty();
-            OWLObjectPropertyExpression propB = ObjectProperty(iri("q"))
-            .getInverseProperty();
-            axioms.add(SubObjectPropertyOf(propA, propB));
-            return axioms;
-        } ,
-        // SymmetricObjectPropertyInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(SymmetricObjectProperty(ObjectProperty(iri("p"))
-            .getInverseProperty()));
-            return axioms;
-        } ,
-        // TransitiveObjectPropertyInverse
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            axioms.add(TransitiveObjectProperty(ObjectProperty(iri("p"))
-            .getInverseProperty()));
-            return axioms;
-        } );
-    }
-
-    private static void addAxiomForLiteral(OWLLiteral lit,
-    Set<OWLAxiom> axioms) {
-        OWLDataProperty prop = DataProperty(iri("p"));
-        OWLNamedIndividual ind = NamedIndividual(iri("i"));
-        axioms.add(DataPropertyAssertion(prop, ind, lit));
+            // AsymmetricObjectPropertyInverse
+            () -> Sets.newHashSet(AsymmetricObjectProperty(p)),
+            // EquivalentObjectPropertiesWithInverses
+            () -> Sets.newHashSet(EquivalentObjectProperties(p, q)),
+            // FunctionalObjectPropertyInverse
+            () -> Sets.newHashSet(FunctionalObjectProperty(p)),
+            // InverseFunctionalObjectPropertyInverse
+            () -> Sets.newHashSet(InverseFunctionalObjectProperty(p)),
+            // IrreflexiveObjectPropertyInverse
+            () -> Sets.newHashSet(IrreflexiveObjectProperty(p)),
+            // ObjectPropertyDomainInverse
+            () -> Sets.newHashSet(ObjectPropertyDomain(p, clsA)),
+            // ObjectPropertyRangeInverse
+            () -> Sets.newHashSet(ObjectPropertyRange(p, clsA)),
+            // ReflexiveObjectPropertyInverse
+            () -> Sets.newHashSet(ReflexiveObjectProperty(p)),
+            // SubObjectPropertyOfInverse
+            () -> Sets.newHashSet(SubObjectPropertyOf(p, q)),
+            // SymmetricObjectPropertyInverse
+            () -> Sets.newHashSet(SymmetricObjectProperty(p)),
+            // TransitiveObjectPropertyInverse
+            () -> Sets.newHashSet(TransitiveObjectProperty(p)));
     }
 }
