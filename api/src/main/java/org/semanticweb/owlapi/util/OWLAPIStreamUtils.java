@@ -145,7 +145,7 @@ public class OWLAPIStreamUtils {
     public static int compareStreams(Stream<? extends OWLObject> set1,
         Stream<? extends OWLObject> set2) {
         return compareIterators(set1.sorted().iterator(), set2.sorted()
-        .iterator());
+            .iterator());
     }
 
     /**

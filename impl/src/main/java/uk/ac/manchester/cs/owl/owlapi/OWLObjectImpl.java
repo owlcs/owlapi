@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.Collections.emptyList;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -27,18 +28,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -53,13 +43,13 @@ import com.google.common.cache.LoadingCache;
  * @since 2.0.0
  */
 public abstract class OWLObjectImpl implements OWLObject, Serializable,
-        HasIncrementalSignatureGenerationSupport {
+    HasIncrementalSignatureGenerationSupport {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
     @Nonnull
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
-            .emptySet();
+        .emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     protected int hashCode = 0;
     protected static CacheLoader<OWLObjectImpl, Set<OWLEntity>> builder = new CacheLoader<OWLObjectImpl, Set<OWLEntity>>() {
@@ -70,7 +60,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         }
     };
     protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = CacheBuilder
-            .newBuilder().weakKeys().softValues().build(builder);
+        .newBuilder().weakKeys().softValues().build(builder);
     protected static CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonbuilder = new CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>>() {
 
         @Override
@@ -79,7 +69,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         }
     };
     protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = CacheBuilder
-            .newBuilder().weakKeys().softValues().build(anonbuilder);
+        .newBuilder().weakKeys().softValues().build(anonbuilder);
 
     @Nonnull
     @Override
@@ -102,7 +92,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
     }
 
     protected static List<OWLAnnotation> asAnnotations(
-            Collection<OWLAnnotation> anns) {
+        Collection<OWLAnnotation> anns) {
         if (anns.isEmpty()) {
             return emptyList();
         }
@@ -124,32 +114,32 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLDataProperty()).map(
-                e -> e.asOWLDataProperty());
+        return signature().filter(e -> e.isOWLDataProperty()).map(e -> e
+            .asOWLDataProperty());
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLObjectProperty()).map(
-                e -> e.asOWLObjectProperty());
+        return signature().filter(e -> e.isOWLObjectProperty()).map(e -> e
+            .asOWLObjectProperty());
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return signature().filter(e -> e.isOWLNamedIndividual()).map(
-                e -> e.asOWLNamedIndividual());
+        return signature().filter(e -> e.isOWLNamedIndividual()).map(e -> e
+            .asOWLNamedIndividual());
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return signature().filter(e -> e.isOWLDatatype()).map(
-                e -> e.asOWLDatatype());
+        return signature().filter(e -> e.isOWLDatatype()).map(e -> e
+            .asOWLDatatype());
     }
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLAnnotationProperty()).map(
-                e -> e.asOWLAnnotationProperty());
+        return signature().filter(e -> e.isOWLAnnotationProperty()).map(e -> e
+            .asOWLAnnotationProperty());
     }
 
     @Override
@@ -181,12 +171,40 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
             otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
-        if (diff == 0) {
-            // Objects are the same type
-            return compareObjectOfSameType(o);
-        } else {
+        if (diff != 0) {
             return diff;
         }
+        // Objects are the same type
+        diff = compareObjectOfSameType(o);
+        if (diff != 0) {
+            return diff;
+        }
+        if (this instanceof OWLAxiom) {
+            diff = compareStreams(((OWLAxiom) this).annotations(),
+                ((OWLAxiom) o).annotations());
+        }
+        return diff;
+    }
+
+    protected int compareAnnotations(List<OWLAnnotation> l1,
+        List<OWLAnnotation> l2) {
+        int i = 0;
+        for (; i < l1.size() && i < l2.size(); i++) {
+            int diff = l1.get(i).compareTo(l2.get(i));
+            if (diff != 0) {
+                return diff;
+            }
+        }
+        if (i < l2.size()) {
+            // l1 is shorter and a sublist of l2
+            return -1;
+        }
+        if (i < l1.size()) {
+            // l2 is shorter and a sublist of l1
+            return 1;
+        }
+        // lists are identical
+        return 0;
     }
 
     protected abstract int index();
