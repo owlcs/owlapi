@@ -33,8 +33,8 @@ public class OboFormatTestBasics extends TestBase {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc;
         try {
-            obodoc = p
-                .parse(new BufferedReader(new InputStreamReader(inputStream)));
+            obodoc = p.parse(new BufferedReader(new InputStreamReader(
+                inputStream)));
             assertNotNull("The obodoc should not be null", obodoc);
             if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
                 fail("Term frames should not be empty.");
@@ -60,8 +60,8 @@ public class OboFormatTestBasics extends TestBase {
     @SuppressWarnings("resource")
     @Nonnull
     protected InputStream getInputStream(String fn) {
-        InputStream inputStream = OboFormatTestBasics.class
-            .getResourceAsStream(fn);
+        InputStream inputStream = OboFormatTestBasics.class.getResourceAsStream(
+            fn);
         if (inputStream == null) {
             inputStream = getClass().getResourceAsStream("obo/" + fn);
         }
@@ -97,8 +97,8 @@ public class OboFormatTestBasics extends TestBase {
 
     @Nonnull
     protected OWLOntology convert(OBODoc obodoc) {
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
-            OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(OWLManager
+            .createOWLOntologyManager());
         OWLOntology ontology;
         try {
             ontology = bridge.convert(obodoc);
@@ -123,8 +123,8 @@ public class OboFormatTestBasics extends TestBase {
     @Nonnull
     protected OBODoc convert(@Nonnull OWLOntology ontology,
         boolean strictness) {
-        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
-            OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(OWLManager
+            .createOWLOntologyManager());
         bridge.setStrictConversion(strictness);
         return bridge.convert(ontology);
     }
@@ -176,8 +176,8 @@ public class OboFormatTestBasics extends TestBase {
     @Nullable
     protected IRI getIriByLabel(@Nonnull OWLOntology ontology,
         @Nonnull String label) {
-        for (OWLAnnotationAssertionAxiom aa : ontology
-            .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+        for (OWLAnnotationAssertionAxiom aa : ontology.getAxioms(
+            AxiomType.ANNOTATION_ASSERTION)) {
             OWLAnnotationValue v = aa.getValue();
             OWLAnnotationProperty property = aa.getProperty();
             if (property.isLabel() && v instanceof OWLLiteral) {

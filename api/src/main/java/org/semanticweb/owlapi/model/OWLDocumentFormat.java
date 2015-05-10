@@ -48,7 +48,7 @@ public interface OWLDocumentFormat extends Serializable {
      * @return {@code true} if untyped entities should automatically be typed
      *         during rendering, otherwise {@code false}.
      */
-    boolean isAddMissingTypes();
+        boolean isAddMissingTypes();
 
     /**
      * Determines if a declaration axiom (type triple) needs to be added to the
@@ -66,8 +66,8 @@ public interface OWLDocumentFormat extends Serializable {
      *         signature of one of the imported ontologies, {@code true} if none
      *         of the previous conditions are met.
      */
-    static boolean
-            isMissingType(@Nonnull OWLEntity entity, OWLOntology ontology) {
+    static boolean isMissingType(@Nonnull OWLEntity entity,
+        OWLOntology ontology) {
         // We don't need to declare built in entities
         if (entity.isBuiltIn()) {
             return false;
@@ -104,7 +104,7 @@ public interface OWLDocumentFormat extends Serializable {
      * @return collection of IRIS used in illegal punnings
      */
     static Collection<IRI> determineIllegalPunnings(boolean add,
-            Collection<OWLEntity> signature, Collection<IRI> punnedEntities) {
+        Collection<OWLEntity> signature, Collection<IRI> punnedEntities) {
         if (!add) {
             return Collections.emptySet();
         }
@@ -113,25 +113,25 @@ public interface OWLDocumentFormat extends Serializable {
         for (OWLEntity e : signature) {
             // disregard individuals as they do not give raise to illegal
             // punnings; only keep track of punned entities, ignore the rest
-            if (!e.isOWLNamedIndividual()
-                    && punnedEntities.contains(e.getIRI())) {
+            if (!e.isOWLNamedIndividual() && punnedEntities.contains(e
+                .getIRI())) {
                 punnings.put(e.getIRI(), e.getEntityType());
             }
         }
         Collection<IRI> illegals = new HashSet<>();
         for (IRI i : punnings.keySet()) {
             Collection<EntityType<?>> puns = punnings.get(i);
-            if (puns.contains(EntityType.OBJECT_PROPERTY)
-                    && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+            if (puns.contains(EntityType.OBJECT_PROPERTY) && puns.contains(
+                EntityType.ANNOTATION_PROPERTY)) {
                 illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY)
-                    && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+            } else if (puns.contains(EntityType.DATA_PROPERTY) && puns.contains(
+                EntityType.ANNOTATION_PROPERTY)) {
                 illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY)
-                    && puns.contains(EntityType.OBJECT_PROPERTY)) {
+            } else if (puns.contains(EntityType.DATA_PROPERTY) && puns.contains(
+                EntityType.OBJECT_PROPERTY)) {
                 illegals.add(i);
-            } else if (puns.contains(EntityType.DATATYPE)
-                    && puns.contains(EntityType.CLASS)) {
+            } else if (puns.contains(EntityType.DATATYPE) && puns.contains(
+                EntityType.CLASS)) {
                 illegals.add(i);
             }
         }
@@ -146,7 +146,7 @@ public interface OWLDocumentFormat extends Serializable {
      *        {@code true} if untyped entities should automatically be typed
      *        during rendering, otherwise {@code false}.
      */
-    void setAddMissingTypes(boolean addMissingTypes);
+        void setAddMissingTypes(boolean addMissingTypes);
 
     /**
      * @param key
@@ -154,7 +154,7 @@ public interface OWLDocumentFormat extends Serializable {
      * @param value
      *        value for the new entry
      */
-    void setParameter(Serializable key, Serializable value);
+        void setParameter(Serializable key, Serializable value);
 
     /**
      * @param key
@@ -163,7 +163,7 @@ public interface OWLDocumentFormat extends Serializable {
      *        value for the new entry
      * @return the value
      */
-    Serializable getParameter(Serializable key, Serializable defaultValue);
+        Serializable getParameter(Serializable key, Serializable defaultValue);
 
     /**
      * Determines if this format is an instance of a format that uses prefixes
@@ -173,7 +173,6 @@ public interface OWLDocumentFormat extends Serializable {
      *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
      *         wise {@code false}.
      */
-    // XXX as optional
     default boolean isPrefixOWLOntologyFormat() {
         return false;
     }
@@ -192,8 +191,11 @@ public interface OWLDocumentFormat extends Serializable {
      */
     @Nonnull
     default PrefixDocumentFormat asPrefixOWLOntologyFormat() {
+        if (isPrefixOWLOntologyFormat()) {
+            return (PrefixDocumentFormat) this;
+        }
         throw new ClassCastException(getClass().getName()
-                + " is not a Prefix Document Format");
+            + " is not a Prefix Document Format");
     }
 
     /**
@@ -206,7 +208,7 @@ public interface OWLDocumentFormat extends Serializable {
      * @return An object containing the meta data about loading. .
      */
     @Nonnull
-    OWLOntologyLoaderMetaData getOntologyLoaderMetaData();
+        OWLOntologyLoaderMetaData getOntologyLoaderMetaData();
 
     /**
      * Sets the meta data for the ontology loader.
@@ -216,14 +218,14 @@ public interface OWLDocumentFormat extends Serializable {
      * @throws NullPointerException
      *         if the {@code loaderMetaData} is {@code null}.
      */
-    void setOntologyLoaderMetaData(
+        void setOntologyLoaderMetaData(
             @Nonnull OWLOntologyLoaderMetaData loaderMetaData);
 
     /**
      * @return A unique key for this format.
      */
     @Nonnull
-    String getKey();
+        String getKey();
 
     /**
      * Determines whether this format contains textual output, as opposed to
@@ -232,5 +234,5 @@ public interface OWLDocumentFormat extends Serializable {
      * @return True if this format represents a textual format, as opposed to a
      *         binary format. Defaults to true if not overridden.
      */
-    boolean isTextual();
+        boolean isTextual();
 }
