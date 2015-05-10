@@ -14,30 +14,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
-import org.semanticweb.owlapi.model.HasAnonymousIndividuals;
-import org.semanticweb.owlapi.model.HasSignature;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
@@ -50,22 +32,22 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 2.0.0
  */
 public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLObject, HasIncrementalSignatureGenerationSupport, Serializable {
+    OWLObject, HasIncrementalSignatureGenerationSupport, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
     @Nonnull
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = CollectionFactory
-            .emptySet();
+        .emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     protected int hashCode = 0;
     @Nonnull
     protected static final OWLClass OWL_THING = new OWLClassImpl(
-            OWLRDFVocabulary.OWL_THING.getIRI());
+        OWLRDFVocabulary.OWL_THING.getIRI());
 
     @SuppressWarnings("unused")
     private static void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
+        throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
     }
 
@@ -86,7 +68,7 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     }
 
     protected static void addEntitiesFromAnnotationsToSet(
-            Collection<OWLAnnotation> annotations, Set<OWLEntity> entities) {
+        Collection<OWLAnnotation> annotations, Set<OWLEntity> entities) {
         for (OWLAnnotation annotation : annotations) {
             if (annotation instanceof OWLAnnotationImpl) {
                 OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
@@ -98,8 +80,8 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     }
 
     protected static void addAnonymousIndividualsFromAnnotationsToSet(
-            Collection<OWLAnnotation> annotations,
-            Set<OWLAnonymousIndividual> anons) {
+        Collection<OWLAnnotation> annotations,
+        Set<OWLAnonymousIndividual> anons) {
         for (OWLAnnotation annotation : annotations) {
             if (annotation instanceof OWLAnnotationImpl) {
                 OWLAnnotationImpl owlAnnotation = (OWLAnnotationImpl) annotation;
@@ -188,23 +170,23 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     }
 
     protected void addSignatureEntitiesToSetForValue(Set<OWLEntity> entities,
-            HasSignature canHasSignature) {
+        HasSignature canHasSignature) {
         if (canHasSignature instanceof HasIncrementalSignatureGenerationSupport) {
             HasIncrementalSignatureGenerationSupport hasIncrementalSignatureGenerationSupport = (HasIncrementalSignatureGenerationSupport) canHasSignature;
-            hasIncrementalSignatureGenerationSupport
-                    .addSignatureEntitiesToSet(entities);
+            hasIncrementalSignatureGenerationSupport.addSignatureEntitiesToSet(
+                entities);
         } else {
             entities.addAll(canHasSignature.getSignature());
         }
     }
 
     protected void addAnonymousIndividualsToSetForValue(
-            Set<OWLAnonymousIndividual> anons,
-            HasAnonymousIndividuals canHasAnons) {
+        Set<OWLAnonymousIndividual> anons,
+        HasAnonymousIndividuals canHasAnons) {
         if (canHasAnons instanceof HasIncrementalSignatureGenerationSupport) {
             HasIncrementalSignatureGenerationSupport hasIncrementalSignatureGenerationSupport = (HasIncrementalSignatureGenerationSupport) canHasAnons;
             hasIncrementalSignatureGenerationSupport
-                    .addAnonymousIndividualsToSet(anons);
+                .addAnonymousIndividualsToSet(anons);
         } else {
             anons.addAll(canHasAnons.getAnonymousIndividuals());
         }
@@ -232,17 +214,46 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImplWithoutEntityAndAnonCaching) {
             otherTypeIndex = ((OWLObjectImplWithoutEntityAndAnonCaching) o)
-                    .index();
+                .index();
         } else {
             otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
-        if (diff == 0) {
-            // Objects are the same type
-            return compareObjectOfSameType(o);
-        } else {
+        if (diff != 0) {
             return diff;
         }
+        // Objects are the same type
+        diff = compareObjectOfSameType(o);
+        if (diff != 0) {
+            return diff;
+        }
+        if (this instanceof OWLAxiom) {
+            diff = compareLists(new ArrayList<>(((OWLAxiom) this)
+                .getAnnotations()), new ArrayList<>(((OWLAxiom) o)
+                    .getAnnotations()));
+        }
+        return diff;
+    }
+
+    protected int compareAnnotations(List<OWLAnnotation> l1,
+        List<OWLAnnotation> l2) {
+        int i = 0;
+        for (; i < l1.size() && i < l2.size(); i++) {
+            int diff = l1.get(i).compareTo(l2.get(i));
+            if (diff != 0) {
+                return diff;
+            }
+        }
+        if (i < l2.size()) {
+            // l1 is shorter and a sublist of l2
+            return -1;
+        }
+        if (i < l1.size()) {
+            // l2 is shorter and a sublist of l1
+            return 1;
+        }
+        // lists are identical
+        return 0;
     }
 
     protected abstract int compareObjectOfSameType(@Nonnull OWLObject object);
@@ -265,7 +276,7 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     }
 
     protected static int compareSets(Collection<? extends OWLObject> set1,
-            Collection<? extends OWLObject> set2) {
+        Collection<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {
             ss1 = (SortedSet<? extends OWLObject>) set1;
@@ -294,7 +305,7 @@ public abstract class OWLObjectImplWithoutEntityAndAnonCaching implements
     }
 
     protected static int compareLists(List<? extends OWLObject> list1,
-            List<? extends OWLObject> list2) {
+        List<? extends OWLObject> list2) {
         int i = 0;
         int size = list1.size() < list2.size() ? list1.size() : list2.size();
         while (i < size) {

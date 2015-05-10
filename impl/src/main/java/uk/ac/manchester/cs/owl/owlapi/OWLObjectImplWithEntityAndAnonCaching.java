@@ -17,29 +17,13 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
@@ -52,13 +36,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 2.0.0
  */
 public abstract class OWLObjectImplWithEntityAndAnonCaching implements
-        OWLObject, Serializable {
+    OWLObject, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
     @Nonnull
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = CollectionFactory
-            .emptySet();
+        .emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
     @Nullable
@@ -66,10 +50,10 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
     @Nonnull
     protected static final OWLClass OWL_THING = new OWLClassImpl(
-            OWLRDFVocabulary.OWL_THING.getIRI());
+        OWLRDFVocabulary.OWL_THING.getIRI());
 
     private void readObject(java.io.ObjectInputStream stream)
-            throws IOException, ClassNotFoundException {
+        throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         signature = null;
         anons = null;
@@ -85,13 +69,13 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
             set = new HashSet<>();
             Set<OWLAnonymousIndividual> anon = new HashSet<>();
             OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(
-                    set, anon);
+                set, anon);
             accept(collector);
             signature = new WeakReference<>(set);
             anons = new WeakReference<>(anon);
         }
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(set);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(
+            set);
     }
 
     @Override
@@ -104,8 +88,8 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
         if (signature == null || verifyNotNull(signature).get() == null) {
             getSignature();
         }
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(anons.get());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(
+            anons.get());
     }
 
     @Override
@@ -202,17 +186,46 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImplWithEntityAndAnonCaching) {
             otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o)
-                    .index();
+                .index();
         } else {
             otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
-        if (diff == 0) {
-            // Objects are the same type
-            return compareObjectOfSameType(o);
-        } else {
+        if (diff != 0) {
             return diff;
         }
+        // Objects are the same type
+        diff = compareObjectOfSameType(o);
+        if (diff != 0) {
+            return diff;
+        }
+        if (this instanceof OWLAxiom) {
+            diff = compareLists(new ArrayList<>(((OWLAxiom) this)
+                .getAnnotations()), new ArrayList<>(((OWLAxiom) o)
+                    .getAnnotations()));
+        }
+        return diff;
+    }
+
+    protected int compareAnnotations(List<OWLAnnotation> l1,
+        List<OWLAnnotation> l2) {
+        int i = 0;
+        for (; i < l1.size() && i < l2.size(); i++) {
+            int diff = l1.get(i).compareTo(l2.get(i));
+            if (diff != 0) {
+                return diff;
+            }
+        }
+        if (i < l2.size()) {
+            // l1 is shorter and a sublist of l2
+            return -1;
+        }
+        if (i < l1.size()) {
+            // l2 is shorter and a sublist of l1
+            return 1;
+        }
+        // lists are identical
+        return 0;
     }
 
     protected abstract int compareObjectOfSameType(@Nonnull OWLObject object);
@@ -235,7 +248,7 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
     }
 
     protected static int compareSets(Collection<? extends OWLObject> set1,
-            Collection<? extends OWLObject> set2) {
+        Collection<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {
             ss1 = (SortedSet<? extends OWLObject>) set1;
@@ -264,7 +277,7 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
     }
 
     protected static int compareLists(List<? extends OWLObject> list1,
-            List<? extends OWLObject> list2) {
+        List<? extends OWLObject> list2) {
         int i = 0;
         int size = list1.size() < list2.size() ? list1.size() : list2.size();
         while (i < size) {
