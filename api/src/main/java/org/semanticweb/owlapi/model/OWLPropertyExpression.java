@@ -69,7 +69,7 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous,
      * @return this instance cast as an OWLObjectPropertyExpression
      */
     default OWLObjectPropertyExpression asObjectPropertyExpression() {
-        if (isDataPropertyExpression()) {
+        if (isObjectPropertyExpression()) {
             return (OWLObjectPropertyExpression) this;
         }
         throw new ClassCastException(getClass().getName()
