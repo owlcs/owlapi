@@ -230,11 +230,9 @@ class LiteralFoldingEqualityTester {
             return equals(a.getIRI(), b.getIRI());
         } else if (a instanceof OWLDatatype && b instanceof OWLDatatype) {
             return equals(a.getIRI(), b.getIRI());
-        } else if (a instanceof OWLObjectProperty
-            && b instanceof OWLObjectProperty) {
+        } else if (a.isOWLObjectProperty() && b.isOWLObjectProperty()) {
             return equals(a.getIRI(), b.getIRI());
-        } else if (a instanceof OWLDataProperty
-            && b instanceof OWLDataProperty) {
+        } else if (a.isOWLDataProperty() && b.isOWLDataProperty()) {
             return equals(a.getIRI(), b.getIRI());
         } else if (a instanceof OWLNamedIndividual
             && b instanceof OWLNamedIndividual) {
@@ -283,7 +281,7 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (a instanceof OWLObjectProperty && b instanceof OWLObjectProperty) {
+        if (a.isOWLObjectProperty() && b.isOWLObjectProperty()) {
             return equals(a.asOWLObjectProperty().getIRI(), b
                 .asOWLObjectProperty().getIRI());
         } else if (a instanceof OWLObjectInverseOf

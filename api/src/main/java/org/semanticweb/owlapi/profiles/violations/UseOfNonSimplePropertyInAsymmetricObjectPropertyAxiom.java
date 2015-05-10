@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  *         Management Group
  */
 public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
-        OWLProfileViolation {
+    OWLProfileViolation {
 
     /**
      * @param ontology
@@ -37,8 +37,8 @@ public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
      *        axiom
      */
     public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(
-            @Nonnull OWLOntology ontology,
-            @Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
+        @Nonnull OWLOntology ontology,
+        @Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 
@@ -53,12 +53,14 @@ public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(
+        @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Use of non-simple property in asymmetric object property axiom");
+        return toString(
+            "Use of non-simple property in asymmetric object property axiom");
     }
 }

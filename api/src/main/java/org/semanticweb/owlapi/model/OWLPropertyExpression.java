@@ -21,13 +21,14 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyExpression extends OWLObject, IsAnonymous {
+public interface OWLPropertyExpression extends OWLObject, IsAnonymous,
+    AsOWLObjectProperty, AsOWLDataProperty {
 
     /**
      * @param visitor
      *        visitor to accept
      */
-    void accept(@Nonnull OWLPropertyExpressionVisitor visitor);
+        void accept(@Nonnull OWLPropertyExpressionVisitor visitor);
 
     /**
      * @param visitor
@@ -39,14 +40,40 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous {
     @Nonnull
     <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor);
 
-    /** @return true if this is a data property */
+    /**
+     * @return true if this is a data property
+     */
     default boolean isDataPropertyExpression() {
         return false;
     }
 
-    /** @return true if this is an object property */
+    /**
+     * @return this instance cast as an OWLDataPropertyExpression
+     */
+    default OWLDataPropertyExpression asDataPropertyExpression() {
+        if (isDataPropertyExpression()) {
+            return (OWLDataPropertyExpression) this;
+        }
+        throw new ClassCastException(getClass().getName()
+            + "is not an OWLDataPropertyExpression");
+    }
+
+    /**
+     * @return true if this is an object property
+     */
     default boolean isObjectPropertyExpression() {
         return false;
+    }
+
+    /**
+     * @return this instance cast as an OWLObjectPropertyExpression
+     */
+    default OWLObjectPropertyExpression asObjectPropertyExpression() {
+        if (isDataPropertyExpression()) {
+            return (OWLObjectPropertyExpression) this;
+        }
+        throw new ClassCastException(getClass().getName()
+            + "is not an OWLObjectPropertyExpression");
     }
 
     /**

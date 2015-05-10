@@ -27,7 +27,10 @@ public interface AsOWLDataProperty {
      */
     @Nonnull
     default OWLDataProperty asOWLDataProperty() {
+        if (isOWLDataProperty()) {
+            return (OWLDataProperty) this;
+        }
         throw new ClassCastException(getClass().getName()
-                + "is not an OWLDataProperty");
+            + "is not an OWLDataProperty");
     }
 }

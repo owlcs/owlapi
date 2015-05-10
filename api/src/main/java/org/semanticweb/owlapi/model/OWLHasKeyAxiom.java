@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     @Override
-    OWLHasKeyAxiom getAxiomWithoutAnnotations();
+        OWLHasKeyAxiom getAxiomWithoutAnnotations();
 
     /**
      * Gets the class expression, instances of which, this axiom acts as the key
@@ -39,7 +39,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @return The class expression
      */
     @Nonnull
-    OWLClassExpression getClassExpression();
+        OWLClassExpression getClassExpression();
 
     /**
      * Gets the set of property expressions that form the key.
@@ -58,7 +58,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @return The set of property expression that form the key
      */
     @Nonnull
-    Stream<? extends OWLPropertyExpression> propertyExpressions();
+        Stream<? extends OWLPropertyExpression> propertyExpressions();
 
     /**
      * Gets the set of object property expressions that make up the key. This is
@@ -73,7 +73,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     @Deprecated
     @Nonnull
     default Set<? extends OWLObjectPropertyExpression>
-            getObjectPropertyExpressions() {
+        getObjectPropertyExpressions() {
         return asSet(objectPropertiesInSignature());
     }
 
@@ -89,10 +89,9 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      */
     @Nonnull
     default Stream<? extends OWLObjectPropertyExpression>
-            objectPropertyExpressions() {
-        return propertyExpressions()
-                .filter(p -> p.isObjectPropertyExpression()).map(
-                        p -> (OWLObjectPropertyExpression) p);
+        objectPropertyExpressions() {
+        return propertyExpressions().filter(p -> p.isObjectPropertyExpression())
+            .map(p -> p.asObjectPropertyExpression());
     }
 
     /**
@@ -108,7 +107,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     @Deprecated
     @Nonnull
     default Set<? extends OWLDataPropertyExpression>
-            getDataPropertyExpressions() {
+        getDataPropertyExpressions() {
         return asSet(dataPropertyExpressions());
     }
 
@@ -124,9 +123,9 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      */
     @Nonnull
     default Stream<? extends OWLDataPropertyExpression>
-            dataPropertyExpressions() {
+        dataPropertyExpressions() {
         return propertyExpressions().filter(p -> p.isDataPropertyExpression())
-                .map(p -> (OWLDataPropertyExpression) p);
+            .map(p -> p.asDataPropertyExpression());
     }
 
     @Override

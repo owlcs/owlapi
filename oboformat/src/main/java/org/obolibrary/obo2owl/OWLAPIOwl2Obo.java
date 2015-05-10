@@ -537,8 +537,8 @@ public class OWLAPIOwl2Obo {
                 }
                 if (first) {
                     first = false;
-                    if (ex instanceof OWLObjectProperty) {
-                        prop = (OWLObjectProperty) ex;
+                    if (ex.isOWLObjectProperty()) {
+                        prop = ex.asOWLObjectProperty();
                     }
                 } else {
                     disjointFrom = getIdentifier(ex); // getIdentifier(ex);
@@ -634,8 +634,8 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLTransitiveObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty && trObjectProperty(
-            (OWLObjectProperty) prop, OboFormatTag.TAG_IS_TRANSITIVE.getTag(),
+        if (prop.isOWLObjectProperty() && trObjectProperty(prop
+            .asOWLObjectProperty(), OboFormatTag.TAG_IS_TRANSITIVE.getTag(),
             Boolean.TRUE, ax.annotations())) {
             return;
         }
@@ -660,8 +660,8 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLReflexiveObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty && trObjectProperty(
-            (OWLObjectProperty) prop, OboFormatTag.TAG_IS_REFLEXIVE.getTag(),
+        if (prop.isOWLObjectProperty() && trObjectProperty(prop
+            .asOWLObjectProperty(), OboFormatTag.TAG_IS_REFLEXIVE.getTag(),
             Boolean.TRUE, ax.annotations())) {
             return;
         }
@@ -676,8 +676,8 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLInverseFunctionalObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty && trObjectProperty(
-            (OWLObjectProperty) prop, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL
+        if (prop.isOWLObjectProperty() && trObjectProperty(prop
+            .asOWLObjectProperty(), OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL
                 .getTag(), Boolean.TRUE, ax.annotations())) {
             return;
         }
@@ -693,10 +693,10 @@ public class OWLAPIOwl2Obo {
     protected void tr(@Nonnull OWLInverseObjectPropertiesAxiom ax) {
         OWLObjectPropertyExpression prop1 = ax.getFirstProperty();
         OWLObjectPropertyExpression prop2 = ax.getSecondProperty();
-        if (prop1 instanceof OWLObjectProperty
-            && prop2 instanceof OWLObjectProperty && trObjectProperty(
-                (OWLObjectProperty) prop1, OboFormatTag.TAG_INVERSE_OF.getTag(),
-                getIdentifier(prop2), ax.annotations())) {
+        if (prop1.isOWLObjectProperty() && prop2.isOWLObjectProperty()
+            && trObjectProperty(prop1.asOWLObjectProperty(),
+                OboFormatTag.TAG_INVERSE_OF.getTag(), getIdentifier(prop2), ax
+                    .annotations())) {
             return;
         }
         error(ax, true);
@@ -746,8 +746,8 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLAsymmetricObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty && trObjectProperty(
-            (OWLObjectProperty) prop, OboFormatTag.TAG_IS_ASYMMETRIC.getTag(),
+        if (prop.isOWLObjectProperty() && trObjectProperty(prop
+            .asOWLObjectProperty(), OboFormatTag.TAG_IS_ASYMMETRIC.getTag(),
             Boolean.TRUE, ax.annotations())) {
             return;
         }
@@ -762,8 +762,8 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLSymmetricObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty && trObjectProperty(
-            (OWLObjectProperty) prop, OboFormatTag.TAG_IS_SYMMETRIC.getTag(),
+        if (prop.isOWLObjectProperty() && trObjectProperty(prop
+            .asOWLObjectProperty(), OboFormatTag.TAG_IS_SYMMETRIC.getTag(),
             Boolean.TRUE, ax.annotations())) {
             return;
         }
@@ -778,8 +778,8 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLFunctionalObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty && trObjectProperty(
-            (OWLObjectProperty) prop, OboFormatTag.TAG_IS_FUNCTIONAL.getTag(),
+        if (prop.isOWLObjectProperty() && trObjectProperty(prop
+            .asOWLObjectProperty(), OboFormatTag.TAG_IS_FUNCTIONAL.getTag(),
             Boolean.TRUE, ax.annotations())) {
             return;
         }
@@ -826,8 +826,7 @@ public class OWLAPIOwl2Obo {
                 false);
             return;
         }
-        if (sub instanceof OWLObjectProperty
-            && sup instanceof OWLObjectProperty) {
+        if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
             String supId = getIdentifier(sup);
             if (supId.startsWith("owl:")) {
                 return;
@@ -900,8 +899,7 @@ public class OWLAPIOwl2Obo {
             addQualifiers(clause, ax.annotations());
             return;
         }
-        if (sub instanceof OWLObjectProperty
-            && sup instanceof OWLObjectProperty) {
+        if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
             String supId = getIdentifier(sup); // getIdentifier(sup);
             if (supId.startsWith("owl:")) {
                 return;
@@ -2153,9 +2151,9 @@ public class OWLAPIOwl2Obo {
                     }
                     if (x instanceof OWLObjectSomeValuesFrom) {
                         r = (OWLObjectSomeValuesFrom) x;
-                        if (r.getProperty() instanceof OWLObjectProperty && r
+                        if (r.getProperty().isOWLObjectProperty() && r
                             .getFiller() instanceof OWLClass) {
-                            p = (OWLObjectProperty) r.getProperty();
+                            p = r.getProperty().asOWLObjectProperty();
                             filler = (OWLClass) r.getFiller();
                         }
                     }

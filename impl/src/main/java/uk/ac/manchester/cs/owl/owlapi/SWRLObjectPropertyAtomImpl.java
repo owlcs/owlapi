@@ -25,8 +25,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class SWRLObjectPropertyAtomImpl extends
-        SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
-        SWRLObjectPropertyAtom {
+    SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>implements
+    SWRLObjectPropertyAtom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -44,8 +44,8 @@ public class SWRLObjectPropertyAtomImpl extends
      *        object
      */
     public SWRLObjectPropertyAtomImpl(
-            @Nonnull OWLObjectPropertyExpression predicate,
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
+        @Nonnull OWLObjectPropertyExpression predicate,
+        @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
         super(predicate, arg0, arg1);
     }
 
@@ -63,11 +63,11 @@ public class SWRLObjectPropertyAtomImpl extends
         } else if (prop.isAnonymous()) {
             // Flip
             return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty()
-                    .getSimplified(), getSecondArgument(), getFirstArgument());
+                .getSimplified(), getSecondArgument(), getFirstArgument());
         } else {
             // No need to flip
             return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(),
-                    getSecondArgument());
+                getSecondArgument());
         }
     }
 
@@ -80,8 +80,8 @@ public class SWRLObjectPropertyAtomImpl extends
             return false;
         }
         SWRLObjectPropertyAtom other = (SWRLObjectPropertyAtom) obj;
-        return other.getPredicate().equals(getPredicate())
-                && other.getFirstArgument().equals(getFirstArgument())
-                && other.getSecondArgument().equals(getSecondArgument());
+        return other.getPredicate().equals(getPredicate()) && other
+            .getFirstArgument().equals(getFirstArgument()) && other
+                .getSecondArgument().equals(getSecondArgument());
     }
 }

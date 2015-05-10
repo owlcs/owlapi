@@ -27,7 +27,10 @@ public interface AsOWLObjectProperty {
      */
     @Nonnull
     default OWLObjectProperty asOWLObjectProperty() {
+        if (isOWLObjectProperty()) {
+            return (OWLObjectProperty) this;
+        }
         throw new ClassCastException(getClass().getName()
-                + "is not an OWLObjectProperty");
+            + "is not an OWLObjectProperty");
     }
 }

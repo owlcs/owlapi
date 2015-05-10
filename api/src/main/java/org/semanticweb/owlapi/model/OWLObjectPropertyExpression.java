@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
-        SWRLPredicate, AsOWLObjectProperty {
+    SWRLPredicate {
 
     /**
      * Obtains the property that corresponds to the inverse of this property.
@@ -29,7 +29,7 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
      *         necessarily be in the simplest form.
      */
     @Nonnull
-    OWLObjectPropertyExpression getInverseProperty();
+        OWLObjectPropertyExpression getInverseProperty();
 
     /**
      * Returns this property in its simplified form.
@@ -39,7 +39,7 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
      *         simp(inv(p)) = inv(p) simp(inv(inv(PE)) = simp(PE)
      */
     @Nonnull
-    OWLObjectPropertyExpression getSimplified();
+        OWLObjectPropertyExpression getSimplified();
 
     /**
      * Get the named object property used in this property expression.
@@ -47,5 +47,5 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
      * @return P if simp(PE) = inv(P) or P if simp(PE) = P.
      */
     @Nonnull
-    OWLObjectProperty getNamedProperty();
+        OWLObjectProperty getNamedProperty();
 }
