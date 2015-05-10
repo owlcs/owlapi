@@ -26,7 +26,10 @@ public interface AsOWLAnnotationProperty {
      */
     @Nonnull
     default OWLAnnotationProperty asOWLAnnotationProperty() {
+        if (isOWLAnnotationProperty()) {
+            return (OWLAnnotationProperty) this;
+        }
         throw new ClassCastException(getClass().getName()
-                + "is not an OWLAnnotationProperty");
+            + "is not an OWLAnnotationProperty");
     }
 }

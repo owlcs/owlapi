@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLPropertyExpression extends OWLObject, IsAnonymous,
-    AsOWLObjectProperty, AsOWLDataProperty {
+    AsOWLObjectProperty, AsOWLDataProperty, AsOWLAnnotationProperty {
 
     /**
      * @param visitor

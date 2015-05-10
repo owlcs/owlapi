@@ -24,10 +24,12 @@ public interface AsOWLClass {
      *         if this entity is not an OWLClass (check with the isOWLClass
      *         method first).
      */
-    // XXX as optional
     @Nonnull
     default OWLClass asOWLClass() {
+        if (isOWLClass()) {
+            return (OWLClass) this;
+        }
         throw new ClassCastException(getClass().getName()
-                + "is not an OWLClass");
+            + "is not an OWLClass");
     }
 }

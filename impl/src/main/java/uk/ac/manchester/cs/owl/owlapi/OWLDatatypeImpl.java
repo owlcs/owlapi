@@ -16,12 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -51,8 +46,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public OWLDatatypeImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-        builtin = top || OWL2Datatype.isBuiltIn(iri)
-                || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+        builtin = top || OWL2Datatype.isBuiltIn(iri) || iri.equals(
+            OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -98,9 +93,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     @Override
     public OWL2Datatype getBuiltInDatatype() {
         if (!builtin) {
-            throw new OWLRuntimeException(
-                    iri
-                            + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
+            throw new OWLRuntimeException(iri
+                + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
         }
         return OWL2Datatype.getDatatype(iri);
     }
@@ -147,11 +141,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
             return false;
         }
         return ((OWLDatatype) obj).getIRI().equals(getIRI());
-    }
-
-    @Override
-    public OWLDatatype asOWLDatatype() {
-        return this;
     }
 
     @Override

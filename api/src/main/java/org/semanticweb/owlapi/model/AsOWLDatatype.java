@@ -26,7 +26,10 @@ public interface AsOWLDatatype {
      */
     @Nonnull
     default OWLDatatype asOWLDatatype() {
+        if (isOWLDatatype()) {
+            return (OWLDatatype) this;
+        }
         throw new ClassCastException(getClass().getName()
-                + "is not an OWLDatatype");
+            + "is not an OWLDatatype");
     }
 }

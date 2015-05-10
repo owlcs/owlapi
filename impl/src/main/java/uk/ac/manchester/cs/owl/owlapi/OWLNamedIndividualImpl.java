@@ -16,12 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -30,7 +25,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 3.0.0
  */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
-        OWLNamedIndividual {
+    OWLNamedIndividual {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -72,11 +67,6 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
     @Override
     public IRI getIRI() {
         return iri;
-    }
-
-    @Override
-    public OWLNamedIndividual asOWLNamedIndividual() {
-        return this;
     }
 
     @Override

@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 2.0.0
  */
 public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
-        OWLDataProperty {
+    OWLDataProperty {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -48,8 +48,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     public OWLDataPropertyImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
-                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY
-                        .getIRI());
+            || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     @Override
@@ -104,11 +103,6 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
             return false;
         }
         return ((OWLDataProperty) obj).getIRI().equals(iri);
-    }
-
-    @Override
-    public OWLDataProperty asOWLDataProperty() {
-        return this;
     }
 
     @Override

@@ -27,7 +27,10 @@ public interface AsOWLNamedIndividual {
      */
     @Nonnull
     default OWLNamedIndividual asOWLNamedIndividual() {
+        if (isOWLNamedIndividual()) {
+            return (OWLNamedIndividual) this;
+        }
         throw new ClassCastException(getClass().getName()
-                + "is not an OWLNamedIndividual");
+            + "is not an OWLNamedIndividual");
     }
 }

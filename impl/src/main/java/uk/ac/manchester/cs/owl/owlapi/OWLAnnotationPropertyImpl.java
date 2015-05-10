@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  */
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
-        OWLAnnotationProperty {
+    OWLAnnotationProperty {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -76,11 +76,6 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     @Override
     public boolean isBuiltIn() {
         return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(getIRI());
-    }
-
-    @Override
-    public OWLAnnotationProperty asOWLAnnotationProperty() {
-        return this;
     }
 
     @Override

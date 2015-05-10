@@ -19,12 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -34,7 +29,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
-        Serializable {
+    Serializable {
 
     private static final long serialVersionUID = 40000L;
 
@@ -107,11 +102,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     @Override
     public boolean isClassExpressionLiteral() {
         return true;
-    }
-
-    @Override
-    public OWLClass asOWLClass() {
-        return this;
     }
 
     @Override

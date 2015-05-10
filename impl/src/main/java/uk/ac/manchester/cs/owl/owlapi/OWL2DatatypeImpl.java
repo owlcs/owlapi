@@ -19,12 +19,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -51,7 +46,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      */
     public OWL2DatatypeImpl(@Nonnull OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype,
-                "owl2Datatype must not be null");
+            "owl2Datatype must not be null");
     }
 
     @Nonnull
@@ -95,12 +90,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public boolean isTopDatatype() {
         return owl2Datatype == RDFS_LITERAL;
-    }
-
-    @Nonnull
-    @Override
-    public OWLDatatype asOWLDatatype() {
-        return this;
     }
 
     @Override
