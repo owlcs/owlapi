@@ -2781,7 +2781,7 @@ public class TripleHandlers {
                 consumeTriple(subject, predicate, object);
                 Set<OWLAnnotation> annotations = consumer
                         .translateAnnotations(subject);
-                consumer.setPendingAnnotations(annotations);
+                consumer.addPendingAnnotations(annotations);
                 if (annotatedTarget != null) {
                     consumer.handlerAccessor.handle(annotatedSource,
                             annotatedProperty, annotatedTarget);
