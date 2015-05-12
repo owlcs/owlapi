@@ -20,16 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -43,65 +34,8 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import org.semanticweb.owlapi.OWLAPIConfigProvider;
-import org.semanticweb.owlapi.io.FileDocumentSource;
-import org.semanticweb.owlapi.io.IRIDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
-import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
-import org.semanticweb.owlapi.io.StreamDocumentSource;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.DefaultChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.DefaultImpendingChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.ImmutableOWLOntologyChangeException;
-import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.MissingImportEvent;
-import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
-import org.semanticweb.owlapi.model.MissingImportListener;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLMutableOntology;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLOntologyChangeProgressListener;
-import org.semanticweb.owlapi.model.OWLOntologyChangeVetoException;
-import org.semanticweb.owlapi.model.OWLOntologyChangesVetoedListener;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyDocumentAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
-import org.semanticweb.owlapi.model.OWLOntologyFactoryNotFoundException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderListener;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyRenameException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLStorer;
-import org.semanticweb.owlapi.model.OWLStorerFactory;
-import org.semanticweb.owlapi.model.OWLStorerNotFoundException;
-import org.semanticweb.owlapi.model.PriorityCollectionSorting;
-import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.model.RemoveImport;
-import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -118,69 +52,48 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.ConcurrentPriorityCollection;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
+public class OWLOntologyManagerImpl implements OWLOntologyManager,
+    OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
 
     private static final long serialVersionUID = 40000L;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyManagerImpl.class);
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+        OWLOntologyManagerImpl.class);
     @Nonnull
     protected final Map<OWLOntologyID, OWLOntology> ontologiesByID = createSyncMap();
-
     @Nonnull
     protected final Map<OWLOntologyID, IRI> documentIRIsByID = createSyncMap();
-
     @Nonnull
     protected final Map<OWLOntologyID, OWLOntologyLoaderConfiguration> ontologyConfigurationsByOntologyID = new HashMap<>();
-
     @Nonnull
     protected final Map<OWLOntologyID, OWLDocumentFormat> ontologyFormatsByOntology = createSyncMap();
-
     @Nonnull
     protected final Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = createSyncMap();
-
     protected final AtomicInteger loadCount = new AtomicInteger(0);
-
     protected final AtomicInteger importsLoadCount = new AtomicInteger(0);
-
     @Nonnull
     protected final Set<IRI> importedIRIs = createSyncSet();
-
     @Nonnull
     protected final OWLDataFactory dataFactory;
-
     @Nonnull
     protected final Map<OWLOntologyID, Set<OWLOntology>> importsClosureCache = createSyncMap();
-
     @Nonnull
     protected final List<MissingImportListener> missingImportsListeners = createSyncList();
-
     @Nonnull
     protected final List<OWLOntologyLoaderListener> loaderListeners = createSyncList();
-
     @Nonnull
     protected final List<OWLOntologyChangeProgressListener> progressListeners = createSyncList();
-
     @Nonnull
     protected final AtomicLong autoGeneratedURICounter = new AtomicLong();
-
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
-
     @Nonnull
     protected OWLOntologyChangeBroadcastStrategy defaultChangeBroadcastStrategy = new DefaultChangeBroadcastStrategy();
-
     @Nonnull
     protected ImpendingOWLOntologyChangeBroadcastStrategy defaultImpendingChangeBroadcastStrategy = new DefaultImpendingChangeBroadcastStrategy();
-
     private transient Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = createSyncMap();
-
     private transient Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = createSyncMap();
-
     private transient List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<>();
-
     @Nonnull
     private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
-
     @SuppressWarnings("null")
     @Nonnull
     private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
@@ -192,17 +105,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     protected final PriorityCollection<OWLParserFactory> parserFactories;
     @Nonnull
     protected final PriorityCollection<OWLStorerFactory> ontologyStorers;
-
-
     private final ReadWriteLock readWriteLock;
-
     private final Lock readLock;
-
     private final Lock writeLock;
 
     /**
      * @param dataFactory
-     *         data factory
+     *        data factory
      */
     @Inject
     public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory,
@@ -232,11 +141,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * @param first
-     *         first id
+     *        first id
      * @param second
-     *         second id
+     *        second id
      * @return true if the ids are equal or have the same ontology IRI. Ontology
-     * version is ignored.
+     *         version is ignored.
      */
     private static boolean matchingIDs(OWLOntologyID first, OWLOntologyID second) {
         if (first.isAnonymous() || second.isAnonymous()) {
@@ -472,7 +381,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             for (OWLOntology ont : getOntologies()) {
                 OWLOntologyID ontId = ont.getOntologyID();
                 Optional<IRI> ontIRI = ontId.getOntologyIRI();
-                if (ontIRI.isPresent() &&  ontIRI.get().equals(ontologyIRI)) {
+                if (ontIRI.isPresent() && ontIRI.get().equals(ontologyIRI)) {
                     result.add(ont);
                 }
             }
@@ -481,7 +390,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             readLock.unlock();
         }
     }
-
 
     @Nullable
     @Override
@@ -542,10 +450,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * A method that gets the imports of a given ontology.
      * @param ont
-     *         The ontology whose (transitive) imports are to be retrieved.
+     *        The ontology whose (transitive) imports are to be retrieved.
      * @param result
-     *         A place to store the result - the transitive closure of the
-     *         imports will be stored in this result set.
+     *        A place to store the result - the transitive closure of the
+     *        imports will be stored in this result set.
      */
     private void getImports(@Nonnull OWLOntology ont, @Nonnull Set<OWLOntology> result) {
         readLock.lock();
@@ -583,10 +491,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * A recursive method that gets the reflexive transitive closure of the
      * ontologies that are imported by this ontology.
+     * 
      * @param ontology
-     *         The ontology whose reflexive transitive closure is to be retrieved
+     *        The ontology whose reflexive transitive closure is to be retrieved
      * @param ontologies
-     *         a place to store the result
+     *        a place to store the result
      */
     private void getImportsClosure(@Nonnull OWLOntology ontology, @Nonnull Set<OWLOntology> ontologies) {
         readLock.lock();
@@ -616,10 +525,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Determines if a change is applicable. A change may not be applicable for
      * a number of reasons.
+     * 
      * @param change
-     *         The change to be tested.
+     *        The change to be tested.
      * @return {@code true} if the change is applicable, otherwise,
-     * {@code false}.
+     *         {@code false}.
      */
     private boolean isChangeApplicable(OWLOntologyChange change) {
         OWLOntologyLoaderConfiguration ontologyConfig = ontologyConfigurationsByOntologyID.get(change.getOntology().getOntologyID());
@@ -632,29 +542,30 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Applies a change to an ontology and performs the necessary housekeeping
      * tasks.
+     * 
      * @param change
-     *         The change to be applied.
+     *        The change to be applied.
      * @return A list of changes that were actually applied.
      */
-    private List<OWLOntologyChange> enactChangeApplication(OWLOntologyChange change) {
+    private ChangeApplied enactChangeApplication(OWLOntologyChange change) {
         if (!isChangeApplicable(change)) {
-            return Collections.emptyList();
+            return ChangeApplied.UNSUCCESSFULLY;
         }
         OWLOntology ont = change.getOntology();
         if (!(ont instanceof OWLMutableOntology)) {
-            throw new ImmutableOWLOntologyChangeException(change.getChangeData(), ont.toString());
+            throw new ImmutableOWLOntologyChangeException(change
+                .getChangeData(), ont.toString());
         }
         checkForOntologyIDChange(change);
-        ChangeApplied appliedChange = ((OWLMutableOntology) ont).applyChange(change);
+        ChangeApplied appliedChange = ((OWLMutableOntology) ont).applyChange(
+            change);
         checkForImportsChange(change);
-        if (appliedChange == ChangeApplied.UNSUCCESSFULLY) {
-            return Collections.emptyList();
-        }
-        return Collections.singletonList(change);
+        return appliedChange;
     }
 
     @Override
-    public List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes) {
+    public ChangeApplied applyChanges(
+        List<? extends OWLOntologyChange> changes) {
         writeLock.lock();
         try {
             try {
@@ -662,17 +573,24 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             } catch (OWLOntologyChangeVetoException e) {
                 // Some listener blocked the changes.
                 broadcastOntologyChangesVetoed(changes, e);
-                return CollectionFactory.emptyList();
+                return ChangeApplied.UNSUCCESSFULLY;
             }
-            List<OWLOntologyChange> appliedChanges = new ArrayList<>(changes.size() + 2);
+            ChangeApplied appliedChanges = ChangeApplied.SUCCESSFULLY;
             fireBeginChanges(changes.size());
             for (OWLOntologyChange change : changes) {
                 assert change != null;
-                appliedChanges.addAll(enactChangeApplication(change));
+                ChangeApplied enactChangeApplication = enactChangeApplication(
+                    change);
+                if (appliedChanges == ChangeApplied.SUCCESSFULLY) {
+                    // only update the value if it is still successful.
+                    // if a past change was unsuccessful, we need to retain that
+                    // information
+                    appliedChanges = enactChangeApplication;
+                }
                 fireChangeApplied(change);
             }
             fireEndChanges();
-            broadcastChanges(appliedChanges);
+            broadcastChanges(changes);
             return appliedChanges;
         } finally {
             writeLock.unlock();
@@ -683,35 +601,44 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     public ChangeApplied addAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
         writeLock.lock();
         try {
-            List<OWLOntologyChange> addAxioms = addAxioms(ont, CollectionFactory.createSet(axiom));
-            if (addAxioms.isEmpty()) {
-                return ChangeApplied.UNSUCCESSFULLY;
-            }
-            return ChangeApplied.SUCCESSFULLY;
+            return addAxioms(ont, CollectionFactory.createSet(axiom));
         } finally {
             writeLock.unlock();
         }
     }
 
     @Override
-    public List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont, @Nonnull Set<? extends OWLAxiom> axioms) {
-        // Write lock not needed at this point
-        List<AddAxiom> changes = new ArrayList<>(axioms.size() + 2);
-        for (OWLAxiom ax : axioms) {
-            assert ax != null;
-            changes.add(new AddAxiom(ont, ax));
+    public ChangeApplied addAxioms(@Nonnull OWLOntology ont,
+        @Nonnull Set<? extends OWLAxiom> axioms) {
+        writeLock.lock();
+        try {
+            // Write lock not needed at this point
+            List<AddAxiom> changes = new ArrayList<>(axioms.size() + 2);
+            for (OWLAxiom ax : axioms) {
+                assert ax != null;
+                changes.add(new AddAxiom(ont, ax));
+            }
+            return applyChanges(changes);
+        } finally {
+            writeLock.unlock();
         }
-        return applyChanges(changes);
     }
 
     @Override
-    public List<OWLOntologyChange> removeAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
-        // Write lock not needed at this point
-        return removeAxioms(ont, CollectionFactory.createSet(axiom));
+    public ChangeApplied removeAxiom(@Nonnull OWLOntology ont,
+        @Nonnull OWLAxiom axiom) {
+        writeLock.lock();
+        try {
+            // Write lock not needed at this point
+            return removeAxioms(ont, CollectionFactory.createSet(axiom));
+        } finally {
+            writeLock.unlock();
+        }
     }
 
     @Override
-    public List<OWLOntologyChange> removeAxioms(@Nonnull OWLOntology ont, @Nonnull Set<? extends OWLAxiom> axioms) {
+    public ChangeApplied removeAxioms(@Nonnull OWLOntology ont,
+        @Nonnull Set<? extends OWLAxiom> axioms) {
         // Write lock not needed at this point
         List<RemoveAxiom> changes = new ArrayList<>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
@@ -723,12 +650,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     @Override
     public ChangeApplied applyChange(@Nonnull OWLOntologyChange change) {
-        // Write lock not needed at this point
-        List<OWLOntologyChange> applyChanges = applyChanges(CollectionFactory.list(change));
-        if (applyChanges.isEmpty()) {
-            return ChangeApplied.UNSUCCESSFULLY;
+        writeLock.lock();
+        try {
+            // Write lock not needed at this point
+            return applyChanges(CollectionFactory.list(change));
+        } finally {
+            writeLock.unlock();
         }
-        return ChangeApplied.SUCCESSFULLY;
     }
 
     private void checkForImportsChange(OWLOntologyChange change) {
@@ -863,7 +791,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     @Override
     public OWLOntology createOntology(IRI ontologyIRI,
-                                      Set<OWLOntology> ontologies) throws OWLOntologyCreationException {
+        Set<OWLOntology> ontologies) throws OWLOntologyCreationException {
         return createOntology(ontologyIRI, ontologies, false);
     }
 
@@ -962,7 +890,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     @Nonnull
     protected OWLOntology loadOntology(@Nonnull IRI ontologyIRI,
-                                       boolean allowExists,
+        boolean allowExists,
                                        @Nonnull OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         writeLock.lock();
         try {
@@ -1054,21 +982,22 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     /**
      * This is the method that all the other load method delegate to.
+     * 
      * @param ontologyIRI
-     *         The URI of the ontology to be loaded. This is only used to report
-     *         to listeners and may be {@code null}
+     *        The URI of the ontology to be loaded. This is only used to report
+     *        to listeners and may be {@code null}
      * @param documentSource
-     *         The input source that specifies where the ontology should be
-     *         loaded from.
+     *        The input source that specifies where the ontology should be
+     *        loaded from.
      * @param configuration
-     *         load configuration
+     *        load configuration
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException
      *         If the ontology could not be loaded.
      */
     @Nonnull
     protected OWLOntology loadOntology(@Nullable IRI ontologyIRI,
-                                       @Nonnull OWLOntologyDocumentSource documentSource,
+        @Nonnull OWLOntologyDocumentSource documentSource,
                                        @Nonnull OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         writeLock.lock();
         try {
@@ -1193,10 +1122,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Handles a rename of an ontology. This method should only be called
      * *after* the change has been applied
+     * 
      * @param oldID
-     *         The original ID of the ontology
+     *        The original ID of the ontology
      * @param newID
-     *         The new ID of the ontology
+     *        The new ID of the ontology
      */
     private void renameOntology(OWLOntologyID oldID, OWLOntologyID newID) {
         OWLOntology ont = ontologiesByID.get(oldID);
@@ -1239,7 +1169,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     @Override
     public void saveOntology(@Nonnull OWLOntology ontology,
-                             OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException {
+        OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException {
         readLock.lock();
         try {
             saveOntology(ontology, ontologyFormat, getOntologyDocumentIRI(ontology));
@@ -1309,7 +1239,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     @Override
     public void saveOntology(OWLOntology ontology,
-                             OWLDocumentFormat ontologyFormat,
+        OWLDocumentFormat ontologyFormat,
                              OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
         readLock.lock();
         try {
@@ -1421,20 +1351,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Uses the mapper mechanism to obtain an ontology document IRI from an
      * ontology IRI.
+     * 
      * @param ontologyID
-<<<<<<< version4
      *        The ontology ID for which a document IRI is to be retrieved
-=======
-     *         The ontology ID for which a document IRI is to be retrieved
      * @param quiet
-     *         If set to {@code true} and a mapping can't be found then a value
-     *         of {@code null} is returned. If set to {@code false} and a mapping
-     *         can't be found then an exception
-     *         {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
-     *         is thrown.
->>>>>>> 089882e Initial implementation of #387 in the OWL API.
+     *        If set to {@code true} and a mapping can't be found then a value
+     *        of {@code null} is returned. If set to {@code false} and a mapping
+     *        can't be found then an exception
+     *        {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
+     *        is thrown.
      * @return The document IRI that corresponds to the ontology IRI, or
-     * {@code null} if no physical URI can be found.
+     *         {@code null} if no physical URI can be found.
      */
     @Nullable
     private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID) {
@@ -1443,7 +1370,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             return null;
         }
         IRI iri = defIRI.get();
-        assert iri!=null;
+        assert iri != null;
         for (OWLOntologyIRIMapper mapper : documentMappers) {
             IRI documentIRI = mapper.getDocumentIRI(iri);
             if (documentIRI != null) {
@@ -1453,7 +1380,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         return iri;
     }
 
-    protected final void installDefaultURIMappers() { }
+    protected final void installDefaultURIMappers() {}
 
     protected final void installDefaultOntologyFactories() {
         // The default factories are the ones that can load
@@ -1481,8 +1408,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     /**
      * Broadcasts to attached listeners, using the various broadcasting
      * strategies that were specified for each listener.
+     * 
      * @param changes
-     *         The ontology changes to broadcast
+     *        The ontology changes to broadcast
      */
     protected void broadcastChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
         writeLock.lock();
@@ -1544,7 +1472,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     @Override
     public void addOntologyChangeListener(OWLOntologyChangeListener listener,
-                                          OWLOntologyChangeBroadcastStrategy strategy) {
+        OWLOntologyChangeBroadcastStrategy strategy) {
         writeLock.lock();
         try {
             listenerMap.put(listener, strategy);
@@ -1604,7 +1532,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     }
 
     private void broadcastOntologyChangesVetoed(@Nonnull List<? extends OWLOntologyChange> changes,
-                                                @Nonnull OWLOntologyChangeVetoException veto) {
+        @Nonnull OWLOntologyChangeVetoException veto) {
         writeLock.lock();
         try {
             for (OWLOntologyChangesVetoedListener listener : new ArrayList<>(vetoListeners)) {

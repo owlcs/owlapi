@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -31,12 +31,12 @@ public interface HasRemoveAxiom {
      *        The ontology to remove the axiom from.
      * @param axiom
      *        The axiom to be removed
-     * @return A list of ontology changes that represent the changes that
-     *         actually took place.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      * @throws OWLOntologyChangeException
      *         if there was a problem removing the axiom
      */
     @Nonnull
-    List<OWLOntologyChange> removeAxiom(@Nonnull OWLOntology ont,
+    ChangeApplied removeAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom);
 }

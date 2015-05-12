@@ -12,10 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * Interface for an object that accepts axiom additions (tipycally, an
@@ -33,8 +34,8 @@ public interface HasDirectAddAxioms {
      * 
      * @param axioms
      *        The axioms to be added. Not {@code null}.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to add the axioms.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
-    List<OWLOntologyChange> addAxioms(@Nonnull Set<? extends OWLAxiom> axioms);
+        ChangeApplied addAxioms(@Nonnull Set<? extends OWLAxiom> axioms);
 }

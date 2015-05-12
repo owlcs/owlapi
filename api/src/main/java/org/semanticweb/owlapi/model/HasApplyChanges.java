@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -31,11 +33,12 @@ public interface HasApplyChanges {
      * 
      * @param changes
      *        The changes to be applied.
-     * @return The changes that were actually applied.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      * @throws OWLOntologyChangeException
      *         If one or more of the changes could not be applied.
      */
     @Nonnull
-    List<OWLOntologyChange> applyChanges(
+        ChangeApplied applyChanges(
             @Nonnull List<? extends OWLOntologyChange> changes);
 }

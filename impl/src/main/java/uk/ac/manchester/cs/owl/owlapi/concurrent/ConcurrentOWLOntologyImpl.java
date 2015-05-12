@@ -1,5 +1,17 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
+import java.io.OutputStream;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+
 /**
  * Matthew Horridge
  * Stanford Center for Biomedical Informatics Research
@@ -14,28 +26,14 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import java.io.OutputStream;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
 
     private final OWLOntology delegate;
-
     private final ReadWriteLock readWriteLock;
-
     private final Lock readLock;
-
     private final Lock writeLock;
 
     /**
@@ -88,12 +86,10 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
     public OWLOntologyManager getOWLOntologyManager() {
         readLock.lock();
         try {
-
             return delegate.getOWLOntologyManager();
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -104,7 +100,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             writeLock.unlock();
         }
-
     }
 
     @Override
@@ -116,7 +111,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -127,7 +121,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -139,7 +132,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -151,7 +143,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -163,7 +154,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -175,7 +165,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -187,7 +176,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -199,7 +187,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -210,7 +197,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -222,7 +208,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -234,7 +219,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -246,7 +230,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -258,7 +241,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -270,7 +252,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -282,7 +263,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -293,7 +273,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -304,7 +283,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -315,7 +293,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -326,7 +303,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -337,7 +313,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -348,7 +323,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -359,7 +333,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -370,7 +343,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -381,7 +353,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -392,7 +363,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -404,7 +374,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -426,7 +395,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -437,7 +405,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -449,7 +416,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -460,7 +426,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -471,7 +436,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -483,7 +447,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -495,7 +458,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -507,7 +469,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -519,7 +480,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -531,7 +491,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -543,7 +502,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -555,7 +513,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -567,7 +524,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -578,7 +534,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -590,7 +545,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -601,7 +555,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -613,7 +566,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -624,7 +576,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -635,7 +586,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -647,7 +597,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -659,7 +608,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -671,7 +619,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -683,7 +630,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -695,7 +641,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -707,7 +652,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -719,7 +663,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -731,7 +674,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -743,7 +685,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -755,7 +696,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -767,7 +707,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -778,7 +717,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -791,7 +729,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -803,7 +740,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -816,7 +752,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -828,7 +763,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -841,7 +775,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -853,7 +786,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -865,7 +797,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -877,7 +808,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -890,7 +820,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -903,7 +832,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -916,7 +844,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -929,7 +856,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -942,7 +868,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -955,7 +880,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -968,7 +892,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -981,7 +904,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -992,7 +914,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1003,7 +924,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1014,7 +934,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1025,7 +944,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1037,7 +955,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1049,7 +966,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1062,7 +978,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1075,7 +990,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1088,7 +1002,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1101,7 +1014,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1114,7 +1026,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1127,7 +1038,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1139,7 +1049,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1151,7 +1060,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1163,7 +1071,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1175,7 +1082,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1187,7 +1093,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1199,7 +1104,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1211,7 +1115,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1222,7 +1125,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1233,7 +1135,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1244,7 +1145,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1255,7 +1155,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1266,7 +1165,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1277,7 +1175,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1288,7 +1185,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1299,7 +1195,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1310,7 +1205,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1321,7 +1215,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1332,7 +1225,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1343,7 +1235,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1354,7 +1245,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1365,7 +1255,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1376,7 +1265,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1388,7 +1276,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1399,7 +1286,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1410,7 +1296,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1421,7 +1306,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1433,7 +1317,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1446,7 +1329,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1459,7 +1341,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1472,7 +1353,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1485,7 +1365,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1498,7 +1377,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1511,7 +1389,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1524,7 +1401,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1536,7 +1412,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1548,7 +1423,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1560,7 +1434,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1572,7 +1445,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1584,7 +1456,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1596,7 +1467,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1608,7 +1478,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1620,7 +1489,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1633,7 +1501,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1645,7 +1512,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1657,7 +1523,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1669,7 +1534,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1680,7 +1544,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1692,7 +1555,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1704,7 +1566,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1716,7 +1577,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1728,7 +1588,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1740,7 +1599,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1752,7 +1610,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1764,7 +1621,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1776,7 +1632,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1788,7 +1643,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1800,7 +1654,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1812,7 +1665,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1824,7 +1676,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1836,7 +1687,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1848,7 +1698,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1860,7 +1709,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1872,7 +1720,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1884,7 +1731,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1896,7 +1742,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1908,7 +1753,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1920,7 +1764,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1932,7 +1775,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1944,7 +1786,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1956,7 +1797,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1968,7 +1808,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1980,7 +1819,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -1992,7 +1830,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2004,7 +1841,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2016,7 +1852,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2028,7 +1863,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2040,7 +1874,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2052,7 +1885,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2064,7 +1896,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2076,7 +1907,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2088,7 +1918,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2100,7 +1929,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2112,7 +1940,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2124,7 +1951,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2136,7 +1962,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2148,7 +1973,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2160,7 +1984,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2172,7 +1995,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2184,7 +2006,6 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             readLock.unlock();
         }
-
     }
 
     @Override
@@ -2196,19 +2017,18 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             writeLock.unlock();
         }
-
     }
 
     @Override
     @Nonnull
-    public List<OWLOntologyChange> applyChanges(@Nonnull List<? extends OWLOntologyChange> list) {
+    public ChangeApplied applyChanges(
+        @Nonnull List<? extends OWLOntologyChange> list) {
         writeLock.lock();
         try {
             return getMutableOntology().applyChanges(list);
         } finally {
             writeLock.unlock();
         }
-
     }
 
     @Override
@@ -2220,23 +2040,19 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         } finally {
             writeLock.unlock();
         }
-
     }
 
     @Override
-    public List<OWLOntologyChange> addAxioms(@Nonnull Set<? extends OWLAxiom> set) {
+    public ChangeApplied addAxioms(@Nonnull Set<? extends OWLAxiom> set) {
         writeLock.lock();
         try {
             return getMutableOntology().addAxioms(set);
         } finally {
             writeLock.unlock();
         }
-
     }
 
     private OWLMutableOntology getMutableOntology() {
         return (OWLMutableOntology) delegate;
     }
-
-
 }
