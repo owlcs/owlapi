@@ -43,8 +43,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
      *        ontology id
      */
     @Inject
-    public OWLOntologyImpl(
-            @Nonnull OWLOntologyManager manager,
+    public OWLOntologyImpl(@Nonnull OWLOntologyManager manager,
         @Nonnull @Assisted OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
@@ -93,7 +92,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             if (ints.removeAxiom(change.getAxiom())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -103,7 +102,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
                 ontologyID = id;
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -111,7 +110,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             if (ints.addAxiom(change.getAxiom())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -120,7 +119,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             if (ints.addImportsDeclaration(change.getImportDeclaration())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -128,7 +127,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -136,7 +135,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -144,7 +143,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
     }
 }

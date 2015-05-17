@@ -36,7 +36,7 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
      *        the annotation
      */
     public RemoveOntologyAnnotation(@Nonnull OWLOntology ont,
-            @Nonnull OWLAnnotation annotation) {
+        @Nonnull OWLAnnotation annotation) {
         super(ont, annotation);
     }
 
@@ -70,13 +70,18 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
             return false;
         }
         RemoveOntologyAnnotation other = (RemoveOntologyAnnotation) obj;
-        return getAnnotation().equals(other.getAnnotation())
-                && getOntology().equals(other.getOntology());
+        return getAnnotation().equals(other.getAnnotation()) && getOntology()
+            .equals(other.getOntology());
     }
 
     @Override
     public String toString() {
         return String.format("RemoveOntologyAnnotation(%s OntologyID(%s))",
-                getAnnotation(), getOntology().getOntologyID());
+            getAnnotation(), getOntology().getOntologyID());
+    }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new AddOntologyAnnotation(getOntology(), getAnnotation());
     }
 }

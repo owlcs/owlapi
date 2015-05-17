@@ -23,7 +23,10 @@ public enum ChangeApplied {
      * change applied successfully
      */
     SUCCESSFULLY, /**
-     * chnge not applied
-     */
-    UNSUCCESSFULLY
+                   * change not applied
+                   */
+    UNSUCCESSFULLY, /**
+                     * No operation carried out (change had no effect)
+                     */
+    NO_OPERATION
 }

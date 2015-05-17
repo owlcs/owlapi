@@ -46,11 +46,20 @@ public class SetOntologyID extends OWLOntologyChange {
      *        The ontology ID
      */
     public SetOntologyID(@Nonnull OWLOntology ont,
-            @Nonnull OWLOntologyID ontologyID) {
+        @Nonnull OWLOntologyID ontologyID) {
         super(ont);
         this.ontologyID = checkNotNull(ont.getOntologyID(),
-                "ontology id cannot be null");
+            "ontology id cannot be null");
         newOntologyID = checkNotNull(ontologyID, "ontology id cannot be null");
+    }
+
+    SetOntologyID(@Nonnull OWLOntology ont, @Nonnull OWLOntologyID ontologyID,
+        @Nonnull OWLOntologyID newOntologyID) {
+        super(ont);
+        this.ontologyID = checkNotNull(ontologyID,
+            "ontology id cannot be null");
+        this.newOntologyID = checkNotNull(newOntologyID,
+            "ontology id cannot be null");
     }
 
     /**
@@ -64,8 +73,8 @@ public class SetOntologyID extends OWLOntologyChange {
      */
     @SuppressWarnings("null")
     public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull IRI ontologyIRI) {
-        this(ont, new OWLOntologyID(Optional.of(ontologyIRI),
-                Optional.<IRI> absent()));
+        this(ont, new OWLOntologyID(Optional.of(ontologyIRI), Optional
+            .<IRI> absent()));
     }
 
     @Override
@@ -75,9 +84,8 @@ public class SetOntologyID extends OWLOntologyChange {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLEntity> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(
+            CollectionFactory.<OWLEntity> emptySet());
     }
 
     @Override
@@ -98,7 +106,7 @@ public class SetOntologyID extends OWLOntologyChange {
     @Override
     public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException(
-                "This is an ontology id change, not an axiom change: " + this);
+            "This is an ontology id change, not an axiom change: " + this);
     }
 
     /**
@@ -133,7 +141,7 @@ public class SetOntologyID extends OWLOntologyChange {
     @Override
     public String toString() {
         return String.format("SetOntologyID(%s OntologyID(%s))", newOntologyID,
-                ontologyID);
+            ontologyID);
     }
 
     @Override
@@ -150,7 +158,14 @@ public class SetOntologyID extends OWLOntologyChange {
             return false;
         }
         SetOntologyID change = (SetOntologyID) obj;
-        return change.ontologyID.equals(ontologyID)
-                && change.newOntologyID.equals(newOntologyID);
+        return change.ontologyID.equals(ontologyID) && change.newOntologyID
+            .equals(newOntologyID);
+    }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        SetOntologyID setOntologyID = new SetOntologyID(getOntology(),
+            newOntologyID, getOntology().getOntologyID());
+        return setOntologyID;
     }
 }

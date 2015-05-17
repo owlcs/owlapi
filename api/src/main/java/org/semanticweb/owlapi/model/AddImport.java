@@ -35,7 +35,7 @@ public class AddImport extends ImportChange {
      *        the import declaration
      */
     public AddImport(@Nonnull OWLOntology ont,
-            @Nonnull OWLImportsDeclaration importDeclaration) {
+        @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
     }
 
@@ -47,8 +47,8 @@ public class AddImport extends ImportChange {
 
     @Override
     public int hashCode() {
-        return getOntology().hashCode() * 37
-                + getImportDeclaration().hashCode();
+        return getOntology().hashCode() * 37 + getImportDeclaration()
+            .hashCode();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class AddImport extends ImportChange {
     @Override
     public String toString() {
         return "AddImport(" + getImportDeclaration() + " OntologyID("
-                + getOntology().getOntologyID() + "))";
+            + getOntology().getOntologyID() + "))";
     }
 
     @Override
@@ -78,5 +78,10 @@ public class AddImport extends ImportChange {
     @Override
     public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new RemoveImport(getOntology(), getImportDeclaration());
     }
 }

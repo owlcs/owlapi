@@ -35,7 +35,7 @@ public class RemoveImport extends ImportChange {
      *        the import declaration
      */
     public RemoveImport(@Nonnull OWLOntology ont,
-            @Nonnull OWLImportsDeclaration importDeclaration) {
+        @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
     }
 
@@ -47,15 +47,14 @@ public class RemoveImport extends ImportChange {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLEntity> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(
+            CollectionFactory.<OWLEntity> emptySet());
     }
 
     @Override
     public int hashCode() {
-        return getOntology().hashCode() * 37
-                + getImportDeclaration().hashCode() + 3;
+        return getOntology().hashCode() * 37 + getImportDeclaration().hashCode()
+            + 3;
     }
 
     @Override
@@ -83,5 +82,10 @@ public class RemoveImport extends ImportChange {
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new AddImport(getOntology(), getImportDeclaration());
     }
 }

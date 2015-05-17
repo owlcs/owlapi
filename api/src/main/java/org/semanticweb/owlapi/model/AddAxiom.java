@@ -57,8 +57,8 @@ public class AddAxiom extends OWLAxiomChange {
             return false;
         }
         AddAxiom other = (AddAxiom) obj;
-        return other.getOntology().equals(getOntology())
-                && other.getAxiom().equals(getAxiom());
+        return other.getOntology().equals(getOntology()) && other.getAxiom()
+            .equals(getAxiom());
     }
 
     @Override
@@ -79,7 +79,12 @@ public class AddAxiom extends OWLAxiomChange {
     @Nonnull
     @Override
     public String toString() {
-        return "AddAxiom(" + getAxiom() + " OntologyID("
-                + getOntology().getOntologyID() + "))";
+        return "AddAxiom(" + getAxiom() + " OntologyID(" + getOntology()
+            .getOntologyID() + "))";
+    }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new RemoveAxiom(getOntology(), getAxiom());
     }
 }
