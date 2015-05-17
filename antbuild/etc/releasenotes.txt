@@ -1,3 +1,22 @@
+4.1.0 17 May 2015
+Features:
+Port protege-owlapi concurrency support to the OWL API
+Enabled the creation of a concurrent manager
+Part of Add transactional support to OWLOntology #382 : ability to rollback the application of a set of changes if one fails. Added a ChangeApplied.NO_OPERATION to track those changes that did not have any effect (e.g., adding an axiom that is already present or removing an axiom that is not present).
+ManchesterOWLSyntaxParser could use a convenience method parseClassExpression(String s) #384
+
+Bug fixes:
+OWLImmutableOntologyImpl.asSet() assumes input iterable is coming from a duplicate free collection #404
+OWLOntologyManagerImpl.getVersions() calls get() on Optional without checking if the contained value is present #401
+OWLOntologyManagerImpl tests storers with keys rather than canStoreOntology #400
+setOntologyLoaderConfigurationProvider should accept a javax.inject.Provider #399
+Cleaned distribution jar
+Losing Annotations on Annotation Assertion Axioms #406
+Return types of RemoveAxiom(s) vs. AddAxiom(s) #408
+Examples file needs review #407
+BFO fails to load in API version 4.0.X #405
+Fix RDF/XML renderer does not like properties using urns (or almost urns) #301
+
 4.0.2 17 April 2015
 Features:
 Simple OWL/FSS IRI sniffing for AutoIRIMapper.
