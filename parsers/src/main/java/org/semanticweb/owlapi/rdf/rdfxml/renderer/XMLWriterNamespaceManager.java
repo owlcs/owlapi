@@ -46,7 +46,7 @@ public class XMLWriterNamespaceManager {
      */
     public XMLWriterNamespaceManager(@Nonnull String defaultNamespace) {
         this.defaultNamespace = checkNotNull(defaultNamespace,
-                "defaultNamespace cannot be null");
+            "defaultNamespace cannot be null");
     }
 
     /**
@@ -56,9 +56,9 @@ public class XMLWriterNamespaceManager {
      *        namespace
      */
     public void addWellKnownNamespace(@Nonnull String prefix,
-            @Nonnull String namespace) {
+        @Nonnull String namespace) {
         wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"),
-                checkNotNull(namespace, "namespace cannot be null"));
+            checkNotNull(namespace, "namespace cannot be null"));
     }
 
     /**
@@ -82,7 +82,7 @@ public class XMLWriterNamespaceManager {
     @Nullable
     public String getPrefixForNamespace(@Nonnull String namespace) {
         return namespacePrefixMap.get(checkNotNull(namespace,
-                "namespace cannot be null"));
+            "namespace cannot be null"));
     }
 
     /**
@@ -101,7 +101,7 @@ public class XMLWriterNamespaceManager {
     @Nullable
     public String getNamespaceForPrefix(@Nonnull String prefix) {
         return prefixNamespaceMap.get(checkNotNull(prefix,
-                "prefix cannot be null"));
+            "prefix cannot be null"));
     }
 
     /**
@@ -132,9 +132,10 @@ public class XMLWriterNamespaceManager {
      * 
      * @param name
      *        The name which represents the full name.
-     * @return The QName representation or {@code null} if a QName could not be
+     * @return The QName representation or the input IRI if a QName could not be
      *         generated.
      */
+    @Nonnull
     public String getQName(@Nonnull IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
             return name.prefixedBy("");
@@ -168,21 +169,25 @@ public class XMLWriterNamespaceManager {
         }
     }
 
-    /** @return default namespace */
+    /**
+     * @return default namespace
+     */
     @Nonnull
     public String getDefaultNamespace() {
         return defaultNamespace;
     }
 
-    /** @return iterable on prefixes */
-    @SuppressWarnings("null")
+    /**
+     * @return iterable on prefixes
+     */
     @Nonnull
     public Iterable<String> getPrefixes() {
         return prefixNamespaceMap.keySet();
     }
 
-    /** @return iterable of namespaces */
-    @SuppressWarnings("null")
+    /**
+     * @return iterable of namespaces
+     */
     @Nonnull
     public Iterable<String> getNamespaces() {
         return namespacePrefixMap.keySet();
