@@ -82,4 +82,8 @@ public class AddAxiom extends OWLAxiomChange {
         return "AddAxiom(" + getAxiom() + " OntologyID("
                 + getOntology().getOntologyID() + "))";
     }
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new RemoveAxiom(getOntology(), getAxiom());
+    }
 }

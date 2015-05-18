@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -33,8 +32,7 @@ import com.google.inject.assistedinject.Assisted;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyImpl extends OWLImmutableOntologyImpl
-    implements OWLMutableOntology, Serializable {
+public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
@@ -45,8 +43,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
      *        ontology id
      */
     @Inject
-    public OWLOntologyImpl(@Nonnull @Assisted OWLOntologyManager manager,
-        @Nonnull @Assisted OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(@Nonnull @Assisted OWLOntologyManager manager, @Nonnull @Assisted OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 
@@ -63,8 +60,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
 
     @Nonnull
     @Override
-    public ChangeApplied applyChanges(
-        @Nonnull List<? extends OWLOntologyChange> changes) {
+    public ChangeApplied applyChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
         ChangeApplied appliedChanges = SUCCESSFULLY;
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         for (OWLOntologyChange change : changes) {
@@ -85,8 +81,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
     }
 
     @Override
-    public ChangeApplied addAxioms(
-        Collection<? extends OWLAxiom> axioms) {
+    public ChangeApplied addAxioms(Collection<? extends OWLAxiom> axioms) {
         // XXX improve interface
         return getOWLOntologyManager().addAxioms(this, new HashSet<>(axioms));
     }
@@ -97,14 +92,11 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
     }
 
     @Override
-    public ChangeApplied removeAxioms(
-        Collection<? extends OWLAxiom> axioms) {
-        return getOWLOntologyManager().removeAxioms(this,
-            new HashSet<>(axioms));
+    public ChangeApplied removeAxioms(Collection<? extends OWLAxiom> axioms) {
+        return getOWLOntologyManager().removeAxioms(this, new HashSet<>(axioms));
     }
 
-    protected class OWLOntologyChangeFilter
-        implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
+    protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
@@ -113,7 +105,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
             if (ints.removeAxiom(change.getAxiom())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -123,7 +115,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
                 ontologyID = id;
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -131,16 +123,15 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
             if (ints.addAxiom(change.getAxiom())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
         public ChangeApplied visit(@Nonnull AddImport change) {
-            // TODO change this to be done inside
             if (ints.addImportsDeclaration(change.getImportDeclaration())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -148,7 +139,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -156,7 +147,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
 
         @Override
@@ -164,7 +155,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {
                 return SUCCESSFULLY;
             }
-            return UNSUCCESSFULLY;
+            return NO_OPERATION;
         }
     }
 }

@@ -153,4 +153,9 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     @Nonnull
     public abstract <O> O
             accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor);
+
+    /**
+     * @return the reverse of this change; can be used to create undo changes.
+     */
+    public abstract OWLOntologyChange reverseChange();
 }

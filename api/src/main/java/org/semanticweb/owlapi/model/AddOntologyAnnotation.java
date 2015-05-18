@@ -78,4 +78,9 @@ public class AddOntologyAnnotation extends AnnotationChange {
         return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID("
                 + getOntology().getOntologyID() + "))";
     }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new RemoveOntologyAnnotation(getOntology(), getAnnotation());
+    }
 }

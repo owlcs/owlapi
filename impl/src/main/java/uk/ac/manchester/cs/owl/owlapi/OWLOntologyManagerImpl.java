@@ -508,22 +508,47 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             broadcastImpendingChanges(changes);
-            ChangeApplied appliedChanges = ChangeApplied.SUCCESSFULLY;
+            boolean rollbackRequested = false;
+            boolean allNoOps = true;
+            // list of changes applied successfully. These are the changes that
+            // will be reverted in case of a rollback
+            List<OWLOntologyChange> appliedChanges = new ArrayList<>();
             fireBeginChanges(changes.size());
             for (OWLOntologyChange change : changes) {
-                assert change != null;
-                ChangeApplied enactChangeApplication = enactChangeApplication(change);
-                if (appliedChanges == ChangeApplied.SUCCESSFULLY) {
-                    // only update the value if it is still successful.
-                    // if a past change was unsuccessful, we need to retain that
-                    // information
-                    appliedChanges = enactChangeApplication;
+                // once rollback is requested by a failed change, do not carry
+                // out any more changes
+                if (!rollbackRequested) {
+                    assert change != null;
+                    ChangeApplied enactChangeApplication = enactChangeApplication(change);
+                    if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
+                        rollbackRequested = true;
+                    }
+                    if (enactChangeApplication == ChangeApplied.SUCCESSFULLY) {
+                        allNoOps = false;
+                        appliedChanges.add(change);
+                    }
+                    fireChangeApplied(change);
                 }
-                fireChangeApplied(change);
+            }
+            if (rollbackRequested) {
+                for (OWLOntologyChange c : appliedChanges) {
+                    ChangeApplied enactChangeApplication = enactChangeApplication(c.reverseChange());
+                    if (enactChangeApplication == ChangeApplied.UNSUCCESSFULLY) {
+                        // rollback could not complete, throw an exception
+                        throw new OWLRuntimeException(
+                                "Rollback of changes unsuccessful: Change " + c + " could not be rolled back");
+                    }
+                }
             }
             fireEndChanges();
             broadcastChanges(changes);
-            return appliedChanges;
+            if (rollbackRequested) {
+                return ChangeApplied.UNSUCCESSFULLY;
+            }
+            if (allNoOps) {
+                return ChangeApplied.NO_OPERATION;
+            }
+            return ChangeApplied.SUCCESSFULLY;
         } catch (OWLOntologyChangeVetoException e) {
             // Some listener blocked the changes.
             broadcastOntologyChangesVetoed(changes, e);

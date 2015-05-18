@@ -77,4 +77,9 @@ public class RemoveAxiom extends OWLAxiomChange {
         return String.format("RemoveAxiom(%s OntologyID(%s))", getAxiom(),
                 getOntology().getOntologyID());
     }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new AddAxiom(getOntology(), getAxiom());
+    }
 }

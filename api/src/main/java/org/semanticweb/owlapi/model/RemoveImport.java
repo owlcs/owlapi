@@ -74,4 +74,9 @@ public class RemoveImport extends ImportChange {
     public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new AddImport(getOntology(), getImportDeclaration());
+    }
 }

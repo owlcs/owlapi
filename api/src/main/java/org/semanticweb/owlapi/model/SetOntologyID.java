@@ -48,6 +48,15 @@ public class SetOntologyID extends OWLOntologyChange {
         newOntologyID = checkNotNull(ontologyID, "ontology id cannot be null");
     }
 
+    SetOntologyID(@Nonnull OWLOntology ont, @Nonnull OWLOntologyID ontologyID,
+        @Nonnull OWLOntologyID newOntologyID) {
+        super(ont);
+        this.ontologyID = checkNotNull(ontologyID,
+            "ontology id cannot be null");
+        this.newOntologyID = checkNotNull(newOntologyID,
+            "ontology id cannot be null");
+    }
+
     /**
      * Creates a set ontology id change using the ontologyIRI, which will set
      * the ontology id to the new one.
@@ -116,7 +125,14 @@ public class SetOntologyID extends OWLOntologyChange {
             return false;
         }
         SetOntologyID change = (SetOntologyID) obj;
-        return change.ontologyID.equals(ontologyID)
-            && change.newOntologyID.equals(newOntologyID);
+        return change.ontologyID.equals(ontologyID) && change.newOntologyID
+            .equals(newOntologyID);
+    }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        SetOntologyID setOntologyID = new SetOntologyID(getOntology(),
+            newOntologyID, getOntology().getOntologyID());
+        return setOntologyID;
     }
 }

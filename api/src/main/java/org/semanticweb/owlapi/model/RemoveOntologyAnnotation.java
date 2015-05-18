@@ -79,4 +79,9 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
         return String.format("RemoveOntologyAnnotation(%s OntologyID(%s))",
                 getAnnotation(), getOntology().getOntologyID());
     }
+
+    @Override
+    public OWLOntologyChange reverseChange() {
+        return new AddOntologyAnnotation(getOntology(), getAnnotation());
+    }
 }
