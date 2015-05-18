@@ -12,8 +12,11 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -26,15 +29,13 @@ public class IRIShorteningTestCase extends TestBase {
     @Test
     public void testIriEqualToPrefixNotShortenedInFSS() throws Exception {
         OWLOntology o = createTestOntology();
-        String output = saveOntology(o, new FunctionalSyntaxDocumentFormat())
-        .toString();
+        String output = saveOntology(o, new FunctionalSyntaxDocumentFormat()).toString();
         matchExact(output, "NamedIndividual(rdf:)", false);
         matchExact(output, "NamedIndividual(rdf:type)", true);
     }
 
     public void matchExact(String output, String text, boolean expected) {
-        String message = "should " + (expected ? "" : "not ") + "contain" + text
-        + " - " + output;
+        String message = "should " + (expected ? "" : "not ") + "contain" + text + " - " + output;
         assertEquals(message, expected, output.contains(text));
     }
 
@@ -56,11 +57,18 @@ public class IRIShorteningTestCase extends TestBase {
     @Nonnull
     private OWLOntology createTestOntology() {
         OWLOntology o = getOWLOntology();
-        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF
-        .getPrefixIRI()));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF.getPrefixIRI()));
         o.addAxiom(df.getOWLDeclarationAxiom(i));
         i = df.getOWLNamedIndividual(OWLRDFVocabulary.RDF_TYPE);
         o.addAxiom(df.getOWLDeclarationAxiom(i));
         return o;
+    }
+
+    @Test
+    public void shouldOutputURNsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o = m.createOntology(IRI.create("urn:ontology:test"));
+        m.addAxiom(o, df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:p"),
+                df.getOWLNamedIndividual("urn:test"), df.getOWLNamedIndividual("urn:other:test")));
+        equal(o, roundTrip(o));
     }
 }
