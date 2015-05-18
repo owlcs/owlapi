@@ -31,8 +31,8 @@ public interface HasRemoveAxiom {
      *        The ontology to remove the axiom from.
      * @param axiom
      *        The axiom to be removed
-     * @return A list of ontology changes that represent the changes that
-     *         actually took place.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      * @throws OWLOntologyChangeException
      *         if there was a problem removing the axiom
      */

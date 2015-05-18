@@ -13,9 +13,10 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -36,6 +37,5 @@ public interface HasDirectRemoveAxioms {
      *         if there was a problem removing the axioms
      */
     @Nonnull
-    List<OWLOntologyChange> removeAxioms(
-            @Nonnull Collection<? extends OWLAxiom> axioms);
+    ChangeApplied removeAxioms(@Nonnull Collection<? extends OWLAxiom> axioms);
 }

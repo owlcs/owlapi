@@ -18,6 +18,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -33,11 +35,11 @@ public interface HasAddAxioms {
      *        The ontology to which the axioms should be added.
      * @param axioms
      *        The axioms to be added.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to add the axioms.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
     @Nonnull
-    default List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
+    default ChangeApplied addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Collection<? extends OWLAxiom> axioms) {
         return addAxioms(ont, axioms.stream());
     }
@@ -50,10 +52,10 @@ public interface HasAddAxioms {
      *        The ontology to which the axioms should be added.
      * @param axioms
      *        The axioms to be added.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to add the axioms.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
     @Nonnull
-    List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
+    ChangeApplied addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Stream<? extends OWLAxiom> axioms);
 }

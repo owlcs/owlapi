@@ -63,13 +63,17 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
 
     @Nonnull
     @Override
-    public List<OWLOntologyChange> applyChanges(
+    public ChangeApplied applyChanges(
         @Nonnull List<? extends OWLOntologyChange> changes) {
-        List<OWLOntologyChange> appliedChanges = new ArrayList<>();
+        ChangeApplied appliedChanges = SUCCESSFULLY;
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         for (OWLOntologyChange change : changes) {
-            if (change.accept(changeFilter) == SUCCESSFULLY) {
-                appliedChanges.add(change);
+            ChangeApplied result = change.accept(changeFilter);
+            if (appliedChanges == SUCCESSFULLY) {
+                // overwrite only if appliedChanges is still successful. If one
+                // change has been unsuccessful, we want to preserve that
+                // information
+                appliedChanges = result;
             }
         }
         return appliedChanges;
@@ -81,7 +85,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
     }
 
     @Override
-    public List<OWLOntologyChange> addAxioms(
+    public ChangeApplied addAxioms(
         Collection<? extends OWLAxiom> axioms) {
         // XXX improve interface
         return getOWLOntologyManager().addAxioms(this, new HashSet<>(axioms));
@@ -93,7 +97,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl
     }
 
     @Override
-    public List<OWLOntologyChange> removeAxioms(
+    public ChangeApplied removeAxioms(
         Collection<? extends OWLAxiom> axioms) {
         return getOWLOntologyManager().removeAxioms(this,
             new HashSet<>(axioms));

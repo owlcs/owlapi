@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -45,12 +44,10 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLOntology extends OWLObject, HasAnnotations,
-HasDirectImports, HasImportsClosure, HasOntologyID, OWLAxiomCollection,
-OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs,
-OWLAxiomIndex, HasApplyChange, HasApplyChanges, HasDirectAddAxiom,
-HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms,
-HasApplyDirectChange, IsAnonymous {
+public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports, HasImportsClosure, HasOntologyID,
+        OWLAxiomCollection, OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs, OWLAxiomIndex,
+        HasApplyChange, HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms, HasDirectRemoveAxiom,
+        HasDirectRemoveAxioms, HasApplyDirectChange, IsAnonymous {
 
     // Default implementation of these mutating methods is to do nothing.
     // Adding them to this interface allows access without casting, since
@@ -70,9 +67,8 @@ HasApplyDirectChange, IsAnonymous {
 
     @Override
     @Nonnull
-    default List<OWLOntologyChange> applyChanges(
-        @Nonnull List<? extends OWLOntologyChange> changes) {
-        return Collections.emptyList();
+    default ChangeApplied applyChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
+        return getOWLOntologyManager().applyChanges(changes);
     }
 
     @Override
@@ -83,14 +79,13 @@ HasApplyDirectChange, IsAnonymous {
 
     @Override
     @Nonnull
-    default List<OWLOntologyChange> addAxioms(
-        @Nonnull Collection<? extends OWLAxiom> axioms) {
-        return Collections.emptyList();
+    default ChangeApplied addAxioms(@Nonnull Collection<? extends OWLAxiom> axioms) {
+        return getOWLOntologyManager().addAxioms(this, axioms);
     }
 
     @Override
     @Nonnull
-    default List<OWLOntologyChange> addAxioms(@Nonnull OWLAxiom... axioms) {
+    default ChangeApplied addAxioms(@Nonnull OWLAxiom... axioms) {
         return addAxioms(Arrays.asList(axioms));
     }
 
@@ -102,9 +97,8 @@ HasApplyDirectChange, IsAnonymous {
 
     @Override
     @Nonnull
-    default List<OWLOntologyChange> removeAxioms(
-        @Nonnull Collection<? extends OWLAxiom> axioms) {
-        return Collections.emptyList();
+    default ChangeApplied removeAxioms(@Nonnull Collection<? extends OWLAxiom> axioms) {
+        return getOWLOntologyManager().removeAxioms(this, axioms);
     }
 
     /**
@@ -258,8 +252,7 @@ HasApplyDirectChange, IsAnonymous {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLAxiom> getTBoxAxioms(
-        @Nonnull Imports includeImportsClosure) {
+    default Set<OWLAxiom> getTBoxAxioms(@Nonnull Imports includeImportsClosure) {
         return asSet(tboxAxioms(includeImportsClosure));
     }
 
@@ -290,8 +283,7 @@ HasApplyDirectChange, IsAnonymous {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLAxiom> getABoxAxioms(
-        @Nonnull Imports includeImportsClosure) {
+    default Set<OWLAxiom> getABoxAxioms(@Nonnull Imports includeImportsClosure) {
         return asSet(aboxAxioms(includeImportsClosure));
     }
 
@@ -322,8 +314,7 @@ HasApplyDirectChange, IsAnonymous {
      */
     @Deprecated
     @Nonnull
-    default Set<OWLAxiom> getRBoxAxioms(
-        @Nonnull Imports includeImportsClosure) {
+    default Set<OWLAxiom> getRBoxAxioms(@Nonnull Imports includeImportsClosure) {
         return asSet(rboxAxioms(includeImportsClosure));
     }
 
@@ -450,8 +441,7 @@ HasApplyDirectChange, IsAnonymous {
      * @return {@code true} if the ontology or its imports closure contains a
      *         declaration for the specified entity, otherwise {@code false}.
      */
-    default boolean isDeclared(@Nonnull OWLEntity owlEntity,
-        @Nonnull Imports imports) {
+    default boolean isDeclared(@Nonnull OWLEntity owlEntity, @Nonnull Imports imports) {
         return imports.stream(this).anyMatch(o -> o.isDeclared(owlEntity));
     }
 
@@ -480,8 +470,7 @@ HasApplyDirectChange, IsAnonymous {
      * @throws OWLOntologyStorageException
      *         If the ontology cannot be saved
      */
-    default void saveOntology(@Nonnull IRI documentIRI)
-        throws OWLOntologyStorageException {
+    default void saveOntology(@Nonnull IRI documentIRI) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, documentIRI);
     }
 
@@ -494,8 +483,7 @@ HasApplyDirectChange, IsAnonymous {
      *         If there was a problem saving this ontology to the specified
      *         output stream
      */
-    default void saveOntology(@Nonnull OutputStream outputStream)
-        throws OWLOntologyStorageException {
+    default void saveOntology(@Nonnull OutputStream outputStream) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, outputStream);
     }
 
@@ -507,8 +495,7 @@ HasApplyDirectChange, IsAnonymous {
      * @throws OWLOntologyStorageException
      *         If the ontology cannot be saved.
      */
-    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat)
-        throws OWLOntologyStorageException {
+    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat);
     }
 
@@ -523,8 +510,8 @@ HasApplyDirectChange, IsAnonymous {
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
-        @Nonnull IRI documentIRI) throws OWLOntologyStorageException {
+    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat, @Nonnull IRI documentIRI)
+            throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, documentIRI);
     }
 
@@ -539,10 +526,9 @@ HasApplyDirectChange, IsAnonymous {
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
-        @Nonnull OutputStream outputStream) throws OWLOntologyStorageException {
-        getOWLOntologyManager().saveOntology(this, ontologyFormat,
-        outputStream);
+    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat, @Nonnull OutputStream outputStream)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, ontologyFormat, outputStream);
     }
 
     /**
@@ -554,8 +540,7 @@ HasApplyDirectChange, IsAnonymous {
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    default void saveOntology(@Nonnull OWLOntologyDocumentTarget documentTarget)
-        throws OWLOntologyStorageException {
+    default void saveOntology(@Nonnull OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, documentTarget);
     }
 
@@ -571,10 +556,8 @@ HasApplyDirectChange, IsAnonymous {
      *         If the ontology could not be saved.
      */
     default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
-        @Nonnull OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException {
-        getOWLOntologyManager().saveOntology(this, ontologyFormat,
-        documentTarget);
+            @Nonnull OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, ontologyFormat, documentTarget);
     }
 
     @Override

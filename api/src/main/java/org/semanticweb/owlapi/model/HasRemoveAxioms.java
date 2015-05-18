@@ -13,9 +13,10 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -32,12 +33,12 @@ public interface HasRemoveAxioms {
      *        The ontology from which the axioms should be removed.
      * @param axioms
      *        The axioms to be removed.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to remove the axioms.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      * @throws OWLOntologyChangeException
      *         if there was a problem removing the axioms
      */
     @Nonnull
-    List<OWLOntologyChange> removeAxioms(@Nonnull OWLOntology ont,
+    ChangeApplied removeAxioms(@Nonnull OWLOntology ont,
             @Nonnull Collection<? extends OWLAxiom> axioms);
 }

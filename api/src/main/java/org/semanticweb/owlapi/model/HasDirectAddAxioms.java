@@ -17,6 +17,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+
 /**
  * Interface for an object that accepts axiom additions (tipycally, an
  * OWLOntology).
@@ -33,11 +35,11 @@ public interface HasDirectAddAxioms {
      * 
      * @param axioms
      *        The axioms to be added. Not {@code null}.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to add the axioms.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
     @Nonnull
-    List<OWLOntologyChange> addAxioms(
+    ChangeApplied addAxioms(
         @Nonnull Collection<? extends OWLAxiom> axioms);
 
     /**
@@ -46,9 +48,9 @@ public interface HasDirectAddAxioms {
      * 
      * @param axioms
      *        The axioms to be added. Not {@code null}.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to add the axioms.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
     @Nonnull
-    List<OWLOntologyChange> addAxioms(@Nonnull OWLAxiom... axioms);
+    ChangeApplied addAxioms(@Nonnull OWLAxiom... axioms);
 }
