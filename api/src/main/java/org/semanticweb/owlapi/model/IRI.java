@@ -35,8 +35,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Management Group
  * @since 3.0.0
  */
-public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
-    SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
+public class IRI
+        implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -62,8 +62,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         }
         for (int i = 0; i < colonIndex; i++) {
             char ch = namespace.charAt(i);
-            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.'
-                && ch != '+' && ch != '-') {
+            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
                 return false;
             }
         }
@@ -119,10 +118,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         {@code false}.
      */
     public boolean isReservedVocabulary() {
-        return Namespaces.OWL.inNamespace(namespace)
-            || Namespaces.RDF.inNamespace(namespace)
-            || Namespaces.RDFS.inNamespace(namespace)
-            || Namespaces.XSD.inNamespace(namespace);
+        return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace)
+                || Namespaces.RDFS.inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
     }
 
     /**
@@ -158,8 +155,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         otherwise {@code false}
      */
     public boolean isPlainLiteral() {
-        return remainder.equals("PlainLiteral")
-            && Namespaces.RDF.inNamespace(namespace);
+        return remainder.equals("PlainLiteral") && Namespaces.RDF.inNamespace(namespace);
     }
 
     /**
@@ -229,10 +225,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     public static IRI create(@Nullable String prefix, @Nullable String suffix) {
         if (prefix == null && suffix == null) {
-            throw new IllegalArgumentException(
-                "prefix and suffix cannot both be null");
+            throw new IllegalArgumentException("prefix and suffix cannot both be null");
         }
         if (prefix == null) {
+            assert suffix != null;
             return create(suffix);
         } else if (suffix == null) {
             // suffix set deliberately to null is used only in blank node
@@ -495,7 +491,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             return false;
         }
         IRI other = (IRI) obj;
-        return remainder.equals(other.remainder)
-            && other.namespace.equals(namespace);
+        return remainder.equals(other.remainder) && other.namespace.equals(namespace);
     }
 }

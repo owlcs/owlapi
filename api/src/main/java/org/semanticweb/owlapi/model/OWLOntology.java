@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  *         Informatics Group
  * @since 2.0.0
  */
+@ParametersAreNonnullByDefault
 public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports, HasImportsClosure, HasOntologyID,
         OWLAxiomCollection, OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs, OWLAxiomIndex,
         HasApplyChange, HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms, HasDirectRemoveAxiom,
@@ -54,50 +55,42 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     // OWLOntology is the de facto standard used in the code and
     // OWLMutableOntology hardly appears.
     @Override
-    @Nonnull
-    default ChangeApplied applyChange(@Nonnull OWLOntologyChange change) {
+    default ChangeApplied applyChange(OWLOntologyChange change) {
         return ChangeApplied.UNSUCCESSFULLY;
     }
 
     @Override
-    @Nonnull
-    default ChangeApplied applyDirectChange(@Nonnull OWLOntologyChange change) {
+    default ChangeApplied applyDirectChange(OWLOntologyChange change) {
         return ChangeApplied.UNSUCCESSFULLY;
     }
 
     @Override
-    @Nonnull
-    default ChangeApplied applyChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
+    default ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes) {
         return getOWLOntologyManager().applyChanges(changes);
     }
 
     @Override
-    @Nonnull
-    default ChangeApplied addAxiom(@Nonnull OWLAxiom axiom) {
+    default ChangeApplied addAxiom(OWLAxiom axiom) {
         return ChangeApplied.UNSUCCESSFULLY;
     }
 
     @Override
-    @Nonnull
-    default ChangeApplied addAxioms(@Nonnull Collection<? extends OWLAxiom> axioms) {
-        return getOWLOntologyManager().addAxioms(this, axioms);
+    default ChangeApplied addAxioms(Collection<? extends OWLAxiom> axioms) {
+        return getOWLOntologyManager().addAxioms(this, axioms.stream());
     }
 
     @Override
-    @Nonnull
-    default ChangeApplied addAxioms(@Nonnull OWLAxiom... axioms) {
+    default ChangeApplied addAxioms(OWLAxiom... axioms) {
         return addAxioms(Arrays.asList(axioms));
     }
 
     @Override
-    @Nonnull
-    default ChangeApplied removeAxiom(@Nonnull OWLAxiom axiom) {
+    default ChangeApplied removeAxiom(OWLAxiom axiom) {
         return ChangeApplied.UNSUCCESSFULLY;
     }
 
     @Override
-    @Nonnull
-    default ChangeApplied removeAxioms(@Nonnull Collection<? extends OWLAxiom> axioms) {
+    default ChangeApplied removeAxioms(Collection<? extends OWLAxiom> axioms) {
         return getOWLOntologyManager().removeAxioms(this, axioms);
     }
 
@@ -107,7 +100,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @param visitor
      *        the visitor
      */
-    default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
+    default void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -120,7 +113,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *        The visitor
      * @return visitor return value
      */
-    default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -130,7 +123,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * 
      * @return The manager for this ontology.
      */
-    @Nonnull
     OWLOntologyManager getOWLOntologyManager();
 
     /**
@@ -170,7 +162,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         was removed from the manager.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLOntology> getImports() {
         return asSet(imports());
     }
@@ -193,7 +184,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         if this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
-    @Nonnull
     Stream<OWLOntology> imports();
 
     /**
@@ -209,7 +199,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         changes to this ontology while iterating over this set.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLImportsDeclaration> getImportsDeclarations() {
         return asSet(importsDeclarations());
     }
@@ -226,7 +215,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set.
      */
-    @Nonnull
     Stream<OWLImportsDeclaration> importsDeclarations();
 
     // Methods to retrive class, property and individual axioms
@@ -251,8 +239,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         changes.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAxiom> getTBoxAxioms(@Nonnull Imports includeImportsClosure) {
+    default Set<OWLAxiom> getTBoxAxioms(Imports includeImportsClosure) {
         return asSet(tboxAxioms(includeImportsClosure));
     }
 
@@ -267,8 +254,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
      */
-    @Nonnull
-    Stream<OWLAxiom> tboxAxioms(@Nonnull Imports includeImportsClosure);
+    Stream<OWLAxiom> tboxAxioms(Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the ABox for this ontology, i.e., the ones
@@ -282,8 +268,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         changes.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAxiom> getABoxAxioms(@Nonnull Imports includeImportsClosure) {
+    default Set<OWLAxiom> getABoxAxioms(Imports includeImportsClosure) {
         return asSet(aboxAxioms(includeImportsClosure));
     }
 
@@ -298,8 +283,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
      */
-    @Nonnull
-    Stream<OWLAxiom> aboxAxioms(@Nonnull Imports includeImportsClosure);
+    Stream<OWLAxiom> aboxAxioms(Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the RBox for this ontology, i.e., the ones
@@ -313,8 +297,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         changes.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAxiom> getRBoxAxioms(@Nonnull Imports includeImportsClosure) {
+    default Set<OWLAxiom> getRBoxAxioms(Imports includeImportsClosure) {
         return asSet(rboxAxioms(includeImportsClosure));
     }
 
@@ -329,8 +312,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
      */
-    @Nonnull
-    Stream<OWLAxiom> rboxAxioms(@Nonnull Imports includeImportsClosure);
+    Stream<OWLAxiom> rboxAxioms(Imports includeImportsClosure);
 
     /**
      * Gets the set of general axioms in this ontology. This includes:
@@ -348,7 +330,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         set.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLClassAxiom> getGeneralClassAxioms() {
         return asSet(generalClassAxioms());
     }
@@ -368,7 +349,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         safe to apply changes to this ontology while iterating over this
      *         set.
      */
-    @Nonnull
     Stream<OWLClassAxiom> generalClassAxioms();
 
     // References/usage
@@ -391,8 +371,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @see #getIndividualsInSignature()
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLEntity> getSignature(@Nonnull Imports imports) {
+    default Set<OWLEntity> getSignature(Imports imports) {
         return asSet(signature(imports));
     }
 
@@ -414,8 +393,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @see #dataPropertiesInSignature()
      * @see #individualsInSignature()
      */
-    @Nonnull
-    default Stream<OWLEntity> signature(@Nonnull Imports imports) {
+    default Stream<OWLEntity> signature(Imports imports) {
         return imports.stream(this).flatMap(o -> o.signature());
     }
 
@@ -428,7 +406,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @return {@code true} if the ontology contains a declaration for the
      *         specified entity, otherwise {@code false}.
      */
-    boolean isDeclared(@Nonnull OWLEntity owlEntity);
+    boolean isDeclared(OWLEntity owlEntity);
 
     /**
      * Determines if this ontology or its imports closure declares an entity
@@ -441,7 +419,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @return {@code true} if the ontology or its imports closure contains a
      *         declaration for the specified entity, otherwise {@code false}.
      */
-    default boolean isDeclared(@Nonnull OWLEntity owlEntity, @Nonnull Imports imports) {
+    default boolean isDeclared(OWLEntity owlEntity, Imports imports) {
         return imports.stream(this).anyMatch(o -> o.isDeclared(owlEntity));
     }
 
@@ -470,7 +448,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @throws OWLOntologyStorageException
      *         If the ontology cannot be saved
      */
-    default void saveOntology(@Nonnull IRI documentIRI) throws OWLOntologyStorageException {
+    default void saveOntology(IRI documentIRI) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, documentIRI);
     }
 
@@ -483,7 +461,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         If there was a problem saving this ontology to the specified
      *         output stream
      */
-    default void saveOntology(@Nonnull OutputStream outputStream) throws OWLOntologyStorageException {
+    default void saveOntology(OutputStream outputStream) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, outputStream);
     }
 
@@ -495,7 +473,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @throws OWLOntologyStorageException
      *         If the ontology cannot be saved.
      */
-    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException {
+    default void saveOntology(OWLDocumentFormat ontologyFormat) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat);
     }
 
@@ -510,8 +488,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat, @Nonnull IRI documentIRI)
-            throws OWLOntologyStorageException {
+    default void saveOntology(OWLDocumentFormat ontologyFormat, IRI documentIRI) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, documentIRI);
     }
 
@@ -526,7 +503,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat, @Nonnull OutputStream outputStream)
+    default void saveOntology(OWLDocumentFormat ontologyFormat, OutputStream outputStream)
             throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, outputStream);
     }
@@ -540,7 +517,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    default void saveOntology(@Nonnull OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
+    default void saveOntology(OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, documentTarget);
     }
 
@@ -555,18 +532,18 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @throws OWLOntologyStorageException
      *         If the ontology could not be saved.
      */
-    default void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
-            @Nonnull OWLOntologyDocumentTarget documentTarget) throws OWLOntologyStorageException {
+    default void saveOntology(OWLDocumentFormat ontologyFormat, OWLOntologyDocumentTarget documentTarget)
+            throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, documentTarget);
     }
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

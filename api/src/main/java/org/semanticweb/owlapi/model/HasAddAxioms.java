@@ -13,10 +13,9 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
@@ -25,6 +24,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  *         Research Group
  * @since 3.5
  */
+@ParametersAreNonnullByDefault
 public interface HasAddAxioms {
 
     /**
@@ -37,10 +37,10 @@ public interface HasAddAxioms {
      *        The axioms to be added.
      * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
      *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @deprecated use {@link #addAxioms(OWLOntology, Stream)} instead.
      */
-    @Nonnull
-    default ChangeApplied addAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
+    @Deprecated
+    default ChangeApplied addAxioms(OWLOntology ont, Collection<? extends OWLAxiom> axioms) {
         return addAxioms(ont, axioms.stream());
     }
 
@@ -55,7 +55,5 @@ public interface HasAddAxioms {
      * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
      *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
-    @Nonnull
-    ChangeApplied addAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Stream<? extends OWLAxiom> axioms);
+    ChangeApplied addAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms);
 }

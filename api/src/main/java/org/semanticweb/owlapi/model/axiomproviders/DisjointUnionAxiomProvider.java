@@ -12,10 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.axiomproviders;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 /**
  * Disjoint union provider.
  */
+@ParametersAreNonnullByDefault
 public interface DisjointUnionAxiomProvider {
 
     /**
@@ -34,12 +35,9 @@ public interface DisjointUnionAxiomProvider {
      *        right hand side of the axiom. Cannot be null or contain nulls.
      * @return a disjoint union axiom
      */
-    @Nonnull
-    default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(
-            @Nonnull OWLClass owlClass,
-            @Nonnull Set<? extends OWLClassExpression> classExpressions) {
-        return getOWLDisjointUnionAxiom(owlClass, classExpressions,
-                Collections.emptySet());
+    default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
+            Collection<? extends OWLClassExpression> classExpressions) {
+        return getOWLDisjointUnionAxiom(owlClass, classExpressions, Collections.emptySet());
     }
 
     /**
@@ -51,8 +49,6 @@ public interface DisjointUnionAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint union axiom with annotations
      */
-    @Nonnull
-    OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(@Nonnull OWLClass owlClass,
-            @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
+            Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations);
 }

@@ -14,10 +14,10 @@ package org.semanticweb.owlapi.model.axiomproviders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** HasKey provider interface. */
+@ParametersAreNonnullByDefault
 public interface HasKeyAxiomProvider {
 
     /**
@@ -35,9 +36,8 @@ public interface HasKeyAxiomProvider {
      *        Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments
      */
-    @Nonnull
-    default OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
-            @Nonnull Set<? extends OWLPropertyExpression> properties) {
+    default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
+            Collection<? extends OWLPropertyExpression> properties) {
         return getOWLHasKeyAxiom(ce, properties, Collections.emptySet());
     }
 
@@ -48,9 +48,7 @@ public interface HasKeyAxiomProvider {
      *        Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments
      */
-    @Nonnull
-    default OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
-            @Nonnull OWLPropertyExpression... properties) {
+    default OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce, OWLPropertyExpression... properties) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         return getOWLHasKeyAxiom(ce, CollectionFactory.createSet(properties));
     }
@@ -64,8 +62,6 @@ public interface HasKeyAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments and annotations
      */
-    @Nonnull
-    OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
-            @Nonnull Set<? extends OWLPropertyExpression> objectProperties,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
+            Collection<? extends OWLPropertyExpression> objectProperties, Collection<OWLAnnotation> annotations);
 }

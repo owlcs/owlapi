@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -37,10 +37,9 @@ public interface ObjectAssertionProvider extends LiteralProvider {
      */
     @Nonnull
     default OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLIndividual individual, @Nonnull OWLIndividual object) {
-        return getOWLObjectPropertyAssertionAxiom(property, individual, object,
-                Collections.emptySet());
+            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual individual,
+            @Nonnull OWLIndividual object) {
+        return getOWLObjectPropertyAssertionAxiom(property, individual, object, Collections.emptySet());
     }
 
     /**
@@ -55,10 +54,9 @@ public interface ObjectAssertionProvider extends LiteralProvider {
      * @return an object property assertion with annotations
      */
     @Nonnull
-    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
+    OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(@Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLIndividual individual, @Nonnull OWLIndividual object,
-            @Nonnull Set<OWLAnnotation> annotations);
+            @Nonnull Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -70,13 +68,10 @@ public interface ObjectAssertionProvider extends LiteralProvider {
      * @return a negative property assertion axiom on given arguments
      */
     @Nonnull
-    default OWLNegativeObjectPropertyAssertionAxiom
-            getOWLNegativeObjectPropertyAssertionAxiom(
-                    @Nonnull OWLObjectPropertyExpression property,
-                    @Nonnull OWLIndividual subject,
-                    @Nonnull OWLIndividual object) {
-        return getOWLNegativeObjectPropertyAssertionAxiom(property, subject,
-                object, Collections.emptySet());
+    default OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
+            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual subject,
+            @Nonnull OWLIndividual object) {
+        return getOWLNegativeObjectPropertyAssertionAxiom(property, subject, object, Collections.emptySet());
     }
 
     /**
@@ -92,10 +87,7 @@ public interface ObjectAssertionProvider extends LiteralProvider {
      *         annotations
      */
     @Nonnull
-    OWLNegativeObjectPropertyAssertionAxiom
-            getOWLNegativeObjectPropertyAssertionAxiom(
-                    @Nonnull OWLObjectPropertyExpression property,
-                    @Nonnull OWLIndividual subject,
-                    @Nonnull OWLIndividual object,
-                    @Nonnull Set<OWLAnnotation> annotations);
+    OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
+            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual subject,
+            @Nonnull OWLIndividual object, @Nonnull Collection<OWLAnnotation> annotations);
 }

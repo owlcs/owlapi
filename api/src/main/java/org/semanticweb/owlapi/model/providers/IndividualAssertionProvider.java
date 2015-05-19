@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.model.providers;
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -35,8 +35,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      * @return a same individuals axiom with specified individuals
      */
     @Nonnull
-    default OWLSameIndividualAxiom getOWLSameIndividualAxiom(
-            @Nonnull Set<? extends OWLIndividual> individuals) {
+    default OWLSameIndividualAxiom getOWLSameIndividualAxiom(@Nonnull Collection<? extends OWLIndividual> individuals) {
         return getOWLSameIndividualAxiom(individuals, Collections.emptySet());
     }
 
@@ -46,8 +45,7 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      * @return a same individuals axiom with specified individuals
      */
     @Nonnull
-    default OWLSameIndividualAxiom getOWLSameIndividualAxiom(
-            @Nonnull OWLIndividual... individual) {
+    default OWLSameIndividualAxiom getOWLSameIndividualAxiom(@Nonnull OWLIndividual... individual) {
         checkIterableNotNull(individual, "individuals cannot be null", true);
         return getOWLSameIndividualAxiom(createSet(individual));
     }
@@ -61,9 +59,8 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      *         annotations
      */
     @Nonnull
-    OWLSameIndividualAxiom getOWLSameIndividualAxiom(
-            @Nonnull Set<? extends OWLIndividual> individuals,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLSameIndividualAxiom getOWLSameIndividualAxiom(@Nonnull Collection<? extends OWLIndividual> individuals,
+            @Nonnull Collection<OWLAnnotation> annotations);
 
     /**
      * @param individuals
@@ -72,9 +69,8 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      */
     @Nonnull
     default OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
-            @Nonnull Set<? extends OWLIndividual> individuals) {
-        return getOWLDifferentIndividualsAxiom(individuals,
-                Collections.emptySet());
+            @Nonnull Collection<? extends OWLIndividual> individuals) {
+        return getOWLDifferentIndividualsAxiom(individuals, Collections.emptySet());
     }
 
     /**
@@ -83,11 +79,9 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      * @return a different individuals axiom with specified individuals
      */
     @Nonnull
-    default OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
-            @Nonnull OWLIndividual... individuals) {
+    default OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(@Nonnull OWLIndividual... individuals) {
         checkIterableNotNull(individuals, "individuals cannot be null", true);
-        return getOWLDifferentIndividualsAxiom(CollectionFactory
-                .createSet(individuals));
+        return getOWLDifferentIndividualsAxiom(CollectionFactory.createSet(individuals));
     }
 
     /**
@@ -100,6 +94,5 @@ public interface IndividualAssertionProvider extends LiteralProvider {
      */
     @Nonnull
     OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
-            @Nonnull Set<? extends OWLIndividual> individuals,
-            @Nonnull Set<OWLAnnotation> annotations);
+            @Nonnull Collection<? extends OWLIndividual> individuals, @Nonnull Collection<OWLAnnotation> annotations);
 }

@@ -13,9 +13,8 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
-import java.util.List;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
@@ -27,6 +26,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  *         Research Group
  * @since 3.5
  */
+@ParametersAreNonnullByDefault
 public interface HasDirectAddAxioms {
 
     /**
@@ -38,9 +38,7 @@ public interface HasDirectAddAxioms {
      * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
      *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
-    @Nonnull
-    ChangeApplied addAxioms(
-        @Nonnull Collection<? extends OWLAxiom> axioms);
+    ChangeApplied addAxioms(Collection<? extends OWLAxiom> axioms);
 
     /**
      * A convenience method that adds a set of axioms to an ontology. The
@@ -51,6 +49,5 @@ public interface HasDirectAddAxioms {
      * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
      *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
-    @Nonnull
-    ChangeApplied addAxioms(@Nonnull OWLAxiom... axioms);
+    ChangeApplied addAxioms(OWLAxiom... axioms);
 }

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  *         Research Group
  * @since 3.4.6
  */
+@ParametersAreNonnullByDefault
 public interface EntityByTypeProvider {
 
     /**
@@ -37,7 +38,5 @@ public interface EntityByTypeProvider {
      * @return An entity that has the same IRI as this entity and is of the
      *         specified type.
      */
-    @Nonnull
-    <E extends OWLEntity> E getOWLEntity(@Nonnull EntityType<E> entityType,
-            @Nonnull IRI iri);
+    <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri);
 }

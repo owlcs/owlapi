@@ -17,15 +17,11 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.*;
@@ -40,8 +36,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataFactoryImpl
-    implements OWLDataFactory, Serializable, ClassProvider {
+@ParametersAreNonnullByDefault
+public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
 
     private static final long serialVersionUID = 40000L;
     // Distinguished Entities
@@ -84,14 +80,12 @@ public class OWLDataFactoryImpl
         dataFactoryInternals.purge();
     }
 
-    private static void checkAnnotations(@Nonnull Collection<OWLAnnotation> o) {
+    private static void checkAnnotations(Collection<OWLAnnotation> o) {
         checkIterableNotNull(o, "annotations cannot be null", true);
     }
 
-    @Nonnull
     @Override
-    public <E extends OWLEntity> E getOWLEntity(
-        @Nonnull EntityType<E> entityType, IRI iri) {
+    public <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri) {
         checkNotNull(entityType, "entityType cannot be null");
         checkNotNull(iri, "iri cannot be null");
         return entityType.buildEntity(iri, this);
@@ -103,85 +97,71 @@ public class OWLDataFactoryImpl
         return dataFactoryInternals.getOWLClass(iri);
     }
 
-    @Nonnull
     @Override
     public OWLAnnotationProperty getRDFSLabel() {
         return RDFS_LABEL;
     }
 
-    @Nonnull
     @Override
     public OWLAnnotationProperty getRDFSComment() {
         return RDFS_COMMENT;
     }
 
-    @Nonnull
     @Override
     public OWLAnnotationProperty getRDFSSeeAlso() {
         return RDFS_SEE_ALSO;
     }
 
-    @Nonnull
     @Override
     public OWLAnnotationProperty getRDFSIsDefinedBy() {
         return RDFS_IS_DEFINED_BY;
     }
 
-    @Nonnull
     @Override
     public OWLAnnotationProperty getOWLVersionInfo() {
         return OWL_VERSION_INFO;
     }
 
-    @Nonnull
     @Override
     public OWLAnnotationProperty getOWLBackwardCompatibleWith() {
         return OWL_BACKWARD_COMPATIBLE_WITH;
     }
 
-    @Nonnull
     @Override
     public OWLAnnotationProperty getOWLIncompatibleWith() {
         return OWL_INCOMPATIBLE_WITH;
     }
 
-    @Nonnull
     @Override
     public OWLAnnotationProperty getOWLDeprecated() {
         return OWL_DEPRECATED;
     }
 
-    @Nonnull
     @Override
     public OWLClass getOWLThing() {
         return OWL_THING;
     }
 
-    @Nonnull
     @Override
     public OWLClass getOWLNothing() {
         return OWL_NOTHING;
     }
 
-    @Nonnull
     @Override
     public OWLDataProperty getOWLBottomDataProperty() {
         return OWL_BOTTOM_DATA_PROPERTY;
     }
 
-    @Nonnull
     @Override
     public OWLObjectProperty getOWLBottomObjectProperty() {
         return OWL_BOTTOM_OBJECT_PROPERTY;
     }
 
-    @Nonnull
     @Override
     public OWLDataProperty getOWLTopDataProperty() {
         return OWL_TOP_DATA_PROPERTY;
     }
 
-    @Nonnull
     @Override
     public OWLObjectProperty getOWLTopObjectProperty() {
         return OWL_TOP_OBJECT_PROPERTY;
@@ -205,14 +185,12 @@ public class OWLDataFactoryImpl
         return dataFactoryInternals.getOWLNamedIndividual(iri);
     }
 
-    @Nonnull
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
         checkNotNull(nodeId, "id cannot be null");
         return new OWLAnonymousIndividualImpl(NodeID.getNodeID(nodeId));
     }
 
-    @Nonnull
     @Override
     public OWLAnonymousIndividual getOWLAnonymousIndividual() {
         return new OWLAnonymousIndividualImpl(NodeID.getNodeID(null));
@@ -229,724 +207,553 @@ public class OWLDataFactoryImpl
         return dataFactoryInternals.getOWLLiteral(value);
     }
 
-    @Nonnull
     @Override
-    public OWLDataOneOf getOWLDataOneOf(
-        @Nonnull Set<? extends OWLLiteral> values) {
+    public OWLDataOneOf getOWLDataOneOf(Collection<? extends OWLLiteral> values) {
         checkIterableNotNull(values, "values cannot be null", true);
         return new OWLDataOneOfImpl(values);
     }
 
-    @Nonnull
     @Override
     public OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange) {
         checkNotNull(dataRange, "dataRange cannot be null");
         return new OWLDataComplementOfImpl(dataRange);
     }
 
-    @Nonnull
     @Override
-    public OWLDataIntersectionOf getOWLDataIntersectionOf(
-        @Nonnull Collection<? extends OWLDataRange> dataRanges) {
+    public OWLDataIntersectionOf getOWLDataIntersectionOf(Collection<? extends OWLDataRange> dataRanges) {
         checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
         return new OWLDataIntersectionOfImpl(dataRanges);
     }
 
-    @Nonnull
     @Override
-    public OWLDataUnionOf getOWLDataUnionOf(
-        @Nonnull Set<? extends OWLDataRange> dataRanges) {
+    public OWLDataUnionOf getOWLDataUnionOf(Collection<? extends OWLDataRange> dataRanges) {
         checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
         return new OWLDataUnionOfImpl(dataRanges);
     }
 
-    @Nonnull
     @Override
-    public OWLDatatypeRestriction getOWLDatatypeRestriction(
-        OWLDatatype dataType,
-        @Nonnull Set<OWLFacetRestriction> facetRestrictions) {
+    public OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType,
+            Collection<OWLFacetRestriction> facetRestrictions) {
         checkNotNull(dataType, "datatype cannot be null");
         checkIterableNotNull(facetRestrictions, "facets", true);
         return new OWLDatatypeRestrictionImpl(dataType, facetRestrictions);
     }
 
-    @Nonnull
     @Override
-    public OWLDatatypeRestriction getOWLDatatypeRestriction(
-        OWLDatatype dataType, OWLFacet facet, OWLLiteral typedLiteral) {
+    public OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType, OWLFacet facet,
+            OWLLiteral typedLiteral) {
         checkNotNull(dataType, "datatype cannot be null");
         checkNotNull(facet, "facet cannot be null");
         checkNotNull(typedLiteral, "typedConstant cannot be null");
-        return new OWLDatatypeRestrictionImpl(dataType, CollectionFactory
-            .createSet(getOWLFacetRestriction(facet, typedLiteral)));
+        return new OWLDatatypeRestrictionImpl(dataType,
+                CollectionFactory.createSet(getOWLFacetRestriction(facet, typedLiteral)));
     }
 
-    @Nonnull
     @Override
-    public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet,
-        OWLLiteral facetValue) {
+    public OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, OWLLiteral facetValue) {
         checkNotNull(facet, "facet cannot be null");
         checkNotNull(facetValue, "facetValue cannot be null");
         return new OWLFacetRestrictionImpl(facet, facetValue);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
-        @Nonnull Collection<? extends OWLClassExpression> operands) {
+    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(Collection<? extends OWLClassExpression> operands) {
         checkIterableNotNull(operands, "operands cannot be null", true);
         return new OWLObjectIntersectionOfImpl(operands);
     }
 
-    @Nonnull
     @Override
-    public OWLDataAllValuesFrom getOWLDataAllValuesFrom(
-        OWLDataPropertyExpression property, OWLDataRange dataRange) {
+    public OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange) {
         checkNotNull(dataRange, "dataRange cannot be null");
         checkNotNull(property, "property cannot be null");
         return new OWLDataAllValuesFromImpl(property, dataRange);
     }
 
-    @Nonnull
     @Override
-    public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
-        OWLDataPropertyExpression property) {
+    public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
-        return new OWLDataExactCardinalityImpl(property, cardinality,
-            getTopDatatype());
+        return new OWLDataExactCardinalityImpl(property, cardinality, getTopDatatype());
     }
 
-    @Nonnull
     @Override
-    public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
-        OWLDataPropertyExpression property, OWLDataRange dataRange) {
+    public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property,
+            OWLDataRange dataRange) {
         checkNotNull(dataRange, "dataRange cannot be null");
         checkNotNull(property, "property cannot be null");
         checkNotNegative(cardinality, "cardinality cannot be negative");
-        return new OWLDataExactCardinalityImpl(property, cardinality,
-            dataRange);
+        return new OWLDataExactCardinalityImpl(property, cardinality, dataRange);
     }
 
-    @Nonnull
     @Override
-    public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
-        OWLDataPropertyExpression property) {
+    public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality, OWLDataPropertyExpression property) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
-        return new OWLDataMaxCardinalityImpl(property, cardinality,
-            getTopDatatype());
+        return new OWLDataMaxCardinalityImpl(property, cardinality, getTopDatatype());
     }
 
-    @Nonnull
     @Override
-    public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
-        OWLDataPropertyExpression property, OWLDataRange dataRange) {
+    public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality, OWLDataPropertyExpression property,
+            OWLDataRange dataRange) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
         checkNotNull(dataRange, "dataRange cannot be null");
         return new OWLDataMaxCardinalityImpl(property, cardinality, dataRange);
     }
 
-    @Nonnull
     @Override
-    public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
-        OWLDataPropertyExpression property) {
+    public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
-        return new OWLDataMinCardinalityImpl(property, cardinality,
-            getTopDatatype());
+        return new OWLDataMinCardinalityImpl(property, cardinality, getTopDatatype());
     }
 
-    @Nonnull
     @Override
-    public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
-        OWLDataPropertyExpression property, OWLDataRange dataRange) {
+    public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property,
+            OWLDataRange dataRange) {
         checkNotNull(dataRange, "dataRange cannot be null");
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
         return new OWLDataMinCardinalityImpl(property, cardinality, dataRange);
     }
 
-    @Nonnull
     @Override
-    public OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(
-        OWLDataPropertyExpression property, OWLDataRange dataRange) {
+    public OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange) {
         checkNotNull(dataRange, "dataRange cannot be null");
         checkNotNull(property, "property cannot be null");
         return new OWLDataSomeValuesFromImpl(property, dataRange);
     }
 
-    @Nonnull
     @Override
-    public OWLDataHasValue getOWLDataHasValue(
-        OWLDataPropertyExpression property, OWLLiteral value) {
+    public OWLDataHasValue getOWLDataHasValue(OWLDataPropertyExpression property, OWLLiteral value) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(value, "value cannot be null");
         return new OWLDataHasValueImpl(property, value);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectComplementOf getOWLObjectComplementOf(
-        OWLClassExpression operand) {
+    public OWLObjectComplementOf getOWLObjectComplementOf(OWLClassExpression operand) {
         checkNotNull(operand, "operand");
         return new OWLObjectComplementOfImpl(operand);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(
-        OWLObjectPropertyExpression property,
-        OWLClassExpression classExpression) {
+    public OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
         checkNotNull(property, "property cannot be null");
         return new OWLObjectAllValuesFromImpl(property, classExpression);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectOneOf getOWLObjectOneOf(
-        @Nonnull Set<? extends OWLIndividual> values) {
+    public OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values) {
         checkIterableNotNull(values, "values cannot be null", true);
         return new OWLObjectOneOfImpl(values);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectExactCardinality getOWLObjectExactCardinality(
-        int cardinality, OWLObjectPropertyExpression property) {
+    public OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality,
+            OWLObjectPropertyExpression property) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
-        return new OWLObjectExactCardinalityImpl(property, cardinality,
-            OWL_THING);
+        return new OWLObjectExactCardinalityImpl(property, cardinality, OWL_THING);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectExactCardinality getOWLObjectExactCardinality(
-        int cardinality, OWLObjectPropertyExpression property,
-        OWLClassExpression classExpression) {
+    public OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality, OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
         checkNotNull(property, "property cannot be null");
         checkNotNegative(cardinality, "cardinality cannot be negative");
-        return new OWLObjectExactCardinalityImpl(property, cardinality,
-            classExpression);
+        return new OWLObjectExactCardinalityImpl(property, cardinality, classExpression);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
-        OWLObjectPropertyExpression property) {
+    public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality, OWLObjectPropertyExpression property) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
-        return new OWLObjectMinCardinalityImpl(property, cardinality,
-            OWL_THING);
+        return new OWLObjectMinCardinalityImpl(property, cardinality, OWL_THING);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
-        OWLObjectPropertyExpression property,
-        OWLClassExpression classExpression) {
+    public OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality, OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
         checkNotNull(property, "property cannot be null");
         checkNotNegative(cardinality, "cardinality cannot be negative");
-        return new OWLObjectMinCardinalityImpl(property, cardinality,
-            classExpression);
+        return new OWLObjectMinCardinalityImpl(property, cardinality, classExpression);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
-        OWLObjectPropertyExpression property) {
+    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality, OWLObjectPropertyExpression property) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
-        return new OWLObjectMaxCardinalityImpl(property, cardinality,
-            OWL_THING);
+        return new OWLObjectMaxCardinalityImpl(property, cardinality, OWL_THING);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
-        OWLObjectPropertyExpression property,
-        OWLClassExpression classExpression) {
+    public OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality, OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(classExpression, "classExpression cannot be null");
         checkNotNull(property, "property cannot be null");
-        return new OWLObjectMaxCardinalityImpl(property, cardinality,
-            classExpression);
+        return new OWLObjectMaxCardinalityImpl(property, cardinality, classExpression);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectHasSelf getOWLObjectHasSelf(
-        OWLObjectPropertyExpression property) {
+    public OWLObjectHasSelf getOWLObjectHasSelf(OWLObjectPropertyExpression property) {
         checkNotNull(property, "property cannot be null");
         return new OWLObjectHasSelfImpl(property);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(
-        OWLObjectPropertyExpression property,
-        OWLClassExpression classExpression) {
+    public OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
         checkNotNull(property, "property cannot be null");
         return new OWLObjectSomeValuesFromImpl(property, classExpression);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectHasValue getOWLObjectHasValue(
-        OWLObjectPropertyExpression property, OWLIndividual individual) {
+    public OWLObjectHasValue getOWLObjectHasValue(OWLObjectPropertyExpression property, OWLIndividual individual) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(individual, "individual cannot be null");
         return new OWLObjectHasValueImpl(property, individual);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectUnionOf getOWLObjectUnionOf(
-        @Nonnull Set<? extends OWLClassExpression> operands) {
+    public OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
         checkIterableNotNull(operands, "operands cannot be null", true);
         return new OWLObjectUnionOfImpl(operands);
     }
 
-    @Nonnull
     @Override
     public OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(
-        OWLObjectPropertyExpression propertyExpression,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            OWLObjectPropertyExpression propertyExpression, Collection<OWLAnnotation> annotations) {
         checkNotNull(propertyExpression, "property cannot be null");
         checkAnnotations(annotations);
-        return new OWLAsymmetricObjectPropertyAxiomImpl(propertyExpression,
-            annotations);
+        return new OWLAsymmetricObjectPropertyAxiomImpl(propertyExpression, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
-        OWLDataPropertyExpression property, OWLClassExpression domain,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
+            OWLClassExpression domain, Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(domain, "domain cannot be null");
         checkAnnotations(annotations);
-        return new OWLDataPropertyDomainAxiomImpl(property, domain,
-            annotations);
+        return new OWLDataPropertyDomainAxiomImpl(property, domain, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
-        OWLDataPropertyExpression property, OWLDataRange owlDataRange,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression property,
+            OWLDataRange owlDataRange, Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(owlDataRange, "owlDataRange cannot be null");
         checkAnnotations(annotations);
-        return new OWLDataPropertyRangeAxiomImpl(property, owlDataRange,
-            annotations);
+        return new OWLDataPropertyRangeAxiomImpl(property, owlDataRange, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
-        OWLDataPropertyExpression subProperty,
-        OWLDataPropertyExpression superProperty,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(OWLDataPropertyExpression subProperty,
+            OWLDataPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
         checkNotNull(subProperty, "subProperty cannot be null");
         checkNotNull(superProperty, "superProperty cannot be null");
         checkAnnotations(annotations);
-        return new OWLSubDataPropertyOfAxiomImpl(subProperty, superProperty,
-            annotations);
+        return new OWLSubDataPropertyOfAxiomImpl(subProperty, superProperty, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLDeclarationAxiom getOWLDeclarationAxiom(OWLEntity owlEntity,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLDeclarationAxiom getOWLDeclarationAxiom(OWLEntity owlEntity, Collection<OWLAnnotation> annotations) {
         checkNotNull(owlEntity, "owlEntity cannot be null");
         checkAnnotations(annotations);
         return new OWLDeclarationAxiomImpl(owlEntity, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
-        @Nonnull Set<? extends OWLIndividual> individuals,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(Collection<? extends OWLIndividual> individuals,
+            Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(individuals, "individuals cannot be null", true);
         checkAnnotations(annotations);
         return new OWLDifferentIndividualsAxiomImpl(individuals, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
-        @Nonnull Set<? extends OWLClassExpression> classExpressions,
-        @Nonnull Set<OWLAnnotation> annotations) {
-        checkIterableNotNull(classExpressions,
-            "classExpressions cannot be null or contain null", true);
+    public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(Collection<? extends OWLClassExpression> classExpressions,
+            Collection<OWLAnnotation> annotations) {
+        checkIterableNotNull(classExpressions, "classExpressions cannot be null or contain null", true);
         checkAnnotations(annotations);
         // Hack to handle the case where classExpressions has only a single
         // member
         // which will usually be the result of :x owl:disjointWith :x .
         if (classExpressions.size() == 1) {
             Set<OWLClassExpression> modifiedClassExpressions = new HashSet<>(2);
-            OWLClassExpression classExpression = classExpressions.iterator()
-                .next();
-            OWLClass addedClass = classExpression.isOWLThing() ? OWL_NOTHING
-                : OWL_THING;
+            OWLClassExpression classExpression = classExpressions.iterator().next();
+            OWLClass addedClass = classExpression.isOWLThing() ? OWL_NOTHING : OWL_THING;
             modifiedClassExpressions.add(addedClass);
             modifiedClassExpressions.add(classExpression);
             return getOWLDisjointClassesAxiom(modifiedClassExpressions,
-                makeSingletonDisjoinClassWarningAnnotation(annotations,
-                    classExpression, addedClass));
+                    makeSingletonDisjoinClassWarningAnnotation(annotations, classExpression, addedClass));
         }
         return new OWLDisjointClassesAxiomImpl(classExpressions, annotations);
     }
 
-    protected Set<OWLAnnotation> makeSingletonDisjoinClassWarningAnnotation(
-        Set<OWLAnnotation> annotations, OWLClassExpression classExpression,
-        OWLClassExpression addedClass) {
-        Set<OWLAnnotation> modifiedAnnotations = new HashSet<>(
-            annotations.size() + 1);
+    protected Set<OWLAnnotation> makeSingletonDisjoinClassWarningAnnotation(Collection<OWLAnnotation> annotations,
+            OWLClassExpression classExpression, OWLClassExpression addedClass) {
+        Set<OWLAnnotation> modifiedAnnotations = new HashSet<>(annotations.size() + 1);
         modifiedAnnotations.addAll(annotations);
-        String provenanceComment = String.format("%s on %s",
-            VersionInfo.getVersionInfo().getGeneratedByMessage(),
-            new SimpleDateFormat().format(new Date()));
-        OWLAnnotation provenanceAnnotation = getOWLAnnotation(RDFS_COMMENT,
-            getOWLLiteral(provenanceComment));
-        Set<OWLAnnotation> metaAnnotations = Collections
-            .singleton(provenanceAnnotation);
-        String changeComment = String.format(
-            "DisjointClasses(%s) replaced by DisjointClasses(%s %s)",
-            classExpression, classExpression, addedClass);
-        modifiedAnnotations.add(getOWLAnnotation(RDFS_COMMENT,
-            getOWLLiteral(changeComment), metaAnnotations));
+        String provenanceComment = String.format("%s on %s", VersionInfo.getVersionInfo().getGeneratedByMessage(),
+                new SimpleDateFormat().format(new Date()));
+        OWLAnnotation provenanceAnnotation = getOWLAnnotation(RDFS_COMMENT, getOWLLiteral(provenanceComment));
+        Set<OWLAnnotation> metaAnnotations = Collections.singleton(provenanceAnnotation);
+        String changeComment = String.format("DisjointClasses(%s) replaced by DisjointClasses(%s %s)", classExpression,
+                classExpression, addedClass);
+        modifiedAnnotations.add(getOWLAnnotation(RDFS_COMMENT, getOWLLiteral(changeComment), metaAnnotations));
         return modifiedAnnotations;
     }
 
-    @Nonnull
     @Override
     public OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
-        @Nonnull Set<? extends OWLDataPropertyExpression> properties,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            Collection<? extends OWLDataPropertyExpression> properties, Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         checkAnnotations(annotations);
         return new OWLDisjointDataPropertiesAxiomImpl(properties, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
-        @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            Collection<? extends OWLObjectPropertyExpression> properties, Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         checkAnnotations(annotations);
-        return new OWLDisjointObjectPropertiesAxiomImpl(properties,
-            annotations);
+        return new OWLDisjointObjectPropertiesAxiomImpl(properties, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
-        @Nonnull Set<? extends OWLClassExpression> classExpressions,
-        @Nonnull Set<OWLAnnotation> annotations) {
-        checkIterableNotNull(classExpressions,
-            "classExpressions cannot be null", true);
+            Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations) {
+        checkIterableNotNull(classExpressions, "classExpressions cannot be null", true);
         checkAnnotations(annotations);
         return new OWLEquivalentClassesAxiomImpl(classExpressions, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
-        @Nonnull Set<? extends OWLDataPropertyExpression> properties,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            Collection<? extends OWLDataPropertyExpression> properties, Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         checkAnnotations(annotations);
-        return new OWLEquivalentDataPropertiesAxiomImpl(properties,
-            annotations);
+        return new OWLEquivalentDataPropertiesAxiomImpl(properties, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(
-        OWLDataPropertyExpression property,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(OWLDataPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkAnnotations(annotations);
         return new OWLFunctionalDataPropertyAxiomImpl(property, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(
-        OWLObjectPropertyExpression property,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkAnnotations(annotations);
         return new OWLFunctionalObjectPropertyAxiomImpl(property, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLImportsDeclaration getOWLImportsDeclaration(
-        IRI importedOntologyIRI) {
+    public OWLImportsDeclaration getOWLImportsDeclaration(IRI importedOntologyIRI) {
         checkNotNull(importedOntologyIRI, "importedOntologyIRI cannot be null");
         return new OWLImportsDeclarationImpl(importedOntologyIRI);
     }
 
-    @Nonnull
     @Override
-    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
-        OWLDataPropertyExpression property, OWLIndividual subject,
-        OWLLiteral object, @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, OWLLiteral object, Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(object, "object cannot be null");
         checkNotNull(subject, "subject cannot be null");
         checkAnnotations(annotations);
-        return new OWLDataPropertyAssertionAxiomImpl(subject, property, object,
-            annotations);
+        return new OWLDataPropertyAssertionAxiomImpl(subject, property, object, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(
-        OWLDataPropertyExpression property, OWLIndividual subject,
-        OWLLiteral object, @Nonnull Set<OWLAnnotation> annotations) {
+            OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(object, "object cannot be null");
         checkNotNull(subject, "subject cannot be null");
         checkAnnotations(annotations);
-        return new OWLNegativeDataPropertyAssertionAxiomImpl(subject, property,
-            object, annotations);
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(subject, property, object, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
-        OWLObjectPropertyExpression property, OWLIndividual subject,
-        OWLIndividual object, @Nonnull Set<OWLAnnotation> annotations) {
+            OWLObjectPropertyExpression property, OWLIndividual subject, OWLIndividual object,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(object, "object cannot be null");
         checkNotNull(subject, "subject cannot be null");
         checkAnnotations(annotations);
-        return new OWLNegativeObjectPropertyAssertionAxiomImpl(subject,
-            property, object, annotations);
+        return new OWLNegativeObjectPropertyAssertionAxiomImpl(subject, property, object, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(
-        OWLClassExpression classExpression, OWLIndividual individual,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression,
+            OWLIndividual individual, Collection<OWLAnnotation> annotations) {
         checkNotNull(classExpression, "classExpression cannot be null");
         checkNotNull(individual, "individual cannot be null");
         checkAnnotations(annotations);
-        return new OWLClassAssertionAxiomImpl(individual, classExpression,
-            annotations);
+        return new OWLClassAssertionAxiomImpl(individual, classExpression, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(
-        OWLObjectPropertyExpression property,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            OWLObjectPropertyExpression property, Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkAnnotations(annotations);
-        return new OWLInverseFunctionalObjectPropertyAxiomImpl(property,
-            annotations);
+        return new OWLInverseFunctionalObjectPropertyAxiomImpl(property, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(
-        OWLObjectPropertyExpression property,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkAnnotations(annotations);
         return new OWLIrreflexiveObjectPropertyAxiomImpl(property, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
-        OWLObjectPropertyExpression property,
-        OWLClassExpression classExpression,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression, Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(classExpression, "classExpression cannot be null");
         checkAnnotations(annotations);
-        return new OWLObjectPropertyDomainAxiomImpl(property, classExpression,
-            annotations);
+        return new OWLObjectPropertyDomainAxiomImpl(property, classExpression, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(
-        OWLObjectPropertyExpression property, OWLClassExpression range,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(OWLObjectPropertyExpression property,
+            OWLClassExpression range, Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(range, "range cannot be null");
         checkAnnotations(annotations);
-        return new OWLObjectPropertyRangeAxiomImpl(property, range,
-            annotations);
+        return new OWLObjectPropertyRangeAxiomImpl(property, range, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
-        OWLObjectPropertyExpression subProperty,
-        OWLObjectPropertyExpression superProperty,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(OWLObjectPropertyExpression subProperty,
+            OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
         checkNotNull(subProperty, "subProperty cannot be null");
         checkNotNull(superProperty, "superProperty cannot be null");
         checkAnnotations(annotations);
-        return new OWLSubObjectPropertyOfAxiomImpl(subProperty, superProperty,
-            annotations);
+        return new OWLSubObjectPropertyOfAxiomImpl(subProperty, superProperty, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(
-        OWLObjectPropertyExpression property,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkAnnotations(annotations);
         return new OWLReflexiveObjectPropertyAxiomImpl(property, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLSameIndividualAxiom getOWLSameIndividualAxiom(
-        @Nonnull Set<? extends OWLIndividual> individuals,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLSameIndividualAxiom getOWLSameIndividualAxiom(Collection<? extends OWLIndividual> individuals,
+            Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(individuals, "individuals cannot be null", true);
         checkAnnotations(annotations);
         return new OWLSameIndividualAxiomImpl(individuals, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLSubClassOfAxiom getOWLSubClassOfAxiom(OWLClassExpression subClass,
-        OWLClassExpression superClass,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLSubClassOfAxiom getOWLSubClassOfAxiom(OWLClassExpression subClass, OWLClassExpression superClass,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(subClass, "subclass cannot be null");
         checkNotNull(superClass, "superclass cannot be null");
         checkAnnotations(annotations);
         return new OWLSubClassOfAxiomImpl(subClass, superClass, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(
-        OWLObjectPropertyExpression property,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkAnnotations(annotations);
         return new OWLSymmetricObjectPropertyAxiomImpl(property, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(
-        OWLObjectPropertyExpression property,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkAnnotations(annotations);
         return new OWLTransitiveObjectPropertyAxiomImpl(property, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectInverseOf getOWLObjectInverseOf(
-        OWLObjectPropertyExpression property) {
+    public OWLObjectInverseOf getOWLObjectInverseOf(OWLObjectPropertyExpression property) {
         checkNotNull(property, "property cannot be null");
         return new OWLObjectInverseOfImpl(property);
     }
 
-    @Nonnull
     @Override
     public OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
-        OWLObjectPropertyExpression forwardProperty,
-        OWLObjectPropertyExpression inverseProperty,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            OWLObjectPropertyExpression forwardProperty, OWLObjectPropertyExpression inverseProperty,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(forwardProperty, "forwardProperty cannot be null");
         checkNotNull(inverseProperty, "inverseProperty cannot be null");
         checkAnnotations(annotations);
-        return new OWLInverseObjectPropertiesAxiomImpl(forwardProperty,
-            inverseProperty, annotations);
+        return new OWLInverseObjectPropertiesAxiomImpl(forwardProperty, inverseProperty, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
-        @Nonnull List<? extends OWLObjectPropertyExpression> chain,
-        OWLObjectPropertyExpression superProperty,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(List<? extends OWLObjectPropertyExpression> chain,
+            OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
         checkNotNull(superProperty, "superProperty cannot be null");
         checkIterableNotNull(chain, "chain cannot be null", true);
         checkAnnotations(annotations);
-        return new OWLSubPropertyChainAxiomImpl(chain, superProperty,
-            annotations);
+        return new OWLSubPropertyChainAxiomImpl(chain, superProperty, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
-        @Nonnull Set<? extends OWLPropertyExpression> objectProperties,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            Collection<? extends OWLPropertyExpression> objectProperties, Collection<OWLAnnotation> annotations) {
         checkNotNull(ce, "classExpression cannot be null");
-        checkIterableNotNull(objectProperties, "properties cannot be null",
-            true);
+        checkIterableNotNull(objectProperties, "properties cannot be null", true);
         checkAnnotations(annotations);
         return new OWLHasKeyAxiomImpl(ce, objectProperties, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-        @Nonnull Set<? extends OWLClassExpression> classExpressions,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations) {
         checkNotNull(owlClass, "owlClass cannot be null");
-        checkIterableNotNull(classExpressions,
-            "classExpressions cannot be null", true);
+        checkIterableNotNull(classExpressions, "classExpressions cannot be null", true);
         checkAnnotations(annotations);
-        return new OWLDisjointUnionAxiomImpl(owlClass, classExpressions,
-            annotations);
+        return new OWLDisjointUnionAxiomImpl(owlClass, classExpressions, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
-        @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
-        @Nonnull Set<OWLAnnotation> annotations) {
+            Collection<? extends OWLObjectPropertyExpression> properties, Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(properties, "properties cannot be null", true);
         checkAnnotations(annotations);
-        return new OWLEquivalentObjectPropertiesAxiomImpl(properties,
-            annotations);
+        return new OWLEquivalentObjectPropertiesAxiomImpl(properties, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
-        OWLObjectPropertyExpression property, OWLIndividual individual,
-        OWLIndividual object, @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(OWLObjectPropertyExpression property,
+            OWLIndividual individual, OWLIndividual object, Collection<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(individual, "individual cannot be null");
         checkNotNull(object, "object cannot be null");
         checkAnnotations(annotations);
-        return new OWLObjectPropertyAssertionAxiomImpl(individual, property,
-            object, annotations);
+        return new OWLObjectPropertyAssertionAxiomImpl(individual, property, object, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
-        OWLAnnotationProperty sub, OWLAnnotationProperty sup,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
+            OWLAnnotationProperty sup, Collection<OWLAnnotation> annotations) {
         checkNotNull(sub, "subProperty cannot be null");
         checkNotNull(sup, "superProperty cannot be null");
         checkAnnotations(annotations);
@@ -961,210 +768,164 @@ public class OWLDataFactoryImpl
     }
 
     @Override
-    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
-        OWLAnnotationValue value) {
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value) {
         return new OWLAnnotationImplNotAnnotated(property, value);
     }
 
-    @Nonnull
     @Override
-    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property,
-        OWLAnnotationValue value, @Nonnull Stream<OWLAnnotation> annotations) {
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
+            Stream<OWLAnnotation> annotations) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(value, "value cannot be null");
         checkNotNull(annotations, "annotations cannot be null");
-        return dataFactoryInternals.getOWLAnnotation(property, value,
-            annotations);
+        return dataFactoryInternals.getOWLAnnotation(property, value, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
-        OWLAnnotationSubject subject, @Nonnull OWLAnnotation annotation) {
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
+            OWLAnnotation annotation) {
         checkNotNull(annotation, "annotation cannot be null");
-        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject,
-            annotation.getValue(), asList(annotation.annotations()));
+        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(),
+                asList(annotation.annotations()));
     }
 
-    @Nonnull
     @Override
-    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
-        OWLAnnotationSubject subject, @Nonnull OWLAnnotation annotation,
-        @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationSubject subject,
+            OWLAnnotation annotation, Collection<OWLAnnotation> annotations) {
         checkNotNull(annotation, "annotation cannot be null");
-        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject,
-            annotation.getValue(), annotations);
+        return getOWLAnnotationAssertionAxiom(annotation.getProperty(), subject, annotation.getValue(), annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
-        OWLAnnotationProperty property, OWLAnnotationSubject subject,
-        OWLAnnotationValue value,
-        @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(OWLAnnotationProperty property,
+            OWLAnnotationSubject subject, OWLAnnotationValue value, Collection<OWLAnnotation> annotations) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(property, "property cannot be null");
         checkNotNull(value, "value cannot be null");
         checkAnnotations(annotations);
-        return new OWLAnnotationAssertionAxiomImpl(subject, property, value,
-            annotations);
+        return new OWLAnnotationAssertionAxiomImpl(subject, property, value, annotations);
     }
 
     @Override
-    public OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(
-        IRI subject) {
+    public OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(IRI subject) {
         checkNotNull(subject, "subject cannot be null");
-        return getOWLAnnotationAssertionAxiom(getOWLDeprecated(), subject,
-            getOWLLiteral(true));
+        return getOWLAnnotationAssertionAxiom(getOWLDeprecated(), subject, getOWLLiteral(true));
     }
 
-    @Nonnull
     @Override
-    public OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(
-        OWLAnnotationProperty prop, IRI domain,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop, IRI domain,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(prop, "property cannot be null");
         checkNotNull(domain, "domain cannot be null");
         checkAnnotations(annotations);
-        return new OWLAnnotationPropertyDomainAxiomImpl(prop, domain,
-            annotations);
+        return new OWLAnnotationPropertyDomainAxiomImpl(prop, domain, annotations);
     }
 
-    @Nonnull
     @Override
-    public OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(
-        OWLAnnotationProperty prop, IRI range,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(OWLAnnotationProperty prop, IRI range,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(prop, "property cannot be null");
         checkNotNull(range, "range cannot be null");
         checkAnnotations(annotations);
-        return new OWLAnnotationPropertyRangeAxiomImpl(prop, range,
-            annotations);
+        return new OWLAnnotationPropertyRangeAxiomImpl(prop, range, annotations);
     }
 
     // SWRL
-    @Nonnull
     @Override
-    public SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
-        @Nonnull Set<? extends SWRLAtom> head,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public SWRLRule getSWRLRule(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head,
+            Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(body, "body cannot be null", true);
         checkIterableNotNull(head, "head cannot be null", true);
         checkAnnotations(annotations);
         return new SWRLRuleImpl(body, head, annotations);
     }
 
-    @Nonnull
     @Override
-    public SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
-        @Nonnull Set<? extends SWRLAtom> head) {
+    public SWRLRule getSWRLRule(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head) {
         checkIterableNotNull(body, "antecedent cannot be null", true);
         checkIterableNotNull(head, "consequent cannot be null", true);
         return new SWRLRuleImpl(body, head);
     }
 
-    @Nonnull
     @Override
-    public SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate,
-        SWRLIArgument arg) {
+    public SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate, SWRLIArgument arg) {
         checkNotNull(predicate, "predicate cannot be null");
         checkNotNull(arg, "arg cannot be null");
         return new SWRLClassAtomImpl(predicate, arg);
     }
 
-    @Nonnull
     @Override
-    public SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate,
-        SWRLDArgument arg) {
+    public SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate, SWRLDArgument arg) {
         checkNotNull(predicate, "predicate cannot be null");
         checkNotNull(arg, "arg cannot be null");
         return new SWRLDataRangeAtomImpl(predicate, arg);
     }
 
-    @Nonnull
     @Override
-    public SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(
-        OWLObjectPropertyExpression property, SWRLIArgument arg0,
-        SWRLIArgument arg1) {
+    public SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, SWRLIArgument arg0,
+            SWRLIArgument arg1) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(arg0, "arg0 cannot be null");
         checkNotNull(arg1, "arg1 cannot be null");
         return new SWRLObjectPropertyAtomImpl(property, arg0, arg1);
     }
 
-    @Nonnull
     @Override
-    public SWRLDataPropertyAtom getSWRLDataPropertyAtom(
-        OWLDataPropertyExpression property, SWRLIArgument arg0,
-        SWRLDArgument arg1) {
+    public SWRLDataPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property, SWRLIArgument arg0,
+            SWRLDArgument arg1) {
         checkNotNull(property, "property cannot be null");
         checkNotNull(arg0, "arg0 cannot be null");
         checkNotNull(arg1, "arg1 cannot be null");
         return new SWRLDataPropertyAtomImpl(property, arg0, arg1);
     }
 
-    @Nonnull
     @Override
-    public SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI,
-        List<SWRLDArgument> args) {
+    public SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI, List<SWRLDArgument> args) {
         checkNotNull(builtInIRI, "builtInIRI cannot be null");
         checkNotNull(args, "args cannot be null");
         return new SWRLBuiltInAtomImpl(builtInIRI, args);
     }
 
-    @Nonnull
     @Override
     public SWRLVariable getSWRLVariable(IRI var) {
         checkNotNull(var, "var cannot be null");
         return new SWRLVariableImpl(var);
     }
 
-    @Nonnull
     @Override
-    public SWRLIndividualArgument getSWRLIndividualArgument(
-        OWLIndividual individual) {
+    public SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual) {
         checkNotNull(individual, "individual cannot be null");
         return new SWRLIndividualArgumentImpl(individual);
     }
 
-    @Nonnull
     @Override
     public SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal) {
         checkNotNull(literal, "literal");
         return new SWRLLiteralArgumentImpl(literal);
     }
 
-    @Nonnull
     @Override
-    public SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(
-        SWRLIArgument arg0, SWRLIArgument arg1) {
+    public SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0, SWRLIArgument arg1) {
         checkNotNull(arg0, "arg0 cannot be null");
         checkNotNull(arg1, "arg1 cannot be null");
-        return new SWRLDifferentIndividualsAtomImpl(
-            getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM), arg0,
-            arg1);
+        return new SWRLDifferentIndividualsAtomImpl(getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM), arg0,
+                arg1);
     }
 
-    @Nonnull
     @Override
-    public SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0,
-        SWRLIArgument arg1) {
+    public SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0, SWRLIArgument arg1) {
         checkNotNull(arg0, "arg0 cannot be null");
         checkNotNull(arg1, "arg1 cannot be null");
-        return new SWRLSameIndividualAtomImpl(
-            getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS), arg0, arg1);
+        return new SWRLSameIndividualAtomImpl(getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS), arg0, arg1);
     }
 
-    @Nonnull
     @Override
-    public OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(
-        OWLDatatype datatype, OWLDataRange dataRange,
-        @Nonnull Set<OWLAnnotation> annotations) {
+    public OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype, OWLDataRange dataRange,
+            Collection<OWLAnnotation> annotations) {
         checkNotNull(datatype, "datatype cannot be null");
         checkNotNull(dataRange, "dataRange cannot be null");
         checkAnnotations(annotations);
-        return new OWLDatatypeDefinitionAxiomImpl(datatype, dataRange,
-            annotations);
+        return new OWLDatatypeDefinitionAxiomImpl(datatype, dataRange, annotations);
     }
 
     @Override

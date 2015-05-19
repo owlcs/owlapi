@@ -12,24 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.axiomproviders;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Annotation, datatype and object property range provider.
  */
+@ParametersAreNonnullByDefault
 public interface SubAxiomProvider {
 
     /**
@@ -39,12 +32,8 @@ public interface SubAxiomProvider {
      *        super class
      * @return a subclass axiom with no annotations
      */
-    @Nonnull
-    default OWLSubClassOfAxiom getOWLSubClassOfAxiom(
-            @Nonnull OWLClassExpression subClass,
-            @Nonnull OWLClassExpression superClass) {
-        return getOWLSubClassOfAxiom(subClass, superClass,
-                Collections.emptySet());
+    default OWLSubClassOfAxiom getOWLSubClassOfAxiom(OWLClassExpression subClass, OWLClassExpression superClass) {
+        return getOWLSubClassOfAxiom(subClass, superClass, Collections.emptySet());
     }
 
     /**
@@ -56,11 +45,8 @@ public interface SubAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a subclass axiom with specified annotations
      */
-    @Nonnull
-    OWLSubClassOfAxiom getOWLSubClassOfAxiom(
-            @Nonnull OWLClassExpression subClass,
-            @Nonnull OWLClassExpression superClass,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLSubClassOfAxiom getOWLSubClassOfAxiom(OWLClassExpression subClass, OWLClassExpression superClass,
+            Collection<OWLAnnotation> annotations);
 
     /**
      * @param subProperty
@@ -69,12 +55,9 @@ public interface SubAxiomProvider {
      *        super property
      * @return a subproperty axiom
      */
-    @Nonnull
-    default OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
-            @Nonnull OWLObjectPropertyExpression subProperty,
-            @Nonnull OWLObjectPropertyExpression superProperty) {
-        return getOWLSubObjectPropertyOfAxiom(subProperty, superProperty,
-                Collections.emptySet());
+    default OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(OWLObjectPropertyExpression subProperty,
+            OWLObjectPropertyExpression superProperty) {
+        return getOWLSubObjectPropertyOfAxiom(subProperty, superProperty, Collections.emptySet());
     }
 
     /**
@@ -86,11 +69,8 @@ public interface SubAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a subproperty axiom with annotations
      */
-    @Nonnull
-    OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
-            @Nonnull OWLObjectPropertyExpression subProperty,
-            @Nonnull OWLObjectPropertyExpression superProperty,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(OWLObjectPropertyExpression subProperty,
+            OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations);
 
     /**
      * @param subProperty
@@ -99,12 +79,9 @@ public interface SubAxiomProvider {
      *        super Property
      * @return a subproperty axiom
      */
-    @Nonnull
-    default OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
-            @Nonnull OWLDataPropertyExpression subProperty,
-            @Nonnull OWLDataPropertyExpression superProperty) {
-        return getOWLSubDataPropertyOfAxiom(subProperty, superProperty,
-                Collections.emptySet());
+    default OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(OWLDataPropertyExpression subProperty,
+            OWLDataPropertyExpression superProperty) {
+        return getOWLSubDataPropertyOfAxiom(subProperty, superProperty, Collections.emptySet());
     }
 
     /**
@@ -116,11 +93,8 @@ public interface SubAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a subproperty axiom with annotations
      */
-    @Nonnull
-    OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
-            @Nonnull OWLDataPropertyExpression subProperty,
-            @Nonnull OWLDataPropertyExpression superProperty,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(OWLDataPropertyExpression subProperty,
+            OWLDataPropertyExpression superProperty, Collection<OWLAnnotation> annotations);
 
     /**
      * @param sub
@@ -129,12 +103,9 @@ public interface SubAxiomProvider {
      *        super property
      * @return a sub annotation property axiom with specified properties
      */
-    @Nonnull
-    default OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
-            @Nonnull OWLAnnotationProperty sub,
-            @Nonnull OWLAnnotationProperty sup) {
-        return getOWLSubAnnotationPropertyOfAxiom(sub, sup,
-                Collections.emptySet());
+    default OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
+            OWLAnnotationProperty sup) {
+        return getOWLSubAnnotationPropertyOfAxiom(sub, sup, Collections.emptySet());
     }
 
     /**
@@ -147,9 +118,6 @@ public interface SubAxiomProvider {
      * @return a sub annotation property axiom with specified properties and
      *         annotations
      */
-    @Nonnull
-    OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
-            @Nonnull OWLAnnotationProperty sub,
-            @Nonnull OWLAnnotationProperty sup,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(OWLAnnotationProperty sub,
+            OWLAnnotationProperty sup, Collection<OWLAnnotation> annotations);
 }

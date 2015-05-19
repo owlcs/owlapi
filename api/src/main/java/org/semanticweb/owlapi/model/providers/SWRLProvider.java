@@ -12,35 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-import org.semanticweb.owlapi.model.HasIRI;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * An interface to a factory that can create SWRL objects.
@@ -49,6 +27,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  *         Group
  * @since 2.0.0
  */
+@ParametersAreNonnullByDefault
 public interface SWRLProvider {
 
     /**
@@ -60,9 +39,7 @@ public interface SWRLProvider {
      *        The atoms that make up the head
      * @return An anonymous rule with the specified body and head
      */
-    @Nonnull
-    SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
-            @Nonnull Set<? extends SWRLAtom> head);
+    SWRLRule getSWRLRule(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head);
 
     /**
      * Gets an anonymous SWRL Rule.
@@ -75,10 +52,8 @@ public interface SWRLProvider {
      *        The annotations for the rule (may be an empty set)
      * @return An anonymous rule with the specified body and head
      */
-    @Nonnull
-    SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
-            @Nonnull Set<? extends SWRLAtom> head,
-            @Nonnull Set<OWLAnnotation> annotations);
+    SWRLRule getSWRLRule(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head,
+            Collection<OWLAnnotation> annotations);
 
     /**
      * Gets a SWRL atom where the predicate is a class expression i.e. C(x)
@@ -92,9 +67,7 @@ public interface SWRLProvider {
      * @return The class atom with the specified class expression predicate and
      *         the specified argument.
      */
-    @Nonnull
-    SWRLClassAtom getSWRLClassAtom(@Nonnull OWLClassExpression predicate,
-            @Nonnull SWRLIArgument arg);
+    SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate, SWRLIArgument arg);
 
     /**
      * Gets a SWRL atom where the predicate is a data range, i.e. D(x) where D
@@ -107,9 +80,7 @@ public interface SWRLProvider {
      * @return An atom with the specified data range predicate and the specified
      *         argument
      */
-    @Nonnull
-    SWRLDataRangeAtom getSWRLDataRangeAtom(@Nonnull OWLDataRange predicate,
-            @Nonnull SWRLDArgument arg);
+    SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate, SWRLDArgument arg);
 
     /**
      * Gets a SWRL object property atom, i.e. P(x, y) where P is an OWL object
@@ -125,10 +96,8 @@ public interface SWRLProvider {
      * @return A SWRLObjectPropertyAtom that has the specified predicate and the
      *         specified arguments
      */
-    @Nonnull
-    SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1);
+    SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, SWRLIArgument arg0,
+            SWRLIArgument arg1);
 
     /**
      * Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
@@ -144,10 +113,8 @@ public interface SWRLProvider {
      * @return A SWRLDataPropertyAtom that has the specified predicate and the
      *         specified arguments
      */
-    @Nonnull
-    SWRLDataPropertyAtom getSWRLDataPropertyAtom(
-            @Nonnull OWLDataPropertyExpression property,
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLDArgument arg1);
+    SWRLDataPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property, SWRLIArgument arg0,
+            SWRLDArgument arg1);
 
     /**
      * Creates a SWRL Built-In atom. Builtins have predicates that are
@@ -164,9 +131,7 @@ public interface SWRLProvider {
      * @return A SWRLBuiltInAtom whose predicate is identified by the specified
      *         builtInIRI and that has the specified arguments
      */
-    @Nonnull
-    SWRLBuiltInAtom getSWRLBuiltInAtom(@Nonnull IRI builtInIRI,
-            @Nonnull List<SWRLDArgument> args);
+    SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI, List<SWRLDArgument> args);
 
     /**
      * Gets a SWRLVariable.
@@ -175,8 +140,7 @@ public interface SWRLProvider {
      *        The id (IRI) of the variable
      * @return A SWRLVariable that has the name specified by the IRI
      */
-    @Nonnull
-    SWRLVariable getSWRLVariable(@Nonnull IRI var);
+    SWRLVariable getSWRLVariable(IRI var);
 
     /**
      * Gets a SWRLVariable.
@@ -185,8 +149,7 @@ public interface SWRLProvider {
      *        The IRI of the variable
      * @return A SWRLVariable that has the name specified by the IRI
      */
-    @Nonnull
-    default SWRLVariable getSWRLVariable(@Nonnull String iri) {
+    default SWRLVariable getSWRLVariable(String iri) {
         return getSWRLVariable(IRI.create(iri));
     }
 
@@ -199,9 +162,7 @@ public interface SWRLProvider {
      *        optional remainder or local name
      * @return A SWRLVariable that has the name specified by the IRI
      */
-    @Nonnull
-    default SWRLVariable getSWRLVariable(@Nonnull String namespace,
-            @Nullable String remainder) {
+    default SWRLVariable getSWRLVariable(String namespace, @Nullable String remainder) {
         return getSWRLVariable(IRI.create(namespace, remainder));
     }
 
@@ -212,8 +173,7 @@ public interface SWRLProvider {
      *        an HasIRI instance. The variable will have the same IRI
      * @return A SWRLVariable that has the name specified by the IRI
      */
-    @Nonnull
-    default SWRLVariable getSWRLVariable(@Nonnull HasIRI var) {
+    default SWRLVariable getSWRLVariable(HasIRI var) {
         return getSWRLVariable(var.getIRI());
     }
 
@@ -225,9 +185,7 @@ public interface SWRLProvider {
      *        The individual that is the object argument
      * @return A SWRLIndividualArgument that wraps the specified individual
      */
-    @Nonnull
-    SWRLIndividualArgument getSWRLIndividualArgument(
-            @Nonnull OWLIndividual individual);
+    SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual);
 
     /**
      * Gets a SWRLLiteralArgument, which is used to wrap an OWLLiteral to
@@ -237,8 +195,7 @@ public interface SWRLProvider {
      *        The constant that is the object argument
      * @return A SWRLLiteralArgument that wraps the specified literal
      */
-    @Nonnull
-    SWRLLiteralArgument getSWRLLiteralArgument(@Nonnull OWLLiteral literal);
+    SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal);
 
     /**
      * @param arg0
@@ -247,9 +204,7 @@ public interface SWRLProvider {
      *        second individual
      * @return a sameindividual atom
      */
-    @Nonnull
-    SWRLSameIndividualAtom getSWRLSameIndividualAtom(
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1);
+    SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0, SWRLIArgument arg1);
 
     /**
      * @param arg0
@@ -258,7 +213,5 @@ public interface SWRLProvider {
      *        second individual
      * @return a differentindividual atom
      */
-    @Nonnull
-    SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1);
+    SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0, SWRLIArgument arg1);
 }

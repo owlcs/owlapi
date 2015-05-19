@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Utility shortcuts for OWL basic entities. For the sake of convenience, this
  * also includes RDF/RDFS and XSD entities.
  */
+@ParametersAreNonnullByDefault
 public interface OWLVocabularyProvider {
 
     // Entities and data stuff
@@ -33,7 +34,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return The OWL Class corresponding to owl:Thing
      */
-    @Nonnull
     OWLClass getOWLThing();
 
     /**
@@ -42,15 +42,16 @@ public interface OWLVocabularyProvider {
      * 
      * @return The OWL Class corresponding to owl:Nothing
      */
-    @Nonnull
     OWLClass getOWLNothing();
 
-    /** @return the built in top object property */
-    @Nonnull
+    /**
+     * @return the built in top object property
+     */
     OWLObjectProperty getOWLTopObjectProperty();
 
-    /** @return the built in top data property */
-    @Nonnull
+    /**
+     * @return the built in top data property
+     */
     OWLDataProperty getOWLTopDataProperty();
 
     /**
@@ -58,15 +59,16 @@ public interface OWLVocabularyProvider {
      *         (rdfs:Literal, with a URI of
      *         $lt;http://www.w3.org/2000/01/rdf-schema#&gt;).
      */
-    @Nonnull
     OWLDatatype getTopDatatype();
 
-    /** @return the built in bottom object property */
-    @Nonnull
+    /**
+     * @return the built in bottom object property
+     */
     OWLObjectProperty getOWLBottomObjectProperty();
 
-    /** @return the built in bottom data property */
-    @Nonnull
+    /**
+     * @return the built in bottom data property
+     */
     OWLDataProperty getOWLBottomDataProperty();
 
     /**
@@ -75,7 +77,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An annotation property with an IRI of {@code rdfs:label}.
      */
-    @Nonnull
     OWLAnnotationProperty getRDFSLabel();
 
     /**
@@ -84,7 +85,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An annotation property with an IRI of {@code rdfs:comment}.
      */
-    @Nonnull
     OWLAnnotationProperty getRDFSComment();
 
     /**
@@ -93,7 +93,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An annotation property with an IRI of {@code rdfs:seeAlso}.
      */
-    @Nonnull
     OWLAnnotationProperty getRDFSSeeAlso();
 
     /**
@@ -102,7 +101,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An annotation property with an IRI of {@code rdfs:isDefinedBy}.
      */
-    @Nonnull
     OWLAnnotationProperty getRDFSIsDefinedBy();
 
     /**
@@ -111,7 +109,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An annotation property with an IRI of {@code owl:versionInfo}.
      */
-    @Nonnull
     OWLAnnotationProperty getOWLVersionInfo();
 
     /**
@@ -121,7 +118,6 @@ public interface OWLVocabularyProvider {
      * @return An annotation property with an IRI of
      *         {@code owl:backwardCompatibleWith}.
      */
-    @Nonnull
     OWLAnnotationProperty getOWLBackwardCompatibleWith();
 
     /**
@@ -131,7 +127,6 @@ public interface OWLVocabularyProvider {
      * @return An annotation property with an IRI of
      *         {@code owl:incompatibleWith}.
      */
-    @Nonnull
     OWLAnnotationProperty getOWLIncompatibleWith();
 
     /**
@@ -141,7 +136,6 @@ public interface OWLVocabularyProvider {
      * @return An annotation property with an IRI of
      *         {@code owl:backwardCompatibleWith}.
      */
-    @Nonnull
     OWLAnnotationProperty getOWLDeprecated();
 
     /**
@@ -149,7 +143,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return The datatype with an IRI of {@code rdf:PlainLiteral}
      */
-    @Nonnull
     OWLDatatype getRDFPlainLiteral();
 
     /**
@@ -159,7 +152,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An object representing an integer datatype.
      */
-    @Nonnull
     OWLDatatype getIntegerOWLDatatype();
 
     /**
@@ -169,7 +161,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An object representing the float datatype.
      */
-    @Nonnull
     OWLDatatype getFloatOWLDatatype();
 
     /**
@@ -179,7 +170,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An object representing a double datatype.
      */
-    @Nonnull
     OWLDatatype getDoubleOWLDatatype();
 
     /**
@@ -189,7 +179,6 @@ public interface OWLVocabularyProvider {
      * 
      * @return An object representing the boolean datatype.
      */
-    @Nonnull
     OWLDatatype getBooleanOWLDatatype();
 
     /**
@@ -199,6 +188,5 @@ public interface OWLVocabularyProvider {
      * 
      * @return An object representing the string datatype.
      */
-    @Nonnull
     OWLDatatype getStringOWLDatatype();
 }

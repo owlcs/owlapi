@@ -12,24 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.axiomproviders;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Annotation, datatype and object property domain provider.
  */
+@ParametersAreNonnullByDefault
 public interface DomainAxiomProvider {
 
     /**
@@ -39,12 +32,9 @@ public interface DomainAxiomProvider {
      *        class Expression
      * @return an object property domain axiom
      */
-    @Nonnull
-    default OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression classExpression) {
-        return getOWLObjectPropertyDomainAxiom(property, classExpression,
-                Collections.emptySet());
+    default OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression) {
+        return getOWLObjectPropertyDomainAxiom(property, classExpression, Collections.emptySet());
     }
 
     /**
@@ -56,11 +46,8 @@ public interface DomainAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return an object property domain axiom with annotations
      */
-    @Nonnull
-    OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression classExpression,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression, Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -69,12 +56,9 @@ public interface DomainAxiomProvider {
      *        domain
      * @return a data property domain axiom
      */
-    @Nonnull
-    default OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
-            @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLClassExpression domain) {
-        return getOWLDataPropertyDomainAxiom(property, domain,
-                Collections.emptySet());
+    default OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
+            OWLClassExpression domain) {
+        return getOWLDataPropertyDomainAxiom(property, domain, Collections.emptySet());
     }
 
     /**
@@ -86,11 +70,8 @@ public interface DomainAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a data property domain axiom with annotations
      */
-    @Nonnull
-    OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
-            @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLClassExpression domain,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(OWLDataPropertyExpression property,
+            OWLClassExpression domain, Collection<OWLAnnotation> annotations);
 
     /**
      * @param prop
@@ -99,12 +80,9 @@ public interface DomainAxiomProvider {
      *        domain
      * @return an annotation property domain assertion
      */
-    @Nonnull
-    default OWLAnnotationPropertyDomainAxiom
-            getOWLAnnotationPropertyDomainAxiom(
-                    @Nonnull OWLAnnotationProperty prop, @Nonnull IRI domain) {
-        return getOWLAnnotationPropertyDomainAxiom(prop, domain,
-                Collections.emptySet());
+    default OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop,
+            IRI domain) {
+        return getOWLAnnotationPropertyDomainAxiom(prop, domain, Collections.emptySet());
     }
 
     /**
@@ -116,8 +94,6 @@ public interface DomainAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return an annotation property domain assertion with annotations
      */
-    @Nonnull
-    OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(
-            @Nonnull OWLAnnotationProperty prop, @Nonnull IRI domain,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(OWLAnnotationProperty prop, IRI domain,
+            Collection<OWLAnnotation> annotations);
 }

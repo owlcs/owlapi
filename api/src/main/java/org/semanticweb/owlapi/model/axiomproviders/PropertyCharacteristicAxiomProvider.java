@@ -12,26 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.axiomproviders;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Property characteristic axioms provider (functional, transitive, etc.).
  */
+@ParametersAreNonnullByDefault
 public interface PropertyCharacteristicAxiomProvider {
 
     /**
@@ -39,12 +30,8 @@ public interface PropertyCharacteristicAxiomProvider {
      *        property
      * @return a functional object property axiom
      */
-    @Nonnull
-    default OWLFunctionalObjectPropertyAxiom
-            getOWLFunctionalObjectPropertyAxiom(
-                    @Nonnull OWLObjectPropertyExpression property) {
-        return getOWLFunctionalObjectPropertyAxiom(property,
-                Collections.emptySet());
+    default OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLFunctionalObjectPropertyAxiom(property, Collections.emptySet());
     }
 
     /**
@@ -54,22 +41,17 @@ public interface PropertyCharacteristicAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a functional object property axiom with annotations
      */
-    @Nonnull
-    OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
      *        property
      * @return an inverse functional object property axiom
      */
-    @Nonnull
-    default OWLInverseFunctionalObjectPropertyAxiom
-            getOWLInverseFunctionalObjectPropertyAxiom(
-                    @Nonnull OWLObjectPropertyExpression property) {
-        return getOWLInverseFunctionalObjectPropertyAxiom(property,
-                Collections.emptySet());
+    default OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(
+            OWLObjectPropertyExpression property) {
+        return getOWLInverseFunctionalObjectPropertyAxiom(property, Collections.emptySet());
     }
 
     /**
@@ -79,22 +61,16 @@ public interface PropertyCharacteristicAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return an inverse functional object property axiom with annotations
      */
-    @Nonnull
-    OWLInverseFunctionalObjectPropertyAxiom
-            getOWLInverseFunctionalObjectPropertyAxiom(
-                    @Nonnull OWLObjectPropertyExpression property,
-                    @Nonnull Set<OWLAnnotation> annotations);
+    OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(
+            OWLObjectPropertyExpression property, Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
      *        property
      * @return a reflexive object property axiom
      */
-    @Nonnull
-    default OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property) {
-        return getOWLReflexiveObjectPropertyAxiom(property,
-                Collections.emptySet());
+    default OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLReflexiveObjectPropertyAxiom(property, Collections.emptySet());
     }
 
     /**
@@ -104,22 +80,17 @@ public interface PropertyCharacteristicAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a reflexive object property axiom with annotations
      */
-    @Nonnull
-    OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
      *        property
      * @return an irreflexive object property axiom
      */
-    @Nonnull
-    default OWLIrreflexiveObjectPropertyAxiom
-            getOWLIrreflexiveObjectPropertyAxiom(
-                    @Nonnull OWLObjectPropertyExpression property) {
-        return getOWLIrreflexiveObjectPropertyAxiom(property,
-                Collections.emptySet());
+    default OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(
+            OWLObjectPropertyExpression property) {
+        return getOWLIrreflexiveObjectPropertyAxiom(property, Collections.emptySet());
     }
 
     /**
@@ -129,21 +100,16 @@ public interface PropertyCharacteristicAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return an irreflexive object property axiom with annotations
      */
-    @Nonnull
-    OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
      *        property
      * @return a symmetric property axiom
      */
-    @Nonnull
-    default OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property) {
-        return getOWLSymmetricObjectPropertyAxiom(property,
-                Collections.emptySet());
+    default OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLSymmetricObjectPropertyAxiom(property, Collections.emptySet());
     }
 
     /**
@@ -153,22 +119,17 @@ public interface PropertyCharacteristicAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a symmetric property axiom with annotations
      */
-    @Nonnull
-    OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations);
 
     /**
      * @param propertyExpression
      *        property Expression
      * @return an asymmetric object property axiom on the specified argument
      */
-    @Nonnull
-    default OWLAsymmetricObjectPropertyAxiom
-            getOWLAsymmetricObjectPropertyAxiom(
-                    @Nonnull OWLObjectPropertyExpression propertyExpression) {
-        return getOWLAsymmetricObjectPropertyAxiom(propertyExpression,
-                Collections.emptySet());
+    default OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(
+            OWLObjectPropertyExpression propertyExpression) {
+        return getOWLAsymmetricObjectPropertyAxiom(propertyExpression, Collections.emptySet());
     }
 
     /**
@@ -179,22 +140,16 @@ public interface PropertyCharacteristicAxiomProvider {
      * @return an asymmetric object property axiom on the specified argument
      *         with annotations
      */
-    @Nonnull
-    OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression propertyExpression,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(OWLObjectPropertyExpression propertyExpression,
+            Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
      *        property
      * @return a transitive object property axiom on the specified argument
      */
-    @Nonnull
-    default OWLTransitiveObjectPropertyAxiom
-            getOWLTransitiveObjectPropertyAxiom(
-                    @Nonnull OWLObjectPropertyExpression property) {
-        return getOWLTransitiveObjectPropertyAxiom(property,
-                Collections.emptySet());
+    default OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(OWLObjectPropertyExpression property) {
+        return getOWLTransitiveObjectPropertyAxiom(property, Collections.emptySet());
     }
 
     /**
@@ -205,21 +160,16 @@ public interface PropertyCharacteristicAxiomProvider {
      * @return a transitive object property axiom on the specified argument with
      *         annotations
      */
-    @Nonnull
-    OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
      *        property
      * @return a functional data property axiom
      */
-    @Nonnull
-    default OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(
-            @Nonnull OWLDataPropertyExpression property) {
-        return getOWLFunctionalDataPropertyAxiom(property,
-                Collections.emptySet());
+    default OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(OWLDataPropertyExpression property) {
+        return getOWLFunctionalDataPropertyAxiom(property, Collections.emptySet());
     }
 
     /**
@@ -229,8 +179,6 @@ public interface PropertyCharacteristicAxiomProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a functional data property axiom with annotations
      */
-    @Nonnull
-    OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(
-            @Nonnull OWLDataPropertyExpression property,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(OWLDataPropertyExpression property,
+            Collection<OWLAnnotation> annotations);
 }

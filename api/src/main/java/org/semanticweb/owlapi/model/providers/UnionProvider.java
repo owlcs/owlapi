@@ -14,9 +14,9 @@ package org.semanticweb.owlapi.model.providers;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
-import java.util.Set;
+import java.util.Collection;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 /**
  * Object and datatype union provider.
  */
+@ParametersAreNonnullByDefault
 public interface UnionProvider {
 
     /**
@@ -34,18 +35,14 @@ public interface UnionProvider {
      *        data ranges for union. Cannot be null or contain nulls.
      * @return an OWLDataUnionOf on the specified dataranges
      */
-    @Nonnull
-    OWLDataUnionOf getOWLDataUnionOf(
-            @Nonnull Set<? extends OWLDataRange> dataRanges);
+    OWLDataUnionOf getOWLDataUnionOf(Collection<? extends OWLDataRange> dataRanges);
 
     /**
      * @param dataRanges
      *        data ranges for union. Cannot be null or contain nulls.
      * @return an OWLDataUnionOf on the specified dataranges
      */
-    @Nonnull
-    default OWLDataUnionOf getOWLDataUnionOf(
-            @Nonnull OWLDataRange... dataRanges) {
+    default OWLDataUnionOf getOWLDataUnionOf(OWLDataRange... dataRanges) {
         checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
         return getOWLDataUnionOf(CollectionFactory.createSet(dataRanges));
     }
@@ -55,18 +52,14 @@ public interface UnionProvider {
      *        class expressions for union
      * @return a class union over the specified arguments
      */
-    @Nonnull
-    OWLObjectUnionOf getOWLObjectUnionOf(
-            @Nonnull Set<? extends OWLClassExpression> operands);
+    OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands);
 
     /**
      * @param operands
      *        class expressions for union
      * @return a class union over the specified arguments
      */
-    @Nonnull
-    default OWLObjectUnionOf getOWLObjectUnionOf(
-            @Nonnull OWLClassExpression... operands) {
+    default OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands) {
         checkIterableNotNull(operands, "operands cannot be null", true);
         return getOWLObjectUnionOf(CollectionFactory.createSet(operands));
     }

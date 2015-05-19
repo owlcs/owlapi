@@ -14,9 +14,9 @@ package org.semanticweb.owlapi.model.providers;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
-import java.util.Set;
+import java.util.Collection;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
@@ -26,12 +26,12 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /** Datatype expression and facet expression provider. */
-public interface DatatypeExpressionProvider extends LiteralProvider,
-        OWLVocabularyProvider {
+@ParametersAreNonnullByDefault
+public interface DatatypeExpressionProvider extends LiteralProvider, OWLVocabularyProvider {
 
     /**
-     * OWLDatatypeRestriction <a
-     * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
+     * OWLDatatypeRestriction
+     * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
      * spec</a>
      * 
      * @param dataType
@@ -41,14 +41,12 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      * @return an OWLDatatypeRestriction for the specified data type and
      *         restrictions
      */
-    @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeRestriction(
-            @Nonnull OWLDatatype dataType,
-            @Nonnull Set<OWLFacetRestriction> facetRestrictions);
+    OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType,
+            Collection<OWLFacetRestriction> facetRestrictions);
 
     /**
-     * OWLDatatypeRestriction <a
-     * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
+     * OWLDatatypeRestriction
+     * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
      * spec</a>
      * 
      * @param dataType
@@ -60,10 +58,7 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      * @return an OWLDatatypeRestriction with given value for the specified
      *         facet
      */
-    @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeRestriction(
-            @Nonnull OWLDatatype dataType, @Nonnull OWLFacet facet,
-            @Nonnull OWLLiteral typedLiteral);
+    OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType, OWLFacet facet, OWLLiteral typedLiteral);
 
     /**
      * @param dataType
@@ -73,14 +68,10 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      * @return an OWLDatatypeRestriction for the specified data type and
      *         restrictions
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeRestriction(
-            @Nonnull OWLDatatype dataType,
-            @Nonnull OWLFacetRestriction... facetRestrictions) {
-        checkIterableNotNull(facetRestrictions,
-                "facetRestrictions cannot be null", true);
-        return getOWLDatatypeRestriction(dataType,
-                CollectionFactory.createSet(facetRestrictions));
+    default OWLDatatypeRestriction getOWLDatatypeRestriction(OWLDatatype dataType,
+            OWLFacetRestriction... facetRestrictions) {
+        checkIterableNotNull(facetRestrictions, "facetRestrictions cannot be null", true);
+        return getOWLDatatypeRestriction(dataType, CollectionFactory.createSet(facetRestrictions));
     }
 
     /**
@@ -96,11 +87,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
      *         value specified by the {@code minInclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(
-            int minInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
-                OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
+    default OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(int minInclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
     }
 
     /**
@@ -116,11 +104,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
      *         value specified by the {@code maxInclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(
-            double maxInclusive) {
-        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
-                OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
+    default OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(double maxInclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
     }
 
     /**
@@ -141,13 +126,9 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
      *         value specified by the {@code maxInclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(
-            int minInclusive, int maxInclusive) {
-        return getOWLDatatypeRestriction(
-                getIntegerOWLDatatype(),
-                getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE,
-                        getOWLLiteral(minInclusive)),
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(int minInclusive, int maxInclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
+                getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive)),
                 getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
     }
 
@@ -164,11 +145,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
      *         value specified by the {@code minExclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(
-            int minExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
-                OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
+    default OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(int minExclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
     }
 
     /**
@@ -184,11 +162,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
      *         value specified by the {@code maxExclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(
-            int maxExclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
-                OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
+    default OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(int maxExclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
     }
 
     /**
@@ -209,13 +184,9 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
      *         value specified by the {@code maxExclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(
-            int minExclusive, int maxExclusive) {
-        return getOWLDatatypeRestriction(
-                getIntegerOWLDatatype(),
-                getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE,
-                        getOWLLiteral(minExclusive)),
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(int minExclusive, int maxExclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
+                getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive)),
                 getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
     }
 
@@ -232,11 +203,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
      *         value specified by the {@code minInclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(
-            double minInclusive) {
-        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
-                OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
+    default OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(double minInclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive));
     }
 
     /**
@@ -257,13 +225,9 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
      *         value specified by the {@code maxInclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(
-            double minInclusive, double maxInclusive) {
-        return getOWLDatatypeRestriction(
-                getDoubleOWLDatatype(),
-                getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE,
-                        getOWLLiteral(minInclusive)),
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(double minInclusive, double maxInclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
+                getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, getOWLLiteral(minInclusive)),
                 getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, maxInclusive));
     }
 
@@ -280,11 +244,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
      *         value specified by the {@code minExclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(
-            double minExclusive) {
-        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
-                OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
+    default OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(double minExclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive));
     }
 
     /**
@@ -300,11 +261,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
      *         value specified by the {@code maxInclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(
-            int maxInclusive) {
-        return getOWLDatatypeRestriction(getIntegerOWLDatatype(),
-                OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
+    default OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(int maxInclusive) {
+        return getOWLDatatypeRestriction(getIntegerOWLDatatype(), OWLFacet.MAX_INCLUSIVE, getOWLLiteral(maxInclusive));
     }
 
     /**
@@ -320,11 +278,8 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
      *         value specified by the {@code maxExclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(
-            double maxExclusive) {
-        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
-                OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
+    default OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(double maxExclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(), OWLFacet.MAX_EXCLUSIVE, getOWLLiteral(maxExclusive));
     }
 
     /**
@@ -345,13 +300,9 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
      *         value specified by the {@code maxExclusive} parameter.
      */
-    @Nonnull
-    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(
-            double minExclusive, double maxExclusive) {
-        return getOWLDatatypeRestriction(
-                getDoubleOWLDatatype(),
-                getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE,
-                        getOWLLiteral(minExclusive)),
+    default OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(double minExclusive, double maxExclusive) {
+        return getOWLDatatypeRestriction(getDoubleOWLDatatype(),
+                getOWLFacetRestriction(OWLFacet.MIN_EXCLUSIVE, getOWLLiteral(minExclusive)),
                 getOWLFacetRestriction(OWLFacet.MAX_EXCLUSIVE, maxExclusive));
     }
 
@@ -362,9 +313,7 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *        literal for restriction.
      * @return an OWLFacetRestriction on specified facet and value
      */
-    @Nonnull
-    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
-            @Nonnull OWLLiteral facetValue);
+    OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, OWLLiteral facetValue);
 
     /**
      * @param facet
@@ -373,9 +322,7 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *        facet value
      * @return an OWLFacetRestriction on specified facet and value
      */
-    @Nonnull
-    default OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
-            int facetValue) {
+    default OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, int facetValue) {
         return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 
@@ -386,9 +333,7 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *        facet value.
      * @return an OWLFacetRestriction on specified facet and value
      */
-    @Nonnull
-    default OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
-            double facetValue) {
+    default OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, double facetValue) {
         return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 
@@ -399,9 +344,7 @@ public interface DatatypeExpressionProvider extends LiteralProvider,
      *        facet value.
      * @return an OWLFacetRestriction on specified facet and value
      */
-    @Nonnull
-    default OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
-            float facetValue) {
+    default OWLFacetRestriction getOWLFacetRestriction(OWLFacet facet, float facetValue) {
         return getOWLFacetRestriction(facet, getOWLLiteral(facetValue));
     }
 }

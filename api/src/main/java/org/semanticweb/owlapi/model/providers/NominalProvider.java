@@ -14,9 +14,9 @@ package org.semanticweb.owlapi.model.providers;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
-import java.util.Set;
+import java.util.Collection;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** Nominal provider interface. */
+@ParametersAreNonnullByDefault
 public interface NominalProvider {
 
     /**
@@ -36,8 +37,7 @@ public interface NominalProvider {
      *        The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values
      */
-    @Nonnull
-    OWLDataOneOf getOWLDataOneOf(@Nonnull Set<? extends OWLLiteral> values);
+    OWLDataOneOf getOWLDataOneOf(Collection<? extends OWLLiteral> values);
 
     /**
      * Gets an OWLDataOneOf <a href=
@@ -49,8 +49,7 @@ public interface NominalProvider {
      *        null or contain null values.
      * @return A data one of that enumerates the specified set of values
      */
-    @Nonnull
-    default OWLDataOneOf getOWLDataOneOf(@Nonnull OWLLiteral... values) {
+    default OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
         checkIterableNotNull(values, "values cannot be null", true);
         return getOWLDataOneOf(CollectionFactory.createSet(values));
     }
@@ -60,18 +59,14 @@ public interface NominalProvider {
      *        indivudals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
-    @Nonnull
-    OWLObjectOneOf getOWLObjectOneOf(
-            @Nonnull Set<? extends OWLIndividual> values);
+    OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values);
 
     /**
      * @param individuals
      *        indivudals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
-    @Nonnull
-    default OWLObjectOneOf getOWLObjectOneOf(
-            @Nonnull OWLIndividual... individuals) {
+    default OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals) {
         checkIterableNotNull(individuals, "individuals cannot be null", true);
         return getOWLObjectOneOf(CollectionFactory.createSet(individuals));
     }

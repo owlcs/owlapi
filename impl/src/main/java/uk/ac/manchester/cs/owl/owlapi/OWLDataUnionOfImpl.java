@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements
-        OWLDataUnionOf {
+public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
 
     private static final long serialVersionUID = 40000L;
 
@@ -43,7 +42,7 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements
      * @param operands
      *        operands
      */
-    public OWLDataUnionOfImpl(@Nonnull Set<? extends OWLDataRange> operands) {
+    public OWLDataUnionOfImpl(@Nonnull Collection<? extends OWLDataRange> operands) {
         super(operands);
     }
 

@@ -12,19 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.axiomproviders;
 
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.*;
 
 /** Declaration provider interface. */
+@ParametersAreNonnullByDefault
 public interface DeclarationAxiomProvider {
 
     /**
@@ -34,9 +30,7 @@ public interface DeclarationAxiomProvider {
      *        The declared entity.
      * @return The declaration axiom for the specified entity.
      */
-    @Nonnull
-    default OWLDeclarationAxiom getOWLDeclarationAxiom(
-            @Nonnull OWLEntity owlEntity) {
+    default OWLDeclarationAxiom getOWLDeclarationAxiom(OWLEntity owlEntity) {
         return getOWLDeclarationAxiom(owlEntity, Collections.emptySet());
     }
 
@@ -50,9 +44,7 @@ public interface DeclarationAxiomProvider {
      * @return The declaration axiom for the specified entity which is annotated
      *         with the specified annotations
      */
-    @Nonnull
-    OWLDeclarationAxiom getOWLDeclarationAxiom(@Nonnull OWLEntity owlEntity,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLDeclarationAxiom getOWLDeclarationAxiom(OWLEntity owlEntity, Collection<OWLAnnotation> annotations);
 
     /**
      * @param datatype
@@ -61,11 +53,8 @@ public interface DeclarationAxiomProvider {
      *        data Range
      * @return a datatype definition axiom
      */
-    @Nonnull
-    default OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(
-            @Nonnull OWLDatatype datatype, @Nonnull OWLDataRange dataRange) {
-        return getOWLDatatypeDefinitionAxiom(datatype, dataRange,
-                Collections.emptySet());
+    default OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype, OWLDataRange dataRange) {
+        return getOWLDatatypeDefinitionAxiom(datatype, dataRange, Collections.emptySet());
     }
 
     /**
@@ -74,11 +63,9 @@ public interface DeclarationAxiomProvider {
      * @param dataRange
      *        data Range
      * @param annotations
-     *        A set of annotations. Cannot be null or contain nulls.
+     *        A set of annotations.
      * @return a datatype definition axiom with annotations
      */
-    @Nonnull
-    OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(
-            @Nonnull OWLDatatype datatype, @Nonnull OWLDataRange dataRange,
-            @Nonnull Set<OWLAnnotation> annotations);
+    OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype, OWLDataRange dataRange,
+            Collection<OWLAnnotation> annotations);
 }
