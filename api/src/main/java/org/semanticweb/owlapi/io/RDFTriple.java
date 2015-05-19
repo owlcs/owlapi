@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-import gnu.trove.map.hash.THashMap;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -23,10 +22,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import gnu.trove.map.hash.THashMap;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -51,8 +53,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      * @param object
      *        the object
      */
-    public RDFTriple(@Nonnull RDFResource subject,
-            @Nonnull RDFResourceIRI predicate, @Nonnull RDFNode object) {
+    public RDFTriple(RDFResource subject, RDFResourceIRI predicate, RDFNode object) {
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
         this.object = checkNotNull(object, "object cannot be null");
@@ -70,15 +71,13 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      * @param objectAnon
      *        whether the object is anonymous
      */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon,
-            @Nonnull IRI predicate, @Nonnull IRI object, boolean objectAnon) {
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, IRI object, boolean objectAnon) {
         this(getResource(subject, subjectAnon),
-        // Predicate is not allowed to be anonymous
+                // Predicate is not allowed to be anonymous
                 new RDFResourceIRI(predicate), getResource(object, objectAnon));
     }
 
-    @Nonnull
-    private static RDFResource getResource(@Nonnull IRI iri, boolean anon) {
+    private static RDFResource getResource(IRI iri, boolean anon) {
         if (anon) {
             return new RDFResourceBlankNode(iri);
         }
@@ -95,38 +94,38 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      * @param object
      *        the object
      */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon,
-            @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
-        this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate),
-                new RDFLiteral(object));
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, OWLLiteral object) {
+        this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate), new RDFLiteral(object));
     }
 
-    /** @return the subject */
-    @Nonnull
+    /**
+     * @return the subject
+     */
     public RDFResource getSubject() {
         return subject;
     }
 
-    /** @return the predicate */
-    @Nonnull
+    /**
+     * @return the predicate
+     */
     public RDFResourceIRI getPredicate() {
         return predicate;
     }
 
-    /** @return the object */
-    @Nonnull
+    /**
+     * @return the object
+     */
     public RDFNode getObject() {
         return object;
     }
 
     @Override
     public int hashCode() {
-        return subject.hashCode() * 37 + predicate.hashCode() * 17
-                + object.hashCode();
+        return subject.hashCode() * 37 + predicate.hashCode() * 17 + object.hashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }
@@ -134,9 +133,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             return false;
         }
         RDFTriple other = (RDFTriple) obj;
-        return subject.equals(other.subject)
-                && predicate.equals(other.predicate)
-                && object.equals(other.object);
+        return subject.equals(other.subject) && predicate.equals(other.predicate) && object.equals(other.object);
     }
 
     @Override
@@ -174,18 +171,14 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     static THashMap<IRI, Integer> initMap() {
         THashMap<IRI, Integer> predicates = new THashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
-        ORDERED_URIS.forEach(iri -> predicates.put(iri,
-                nextId.getAndIncrement()));
-        Stream.of(OWLRDFVocabulary.values())
-                .filter(iri -> !predicates.containsKey(iri.getIRI()))
-                .forEach(
-                        iri -> predicates.put(iri.getIRI(),
-                                nextId.getAndIncrement()));
+        ORDERED_URIS.forEach(iri -> predicates.put(iri, nextId.getAndIncrement()));
+        Stream.of(OWLRDFVocabulary.values()).filter(iri -> !predicates.containsKey(iri.getIRI()))
+                .forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
         return predicates;
     }
 
     @Override
-    public int compareTo(RDFTriple o) {
+    public int compareTo(@Nullable RDFTriple o) {
         // compare by predicate, then subject, then object
         int diff = comparePredicates(predicate, o.predicate);
         if (diff == 0) {
@@ -197,17 +190,14 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return diff;
     }
 
-    private static int comparePredicates(RDFResourceIRI predicate,
-            RDFResourceIRI otherPredicate) {
+    private static int comparePredicates(RDFResourceIRI predicate, RDFResourceIRI otherPredicate) {
         IRI predicateIRI = predicate.getIRI();
         Integer specialPredicateRank = specialPredicateRanks.get(predicateIRI);
         IRI otherPredicateIRI = otherPredicate.getIRI();
-        Integer otherSpecialPredicateRank = specialPredicateRanks
-                .get(otherPredicateIRI);
+        Integer otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
         if (specialPredicateRank != null) {
             if (otherSpecialPredicateRank != null) {
-                return specialPredicateRank
-                        .compareTo(otherSpecialPredicateRank);
+                return specialPredicateRank.compareTo(otherSpecialPredicateRank);
             } else {
                 return -1;
             }

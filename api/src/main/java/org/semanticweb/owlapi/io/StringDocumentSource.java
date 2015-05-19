@@ -18,7 +18,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -38,7 +38,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param string
      *        the source string
      */
-    public StringDocumentSource(@Nonnull String string) {
+    public StringDocumentSource(String string) {
         super("string:ontology", null, null);
         this.string = checkNotNull(string, "string cannot be null");
         // avoid attempting IRI resolution if it is known to be failed
@@ -53,7 +53,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param iri
      *        The document IRI
      */
-    public StringDocumentSource(@Nonnull String string, @Nonnull IRI iri) {
+    public StringDocumentSource(String string, IRI iri) {
         this(string, iri, null, null);
     }
 
@@ -61,7 +61,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param target
      *        a document target
      */
-    public StringDocumentSource(@Nonnull StringDocumentTarget target) {
+    public StringDocumentSource(StringDocumentTarget target) {
         this(target.toString());
     }
 
@@ -77,8 +77,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public StringDocumentSource(@Nonnull String string,
-        @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
+    public StringDocumentSource(String string, IRI documentIRI, @Nullable OWLDocumentFormat f, @Nullable String mime) {
         super(documentIRI, f, mime);
         this.string = checkNotNull(string, "string cannot be null");
     }
@@ -95,8 +94,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public StringDocumentSource(@Nonnull String string, @Nonnull String prefix,
-        OWLDocumentFormat f, String mime) {
+    public StringDocumentSource(String string, String prefix, @Nullable OWLDocumentFormat f, @Nullable String mime) {
         super(prefix, f, mime);
         this.string = checkNotNull(string, "string cannot be null");
     }

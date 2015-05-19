@@ -18,8 +18,6 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -45,7 +43,6 @@ public interface OWLOntologyDocumentTarget {
      * 
      * @return The writer
      */
-    @Nonnull
     default Optional<Writer> getWriter() {
         return emptyOptional();
     }
@@ -58,7 +55,6 @@ public interface OWLOntologyDocumentTarget {
      * 
      * @return The output stream
      */
-    @Nonnull
     default Optional<OutputStream> getOutputStream() {
         return emptyOptional();
     }
@@ -69,7 +65,6 @@ public interface OWLOntologyDocumentTarget {
      * 
      * @return The IRI
      */
-    @Nonnull
     default Optional<IRI> getDocumentIRI() {
         return emptyOptional();
     }

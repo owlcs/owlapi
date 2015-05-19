@@ -18,8 +18,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
@@ -53,7 +51,6 @@ public interface OWLOntologyDocumentSource {
      * @return A new {@code Reader} which the ontology can be read from, wrapped
      *         in an Optional.
      */
-    @Nonnull
     default Optional<Reader> getReader() {
         return emptyOptional();
     }
@@ -67,7 +64,6 @@ public interface OWLOntologyDocumentSource {
      * @return A new input stream which the ontology can be read from, wrapped
      *         in an Optional.
      */
-    @Nonnull
     default Optional<InputStream> getInputStream() {
         return emptyOptional();
     }
@@ -77,14 +73,12 @@ public interface OWLOntologyDocumentSource {
      * 
      * @return An IRI which represents the ontology document IRI
      */
-    @Nonnull
     IRI getDocumentIRI();
 
     /**
      * @return format for the ontology. If none is known, return
      *         Optional.absent.
      */
-    @Nonnull
     default Optional<OWLDocumentFormat> getFormat() {
         return emptyOptional();
     }
@@ -93,7 +87,6 @@ public interface OWLOntologyDocumentSource {
      * @return MIME type for this source, if one is specified. If none is known,
      *         return Optional.absent.
      */
-    @Nonnull
     default Optional<String> getMIMEType() {
         return emptyOptional();
     }

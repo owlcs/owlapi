@@ -14,16 +14,7 @@ package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * An {@code OWLParser} parses an ontology document and adds the axioms of the
@@ -70,12 +61,9 @@ public interface OWLParser extends Serializable {
      * @throws UnloadableImportException
      *         if one or more imports could not be loaded.
      */
-    @Nonnull
-    default OWLDocumentFormat parse(@Nonnull IRI documentIRI,
-            @Nonnull OWLOntology ontology) {
+    default OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology) {
         return parse(new IRIDocumentSource(documentIRI, null, null), ontology,
-                ontology.getOWLOntologyManager()
-                        .getOntologyLoaderConfiguration());
+                ontology.getOWLOntologyManager().getOntologyLoaderConfiguration());
     }
 
     /**
@@ -101,13 +89,12 @@ public interface OWLParser extends Serializable {
      * @throws UnloadableImportException
      *         if one or more imports could not be loaded.
      */
-    @Nonnull
-    OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyLoaderConfiguration configuration);
+    OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+            OWLOntologyLoaderConfiguration configuration);
 
-    /** @return a unique name for the parser, typically the simple class name */
-    @Nonnull
+    /**
+     * @return a unique name for the parser, typically the simple class name
+     */
     default String getName() {
         return getClass().getSimpleName();
     }

@@ -17,8 +17,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  * @author ignazio
  * @since 4.0.0
  */
-public abstract class OWLOntologyDocumentSourceBase
-    implements OWLOntologyDocumentSource {
+public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocumentSource {
 
     private final IRI documentIRI;
     @Nonnull
@@ -38,8 +37,7 @@ public abstract class OWLOntologyDocumentSourceBase
      * @param mime
      *        mime type. If null or empty, it is considered unspecified.
      */
-    public OWLOntologyDocumentSourceBase(@Nonnull IRI iri,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    public OWLOntologyDocumentSourceBase(IRI iri, @Nullable OWLDocumentFormat format, @Nullable String mime) {
         this.format = optional(format);
         mimeType = optional(mime);
         documentIRI = checkNotNull(iri, "document iri cannot be null");
@@ -55,8 +53,7 @@ public abstract class OWLOntologyDocumentSourceBase
      * @param mime
      *        mime type. If null or empty, it is considered unspecified.
      */
-    public OWLOntologyDocumentSourceBase(@Nonnull String iriPrefix,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    public OWLOntologyDocumentSourceBase(String iriPrefix, @Nullable OWLDocumentFormat format, @Nullable String mime) {
         this(IRI.getNextDocumentIRI(iriPrefix), format, mime);
     }
 

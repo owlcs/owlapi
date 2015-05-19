@@ -14,16 +14,9 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -41,8 +34,7 @@ import org.tukaani.xz.XZInputStream;
  */
 public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(XZStreamDocumentSource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XZStreamDocumentSource.class);
     private byte[] buffer;
 
     /**
@@ -52,7 +44,7 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is
      *        The stream that the ontology representation will be read from.
      */
-    public XZStreamDocumentSource(@Nonnull InputStream is) {
+    public XZStreamDocumentSource(InputStream is) {
         super("xzinputstream:ontology", null, null);
         readIntoBuffer(is);
     }
@@ -70,14 +62,13 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public XZStreamDocumentSource(@Nonnull InputStream stream,
-        @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
+    public XZStreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+            @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(stream);
     }
 
-    private void readIntoBuffer(@Nonnull InputStream reader) {
+    private void readIntoBuffer(InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             int length = 100000;
@@ -101,8 +92,7 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
             return emptyOptional();
         }
         try {
-            return optional(DocumentSources
-                .wrap(new XZInputStream(new ByteArrayInputStream(buffer))));
+            return optional(DocumentSources.wrap(new XZInputStream(new ByteArrayInputStream(buffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);

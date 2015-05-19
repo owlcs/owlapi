@@ -23,8 +23,6 @@ import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,15 +33,14 @@ import org.slf4j.LoggerFactory;
  */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(ZipDocumentTarget.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ZipDocumentTarget.class);
     private final File file;
 
     /**
      * @param file
      *        the file to use
      */
-    public ZipDocumentTarget(@Nonnull File file) {
+    public ZipDocumentTarget(File file) {
         this.file = checkNotNull(file, "file cannot be null");
     }
 
@@ -54,8 +51,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
         if (parentFile.exists() || parentFile.mkdirs()) {
             ZipOutputStream os;
             try {
-                os = new ZipOutputStream(
-                    new BufferedOutputStream(new FileOutputStream(file)));
+                os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
                 os.putNextEntry(new ZipEntry("ontology.txt"));
                 return optional(os);
             } catch (IOException e) {

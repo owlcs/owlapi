@@ -18,8 +18,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -33,11 +31,10 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     protected AbstractOWLRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, @Nonnull OutputStream os)
-            throws OWLRendererException {
+    public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
         try {
-            PrintWriter writer = new PrintWriter(new BufferedWriter(
-                    new OutputStreamWriter(os, StandardCharsets.UTF_8)));
+            PrintWriter writer = new PrintWriter(
+                    new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8)));
             render(ontology, writer);
             writer.flush();
         } catch (OWLRuntimeException e) {
@@ -57,6 +54,5 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      * @throws OWLRendererException
      *         if exceptions arise
      */
-    public abstract void render(@Nonnull OWLOntology ontology,
-            @Nonnull PrintWriter writer) throws OWLRendererException;
+    public abstract void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException;
 }

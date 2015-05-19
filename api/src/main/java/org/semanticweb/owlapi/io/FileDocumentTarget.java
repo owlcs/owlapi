@@ -14,14 +14,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Writer;
+import java.io.*;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -40,8 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(FileDocumentTarget.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentTarget.class);
     @Nonnull
     private final File file;
 
@@ -51,7 +43,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
      * @param file
      *        The file that is the target.
      */
-    public FileDocumentTarget(@Nonnull File file) {
+    public FileDocumentTarget(File file) {
         this.file = checkNotNull(file, "file cannot be null");
     }
 
@@ -68,8 +60,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
     @Override
     public Optional<OutputStream> getOutputStream() {
         try {
-            return optional(
-                new BufferedOutputStream(new FileOutputStream(file)));
+            return optional(new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             LOGGER.error("Input stream cannot be created", e);
             return emptyOptional();

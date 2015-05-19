@@ -18,8 +18,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.tukaani.xz.FilterOptions;
@@ -36,11 +34,9 @@ import com.google.common.io.Closeables;
  * @author ses
  * @since 4.0.2
  */
-public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
-    AutoCloseable {
+public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget, AutoCloseable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(
-        XZStreamDocumentTarget.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XZStreamDocumentTarget.class);
     private final OutputStream outputStream;
     private XZOutputStream xzOutputStream;
     private FilterOptions filterOptions[];
@@ -52,8 +48,7 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
      *        XZ filter options to use. If no options are supplied use default
      *        LZMA2 Options.
      */
-    public XZStreamDocumentTarget(OutputStream os,
-        FilterOptions... filterOptions) {
+    public XZStreamDocumentTarget(OutputStream os, FilterOptions... filterOptions) {
         outputStream = os;
         if (filterOptions.length == 0) {
             this.filterOptions = new FilterOptions[] { new LZMA2Options() };
@@ -70,18 +65,15 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget,
      * @throws UnsupportedOptionsException
      *         if an unsupported preset level is supplied
      */
-    public XZStreamDocumentTarget(OutputStream os, int presetLevel)
-        throws UnsupportedOptionsException {
+    public XZStreamDocumentTarget(OutputStream os, int presetLevel) throws UnsupportedOptionsException {
         this(os, new LZMA2Options(presetLevel));
     }
 
-    @Nonnull
     @Override
     public Optional<OutputStream> getOutputStream() {
         if (xzOutputStream == null) {
             try {
-                xzOutputStream = new XZOutputStream(outputStream,
-                    filterOptions);
+                xzOutputStream = new XZOutputStream(outputStream, filterOptions);
             } catch (IOException e) {
                 LOGGER.error("Fille cannot be found or opened", e);
                 return emptyOptional();

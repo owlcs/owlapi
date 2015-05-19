@@ -37,8 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(GZipFileDocumentSource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GZipFileDocumentSource.class);
     @Nonnull
     private final File file;
 
@@ -49,7 +48,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is
      *        The file that the ontology representation will be read from.
      */
-    public GZipFileDocumentSource(@Nonnull File is) {
+    public GZipFileDocumentSource(File is) {
         super("file:ontology", null, null);
         file = is;
     }
@@ -67,19 +66,16 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public GZipFileDocumentSource(@Nonnull File stream,
-        @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
+    public GZipFileDocumentSource(File stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+            @Nullable String mime) {
         super(documentIRI, format, mime);
         file = stream;
     }
 
-    @Nonnull
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return optional(DocumentSources
-                .wrap(new GZIPInputStream(new FileInputStream(file))));
+            return optional(DocumentSources.wrap(new GZIPInputStream(new FileInputStream(file))));
         } catch (IOException e) {
             LOGGER.error("File cannot be found or opened", e);
             failedOnStreams.set(true);

@@ -47,21 +47,18 @@ public class RDFLiteral extends RDFNode {
      * @param datatype
      *        datatype IRI
      */
-    public RDFLiteral(@Nonnull String literal, @Nonnull String lang,
-            @Nullable IRI datatype) {
+    public RDFLiteral(String literal, String lang, @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang;
-        this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL
-                .getIRI() : datatype;
+        this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL.getIRI() : datatype;
     }
 
     /**
      * @param literal
      *        the wrapped literal
      */
-    public RDFLiteral(@Nonnull OWLLiteral literal) {
-        this(literal.getLiteral(), literal.getLang(), literal.getDatatype()
-                .getIRI());
+    public RDFLiteral(OWLLiteral literal) {
+        this(literal.getLiteral(), literal.getLang(), literal.getDatatype().getIRI());
     }
 
     @Override
@@ -81,7 +78,7 @@ public class RDFLiteral extends RDFNode {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }
@@ -108,36 +105,43 @@ public class RDFLiteral extends RDFNode {
         throw new UnsupportedOperationException("RDF Literals do not have IRIs");
     }
 
-    /** @return the lexical form for this literal */
-    @Nonnull
+    /**
+     * @return the lexical form for this literal
+     */
     public String getLexicalValue() {
         return lexicalValue;
     }
 
-    /** @return the lang tag for this literal */
-    @Nonnull
+    /**
+     * @return the lang tag for this literal
+     */
     public String getLang() {
         return lang;
     }
 
-    /** @return the datatype for this literal */
-    @Nonnull
+    /**
+     * @return the datatype for this literal
+     */
     public IRI getDatatype() {
         return datatype;
     }
 
-    /** @return true if this literal has a non empty lang tag */
+    /**
+     * @return true if this literal has a non empty lang tag
+     */
     public boolean hasLang() {
         return !lang.isEmpty();
     }
 
-    /** @return true if the datatype of this literal is plain literal */
+    /**
+     * @return true if the datatype of this literal is plain literal
+     */
     public boolean isPlainLiteral() {
         return OWL2Datatype.RDF_PLAIN_LITERAL.getIRI().equals(datatype);
     }
 
     @Override
-    public int compareTo(RDFNode o) {
+    public int compareTo(@Nullable RDFNode o) {
         if (!o.isLiteral()) {
             return -1;
         }

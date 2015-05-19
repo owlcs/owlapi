@@ -44,5 +44,5 @@ public interface MIMETypeAware {
      *        The MIME type to match against.
      * @return True if the given MIME type matches this format.
      */
-    boolean handlesMimeType(String mimeType);
+    boolean handlesMimeType(@Nonnull String mimeType);
 }

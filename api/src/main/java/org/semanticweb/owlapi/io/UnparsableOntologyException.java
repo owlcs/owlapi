@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.io;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -44,11 +42,9 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * @param config
      *        the configuration object
      */
-    public UnparsableOntologyException(@Nonnull IRI documentIRI,
-            Map<OWLParser, OWLParserException> exceptions,
+    public UnparsableOntologyException(IRI documentIRI, Map<OWLParser, OWLParserException> exceptions,
             OWLOntologyLoaderConfiguration config) {
-        super("Could not parse ontology from document IRI: "
-                + documentIRI.toQuotedString());
+        super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
         includeStackTraceInMessage = config.isReportStackTrace();
         this.documentIRI = documentIRI;
         this.exceptions = exceptions;
@@ -59,7 +55,8 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
         StringBuilder msg = new StringBuilder();
         msg.append("Problem parsing ");
         msg.append(documentIRI);
-        msg.append("\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
+        msg.append(
+                "\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
         int counter = 1;
         for (OWLParser parser : exceptions.keySet()) {
             msg.append(counter);
@@ -69,8 +66,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
             counter++;
         }
         msg.append("\n\nDetailed logs:\n");
-        for (Map.Entry<OWLParser, OWLParserException> nextException : exceptions
-                .entrySet()) {
+        for (Map.Entry<OWLParser, OWLParserException> nextException : exceptions.entrySet()) {
             Throwable exception = nextException.getValue();
             msg.append("--------------------------------------------------------------------------------\n");
             msg.append("Parser: ");
@@ -87,15 +83,13 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
                 for (int i = 0; i < 5 && moreStackTraces; i++) {
                     msg.append(current.getMessage());
                     StackTraceElement[] stackTrace = current.getStackTrace();
-                    for (int stackDepth = 0; stackDepth < 10
-                            && stackDepth < stackTrace.length; stackDepth++) {
+                    for (int stackDepth = 0; stackDepth < 10 && stackDepth < stackTrace.length; stackDepth++) {
                         StackTraceElement element = stackTrace[stackDepth];
                         msg.append("        ");
                         msg.append(element);
                         msg.append('\n');
                     }
-                    if (current.getCause() != null
-                            && current.getCause() != current) {
+                    if (current.getCause() != null && current.getCause() != current) {
                         current = current.getCause();
                     } else {
                         moreStackTraces = false;

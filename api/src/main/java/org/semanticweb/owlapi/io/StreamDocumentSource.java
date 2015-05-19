@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.io;
 
 import java.io.InputStream;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -35,7 +35,7 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      * @param is
      *        The stream that the ontology representation will be read from.
      */
-    public StreamDocumentSource(@Nonnull InputStream is) {
+    public StreamDocumentSource(InputStream is) {
         super(is, "inputstream:ontology", null, null);
     }
 
@@ -48,7 +48,7 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      * @param iri
      *        The document IRI
      */
-    public StreamDocumentSource(@Nonnull InputStream is, @Nonnull IRI iri) {
+    public StreamDocumentSource(InputStream is, IRI iri) {
         super(is, iri, null, null);
     }
 
@@ -65,8 +65,8 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public StreamDocumentSource(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
+    public StreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat f,
+            @Nullable String mime) {
         super(stream, documentIRI, f, mime);
     }
 
@@ -83,8 +83,8 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public StreamDocumentSource(@Nonnull InputStream stream,
-            @Nonnull String prefix, OWLDocumentFormat f, String mime) {
+    public StreamDocumentSource(InputStream stream, String prefix, @Nullable OWLDocumentFormat f,
+            @Nullable String mime) {
         super(stream, prefix, f, mime);
     }
 }

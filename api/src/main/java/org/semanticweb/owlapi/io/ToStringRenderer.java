@@ -40,7 +40,9 @@ public final class ToStringRenderer {
         renderer = new SimpleRenderer();
     }
 
-    /** @return the singleton instance */
+    /**
+     * @return the singleton instance
+     */
     public static ToStringRenderer getInstance() {
         return INSTANCE;
     }
@@ -49,8 +51,7 @@ public final class ToStringRenderer {
      * @param provider
      *        the new short form provider
      */
-    public synchronized void setShortFormProvider(
-            @Nonnull ShortFormProvider provider) {
+    public synchronized void setShortFormProvider(ShortFormProvider provider) {
         renderer.setShortFormProvider(provider);
     }
 
@@ -58,7 +59,7 @@ public final class ToStringRenderer {
      * @param renderer
      *        the new renderer to use
      */
-    public synchronized void setRenderer(@Nonnull OWLObjectRenderer renderer) {
+    public synchronized void setRenderer(OWLObjectRenderer renderer) {
         this.renderer = checkNotNull(renderer, "renderer cannot be null");
     }
 
@@ -67,7 +68,7 @@ public final class ToStringRenderer {
      *        the object to render
      * @return the rendering for the object
      */
-    public synchronized String getRendering(@Nonnull OWLObject object) {
+    public synchronized String getRendering(OWLObject object) {
         return renderer.render(checkNotNull(object, "object cannot be null"));
     }
 }

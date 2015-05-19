@@ -14,20 +14,14 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -43,11 +37,9 @@ import org.slf4j.LoggerFactory;
  *        will download the ontologies multiple times too, until parsing fails.
  *        Both issues could be addressed with a local file copy.
  */
-public abstract class StreamDocumentSourceBase
-    extends OWLOntologyDocumentSourceBase {
+public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSourceBase {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(StreamDocumentSourceBase.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StreamDocumentSourceBase.class);
     protected byte[] byteBuffer;
     private Charset encoding = StandardCharsets.UTF_8;
     private boolean streamAvailable = false;
@@ -65,8 +57,8 @@ public abstract class StreamDocumentSourceBase
      * @param mime
      *        mime type
      */
-    public StreamDocumentSourceBase(@Nonnull InputStream stream,
-        @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
+    public StreamDocumentSourceBase(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+            @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
         streamAvailable = true;
@@ -85,15 +77,14 @@ public abstract class StreamDocumentSourceBase
      * @param mime
      *        mime type
      */
-    public StreamDocumentSourceBase(@Nonnull Reader stream,
-        @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
+    public StreamDocumentSourceBase(Reader stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+            @Nullable String mime) {
         super(documentIRI, format, mime);
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
         if (stream instanceof InputStreamReader) {
-            encoding = Charset
-                .forName(((InputStreamReader) stream).getEncoding());
+            encoding = Charset.forName(((InputStreamReader) stream).getEncoding());
         }
         readIntoBuffer(stream);
         streamAvailable = false;
@@ -112,8 +103,8 @@ public abstract class StreamDocumentSourceBase
      * @param mime
      *        mime type
      */
-    protected StreamDocumentSourceBase(@Nonnull InputStream stream,
-        @Nonnull String prefix, OWLDocumentFormat format, String mime) {
+    protected StreamDocumentSourceBase(InputStream stream, String prefix, @Nullable OWLDocumentFormat format,
+            @Nullable String mime) {
         super(prefix, format, mime);
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
         streamAvailable = true;
@@ -132,15 +123,14 @@ public abstract class StreamDocumentSourceBase
      * @param mime
      *        mime type
      */
-    protected StreamDocumentSourceBase(@Nonnull Reader stream,
-        @Nonnull String prefix, OWLDocumentFormat format, String mime) {
+    protected StreamDocumentSourceBase(Reader stream, String prefix, @Nullable OWLDocumentFormat format,
+            @Nullable String mime) {
         super(prefix, format, mime);
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
         if (stream instanceof InputStreamReader) {
-            encoding = Charset
-                .forName(((InputStreamReader) stream).getEncoding());
+            encoding = Charset.forName(((InputStreamReader) stream).getEncoding());
         }
         readIntoBuffer(stream);
         streamAvailable = false;
@@ -154,7 +144,7 @@ public abstract class StreamDocumentSourceBase
      * @param reader
      *        The stream to be "cached"
      */
-    private void readIntoBuffer(@Nonnull InputStream reader) {
+    private void readIntoBuffer(InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             GZIPOutputStream out = new GZIPOutputStream(bos);
@@ -204,8 +194,7 @@ public abstract class StreamDocumentSourceBase
             return emptyOptional();
         }
         try {
-            return optional(DocumentSources.wrap(
-                new GZIPInputStream(new ByteArrayInputStream(byteBuffer))));
+            return optional(DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(byteBuffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
@@ -220,9 +209,7 @@ public abstract class StreamDocumentSourceBase
         }
         try {
             return optional(new InputStreamReader(
-                DocumentSources.wrap(
-                    new GZIPInputStream(new ByteArrayInputStream(byteBuffer))),
-                encoding));
+                    DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(byteBuffer))), encoding));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);

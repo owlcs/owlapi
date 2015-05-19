@@ -33,7 +33,7 @@ public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
      * @param writer
      *        the writer to use
      */
-    public WriterDocumentTarget(@Nonnull Writer writer) {
+    public WriterDocumentTarget(Writer writer) {
         this.writer = optional(checkNotNull(writer, "writer cannot be null"));
     }
 

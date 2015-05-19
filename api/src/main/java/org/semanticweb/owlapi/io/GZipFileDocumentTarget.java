@@ -36,8 +36,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(GZipFileDocumentTarget.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GZipFileDocumentTarget.class);
     @Nonnull
     private final File out;
 
@@ -45,8 +44,8 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
      * @param os
      *        the actual file
      */
-    public GZipFileDocumentTarget(@Nonnull File os) {
-        out = os;
+    public GZipFileDocumentTarget(File os) {
+        out = checkNotNull(os, "os cannot be null");
     }
 
     @Override

@@ -16,8 +16,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -48,24 +46,30 @@ public class RDFResourceParseError implements Serializable {
      * @param mainNodeTriples
      *        the main node triples
      */
-    public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity,
-            RDFNode mainNode, @Nonnull Set<RDFTriple> mainNodeTriples) {
+    public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity, RDFNode mainNode,
+            Set<RDFTriple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;
         this.mainNode = mainNode;
         this.mainNodeTriples.addAll(mainNodeTriples);
     }
 
-    /** @return the error entity */
+    /**
+     * @return the error entity
+     */
     public OWLEntity getParserGeneratedErrorEntity() {
         return parserGeneratedErrorEntity;
     }
 
-    /** @return the main node */
+    /**
+     * @return the main node
+     */
     public RDFNode getMainNode() {
         return mainNode;
     }
 
-    /** @return the main node triples */
+    /**
+     * @return the main node triples
+     */
     public Set<RDFTriple> getMainNodeTriples() {
         return CollectionFactory.copyMutable(mainNodeTriples);
     }

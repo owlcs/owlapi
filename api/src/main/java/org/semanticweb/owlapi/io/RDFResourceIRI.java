@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 
@@ -29,7 +30,7 @@ public class RDFResourceIRI extends RDFResource {
      * @param resource
      *        the resource
      */
-    public RDFResourceIRI(@Nonnull IRI resource) {
+    public RDFResourceIRI(IRI resource) {
         this.resource = checkNotNull(resource, "resource cannot be null");
     }
 
@@ -49,7 +50,7 @@ public class RDFResourceIRI extends RDFResource {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }

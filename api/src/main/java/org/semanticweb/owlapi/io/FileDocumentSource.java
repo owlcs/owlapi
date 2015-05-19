@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -36,8 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(FileDocumentSource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentSource.class);
     @Nonnull
     private final File file;
 
@@ -48,7 +48,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        The file from which a concrete representation of an ontology will
      *        be obtained.
      */
-    public FileDocumentSource(@Nonnull File file) {
+    public FileDocumentSource(File file) {
         this(file, null, null);
     }
 
@@ -61,7 +61,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param format
      *        ontology format. Can be null.
      */
-    public FileDocumentSource(@Nonnull File file, OWLDocumentFormat format) {
+    public FileDocumentSource(File file, OWLDocumentFormat format) {
         this(file, format, null);
     }
 
@@ -76,13 +76,11 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public FileDocumentSource(@Nonnull File file, OWLDocumentFormat format,
-        String mime) {
+    public FileDocumentSource(File file, @Nullable OWLDocumentFormat format, @Nullable String mime) {
         super(IRI.create(file), format, mime);
         this.file = checkNotNull(file, "file cannot be null");
     }
 
-    @Nonnull
     @Override
     public Optional<InputStream> getInputStream() {
         try {

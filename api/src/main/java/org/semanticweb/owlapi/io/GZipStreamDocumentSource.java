@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.util.Optional;
 import java.util.zip.GZIPInputStream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -38,8 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(GZipStreamDocumentSource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GZipStreamDocumentSource.class);
     private byte[] buffer;
 
     /**
@@ -49,7 +47,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is
      *        The stream that the ontology representation will be read from.
      */
-    public GZipStreamDocumentSource(@Nonnull InputStream is) {
+    public GZipStreamDocumentSource(InputStream is) {
         super("gzipinputstream:ontology", null, null);
         readIntoBuffer(is);
     }
@@ -67,14 +65,13 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public GZipStreamDocumentSource(@Nonnull InputStream stream,
-        @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
-        @Nullable String mime) {
+    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+            @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(stream);
     }
 
-    private void readIntoBuffer(@Nonnull InputStream reader) {
+    private void readIntoBuffer(InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             int length = 100000;
@@ -98,8 +95,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
             return emptyOptional();
         }
         try {
-            return optional(DocumentSources
-                .wrap(new GZIPInputStream(new ByteArrayInputStream(buffer))));
+            return optional(DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(buffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);

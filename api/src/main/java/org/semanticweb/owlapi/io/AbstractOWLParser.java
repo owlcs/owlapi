@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.io;
 import java.io.Reader;
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.xml.sax.InputSource;
 
@@ -37,10 +35,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     protected AbstractOWLParser() {}
 
     @SuppressWarnings("resource")
-    @Nonnull
-    protected InputSource getInputSource(
-            @Nonnull OWLOntologyDocumentSource source,
-            @Nonnull OWLOntologyLoaderConfiguration config)
+    protected InputSource getInputSource(OWLOntologyDocumentSource source, OWLOntologyLoaderConfiguration config)
             throws OWLOntologyInputSourceException {
         Reader in = DocumentSources.wrapInputAsReader(source, config);
         InputSource is = new InputSource(in);

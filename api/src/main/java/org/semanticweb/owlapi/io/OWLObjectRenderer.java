@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
@@ -36,7 +34,7 @@ public interface OWLObjectRenderer {
      * @param shortFormProvider
      *        The short form provider to be used.
      */
-    void setShortFormProvider(@Nonnull ShortFormProvider shortFormProvider);
+    void setShortFormProvider(ShortFormProvider shortFormProvider);
 
     /**
      * Renders the specified object.
@@ -45,6 +43,5 @@ public interface OWLObjectRenderer {
      *        The object to be rendered.
      * @return A string that represents the rendering of the object.
      */
-    @Nonnull
-    String render(@Nonnull OWLObject object);
+    String render(OWLObject object);
 }

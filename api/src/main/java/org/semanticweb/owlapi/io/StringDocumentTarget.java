@@ -30,7 +30,6 @@ public class StringDocumentTarget implements OWLOntologyDocumentTarget {
     @Nonnull
     private final Optional<Writer> writer = optional(new StringWriter());
 
-    @Nonnull
     @Override
     public String toString() {
         return writer.get().toString();

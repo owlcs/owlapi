@@ -33,7 +33,7 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
      * @param os
      *        the actual output stream
      */
-    public StreamDocumentTarget(@Nonnull OutputStream os) {
+    public StreamDocumentTarget(OutputStream os) {
         this.os = optional(checkNotNull(os, "os cannot be null"));
     }
 

@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -31,8 +29,7 @@ import com.google.common.collect.Multimaps;
  *         Informatics Group
  * @since 3.2
  */
-public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
-        Serializable {
+public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
 
     private static final long serialVersionUID = 40000L;
     private final int tripleCount;
@@ -50,16 +47,12 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
      * @param guessedDeclarations
      *        guessed declarations map
      */
-    public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
-            int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples,
-            @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
+    public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount, Set<RDFTriple> unparsedTriples,
+            ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
         this.tripleCount = tripleCount;
-        this.headerStatus = checkNotNull(headerStatus,
-                "headerStatus cannot be null");
-        this.unparsedTriples = checkNotNull(unparsedTriples,
-                "unparsedTriples cannot be null");
-        this.guessedDeclarations = checkNotNull(guessedDeclarations,
-                "guessedDeclarations cannot be null");
+        this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
+        this.unparsedTriples = checkNotNull(unparsedTriples, "unparsedTriples cannot be null");
+        this.guessedDeclarations = checkNotNull(guessedDeclarations, "guessedDeclarations cannot be null");
     }
 
     /**
@@ -71,12 +64,16 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
         return tripleCount;
     }
 
-    /** @return the header status */
+    /**
+     * @return the header status
+     */
     public RDFOntologyHeaderStatus getHeaderState() {
         return headerStatus;
     }
 
-    /** @return the set of unparsed triples, as a copy */
+    /**
+     * @return the set of unparsed triples, as a copy
+     */
     public Set<RDFTriple> getUnparsedTriples() {
         return CollectionFactory.copyMutable(unparsedTriples);
     }

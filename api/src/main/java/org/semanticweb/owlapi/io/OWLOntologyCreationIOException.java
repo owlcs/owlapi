@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
@@ -24,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  *         Informatics Group
  * @since 2.2.0
  */
-public class OWLOntologyCreationIOException extends
-        OWLOntologyCreationException {
+public class OWLOntologyCreationIOException extends OWLOntologyCreationException {
 
     private static final long serialVersionUID = 40000L;
 
@@ -33,8 +30,7 @@ public class OWLOntologyCreationIOException extends
      * @param ioException
      *        the cause
      */
-    public OWLOntologyCreationIOException(@Nonnull Throwable ioException) {
-        super("OWLOntologyCreationIOException: " + ioException.getMessage(),
-                ioException);
+    public OWLOntologyCreationIOException(Throwable ioException) {
+        super("OWLOntologyCreationIOException: " + ioException.getMessage(), ioException);
     }
 }

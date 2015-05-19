@@ -38,8 +38,7 @@ import org.tukaani.xz.XZInputStream;
  */
 public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(XZFileDocumentSource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(XZFileDocumentSource.class);
     @Nonnull
     private final File file;
 
@@ -50,7 +49,7 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is
      *        The file that the ontology representation will be read from.
      */
-    public XZFileDocumentSource(@Nonnull File is) {
+    public XZFileDocumentSource(File is) {
         super("file:ontology", null, null);
         file = is;
     }
@@ -68,18 +67,17 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public XZFileDocumentSource(@Nonnull File stream, @Nonnull IRI documentIRI,
-        @Nullable OWLDocumentFormat format, @Nullable String mime) {
+    public XZFileDocumentSource(File stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
+            @Nullable String mime) {
         super(documentIRI, format, mime);
         file = stream;
     }
 
-    @Nonnull
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return optional(DocumentSources.wrap(new XZInputStream(
-                new BufferedInputStream(new FileInputStream(file)))));
+            return optional(
+                    DocumentSources.wrap(new XZInputStream(new BufferedInputStream(new FileInputStream(file)))));
         } catch (IOException e) {
             LOGGER.error("File cannot be found or opened", e);
             failedOnStreams.set(true);

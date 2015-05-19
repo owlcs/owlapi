@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -37,6 +35,5 @@ public interface OWLRenderer {
      * @throws OWLException
      *         for any exception raised
      */
-    void render(@Nonnull OWLOntology ontology, @Nonnull OutputStream os)
-            throws OWLException;
+    void render(OWLOntology ontology, OutputStream os) throws OWLException;
 }
