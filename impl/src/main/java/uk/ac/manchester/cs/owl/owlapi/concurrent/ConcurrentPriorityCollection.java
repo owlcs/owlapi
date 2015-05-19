@@ -22,9 +22,9 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  * @param <T>
  *        type in the collection
  */
-public class ConcurrentPriorityCollection<T extends Serializable> extends
-    PriorityCollection<T> {
+public class ConcurrentPriorityCollection<T extends Serializable> extends PriorityCollection<T> {
 
+    private static final long serialVersionUID = 1L;
     private final Lock readLock;
     private final Lock writeLock;
 
@@ -38,8 +38,7 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends
      * @param sorting
      *        sorting criterion
      */
-    public ConcurrentPriorityCollection(@Nonnull ReadWriteLock readWriteLock,
-        PriorityCollectionSorting sorting) {
+    public ConcurrentPriorityCollection(@Nonnull ReadWriteLock readWriteLock, PriorityCollectionSorting sorting) {
         super(sorting);
         verifyNotNull(readWriteLock);
         this.readLock = readWriteLock.readLock();

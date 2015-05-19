@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
@@ -50,16 +52,14 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioRDFNonPrefixDocumentFormat extends
-        AbstractRDFNonPrefixDocumentFormat implements MIMETypeAware,
-        RioRDFDocumentFormat {
+public class RioRDFNonPrefixDocumentFormat extends AbstractRDFNonPrefixDocumentFormat
+        implements MIMETypeAware, RioRDFDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     private transient RDFFormat format;
     private final String formatName;
 
-    private void readObject(ObjectInputStream in) throws IOException,
-            ClassNotFoundException {
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
             if (f.getName().equals(formatName)) {
@@ -93,6 +93,7 @@ public class RioRDFNonPrefixDocumentFormat extends
         return format;
     }
 
+    @Nullable
     @Override
     public String getDefaultMIMEType() {
         return format.getDefaultMIMEType();

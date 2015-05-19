@@ -21,6 +21,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
@@ -957,7 +958,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
-    public OWLLiteral getOWLLiteral(String literal, String lang) {
+    public OWLLiteral getOWLLiteral(String literal, @Nullable String lang) {
         checkNotNull(literal, "literal cannot be null");
         return dataFactoryInternals.getOWLLiteral(literal, lang);
     }

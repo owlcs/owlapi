@@ -1,17 +1,17 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import javax.annotation.Nonnull;
+
 /**
- * Matthew Horridge
- * Stanford Center for Biomedical Informatics Research
- * 13/04/15
+ * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
 public class NoOpReadWriteLock implements ReadWriteLock, Serializable {
 
+    private static final long serialVersionUID = 1L;
     private static final NoOpLock NO_OP_LOCK = new NoOpLock();
 
     @Override

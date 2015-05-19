@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.model.MIMETypeAware;
@@ -57,8 +59,7 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
     private transient RDFFormat format;
     private final String formatName;
 
-    private void readObject(ObjectInputStream in) throws IOException,
-            ClassNotFoundException {
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
             if (f.getName().equals(formatName)) {
@@ -92,6 +93,7 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
         return format;
     }
 
+    @Nonnull
     @Override
     public String getDefaultMIMEType() {
         return format.getDefaultMIMEType();

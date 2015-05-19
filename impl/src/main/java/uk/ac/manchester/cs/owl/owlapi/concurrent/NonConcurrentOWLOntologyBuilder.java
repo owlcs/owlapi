@@ -17,6 +17,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImplementationFactory;
  */
 public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
+    private static final long serialVersionUID = 1L;
     private transient final OWLOntologyImplementationFactory implementationFactory;
 
     /**
@@ -24,15 +25,13 @@ public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
      *        implementation factory
      */
     @Inject
-    public NonConcurrentOWLOntologyBuilder(
-        @Nonnull OWLOntologyImplementationFactory implementationFactory) {
+    public NonConcurrentOWLOntologyBuilder(@Nonnull OWLOntologyImplementationFactory implementationFactory) {
         this.implementationFactory = verifyNotNull(implementationFactory);
     }
 
     @Nonnull
     @Override
-    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-        @Nonnull OWLOntologyID ontologyID) {
+    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntologyID ontologyID) {
         return implementationFactory.createOWLOntology(manager, ontologyID);
     }
 }

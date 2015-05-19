@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * 
  * @author ignazio
  */
-public abstract class OWLDocumentFormatFactoryImpl implements
-        OWLDocumentFormatFactory {
+public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
     private final List<String> mimeTypes;
@@ -47,15 +46,13 @@ public abstract class OWLDocumentFormatFactoryImpl implements
         this(mimeTypes, true);
     }
 
-    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes,
-            boolean isTextualFormat) {
+    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat) {
         this.mimeTypes = new ArrayList<>(mimeTypes);
         this.isTextualFormat = isTextualFormat;
         key = this.getClass().getName();
     }
 
-    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes,
-            boolean isTextualFormat, String key) {
+    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat, String key) {
         this.mimeTypes = new ArrayList<>(mimeTypes);
         this.isTextualFormat = isTextualFormat;
         this.key = key;
@@ -87,9 +84,6 @@ public abstract class OWLDocumentFormatFactoryImpl implements
 
     @Override
     public boolean handlesMimeType(String mimeType) {
-        if (mimeType == null) {
-            return false;
-        }
         String type = mimeType;
         if (mimeType.indexOf(';') > 0) {
             type = mimeType.substring(0, mimeType.indexOf(';'));

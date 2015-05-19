@@ -203,7 +203,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     private void writeEntities(@Nonnull IRI rootName) {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
-        if (qName == null) {
+        if (!XMLUtils.isQName(qName)) {
             throw new OWLRuntimeException("Cannot create valid XML: qname for " + rootName + " is null");
         }
         writer.write("\n\n<!DOCTYPE " + qName + " [\n");

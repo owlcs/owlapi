@@ -116,10 +116,11 @@ public final class XMLUtils {
      *        The character sequence to be tested.
      * @return {@code true} if {@code s} is an NCName, otherwise {@code false}.
      */
-    public static boolean isNCName(CharSequence s) {
+    public static boolean isNCName(@Nullable CharSequence s) {
         if (isNullOrEmpty(s)) {
             return false;
         }
+        assert s != null;
         int firstCodePoint = Character.codePointAt(s, 0);
         if (!isNCNameStartChar(firstCodePoint)) {
             return false;
