@@ -15,17 +15,7 @@ package org.semanticweb.owlapi.change;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Given a set of ontologies, this composite change will replace all subclass
@@ -51,11 +41,9 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
      * @param dataFactory
      *        The data factory which should be used to create new axioms.
      */
-    public SplitSubClassAxioms(@Nonnull Set<OWLOntology> ontologies,
-            @Nonnull OWLDataFactory dataFactory) {
+    public SplitSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
         super(dataFactory);
-        ontologies.forEach(o -> o.axioms(AxiomType.SUBCLASS_OF).forEach(
-                ax -> split(o, ax)));
+        ontologies.forEach(o -> o.axioms(AxiomType.SUBCLASS_OF).forEach(ax -> split(o, ax)));
     }
 
     protected void split(OWLOntology o, OWLSubClassOfAxiom ax) {
@@ -63,8 +51,8 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         ax.getSuperClass().accept(splitter);
         if (splitter.result.size() > 1) {
             addChange(new RemoveAxiom(o, ax));
-            splitter.result.forEach(desc -> addChange(new AddAxiom(o, df
-                    .getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
+            splitter.result
+                    .forEach(desc -> addChange(new AddAxiom(o, df.getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
         }
     }
 

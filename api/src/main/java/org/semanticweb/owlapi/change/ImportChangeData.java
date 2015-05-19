@@ -43,9 +43,8 @@ public abstract class ImportChangeData extends OWLOntologyChangeData {
      *        The {@link OWLImportsDeclaration} that is the focus of some
      *        change.
      */
-    protected ImportChangeData(@Nonnull OWLImportsDeclaration declaration) {
-        this.declaration = checkNotNull(declaration,
-                "declaration must not be null");
+    protected ImportChangeData(OWLImportsDeclaration declaration) {
+        this.declaration = checkNotNull(declaration, "declaration must not be null");
     }
 
     /**
@@ -53,7 +52,6 @@ public abstract class ImportChangeData extends OWLOntologyChangeData {
      * 
      * @return The {@link OWLImportsDeclaration}.
      */
-    @Nonnull
     public OWLImportsDeclaration getDeclaration() {
         return declaration;
     }

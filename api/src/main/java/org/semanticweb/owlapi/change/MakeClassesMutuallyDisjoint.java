@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -36,8 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.1.0
  */
-public class MakeClassesMutuallyDisjoint extends
-        AbstractCompositeOntologyChange {
+public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
 
     private static final long serialVersionUID = 40000L;
 
@@ -58,34 +55,26 @@ public class MakeClassesMutuallyDisjoint extends
      *        compatibility with OWL 1.0), or {@code false} if one disjoint
      *        classes axiom should be used (preferred OWL 1.1 method).
      */
-    public MakeClassesMutuallyDisjoint(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            boolean usePairwiseDisjointAxioms,
-            @Nonnull OWLOntology targetOntology) {
+    public MakeClassesMutuallyDisjoint(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions,
+            boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
         super(dataFactory);
         checkNotNull(classExpressions, "classExpressions cannot be null");
         checkNotNull(targetOntology, "targetOntology cannot be null");
-        generateChanges(classExpressions, usePairwiseDisjointAxioms,
-                targetOntology);
+        generateChanges(classExpressions, usePairwiseDisjointAxioms, targetOntology);
     }
 
-    private void generateChanges(
-            @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            boolean usePairwiseDisjointAxioms,
-            @Nonnull OWLOntology targetOntology) {
+    private void generateChanges(Set<? extends OWLClassExpression> classExpressions, boolean usePairwiseDisjointAxioms,
+            OWLOntology targetOntology) {
         if (usePairwiseDisjointAxioms) {
-            List<OWLClassExpression> descList = new ArrayList<>(
-                    classExpressions);
+            List<OWLClassExpression> descList = new ArrayList<>(classExpressions);
             for (int i = 0; i < descList.size(); i++) {
                 for (int j = i + 1; j < descList.size(); j++) {
                     addChange(new AddAxiom(targetOntology,
-                            df.getOWLDisjointClassesAxiom(createSet(
-                                    descList.get(i), descList.get(j)))));
+                            df.getOWLDisjointClassesAxiom(createSet(descList.get(i), descList.get(j)))));
                 }
             }
         } else {
-            addChange(new AddAxiom(targetOntology,
-                    df.getOWLDisjointClassesAxiom(classExpressions)));
+            addChange(new AddAxiom(targetOntology, df.getOWLDisjointClassesAxiom(classExpressions)));
         }
     }
 }

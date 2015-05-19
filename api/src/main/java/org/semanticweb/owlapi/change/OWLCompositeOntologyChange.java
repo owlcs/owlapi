@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.change;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /**
@@ -35,6 +33,5 @@ public interface OWLCompositeOntologyChange extends Serializable {
      * 
      * @return A list of ontology changes.
      */
-    @Nonnull
     List<OWLOntologyChange> getChanges();
 }

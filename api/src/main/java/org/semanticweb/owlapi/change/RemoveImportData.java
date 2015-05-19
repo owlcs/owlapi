@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveImport;
@@ -41,18 +39,17 @@ public class RemoveImportData extends ImportChangeData {
      *        The {@link OWLImportsDeclaration} that is the focus of some
      *        change.
      */
-    public RemoveImportData(@Nonnull OWLImportsDeclaration declaration) {
+    public RemoveImportData(OWLImportsDeclaration declaration) {
         super(declaration);
     }
 
-    @Nonnull
     @Override
-    public RemoveImport createOntologyChange(@Nonnull OWLOntology ontology) {
+    public RemoveImport createOntologyChange(OWLOntology ontology) {
         return new RemoveImport(ontology, getDeclaration());
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeDataVisitor<O> visitor) {
+    public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
         return visitor.visit(this);
     }
 }

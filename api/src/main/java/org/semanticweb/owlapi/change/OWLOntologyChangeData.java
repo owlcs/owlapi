@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * @since 3.3
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  */
-public abstract class OWLOntologyChangeData implements HasSignature,
-        Serializable {
+public abstract class OWLOntologyChangeData implements HasSignature, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
@@ -48,8 +47,7 @@ public abstract class OWLOntologyChangeData implements HasSignature,
      *        The return type for visitor's visit methods.
      * @return The object returned by the visitor's visit methods.
      */
-    public abstract <R> R accept(
-            @Nonnull OWLOntologyChangeDataVisitor<R> visitor);
+    public abstract <R> R accept(OWLOntologyChangeDataVisitor<R> visitor);
 
     /**
      * Creates an {@link OWLOntologyChange} object that pertains to the
@@ -63,11 +61,11 @@ public abstract class OWLOntologyChangeData implements HasSignature,
      *         consistent with this the information held in this
      *         {@code OWLOntologyChangeData} object.
      **/
-    @Nonnull
-    public abstract OWLOntologyChange createOntologyChange(
-            @Nonnull OWLOntology ontology);
+    public abstract OWLOntologyChange createOntologyChange(OWLOntology ontology);
 
-    /** @return a name for the object class */
+    /**
+     * @return a name for the object class
+     */
     protected String getName() {
         return getClass().getSimpleName();
     }
@@ -85,8 +83,9 @@ public abstract class OWLOntologyChangeData implements HasSignature,
         return toString(getItem());
     }
 
-    /** @return the object this change is adding or removing */
-    @Nonnull
+    /**
+     * @return the object this change is adding or removing
+     */
     public abstract Object getItem();
 
     @Override
@@ -95,7 +94,7 @@ public abstract class OWLOntologyChangeData implements HasSignature,
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }

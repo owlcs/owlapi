@@ -43,7 +43,7 @@ public class SetOntologyIDData extends OWLOntologyChangeData {
      * @param newId
      *        The {@link OWLOntologyID} that is the focus of some change.
      */
-    public SetOntologyIDData(@Nonnull OWLOntologyID newId) {
+    public SetOntologyIDData(OWLOntologyID newId) {
         this.newId = checkNotNull(newId, "newId must not be null");
     }
 
@@ -53,18 +53,17 @@ public class SetOntologyIDData extends OWLOntologyChangeData {
      * 
      * @return The {@link OWLOntologyID}.
      */
-    @Nonnull
     public OWLOntologyID getNewId() {
         return newId;
     }
 
     @Override
-    public SetOntologyID createOntologyChange(@Nonnull OWLOntology ontology) {
+    public SetOntologyID createOntologyChange(OWLOntology ontology) {
         return new SetOntologyID(ontology, newId);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeDataVisitor<O> visitor) {
+    public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
         return visitor.visit(this);
     }
 

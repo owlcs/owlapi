@@ -19,8 +19,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -42,8 +40,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.1.0
  */
-public class MakePrimitiveSubClassesMutuallyDisjoint extends
-        AbstractCompositeOntologyChange {
+public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
 
     private static final long serialVersionUID = 40000L;
 
@@ -57,9 +54,8 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
      * @param targetOntology
      *        the target ontology
      */
-    public MakePrimitiveSubClassesMutuallyDisjoint(
-            @Nonnull OWLDataFactory dataFactory, @Nonnull OWLClass cls,
-            @Nonnull OWLOntology targetOntology) {
+    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
+            OWLOntology targetOntology) {
         this(dataFactory, cls, targetOntology, false);
     }
 
@@ -75,27 +71,20 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
      * @param usePairwiseDisjointAxioms
      *        true if pairwise disjoint axioms should be used
      */
-    public MakePrimitiveSubClassesMutuallyDisjoint(
-            @Nonnull OWLDataFactory dataFactory, @Nonnull OWLClass cls,
-            @Nonnull OWLOntology targetOntology,
+    public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls, OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
         super(dataFactory);
         generateChanges(checkNotNull(cls, "cls cannot be null"),
-                checkNotNull(targetOntology, "targetOntology cannot be null"),
-                usePairwiseDisjointAxioms);
+                checkNotNull(targetOntology, "targetOntology cannot be null"), usePairwiseDisjointAxioms);
     }
 
-    private void generateChanges(@Nonnull OWLClass cls, @Nonnull OWLOntology o,
-            boolean usePairwiseDisjointAxioms) {
-        Set<OWLClassExpression> sub = asSet(sub(
-                o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
+    private void generateChanges(OWLClass cls, OWLOntology o, boolean usePairwiseDisjointAxioms) {
+        Set<OWLClassExpression> sub = asSet(sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
                 .filter(c -> undefinedPrimitive(o, c)));
-        addChanges(new MakeClassesMutuallyDisjoint(df, sub,
-                usePairwiseDisjointAxioms, o).getChanges());
+        addChanges(new MakeClassesMutuallyDisjoint(df, sub, usePairwiseDisjointAxioms, o).getChanges());
     }
 
-    protected boolean undefinedPrimitive(OWLOntology o,
-            OWLClassExpression subCls) {
+    protected boolean undefinedPrimitive(OWLOntology o, OWLClassExpression subCls) {
         return !subCls.isAnonymous() && !isDefined(subCls.asOWLClass(), o);
     }
 }

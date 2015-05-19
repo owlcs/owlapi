@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -74,10 +75,8 @@ public class OWLOntologyChangeRecord implements Serializable {
      *        The {@link OWLOntologyChangeData} that describes the particular
      *        details of the change.
      */
-    public OWLOntologyChangeRecord(@Nonnull OWLOntologyID ontologyID,
-            @Nonnull OWLOntologyChangeData data) {
-        this.ontologyID = checkNotNull(ontologyID,
-                "ontologyID must not be null");
+    public OWLOntologyChangeRecord(OWLOntologyID ontologyID, OWLOntologyChangeData data) {
+        this.ontologyID = checkNotNull(ontologyID, "ontologyID must not be null");
         this.data = checkNotNull(data, "data must not be null");
     }
 
@@ -89,9 +88,7 @@ public class OWLOntologyChangeRecord implements Serializable {
      *        The {@link OWLOntologyChange} object.
      * @return instance of OntologychangeRecord
      */
-    @Nonnull
-    public static OWLOntologyChangeRecord createFromOWLOntologyChange(
-            @Nonnull OWLOntologyChange change) {
+    public static OWLOntologyChangeRecord createFromOWLOntologyChange(OWLOntologyChange change) {
         checkNotNull(change, "change must not be null");
         OWLOntologyID ontologyId = change.getOntology().getOntologyID();
         OWLOntologyChangeData data = change.getChangeData();
@@ -104,7 +101,6 @@ public class OWLOntologyChangeRecord implements Serializable {
      * 
      * @return The {@link OWLOntologyID}.
      */
-    @Nonnull
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
@@ -115,7 +111,6 @@ public class OWLOntologyChangeRecord implements Serializable {
      * 
      * @return The {@link OWLOntologyChangeData}.
      */
-    @Nonnull
     public OWLOntologyChangeData getData() {
         return data;
     }
@@ -147,8 +142,7 @@ public class OWLOntologyChangeRecord implements Serializable {
      *         associated with this {@code OWLOntologyChangeRecord}.
      */
     public OWLOntologyChange createOntologyChange(OWLOntologyManager manager) {
-        OWLOntology ontology = checkNotNull(manager, "manager cannot be null")
-                .getOntology(ontologyID);
+        OWLOntology ontology = manager.getOntology(ontologyID);
         if (ontology == null) {
             throw new UnknownOWLOntologyException(ontologyID);
         }
@@ -156,7 +150,7 @@ public class OWLOntologyChangeRecord implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }
@@ -177,7 +171,9 @@ public class OWLOntologyChangeRecord implements Serializable {
         return getName() + '(' + ontologyID + ' ' + data + ')';
     }
 
-    /** @return a name for the object class */
+    /**
+     * @return a name for the object class
+     */
     public String getName() {
         return getClass().getSimpleName();
     }

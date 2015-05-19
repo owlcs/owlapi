@@ -38,7 +38,7 @@ public class AddAxiomData extends AxiomChangeData {
      * @param axiom
      *        The {@link OWLAxiom} being added.
      */
-    public AddAxiomData(@Nonnull OWLAxiom axiom) {
+    public AddAxiomData(OWLAxiom axiom) {
         super(axiom);
     }
 

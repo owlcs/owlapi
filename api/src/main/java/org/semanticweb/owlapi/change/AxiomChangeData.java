@@ -39,7 +39,7 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData {
      * @param axiom
      *        The {@link OWLAxiom} involved in a change.
      **/
-    public AxiomChangeData(@Nonnull OWLAxiom axiom) {
+    public AxiomChangeData(OWLAxiom axiom) {
         this.axiom = checkNotNull(axiom, "axiom must not be null");
     }
 
@@ -48,7 +48,6 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData {
      * 
      * @return The {@link OWLAxiom}.
      */
-    @Nonnull
     public OWLAxiom getAxiom() {
         return axiom;
     }

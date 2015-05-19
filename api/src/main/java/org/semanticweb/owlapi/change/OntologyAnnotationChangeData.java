@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  *         Research Group
  * @since 3.3
  */
-public abstract class OntologyAnnotationChangeData extends
-        OWLOntologyChangeData {
+public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -46,9 +45,8 @@ public abstract class OntologyAnnotationChangeData extends
      * @param annotation
      *        The {@link OWLAnnotation} that is the focus of some change.
      */
-    public OntologyAnnotationChangeData(@Nonnull OWLAnnotation annotation) {
-        this.annotation = checkNotNull(annotation,
-                "annotation must not be null");
+    public OntologyAnnotationChangeData(OWLAnnotation annotation) {
+        this.annotation = checkNotNull(annotation, "annotation must not be null");
     }
 
     /**
@@ -57,7 +55,6 @@ public abstract class OntologyAnnotationChangeData extends
      * 
      * @return The {@link OWLAnnotation}.
      */
-    @Nonnull
     public OWLAnnotation getAnnotation() {
         return annotation;
     }

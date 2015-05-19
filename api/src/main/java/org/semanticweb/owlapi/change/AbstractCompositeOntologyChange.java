@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  *         Informatics Group
  * @since 2.1.0
  */
-public abstract class AbstractCompositeOntologyChange implements
-        OWLCompositeOntologyChange {
+public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
 
     private static final long serialVersionUID = 40000L;
     /** The data factory. */
@@ -45,8 +44,7 @@ public abstract class AbstractCompositeOntologyChange implements
      * @param dataFactory
      *        the data factory
      */
-    protected AbstractCompositeOntologyChange(
-            @Nonnull OWLDataFactory dataFactory) {
+    protected AbstractCompositeOntologyChange(OWLDataFactory dataFactory) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 

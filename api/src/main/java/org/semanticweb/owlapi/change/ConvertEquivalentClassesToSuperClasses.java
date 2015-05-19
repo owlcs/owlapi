@@ -10,28 +10,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.change;/*
-                                      * Copyright (C) 2007, University of Manchester
-                                      *
-                                      * Modifications to the initial code base are copyright of their
-                                      * respective authors, or their employers as appropriate.  Authorship
-                                      * of the modifications may be determined from the ChangeLog placed at
-                                      * the end of this file.
-                                      *
-                                      * This library is free software; you can redistribute it and/or
-                                      * modify it under the terms of the GNU Lesser General Public
-                                      * License as published by the Free Software Foundation; either
-                                      * version 2.1 of the License, or (at your option) any later version.
-                                      
-                                      * This library is distributed in the hope that it will be useful,
-                                      * but WITHOUT ANY WARRANTY; without even the implied warranty of
-                                      * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-                                      * Lesser General Public License for more details.
-                                      
-                                      * You should have received a copy of the GNU Lesser General Public
-                                      * License along with this library; if not, write to the Free Software
-                                      * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-                                      */
+package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
@@ -42,14 +21,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -71,14 +43,12 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Informatics Group
  * @since 2.1.0
  */
-public class ConvertEquivalentClassesToSuperClasses
-    extends AbstractCompositeOntologyChange {
+public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOntologyChange {
 
     private static final OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>> INTERSECTION_SPLITTER = new OWLClassExpressionVisitorEx<Stream<? extends OWLClassExpression>>() {
 
         @Override
-        public Stream<? extends OWLClassExpression> visit(
-            OWLObjectIntersectionOf ce) {
+        public Stream<? extends OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
             return ce.operands();
         }
 
@@ -114,13 +84,10 @@ public class ConvertEquivalentClassesToSuperClasses
      * @param splitIntersections
      *        whether or not intersections should be split
      */
-    public ConvertEquivalentClassesToSuperClasses(
-        @Nonnull OWLDataFactory dataFactory, @Nonnull OWLClass cls,
-        @Nonnull Set<OWLOntology> ontologies,
-        @Nonnull OWLOntology targetOntology, boolean splitIntersections) {
+    public ConvertEquivalentClassesToSuperClasses(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies,
+            OWLOntology targetOntology, boolean splitIntersections) {
         super(dataFactory);
-        this.targetOntology = checkNotNull(targetOntology,
-            "targetOntology cannot be null");
+        this.targetOntology = checkNotNull(targetOntology, "targetOntology cannot be null");
         this.cls = checkNotNull(cls, "cls cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         this.splitIntersections = splitIntersections;
@@ -132,21 +99,16 @@ public class ConvertEquivalentClassesToSuperClasses
         for (OWLOntology o : ontologies) {
             o.equivalentClassesAxioms(cls).forEach(ax -> {
                 addChange(new RemoveAxiom(o, ax));
-                ax.classExpressions()
-                    .forEach(c -> supers.addAll(getClassExpressions(c)));
+                ax.classExpressions().forEach(c -> supers.addAll(getClassExpressions(c)));
             } );
         }
         supers.remove(cls);
-        supers.forEach(sup -> addChange(
-            new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(cls, sup))));
+        supers.forEach(sup -> addChange(new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(cls, sup))));
     }
 
-    @Nonnull
-    private Set<OWLClassExpression> getClassExpressions(
-        @Nonnull OWLClassExpression desc) {
+    private Set<OWLClassExpression> getClassExpressions(OWLClassExpression desc) {
         if (splitIntersections) {
-            Set<OWLClassExpression> result = asSet(
-                desc.accept(INTERSECTION_SPLITTER), OWLClassExpression.class);
+            Set<OWLClassExpression> result = asSet(desc.accept(INTERSECTION_SPLITTER), OWLClassExpression.class);
             if (result.isEmpty()) {
                 result.add(desc);
             }

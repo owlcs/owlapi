@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -39,18 +37,17 @@ public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
      * @param annotation
      *        The {@link OWLAnnotation} that is the focus of some change.
      */
-    public AddOntologyAnnotationData(@Nonnull OWLAnnotation annotation) {
+    public AddOntologyAnnotationData(OWLAnnotation annotation) {
         super(annotation);
     }
 
-    @Nonnull
     @Override
     public AddOntologyAnnotation createOntologyChange(OWLOntology ontology) {
         return new AddOntologyAnnotation(ontology, getAnnotation());
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeDataVisitor<O> visitor) {
+    public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
         return visitor.visit(this);
     }
 }

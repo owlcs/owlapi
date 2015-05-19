@@ -16,16 +16,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
@@ -34,8 +27,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  *         Informatics Group
  * @since 2.2.0
  */
-public class ShortForm2AnnotationGenerator extends
-        AbstractCompositeOntologyChange {
+public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChange {
 
     private static final long serialVersionUID = 40000L;
 
@@ -55,19 +47,13 @@ public class ShortForm2AnnotationGenerator extends
      * @param languageTag
      *        language
      */
-    public ShortForm2AnnotationGenerator(@Nonnull OWLDataFactory df,
-            @Nonnull OWLOntologyManager ontologyManager,
-            @Nonnull OWLOntology ontology,
-            @Nonnull ShortFormProvider shortFormProvider,
-            @Nonnull IRI annotationIRI, @Nullable String languageTag) {
+    public ShortForm2AnnotationGenerator(OWLDataFactory df, OWLOntologyManager ontologyManager, OWLOntology ontology,
+            ShortFormProvider shortFormProvider, IRI annotationIRI, @Nullable String languageTag) {
         super(df);
-        generateChanges(
-                checkNotNull(ontologyManager, "ontologyManager cannot be null"),
+        generateChanges(checkNotNull(ontologyManager, "ontologyManager cannot be null"),
                 checkNotNull(ontology, "ontology cannot be null"),
-                checkNotNull(shortFormProvider,
-                        "shortFormProvider cannot be null"),
-                checkNotNull(annotationIRI, "annotationIRI cannot be null"),
-                languageTag);
+                checkNotNull(shortFormProvider, "shortFormProvider cannot be null"),
+                checkNotNull(annotationIRI, "annotationIRI cannot be null"), languageTag);
     }
 
     /**
@@ -84,18 +70,13 @@ public class ShortForm2AnnotationGenerator extends
      * @param annotationIRI
      *        iri for annotation property
      */
-    public ShortForm2AnnotationGenerator(@Nonnull OWLDataFactory df,
-            @Nonnull OWLOntologyManager ontologyManager,
-            @Nonnull OWLOntology ontology,
-            @Nonnull ShortFormProvider shortFormProvider,
-            @Nonnull IRI annotationIRI) {
-        this(df, ontologyManager, ontology, shortFormProvider, annotationIRI,
-                null);
+    public ShortForm2AnnotationGenerator(OWLDataFactory df, OWLOntologyManager ontologyManager, OWLOntology ontology,
+            ShortFormProvider shortFormProvider, IRI annotationIRI) {
+        this(df, ontologyManager, ontology, shortFormProvider, annotationIRI, null);
     }
 
-    private static void generateChanges(OWLOntologyManager ontologyManager,
-            @Nonnull OWLOntology o, @Nonnull ShortFormProvider provider,
-            @Nonnull IRI annotationIRI, @Nullable String lang) {
+    private static void generateChanges(OWLOntologyManager ontologyManager, OWLOntology o, ShortFormProvider provider,
+            IRI annotationIRI, @Nullable String lang) {
         OWLDataFactory df = ontologyManager.getOWLDataFactory();
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(annotationIRI);
         Function<OWLEntity, OWLLiteral> action = (e) -> {
@@ -104,12 +85,10 @@ public class ShortForm2AnnotationGenerator extends
             }
             return df.getOWLLiteral(provider.getShortForm(e));
         };
-        new ImportsStructureEntitySorter(o).getObjects().forEach(
-                (ont, ent) -> ent.forEach(e -> {
-                    if (o.containsEntityInSignature(e)) {
-                        ont.addAxiom(df.getOWLAnnotationAssertionAxiom(ap,
-                                e.getIRI(), action.apply(e)));
-                    }
-                }));
+        new ImportsStructureEntitySorter(o).getObjects().forEach((ont, ent) -> ent.forEach(e -> {
+            if (o.containsEntityInSignature(e)) {
+                ont.addAxiom(df.getOWLAnnotationAssertionAxiom(ap, e.getIRI(), action.apply(e)));
+            }
+        } ));
     }
 }

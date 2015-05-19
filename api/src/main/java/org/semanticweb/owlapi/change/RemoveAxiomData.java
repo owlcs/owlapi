@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -38,18 +36,17 @@ public class RemoveAxiomData extends AxiomChangeData {
      * @param axiom
      *        The {@link OWLAxiom} being added.
      */
-    public RemoveAxiomData(@Nonnull OWLAxiom axiom) {
+    public RemoveAxiomData(OWLAxiom axiom) {
         super(axiom);
     }
 
-    @Nonnull
     @Override
-    public RemoveAxiom createOntologyChange(@Nonnull OWLOntology ontology) {
+    public RemoveAxiom createOntologyChange(OWLOntology ontology) {
         return new RemoveAxiom(ontology, getAxiom());
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeDataVisitor<O> visitor) {
+    public <O> O accept(OWLOntologyChangeDataVisitor<O> visitor) {
         return visitor.visit(this);
     }
 }
