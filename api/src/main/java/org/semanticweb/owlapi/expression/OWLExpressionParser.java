@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.expression;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /**
@@ -32,7 +30,7 @@ public interface OWLExpressionParser<O> {
      * @param entityChecker
      *        the entity checker to use
      */
-    void setOWLEntityChecker(@Nonnull OWLEntityChecker entityChecker);
+    void setOWLEntityChecker(OWLEntityChecker entityChecker);
 
     /**
      * @param expression
@@ -41,6 +39,5 @@ public interface OWLExpressionParser<O> {
      * @throws OWLParserException
      *         parse exception
      */
-    @Nonnull
-    O parse(@Nonnull String expression);
+    O parse(String expression);
 }

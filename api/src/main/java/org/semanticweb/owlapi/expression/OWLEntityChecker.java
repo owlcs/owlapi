@@ -12,15 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.expression;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Maps strings to OWL objects.
@@ -37,7 +31,7 @@ public interface OWLEntityChecker {
      * @return OWLClass corresponding to name
      */
     @Nullable
-    OWLClass getOWLClass(@Nonnull String name);
+    OWLClass getOWLClass(String name);
 
     /**
      * @param name
@@ -45,7 +39,7 @@ public interface OWLEntityChecker {
      * @return OWLObjectProperty corresponding to name
      */
     @Nullable
-    OWLObjectProperty getOWLObjectProperty(@Nonnull String name);
+    OWLObjectProperty getOWLObjectProperty(String name);
 
     /**
      * @param name
@@ -53,7 +47,7 @@ public interface OWLEntityChecker {
      * @return OWLDataProperty corresponding to name
      */
     @Nullable
-    OWLDataProperty getOWLDataProperty(@Nonnull String name);
+    OWLDataProperty getOWLDataProperty(String name);
 
     /**
      * @param name
@@ -61,7 +55,7 @@ public interface OWLEntityChecker {
      * @return OWLNamedIndividual corresponding to name
      */
     @Nullable
-    OWLNamedIndividual getOWLIndividual(@Nonnull String name);
+    OWLNamedIndividual getOWLIndividual(String name);
 
     /**
      * @param name
@@ -69,7 +63,7 @@ public interface OWLEntityChecker {
      * @return OWLDatatype corresponding to name
      */
     @Nullable
-    OWLDatatype getOWLDatatype(@Nonnull String name);
+    OWLDatatype getOWLDatatype(String name);
 
     /**
      * @param name
@@ -77,5 +71,5 @@ public interface OWLEntityChecker {
      * @return OWLAnnotationProperty corresponding to name
      */
     @Nullable
-    OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull String name);
+    OWLAnnotationProperty getOWLAnnotationProperty(String name);
 }

@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
@@ -33,8 +34,7 @@ import org.semanticweb.owlapi.util.StringComparator;
  *         Informatics Group
  * @since 2.0.0
  */
-public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
-    PrefixDocumentFormat {
+public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements PrefixDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -49,12 +49,12 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
      * @param manager
      *        prefix manager to use
      */
-    public PrefixDocumentFormatImpl(@Nonnull PrefixManager manager) {
+    public PrefixDocumentFormatImpl(PrefixManager manager) {
         nsm = checkNotNull(manager, "manager cannot be null");
     }
 
     @Override
-    public void setPrefixManager(@Nonnull PrefixManager m) {
+    public void setPrefixManager(PrefixManager m) {
         nsm = checkNotNull(m, "m cannot be null");
     }
 
@@ -83,6 +83,7 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
         return nsm.containsPrefixMapping(prefixName);
     }
 
+    @Nullable
     @Override
     public String getDefaultPrefix() {
         return nsm.getDefaultPrefix();
@@ -93,6 +94,7 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
         return nsm.getPrefixName2PrefixMap();
     }
 
+    @Nullable
     @Override
     public String getPrefix(String prefixName) {
         return nsm.getPrefix(prefixName);
@@ -103,6 +105,7 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements
         return nsm.getIRI(prefixIRI);
     }
 
+    @Nullable
     @Override
     public String getPrefixIRI(IRI iri) {
         return nsm.getPrefixIRI(iri);
