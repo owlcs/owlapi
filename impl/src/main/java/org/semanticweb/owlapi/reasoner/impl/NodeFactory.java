@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -32,8 +30,9 @@ public final class NodeFactory {
 
     private NodeFactory() {}
 
-    /** @return a class node */
-    @Nonnull
+    /**
+     * @return a class node
+     */
     public static DefaultNode<OWLClass> getOWLClassNode() {
         return new OWLClassNode();
     }
@@ -43,8 +42,7 @@ public final class NodeFactory {
      *        a class to be included in the node
      * @return a class node with one element
      */
-    @Nonnull
-    public static DefaultNode<OWLClass> getOWLClassNode(@Nonnull OWLClass cls) {
+    public static DefaultNode<OWLClass> getOWLClassNode(OWLClass cls) {
         return new OWLClassNode(checkNotNull(cls, "cls cannot be null"));
     }
 
@@ -53,26 +51,28 @@ public final class NodeFactory {
      *        set of classes to be included
      * @return a class node with some elements
      */
-    @Nonnull
-    public static DefaultNode<OWLClass> getOWLClassNode(
-            @Nonnull Set<OWLClass> clses) {
+    public static DefaultNode<OWLClass> getOWLClassNode(Set<OWLClass> clses) {
         return new OWLClassNode(checkNotNull(clses, "clses cannot be null"));
     }
 
-    /** @return the top class node */
+    /**
+     * @return the top class node
+     */
     public static DefaultNode<OWLClass> getOWLClassTopNode() {
         return OWLClassNode.getTopNode();
     }
 
-    /** @return the bottom class node */
+    /**
+     * @return the bottom class node
+     */
     public static DefaultNode<OWLClass> getOWLClassBottomNode() {
         return OWLClassNode.getBottomNode();
     }
 
-    /** @return an object property node */
-    @Nonnull
-    public static DefaultNode<OWLObjectPropertyExpression>
-            getOWLObjectPropertyNode() {
+    /**
+     * @return an object property node
+     */
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode() {
         return new OWLObjectPropertyNode();
     }
 
@@ -81,9 +81,7 @@ public final class NodeFactory {
      *        a property to be added
      * @return an object property node with one element
      */
-    @Nonnull
-    public static DefaultNode<OWLObjectPropertyExpression>
-            getOWLObjectPropertyNode(@Nonnull OWLObjectPropertyExpression prop) {
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(OWLObjectPropertyExpression prop) {
         return new OWLObjectPropertyNode(prop);
     }
 
@@ -92,27 +90,28 @@ public final class NodeFactory {
      *        some properties to be added
      * @return an object property node with some elements
      */
-    @Nonnull
-    public static DefaultNode<OWLObjectPropertyExpression>
-            getOWLObjectPropertyNode(
-                    @Nonnull Set<OWLObjectPropertyExpression> properties) {
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(
+            Set<OWLObjectPropertyExpression> properties) {
         return new OWLObjectPropertyNode(properties);
     }
 
-    /** @return the top object property node */
-    public static DefaultNode<OWLObjectPropertyExpression>
-            getOWLObjectPropertyTopNode() {
+    /**
+     * @return the top object property node
+     */
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyTopNode() {
         return OWLObjectPropertyNode.getTopNode();
     }
 
-    /** @return the bottom object property node */
-    public static DefaultNode<OWLObjectPropertyExpression>
-            getOWLObjectPropertyBottomNode() {
+    /**
+     * @return the bottom object property node
+     */
+    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyBottomNode() {
         return OWLObjectPropertyNode.getBottomNode();
     }
 
-    /** @return a data property node */
-    @Nonnull
+    /**
+     * @return a data property node
+     */
     public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode() {
         return new OWLDataPropertyNode();
     }
@@ -122,9 +121,7 @@ public final class NodeFactory {
      *        a property to be added
      * @return a data property node with one element
      */
-    @Nonnull
-    public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(
-            @Nonnull OWLDataProperty prop) {
+    public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(OWLDataProperty prop) {
         return new OWLDataPropertyNode(prop);
     }
 
@@ -133,24 +130,27 @@ public final class NodeFactory {
      *        some properties to be added
      * @return a data property node with some elements
      */
-    @Nonnull
-    public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(
-            @Nonnull Set<OWLDataProperty> properties) {
+    public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(Set<OWLDataProperty> properties) {
         return new OWLDataPropertyNode(properties);
     }
 
-    /** @return the top data property node */
+    /**
+     * @return the top data property node
+     */
     public static DefaultNode<OWLDataProperty> getOWLDataPropertyTopNode() {
         return OWLDataPropertyNode.getTopNode();
     }
 
-    /** @return the bottom data property node */
+    /**
+     * @return the bottom data property node
+     */
     public static DefaultNode<OWLDataProperty> getOWLDataPropertyBottomNode() {
         return OWLDataPropertyNode.getBottomNode();
     }
 
-    /** @return an individual node */
-    @Nonnull
+    /**
+     * @return an individual node
+     */
     public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode() {
         return new OWLNamedIndividualNode();
     }
@@ -160,9 +160,7 @@ public final class NodeFactory {
      *        an individual to be added
      * @return an individual node with one element
      */
-    @Nonnull
-    public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(
-            @Nonnull OWLNamedIndividual ind) {
+    public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(OWLNamedIndividual ind) {
         return new OWLNamedIndividualNode(ind);
     }
 
@@ -171,9 +169,7 @@ public final class NodeFactory {
      *        some individuals to be added
      * @return an individual node containing some individuals
      */
-    @Nonnull
-    public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(
-            @Nonnull Set<OWLNamedIndividual> inds) {
+    public static DefaultNode<OWLNamedIndividual> getOWLNamedIndividualNode(Set<OWLNamedIndividual> inds) {
         return new OWLNamedIndividualNode(inds);
     }
 }

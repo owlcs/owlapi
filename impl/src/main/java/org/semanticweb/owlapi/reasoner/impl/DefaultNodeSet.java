@@ -21,7 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -45,7 +45,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @param entity
      *        the entity to be contained
      */
-    public DefaultNodeSet(@Nonnull E entity) {
+    public DefaultNodeSet(E entity) {
         addNode(getNode(checkNotNull(entity, "entity cannot be null")));
     }
 
@@ -53,7 +53,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @param node
      *        the node to be contained
      */
-    public DefaultNodeSet(@Nonnull Node<E> node) {
+    public DefaultNodeSet(Node<E> node) {
         addNode(checkNotNull(node, "node cannot be null"));
     }
 
@@ -61,7 +61,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @param nodes
      *        a set of nodes to be contained
      */
-    public DefaultNodeSet(@Nonnull Set<Node<E>> nodes) {
+    public DefaultNodeSet(Set<Node<E>> nodes) {
         addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
     }
 
@@ -69,11 +69,10 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @param nodes
      *        a set of nodes to be contained
      */
-    public DefaultNodeSet(@Nonnull Stream<Node<E>> nodes) {
+    public DefaultNodeSet(Stream<Node<E>> nodes) {
         addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
     }
 
-    @Nonnull
     @Override
     public Stream<Node<E>> nodes() {
         return nodes.stream();
@@ -89,7 +88,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException
      *         if {@code entity} is {@code null}.
      */
-    public void addEntity(@Nonnull E entity) {
+    public void addEntity(E entity) {
         addNode(getNode(checkNotNull(entity, "entity cannot be null")));
     }
 
@@ -101,7 +100,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException
      *         if {@code entity} is {@code null}.
      */
-    public void addNode(@Nonnull Node<E> node) {
+    public void addNode(Node<E> node) {
         nodes.add(checkNotNull(node, "Cannot add null to a NodeSet"));
     }
 
@@ -112,7 +111,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The {@code Node}s to be added. Note that if the collection is not
      *        a set then duplicate {@code Node}s will be filtered out.
      */
-    public void addAllNodes(@Nonnull Collection<Node<E>> nodeset) {
+    public void addAllNodes(Collection<Node<E>> nodeset) {
         nodeset.forEach(node -> addNode(node));
     }
 
@@ -123,7 +122,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The {@code Node}s to be added. Note that if the collection is not
      *        a set then duplicate {@code Node}s will be filtered out.
      */
-    public void addAllNodes(@Nonnull Stream<Node<E>> nodeset) {
+    public void addAllNodes(Stream<Node<E>> nodeset) {
         nodeset.forEach(node -> addNode(node));
     }
 
@@ -134,7 +133,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The set of entities to be added. The entities will be wrapped in a
      *        {@code Node} which will be added to this {@code NodeSet}.
      */
-    public void addSameEntities(@Nonnull Set<E> entities) {
+    public void addSameEntities(Set<E> entities) {
         nodes.add(getNode(entities));
     }
 
@@ -145,17 +144,14 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The entities to be added. Each entity will be wrapped in a
      *        {@code Node} which will then be added to this {@code NodeSet}.
      */
-    public void addDifferentEntities(@Nonnull Set<E> entities) {
+    public void addDifferentEntities(Set<E> entities) {
         entities.forEach(e -> addNode(getNode(e)));
     }
 
-    @Nonnull
-    protected abstract DefaultNode<E> getNode(@Nonnull E entity);
+    protected abstract DefaultNode<E> getNode(E entity);
 
-    @Nonnull
-    protected abstract DefaultNode<E> getNode(@Nonnull Set<E> entities);
+    protected abstract DefaultNode<E> getNode(Set<E> entities);
 
-    @Nonnull
     @Override
     public Stream<E> entities() {
         return nodes().flatMap(n -> n.entities());
@@ -202,7 +198,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }

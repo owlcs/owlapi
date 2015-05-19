@@ -13,9 +13,8 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClass;
 
@@ -30,7 +29,7 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
      * @param entity
      *        the class to be contained
      */
-    public OWLClassNode(@Nonnull OWLClass entity) {
+    public OWLClassNode(OWLClass entity) {
         super(entity);
     }
 
@@ -38,7 +37,7 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
      * @param entities
      *        the classes to be contained
      */
-    public OWLClassNode(@Nonnull Collection<OWLClass> entities) {
+    public OWLClassNode(Collection<OWLClass> entities) {
         super(entities);
     }
 
@@ -46,7 +45,7 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
      * @param entities
      *        the classes to be contained
      */
-    public OWLClassNode(@Nonnull Stream<OWLClass> entities) {
+    public OWLClassNode(Stream<OWLClass> entities) {
         super(entities);
     }
 
@@ -54,23 +53,25 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
     public OWLClassNode() {}
 
     @Override
-    protected OWLClass getTopEntity() {
-        return TOP_CLASS;
+    protected Optional<OWLClass> getTopEntity() {
+        return Optional.of(TOP_CLASS);
     }
 
     @Override
-    protected OWLClass getBottomEntity() {
-        return BOTTOM_CLASS;
+    protected Optional<OWLClass> getBottomEntity() {
+        return Optional.of(BOTTOM_CLASS);
     }
 
-    /** @return singleton top node */
-    @Nonnull
+    /**
+     * @return singleton top node
+     */
     public static OWLClassNode getTopNode() {
         return TOP_NODE;
     }
 
-    /** @return singleton bottom node */
-    @Nonnull
+    /**
+     * @return singleton bottom node
+     */
     public static OWLClassNode getBottomNode() {
         return BOTTOM_NODE;
     }

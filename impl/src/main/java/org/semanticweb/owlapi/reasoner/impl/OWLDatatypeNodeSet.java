@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -34,7 +32,7 @@ public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
      * @param entity
      *        datatype to include
      */
-    public OWLDatatypeNodeSet(@Nonnull OWLDatatype entity) {
+    public OWLDatatypeNodeSet(OWLDatatype entity) {
         super(entity);
     }
 
@@ -42,7 +40,7 @@ public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
      * @param owlDatatypeNode
      *        node to include
      */
-    public OWLDatatypeNodeSet(@Nonnull Node<OWLDatatype> owlDatatypeNode) {
+    public OWLDatatypeNodeSet(Node<OWLDatatype> owlDatatypeNode) {
         super(owlDatatypeNode);
     }
 
@@ -50,7 +48,7 @@ public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
      * @param nodes
      *        nodes to include
      */
-    public OWLDatatypeNodeSet(@Nonnull Set<Node<OWLDatatype>> nodes) {
+    public OWLDatatypeNodeSet(Set<Node<OWLDatatype>> nodes) {
         super(nodes);
     }
 
@@ -58,11 +56,10 @@ public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
      * @param nodes
      *        nodes to include
      */
-    public OWLDatatypeNodeSet(@Nonnull Stream<Node<OWLDatatype>> nodes) {
+    public OWLDatatypeNodeSet(Stream<Node<OWLDatatype>> nodes) {
         super(nodes);
     }
 
-    @Nonnull
     @Override
     protected DefaultNode<OWLDatatype> getNode(OWLDatatype entity) {
         return new OWLDatatypeNode(entity);

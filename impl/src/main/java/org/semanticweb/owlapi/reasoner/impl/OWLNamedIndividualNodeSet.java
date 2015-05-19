@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi.reasoner.Node;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLNamedIndividualNodeSet extends
-        DefaultNodeSet<OWLNamedIndividual> {
+public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual> {
 
     /** Default constructor. */
     public OWLNamedIndividualNodeSet() {}
@@ -35,7 +32,7 @@ public class OWLNamedIndividualNodeSet extends
      * @param entity
      *        individual to include
      */
-    public OWLNamedIndividualNodeSet(@Nonnull OWLNamedIndividual entity) {
+    public OWLNamedIndividualNodeSet(OWLNamedIndividual entity) {
         super(entity);
     }
 
@@ -43,8 +40,7 @@ public class OWLNamedIndividualNodeSet extends
      * @param owlNamedIndividualNode
      *        node to include
      */
-    public OWLNamedIndividualNodeSet(
-            @Nonnull Node<OWLNamedIndividual> owlNamedIndividualNode) {
+    public OWLNamedIndividualNodeSet(Node<OWLNamedIndividual> owlNamedIndividualNode) {
         super(owlNamedIndividualNode);
     }
 
@@ -52,8 +48,7 @@ public class OWLNamedIndividualNodeSet extends
      * @param nodes
      *        nodes to include
      */
-    public OWLNamedIndividualNodeSet(
-            @Nonnull Set<Node<OWLNamedIndividual>> nodes) {
+    public OWLNamedIndividualNodeSet(Set<Node<OWLNamedIndividual>> nodes) {
         super(nodes);
     }
 
@@ -61,21 +56,17 @@ public class OWLNamedIndividualNodeSet extends
      * @param nodes
      *        nodes to include
      */
-    public OWLNamedIndividualNodeSet(
-            @Nonnull Stream<Node<OWLNamedIndividual>> nodes) {
+    public OWLNamedIndividualNodeSet(Stream<Node<OWLNamedIndividual>> nodes) {
         super(nodes);
     }
 
-    @Nonnull
     @Override
-    protected DefaultNode<OWLNamedIndividual>
-            getNode(OWLNamedIndividual entity) {
+    protected DefaultNode<OWLNamedIndividual> getNode(OWLNamedIndividual entity) {
         return NodeFactory.getOWLNamedIndividualNode(entity);
     }
 
     @Override
-    protected DefaultNode<OWLNamedIndividual> getNode(
-            Set<OWLNamedIndividual> entities) {
+    protected DefaultNode<OWLNamedIndividual> getNode(Set<OWLNamedIndividual> entities) {
         return NodeFactory.getOWLNamedIndividualNode(entities);
     }
 }

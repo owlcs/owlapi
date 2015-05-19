@@ -13,9 +13,8 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
@@ -33,7 +32,7 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
      * @param entity
      *        the entity to be contained
      */
-    public OWLDataPropertyNode(@Nonnull OWLDataProperty entity) {
+    public OWLDataPropertyNode(OWLDataProperty entity) {
         super(entity);
     }
 
@@ -41,7 +40,7 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
      * @param entities
      *        the entities to be contained
      */
-    public OWLDataPropertyNode(@Nonnull Collection<OWLDataProperty> entities) {
+    public OWLDataPropertyNode(Collection<OWLDataProperty> entities) {
         super(entities);
     }
 
@@ -49,28 +48,30 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
      * @param entities
      *        the entities to be contained
      */
-    public OWLDataPropertyNode(@Nonnull Stream<OWLDataProperty> entities) {
+    public OWLDataPropertyNode(Stream<OWLDataProperty> entities) {
         super(entities);
     }
 
     @Override
-    protected OWLDataProperty getTopEntity() {
-        return TOP_DATA_PROPERTY;
+    protected Optional<OWLDataProperty> getTopEntity() {
+        return Optional.of(TOP_DATA_PROPERTY);
     }
 
     @Override
-    protected OWLDataProperty getBottomEntity() {
-        return BOTTOM_DATA_PROPERTY;
+    protected Optional<OWLDataProperty> getBottomEntity() {
+        return Optional.of(BOTTOM_DATA_PROPERTY);
     }
 
-    /** @return singleton top node */
-    @Nonnull
+    /**
+     * @return singleton top node
+     */
     public static OWLDataPropertyNode getTopNode() {
         return TOP_DATA_NODE;
     }
 
-    /** @return singleton bottom node */
-    @Nonnull
+    /**
+     * @return singleton bottom node
+     */
     public static OWLDataPropertyNode getBottomNode() {
         return BOTTOM_DATA_NODE;
     }

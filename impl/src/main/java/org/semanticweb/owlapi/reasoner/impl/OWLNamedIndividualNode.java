@@ -13,10 +13,8 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
@@ -34,7 +32,7 @@ public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
      * @param entity
      *        individual to include
      */
-    public OWLNamedIndividualNode(@Nonnull OWLNamedIndividual entity) {
+    public OWLNamedIndividualNode(OWLNamedIndividual entity) {
         super(entity);
     }
 
@@ -42,8 +40,7 @@ public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
      * @param entities
      *        individuals to include
      */
-    public OWLNamedIndividualNode(
-            @Nonnull Collection<OWLNamedIndividual> entities) {
+    public OWLNamedIndividualNode(Collection<OWLNamedIndividual> entities) {
         super(entities);
     }
 
@@ -51,18 +48,17 @@ public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
      * @param entities
      *        individuals to include
      */
-    public OWLNamedIndividualNode(@Nonnull Stream<OWLNamedIndividual> entities) {
+    public OWLNamedIndividualNode(Stream<OWLNamedIndividual> entities) {
         super(entities);
     }
 
-    @Nullable
     @Override
-    protected OWLNamedIndividual getTopEntity() {
-        return null;
+    protected Optional<OWLNamedIndividual> getTopEntity() {
+        return Optional.empty();
     }
 
     @Override
-    protected OWLNamedIndividual getBottomEntity() {
-        return null;
+    protected Optional<OWLNamedIndividual> getBottomEntity() {
+        return Optional.empty();
     }
 }

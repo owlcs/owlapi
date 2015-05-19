@@ -13,11 +13,9 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLObjectPropertyNode extends
-        DefaultNode<OWLObjectPropertyExpression> {
+public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
 
     /** Default constructor. */
     public OWLObjectPropertyNode() {}
@@ -35,7 +32,7 @@ public class OWLObjectPropertyNode extends
      * @param entity
      *        property to include
      */
-    public OWLObjectPropertyNode(@Nonnull OWLObjectPropertyExpression entity) {
+    public OWLObjectPropertyNode(OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
@@ -43,8 +40,7 @@ public class OWLObjectPropertyNode extends
      * @param entities
      *        properties to include
      */
-    public OWLObjectPropertyNode(
-            @Nonnull Collection<OWLObjectPropertyExpression> entities) {
+    public OWLObjectPropertyNode(Collection<OWLObjectPropertyExpression> entities) {
         super(entities);
     }
 
@@ -52,29 +48,30 @@ public class OWLObjectPropertyNode extends
      * @param entities
      *        properties to include
      */
-    public OWLObjectPropertyNode(
-            @Nonnull Stream<OWLObjectPropertyExpression> entities) {
+    public OWLObjectPropertyNode(Stream<OWLObjectPropertyExpression> entities) {
         super(entities);
     }
 
     @Override
-    protected OWLObjectProperty getTopEntity() {
-        return TOP_OBJECT_PROPERTY;
+    protected Optional<OWLObjectPropertyExpression> getTopEntity() {
+        return Optional.of(TOP_OBJECT_PROPERTY);
     }
 
     @Override
-    protected OWLObjectProperty getBottomEntity() {
-        return BOTTOM_OBJECT_PROPERTY;
+    protected Optional<OWLObjectPropertyExpression> getBottomEntity() {
+        return Optional.of(BOTTOM_OBJECT_PROPERTY);
     }
 
-    /** @return top node */
-    @Nonnull
+    /**
+     * @return top node
+     */
     public static OWLObjectPropertyNode getTopNode() {
         return TOP_OBJECT_NODE;
     }
 
-    /** @return bottom node */
-    @Nonnull
+    /**
+     * @return bottom node
+     */
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_OBJECT_NODE;
     }

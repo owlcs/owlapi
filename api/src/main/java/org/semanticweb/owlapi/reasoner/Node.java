@@ -134,7 +134,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @return {@code true} if this node contains {@code entity}, or
      *         {@code false} if this node does not contain {@code entity}
      */
-    boolean contains(E entity);
+    boolean contains(@Nonnull E entity);
 
     /**
      * Gets the entities contained in this node minus the specified entitie
@@ -150,7 +150,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         that returned by {@link #getEntities()}
      */
     @Nonnull
-    Set<E> getEntitiesMinus(E e);
+    Set<E> getEntitiesMinus(@Nonnull E e);
 
     /**
      * Gets the entities contained in this node minus the top entity. For a node

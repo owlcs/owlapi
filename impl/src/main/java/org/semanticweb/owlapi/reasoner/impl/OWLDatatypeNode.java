@@ -13,10 +13,8 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 
@@ -34,7 +32,7 @@ public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
      * @param entity
      *        datatype to include
      */
-    public OWLDatatypeNode(@Nonnull OWLDatatype entity) {
+    public OWLDatatypeNode(OWLDatatype entity) {
         super(entity);
     }
 
@@ -42,7 +40,7 @@ public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
      * @param entities
      *        set of datatypes to include
      */
-    public OWLDatatypeNode(@Nonnull Collection<OWLDatatype> entities) {
+    public OWLDatatypeNode(Collection<OWLDatatype> entities) {
         super(entities);
     }
 
@@ -50,18 +48,17 @@ public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
      * @param entities
      *        set of datatypes to include
      */
-    public OWLDatatypeNode(@Nonnull Stream<OWLDatatype> entities) {
+    public OWLDatatypeNode(Stream<OWLDatatype> entities) {
         super(entities);
     }
 
     @Override
-    protected OWLDatatype getTopEntity() {
-        return TOP_DATATYPE;
+    protected Optional<OWLDatatype> getTopEntity() {
+        return Optional.of(TOP_DATATYPE);
     }
 
-    @Nullable
     @Override
-    protected OWLDatatype getBottomEntity() {
-        return null;
+    protected Optional<OWLDatatype> getBottomEntity() {
+        return Optional.empty();
     }
 }

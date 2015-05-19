@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi.reasoner.Node;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLObjectPropertyNodeSet extends
-        DefaultNodeSet<OWLObjectPropertyExpression> {
+public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyExpression> {
 
     /** Default constructor. */
     public OWLObjectPropertyNodeSet() {}
@@ -35,7 +32,7 @@ public class OWLObjectPropertyNodeSet extends
      * @param entity
      *        property to include
      */
-    public OWLObjectPropertyNodeSet(@Nonnull OWLObjectPropertyExpression entity) {
+    public OWLObjectPropertyNodeSet(OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
@@ -43,8 +40,7 @@ public class OWLObjectPropertyNodeSet extends
      * @param owlObjectPropertyNode
      *        property node to include
      */
-    public OWLObjectPropertyNodeSet(
-            @Nonnull Node<OWLObjectPropertyExpression> owlObjectPropertyNode) {
+    public OWLObjectPropertyNodeSet(Node<OWLObjectPropertyExpression> owlObjectPropertyNode) {
         super(owlObjectPropertyNode);
     }
 
@@ -52,8 +48,7 @@ public class OWLObjectPropertyNodeSet extends
      * @param nodes
      *        nodes to include
      */
-    public OWLObjectPropertyNodeSet(
-            @Nonnull Set<Node<OWLObjectPropertyExpression>> nodes) {
+    public OWLObjectPropertyNodeSet(Set<Node<OWLObjectPropertyExpression>> nodes) {
         super(nodes);
     }
 
@@ -61,21 +56,17 @@ public class OWLObjectPropertyNodeSet extends
      * @param nodes
      *        nodes to include
      */
-    public OWLObjectPropertyNodeSet(
-            @Nonnull Stream<Node<OWLObjectPropertyExpression>> nodes) {
+    public OWLObjectPropertyNodeSet(Stream<Node<OWLObjectPropertyExpression>> nodes) {
         super(nodes);
     }
 
-    @Nonnull
     @Override
-    protected DefaultNode<OWLObjectPropertyExpression> getNode(
-            OWLObjectPropertyExpression entity) {
+    protected DefaultNode<OWLObjectPropertyExpression> getNode(OWLObjectPropertyExpression entity) {
         return NodeFactory.getOWLObjectPropertyNode(entity);
     }
 
     @Override
-    protected DefaultNode<OWLObjectPropertyExpression> getNode(
-            Set<OWLObjectPropertyExpression> entities) {
+    protected DefaultNode<OWLObjectPropertyExpression> getNode(Set<OWLObjectPropertyExpression> entities) {
         return NodeFactory.getOWLObjectPropertyNode(entities);
     }
 }

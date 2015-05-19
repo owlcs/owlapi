@@ -23,13 +23,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
@@ -60,31 +54,22 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     @Nonnull
     private final OWLOntologyChangeListener ontologyChangeListener = changes -> handleRawOntologyChanges(changes);
 
-    protected OWLReasonerBase(@Nonnull OWLOntology rootOntology,
-            @Nonnull OWLReasonerConfiguration configuration,
-            @Nonnull BufferingMode bufferingMode) {
-        this.rootOntology = checkNotNull(rootOntology,
-                "rootOntology cannot be null");
-        this.bufferingMode = checkNotNull(bufferingMode,
-                "bufferingMode cannot be null");
-        this.configuration = checkNotNull(configuration,
-                "configuration cannot be null");
+    protected OWLReasonerBase(OWLOntology rootOntology, OWLReasonerConfiguration configuration,
+            BufferingMode bufferingMode) {
+        this.rootOntology = checkNotNull(rootOntology, "rootOntology cannot be null");
+        this.bufferingMode = checkNotNull(bufferingMode, "bufferingMode cannot be null");
+        this.configuration = checkNotNull(configuration, "configuration cannot be null");
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(ontologyChangeListener);
         reasonerAxioms = new HashSet<>();
-        rootOntology
-                .importsClosure()
-                .flatMap(
-                        o -> Stream.concat(o.logicalAxioms(),
-                                o.axioms(AxiomType.DECLARATION)))
-                .forEach(
-                        ax -> reasonerAxioms.add(ax
-                                .getAxiomWithoutAnnotations()));
+        rootOntology.importsClosure().flatMap(o -> Stream.concat(o.logicalAxioms(), o.axioms(AxiomType.DECLARATION)))
+                .forEach(ax -> reasonerAxioms.add(ax.getAxiomWithoutAnnotations()));
     }
 
-    /** @return the configuration */
-    @Nonnull
+    /**
+     * @return the configuration
+     */
     public OWLReasonerConfiguration getReasonerConfiguration() {
         return configuration;
     }
@@ -113,8 +98,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * @param changes
      *        The list of raw changes.
      */
-    protected synchronized void handleRawOntologyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes) {
+    protected synchronized void handleRawOntologyChanges(List<? extends OWLOntologyChange> changes) {
         rawChanges.addAll(changes);
         // We auto-flush the changes if the reasoner is non-buffering
         if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
@@ -168,26 +152,16 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      *        The logical axioms that have been removed from the imports closure
      *        of the reasoner root ontology
      */
-    private void computeDiff(@Nonnull Set<OWLAxiom> added,
-            @Nonnull Set<OWLAxiom> removed) {
+    private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
         if (rawChanges.isEmpty()) {
             return;
         }
-        rootOntology
-                .importsClosure()
-                .flatMap(o -> o.logicalAxioms())
-                .filter(ax -> !reasonerAxioms.contains(ax
-                        .getAxiomWithoutAnnotations()))
-                .forEach(ax -> added.add(ax));
-        rootOntology
-                .importsClosure()
-                .flatMap(o -> o.axioms(AxiomType.DECLARATION))
-                .filter(ax -> !reasonerAxioms.contains(ax
-                        .getAxiomWithoutAnnotations()))
-                .forEach(ax -> added.add(ax));
+        rootOntology.importsClosure().flatMap(o -> o.logicalAxioms())
+                .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(ax -> added.add(ax));
+        rootOntology.importsClosure().flatMap(o -> o.axioms(AxiomType.DECLARATION))
+                .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(ax -> added.add(ax));
         for (OWLAxiom ax : reasonerAxioms) {
-            if (!rootOntology.containsAxiom(ax, Imports.INCLUDED,
-                    AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS)) {
+            if (!rootOntology.containsAxiom(ax, Imports.INCLUDED, AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS)) {
                 removed.add(ax);
             }
         }
@@ -202,7 +176,6 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      *         imports closure of the reasoner root ontology if the reasoner is
      *         buffered.
      */
-    @Nonnull
     public Collection<OWLAxiom> getReasonerAxioms() {
         return new ArrayList<>(reasonerAxioms);
     }
@@ -217,8 +190,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * @param removeAxioms
      *        The axioms to be removed from the reasoner
      */
-    protected abstract void handleChanges(@Nonnull Set<OWLAxiom> addAxioms,
-            @Nonnull Set<OWLAxiom> removeAxioms);
+    protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);
 
     @Override
     public void dispose() {
@@ -235,8 +207,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return configuration.getIndividualNodeSetPolicy();
     }
 
-    /** @return the data factory */
-    @Nonnull
+    /**
+     * @return the data factory
+     */
     public OWLDataFactory getOWLDataFactory() {
         return rootOntology.getOWLOntologyManager().getOWLDataFactory();
     }

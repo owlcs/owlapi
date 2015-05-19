@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -34,7 +32,7 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
      * @param entity
      *        the entity to be contained
      */
-    public OWLDataPropertyNodeSet(@Nonnull OWLDataProperty entity) {
+    public OWLDataPropertyNodeSet(OWLDataProperty entity) {
         super(entity);
     }
 
@@ -42,8 +40,7 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
      * @param owlDataPropertyNode
      *        the node to be contained
      */
-    public OWLDataPropertyNodeSet(
-            @Nonnull Node<OWLDataProperty> owlDataPropertyNode) {
+    public OWLDataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
         super(owlDataPropertyNode);
     }
 
@@ -51,7 +48,7 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
      * @param nodes
      *        the nodes to be contained
      */
-    public OWLDataPropertyNodeSet(@Nonnull Set<Node<OWLDataProperty>> nodes) {
+    public OWLDataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
         super(nodes);
     }
 
@@ -59,19 +56,17 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
      * @param nodes
      *        the nodes to be contained
      */
-    public OWLDataPropertyNodeSet(@Nonnull Stream<Node<OWLDataProperty>> nodes) {
+    public OWLDataPropertyNodeSet(Stream<Node<OWLDataProperty>> nodes) {
         super(nodes);
     }
 
-    @Nonnull
     @Override
     protected DefaultNode<OWLDataProperty> getNode(OWLDataProperty entity) {
         return NodeFactory.getOWLDataPropertyNode(entity);
     }
 
     @Override
-    protected DefaultNode<OWLDataProperty>
-            getNode(Set<OWLDataProperty> entities) {
+    protected DefaultNode<OWLDataProperty> getNode(Set<OWLDataProperty> entities) {
         return NodeFactory.getOWLDataPropertyNode(entities);
     }
 }
