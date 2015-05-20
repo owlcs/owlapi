@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -105,7 +103,6 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @deprecated use {@link #entities()}
      */
     @Deprecated
-    @Nonnull
     default Set<E> getEntities() {
         return asSet(entities());
     }
@@ -116,7 +113,6 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * 
      * @return The set of entities contained in this {@code Node}.
      */
-    @Nonnull
     Stream<E> entities();
 
     /**
@@ -134,7 +130,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @return {@code true} if this node contains {@code entity}, or
      *         {@code false} if this node does not contain {@code entity}
      */
-    boolean contains(@Nonnull E entity);
+    boolean contains(E entity);
 
     /**
      * Gets the entities contained in this node minus the specified entitie
@@ -149,8 +145,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         this node then the full set of entities returned is the same as
      *         that returned by {@link #getEntities()}
      */
-    @Nonnull
-    Set<E> getEntitiesMinus(@Nonnull E e);
+    Set<E> getEntitiesMinus(E e);
 
     /**
      * Gets the entities contained in this node minus the top entity. For a node
@@ -163,7 +158,6 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         of entities returned is the same as that returned by
      *         {@link #getEntities()}.
      */
-    @Nonnull
     Set<E> getEntitiesMinusTop();
 
     /**
@@ -178,7 +172,6 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         set of entities returned is the same as that returned by
      *         {@link #getEntities()}.
      */
-    @Nonnull
     Set<E> getEntitiesMinusBottom();
 
     /**
@@ -197,6 +190,5 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @throws RuntimeException
      *         if this node is empty (it does not contain any entities).
      */
-    @Nonnull
     E getRepresentativeElement();
 }

@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -41,7 +39,6 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @deprecated use {@link #entities()}
      */
     @Deprecated
-    @Nonnull
     default Set<E> getFlattened() {
         return asSet(entities());
     }
@@ -53,10 +50,11 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @return The union of the entities contained in the {@code Nodes} in this
      *         {@code NodeSet}.
      */
-    @Nonnull
     Stream<E> entities();
 
-    /** @return true if the node set is empty */
+    /**
+     * @return true if the node set is empty
+     */
     boolean isEmpty();
 
     /**
@@ -70,7 +68,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      *         {@code NodeSet} does not contain a {@code Node} that contains the
      *         entity, {@code e}.
      */
-    boolean containsEntity(@Nonnull E e);
+    boolean containsEntity(E e);
 
     /**
      * Determines if this {@code NodeSet} is a singleton. A {@code NodeSet} is a
@@ -109,7 +107,6 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @deprecated use {@link #nodes()}
      */
     @Deprecated
-    @Nonnull
     default Set<Node<E>> getNodes() {
         return asSet(nodes());
     }
@@ -120,6 +117,5 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @return The set of {@code Node}s contained in this {@code NodeSet}. Note
      *         that this set will be an unmodifiable set.
      */
-    @Nonnull
     Stream<Node<E>> nodes();
 }

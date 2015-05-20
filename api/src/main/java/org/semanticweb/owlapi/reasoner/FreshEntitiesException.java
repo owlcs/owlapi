@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -48,7 +49,7 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
      * @param t
      *        cause
      */
-    public FreshEntitiesException(Collection<OWLEntity> entities, Throwable t) {
+    public FreshEntitiesException(Collection<OWLEntity> entities, @Nullable Throwable t) {
         super(t);
         this.entities = entities;
     }
@@ -67,7 +68,7 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
      * @param t
      *        cause
      */
-    public FreshEntitiesException(OWLEntity entity, Throwable t) {
+    public FreshEntitiesException(OWLEntity entity, @Nullable Throwable t) {
         this(Collections.singletonList(entity), t);
     }
 

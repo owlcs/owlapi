@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.reasoner.knowledgeexploration;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -35,7 +33,6 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
          *        actual node type
          * @return inner node representation
          */
-        @Nonnull
         <T> T getNode();
     }
 
@@ -54,8 +51,7 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      *        true if only deterministic results should be returned
      * @return neighbors by object property
      */
-    Node<? extends OWLObjectPropertyExpression> getObjectNeighbours(
-            RootNode node, boolean deterministicOnly);
+    Node<? extends OWLObjectPropertyExpression> getObjectNeighbours(RootNode node, boolean deterministicOnly);
 
     /**
      * @param node
@@ -64,8 +60,7 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      *        true if only deterministic results should be returned
      * @return neighbors by data property
      */
-    Node<OWLDataProperty> getDataNeighbours(RootNode node,
-            boolean deterministicOnly);
+    Node<OWLDataProperty> getDataNeighbours(RootNode node, boolean deterministicOnly);
 
     /**
      * @param node
@@ -74,8 +69,7 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      *        the property being followed
      * @return neighbors by object property
      */
-    Collection<RootNode> getObjectNeighbours(RootNode node,
-            OWLObjectProperty property);
+    Collection<RootNode> getObjectNeighbours(RootNode node, OWLObjectProperty property);
 
     /**
      * @param node
@@ -84,8 +78,7 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      *        the property being followed
      * @return neighbors by data property
      */
-    Collection<RootNode> getDataNeighbours(RootNode node,
-            OWLDataProperty property);
+    Collection<RootNode> getDataNeighbours(RootNode node, OWLDataProperty property);
 
     /**
      * @param node
@@ -94,8 +87,7 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      *        true if only deterministic results should be returned
      * @return neighbors label by object property
      */
-    Node<? extends OWLClassExpression> getObjectLabel(RootNode node,
-            boolean deterministicOnly);
+    Node<? extends OWLClassExpression> getObjectLabel(RootNode node, boolean deterministicOnly);
 
     /**
      * @param node
@@ -104,8 +96,7 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
      *        true if only deterministic results should be returned
      * @return neighbors label by data property
      */
-    Node<? extends OWLDataRange> getDataLabel(RootNode node,
-            boolean deterministicOnly);
+    Node<? extends OWLDataRange> getDataLabel(RootNode node, boolean deterministicOnly);
 
     /**
      * @param node

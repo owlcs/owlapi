@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.reasoner;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 /**
  * An OWLReasonerConfiguration can be used to customise the setup of a reasoner
  * at reasoner creation time via an
@@ -41,7 +39,6 @@ public interface OWLReasonerConfiguration extends Serializable {
      * @return A progress monitor. By default this returns
      *         {@link NullReasonerProgressMonitor}
      */
-    @Nonnull
     ReasonerProgressMonitor getProgressMonitor();
 
     /**
@@ -53,7 +50,8 @@ public interface OWLReasonerConfiguration extends Serializable {
      * (attempt to build a model for example) and if the elapsed time exceeds
      * the timeout then it will abort the test as soon as possible and terminate
      * all reasoning. A {@link org.semanticweb.owlapi.reasoner.TimeOutException}
-     * will be thrown in the thread that invoked the last reasoner operation. <br>
+     * will be thrown in the thread that invoked the last reasoner operation.
+     * <br>
      * Note that this is not a timeout for method calls such as "getSubClasses",
      * which may involve many satisfiability (or other basic reasoning task)
      * checks, the sum of which may well exceed the timeout.
@@ -70,7 +68,6 @@ public interface OWLReasonerConfiguration extends Serializable {
      * 
      * @return The fresh entity policy.
      */
-    @Nonnull
     FreshEntityPolicy getFreshEntityPolicy();
 
     /**
@@ -84,6 +81,5 @@ public interface OWLReasonerConfiguration extends Serializable {
      *         i.e. by default individuals that are the same as each other are
      *         not grouped into the same node within a node set.
      */
-    @Nonnull
     IndividualNodeSetPolicy getIndividualNodeSetPolicy();
 }

@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -35,7 +33,6 @@ public interface OWLReasonerFactory {
      * @return A string that represents the name of the reasoner created by this
      *         factory.
      */
-    @Nonnull
     String getReasonerName();
 
     /**
@@ -57,8 +54,7 @@ public interface OWLReasonerFactory {
      * @throws NullPointerException
      *         if the {@code manager} or {@code ontology} are {@code null}.
      */
-    @Nonnull
-    OWLReasoner createNonBufferingReasoner(@Nonnull OWLOntology ontology);
+    OWLReasoner createNonBufferingReasoner(OWLOntology ontology);
 
     /**
      * Creates a buffering reasoner that reasons over the imports closure of the
@@ -79,8 +75,7 @@ public interface OWLReasonerFactory {
      * @throws NullPointerException
      *         if the {@code manager} or {@code ontology} are {@code null}.
      */
-    @Nonnull
-    OWLReasoner createReasoner(@Nonnull OWLOntology ontology);
+    OWLReasoner createReasoner(OWLOntology ontology);
 
     /**
      * Creates an OWLReasoner that reasons over the imports closure of the
@@ -109,9 +104,7 @@ public interface OWLReasonerFactory {
      *         if any of {@code manager}, {@code ontology} or {@code config} are
      *         {@code null}.
      */
-    @Nonnull
-    OWLReasoner createNonBufferingReasoner(@Nonnull OWLOntology ontology,
-            @Nonnull OWLReasonerConfiguration config);
+    OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config);
 
     /**
      * Creates a buffering reasoner that reasons over the imports closure of the
@@ -140,7 +133,5 @@ public interface OWLReasonerFactory {
      *         if any of {@code manager}, {@code ontology} or {@code config} are
      *         {@code null}.
      */
-    @Nonnull
-    OWLReasoner createReasoner(@Nonnull OWLOntology ontology,
-            @Nonnull OWLReasonerConfiguration config);
+    OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config);
 }

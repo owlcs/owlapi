@@ -39,7 +39,7 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
      * @param progressMonitor
      *        the progress monitor to use
      */
-    public SimpleConfiguration(@Nonnull ReasonerProgressMonitor progressMonitor) {
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor) {
         this.progressMonitor = progressMonitor;
     }
 
@@ -49,8 +49,7 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
      * @param timeOut
      *        the timeout in milliseconds
      */
-    public SimpleConfiguration(
-            @Nonnull ReasonerProgressMonitor progressMonitor, long timeOut) {
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, long timeOut) {
         this.progressMonitor = progressMonitor;
         this.timeOut = timeOut;
     }
@@ -65,10 +64,8 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
      * @param individualNodeSetPolicy
      *        the policy for individual nodes
      */
-    public SimpleConfiguration(
-            @Nonnull ReasonerProgressMonitor progressMonitor,
-            @Nonnull FreshEntityPolicy freshEntityPolicy, long timeOut,
-            @Nonnull IndividualNodeSetPolicy individualNodeSetPolicy) {
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, FreshEntityPolicy freshEntityPolicy,
+            long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
         this.progressMonitor = progressMonitor;
         this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;
@@ -81,8 +78,7 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
      * @param timeOut
      *        the timeout in milliseconds
      */
-    public SimpleConfiguration(@Nonnull FreshEntityPolicy freshEntityPolicy,
-            long timeOut) {
+    public SimpleConfiguration(FreshEntityPolicy freshEntityPolicy, long timeOut) {
         this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;
     }
@@ -95,7 +91,6 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
         this.timeOut = timeOut;
     }
 
-    @Nonnull
     @Override
     public ReasonerProgressMonitor getProgressMonitor() {
         return progressMonitor;
@@ -106,13 +101,11 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
         return timeOut;
     }
 
-    @Nonnull
     @Override
     public FreshEntityPolicy getFreshEntityPolicy() {
         return freshEntityPolicy;
     }
 
-    @Nonnull
     @Override
     public IndividualNodeSetPolicy getIndividualNodeSetPolicy() {
         return individualNodeSetPolicy;
