@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,8 +38,7 @@ public class IllegalPunning extends OWLProfileViolation {
      * @param iri
      *        iri
      */
-    public IllegalPunning(@Nonnull OWLOntology currentOntology,
-            @Nonnull OWLAxiom node, @Nonnull IRI iri) {
+    public IllegalPunning(OWLOntology currentOntology, OWLAxiom node, IRI iri) {
         super(currentOntology, node, checkNotNull(iri));
     }
 
@@ -52,17 +49,16 @@ public class IllegalPunning extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Cannot pun between properties: %s", getExpression()
-                .toQuotedString());
+        return toString("Cannot pun between properties: %s", getExpression().toQuotedString());
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

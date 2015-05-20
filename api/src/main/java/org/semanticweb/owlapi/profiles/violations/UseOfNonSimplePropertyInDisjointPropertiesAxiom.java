@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,8 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends
-        OWLProfileViolation {
+public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -38,10 +35,8 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends
      * @param prop
      *        prop
      */
-    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(
-            @Nonnull OWLOntology ontology,
-            @Nonnull OWLDisjointObjectPropertiesAxiom axiom,
-            @Nonnull OWLObjectPropertyExpression prop) {
+    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology, OWLDisjointObjectPropertiesAxiom axiom,
+            OWLObjectPropertyExpression prop) {
         super(ontology, axiom, prop);
     }
 
@@ -51,18 +46,17 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Use of non-simple property in an axiom %s",
-                getExpression());
+        return toString("Use of non-simple property in an axiom %s", getExpression());
     }
 }

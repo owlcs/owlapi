@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -37,9 +35,8 @@ public class UseOfObjectPropertyInverse extends OWLProfileViolation {
      * @param propertyExpression
      *        propertyExpression
      */
-    public UseOfObjectPropertyInverse(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom,
-            @Nonnull OWLObjectPropertyExpression propertyExpression) {
+    public UseOfObjectPropertyInverse(OWLOntology ontology, OWLAxiom axiom,
+            OWLObjectPropertyExpression propertyExpression) {
         super(ontology, axiom, propertyExpression);
     }
 
@@ -49,12 +46,12 @@ public class UseOfObjectPropertyInverse extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

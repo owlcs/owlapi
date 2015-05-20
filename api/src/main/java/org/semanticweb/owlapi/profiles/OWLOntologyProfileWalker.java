@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -39,7 +37,7 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
      * @param objects
      *        ontologies to walk
      */
-    public OWLOntologyProfileWalker(@Nonnull Stream<OWLOntology> objects) {
+    public OWLOntologyProfileWalker(Stream<OWLOntology> objects) {
         this(asList(objects));
     }
 
@@ -47,12 +45,12 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
      * @param objects
      *        ontologies to walk
      */
-    public OWLOntologyProfileWalker(@Nonnull Collection<OWLOntology> objects) {
+    public OWLOntologyProfileWalker(Collection<OWLOntology> objects) {
         super(objects);
         setStructureWalker(new StructureWalker<OWLOntology>(this) {
 
             @Override
-            public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+            public void visit(OWLAnnotationAssertionAxiom axiom) {
                 process(axiom);
                 if (axiom.getSubject() instanceof IRI) {
                     // do not visit anonymous nodes from annotations

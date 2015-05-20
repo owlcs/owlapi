@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -45,8 +43,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {
      * @param iri
      *        iri
      */
-    public DatatypeIRIAlsoUsedAsClassIRI(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom, @Nonnull IRI iri) {
+    public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, OWLAxiom axiom, IRI iri) {
         super(ontology, checkNotNull(axiom), iri);
     }
 
@@ -56,19 +53,18 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Datatype IRI also used as Class IRI: %s",
-                getExpression());
+        return toString("Datatype IRI also used as Class IRI: %s", getExpression());
     }
 
     @Override

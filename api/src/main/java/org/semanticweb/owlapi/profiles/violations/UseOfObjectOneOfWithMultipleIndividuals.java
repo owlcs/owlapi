@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -26,8 +24,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfObjectOneOfWithMultipleIndividuals extends
-        UseOfIllegalClassExpression {
+public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassExpression {
 
     /**
      * @param ontology
@@ -37,25 +34,22 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends
      * @param oneOf
      *        oneOf
      */
-    public UseOfObjectOneOfWithMultipleIndividuals(
-            @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
-            @Nonnull OWLObjectOneOf oneOf) {
+    public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, OWLAxiom axiom, OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Use of ObjectOneOf with multiple individuals %s",
-                getExpression());
+        return toString("Use of ObjectOneOf with multiple individuals %s", getExpression());
     }
 }

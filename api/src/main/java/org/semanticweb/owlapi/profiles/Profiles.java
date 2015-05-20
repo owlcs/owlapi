@@ -60,7 +60,7 @@ interface KnownFactories {
  * 
  * @author ignazio
  */
-public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
+public enum Profiles implements HasIRI,KnownFactories,OWLProfile {
     //@formatter:off
     /** http://www.w3.org/ns/owl-profile/DL. **/     OWL2_DL     ("DL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} },
     /** http://www.w3.org/ns/owl-profile/QL. **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2QLProfile();} },
@@ -73,7 +73,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     @Nonnull
     private final List<String> supportingFactories;
 
-    Profiles(@Nonnull String name, @Nonnull String... supportingFactories) {
+    Profiles(String name, String... supportingFactories) {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
         this.supportingFactories = CollectionFactory.list(supportingFactories);
     }
@@ -124,21 +124,15 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
      *         exception raised by {@code Class.forName(factoryClassName)} is
      *         wrapped by an OWLRuntimeException.
      */
-    public static OWLReasonerFactory
-            instantiateFactory(String factoryClassName) {
+    public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
         try {
             Class<?> c = Class.forName(factoryClassName);
             if (OWLReasonerFactory.class.isAssignableFrom(c)) {
                 return (OWLReasonerFactory) c.newInstance();
             }
-            throw new OWLRuntimeException(
-                    "Reasoner factory cannot be instantiated: "
-                            + factoryClassName);
-        } catch (ClassNotFoundException | InstantiationException
-                | IllegalAccessException e) {
-            throw new OWLRuntimeException(
-                    "Reasoner factory cannot be instantiated: "
-                            + factoryClassName, e);
+            throw new OWLRuntimeException("Reasoner factory cannot be instantiated: " + factoryClassName);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new OWLRuntimeException("Reasoner factory cannot be instantiated: " + factoryClassName, e);
         }
     }
 
@@ -148,7 +142,6 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
      * @return Profiles with matching IRI, or null if none is found
      */
     public static Profiles valueForIRI(IRI i) {
-        return Stream.of(values()).filter(p -> p.iri.equals(i)).findAny()
-                .orElse(null);
+        return Stream.of(values()).filter(p -> p.iri.equals(i)).findAny().orElse(null);
     }
 }

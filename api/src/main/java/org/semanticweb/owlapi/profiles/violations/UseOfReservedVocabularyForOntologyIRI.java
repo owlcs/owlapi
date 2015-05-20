@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.profiles.violations;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -35,7 +33,7 @@ public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
      * @param ontology
      *        ontology
      */
-    public UseOfReservedVocabularyForOntologyIRI(@Nonnull OWLOntology ontology) {
+    public UseOfReservedVocabularyForOntologyIRI(OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID().getOntologyIRI().get());
     }
 
@@ -45,26 +43,23 @@ public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Use of reserved vocabulary for ontology IRI: %s",
-                getExpression());
+        return toString("Use of reserved vocabulary for ontology IRI: %s", getExpression());
     }
 
     @Override
-    public <O> Optional<O> accept(
-            @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
-        return list(new SetOntologyID(ontology, IRI.create(
-                "urn:profilesrepair:ontology#", "renamed")));
+        return list(new SetOntologyID(ontology, IRI.create("urn:profilesrepair:ontology#", "renamed")));
     }
 }

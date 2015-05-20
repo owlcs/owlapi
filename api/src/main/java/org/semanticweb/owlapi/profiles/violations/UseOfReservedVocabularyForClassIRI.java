@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -37,8 +35,7 @@ public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation {
      * @param cls
      *        cls
      */
-    public UseOfReservedVocabularyForClassIRI(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom, @Nonnull OWLClass cls) {
+    public UseOfReservedVocabularyForClassIRI(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
         super(ontology, axiom, cls);
     }
 
@@ -48,18 +45,17 @@ public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Use of reserved vocabulary for class IRI: %s",
-                getExpression());
+        return toString("Use of reserved vocabulary for class IRI: %s", getExpression());
     }
 }

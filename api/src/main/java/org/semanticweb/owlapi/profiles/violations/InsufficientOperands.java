@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -23,7 +21,9 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
-/** @author ignazio */
+/**
+ * @author ignazio
+ */
 public class InsufficientOperands extends OWLProfileViolation {
 
     /**
@@ -34,8 +34,7 @@ public class InsufficientOperands extends OWLProfileViolation {
      * @param c
      *        c
      */
-    public InsufficientOperands(@Nonnull OWLOntology currentOntology,
-            @Nonnull OWLAxiom node, @Nonnull OWLObject c) {
+    public InsufficientOperands(OWLOntology currentOntology, OWLAxiom node, OWLObject c) {
         super(currentOntology, node, c);
     }
 
@@ -45,18 +44,17 @@ public class InsufficientOperands extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Not enough operands; at least two needed: %s",
-                expression);
+        return toString("Not enough operands; at least two needed: %s", getExpression());
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

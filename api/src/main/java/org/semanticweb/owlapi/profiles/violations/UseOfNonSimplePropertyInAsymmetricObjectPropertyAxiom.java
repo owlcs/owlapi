@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,8 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
-    OWLProfileViolation {
+public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -36,9 +33,8 @@ public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
      * @param axiom
      *        axiom
      */
-    public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(
-        @Nonnull OWLOntology ontology,
-        @Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
+    public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(OWLOntology ontology,
+            OWLAsymmetricObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 
@@ -48,19 +44,17 @@ public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(
-        @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString(
-            "Use of non-simple property in asymmetric object property axiom");
+        return toString("Use of non-simple property in asymmetric object property axiom");
     }
 }

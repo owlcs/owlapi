@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -41,8 +39,7 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation {
      * @param classExpression
      *        classExpression
      */
-    public UseOfIllegalClassExpression(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom, @Nonnull OWLClassExpression classExpression) {
+    public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
         super(ontology, axiom, checkNotNull(classExpression));
     }
 
@@ -52,12 +49,12 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

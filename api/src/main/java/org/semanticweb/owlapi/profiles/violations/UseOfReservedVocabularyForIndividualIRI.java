@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,8 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfReservedVocabularyForIndividualIRI extends
-        OWLProfileViolation {
+public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -38,9 +35,7 @@ public class UseOfReservedVocabularyForIndividualIRI extends
      * @param ind
      *        ind
      */
-    public UseOfReservedVocabularyForIndividualIRI(
-            @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
-            @Nonnull OWLNamedIndividual ind) {
+    public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology, OWLAxiom axiom, OWLNamedIndividual ind) {
         super(ontology, axiom, ind);
     }
 
@@ -50,18 +45,17 @@ public class UseOfReservedVocabularyForIndividualIRI extends
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Use of reserved vocabulary for individual IRI: %s",
-                getExpression());
+        return toString("Use of reserved vocabulary for individual IRI: %s", getExpression());
     }
 }

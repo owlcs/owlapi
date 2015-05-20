@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.profiles.violations;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -36,7 +34,7 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation {
      * @param ontology
      *        ontology
      */
-    public OntologyIRINotAbsolute(@Nonnull OWLOntology ontology) {
+    public OntologyIRINotAbsolute(OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID());
     }
 
@@ -46,13 +44,12 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(
-            @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -64,7 +61,6 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation {
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
-        return list(new SetOntologyID(ontology, IRI.create(
-                "urn:profilesrepair:ontology#", "replaced")));
+        return list(new SetOntologyID(ontology, IRI.create("urn:profilesrepair:ontology#", "replaced")));
     }
 }

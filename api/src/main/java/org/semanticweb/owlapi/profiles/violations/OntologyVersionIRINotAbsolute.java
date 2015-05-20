@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -38,7 +36,7 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
      * @param ontology
      *        ontology
      */
-    public OntologyVersionIRINotAbsolute(@Nonnull OWLOntology ontology) {
+    public OntologyVersionIRINotAbsolute(OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID());
     }
 
@@ -48,31 +46,25 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(
-        @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Ontology version IRI not absolute: %s",
-            getExpression());
+        return toString("Ontology version IRI not absolute: %s", getExpression());
     }
 
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
-        return list(
-            new SetOntologyID(ontology,
-                new OWLOntologyID(
-                    optional(IRI.create("urn:profilesrepair:ontology#",
-                        "replaced")),
-                optional(
-                    IRI.create("urn:profilesrepair:ontology#", "replaced1")))));
+        return list(new SetOntologyID(ontology,
+                new OWLOntologyID(optional(IRI.create("urn:profilesrepair:ontology#", "replaced")),
+                        optional(IRI.create("urn:profilesrepair:ontology#", "replaced1")))));
     }
 }

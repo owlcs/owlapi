@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,8 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom
-        extends OWLProfileViolation {
+public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -36,9 +33,8 @@ public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom
      * @param axiom
      *        axiom
      */
-    public UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(
-            @Nonnull OWLOntology ontology,
-            @Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(OWLOntology ontology,
+            OWLInverseFunctionalObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 
@@ -48,18 +44,17 @@ public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Use of non-simple property in functional axiom %s",
-                getExpression());
+        return toString("Use of non-simple property in functional axiom %s", getExpression());
     }
 }

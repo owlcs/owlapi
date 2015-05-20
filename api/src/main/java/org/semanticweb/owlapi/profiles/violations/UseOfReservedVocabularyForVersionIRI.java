@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -38,7 +36,7 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
      * @param ontology
      *        ontology
      */
-    public UseOfReservedVocabularyForVersionIRI(@Nonnull OWLOntology ontology) {
+    public UseOfReservedVocabularyForVersionIRI(OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID().getVersionIRI().get());
     }
 
@@ -48,29 +46,25 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(
-        @Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString(
-            "Use of reserved vocabulary for ontology version IRI: %s",
-            getExpression());
+        return toString("Use of reserved vocabulary for ontology version IRI: %s", getExpression());
     }
 
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
         return list(new SetOntologyID(ontology,
-            new OWLOntologyID(optional(
-                IRI.create("urn:profilesrepair:ontology#", "renamed")),
-            optional(IRI.create("urn:profilesrepair:ontology#", "renamed1")))));
+                new OWLOntologyID(optional(IRI.create("urn:profilesrepair:ontology#", "renamed")),
+                        optional(IRI.create("urn:profilesrepair:ontology#", "renamed1")))));
     }
 }

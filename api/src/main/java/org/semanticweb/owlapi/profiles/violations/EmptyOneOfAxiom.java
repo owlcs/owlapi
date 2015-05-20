@@ -14,15 +14,15 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
-/** @author ignazio */
+/**
+ * @author ignazio
+ */
 public class EmptyOneOfAxiom extends OWLProfileViolation {
 
     /**
@@ -31,8 +31,7 @@ public class EmptyOneOfAxiom extends OWLProfileViolation {
      * @param axiom
      *        the axiom with the violation
      */
-    public EmptyOneOfAxiom(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom) {
+    public EmptyOneOfAxiom(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom, null);
     }
 
@@ -42,12 +41,12 @@ public class EmptyOneOfAxiom extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

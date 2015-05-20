@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -27,8 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfDefinedDatatypeInDatatypeRestriction extends
-        OWLProfileViolation {
+public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -38,9 +35,8 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends
      * @param restriction
      *        restriction
      */
-    public UseOfDefinedDatatypeInDatatypeRestriction(
-            @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
-            @Nonnull OWLDatatypeRestriction restriction) {
+    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology, OWLAxiom axiom,
+            OWLDatatypeRestriction restriction) {
         super(ontology, axiom, restriction);
     }
 
@@ -50,18 +46,17 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Use of defined datatype in datatype restriction %s",
-                getExpression());
+        return toString("Use of defined datatype in datatype restriction %s", getExpression());
     }
 }

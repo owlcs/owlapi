@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -37,8 +35,7 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation {
      * @param literal
      *        literal
      */
-    public LexicalNotInLexicalSpace(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom, @Nonnull OWLLiteral literal) {
+    public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom, OWLLiteral literal) {
         super(ontology, axiom, literal);
     }
 
@@ -48,18 +45,17 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return toString("Literal lexical value not in lexical space: %s",
-                getExpression());
+        return toString("Literal lexical value not in lexical space: %s", getExpression());
     }
 }

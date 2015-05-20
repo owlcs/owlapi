@@ -12,54 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
-import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
-import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
-import org.semanticweb.owlapi.profiles.violations.IllegalPunning;
-import org.semanticweb.owlapi.profiles.violations.InsufficientIndividuals;
-import org.semanticweb.owlapi.profiles.violations.InsufficientOperands;
-import org.semanticweb.owlapi.profiles.violations.InsufficientPropertyExpressions;
-import org.semanticweb.owlapi.profiles.violations.LastPropertyInChainNotInImposedRange;
-import org.semanticweb.owlapi.profiles.violations.LexicalNotInLexicalSpace;
-import org.semanticweb.owlapi.profiles.violations.OntologyIRINotAbsolute;
-import org.semanticweb.owlapi.profiles.violations.OntologyVersionIRINotAbsolute;
-import org.semanticweb.owlapi.profiles.violations.UseOfAnonymousIndividual;
-import org.semanticweb.owlapi.profiles.violations.UseOfBuiltInDatatypeInDatatypeDefinition;
-import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatypeRestriction;
-import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
-import org.semanticweb.owlapi.profiles.violations.UseOfIllegalClassExpression;
-import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
-import org.semanticweb.owlapi.profiles.violations.UseOfIllegalFacetRestriction;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonAbsoluteIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonAtomicClassExpression;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonEquivalentClassExpression;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInCardinalityRestriction;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInDisjointPropertiesAxiom;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInFunctionalPropertyAxiom;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInIrreflexivePropertyAxiom;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSimplePropertyInObjectHasSelf;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSubClassExpression;
-import org.semanticweb.owlapi.profiles.violations.UseOfNonSuperClassExpression;
-import org.semanticweb.owlapi.profiles.violations.UseOfObjectPropertyInverse;
-import org.semanticweb.owlapi.profiles.violations.UseOfPropertyInChainCausesCycle;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForClassIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForDataPropertyIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForIndividualIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForObjectPropertyIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForOntologyIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForVersionIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom;
-import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredAnnotationProperty;
-import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredClass;
-import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDataProperty;
-import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
-import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
-import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
+import org.semanticweb.owlapi.profiles.violations.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -72,7 +25,7 @@ public interface OWLProfileViolationVisitor {
      *        object to visit @deprecated use doDefault() instead
      */
     @Deprecated
-    default void getDefaultReturnValue(@Nonnull OWLProfileViolation object) {
+    default void getDefaultReturnValue(OWLProfileViolation object) {
         doDefault(object);
     }
 
@@ -82,8 +35,7 @@ public interface OWLProfileViolationVisitor {
      * @param object
      *        The object that was visited.
      */
-    default void doDefault(
-            @SuppressWarnings("unused") @Nonnull OWLProfileViolation object) {}
+    default void doDefault(@SuppressWarnings("unused") OWLProfileViolation object) {}
 
     /**
      * @param v
@@ -154,8 +106,7 @@ public interface OWLProfileViolationVisitor {
      *        UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom to
      *        visit
      */
-    default void visit(
-            UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
+    default void visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
         doDefault(v);
     }
 

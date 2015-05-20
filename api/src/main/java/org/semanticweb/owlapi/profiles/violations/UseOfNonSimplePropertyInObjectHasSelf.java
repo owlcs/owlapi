@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
@@ -38,8 +36,7 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
      * @param hasSelf
      *        hasSelf
      */
-    public UseOfNonSimplePropertyInObjectHasSelf(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom, @Nonnull OWLObjectHasSelf hasSelf) {
+    public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, OWLAxiom axiom, OWLObjectHasSelf hasSelf) {
         super(ontology, axiom, hasSelf);
     }
 
@@ -49,12 +46,12 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

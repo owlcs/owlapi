@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -26,8 +24,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
-        OWLProfileViolation {
+public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -35,9 +32,7 @@ public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
      * @param axiom
      *        axiom
      */
-    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(
-            @Nonnull OWLOntology ontology,
-            @Nonnull OWLSubDataPropertyOfAxiom axiom) {
+    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {
         super(ontology, axiom, axiom);
     }
 
@@ -47,12 +42,12 @@ public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

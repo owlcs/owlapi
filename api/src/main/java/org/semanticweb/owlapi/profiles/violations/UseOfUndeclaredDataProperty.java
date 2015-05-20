@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -32,8 +30,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements
-        UndeclaredEntityViolation {
+public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements UndeclaredEntityViolation {
 
     @Override
     public OWLEntity getEntity() {
@@ -48,8 +45,7 @@ public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements
      * @param prop
      *        prop
      */
-    public UseOfUndeclaredDataProperty(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom, @Nonnull OWLDataProperty prop) {
+    public UseOfUndeclaredDataProperty(OWLOntology ontology, OWLAxiom axiom, OWLDataProperty prop) {
         super(ontology, axiom, checkNotNull(prop));
     }
 
@@ -59,12 +55,12 @@ public class UseOfUndeclaredDataProperty extends OWLProfileViolation implements
     }
 
     @Override
-    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
+    public void accept(OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> Optional<O> accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

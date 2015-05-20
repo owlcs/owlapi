@@ -19,20 +19,16 @@ import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.HasIRI;
-import org.semanticweb.owlapi.model.HasPrefixedName;
-import org.semanticweb.owlapi.model.HasShortForm;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.providers.DatatypeProvider;
 
 /**
@@ -43,16 +39,7 @@ import org.semanticweb.owlapi.model.providers.DatatypeProvider;
  *         Management Group
  * @since 2.2.0
  */
-public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
-
-
-
-
-
-
-
-
-
+public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
 //@formatter:off
     /** RDF_XML_LITERAL. */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL. */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -90,8 +77,17 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     /** XSD_DATE_TIME_STAMP. */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
     @Nonnull
-    private static final Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(
-            v -> v.iri));
+    private static final Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(v -> v.iri));
+    public static final List<OWL2Datatype> EL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
+            RDFS_LITERAL, OWL_RATIONAL, OWL_REAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_STRING,
+            XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_HEX_BINARY, XSD_BASE_64_BINARY,
+            XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+    public static final List<OWL2Datatype> RL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
+            RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_NON_POSITIVE_INTEGER,
+            XSD_POSITIVE_INTEGER, XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE, XSD_UNSIGNED_LONG,
+            XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_LANGUAGE,
+            XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY, XSD_BASE_64_BINARY, XSD_ANY_URI,
+            XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
 
     /**
      * Gets all of the built in datatype IRIs.
@@ -150,16 +146,10 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Nonnull
     public static OWL2Datatype getDatatype(IRI datatype) {
         if (!isBuiltIn(datatype)) {
-            throw new OWLRuntimeException(datatype
-                    + " is not a built in datatype!");
+            throw new OWLRuntimeException(datatype + " is not a built in datatype!");
         }
-        return Stream
-                .of(values())
-                .filter(v -> v.iri.equals(datatype))
-                .findAny()
-                .orElseThrow(
-                        () -> new OWLRuntimeException(datatype
-                                + " is not a built in datatype!"));
+        return Stream.of(values()).filter(v -> v.iri.equals(datatype)).findAny()
+                .orElseThrow(() -> new OWLRuntimeException(datatype + " is not a built in datatype!"));
     }
 
     /**
@@ -190,8 +180,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm,
-            @Nonnull Category category, boolean finite, @Nonnull String regEx) {
+    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm, @Nonnull Category category, boolean finite,
+            @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ':' + shortForm;
@@ -201,8 +191,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category,
-            boolean finite, @Nonnull String regEx) {
+    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category, boolean finite, @Nonnull String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();
@@ -320,7 +309,9 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             this.facets = createSet(facets);
         }
 
-        /** @return name */
+        /**
+         * @return name
+         */
         public String getName() {
             return name;
         }
@@ -334,7 +325,9 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             return asSet(facets());
         }
 
-        /** @return facets */
+        /**
+         * @return facets
+         */
         public Stream<OWLFacet> facets() {
             return facets.stream();
         }
@@ -373,8 +366,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
             @Override
             public String getNormalisedString(@Nonnull String s) {
-                return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ")
-                        .trim();
+                return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ").trim();
             }
         };
 
