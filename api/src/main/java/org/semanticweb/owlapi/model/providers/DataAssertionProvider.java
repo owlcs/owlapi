@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model.providers;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.*;
 
 /** Data property assertion provider. */
@@ -31,9 +29,8 @@ public interface DataAssertionProvider extends LiteralProvider {
      *        object
      * @return a data property assertion
      */
-    @Nonnull
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(@Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object) {
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, OWLLiteral object) {
         return getOWLDataPropertyAssertionAxiom(property, subject, object, Collections.emptySet());
     }
 
@@ -48,9 +45,8 @@ public interface DataAssertionProvider extends LiteralProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a data property assertion with annotations
      */
-    @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(@Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object, @Nonnull Collection<OWLAnnotation> annotations);
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, OWLLiteral object, Collection<OWLAnnotation> annotations);
 
     /**
      * @param property
@@ -61,9 +57,8 @@ public interface DataAssertionProvider extends LiteralProvider {
      *        value
      * @return a data property assertion
      */
-    @Nonnull
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(@Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, int value) {
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, int value) {
         return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
     }
 
@@ -76,9 +71,8 @@ public interface DataAssertionProvider extends LiteralProvider {
      *        value
      * @return a data property assertion
      */
-    @Nonnull
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(@Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, double value) {
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, double value) {
         return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
     }
 
@@ -91,9 +85,8 @@ public interface DataAssertionProvider extends LiteralProvider {
      *        value
      * @return a data property assertion
      */
-    @Nonnull
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(@Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, float value) {
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, float value) {
         return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
     }
 
@@ -106,9 +99,8 @@ public interface DataAssertionProvider extends LiteralProvider {
      *        value
      * @return a data property assertion
      */
-    @Nonnull
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(@Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, boolean value) {
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, boolean value) {
         return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
     }
 
@@ -121,9 +113,8 @@ public interface DataAssertionProvider extends LiteralProvider {
      *        value
      * @return a data property assertion
      */
-    @Nonnull
-    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(@Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLIndividual subject, @Nonnull String value) {
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, String value) {
         return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value), Collections.emptySet());
     }
 
@@ -136,9 +127,8 @@ public interface DataAssertionProvider extends LiteralProvider {
      *        object
      * @return a negative property assertion axiom on given arguments
      */
-    @Nonnull
     default OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object) {
+            OWLDataPropertyExpression property, OWLIndividual subject, OWLLiteral object) {
         return getOWLNegativeDataPropertyAssertionAxiom(property, subject, object, Collections.emptySet());
     }
 
@@ -154,8 +144,6 @@ public interface DataAssertionProvider extends LiteralProvider {
      * @return a negative property assertion axiom on given arguments with
      *         annotations
      */
-    @Nonnull
-    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object,
-            @Nonnull Collection<OWLAnnotation> annotations);
+    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(OWLDataPropertyExpression property,
+            OWLIndividual subject, OWLLiteral object, Collection<OWLAnnotation> annotations);
 }

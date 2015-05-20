@@ -15,14 +15,11 @@ package org.semanticweb.owlapi.model.axiomproviders;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** Inverse axiom provider interface. */
-@ParametersAreNonnullByDefault
 public interface InverseAxiomProvider {
 
     /**

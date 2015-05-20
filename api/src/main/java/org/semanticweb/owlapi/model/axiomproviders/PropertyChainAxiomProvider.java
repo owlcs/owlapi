@@ -16,8 +16,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -25,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 /**
  * Annotation, datatype and object property range provider.
  */
-@ParametersAreNonnullByDefault
 public interface PropertyChainAxiomProvider {
 
     /**

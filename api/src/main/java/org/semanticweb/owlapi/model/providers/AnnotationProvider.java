@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model.providers;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -24,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationValue;
 /**
  * Annotation provider interface.
  */
-@ParametersAreNonnullByDefault
 public interface AnnotationProvider {
 
     // Annotations

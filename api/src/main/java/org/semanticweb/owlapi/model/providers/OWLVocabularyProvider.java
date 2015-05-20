@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -24,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Utility shortcuts for OWL basic entities. For the sake of convenience, this
  * also includes RDF/RDFS and XSD entities.
  */
-@ParametersAreNonnullByDefault
 public interface OWLVocabularyProvider {
 
     // Entities and data stuff

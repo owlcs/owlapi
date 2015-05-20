@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model.axiomproviders;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -25,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 /**
  * Disjoint union provider.
  */
-@ParametersAreNonnullByDefault
 public interface DisjointUnionAxiomProvider {
 
     /**

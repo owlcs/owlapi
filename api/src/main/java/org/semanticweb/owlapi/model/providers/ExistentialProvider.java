@@ -12,14 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
+import org.semanticweb.owlapi.model.*;
 
 /** Existential provider interface. */
 public interface ExistentialProvider {
@@ -34,10 +27,7 @@ public interface ExistentialProvider {
      * @return An OWLDataSomeValuesFrom restriction that acts along the
      *         specified property and has the specified filler
      */
-    @Nonnull
-    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(
-            @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLDataRange dataRange);
+    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
 
     /**
      * Gets an OWLObjectSomeValuesFrom restriction
@@ -49,8 +39,6 @@ public interface ExistentialProvider {
      * @return An OWLObjectSomeValuesFrom restriction along the specified
      *         property with the specified filler
      */
-    @Nonnull
-    OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression classExpression);
+    OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression);
 }

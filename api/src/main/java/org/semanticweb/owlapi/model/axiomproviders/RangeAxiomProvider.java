@@ -15,14 +15,11 @@ package org.semanticweb.owlapi.model.axiomproviders;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
  * Annotation, datatype and object property range provider.
  */
-@ParametersAreNonnullByDefault
 public interface RangeAxiomProvider {
 
     /**

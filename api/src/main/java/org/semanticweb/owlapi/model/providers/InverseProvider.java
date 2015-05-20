@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -29,7 +27,5 @@ public interface InverseProvider {
      *        The property of which the inverse will be returned
      * @return The inverse of the specified object property
      */
-    @Nonnull
-    OWLObjectInverseOf getOWLObjectInverseOf(
-            @Nonnull OWLObjectPropertyExpression property);
+    OWLObjectInverseOf getOWLObjectInverseOf(OWLObjectPropertyExpression property);
 }

@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
@@ -26,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** HasKey provider interface. */
-@ParametersAreNonnullByDefault
 public interface HasKeyAxiomProvider {
 
     /**

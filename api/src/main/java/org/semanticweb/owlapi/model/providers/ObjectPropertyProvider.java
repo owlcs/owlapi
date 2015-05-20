@@ -16,7 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
@@ -39,8 +39,7 @@ public interface ObjectPropertyProvider extends Serializable {
      *        The IRI.
      * @return An {@link OWLObjectProperty} that has the specified IRI.
      */
-    @Nonnull
-    OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri);
+    OWLObjectProperty getOWLObjectProperty(IRI iri);
 
     /**
      * Gets an instance of {@link OWLObjectProperty} with the same IRI as the
@@ -50,8 +49,7 @@ public interface ObjectPropertyProvider extends Serializable {
      *        The HasIRI instance.
      * @return An {@link OWLObjectProperty} that has iri.getIRI() as IRI.
      */
-    @Nonnull
-    default OWLObjectProperty getOWLObjectProperty(@Nonnull HasIRI iri) {
+    default OWLObjectProperty getOWLObjectProperty(HasIRI iri) {
         return getOWLObjectProperty(iri.getIRI());
     }
 
@@ -64,8 +62,7 @@ public interface ObjectPropertyProvider extends Serializable {
      *        The IRI string.
      * @return An {@link OWLObjectProperty} that has the specified IRI.
      */
-    @Nonnull
-    default OWLObjectProperty getOWLObjectProperty(@Nonnull String iri) {
+    default OWLObjectProperty getOWLObjectProperty(String iri) {
         return getOWLObjectProperty(IRI.create(iri));
     }
 
@@ -80,17 +77,15 @@ public interface ObjectPropertyProvider extends Serializable {
      *        optional remainder or local name
      * @return An {@link OWLObjectProperty} that has the specified IRI.
      */
-    @Nonnull
-    default OWLObjectProperty getOWLObjectProperty(@Nonnull String namespace,
-            String remainder) {
+    default OWLObjectProperty getOWLObjectProperty(String namespace, @Nullable String remainder) {
         return getOWLObjectProperty(IRI.create(namespace, remainder));
     }
 
     /**
      * Gets an OWLObjectProperty that has an IRI that is obtained by expanding
-     * an abbreviated name using an appropriate prefix mapping. See <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
-     * Structural Specification</a> for more details.
+     * an abbreviated name using an appropriate prefix mapping. See
+     * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The
+     * OWL 2 Structural Specification</a> for more details.
      * 
      * @param abbreviatedIRI
      *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
@@ -101,7 +96,8 @@ public interface ObjectPropertyProvider extends Serializable {
      *        The prefix manager that is responsible for mapping prefix names to
      *        prefix IRIs.
      * @return An OWLObjectProperty that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager. <br>
+     *         specified abbreviated IRI using the specified prefix manager.
+     *         <br>
      *         For example, suppose "m:Cat" was specified as the abbreviated
      *         IRI, the prefix manager would be used to obtain the IRI prefix
      *         for the "m:" prefix name, this prefix would then be concatenated
@@ -111,10 +107,7 @@ public interface ObjectPropertyProvider extends Serializable {
      *         if the prefix name in the specified abbreviated IRI does not have
      *         a mapping to a prefix in the specified prefix manager.
      */
-    @Nonnull
-    default OWLObjectProperty
-            getOWLObjectProperty(@Nonnull String abbreviatedIRI,
-                    @Nonnull PrefixManager prefixManager) {
+    default OWLObjectProperty getOWLObjectProperty(String abbreviatedIRI, PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "curi canno be null");
         checkNotNull(prefixManager, "prefixManager cannot be null");
         return getOWLObjectProperty(prefixManager.getIRI(abbreviatedIRI));

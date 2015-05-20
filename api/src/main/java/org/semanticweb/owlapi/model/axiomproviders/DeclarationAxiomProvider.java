@@ -15,12 +15,9 @@ package org.semanticweb.owlapi.model.axiomproviders;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.*;
 
 /** Declaration provider interface. */
-@ParametersAreNonnullByDefault
 public interface DeclarationAxiomProvider {
 
     /**

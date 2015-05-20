@@ -12,14 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 
 /** Universal provider interface. */
 public interface UniversalProvider {
@@ -32,10 +25,7 @@ public interface UniversalProvider {
      * @return An OWLDataAllValuesFrom restriction that acts along the specified
      *         property and has the specified filler
      */
-    @Nonnull
-    OWLDataAllValuesFrom getOWLDataAllValuesFrom(
-            @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLDataRange dataRange);
+    OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
 
     /**
      * @param property
@@ -44,8 +34,6 @@ public interface UniversalProvider {
      *        the class expression for the restriction
      * @return an AllValuesFrom on specified property and class expression
      */
-    @Nonnull
-    OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression classExpression);
+    OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(OWLObjectPropertyExpression property,
+            OWLClassExpression classExpression);
 }

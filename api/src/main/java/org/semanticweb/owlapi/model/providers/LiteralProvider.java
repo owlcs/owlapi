@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model.providers;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -40,9 +39,7 @@ public interface LiteralProvider extends DatatypeProvider {
      *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
      *         of "abc" and a language tag of "en".
      */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWLDatatype datatype);
+    OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
 
     /**
      * Gets an {@code OWLLiteral}, which has the specified lexical value, and is
@@ -59,9 +56,7 @@ public interface LiteralProvider extends DatatypeProvider {
      *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
      *         of "abc" and a language tag of "en".
      */
-    @Nonnull
-    default OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWL2Datatype datatype) {
+    default OWLLiteral getOWLLiteral(String lexicalValue, OWL2Datatype datatype) {
         checkNotNull(datatype, "datatype cannot be null");
         return getOWLLiteral(lexicalValue, getOWLDatatype(datatype));
     }
@@ -74,7 +69,6 @@ public interface LiteralProvider extends DatatypeProvider {
      * @return An {@code OWLTypedConstant} whose literal is the lexical value of
      *         the integer, and whose data type is xsd:integer.
      */
-    @Nonnull
     OWLLiteral getOWLLiteral(int value);
 
     /**
@@ -85,7 +79,6 @@ public interface LiteralProvider extends DatatypeProvider {
      * @return An {@code OWLTypedConstant} whose literal is the lexical value of
      *         the double, and whose data type is xsd:double.
      */
-    @Nonnull
     OWLLiteral getOWLLiteral(double value);
 
     /**
@@ -96,7 +89,6 @@ public interface LiteralProvider extends DatatypeProvider {
      * @return An {@code OWLTypedConstant} whose literal is the lexical value of
      *         the boolean, and whose data type is xsd:boolean.
      */
-    @Nonnull
     OWLLiteral getOWLLiteral(boolean value);
 
     /**
@@ -107,7 +99,6 @@ public interface LiteralProvider extends DatatypeProvider {
      * @return An {@code OWLTypedConstant} whose literal is the lexical value of
      *         the float, and whose data type is xsd:float.
      */
-    @Nonnull
     OWLLiteral getOWLLiteral(float value);
 
     /**
@@ -119,8 +110,7 @@ public interface LiteralProvider extends DatatypeProvider {
      * @return A literal (without a language tag) that has a datatype of
      *         xsd:string.
      */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String value);
+    OWLLiteral getOWLLiteral(String value);
 
     /**
      * Gets an OWLLiteral with a language tag. The datatype of this literal will
@@ -135,13 +125,12 @@ public interface LiteralProvider extends DatatypeProvider {
      *        removed from the tag and the tag will be normalised to LOWER CASE.
      *        If {@code lang} is {@code null} then {@code lang} will be
      *        converted to the empty string (for backwards compatibility). If
-     *        not empty, the tag is formed according to <a
-     *        href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a> but
-     *        the OWL API will not check that the tag conforms to this
+     *        not empty, the tag is formed according to
+     *        <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
+     *        but the OWL API will not check that the tag conforms to this
      *        specification - it is up to the caller to ensure this.
      * @return The OWLLiteral that represents the string literal with a
      *         (possibly empty) language tag.
      */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable String lang);
+    OWLLiteral getOWLLiteral(String literal, @Nullable String lang);
 }

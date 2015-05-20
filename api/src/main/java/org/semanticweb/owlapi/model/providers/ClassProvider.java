@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasIRI;
@@ -39,8 +38,7 @@ public interface ClassProvider extends Serializable {
      *        The IRI.
      * @return An {@link OWLClass} that has the specified IRI.
      */
-    @Nonnull
-    OWLClass getOWLClass(@Nonnull IRI iri);
+    OWLClass getOWLClass(IRI iri);
 
     /**
      * Gets an instance of {@link OWLClass} with the same IRI as the input.
@@ -49,8 +47,7 @@ public interface ClassProvider extends Serializable {
      *        The HasIRI instance.
      * @return An {@link OWLClass} that has iri.getIRI() as IRI.
      */
-    @Nonnull
-    default OWLClass getOWLClass(@Nonnull HasIRI iri) {
+    default OWLClass getOWLClass(HasIRI iri) {
         return getOWLClass(iri.getIRI());
     }
 
@@ -63,8 +60,7 @@ public interface ClassProvider extends Serializable {
      *        The IRI string
      * @return An {@link OWLClass} that has the specified IRI.
      */
-    @Nonnull
-    default OWLClass getOWLClass(@Nonnull String iri) {
+    default OWLClass getOWLClass(String iri) {
         return getOWLClass(IRI.create(iri));
     }
 
@@ -80,17 +76,15 @@ public interface ClassProvider extends Serializable {
      *        optional remainder or local name (can be null)
      * @return An {@link OWLClass} that has the specified IRI.
      */
-    @Nonnull
-    default OWLClass getOWLClass(@Nonnull String namespace,
-            @Nullable String remainder) {
+    default OWLClass getOWLClass(String namespace, @Nullable String remainder) {
         return getOWLClass(IRI.create(namespace, remainder));
     }
 
     /**
      * Gets an OWLClass that has an IRI that is obtained by expanding an
-     * abbreviated name using an appropriate prefix mapping. See <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
-     * Structural Specification</a> for more details.
+     * abbreviated name using an appropriate prefix mapping. See
+     * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The
+     * OWL 2 Structural Specification</a> for more details.
      * 
      * @param abbreviatedIRI
      *        The abbreviated IRI, which is of the form PREFIX_NAME:RC, where
@@ -111,9 +105,7 @@ public interface ClassProvider extends Serializable {
      *         if the prefix name in the specified abbreviated IRI does not have
      *         a mapping to a prefix in the specified prefix manager.
      */
-    @Nonnull
-    default OWLClass getOWLClass(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager) {
+    default OWLClass getOWLClass(String abbreviatedIRI, PrefixManager prefixManager) {
         checkNotNull(abbreviatedIRI, "iri cannot be null");
         checkNotNull(prefixManager, "prefixManager cannot be null");
         return getOWLClass(prefixManager.getIRI(abbreviatedIRI));

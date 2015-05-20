@@ -17,15 +17,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Equivalent classes and properties provider.
  */
-@ParametersAreNonnullByDefault
 public interface EquivalentAxiomProvider {
 
     /**

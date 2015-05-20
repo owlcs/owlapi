@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model.providers;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -32,9 +30,8 @@ public interface ClassAssertionProvider extends LiteralProvider {
      *        individual
      * @return a class assertion axiom
      */
-    @Nonnull
-    default OWLClassAssertionAxiom getOWLClassAssertionAxiom(@Nonnull OWLClassExpression classExpression,
-            @Nonnull OWLIndividual individual) {
+    default OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression,
+            OWLIndividual individual) {
         return getOWLClassAssertionAxiom(classExpression, individual, Collections.emptySet());
     }
 
@@ -47,7 +44,6 @@ public interface ClassAssertionProvider extends LiteralProvider {
      *        A set of annotations. Cannot be null or contain nulls.
      * @return a class assertion axiom with annotations
      */
-    @Nonnull
-    OWLClassAssertionAxiom getOWLClassAssertionAxiom(@Nonnull OWLClassExpression classExpression,
-            @Nonnull OWLIndividual individual, @Nonnull Collection<OWLAnnotation> annotations);
+    OWLClassAssertionAxiom getOWLClassAssertionAxiom(OWLClassExpression classExpression, OWLIndividual individual,
+            Collection<OWLAnnotation> annotations);
 }

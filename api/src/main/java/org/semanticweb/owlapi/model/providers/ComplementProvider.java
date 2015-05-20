@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -31,15 +29,12 @@ public interface ComplementProvider {
      *        The datarange to be complemented.
      * @return An OWLDataComplementOf of the specified data range
      */
-    @Nonnull
-    OWLDataComplementOf getOWLDataComplementOf(@Nonnull OWLDataRange dataRange);
+    OWLDataComplementOf getOWLDataComplementOf(OWLDataRange dataRange);
 
     /**
      * @param operand
      *        class expression to complement
      * @return the complement of the specified argument
      */
-    @Nonnull
-    OWLObjectComplementOf getOWLObjectComplementOf(
-            @Nonnull OWLClassExpression operand);
+    OWLObjectComplementOf getOWLObjectComplementOf(OWLClassExpression operand);
 }

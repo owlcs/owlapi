@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -34,18 +32,14 @@ public interface IntersectionProvider {
      *        data ranges for intersection. Cannot be null or contain nulls.
      * @return an OWLDataIntersectionOf on the specified dataranges
      */
-    @Nonnull
-    OWLDataIntersectionOf getOWLDataIntersectionOf(
-            @Nonnull Collection<? extends OWLDataRange> dataRanges);
+    OWLDataIntersectionOf getOWLDataIntersectionOf(Collection<? extends OWLDataRange> dataRanges);
 
     /**
      * @param dataRanges
      *        data ranges for intersection. Cannot be null or contain nulls.
      * @return an OWLDataIntersectionOf on the specified dataranges
      */
-    @Nonnull
-    default OWLDataIntersectionOf getOWLDataIntersectionOf(
-            @Nonnull OWLDataRange... dataRanges) {
+    default OWLDataIntersectionOf getOWLDataIntersectionOf(OWLDataRange... dataRanges) {
         checkIterableNotNull(dataRanges, "dataRange cannot be nulls", true);
         return getOWLDataIntersectionOf(CollectionFactory.createSet(dataRanges));
     }
@@ -56,9 +50,7 @@ public interface IntersectionProvider {
      *        nulls.
      * @return an OWLObjectIntersectionOf on the specified operands
      */
-    @Nonnull
-    OWLObjectIntersectionOf getOWLObjectIntersectionOf(
-            @Nonnull Collection<? extends OWLClassExpression> operands);
+    OWLObjectIntersectionOf getOWLObjectIntersectionOf(Collection<? extends OWLClassExpression> operands);
 
     /**
      * @param operands
@@ -66,9 +58,7 @@ public interface IntersectionProvider {
      *        nulls.
      * @return an OWLObjectIntersectionOf on the specified operands
      */
-    @Nonnull
-    default OWLObjectIntersectionOf getOWLObjectIntersectionOf(
-            @Nonnull OWLClassExpression... operands) {
+    default OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands) {
         checkIterableNotNull(operands, "operands cannot be null", true);
         return getOWLObjectIntersectionOf(CollectionFactory.createSet(operands));
     }

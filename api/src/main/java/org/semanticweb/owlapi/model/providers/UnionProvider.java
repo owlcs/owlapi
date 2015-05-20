@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 
 import java.util.Collection;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
@@ -27,7 +25,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 /**
  * Object and datatype union provider.
  */
-@ParametersAreNonnullByDefault
 public interface UnionProvider {
 
     /**

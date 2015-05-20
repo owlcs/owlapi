@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -27,7 +26,6 @@ import org.semanticweb.owlapi.model.*;
  *         Group
  * @since 2.0.0
  */
-@ParametersAreNonnullByDefault
 public interface SWRLProvider {
 
     /**

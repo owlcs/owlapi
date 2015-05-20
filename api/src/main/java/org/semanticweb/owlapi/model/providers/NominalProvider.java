@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 
 import java.util.Collection;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -25,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** Nominal provider interface. */
-@ParametersAreNonnullByDefault
 public interface NominalProvider {
 
     /**

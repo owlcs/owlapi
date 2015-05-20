@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNu
 
 import java.util.Collection;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -26,7 +24,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /** Datatype expression and facet expression provider. */
-@ParametersAreNonnullByDefault
 public interface DatatypeExpressionProvider extends LiteralProvider, OWLVocabularyProvider {
 
     /**

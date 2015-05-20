@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model.providers;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 
@@ -39,6 +37,5 @@ public interface AnonymousIndividualByIdProvider extends Serializable {
      *        prefixed with "_:" if it is not specified with an "_:" prefix.
      * @return An instance of {@link OWLAnonymousIndividual}
      */
-    @Nonnull
-    OWLAnonymousIndividual getOWLAnonymousIndividual(@Nonnull String nodeId);
+    OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId);
 }
