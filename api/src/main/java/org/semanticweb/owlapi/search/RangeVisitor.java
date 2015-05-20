@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.search;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
@@ -12,17 +10,17 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 class RangeVisitor<C extends OWLObject> implements OWLAxiomVisitorEx<C> {
 
     @Override
-    public C visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+    public C visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return (C) axiom.getRange();
     }
 
     @Override
-    public C visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
+    public C visit(OWLDataPropertyRangeAxiom axiom) {
         return (C) axiom.getRange();
     }
 
     @Override
-    public C visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
+    public C visit(OWLObjectPropertyRangeAxiom axiom) {
         return (C) axiom.getRange();
     }
 }

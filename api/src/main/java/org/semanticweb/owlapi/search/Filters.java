@@ -16,16 +16,7 @@ import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
@@ -44,8 +35,7 @@ public class Filters {
      * @param <A>
      *        axiom type
      */
-    public abstract static class AxiomFilter<A extends OWLAxiom> implements
-            OWLAxiomSearchFilter {
+    public abstract static class AxiomFilter<A extends OWLAxiom> implements OWLAxiomSearchFilter {
 
         private static final long serialVersionUID = 40000L;
         @Nonnull
@@ -63,7 +53,7 @@ public class Filters {
          * @param types
          *        axiom types to filter on
          */
-        public AxiomFilter(@Nonnull Collection<AxiomType<?>> types) {
+        public AxiomFilter(Collection<AxiomType<?>> types) {
             this.types = types;
         }
 
@@ -71,11 +61,10 @@ public class Filters {
          * @param types
          *        axiom types to filter on
          */
-        public AxiomFilter(@Nonnull AxiomType<?>... types) {
+        public AxiomFilter(AxiomType<?>... types) {
             this.types = CollectionFactory.list(types);
         }
 
-        @Nonnull
         @Override
         public Iterable<AxiomType<?>> getAxiomTypes() {
             return types;
@@ -83,7 +72,7 @@ public class Filters {
 
         @SuppressWarnings("unchecked")
         @Override
-        public boolean pass(@Nonnull OWLAxiom axiom, @Nonnull Object key) {
+        public boolean pass(OWLAxiom axiom, Object key) {
             return axiomValue((A) axiom).equals(key);
         }
 
@@ -95,8 +84,7 @@ public class Filters {
          *        axiom to check
          * @return Object to compare to the input key
          */
-        @Nonnull
-        protected abstract Object axiomValue(@Nonnull A axiom);
+        protected abstract Object axiomValue(A axiom);
     }
 
     /**
@@ -109,10 +97,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(
-                @Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+        protected Object axiomValue(OWLSubAnnotationPropertyOfAxiom axiom) {
             return axiom.getSuperProperty();
         }
     };
@@ -126,10 +112,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(
-                @Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+        protected Object axiomValue(OWLSubAnnotationPropertyOfAxiom axiom) {
             return axiom.getSubProperty();
         }
     };
@@ -143,9 +127,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(@Nonnull OWLSubClassOfAxiom axiom) {
+        protected Object axiomValue(OWLSubClassOfAxiom axiom) {
             return axiom.getSuperClass();
         }
     };
@@ -159,9 +142,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(@Nonnull OWLSubClassOfAxiom axiom) {
+        protected Object axiomValue(OWLSubClassOfAxiom axiom) {
             return axiom.getSubClass();
         }
     };
@@ -175,9 +157,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
+        protected Object axiomValue(OWLSubObjectPropertyOfAxiom axiom) {
             return axiom.getSuperProperty();
         }
     };
@@ -191,9 +172,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
+        protected Object axiomValue(OWLSubObjectPropertyOfAxiom axiom) {
             return axiom.getSubProperty();
         }
     };
@@ -207,9 +187,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
+        protected Object axiomValue(OWLSubDataPropertyOfAxiom axiom) {
             return axiom.getSuperProperty();
         }
     };
@@ -223,9 +202,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
+        protected Object axiomValue(OWLSubDataPropertyOfAxiom axiom) {
             return axiom.getSubProperty();
         }
     };
@@ -239,9 +217,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
+        protected Object axiomValue(OWLDatatypeDefinitionAxiom axiom) {
             return axiom.getDatatype();
         }
     };
@@ -255,10 +232,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(
-                @Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+        protected Object axiomValue(OWLAnnotationPropertyRangeAxiom axiom) {
             return axiom.getProperty();
         }
     };
@@ -272,10 +247,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(
-                @Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
+        protected Object axiomValue(OWLAnnotationPropertyDomainAxiom axiom) {
             return axiom.getProperty();
         }
     };
@@ -293,9 +266,8 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nonnull
         @Override
-        protected Object axiomValue(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+        protected Object axiomValue(OWLAnnotationAssertionAxiom axiom) {
             return axiom.getSubject();
         }
     };
@@ -324,9 +296,7 @@ public class Filters {
      * filter returning all axioms not in TBox or RBox; therefore, ABox axioms,
      * nonlogical axioms and SWRL rules.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter axiomsNotInTBoxOrRBox = new AxiomFilter<OWLAxiom>(
-            AxiomType.AXIOM_TYPES) {
+    public static final OWLAxiomSearchFilter axiomsNotInTBoxOrRBox = new AxiomFilter<OWLAxiom>(AxiomType.AXIOM_TYPES) {
 
         private static final long serialVersionUID = 40000L;
 
@@ -339,8 +309,7 @@ public class Filters {
         public boolean pass(@Nonnull OWLAxiom axiom, Object key) {
             // for this filter, only accept the axioms whose types are not in
             // tbox or rbox
-            return !AxiomType.TBoxAndRBoxAxiomTypes.contains(axiom
-                    .getAxiomType());
+            return !AxiomType.TBoxAndRBoxAxiomTypes.contains(axiom.getAxiomType());
         }
     };
 }
