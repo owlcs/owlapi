@@ -27,12 +27,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  *         Group
  * @since 2.0.0
  */
-public enum SWRLBuiltInsVocabulary
-        implements
-        SWRLPredicate,
-        HasShortForm,
-        HasIRI,
-        HasPrefixedName {
+public enum SWRLBuiltInsVocabulary implements SWRLPredicate,HasShortForm,HasIRI,HasPrefixedName {
 //@formatter:off
     /** EQUAL. */                    EQUAL("equal", 2),
     /** NOT_EQUAL. */                NOT_EQUAL("notEqual", 2),
@@ -114,11 +109,11 @@ public enum SWRLBuiltInsVocabulary
     private final int minArity;
     private final int maxArity;
 
-    SWRLBuiltInsVocabulary(@Nonnull String name, int arity) {
+    SWRLBuiltInsVocabulary(String name, int arity) {
         this(name, arity, arity);
     }
 
-    SWRLBuiltInsVocabulary(@Nonnull String name, int minArity, int maxArity) {
+    SWRLBuiltInsVocabulary(String name, int minArity, int maxArity) {
         shortName = name;
         prefixedName = Namespaces.SWRLB.getPrefixName() + ':' + name;
         iri = IRI.create(Namespaces.SWRLB.toString(), name);
@@ -163,8 +158,7 @@ public enum SWRLBuiltInsVocabulary
      *         if there is no builtin vocabulary with the specified IRI
      */
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
-        return Stream.of(values()).filter(v -> v.iri.equals(iri)).findAny()
-                .orElse(null);
+        return Stream.of(values()).filter(v -> v.iri.equals(iri)).findAny().orElse(null);
     }
 
     @Override

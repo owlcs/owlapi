@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group
  * @since 2.0.0
  */
-public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
+public enum OWLXMLVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
 //@formatter:off
     /** CLASS.                              */  CLASS                               ("Class"),
     /** DATA_PROPERTY.                      */  DATA_PROPERTY                       ("DataProperty"),
@@ -143,7 +143,7 @@ public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    OWLXMLVocabulary(@Nonnull String name) {
+    OWLXMLVocabulary(String name) {
         iri = IRI.create(Namespaces.OWL.toString(), name);
         shortName = name;
         prefixedName = Namespaces.OWL.getPrefixName() + ':' + name;
@@ -159,8 +159,7 @@ public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return iri.toString();
     }
 
-    static final Set<IRI> BUILT_IN_IRIS = asSet(Stream.of(values()).map(
-            v -> v.getIRI()));
+    static final Set<IRI> BUILT_IN_IRIS = asSet(Stream.of(values()).map(v -> v.getIRI()));
 
     @Override
     public String getShortForm() {

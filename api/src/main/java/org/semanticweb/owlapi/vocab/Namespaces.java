@@ -95,17 +95,15 @@ public enum Namespaces {
     final BuiltIn builtIn;
     final String hashless;
 
-    Namespaces(@Nonnull String prefix, @Nonnull String ns) {
+    Namespaces(String prefix, String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
     }
 
-    Namespaces(@Nonnull String prefix, @Nonnull String ns, Status status) {
-        this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN
-                : BUILT_IN);
+    Namespaces(String prefix, String ns, Status status) {
+        this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN : BUILT_IN);
     }
 
-    Namespaces(@Nonnull String prefix, @Nonnull String ns, Status status,
-            BuiltIn builtIn) {
+    Namespaces(String prefix, String ns, Status status, BuiltIn builtIn) {
         this.prefix = prefix;
         this.ns = ns;
         this.status = status;
@@ -117,13 +115,13 @@ public enum Namespaces {
      * @return A short, human-readable, prefix name that matches, and expands to
      *         the full IRI.
      */
-    @Nonnull
     public String getPrefixName() {
         return prefix;
     }
 
-    /** @return The prefix IRI which matches the prefix name. */
-    @Nonnull
+    /**
+     * @return The prefix IRI which matches the prefix name.
+     */
     public String getPrefixIRI() {
         return ns;
     }
@@ -149,7 +147,7 @@ public enum Namespaces {
      *        namespace
      * @return this namespace without hash or slash at the end
      */
-    private static String hashless(@Nonnull String ns) {
+    private static String hashless(String ns) {
         int index = ns.length() - 1;
         if (ns.charAt(index) == '/' || ns.charAt(index) == '#') {
             return ns.substring(0, index);
@@ -158,8 +156,7 @@ public enum Namespaces {
     }
 
     /** Ignored imports. */
-    public static final EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(
-            OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
+    public static final EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
 
     /**
      * @param i
@@ -167,8 +164,7 @@ public enum Namespaces {
      * @return true if the iri is for a namespace ignored by default
      */
     public static boolean isDefaultIgnoredImport(IRI i) {
-        return defaultIgnoredImports.stream().anyMatch(
-                n -> n.hashless.equals(i.toString()));
+        return defaultIgnoredImports.stream().anyMatch(n -> n.hashless.equals(i.toString()));
     }
 
     /**
@@ -177,11 +173,9 @@ public enum Namespaces {
      * @return true if the string is for a namespace ignored by default
      */
     public static boolean isDefaultIgnoredImport(String i) {
-        return defaultIgnoredImports.stream().anyMatch(
-                n -> n.hashless.equals(i));
+        return defaultIgnoredImports.stream().anyMatch(n -> n.hashless.equals(i));
     }
 
-    @Nonnull
     @Override
     public String toString() {
         return ns;
@@ -211,16 +205,14 @@ public enum Namespaces {
      */
     public enum BuiltIn {
         /** built in flag. */
-        BUILT_IN,
-        /** not built in flag. */
+        BUILT_IN, /** not built in flag. */
         NOT_BUILT_IN
     }
 
     /** Indicates whether a prefix is a legacy prefix or not. */
     public enum Status {
         /** legacy flag. */
-        LEGACY,
-        /** in use flag. */
+        LEGACY, /** in use flag. */
         IN_USE
     }
 }

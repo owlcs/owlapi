@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Group
  * @since 2.0.0
  */
-public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
+public enum SWRLVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
 //@formatter:off
     /** IMP. */                          IMP                     ("Imp"), 
     /** INDIVIDUAL_PROPERTY_ATOM. */     INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"), 
@@ -54,7 +54,7 @@ public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    SWRLVocabulary(@Nonnull String name) {
+    SWRLVocabulary(String name) {
         shortName = name;
         prefixedName = Namespaces.SWRL.getPrefixName() + ':' + name;
         iri = IRI.create(Namespaces.SWRL.toString(), name);

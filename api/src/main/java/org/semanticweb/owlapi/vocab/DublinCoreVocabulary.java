@@ -29,11 +29,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group
  * @since 2.0.0
  */
-public enum DublinCoreVocabulary
-        implements
-        HasShortForm,
-        HasIRI,
-        HasPrefixedName {
+public enum DublinCoreVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
 //@formatter:off
     /** http://purl.org/dc/elements/1.1/contributor. */ CONTRIBUTOR("contributor"),
     /** http://purl.org/dc/elements/1.1/coverage. */    COVERAGE   ("coverage"   ),
@@ -61,7 +57,7 @@ public enum DublinCoreVocabulary
     @Nonnull
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
 
-    DublinCoreVocabulary(@Nonnull String name) {
+    DublinCoreVocabulary(String name) {
         shortName = name;
         qname = Namespaces.DC.getPrefixName() + ':' + name;
         iri = IRI.create(NAME_SPACE, name);
@@ -83,8 +79,7 @@ public enum DublinCoreVocabulary
     }
 
     /** All IRIs. */
-    public static final Set<IRI> ALL_URIS = asSet(Stream.of(values()).map(
-            x -> x.getIRI()));
+    public static final Set<IRI> ALL_URIS = asSet(Stream.of(values()).map(x -> x.getIRI()));
 
     @Override
     public String toString() {

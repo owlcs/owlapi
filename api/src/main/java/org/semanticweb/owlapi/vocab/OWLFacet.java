@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
@@ -34,7 +35,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction
  */
-public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
+public enum OWLFacet implements HasShortForm,HasIRI,HasPrefixedName {
 //@formatter:off
     /** LENGTH. */           LENGTH          (Namespaces.XSD, "length",          "length"), 
     /** MIN_LENGTH. */       MIN_LENGTH      (Namespaces.XSD, "minLength",       "minLength"), 
@@ -64,8 +65,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    OWLFacet(@Nonnull Namespaces ns, @Nonnull String shortForm,
-            @Nonnull String symbolicForm) {
+    OWLFacet(Namespaces ns, String shortForm, String symbolicForm) {
         iri = IRI.create(ns.toString(), shortForm);
         this.shortForm = shortForm;
         this.symbolicForm = symbolicForm;
@@ -82,7 +82,9 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
         return iri;
     }
 
-    /** @return symbolic form */
+    /**
+     * @return symbolic form
+     */
     public String getSymbolicForm() {
         return symbolicForm;
     }
@@ -92,7 +94,9 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
         return getShortForm();
     }
 
-    /** @return all facet iris */
+    /**
+     * @return all facet iris
+     */
     public static Set<IRI> getFacetIRIs() {
         return FACET_IRIS;
     }
@@ -102,15 +106,10 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      *        facet IRI
      * @return facet for iri
      */
-    @Nonnull
-    public static OWLFacet getFacet(@Nonnull IRI iri) {
+    public static OWLFacet getFacet(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        return stream()
-                .filter(v -> v.iri.equals(iri))
-                .findAny()
-                .orElseThrow(
-                        () -> new IllegalArgumentException("Unknown facet: "
-                                + iri));
+        return stream().filter(v -> v.iri.equals(iri)).findAny()
+                .orElseThrow(() -> new IllegalArgumentException("Unknown facet: " + iri));
     }
 
     /**
@@ -121,10 +120,10 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      * @return The facet or {@code null} if not facet by the specified name
      *         exists.
      */
-    public static OWLFacet getFacetByShortName(@Nonnull String shortName) {
+    @Nullable
+    public static OWLFacet getFacetByShortName(String shortName) {
         checkNotNull(shortName);
-        return stream().filter(v -> v.getShortForm().equals(shortName))
-                .findAny().orElse(null);
+        return stream().filter(v -> v.getShortForm().equals(shortName)).findAny().orElse(null);
     }
 
     /**
@@ -133,11 +132,12 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      * @return facet for name
      */
     public static OWLFacet getFacetBySymbolicName(String symbolicName) {
-        return stream().filter(v -> v.getSymbolicForm().equals(symbolicName))
-                .findAny().orElse(null);
+        return stream().filter(v -> v.getSymbolicForm().equals(symbolicName)).findAny().orElse(null);
     }
 
-    /** @return all facets */
+    /**
+     * @return all facets
+     */
     public static Set<String> getFacets() {
         return asSet(stream().map(v -> v.getSymbolicForm()));
     }

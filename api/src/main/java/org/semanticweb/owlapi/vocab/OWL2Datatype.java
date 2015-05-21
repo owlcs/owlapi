@@ -78,10 +78,14 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
 //@formatter:on
     @Nonnull
     private static final Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(v -> v.iri));
+    /**
+     * Datatypes allowed in the EL and QL profiles.
+     */
     public static final List<OWL2Datatype> EL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
             RDFS_LITERAL, OWL_RATIONAL, OWL_REAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_STRING,
             XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_HEX_BINARY, XSD_BASE_64_BINARY,
             XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+    /** Datatypes supported in the RL profile. */
     public static final List<OWL2Datatype> RL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
             RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_NON_POSITIVE_INTEGER,
             XSD_POSITIVE_INTEGER, XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE, XSD_UNSIGNED_LONG,
@@ -95,7 +99,6 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      * @return A set of IRIs corresponding to the set of IRIs of all built in
      *         {@code OWL2Datatype}s.
      */
-    @Nonnull
     public static Set<IRI> getDatatypeIRIs() {
         return ALL_IRIS;
     }
@@ -116,7 +119,6 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      * 
      * @return The Pattern string. Not null.
      */
-    @Nonnull
     public String getPatternString() {
         return regExpression;
     }
@@ -143,7 +145,6 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      * @throws OWLRuntimeException
      *         if the specified IRI is not a built in datatype IRI.
      */
-    @Nonnull
     public static OWL2Datatype getDatatype(IRI datatype) {
         if (!isBuiltIn(datatype)) {
             throw new OWLRuntimeException(datatype + " is not a built in datatype!");
@@ -180,8 +181,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm, @Nonnull Category category, boolean finite,
-            @Nonnull String regEx) {
+    OWL2Datatype(Namespaces namespace, String shortForm, Category category, boolean finite, String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ':' + shortForm;
@@ -191,7 +191,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category, boolean finite, @Nonnull String regEx) {
+    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite, String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();
@@ -206,7 +206,6 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         return shortForm;
     }
 
-    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
@@ -257,8 +256,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      * @return An {@link OWLDatatype} that has the same IRI as this
      *         {@code OWL2Datatype}.
      */
-    @Nonnull
-    public OWLDatatype getDatatype(@Nonnull DatatypeProvider factory) {
+    public OWLDatatype getDatatype(DatatypeProvider factory) {
         checkNotNull(factory, "factory cannot be null");
         return factory.getOWLDatatype(this);
     }
@@ -271,7 +269,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      * @return {@code true} if the string is in the lexical space, otherwise
      *         {@code false}
      */
-    public boolean isInLexicalSpace(@Nonnull String s) {
+    public boolean isInLexicalSpace(String s) {
         return pattern.matcher(s).matches();
     }
 
@@ -342,7 +340,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         PRESERVE {
 
             @Override
-            public String getNormalisedString(@Nonnull String s) {
+            public String getNormalisedString(String s) {
                 return s;
             }
         },
@@ -353,7 +351,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         REPLACE {
 
             @Override
-            public String getNormalisedString(@Nonnull String s) {
+            public String getNormalisedString(String s) {
                 return s.replaceAll("\\t|\\n|\\r", " ");
             }
         },
@@ -365,7 +363,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         COLLAPSE {
 
             @Override
-            public String getNormalisedString(@Nonnull String s) {
+            public String getNormalisedString(String s) {
                 return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ").trim();
             }
         };
@@ -377,6 +375,6 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
          *        The string to normalise
          * @return The normalised string
          */
-        public abstract String getNormalisedString(@Nonnull String s);
+        public abstract String getNormalisedString(String s);
     }
 }
