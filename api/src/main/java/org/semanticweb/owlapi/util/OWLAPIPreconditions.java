@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** A set of personalized preconditions. */
 public final class OWLAPIPreconditions {
@@ -36,8 +36,7 @@ public final class OWLAPIPreconditions {
      * @throws IllegalStateException
      *         if object is null
      */
-    @Nonnull
-    public static <T> T verifyNotNull(T object) {
+    public static <T> T verifyNotNull(@Nullable T object) {
         return verifyNotNull(object, "value cannot be null at this stage");
     }
 
@@ -56,8 +55,7 @@ public final class OWLAPIPreconditions {
      * @throws IllegalStateException
      *         if object is null
      */
-    @Nonnull
-    public static <T> T verifyNotNull(T object, @Nonnull String message) {
+    public static <T> T verifyNotNull(@Nullable T object, String message) {
         if (object == null) {
             throw new IllegalStateException(message);
         }
@@ -75,8 +73,7 @@ public final class OWLAPIPreconditions {
      * @throws NullPointerException
      *         if object is null
      */
-    @Nonnull
-    public static <T> T checkNotNull(T object) {
+    public static <T> T checkNotNull(@Nullable T object) {
         return checkNotNull(object, "this variable cannot be null");
     }
 
@@ -93,8 +90,7 @@ public final class OWLAPIPreconditions {
      * @throws NullPointerException
      *         if object is null
      */
-    @Nonnull
-    public static <T> T checkNotNull(T object, @Nonnull String message) {
+    public static <T> T checkNotNull(@Nullable T object, String message) {
         if (object == null) {
             throw new NullPointerException(message);
         }
@@ -123,8 +119,7 @@ public final class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is negative
      */
-    public static void checkNotNegative(@Nonnegative long object,
-        @Nonnull String message) {
+    public static void checkNotNegative(@Nonnegative long object, String message) {
         if (object < 0) {
             throw new IllegalArgumentException(message);
         }
@@ -143,9 +138,7 @@ public final class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is null
      */
-    @Nonnull
-    public static <T> T checkNotNull(Optional<T> object,
-        @Nonnull String message) {
+    public static <T> T checkNotNull(@Nullable Optional<T> object, String message) {
         if (object == null || !object.isPresent()) {
             throw new IllegalArgumentException(message);
         }
@@ -161,9 +154,9 @@ public final class OWLAPIPreconditions {
      * @param emptyAllowed
      *        true if the input can be empty
      */
-    public static void checkIterableNotNull(@Nonnull Collection<?> o,
-        @Nonnull String name, boolean emptyAllowed) {
+    public static void checkIterableNotNull(@Nullable Collection<?> o, String name, boolean emptyAllowed) {
         checkNotNull(o, name);
+        assert o != null;
         if (!emptyAllowed && o.isEmpty()) {
             throw new IllegalArgumentException(name + " or empty");
         }
@@ -178,8 +171,7 @@ public final class OWLAPIPreconditions {
      * @param emptyAllowed
      *        true if the input can be empty
      */
-    public static void checkIterableNotNull(@Nonnull Object[] o,
-        @Nonnull String name, boolean emptyAllowed) {
+    public static void checkIterableNotNull(Object[] o, String name, boolean emptyAllowed) {
         checkNotNull(o, name);
         if (!emptyAllowed && o.length == 0) {
             throw new IllegalArgumentException(name + " or empty");
@@ -191,7 +183,6 @@ public final class OWLAPIPreconditions {
      * 
      * @return empty optional instance
      */
-    @Nonnull
     public static <T> Optional<T> emptyOptional() {
         return Optional.empty();
     }
@@ -203,9 +194,7 @@ public final class OWLAPIPreconditions {
      *        type for the returned optional
      * @return empty optional instance
      */
-    @Nonnull
-    public static <T> Optional<T> emptyOptional(
-        @SuppressWarnings("unused") Class<T> t) {
+    public static <T> Optional<T> emptyOptional(@SuppressWarnings("unused") Class<T> t) {
         return Optional.empty();
     }
 
@@ -217,8 +206,7 @@ public final class OWLAPIPreconditions {
      *        Optional.empty())
      * @return optional instance (content can be absent)
      */
-    @Nonnull
-    public static <T> Optional<T> optional(T t) {
+    public static <T> Optional<T> optional(@Nullable T t) {
         return Optional.ofNullable(t);
     }
 }

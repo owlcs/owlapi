@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
@@ -43,7 +41,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
      * @param base
      *        the base IRI
      */
-    public CommonBaseIRIMapper(@Nonnull IRI base) {
+    public CommonBaseIRIMapper(IRI base) {
         this.base = checkNotNull(base, "base cannot be null");
     }
 
@@ -58,7 +56,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
      * @param localName
      *        the document IRI
      */
-    public void addMapping(@Nonnull IRI ontologyIRI, @Nonnull String localName) {
+    public void addMapping(IRI ontologyIRI, String localName) {
         checkNotNull(localName, "localName cannot be null");
         checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
         IRI documentIRI = base.resolve(localName);

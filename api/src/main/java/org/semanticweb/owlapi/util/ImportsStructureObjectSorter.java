@@ -15,12 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -63,11 +58,9 @@ public class ImportsStructureObjectSorter<O> {
      *        The selector that will be used to select objects that are
      *        associated with each ontology.
      */
-    public ImportsStructureObjectSorter(@Nonnull OWLOntology ontology,
-            @Nonnull ObjectSelector<O> objectSelector) {
+    public ImportsStructureObjectSorter(OWLOntology ontology, ObjectSelector<O> objectSelector) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        this.objectSelector = checkNotNull(objectSelector,
-                "objectSelector cannot be null");
+        this.objectSelector = checkNotNull(objectSelector, "objectSelector cannot be null");
     }
 
     /**
@@ -77,14 +70,13 @@ public class ImportsStructureObjectSorter<O> {
      * 
      * @return The map.
      */
-    @Nonnull
     public Map<OWLOntology, Set<O>> getObjects() {
         List<OWLOntology> imports = asList(ontology.importsClosure());
         Collections.reverse(imports);
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<>();
         Set<O> processed = new HashSet<>();
-        imports.forEach(ont -> ontology2EntityMap.put(ont, asSet(objectSelector
-                .objects(ont).filter(o -> processed.add(o)))));
+        imports.forEach(
+                ont -> ontology2EntityMap.put(ont, asSet(objectSelector.objects(ont).filter(o -> processed.add(o)))));
         return ontology2EntityMap;
     }
 
@@ -100,8 +92,7 @@ public class ImportsStructureObjectSorter<O> {
          * @return set of objects selected
          */
         @Deprecated
-        @Nonnull
-        default Set<O> getObjects(@Nonnull OWLOntology ontology) {
+        default Set<O> getObjects(OWLOntology ontology) {
             return asSet(objects(ontology));
         }
 
@@ -110,7 +101,6 @@ public class ImportsStructureObjectSorter<O> {
          *        the ontology to explore
          * @return set of objects selected
          */
-        @Nonnull
-        Stream<O> objects(@Nonnull OWLOntology ontology);
+        Stream<O> objects(OWLOntology ontology);
     }
 }

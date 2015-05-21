@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
@@ -39,10 +38,9 @@ public class SimpleIRIMapper implements OWLOntologyIRIMapper {
      * @param documentIRI
      *        document IRI
      */
-    public SimpleIRIMapper(@Nonnull IRI ontologyIRI, @Nonnull IRI documentIRI) {
+    public SimpleIRIMapper(IRI ontologyIRI, IRI documentIRI) {
         iri = checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
-        this.documentIRI = checkNotNull(documentIRI,
-                "documentIRI cannot be null");
+        this.documentIRI = checkNotNull(documentIRI, "documentIRI cannot be null");
     }
 
     @Nullable

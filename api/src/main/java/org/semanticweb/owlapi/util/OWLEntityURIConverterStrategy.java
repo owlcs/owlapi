@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -31,6 +29,5 @@ public interface OWLEntityURIConverterStrategy {
      *        the entity to convert
      * @return the converted IRI
      */
-    @Nonnull
-    IRI getConvertedIRI(@Nonnull OWLEntity entity);
+    IRI getConvertedIRI(OWLEntity entity);
 }

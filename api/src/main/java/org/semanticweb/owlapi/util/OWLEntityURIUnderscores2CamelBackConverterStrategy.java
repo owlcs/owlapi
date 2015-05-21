@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  *         Informatics Group
  * @since 2.2.0
  */
-public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
-        OWLEntityURIConverterStrategy {
+public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEntityURIConverterStrategy {
 
     private final Map<IRI, IRI> iriMap = new HashMap<>();
 
@@ -48,8 +47,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         return convIRI;
     }
 
-    @Nonnull
-    private static IRI convert(@Nonnull IRI iri) {
+    private static IRI convert(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
         Optional<String> fragment = iri.getRemainder();
         if (fragment.isPresent()) {
@@ -65,14 +63,13 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
             String lastPathElement = path.substring(index + 1, path.length());
             String camelCaseElement = toCamelCase(lastPathElement);
             String iriString = iri.toString();
-            String base = iriString
-                    .substring(0, iriString.lastIndexOf('/') + 1);
+            String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
             return IRI.create(base, camelCaseElement);
         }
         return iri;
     }
 
-    private static String toCamelCase(@Nonnull String s) {
+    private static String toCamelCase(String s) {
         StringBuilder sb = new StringBuilder(s.length());
         boolean nextIsUpperCase = false;
         for (int i = 0; i < s.length(); i++) {

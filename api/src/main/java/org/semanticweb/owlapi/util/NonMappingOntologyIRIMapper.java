@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
@@ -25,17 +27,17 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @deprecated not useful. If no mapping is found, the code already returns the input IRI.
+ * @deprecated not useful. If no mapping is found, the code already returns the
+ *             input IRI.
  */
 @HasPriority(10)
 @Deprecated
-public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper,
-        Serializable {
+public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public IRI getDocumentIRI(IRI ontologyIRI) {
+    public @Nullable IRI getDocumentIRI(IRI ontologyIRI) {
         return ontologyIRI;
     }
 }

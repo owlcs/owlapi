@@ -21,14 +21,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * A bidirectional short form provider which uses a specified short form
@@ -38,8 +31,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class BidirectionalShortFormProviderAdapter extends
-        CachingBidirectionalShortFormProvider {
+public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalShortFormProvider {
 
     @Nonnull
     private final ShortFormProvider shortFormProvider;
@@ -52,10 +44,8 @@ public class BidirectionalShortFormProviderAdapter extends
      * @param shortFormProvider
      *        the short form provider to use
      */
-    public BidirectionalShortFormProviderAdapter(
-            @Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider,
-                "shortFormProvider cannot be null");
+    public BidirectionalShortFormProviderAdapter(ShortFormProvider shortFormProvider) {
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     /**
@@ -70,11 +60,9 @@ public class BidirectionalShortFormProviderAdapter extends
      *        The short form provider that should be used to generate the short
      *        forms of the referenced entities.
      */
-    public BidirectionalShortFormProviderAdapter(
-            @Nonnull Collection<OWLOntology> ontologies,
-            @Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider,
-                "shortFormProvider cannot be null");
+    public BidirectionalShortFormProviderAdapter(Collection<OWLOntology> ontologies,
+            ShortFormProvider shortFormProvider) {
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         rebuild(new ReferencedEntitySetProvider(ontologies));
     }
@@ -98,17 +86,15 @@ public class BidirectionalShortFormProviderAdapter extends
      *        entity--shortform mappings based on whether the specified
      *        ontologies contain references to entities or not.
      */
-    public BidirectionalShortFormProviderAdapter(
-            @Nonnull OWLOntologyManager man,
-            @Nonnull Collection<OWLOntology> ontologies,
-            @Nonnull ShortFormProvider shortFormProvider) {
+    public BidirectionalShortFormProviderAdapter(OWLOntologyManager man, Collection<OWLOntology> ontologies,
+            ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
         this.man = checkNotNull(man, "man cannot be null");
         this.man.addOntologyChangeListener(changeListener);
     }
 
     @Override
-    protected String generateShortForm(@Nonnull OWLEntity entity) {
+    protected String generateShortForm(OWLEntity entity) {
         return shortFormProvider.getShortForm(entity);
     }
 
@@ -119,7 +105,7 @@ public class BidirectionalShortFormProviderAdapter extends
         }
     }
 
-    void handleChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
+    void handleChanges(List<? extends OWLOntologyChange> changes) {
         Set<OWLEntity> processed = new HashSet<>();
         for (OWLOntologyChange chg : changes) {
             if (ontologies.contains(chg.getOntology())) {
@@ -127,16 +113,12 @@ public class BidirectionalShortFormProviderAdapter extends
 
                     @Override
                     public void visit(AddAxiom change) {
-                        change.signature().filter(e -> processed.add(e))
-                                .forEach(e -> add(e));
+                        change.signature().filter(e -> processed.add(e)).forEach(e -> add(e));
                     }
 
                     @Override
                     public void visit(RemoveAxiom change) {
-                        change.signature()
-                                .filter(e -> processed.add(e)
-                                        && !stillReferenced(e))
-                                .forEach(e -> remove(e));
+                        change.signature().filter(e -> processed.add(e) && !stillReferenced(e)).forEach(e -> remove(e));
                     }
                 };
                 chg.accept(v);
@@ -145,7 +127,6 @@ public class BidirectionalShortFormProviderAdapter extends
     }
 
     protected boolean stillReferenced(OWLEntity ent) {
-        return ontologies.stream().anyMatch(
-                ont -> ont.containsEntityInSignature(ent));
+        return ontologies.stream().anyMatch(ont -> ont.containsEntityInSignature(ent));
     }
 }

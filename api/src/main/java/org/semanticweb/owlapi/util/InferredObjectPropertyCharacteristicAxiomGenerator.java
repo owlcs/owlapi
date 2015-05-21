@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
@@ -28,37 +26,24 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @since 2.1.0
  */
 public class InferredObjectPropertyCharacteristicAxiomGenerator
-        extends
-        InferredObjectPropertyAxiomGenerator<OWLObjectPropertyCharacteristicAxiom> {
+        extends InferredObjectPropertyAxiomGenerator<OWLObjectPropertyCharacteristicAxiom> {
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-            @Nonnull OWLDataFactory dataFactory,
+    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
             Set<OWLObjectPropertyCharacteristicAxiom> result) {
-        addIfEntailed(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity),
-                reasoner, result);
-        addIfEntailed(
-                dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(entity),
-                reasoner, result);
-        addIfEntailed(dataFactory.getOWLSymmetricObjectPropertyAxiom(entity),
-                reasoner, result);
-        addIfEntailed(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity),
-                reasoner, result);
+        addIfEntailed(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLSymmetricObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity), reasoner, result);
         addTransitiveAxiomIfEntailed(entity, reasoner, dataFactory, result);
-        addIfEntailed(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity),
-                reasoner, result);
-        addIfEntailed(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity),
-                reasoner, result);
+        addIfEntailed(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity), reasoner, result);
+        addIfEntailed(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity), reasoner, result);
     }
 
-    protected static void addTransitiveAxiomIfEntailed(
-            @Nonnull OWLObjectProperty property, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
-            Set<OWLObjectPropertyCharacteristicAxiom> result) {
-        OWLObjectPropertyCharacteristicAxiom axiom = dataFactory
-                .getOWLTransitiveObjectPropertyAxiom(property);
-        if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType())
-                && reasoner.isEntailed(axiom)) {
+    protected static void addTransitiveAxiomIfEntailed(OWLObjectProperty property, OWLReasoner reasoner,
+            OWLDataFactory dataFactory, Set<OWLObjectPropertyCharacteristicAxiom> result) {
+        OWLObjectPropertyCharacteristicAxiom axiom = dataFactory.getOWLTransitiveObjectPropertyAxiom(property);
+        if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType()) && reasoner.isEntailed(axiom)) {
             if (!triviallyTransitiveCheck(property, reasoner, dataFactory)) {
                 result.add(axiom);
             }
@@ -79,21 +64,18 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
      * @return true if property is trivially transitive, or if entailment
      *         checking for OWLObjectPropertyAssertionAxioms is not supported.
      */
-    private static boolean triviallyTransitiveCheck(
-            @Nonnull OWLObjectProperty property, OWLReasoner reasoner,
+    private static boolean triviallyTransitiveCheck(OWLObjectProperty property, OWLReasoner reasoner,
             OWLDataFactory df) {
-		// create R some (R some owl:Thing) class
-		OWLObjectSomeValuesFrom chain = df.getOWLObjectSomeValuesFrom(property,
-				df.getOWLObjectSomeValuesFrom(property, df.getOWLThing()));
-		// if chain is unsatisfiable, then the property is trivially transitive
-		return !reasoner.isSatisfiable(chain);
+        // create R some (R some owl:Thing) class
+        OWLObjectSomeValuesFrom chain = df.getOWLObjectSomeValuesFrom(property,
+                df.getOWLObjectSomeValuesFrom(property, df.getOWLThing()));
+        // if chain is unsatisfiable, then the property is trivially transitive
+        return !reasoner.isSatisfiable(chain);
     }
 
-    protected static void addIfEntailed(
-            OWLObjectPropertyCharacteristicAxiom axiom, OWLReasoner reasoner,
+    protected static void addIfEntailed(OWLObjectPropertyCharacteristicAxiom axiom, OWLReasoner reasoner,
             Set<OWLObjectPropertyCharacteristicAxiom> result) {
-        if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType())
-                && reasoner.isEntailed(axiom)) {
+        if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType()) && reasoner.isEntailed(axiom)) {
             result.add(axiom);
         }
     }

@@ -37,23 +37,24 @@ public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
      * @param walker
      *        ontology walker
      */
-    public OWLOntologyWalkerVisitor(@Nonnull OWLOntologyWalker walker) {
+    public OWLOntologyWalkerVisitor(OWLOntologyWalker walker) {
         this.walker = checkNotNull(walker, "walker cannot be null");
     }
 
-    /** @return current axiom from walker */
-    @Nonnull
+    /**
+     * @return current axiom from walker
+     */
     public OWLAxiom getCurrentAxiom() {
         OWLAxiom axiom = walker.getAxiom();
         if (axiom == null) {
-            throw new OWLRuntimeException(
-                    "No current axiom; is the walker being used outside of an ontology visit?");
+            throw new OWLRuntimeException("No current axiom; is the walker being used outside of an ontology visit?");
         }
         return axiom;
     }
 
-    /** @return current ontology from walker */
-    @Nonnull
+    /**
+     * @return current ontology from walker
+     */
     public OWLOntology getCurrentOntology() {
         OWLOntology ontology = walker.getOntology();
         if (ontology == null) {
@@ -63,7 +64,9 @@ public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
         return ontology;
     }
 
-    /** @return current annotation from walker */
+    /**
+     * @return current annotation from walker
+     */
     @Nullable
     public OWLAnnotation getCurrentAnnotation() {
         return walker.getAnnotation();

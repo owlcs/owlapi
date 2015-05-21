@@ -4,8 +4,6 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** A few util methods for common stream operations. */
@@ -16,7 +14,6 @@ public class OWLAPIStreamUtils {
      *        stream to turn to set. The stream is consumed by this operation.
      * @return set including all elements in the stream
      */
-    @Nonnull
     public static <T> Set<T> asSet(Stream<T> s) {
         Set<T> set = new LinkedHashSet<>();
         s.forEach(x -> set.add(x));
@@ -33,9 +30,7 @@ public class OWLAPIStreamUtils {
      * @return set including all elements in the stream
      */
     @SuppressWarnings("unchecked")
-    @Nonnull
-    public static <T> Set<T> asSet(Stream<?> s,
-        @SuppressWarnings("unused") Class<T> type) {
+    public static <T> Set<T> asSet(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
         Set<T> set = new LinkedHashSet<>();
         s.forEach(x -> set.add((T) x));
         return set;
@@ -46,7 +41,6 @@ public class OWLAPIStreamUtils {
      *        stream to turn to list. The stream is consumed by this operation.
      * @return list including all elements in the stream
      */
-    @Nonnull
     public static <T> List<T> asList(Stream<T> s) {
         List<T> set = new ArrayList<>();
         s.forEach(x -> set.add(x));
@@ -63,9 +57,7 @@ public class OWLAPIStreamUtils {
      * @return list including all elements in the stream
      */
     @SuppressWarnings("unchecked")
-    @Nonnull
-    public static <T> List<T> asList(Stream<?> s,
-        @SuppressWarnings("unused") Class<T> type) {
+    public static <T> List<T> asList(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
         List<T> set = new ArrayList<>();
         s.forEach(x -> set.add((T) x));
         return set;
@@ -115,8 +107,7 @@ public class OWLAPIStreamUtils {
      * @return negative value if set1 comes before set2, positive value if set2
      *         comes before set1, 0 if the two sets are equal or incomparable.
      */
-    public static int compareCollections(Collection<? extends OWLObject> set1,
-        Collection<? extends OWLObject> set2) {
+    public static int compareCollections(Collection<? extends OWLObject> set1, Collection<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {
             ss1 = (SortedSet<? extends OWLObject>) set1;
@@ -142,10 +133,8 @@ public class OWLAPIStreamUtils {
      * @return negative value if set1 comes before set2, positive value if set2
      *         comes before set1, 0 if the two sets are equal or incomparable.
      */
-    public static int compareStreams(Stream<? extends OWLObject> set1,
-        Stream<? extends OWLObject> set2) {
-        return compareIterators(set1.sorted().iterator(), set2.sorted()
-            .iterator());
+    public static int compareStreams(Stream<? extends OWLObject> set1, Stream<? extends OWLObject> set2) {
+        return compareIterators(set1.sorted().iterator(), set2.sorted().iterator());
     }
 
     /**
@@ -158,8 +147,7 @@ public class OWLAPIStreamUtils {
      * @return negative value if set1 comes before set2, positive value if set2
      *         comes before set1, 0 if the two sets are equal or incomparable.
      */
-    public static int compareIterators(Iterator<? extends OWLObject> set1,
-        Iterator<? extends OWLObject> set2) {
+    public static int compareIterators(Iterator<? extends OWLObject> set1, Iterator<? extends OWLObject> set2) {
         while (set1.hasNext() && set2.hasNext()) {
             OWLObject o1 = set1.next();
             OWLObject o2 = set2.next();
@@ -180,8 +168,7 @@ public class OWLAPIStreamUtils {
      *        iterator to compare
      * @return true if the iterators have the same content, false otherwise.
      */
-    public static boolean equalIterators(Iterator<? extends OWLObject> set1,
-        Iterator<? extends OWLObject> set2) {
+    public static boolean equalIterators(Iterator<? extends OWLObject> set1, Iterator<? extends OWLObject> set2) {
         while (set1.hasNext() && set2.hasNext()) {
             if (!set1.next().equals(set2.next())) {
                 return false;
@@ -199,8 +186,7 @@ public class OWLAPIStreamUtils {
      *        stream to compare
      * @return true if the streams have the same content, false otherwise.
      */
-    public static boolean equalStreams(Stream<? extends OWLObject> set1,
-        Stream<? extends OWLObject> set2) {
+    public static boolean equalStreams(Stream<? extends OWLObject> set1, Stream<? extends OWLObject> set2) {
         return equalIterators(set1.iterator(), set2.iterator());
     }
 
@@ -213,8 +199,7 @@ public class OWLAPIStreamUtils {
      *        list to compare
      * @return true if the lists have the same content, false otherwise.
      */
-    public static int compareLists(List<? extends OWLObject> set1,
-        List<? extends OWLObject> set2) {
+    public static int compareLists(List<? extends OWLObject> set1, List<? extends OWLObject> set2) {
         return compareIterators(set1.iterator(), set2.iterator());
     }
 
@@ -223,7 +208,6 @@ public class OWLAPIStreamUtils {
      * 
      * @return empty stream
      */
-    @Nonnull
     public static <T> Stream<T> empty() {
         return Stream.empty();
     }

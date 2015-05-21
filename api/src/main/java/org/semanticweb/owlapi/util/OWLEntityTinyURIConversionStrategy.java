@@ -19,15 +19,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Provides an entity URI conversion strategy which converts entity URIs to a
@@ -45,8 +37,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  *         Informatics Group
  * @since 2.2.0
  */
-public class OWLEntityTinyURIConversionStrategy implements
-        OWLEntityURIConverterStrategy {
+public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverterStrategy {
 
     /** default base. */
     @Nonnull
@@ -72,7 +63,7 @@ public class OWLEntityTinyURIConversionStrategy implements
      * @param base
      *        The base to be used.
      */
-    public OWLEntityTinyURIConversionStrategy(@Nonnull String base) {
+    public OWLEntityTinyURIConversionStrategy(String base) {
         this.base = checkNotNull(base, "base cannot be null");
     }
 

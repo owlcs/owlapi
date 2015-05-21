@@ -14,24 +14,11 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Performs a bulk conversion/translation of entity URIs. This utility class can
@@ -69,12 +56,10 @@ public class OWLEntityURIConverter {
      * @param strategy
      *        The conversion strategy to be used.
      */
-    public OWLEntityURIConverter(@Nonnull OWLOntologyManager manager,
-            @Nonnull Set<OWLOntology> ontologies,
-            @Nonnull OWLEntityURIConverterStrategy strategy) {
+    public OWLEntityURIConverter(OWLOntologyManager manager, Set<OWLOntology> ontologies,
+            OWLEntityURIConverterStrategy strategy) {
         this.manager = checkNotNull(manager, "manager cannot be null");
-        this.ontologies = new ArrayList<>(checkNotNull(ontologies,
-                "ontologies cannot be null"));
+        this.ontologies = new ArrayList<>(checkNotNull(ontologies, "ontologies cannot be null"));
         this.strategy = checkNotNull(strategy, "strategy cannot be null");
     }
 
@@ -89,15 +74,12 @@ public class OWLEntityURIConverter {
         processedEntities = new HashSet<>();
         List<OWLOntologyChange> changes = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
-            ont.classesInSignature()
-                    .filter(c -> !c.isOWLThing() && !c.isOWLNothing())
-                    .forEach(c -> processEntity(c));
+            ont.classesInSignature().filter(c -> !c.isOWLThing() && !c.isOWLNothing()).forEach(c -> processEntity(c));
             ont.objectPropertiesInSignature().forEach(p -> processEntity(p));
             ont.dataPropertiesInSignature().forEach(p -> processEntity(p));
             ont.individualsInSignature().forEach(i -> processEntity(i));
         }
-        OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap,
-                manager.getOWLDataFactory());
+        OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, manager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
             ont.axioms().forEach(ax -> {
                 OWLAxiom dupAx = dup.duplicateObject(ax);
@@ -105,12 +87,12 @@ public class OWLEntityURIConverter {
                     changes.add(new RemoveAxiom(ont, ax));
                     changes.add(new AddAxiom(ont, dupAx));
                 }
-            });
+            } );
         }
         return changes;
     }
 
-    private void processEntity(@Nonnull OWLEntity ent) {
+    private void processEntity(OWLEntity ent) {
         if (processedEntities.contains(ent)) {
             return;
         }
@@ -120,7 +102,7 @@ public class OWLEntityURIConverter {
         processedEntities.add(ent);
     }
 
-    private IRI getTinyIRI(@Nonnull OWLEntity ent) {
+    private IRI getTinyIRI(OWLEntity ent) {
         return strategy.getConvertedIRI(ent);
     }
 }

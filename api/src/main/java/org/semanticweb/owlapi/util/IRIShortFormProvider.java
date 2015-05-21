@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -32,6 +30,5 @@ public interface IRIShortFormProvider extends Serializable {
      *        the IRI to shorten
      * @return the short form
      */
-    @Nonnull
-    String getShortForm(@Nonnull IRI iri);
+    String getShortForm(IRI iri);
 }

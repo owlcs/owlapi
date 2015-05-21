@@ -12,17 +12,21 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
+import javax.annotation.Nullable;
+
 /** String comparator that takes length into account before natural ordering. */
 public class StringLengthComparator implements StringComparator {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public int compare(String o1, String o2) {
-        int diff = o1.length() - o2.length();
+    public int compare(@Nullable String o1, @Nullable String o2) {
+        int diff = verifyNotNull(o1).length() - verifyNotNull(o2).length();
         if (diff != 0) {
             return diff;
         }
-        return o1.compareTo(o2);
+        return verifyNotNull(o1).compareTo(o2);
     }
 }

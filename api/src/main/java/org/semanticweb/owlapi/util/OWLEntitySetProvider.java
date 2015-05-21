@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -37,12 +35,12 @@ public interface OWLEntitySetProvider<E extends OWLEntity> {
      * @deprecated use {@link #entities()}
      */
     @Deprecated
-    @Nonnull
     default Set<E> getEntities() {
         return asSet(entities());
     }
 
-    /** @return the entities that are provided by this provider. */
-    @Nonnull
+    /**
+     * @return the entities that are provided by this provider.
+     */
     Stream<E> entities();
 }

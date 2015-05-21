@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -31,7 +29,7 @@ public abstract class InferredClassAxiomGenerator<A extends OWLClassAxiom>
         extends InferredEntityAxiomGenerator<OWLClass, A> {
 
     @Override
-    protected Stream<OWLClass> getEntities(@Nonnull OWLOntology ont) {
+    protected Stream<OWLClass> getEntities(OWLOntology ont) {
         return ont.classesInSignature();
     }
 }

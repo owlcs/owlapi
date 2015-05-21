@@ -12,9 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -35,16 +38,16 @@ public class OWLObjectComparator implements Comparator<OWLObject> {
      * @param shortFormProvider
      *        short form provider to use
      */
-    public OWLObjectComparator(@Nonnull ShortFormProvider shortFormProvider) {
+    public OWLObjectComparator(ShortFormProvider shortFormProvider) {
         entityComparator = new OWLEntityComparator(shortFormProvider);
     }
 
     @Override
-    public int compare(OWLObject o1, OWLObject o2) {
+    public int compare(@Nullable OWLObject o1, @Nullable OWLObject o2) {
         // if both objects are entities, compare their short forms
         if (o1 instanceof OWLEntity && o2 instanceof OWLEntity) {
             return entityComparator.compare((OWLEntity) o1, (OWLEntity) o2);
         }
-        return o1.compareTo(o2);
+        return verifyNotNull(o1).compareTo(o2);
     }
 }

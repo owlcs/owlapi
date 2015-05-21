@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
@@ -29,12 +27,10 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  *         Informatics Group
  * @since 2.0.0
  */
-public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter
-        implements OWLOntologyChangeListener {
+public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter implements OWLOntologyChangeListener {
 
     @Override
-    public void ontologiesChanged(
-            @Nonnull List<? extends OWLOntologyChange> changes) {
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
         processChanges(changes);
     }
 }

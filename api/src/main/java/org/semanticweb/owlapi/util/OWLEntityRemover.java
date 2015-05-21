@@ -13,24 +13,18 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * A convenience object that generates the changes which are necessary to remove
@@ -58,16 +52,37 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      *        The set of ontologies that contain references to axioms to be
      *        removed.
      */
-    public OWLEntityRemover(@Nonnull Set<OWLOntology> ontologies) {
-        this.ontologies = new ArrayList<>(checkNotNull(ontologies,
-                "ontologies cannot be null"));
+    public OWLEntityRemover(Set<OWLOntology> ontologies) {
+        this(ontologies.stream());
+    }
+
+    /**
+     * Creates an entity remover, which will remove entities (axioms referring
+     * to the entities from the specified ontologies).
+     * 
+     * @param ontologies
+     *        The stream of ontologies that contain references to axioms to be
+     *        removed.
+     */
+    public OWLEntityRemover(Stream<OWLOntology> ontologies) {
+        this.ontologies = asList(checkNotNull(ontologies, "ontologies cannot be null"));
+    }
+
+    /**
+     * Creates an entity remover, which will remove entities (axioms referring
+     * to the entities from the specified ontologies).
+     * 
+     * @param ontology
+     *        The ontology that contain references to axioms to be removed.
+     */
+    public OWLEntityRemover(OWLOntology ontology) {
+        ontologies = Collections.singleton(checkNotNull(ontology, "ontology cannot be null"));
     }
 
     /**
      * @return the list of ontology changes that are required in order to remove
      *         visited entities from the set of ontologies.
      */
-    @Nonnull
     public List<RemoveAxiom> getChanges() {
         return new ArrayList<>(changes);
     }
@@ -80,13 +95,11 @@ public class OWLEntityRemover implements OWLEntityVisitor {
         changes.clear();
     }
 
-    private void generateChanges(@Nonnull OWLEntity entity) {
+    private void generateChanges(OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
         for (OWLOntology ont : ontologies) {
-            ont.referencingAxioms(entity).forEach(
-                    ax -> changes.add(new RemoveAxiom(ont, ax)));
-            ont.annotationAssertionAxioms(entity.getIRI()).forEach(
-                    ax -> changes.add(new RemoveAxiom(ont, ax)));
+            ont.referencingAxioms(entity).forEach(ax -> changes.add(new RemoveAxiom(ont, ax)));
+            ont.annotationAssertionAxioms(entity.getIRI()).forEach(ax -> changes.add(new RemoveAxiom(ont, ax)));
         }
     }
 

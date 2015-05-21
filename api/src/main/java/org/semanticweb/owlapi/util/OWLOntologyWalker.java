@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -29,7 +27,7 @@ public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
      * @param objects
      *        objects to walk
      */
-    public OWLOntologyWalker(@Nonnull Collection<OWLOntology> objects) {
+    public OWLOntologyWalker(Collection<OWLOntology> objects) {
         super(objects);
     }
 }

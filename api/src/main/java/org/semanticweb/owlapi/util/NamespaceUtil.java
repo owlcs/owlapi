@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -43,8 +41,7 @@ public class NamespaceUtil implements Serializable {
 
     /** Default constructor. */
     public NamespaceUtil() {
-        standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE,
-                "dc");
+        standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
         namespace2PrefixMap.put(Namespaces.OWL.toString(), "owl");
         namespace2PrefixMap.put(Namespaces.RDFS.toString(), "rdfs");
@@ -61,8 +58,7 @@ public class NamespaceUtil implements Serializable {
      *        The namespace whose prefix is to be retrieved.
      * @return The prefix for the specified namespace.
      */
-    @Nonnull
-    public String getPrefix(@Nonnull String namespace) {
+    public String getPrefix(String namespace) {
         checkNotNull(namespace, "namespace cannot be null");
         String prefix = namespace2PrefixMap.get(namespace);
         if (prefix != null) {
@@ -74,8 +70,9 @@ public class NamespaceUtil implements Serializable {
         return prefix;
     }
 
-    /** @return namespace to prefix map */
-    @Nonnull
+    /**
+     * @return namespace to prefix map
+     */
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);
     }
@@ -91,8 +88,7 @@ public class NamespaceUtil implements Serializable {
      * @return The generated prefix. Note that this method will not store the
      *         namespace to prefix mapping.
      */
-    @Nonnull
-    private String generatePrefix(@Nonnull String namespace) {
+    private String generatePrefix(String namespace) {
         checkNotNull(namespace, "namespace cannot be null");
         String prefix = standardNamespacePrefixMappings.get(namespace);
         if (prefix != null) {
@@ -114,8 +110,7 @@ public class NamespaceUtil implements Serializable {
         String computedPrefix = null;
         if (startIndex != -1) {
             int endIndex = startIndex + 1;
-            for (int i = startIndex; endIndex < namespace.length()
-                    && i < namespace.length(); i++) {
+            for (int i = startIndex; endIndex < namespace.length() && i < namespace.length(); i++) {
                 char curChar = namespace.charAt(endIndex);
                 // We include any NCNameChar except a full stop (.) so
                 // that if the URI looks like a file with an extension the
@@ -132,8 +127,7 @@ public class NamespaceUtil implements Serializable {
         }
         String candidatePrefix = computedPrefix;
         while (namespace2PrefixMap.containsValue(candidatePrefix)
-                || standardNamespacePrefixMappings
-                        .containsValue(candidatePrefix)) {
+                || standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
             candidatePrefix = computedPrefix + candidateIndex.getAndIncrement();
         }
         return verifyNotNull(candidatePrefix);
@@ -148,7 +142,7 @@ public class NamespaceUtil implements Serializable {
      * @param prefix
      *        The prefix for the namespace
      */
-    public void setPrefix(@Nonnull String namespace, @Nonnull String prefix) {
+    public void setPrefix(String namespace, String prefix) {
         checkNotNull(namespace, "namespace cannot be null");
         checkNotNull(prefix, "prefix cannot be null");
         namespace2PrefixMap.put(namespace, prefix);

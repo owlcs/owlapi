@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -31,7 +29,7 @@ public abstract class InferredIndividualAxiomGenerator<A extends OWLIndividualAx
         extends InferredEntityAxiomGenerator<OWLNamedIndividual, A> {
 
     @Override
-    protected Stream<OWLNamedIndividual> getEntities(@Nonnull OWLOntology ont) {
+    protected Stream<OWLNamedIndividual> getEntities(OWLOntology ont) {
         return ont.individualsInSignature();
     }
 }

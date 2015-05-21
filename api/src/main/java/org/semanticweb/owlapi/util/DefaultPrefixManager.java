@@ -14,12 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -36,8 +31,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  *         Management Group
  * @since 2.2.0
  */
-public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
-        IRIShortFormProvider {
+public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -64,8 +58,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      * @param defaultPrefix
      *        default prefix
      */
-    public DefaultPrefixManager(@Nullable PrefixManager pm,
-            @Nullable StringComparator c, @Nullable String defaultPrefix) {
+    public DefaultPrefixManager(@Nullable PrefixManager pm, @Nullable StringComparator c,
+            @Nullable String defaultPrefix) {
         comparator = c == null ? new StringLengthComparator() : c;
         prefix2NamespaceMap = new TreeMap<>(comparator);
         setupDefaultPrefixes();
@@ -124,7 +118,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public String getPrefixIRI(IRI iri) {
+    public @Nullable String getPrefixIRI(IRI iri) {
         String prefix = reverseprefix2NamespaceMap.get(iri.getNamespace());
         if (prefix == null) {
             return null;
@@ -133,7 +127,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public String getDefaultPrefix() {
+    public @Nullable String getDefaultPrefix() {
         return prefix2NamespaceMap.get(":");
     }
 
@@ -166,8 +160,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         } else {
             String prefixName = prefixIRI.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
-                throw new OWLRuntimeException(
-                        "Prefix not registered for prefix name: " + prefixName);
+                throw new OWLRuntimeException("Prefix not registered for prefix name: " + prefixName);
             }
             String prefix = getPrefix(prefixName);
             String localName = prefixIRI.substring(sep + 1);
@@ -181,7 +174,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public String getPrefix(String prefixName) {
+    public @Nullable String getPrefix(String prefixName) {
         return prefix2NamespaceMap.get(prefixName);
     }
 
@@ -204,7 +197,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
             if (v.equals(namespace)) {
                 toRemove.add(k);
             }
-        });
+        } );
         reverseprefix2NamespaceMap.remove(namespace);
         prefix2NamespaceMap.keySet().removeAll(toRemove);
     }

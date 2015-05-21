@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -34,8 +32,7 @@ public final class EscapeUtils {
      *        The string to be escaped
      * @return The escaped string.
      */
-    @Nonnull
-    public static String escapeString(@Nonnull String s) {
+    public static String escapeString(String s) {
         // We replace double quotes with a back slash followed
         // by a double quote. We replace backslashes with a double
         // backslash

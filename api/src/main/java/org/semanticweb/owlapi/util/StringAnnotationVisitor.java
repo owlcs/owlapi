@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -27,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * 
  * @since 4.0.0
  */
-public class StringAnnotationVisitor implements
-        OWLAnnotationValueVisitorEx<String>, Serializable {
+public class StringAnnotationVisitor implements OWLAnnotationValueVisitorEx<String>, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
@@ -44,7 +41,7 @@ public class StringAnnotationVisitor implements
     }
 
     @Override
-    public String visit(@Nonnull OWLLiteral literal) {
+    public String visit(OWLLiteral literal) {
         return literal.getLiteral();
     }
 }

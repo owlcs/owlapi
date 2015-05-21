@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -36,8 +37,7 @@ public final class SAXParsers {
     private static final String DECLARATION_HANDLER = "http://xml.org/sax/properties/declaration-handler";
     private static final String EXPANSION_LIMIT = "entityExpansionLimit";
     private static final String ORACLE_EXPANSION_LIMIT = "http://www.oracle.com/xml/jaxp/properties/entityExpansionLimit";
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(SAXParsers.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SAXParsers.class);
 
     private SAXParsers() {}
 
@@ -65,31 +65,25 @@ public final class SAXParsers {
      * @return new SaxParser, intialized with optional declaration handler and
      *         larger entity expansion limit
      */
-    public static SAXParser initParserWithOWLAPIStandards(DeclHandler handler) {
+    public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler) {
         try {
             SAXParser parser = initFactory().newSAXParser();
             try {
                 parser.setProperty(ORACLE_EXPANSION_LIMIT, "100000000");
             } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
-                LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE,
-                    parser.getClass().getName(), e.getMessage());
+                LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), e.getMessage());
                 try {
                     parser.setProperty(EXPANSION_LIMIT, "100000000");
-                } catch (SAXNotRecognizedException
-                    | SAXNotSupportedException ex) {
-                    LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE,
-                        parser.getClass().getName(), ex.getMessage());
+                } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
+                    LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), ex.getMessage());
                 }
             }
             if (handler != null) {
                 try {
                     parser.setProperty(DECLARATION_HANDLER, handler);
-                } catch (SAXNotRecognizedException
-                    | SAXNotSupportedException e) {
-                    LOGGER.warn(
-                        DECLARATION_HANDLER + ERROR_TEMPLATE
-                            + " Entity declarations will not be roundtripped.",
-                        parser.getClass().getName(), e.getMessage());
+                } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
+                    LOGGER.warn(DECLARATION_HANDLER + ERROR_TEMPLATE + " Entity declarations will not be roundtripped.",
+                            parser.getClass().getName(), e.getMessage());
                 }
             }
             return parser;

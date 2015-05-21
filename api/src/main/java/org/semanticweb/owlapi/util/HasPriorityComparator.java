@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.util;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 
@@ -31,7 +31,7 @@ public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
-    private static double getPriority(@Nonnull Object p) {
+    private static double getPriority(Object p) {
         HasPriority priority = p.getClass().getAnnotation(HasPriority.class);
         if (priority != null) {
             return priority.value();
@@ -42,7 +42,7 @@ public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
     }
 
     @Override
-    public int compare(T o1, T o2) {
+    public int compare(@Nullable T o1, @Nullable T o2) {
         return Double.compare(getPriority(o1), getPriority(o2));
     }
 }

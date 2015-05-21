@@ -16,16 +16,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAxiomChange;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Provides a convenient method to filter add/remove axiom changes based on the
@@ -64,8 +57,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyChangeFilter implements OWLAxiomVisitor,
-        OWLOntologyChangeVisitor {
+public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChangeVisitor {
 
     protected boolean add;
     @Nullable
@@ -75,13 +67,12 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor,
      * @param changes
      *        changes to process
      */
-    public void processChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes) {
+    public void processChanges(List<? extends OWLOntologyChange> changes) {
         checkNotNull(changes, "changes cannot be null");
         changes.forEach(c -> c.accept(this));
     }
 
-    protected void processChange(@Nonnull OWLAxiomChange change) {
+    protected void processChange(OWLAxiomChange change) {
         checkNotNull(change, "change cannot be null");
         ontology = change.getOntology();
         change.getAxiom().accept(this);

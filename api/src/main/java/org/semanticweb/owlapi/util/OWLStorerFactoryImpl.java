@@ -29,7 +29,7 @@ public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {
     @Nonnull
     private final OWLDocumentFormatFactory format;
 
-    protected OWLStorerFactoryImpl(@Nonnull OWLDocumentFormatFactory format) {
+    protected OWLStorerFactoryImpl(OWLDocumentFormatFactory format) {
         this.format = format;
     }
 

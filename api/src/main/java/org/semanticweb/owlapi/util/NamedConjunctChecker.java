@@ -53,8 +53,7 @@ public class NamedConjunctChecker {
      * @param classExpression
      *        The expression to be checked
      */
-    public boolean isNamedConjunct(@Nonnull OWLClass conj,
-            @Nonnull OWLClassExpression classExpression) {
+    public boolean isNamedConjunct(OWLClass conj, OWLClassExpression classExpression) {
         checkNotNull(conj, "conj cannot be null");
         checkNotNull(classExpression, "classExpression cannot be null");
         reset();
@@ -75,8 +74,7 @@ public class NamedConjunctChecker {
      *         has a named operand (included nested intersections), otherwise
      *         {@code false}
      */
-    public boolean
-            hasNamedConjunct(@Nonnull OWLClassExpression classExpression) {
+    public boolean hasNamedConjunct(OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
         reset();
         conjunct = null;
@@ -98,9 +96,7 @@ public class NamedConjunctChecker {
      *         If the expression is not a named class or an intersection then
      *         the set will definitely be empty.
      */
-    @Nonnull
-    public Set<OWLClass> getNamedConjuncts(
-            @Nonnull OWLClassExpression classExpression) {
+    public Set<OWLClass> getNamedConjuncts(OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
         conjuncts.clear();
         reset();
@@ -109,8 +105,7 @@ public class NamedConjunctChecker {
         return conjuncts;
     }
 
-    private class NamedConjunctCheckerVisitor implements
-            OWLClassExpressionVisitor {
+    private class NamedConjunctCheckerVisitor implements OWLClassExpressionVisitor {
 
         NamedConjunctCheckerVisitor() {}
 
@@ -136,7 +131,7 @@ public class NamedConjunctChecker {
                 if (found && !collect) {
                     return;
                 }
-            });
+            } );
         }
     }
 }

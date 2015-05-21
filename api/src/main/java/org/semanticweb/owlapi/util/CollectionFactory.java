@@ -15,23 +15,12 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObject;
@@ -48,8 +37,7 @@ import com.google.common.collect.Sets;
  */
 public class CollectionFactory {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(CollectionFactory.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CollectionFactory.class.getName());
     private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(8);
 
     /**
@@ -63,20 +51,16 @@ public class CollectionFactory {
      * @param toReturn
      *        list to sort
      */
-    public static <T extends Comparable<T>> void sortOptionallyComparables(
-            @Nonnull List<T> toReturn) {
+    public static <T extends Comparable<T>> void sortOptionallyComparables(List<T> toReturn) {
         try {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted",
-                    e);
+            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
         }
     }
 
@@ -90,21 +74,16 @@ public class CollectionFactory {
      *        list to sort
      * @return sorted input list
      */
-    @Nonnull
-    public static <T extends OWLObject> List<T> sortOptionally(
-            @Nonnull List<T> toReturn) {
+    public static <T extends OWLObject> List<T> sortOptionally(List<T> toReturn) {
         try {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted",
-                    e);
+            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
         }
         return toReturn;
     }
@@ -122,22 +101,17 @@ public class CollectionFactory {
      * @return sorted copy of the input, if no errors are raised. Copy of the
      *         original otherwise.
      */
-    @Nonnull
-    public static <T extends Comparable<T>> List<T> sortOptionallyComparables(
-            @Nonnull Collection<T> toReturn) {
+    public static <T extends Comparable<T>> List<T> sortOptionallyComparables(Collection<T> toReturn) {
         List<T> list = new ArrayList<>(toReturn);
         try {
             Collections.sort(list);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted",
-                    e);
+            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
         }
         return list;
     }
@@ -155,9 +129,7 @@ public class CollectionFactory {
      * @return sorted copy of the input, if no errors are raised. Copy of the
      *         original otherwise.
      */
-    @Nonnull
-    public static <T extends OWLObject> List<T> sortOptionally(
-            @Nonnull Collection<T> toReturn) {
+    public static <T extends OWLObject> List<T> sortOptionally(Collection<T> toReturn) {
         return sortOptionally(new ArrayList<>(toReturn));
     }
 
@@ -174,9 +146,7 @@ public class CollectionFactory {
      * @return sorted copy of the input, if no errors are raised. Copy of the
      *         original otherwise.
      */
-    @Nonnull
-    public static <T extends OWLObject> List<T> sortOptionally(
-            @Nonnull Stream<T> toReturn) {
+    public static <T extends OWLObject> List<T> sortOptionally(Stream<T> toReturn) {
         return sortOptionally(asList(toReturn));
     }
 
@@ -190,7 +160,9 @@ public class CollectionFactory {
         EXPECTEDTHREADS.set(value);
     }
 
-    /** @return The current number of expected threads. */
+    /**
+     * @return The current number of expected threads.
+     */
     public static int getExpectedThreads() {
         return EXPECTEDTHREADS.get();
     }
@@ -200,7 +172,6 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
     public static <T> Set<T> createSet() {
         return new HashSet<>(0);
     }
@@ -210,7 +181,6 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
     public static <T> List<T> createList() {
         return new ArrayList<>();
     }
@@ -220,7 +190,6 @@ public class CollectionFactory {
      * @param <T>
      *        content type
      */
-    @Nonnull
     public static <T> List<T> createSyncList() {
         return new CopyOnWriteArrayList<>();
     }
@@ -232,7 +201,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @Nonnull
     public static <T> List<T> list(Iterable<T> i) {
         return Lists.newArrayList(i);
     }
@@ -244,7 +212,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @Nonnull
     @SafeVarargs
     public static <T> List<T> list(T... i) {
         return Lists.newArrayList(i);
@@ -257,7 +224,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @Nonnull
     public static <T> List<T> list(T i) {
         return Collections.singletonList(i);
     }
@@ -269,8 +235,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
-    public static <T> Set<T> createSet(@Nonnull Collection<T> c) {
+    public static <T> Set<T> createSet(Collection<T> c) {
         return new HashSet<>(c);
     }
 
@@ -281,7 +246,6 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
     public static <T> Set<T> createSet(int initialCapacity) {
         return new HashSet<>(initialCapacity);
     }
@@ -293,7 +257,6 @@ public class CollectionFactory {
      * @param <V>
      *        value type
      */
-    @Nonnull
     public static <K, V> Map<K, V> createMap() {
         return new HashMap<>();
     }
@@ -306,8 +269,7 @@ public class CollectionFactory {
      *        value type
      */
     public static <K, V> Map<K, WeakReference<V>> createSyncWeakMap() {
-        return Collections
-                .synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
+        return Collections.synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
     }
 
     /**
@@ -317,9 +279,8 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
     @SafeVarargs
-    public static <T> Set<T> createSet(@Nonnull T... elements) {
+    public static <T> Set<T> createSet(T... elements) {
         return Sets.newHashSet(elements);
     }
 
@@ -330,8 +291,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
-    public static <T> Set<T> createSet(@Nonnull T element) {
+    public static <T> Set<T> createSet(T element) {
         Set<T> result = createSet();
         result.add(element);
         return result;
@@ -342,7 +302,6 @@ public class CollectionFactory {
      * @param <T>
      *        set type
      */
-    @Nonnull
     public static <T> Set<T> createSyncSet() {
         ConcurrentHashMap<T, Boolean> internalMap = createSyncMap();
         return Collections.newSetFromMap(internalMap);
@@ -355,7 +314,6 @@ public class CollectionFactory {
      * @param <V>
      *        value type
      */
-    @Nonnull
     public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
         return new ConcurrentHashMap<>(16, 0.75F, EXPECTEDTHREADS.get());
     }
@@ -369,7 +327,6 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
     public static <T> Set<T> getCopyOnRequestSet(Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
     }
@@ -381,9 +338,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
-    public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
-            @Nullable Collection<T> source) {
+    public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(@Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return Collections.emptySet();
         }
@@ -397,7 +352,6 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
     public static <T> Set<T> copy(@Nullable Collection<T> source) {
         return getCopyOnRequestSetFromImmutableCollection(source);
     }
@@ -410,7 +364,6 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
     public static <T> Set<T> copyMutable(@Nullable Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
     }
@@ -422,9 +375,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @Nonnull
-    public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
-            @Nullable Collection<T> source) {
+    public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(@Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return Collections.emptySet();
         }
@@ -467,8 +418,7 @@ public class CollectionFactory {
          * @param listCopy
          *        true if a copy must be made
          */
-        public ConditionalCopySet(@Nonnull Collection<T> source,
-                boolean listCopy) {
+        public ConditionalCopySet(Collection<T> source, boolean listCopy) {
             if (listCopy) {
                 delegate = new ArrayList<>(source);
             } else {
@@ -477,7 +427,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(@Nullable Object obj) {
             if (obj == null) {
                 return false;
             }
@@ -485,14 +435,11 @@ public class CollectionFactory {
                 return true;
             }
             if (obj instanceof ConditionalCopySet) {
-                return delegate
-                        .containsAll(((ConditionalCopySet<?>) obj).delegate)
-                        && ((ConditionalCopySet<?>) obj).delegate
-                                .containsAll(delegate);
+                return delegate.containsAll(((ConditionalCopySet<?>) obj).delegate)
+                        && ((ConditionalCopySet<?>) obj).delegate.containsAll(delegate);
             }
             if (obj instanceof Collection) {
-                return delegate.containsAll((Collection<?>) obj)
-                        && ((Collection<?>) obj).containsAll(delegate);
+                return delegate.containsAll((Collection<?>) obj) && ((Collection<?>) obj).containsAll(delegate);
             }
             return false;
         }
@@ -508,7 +455,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean add(T e) {
+        public boolean add(@Nullable T e) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<>(delegate);
@@ -517,7 +464,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean addAll(Collection<? extends T> c) {
+        public boolean addAll(@Nullable Collection<? extends T> c) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<>(delegate);
@@ -535,7 +482,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean contains(Object o) {
+        public boolean contains(@Nullable Object o) {
             containsCounter++;
             if (containsCounter >= MAXCONTAINS && !copyDone) {
                 checkDelegate();
@@ -553,7 +500,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean containsAll(Collection<?> c) {
+        public boolean containsAll(@Nullable Collection<?> c) {
             containsCounter++;
             if (containsCounter >= MAXCONTAINS && !copyDone) {
                 checkDelegate();
@@ -566,14 +513,13 @@ public class CollectionFactory {
             return delegate.isEmpty();
         }
 
-        @Nonnull
         @Override
         public Iterator<T> iterator() {
             return delegate.iterator();
         }
 
         @Override
-        public boolean remove(Object o) {
+        public boolean remove(@Nullable Object o) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<>(delegate);
@@ -582,7 +528,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean removeAll(Collection<?> c) {
+        public boolean removeAll(@Nullable Collection<?> c) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<>(delegate);
@@ -591,7 +537,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean retainAll(Collection<?> c) {
+        public boolean retainAll(@Nullable Collection<?> c) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<>(delegate);
@@ -604,15 +550,13 @@ public class CollectionFactory {
             return delegate.size();
         }
 
-        @Nonnull
         @Override
         public Object[] toArray() {
             return delegate.toArray();
         }
 
-        @Nonnull
         @Override
-        public <Type> Type[] toArray(Type[] a) {
+        public <Type> Type[] toArray(@Nullable Type[] a) {
             return delegate.toArray(a);
         }
     }

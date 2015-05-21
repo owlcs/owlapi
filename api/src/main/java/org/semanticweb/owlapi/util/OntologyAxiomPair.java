@@ -38,20 +38,22 @@ public class OntologyAxiomPair {
      * @param axiom
      *        axiom
      */
-    public OntologyAxiomPair(@Nullable OWLOntology ontology,
-            @Nonnull OWLAxiom axiom) {
+    public OntologyAxiomPair(@Nullable OWLOntology ontology, OWLAxiom axiom) {
         this.ontology = ontology;
         this.axiom = axiom;
     }
 
-    /** @return the ontology */
+    /**
+     * @return the ontology
+     */
     @Nullable
     public OWLOntology getOntology() {
         return ontology;
     }
 
-    /** @return the axiom */
-    @Nonnull
+    /**
+     * @return the axiom
+     */
     public OWLAxiom getAxiom() {
         return axiom;
     }
@@ -66,8 +68,7 @@ public class OntologyAxiomPair {
         }
         OntologyAxiomPair other = (OntologyAxiomPair) obj;
         if (ontology != null && other.ontology != null) {
-            return verifyNotNull(ontology).equals(other.ontology)
-                    && axiom.equals(other.axiom);
+            return verifyNotNull(ontology).equals(other.ontology) && axiom.equals(other.axiom);
         }
         if (ontology != other.ontology) {
             return false;
@@ -83,10 +84,8 @@ public class OntologyAxiomPair {
         return 37 + axiom.hashCode();
     }
 
-    @Nonnull
     @Override
     public String toString() {
-        return axiom + " in "
-                + (ontology != null ? verifyNotNull(ontology).toString() : "");
+        return axiom + " in " + (ontology != null ? verifyNotNull(ontology).toString() : "");
     }
 }

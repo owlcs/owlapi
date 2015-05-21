@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -43,8 +44,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     private static final String RDF_EXTENSION = ".rdf";
     private static final String XML_EXTENSION = ".xml";
     private static final String OBO_EXTENSION = ".obo";
-    private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION,
-            XML_EXTENSION, OBO_EXTENSION };
+    private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION, XML_EXTENSION, OBO_EXTENSION };
     private static final Map<IRI, String> WELL_KNOWN_SHORTFORMS = initWellKnownShortForms();
     private static final long serialVersionUID = 40000L;
 
@@ -104,6 +104,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         return shortForm;
     }
 
+    @Nullable
     private static String getWellKnownShortForm(IRI iri) {
         String wellKnownShortForm = WELL_KNOWN_SHORTFORMS.get(iri);
         if (wellKnownShortForm != null) {
@@ -121,13 +122,11 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return The short form with the extension removed if it was present, or
      *         the original short form if no extension was present.
      */
-    @Nonnull
     private static String stripExtensionIfPresent(String shortForm) {
         String lowerCaseShortForm = shortForm.toLowerCase();
         for (String extension : EXTENSIONS) {
             if (lowerCaseShortForm.endsWith(extension)) {
-                return shortForm.substring(0,
-                        shortForm.length() - extension.length());
+                return shortForm.substring(0, shortForm.length() - extension.length());
             }
         }
         return shortForm;

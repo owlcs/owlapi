@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyImportsClosureSetProvider implements
-        OWLOntologySetProvider {
+public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -49,12 +48,9 @@ public class OWLOntologyImportsClosureSetProvider implements
      * @param rootOntology
      *        The ontology which is the "root" of the imports closure.
      */
-    public OWLOntologyImportsClosureSetProvider(
-            @Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntology rootOntology) {
+    public OWLOntologyImportsClosureSetProvider(OWLOntologyManager manager, OWLOntology rootOntology) {
         this.manager = checkNotNull(manager, "manager cannot be null");
-        this.rootOntology = checkNotNull(rootOntology,
-                "rootOntology cannot be null");
+        this.rootOntology = checkNotNull(rootOntology, "rootOntology cannot be null");
     }
 
     @Override

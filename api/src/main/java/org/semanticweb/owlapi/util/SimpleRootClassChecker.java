@@ -19,14 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * A utility class that can be used to determine is a class is a syntactic
@@ -65,7 +58,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
      *        when determining if a class is a syntactic direct subclass of
      *        owl:Thing
      */
-    public SimpleRootClassChecker(@Nonnull Set<OWLOntology> ontologies) {
+    public SimpleRootClassChecker(Set<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
@@ -92,8 +85,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
                 .anyMatch(ax -> !ax.accept(checker.setOWLClass(cls)));
     }
 
-    private static class NamedSuperChecker implements
-            OWLClassExpressionVisitorEx<Boolean> {
+    private static class NamedSuperChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
         protected boolean namedSuper;
 

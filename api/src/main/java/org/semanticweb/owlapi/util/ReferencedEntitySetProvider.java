@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.2.0
  */
-public class ReferencedEntitySetProvider implements
-        OWLEntitySetProvider<OWLEntity> {
+public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEntity> {
 
     @Nonnull
     private final Collection<OWLOntology> ontologies;
@@ -37,8 +36,7 @@ public class ReferencedEntitySetProvider implements
      * @param ontologies
      *        ontologies to use
      */
-    public ReferencedEntitySetProvider(
-            @Nonnull Collection<OWLOntology> ontologies) {
+    public ReferencedEntitySetProvider(Collection<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 

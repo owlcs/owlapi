@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -48,10 +46,9 @@ public class QNameShortFormProvider implements ShortFormProvider {
      *        The map which contains a prefix to namespace mapping. The prefix
      *        must not have a trailing ":"; if one is there, it will be removed
      */
-    public QNameShortFormProvider(@Nonnull Map<String, String> prefix2Ns) {
+    public QNameShortFormProvider(Map<String, String> prefix2Ns) {
         checkNotNull(prefix2Ns, "prefix2NamespaceMap cannot be null");
-        prefix2Ns.forEach((key, v) -> namespaceUtil.setPrefix(v,
-                removeColon(key)));
+        prefix2Ns.forEach((key, v) -> namespaceUtil.setPrefix(v, removeColon(key)));
     }
 
     protected String removeColon(String key) {
@@ -63,7 +60,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
     }
 
     @Override
-    public String getShortForm(@Nonnull OWLEntity entity) {
+    public String getShortForm(OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
         String namespace = entity.getIRI().getNamespace();
         String prefix = namespaceUtil.getPrefix(namespace);

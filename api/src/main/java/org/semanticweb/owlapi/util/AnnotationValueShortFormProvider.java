@@ -24,15 +24,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologySetProvider;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * A short form provider that generates short forms based on entity annotation
@@ -82,12 +74,9 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *        from which candidate annotation axioms should be taken. For a
      *        given entity, all ontologies are examined.
      */
-    public AnnotationValueShortFormProvider(
-            @Nonnull List<OWLAnnotationProperty> annotationProperties,
-            @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
-            @Nonnull OWLOntologySetProvider ontologySetProvider) {
-        this(annotationProperties, preferredLanguageMap, ontologySetProvider,
-                new SimpleShortFormProvider());
+    public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties,
+            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap, OWLOntologySetProvider ontologySetProvider) {
+        this(annotationProperties, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
     }
 
     /**
@@ -116,13 +105,10 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *        annotation is an {@code OWLIndividual} for providing the short
      *        form of the individual.
      */
-    public AnnotationValueShortFormProvider(
-            @Nonnull List<OWLAnnotationProperty> annotationProperties,
-            @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
-            @Nonnull OWLOntologySetProvider ontologySetProvider,
-            @Nonnull ShortFormProvider alternateShortFormProvider) {
-        this(ontologySetProvider, alternateShortFormProvider,
-                new SimpleIRIShortFormProvider(), annotationProperties,
+    public AnnotationValueShortFormProvider(List<OWLAnnotationProperty> annotationProperties,
+            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap, OWLOntologySetProvider ontologySetProvider,
+            ShortFormProvider alternateShortFormProvider) {
+        this(ontologySetProvider, alternateShortFormProvider, new SimpleIRIShortFormProvider(), annotationProperties,
                 preferredLanguageMap);
     }
 
@@ -138,36 +124,27 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * @param preferredLanguageMap
      *        preferred language map
      */
-    public AnnotationValueShortFormProvider(
-            @Nonnull OWLOntologySetProvider ontologySetProvider,
-            @Nonnull ShortFormProvider alternateShortFormProvider,
-            @Nonnull IRIShortFormProvider alternateIRIShortFormProvider,
-            @Nonnull List<OWLAnnotationProperty> annotationProperties,
-            @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap) {
-        this.ontologySetProvider = checkNotNull(ontologySetProvider,
-                "ontologySetProvider cannot be null");
-        this.alternateShortFormProvider = checkNotNull(
-                alternateShortFormProvider,
+    public AnnotationValueShortFormProvider(OWLOntologySetProvider ontologySetProvider,
+            ShortFormProvider alternateShortFormProvider, IRIShortFormProvider alternateIRIShortFormProvider,
+            List<OWLAnnotationProperty> annotationProperties,
+            Map<OWLAnnotationProperty, List<String>> preferredLanguageMap) {
+        this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
+        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider,
                 "alternateShortFormProvider cannot be null");
-        this.alternateIRIShortFormProvider = checkNotNull(
-                alternateIRIShortFormProvider,
+        this.alternateIRIShortFormProvider = checkNotNull(alternateIRIShortFormProvider,
                 "alternateIRIShortFormProvider cannot be null");
-        this.annotationProperties = checkNotNull(annotationProperties,
-                "annotationProperties cannot be null");
-        this.preferredLanguageMap = checkNotNull(preferredLanguageMap,
-                "preferredLanguageMap cannot be null");
+        this.annotationProperties = checkNotNull(annotationProperties, "annotationProperties cannot be null");
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
     }
 
-    @Nonnull
     @Override
-    public String getShortForm(@Nonnull OWLEntity entity) {
+    public String getShortForm(OWLEntity entity) {
         Stream<OWLOntology> onts = ontologySetProvider.ontologies();
-        Set<OWLAnnotationAssertionAxiom> flatMap = asSet(onts.flatMap(o -> o
-                .annotationAssertionAxioms(entity.getIRI(), INCLUDED)));
+        Set<OWLAnnotationAssertionAxiom> flatMap = asSet(
+                onts.flatMap(o -> o.annotationAssertionAxioms(entity.getIRI(), INCLUDED)));
         for (OWLAnnotationProperty prop : annotationProperties) {
             // visit the properties in order of preference
-            AnnotationLanguageFilter checker = new AnnotationLanguageFilter(
-                    prop, preferredLanguageMap.get(prop));
+            AnnotationLanguageFilter checker = new AnnotationLanguageFilter(prop, preferredLanguageMap.get(prop));
             flatMap.forEach(ax -> ax.accept(checker));
             OWLObject match = checker.getMatch();
             if (match != null) {
@@ -187,8 +164,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *        The object to the rendered
      * @return The rendering of the object.
      */
-    @Nonnull
-    private String getRendering(@Nonnull OWLObject object) {
+    private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
         if (object instanceof OWLLiteral) {
@@ -201,14 +177,16 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         }
     }
 
-    /** @return the annotation URIs that this short form provider uses. */
-    @Nonnull
+    /**
+     * @return the annotation URIs that this short form provider uses.
+     */
     public List<OWLAnnotationProperty> getAnnotationProperties() {
         return annotationProperties;
     }
 
-    /** @return the preferred language map */
-    @Nonnull
+    /**
+     * @return the preferred language map
+     */
     public Map<OWLAnnotationProperty, List<String>> getPreferredLanguageMap() {
         return preferredLanguageMap;
     }
@@ -224,8 +202,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         OWLObject candidateValue = null;
         int lastLangMatchIndex = Integer.MAX_VALUE;
 
-        AnnotationLanguageFilter(OWLAnnotationProperty prop,
-                List<String> preferredLanguages) {
+        AnnotationLanguageFilter(OWLAnnotationProperty prop, List<String> preferredLanguages) {
             this.prop = prop;
             this.preferredLanguages = preferredLanguages;
         }
@@ -236,7 +213,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         }
 
         @Override
-        public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+        public void visit(OWLAnnotationAssertionAxiom axiom) {
             if (lastLangMatchIndex > 0 && axiom.getProperty().equals(prop)) {
                 // a perfect match - no need to carry on search
                 axiom.getValue().accept(this);
@@ -244,7 +221,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         }
 
         @Override
-        public void visit(@Nonnull OWLLiteral node) {
+        public void visit(OWLLiteral node) {
             if (preferredLanguages == null || preferredLanguages.isEmpty()) {
                 // if there are no languages just match the first thing
                 lastLangMatchIndex = 0;
@@ -269,8 +246,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * @param literalRenderer
      *        the literalRenderer to set
      */
-    public void setLiteralRenderer(
-            @Nonnull StringAnnotationVisitor literalRenderer) {
+    public void setLiteralRenderer(StringAnnotationVisitor literalRenderer) {
         this.literalRenderer = checkNotNull(literalRenderer);
     }
 }

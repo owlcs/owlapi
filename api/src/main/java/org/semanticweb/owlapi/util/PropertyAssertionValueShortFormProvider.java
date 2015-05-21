@@ -20,16 +20,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologySetProvider;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * A short form provider that generates short forms from the values of object
@@ -44,8 +35,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  *         Informatics Group
  * @since 2.0.0
  */
-public class PropertyAssertionValueShortFormProvider implements
-        ShortFormProvider {
+public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
 
     @Nonnull
     private final List<OWLPropertyExpression> properties;
@@ -65,12 +55,10 @@ public class PropertyAssertionValueShortFormProvider implements
      * @param ontologySetProvider
      *        the ontology container
      */
-    public PropertyAssertionValueShortFormProvider(
-            @Nonnull List<OWLPropertyExpression> properties,
-            @Nonnull Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-            @Nonnull OWLOntologySetProvider ontologySetProvider) {
-        this(properties, preferredLanguageMap, ontologySetProvider,
-                new SimpleShortFormProvider());
+    public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties,
+            Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
+            OWLOntologySetProvider ontologySetProvider) {
+        this(properties, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
     }
 
     /**
@@ -98,18 +86,13 @@ public class PropertyAssertionValueShortFormProvider implements
      *        where the value of an annotation is an {@code OWLIndividual} for
      *        providing the short form of the individual.
      */
-    public PropertyAssertionValueShortFormProvider(
-            @Nonnull List<OWLPropertyExpression> properties,
-            @Nonnull Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-            @Nonnull OWLOntologySetProvider ontologySetProvider,
-            @Nonnull ShortFormProvider alternateShortFormProvider) {
+    public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties,
+            Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
+            OWLOntologySetProvider ontologySetProvider, ShortFormProvider alternateShortFormProvider) {
         this.properties = checkNotNull(properties, "properties cannot be null");
-        this.preferredLanguageMap = checkNotNull(preferredLanguageMap,
-                "preferredLanguageMap cannot be null");
-        this.ontologySetProvider = checkNotNull(ontologySetProvider,
-                "ontologySetProvider cannot be null");
-        this.alternateShortFormProvider = checkNotNull(
-                alternateShortFormProvider,
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
+        this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
+        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider,
                 "alternateShortFormProvider cannot be null");
     }
 
@@ -126,8 +109,7 @@ public class PropertyAssertionValueShortFormProvider implements
         int lastURIMatchIndex = Integer.MAX_VALUE;
         int lastLangMatchIndex = Integer.MAX_VALUE;
         for (OWLOntology ontology : asList(ontologySetProvider.ontologies())) {
-            for (OWLObjectPropertyAssertionAxiom ax : asList(ontology
-                    .objectPropertyAssertionAxioms(individual))) {
+            for (OWLObjectPropertyAssertionAxiom ax : asList(ontology.objectPropertyAssertionAxioms(individual))) {
                 int index = properties.indexOf(ax.getProperty());
                 if (index == -1) {
                     continue;
@@ -136,8 +118,7 @@ public class PropertyAssertionValueShortFormProvider implements
                     candidateValue = ax.getObject();
                 }
             }
-            for (OWLDataPropertyAssertionAxiom ax : asList(ontology
-                    .dataPropertyAssertionAxioms(individual))) {
+            for (OWLDataPropertyAssertionAxiom ax : asList(ontology.dataPropertyAssertionAxioms(individual))) {
                 int index = properties.indexOf(ax.getProperty());
                 if (index == -1) {
                     continue;
@@ -148,16 +129,14 @@ public class PropertyAssertionValueShortFormProvider implements
                     // and see if we take priority over the previous one
                     OWLObject obj = ax.getObject();
                     if (obj instanceof OWLLiteral) {
-                        List<String> langList = preferredLanguageMap.get(ax
-                                .getProperty());
+                        List<String> langList = preferredLanguageMap.get(ax.getProperty());
                         if (langList != null) {
                             // There is no need to check if lang is null. It may
                             // well be that no
                             // lang is preferred over any other lang.
                             OWLLiteral lit = (OWLLiteral) obj;
                             int langIndex = langList.indexOf(lit.getLang());
-                            if (langIndex != -1
-                                    && langIndex < lastLangMatchIndex) {
+                            if (langIndex != -1 && langIndex < lastLangMatchIndex) {
                                 lastLangMatchIndex = langIndex;
                                 candidateValue = ax.getObject();
                             }
@@ -186,8 +165,7 @@ public class PropertyAssertionValueShortFormProvider implements
      *        The object to the rendered
      * @return The rendering of the object.
      */
-    @Nonnull
-    private String getRendering(@Nonnull OWLObject object) {
+    private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
         if (object instanceof OWLLiteral) {
@@ -197,14 +175,17 @@ public class PropertyAssertionValueShortFormProvider implements
         }
     }
 
-    /** @return the properties */
+    /**
+     * @return the properties
+     */
     public List<OWLPropertyExpression> getProperties() {
         return properties;
     }
 
-    /** @return the language map */
-    public Map<OWLDataPropertyExpression, List<String>>
-            getPreferredLanguageMap() {
+    /**
+     * @return the language map
+     */
+    public Map<OWLDataPropertyExpression, List<String>> getPreferredLanguageMap() {
         return preferredLanguageMap;
     }
 

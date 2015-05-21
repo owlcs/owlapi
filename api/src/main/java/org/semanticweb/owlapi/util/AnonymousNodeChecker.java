@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -28,19 +26,19 @@ public interface AnonymousNodeChecker {
      *        iri to check
      * @return true if iri is a blank node iri
      */
-    boolean isAnonymousNode(@Nonnull IRI iri);
+    boolean isAnonymousNode(IRI iri);
 
     /**
      * @param iri
      *        iri to check
      * @return true if iri is a blank node iri
      */
-    boolean isAnonymousNode(@Nonnull String iri);
+    boolean isAnonymousNode(String iri);
 
     /**
      * @param iri
      *        iri to check
      * @return true if iri is a blank node iri for shared nodes
      */
-    boolean isAnonymousSharedNode(@Nonnull String iri);
+    boolean isAnonymousSharedNode(String iri);
 }

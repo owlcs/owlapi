@@ -115,7 +115,7 @@ public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatF
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (null == obj) {
             return false;
         }

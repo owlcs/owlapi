@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -44,8 +43,7 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      * @deprecated use {@link #entities(String)}
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLEntity> getEntities(@Nonnull String shortForm) {
+    default Set<OWLEntity> getEntities(String shortForm) {
         return asSet(entities(shortForm));
     }
 
@@ -59,8 +57,7 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      *         are no entities which have the specified short form then an empty
      *         set will be returned.
      */
-    @Nonnull
-    Stream<OWLEntity> entities(@Nonnull String shortForm);
+    Stream<OWLEntity> entities(String shortForm);
 
     /**
      * A convenience method which gets an entity from its short form.
@@ -73,7 +70,7 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      *         implementation of the short form provider.
      */
     @Nullable
-    OWLEntity getEntity(@Nonnull String shortForm);
+    OWLEntity getEntity(String shortForm);
 
     /**
      * Gets all of the short forms that are mapped to entities.
@@ -83,7 +80,6 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      * @deprecated use {@link #shortForms()}
      */
     @Deprecated
-    @Nonnull
     default Set<String> getShortForms() {
         return asSet(shortForms());
     }
@@ -94,6 +90,5 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      * @return A set, which contains the strings representing the short forms of
      *         entities for which there is a mapping.
      */
-    @Nonnull
     Stream<String> shortForms();
 }

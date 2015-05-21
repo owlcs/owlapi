@@ -21,14 +21,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
@@ -57,7 +50,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param objects
      *        the set of objects to visit
      */
-    public OWLObjectWalker(@Nonnull Collection<O> objects) {
+    public OWLObjectWalker(Collection<O> objects) {
         this(objects, true);
     }
 
@@ -85,10 +78,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param objects
      *        the set of objects to visit
      */
-    public OWLObjectWalker(@Nonnull Collection<O> objects,
-            boolean visitDuplicates) {
-        this.objects = new ArrayList<>(checkNotNull(objects,
-                "objects cannot be null"));
+    public OWLObjectWalker(Collection<O> objects, boolean visitDuplicates) {
+        this.objects = new ArrayList<>(checkNotNull(objects, "objects cannot be null"));
         this.visitDuplicates = visitDuplicates;
     }
 
@@ -96,7 +87,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param walker
      *        the structure walker to use with this object walker
      */
-    public void setStructureWalker(@Nonnull StructureWalker<O> walker) {
+    public void setStructureWalker(StructureWalker<O> walker) {
         this.walker = walker;
     }
 
@@ -104,7 +95,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param v
      *        visitor to use over the objects
      */
-    public void walkStructure(@Nonnull OWLObjectVisitorEx<?> v) {
+    public void walkStructure(OWLObjectVisitorEx<?> v) {
         setVisitor(checkNotNull(v, "v cannot be null"));
         objects.forEach(o -> o.accept(walker));
     }
@@ -113,7 +104,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param v
      *        visitor to use over the objects
      */
-    public void walkStructure(@Nonnull OWLObjectVisitor v) {
+    public void walkStructure(OWLObjectVisitor v) {
         setVisitor(checkNotNull(v, "v cannot be null"));
         objects.forEach(o -> o.accept(walker));
     }
@@ -160,7 +151,6 @@ public class OWLObjectWalker<O extends OWLObject> {
      *         expressions, with the root of the class expression being the
      *         first element in the list.
      */
-    @Nonnull
     public List<OWLClassExpression> getClassExpressionPath() {
         return new ArrayList<>(classExpressionPath);
     }
@@ -175,11 +165,9 @@ public class OWLObjectWalker<O extends OWLObject> {
      *         expression in the current class expression path, otherwise
      *         {@code false} ({@code false} if the path is empty)
      */
-    public boolean isFirstClassExpressionInPath(
-            @Nonnull OWLClassExpression classExpression) {
+    public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
-        return !classExpressionPath.isEmpty()
-                && classExpressionPath.get(0).equals(classExpression);
+        return !classExpressionPath.isEmpty() && classExpressionPath.get(0).equals(classExpression);
     }
 
     /**
@@ -188,7 +176,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param ce
      *        The class expression to be pushed onto the path
      */
-    protected void pushClassExpression(@Nonnull OWLClassExpression ce) {
+    protected void pushClassExpression(OWLClassExpression ce) {
         checkNotNull(ce, "ce cannot be null");
         classExpressionPath.add(ce);
     }
@@ -215,7 +203,6 @@ public class OWLObjectWalker<O extends OWLObject> {
      *         with the root of the data range being the first element in the
      *         list.
      */
-    @Nonnull
     public List<OWLDataRange> getDataRangePath() {
         return new ArrayList<>(dataRangePath);
     }
@@ -226,7 +213,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param dr
      *        The data range to be pushed onto the path
      */
-    protected void pushDataRange(@Nonnull OWLDataRange dr) {
+    protected void pushDataRange(OWLDataRange dr) {
         checkNotNull(dr, "dr cannot be null");
         dataRangePath.add(dr);
     }

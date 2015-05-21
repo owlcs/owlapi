@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -28,13 +26,12 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group
  * @since 2.2.0
  */
-public class SimpleIRIShortFormProvider implements IRIShortFormProvider,
-        Serializable {
+public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public String getShortForm(@Nonnull IRI iri) {
+    public String getShortForm(IRI iri) {
         checkNotNull(iri);
         return iri.getShortForm();
     }

@@ -18,8 +18,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -41,13 +39,10 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
         implements InferredAxiomGenerator<A> {
 
     @Override
-    public Set<A> createAxioms(@Nonnull OWLDataFactory df,
-            @Nonnull OWLReasoner reasoner) {
+    public Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner) {
         Set<E> processedEntities = new HashSet<>();
         Set<A> result = new HashSet<>();
-        reasoner.getRootOntology().importsClosure()
-                .flatMap(o -> getEntities(o))
-                .filter(e -> processedEntities.add(e))
+        reasoner.getRootOntology().importsClosure().flatMap(o -> getEntities(o)).filter(e -> processedEntities.add(e))
                 .forEach(e -> addAxioms(e, reasoner, df, result));
         return result;
     }
@@ -65,9 +60,7 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
      * @param result
      *        The results set, which the new axioms should be added to.
      */
-    protected abstract void addAxioms(@Nonnull E entity,
-            @Nonnull OWLReasoner reasoner, @Nonnull OWLDataFactory dataFactory,
-            @Nonnull Set<A> result);
+    protected abstract void addAxioms(E entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<A> result);
 
     /**
      * Gets the entities from the specified ontology that this generator
@@ -77,12 +70,10 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
      *        The ontology from which entities are to be retrieved.
      * @return A set of entities.
      */
-    @Nonnull
-    protected abstract Stream<E> getEntities(@Nonnull OWLOntology ont);
+    protected abstract Stream<E> getEntities(OWLOntology ont);
 
     protected Set<E> getAllEntities(OWLReasoner reasoner) {
-        return asSet(reasoner.getRootOntology().importsClosure()
-                .flatMap(o -> getEntities(o)));
+        return asSet(reasoner.getRootOntology().importsClosure().flatMap(o -> getEntities(o)));
     }
 
     @Override

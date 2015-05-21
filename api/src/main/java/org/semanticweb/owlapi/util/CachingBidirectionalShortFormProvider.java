@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -34,8 +33,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class CachingBidirectionalShortFormProvider
-    implements BidirectionalShortFormProvider {
+public abstract class CachingBidirectionalShortFormProvider implements BidirectionalShortFormProvider {
 
     private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<>();
     private final Map<OWLEntity, String> entity2ShortFormMap = new HashMap<>();
@@ -53,8 +51,7 @@ public abstract class CachingBidirectionalShortFormProvider
      *        The entity whose short form should be generated.
      * @return short form
      */
-    @Nonnull
-    protected abstract String generateShortForm(@Nonnull OWLEntity entity);
+    protected abstract String generateShortForm(OWLEntity entity);
 
     @Override
     public Stream<String> shortForms() {
@@ -82,7 +79,7 @@ public abstract class CachingBidirectionalShortFormProvider
      *        The entity to be added to the cache - the short form will
      *        automatically be generated and added to the cache.
      */
-    public void add(@Nonnull OWLEntity entity) {
+    public void add(OWLEntity entity) {
         String shortForm = generateShortForm(entity);
         entity2ShortFormMap.put(entity, shortForm);
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);

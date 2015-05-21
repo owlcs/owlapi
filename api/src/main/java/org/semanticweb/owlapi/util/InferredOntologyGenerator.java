@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -41,12 +39,9 @@ import org.slf4j.LoggerFactory;
  */
 public class InferredOntologyGenerator {
 
-    private static Logger logger = LoggerFactory
-        .getLogger(InferredOntologyGenerator.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(InferredOntologyGenerator.class.getName());
     // The reasoner which is used to compute the inferred axioms
-    @Nonnull
     private final OWLReasoner reasoner;
-    @Nonnull
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators;
 
     /**
@@ -55,8 +50,8 @@ public class InferredOntologyGenerator {
      * @param axiomGenerators
      *        the axiom generators to use
      */
-    public InferredOntologyGenerator(@Nonnull OWLReasoner reasoner,
-        @Nonnull List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
+    public InferredOntologyGenerator(OWLReasoner reasoner,
+            List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
         this.reasoner = checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(axiomGenerators, "axiomGenerators cannot be null");
         this.axiomGenerators = new ArrayList<>(axiomGenerators);
@@ -66,31 +61,24 @@ public class InferredOntologyGenerator {
      * @param reasoner
      *        the reasoner to use
      */
-    public InferredOntologyGenerator(@Nonnull OWLReasoner reasoner) {
+    public InferredOntologyGenerator(OWLReasoner reasoner) {
         this(reasoner, generators());
     }
 
-    @Nonnull
     private static List<InferredAxiomGenerator<? extends OWLAxiom>> generators() {
-        return CollectionFactory
-            .<InferredAxiomGenerator<? extends OWLAxiom>> list(
-                new InferredClassAssertionAxiomGenerator(),
-                new InferredDataPropertyCharacteristicAxiomGenerator(),
-                new InferredEquivalentClassAxiomGenerator(),
-                new InferredEquivalentDataPropertiesAxiomGenerator(),
+        return CollectionFactory.<InferredAxiomGenerator<? extends OWLAxiom>> list(
+                new InferredClassAssertionAxiomGenerator(), new InferredDataPropertyCharacteristicAxiomGenerator(),
+                new InferredEquivalentClassAxiomGenerator(), new InferredEquivalentDataPropertiesAxiomGenerator(),
                 new InferredEquivalentObjectPropertyAxiomGenerator(),
                 new InferredInverseObjectPropertiesAxiomGenerator(),
-                new InferredObjectPropertyCharacteristicAxiomGenerator(),
-                new InferredPropertyAssertionGenerator(),
-                new InferredSubClassAxiomGenerator(),
-                new InferredSubDataPropertyAxiomGenerator(),
+                new InferredObjectPropertyCharacteristicAxiomGenerator(), new InferredPropertyAssertionGenerator(),
+                new InferredSubClassAxiomGenerator(), new InferredSubDataPropertyAxiomGenerator(),
                 new InferredSubObjectPropertyAxiomGenerator());
     }
 
     /**
      * @return the axiom generators
      */
-    @Nonnull
     public List<InferredAxiomGenerator<?>> getAxiomGenerators() {
         return new ArrayList<>(axiomGenerators);
     }
@@ -101,7 +89,7 @@ public class InferredOntologyGenerator {
      * @param generator
      *        The generator to be added.
      */
-    public void addGenerator(@Nonnull InferredAxiomGenerator<?> generator) {
+    public void addGenerator(InferredAxiomGenerator<?> generator) {
         checkNotNull(generator, "generator cannot be null");
         if (!axiomGenerators.contains(generator)) {
             axiomGenerators.add(generator);
@@ -114,7 +102,7 @@ public class InferredOntologyGenerator {
      * @param generator
      *        the generator to be removed
      */
-    public void removeGenerator(@Nonnull InferredAxiomGenerator<?> generator) {
+    public void removeGenerator(InferredAxiomGenerator<?> generator) {
         checkNotNull(generator, "generator cannot be null");
         axiomGenerators.remove(generator);
     }
@@ -131,22 +119,18 @@ public class InferredOntologyGenerator {
      *         If there was a problem adding the inferred axioms to the
      *         specified ontology.
      */
-    public void fillOntology(@Nonnull OWLDataFactory df,
-        @Nonnull OWLOntology ontology) {
+    public void fillOntology(OWLDataFactory df, OWLOntology ontology) {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
-        axiomGenerators.stream().flatMap(g -> generate(df, g))
-            .forEach(ax -> ontology.addAxiom(ax));
+        axiomGenerators.stream().flatMap(g -> generate(df, g)).forEach(ax -> ontology.addAxiom(ax));
     }
 
-    protected Stream<? extends OWLAxiom> generate(@Nonnull OWLDataFactory df,
-        InferredAxiomGenerator<? extends OWLAxiom> g) {
+    protected Stream<? extends OWLAxiom> generate(OWLDataFactory df, InferredAxiomGenerator<? extends OWLAxiom> g) {
         try {
             return g.createAxioms(df, reasoner).stream();
         } catch (Exception e) {
-            logger.warn("Error generating {} axioms using {}, version {}",
-                g.getLabel(), reasoner.getReasonerName(),
-                reasoner.getReasonerVersion(), e);
+            logger.warn("Error generating {} axioms using {}, version {}", g.getLabel(), reasoner.getReasonerName(),
+                    reasoner.getReasonerVersion(), e);
             return empty();
         }
     }

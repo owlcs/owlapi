@@ -12,20 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * A {@code Comparator} which compares entities. Entities are compared first by
@@ -37,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLEntityComparator implements Comparator<OWLEntity>,
-        OWLEntityVisitor {
+public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor {
 
     @Nonnull
     private final ShortFormProvider shortFormProvider;
@@ -51,27 +44,26 @@ public class OWLEntityComparator implements Comparator<OWLEntity>,
      * @param shortFormProvider
      *        the short form provider to use
      */
-    public OWLEntityComparator(@Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider,
-                "shortFormProvider cannot be null");
+    public OWLEntityComparator(ShortFormProvider shortFormProvider) {
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override
-    public int compare(OWLEntity o1, OWLEntity o2) {
-        o1.accept(this);
+    public int compare(@Nullable OWLEntity o1, @Nullable OWLEntity o2) {
+        verifyNotNull(o1).accept(this);
         int i1 = lastValue;
-        o2.accept(this);
+        verifyNotNull(o2).accept(this);
         int i2 = lastValue;
         int delta = i1 - i2;
         if (delta != 0) {
             return delta;
         }
-        String s1 = getShortForm(o1);
-        String s2 = getShortForm(o2);
+        String s1 = getShortForm(verifyNotNull(o1));
+        String s2 = getShortForm(verifyNotNull(o2));
         return s1.compareTo(s2);
     }
 
-    private String getShortForm(@Nonnull OWLEntity entity) {
+    private String getShortForm(OWLEntity entity) {
         return shortFormProvider.getShortForm(entity);
     }
 

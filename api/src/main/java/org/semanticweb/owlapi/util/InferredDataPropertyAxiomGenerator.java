@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -31,7 +29,7 @@ public abstract class InferredDataPropertyAxiomGenerator<A extends OWLDataProper
         extends InferredEntityAxiomGenerator<OWLDataProperty, A> {
 
     @Override
-    protected Stream<OWLDataProperty> getEntities(@Nonnull OWLOntology ont) {
+    protected Stream<OWLDataProperty> getEntities(OWLOntology ont) {
         return ont.dataPropertiesInSignature();
     }
 }

@@ -19,15 +19,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.RemoveImport;
-import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Changes the URI of an ontology and ensures that ontologies which import the
@@ -46,10 +38,8 @@ public class OWLOntologyIRIChanger {
      * @param owlOntologyManager
      *        the ontology manager to use
      */
-    public OWLOntologyIRIChanger(
-        @Nonnull OWLOntologyManager owlOntologyManager) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager,
-            "owlOntologyManager cannot be null");
+    public OWLOntologyIRIChanger(OWLOntologyManager owlOntologyManager) {
+        this.owlOntologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
     }
 
     /**
@@ -63,19 +53,14 @@ public class OWLOntologyIRIChanger {
      *         specified ontology, and also update the imports declarations in
      *         any ontologies which import the specified ontology.
      */
-    @Nonnull
-    public List<OWLOntologyChange> getChanges(@Nonnull OWLOntology ontology,
-        @Nonnull IRI newIRI) {
+    public List<OWLOntologyChange> getChanges(OWLOntology ontology, IRI newIRI) {
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes
-            .add(new SetOntologyID(ontology, new OWLOntologyID(optional(newIRI),
-                ontology.getOntologyID().getVersionIRI())));
-        OWLImportsDeclaration owlImport = owlOntologyManager.getOWLDataFactory()
-            .getOWLImportsDeclaration(newIRI);
+        changes.add(new SetOntologyID(ontology,
+                new OWLOntologyID(optional(newIRI), ontology.getOntologyID().getVersionIRI())));
+        OWLImportsDeclaration owlImport = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newIRI);
         IRI ontIRI = ontology.getOntologyID().getOntologyIRI().get();
         owlOntologyManager.ontologies().forEach(ont -> {
-            ont.importsDeclarations()
-                .filter(decl -> decl.getIRI().equals(ontIRI)).forEach(decl -> {
+            ont.importsDeclarations().filter(decl -> decl.getIRI().equals(ontIRI)).forEach(decl -> {
                 changes.add(new RemoveImport(ont, decl));
                 changes.add(new AddImport(ont, owlImport));
             } );

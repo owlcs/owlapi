@@ -44,9 +44,8 @@ public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
      *        The one and only ontology which should be contained in the sets
      *        provided by this provider.
      */
-    public OWLOntologySingletonSetProvider(@Nonnull OWLOntology ontology) {
-        ontologySingletonSet = CollectionFactory.createSet(checkNotNull(
-                ontology, "ontology cannot be null"));
+    public OWLOntologySingletonSetProvider(OWLOntology ontology) {
+        ontologySingletonSet = CollectionFactory.createSet(checkNotNull(ontology, "ontology cannot be null"));
     }
 
     @Override

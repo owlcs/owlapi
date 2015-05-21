@@ -16,8 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -40,7 +38,7 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
      * @param objects
      *        the objects to visit
      */
-    public OWLClassLiteralCollector(@Nonnull Set<OWLObject> objects) {
+    public OWLClassLiteralCollector(Set<OWLObject> objects) {
         super(objects);
     }
 
@@ -50,8 +48,7 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
      * @param visitDuplicates
      *        true if duplicates must be visited
      */
-    public OWLClassLiteralCollector(@Nonnull Set<OWLObject> objects,
-            boolean visitDuplicates) {
+    public OWLClassLiteralCollector(Set<OWLObject> objects, boolean visitDuplicates) {
         super(objects, visitDuplicates);
     }
 
@@ -62,13 +59,17 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
         }
     }
 
-    /** @return positive literals */
+    /**
+     * @return positive literals
+     */
     public Set<OWLClass> getPositiveLiterals() {
         process();
         return new HashSet<>(pos);
     }
 
-    /** @return negative literals */
+    /**
+     * @return negative literals
+     */
     public Set<OWLClass> getNegativeLiterals() {
         process();
         return new HashSet<>(neg);

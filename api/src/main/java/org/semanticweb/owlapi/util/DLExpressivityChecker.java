@@ -16,78 +16,11 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLDataComplementOf;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.*;
 
 import com.google.common.base.Joiner;
 
@@ -101,7 +34,9 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private final Set<Construct> constructs;
     private final List<OWLOntology> ontologies;
 
-    /** @return ordered constructs */
+    /**
+     * @return ordered constructs
+     */
     public List<Construct> getConstructs() {
         return getOrderedConstructs();
     }
@@ -115,8 +50,9 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         constructs = new HashSet<>();
     }
 
-    /** @return DL name */
-    @Nonnull
+    /**
+     * @return DL name
+     */
     public String getDescriptionLogicName() {
         return Joiner.on("").join(getOrderedConstructs());
     }
@@ -144,8 +80,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         if (constructs.contains(Q)) {
             constructs.remove(N);
         }
-        if (constructs.contains(AL) && constructs.contains(C)
-                && constructs.contains(TRAN)) {
+        if (constructs.contains(AL) && constructs.contains(C) && constructs.contains(TRAN)) {
             constructs.remove(AL);
             constructs.remove(C);
             constructs.remove(TRAN);
@@ -159,26 +94,25 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private List<Construct> getOrderedConstructs() {
         constructs.clear();
         constructs.add(AL);
-        ontologies.stream().flatMap(o -> o.logicalAxioms())
-                .forEach(ax -> ax.accept(this));
+        ontologies.stream().flatMap(o -> o.logicalAxioms()).forEach(ax -> ax.accept(this));
         pruneConstructs();
         List<Construct> cons = new ArrayList<>(constructs);
         Collections.sort(cons, new ConstructComparator());
         return cons;
     }
 
-    /** A comparator that orders DL constucts to produce a traditional DL name. */
-    private static class ConstructComparator implements Comparator<Construct>,
-            Serializable {
+    /**
+     * A comparator that orders DL constucts to produce a traditional DL name.
+     */
+    private static class ConstructComparator implements Comparator<Construct>, Serializable {
 
         private static final long serialVersionUID = 40000L;
-        private final List<Construct> order = Arrays.asList(S, AL, C, U, E, R,
-                H, O, I, N, Q, F, TRAN, D);
+        private final List<Construct> order = Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
 
         ConstructComparator() {}
 
         @Override
-        public int compare(Construct o1, Construct o2) {
+        public int compare(@Nullable Construct o1, @Nullable Construct o2) {
             return order.indexOf(o1) - order.indexOf(o2);
         }
     }
@@ -241,10 +175,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         if (classExpression.isAnonymous()) {
             return false;
         }
-        return !ontologies.stream()
-                .anyMatch(
-                        ont -> ont.axioms((OWLClass) classExpression, EXCLUDED)
-                                .count() > 0);
+        return !ontologies.stream().anyMatch(ont -> ont.axioms((OWLClass) classExpression, EXCLUDED).count() > 0);
     }
 
     @Override
