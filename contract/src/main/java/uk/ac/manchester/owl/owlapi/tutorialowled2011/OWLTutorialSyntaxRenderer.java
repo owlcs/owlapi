@@ -14,8 +14,6 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -29,11 +27,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(@Nonnull OWLOntology ontology,
-            @Nonnull PrintWriter writer) throws OWLRendererIOException {
+    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererIOException {
         try {
-            OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
-                    writer);
+            OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(writer);
             ontology.accept(ren);
             writer.flush();
         } catch (OWLRuntimeException ex) {

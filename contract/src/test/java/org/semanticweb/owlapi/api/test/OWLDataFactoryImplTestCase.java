@@ -17,8 +17,6 @@ import static org.junit.Assert.assertSame;
 import java.util.Arrays;
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -50,13 +48,10 @@ public class OWLDataFactoryImplTestCase {
         this.dataFactory = dataFactory;
     }
 
-    @Nonnull
     @Parameterized.Parameters
     public static Collection<OWLDataFactoryImpl> parameters() {
-        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(
-        new OWLDataFactoryInternalsImplNoCache(false));
-        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(
-        new OWLDataFactoryInternalsImplNoCache(false));
+        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
+        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
         return Arrays.asList(noCaching, withCaching);
     }
 
@@ -132,10 +127,8 @@ public class OWLDataFactoryImplTestCase {
 
     @Test
     public void getOWLBackwardCompatibleWith() {
-        OWLAnnotationProperty call1 = dataFactory
-        .getOWLBackwardCompatibleWith();
-        OWLAnnotationProperty call2 = dataFactory
-        .getOWLBackwardCompatibleWith();
+        OWLAnnotationProperty call1 = dataFactory.getOWLBackwardCompatibleWith();
+        OWLAnnotationProperty call2 = dataFactory.getOWLBackwardCompatibleWith();
         assertSame(call1, call2);
     }
 

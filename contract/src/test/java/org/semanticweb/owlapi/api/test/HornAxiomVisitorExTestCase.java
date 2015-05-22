@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -40,7 +38,6 @@ public class HornAxiomVisitorExTestCase {
         this.b = b;
     }
 
-    @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
         Builder b = new Builder();

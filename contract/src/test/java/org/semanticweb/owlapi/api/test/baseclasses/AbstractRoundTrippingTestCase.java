@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.*;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -34,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
-    @Nonnull
     protected abstract OWLOntology createOntology();
 
     @Test
@@ -54,8 +51,7 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void testFunctionalSyntax() throws Exception {
-        roundTripOntology(createOntology(),
-            new FunctionalSyntaxDocumentFormat());
+        roundTripOntology(createOntology(), new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
@@ -65,8 +61,7 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void testManchesterOWLSyntax() throws Exception {
-        roundTripOntology(createOntology(),
-            new ManchesterSyntaxDocumentFormat());
+        roundTripOntology(createOntology(), new ManchesterSyntaxDocumentFormat());
     }
 
     @Test
@@ -103,7 +98,7 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void roundTripRDFXMLAndFunctionalShouldBeSame()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology ont = createOntology();
         OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());

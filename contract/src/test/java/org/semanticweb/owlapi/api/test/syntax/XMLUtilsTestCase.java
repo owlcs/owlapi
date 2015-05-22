@@ -35,7 +35,6 @@ public class XMLUtilsTestCase extends TestBase {
     @Nonnull
     private static final String CODE_POINT_STRING = init();
 
-    @Nonnull
     static String init() {
         StringBuilder sb = new StringBuilder();
         sb.appendCodePoint(CODE_POINT);
@@ -44,10 +43,8 @@ public class XMLUtilsTestCase extends TestBase {
 
     @Test
     public void testIsNCName() {
-        assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc"
-                + CODE_POINT_STRING));
-        assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc123"
-                + CODE_POINT_STRING));
+        assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc" + CODE_POINT_STRING));
+        assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc123" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isNCName("123" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isNCName(CODE_POINT_STRING + ":a"));
         assertFalse(XMLUtils.isNCName(""));
@@ -56,31 +53,21 @@ public class XMLUtilsTestCase extends TestBase {
 
     @Test
     public void testIsQName() {
-        assertTrue(XMLUtils.isQName(CODE_POINT_STRING + "p1:abc"
-                + CODE_POINT_STRING));
-        assertFalse(XMLUtils.isQName(CODE_POINT_STRING + "p1:2abc"
-                + CODE_POINT_STRING));
-        assertFalse(XMLUtils.isQName("11" + CODE_POINT_STRING + ":abc"
-                + CODE_POINT_STRING));
+        assertTrue(XMLUtils.isQName(CODE_POINT_STRING + "p1:abc" + CODE_POINT_STRING));
+        assertFalse(XMLUtils.isQName(CODE_POINT_STRING + "p1:2abc" + CODE_POINT_STRING));
+        assertFalse(XMLUtils.isQName("11" + CODE_POINT_STRING + ":abc" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isQName("ab:c%20d"));
     }
 
     @Test
     public void testEndsWithNCName() {
-        assertEquals("abc" + CODE_POINT_STRING,
-                XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
+        assertEquals("abc" + CODE_POINT_STRING, XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertTrue(XMLUtils.hasNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertNull(XMLUtils.getNCNameSuffix(CODE_POINT_STRING + "p1:123"));
         assertFalse(XMLUtils.hasNCNameSuffix(CODE_POINT_STRING + "p1:123"));
-        assertEquals(
-                "ABC",
-                XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology/ABC"));
-        assertEquals(
-                "ABC",
-                XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology#ABC"));
-        assertEquals(
-                "ABC",
-                XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology:ABC"));
+        assertEquals("ABC", XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology/ABC"));
+        assertEquals("ABC", XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology#ABC"));
+        assertEquals("ABC", XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology:ABC"));
     }
 
     @Test
@@ -92,34 +79,28 @@ public class XMLUtilsTestCase extends TestBase {
     @Test
     public void testmissingTypes() {
         // given
-        String input = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-                + "<rdf:RDF\n"
+        String input = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" + "<rdf:RDF\n"
                 + "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
                 + "xmlns:skos=\"http://www.w3.org/2004/02/skos/core#\"\n"
-                + "xmlns:dc=\"http://purl.org/dc/elements/1.1#\"\n"
-                + ">\n"
+                + "xmlns:dc=\"http://purl.org/dc/elements/1.1#\"\n" + ">\n"
                 + "<skos:ConceptScheme rdf:about=\"http://www.thesaurus.gc.ca/#CoreSubjectThesaurus\">\n"
                 + "<dc:title xml:lang=\"en\">Government of Canada Core Subject Thesaurus</dc:title>\n"
-                + "<dc:creator xml:lang=\"en\">Government of Canada</dc:creator>\n"
-                + "</skos:ConceptScheme>\n"
-                + "\n"
+                + "<dc:creator xml:lang=\"en\">Government of Canada</dc:creator>\n" + "</skos:ConceptScheme>\n" + "\n"
                 + "<skos:Concept rdf:about=\"http://www.thesaurus.gc.ca/concept/#Abbreviations\">\n"
                 + "<skos:prefLabel>Abbreviations</skos:prefLabel>\n"
                 + "<skos:related rdf:resource=\"http://www.thesaurus.gc.ca/#Terminology\"/>\n"
                 + "<skos:inScheme rdf:resource=\"http://www.thesaurus.gc.ca/#CoreSubjectThesaurus\"/>\n"
-                + "<skos:prefLabel xml:lang=\"fr\">Abr&#233;viation</skos:prefLabel>\n"
-                + "</skos:Concept>\n"
+                + "<skos:prefLabel xml:lang=\"fr\">Abr&#233;viation</skos:prefLabel>\n" + "</skos:Concept>\n"
                 + "<skos:Concept rdf:about=\"http://www.thesaurus.gc.ca/concept/#Aboriginal%20affairs\">\n"
                 + "<skos:prefLabel>Aboriginal affairs</skos:prefLabel>\n"
                 + "<skos:altLabel>Aboriginal issues</skos:altLabel>\n"
                 + "<skos:related rdf:resource=\"http://www.thesaurus.gc.ca/#Aboriginal%20rights\"/>\n"
                 + "<skos:related rdf:resource=\"http://www.thesaurus.gc.ca/#Land claims\"/>\n"
                 + "<skos:inScheme rdf:resource=\"http://www.thesaurus.gc.ca/#CoreSubjectThesaurus\"/>\n"
-                + "<skos:prefLabel xml:lang=\"fr\">Affaires autochtones</skos:prefLabel>\n"
-                + "</skos:Concept>\n" + "\n" + "</rdf:RDF>";
+                + "<skos:prefLabel xml:lang=\"fr\">Affaires autochtones</skos:prefLabel>\n" + "</skos:Concept>\n" + "\n"
+                + "</rdf:RDF>";
         // when
-        OWLOntology o = loadOntologyFromString(input,
-                IRI.getNextDocumentIRI("testuriwithblankspace"),
+        OWLOntology o = loadOntologyFromString(input, IRI.getNextDocumentIRI("testuriwithblankspace"),
                 new RDFXMLDocumentFormat());
         // then
         assertEquals(15, o.getAxiomCount());

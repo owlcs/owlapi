@@ -9,8 +9,6 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -31,8 +29,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     public void testSortTermClausesIntersectionOf() {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
         Frame frame = oboDoc.getTermFrame("X:1");
-        List<Clause> clauses = new ArrayList<>(
-                frame.getClauses(OboFormatTag.TAG_INTERSECTION_OF));
+        List<Clause> clauses = new ArrayList<>(frame.getClauses(OboFormatTag.TAG_INTERSECTION_OF));
         OBOFormatWriter.sortTermClauses(clauses);
         assertEquals("Y:1", clauses.get(0).getValue());
         assertEquals("R:1", clauses.get(1).getValue());
@@ -46,8 +43,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
      */
     @Test
     public void testSortTermClausesSynonyms() {
-        List<Clause> clauses = createSynonymClauses("cc", "ccc", "AAA", "aaa",
-                "bbbb");
+        List<Clause> clauses = createSynonymClauses("cc", "ccc", "AAA", "aaa", "bbbb");
         OBOFormatWriter.sortTermClauses(clauses);
         assertEquals("AAA", clauses.get(0).getValue());
         assertEquals("aaa", clauses.get(1).getValue());
@@ -56,8 +52,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
         assertEquals("ccc", clauses.get(4).getValue());
     }
 
-    @Nonnull
-    private static List<Clause> createSynonymClauses(@Nonnull String... labels) {
+    private static List<Clause> createSynonymClauses(String... labels) {
         List<Clause> clauses = new ArrayList<>(labels.length);
         for (String label : labels) {
             Clause clause = new Clause(OboFormatTag.TAG_SYNONYM, label);
@@ -71,11 +66,9 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
         assertEquals("", writeObsolete(Boolean.FALSE));
         assertEquals("", writeObsolete(Boolean.FALSE.toString()));
         assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE));
-        assertEquals("is_obsolete: true",
-                writeObsolete(Boolean.TRUE.toString()));
+        assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE.toString()));
     }
 
-    @Nonnull
     private static String writeObsolete(Object value) throws Exception {
         Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
         cl.addValue(value);
@@ -107,8 +100,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
                 break;
             }
         }
-        assertEquals("GO always had an empty newline at the end.", 2,
-                newLineCount);
+        assertEquals("GO always had an empty newline at the end.", 2, newLineCount);
     }
 
     @Test
@@ -130,8 +122,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
 
     @Test
     public void testPropertyValueOrder() throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                getInputStream("tag_order_test.obo")));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(getInputStream("tag_order_test.obo")));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {

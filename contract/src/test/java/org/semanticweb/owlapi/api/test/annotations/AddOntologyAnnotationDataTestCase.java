@@ -36,7 +36,6 @@ public class AddOntologyAnnotationDataTestCase {
     @Nonnull
     private final OWLOntology mockOntology = mock(OWLOntology.class);
 
-    @Nonnull
     private AddOntologyAnnotationData createData() {
         return new AddOntologyAnnotationData(mockAnnotation);
     }
@@ -73,8 +72,7 @@ public class AddOntologyAnnotationDataTestCase {
     @Test
     public void testOntologyChangeSymmetry() {
         AddOntologyAnnotationData data = createData();
-        AddOntologyAnnotation change = new AddOntologyAnnotation(mockOntology,
-                mockAnnotation);
+        AddOntologyAnnotation change = new AddOntologyAnnotation(mockOntology, mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
 }

@@ -36,7 +36,6 @@ public class AddImportDataTestCase {
     @Nonnull
     private final OWLOntology mockOntology = mock(OWLOntology.class);
 
-    @Nonnull
     private AddImportData createData() {
         return new AddImportData(mockDeclaration);
     }

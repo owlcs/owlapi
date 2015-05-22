@@ -1,13 +1,15 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import gnu.trove.set.hash.TCustomHashSet;
-import gnu.trove.strategy.HashingStrategy;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
+
+import gnu.trove.set.hash.TCustomHashSet;
+import gnu.trove.strategy.HashingStrategy;
 
 /**
  * Created by ses on 9/30/14.
@@ -29,8 +31,7 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
         return new TCustomHashSet<>(strategy);
     }
 
-    private static class OWLAxiomHashingStrategy implements
-            HashingStrategy<OWLAxiom> {
+    private static class OWLAxiomHashingStrategy implements HashingStrategy<OWLAxiom> {
 
         private static final long serialVersionUID = 50000L;
 
@@ -46,7 +47,7 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
          * @return the hashCode
          */
         @Override
-        public int computeHashCode(OWLAxiom object) {
+        public int computeHashCode(@Nullable OWLAxiom object) {
             return LiteralFoldingHashCoder.hashCode(object);
         }
 
@@ -62,7 +63,7 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
          * @return true if the objects are equal according to this strategy.
          */
         @Override
-        public boolean equals(OWLAxiom o1, OWLAxiom o2) {
+        public boolean equals(@Nullable OWLAxiom o1, @Nullable OWLAxiom o2) {
             return LiteralFoldingEqualityTester.equalAxiom(o1, o2);
         }
     }
@@ -78,7 +79,7 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(@Nullable Object o) {
         return delegate.contains(o);
     }
 
@@ -93,37 +94,37 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(@Nullable T[] a) {
         return delegate.toArray(a);
     }
 
     @Override
-    public boolean add(OWLAxiom owlAxiom) {
+    public boolean add(@Nullable OWLAxiom owlAxiom) {
         return delegate.add(owlAxiom);
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(@Nullable Object o) {
         return delegate.remove(o);
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
+    public boolean containsAll(@Nullable Collection<?> c) {
         return delegate.containsAll(c);
     }
 
     @Override
-    public boolean addAll(Collection<? extends OWLAxiom> c) {
+    public boolean addAll(@Nullable Collection<? extends OWLAxiom> c) {
         return delegate.addAll(c);
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(@Nullable Collection<?> c) {
         return delegate.retainAll(c);
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(@Nullable Collection<?> c) {
         return delegate.removeAll(c);
     }
 
@@ -133,7 +134,7 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         return delegate.equals(o);
     }
 

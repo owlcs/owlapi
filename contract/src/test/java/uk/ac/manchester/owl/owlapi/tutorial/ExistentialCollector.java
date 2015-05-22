@@ -16,8 +16,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -42,18 +40,17 @@ public class ExistentialCollector implements OWLClassExpressionVisitor {
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 
-    public ExistentialCollector(
-            Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
+    public ExistentialCollector(Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
         this.restrictions = restrictions;
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectIntersectionOf ce) {
+    public void visit(OWLObjectIntersectionOf ce) {
         ce.operands().forEach(o -> o.accept(this));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+    public void visit(OWLObjectSomeValuesFrom ce) {
         Set<OWLClassExpression> fillers = restrictions.get(ce.getProperty());
         if (fillers == null) {
             fillers = new HashSet<>();

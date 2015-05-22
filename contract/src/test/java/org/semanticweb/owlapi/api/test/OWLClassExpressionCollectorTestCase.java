@@ -21,8 +21,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -59,13 +57,11 @@ public class OWLClassExpressionCollectorTestCase {
     private OWLAxiom object;
     private Set<String> expected;
 
-    public OWLClassExpressionCollectorTestCase(OWLAxiom object,
-        String[] expected) {
+    public OWLClassExpressionCollectorTestCase(OWLAxiom object, String[] expected) {
         this.object = object;
         this.expected = Sets.newHashSet(expected);
     }
 
-    @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
         Builder b = new Builder();

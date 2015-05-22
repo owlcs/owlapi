@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -43,8 +41,7 @@ public class RenderingExample {
      * @throws OWLOntologyStorageException
      *         OWLOntologyStorageException
      */
-    public void render(@Nonnull String inputOntology,
-            @Nonnull String outputOntology)
+    public void render(String inputOntology, String outputOntology)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         // A simple example of how to load and save an ontology
         /* Get an Ontology Manager */
@@ -52,20 +49,17 @@ public class RenderingExample {
         IRI inputDocumentIRI = IRI.create(inputOntology);
         IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology from a document IRI */
-        OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(inputDocumentIRI);
+        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(inputDocumentIRI);
         /* Report information about the ontology */
         System.out.println("Ontology Loaded...");
         System.out.println("Document IRI: " + inputDocumentIRI);
         System.out.println("Logical IRI : " + ontology.getOntologyID());
-        System.out.println("Format      : "
-                + manager.getOntologyFormat(ontology));
+        System.out.println("Format      : " + manager.getOntologyFormat(ontology));
         /* Register the ontology storer with the manager */
         manager.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
         /* Save using a different format */
         System.out.println("Storing     : " + outputDocumentIRI);
-        manager.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(),
-                outputDocumentIRI);
+        manager.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(), outputDocumentIRI);
         /* Remove the ontology from the manager */
         manager.removeOntology(ontology);
         System.out.println("Done");

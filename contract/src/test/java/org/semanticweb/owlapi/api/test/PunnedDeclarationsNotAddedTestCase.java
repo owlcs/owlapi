@@ -24,70 +24,56 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @Parameters(name = "{0}")
     public static Collection<OWLDocumentFormat> data() {
-        return Arrays.asList(new FunctionalSyntaxDocumentFormat(),
-        new OWLXMLDocumentFormat(), new RDFXMLDocumentFormat(),
-        new TurtleDocumentFormat());
+        return Arrays.asList(new FunctionalSyntaxDocumentFormat(), new OWLXMLDocumentFormat(),
+                new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
     }
 
     @Nonnull
     private final OWLDocumentFormat format;
 
-    public PunnedDeclarationsNotAddedTestCase(
-    @Nonnull OWLDocumentFormat format) {
+    public PunnedDeclarationsNotAddedTestCase(OWLDocumentFormat format) {
         this.format = format;
     }
 
-    @Nonnull
     protected OWLOntology getOntologyWithPunnedInvalidDeclarations() {
         OWLOntology o = getOWLOntology();
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testProperty"));
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri(
-        "testProperty"));
+        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
         o.addAxiom(df.getOWLDeclarationAxiom(op));
         o.addAxiom(df.getOWLTransitiveObjectPropertyAxiom(op));
-        OWLAnnotationAssertionAxiom assertion = df
-        .getOWLAnnotationAssertionAxiom(iri("test"), df.getOWLAnnotation(ap,
-        iri("otherTest")));
+        OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
+                df.getOWLAnnotation(ap, iri("otherTest")));
         o.addAxiom(assertion);
         return o;
     }
 
-    @Nonnull
     protected OWLOntology getOntologyWithMissingDeclarations() {
         OWLOntology o = getOWLOntology();
-        OWLObjectProperty op = df.getOWLObjectProperty(iri(
-        "testObjectProperty"));
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri(
-        "testAnnotationProperty"));
+        OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));
+        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
         o.addAxiom(df.getOWLTransitiveObjectPropertyAxiom(op));
-        OWLAnnotationAssertionAxiom assertion = df
-        .getOWLAnnotationAssertionAxiom(iri("test"), df.getOWLAnnotation(ap,
-        iri("otherTest")));
+        OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
+                df.getOWLAnnotation(ap, iri("otherTest")));
         o.addAxiom(assertion);
         return o;
     }
 
     @Test
     public void shouldNotAddDeclarationsForIllegalPunnings()
-    throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = getOntologyWithPunnedInvalidDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri(
-        "testProperty"));
+        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
         OWLDeclarationAxiom ax = df.getOWLDeclarationAxiom(ap);
-        assertFalse("ap testProperty should not have been declared", reloaded
-        .containsAxiom(ax));
+        assertFalse("ap testProperty should not have been declared", reloaded.containsAxiom(ax));
     }
 
     @Test
-    public void shouldDeclareMissingEntities()
-    throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldDeclareMissingEntities() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = getOntologyWithMissingDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
-        OWLObjectProperty op = df.getOWLObjectProperty(iri(
-        "testObjectProperty"));
-        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri(
-        "testAnnotationProperty"));
+        OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));
+        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
         assertTrue(reloaded.containsAxiom(df.getOWLDeclarationAxiom(ap)));
         assertTrue(reloaded.containsAxiom(df.getOWLDeclarationAxiom(op)));
     }

@@ -42,11 +42,9 @@ public class SetOntologyIDDataTestCase {
     @Before
     public void setUp() {
         when(mockOntology.getOntologyID()).thenReturn(
-            new OWLOntologyID(optional(IRI.create("urn:test:onto1")),
-                optional(IRI.create("urn:test:onto1_1"))));
+                new OWLOntologyID(optional(IRI.create("urn:test:onto1")), optional(IRI.create("urn:test:onto1_1"))));
     }
 
-    @Nonnull
     private SetOntologyIDData createData() {
         return new SetOntologyIDData(mockOntologyID);
     }

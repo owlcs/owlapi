@@ -39,8 +39,7 @@ import org.semanticweb.owlapi.util.*;
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Nonnull
-    PrefixManager pm = new DefaultPrefixManager(null, null,
-        "http://org.semanticweb.owlapi/ont#");
+    PrefixManager pm = new DefaultPrefixManager(null, null, "http://org.semanticweb.owlapi/ont#");
     @Nonnull
     OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
     @Nonnull
@@ -52,10 +51,8 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     public void testLiteralWithoutLanguageValue() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
-        Ontology(m,
-            AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
-        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
-            props, langMap, m);
+        Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals(sfp.getShortForm(root), shortForm);
     }
 
@@ -64,27 +61,22 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String label1 = "MyLabel";
         String label2 = "OtherLabel";
-        Ontology(m,
-            AnnotationAssertion(prop, root.getIRI(), Literal(label1, "ab")),
-            AnnotationAssertion(prop, root.getIRI(), Literal(label2, "xy")));
+        Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(label1, "ab")),
+                AnnotationAssertion(prop, root.getIRI(), Literal(label2, "xy")));
         langMap.put(prop, Arrays.asList("ab", "xy"));
-        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
-            props, langMap, m);
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals(sfp.getShortForm(root), label1);
         Map<OWLAnnotationProperty, List<String>> langMap2 = new HashMap<>();
         langMap2.put(prop, Arrays.asList("xy", "ab"));
-        AnnotationValueShortFormProvider sfp2 = new AnnotationValueShortFormProvider(
-            props, langMap2, m);
+        AnnotationValueShortFormProvider sfp2 = new AnnotationValueShortFormProvider(props, langMap2, m);
         assertEquals(sfp2.getShortForm(root), label2);
     }
 
     @Test
     public void testIRIValue() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
-        Ontology(m, AnnotationAssertion(prop, root.getIRI(),
-            IRI("http://org.semanticweb.owlapi/ont#myIRI")));
-        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
-            props, langMap, m);
+        Ontology(m, AnnotationAssertion(prop, root.getIRI(), IRI("http://org.semanticweb.owlapi/ont#myIRI")));
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(props, langMap, m);
         assertEquals("myIRI", sfp.getShortForm(root));
     }
 
@@ -92,18 +84,15 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     public void shouldWrapWithDoubleQuotes() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
-        Ontology(m,
-            AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
-        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
-            m, new SimpleShortFormProvider(), new SimpleIRIShortFormProvider(),
-            props, langMap);
+        Ontology(m, AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
+        AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(m, new SimpleShortFormProvider(),
+                new SimpleIRIShortFormProvider(), props, langMap);
         sfp.setLiteralRenderer(new StringAnnotationVisitor() {
 
             private static final long serialVersionUID = 1L;
 
-            @Nonnull
             @Override
-            public String visit(@Nonnull OWLLiteral literal) {
+            public String visit(OWLLiteral literal) {
                 return '"' + literal.getLiteral() + '"';
             }
         });

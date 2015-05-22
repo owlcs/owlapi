@@ -32,7 +32,7 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         int count = 17;
         while (count-- > 0) {
             sb.append("200 \u00B5Liters + character above U+0FFFF = ");
-            sb.appendCodePoint(0x10192);  // happens to be "ROMAN SEMUNCIA SIGN"
+            sb.appendCodePoint(0x10192); // happens to be "ROMAN SEMUNCIA SIGN"
             sb.append('\n');
         }
         testString = sb.toString();
@@ -46,47 +46,42 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         OWLOntology o = getOWLOntology();
         OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#p"));
         OWLLiteral l = df.getOWLLiteral(literal, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create(
-        "urn:test#i"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:test#i"));
         o.addAxiom(df.getOWLDataPropertyAssertionAxiom(p, i, l));
         String string = saveOntology(o).toString();
         assertTrue(string.contains(literal));
     }
 
     @Test
-    public void shouldRoundtripPaddedLiterals()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundtripPaddedLiterals() throws OWLOntologyCreationException, OWLOntologyStorageException {
         String in = "Prefix(:=<urn:test#>)\n" + "Prefix(a:=<urn:test#>)\n"
-        + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n"
-        + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)\n"
-        + "Prefix(test:=<urn:test#>)\n"
-        + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
-        + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-        + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
-        + "Ontology(<urn:test>\n"
-        + "DataPropertyAssertion(:dp :c \"1\"^^xsd:integer) "
-        + "DataPropertyAssertion(:dp :c \"01\"^^xsd:integer) "
-        + "DataPropertyAssertion(:dp :c \"1\"^^xsd:short))";
-        OWLOntology o = loadOntologyFromString(new StringDocumentSource(in, IRI
-        .create("urn:test"), new FunctionalSyntaxDocumentFormat(), null));
+                + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n"
+                + "Prefix(owl2xml:=<http://www.w3.org/2006/12/owl2-xml#>)\n" + "Prefix(test:=<urn:test#>)\n"
+                + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+                + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+                + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n" + "Ontology(<urn:test>\n"
+                + "DataPropertyAssertion(:dp :c \"1\"^^xsd:integer) "
+                + "DataPropertyAssertion(:dp :c \"01\"^^xsd:integer) "
+                + "DataPropertyAssertion(:dp :c \"1\"^^xsd:short))";
+        OWLOntology o = loadOntologyFromString(
+                new StringDocumentSource(in, IRI.create("urn:test"), new FunctionalSyntaxDocumentFormat(), null));
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o2);
         OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#dp"));
-        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create(
-        "urn:test#c"));
-        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p,
-        i, df.getOWLLiteral("01", df.getIntegerOWLDatatype()))));
-        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p,
-        i, df.getOWLLiteral("1", df.getIntegerOWLDatatype()))));
-        assertTrue(o.getAxioms().contains(df.getOWLDataPropertyAssertionAxiom(p,
-        i, df.getOWLLiteral("1", OWL2Datatype.XSD_SHORT.getDatatype(df)))));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:test#c"));
+        assertTrue(o.containsAxiom(
+                df.getOWLDataPropertyAssertionAxiom(p, i, df.getOWLLiteral("01", df.getIntegerOWLDatatype()))));
+        assertTrue(o.containsAxiom(
+                df.getOWLDataPropertyAssertionAxiom(p, i, df.getOWLLiteral("1", df.getIntegerOWLDatatype()))));
+        assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(p, i,
+                df.getOWLLiteral("1", OWL2Datatype.XSD_SHORT.getDatatype(df)))));
     }
 
     @Test
     public void shouldNotFindPaddedLiteralsEqualToNonPadded() {
-        assertNotEquals(df.getOWLLiteral("01", df.getIntegerOWLDatatype()), df
-        .getOWLLiteral("1", df.getIntegerOWLDatatype()));
-        assertNotEquals(df.getOWLLiteral("1", df.getIntegerOWLDatatype()), df
-        .getOWLLiteral("01", df.getIntegerOWLDatatype()));
+        assertNotEquals(df.getOWLLiteral("01", df.getIntegerOWLDatatype()),
+                df.getOWLLiteral("1", df.getIntegerOWLDatatype()));
+        assertNotEquals(df.getOWLLiteral("1", df.getIntegerOWLDatatype()),
+                df.getOWLLiteral("01", df.getIntegerOWLDatatype()));
     }
 }

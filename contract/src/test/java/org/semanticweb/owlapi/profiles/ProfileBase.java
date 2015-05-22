@@ -3,8 +3,6 @@ package org.semanticweb.owlapi.profiles;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.profiles.Profiles.*;
 
-import javax.annotation.Nonnull;
-
 import org.junit.BeforeClass;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -23,18 +21,15 @@ public class ProfileBase {
         m = OWLManager.createOWLOntologyManager();
     }
 
-    @Nonnull
-    OWLOntology o(@Nonnull String in) {
+    OWLOntology o(String in) {
         try {
-            return m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-            in));
+            return m.loadOntologyFromOntologyDocument(new StringDocumentSource(in));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
-    protected void test(@Nonnull String in, boolean el, boolean ql, boolean rl,
-    boolean dl) {
+    protected void test(String in, boolean el, boolean ql, boolean rl, boolean dl) {
         OWLOntology o = o(in);
         assertTrue("empty ontology", o.axioms().count() > 0);
         assertEquals(el, OWL2_EL.checkOntology(o).isInProfile());

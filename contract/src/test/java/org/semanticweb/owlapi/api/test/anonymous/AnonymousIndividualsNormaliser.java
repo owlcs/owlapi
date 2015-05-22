@@ -21,8 +21,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -46,18 +44,15 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
      * @param dataFactory
      *        The data factory to be used for the duplication.
      */
-    public AnonymousIndividualsNormaliser(@Nonnull OWLDataFactory dataFactory) {
+    public AnonymousIndividualsNormaliser(OWLDataFactory dataFactory) {
         super(dataFactory);
     }
 
-    @Nonnull
-    public Set<OWLAxiom> getNormalisedAxioms(
-            @Nonnull Collection<OWLAxiom> axioms) {
+    public Set<OWLAxiom> getNormalisedAxioms(Collection<OWLAxiom> axioms) {
         return getNormalisedAxioms(axioms.stream());
     }
 
-    @Nonnull
-    public Set<OWLAxiom> getNormalisedAxioms(@Nonnull Stream<OWLAxiom> axioms) {
+    public Set<OWLAxiom> getNormalisedAxioms(Stream<OWLAxiom> axioms) {
         return asSet(axioms.sorted().map(ax -> (OWLAxiom) get(ax)));
     }
 

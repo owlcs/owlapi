@@ -36,7 +36,6 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Nonnull
     private final OWLOntology mockOntology = mock(OWLOntology.class);
 
-    @Nonnull
     private RemoveOntologyAnnotationData createData() {
         return new RemoveOntologyAnnotationData(mockAnnotation);
     }
@@ -65,8 +64,7 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Test
     public void testCreateOntologyChange() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = data
-                .createOntologyChange(mockOntology);
+        RemoveOntologyAnnotation change = data.createOntologyChange(mockOntology);
         assertEquals(mockOntology, change.getOntology());
         assertEquals(mockAnnotation, change.getAnnotation());
     }
@@ -74,8 +72,7 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Test
     public void testGetChangeData() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(
-                mockOntology, mockAnnotation);
+        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(mockOntology, mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
 }

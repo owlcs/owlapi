@@ -14,8 +14,6 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -54,9 +52,7 @@ public class ClosureAxiomsExample {
      * @throws OWLException
      *         if an exception is raised
      */
-    public void closure(@Nonnull String inputOntology,
-            @Nonnull String outputOntology, @Nonnull String classToClose)
-            throws OWLException {
+    public void closure(String inputOntology, String outputOntology, String classToClose) throws OWLException {
         /* Create and Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         IRI documentIRI = IRI.create(inputOntology);
@@ -64,13 +60,11 @@ public class ClosureAxiomsExample {
         IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology */
         System.out.println("Loading: " + documentIRI);
-        OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(documentIRI);
+        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
         System.out.println("Ontology Loaded...");
         System.out.println("Logical URI : " + documentIRI);
         System.out.println("Document IRI: " + ontology.getOntologyID());
-        System.out.println("Format      : "
-                + manager.getOntologyFormat(ontology));
+        System.out.println("Format      : " + manager.getOntologyFormat(ontology));
         ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
         OWLClass clazz = Class(classIRI);
         System.out.println("Class URI   : " + classIRI);

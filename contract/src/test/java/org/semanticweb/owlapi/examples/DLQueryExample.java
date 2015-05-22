@@ -29,13 +29,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -99,9 +93,7 @@ public class DLQueryExample {
             // Load an example ontology. In this case, we'll just load the pizza
             // ontology.
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-            OWLOntology ontology = manager
-                    .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                            KOALA));
+            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
             System.out.println("Loaded ontology: " + ontology.getOntologyID());
             // We need a reasoner to do our query answering
             OWLReasoner reasoner = createReasoner(ontology);
@@ -115,8 +107,7 @@ public class DLQueryExample {
             ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
             // Create the DLQueryPrinter helper class. This will manage the
             // parsing of input and printing of results
-            DLQueryPrinter dlQueryPrinter = new DLQueryPrinter(
-                    new DLQueryEngine(reasoner, shortFormProvider),
+            DLQueryPrinter dlQueryPrinter = new DLQueryPrinter(new DLQueryEngine(reasoner, shortFormProvider),
                     shortFormProvider);
             // Enter the query loop. A user is expected to enter class
             // expression on the command line.
@@ -128,12 +119,11 @@ public class DLQueryExample {
         }
     }
 
-    private static void doQueryLoop(@Nonnull DLQueryPrinter dlQueryPrinter)
-            throws IOException {
+    private static void doQueryLoop(DLQueryPrinter dlQueryPrinter) throws IOException {
         while (true) {
             // Prompt the user to enter a class expression
-            System.out
-                    .println("Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
+            System.out.println(
+                    "Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
             System.out.println("");
             String classExpression = readInput();
             // Check for exit condition
@@ -154,9 +144,7 @@ public class DLQueryExample {
         return br.readLine();
     }
 
-    @Nonnull
-    private static OWLReasoner
-            createReasoner(@Nonnull OWLOntology rootOntology) {
+    private static OWLReasoner createReasoner(OWLOntology rootOntology) {
         // We need to create an instance of OWLReasoner. An OWLReasoner provides
         // the basic query functionality that we need, for example the ability
         // obtain the subclasses of a class etc. To do this we use a reasoner
@@ -188,8 +176,7 @@ class DLQueryEngine {
      * @param shortFormProvider
      *        A short form provider.
      */
-    DLQueryEngine(@Nonnull OWLReasoner reasoner,
-            @Nonnull ShortFormProvider shortFormProvider) {
+    DLQueryEngine(OWLReasoner reasoner, ShortFormProvider shortFormProvider) {
         this.reasoner = reasoner;
         OWLOntology rootOntology = reasoner.getRootOntology();
         parser = new DLQueryParser(rootOntology, shortFormProvider);
@@ -205,16 +192,12 @@ class DLQueryEngine {
      * @return The superclasses of the specified class expression If there was a
      *         problem parsing the class expression.
      */
-    @Nonnull
-    public Set<OWLClass> getSuperClasses(@Nonnull String classExpressionString,
-            boolean direct) {
+    public Set<OWLClass> getSuperClasses(String classExpressionString, boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
             return Collections.emptySet();
         }
-        OWLClassExpression classExpression = parser
-                .parseClassExpression(classExpressionString);
-        NodeSet<OWLClass> superClasses = reasoner.getSuperClasses(
-                classExpression, direct);
+        OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
+        NodeSet<OWLClass> superClasses = reasoner.getSuperClasses(classExpression, direct);
         return asSet(superClasses.entities());
     }
 
@@ -226,18 +209,13 @@ class DLQueryEngine {
      * @return The equivalent classes of the specified class expression If there
      *         was a problem parsing the class expression.
      */
-    @Nonnull
-    public Set<OWLClass> getEquivalentClasses(
-            @Nonnull String classExpressionString) {
+    public Set<OWLClass> getEquivalentClasses(String classExpressionString) {
         if (classExpressionString.trim().isEmpty()) {
             return Collections.emptySet();
         }
-        OWLClassExpression classExpression = parser
-                .parseClassExpression(classExpressionString);
-        Node<OWLClass> equivalentClasses = reasoner
-                .getEquivalentClasses(classExpression);
-        return asSet(equivalentClasses.entities().filter(
-                c -> c.equals(classExpression)));
+        OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
+        Node<OWLClass> equivalentClasses = reasoner.getEquivalentClasses(classExpression);
+        return asSet(equivalentClasses.entities().filter(c -> c.equals(classExpression)));
     }
 
     /**
@@ -250,16 +228,12 @@ class DLQueryEngine {
      * @return The subclasses of the specified class expression If there was a
      *         problem parsing the class expression.
      */
-    @Nonnull
-    public Set<OWLClass> getSubClasses(@Nonnull String classExpressionString,
-            boolean direct) {
+    public Set<OWLClass> getSubClasses(String classExpressionString, boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
             return Collections.emptySet();
         }
-        OWLClassExpression classExpression = parser
-                .parseClassExpression(classExpressionString);
-        NodeSet<OWLClass> subClasses = reasoner.getSubClasses(classExpression,
-                direct);
+        OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
+        NodeSet<OWLClass> subClasses = reasoner.getSubClasses(classExpression, direct);
         return asSet(subClasses.entities());
     }
 
@@ -273,16 +247,12 @@ class DLQueryEngine {
      * @return The instances of the specified class expression If there was a
      *         problem parsing the class expression.
      */
-    @Nonnull
-    public Set<OWLNamedIndividual> getInstances(
-            @Nonnull String classExpressionString, boolean direct) {
+    public Set<OWLNamedIndividual> getInstances(String classExpressionString, boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
             return Collections.emptySet();
         }
-        OWLClassExpression classExpression = parser
-                .parseClassExpression(classExpressionString);
-        NodeSet<OWLNamedIndividual> individuals = reasoner.getInstances(
-                classExpression, direct);
+        OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
+        NodeSet<OWLNamedIndividual> individuals = reasoner.getInstances(classExpression, direct);
         return asSet(individuals.entities());
     }
 }
@@ -305,16 +275,14 @@ class DLQueryParser {
      *        A short form provider to be used for mapping back and forth
      *        between entities and their short names (renderings).
      */
-    DLQueryParser(@Nonnull OWLOntology rootOntology,
-            @Nonnull ShortFormProvider shortFormProvider) {
+    DLQueryParser(OWLOntology rootOntology, ShortFormProvider shortFormProvider) {
         this.rootOntology = rootOntology;
         OWLOntologyManager manager = rootOntology.getOWLOntologyManager();
         List<OWLOntology> importsClosure = asList(rootOntology.importsClosure());
         // Create a bidirectional short form provider to do the actual mapping.
         // It will generate names using the input
         // short form provider.
-        bidiShortFormProvider = new BidirectionalShortFormProviderAdapter(
-                manager, importsClosure, shortFormProvider);
+        bidiShortFormProvider = new BidirectionalShortFormProviderAdapter(manager, importsClosure, shortFormProvider);
     }
 
     /**
@@ -325,17 +293,14 @@ class DLQueryParser {
      * @return The corresponding class expression if the class expression string
      *         is malformed or contains unknown entity names.
      */
-    @Nonnull
-    public OWLClassExpression parseClassExpression(
-            @Nonnull String classExpressionString) {
+    public OWLClassExpression parseClassExpression(String classExpressionString) {
         // Set up the real parser
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(classExpressionString);
         parser.setDefaultOntology(rootOntology);
         // Specify an entity checker that wil be used to check a class
         // expression contains the correct names.
-        OWLEntityChecker entityChecker = new ShortFormEntityChecker(
-                bidiShortFormProvider);
+        OWLEntityChecker entityChecker = new ShortFormEntityChecker(bidiShortFormProvider);
         parser.setOWLEntityChecker(entityChecker);
         // Do the actual parsing
         return parser.parseClassExpression();
@@ -362,7 +327,7 @@ class DLQueryPrinter {
      * @param classExpression
      *        the class expression to use for interrogation
      */
-    public void askQuery(@Nonnull String classExpression) {
+    public void askQuery(String classExpression) {
         if (classExpression.isEmpty()) {
             System.out.println("No class expression specified");
         } else {
@@ -374,25 +339,19 @@ class DLQueryPrinter {
             sb.append("--------------------------------------------------------------------------------\n\n");
             // Ask for the subclasses, superclasses etc. of the specified
             // class expression. Print out the results.
-            Set<OWLClass> superClasses = dlQueryEngine.getSuperClasses(
-                    classExpression, true);
+            Set<OWLClass> superClasses = dlQueryEngine.getSuperClasses(classExpression, true);
             printEntities("SuperClasses", superClasses, sb);
-            Set<OWLClass> equivalentClasses = dlQueryEngine
-                    .getEquivalentClasses(classExpression);
+            Set<OWLClass> equivalentClasses = dlQueryEngine.getEquivalentClasses(classExpression);
             printEntities("EquivalentClasses", equivalentClasses, sb);
-            Set<OWLClass> subClasses = dlQueryEngine.getSubClasses(
-                    classExpression, true);
+            Set<OWLClass> subClasses = dlQueryEngine.getSubClasses(classExpression, true);
             printEntities("SubClasses", subClasses, sb);
-            Set<OWLNamedIndividual> individuals = dlQueryEngine.getInstances(
-                    classExpression, true);
+            Set<OWLNamedIndividual> individuals = dlQueryEngine.getInstances(classExpression, true);
             printEntities("Instances", individuals, sb);
             System.out.println(sb);
         }
     }
 
-    private void printEntities(@Nonnull String name,
-            @Nonnull Set<? extends OWLEntity> entities,
-            @Nonnull StringBuilder sb) {
+    private void printEntities(String name, Set<? extends OWLEntity> entities, StringBuilder sb) {
         sb.append(name);
         int length = 50 - name.length();
         for (int i = 0; i < length; i++) {

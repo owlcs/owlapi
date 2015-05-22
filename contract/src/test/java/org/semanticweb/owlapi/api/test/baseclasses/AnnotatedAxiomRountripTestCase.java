@@ -76,7 +76,7 @@ public class AnnotatedAxiomRountripTestCase
             a -> ObjectPropertyAssertion(ObjectProperty(iri("p")),
                 NamedIndividual(iri("i")), NamedIndividual(iri("j")), a),
             a -> ObjectPropertyDomain(ObjectProperty(iri("p")), Class(iri("A")),
-                a),
+                a), 
             a -> ObjectPropertyRange(ObjectProperty(iri("p")), Class(iri("A")),
                 a),
             a -> ReflexiveObjectProperty(ObjectProperty(iri("p")), a),

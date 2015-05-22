@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.junit.Test;
@@ -20,14 +19,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 @SuppressWarnings("javadoc")
@@ -47,7 +39,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         parse(text1);
     }
 
-    private static OWLClassExpression parse(@Nonnull String text) {
+    private static OWLClassExpression parse(String text) {
         MockEntityChecker checker = new MockEntityChecker(df);
         ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setStringToParse(text);
@@ -87,8 +79,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         @Override
         public OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
-                return factory
-                    .getOWLDataProperty("http://protege.org/Test.owl#p");
+                return factory.getOWLDataProperty("http://protege.org/Test.owl#p");
             } else {
                 return null;
             }

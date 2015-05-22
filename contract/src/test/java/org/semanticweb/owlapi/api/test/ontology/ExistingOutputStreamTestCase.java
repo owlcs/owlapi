@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -43,7 +42,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class ExistingOutputStreamTestCase extends TestBase {
 
     @Test
-    public void testOutputStreamRemainsOpen() throws Exception {
+    public void testOutputStreamRemainsOpen() {
         OWLOntology ontology = getOWLOntology();
         saveOntology(ontology, new RDFXMLDocumentFormat());
         saveOntology(ontology, new OWLXMLDocumentFormat());
@@ -55,17 +54,12 @@ public class ExistingOutputStreamTestCase extends TestBase {
     // test that the stream is not closed by adding a comment at the end
     @Nonnull
     @Override
-    protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
-        OWLDocumentFormat format) throws OWLOntologyStorageException {
-        BufferedOutputStream os = new BufferedOutputStream(
-            new ByteArrayOutputStream());
-        o.getOWLOntologyManager().saveOntology(o, format, os);
-        try {
+    protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o, OWLDocumentFormat format) {
+        try (BufferedOutputStream os = new BufferedOutputStream(new ByteArrayOutputStream());
+                OutputStreamWriter w = new OutputStreamWriter(os)) {
+            o.getOWLOntologyManager().saveOntology(o, format, os);
             os.flush();
-            OutputStreamWriter w = new OutputStreamWriter(os);
             w.write("<!-- Comment -->");
-            w.flush();
-            w.close();
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
         }

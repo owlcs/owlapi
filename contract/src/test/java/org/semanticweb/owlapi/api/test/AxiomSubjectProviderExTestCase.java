@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -40,7 +38,6 @@ public class AxiomSubjectProviderExTestCase {
         this.expected = expected;
     }
 
-    @Nonnull
     @Parameters
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
@@ -70,13 +67,11 @@ public class AxiomSubjectProviderExTestCase {
         map.put(b.subClass(), "<urn:test#c>");
         map.put(b.subData(), "<urn:test#dp>");
         map.put(b.subObject(), "<urn:test#op>");
-        map.put(b.rule(),
-        "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
+        map.put(b.rule(), "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
         map.put(b.symm(), "<urn:test#op>");
         map.put(b.trans(), "<urn:test#op>");
         map.put(b.hasKey(), "<urn:test#c>");
-        map.put(b.bigRule(),
-        "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
+        map.put(b.bigRule(), "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )");
         map.put(b.ann(), "urn:test#iri");
         map.put(b.asymm(), "<urn:test#op>");
         map.put(b.annDom(), "<urn:test#ann>");

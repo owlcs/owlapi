@@ -39,15 +39,12 @@ import org.semanticweb.owlapi.model.*;
 public class AnnotationAccessorsTestCase extends TestBase {
 
     @Nonnull
-    private static final IRI SUBJECT = IRI.create(
-    "http://owlapi.sourceforge.net/ontologies/test#X");
+    private static final IRI SUBJECT = IRI.create("http://owlapi.sourceforge.net/ontologies/test#X");
 
-    @Nonnull
     @Parameters
     public static Collection<OWLPrimitive> getData() {
-        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT),
-        DataProperty(SUBJECT), ObjectProperty(SUBJECT), Datatype(SUBJECT),
-        AnnotationProperty(SUBJECT), AnonymousIndividual());
+        return Arrays.asList(Class(SUBJECT), NamedIndividual(SUBJECT), DataProperty(SUBJECT), ObjectProperty(SUBJECT),
+                Datatype(SUBJECT), AnnotationProperty(SUBJECT), AnonymousIndividual());
     }
 
     private OWLPrimitive e;
@@ -56,9 +53,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
         this.e = e;
     }
 
-    @Nonnull
-    private static OWLAnnotationAssertionAxiom
-    createAnnotationAssertionAxiom() {
+    private static OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationValue value = Literal("value");
         return AnnotationAssertion(prop, SUBJECT, value);
@@ -69,13 +64,11 @@ public class AnnotationAccessorsTestCase extends TestBase {
         OWLOntology ont = getOWLOntology();
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
         ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a
-        .equals(ax)));
+        assertTrue(ont.annotationAssertionAxioms(SUBJECT).anyMatch(a -> a.equals(ax)));
         if (e instanceof OWLEntity) {
-            assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())
-            .anyMatch(a -> a.equals(ax)));
-            assertTrue(contains(annotations(ont.annotationAssertionAxioms(
-            ((OWLEntity) e).getIRI())), ax.getAnnotation()));
+            assertTrue(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI()).anyMatch(a -> a.equals(ax)));
+            assertTrue(
+                    contains(annotations(ont.annotationAssertionAxioms(((OWLEntity) e).getIRI())), ax.getAnnotation()));
         }
     }
 }

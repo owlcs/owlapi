@@ -113,37 +113,30 @@ public class TripleComparatorTestCase {
                 , triple("MoleOfRheniumAtom")
                 , triple("MoleOfZincAtom")
                 //@formatter:on
-                ));
+        ));
         Collections.sort(list);
     }
 
-    @Nonnull
     private RDFTriple triple(String n) {
         return new RDFTriple(g, d, r(IRI(ns + n)));
     }
 
-    @Nonnull
-    private RDFTriple triple(@Nonnull OWLRDFVocabulary p,
-            @Nonnull OWLRDFVocabulary n) {
+    private RDFTriple triple(OWLRDFVocabulary p, OWLRDFVocabulary n) {
         return new RDFTriple(g, r(p.getIRI()), r(n.getIRI()));
     }
 
-    @Nonnull
     private RDFTriple triple(int n) {
         return new RDFTriple(g, subtype, r(n));
     }
 
-    @Nonnull
-    private static RDFResourceIRI r(@Nonnull OWLEntity e) {
+    private static RDFResourceIRI r(OWLEntity e) {
         return new RDFResourceIRI(e.getIRI());
     }
 
-    @Nonnull
-    private static RDFResourceIRI r(@Nonnull IRI e) {
+    private static RDFResourceIRI r(IRI e) {
         return new RDFResourceIRI(e);
     }
 
-    @Nonnull
     private static RDFNode r(int s) {
         return new RDFResourceBlankNode(s);
     }

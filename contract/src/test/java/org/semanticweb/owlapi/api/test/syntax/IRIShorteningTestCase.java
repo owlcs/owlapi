@@ -6,8 +6,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -54,7 +52,6 @@ public class IRIShorteningTestCase extends TestBase {
         assertTrue("should  contain " + regex + " - " + output, found);
     }
 
-    @Nonnull
     private OWLOntology createTestOntology() {
         OWLOntology o = getOWLOntology();
         OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF.getPrefixIRI()));

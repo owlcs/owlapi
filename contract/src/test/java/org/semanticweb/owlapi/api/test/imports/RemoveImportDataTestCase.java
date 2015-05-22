@@ -36,7 +36,6 @@ public class RemoveImportDataTestCase {
     @Nonnull
     private final OWLOntology mockOntology = mock(OWLOntology.class);
 
-    @Nonnull
     private RemoveImportData createData() {
         return new RemoveImportData(mockDeclaration);
     }

@@ -44,13 +44,12 @@ public class SubClassCollector implements OWLAxiomVisitor {
     }
 
     @Override
-    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         if (axiom.getSubClass().equals(clazz)) {
             axioms.add(axiom);
         }
     }
 
-    @Nonnull
     public Set<OWLSubClassOfAxiom> getAxioms() {
         return axioms;
     }

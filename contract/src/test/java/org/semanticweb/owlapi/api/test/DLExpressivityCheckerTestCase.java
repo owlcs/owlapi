@@ -16,8 +16,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.*;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -38,7 +36,6 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         this.expected = expected;
     }
 
-    @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
         Builder b = new Builder();

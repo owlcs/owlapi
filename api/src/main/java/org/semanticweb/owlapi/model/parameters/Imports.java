@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model.parameters;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.HasImportsClosure;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -60,7 +58,6 @@ public enum Imports {
      *        boolean argument
      * @return INCLUDED for true, EXCLUDED for false.
      */
-    @Nonnull
     public static Imports fromBoolean(boolean b) {
         if (b) {
             return INCLUDED;
