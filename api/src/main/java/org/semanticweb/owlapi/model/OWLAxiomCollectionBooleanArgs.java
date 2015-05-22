@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
@@ -27,8 +25,8 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @author ignazio
  * @since 4.0.0
  */
-public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
-        HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, OWLAxiomCollection {
+public interface OWLAxiomCollectionBooleanArgs
+        extends HasAxioms, HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, OWLAxiomCollection {
 
     /**
      * @param b
@@ -37,7 +35,6 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         data.
      * @deprecated use getAxioms(Imports) instead
      */
-    @Nonnull
     @Deprecated
     default Set<OWLAxiom> getAxioms(boolean b) {
         return getAxioms(Imports.fromBoolean(b));
@@ -65,9 +62,7 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         returned is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLLogicalAxiom>
-            getLogicalAxioms(boolean includeImportsClosure) {
+    default Set<OWLLogicalAxiom> getLogicalAxioms(boolean includeImportsClosure) {
         return getLogicalAxioms(Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -97,9 +92,7 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *        axiom type
      */
     @Deprecated
-    @Nonnull
-    default <T extends OWLAxiom> Set<T> getAxioms(
-            @Nonnull AxiomType<T> axiomType, boolean includeImportsClosure) {
+    default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean includeImportsClosure) {
         return getAxioms(axiomType, Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -116,10 +109,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      * @return The number of the specified types of axioms in this collection
      */
     @Deprecated
-    default <T extends OWLAxiom> int getAxiomCount(
-            @Nonnull AxiomType<T> axiomType, boolean includeImportsClosure) {
-        return getAxiomCount(axiomType,
-                Imports.fromBoolean(includeImportsClosure));
+    default <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType, boolean includeImportsClosure) {
+        return getAxiomCount(axiomType, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -133,8 +124,7 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      * @return {@code true} if the ontology contains the specified axiom.
      */
     @Deprecated
-    default boolean containsAxiom(@Nonnull OWLAxiom axiom,
-            boolean includeImportsClosure) {
+    default boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure) {
         return containsAxiom(axiom, Imports.fromBoolean(includeImportsClosure),
                 AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
     }
@@ -155,8 +145,7 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      * @return {@code true} if the ontology contains the specified axiom.
      */
     @Deprecated
-    default boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom,
-            boolean includeImportsClosure) {
+    default boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
         return containsAxiom(axiom, Imports.fromBoolean(includeImportsClosure),
                 AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
     }
@@ -179,11 +168,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         will be contained in the set.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
-            boolean includeImportsClosure) {
-        return getAxiomsIgnoreAnnotations(axiom,
-                Imports.fromBoolean(includeImportsClosure));
+    default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
+        return getAxiomsIgnoreAnnotations(axiom, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -202,11 +188,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      * @return All axioms referencing the entity. The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
-            boolean includeImportsClosure) {
-        return getReferencingAxioms(owlEntity,
-                Imports.fromBoolean(includeImportsClosure));
+    default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity, boolean includeImportsClosure) {
+        return getReferencingAxioms(owlEntity, Imports.fromBoolean(includeImportsClosure));
     }
 
     // Axioms that form part of a description of a named entity
@@ -231,10 +214,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         The returned set is a copy of the data.
      * @deprecated use getAxioms(entity, Imports) instead
      */
-    @Nonnull
     @Deprecated
-    default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls,
-            boolean includeImportsClosure) {
+    default Set<OWLClassAxiom> getAxioms(OWLClass cls, boolean includeImportsClosure) {
         return getAxioms(cls, Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -254,10 +235,12 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         specified property</li>
      *         <li>Equivalent property axioms that contain the inverse of the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
@@ -267,11 +250,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         The set that is returned is a copy of the data.
      * @deprecated use getAxioms(entity, Imports) instead
      */
-    @Nonnull
     @Deprecated
-    default Set<OWLObjectPropertyAxiom> getAxioms(
-            @Nonnull OWLObjectPropertyExpression property,
-            boolean includeImportsClosure) {
+    default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property, boolean includeImportsClosure) {
         return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -288,10 +268,12 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         property</li>
      *         <li>Equivalent property axioms where the axiom contains the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
@@ -299,10 +281,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         The set is a copy of the data.
      * @deprecated use getAxioms(entity, Imports) instead
      */
-    @Nonnull
     @Deprecated
-    default Set<OWLDataPropertyAxiom> getAxioms(
-            @Nonnull OWLDataProperty property, boolean includeImportsClosure) {
+    default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property, boolean includeImportsClosure) {
         return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -333,10 +313,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         The set is a copy of the data.
      * @deprecated use getAxioms(entity, Imports) instead
      */
-    @Nonnull
     @Deprecated
-    default Set<OWLIndividualAxiom> getAxioms(
-            @Nonnull OWLIndividual individual, boolean includeImportsClosure) {
+    default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual, boolean includeImportsClosure) {
         return getAxioms(individual, Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -360,11 +338,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         The set is a copy of the data.
      * @deprecated use getAxioms(entity, Imports) instead
      */
-    @Nonnull
     @Deprecated
-    default Set<OWLAnnotationAxiom> getAxioms(
-            @Nonnull OWLAnnotationProperty property,
-            boolean includeImportsClosure) {
+    default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property, boolean includeImportsClosure) {
         return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
     }
 
@@ -379,10 +354,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
      *         The set is a copy of the data.
      * @deprecated use getAxioms(entity, Imports) instead
      */
-    @Nonnull
     @Deprecated
-    default Set<OWLDatatypeDefinitionAxiom> getAxioms(
-            @Nonnull OWLDatatype datatype, boolean includeImportsClosure) {
+    default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype, boolean includeImportsClosure) {
         return getAxioms(datatype, Imports.fromBoolean(includeImportsClosure));
     }
 }

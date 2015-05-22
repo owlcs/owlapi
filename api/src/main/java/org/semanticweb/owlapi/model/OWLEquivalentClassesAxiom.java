@@ -17,11 +17,10 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents an <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Classes"
- * >EquivalentClasses</a> axiom in the OWL 2 Specification.
+ * Represents an
+ * <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Classes" >
+ * EquivalentClasses</a> axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -52,7 +51,6 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      *         excluding the built in classes owl:Thing and owl:Nothing
      */
     @Deprecated
-    @Nonnull
     default Set<OWLClass> getNamedClasses() {
         return asSet(namedClasses());
     }
@@ -65,7 +63,6 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      *         specified to be equivalent to some other class (expression),
      *         excluding the built in classes owl:Thing and owl:Nothing
      */
-    @Nonnull
     Stream<OWLClass> namedClasses();
 
     /**
@@ -86,31 +83,29 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      */
     boolean containsOWLThing();
 
-    @Nonnull
     @Override
     Set<OWLEquivalentClassesAxiom> asPairwiseAxioms();
 
     @Override
-    @Nonnull
     Set<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

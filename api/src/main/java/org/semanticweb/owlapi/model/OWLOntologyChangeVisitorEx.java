@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -30,8 +28,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
-    @Nonnull
-    O visit(@Nonnull AddAxiom change);
+    O visit(AddAxiom change);
 
     /**
      * Visit RemoveAxiom type.
@@ -40,8 +37,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
-    @Nonnull
-    O visit(@Nonnull RemoveAxiom change);
+    O visit(RemoveAxiom change);
 
     /**
      * Visit SetOntologyID type.
@@ -50,8 +46,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
-    @Nonnull
-    O visit(@Nonnull SetOntologyID change);
+    O visit(SetOntologyID change);
 
     /**
      * Visit AddImport type.
@@ -60,8 +55,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
-    @Nonnull
-    O visit(@Nonnull AddImport change);
+    O visit(AddImport change);
 
     /**
      * Visit RemoveImport type.
@@ -70,8 +64,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
-    @Nonnull
-    O visit(@Nonnull RemoveImport change);
+    O visit(RemoveImport change);
 
     /**
      * Visit AddOntologyAnnotation type.
@@ -80,8 +73,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
-    @Nonnull
-    O visit(@Nonnull AddOntologyAnnotation change);
+    O visit(AddOntologyAnnotation change);
 
     /**
      * Visit RemoveOntologyAnnotation type.
@@ -90,6 +82,5 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
-    @Nonnull
-    O visit(@Nonnull RemoveOntologyAnnotation change);
+    O visit(RemoveOntologyAnnotation change);
 }

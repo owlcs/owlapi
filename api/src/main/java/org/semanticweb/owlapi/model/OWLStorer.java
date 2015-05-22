@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
 /**
@@ -38,7 +36,7 @@ public interface OWLStorer extends Serializable {
      * @return {@code true} if this storer can store an ontology in the desired
      *         format.
      */
-    boolean canStoreOntology(@Nonnull OWLDocumentFormat ontologyFormat);
+    boolean canStoreOntology(OWLDocumentFormat ontologyFormat);
 
     /**
      * Stores an ontology to the specified ontology document IRI in the
@@ -57,8 +55,7 @@ public interface OWLStorer extends Serializable {
      * @throws OWLOntologyStorageException
      *         if there was a problem storing the ontology
      */
-    void storeOntology(@Nonnull OWLOntology ontology, @Nonnull IRI documentIRI,
-            @Nonnull OWLDocumentFormat ontologyFormat)
+    void storeOntology(OWLOntology ontology, IRI documentIRI, OWLDocumentFormat ontologyFormat)
             throws OWLOntologyStorageException, IOException;
 
     /**
@@ -77,8 +74,6 @@ public interface OWLStorer extends Serializable {
      * @throws IOException
      *         if there was an IOException when storing the ontology.
      */
-    void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyDocumentTarget target,
-            @Nonnull OWLDocumentFormat format)
+    void storeOntology(OWLOntology ontology, OWLOntologyDocumentTarget target, OWLDocumentFormat format)
             throws OWLOntologyStorageException, IOException;
 }

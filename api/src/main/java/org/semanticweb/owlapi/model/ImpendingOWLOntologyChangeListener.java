@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
@@ -38,6 +36,5 @@ public interface ImpendingOWLOntologyChangeListener extends Serializable {
      *         The listener may throw a change veto exception, which will
      *         prevent all of the changes being applied.
      */
-    void handleImpendingOntologyChanges(
-            @Nonnull List<? extends OWLOntologyChange> impendingChanges);
+    void handleImpendingOntologyChanges(List<? extends OWLOntologyChange> impendingChanges);
 }

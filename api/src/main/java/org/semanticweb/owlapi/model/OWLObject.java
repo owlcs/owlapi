@@ -18,18 +18,14 @@ import java.io.Serializable;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLObject extends Comparable<OWLObject>, Serializable,
-    HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
-    HasClassesInSignature, HasObjectPropertiesInSignature,
-    HasDataPropertiesInSignature, HasIndividualsInSignature,
-    HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
+public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature, HasContainsEntityInSignature,
+        HasAnonymousIndividuals, HasClassesInSignature, HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
+        HasIndividualsInSignature, HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
 
     /**
      * Gets all of the nested (includes top level) class expressions that are
@@ -40,7 +36,6 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *         that represent the nested class expressions used in this object.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLClassExpression> getNestedClassExpressions() {
         return asSet(nestedClassExpressions());
     }
@@ -53,7 +48,6 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s
      *         that represent the nested class expressions used in this object.
      */
-    @Nonnull
     default Stream<OWLClassExpression> nestedClassExpressions() {
         return empty();
     }
@@ -64,7 +58,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      * @param visitor
      *        The visitor
      */
-    void accept(@Nonnull OWLObjectVisitor visitor);
+    void accept(OWLObjectVisitor visitor);
 
     /**
      * Accepts a visitor
@@ -75,8 +69,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *        visitor return type
      * @return visitor value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor);
+    <O> O accept(OWLObjectVisitorEx<O> visitor);
 
     /**
      * Determines if this object is either, owl:Thing (the top class),

@@ -62,8 +62,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
      *         signature of one of the imported ontologies, {@code true} if none
      *         of the previous conditions are met.
      */
-    public static boolean isMissingType(@Nonnull OWLEntity entity,
-            OWLOntology ontology) {
+    public static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
         // We don't need to declare built in entities
         if (entity.isBuiltIn()) {
             return false;
@@ -100,8 +99,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     }
 
     @Override
-    public Serializable
-            getParameter(Serializable key, Serializable defaultValue) {
+    public Serializable getParameter(Serializable key, Serializable defaultValue) {
         Serializable val = parameterMap.get(key);
         if (val == null) {
             return defaultValue;
@@ -115,8 +113,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     }
 
     @Override
-    public void setOntologyLoaderMetaData(
-            OWLOntologyLoaderMetaData loaderMetaData) {
+    public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
         this.loaderMetaData = loaderMetaData;
     }
 
@@ -149,8 +146,7 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
         return getKey();
     }
 
-    private static class NullLoaderMetaData implements
-            OWLOntologyLoaderMetaData, Serializable {
+    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData, Serializable {
 
         private static final long serialVersionUID = 40000L;
 

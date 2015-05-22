@@ -18,25 +18,25 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom,
-        OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut {
+public interface OWLNaryIndividualAxiom
+        extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut {
 
-    /** @return the individuals */
+    /**
+     * @return the individuals
+     */
     @Deprecated
-    @Nonnull
     default Set<OWLIndividual> getIndividuals() {
         return asSet(individuals());
     }
 
-    /** @return the individuals */
-    @Nonnull
+    /**
+     * @return the individuals
+     */
     Stream<OWLIndividual> individuals();
 
     /**
@@ -44,7 +44,6 @@ public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom,
      * 
      * @return The individuals in this axiom as a list
      */
-    @Nonnull
     default List<OWLIndividual> getIndividualsAsList() {
         return asList(individuals());
     }

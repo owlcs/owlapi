@@ -47,8 +47,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public enum MissingOntologyHeaderStrategy {
         /** Include triples. */
-        INCLUDE_GRAPH,
-        /** Keep import structure. */
+        INCLUDE_GRAPH, /** Keep import structure. */
         IMPORT_GRAPH
     }
 
@@ -80,28 +79,30 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     private boolean strict = false;
     /** True if Dublin Core. */
     private boolean treatDublinCoreAsBuiltIn = true;
-    /**sort configuration for priority collections*/
-    private PriorityCollectionSorting priorityCollectionSorting=PriorityCollectionSorting.ON_SET_INJECTION_ONLY;
+    /** sort configuration for priority collections */
+    private PriorityCollectionSorting priorityCollectionSorting = PriorityCollectionSorting.ON_SET_INJECTION_ONLY;
 
     /**
      * Set the priorty collection sorting option.
      * 
-     * @param sorting the sorting option to be used.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the new sorting option set.
+     * @param sorting
+     *        the sorting option to be used.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the new sorting
+     *         option set.
      */
-    public OWLOntologyLoaderConfiguration setPriorityCollectionSorting(
-            PriorityCollectionSorting sorting) {
-        if(priorityCollectionSorting==sorting) {
+    public OWLOntologyLoaderConfiguration setPriorityCollectionSorting(PriorityCollectionSorting sorting) {
+        if (priorityCollectionSorting == sorting) {
             return this;
         }
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.priorityCollectionSorting=sorting;
+        configuration.priorityCollectionSorting = sorting;
         return configuration;
     }
 
     /**
-     * @return The {@code PriorityCollectionSorting} for this configuration. It determines how parsers, storers and mappers are ordered.
-     * Default is {@link PriorityCollectionSorting#ON_SET_INJECTION_ONLY}
+     * @return The {@code PriorityCollectionSorting} for this configuration. It
+     *         determines how parsers, storers and mappers are ordered. Default
+     *         is {@link PriorityCollectionSorting#ON_SET_INJECTION_ONLY}
      */
     public PriorityCollectionSorting getPriorityCollectionSorting() {
         return priorityCollectionSorting;
@@ -117,8 +118,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
      *         ontology document IRI set.
      */
-    public OWLOntologyLoaderConfiguration addIgnoredImport(
-            IRI ontologyDocumentIRI) {
+    public OWLOntologyLoaderConfiguration addIgnoredImport(IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.ignoredImports.add(ontologyDocumentIRI);
         return configuration;
@@ -142,7 +142,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * 
      * @return The copied configuration
      */
-    @Nonnull
     private OWLOntologyLoaderConfiguration copyConfiguration() {
         OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
         copy.acceptHTTPCompression = acceptHTTPCompression;
@@ -160,7 +159,9 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         return copy;
     }
 
-    /** @return the connection timeout for this configuration */
+    /**
+     * @return the connection timeout for this configuration
+     */
     public int getConnectionTimeout() {
         return connectionTimeout;
     }
@@ -176,7 +177,9 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         return missingImportHandlingStrategy;
     }
 
-    /** @return the ontology header strategy */
+    /**
+     * @return the ontology header strategy
+     */
     public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
         return missingOntologyHeaderStrategy;
     }
@@ -189,7 +192,9 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         return retriesToAttempt;
     }
 
-    /** @return true if http compression should be accepted. */
+    /**
+     * @return true if http compression should be accepted.
+     */
     public boolean isAcceptingHTTPCompression() {
         return acceptHTTPCompression;
     }
@@ -217,8 +222,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return true if iri should be ignored
      */
     public boolean isIgnoredImport(IRI iri) {
-        return Namespaces.isDefaultIgnoredImport(iri)
-                || ignoredImports.contains(iri);
+        return Namespaces.isDefaultIgnoredImport(iri) || ignoredImports.contains(iri);
     }
 
     /**
@@ -234,12 +238,16 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
         return loadAnnotations;
     }
 
-    /** @return value for the report stack trace flag. */
+    /**
+     * @return value for the report stack trace flag.
+     */
     public boolean isReportStackTrace() {
         return reportStackTraces;
     }
 
-    /** @return true if parsing should be strict */
+    /**
+     * @return true if parsing should be strict
+     */
     public boolean isStrict() {
         return strict;
     }
@@ -269,9 +277,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
      *         ontology document IRI removed.
      */
-    @Nonnull
-    public OWLOntologyLoaderConfiguration removeIgnoredImport(
-            IRI ontologyDocumentIRI) {
+    public OWLOntologyLoaderConfiguration removeIgnoredImport(IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.ignoredImports.remove(ontologyDocumentIRI);
         return configuration;
@@ -283,9 +289,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return a copy of this configuration with accepting HTTP compression set
      *         to the new value
      */
-    @Nonnull
-    public OWLOntologyLoaderConfiguration
-            setAcceptingHTTPCompression(boolean b) {
+    public OWLOntologyLoaderConfiguration setAcceptingHTTPCompression(boolean b) {
         // do not make copies if setting the same value
         if (acceptHTTPCompression == b) {
             return this;
@@ -302,7 +306,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection
      *         timeout set to the new value.
      */
-    @Nonnull
     public OWLOntologyLoaderConfiguration setConnectionTimeout(int l) {
         if (l == connectionTimeout) {
             return this;
@@ -319,7 +322,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return a copy of the current object with followRedirects set to the new
      *         value.
      */
-    @Nonnull
     public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
         // as the objects are immutable, setting to the same value returns the
         // same object
@@ -344,7 +346,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option
      *         set.
      */
-    @Nonnull
     public OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b) {
         // do not make copies if setting the same value
         if (loadAnnotations == b) {
@@ -366,11 +367,8 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      *         strategy set.
      * @since 3.3
      */
-    @Nonnull
-    public
-            OWLOntologyLoaderConfiguration
-            setMissingImportHandlingStrategy(
-                    @Nonnull MissingImportHandlingStrategy missingImportHandlingStrategy) {
+    public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(
+            MissingImportHandlingStrategy missingImportHandlingStrategy) {
         // do not make copies if setting the same value
         if (this.missingImportHandlingStrategy == missingImportHandlingStrategy) {
             return this;
@@ -385,11 +383,8 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      *        new value
      * @return a copy of this configuration object with a different strategy
      */
-    @Nonnull
-    public
-            OWLOntologyLoaderConfiguration
-            setMissingOntologyHeaderStrategy(
-                    @Nonnull MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
+    public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(
+            MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
         // do not make copies if setting the same value
         if (missingOntologyHeaderStrategy == this.missingOntologyHeaderStrategy) {
             return this;
@@ -409,7 +404,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set
      *         to the new value.
      */
-    @Nonnull
     public OWLOntologyLoaderConfiguration setReportStackTraces(boolean b) {
         if (b == reportStackTraces) {
             return this;
@@ -424,7 +418,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      *        new value of retries to attempt
      * @return copy of this configuration with modified retries attempts.
      */
-    @Nonnull
     public OWLOntologyLoaderConfiguration setRetriesToAttempt(int retries) {
         // do not make copies if setting the same value
         if (retries == retriesToAttempt) {
@@ -440,7 +433,6 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      *        new value for strict
      * @return copy of the configuration with new strict value
      */
-    @Nonnull
     public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
         // do not make copies if setting the same value
         if (this.strict == strict) {
@@ -457,9 +449,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return a copy of the current object with treatDublinCoreAsBuiltIn set to
      *         the new value.
      */
-    @Nonnull
-    public OWLOntologyLoaderConfiguration setTreatDublinCoreAsBuiltIn(
-            boolean value) {
+    public OWLOntologyLoaderConfiguration setTreatDublinCoreAsBuiltIn(boolean value) {
         // as the objects are immutable, setting to the same value returns the
         // same object
         if (value == treatDublinCoreAsBuiltIn) {

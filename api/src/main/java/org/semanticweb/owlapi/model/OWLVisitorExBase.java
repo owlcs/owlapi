@@ -1,14 +1,11 @@
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 /**
  * Base interface for visitors that return a value.
  * 
  * @param <O>
  *        return value
  */
-@ParametersAreNonnullByDefault
 public interface OWLVisitorExBase<O> {
 
     /**

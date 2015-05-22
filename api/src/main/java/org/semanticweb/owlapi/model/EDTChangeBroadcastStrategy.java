@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.swing.SwingUtilities;
 
 /**
@@ -25,14 +24,12 @@ import javax.swing.SwingUtilities;
  *         Management Group
  * @since 3.0.0
  */
-public class EDTChangeBroadcastStrategy implements
-        OWLOntologyChangeBroadcastStrategy {
+public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public void broadcastChanges(@Nonnull OWLOntologyChangeListener l,
-            @Nonnull List<? extends OWLOntologyChange> changes)
+    public void broadcastChanges(OWLOntologyChangeListener l, List<? extends OWLOntologyChange> changes)
             throws OWLException {
         try {
             SwingUtilities.invokeLater(() -> l.ontologiesChanged(changes));

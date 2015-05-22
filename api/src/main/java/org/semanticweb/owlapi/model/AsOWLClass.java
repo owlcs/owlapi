@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /** Convert to OWLClass interface. */
 public interface AsOWLClass {
 
@@ -24,12 +22,10 @@ public interface AsOWLClass {
      *         if this entity is not an OWLClass (check with the isOWLClass
      *         method first).
      */
-    @Nonnull
     default OWLClass asOWLClass() {
         if (isOWLClass()) {
             return (OWLClass) this;
         }
-        throw new ClassCastException(getClass().getName()
-            + "is not an OWLClass");
+        throw new ClassCastException(getClass().getName() + "is not an OWLClass");
     }
 }

@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Keys">HasKey</a>
  * axiom in the OWL 2 Specification.
@@ -30,7 +28,7 @@ import javax.annotation.Nonnull;
 public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     @Override
-        OWLHasKeyAxiom getAxiomWithoutAnnotations();
+    OWLHasKeyAxiom getAxiomWithoutAnnotations();
 
     /**
      * Gets the class expression, instances of which, this axiom acts as the key
@@ -38,8 +36,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * 
      * @return The class expression
      */
-    @Nonnull
-        OWLClassExpression getClassExpression();
+    OWLClassExpression getClassExpression();
 
     /**
      * Gets the set of property expressions that form the key.
@@ -47,7 +44,6 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @return The set of property expression that form the key
      */
     @Deprecated
-    @Nonnull
     default Set<? extends OWLPropertyExpression> getPropertyExpressions() {
         return asSet(propertyExpressions());
     }
@@ -57,8 +53,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * 
      * @return The set of property expression that form the key
      */
-    @Nonnull
-        Stream<? extends OWLPropertyExpression> propertyExpressions();
+    Stream<? extends OWLPropertyExpression> propertyExpressions();
 
     /**
      * Gets the set of object property expressions that make up the key. This is
@@ -71,9 +66,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      *         this axiom
      */
     @Deprecated
-    @Nonnull
-    default Set<? extends OWLObjectPropertyExpression>
-        getObjectPropertyExpressions() {
+    default Set<? extends OWLObjectPropertyExpression> getObjectPropertyExpressions() {
         return asSet(objectPropertiesInSignature());
     }
 
@@ -87,11 +80,9 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @return The set of object property expressions in the key described by
      *         this axiom
      */
-    @Nonnull
-    default Stream<? extends OWLObjectPropertyExpression>
-        objectPropertyExpressions() {
+    default Stream<? extends OWLObjectPropertyExpression> objectPropertyExpressions() {
         return propertyExpressions().filter(p -> p.isObjectPropertyExpression())
-            .map(p -> p.asObjectPropertyExpression());
+                .map(p -> p.asObjectPropertyExpression());
     }
 
     /**
@@ -105,9 +96,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      *         this axiom
      */
     @Deprecated
-    @Nonnull
-    default Set<? extends OWLDataPropertyExpression>
-        getDataPropertyExpressions() {
+    default Set<? extends OWLDataPropertyExpression> getDataPropertyExpressions() {
         return asSet(dataPropertyExpressions());
     }
 
@@ -121,30 +110,27 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * @return The set of object property expressions in the key described by
      *         this axiom
      */
-    @Nonnull
-    default Stream<? extends OWLDataPropertyExpression>
-        dataPropertyExpressions() {
-        return propertyExpressions().filter(p -> p.isDataPropertyExpression())
-            .map(p -> p.asDataPropertyExpression());
+    default Stream<? extends OWLDataPropertyExpression> dataPropertyExpressions() {
+        return propertyExpressions().filter(p -> p.isDataPropertyExpression()).map(p -> p.asDataPropertyExpression());
     }
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

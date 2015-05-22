@@ -12,11 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents a <a
- * href="http://www.w3.org/TR/owl2-syntax/#Named_Individuals">Named
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Named_Individuals">Named
  * Individual</a> in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
@@ -26,42 +24,42 @@ import javax.annotation.Nonnull;
 public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLEntityVisitor visitor) {
+    default void accept(OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
+    default <O> O accept(OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
+    default void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLIndividualVisitor visitor) {
+    default void accept(OWLIndividualVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor) {
+    default <O> O accept(OWLIndividualVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

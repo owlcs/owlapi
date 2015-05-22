@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -34,7 +32,6 @@ public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
      * @throws OWLException
      *         for any exception raised
      */
-    void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
-            @Nonnull List<? extends OWLOntologyChange> changes)
+    void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes)
             throws OWLException;
 }

@@ -35,8 +35,7 @@ public abstract class AnnotationChange extends OWLOntologyChange {
      * @param annotation
      *        the annotation
      */
-    public AnnotationChange(@Nonnull OWLOntology ont,
-            @Nonnull OWLAnnotation annotation) {
+    public AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
         super(ont);
         this.annotation = checkNotNull(annotation, "annotation cannot be null");
     }
@@ -51,7 +50,6 @@ public abstract class AnnotationChange extends OWLOntologyChange {
      * 
      * @return The annotation that was added
      */
-    @Nonnull
     public OWLAnnotation getAnnotation() {
         return annotation;
     }

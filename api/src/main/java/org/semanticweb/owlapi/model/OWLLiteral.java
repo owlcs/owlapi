@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents a
  * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Literals" >
@@ -39,8 +37,8 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
-    OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
+public interface OWLLiteral
+        extends OWLObject, OWLAnnotationObject, OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
 
     /**
      * Determines if the datatype of this literal is {@code rdf:PlainLiteral}.
@@ -69,7 +67,6 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         {@code "abc@langTag"^^rdf:PlainLiteral} then the return value
      *         will be "abc" (without the language tag included).
      */
-    @Nonnull
     String getLiteral();
 
     @Override
@@ -85,7 +82,6 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         literals) the datatype will be rdf:PlainLiteral. The return value
      *         is never {@code null}.
      */
-    @Nonnull
     OWLDatatype getDatatype();
 
     /**
@@ -135,8 +131,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         it is not in the lexical space of the integer datatype.
      */
     default int parseInteger() {
-        throw new NumberFormatException(getClass().getName()
-            + " does not have an int value but has " + getLiteral());
+        throw new NumberFormatException(getClass().getName() + " does not have an int value but has " + getLiteral());
     }
 
     /**
@@ -162,8 +157,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         is not in the lexical space of the boolean datatype.
      */
     default boolean parseBoolean() {
-        throw new OWLRuntimeException(getClass().getName()
-            + " does not have a boolean value but has " + getLiteral());
+        throw new OWLRuntimeException(getClass().getName() + " does not have a boolean value but has " + getLiteral());
     }
 
     /**
@@ -189,8 +183,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         is not in the lexical space of the double datatype.
      */
     default double parseDouble() {
-        throw new NumberFormatException(getClass().getName()
-            + " does not have a double value but has " + getLiteral());
+        throw new NumberFormatException(getClass().getName() + " does not have a double value but has " + getLiteral());
     }
 
     /**
@@ -216,8 +209,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         is not in the lexical space of the float datatype.
      */
     default float parseFloat() {
-        throw new NumberFormatException(getClass().getName()
-            + " does not have a float value but has " + getLiteral());
+        throw new NumberFormatException(getClass().getName() + " does not have a float value but has " + getLiteral());
     }
 
     @Override
@@ -229,7 +221,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      * @param visitor
      *        visitor
      */
-    default void accept(@Nonnull OWLDataVisitor visitor) {
+    default void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -240,28 +232,27 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *        visitor return type
      * @return visitor return value
      */
-    @Nonnull
-    default <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+    default <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
+    default void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
+    default <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

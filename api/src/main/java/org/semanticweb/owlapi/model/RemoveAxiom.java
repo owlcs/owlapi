@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 
 /**
@@ -34,11 +32,10 @@ public class RemoveAxiom extends OWLAxiomChange {
      * @param axiom
      *        the axiom to be removed
      */
-    public RemoveAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
+    public RemoveAxiom(OWLOntology ont, OWLAxiom axiom) {
         super(ont, axiom);
     }
 
-    @Nonnull
     @Override
     public RemoveAxiomData getChangeData() {
         return new RemoveAxiomData(getAxiom());
@@ -58,24 +55,22 @@ public class RemoveAxiom extends OWLAxiomChange {
             return false;
         }
         RemoveAxiom other = (RemoveAxiom) obj;
-        return other.getOntology().equals(getOntology())
-                && other.getAxiom().equals(getAxiom());
+        return other.getOntology().equals(getOntology()) && other.getAxiom().equals(getAxiom());
     }
 
     @Override
-    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return String.format("RemoveAxiom(%s OntologyID(%s))", getAxiom(),
-                getOntology().getOntologyID());
+        return String.format("RemoveAxiom(%s OntologyID(%s))", getAxiom(), getOntology().getOntologyID());
     }
 
     @Override

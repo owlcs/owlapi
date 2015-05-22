@@ -14,44 +14,42 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents <a
- * href="http://www.w3.org/TR/owl2-syntax/#Symmetric_Object_Properties"
- * >SymmetricObjectProperty</a> axioms in the OWL 2 specification.
+ * Represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Symmetric_Object_Properties" >
+ * SymmetricObjectProperty</a> axioms in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLSymmetricObjectPropertyAxiom extends
-        OWLObjectPropertyCharacteristicAxiom {
+public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     @Override
     OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
-    /** @return the set of axioms equivalent to this axiom */
-    @Nonnull
+    /**
+     * @return the set of axioms equivalent to this axiom
+     */
     Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

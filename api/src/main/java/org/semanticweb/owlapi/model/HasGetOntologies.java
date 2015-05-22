@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -30,7 +28,6 @@ public interface HasGetOntologies {
      * @return The set of ontologies contained within this object
      */
     @Deprecated
-    @Nonnull
     default Set<OWLOntology> getOntologies() {
         return asSet(ontologies());
     }
@@ -38,6 +35,5 @@ public interface HasGetOntologies {
     /**
      * @return stream of ontologies contained within this object
      */
-    @Nonnull
     Stream<OWLOntology> ontologies();
 }

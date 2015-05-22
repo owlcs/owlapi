@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Minimum_Cardinality_2">
  * DataMinCardinality</a> retrictions in the OWL 2 Specification.
@@ -25,22 +23,22 @@ import javax.annotation.Nonnull;
 public interface OWLDataMinCardinality extends OWLDataCardinalityRestriction {
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLClassExpressionVisitor visitor) {
+    default void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
+    default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

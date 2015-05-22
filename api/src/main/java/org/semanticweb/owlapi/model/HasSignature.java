@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to an object which has a signature
  * 
@@ -44,7 +42,6 @@ public interface HasSignature {
      *         Changes are not reflected back.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLEntity> getSignature() {
         return asSet(signature());
     }
@@ -52,7 +49,6 @@ public interface HasSignature {
     /**
      * @return Stream of the signature of this object.
      */
-    @Nonnull
     default Stream<OWLEntity> signature() {
         return empty();
     }

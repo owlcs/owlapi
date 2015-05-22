@@ -17,12 +17,10 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents a <a
- * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions"
- * >DatatypeRestriction</a> data range in the OWL 2 Specification.
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions" >
+ * DatatypeRestriction</a> data range in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -35,7 +33,6 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
      * 
      * @return The datatype that is restricted
      */
-    @Nonnull
     OWLDatatype getDatatype();
 
     /**
@@ -44,7 +41,6 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
      * @return A {@code Set} of facet restrictions that apply to this data range
      */
     @Deprecated
-    @Nonnull
     default Set<OWLFacetRestriction> getFacetRestrictions() {
         return asSet(facetRestrictions());
     }
@@ -54,36 +50,35 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
      * 
      * @return A {@code Set} of facet restrictions that apply to this data range
      */
-    @Nonnull
     Stream<OWLFacetRestriction> facetRestrictions();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLDataVisitor visitor) {
+    default void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+    default <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLDataRangeVisitor visitor) {
+    default void accept(OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
+    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

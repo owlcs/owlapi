@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -37,5 +36,5 @@ public interface OWLOntologyIRIMapper extends Serializable {
      *         doesn't have mapping for the specified ontology IRI.
      */
     @Nullable
-    IRI getDocumentIRI(@Nonnull IRI ontologyIRI);
+    IRI getDocumentIRI(IRI ontologyIRI);
 }

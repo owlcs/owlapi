@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents a restriction (<a href=
  * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Object_Property_Restrictions"
@@ -25,8 +23,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectRestriction extends OWLRestriction,
-        HasProperty<OWLObjectPropertyExpression> {
+public interface OWLObjectRestriction extends OWLRestriction, HasProperty<OWLObjectPropertyExpression> {
 
     /**
      * Gets the property/properties that the restriction acts along depending on
@@ -34,7 +31,6 @@ public interface OWLObjectRestriction extends OWLRestriction,
      * 
      * @return The property
      */
-    @Nonnull
     @Override
     OWLObjectPropertyExpression getProperty();
 

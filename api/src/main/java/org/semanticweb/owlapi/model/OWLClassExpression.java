@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents <a
- * href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">Class
+ * Represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">Class
  * Expressions</a> in the OWL 2 specification. This interface covers named and
  * anonymous classes.
  * 
@@ -26,15 +24,13 @@ import javax.annotation.Nonnull;
  *         Group
  * @since 2.0.0
  */
-public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
-        SWRLPredicate, AsOWLClass, IsAnonymous {
+public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate, AsOWLClass, IsAnonymous {
 
     /**
      * Gets the class expression type for this class expression.
      * 
      * @return The class expression type
      */
-    @Nonnull
     ClassExpressionType getClassExpressionType();
 
     /**
@@ -71,7 +67,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      * 
      * @return The expression in negation normal form.
      */
-    @Nonnull
     OWLClassExpression getNNF();
 
     /**
@@ -80,7 +75,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      * @return A expression that represents the NNF of the complement of this
      *         expression.
      */
-    @Nonnull
     OWLClassExpression getComplementNNF();
 
     /**
@@ -89,7 +83,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      * @return A class expression that is the complement of this class
      *         expression.
      */
-    @Nonnull
     OWLClassExpression getObjectComplementOf();
 
     /**
@@ -102,7 +95,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      *         example, calling this method on (A and B) and C will return the
      *         set {A, B, C}
      */
-    @Nonnull
     Set<OWLClassExpression> asConjunctSet();
 
     /**
@@ -116,7 +108,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      *         (possibly nested withing another {@code ObjectIntersectionOf})
      *         that contains {@code ce}, otherwise {@code false}.
      */
-    boolean containsConjunct(@Nonnull OWLClassExpression ce);
+    boolean containsConjunct(OWLClassExpression ce);
 
     /**
      * Interprets this expression as a disjunction and returns the disjuncts.
@@ -128,7 +120,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      *         example, calling this method on (A or B) or C will return the set
      *         {A, B, C}
      */
-    @Nonnull
     Set<OWLClassExpression> asDisjunctSet();
 
     /**
@@ -137,7 +128,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      * @param visitor
      *        The visitor that wants to visit
      */
-    void accept(@Nonnull OWLClassExpressionVisitor visitor);
+    void accept(OWLClassExpressionVisitor visitor);
 
     /**
      * @param visitor
@@ -146,6 +137,5 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      *        visitor return type
      * @return visitor return value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor);
+    <O> O accept(OWLClassExpressionVisitorEx<O> visitor);
 }

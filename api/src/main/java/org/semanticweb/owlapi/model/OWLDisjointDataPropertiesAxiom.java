@@ -14,48 +14,44 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents a <a
- * href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Data_Properties"
- * >DisjointDataProperties</a> axiom in the OWL 2 Specification.
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Data_Properties" >
+ * DisjointDataProperties</a> axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDisjointDataPropertiesAxiom extends
-        OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
+public interface OWLDisjointDataPropertiesAxiom
+        extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
     OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();
 
-    @Nonnull
     @Override
     Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-    @Nonnull
     Set<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

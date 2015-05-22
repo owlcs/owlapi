@@ -34,8 +34,7 @@ import javax.annotation.Nonnull;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLOntologyID
-    implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
+public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -50,8 +49,7 @@ public class OWLOntologyID
     private transient Optional<IRI> versionIRI;
     private int hashCode;
 
-    private void readObject(ObjectInputStream stream)
-        throws ClassNotFoundException, IOException {
+    private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
         stream.defaultReadObject();
         ontologyIRI = optional((IRI) stream.readObject());
         versionIRI = optional((IRI) stream.readObject());
@@ -89,7 +87,6 @@ public class OWLOntologyID
         this(opt(iri), opt(versionIRI));
     }
 
-    @Nonnull
     private static Optional<IRI> opt(IRI i) {
         if (NodeID.isAnonymousNodeIRI(i)) {
             return emptyOptional();
@@ -105,7 +102,6 @@ public class OWLOntologyID
      * @return input optional if its iri is not a blank node iri, absent
      *         otherwise
      */
-    @Nonnull
     private static Optional<IRI> opt(Optional<IRI> i) {
         if (NodeID.isAnonymousNodeIRI(i.orElse(null))) {
             return emptyOptional();
@@ -118,7 +114,7 @@ public class OWLOntologyID
      * @param iri
      *        the iri to check
      */
-    public boolean match(@Nonnull IRI iri) {
+    public boolean match(IRI iri) {
         return matchOntology(iri) || matchVersion(iri);
     }
 
@@ -127,7 +123,7 @@ public class OWLOntologyID
      * @param iri
      *        the iri to check
      */
-    public boolean matchVersion(@Nonnull IRI iri) {
+    public boolean matchVersion(IRI iri) {
         return iri.equals(versionIRI.orElse(null));
     }
 
@@ -136,7 +132,7 @@ public class OWLOntologyID
      * @param iri
      *        the iri to check
      */
-    public boolean matchDocument(@Nonnull IRI iri) {
+    public boolean matchDocument(IRI iri) {
         return iri.equals(getDefaultDocumentIRI().orElse(null));
     }
 
@@ -145,7 +141,7 @@ public class OWLOntologyID
      * @param iri
      *        the iri to check
      */
-    public boolean matchOntology(@Nonnull IRI iri) {
+    public boolean matchOntology(IRI iri) {
         return iri.equals(ontologyIRI.orElse(null));
     }
 
@@ -154,7 +150,7 @@ public class OWLOntologyID
      * @param id
      *        the id to check
      */
-    public boolean match(@Nonnull OWLOntologyID id) {
+    public boolean match(OWLOntologyID id) {
         return ontologyIRI.equals(id.getOntologyIRI());
     }
 
@@ -167,8 +163,7 @@ public class OWLOntologyID
      * @param version
      *        The version IRI (must be absent if the ontologyIRI is absent)
      */
-    public OWLOntologyID(@Nonnull Optional<IRI> iri,
-        @Nonnull Optional<IRI> version) {
+    public OWLOntologyID(Optional<IRI> iri, Optional<IRI> version) {
         ontologyIRI = opt(iri);
         hashCode = 17;
         if (ontologyIRI.isPresent()) {
@@ -181,7 +176,7 @@ public class OWLOntologyID
         if (versionIRI.isPresent()) {
             if (!ontologyIRI.isPresent()) {
                 throw new IllegalArgumentException(
-                    "If the ontology IRI is null then it is not possible to specify a version IRI");
+                        "If the ontology IRI is null then it is not possible to specify a version IRI");
             }
             hashCode += 37 * versionIRI.hashCode();
         }
@@ -204,10 +199,8 @@ public class OWLOntologyID
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary()
      */
     public boolean isOWL2DLOntologyID() {
-        return !ontologyIRI.isPresent()
-            || !ontologyIRI.get().isReservedVocabulary()
-                && (!versionIRI.isPresent()
-                    || !versionIRI.get().isReservedVocabulary());
+        return !ontologyIRI.isPresent() || !ontologyIRI.get().isReservedVocabulary()
+                && (!versionIRI.isPresent() || !versionIRI.get().isReservedVocabulary());
     }
 
     @Override
@@ -222,7 +215,6 @@ public class OWLOntologyID
      * @return Optional of the ontology IRI, or Optional.absent if there is no
      *         ontology IRI.
      */
-    @Nonnull
     public Optional<IRI> getOntologyIRI() {
         return ontologyIRI;
     }
@@ -233,7 +225,6 @@ public class OWLOntologyID
      * @return an optional of the version IRI, or Optional.absent if there is no
      *         version IRI.
      */
-    @Nonnull
     public Optional<IRI> getVersionIRI() {
         return versionIRI;
     }
@@ -251,7 +242,6 @@ public class OWLOntologyID
      *         ontology document containing an ontology as identified by this
      *         ontology ID. Returns the default IRI or an Optional.absent.
      */
-    @Nonnull
     public Optional<IRI> getDefaultDocumentIRI() {
         if (ontologyIRI.isPresent()) {
             if (versionIRI.isPresent()) {
@@ -277,13 +267,11 @@ public class OWLOntologyID
         return !ontologyIRI.isPresent();
     }
 
-    @Nonnull
     @Override
     public String toString() {
         if (ontologyIRI.isPresent()) {
             String template = "OntologyID(OntologyIRI(<%s>) VersionIRI(<%s>))";
-            return String.format(template, ontologyIRI.get(),
-                versionIRI.orElse(null));
+            return String.format(template, ontologyIRI.get(), versionIRI.orElse(null));
         }
         return "OntologyID(" + internalID.orElse(null) + ')';
     }

@@ -12,12 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents a <a
- * href="http://www.w3.org/TR/owl2-syntax/#Data_Ranges">DataRange</a> in the OWL
- * 2 Specification.<br>
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Data_Ranges">DataRange</a> in the
+ * OWL 2 Specification.<br>
  * A high level interface which represents a data range. Example of data ranges
  * are datatypes (e.g. int, float, double, string, ...), complements of data
  * ranges (e.g. not(int)), data enumerations (data oneOfs), datatype
@@ -27,8 +25,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataRange extends OWLObject, OWLPropertyRange,
-        SWRLPredicate, AsOWLDatatype {
+public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate, AsOWLDatatype {
 
     /**
      * Determines if this data range is the top data type.
@@ -45,14 +42,13 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
      * 
      * @return The data range type
      */
-    @Nonnull
     DataRangeType getDataRangeType();
 
     /**
      * @param visitor
      *        visitor
      */
-    void accept(@Nonnull OWLDataVisitor visitor);
+    void accept(OWLDataVisitor visitor);
 
     /**
      * @param visitor
@@ -61,14 +57,13 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
      *        visitor return type
      * @return visitor return value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
+    <O> O accept(OWLDataVisitorEx<O> visitor);
 
     /**
      * @param visitor
      *        visitor
      */
-    void accept(@Nonnull OWLDataRangeVisitor visitor);
+    void accept(OWLDataRangeVisitor visitor);
 
     /**
      * @param visitor
@@ -77,6 +72,5 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
      *        visitor return type
      * @return visitor return value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor);
+    <O> O accept(OWLDataRangeVisitorEx<O> visitor);
 }

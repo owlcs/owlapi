@@ -18,8 +18,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to an object that has annotation.
  * 
@@ -35,7 +33,6 @@ public interface HasAnnotations {
      *         annotation assertion axioms in an ontology or in other
      *         ontologies. Use the EntitySearcher methods for that purpose.
      */
-    @Nonnull
     default Stream<OWLAnnotation> annotations() {
         return empty();
     }
@@ -50,9 +47,7 @@ public interface HasAnnotations {
      *        filter predicate for annotations. Can be used to match the
      *        annotation property or the annotation value
      */
-    @Nonnull
-    default Stream<OWLAnnotation> annotations(
-        @Nonnull Predicate<OWLAnnotation> p) {
+    default Stream<OWLAnnotation> annotations(Predicate<OWLAnnotation> p) {
         return annotations().filter(p);
     }
 
@@ -65,9 +60,7 @@ public interface HasAnnotations {
      * @param p
      *        annotation property to filter on
      */
-    @Nonnull
-    default Stream<OWLAnnotation> annotations(
-        @Nonnull OWLAnnotationProperty p) {
+    default Stream<OWLAnnotation> annotations(OWLAnnotationProperty p) {
         return annotations().filter(a -> a.getProperty().equals(p));
     }
 
@@ -86,7 +79,6 @@ public interface HasAnnotations {
      *         annotations() stream is more efficient.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLAnnotation> getAnnotations() {
         return asSet(annotations());
     }
@@ -102,10 +94,7 @@ public interface HasAnnotations {
      *         {@code annotationProperty}.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAnnotation> getAnnotations(
-        @Nonnull OWLAnnotationProperty annotationProperty) {
-        return asSet(
-            annotations(a -> a.getProperty().equals(annotationProperty)));
+    default Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
+        return asSet(annotations(a -> a.getProperty().equals(annotationProperty)));
     }
 }

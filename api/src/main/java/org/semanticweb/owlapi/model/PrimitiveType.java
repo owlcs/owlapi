@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  *         Research Group
  * @since 3.5.0
  */
-public enum PrimitiveType implements Serializable, HasShortForm {
+public enum PrimitiveType implements Serializable,HasShortForm {
     //@formatter:off
     /** CLASS.               */  CLASS               (EntityType.CLASS), 
     /** OBJECT_PROPERTY.     */  OBJECT_PROPERTY     (EntityType.OBJECT_PROPERTY), 
@@ -39,13 +39,11 @@ public enum PrimitiveType implements Serializable, HasShortForm {
     @Nonnull
     private final String pluralPrintName;
 
-    PrimitiveType(@Nonnull EntityType<?> entityType) {
-        this(entityType.getShortForm(), entityType.getPrintName(), entityType
-                .getPluralPrintName());
+    PrimitiveType(EntityType<?> entityType) {
+        this(entityType.getShortForm(), entityType.getPrintName(), entityType.getPluralPrintName());
     }
 
-    PrimitiveType(@Nonnull String shortForm, @Nonnull String printName,
-            @Nonnull String pluralPrintName) {
+    PrimitiveType(String shortForm, String printName, String pluralPrintName) {
         this.shortForm = shortForm;
         this.printName = printName;
         this.pluralPrintName = pluralPrintName;
@@ -56,12 +54,16 @@ public enum PrimitiveType implements Serializable, HasShortForm {
         return shortForm;
     }
 
-    /** @return print name for user consumption */
+    /**
+     * @return print name for user consumption
+     */
     public String getPrintName() {
         return printName;
     }
 
-    /** @return plural of the print name */
+    /**
+     * @return plural of the print name
+     */
     public String getPluralPrintName() {
         return pluralPrintName;
     }

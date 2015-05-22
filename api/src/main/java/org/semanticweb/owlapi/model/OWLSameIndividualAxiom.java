@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents an <a
- * href="http://www.w3.org/TR/owl2-syntax/#Individual_Equality">
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Equality">
  * SameIndividual</a> axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -38,31 +36,29 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
      */
     boolean containsAnonymousIndividuals();
 
-    @Nonnull
     @Override
     Set<OWLSameIndividualAxiom> asPairwiseAxioms();
 
     @Override
-    @Nonnull
     Set<OWLSameIndividualAxiom> splitToAnnotatedPairs();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

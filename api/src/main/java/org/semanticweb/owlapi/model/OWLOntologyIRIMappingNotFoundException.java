@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * An exception which describes the situation where no ontology document IRI
  * mapping could be found. This is a runtime exception since clients should
@@ -31,8 +29,7 @@ public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException 
      * @param ontologyIRI
      *        iri that cannot be mapped
      */
-    public OWLOntologyIRIMappingNotFoundException(@Nonnull IRI ontologyIRI) {
-        super("Could not find ontology document mapping for "
-                + ontologyIRI.toQuotedString());
+    public OWLOntologyIRIMappingNotFoundException(IRI ontologyIRI) {
+        super("Could not find ontology document mapping for " + ontologyIRI.toQuotedString());
     }
 }

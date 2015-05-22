@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Imports;
@@ -44,7 +42,6 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  *         Informatics Group
  * @since 2.0.0
  */
-@ParametersAreNonnullByDefault
 public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports, HasImportsClosure, HasOntologyID,
         OWLAxiomCollection, OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs, OWLAxiomIndex,
         HasApplyChange, HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms, HasDirectRemoveAxiom,

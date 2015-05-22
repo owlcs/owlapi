@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to objects that have a direct set of imports.
  * 
@@ -40,7 +38,6 @@ public interface HasDirectImports {
      *         was removed from the manager.
      */
     @Deprecated
-    @Nonnull
     default Set<IRI> getDirectImportsDocuments() {
         return asSet(directImportsDocuments());
     }
@@ -56,7 +53,6 @@ public interface HasDirectImports {
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
-    @Nonnull
     Stream<IRI> directImportsDocuments();
 
     /**
@@ -77,7 +73,6 @@ public interface HasDirectImports {
      *         was removed from the manager.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLOntology> getDirectImports() {
         return asSet(directImports());
     }
@@ -99,6 +94,5 @@ public interface HasDirectImports {
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
-    @Nonnull
     Stream<OWLOntology> directImports();
 }

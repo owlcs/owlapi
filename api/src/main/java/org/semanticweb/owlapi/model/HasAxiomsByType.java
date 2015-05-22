@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to an object that contains axioms and can provide subsets of
  * these axioms by the type of axiom.
@@ -41,9 +39,7 @@ public interface HasAxiomsByType {
      *         Modifications to the returned set will not be reflected in this
      *         object.
      */
-    @Nonnull
-    default <T extends OWLAxiom> Set<T> getAxioms(
-            @Nonnull AxiomType<T> axiomType) {
+    default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
         return asSet(axioms(axiomType));
     }
 
@@ -56,6 +52,5 @@ public interface HasAxiomsByType {
      *        axiom type
      * @return Stream of axioms of the specified type.
      */
-    @Nonnull
-    <T extends OWLAxiom> Stream<T> axioms(@Nonnull AxiomType<T> axiomType);
+    <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType);
 }

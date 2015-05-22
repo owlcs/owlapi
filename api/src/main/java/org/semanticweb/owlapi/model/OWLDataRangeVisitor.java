@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLDataRange}s.
@@ -30,7 +28,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull OWLDataOneOf node) {
+    default void visit(OWLDataOneOf node) {
         doDefault(node);
     }
 
@@ -40,7 +38,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull OWLDataComplementOf node) {
+    default void visit(OWLDataComplementOf node) {
         doDefault(node);
     }
 
@@ -50,7 +48,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull OWLDataIntersectionOf node) {
+    default void visit(OWLDataIntersectionOf node) {
         doDefault(node);
     }
 
@@ -60,7 +58,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull OWLDataUnionOf node) {
+    default void visit(OWLDataUnionOf node) {
         doDefault(node);
     }
 
@@ -70,7 +68,7 @@ public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull OWLDatatypeRestriction node) {
+    default void visit(OWLDatatypeRestriction node) {
         doDefault(node);
     }
 }

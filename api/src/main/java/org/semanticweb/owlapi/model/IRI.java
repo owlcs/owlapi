@@ -44,7 +44,6 @@ public class IRI
      * 
      * @return The URI
      */
-    @Nonnull
     public URI toURI() {
         return URI.create(namespace + remainder);
     }
@@ -84,7 +83,6 @@ public class IRI
     /**
      * @return the prefix
      */
-    @Nonnull
     public String getNamespace() {
         return namespace;
     }
@@ -95,8 +93,7 @@ public class IRI
      * @return s resolved against this IRI (with the URI::resolve() method,
      *         unless this IRI is opaque)
      */
-    @Nonnull
-    public IRI resolve(@Nonnull String s) {
+    public IRI resolve(String s) {
         // shortcut: checking absolute and opaque here saves the creation of an
         // extra URI object
         URI uri = URI.create(s);
@@ -167,7 +164,6 @@ public class IRI
      *             fragment. e.g., it does not allow / and () on it
      */
     @Deprecated
-    @Nonnull
     public String getFragment() {
         return remainder;
     }
@@ -175,7 +171,6 @@ public class IRI
     /**
      * @return the remainder (coincident with NCName usually) for this IRI.
      */
-    @Nonnull
     public Optional<String> getRemainder() {
         if (remainder.isEmpty()) {
             return emptyOptional();
@@ -188,7 +183,6 @@ public class IRI
      * 
      * @return This IRI surrounded by &lt; and &gt;
      */
-    @Nonnull
     public String toQuotedString() {
         return '<' + namespace + remainder + '>';
     }
@@ -200,8 +194,7 @@ public class IRI
      *        The String that specifies the IRI
      * @return The IRI that has the specified string representation.
      */
-    @Nonnull
-    public static IRI create(@Nonnull String str) {
+    public static IRI create(String str) {
         checkNotNull(str, "str cannot be null");
         int index = XMLUtils.getNCNameSuffixIndex(str);
         if (index < 0) {
@@ -222,7 +215,6 @@ public class IRI
      * @return An IRI whose characters consist of prefix + suffix.
      * @since 3.3
      */
-    @Nonnull
     public static IRI create(@Nullable String prefix, @Nullable String suffix) {
         if (prefix == null && suffix == null) {
             throw new IllegalArgumentException("prefix and suffix cannot both be null");
@@ -258,8 +250,7 @@ public class IRI
      *        the file to create the IRI from
      * @return file.toURI() IRI
      */
-    @Nonnull
-    public static IRI create(@Nonnull File file) {
+    public static IRI create(File file) {
         checkNotNull(file, "file cannot be null");
         return new IRI(file.toURI());
     }
@@ -269,8 +260,7 @@ public class IRI
      *        the uri to create the IRI from
      * @return the IRI wrapping the uri
      */
-    @Nonnull
-    public static IRI create(@Nonnull URI uri) {
+    public static IRI create(URI uri) {
         checkNotNull(uri, "uri cannot be null");
         return new IRI(uri);
     }
@@ -282,8 +272,7 @@ public class IRI
      * @throws OWLRuntimeException
      *         if the URL is ill formed
      */
-    @Nonnull
-    public static IRI create(@Nonnull URL url) {
+    public static IRI create(URL url) {
         checkNotNull(url, "url cannot be null");
         try {
             return new IRI(url.toURI());
@@ -298,7 +287,6 @@ public class IRI
      * @return An auto-generated ontology document IRI. The IRI has the form
      *         {@code owlapi:ontologyNNNNNNNNNNN}
      */
-    @Nonnull
     public static IRI generateDocumentIRI() {
         return getNextDocumentIRI("owlapi:ontology");
     }
@@ -308,7 +296,6 @@ public class IRI
      *        prefix for result
      * @return a fresh IRI
      */
-    @Nonnull
     public static IRI getNextDocumentIRI(String prefix) {
         return IRI.create(prefix + COUNTER.incrementAndGet());
     }
@@ -331,7 +318,7 @@ public class IRI
      * @param suffix
      *        The suffix.
      */
-    protected IRI(@Nonnull String prefix, @Nullable String suffix) {
+    protected IRI(String prefix, @Nullable String suffix) {
         namespace = prefix.intern();
         remainder = suffix == null ? "" : suffix;
     }
@@ -341,7 +328,6 @@ public class IRI
      *        suffix to turn to optional. Empty string is the same as null
      * @return optional value for remainder
      */
-    @Nonnull
     protected Optional<String> asOptional(String suffix) {
         if (suffix == null) {
             return emptyOptional();
@@ -351,11 +337,11 @@ public class IRI
         return optional(suffix);
     }
 
-    protected IRI(@Nonnull String s) {
+    protected IRI(String s) {
         this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
     }
 
-    protected IRI(@Nonnull URI uri) {
+    protected IRI(URI uri) {
         this(checkNotNull(uri, "uri cannot be null").toString());
     }
 
@@ -387,8 +373,7 @@ public class IRI
      *        prefix to use for replacing the IRI namespace
      * @return prefix plus IRI ncname
      */
-    @Nonnull
-    public String prefixedBy(@Nonnull String prefix) {
+    public String prefixedBy(String prefix) {
         checkNotNull(prefix, "prefix cannot be null");
         if (remainder.isEmpty()) {
             return prefix;
@@ -397,7 +382,6 @@ public class IRI
     }
 
     @Override
-    @Nonnull
     public String getShortForm() {
         if (!remainder.isEmpty()) {
             return remainder;
@@ -410,22 +394,22 @@ public class IRI
     }
 
     @Override
-    public void accept(@Nonnull OWLObjectVisitor visitor) {
+    public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(@Nonnull OWLAnnotationSubjectVisitor visitor) {
+    public void accept(OWLAnnotationSubjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <E> E accept(@Nonnull OWLAnnotationSubjectVisitorEx<E> visitor) {
+    public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
         return visitor.visit(this);
     }
 
@@ -450,7 +434,6 @@ public class IRI
         return remainder.compareTo(other.remainder);
     }
 
-    @Nonnull
     @Override
     public String toString() {
         if (remainder.isEmpty()) {
@@ -465,12 +448,12 @@ public class IRI
     }
 
     @Override
-    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
+    public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

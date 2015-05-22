@@ -17,12 +17,10 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents a <a href=
- * "http://www.w3.org/TR/owl2-syntax/#Disjoint_Union_of_Class_Expressions"
- * >DisjointUnion</a> axiom in the OWL 2 Specification.
+ * "http://www.w3.org/TR/owl2-syntax/#Disjoint_Union_of_Class_Expressions" >
+ * DisjointUnion</a> axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -39,7 +37,6 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      * @return the class that is equivalent to a disjoint union of other
      *         classes.
      */
-    @Nonnull
     OWLClass getOWLClass();
 
     /**
@@ -50,7 +47,6 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         equivalent to the disjoint union.
      */
     @Deprecated
-    @Nonnull
     default Set<? extends OWLClassExpression> getClassExpressions() {
         return asSet(classExpressions());
     }
@@ -62,7 +58,6 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         that this <b>does not</b> include the {@code OWLClass} that is
      *         equivalent to the disjoint union.
      */
-    @Nonnull
     Stream<? extends OWLClassExpression> classExpressions();
 
     /**
@@ -75,7 +70,6 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         {@link #getClassExpressions()} method and {@code CE} is the class
      *         returned by the {@link #getOWLClass()} method.
      */
-    @Nonnull
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
 
     /**
@@ -87,26 +81,25 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      *         {@code CEi in (CE1, ..., CEn)} is contained in the classes
      *         returned by the {@link #getClassExpressions()} method.
      */
-    @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

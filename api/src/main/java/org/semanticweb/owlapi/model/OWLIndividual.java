@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents a named or anonymous individual.
  * 
@@ -21,8 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject,
-        AsOWLNamedIndividual, IsAnonymous {
+public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, AsOWLNamedIndividual, IsAnonymous {
 
     /**
      * Determines if this individual is an instance of
@@ -45,7 +42,6 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject,
      * @throws OWLRuntimeException
      *         if this individual is named
      */
-    @Nonnull
     OWLAnonymousIndividual asOWLAnonymousIndividual();
 
     /**
@@ -55,14 +51,13 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject,
      * 
      * @return A string representing the toString of the node ID of this entity.
      */
-    @Nonnull
     String toStringID();
 
     /**
      * @param visitor
      *        visitor
      */
-    void accept(@Nonnull OWLIndividualVisitor visitor);
+    void accept(OWLIndividualVisitor visitor);
 
     /**
      * @param visitor
@@ -71,6 +66,5 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject,
      *        visitor return type
      * @return visitor ex type
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor);
+    <O> O accept(OWLIndividualVisitorEx<O> visitor);
 }

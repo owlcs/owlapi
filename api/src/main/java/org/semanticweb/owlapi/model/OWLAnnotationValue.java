@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
-
 /**
  * A marker interface for annotation values, which can either be an IRI (URI),
  * Literal or Anonymous Individual, with visitor methods.
@@ -35,7 +33,7 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      * @param visitor
      *        visitor to accept
      */
-    void accept(@Nonnull OWLAnnotationValueVisitor visitor);
+    void accept(OWLAnnotationValueVisitor visitor);
 
     /**
      * @param visitor
@@ -44,14 +42,12 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      *        visitor return type
      * @return visitor value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor);
+    <O> O accept(OWLAnnotationValueVisitorEx<O> visitor);
 
     /**
      * @return if the value is a literal, return an optional containing it.
      *         Return Optional.absent otherwise.
      */
-    @Nonnull
     default Optional<OWLLiteral> asLiteral() {
         return emptyOptional();
     }
@@ -60,7 +56,6 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      * @return if the value is an IRI, return an optional containing it. Return
      *         Optional.absent otherwise.
      */
-    @Nonnull
     default Optional<IRI> asIRI() {
         return emptyOptional();
     }
@@ -69,7 +64,6 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      * @return if the value is an anonymous, return an optional containing it.
      *         Return Optional.absent otherwise.
      */
-    @Nonnull
     default Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return emptyOptional();
     }

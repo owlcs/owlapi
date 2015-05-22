@@ -12,12 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents an <a
- * href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a> axiom
- * in the OWL 2 Specification.
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a>
+ * axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -33,7 +31,6 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
      * 
      * @return The class expression that represents the subclass in this axiom.
      */
-    @Nonnull
     OWLClassExpression getSubClass();
 
     /**
@@ -42,7 +39,6 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
      * @return The class expression that represents the superclass in this
      *         axiom.
      */
-    @Nonnull
     OWLClassExpression getSuperClass();
 
     /**
@@ -55,22 +51,22 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
     boolean isGCI();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -37,7 +35,6 @@ public interface HasDataPropertiesInSignature {
      *         changes are not reflected by the signature.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLDataProperty> getDataPropertiesInSignature() {
         return asSet(dataPropertiesInSignature());
     }
@@ -46,7 +43,6 @@ public interface HasDataPropertiesInSignature {
      * @return Stream of data properties that are in the signature of this
      *         object.
      */
-    @Nonnull
     default Stream<OWLDataProperty> dataPropertiesInSignature() {
         return empty();
     }

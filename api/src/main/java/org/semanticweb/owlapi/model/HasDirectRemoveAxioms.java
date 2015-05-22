@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
@@ -36,6 +34,5 @@ public interface HasDirectRemoveAxioms {
      * @throws OWLOntologyChangeException
      *         if there was a problem removing the axioms
      */
-    @Nonnull
-    ChangeApplied removeAxioms(@Nonnull Collection<? extends OWLAxiom> axioms);
+    ChangeApplied removeAxioms(Collection<? extends OWLAxiom> axioms);
 }

@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.change.AddAxiomData;
 
 /**
@@ -33,11 +31,10 @@ public class AddAxiom extends OWLAxiomChange {
      * @param axiom
      *        the axiom to be added
      */
-    public AddAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
+    public AddAxiom(OWLOntology ont, OWLAxiom axiom) {
         super(ont, axiom);
     }
 
-    @Nonnull
     @Override
     public AddAxiomData getChangeData() {
         return new AddAxiomData(getAxiom());
@@ -57,8 +54,7 @@ public class AddAxiom extends OWLAxiomChange {
             return false;
         }
         AddAxiom other = (AddAxiom) obj;
-        return other.getOntology().equals(getOntology())
-                && other.getAxiom().equals(getAxiom());
+        return other.getOntology().equals(getOntology()) && other.getAxiom().equals(getAxiom());
     }
 
     @Override
@@ -67,21 +63,20 @@ public class AddAxiom extends OWLAxiomChange {
     }
 
     @Override
-    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-    @Nonnull
     @Override
     public String toString() {
-        return "AddAxiom(" + getAxiom() + " OntologyID("
-                + getOntology().getOntologyID() + "))";
+        return "AddAxiom(" + getAxiom() + " OntologyID(" + getOntology().getOntologyID() + "))";
     }
+
     @Override
     public OWLOntologyChange reverseChange() {
         return new RemoveAxiom(getOntology(), getAxiom());

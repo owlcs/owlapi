@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * Base interface for visitors.
  */
@@ -13,7 +11,7 @@ public interface OWLVisitorBase {
      * @deprecated use doDefault() instead
      */
     @Deprecated
-    default void getDefaultReturnValue(@Nonnull Object object) {
+    default void getDefaultReturnValue(Object object) {
         doDefault(object);
     }
 
@@ -23,7 +21,7 @@ public interface OWLVisitorBase {
      * @param object
      *        The object that was visited.
      */
-    default void doDefault(@SuppressWarnings("unused") @Nonnull Object object) {}
+    default void doDefault(@SuppressWarnings("unused") Object object) {}
 
     /**
      * default behaviour. Override this method to change the behaviour of all

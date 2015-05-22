@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface for objects that listen to missing imports events.
  * 
@@ -32,5 +30,5 @@ public interface MissingImportListener extends Serializable {
      * @param event
      *        the missing import event
      */
-    void importMissing(@Nonnull MissingImportEvent event);
+    void importMissing(MissingImportEvent event);
 }

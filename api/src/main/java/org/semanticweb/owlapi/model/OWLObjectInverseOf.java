@@ -12,15 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents a <a
- * href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties"
- * >ObjectInverseOf</a> Represents the inverse of a property expression. This
- * can be used to refer to the inverse of a property, without actually naming
- * the property. For example, consider the property hasPart, the inverse
- * property of hasPart (isPartOf) can be referred to using this interface
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties" >
+ * ObjectInverseOf</a> Represents the inverse of a property expression. This can
+ * be used to refer to the inverse of a property, without actually naming the
+ * property. For example, consider the property hasPart, the inverse property of
+ * hasPart (isPartOf) can be referred to using this interface
  * inverseOf(hasPart), which can be used in restrictions e.g. inverseOf(hasPart)
  * some Car refers to the set of things that are part of at least one car.
  * 
@@ -36,7 +34,6 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
      * @return The object property expression such that this object property
      *         expression is an inverse of it.
      */
-    @Nonnull
     OWLObjectPropertyExpression getInverse();
 
     @Override
@@ -45,22 +42,22 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
     }
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
+    default void accept(OWLPropertyExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
+    default <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

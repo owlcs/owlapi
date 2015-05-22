@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 
 /**
@@ -44,11 +42,8 @@ public interface OWLOntologyFactory extends Serializable {
      * @throws OWLOntologyCreationException
      *         if the ontology could not be created.
      */
-    @Nonnull
-    OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntologyID ontologyID, @Nonnull IRI documentIRI,
-            @Nonnull OWLOntologyCreationHandler handler)
-            throws OWLOntologyCreationException;
+    OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID, IRI documentIRI,
+            OWLOntologyCreationHandler handler) throws OWLOntologyCreationException;
 
     /**
      * Creates and loads an {@code OWLOntology}.
@@ -70,12 +65,9 @@ public interface OWLOntologyFactory extends Serializable {
      * @throws OWLOntologyCreationException
      *         if the ontology could not be created
      */
-    @Nonnull
-    OWLOntology loadOWLOntology(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntologyCreationHandler handler,
-            @Nonnull OWLOntologyLoaderConfiguration configuration)
-            throws OWLOntologyCreationException;
+    OWLOntology loadOWLOntology(OWLOntologyManager manager, OWLOntologyDocumentSource documentSource,
+            OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration)
+                    throws OWLOntologyCreationException;
 
     /**
      * Determines if the factory can create an ontology for the specified
@@ -87,7 +79,7 @@ public interface OWLOntologyFactory extends Serializable {
      *         specified document IRI, or {@code false} if the factory cannot
      *         create an ontology given the specified document IRI.
      */
-    boolean canCreateFromDocumentIRI(@Nonnull IRI documentIRI);
+    boolean canCreateFromDocumentIRI(IRI documentIRI);
 
     /**
      * Determines if the factory can load an ontology for the specified input
@@ -98,8 +90,7 @@ public interface OWLOntologyFactory extends Serializable {
      * @return {@code true} if the factory can load from the specified input
      *         source.
      */
-            boolean
-            canAttemptLoading(@Nonnull OWLOntologyDocumentSource documentSource);
+    boolean canAttemptLoading(OWLOntologyDocumentSource documentSource);
 
     /**
      * An {@code OWLOntologyCreationHandler} gets notified when the factory has
@@ -122,7 +113,7 @@ public interface OWLOntologyFactory extends Serializable {
          * @param ontology
          *        The newly created ontology.
          */
-        void ontologyCreated(@Nonnull OWLOntology ontology);
+        void ontologyCreated(OWLOntology ontology);
 
         /**
          * @param ontology
@@ -130,7 +121,6 @@ public interface OWLOntologyFactory extends Serializable {
          * @param format
          *        the format
          */
-        void setOntologyFormat(@Nonnull OWLOntology ontology,
-                @Nonnull OWLDocumentFormat format);
+        void setOntologyFormat(OWLOntology ontology, OWLDocumentFormat format);
     }
 }

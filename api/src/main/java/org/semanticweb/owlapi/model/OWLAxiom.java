@@ -17,8 +17,6 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Axioms">Axioms</a> in
  * the OWL 2 Specification.<br>
@@ -35,7 +33,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @param visitor
      *        visitor to accept
      */
-    void accept(@Nonnull OWLAxiomVisitor visitor);
+    void accept(OWLAxiomVisitor visitor);
 
     /**
      * @param visitor
@@ -44,8 +42,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *        visitor return type
      * @return visitor value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor);
+    <O> O accept(OWLAxiomVisitorEx<O> visitor);
 
     /**
      * Gets an axiom that is structurally equivalent to this axiom without
@@ -54,7 +51,6 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * 
      * @return The annotationless version of this axiom
      */
-    @Nonnull
     OWLAxiom getAxiomWithoutAnnotations();
 
     /**
@@ -70,9 +66,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         existing annotations returned by the
      *         {@code OWLAxiom#getAnnotations()} method.
      */
-    @Nonnull
-    default OWLAxiom getAnnotatedAxiom(
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    default OWLAxiom getAnnotatedAxiom(Collection<OWLAnnotation> annotations) {
         return getAnnotatedAxiom(annotations.stream());
     }
 
@@ -89,8 +83,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         existing annotations returned by the
      *         {@code OWLAxiom#getAnnotations()} method.
      */
-    @Nonnull
-    OWLAxiom getAnnotatedAxiom(@Nonnull Stream<OWLAnnotation> annotations);
+    OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotations);
 
     /**
      * Determines if another axiom is equal to this axiom not taking into
@@ -101,9 +94,8 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @return {@code true} if {@code axiom} without annotations is equal to
      *         this axiom without annotations otherwise {@code false}.
      */
-    default boolean equalsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
-        return getAxiomWithoutAnnotations().equals(
-                axiom.getAxiomWithoutAnnotations());
+    default boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
+        return getAxiomWithoutAnnotations().equals(axiom.getAxiomWithoutAnnotations());
     }
 
     /**
@@ -143,7 +135,6 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * 
      * @return The axiom type that corresponds to the type of this axiom.
      */
-    @Nonnull
     AxiomType<?> getAxiomType();
 
     /**
@@ -155,7 +146,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         otherwise {@code false}
      * @since 3.0
      */
-    default boolean isOfType(@Nonnull AxiomType<?>... axiomTypes) {
+    default boolean isOfType(AxiomType<?>... axiomTypes) {
         return isOfType(Arrays.stream(axiomTypes));
     }
 
@@ -168,7 +159,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         otherwise {@code false}
      * @since 3.0
      */
-    default boolean isOfType(@Nonnull Set<AxiomType<?>> types) {
+    default boolean isOfType(Set<AxiomType<?>> types) {
         return types.contains(getAxiomType());
     }
 
@@ -181,7 +172,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         otherwise {@code false}
      * @since 3.0
      */
-    default boolean isOfType(@Nonnull Stream<AxiomType<?>> types) {
+    default boolean isOfType(Stream<AxiomType<?>> types) {
         return types.anyMatch((x) -> getAxiomType().equals(x));
     }
 
@@ -191,6 +182,5 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * 
      * @return The axiom in negation normal form.
      */
-    @Nonnull
     OWLAxiom getNNF();
 }

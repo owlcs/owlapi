@@ -17,12 +17,10 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents an <a
- * href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Individuals"
- * >ObjectOneOf</a> class expression in the OWL 2 Specification.
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Individuals" >
+ * ObjectOneOf</a> class expression in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -38,7 +36,6 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      *         class expression.
      */
     @Deprecated
-    @Nonnull
     default Set<? extends OWLIndividual> getIndividuals() {
         return asSet(individuals());
     }
@@ -50,7 +47,6 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      * @return The individiauls that are the values of this {@code ObjectOneOf}
      *         class expression.
      */
-    @Nonnull
     Stream<? extends OWLIndividual> individuals();
 
     /**
@@ -59,26 +55,25 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      * @return This enumeration in a more standard DL form. simp({a}) = {a}
      *         simp({a0, ... , {an}) = unionOf({a0}, ... , {an})
      */
-    @Nonnull
     OWLClassExpression asObjectUnionOf();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLClassExpressionVisitor visitor) {
+    default void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
+    default <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

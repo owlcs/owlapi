@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
@@ -26,18 +24,19 @@ import javax.annotation.Nonnull;
  */
 public interface SWRLBuiltInAtom extends SWRLAtom {
 
-    @Nonnull
     @Override
     IRI getPredicate();
 
-    /** @return list of arguments */
-    @Nonnull
+    /**
+     * @return list of arguments
+     */
     default List<SWRLDArgument> getArguments() {
         return asList(arguments());
     }
 
-    /** @return list of arguments */
-    @Nonnull
+    /**
+     * @return list of arguments
+     */
     Stream<SWRLDArgument> arguments();
 
     /**
@@ -48,12 +47,12 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     boolean isCoreBuiltIn();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

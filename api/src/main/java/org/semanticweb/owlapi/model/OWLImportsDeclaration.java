@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents an import statement in an ontology.
  * 
@@ -23,8 +21,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLImportsDeclaration extends
-        Comparable<OWLImportsDeclaration>, HasIRI, Serializable {
+public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration>, HasIRI, Serializable {
 
     /**
      * Gets the import IRI.
@@ -34,7 +31,6 @@ public interface OWLImportsDeclaration extends
      *         this is not mandated. For example, an ontology with a non
      *         resolvable ontology IRI can be deployed at a resolvable URL.
      */
-    @Nonnull
     @Override
     IRI getIRI();
 }

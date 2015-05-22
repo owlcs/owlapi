@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -33,7 +31,6 @@ public interface HasAnonymousIndividuals {
      * 
      * @return A set of anonymous individuals
      */
-    @Nonnull
     default Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return asSet(anonymousIndividuals());
     }
@@ -45,7 +42,6 @@ public interface HasAnonymousIndividuals {
      * 
      * @return A set of anonymous individuals
      */
-    @Nonnull
     default Stream<OWLAnonymousIndividual> anonymousIndividuals() {
         return empty();
     }

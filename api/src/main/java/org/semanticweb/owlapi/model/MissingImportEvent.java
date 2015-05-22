@@ -40,22 +40,21 @@ public class MissingImportEvent {
      * @param creationException
      *        the creation exception
      */
-    public MissingImportEvent(@Nonnull IRI ontologyIRI,
-            @Nonnull OWLOntologyCreationException creationException) {
-        this.ontologyIRI = checkNotNull(ontologyIRI,
-                "ontologyIRI cannot be null");
-        this.creationException = checkNotNull(creationException,
-                "creationException cannot be null");
+    public MissingImportEvent(IRI ontologyIRI, OWLOntologyCreationException creationException) {
+        this.ontologyIRI = checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
+        this.creationException = checkNotNull(creationException, "creationException cannot be null");
     }
 
-    /** @return the IRI */
-    @Nonnull
+    /**
+     * @return the IRI
+     */
     public IRI getImportedOntologyURI() {
         return ontologyIRI;
     }
 
-    /** @return the exception */
-    @Nonnull
+    /**
+     * @return the exception
+     */
     public OWLOntologyCreationException getCreationException() {
         return creationException;
     }

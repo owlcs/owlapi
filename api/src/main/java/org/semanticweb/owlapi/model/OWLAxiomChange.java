@@ -35,7 +35,7 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
      * @param axiom
      *        the axiom to be changed
      */
-    public OWLAxiomChange(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
+    public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
         super(ont);
         this.axiom = checkNotNull(axiom, "axiom cannot be null");
     }
@@ -50,7 +50,6 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
         return true;
     }
 
-    @Nonnull
     @Override
     public OWLAxiom getAxiom() {
         return axiom;

@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.util.Collection;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents an axiom that contains two or more operands that could also be
  * represented with multiple pairwise axioms.
@@ -39,7 +37,6 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
      * 
      * @return This axiom as a set of pairwise axioms.
      */
-    @Nonnull
     Set<? extends OWLNaryAxiom<C>> asPairwiseAxioms();
 
     /**
@@ -49,21 +46,23 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
      *        visitor to apply to all pairwise elements in this axiom
      * @return collection of all visitor return values that are not null
      */
-    @Nonnull
     <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor);
 
-    /** @param visitor
+    /**
+     * @param visitor
      *        visitor to apply to all pairwise elements in this axiom
      */
     void forEach(OWLPairwiseVoidVisitor<C> visitor);
 
-    /** @param visitor
+    /**
+     * @param visitor
      *        visitor to apply to all pairwise elements in this axiom
      * @return collection of all visitor return values that are not null
      */
     boolean anyMatch(OWLPairwiseBooleanVisitor<C> visitor);
 
-    /** @param visitor
+    /**
+     * @param visitor
      *        visitor to apply to all pairwise elements in this axiom
      * @return collection of all visitor return values that are not null
      */
@@ -81,6 +80,5 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
      * 
      * @return This axiom as a set of pairwise axioms, annotations included.
      */
-    @Nonnull
     Set<? extends OWLNaryAxiom<C>> splitToAnnotatedPairs();
 }

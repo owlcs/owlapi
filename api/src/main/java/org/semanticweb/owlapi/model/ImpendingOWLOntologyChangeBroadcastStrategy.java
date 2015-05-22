@@ -15,15 +15,12 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
  * @since 3.1.0
  */
-public interface ImpendingOWLOntologyChangeBroadcastStrategy extends
-        Serializable {
+public interface ImpendingOWLOntologyChangeBroadcastStrategy extends Serializable {
 
     /**
      * Broadcasts the list of changes to the specified listeners.
@@ -33,6 +30,5 @@ public interface ImpendingOWLOntologyChangeBroadcastStrategy extends
      * @param listener
      *        The listeners that the changes should be broadcast to
      */
-    void broadcastChanges(@Nonnull ImpendingOWLOntologyChangeListener listener,
-            @Nonnull List<? extends OWLOntologyChange> changes);
+    void broadcastChanges(ImpendingOWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes);
 }

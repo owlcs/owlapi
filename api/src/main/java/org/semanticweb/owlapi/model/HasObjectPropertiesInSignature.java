@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to an object that has a signature and can provide the object
  * properties that are contained in its signature.
@@ -40,7 +38,6 @@ public interface HasObjectPropertiesInSignature {
      *         changes are not reflected by the signature.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return asSet(objectPropertiesInSignature());
     }
@@ -49,7 +46,6 @@ public interface HasObjectPropertiesInSignature {
      * @return Stream of object properties that are in the signature of this
      *         object.
      */
-    @Nonnull
     default Stream<OWLObjectProperty> objectPropertiesInSignature() {
         return empty();
     }

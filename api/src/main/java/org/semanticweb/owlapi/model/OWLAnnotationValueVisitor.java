@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * A visitor that visits values of {@link OWLAnnotation}s and
  * {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
@@ -22,8 +20,7 @@ import javax.annotation.Nonnull;
  *         Management Group
  * @since 3.0.0
  */
-public interface OWLAnnotationValueVisitor extends
-        OWLAnonymousIndividualVisitorBase, OWLLiteralVisitorBase {
+public interface OWLAnnotationValueVisitor extends OWLAnonymousIndividualVisitorBase, OWLLiteralVisitorBase {
 
     /**
      * visit IRI type
@@ -31,7 +28,7 @@ public interface OWLAnnotationValueVisitor extends
      * @param iri
      *        object to visit
      */
-    default void visit(@Nonnull IRI iri) {
+    default void visit(IRI iri) {
         doDefault(iri);
     }
 }

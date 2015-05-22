@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * A change broadcast strategy that simple broadcasts all changes made to all
  * ontologies.
@@ -25,14 +23,12 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public class DefaultChangeBroadcastStrategy implements
-        OWLOntologyChangeBroadcastStrategy, Serializable {
+public class DefaultChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
-            @Nonnull List<? extends OWLOntologyChange> changes) {
+    public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
         // Just broadcast all changes
         listener.ontologiesChanged(changes);
     }

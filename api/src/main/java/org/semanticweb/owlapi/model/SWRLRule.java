@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represent a rule. A rule consists of a head and a body. Both the head and the
  * body consist of a conjunction of atoms.
@@ -37,7 +35,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @deprecated use {@link #body()}
      */
     @Deprecated
-    @Nonnull
     default Set<SWRLAtom> getBody() {
         return asSet(body());
     }
@@ -48,7 +45,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
      *         of the rule.
      */
-    @Nonnull
     Stream<SWRLAtom> body();
 
     /**
@@ -59,7 +55,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @deprecated use {@link #head()}
      */
     @Deprecated
-    @Nonnull
     default Set<SWRLAtom> getHead() {
         return asSet(head());
     }
@@ -70,7 +65,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
      *         of the rule
      */
-    @Nonnull
     Stream<SWRLAtom> head();
 
     /**
@@ -82,7 +76,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are
      *         transformed to p(x, y).
      */
-    @Nonnull
     SWRLRule getSimplified();
 
     /**
@@ -92,7 +85,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @deprecated use {@link #variables()}
      */
     @Deprecated
-    @Nonnull
     default Set<SWRLVariable> getVariables() {
         return asSet(variables());
     }
@@ -102,7 +94,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * 
      * @return A set of variables.
      */
-    @Nonnull
     Stream<SWRLVariable> variables();
 
     /**
@@ -121,7 +112,6 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @deprecated use {@link #classAtomPredicates()}
      */
     @Deprecated
-    @Nonnull
     default Set<OWLClassExpression> getClassAtomPredicates() {
         return asSet(classAtomPredicates());
     }
@@ -132,20 +122,18 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
      * @return A set of class expressions that represent the class class
      *         expressions that are predicates of class atoms.
      */
-    @Nonnull
     Stream<OWLClassExpression> classAtomPredicates();
 
-    @Nonnull
     @Override
     SWRLRule getAxiomWithoutAnnotations();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -160,12 +148,12 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

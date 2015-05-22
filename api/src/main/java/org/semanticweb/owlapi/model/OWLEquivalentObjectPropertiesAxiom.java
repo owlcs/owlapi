@@ -14,53 +14,49 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents <a href=
- * "http://www.w3.org/TR/owl2-syntax/#Equivalent_Object_Properties"
- * >EquivalentObjectProperties</a> axioms in the OWL 2 specification.
+ * Represents
+ * <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Object_Properties" >
+ * EquivalentObjectProperties</a> axioms in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLEquivalentObjectPropertiesAxiom extends
-        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
-        OWLObjectPropertyAxiom {
+public interface OWLEquivalentObjectPropertiesAxiom
+        extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     @Override
     OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
-    @Nonnull
     @Override
     Set<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-    @Nonnull
     Set<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs();
 
-    /** @return the axioms equivalent to the equivalent object property axiom */
-    @Nonnull
+    /**
+     * @return the axioms equivalent to the equivalent object property axiom
+     */
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

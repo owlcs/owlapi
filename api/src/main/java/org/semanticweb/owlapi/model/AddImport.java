@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.change.AddImportData;
 
@@ -34,12 +34,10 @@ public class AddImport extends ImportChange {
      * @param importDeclaration
      *        the import declaration
      */
-    public AddImport(@Nonnull OWLOntology ont,
-            @Nonnull OWLImportsDeclaration importDeclaration) {
+    public AddImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
     }
 
-    @Nonnull
     @Override
     public AddImportData getChangeData() {
         return new AddImportData(getImportDeclaration());
@@ -47,12 +45,11 @@ public class AddImport extends ImportChange {
 
     @Override
     public int hashCode() {
-        return getOntology().hashCode() * 37
-                + getImportDeclaration().hashCode();
+        return getOntology().hashCode() * 37 + getImportDeclaration().hashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }
@@ -63,20 +60,18 @@ public class AddImport extends ImportChange {
         return getImportDeclaration().equals(other.getImportDeclaration());
     }
 
-    @Nonnull
     @Override
     public String toString() {
-        return "AddImport(" + getImportDeclaration() + " OntologyID("
-                + getOntology().getOntologyID() + "))";
+        return "AddImport(" + getImportDeclaration() + " OntologyID(" + getOntology().getOntologyID() + "))";
     }
 
     @Override
-    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

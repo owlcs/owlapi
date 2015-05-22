@@ -19,7 +19,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.util.StringComparator;
@@ -36,14 +35,13 @@ public interface PrefixManager extends Serializable {
     /**
      * @return the prefix comparator currently used by the prefix manager
      */
-    @Nonnull
     StringComparator getPrefixComparator();
 
     /**
      * @param comparator
      *        the comparator to use
      */
-    void setPrefixComparator(@Nonnull StringComparator comparator);
+    void setPrefixComparator(StringComparator comparator);
 
     /**
      * Gets the default prefix. The default prefix is denoted by the prefix name
@@ -64,7 +62,7 @@ public interface PrefixManager extends Serializable {
      * @return {@code true} if the manager knows about this prefix and there is
      *         a non-null mapping for this prefix.
      */
-    boolean containsPrefixMapping(@Nonnull String prefixName);
+    boolean containsPrefixMapping(String prefixName);
 
     /**
      * Gets the prefix that is bound to a particular prefix name. Note that
@@ -80,7 +78,7 @@ public interface PrefixManager extends Serializable {
      *         this prefix, or the prefix name doesn't exist.
      */
     @Nullable
-    String getPrefix(@Nonnull String prefixName);
+    String getPrefix(String prefixName);
 
     /**
      * Gets a map that maps prefix names to prefixes.
@@ -89,7 +87,6 @@ public interface PrefixManager extends Serializable {
      *         contents of this map will not change the prefix name - prefix
      *         mappings
      */
-    @Nonnull
     Map<String, String> getPrefixName2PrefixMap();
 
     /**
@@ -104,8 +101,7 @@ public interface PrefixManager extends Serializable {
      *         if the prefix name of the prefix IRI doesn't have a corresponding
      *         prefix managed by this manager.
      */
-    @Nonnull
-    IRI getIRI(@Nonnull String prefixIRI);
+    IRI getIRI(String prefixIRI);
 
     /**
      * Gets the prefix IRI given a IRI (URI).
@@ -116,7 +112,7 @@ public interface PrefixManager extends Serializable {
      *         cannot be generated.
      */
     @Nullable
-    String getPrefixIRI(@Nonnull IRI iri);
+    String getPrefixIRI(IRI iri);
 
     /**
      * Gets the prefix names that have a mapping in this prefix manager.
@@ -125,7 +121,6 @@ public interface PrefixManager extends Serializable {
      * @deprecated use {@link #prefixNames()}
      */
     @Deprecated
-    @Nonnull
     default Set<String> getPrefixNames() {
         return asSet(prefixNames());
     }
@@ -135,7 +130,6 @@ public interface PrefixManager extends Serializable {
      * 
      * @return The prefix names as a set of strings.
      */
-    @Nonnull
     Stream<String> prefixNames();
 
     /**
@@ -146,7 +140,7 @@ public interface PrefixManager extends Serializable {
      *        The namespace to be used as the default namespace. Note that the
      *        value may be {@code null} in order to clear the default namespace.
      */
-    void setDefaultPrefix(@Nonnull String defaultPrefix);
+    void setDefaultPrefix(String defaultPrefix);
 
     /**
      * Adds a prefix name to prefix mapping.
@@ -156,7 +150,7 @@ public interface PrefixManager extends Serializable {
      * @param prefix
      *        The prefix.
      */
-    void setPrefix(@Nonnull String prefixName, @Nonnull String prefix);
+    void setPrefix(String prefixName, String prefix);
 
     /**
      * Copies the prefix from another prefix manager into this one.
@@ -164,7 +158,7 @@ public interface PrefixManager extends Serializable {
      * @param from
      *        The manager that the prefixes should be copied from
      */
-    void copyPrefixesFrom(@Nonnull PrefixManager from);
+    void copyPrefixesFrom(PrefixManager from);
 
     /**
      * Copies the prefix from another prefix manager into this one.
@@ -172,7 +166,7 @@ public interface PrefixManager extends Serializable {
      * @param from
      *        The map containing the prefixes
      */
-    void copyPrefixesFrom(@Nonnull Map<String, String> from);
+    void copyPrefixesFrom(Map<String, String> from);
 
     /**
      * Removes a previously registerd prefix namespace mapping.
@@ -180,7 +174,7 @@ public interface PrefixManager extends Serializable {
      * @param namespace
      *        The namespace to be removed.
      */
-    void unregisterNamespace(@Nonnull String namespace);
+    void unregisterNamespace(String namespace);
 
     /** Clear the map. */
     void clear();

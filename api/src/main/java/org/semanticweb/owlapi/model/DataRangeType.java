@@ -24,23 +24,18 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public enum DataRangeType
-        implements
-        Serializable,
-        HasShortForm,
-        HasPrefixedName,
-        HasIRI {
+public enum DataRangeType implements Serializable,HasShortForm,HasPrefixedName,HasIRI {
     /** Represents {@link org.semanticweb.owlapi.model.OWLDatatype}. */
-    DATATYPE("Datatype"),
-    /** Represents {@link OWLDataOneOf}. */
-    DATA_ONE_OF("DataOneOf"),
-    /** Represents {@link OWLDatatypeRestriction}. */
-    DATATYPE_RESTRICTION("DatatypeRestriction"),
-    /** Represents {@link OWLDataComplementOf}. */
-    DATA_COMPLEMENT_OF("DataComplementOf"),
-    /** Represents {@link OWLDataUnionOf}. */
-    DATA_UNION_OF("DataUnionOf"),
-    /** Represents {@link OWLDataIntersectionOf}. */
+    DATATYPE("Datatype"), /** Represents {@link OWLDataOneOf}. */
+    DATA_ONE_OF("DataOneOf"), /** Represents {@link OWLDatatypeRestriction}. */
+    DATATYPE_RESTRICTION(
+            "DatatypeRestriction"), /**
+                                     * Represents {@link OWLDataComplementOf}.
+                                     */
+    DATA_COMPLEMENT_OF(
+            "DataComplementOf"), /** Represents {@link OWLDataUnionOf}. */
+    DATA_UNION_OF(
+            "DataUnionOf"), /** Represents {@link OWLDataIntersectionOf}. */
     DATA_INTERSECTION_OF("DataIntersectionOf");
 
     @Nonnull
@@ -50,31 +45,29 @@ public enum DataRangeType
     @Nonnull
     private final IRI iri;
 
-    DataRangeType(@Nonnull String name) {
+    DataRangeType(String name) {
         this.name = name;
         prefixedName = Namespaces.OWL.getPrefixName() + ':' + name;
         iri = IRI.create(Namespaces.OWL.getPrefixIRI(), name);
     }
 
-    /** @return the name */
-    @Nonnull
+    /**
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
-    @Nonnull
     @Override
     public String getShortForm() {
         return name;
     }
 
-    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
-    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;

@@ -22,8 +22,7 @@ import javax.annotation.Nullable;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLOntologyAlreadyExistsException extends
-        OWLOntologyCreationException {
+public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationException {
 
     private static final long serialVersionUID = 40000L;
     private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
@@ -57,10 +56,8 @@ public class OWLOntologyAlreadyExistsException extends
      * @param documentIRI
      *        The IRI of the document where the load attempt occurred from
      */
-    public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID,
-            IRI documentIRI) {
-        super(ONTOLOGY_ALREADY_EXISTS + ontologyID
-                + " (New ontology loaded from " + documentIRI.toQuotedString()
+    public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI) {
+        super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString()
                 + ')');
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
@@ -96,11 +93,9 @@ public class OWLOntologyAlreadyExistsException extends
      * @param t
      *        the cause
      */
-    public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID,
-            IRI documentIRI, Throwable t) {
-        super(ONTOLOGY_ALREADY_EXISTS + ontologyID
-                + " (New ontology loaded from " + documentIRI.toQuotedString()
-                + ')', t);
+    public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI, Throwable t) {
+        super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString() + ')',
+                t);
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }
@@ -121,6 +116,7 @@ public class OWLOntologyAlreadyExistsException extends
      *         the ontology was created without loading it from an ontology
      *         document then the return value will be {@code null}.
      */
+    @Nullable
     public IRI getDocumentIRI() {
         return documentIRI;
     }

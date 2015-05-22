@@ -12,15 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
-    SWRLPredicate {
+public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRLPredicate {
 
     /**
      * Obtains the property that corresponds to the inverse of this property.
@@ -28,8 +25,7 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
      * @return The inverse of this property. Note that this property will not
      *         necessarily be in the simplest form.
      */
-    @Nonnull
-        OWLObjectPropertyExpression getInverseProperty();
+    OWLObjectPropertyExpression getInverseProperty();
 
     /**
      * Returns this property in its simplified form.
@@ -38,14 +34,12 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
      *         The simplification, 'simp', is defined as follows: simp(p) = p
      *         simp(inv(p)) = inv(p) simp(inv(inv(PE)) = simp(PE)
      */
-    @Nonnull
-        OWLObjectPropertyExpression getSimplified();
+    OWLObjectPropertyExpression getSimplified();
 
     /**
      * Get the named object property used in this property expression.
      * 
      * @return P if simp(PE) = inv(P) or P if simp(PE) = P.
      */
-    @Nonnull
-        OWLObjectProperty getNamedProperty();
+    OWLObjectProperty getNamedProperty();
 }

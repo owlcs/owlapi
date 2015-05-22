@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents a <a
- * href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
  * SubObjectPropertyOf</a> axiom in the OWL 2 Specification where the
  * subproperty is a chain of properties. Note that this axiom type is not
  * explicit in the OWL 2 specification, but it is included in the OWL API as a
@@ -40,7 +38,6 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
      * @return A list of object property expressions that represents the chain
      *         of properties that represent the subproperty in this axiom.
      */
-    @Nonnull
     List<OWLObjectPropertyExpression> getPropertyChain();
 
     /**
@@ -49,7 +46,6 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
      * @return The property expression that represents the superproperty in this
      *         expression.
      */
-    @Nonnull
     OWLObjectPropertyExpression getSuperProperty();
 
     /**
@@ -62,22 +58,22 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     boolean isEncodingOfTransitiveProperty();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

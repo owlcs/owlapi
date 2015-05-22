@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
@@ -32,7 +30,5 @@ public interface OWLOntologyChangesVetoedListener extends Serializable {
      * @param veto
      *        The cause of the veto.
      */
-    void ontologyChangesVetoed(
-            @Nonnull List<? extends OWLOntologyChange> changes,
-            @Nonnull OWLOntologyChangeVetoException veto);
+    void ontologyChangesVetoed(List<? extends OWLOntologyChange> changes, OWLOntologyChangeVetoException veto);
 }

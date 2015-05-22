@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
@@ -32,7 +30,6 @@ public interface OWLFacetRestriction extends OWLObject {
      * 
      * @return The restricted facet
      */
-    @Nonnull
     OWLFacet getFacet();
 
     /**
@@ -40,14 +37,13 @@ public interface OWLFacetRestriction extends OWLObject {
      * 
      * @return the restricting value
      */
-    @Nonnull
     OWLLiteral getFacetValue();
 
     /**
      * @param visitor
      *        visitor
      */
-    default void accept(@Nonnull OWLDataVisitor visitor) {
+    default void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -58,18 +54,17 @@ public interface OWLFacetRestriction extends OWLObject {
      *        visitor return type
      * @return visitor return value
      */
-    @Nonnull
-    default <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+    default <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

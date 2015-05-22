@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 /**
  * An interface for objects that can accept visits from axioms. (See the
  * <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
@@ -24,9 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
  * @param <O>
  *        visitor return type
  */
-@ParametersAreNonnullByDefault
-public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
-    OWLLogicalAxiomVisitorEx<O> {
+public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>, OWLLogicalAxiomVisitorEx<O> {
 
     /**
      * visit OWLDeclarationAxiom type

@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -37,7 +35,6 @@ public interface HasIndividualsInSignature {
      *         changes are not reflected by the signature.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLNamedIndividual> getIndividualsInSignature() {
         return asSet(individualsInSignature());
     }
@@ -46,7 +43,6 @@ public interface HasIndividualsInSignature {
      * @return Stream containing the individuals that are in the signature of
      *         this object.
      */
-    @Nonnull
     default Stream<OWLNamedIndividual> individualsInSignature() {
         return empty();
     }

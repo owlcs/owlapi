@@ -12,21 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * Represents a <a
- * href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Datatype</a> (named data
- * range) in the OWL 2 Specification.
+ * Represents a
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Datatype</a> (named
+ * data range) in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
-        OWLNamedObject {
+public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
 
     /**
      * Gets the built in datatype information if this datatype is a built in
@@ -37,7 +34,6 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
      * @throws OWLRuntimeException
      *         if this datatype is not a built in datatype.
      */
-    @Nonnull
     OWL2Datatype getBuiltInDatatype();
 
     /**
@@ -89,52 +85,52 @@ public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
     boolean isRDFPlainLiteral();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLEntityVisitor visitor) {
+    default void accept(OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
+    default <O> O accept(OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLNamedObjectVisitor visitor) {
+    default void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLDataVisitor visitor) {
+    default void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+    default <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLDataRangeVisitor visitor) {
+    default void accept(OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
+    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

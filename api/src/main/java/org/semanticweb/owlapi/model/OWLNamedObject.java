@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents a named object for example, class, property, ontology etc. - i.e.
  * anything that has an IRI as its name.
@@ -30,7 +28,7 @@ public interface OWLNamedObject extends OWLObject, HasIRI {
      * @param visitor
      *        The visitor
      */
-    void accept(@Nonnull OWLNamedObjectVisitor visitor);
+    void accept(OWLNamedObjectVisitor visitor);
 
     /**
      * Accepts a visitor.
@@ -41,6 +39,5 @@ public interface OWLNamedObject extends OWLObject, HasIRI {
      *        The visitor
      * @return visitor return value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor);
+    <O> O accept(OWLNamedObjectVisitorEx<O> visitor);
 }

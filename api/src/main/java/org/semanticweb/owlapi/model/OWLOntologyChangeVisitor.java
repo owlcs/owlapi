@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -28,7 +26,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    default void visit(@Nonnull AddAxiom change) {}
+    default void visit(AddAxiom change) {}
 
     /**
      * visit RemoveAxiom type
@@ -36,7 +34,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    default void visit(@Nonnull RemoveAxiom change) {}
+    default void visit(RemoveAxiom change) {}
 
     /**
      * visit SetOntologyID type
@@ -44,7 +42,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    default void visit(@Nonnull SetOntologyID change) {}
+    default void visit(SetOntologyID change) {}
 
     /**
      * visit AddImport type
@@ -52,7 +50,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    default void visit(@Nonnull AddImport change) {}
+    default void visit(AddImport change) {}
 
     /**
      * visit RemoveImport type
@@ -60,7 +58,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    default void visit(@Nonnull RemoveImport change) {}
+    default void visit(RemoveImport change) {}
 
     /**
      * visit AddOntologyAnnotation type
@@ -68,7 +66,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    default void visit(@Nonnull AddOntologyAnnotation change) {}
+    default void visit(AddOntologyAnnotation change) {}
 
     /**
      * visit RemoveOntologyAnnotation type
@@ -76,5 +74,5 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    default void visit(@Nonnull RemoveOntologyAnnotation change) {}
+    default void visit(RemoveOntologyAnnotation change) {}
 }

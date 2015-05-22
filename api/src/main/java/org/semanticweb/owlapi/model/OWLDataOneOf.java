@@ -17,12 +17,10 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents <a
- * href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals"
- * >DataOneOf</a> in the OWL 2 Specification.
+ * Represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals" >
+ * DataOneOf</a> in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -36,7 +34,6 @@ public interface OWLDataOneOf extends OWLDataRange {
      * @return The values that this data range consists of.
      */
     @Deprecated
-    @Nonnull
     default Set<? extends OWLLiteral> getValues() {
         return asSet(values());
     }
@@ -46,36 +43,35 @@ public interface OWLDataOneOf extends OWLDataRange {
      * 
      * @return The values that this data range consists of.
      */
-    @Nonnull
     Stream<? extends OWLLiteral> values();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLDataVisitor visitor) {
+    default void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+    default <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLDataRangeVisitor visitor) {
+    default void accept(OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
+    default <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

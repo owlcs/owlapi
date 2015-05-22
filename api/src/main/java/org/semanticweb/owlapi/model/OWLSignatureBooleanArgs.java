@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
@@ -37,7 +35,6 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         import closure. The set that is returned is a copy of the data.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLClass> getClassesInSignature(boolean includeImportsClosure) {
         return getClassesInSignature(Imports.fromBoolean(includeImportsClosure));
     }
@@ -53,11 +50,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLObjectProperty> getObjectPropertiesInSignature(
-            boolean includeImportsClosure) {
-        return getObjectPropertiesInSignature(Imports
-                .fromBoolean(includeImportsClosure));
+    default Set<OWLObjectProperty> getObjectPropertiesInSignature(boolean includeImportsClosure) {
+        return getObjectPropertiesInSignature(Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -71,11 +65,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLDataProperty> getDataPropertiesInSignature(
-            boolean includeImportsClosure) {
-        return getDataPropertiesInSignature(Imports
-                .fromBoolean(includeImportsClosure));
+    default Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure) {
+        return getDataPropertiesInSignature(Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -88,11 +79,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         import closure. The set that is returned is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLNamedIndividual> getIndividualsInSignature(
-            boolean includeImportsClosure) {
-        return getIndividualsInSignature(Imports
-                .fromBoolean(includeImportsClosure));
+    default Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure) {
+        return getIndividualsInSignature(Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -104,11 +92,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @return The set of referenced anonymous individuals
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
-            boolean includeImportsClosure) {
-        return getReferencedAnonymousIndividuals(Imports
-                .fromBoolean(includeImportsClosure));
+    default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(boolean includeImportsClosure) {
+        return getReferencedAnonymousIndividuals(Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -121,11 +106,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLDatatype> getDatatypesInSignature(
-            boolean includeImportsClosure) {
-        return getDatatypesInSignature(Imports
-                .fromBoolean(includeImportsClosure));
+    default Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure) {
+        return getDatatypesInSignature(Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -139,11 +121,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
-            boolean includeImportsClosure) {
-        return getAnnotationPropertiesInSignature(Imports
-                .fromBoolean(includeImportsClosure));
+    default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(boolean includeImportsClosure) {
+        return getAnnotationPropertiesInSignature(Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -157,10 +136,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         reference to the specified entity.
      */
     @Deprecated
-    default boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
-            boolean includeImportsClosure) {
-        return containsEntityInSignature(owlEntity,
-                Imports.fromBoolean(includeImportsClosure));
+    default boolean containsEntityInSignature(OWLEntity owlEntity, boolean includeImportsClosure) {
+        return containsEntityInSignature(owlEntity, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -174,10 +151,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         with the specified IRI.
      */
     @Deprecated
-    default boolean containsEntityInSignature(@Nonnull IRI entityIRI,
-            boolean includeImportsClosure) {
-        return containsEntityInSignature(entityIRI,
-                Imports.fromBoolean(includeImportsClosure));
+    default boolean containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure) {
+        return containsEntityInSignature(entityIRI, Imports.fromBoolean(includeImportsClosure));
     }
 
     // Access by IRI
@@ -193,10 +168,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         with the specified IRI.
      */
     @Deprecated
-    default boolean containsClassInSignature(@Nonnull IRI owlClassIRI,
-            boolean includeImportsClosure) {
-        return containsClassInSignature(owlClassIRI,
-                Imports.fromBoolean(includeImportsClosure));
+    default boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
+        return containsClassInSignature(owlClassIRI, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -211,10 +184,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         property with the specified IRI.
      */
     @Deprecated
-    default boolean containsObjectPropertyInSignature(
-            @Nonnull IRI owlObjectPropertyIRI, boolean includeImportsClosure) {
-        return containsObjectPropertyInSignature(owlObjectPropertyIRI,
-                Imports.fromBoolean(includeImportsClosure));
+    default boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI, boolean includeImportsClosure) {
+        return containsObjectPropertyInSignature(owlObjectPropertyIRI, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -229,10 +200,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         property with the specified IRI.
      */
     @Deprecated
-    default boolean containsDataPropertyInSignature(
-            @Nonnull IRI owlDataPropertyIRI, boolean includeImportsClosure) {
-        return containsDataPropertyInSignature(owlDataPropertyIRI,
-                Imports.fromBoolean(includeImportsClosure));
+    default boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI, boolean includeImportsClosure) {
+        return containsDataPropertyInSignature(owlDataPropertyIRI, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -247,10 +216,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         annotation property with the specified IRI.
      */
     @Deprecated
-    default boolean
-            containsAnnotationPropertyInSignature(
-                    @Nonnull IRI owlAnnotationPropertyIRI,
-                    boolean includeImportsClosure) {
+    default boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI, boolean includeImportsClosure) {
         return containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI,
                 Imports.fromBoolean(includeImportsClosure));
     }
@@ -267,10 +233,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         with the specified IRI.
      */
     @Deprecated
-    default boolean containsDatatypeInSignature(@Nonnull IRI owlDatatypeIRI,
-            boolean includeImportsClosure) {
-        return containsDatatypeInSignature(owlDatatypeIRI,
-                Imports.fromBoolean(includeImportsClosure));
+    default boolean containsDatatypeInSignature(IRI owlDatatypeIRI, boolean includeImportsClosure) {
+        return containsDatatypeInSignature(owlDatatypeIRI, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -285,10 +249,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         individual with the specified IRI.
      */
     @Deprecated
-    default boolean containsIndividualInSignature(
-            @Nonnull IRI owlIndividualIRI, boolean includeImportsClosure) {
-        return containsIndividualInSignature(owlIndividualIRI,
-                Imports.fromBoolean(includeImportsClosure));
+    default boolean containsIndividualInSignature(IRI owlIndividualIRI, boolean includeImportsClosure) {
+        return containsIndividualInSignature(owlIndividualIRI, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -302,11 +264,8 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *         the ones in the import closure.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri,
-            boolean includeImportsClosure) {
-        return getEntitiesInSignature(iri,
-                Imports.fromBoolean(includeImportsClosure));
+    default Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure) {
+        return getEntitiesInSignature(iri, Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -317,9 +276,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @return true if entity is referenced
      */
     @Deprecated
-    default boolean containsReference(@Nonnull OWLEntity entity,
-            boolean includeImportsClosure) {
-        return containsReference(entity,
-                Imports.fromBoolean(includeImportsClosure));
+    default boolean containsReference(OWLEntity entity, boolean includeImportsClosure) {
+        return containsReference(entity, Imports.fromBoolean(includeImportsClosure));
     }
 }

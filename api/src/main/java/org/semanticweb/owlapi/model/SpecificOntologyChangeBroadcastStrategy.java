@@ -27,8 +27,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SpecificOntologyChangeBroadcastStrategy implements
-        OWLOntologyChangeBroadcastStrategy {
+public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -41,18 +40,16 @@ public class SpecificOntologyChangeBroadcastStrategy implements
      * @param ontology
      *        The ontology.
      */
-    public SpecificOntologyChangeBroadcastStrategy(@Nonnull OWLOntology ontology) {
+    public SpecificOntologyChangeBroadcastStrategy(OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
     }
 
     @Override
-    public void broadcastChanges(OWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange> changes) {
+    public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
-        List<OWLOntologyChange> broadcastChanges = asList(changes.stream()
-                .filter(c -> c.getOntology().equals(ontology)),
-                OWLOntologyChange.class);
+        List<OWLOntologyChange> broadcastChanges = asList(
+                changes.stream().filter(c -> c.getOntology().equals(ontology)), OWLOntologyChange.class);
         listener.ontologiesChanged(broadcastChanges);
     }
 }

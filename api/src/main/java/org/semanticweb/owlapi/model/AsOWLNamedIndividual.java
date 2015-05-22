@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /** Convert to OWLNamedIndividual interface. */
 public interface AsOWLNamedIndividual {
 
@@ -25,12 +23,10 @@ public interface AsOWLNamedIndividual {
      *         if this entity is not an OWLIndividual (check with the
      *         isOWLIndividual method first).
      */
-    @Nonnull
     default OWLNamedIndividual asOWLNamedIndividual() {
         if (isOWLNamedIndividual()) {
             return (OWLNamedIndividual) this;
         }
-        throw new ClassCastException(getClass().getName()
-            + "is not an OWLNamedIndividual");
+        throw new ClassCastException(getClass().getName() + "is not an OWLNamedIndividual");
     }
 }

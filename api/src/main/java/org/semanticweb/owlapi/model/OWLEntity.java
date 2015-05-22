@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
@@ -23,16 +21,14 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive,
-        AsOWLClass, AsOWLDataProperty, AsOWLDatatype, AsOWLAnnotationProperty,
-        AsOWLNamedIndividual, AsOWLObjectProperty {
+public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty,
+        AsOWLDatatype, AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
 
     /**
      * Gets the entity type for this entity.
      * 
      * @return The entity type
      */
-    @Nonnull
     EntityType<?> getEntityType();
 
     /**
@@ -43,7 +39,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive,
      * @return {@code true} if this entity is of the specified type, otherwise
      *         {@code false}.
      */
-    boolean isType(@Nonnull EntityType<?> entityType);
+    boolean isType(EntityType<?> entityType);
 
     /**
      * Determines if this entity is a built in entity. The entity is a built in
@@ -82,14 +78,13 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive,
      * 
      * @return A string representing the toString of the IRI of this entity.
      */
-    @Nonnull
     String toStringID();
 
     /**
      * @param visitor
      *        visitor
      */
-    void accept(@Nonnull OWLEntityVisitor visitor);
+    void accept(OWLEntityVisitor visitor);
 
     /**
      * @param visitor
@@ -98,6 +93,5 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive,
      *        visitor return type
      * @return visitor return value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor);
+    <O> O accept(OWLEntityVisitorEx<O> visitor);
 }

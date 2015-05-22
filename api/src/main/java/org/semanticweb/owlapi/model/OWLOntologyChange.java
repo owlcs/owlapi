@@ -36,7 +36,7 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      * @param ont
      *        the ontology to which the change is to be applied
      */
-    public OWLOntologyChange(@Nonnull OWLOntology ont) {
+    public OWLOntologyChange(OWLOntology ont) {
         this.ont = checkNotNull(ont, "ontology must not be null");
     }
 
@@ -81,10 +81,9 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      *         change is not an axiom change (check with the
      *         {@code isAxiomChange} method first).
      */
-    @Nonnull
     public OWLAxiom getAxiom() {
-        throw new UnsupportedOperationException("This is an "
-                + getClass().getSimpleName() + ", not an axiom change: " + this);
+        throw new UnsupportedOperationException(
+                "This is an " + getClass().getSimpleName() + ", not an axiom change: " + this);
     }
 
     /**
@@ -103,7 +102,6 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      * 
      * @return The ontology that the change is applicable to
      */
-    @Nonnull
     public OWLOntology getOntology() {
         return ont;
     }
@@ -115,7 +113,6 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      * @return The {@link OWLOntologyChangeData} associated with this
      *         {@code OWLOntologyChange}.
      */
-    @Nonnull
     public abstract OWLOntologyChangeData getChangeData();
 
     /**
@@ -128,7 +125,6 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      *         {@code OWLOntologyChange}'s {@link OWLOntology}. Not {@code null}
      *         .
      */
-    @Nonnull
     public OWLOntologyChangeRecord getChangeRecord() {
         return new OWLOntologyChangeRecord(ont.getOntologyID(), getChangeData());
     }
@@ -139,7 +135,7 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      * @param visitor
      *        The visitor
      */
-    public abstract void accept(@Nonnull OWLOntologyChangeVisitor visitor);
+    public abstract void accept(OWLOntologyChangeVisitor visitor);
 
     /**
      * Accepts a visitor.
@@ -150,9 +146,7 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      *        visitor return type
      * @return visitor value
      */
-    @Nonnull
-    public abstract <O> O
-            accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor);
+    public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);
 
     /**
      * @return the reverse of this change; can be used to create undo changes.

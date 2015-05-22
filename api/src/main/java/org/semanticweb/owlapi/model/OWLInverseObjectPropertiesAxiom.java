@@ -14,12 +14,10 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
- * Represents an <a
- * href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties_2"
- * >InverseObjectProperties</a> axiom in the OWL 2 Specification. <br>
+ * Represents an
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties_2" >
+ * InverseObjectProperties</a> axiom in the OWL 2 Specification. <br>
  * Represents a statement that two properties are the inverse of each other.
  * This property axiom contains a set of two properties. inverseOf(P, Q) is
  * considered to be equal to inverseOf(Q, P) - i.e. the order in which the
@@ -29,50 +27,50 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLInverseObjectPropertiesAxiom extends
-        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
-        OWLObjectPropertyAxiom {
+public interface OWLInverseObjectPropertiesAxiom
+        extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     @Override
     OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
-    @Nonnull
     @Override
     Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
 
     @Override
-    @Nonnull
     Set<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
 
-    /** @return the first of the two object properties. */
-    @Nonnull
+    /**
+     * @return the first of the two object properties.
+     */
     OWLObjectPropertyExpression getFirstProperty();
 
-    /** @return the second of the two object properties. */
-    @Nonnull
+    /**
+     * @return the second of the two object properties.
+     */
     OWLObjectPropertyExpression getSecondProperty();
 
-    /** @return the set of subproperty axioms equivalent */
-    @Nonnull
+    /**
+     * @return the set of subproperty axioms equivalent
+     */
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLAxiomVisitor visitor) {
+    default void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
+    default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

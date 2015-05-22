@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -32,8 +30,7 @@ public interface HasGetEntitiesInSignature {
      * @return entities with IRI equal to entityIRI
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI entityIRI) {
+    default Set<OWLEntity> getEntitiesInSignature(IRI entityIRI) {
         return asSet(entitiesInSignature(entityIRI));
     }
 
@@ -42,6 +39,5 @@ public interface HasGetEntitiesInSignature {
      *        IRI for all entities to retrieve
      * @return stream of entities with IRI equal to entityIRI
      */
-    @Nonnull
-    Stream<OWLEntity> entitiesInSignature(@Nonnull IRI entityIRI);
+    Stream<OWLEntity> entitiesInSignature(IRI entityIRI);
 }

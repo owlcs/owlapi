@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /** Convert to OWLDataProperty interface. */
 public interface AsOWLDataProperty {
 
@@ -25,12 +23,10 @@ public interface AsOWLDataProperty {
      *         if this entity is not an OWLDataProperty (check with the
      *         isOWLDataProperty method first).
      */
-    @Nonnull
     default OWLDataProperty asOWLDataProperty() {
         if (isOWLDataProperty()) {
             return (OWLDataProperty) this;
         }
-        throw new ClassCastException(getClass().getName()
-            + "is not an OWLDataProperty");
+        throw new ClassCastException(getClass().getName() + "is not an OWLDataProperty");
     }
 }

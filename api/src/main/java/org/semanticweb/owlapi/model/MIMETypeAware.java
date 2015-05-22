@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -33,7 +32,6 @@ public interface MIMETypeAware {
      * @return A list of strings containing the known MIME types for this
      *         format.
      */
-    @Nonnull
     List<String> getMIMETypes();
 
     /**
@@ -44,5 +42,5 @@ public interface MIMETypeAware {
      *        The MIME type to match against.
      * @return True if the given MIME type matches this format.
      */
-    boolean handlesMimeType(@Nonnull String mimeType);
+    boolean handlesMimeType(String mimeType);
 }

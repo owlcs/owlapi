@@ -18,25 +18,24 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryBooleanClassExpression extends
-        OWLBooleanClassExpression {
+public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression {
 
-    /** @return the class expressions */
+    /**
+     * @return the class expressions
+     */
     @Deprecated
-    @Nonnull
     default Set<? extends OWLClassExpression> getOperands() {
         return asSet(operands());
     }
 
-    /** @return the class expressions */
-    @Nonnull
+    /**
+     * @return the class expressions
+     */
     Stream<? extends OWLClassExpression> operands();
 
     /**
@@ -45,7 +44,6 @@ public interface OWLNaryBooleanClassExpression extends
      * 
      * @return The class expressions as a list.
      */
-    @Nonnull
     default List<? extends OWLClassExpression> getOperandsAsList() {
         return asList(operands());
     }

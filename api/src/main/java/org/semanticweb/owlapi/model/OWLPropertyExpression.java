@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents a property or possibly the inverse of a property.
  * 
@@ -21,14 +19,14 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyExpression extends OWLObject, IsAnonymous,
-    AsOWLObjectProperty, AsOWLDataProperty, AsOWLAnnotationProperty {
+public interface OWLPropertyExpression
+        extends OWLObject, IsAnonymous, AsOWLObjectProperty, AsOWLDataProperty, AsOWLAnnotationProperty {
 
     /**
      * @param visitor
      *        visitor to accept
      */
-        void accept(@Nonnull OWLPropertyExpressionVisitor visitor);
+    void accept(OWLPropertyExpressionVisitor visitor);
 
     /**
      * @param visitor
@@ -37,8 +35,7 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous,
      *        visitor return type
      * @return visitor value
      */
-    @Nonnull
-    <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor);
+    <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
 
     /**
      * @return true if this is a data property
@@ -54,8 +51,7 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous,
         if (isDataPropertyExpression()) {
             return (OWLDataPropertyExpression) this;
         }
-        throw new ClassCastException(getClass().getName()
-            + "is not an OWLDataPropertyExpression");
+        throw new ClassCastException(getClass().getName() + "is not an OWLDataPropertyExpression");
     }
 
     /**
@@ -72,8 +68,7 @@ public interface OWLPropertyExpression extends OWLObject, IsAnonymous,
         if (isObjectPropertyExpression()) {
             return (OWLObjectPropertyExpression) this;
         }
-        throw new ClassCastException(getClass().getName()
-            + "is not an OWLObjectPropertyExpression");
+        throw new ClassCastException(getClass().getName() + "is not an OWLObjectPropertyExpression");
     }
 
     /**

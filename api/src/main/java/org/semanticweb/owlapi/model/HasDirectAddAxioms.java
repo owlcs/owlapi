@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
@@ -26,7 +24,6 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  *         Research Group
  * @since 3.5
  */
-@ParametersAreNonnullByDefault
 public interface HasDirectAddAxioms {
 
     /**

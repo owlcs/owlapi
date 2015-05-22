@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
@@ -28,8 +26,8 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @author ignazio
  * @since 4.0.0
  */
-public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
-        HasAxiomsByType, HasContainsAxiom, HasImportsClosure {
+public interface OWLAxiomCollection
+        extends HasAxioms, HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, HasImportsClosure {
 
     /**
      * @param includeImportsClosure
@@ -38,8 +36,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         import closure. The set that is returned is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAxiom> getAxioms(@Nonnull Imports includeImportsClosure) {
+    default Set<OWLAxiom> getAxioms(Imports includeImportsClosure) {
         return asSet(axioms(includeImportsClosure));
     }
 
@@ -49,8 +46,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return stream of All of the axioms in this collection, and optionally in
      *         the import closure.
      */
-    @Nonnull
-    default Stream<OWLAxiom> axioms(@Nonnull Imports imports) {
+    default Stream<OWLAxiom> axioms(Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms());
     }
 
@@ -65,7 +61,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return The number of axioms in this ontology, and optionally in the
      *         imports closure.
      */
-    int getAxiomCount(@Nonnull Imports includeImportsClosure);
+    int getAxiomCount(Imports includeImportsClosure);
 
     /**
      * Gets all axioms semantically relevant, i.e., all axioms that are not
@@ -78,9 +74,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         returned is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLLogicalAxiom> getLogicalAxioms(
-            @Nonnull Imports includeImportsClosure) {
+    default Set<OWLLogicalAxiom> getLogicalAxioms(Imports includeImportsClosure) {
         return asSet(logicalAxioms(includeImportsClosure));
     }
 
@@ -93,8 +87,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return A stream of axioms which are of type {@code OWLLogicalAxiom},
      *         optionally including the imports closure.
      */
-    @Nonnull
-    default Stream<OWLLogicalAxiom> logicalAxioms(@Nonnull Imports imports) {
+    default Stream<OWLLogicalAxiom> logicalAxioms(Imports imports) {
         return imports.stream(this).flatMap(o -> o.logicalAxioms());
     }
 
@@ -114,7 +107,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return The number of axioms in this collection, optionally including the
      *         imports closure.
      */
-    int getLogicalAxiomCount(@Nonnull Imports includeImportsClosure);
+    int getLogicalAxiomCount(Imports includeImportsClosure);
 
     /**
      * Gets all axioms of the specified type.
@@ -127,10 +120,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param <T>
      *        axiom type
      */
-    @Nonnull
-    default <T extends OWLAxiom> Set<T> getAxioms(
-            @Nonnull AxiomType<T> axiomType,
-            @Nonnull Imports includeImportsClosure) {
+    default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, Imports includeImportsClosure) {
         return asSet(axioms(axiomType, includeImportsClosure));
     }
 
@@ -145,9 +135,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param <T>
      *        axiom type
      */
-    @Nonnull
-    default <T extends OWLAxiom> Stream<T> axioms(
-            @Nonnull AxiomType<T> axiomType, @Nonnull Imports imports) {
+    default <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(axiomType));
     }
 
@@ -160,7 +148,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        axiom type class
      * @return The number of the specified types of axioms in this collection
      */
-    <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType);
+    <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType);
 
     /**
      * Gets the axiom count of a specific type of axiom, optionally including
@@ -174,8 +162,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        axiom type
      * @return The number of the specified types of axioms in this collection
      */
-    <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType,
-            @Nonnull Imports includeImportsClosure);
+    <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType, Imports includeImportsClosure);
 
     /**
      * Determines if this ontology contains the specified axiom, optionally
@@ -195,9 +182,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        {@code S}.
      * @return {@code true} if the ontology contains the specified axiom.
      */
-    boolean containsAxiom(@Nonnull OWLAxiom axiom,
-            @Nonnull Imports includeImportsClosure,
-            @Nonnull AxiomAnnotations ignoreAnnotations);
+    boolean containsAxiom(OWLAxiom axiom, Imports includeImportsClosure, AxiomAnnotations ignoreAnnotations);
 
     /**
      * Determines if this ontology contains the specified axiom.
@@ -206,7 +191,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        The axiom to search.
      * @return {@code true} if the ontology contains the specified axiom.
      */
-    boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom);
+    boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom);
 
     /**
      * Gets the set of axioms contained in this collection that have the same
@@ -223,8 +208,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
      *         will be contained in the set.
      */
-    @Nonnull
-    Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom);
+    Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom);
 
     /**
      * Gets the set of axioms contained in this collection that have the same
@@ -243,9 +227,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
      *         will be contained in the set.
      */
-    @Nonnull
-    Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
-            @Nonnull Imports includeImportsClosure);
+    Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, Imports includeImportsClosure);
 
     /**
      * Gets the axioms where the specified {@link OWLPrimitive} appears in the
@@ -261,8 +243,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return All axioms referencing the entity. The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity) {
+    default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity) {
         return asSet(referencingAxioms(owlEntity));
     }
 
@@ -279,8 +260,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        the results set.
      * @return Stream of all axioms referencing the entity.
      */
-    @Nonnull
-    Stream<OWLAxiom> referencingAxioms(@Nonnull OWLPrimitive owlEntity);
+    Stream<OWLAxiom> referencingAxioms(OWLPrimitive owlEntity);
 
     /**
      * Gets the axioms where the specified {@link OWLPrimitive} appears in the
@@ -298,9 +278,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return All axioms referencing the entity. The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
-            @Nonnull Imports includeImportsClosure) {
+    default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity, Imports includeImportsClosure) {
         return asSet(referencingAxioms(owlEntity, includeImportsClosure));
     }
 
@@ -319,11 +297,8 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        if INCLUDED, include imports closure.
      * @return stream of all axioms referencing the entity.
      */
-    @Nonnull
-    default Stream<OWLAxiom> referencingAxioms(@Nonnull OWLPrimitive owlEntity,
-            @Nonnull Imports imports) {
-        return imports.stream(this)
-                .flatMap(o -> o.referencingAxioms(owlEntity));
+    default Stream<OWLAxiom> referencingAxioms(OWLPrimitive owlEntity, Imports imports) {
+        return imports.stream(this).flatMap(o -> o.referencingAxioms(owlEntity));
     }
 
     // Axioms that form part of a description of a named entity
@@ -346,8 +321,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The returned set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls) {
+    default Set<OWLClassAxiom> getAxioms(OWLClass cls) {
         return asSet(axioms(cls));
     }
 
@@ -370,8 +344,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The returned set is a copy of the data.
      */
-    @Nonnull
-    Stream<OWLClassAxiom> axioms(@Nonnull OWLClass cls);
+    Stream<OWLClassAxiom> axioms(OWLClass cls);
 
     /**
      * Gets the axioms that form the definition/description of a class.
@@ -394,9 +367,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The returned set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls,
-            @Nonnull Imports includeImportsClosure) {
+    default Set<OWLClassAxiom> getAxioms(OWLClass cls, Imports includeImportsClosure) {
         return asSet(axioms(cls, includeImportsClosure));
     }
 
@@ -420,9 +391,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         class that is equivalent to the disjoint union</li>
      *         </ul>
      */
-    @Nonnull
-    default Stream<OWLClassAxiom> axioms(@Nonnull OWLClass cls,
-            @Nonnull Imports imports) {
+    default Stream<OWLClassAxiom> axioms(OWLClass cls, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(cls));
     }
 
@@ -440,10 +409,12 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         specified property</li>
      *         <li>Equivalent property axioms that contain the inverse of the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
@@ -453,9 +424,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set that is returned is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLObjectPropertyAxiom> getAxioms(
-            @Nonnull OWLObjectPropertyExpression property) {
+    default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property) {
         return asSet(axioms(property));
     }
 
@@ -473,10 +442,12 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         specified property</li>
      *         <li>Equivalent property axioms that contain the inverse of the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
@@ -485,9 +456,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set that is returned is a copy of the data.
      */
-    @Nonnull
-    Stream<OWLObjectPropertyAxiom> axioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    Stream<OWLObjectPropertyAxiom> axioms(OWLObjectPropertyExpression property);
 
     /**
      * Gets the axioms that form the definition/description of an object
@@ -505,10 +474,12 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         specified property</li>
      *         <li>Equivalent property axioms that contain the inverse of the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
@@ -518,10 +489,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set that is returned is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLObjectPropertyAxiom> getAxioms(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Imports includeImportsClosure) {
+    default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property, Imports includeImportsClosure) {
         return asSet(axioms(property, includeImportsClosure));
     }
 
@@ -541,10 +509,12 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         specified property</li>
      *         <li>Equivalent property axioms that contain the inverse of the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
@@ -552,10 +522,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </li>
      *         </ul>
      */
-    @Nonnull
-    default Stream<OWLObjectPropertyAxiom> axioms(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Imports imports) {
+    default Stream<OWLObjectPropertyAxiom> axioms(OWLObjectPropertyExpression property, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(property));
     }
 
@@ -570,10 +537,12 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         property</li>
      *         <li>Equivalent property axioms where the axiom contains the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
@@ -581,9 +550,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLDataPropertyAxiom> getAxioms(
-            @Nonnull OWLDataProperty property) {
+    default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property) {
         return asSet(axioms(property));
     }
 
@@ -598,18 +565,19 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         property</li>
      *         <li>Equivalent property axioms where the axiom contains the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
      *         </ul>
      *         The set is a copy of the data.
      */
-    @Nonnull
-    Stream<OWLDataPropertyAxiom> axioms(@Nonnull OWLDataProperty property);
+    Stream<OWLDataPropertyAxiom> axioms(OWLDataProperty property);
 
     /**
      * Gets the axioms that form the definition/description of a data property.
@@ -624,10 +592,12 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         property</li>
      *         <li>Equivalent property axioms where the axiom contains the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
@@ -635,10 +605,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLDataPropertyAxiom> getAxioms(
-            @Nonnull OWLDataProperty property,
-            @Nonnull Imports includeImportsClosure) {
+    default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property, Imports includeImportsClosure) {
         return asSet(axioms(property, includeImportsClosure));
     }
 
@@ -655,18 +622,18 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         property</li>
      *         <li>Equivalent property axioms where the axiom contains the
      *         specified property</li>
-     *         <li>Disjoint property axioms that contain the specified property</li>
+     *         <li>Disjoint property axioms that contain the specified property
+     *         </li>
      *         <li>Domain axioms that specify a domain of the specified property
      *         </li>
-     *         <li>Range axioms that specify a range of the specified property</li>
+     *         <li>Range axioms that specify a range of the specified property
+     *         </li>
      *         <li>Any property characteristic axiom (i.e. Functional,
      *         Symmetric, Reflexive etc.) whose subject is the specified
      *         property</li>
      *         </ul>
      */
-    @Nonnull
-    default Stream<OWLDataPropertyAxiom> axioms(
-            @Nonnull OWLDataProperty property, @Nonnull Imports imports) {
+    default Stream<OWLDataPropertyAxiom> axioms(OWLDataProperty property, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(property));
     }
 
@@ -695,9 +662,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLIndividualAxiom>
-            getAxioms(@Nonnull OWLIndividual individual) {
+    default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual) {
         return asSet(axioms(individual));
     }
 
@@ -725,8 +690,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         </ul>
      *         The set is a copy of the data.
      */
-    @Nonnull
-    Stream<OWLIndividualAxiom> axioms(@Nonnull OWLIndividual individual);
+    Stream<OWLIndividualAxiom> axioms(OWLIndividual individual);
 
     /**
      * Gets the axioms that form the definition/description of an individual.
@@ -755,10 +719,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLIndividualAxiom> getAxioms(
-            @Nonnull OWLIndividual individual,
-            @Nonnull Imports includeImportsClosure) {
+    default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual, Imports includeImportsClosure) {
         return asSet(axioms(individual, includeImportsClosure));
     }
 
@@ -787,9 +748,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         specified individual</li>
      *         </ul>
      */
-    @Nonnull
-    default Stream<OWLIndividualAxiom> axioms(
-            @Nonnull OWLIndividual individual, @Nonnull Imports imports) {
+    default Stream<OWLIndividualAxiom> axioms(OWLIndividual individual, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(individual));
     }
 
@@ -811,9 +770,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAnnotationAxiom> getAxioms(
-            @Nonnull OWLAnnotationProperty property) {
+    default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property) {
         return asSet(axioms(property));
     }
 
@@ -833,16 +790,12 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         specified property</li>
      *         </ul>
      */
-    @Nonnull
-    default Stream<OWLAnnotationAxiom> axioms(
-            @Nonnull OWLAnnotationProperty property) {
-        return Stream.of(
-                axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).filter(
-                        a -> a.getSubProperty().equals(property)),
-                axioms(AxiomType.ANNOTATION_PROPERTY_RANGE).filter(
-                        a -> a.getProperty().equals(property)),
-                axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN).filter(
-                        a -> a.getProperty().equals(property))).flatMap(x -> x);
+    default Stream<OWLAnnotationAxiom> axioms(OWLAnnotationProperty property) {
+        return Stream
+                .of(axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).filter(a -> a.getSubProperty().equals(property)),
+                        axioms(AxiomType.ANNOTATION_PROPERTY_RANGE).filter(a -> a.getProperty().equals(property)),
+                        axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN).filter(a -> a.getProperty().equals(property)))
+                .flatMap(x -> x);
     }
 
     /**
@@ -865,10 +818,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLAnnotationAxiom> getAxioms(
-            @Nonnull OWLAnnotationProperty property,
-            @Nonnull Imports includeImportsClosure) {
+    default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property, Imports includeImportsClosure) {
         return asSet(axioms(property, includeImportsClosure));
     }
 
@@ -890,9 +840,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         specified property</li>
      *         </ul>
      */
-    @Nonnull
-    default Stream<OWLAnnotationAxiom> axioms(
-            @Nonnull OWLAnnotationProperty property, @Nonnull Imports imports) {
+    default Stream<OWLAnnotationAxiom> axioms(OWLAnnotationProperty property, Imports imports) {
         return imports.stream(this).flatMap(o -> o.axioms(property));
     }
 
@@ -905,9 +853,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLDatatypeDefinitionAxiom> getAxioms(
-            @Nonnull OWLDatatype datatype) {
+    default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
         return asSet(axioms(datatype));
     }
 
@@ -918,8 +864,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        The datatype
      * @return stream of datatype definition axioms for the specified datatype.
      */
-    @Nonnull
-    Stream<OWLDatatypeDefinitionAxiom> axioms(@Nonnull OWLDatatype datatype);
+    Stream<OWLDatatypeDefinitionAxiom> axioms(OWLDatatype datatype);
 
     /**
      * Gets the datatype definition axioms for the specified datatype.
@@ -932,10 +877,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *         The set is a copy of the data.
      */
     @Deprecated
-    @Nonnull
-    default Set<OWLDatatypeDefinitionAxiom> getAxioms(
-            @Nonnull OWLDatatype datatype,
-            @Nonnull Imports includeImportsClosure) {
+    default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype, Imports includeImportsClosure) {
         return asSet(axioms(datatype, includeImportsClosure));
     }
 
@@ -949,10 +891,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return The set of datatype definition axioms for the specified datatype.
      *         The set is a copy of the data.
      */
-    @Nonnull
-    default Stream<OWLDatatypeDefinitionAxiom> axioms(
-            @Nonnull OWLDatatype datatype, @Nonnull Imports imports) {
-        return imports.stream(this).flatMap(
-                o -> o.datatypeDefinitions(datatype));
+    default Stream<OWLDatatypeDefinitionAxiom> axioms(OWLDatatype datatype, Imports imports) {
+        return imports.stream(this).flatMap(o -> o.datatypeDefinitions(datatype));
     }
 }

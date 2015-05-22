@@ -18,15 +18,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryClassAxiom extends OWLClassAxiom,
-        OWLNaryAxiom<OWLClassExpression>, OWLSubClassOfAxiomSetShortCut {
+public interface OWLNaryClassAxiom
+        extends OWLClassAxiom, OWLNaryAxiom<OWLClassExpression>, OWLSubClassOfAxiomSetShortCut {
 
     /**
      * Gets all of the top level class expressions that appear in this axiom.
@@ -34,7 +32,6 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom,
      * @return A {@code Set} of class expressions that appear in the axiom.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLClassExpression> getClassExpressions() {
         return asSet(classExpressions());
     }
@@ -44,7 +41,6 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom,
      * 
      * @return A {@code Set} of class expressions that appear in the axiom.
      */
-    @Nonnull
     Stream<OWLClassExpression> classExpressions();
 
     /**
@@ -54,7 +50,6 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom,
      * @return A list of the class expressions in this axiom.
      */
     @Deprecated
-    @Nonnull
     default List<OWLClassExpression> getClassExpressionsAsList() {
         return asList(classExpressions());
     }
@@ -68,7 +63,7 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom,
      * @return {@code true} if this axiom contains the specified class
      *         expression as an operand, otherwise {@code false}.
      */
-    boolean contains(@Nonnull OWLClassExpression ce);
+    boolean contains(OWLClassExpression ce);
 
     /**
      * Gets the set of class expressions that appear in this axiom minus the
@@ -81,7 +76,5 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom,
      *         class expressions returned by getClassExpressions()) minus the
      *         specified list of class expressions
      */
-    @Nonnull
-    Set<OWLClassExpression> getClassExpressionsMinus(
-            @Nonnull OWLClassExpression... desc);
+    Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc);
 }

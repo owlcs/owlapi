@@ -12,23 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <P>
+ * @param
+ *        <P>
  *        property expression
  */
-public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression> extends
-        OWLPropertyAxiom {
+public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom {
 
-    /** @return the sub property */
-    @Nonnull
+    /**
+     * @return the sub property
+     */
     P getSubProperty();
 
-    /** @return the super property */
-    @Nonnull
+    /**
+     * @return the super property
+     */
     P getSuperProperty();
 }

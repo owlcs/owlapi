@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents an atom in a rule. Atoms can either be in the head (concequent) or
  * body (antecedent) of the rule. Atoms hold objects which are either data
@@ -32,7 +30,6 @@ public interface SWRLAtom extends SWRLObject {
      * 
      * @return The atom predicate
      */
-    @Nonnull
     SWRLPredicate getPredicate();
 
     /**
@@ -40,6 +37,5 @@ public interface SWRLAtom extends SWRLObject {
      * 
      * @return The collection of arguments in this atom
      */
-    @Nonnull
     Collection<SWRLArgument> getAllArguments();
 }

@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -26,14 +24,16 @@ import javax.annotation.Nonnull;
  */
 public interface OWLNaryDataRange extends OWLDataRange {
 
-    /** @return the data ranges */
+    /**
+     * @return the data ranges
+     */
     @Deprecated
-    @Nonnull
     default Set<? extends OWLDataRange> getOperands() {
         return asSet(operands());
     }
 
-    /** @return the data ranges */
-    @Nonnull
+    /**
+     * @return the data ranges
+     */
     Stream<? extends OWLDataRange> operands();
 }

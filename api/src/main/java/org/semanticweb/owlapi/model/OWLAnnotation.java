@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.model;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * Annotations are used in the various types of annotation axioms, which bind
  * annotations to their subjects (i.e. axioms or declarations).<br>
@@ -27,15 +25,13 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLAnnotation extends OWLObject, HasAnnotations,
-        HasProperty<OWLAnnotationProperty> {
+public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OWLAnnotationProperty> {
 
     /**
      * Gets the property that this annotation acts along.
      * 
      * @return The annotation property
      */
-    @Nonnull
     @Override
     OWLAnnotationProperty getProperty();
 
@@ -50,7 +46,6 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
      * @return The annotation value.
      */
-    @Nonnull
     OWLAnnotationValue getValue();
 
     /**
@@ -73,9 +68,7 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      * @return A copy of this annotation with the specified annotations
      *         annotating it
      */
-    @Nonnull
-    OWLAnnotation getAnnotatedAnnotation(
-            @Nonnull Collection<OWLAnnotation> annotations);
+    OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations);
 
     /**
      * Gets an OWLAnnotation which is a copy of this annotation but which has
@@ -86,15 +79,13 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      * @return A copy of this annotation with the specified annotations
      *         annotating it
      */
-    @Nonnull
-    OWLAnnotation getAnnotatedAnnotation(
-            @Nonnull Stream<OWLAnnotation> annotations);
+    OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations);
 
     /**
      * @param visitor
      *        visitor to accept
      */
-    default void accept(@Nonnull OWLAnnotationObjectVisitor visitor) {
+    default void accept(OWLAnnotationObjectVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -105,18 +96,17 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      *        visitor return type
      * @return visitor value
      */
-    @Nonnull
-    default <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    default void accept(@Nonnull OWLObjectVisitor visitor) {
+    default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    default <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    default <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

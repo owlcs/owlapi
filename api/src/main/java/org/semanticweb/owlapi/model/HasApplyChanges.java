@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
@@ -38,7 +36,5 @@ public interface HasApplyChanges {
      * @throws OWLOntologyChangeException
      *         If one or more of the changes could not be applied.
      */
-    @Nonnull
-        ChangeApplied applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes);
+    ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes);
 }

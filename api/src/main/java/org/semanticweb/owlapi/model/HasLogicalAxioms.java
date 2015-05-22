@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to an object that contains a set of logical axioms.
  * 
@@ -35,7 +33,6 @@ public interface HasLogicalAxioms {
      *         object. Changes are not reflected back.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLLogicalAxiom> getLogicalAxioms() {
         return asSet(logicalAxioms());
     }
@@ -44,6 +41,5 @@ public interface HasLogicalAxioms {
      * @return Stream of {@link OWLLogicalAxiom}s that are contained within this
      *         object.
      */
-    @Nonnull
     Stream<OWLLogicalAxiom> logicalAxioms();
 }

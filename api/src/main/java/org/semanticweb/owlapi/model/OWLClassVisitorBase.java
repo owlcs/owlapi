@@ -12,12 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to objects that can visit
- * {@link org.semanticweb.owlapi.model.OWLClassExpression}s. (See the <a
- * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
+ * {@link org.semanticweb.owlapi.model.OWLClassExpression}s. (See the
+ * <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
  * 
  * @author Matthew Horridge, The University Of Manchester Bio-Health Informatics
  *         Group
@@ -31,7 +29,7 @@ public interface OWLClassVisitorBase extends OWLVisitorBase {
      * @param ce
      *        ce to visit
      */
-    default void visit(@Nonnull OWLClass ce) {
+    default void visit(OWLClass ce) {
         doDefault(ce);
     }
 }

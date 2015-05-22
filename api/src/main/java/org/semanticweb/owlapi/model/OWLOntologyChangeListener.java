@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -33,6 +31,5 @@ public interface OWLOntologyChangeListener {
      * @throws OWLRuntimeException
      *         exception
      */
-    void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes)
-            throws OWLRuntimeException;
+    void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLRuntimeException;
 }

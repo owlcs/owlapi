@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * A visitor which visits the different kinds of annotation axioms.
  * 
@@ -29,7 +27,7 @@ public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
      * @param axiom
      *        object to visit
      */
-    default void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+    default void visit(OWLAnnotationAssertionAxiom axiom) {
         doDefault(axiom);
     }
 
@@ -39,7 +37,7 @@ public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
      * @param axiom
      *        object to visit
      */
-    default void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+    default void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         doDefault(axiom);
     }
 
@@ -49,7 +47,7 @@ public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
      * @param axiom
      *        object to visit
      */
-    default void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
+    default void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         doDefault(axiom);
     }
 
@@ -59,7 +57,7 @@ public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
      * @param axiom
      *        object to visit
      */
-    default void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+    default void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         doDefault(axiom);
     }
 }

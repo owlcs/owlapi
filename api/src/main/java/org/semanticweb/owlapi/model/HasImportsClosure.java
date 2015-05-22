@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 /**
  * An interface to objects that provide an imports closure of themselves.
  * 
@@ -43,7 +41,6 @@ public interface HasImportsClosure {
      *         was removed from the manager.
      */
     @Deprecated
-    @Nonnull
     default Set<OWLOntology> getImportsClosure() {
         return asSet(importsClosure());
     }
@@ -54,6 +51,5 @@ public interface HasImportsClosure {
      * @return Stream of ontologies representing the imports closure of this
      *         object (includes this object).
      */
-    @Nonnull
     Stream<OWLOntology> importsClosure();
 }

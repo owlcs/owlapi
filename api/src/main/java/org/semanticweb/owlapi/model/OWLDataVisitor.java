@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * A visitor which can visit various data ranges and constants.
  * 
@@ -21,8 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataVisitor extends OWLDataRangeVisitor,
-        OWLLiteralVisitorBase {
+public interface OWLDataVisitor extends OWLDataRangeVisitor, OWLLiteralVisitorBase {
 
     /**
      * visit OWLFacetRestriction type
@@ -30,7 +27,7 @@ public interface OWLDataVisitor extends OWLDataRangeVisitor,
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull OWLFacetRestriction node) {
+    default void visit(OWLFacetRestriction node) {
         doDefault(node);
     }
 }

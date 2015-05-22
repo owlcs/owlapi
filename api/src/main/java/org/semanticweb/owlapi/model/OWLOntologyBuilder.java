@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 /**
  * An ontology builder is responsible for choosing an OWLOntology
  * implementation. This interface allows for injecting different OWLOntology
@@ -34,7 +32,5 @@ public interface OWLOntologyBuilder extends Serializable {
      *        id for the ontology to be created
      * @return new ontology instance
      */
-    @Nonnull
-    OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntologyID ontologyID);
+    OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID);
 }

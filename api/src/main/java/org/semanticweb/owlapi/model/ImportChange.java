@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -24,7 +22,6 @@ import javax.annotation.Nonnull;
 public abstract class ImportChange extends OWLOntologyChange {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
     private final OWLImportsDeclaration declaration;
 
     /**
@@ -33,11 +30,9 @@ public abstract class ImportChange extends OWLOntologyChange {
      * @param importDeclaration
      *        the import declaration
      */
-    public ImportChange(@Nonnull OWLOntology ont,
-            @Nonnull OWLImportsDeclaration importDeclaration) {
+    public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont);
-        declaration = checkNotNull(importDeclaration,
-                "importDeclaration cannot be null");
+        declaration = checkNotNull(importDeclaration, "importDeclaration cannot be null");
     }
 
     /**
@@ -45,7 +40,6 @@ public abstract class ImportChange extends OWLOntologyChange {
      * 
      * @return The import declaration
      */
-    @Nonnull
     public OWLImportsDeclaration getImportDeclaration() {
         return declaration;
     }

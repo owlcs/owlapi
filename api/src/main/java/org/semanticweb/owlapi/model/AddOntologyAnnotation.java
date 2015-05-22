@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 
@@ -33,24 +33,22 @@ public class AddOntologyAnnotation extends AnnotationChange {
      * @param annotation
      *        the annotation
      */
-    public AddOntologyAnnotation(@Nonnull OWLOntology ont,
-            @Nonnull OWLAnnotation annotation) {
+    public AddOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
         super(ont, annotation);
     }
 
-    @Nonnull
     @Override
     public AddOntologyAnnotationData getChangeData() {
         return new AddOntologyAnnotationData(getAnnotation());
     }
 
     @Override
-    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -60,7 +58,7 @@ public class AddOntologyAnnotation extends AnnotationChange {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }
@@ -68,15 +66,12 @@ public class AddOntologyAnnotation extends AnnotationChange {
             return false;
         }
         AddOntologyAnnotation other = (AddOntologyAnnotation) obj;
-        return getAnnotation().equals(other.getAnnotation())
-                && getOntology().equals(other.getOntology());
+        return getAnnotation().equals(other.getAnnotation()) && getOntology().equals(other.getOntology());
     }
 
-    @Nonnull
     @Override
     public String toString() {
-        return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID("
-                + getOntology().getOntologyID() + "))";
+        return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID(" + getOntology().getOntologyID() + "))";
     }
 
     @Override

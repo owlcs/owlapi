@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
@@ -27,7 +25,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLClassAtom node) {
+    default void visit(SWRLClassAtom node) {
         doDefault(node);
     }
 
@@ -37,7 +35,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLDataRangeAtom node) {
+    default void visit(SWRLDataRangeAtom node) {
         doDefault(node);
     }
 
@@ -47,7 +45,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLObjectPropertyAtom node) {
+    default void visit(SWRLObjectPropertyAtom node) {
         doDefault(node);
     }
 
@@ -57,7 +55,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLDataPropertyAtom node) {
+    default void visit(SWRLDataPropertyAtom node) {
         doDefault(node);
     }
 
@@ -67,7 +65,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLBuiltInAtom node) {
+    default void visit(SWRLBuiltInAtom node) {
         doDefault(node);
     }
 
@@ -77,7 +75,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLVariable node) {
+    default void visit(SWRLVariable node) {
         doDefault(node);
     }
 
@@ -87,7 +85,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLIndividualArgument node) {
+    default void visit(SWRLIndividualArgument node) {
         doDefault(node);
     }
 
@@ -97,7 +95,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLLiteralArgument node) {
+    default void visit(SWRLLiteralArgument node) {
         doDefault(node);
     }
 
@@ -107,7 +105,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLSameIndividualAtom node) {
+    default void visit(SWRLSameIndividualAtom node) {
         doDefault(node);
     }
 
@@ -117,7 +115,7 @@ public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
      * @param node
      *        node to visit
      */
-    default void visit(@Nonnull SWRLDifferentIndividualsAtom node) {
+    default void visit(SWRLDifferentIndividualsAtom node) {
         doDefault(node);
     }
 }

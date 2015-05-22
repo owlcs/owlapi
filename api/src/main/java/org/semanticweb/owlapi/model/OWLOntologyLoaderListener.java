@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 /**
  * Receives notification of ontology loading starting and finishing from a
  * manager.
@@ -33,7 +31,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
      *        The loading started event that describes the ontologt that is
      *        being loaded.
      */
-    void startedLoadingOntology(@Nonnull LoadingStartedEvent event);
+    void startedLoadingOntology(LoadingStartedEvent event);
 
     /**
      * Called when the process of loading an ontology has finished. This method
@@ -45,7 +43,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
      *        The loading finished event that describes the ontology that was
      *        loaded.
      */
-    void finishedLoadingOntology(@Nonnull LoadingFinishedEvent event);
+    void finishedLoadingOntology(LoadingFinishedEvent event);
 
     /** Loading event. */
     class LoadingEvent {
@@ -54,8 +52,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
         private final IRI documentIRI;
         private final boolean imported;
 
-        public LoadingEvent(OWLOntologyID ontologyID, IRI documentIRI,
-                boolean imported) {
+        public LoadingEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
             this.ontologyID = ontologyID;
             this.documentIRI = documentIRI;
             this.imported = imported;
@@ -97,8 +94,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
     /** Loading start event. */
     class LoadingStartedEvent extends LoadingEvent {
 
-        public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI,
-                boolean imported) {
+        public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
             super(ontologyID, documentIRI, imported);
         }
     }
@@ -111,8 +107,7 @@ public interface OWLOntologyLoaderListener extends Serializable {
 
         private final Exception ex;
 
-        public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI,
-                boolean imported, Exception ex) {
+        public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported, Exception ex) {
             super(ontologyID, documentIRI, imported);
             this.ex = ex;
         }

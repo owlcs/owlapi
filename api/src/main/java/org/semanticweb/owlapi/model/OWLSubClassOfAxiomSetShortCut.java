@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
  * A marker interface for an axiom that can be represented by a set of
  * SubClassOf axioms that is equivalent to this axiom.
@@ -26,7 +24,8 @@ import javax.annotation.Nonnull;
  */
 public interface OWLSubClassOfAxiomSetShortCut {
 
-    /** @return the set of axioms equivalent to this expression */
-    @Nonnull
+    /**
+     * @return the set of axioms equivalent to this expression
+     */
     Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
 }
