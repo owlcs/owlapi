@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.Filters;
 
@@ -254,7 +252,6 @@ import org.semanticweb.owlapi.search.Filters;
  */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
-    @Nonnull
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
     /**
      * If declarations are ignored, entities which are only referenced in a
@@ -268,8 +265,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
      * @param writer
      *        writer to render to
      */
-    public KRSS2ObjectRenderer(@Nonnull OWLOntology ontology,
-        @Nonnull Writer writer) {
+    public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
         leftRightIdentityUsed = new HashSet<>();
     }
@@ -291,8 +287,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         reset();
         for (OWLClass eachClass : asList(ontology.classesInSignature())) {
             if (ignoreDeclarations) {
-                if (ontology.axioms(eachClass).count() == 1 && ontology
-                    .declarationAxioms(eachClass).count() == 1) {
+                if (ontology.axioms(eachClass).count() == 1 && ontology.declarationAxioms(eachClass).count() == 1) {
                     continue;
                 }
             }
@@ -302,14 +297,12 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(sup(ontology.axioms(Filters.subClassWithSub, eachClass,
-                    INCLUDED), OWLClassExpression.class).iterator(),
-                    KRSSVocabulary.AND);
+                flatten(sup(ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED), OWLClassExpression.class)
+                        .iterator(), KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
-                Collection<OWLClassExpression> classes = asList(equivalent(
-                    ontology.equivalentClassesAxioms(eachClass),
-                    OWLClassExpression.class));
+                Collection<OWLClassExpression> classes = asList(
+                        equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
                 for (OWLClassExpression description : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -322,13 +315,12 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                flatten(equivalent(ontology.equivalentClassesAxioms(eachClass),
-                    OWLClassExpression.class).iterator(), KRSSVocabulary.AND);
+                flatten(equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class).iterator(),
+                        KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
-                Collection<OWLClassExpression> supclasses = asList(sup(ontology
-                    .subClassAxiomsForSubClass(eachClass),
-                    OWLClassExpression.class));
+                Collection<OWLClassExpression> supclasses = asList(
+                        sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class));
                 for (OWLClassExpression description : supclasses) {
                     writeOpenBracket();
                     write(eachClass);
@@ -339,26 +331,24 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 }
             }
         }
-        for (OWLObjectProperty property : sort(ontology
-            .objectPropertiesInSignature())) {
+        for (OWLObjectProperty property : sort(ontology.objectPropertiesInSignature())) {
             if (ignoreDeclarations) {
-                if (ontology.axioms(property, EXCLUDED).count() == 1 && ontology
-                    .declarationAxioms(property).count() == 1) {
+                if (ontology.axioms(property, EXCLUDED).count() == 1
+                        && ontology.declarationAxioms(property).count() == 1) {
                     continue;
                 }
             }
             writeOpenBracket();
-            Stream<OWLObjectPropertyExpression> streamp = equivalent(ontology
-                .equivalentObjectPropertiesAxioms(property));
+            Stream<OWLObjectPropertyExpression> streamp = equivalent(
+                    ontology.equivalentObjectPropertiesAxioms(property));
             Collection<OWLObjectPropertyExpression> properties = asSet(streamp);
             boolean isPrimitive = properties.isEmpty();
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 Collection<OWLObjectPropertyExpression> superProperties = asSet(
-                    sup(ontology.axioms(Filters.subObjectPropertyWithSub,
-                        property, INCLUDED),
-                        OWLObjectPropertyExpression.class));
+                        sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                                OWLObjectPropertyExpression.class));
                 int superSize = superProperties.size();
                 if (superSize == 1) {
                     writeSpace();
@@ -375,11 +365,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     // we only allow for either right or left identity axiom,
                     // otherwise it is
                     // expressed via role-inclusion axioms
-                    Set<OWLSubPropertyChainOfAxiom> chainAxioms = getPropertyChainSubPropertyAxiomsFor(
-                        property);
+                    Set<OWLSubPropertyChainOfAxiom> chainAxioms = getPropertyChainSubPropertyAxiomsFor(property);
                     if (chainAxioms.size() == 1) {
-                        OWLSubPropertyChainOfAxiom axiom = chainAxioms
-                            .iterator().next();
+                        OWLSubPropertyChainOfAxiom axiom = chainAxioms.iterator().next();
                         if (isLeftIdentityAxiom(axiom, property)) {
                             leftRightIdentityUsed.add(axiom);
                             writeSpace();
@@ -401,8 +389,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 } else {
                     write(DEFINE_ROLE);
                     write(property);
-                    OWLObjectPropertyExpression expr = properties.iterator()
-                        .next();
+                    OWLObjectPropertyExpression expr = properties.iterator().next();
                     write(expr);
                     properties.remove(expr);
                     writeSpace();
@@ -426,15 +413,14 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeSpace();
                 write(TRUE);
             }
-            Iterator<OWLObjectPropertyExpression> inverses = inverse(ontology
-                .inverseObjectPropertyAxioms(property), property).iterator();
+            Iterator<OWLObjectPropertyExpression> inverses = inverse(ontology.inverseObjectPropertyAxioms(property),
+                    property).iterator();
             if (!inverses.hasNext()) {
                 writeSpace();
                 write(INVERSE_ATTR);
                 write(inverses.next());
             }
-            Stream<OWLClassExpression> stream = domain(ontology
-                .objectPropertyDomainAxioms(property));
+            Stream<OWLClassExpression> stream = domain(ontology.objectPropertyDomainAxioms(property));
             Iterator<OWLClassExpression> desc = stream.iterator();
             if (desc.hasNext()) {
                 writeSpace();
@@ -467,11 +453,10 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeln();
             }
         }
-        for (OWLNamedIndividual individual : sort(asList(ontology
-            .individualsInSignature()))) {
+        for (OWLNamedIndividual individual : sort(asList(ontology.individualsInSignature()))) {
             if (ignoreDeclarations) {
                 if (ontology.axioms(individual, EXCLUDED).count() == 1
-                    && ontology.declarationAxioms(individual).count() == 1) {
+                        && ontology.declarationAxioms(individual).count() == 1) {
                     continue;
                 }
             }
@@ -611,8 +596,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeln();
     }
 
-    protected void writeChain(List<OWLObjectPropertyExpression> expressions,
-        int i) {
+    protected void writeChain(List<OWLObjectPropertyExpression> expressions, int i) {
         if (i == expressions.size() - 1) {
             write(expressions.get(i));
         } else {
@@ -662,11 +646,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeCloseBracket();
     }
 
-    protected static boolean isLeftIdentityAxiom(
-        OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
+    protected static boolean isLeftIdentityAxiom(OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
-            Iterator<OWLObjectPropertyExpression> chain = axiom
-                .getPropertyChain().iterator();
+            Iterator<OWLObjectPropertyExpression> chain = axiom.getPropertyChain().iterator();
             if (chain.hasNext()) {
                 if (chain.next().isOWLObjectProperty()) {
                     if (chain.hasNext() && chain.next().equals(property)) {
@@ -678,11 +660,9 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return false;
     }
 
-    protected static boolean isRightIdentityAxiom(
-        OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
+    protected static boolean isRightIdentityAxiom(OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
-            Iterator<OWLObjectPropertyExpression> chain = axiom
-                .getPropertyChain().iterator();
+            Iterator<OWLObjectPropertyExpression> chain = axiom.getPropertyChain().iterator();
             if (chain.hasNext()) {
                 if (chain.next().equals(property)) {
                     if (chain.hasNext()) {
@@ -695,10 +675,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return false;
     }
 
-    protected Set<OWLSubPropertyChainOfAxiom>
-        getPropertyChainSubPropertyAxiomsFor(OWLPropertyExpression property) {
-        return asSet(ont.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF).filter(a -> a
-            .getSuperProperty().equals(property)));
+    protected Set<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxiomsFor(OWLPropertyExpression property) {
+        return asSet(ont.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF).filter(a -> a.getSuperProperty().equals(property)));
     }
 
     protected void reset() {

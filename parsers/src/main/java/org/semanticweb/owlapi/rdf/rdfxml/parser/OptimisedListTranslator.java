@@ -5,8 +5,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -28,8 +26,7 @@ import org.slf4j.LoggerFactory;
  */
 class OptimisedListTranslator<O extends OWLObject> {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(OptimisedListTranslator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OptimisedListTranslator.class);
     private final OWLRDFConsumer consumer;
     private final ListItemTranslator<O> translator;
 
@@ -39,8 +36,7 @@ class OptimisedListTranslator<O extends OWLObject> {
      * @param translator
      *        translator
      */
-    protected OptimisedListTranslator(OWLRDFConsumer consumer,
-            ListItemTranslator<O> translator) {
+    protected OptimisedListTranslator(OWLRDFConsumer consumer, ListItemTranslator<O> translator) {
         this.consumer = consumer;
         this.translator = translator;
     }
@@ -49,7 +45,7 @@ class OptimisedListTranslator<O extends OWLObject> {
         return consumer;
     }
 
-    private void translateList(IRI mainNode, @Nonnull List<O> list) {
+    private void translateList(IRI mainNode, List<O> list) {
         IRI current = mainNode;
         while (current != null) {
             IRI firstResource = consumer.getFirstResource(current, true);
@@ -59,9 +55,7 @@ class OptimisedListTranslator<O extends OWLObject> {
                     LOGGER.debug("list: {}", translate);
                     list.add(translate);
                 } else {
-                    LOGGER.warn(
-                            "Possible malformed list: cannot translate it {}",
-                            firstResource);
+                    LOGGER.warn("Possible malformed list: cannot translate it {}", firstResource);
                 }
             } else {
                 OWLLiteral literal = consumer.getFirstLiteral(current);
@@ -85,8 +79,7 @@ class OptimisedListTranslator<O extends OWLObject> {
      * @return translated list
      */
     @SuppressWarnings("unchecked")
-    @Nonnull
-    public List<O> translateList(@Nonnull IRI mainNode) {
+    public List<O> translateList(IRI mainNode) {
         boolean shared = consumer.isAnonymousSharedNode(mainNode.toString());
         List<O> list;
         if (shared) {
@@ -110,8 +103,7 @@ class OptimisedListTranslator<O extends OWLObject> {
      *        mainNode
      * @return translated list
      */
-    @Nonnull
-    public Set<O> translateToSet(@Nonnull IRI mainNode) {
+    public Set<O> translateToSet(IRI mainNode) {
         return new LinkedHashSet<>(translateList(mainNode));
     }
 }

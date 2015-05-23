@@ -14,20 +14,19 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+/**
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
+ */
 public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(@Nonnull OWLOntology ontology, PrintWriter writer)
-            throws OWLRendererException {
+    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
         try {
             ontology.accept(new KRSSObjectRenderer(ontology, writer));
             writer.flush();

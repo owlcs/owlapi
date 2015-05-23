@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Provider;
 
 import org.semanticweb.owlapi.annotations.OwlapiModule;
@@ -28,12 +28,12 @@ import com.google.inject.Provides;
  * OWLAPI module. Bindings can be overridden by subclassing this class, to allow
  * to replace part of the configuration without having to rewrite all of it.
  */
+@ParametersAreNonnullByDefault
 @OwlapiModule
 public class OWLAPIParsersModule extends AbstractModule {
 
     @Override
-    protected void configure() {
-    }
+    protected void configure() {}
 
     /**
      * @param df
@@ -43,10 +43,8 @@ public class OWLAPIParsersModule extends AbstractModule {
      * @return implementation of manchester parser for parsing strings
      */
     @Provides
-    @Nonnull
-    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(
-            @Nonnull OWLDataFactory df,
-            @Nonnull Provider<OWLOntologyLoaderConfiguration> provider) {
+    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(OWLDataFactory df,
+            Provider<OWLOntologyLoaderConfiguration> provider) {
         return new ManchesterOWLSyntaxParserImpl(provider, df);
     }
 }

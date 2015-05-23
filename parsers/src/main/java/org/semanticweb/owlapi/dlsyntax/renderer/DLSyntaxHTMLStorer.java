@@ -43,17 +43,14 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
         return ontologyFormat instanceof DLSyntaxHTMLDocumentFormat;
     }
 
-    @Nonnull
     @Override
-    protected String getRendering(@Nullable final OWLEntity subject,
-            OWLAxiom axiom) {
+    protected String getRendering(@Nullable final OWLEntity subject, OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
 
             @Override
-            protected String renderEntity(@Nonnull OWLEntity entity) {
-                String shortForm = sfp.getShortForm(checkNotNull(entity,
-                        "entity cannot be null"));
+            protected String renderEntity(OWLEntity entity) {
+                String shortForm = sfp.getShortForm(checkNotNull(entity, "entity cannot be null"));
                 if (entity.equals(subject)) {
                     return shortForm;
                 }
@@ -62,8 +59,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
             @Override
             protected void write(DLSyntax keyword) {
-                write(XMLUtils.escapeXML(checkNotNull(keyword,
-                        "keyword cannot be null").toString()));
+                write(XMLUtils.escapeXML(checkNotNull(keyword, "keyword cannot be null").toString()));
             }
         };
         ren.setFocusedObject(subject);
@@ -72,30 +68,25 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     }
 
     @Override
-    protected void beginWritingOntology(@Nonnull OWLOntology ontology,
-            @Nonnull PrintWriter writer) {
+    protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null").println(
-                "<html>\n<body>\n<h1>Ontology: ");
+        checkNotNull(writer, "writer cannot be null").println("<html>\n<body>\n<h1>Ontology: ");
         writer.print(ontology.getOntologyID());
         writer.println("</h1>");
     }
 
     @SuppressWarnings("unused")
-    protected void writeEntity(@Nonnull OWLEntity entity,
-            @Nonnull PrintWriter writer) {}
+    protected void writeEntity(OWLEntity entity, PrintWriter writer) {}
 
     @Override
     protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null").println(
-                "</body>\n</html>");
+        checkNotNull(writer, "writer cannot be null").println("</body>\n</html>");
     }
 
     @Override
     protected void beginWritingAxiom(PrintWriter writer) {
-        checkNotNull(writer, "writer cannot be null").println(
-                "<div class=\"axiombox\"> ");
+        checkNotNull(writer, "writer cannot be null").println("<div class=\"axiombox\"> ");
     }
 
     @Override
@@ -104,8 +95,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     }
 
     @Override
-    protected void beginWritingAxioms(@Nonnull OWLEntity subject,
-            @Nonnull PrintWriter writer) {
+    protected void beginWritingAxioms(OWLEntity subject, PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(writer, "writer cannot be null").print("<h2><a name=\"");
         writer.print(sfp.getShortForm(subject));
@@ -115,7 +105,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
     }
 
     @Override
-    protected void endWritingAxioms(@Nonnull PrintWriter writer) {
+    protected void endWritingAxioms(PrintWriter writer) {
         writer.println("</div>");
     }
 
@@ -131,8 +121,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     @Override
     protected void beginWritingUsage(int size, PrintWriter writer) {
-        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages ("
-                + size + ")</h3>");
+        writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages (" + size + ")</h3>");
     }
 
     @Override

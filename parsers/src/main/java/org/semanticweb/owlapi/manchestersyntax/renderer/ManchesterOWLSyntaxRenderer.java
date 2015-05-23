@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -28,12 +26,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(@Nonnull OWLOntology ontology, PrintWriter writer)
-            throws OWLRendererException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
-                ontology, writer,
-                new ManchesterOWLSyntaxPrefixNameShortFormProvider(ontology
-                        .getOWLOntologyManager().getOntologyFormat(ontology)));
+    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(ontology, writer,
+                new ManchesterOWLSyntaxPrefixNameShortFormProvider(
+                        ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
         ren.writeOntology();
         ren.flush();
     }

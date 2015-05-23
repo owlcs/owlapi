@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.functional.renderer;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
@@ -30,11 +28,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(@Nonnull OWLOntology ontology,
-            @Nonnull PrintWriter writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
         try {
-            FunctionalSyntaxObjectRenderer ren = new FunctionalSyntaxObjectRenderer(
-                    ontology, writer);
+            FunctionalSyntaxObjectRenderer ren = new FunctionalSyntaxObjectRenderer(ontology, writer);
             ontology.accept(ren);
             writer.flush();
         } catch (OWLRuntimeException e) {

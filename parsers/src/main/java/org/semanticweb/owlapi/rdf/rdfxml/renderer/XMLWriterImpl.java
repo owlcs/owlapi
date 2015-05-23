@@ -62,8 +62,8 @@ public class XMLWriterImpl implements XMLWriter {
      * @param preferences
      *        xml writer preferences instance
      */
-    public XMLWriterImpl(@Nonnull PrintWriter writer, @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
-            @Nonnull String xmlBase, @Nonnull XMLWriterPreferences preferences) {
+    public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase,
+            XMLWriterPreferences preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
         this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager,
                 "xmlWriterNamespaceManager cannot be null");
@@ -170,7 +170,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void writeAttribute(@Nonnull IRI attr, String val) {
+    public void writeAttribute(IRI attr, String val) {
         XMLElement element = elementStack.peek();
         String qName = xmlWriterNamespaceManager.getQName(attr);
         if (qName != null) {
@@ -201,7 +201,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    private void writeEntities(@Nonnull IRI rootName) {
+    private void writeEntities(IRI rootName) {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
         if (!XMLUtils.isQName(qName)) {
             throw new OWLRuntimeException("Cannot create valid XML: qname for " + rootName + " is null");
@@ -222,7 +222,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void startDocument(@Nonnull IRI rootElement) {
+    public void startDocument(IRI rootElement) {
         String encodingString = "";
         if (!encoding.isEmpty()) {
             encodingString = " encoding=\"" + encoding + '"';

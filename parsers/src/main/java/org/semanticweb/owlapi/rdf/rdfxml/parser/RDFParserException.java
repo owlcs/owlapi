@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.Locator;
 
@@ -32,7 +30,7 @@ public class RDFParserException extends OWLRuntimeException {
      * @param locator
      *        locator
      */
-    public RDFParserException(@Nonnull String message, @Nonnull Locator locator) {
+    public RDFParserException(String message, Locator locator) {
         this(null, message, locator);
     }
 
@@ -44,8 +42,7 @@ public class RDFParserException extends OWLRuntimeException {
      * @param locator
      *        locator
      */
-    public RDFParserException(Exception e, String message,
-            @Nonnull Locator locator) {
+    public RDFParserException(Exception e, String message, Locator locator) {
         super(message(locator, message), e);
         publicId = locator.getPublicId();
         systemId = locator.getSystemId();
@@ -59,26 +56,33 @@ public class RDFParserException extends OWLRuntimeException {
         if (lineNumber == -1 && columnNumber == -1) {
             return message;
         }
-        return "[line=" + lineNumber + ':' + "column=" + columnNumber + "] "
-                + message;
+        return "[line=" + lineNumber + ':' + "column=" + columnNumber + "] " + message;
     }
 
-    /** @return public id */
+    /**
+     * @return public id
+     */
     public String getPublicId() {
         return publicId;
     }
 
-    /** @return system id */
+    /**
+     * @return system id
+     */
     public String getSystemId() {
         return systemId;
     }
 
-    /** @return line number */
+    /**
+     * @return line number
+     */
     public int getLineNumber() {
         return lineNumber;
     }
 
-    /** @return column number */
+    /**
+     * @return column number
+     */
     public int getColumnNumber() {
         return columnNumber;
     }

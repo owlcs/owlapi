@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
@@ -17,6 +15,5 @@ interface LiteralTripleIterator {
      * @param object
      *        the object
      */
-    void handleLiteralTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
-            @Nonnull OWLLiteral object);
+    void handleLiteralTriple(IRI subject, IRI predicate, OWLLiteral object);
 }

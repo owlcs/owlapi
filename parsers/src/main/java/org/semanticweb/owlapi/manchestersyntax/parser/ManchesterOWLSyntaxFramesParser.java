@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  *         Management Group
  * @since 3.0.0
  */
-public class ManchesterOWLSyntaxFramesParser implements
-        OWLExpressionParser<Set<OntologyAxiomPair>> {
+public class ManchesterOWLSyntaxFramesParser implements OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     @Nonnull
     private final OWLDataFactory dataFactory;
@@ -48,14 +47,13 @@ public class ManchesterOWLSyntaxFramesParser implements
      * @param checker
      *        the entity checker
      */
-    public ManchesterOWLSyntaxFramesParser(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLEntityChecker checker) {
+    public ManchesterOWLSyntaxFramesParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
         this.checker = checker;
     }
 
     @Override
-    public void setOWLEntityChecker(@Nonnull OWLEntityChecker entityChecker) {
+    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
         checker = entityChecker;
     }
 
@@ -63,8 +61,7 @@ public class ManchesterOWLSyntaxFramesParser implements
      * @param ontologyChecker
      *        the ontology checker
      */
-    public void setOWLOntologyChecker(
-            @Nonnull OWLOntologyChecker ontologyChecker) {
+    public void setOWLOntologyChecker(OWLOntologyChecker ontologyChecker) {
         this.ontologyChecker = ontologyChecker;
     }
 
@@ -72,15 +69,13 @@ public class ManchesterOWLSyntaxFramesParser implements
      * @param ontology
      *        the ontology to use
      */
-    public void setDefaultOntology(@Nonnull OWLOntology ontology) {
+    public void setDefaultOntology(OWLOntology ontology) {
         defaultOntology = ontology;
     }
 
-    @Nonnull
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
-                new OWLAPIConfigProvider(), dataFactory);
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OWLAPIConfigProvider(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         parser.setDefaultOntology(verifyNotNull(defaultOntology));

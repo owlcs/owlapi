@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  *         Management Group
  * @since 3.0.0
  */
-public class ManchesterOWLSyntaxInlineAxiomParser implements
-        OWLExpressionParser<OWLAxiom> {
+public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser<OWLAxiom> {
 
     @Nonnull
     private final OWLDataFactory dataFactory;
@@ -40,9 +39,7 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements
      * @param checker
      *        checker
      */
-    public ManchesterOWLSyntaxInlineAxiomParser(
-            @Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLEntityChecker checker) {
+    public ManchesterOWLSyntaxInlineAxiomParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
         this.checker = checker;
     }
@@ -54,8 +51,7 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements
 
     @Override
     public OWLAxiom parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
-                new OWLAPIConfigProvider(), dataFactory);
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OWLAPIConfigProvider(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         return parser.parseAxiom();

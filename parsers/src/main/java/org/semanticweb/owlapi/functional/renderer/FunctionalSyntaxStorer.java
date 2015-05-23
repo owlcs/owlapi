@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.functional.renderer;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -38,8 +36,7 @@ public class FunctionalSyntaxStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull PrintWriter writer, OWLDocumentFormat format)
+    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         try {
             ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, writer));

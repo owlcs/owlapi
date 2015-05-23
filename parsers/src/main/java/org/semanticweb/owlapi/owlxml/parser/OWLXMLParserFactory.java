@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.owlxml.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -56,7 +54,6 @@ public class OWLXMLParserFactory extends OWLParserFactoryImpl {
         super(new OWLXMLDocumentFormatFactory());
     }
 
-    @Nonnull
     @Override
     public OWLParser createParser() {
         return new OWLXMLParser();

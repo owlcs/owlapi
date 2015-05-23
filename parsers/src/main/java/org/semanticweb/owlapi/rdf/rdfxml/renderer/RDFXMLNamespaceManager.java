@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -38,28 +36,24 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
      * @param format
      *        format
      */
-    public RDFXMLNamespaceManager(@Nonnull OWLOntology ontology,
-            @Nonnull OWLDocumentFormat format) {
+    public RDFXMLNamespaceManager(OWLOntology ontology, OWLDocumentFormat format) {
         super(ontology, format);
     }
 
-    @Nonnull
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
-        return asSet(Stream
-                .of(getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION)
-                        .flatMap(ax -> ax.getProperty().signature()),
-                        getOntology()
-                                .axioms(AxiomType.DATA_PROPERTY_ASSERTION)
-                                .map(ax -> ax.getProperty().asOWLDataProperty()),
-                        getOntology().annotationPropertiesInSignature(
-                                Imports.INCLUDED)).flatMap(x -> x));
+        return asSet(
+                Stream.of(
+                        getOntology().axioms(AxiomType.OBJECT_PROPERTY_ASSERTION).flatMap(
+                                ax -> ax.getProperty().signature()),
+                getOntology().axioms(AxiomType.DATA_PROPERTY_ASSERTION).map(ax -> ax.getProperty().asOWLDataProperty()),
+                getOntology().annotationPropertiesInSignature(Imports.INCLUDED)).flatMap(x -> x));
     }
 
-    /** @return entities with invalid qnames */
-    @Nonnull
+    /**
+     * @return entities with invalid qnames
+     */
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
-        return asSet(getEntitiesThatRequireNamespaces().stream().filter(
-                e -> !e.getIRI().getRemainder().isPresent()));
+        return asSet(getEntitiesThatRequireNamespaces().stream().filter(e -> !e.getIRI().getRemainder().isPresent()));
     }
 }

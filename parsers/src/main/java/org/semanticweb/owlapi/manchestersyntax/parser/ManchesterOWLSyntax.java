@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.parser;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -23,21 +22,7 @@ import javax.annotation.Nullable;
  * @since 2.0.0
  */
 public enum ManchesterOWLSyntax {
-
-
-
-
-
-
-
-
-
-
-
-
-
     //@formatter:off
-    
 //    public static final String VALUE_PARTITION = "ValuePartition:";
 //    public static final String INSTANCES = "Instances:";
     
@@ -133,15 +118,11 @@ public enum ManchesterOWLSyntax {
     private final boolean axiomKeyword;
     private final boolean classExpressionQuantiferKeyword;
     private final boolean classExpressionConnectiveKeyword;
-    @Nonnull
     private final String rendering;
-    @Nonnull
     private final String keyword;
 
-    ManchesterOWLSyntax(@Nonnull String rendering, boolean frameKeyword,
-            boolean sectionKeyword, boolean axiomKeyword,
-            boolean classExpressionQuantifierKeyword,
-            boolean classExpressionConnectiveKeyword, @Nonnull String keyword) {
+    ManchesterOWLSyntax(String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword,
+            boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword, String keyword) {
         this.rendering = rendering;
         this.frameKeyword = frameKeyword;
         this.sectionKeyword = sectionKeyword;
@@ -151,36 +132,43 @@ public enum ManchesterOWLSyntax {
         this.keyword = keyword;
     }
 
-    ManchesterOWLSyntax(@Nonnull String rendering, boolean frameKeyword,
-            boolean sectionKeyword, boolean axiomKeyword,
-            boolean classExpressionQuantifierKeyword,
-            boolean classExpressionConnectiveKeyword) {
-        this(rendering, frameKeyword, sectionKeyword, axiomKeyword,
-                classExpressionQuantifierKeyword,
+    ManchesterOWLSyntax(String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword,
+            boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword) {
+        this(rendering, frameKeyword, sectionKeyword, axiomKeyword, classExpressionQuantifierKeyword,
                 classExpressionConnectiveKeyword, rendering + ':');
     }
 
-    /** @return frame keyword */
+    /**
+     * @return frame keyword
+     */
     public boolean isFrameKeyword() {
         return frameKeyword;
     }
 
-    /** @return section keyword */
+    /**
+     * @return section keyword
+     */
     public boolean isSectionKeyword() {
         return sectionKeyword;
     }
 
-    /** @return axiom keyword */
+    /**
+     * @return axiom keyword
+     */
     public boolean isAxiomKeyword() {
         return axiomKeyword;
     }
 
-    /** @return class conective */
+    /**
+     * @return class conective
+     */
     public boolean isClassExpressionConnectiveKeyword() {
         return classExpressionConnectiveKeyword;
     }
 
-    /** @return class quantifier */
+    /**
+     * @return class quantifier
+     */
     public boolean isClassExpressionQuantiferKeyword() {
         return classExpressionQuantiferKeyword;
     }
@@ -190,7 +178,9 @@ public enum ManchesterOWLSyntax {
         return rendering;
     }
 
-    /** @return keyword */
+    /**
+     * @return keyword
+     */
     public String keyword() {
         return keyword;
     }
@@ -222,9 +212,8 @@ public enum ManchesterOWLSyntax {
      *        v
      * @return true if matches
      */
-    public boolean matches(@Nonnull String s, @Nonnull String v) {
-        return rendering.length() == s.length() + v.length()
-                && rendering.startsWith(s) && rendering.endsWith(v);
+    public boolean matches(String s, String v) {
+        return rendering.length() == s.length() + v.length() && rendering.startsWith(s) && rendering.endsWith(v);
     }
 
     /**

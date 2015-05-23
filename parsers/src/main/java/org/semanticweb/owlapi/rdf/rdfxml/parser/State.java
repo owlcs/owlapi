@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import javax.annotation.Nonnull;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -32,8 +30,7 @@ public interface State {
      * @throws SAXException
      *         sax exception
      */
-    void startElement(String namespaceIRI, String localName, String qName,
-            @Nonnull Attributes atts) throws SAXException;
+    void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException;
 
     /**
      * @param namespaceIRI
@@ -45,8 +42,7 @@ public interface State {
      * @throws SAXException
      *         SAXException
      */
-    void endElement(String namespaceIRI, String localName, String qName)
-            throws SAXException;
+    void endElement(String namespaceIRI, String localName, String qName) throws SAXException;
 
     /**
      * @param data

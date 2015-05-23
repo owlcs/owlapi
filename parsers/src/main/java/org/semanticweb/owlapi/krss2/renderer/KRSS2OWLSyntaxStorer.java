@@ -14,15 +14,15 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
-/** @author Olaf Noppens */
+/**
+ * @author Olaf Noppens
+ */
 public class KRSS2OWLSyntaxStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;
@@ -33,8 +33,7 @@ public class KRSS2OWLSyntaxStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology,
-            PrintWriter writer, OWLDocumentFormat format)
+    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         new KRSS2OWLSyntaxRenderer().render(ontology, writer);
     }

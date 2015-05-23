@@ -49,11 +49,9 @@ public class ManchesterOWLSyntaxOntologyHeader {
      * @param importsDeclarations
      *        the imports declarations
      */
-    public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
-        @Nonnull Set<OWLAnnotation> annotations,
-        Set<OWLImportsDeclaration> importsDeclarations) {
-        ontologyID = new OWLOntologyID(optional(ontologyIRI),
-            optional(versionIRI));
+    public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI, Set<OWLAnnotation> annotations,
+            Set<OWLImportsDeclaration> importsDeclarations) {
+        ontologyID = new OWLOntologyID(optional(ontologyIRI), optional(versionIRI));
         this.annotations = new ArrayList<>(annotations);
         this.importsDeclarations = new ArrayList<>(importsDeclarations);
     }
@@ -61,7 +59,6 @@ public class ManchesterOWLSyntaxOntologyHeader {
     /**
      * @return the ontology ID
      */
-    @Nonnull
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
@@ -69,7 +66,6 @@ public class ManchesterOWLSyntaxOntologyHeader {
     /**
      * @return the annotations
      */
-    @Nonnull
     public Collection<OWLAnnotation> getAnnotations() {
         return annotations;
     }
@@ -77,7 +73,6 @@ public class ManchesterOWLSyntaxOntologyHeader {
     /**
      * @return the imports declarations
      */
-    @Nonnull
     public Collection<OWLImportsDeclaration> getImportsDeclarations() {
         return importsDeclarations;
     }

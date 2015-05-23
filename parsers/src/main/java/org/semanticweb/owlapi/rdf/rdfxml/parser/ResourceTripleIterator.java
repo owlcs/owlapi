@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 
 interface ResourceTripleIterator {
@@ -16,6 +14,5 @@ interface ResourceTripleIterator {
      * @param object
      *        the object
      */
-    void handleResourceTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
-            @Nonnull IRI object);
+    void handleResourceTriple(IRI subject, IRI predicate, IRI object);
 }

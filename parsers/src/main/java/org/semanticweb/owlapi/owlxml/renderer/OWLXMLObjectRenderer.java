@@ -21,98 +21,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataComplementOf;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataUnionOf;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -129,11 +38,11 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
      * @param writer
      *        writer
      */
-    public OWLXMLObjectRenderer(@Nonnull OWLXMLWriter writer) {
+    public OWLXMLObjectRenderer(OWLXMLWriter writer) {
         this.writer = checkNotNull(writer, "writer cannot be null");
     }
 
-    private void writeAnnotations(@Nonnull OWLAxiom axiom) {
+    private void writeAnnotations(OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         render(axiom.annotations());
     }
@@ -145,11 +54,10 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             writer.writeStartElement(IMPORT);
             writer.writeTextContent(decl.getIRI().toString());
             writer.writeEndElement();
-        });
+        } );
         render(ontology.annotations());
         // treat declarations separately from other axioms
-        Collection<OWLDeclarationAxiom> declarations = ontology
-                .getAxioms(AxiomType.DECLARATION);
+        Collection<OWLDeclarationAxiom> declarations = ontology.getAxioms(AxiomType.DECLARATION);
         Set<OWLEntity> declared = asSet(ontology.signature());
         for (OWLDeclarationAxiom ax : declarations) {
             ax.accept(this);
@@ -158,28 +66,23 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         // any undeclared entities?
         if (!declared.isEmpty()) {
             boolean addMissing = true;
-            OWLDocumentFormat format = ontology.getOWLOntologyManager()
-                    .getOntologyFormat(ontology);
+            OWLDocumentFormat format = ontology.getOWLOntologyManager().getOntologyFormat(ontology);
             if (format != null) {
                 addMissing = format.isAddMissingTypes();
             }
             if (addMissing) {
-                Collection<IRI> illegalPunnings = OWLDocumentFormat
-                        .determineIllegalPunnings(addMissing,
-                                asList(ontology.signature()),
-                                ontology.getPunnedIRIs(Imports.INCLUDED));
+                Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(addMissing,
+                        asList(ontology.signature()), ontology.getPunnedIRIs(Imports.INCLUDED));
                 for (OWLEntity e : declared) {
                     if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
                             && !ontology.isDeclared(e, Imports.INCLUDED)) {
-                        ontology.getOWLOntologyManager().getOWLDataFactory()
-                                .getOWLDeclarationAxiom(e).accept(this);
+                        ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(e).accept(this);
                     }
                 }
             }
         }
         Collection<OWLAxiom> axioms = new ArrayList<>();
-        AxiomType.AXIOM_TYPES.stream()
-                .filter(t -> !t.equals(AxiomType.DECLARATION))
+        AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(AxiomType.DECLARATION))
                 .forEach(t -> axioms.addAll(ontology.getAxioms(t)));
         render(CollectionFactory.sortOptionally(axioms));
     }

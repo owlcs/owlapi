@@ -41,7 +41,6 @@ public final class XMLWriterPreferences {
      *         changing the settings. The class should be rewritten to be
      *         immutable but this would break the current interface.
      */
-    @Nonnull
     public synchronized XMLWriterPreferences copy() {
         XMLWriterPreferences p = new XMLWriterPreferences();
         p.setIndenting(indenting);
@@ -50,12 +49,16 @@ public final class XMLWriterPreferences {
         return p;
     }
 
-    /** @return the only instance */
+    /**
+     * @return the only instance
+     */
     public static XMLWriterPreferences getInstance() {
         return INSTANCE;
     }
 
-    /** @return use namespace entities */
+    /**
+     * @return use namespace entities
+     */
     public boolean isUseNamespaceEntities() {
         return useNamespaceEntities;
     }
@@ -64,12 +67,13 @@ public final class XMLWriterPreferences {
      * @param useNamespaceEntities
      *        useNamespaceEntities
      */
-    public synchronized void setUseNamespaceEntities(
-            boolean useNamespaceEntities) {
+    public synchronized void setUseNamespaceEntities(boolean useNamespaceEntities) {
         this.useNamespaceEntities = useNamespaceEntities;
     }
 
-    /** @return indenting */
+    /**
+     * @return indenting
+     */
     public boolean isIndenting() {
         return indenting;
     }
@@ -82,7 +86,9 @@ public final class XMLWriterPreferences {
         this.indenting = indenting;
     }
 
-    /** @return indent size */
+    /**
+     * @return indent size
+     */
     public int getIndentSize() {
         return indentSize;
     }

@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -26,8 +24,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
  *         Informatics Group
  * @since 2.2.0
  */
-public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
-        TripleHandler {
+public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
 
     /**
      * @param ontology
@@ -35,8 +32,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
      * @param configuration
      *        configuration
      */
-    public OWLRDFConsumerAdapter(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyLoaderConfiguration configuration) {
+    public OWLRDFConsumerAdapter(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         super(ontology, configuration);
     }
 
@@ -52,8 +48,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
     public void handleComment(String comment) {}
 
     @Override
-    public void handleTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
-            @Nonnull IRI object) {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         statementWithResourceValue(subject, predicate, object);
     }
 
@@ -63,14 +58,12 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object,
-            String lang) {
+    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
         statementWithLiteralValue(subject, predicate, object, lang, null);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object,
-            IRI datatype) {
+    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
         statementWithLiteralValue(subject, predicate, object, null, datatype);
     }
 

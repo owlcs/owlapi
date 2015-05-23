@@ -92,7 +92,9 @@ public class ManchesterOWLSyntaxTokenizer {
         col = 1;
     }
 
-    /** @return tokens */
+    /**
+     * @return tokens
+     */
     public List<Token> tokenize() {
         reset();
         int bufferLen = buffer.length();
@@ -160,8 +162,7 @@ public class ManchesterOWLSyntaxTokenizer {
                 int j = pos + 1;
                 if (j < buffer.length()) {
                     char escapedChar = readChar();
-                    if (escapedChar == '\"' || escapedChar == '\''
-                            || escapedChar == '\\') {
+                    if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
                         sb.append(escapedChar);
                     } else {
                         sb.append(ch);
@@ -234,30 +235,37 @@ public class ManchesterOWLSyntaxTokenizer {
          * @param row
          *        row
          */
-        public Token(@Nonnull String token, int pos, int col, int row) {
+        public Token(String token, int pos, int col, int row) {
             this.token = token;
             this.pos = pos;
             this.col = col;
             this.row = row;
         }
 
-        /** @return token */
-        @Nonnull
+        /**
+         * @return token
+         */
         public String getToken() {
             return token;
         }
 
-        /** @return position */
+        /**
+         * @return position
+         */
         public int getPos() {
             return pos;
         }
 
-        /** @return column */
+        /**
+         * @return column
+         */
         public int getCol() {
             return col;
         }
 
-        /** @return row */
+        /**
+         * @return row
+         */
         public int getRow() {
             return row;
         }

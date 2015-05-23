@@ -17,7 +17,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -47,8 +46,7 @@ public class AbstractRenderer {
      * @param shortFormProvider
      *        shortFormProvider
      */
-    protected AbstractRenderer(Writer writer,
-            ShortFormProvider shortFormProvider) {
+    protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
         this.writer = writer;
         this.shortFormProvider = shortFormProvider;
         pushTab(0);
@@ -70,12 +68,16 @@ public class AbstractRenderer {
         this.useWrapping = useWrapping;
     }
 
-    /** @return true if use wrapping */
+    /**
+     * @return true if use wrapping
+     */
     protected boolean isUseWrapping() {
         return useWrapping;
     }
 
-    /** @return true if use tabbing */
+    /**
+     * @return true if use tabbing
+     */
     protected boolean isUseTabbing() {
         return useTabbing;
     }
@@ -145,15 +147,15 @@ public class AbstractRenderer {
         write(" ");
     }
 
-    protected void write(@Nonnull ManchesterOWLSyntax keyword) {
+    protected void write(ManchesterOWLSyntax keyword) {
         write(" ", keyword, " ");
     }
 
-    protected void writeFrameKeyword(@Nonnull ManchesterOWLSyntax keyword) {
+    protected void writeFrameKeyword(ManchesterOWLSyntax keyword) {
         write("", keyword, ": ");
     }
 
-    protected void writeSectionKeyword(@Nonnull ManchesterOWLSyntax keyword) {
+    protected void writeSectionKeyword(ManchesterOWLSyntax keyword) {
         write(" ", keyword, ": ");
     }
 
@@ -164,8 +166,7 @@ public class AbstractRenderer {
         }
     }
 
-    protected void write(String prefix, @Nonnull ManchesterOWLSyntax keyword,
-            String suffix) {
+    protected void write(String prefix, ManchesterOWLSyntax keyword, String suffix) {
         write(prefix);
         write(keyword.toString());
         write(suffix);

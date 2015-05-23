@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  *         Informatics Group
  * @since 2.2.0
  */
-public class ManchesterOWLSyntaxClassFrameParser implements
-        OWLExpressionParser<Set<OntologyAxiomPair>> {
+public class ManchesterOWLSyntaxClassFrameParser implements OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     @Nonnull
     private final OWLDataFactory dataFactory;
@@ -47,9 +46,7 @@ public class ManchesterOWLSyntaxClassFrameParser implements
      * @param checker
      *        checker
      */
-    public ManchesterOWLSyntaxClassFrameParser(
-            @Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLEntityChecker checker) {
+    public ManchesterOWLSyntaxClassFrameParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         this.dataFactory = checkNotNull(dataFactory);
         this.checker = checkNotNull(checker);
     }
@@ -59,11 +56,9 @@ public class ManchesterOWLSyntaxClassFrameParser implements
         checker = entityChecker;
     }
 
-    @Nonnull
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
-                new OWLAPIConfigProvider(), dataFactory);
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OWLAPIConfigProvider(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         return parser.parseClassFrameEOF();

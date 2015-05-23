@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  *         Informatics Group
  * @since 2.2.0
  */
-public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
-        OWLObjectRenderer {
+public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
 
     @Nonnull
     private ManchesterOWLSyntaxObjectRenderer ren;
@@ -42,23 +41,19 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
     /** Default constructor. */
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {
         writerDelegate = new WriterDelegate();
-        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate,
-                new SimpleShortFormProvider());
+        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, new SimpleShortFormProvider());
     }
 
-    @Nonnull
     @Override
-    public synchronized String render(@Nonnull OWLObject object) {
+    public synchronized String render(OWLObject object) {
         writerDelegate.reset();
         object.accept(ren);
         return writerDelegate.toString();
     }
 
     @Override
-    public synchronized void setShortFormProvider(
-            ShortFormProvider shortFormProvider) {
-        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate,
-                shortFormProvider);
+    public synchronized void setShortFormProvider(ShortFormProvider shortFormProvider) {
+        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, shortFormProvider);
     }
 
     private static class WriterDelegate extends Writer {
@@ -72,7 +67,6 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
             delegate = new StringWriter();
         }
 
-        @Nonnull
         @Override
         public String toString() {
             return delegate.getBuffer().toString();

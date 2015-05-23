@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.krss2.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -56,7 +54,6 @@ public class KRSS2OWLParserFactory extends OWLParserFactoryImpl {
         super(new KRSS2DocumentFormatFactory());
     }
 
-    @Nonnull
     @Override
     public OWLParser createParser() {
         return new KRSS2OWLParser();

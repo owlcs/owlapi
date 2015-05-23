@@ -29,28 +29,22 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class RDFXMLWriter {
 
     @Nonnull
-    private static final IRI RDF_RDF = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "RDF");
+    private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
     @Nonnull
-    private static final IRI RDF_RESOURCE = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "resource");
+    private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(), "resource");
     @Nonnull
     private static final String XML_LANG = "xml:lang";
     @Nonnull
-    private static final IRI RDF_NODEID = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "nodeID");
+    private static final IRI RDF_NODEID = IRI.create(Namespaces.RDF.getPrefixIRI(), "nodeID");
     @Nonnull
-    private static final IRI RDF_ABOUT = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "about");
+    private static final IRI RDF_ABOUT = IRI.create(Namespaces.RDF.getPrefixIRI(), "about");
     @Nonnull
-    private static final IRI RDF_DATATYPE = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "datatype");
+    private static final IRI RDF_DATATYPE = IRI.create(Namespaces.RDF.getPrefixIRI(), "datatype");
     @Nonnull
-    private static final IRI PARSETYPE_IRI = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "parseType");
+    private static final IRI PARSETYPE_IRI = IRI.create(Namespaces.RDF.getPrefixIRI(), "parseType");
     private final XMLWriter writer;
 
-    protected RDFXMLWriter(@Nonnull XMLWriter writer) {
+    protected RDFXMLWriter(XMLWriter writer) {
         this.writer = checkNotNull(writer, "writer cannot be null");
     }
 
@@ -58,10 +52,9 @@ public class RDFXMLWriter {
      * @param elementName
      *        elementName
      */
-    public void writeStartElement(@Nonnull IRI elementName) {
+    public void writeStartElement(IRI elementName) {
         // Sort out with namespace
-        writer.writeStartElement(checkNotNull(elementName,
-                "elementName cannot be null"));
+        writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null"));
     }
 
     /**
@@ -75,7 +68,7 @@ public class RDFXMLWriter {
      * @param datatypeIRI
      *        datatypeIRI
      */
-    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) {
+    public void writeDatatypeAttribute(IRI datatypeIRI) {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
         writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
     }
@@ -84,7 +77,7 @@ public class RDFXMLWriter {
      * @param text
      *        text
      */
-    public void writeTextContent(@Nonnull String text) {
+    public void writeTextContent(String text) {
         writer.writeTextContent(text);
     }
 
@@ -92,7 +85,7 @@ public class RDFXMLWriter {
      * @param lang
      *        lang
      */
-    public void writeLangAttribute(@Nonnull String lang) {
+    public void writeLangAttribute(String lang) {
         writer.writeAttribute(XML_LANG, lang);
     }
 
@@ -105,7 +98,7 @@ public class RDFXMLWriter {
      * @param value
      *        value
      */
-    public void writeAboutAttribute(@Nonnull IRI value) {
+    public void writeAboutAttribute(IRI value) {
         writeAttribute(RDF_ABOUT, value);
     }
 
@@ -113,7 +106,7 @@ public class RDFXMLWriter {
      * @param node
      *        node
      */
-    public void writeNodeIDAttribute(@Nonnull RDFResource node) {
+    public void writeNodeIDAttribute(RDFResource node) {
         writer.writeAttribute(RDF_NODEID, node.toString());
     }
 
@@ -123,9 +116,8 @@ public class RDFXMLWriter {
      * @param value
      *        value
      */
-    public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value) {
-        writer.writeAttribute(attributeName,
-                checkNotNull(value, "value cannot be null").toString());
+    public void writeAttribute(IRI attributeName, IRI value) {
+        writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
     }
 
     /**
@@ -139,7 +131,7 @@ public class RDFXMLWriter {
      * @param value
      *        value
      */
-    public void writeResourceAttribute(@Nonnull IRI value) {
+    public void writeResourceAttribute(IRI value) {
         writeAttribute(RDF_RESOURCE, value);
     }
 
@@ -161,7 +153,7 @@ public class RDFXMLWriter {
      * @param comment
      *        comment
      */
-    public void writeComment(@Nonnull String comment) {
+    public void writeComment(String comment) {
         writer.writeComment(comment);
     }
 }

@@ -24,12 +24,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedObject;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -58,8 +53,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      * @param format
      *        format
      */
-    public OWLOntologyXMLNamespaceManager(@Nonnull OWLOntology ontology,
-            @Nonnull OWLDocumentFormat format) {
+    public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLDocumentFormat format) {
         super(getDefaultNamespace(ontology, format));
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
         ontologyFormat = checkNotNull(format, "format cannot be null");
@@ -68,7 +62,6 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         processOntology();
     }
 
-    @Nonnull
     protected OWLOntology getOntology() {
         return ontology;
     }
@@ -76,14 +69,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     private final void processOntology() {
         if (ontologyFormat instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat namespaceFormat = (PrefixDocumentFormat) ontologyFormat;
-            Map<String, String> namespacesByPrefix = namespaceFormat
-                    .getPrefixName2PrefixMap();
+            Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
             for (String prefixName : namespacesByPrefix.keySet()) {
-                String xmlnsPrefixName = prefixName.substring(0,
-                        prefixName.length() - 1);
+                String xmlnsPrefixName = prefixName.substring(0, prefixName.length() - 1);
                 String xmlnsPrefix = namespacesByPrefix.get(prefixName);
-                namespaceUtil.setPrefix(verifyNotNull(xmlnsPrefix),
-                        verifyNotNull(xmlnsPrefixName));
+                namespaceUtil.setPrefix(verifyNotNull(xmlnsPrefix), verifyNotNull(xmlnsPrefixName));
             }
         }
         if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
@@ -91,18 +81,15 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             namespaceUtil.setPrefix(Namespaces.SWRLB.toString(), "swrlb");
         }
         getEntitiesThatRequireNamespaces().forEach(e -> processEntity(e));
-        namespaceUtil.getNamespace2PrefixMap().forEach(
-                (k, v) -> setOWL2Prefix(k, v));
+        namespaceUtil.getNamespace2PrefixMap().forEach((k, v) -> setOWL2Prefix(k, v));
     }
 
     protected void setOWL2Prefix(String k, String v) {
-        if (!Namespaces.OWL11.inNamespace(k)
-                && !Namespaces.OWL11XML.inNamespace(k)) {
+        if (!Namespaces.OWL11.inNamespace(k) && !Namespaces.OWL11XML.inNamespace(k)) {
             setPrefix(v, k);
         }
     }
 
-    @Nonnull
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
         Set<OWLEntity> result = new HashSet<>();
         add(ontology.classesInSignature(), result);
@@ -113,11 +100,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         return result;
     }
 
-    private void processEntity(@Nonnull OWLNamedObject entity) {
+    private void processEntity(OWLNamedObject entity) {
         processIRI(checkNotNull(entity, "entity cannot be null").getIRI());
     }
 
-    private void processIRI(@Nonnull IRI iri) {
+    private void processIRI(IRI iri) {
         String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
         if (!(ns.isEmpty() || !iri.getRemainder().isPresent())) {
             namespaceUtil.getPrefix(ns);
@@ -136,9 +123,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      *        format
      * @return A suggested default namespace
      */
-    @Nonnull
-    private static String getDefaultNamespace(@Nonnull OWLOntology ontology,
-            @Nonnull OWLDocumentFormat format) {
+    private static String getDefaultNamespace(OWLOntology ontology, OWLDocumentFormat format) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(format, "format cannot be null");
         if (format instanceof PrefixDocumentFormat) {
@@ -152,8 +137,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             // What do we return here? Just return the OWL namespace for now.
             return Namespaces.OWL.toString();
         } else {
-            String base = ontology.getOntologyID().getOntologyIRI().get()
-                    .toString();
+            String base = ontology.getOntologyID().getOntologyIRI().get().toString();
             if (!base.endsWith("#") && !base.endsWith("/")) {
                 base += "#";
             }

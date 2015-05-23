@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import java.io.PrintWriter;
 
-import javax.annotation.Nonnull;
-
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
  * 
@@ -36,11 +34,8 @@ public class XMLWriterFactory {
      *        xmlBase
      * @return xml writer
      */
-    @Nonnull
-    public static XMLWriter createXMLWriter(@Nonnull PrintWriter writer,
-            @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
-            @Nonnull String xmlBase) {
-        return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase,
-                XMLWriterPreferences.getInstance().copy());
+    public static XMLWriter createXMLWriter(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
+            String xmlBase) {
+        return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase, XMLWriterPreferences.getInstance().copy());
     }
 }

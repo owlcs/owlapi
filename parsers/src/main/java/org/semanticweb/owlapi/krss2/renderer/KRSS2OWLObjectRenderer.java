@@ -25,52 +25,21 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.Filters;
 
-/** @author Olaf Noppens */
+/**
+ * @author Olaf Noppens
+ */
 public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
-    @Nonnull
     private final Writer writer;
 
     /**
      * @param writer
      *        writer
      */
-    public KRSS2OWLObjectRenderer(@Nonnull Writer writer) {
+    public KRSS2OWLObjectRenderer(Writer writer) {
         this.writer = checkNotNull(writer);
     }
 
@@ -98,7 +67,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void write(@Nonnull IRI iri) {
+    private void write(IRI iri) {
         try {
             writer.write(iri.toString());
         } catch (IOException e) {
@@ -185,15 +154,13 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Stream<OWLClassExpression> superClasses = sup(ontology.axioms(
-                        Filters.subClassWithSub, eachClass, INCLUDED),
-                        OWLClassExpression.class);
+                Stream<OWLClassExpression> superClasses = sup(
+                        ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED), OWLClassExpression.class);
                 flatten(superClasses.iterator());
                 writeCloseBracket(); // ==> end definition of primitive-concept
                 writeln();
-                Collection<OWLClassExpression> classes = asList(equivalent(
-                        ontology.equivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class));
+                Collection<OWLClassExpression> classes = asList(
+                        equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -207,9 +174,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Collection<OWLClassExpression> classes = asList(equivalent(
-                        ontology.equivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class));
+                Collection<OWLClassExpression> classes = asList(
+                        equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
                 if (classes.isEmpty()) {
                     // ?
                     writeCloseBracket();
@@ -236,8 +202,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
             }
         }
         ontology.generalClassAxioms().forEach(a -> a.accept(this));
-        for (OWLObjectProperty property : asList(ontology
-                .objectPropertiesInSignature())) {
+        for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature())) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
@@ -251,25 +216,22 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 writeSpace();
                 write(TRUE);
             }
-            Stream<OWLClassExpression> domains = domain(ontology
-                    .objectPropertyDomainAxioms(property));
+            Stream<OWLClassExpression> domains = domain(ontology.objectPropertyDomainAxioms(property));
             Iterator<OWLClassExpression> i = domains.iterator();
             if (i.hasNext()) {
                 writeAttribute(DOMAIN);
                 flatten(i);
             }
-            Stream<OWLClassExpression> ranges = range(ontology
-                    .objectPropertyRangeAxioms(property));
+            Stream<OWLClassExpression> ranges = range(ontology.objectPropertyRangeAxioms(property));
             i = ranges.iterator();
             if (i.hasNext()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(i);
             }
             Stream<OWLObjectPropertyExpression> superProperties = sup(
-                    ontology.axioms(Filters.subObjectPropertyWithSub, property,
-                            INCLUDED), OWLObjectPropertyExpression.class);
-            Iterator<OWLObjectPropertyExpression> it = superProperties
-                    .iterator();
+                    ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                    OWLObjectPropertyExpression.class);
+            Iterator<OWLObjectPropertyExpression> it = superProperties.iterator();
             if (it.hasNext()) {
                 writeAttribute(PARENTS_ATTR);
                 writeOpenBracket();

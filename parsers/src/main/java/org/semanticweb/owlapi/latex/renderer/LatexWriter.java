@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.latex.renderer;
 import java.io.PrintWriter;
 import java.io.Writer;
 
-import javax.annotation.Nonnull;
-
 /**
  * The Class LatexWriter.
  * 
@@ -43,7 +41,7 @@ public class LatexWriter {
      * @param o
      *        object to write
      */
-    public void write(@Nonnull Object o) {
+    public void write(Object o) {
         writer.write(o.toString());
     }
 

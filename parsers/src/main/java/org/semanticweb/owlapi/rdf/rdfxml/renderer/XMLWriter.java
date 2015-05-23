@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -32,18 +30,18 @@ public interface XMLWriter {
      * @param encoding
      *        The encoding.
      */
-    void setEncoding(@Nonnull String encoding);
+    void setEncoding(String encoding);
 
     /**
      * Gets the Writer's namespace manager.
      * 
      * @return The namespace manager.
      */
-    @Nonnull
     XMLWriterNamespaceManager getNamespacePrefixes();
 
-    /** @return the xml base */
-    @Nonnull
+    /**
+     * @return the xml base
+     */
     String getXMLBase();
 
     /**
@@ -62,7 +60,7 @@ public interface XMLWriter {
      * @param rootElement
      *        The iri of the root element.
      */
-    void startDocument(@Nonnull IRI rootElement);
+    void startDocument(IRI rootElement);
 
     /**
      * Causes all open elements, including the document root element, to be
@@ -78,7 +76,7 @@ public interface XMLWriter {
      *        QName. @throws IllegalElementNameException if the specified name
      *        is not a valid QName
      */
-    void writeStartElement(@Nonnull IRI name);
+    void writeStartElement(IRI name);
 
     /**
      * Writes the closing tag of the last element to be started.
@@ -94,7 +92,7 @@ public interface XMLWriter {
      * @param val
      *        The value of the attribute
      */
-    void writeAttribute(@Nonnull String attr, @Nonnull String val);
+    void writeAttribute(String attr, String val);
 
     /**
      * Writes an attribute of the last element to be started (that has not been
@@ -105,7 +103,7 @@ public interface XMLWriter {
      * @param val
      *        The value of the attribute
      */
-    void writeAttribute(@Nonnull IRI attr, String val);
+    void writeAttribute(IRI attr, String val);
 
     /**
      * Writes a text element.
@@ -113,11 +111,11 @@ public interface XMLWriter {
      * @param text
      *        The text to be written
      */
-    void writeTextContent(@Nonnull String text);
+    void writeTextContent(String text);
 
     /**
      * @param commentText
      *        commentText
      */
-    void writeComment(@Nonnull String commentText);
+    void writeComment(String commentText);
 }

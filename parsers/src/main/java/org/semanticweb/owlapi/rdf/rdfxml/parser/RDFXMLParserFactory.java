@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -56,7 +54,6 @@ public class RDFXMLParserFactory extends OWLParserFactoryImpl {
         super(new RDFXMLDocumentFormatFactory());
     }
 
-    @Nonnull
     @Override
     public OWLParser createParser() {
         return new RDFXMLParser();

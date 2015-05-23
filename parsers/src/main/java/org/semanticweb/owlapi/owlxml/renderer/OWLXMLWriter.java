@@ -55,15 +55,12 @@ public class OWLXMLWriter {
     @Nonnull
     private static final String LANG_IRI = "xml:lang";
     @Nonnull
-    private static final IRI VERSION_IRI = IRI.create(
-            Namespaces.OWL.getPrefixIRI(), "versionIRI");
+    private static final IRI VERSION_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "versionIRI");
     @Nonnull
-    private static final IRI ONTOLOGY_IRI = IRI.create(
-            Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
+    private static final IRI ONTOLOGY_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
     private final XMLWriter writer;
     @Nonnull
-    private final Map<String, String> iriPrefixMap = new TreeMap<>(
-            new StringLengthComparator());
+    private final Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
 
     /**
      * @param writer
@@ -71,10 +68,8 @@ public class OWLXMLWriter {
      * @param ontology
      *        ontology
      */
-    public OWLXMLWriter(@Nonnull PrintWriter writer,
-            @Nullable OWLOntology ontology) {
-        XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(
-                Namespaces.OWL.toString());
+    public OWLXMLWriter(PrintWriter writer, @Nullable OWLOntology ontology) {
+        XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(Namespaces.OWL.toString());
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
         nsm.setPrefix("rdf", Namespaces.RDF.toString());
         nsm.setPrefix("rdfs", Namespaces.RDFS.toString());
@@ -86,12 +81,16 @@ public class OWLXMLWriter {
         this.writer = XMLWriterFactory.createXMLWriter(writer, nsm, base);
     }
 
-    /** @return iri to prefix map */
+    /**
+     * @return iri to prefix map
+     */
     public Map<String, String> getIRIPrefixMap() {
         return iriPrefixMap;
     }
 
-    /** @return namespace manager */
+    /**
+     * @return namespace manager
+     */
     public XMLWriterNamespaceManager getNamespaceManager() {
         return writer.getNamespacePrefixes();
     }
@@ -145,13 +144,10 @@ public class OWLXMLWriter {
         try {
             writer.startDocument(ONTOLOGY.getIRI());
             if (!ontology.isAnonymous()) {
-                writer.writeAttribute(ONTOLOGY_IRI, ontology.getOntologyID()
-                        .getOntologyIRI().get().toString());
-                Optional<IRI> versionIRI = ontology.getOntologyID()
-                        .getVersionIRI();
+                writer.writeAttribute(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI().get().toString());
+                Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
                 if (versionIRI.isPresent()) {
-                    writer.writeAttribute(VERSION_IRI, versionIRI.get()
-                            .toString());
+                    writer.writeAttribute(VERSION_IRI, versionIRI.get().toString());
                 }
             }
         } catch (OWLRuntimeException e) {
@@ -162,8 +158,7 @@ public class OWLXMLWriter {
     /** End document. */
     public void endDocument() {
         writer.endDocument();
-        writer.writeComment(VersionInfo.getVersionInfo()
-                .getGeneratedByMessage());
+        writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
     }
 
     /**
@@ -187,8 +182,7 @@ public class OWLXMLWriter {
      *        The datatype
      */
     public void writeDatatypeAttribute(OWLDatatype datatype) {
-        writer.writeAttribute(DATATYPE_IRI.getIRI(), datatype.getIRI()
-                .toString());
+        writer.writeAttribute(DATATYPE_IRI.getIRI(), datatype.getIRI().toString());
     }
 
     /**
@@ -245,17 +239,15 @@ public class OWLXMLWriter {
         }
     }
 
-    @Nonnull
     String iriMinusBase(String iriString) {
-        return iriString.substring(writer.getXMLBase().length(),
-                iriString.length());
+        return iriString.substring(writer.getXMLBase().length(), iriString.length());
     }
 
     /**
      * @param lang
      *        lang
      */
-    public void writeLangAttribute(@Nonnull String lang) {
+    public void writeLangAttribute(String lang) {
         writer.writeAttribute(LANG_IRI, lang);
     }
 
@@ -264,15 +256,14 @@ public class OWLXMLWriter {
      *        cardinality
      */
     public void writeCardinalityAttribute(int cardinality) {
-        writer.writeAttribute(CARDINALITY_ATTRIBUTE.getIRI(),
-                Integer.toString(cardinality));
+        writer.writeAttribute(CARDINALITY_ATTRIBUTE.getIRI(), Integer.toString(cardinality));
     }
 
     /**
      * @param text
      *        text
      */
-    public void writeTextContent(@Nonnull String text) {
+    public void writeTextContent(String text) {
         writer.writeTextContent(text);
     }
 
@@ -281,8 +272,7 @@ public class OWLXMLWriter {
      *        facet
      */
     public void writeFacetAttribute(OWLFacet facet) {
-        writer.writeAttribute(DATATYPE_FACET.getIRI(), facet.getIRI()
-                .toString());
+        writer.writeAttribute(DATATYPE_FACET.getIRI(), facet.getIRI().toString());
     }
 
     /**

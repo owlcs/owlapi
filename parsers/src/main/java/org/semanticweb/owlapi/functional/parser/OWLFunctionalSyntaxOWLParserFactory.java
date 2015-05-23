@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.functional.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -56,7 +54,6 @@ public class OWLFunctionalSyntaxOWLParserFactory extends OWLParserFactoryImpl {
         super(new FunctionalSyntaxDocumentFormatFactory());
     }
 
-    @Nonnull
     @Override
     public OWLParser createParser() {
         return new OWLFunctionalSyntaxOWLParser();

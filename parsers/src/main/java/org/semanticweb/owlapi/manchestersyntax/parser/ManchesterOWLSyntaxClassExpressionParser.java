@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  *         Informatics Group
  * @since 2.2.0
  */
-public class ManchesterOWLSyntaxClassExpressionParser implements
-        OWLExpressionParser<OWLClassExpression> {
+public class ManchesterOWLSyntaxClassExpressionParser implements OWLExpressionParser<OWLClassExpression> {
 
     @Nonnull
     private final OWLDataFactory dataFactory;
@@ -45,17 +44,14 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
      * @param checker
      *        checker
      */
-    public ManchesterOWLSyntaxClassExpressionParser(
-            @Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLEntityChecker checker) {
+    public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory, OWLEntityChecker checker) {
         this.dataFactory = checkNotNull(dataFactory);
         this.checker = checkNotNull(checker);
     }
 
     @Override
     public OWLClassExpression parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
-                new OWLAPIConfigProvider(), dataFactory);
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(new OWLAPIConfigProvider(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         return parser.parseClassExpression();

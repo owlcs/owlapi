@@ -16,12 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi.io.RDFResourceIRI;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -33,8 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  *         Informatics Group
  * @since 2.0.0
  */
-public class RDFTranslator extends
-        AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
+public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
     @Nonnull
     private RDFGraph graph = new RDFGraph();
@@ -47,32 +41,28 @@ public class RDFTranslator extends
      * @param useStrongTyping
      *        true if strong typing is required
      */
-    public RDFTranslator(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntology ontology, boolean useStrongTyping) {
+    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping) {
         super(manager, ontology, useStrongTyping);
     }
 
-    /** @return the graph */
+    /**
+     * @return the graph
+     */
     public RDFGraph getGraph() {
         return graph;
     }
 
     @Override
-    protected void addTriple(@Nonnull RDFResource subject,
-            @Nonnull RDFResourceIRI pred, @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject,
-                "subject cannot be null"), checkNotNull(pred,
-                "pred cannot be null"), checkNotNull(object,
-                "object cannot be null")));
+    protected void addTriple(RDFResource subject, RDFResourceIRI pred, @Nonnull RDFNode object) {
+        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"),
+                checkNotNull(pred, "pred cannot be null"), checkNotNull(object, "object cannot be null")));
     }
 
     @Override
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
         if (key instanceof OWLAnonymousIndividual) {
-            return new RDFResourceBlankNode(
-                    System.identityHashCode(((OWLAnonymousIndividual) key)
-                            .getID().getID()));
+            return new RDFResourceBlankNode(System.identityHashCode(((OWLAnonymousIndividual) key).getID().getID()));
         }
         return new RDFResourceBlankNode(System.identityHashCode(key));
     }

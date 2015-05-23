@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.manchestersyntax.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -47,8 +45,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  * @since 4.0.0
  */
 @HasPriority(4)
-public class ManchesterOWLSyntaxOntologyParserFactory extends
-        OWLParserFactoryImpl {
+public class ManchesterOWLSyntaxOntologyParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
@@ -57,7 +54,6 @@ public class ManchesterOWLSyntaxOntologyParserFactory extends
         super(new ManchesterSyntaxDocumentFormatFactory());
     }
 
-    @Nonnull
     @Override
     public OWLParser createParser() {
         return new ManchesterOWLSyntaxOntologyParser();

@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -56,7 +54,6 @@ public class TurtleOntologyParserFactory extends OWLParserFactoryImpl {
         super(new TurtleDocumentFormatFactory());
     }
 
-    @Nonnull
     @Override
     public OWLParser createParser() {
         return new TurtleOntologyParser();

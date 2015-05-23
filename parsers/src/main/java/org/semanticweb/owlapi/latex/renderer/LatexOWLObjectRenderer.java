@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.StringWriter;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -30,7 +28,6 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  */
 public class LatexOWLObjectRenderer implements OWLObjectRenderer {
 
-    @Nonnull
     private final OWLDataFactory dataFactory;
     private ShortFormProvider shortFormProvider;
 
@@ -38,16 +35,15 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
      * @param dataFactory
      *        dataFactory
      */
-    public LatexOWLObjectRenderer(@Nonnull OWLDataFactory dataFactory) {
+    public LatexOWLObjectRenderer(OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory);
     }
 
     @Override
-    public String render(@Nonnull OWLObject object) {
+    public String render(OWLObject object) {
         StringWriter writer = new StringWriter();
         LatexWriter latexWriter = new LatexWriter(writer);
-        LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter,
-                dataFactory);
+        LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter, dataFactory);
         visitor.setShortFormProvider(shortFormProvider);
         object.accept(visitor);
         return writer.getBuffer().toString();

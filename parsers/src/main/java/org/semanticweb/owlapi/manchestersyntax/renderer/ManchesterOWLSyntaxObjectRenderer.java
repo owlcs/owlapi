@@ -21,8 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -35,8 +33,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
-        implements OWLObjectVisitor {
+public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implements OWLObjectVisitor {
 
     /**
      * @param writer
@@ -44,25 +41,19 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
      * @param entityShortFormProvider
      *        entityShortFormProvider
      */
-    public ManchesterOWLSyntaxObjectRenderer(Writer writer,
-            ShortFormProvider entityShortFormProvider) {
+    public ManchesterOWLSyntaxObjectRenderer(Writer writer, ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
     }
 
-    @Nonnull
-    protected static <T extends OWLObject> List<T> sort(
-            @Nonnull Collection<T> objects) {
+    protected static <T extends OWLObject> List<T> sort(Collection<T> objects) {
         return CollectionFactory.sortOptionally(objects);
     }
 
-    @Nonnull
-    protected static <T extends OWLObject> List<T> sort(
-            @Nonnull Stream<T> objects) {
+    protected static <T extends OWLObject> List<T> sort(Stream<T> objects) {
         return sort(asList(objects));
     }
 
-    protected void write(@Nonnull List<? extends OWLObject> objects,
-            @Nonnull ManchesterOWLSyntax delimeter, boolean newline) {
+    protected void write(List<? extends OWLObject> objects, ManchesterOWLSyntax delimeter, boolean newline) {
         int tab = getIndent();
         pushTab(tab);
         Iterator<? extends OWLObject> it = sort(objects).iterator();
@@ -78,15 +69,12 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         popTab();
     }
 
-    protected void write(@Nonnull Stream<? extends OWLObject> objects,
-            @Nonnull ManchesterOWLSyntax delimeter, boolean newline) {
+    protected void write(Stream<? extends OWLObject> objects, ManchesterOWLSyntax delimeter, boolean newline) {
         write(asList(objects), delimeter, newline);
     }
 
-    protected void writeCommaSeparatedList(
-            @Nonnull List<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it = objects.iterator(); it
-                .hasNext();) {
+    protected void writeCommaSeparatedList(List<? extends OWLObject> objects) {
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -94,8 +82,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    protected void write(@Nonnull Stream<? extends OWLClassExpression> objects,
-            boolean newline) {
+    protected void write(Stream<? extends OWLClassExpression> objects, boolean newline) {
         boolean first = true;
         Iterator<? extends OWLObject> it = sort(objects).iterator();
         while (it.hasNext()) {
@@ -117,17 +104,13 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    private void writeRestriction(
-            @Nonnull OWLQuantifiedDataRestriction restriction,
-            @Nonnull ManchesterOWLSyntax keyword) {
+    private void writeRestriction(OWLQuantifiedDataRestriction restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         restriction.getFiller().accept(this);
     }
 
-    private void writeRestriction(
-            @Nonnull OWLQuantifiedObjectRestriction restriction,
-            @Nonnull ManchesterOWLSyntax keyword) {
+    private void writeRestriction(OWLQuantifiedObjectRestriction restriction, ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         boolean conjunctionOrDisjunction = false;
@@ -149,18 +132,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    private <V extends OWLObject> void writeRestriction(
-            @Nonnull OWLHasValueRestriction<V> restriction,
-            @Nonnull OWLPropertyExpression p) {
+    private <V extends OWLObject> void writeRestriction(OWLHasValueRestriction<V> restriction,
+            OWLPropertyExpression p) {
         p.accept(this);
         write(VALUE);
         restriction.getFiller().accept(this);
     }
 
-    private <F extends OWLPropertyRange> void writeRestriction(
-            @Nonnull OWLCardinalityRestriction<F> restriction,
-            @Nonnull ManchesterOWLSyntax keyword,
-            @Nonnull OWLPropertyExpression p) {
+    private <F extends OWLPropertyRange> void writeRestriction(OWLCardinalityRestriction<F> restriction,
+            ManchesterOWLSyntax keyword, OWLPropertyExpression p) {
         p.accept(this);
         write(keyword);
         write(Integer.toString(restriction.getCardinality()));
@@ -181,12 +161,12 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectIntersectionOf ce) {
+    public void visit(OWLObjectIntersectionOf ce) {
         write(ce.operands(), true);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectUnionOf ce) {
+    public void visit(OWLObjectUnionOf ce) {
         boolean first = true;
         List<? extends OWLClassExpression> operands = sort(ce.operands());
         Iterator<? extends OWLClassExpression> it = operands.iterator();
@@ -207,7 +187,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectComplementOf ce) {
+    public void visit(OWLObjectComplementOf ce) {
         write("", NOT, ce.isAnonymous() ? " " : "");
         if (ce.isAnonymous()) {
             write("(");
@@ -229,34 +209,34 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasValue ce) {
+    public void visit(OWLObjectHasValue ce) {
         writeRestriction(ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMinCardinality ce) {
+    public void visit(OWLObjectMinCardinality ce) {
         writeRestriction(ce, MIN, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectExactCardinality ce) {
+    public void visit(OWLObjectExactCardinality ce) {
         writeRestriction(ce, EXACTLY, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMaxCardinality ce) {
+    public void visit(OWLObjectMaxCardinality ce) {
         writeRestriction(ce, MAX, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasSelf ce) {
+    public void visit(OWLObjectHasSelf ce) {
         ce.getProperty().accept(this);
         write(SOME);
         write(SELF);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectOneOf ce) {
+    public void visit(OWLObjectOneOf ce) {
         write("{");
         write(ce.individuals(), ONE_OF_DELIMETER, false);
         write("}");
@@ -273,22 +253,22 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLDataHasValue ce) {
+    public void visit(OWLDataHasValue ce) {
         writeRestriction(ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMinCardinality ce) {
+    public void visit(OWLDataMinCardinality ce) {
         writeRestriction(ce, MIN, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLDataExactCardinality ce) {
+    public void visit(OWLDataExactCardinality ce) {
         writeRestriction(ce, EXACTLY, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMaxCardinality ce) {
+    public void visit(OWLDataMaxCardinality ce) {
         writeRestriction(ce, MAX, ce.getProperty());
     }
 
@@ -319,17 +299,17 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLAnonymousIndividual individual) {
+    public void visit(OWLAnonymousIndividual individual) {
         write(individual.toStringID());
     }
 
     @Override
-    public void visit(@Nonnull IRI iri) {
+    public void visit(IRI iri) {
         write(iri.toQuotedString());
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotation node) {
+    public void visit(OWLAnnotation node) {
         writeAnnotations(node.annotations().iterator());
         node.getProperty().accept(this);
         writeSpace();
@@ -338,7 +318,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     // Data stuff
     @Override
-    public void visit(@Nonnull OWLDataComplementOf node) {
+    public void visit(OWLDataComplementOf node) {
         write(NOT);
         if (node.getDataRange().isOWLDatatype()) {
             node.getDataRange().accept(this);
@@ -350,28 +330,28 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLDataOneOf node) {
+    public void visit(OWLDataOneOf node) {
         write("{");
         write(node.values(), ONE_OF_DELIMETER, false);
         write("}");
     }
 
     @Override
-    public void visit(@Nonnull OWLDataIntersectionOf node) {
+    public void visit(OWLDataIntersectionOf node) {
         write("(");
         write(node.operands(), AND, false);
         write(")");
     }
 
     @Override
-    public void visit(@Nonnull OWLDataUnionOf node) {
+    public void visit(OWLDataUnionOf node) {
         write("(");
         write(node.operands(), OR, false);
         write(")");
     }
 
     @Override
-    public void visit(@Nonnull OWLDatatypeRestriction node) {
+    public void visit(OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
         write("[");
         write(node.facetRestrictions(), FACET_RESTRICTION_SEPARATOR, false);
@@ -379,7 +359,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLLiteral node) {
+    public void visit(OWLLiteral node) {
         // xsd:decimal is the default datatype for literal forms like "33.3"
         // with no specified datatype
         if (XSDVocabulary.DECIMAL.getIRI().equals(node.getDatatype().getIRI())) {
@@ -405,7 +385,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    private void writeLiteral(@Nonnull String literal) {
+    private void writeLiteral(String literal) {
         write("\"");
         for (int i = 0; i < literal.length(); i++) {
             char ch = literal.charAt(i);
@@ -420,7 +400,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLFacetRestriction node) {
+    public void visit(OWLFacetRestriction node) {
         write(node.getFacet().getSymbolicForm());
         writeSpace();
         node.getFacetValue().accept(this);
@@ -428,7 +408,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     // Property expression stuff
     @Override
-    public void visit(@Nonnull OWLObjectInverseOf property) {
+    public void visit(OWLObjectInverseOf property) {
         write(INVERSE);
         write("(");
         property.getInverse().accept(this);
@@ -454,7 +434,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         setAxiomWriting();
         axiom.getSubClass().accept(this);
         write(SUBCLASS_OF);
@@ -463,7 +443,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         setAxiomWriting();
         write(NOT);
         write("(");
@@ -477,7 +457,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         setAxiomWriting();
         writeSectionKeyword(ASYMMETRIC);
         axiom.getProperty().accept(this);
@@ -485,17 +465,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
+    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         setAxiomWriting();
         writeSectionKeyword(REFLEXIVE);
         axiom.getProperty().accept(this);
         restore();
     }
 
-    private void writeBinaryOrNaryList(
-            @Nonnull ManchesterOWLSyntax binaryKeyword,
-            @Nonnull List<? extends OWLObject> objects,
-            @Nonnull ManchesterOWLSyntax naryKeyword) {
+    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword, List<? extends OWLObject> objects,
+            ManchesterOWLSyntax naryKeyword) {
         if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
             it.next().accept(this);
@@ -507,32 +485,20 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    private void writeBinaryOrNaryList(
-            @Nonnull ManchesterOWLSyntax binaryKeyword,
-            @Nonnull Stream<? extends OWLObject> objects,
-            @Nonnull ManchesterOWLSyntax naryKeyword) {
+    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword, Stream<? extends OWLObject> objects,
+            ManchesterOWLSyntax naryKeyword) {
         writeBinaryOrNaryList(binaryKeyword, asList(objects), naryKeyword);
     }
 
     @Override
-    public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
+    public void visit(OWLDisjointClassesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, axiom.classExpressions(),
-                DISJOINT_CLASSES);
+        writeBinaryOrNaryList(DISJOINT_WITH, axiom.classExpressions(), DISJOINT_CLASSES);
         restore();
     }
 
     @Override
-    public void visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
-        setAxiomWriting();
-        axiom.getProperty().accept(this);
-        write(DOMAIN);
-        axiom.getDomain().accept(this);
-        restore();
-    }
-
-    @Override
-    public void visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
+    public void visit(OWLDataPropertyDomainAxiom axiom) {
         setAxiomWriting();
         axiom.getProperty().accept(this);
         write(DOMAIN);
@@ -541,15 +507,23 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
+    public void visit(OWLObjectPropertyDomainAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(EQUIVALENT_TO, sort(axiom.properties()),
-                EQUIVALENT_PROPERTIES);
+        axiom.getProperty().accept(this);
+        write(DOMAIN);
+        axiom.getDomain().accept(this);
         restore();
     }
 
     @Override
-    public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        setAxiomWriting();
+        writeBinaryOrNaryList(EQUIVALENT_TO, sort(axiom.properties()), EQUIVALENT_PROPERTIES);
+        restore();
+    }
+
+    @Override
+    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         setAxiomWriting();
         write(NOT);
         write("(");
@@ -563,31 +537,28 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
+    public void visit(OWLDifferentIndividualsAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DIFFERENT_FROM, axiom.getIndividualsAsList(),
-                DIFFERENT_INDIVIDUALS);
+        writeBinaryOrNaryList(DIFFERENT_FROM, axiom.getIndividualsAsList(), DIFFERENT_INDIVIDUALS);
         restore();
     }
 
     @Override
-    public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
+    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, sort(axiom.properties()),
-                DISJOINT_PROPERTIES);
+        writeBinaryOrNaryList(DISJOINT_WITH, sort(axiom.properties()), DISJOINT_PROPERTIES);
         restore();
     }
 
     @Override
-    public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
+    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(DISJOINT_WITH, sort(axiom.properties()),
-                DISJOINT_PROPERTIES);
+        writeBinaryOrNaryList(DISJOINT_WITH, sort(axiom.properties()), DISJOINT_PROPERTIES);
         restore();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
+    public void visit(OWLObjectPropertyRangeAxiom axiom) {
         setAxiomWriting();
         axiom.getProperty().accept(this);
         write(RANGE);
@@ -596,7 +567,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
+    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         setAxiomWriting();
         axiom.getSubject().accept(this);
         write(" ");
@@ -607,7 +578,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
+    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         setAxiomWriting();
         writeSectionKeyword(FUNCTIONAL);
         axiom.getProperty().accept(this);
@@ -615,7 +586,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         setAxiomWriting();
         axiom.getSubProperty().accept(this);
         write(SUB_PROPERTY_OF);
@@ -624,7 +595,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
+    public void visit(OWLDisjointUnionAxiom axiom) {
         setAxiomWriting();
         axiom.getOWLClass().accept(this);
         write(DISJOINT_UNION_OF);
@@ -659,14 +630,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLDeclarationAxiom axiom) {
+    public void visit(OWLDeclarationAxiom axiom) {
         setAxiomWriting();
         writeFrameType(axiom.getEntity());
         restore();
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+    public void visit(OWLAnnotationAssertionAxiom axiom) {
         setAxiomWriting();
         axiom.getSubject().accept(this);
         write(" ");
@@ -675,7 +646,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
+    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         setAxiomWriting();
         axiom.getProperty().accept(this);
         write(DOMAIN);
@@ -683,7 +654,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         setAxiomWriting();
         axiom.getProperty().accept(this);
         write(RANGE);
@@ -691,7 +662,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         setAxiomWriting();
         axiom.getSubProperty().accept(this);
         write(SUB_PROPERTY_OF);
@@ -699,7 +670,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
+    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         setAxiomWriting();
         writeSectionKeyword(SYMMETRIC);
         axiom.getProperty().accept(this);
@@ -707,7 +678,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
+    public void visit(OWLDataPropertyRangeAxiom axiom) {
         setAxiomWriting();
         axiom.getProperty().accept(this);
         writeSectionKeyword(RANGE);
@@ -716,7 +687,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
+    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         setAxiomWriting();
         writeSectionKeyword(FUNCTIONAL);
         axiom.getProperty().accept(this);
@@ -724,7 +695,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
+    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         setAxiomWriting();
         writeFrameKeyword(EQUIVALENT_PROPERTIES);
         writeCommaSeparatedList(sort(axiom.properties()));
@@ -732,7 +703,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLClassAssertionAxiom axiom) {
+    public void visit(OWLClassAssertionAxiom axiom) {
         setAxiomWriting();
         axiom.getIndividual().accept(this);
         write(TYPE);
@@ -741,15 +712,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
+    public void visit(OWLEquivalentClassesAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.classExpressions(),
-                EQUIVALENT_CLASSES);
+        writeBinaryOrNaryList(EQUIVALENT_TO, axiom.classExpressions(), EQUIVALENT_CLASSES);
         restore();
     }
 
     @Override
-    public void visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
+    public void visit(OWLDataPropertyAssertionAxiom axiom) {
         setAxiomWriting();
         axiom.getSubject().accept(this);
         write(" ");
@@ -760,7 +730,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
+    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         setAxiomWriting();
         writeSectionKeyword(TRANSITIVE);
         axiom.getProperty().accept(this);
@@ -768,7 +738,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         setAxiomWriting();
         writeSectionKeyword(IRREFLEXIVE);
         axiom.getProperty().accept(this);
@@ -776,7 +746,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {
         setAxiomWriting();
         axiom.getSubProperty().accept(this);
         writeSectionKeyword(SUB_PROPERTY_OF);
@@ -785,7 +755,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         setAxiomWriting();
         writeSectionKeyword(INVERSE_FUNCTIONAL);
         axiom.getProperty().accept(this);
@@ -793,18 +763,16 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
+    public void visit(OWLSameIndividualAxiom axiom) {
         setAxiomWriting();
-        writeBinaryOrNaryList(SAME_AS, axiom.getIndividualsAsList(),
-                SAME_INDIVIDUAL);
+        writeBinaryOrNaryList(SAME_AS, axiom.getIndividualsAsList(), SAME_INDIVIDUAL);
         restore();
     }
 
     @Override
-    public void visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         setAxiomWriting();
-        for (Iterator<OWLObjectPropertyExpression> it = axiom
-                .getPropertyChain().iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(" o ");
@@ -816,7 +784,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
+    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         setAxiomWriting();
         axiom.getFirstProperty().accept(this);
         write(INVERSE_OF);
@@ -825,7 +793,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull SWRLRule rule) {
+    public void visit(SWRLRule rule) {
         setAxiomWriting();
         for (Iterator<SWRLAtom> it = rule.body().iterator(); it.hasNext();) {
             it.next().accept(this);
@@ -844,7 +812,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLHasKeyAxiom axiom) {
+    public void visit(OWLHasKeyAxiom axiom) {
         setAxiomWriting();
         axiom.getClassExpression().accept(this);
         write(HAS_KEY);
@@ -854,7 +822,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     // SWRL
     @Override
-    public void visit(@Nonnull SWRLClassAtom node) {
+    public void visit(SWRLClassAtom node) {
         if (node.getPredicate().isAnonymous()) {
             write("(");
         }
@@ -868,7 +836,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull SWRLDataRangeAtom node) {
+    public void visit(SWRLDataRangeAtom node) {
         node.getPredicate().accept(this);
         write("(");
         node.getArgument().accept(this);
@@ -876,7 +844,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull SWRLObjectPropertyAtom node) {
+    public void visit(SWRLObjectPropertyAtom node) {
         node.getPredicate().accept(this);
         write("(");
         node.getFirstArgument().accept(this);
@@ -886,7 +854,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull SWRLDataPropertyAtom node) {
+    public void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         write("(");
         node.getFirstArgument().accept(this);
@@ -896,17 +864,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull SWRLBuiltInAtom node) {
-        SWRLBuiltInsVocabulary voc = SWRLBuiltInsVocabulary.getBuiltIn(node
-                .getPredicate());
+    public void visit(SWRLBuiltInAtom node) {
+        SWRLBuiltInsVocabulary voc = SWRLBuiltInsVocabulary.getBuiltIn(node.getPredicate());
         if (voc != null) {
             write(voc.getPrefixedName());
         } else {
             write(node.getPredicate().toQuotedString());
         }
         write("(");
-        for (Iterator<SWRLDArgument> it = node.getArguments().iterator(); it
-                .hasNext();) {
+        for (Iterator<SWRLDArgument> it = node.getArguments().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -916,7 +882,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull SWRLVariable node) {
+    public void visit(SWRLVariable node) {
         write("?");
         // do not save the namespace if it's the conventional one
         if ("urn:swrl#".equals(node.getIRI().getNamespace())) {
@@ -927,17 +893,17 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull SWRLIndividualArgument node) {
+    public void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull SWRLLiteralArgument node) {
+    public void visit(SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull SWRLSameIndividualAtom node) {
+    public void visit(SWRLSameIndividualAtom node) {
         write(SAME_AS);
         write("(");
         node.getFirstArgument().accept(this);
@@ -947,7 +913,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull SWRLDifferentIndividualsAtom node) {
+    public void visit(SWRLDifferentIndividualsAtom node) {
         write(DIFFERENT_FROM);
         write("(");
         node.getFirstArgument().accept(this);
@@ -959,7 +925,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {}
 
-    protected void writeAnnotations(@Nonnull Iterator<OWLAnnotation> annoIt) {
+    protected void writeAnnotations(Iterator<OWLAnnotation> annoIt) {
         if (!annoIt.hasNext()) {
             return;
         }

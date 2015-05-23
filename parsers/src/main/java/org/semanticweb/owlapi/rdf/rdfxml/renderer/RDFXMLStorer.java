@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 import java.io.PrintWriter;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -40,12 +38,10 @@ public class RDFXMLStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull PrintWriter writer, @Nonnull OWLDocumentFormat format)
+    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         try {
-            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer,
-                    format);
+            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
             Set<OWLEntity> entities = renderer.getUnserialisableEntities();
             if (!entities.isEmpty()) {
                 StringBuilder sb = new StringBuilder();

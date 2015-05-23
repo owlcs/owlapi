@@ -20,96 +20,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLDataComplementOf;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataUnionOf;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasValueRestriction;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
-import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
@@ -122,8 +34,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  *         Informatics Group
  * @since 2.2.0
  */
-public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
-        OWLObjectVisitor {
+public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
 
     private ShortFormProvider shortFormProvider;
     private final IRIShortFormProvider iriShortFormProvider;
@@ -141,9 +52,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
      * @param focusedObject
      *        focusedObject
      */
-    public void setFocusedObject(@Nonnull OWLObject focusedObject) {
-        this.focusedObject = checkNotNull(focusedObject,
-                "focusedObject cannot be null");
+    public void setFocusedObject(OWLObject focusedObject) {
+        this.focusedObject = checkNotNull(focusedObject, "focusedObject cannot be null");
     }
 
     /**
@@ -160,11 +70,9 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider,
-                "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
-    @Nonnull
     @Override
     public String render(OWLObject object) {
         buffer = new StringBuilder();
@@ -178,24 +86,22 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         ontology.logicalAxioms().sorted().forEach(ax -> {
             ax.accept(this);
             write("\n");
-        });
+        } );
     }
 
-    protected void write(@Nonnull String s) {
+    protected void write(String s) {
         buffer.append(checkNotNull(s, "s cannot be null"));
     }
 
-    @Nonnull
-    protected String renderEntity(@Nonnull OWLEntity entity) {
-        return shortFormProvider.getShortForm(checkNotNull(entity,
-                "entity cannot be null"));
+    protected String renderEntity(OWLEntity entity) {
+        return shortFormProvider.getShortForm(checkNotNull(entity, "entity cannot be null"));
     }
 
-    protected void writeEntity(@Nonnull OWLEntity entity) {
+    protected void writeEntity(OWLEntity entity) {
         write(renderEntity(checkNotNull(entity, "entity cannot be null")));
     }
 
-    protected void write(@Nonnull DLSyntax keyword) {
+    protected void write(DLSyntax keyword) {
         write(checkNotNull(keyword, "keyword cannot be null").toString());
     }
 
@@ -203,7 +109,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         write(Integer.toString(i));
     }
 
-    protected void writeNested(@Nonnull OWLObject object) {
+    protected void writeNested(OWLObject object) {
         checkNotNull(object, "object cannot be null");
         if (isBracketedIfNested(object)) {
             write("(");
@@ -214,12 +120,12 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         }
     }
 
-    protected static boolean isBracketedIfNested(@Nonnull OWLObject object) {
+    protected static boolean isBracketedIfNested(OWLObject object) {
         checkNotNull(object, "object cannot be null");
         return !(object instanceof OWLEntity);
     }
 
-    private void writeObject(@Nonnull OWLObject object, boolean nest) {
+    private void writeObject(OWLObject object, boolean nest) {
         checkNotNull(object, "object cannot be null");
         if (nest) {
             writeNested(object);
@@ -228,8 +134,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         }
     }
 
-    protected void write(@Nonnull Collection<? extends OWLObject> objects,
-            @Nonnull DLSyntax delim, boolean nest) {
+    protected void write(Collection<? extends OWLObject> objects, DLSyntax delim, boolean nest) {
         checkNotNull(objects, "objects cannot be null");
         checkNotNull(delim, "delim cannot be null");
         if (objects.size() == 2) {
@@ -250,8 +155,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
                 writeObject(o1, nest);
             }
         } else {
-            for (Iterator<? extends OWLObject> it = objects.iterator(); it
-                    .hasNext();) {
+            for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
                 OWLObject o = it.next();
                 writeObject(o, nest);
                 if (it.hasNext()) {
@@ -272,8 +176,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         axiom.getSuperClass().accept(this);
     }
 
-    private void writePropertyAssertion(
-            @Nonnull OWLPropertyAssertionAxiom<?, ?> ax) {
+    private void writePropertyAssertion(OWLPropertyAssertionAxiom<?, ?> ax) {
         checkNotNull(ax, "ax cannot be null");
         if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom
                 || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
@@ -326,7 +229,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         }
     }
 
-    private void writeDomainAxiom(@Nonnull OWLPropertyDomainAxiom<?> axiom) {
+    private void writeDomainAxiom(OWLPropertyDomainAxiom<?> axiom) {
         write(EXISTS);
         writeSpace();
         axiom.getProperty().accept(this);
@@ -378,7 +281,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         write(asList(axiom.properties()), DISJOINT_WITH, false);
     }
 
-    private void writeRangeAxiom(@Nonnull OWLPropertyRangeAxiom<?, ?> axiom) {
+    private void writeRangeAxiom(OWLPropertyRangeAxiom<?, ?> axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         write(TOP);
         writeSpace();
@@ -401,8 +304,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         writePropertyAssertion(axiom);
     }
 
-    private void
-            writeFunctionalProperty(@Nonnull OWLPropertyExpression property) {
+    private void writeFunctionalProperty(OWLPropertyExpression property) {
         checkNotNull(property, "property cannot be null");
         write(TOP);
         writeSpace();
@@ -615,10 +517,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         writeNested(ce.getOperand());
     }
 
-    private void
-            writeCardinalityRestriction(
-                    OWLDataCardinalityRestriction restriction,
-                    @Nonnull DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLDataCardinalityRestriction restriction, DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -628,9 +527,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         writeNested(restriction.getFiller());
     }
 
-    private void writeCardinalityRestriction(
-            OWLObjectCardinalityRestriction restriction,
-            @Nonnull DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLObjectCardinalityRestriction restriction, DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -640,10 +537,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         writeNested(restriction.getFiller());
     }
 
-    private void
-            writeQuantifiedRestriction(
-                    OWLQuantifiedDataRestriction restriction,
-                    @Nonnull DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedDataRestriction restriction, DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -651,9 +545,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         writeNested(restriction.getFiller());
     }
 
-    private void writeQuantifiedRestriction(
-            OWLQuantifiedObjectRestriction restriction,
-            @Nonnull DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedObjectRestriction restriction, DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -671,8 +563,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         writeQuantifiedRestriction(ce, FORALL);
     }
 
-    private <V extends OWLObject> void writeValueRestriction(
-            OWLHasValueRestriction<V> restriction, OWLPropertyExpression p) {
+    private <V extends OWLObject> void writeValueRestriction(OWLHasValueRestriction<V> restriction,
+            OWLPropertyExpression p) {
         write(EXISTS);
         writeSpace();
         p.accept(this);
@@ -713,8 +605,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it
-                .hasNext();) {
+        for (Iterator<? extends OWLIndividual> it = ce.individuals().iterator(); it.hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");
@@ -769,8 +660,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it
-                .hasNext();) {
+        for (Iterator<? extends OWLLiteral> it = node.values().iterator(); it.hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");

@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -34,8 +32,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  *         Management Group
  * @since 3.0.0
  */
-public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
-        ShortFormProvider {
+public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortFormProvider {
 
     private final DefaultPrefixManager prefixManager;
 
@@ -47,8 +44,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      * @param ont
      *        The ontology
      */
-    public ManchesterOWLSyntaxPrefixNameShortFormProvider(
-            @Nonnull OWLOntology ont) {
+    public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntology ont) {
         this(ont.getOWLOntologyManager().getOntologyFormat(ont));
     }
 
@@ -59,8 +55,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      * @param format
      *        The format from which prefix name mappings will be reused
      */
-    public ManchesterOWLSyntaxPrefixNameShortFormProvider(
-            OWLDocumentFormat format) {
+    public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLDocumentFormat format) {
         prefixManager = new DefaultPrefixManager();
         if (format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat ontFormat = (PrefixDocumentFormat) format;
@@ -75,12 +70,13 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      * @param prefixManager
      *        A prefix manager which will be used to obtain prefix mappings
      */
-    public ManchesterOWLSyntaxPrefixNameShortFormProvider(
-            DefaultPrefixManager prefixManager) {
+    public ManchesterOWLSyntaxPrefixNameShortFormProvider(DefaultPrefixManager prefixManager) {
         this.prefixManager = prefixManager;
     }
 
-    /** @return prefix manager map. The map is a copy. */
+    /**
+     * @return prefix manager map. The map is a copy.
+     */
     public Map<String, String> getPrefixName2PrefixMap() {
         return prefixManager.getPrefixName2PrefixMap();
     }
@@ -102,7 +98,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      *        The IRI
      * @return The short form for the specified IRI
      */
-    public static String getShortForm(@Nonnull IRI iri) {
+    public static String getShortForm(IRI iri) {
         return iri.toQuotedString();
     }
 

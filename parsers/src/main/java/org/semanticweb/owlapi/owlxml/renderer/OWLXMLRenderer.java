@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -45,8 +43,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
      * @throws OWLRendererException
      *         renderer error
      */
-    public static void render(@Nonnull OWLOntology ontology,
-            @Nonnull PrintWriter writer, @Nonnull OWLDocumentFormat format)
+    public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
             throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
@@ -56,8 +53,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
             w.startDocument(ontology);
             if (format instanceof PrefixDocumentFormat) {
                 PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) format;
-                Map<String, String> map = fromPrefixFormat
-                        .getPrefixName2PrefixMap();
+                Map<String, String> map = fromPrefixFormat.getPrefixName2PrefixMap();
                 for (String prefixName : map.keySet()) {
                     String prefix = map.get(prefixName);
                     if (prefix != null && !prefix.isEmpty()) {
@@ -92,10 +88,8 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, PrintWriter writer)
-            throws OWLRendererException {
-        render(checkNotNull(ontology, "ontology cannot be null"),
-                checkNotNull(writer, "writer cannot be null"), ontology
-                        .getOWLOntologyManager().getOntologyFormat(ontology));
+    public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
+        render(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(writer, "writer cannot be null"),
+                ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 }

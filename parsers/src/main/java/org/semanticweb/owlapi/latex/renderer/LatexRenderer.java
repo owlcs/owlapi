@@ -21,8 +21,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -41,26 +39,21 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class LatexRenderer extends AbstractOWLRenderer {
 
-    @Nonnull
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
-    private OWLEntityComparator entityComparator = new OWLEntityComparator(
-            shortFormProvider);
+    private OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
 
-    private void writeEntitySection(@Nonnull OWLEntity entity,
-            @Nonnull LatexWriter w) {
+    private void writeEntitySection(OWLEntity entity, LatexWriter w) {
         w.write("\\subsubsection*{");
         w.write(escapeName(shortFormProvider.getShortForm(entity)));
         w.write("}\n\n");
     }
 
-    @Nonnull
     private static String escapeName(String name) {
         return name.replace("_", "\\_");
     }
 
     @Override
-    public void render(OWLOntology o, PrintWriter _w)
-            throws OWLRendererException {
+    public void render(OWLOntology o, PrintWriter _w) throws OWLRendererException {
         try {
             LatexWriter w = new LatexWriter(_w);
             w.write("\\documentclass{article}\n");
@@ -69,8 +62,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\oddsidemargin 0cm\n");
             w.write("\\textwidth 19cm\n");
             w.write("\\begin{document}\n\n");
-            LatexObjectVisitor renderer = new LatexObjectVisitor(w, o
-                    .getOWLOntologyManager().getOWLDataFactory());
+            LatexObjectVisitor renderer = new LatexObjectVisitor(w, o.getOWLOntologyManager().getOWLDataFactory());
             Collection<OWLClass> clses = sortEntities(o.classesInSignature());
             if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");
@@ -79,26 +71,17 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 writeEntity(w, renderer, cls, sortAxioms(o.axioms(cls)));
             }
             w.write("\\section*{Object properties}");
-            sortEntities(o.objectPropertiesInSignature()).forEach(
-                    p -> writeEntity(w, renderer, p, sortAxioms(o.axioms(p))));
+            sortEntities(o.objectPropertiesInSignature())
+                    .forEach(p -> writeEntity(w, renderer, p, sortAxioms(o.axioms(p))));
             w.write("\\section*{Data properties}");
-            o.dataPropertiesInSignature()
-                    .sorted(entityComparator)
-                    .forEach(
-                            prop -> writeEntity(w, renderer, prop,
-                                    sortAxioms(o.axioms(prop))));
+            o.dataPropertiesInSignature().sorted(entityComparator)
+                    .forEach(prop -> writeEntity(w, renderer, prop, sortAxioms(o.axioms(prop))));
             w.write("\\section*{Individuals}");
-            o.individualsInSignature()
-                    .sorted(entityComparator)
-                    .forEach(
-                            i -> writeEntity(w, renderer, i,
-                                    sortAxioms(o.axioms(i))));
+            o.individualsInSignature().sorted(entityComparator)
+                    .forEach(i -> writeEntity(w, renderer, i, sortAxioms(o.axioms(i))));
             w.write("\\section*{Datatypes}");
-            o.datatypesInSignature()
-                    .sorted(entityComparator)
-                    .forEach(
-                            type -> writeEntity(w, renderer, type,
-                                    sortAxioms(o.axioms(type, EXCLUDED))));
+            o.datatypesInSignature().sorted(entityComparator)
+                    .forEach(type -> writeEntity(w, renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
             w.write("\\end{document}\n");
             w.flush();
         } catch (OWLRuntimeException e) {
@@ -106,8 +89,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
         }
     }
 
-    protected void writeEntity(LatexWriter w, LatexObjectVisitor renderer,
-            OWLEntity cls, Collection<? extends OWLAxiom> axioms) {
+    protected void writeEntity(LatexWriter w, LatexObjectVisitor renderer, OWLEntity cls,
+            Collection<? extends OWLAxiom> axioms) {
         writeEntitySection(cls, w);
         for (OWLAxiom ax : axioms) {
             renderer.setSubject(cls);
@@ -116,18 +99,15 @@ public class LatexRenderer extends AbstractOWLRenderer {
         }
     }
 
-    private <T extends OWLEntity> Collection<T>
-            sortEntities(Stream<T> entities) {
+    private <T extends OWLEntity> Collection<T> sortEntities(Stream<T> entities) {
         return asList(entities.sorted(entityComparator));
     }
 
-    private static Collection<? extends OWLAxiom> sortAxioms(
-            Stream<? extends OWLAxiom> axioms) {
+    private static Collection<? extends OWLAxiom> sortAxioms(Stream<? extends OWLAxiom> axioms) {
         return asList(axioms.sorted(new OWLAxiomComparator()));
     }
 
-    private static class OWLAxiomComparator implements Comparator<OWLAxiom>,
-            Serializable {
+    private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
