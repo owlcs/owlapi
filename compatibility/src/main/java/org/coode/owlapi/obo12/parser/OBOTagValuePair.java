@@ -64,34 +64,37 @@ class OBOTagValuePair {
      * @param qualifier
      * @param comment
      */
-    public OBOTagValuePair(@Nonnull String tagName, @Nonnull String value,
-            @Nonnull String qualifier, @Nonnull String comment) {
+    public OBOTagValuePair(String tagName, String value, String qualifier, String comment) {
         this.tagName = tagName;
         this.value = value;
         this.qualifier = qualifier;
         this.comment = comment;
     }
 
-    /** @return the tag name */
-    @Nonnull
+    /**
+     * @return the tag name
+     */
     public String getTagName() {
         return tagName;
     }
 
-    /** @return the value */
-    @Nonnull
+    /**
+     * @return the value
+     */
     public String getValue() {
         return value;
     }
 
-    /** @return the qualifier */
-    @Nonnull
+    /**
+     * @return the qualifier
+     */
     public String getQualifier() {
         return qualifier;
     }
 
-    /** @return the comment */
-    @Nonnull
+    /**
+     * @return the comment
+     */
     public String getComment() {
         return comment;
     }

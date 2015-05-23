@@ -14,8 +14,6 @@ package org.coode.owlapi.manchesterowlsyntax;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -34,12 +32,11 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 10-Sep-2007
- * @deprecated use
- *             org.semanticweb.owlapi.apibinding.OWLManager#createManchesterParser
+ * @deprecated use org.semanticweb.owlapi.apibinding.OWLManager#
+ *             createManchesterParser
  */
 @Deprecated
-public class ManchesterOWLSyntaxEditorParser extends
-        ManchesterOWLSyntaxParserImpl {
+public class ManchesterOWLSyntaxEditorParser extends ManchesterOWLSyntaxParserImpl {
 
     /**
      * @param dataFactory
@@ -47,8 +44,7 @@ public class ManchesterOWLSyntaxEditorParser extends
      * @param s
      *        s
      */
-    public ManchesterOWLSyntaxEditorParser(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull String s) {
+    public ManchesterOWLSyntaxEditorParser(OWLDataFactory dataFactory, String s) {
         this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
     }
 
@@ -60,9 +56,8 @@ public class ManchesterOWLSyntaxEditorParser extends
      * @param s
      *        s
      */
-    public ManchesterOWLSyntaxEditorParser(
-            final OWLOntologyLoaderConfiguration configuration,
-            @Nonnull OWLDataFactory dataFactory, @Nonnull String s) {
+    public ManchesterOWLSyntaxEditorParser(final OWLOntologyLoaderConfiguration configuration,
+            OWLDataFactory dataFactory, String s) {
         super(() -> configuration, dataFactory);
         setStringToParse(s);
     }
@@ -74,8 +69,7 @@ public class ManchesterOWLSyntaxEditorParser extends
      * @deprecated use {@link #parseClassExpressionList()}
      */
     @Deprecated
-    public Set<OWLClassExpression> parseClassExpressionList(
-            @SuppressWarnings("unused") boolean b) {
+    public Set<OWLClassExpression> parseClassExpressionList(@SuppressWarnings("unused") boolean b) {
         return parseClassExpressionList();
     }
 }

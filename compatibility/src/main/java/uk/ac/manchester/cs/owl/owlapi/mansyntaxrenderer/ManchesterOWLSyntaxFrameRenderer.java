@@ -3,19 +3,16 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 import java.io.Writer;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @deprecated use
- *             org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer
+ * @deprecated use org.semanticweb.owlapi.mansyntax.renderer.
+ *             ManchesterOWLSyntaxFrameRenderer
  */
 @Deprecated
 public class ManchesterOWLSyntaxFrameRenderer
-        extends
-        org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxFrameRenderer {
+        extends org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxFrameRenderer {
 
     /**
      * @param ontology
@@ -25,9 +22,8 @@ public class ManchesterOWLSyntaxFrameRenderer
      * @param entityShortFormProvider
      *        provider
      */
-    public ManchesterOWLSyntaxFrameRenderer(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer,
-            @Nonnull ShortFormProvider entityShortFormProvider) {
+    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
+            ShortFormProvider entityShortFormProvider) {
         super(ontology, writer, entityShortFormProvider);
     }
 
@@ -41,9 +37,8 @@ public class ManchesterOWLSyntaxFrameRenderer
      * @param entityShortFormProvider
      *        the entity short form provider
      */
-    public ManchesterOWLSyntaxFrameRenderer(
-            @Nonnull Set<OWLOntology> ontologies, Writer writer,
-            @Nonnull ShortFormProvider entityShortFormProvider) {
+    public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies, Writer writer,
+            ShortFormProvider entityShortFormProvider) {
         super(ontologies, writer, entityShortFormProvider);
     }
 }

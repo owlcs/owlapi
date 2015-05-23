@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.coode.owlapi.manchesterowlsyntax;
 
-import javax.annotation.Nonnull;
-
 /**
  * The vocabulary that the Manchester OWL Syntax uses.
  * 
@@ -24,14 +22,6 @@ import javax.annotation.Nonnull;
  */
 @Deprecated
 public enum ManchesterOWLSyntax {
-
-
-
-
-
-
-
-
     //@formatter:off
     
 //    public static final String VALUE_PARTITION = "ValuePartition:";
@@ -126,32 +116,41 @@ public enum ManchesterOWLSyntax {
     //@formatter:on
     org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy;
 
-    private ManchesterOWLSyntax(
-            org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy) {
+    private ManchesterOWLSyntax(org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax legacy) {
         this.legacy = legacy;
     }
 
-    /** @return frame keyword */
+    /**
+     * @return frame keyword
+     */
     public boolean isFrameKeyword() {
         return legacy.isFrameKeyword();
     }
 
-    /** @return section keyword */
+    /**
+     * @return section keyword
+     */
     public boolean isSectionKeyword() {
         return legacy.isSectionKeyword();
     }
 
-    /** @return axiom keyword */
+    /**
+     * @return axiom keyword
+     */
     public boolean isAxiomKeyword() {
         return legacy.isAxiomKeyword();
     }
 
-    /** @return class conective */
+    /**
+     * @return class conective
+     */
     public boolean isClassExpressionConnectiveKeyword() {
         return legacy.isClassExpressionConnectiveKeyword();
     }
 
-    /** @return class quantifier */
+    /**
+     * @return class quantifier
+     */
     public boolean isClassExpressionQuantiferKeyword() {
         return legacy.isClassExpressionQuantiferKeyword();
     }
@@ -161,7 +160,9 @@ public enum ManchesterOWLSyntax {
         return legacy.toString();
     }
 
-    /** @return keyword */
+    /**
+     * @return keyword
+     */
     public String keyword() {
         return legacy.keyword();
     }
@@ -193,7 +194,7 @@ public enum ManchesterOWLSyntax {
      *        v
      * @return true if matches
      */
-    public boolean matches(@Nonnull String s, @Nonnull String v) {
+    public boolean matches(String s, String v) {
         return legacy.matches(s, v);
     }
 

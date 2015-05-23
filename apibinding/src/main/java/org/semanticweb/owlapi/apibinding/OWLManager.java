@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.apibinding;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.OWLAPIParsersModule;
 import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -52,7 +50,6 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * 
      * @return The new manager.
      */
-    @Nonnull
     public static OWLOntologyManager createOWLOntologyManager() {
         return instatiateOWLOntologyManager(Concurrency.NON_CONCURRENT);
     }
@@ -63,7 +60,6 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * 
      * @return The new manager.
      */
-    @Nonnull
     public static OWLOntologyManager createConcurrentOWLOntologyManager() {
         return instatiateOWLOntologyManager(Concurrency.CONCURRENT);
     }
@@ -73,30 +69,25 @@ public class OWLManager implements OWLOntologyManagerFactory {
      * 
      * @return An OWLDataFactory that can be used for creating OWL API objects.
      */
-    @Nonnull
     public static OWLDataFactory getOWLDataFactory() {
-        return verifyNotNull(createInjector(Concurrency.NON_CONCURRENT)
-            .getInstance(OWLDataFactory.class));
+        return verifyNotNull(createInjector(Concurrency.NON_CONCURRENT).getInstance(OWLDataFactory.class));
     }
 
     /**
      * @return an initialized manchester syntax parser for parsing strings
      */
     public static ManchesterOWLSyntaxParser createManchesterParser() {
-        return createInjector(Concurrency.NON_CONCURRENT)
-            .getInstance(ManchesterOWLSyntaxParser.class);
+        return createInjector(Concurrency.NON_CONCURRENT).getInstance(ManchesterOWLSyntaxParser.class);
     }
 
     private static Injector createInjector(Concurrency concurrency) {
-        return Guice.createInjector(new OWLAPIImplModule(concurrency),
-            new OWLAPIParsersModule(), new OWLAPIServiceLoaderModule());
+        return Guice.createInjector(new OWLAPIImplModule(concurrency), new OWLAPIParsersModule(),
+                new OWLAPIServiceLoaderModule());
     }
 
-    private static OWLOntologyManager instatiateOWLOntologyManager(
-        Concurrency concurrency) {
+    private static OWLOntologyManager instatiateOWLOntologyManager(Concurrency concurrency) {
         Injector injector = createInjector(concurrency);
-        OWLOntologyManager instance = injector
-            .getInstance(OWLOntologyManager.class);
+        OWLOntologyManager instance = injector.getInstance(OWLOntologyManager.class);
         injector.injectMembers(instance);
         return verifyNotNull(instance);
     }
