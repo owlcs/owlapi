@@ -12,15 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 
 /** Builder class for OWLObjectMaxCardinality. */
-public class BuilderObjectMaxCardinality extends
-        BaseObjectBuilder<OWLObjectMaxCardinality, BuilderObjectMaxCardinality> {
+public class BuilderObjectMaxCardinality
+        extends BaseObjectBuilder<OWLObjectMaxCardinality, BuilderObjectMaxCardinality> {
 
     private int cardinality = -1;
 
@@ -32,11 +31,9 @@ public class BuilderObjectMaxCardinality extends
      * @param df
      *        data factory
      */
-    public BuilderObjectMaxCardinality(
-            @Nonnull OWLObjectMaxCardinality expected, OWLDataFactory df) {
+    public BuilderObjectMaxCardinality(OWLObjectMaxCardinality expected, OWLDataFactory df) {
         this(df);
-        withCardinality(expected.getCardinality()).withProperty(
-                expected.getProperty()).withRange(expected.getFiller());
+        withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
     }
 
     /**
@@ -53,7 +50,6 @@ public class BuilderObjectMaxCardinality extends
      *        cardinality
      * @return builder
      */
-    @Nonnull
     public BuilderObjectMaxCardinality withCardinality(int arg) {
         cardinality = arg;
         return this;
@@ -61,7 +57,6 @@ public class BuilderObjectMaxCardinality extends
 
     @Override
     public OWLObjectMaxCardinality buildObject() {
-        return df.getOWLObjectMaxCardinality(cardinality, getProperty(),
-                getRange());
+        return df.getOWLObjectMaxCardinality(cardinality, getProperty(), getRange());
     }
 }

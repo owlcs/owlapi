@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /** Builder class for OWLHasKeyAxiom. */
-public class BuilderHasKey extends
-        BaseSetBuilder<OWLHasKeyAxiom, BuilderHasKey, OWLPropertyExpression> {
+public class BuilderHasKey extends BaseSetBuilder<OWLHasKeyAxiom, BuilderHasKey, OWLPropertyExpression> {
 
     private OWLClassExpression ce;
 
@@ -36,12 +34,10 @@ public class BuilderHasKey extends
      * @param df
      *        data factory
      */
-    public BuilderHasKey(@Nonnull OWLHasKeyAxiom expected, OWLDataFactory df) {
+    public BuilderHasKey(OWLHasKeyAxiom expected, OWLDataFactory df) {
         this(df);
-        withClass(expected.getClassExpression())
-                .withAnnotations(expected.annotations())
-                .withItems(expected.dataPropertyExpressions())
-                .withItems(expected.objectPropertyExpressions());
+        withClass(expected.getClassExpression()).withAnnotations(expected.annotations())
+                .withItems(expected.dataPropertyExpressions()).withItems(expected.objectPropertyExpressions());
     }
 
     /**
@@ -58,7 +54,6 @@ public class BuilderHasKey extends
      *        class expression
      * @return builder
      */
-    @Nonnull
     public BuilderHasKey withClass(OWLClassExpression arg) {
         ce = arg;
         return this;
@@ -72,7 +67,6 @@ public class BuilderHasKey extends
     /**
      * @return class expression
      */
-    @Nonnull
     public OWLClassExpression getClassExpression() {
         return verifyNotNull(ce);
     }

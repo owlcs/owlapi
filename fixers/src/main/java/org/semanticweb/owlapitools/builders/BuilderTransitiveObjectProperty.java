@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -20,8 +19,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** Builder class for OWLTransitiveObjectPropertyAxiom. */
 public class BuilderTransitiveObjectProperty
-        extends
-        BaseObjectPropertyBuilder<OWLTransitiveObjectPropertyAxiom, BuilderTransitiveObjectProperty> {
+        extends BaseObjectPropertyBuilder<OWLTransitiveObjectPropertyAxiom, BuilderTransitiveObjectProperty> {
 
     /**
      * @param df
@@ -40,17 +38,13 @@ public class BuilderTransitiveObjectProperty
      * @param df
      *        data factory
      */
-    public BuilderTransitiveObjectProperty(
-            @Nonnull OWLTransitiveObjectPropertyAxiom expected,
-            OWLDataFactory df) {
+    public BuilderTransitiveObjectProperty(OWLTransitiveObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withAnnotations(
-                expected.annotations());
+        withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }
 
     @Override
     public OWLTransitiveObjectPropertyAxiom buildObject() {
-        return df.getOWLTransitiveObjectPropertyAxiom(getProperty(),
-                annotations);
+        return df.getOWLTransitiveObjectPropertyAxiom(getProperty(), annotations);
     }
 }

@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -24,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
 /** Builder class for OWLObjectPropertyAssertionAxiom. */
 public class BuilderObjectPropertyAssertion
-        extends
-        BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
+        extends BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
 
     @Nullable
     private OWLIndividual subject = null;
@@ -40,11 +38,9 @@ public class BuilderObjectPropertyAssertion
      * @param df
      *        data factory
      */
-    public BuilderObjectPropertyAssertion(
-            @Nonnull OWLObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
+    public BuilderObjectPropertyAssertion(OWLObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
-        withSubject(expected.getSubject()).withProperty(expected.getProperty())
-                .withValue(expected.getObject())
+        withSubject(expected.getSubject()).withProperty(expected.getProperty()).withValue(expected.getObject())
                 .withAnnotations(expected.annotations());
     }
 
@@ -62,7 +58,6 @@ public class BuilderObjectPropertyAssertion
      *        subject
      * @return builder
      */
-    @Nonnull
     public BuilderObjectPropertyAssertion withSubject(OWLIndividual arg) {
         subject = arg;
         return this;
@@ -73,7 +68,6 @@ public class BuilderObjectPropertyAssertion
      *        value
      * @return builder
      */
-    @Nonnull
     public BuilderObjectPropertyAssertion withValue(OWLIndividual arg) {
         value = arg;
         return this;
@@ -81,14 +75,12 @@ public class BuilderObjectPropertyAssertion
 
     @Override
     public OWLObjectPropertyAssertionAxiom buildObject() {
-        return df.getOWLObjectPropertyAssertionAxiom(getProperty(),
-                getSubject(), getValue(), annotations);
+        return df.getOWLObjectPropertyAssertionAxiom(getProperty(), getSubject(), getValue(), annotations);
     }
 
     /**
      * @return individual
      */
-    @Nonnull
     public OWLIndividual getValue() {
         return verifyNotNull(value);
     }
@@ -96,7 +88,6 @@ public class BuilderObjectPropertyAssertion
     /**
      * @return individual
      */
-    @Nonnull
     public OWLIndividual getSubject() {
         return verifyNotNull(subject);
     }

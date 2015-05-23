@@ -14,7 +14,7 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -24,10 +24,11 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /** Builder class for SWRLDataPropertyAtom. */
 public class BuilderSWRLDataPropertyAtom
-        extends
-        BaseDataPropertyBuilder<SWRLDataPropertyAtom, BuilderSWRLDataPropertyAtom> {
+        extends BaseDataPropertyBuilder<SWRLDataPropertyAtom, BuilderSWRLDataPropertyAtom> {
 
+    @Nullable
     private SWRLDArgument arg1;
+    @Nullable
     private SWRLIArgument arg0;
 
     /**
@@ -38,12 +39,9 @@ public class BuilderSWRLDataPropertyAtom
      * @param df
      *        data factory
      */
-    public BuilderSWRLDataPropertyAtom(@Nonnull SWRLDataPropertyAtom expected,
-            OWLDataFactory df) {
+    public BuilderSWRLDataPropertyAtom(SWRLDataPropertyAtom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getPredicate())
-                .with(expected.getSecondArgument()).with(
-                        expected.getFirstArgument());
+        withProperty(expected.getPredicate()).with(expected.getSecondArgument()).with(expected.getFirstArgument());
     }
 
     /**
@@ -60,7 +58,6 @@ public class BuilderSWRLDataPropertyAtom
      *        data argument
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLDataPropertyAtom with(SWRLDArgument arg) {
         arg1 = arg;
         return this;
@@ -71,7 +68,6 @@ public class BuilderSWRLDataPropertyAtom
      *        individual
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLDataPropertyAtom with(SWRLIArgument arg) {
         arg0 = arg;
         return this;
@@ -85,7 +81,6 @@ public class BuilderSWRLDataPropertyAtom
     /**
      * @return arg 1
      */
-    @Nonnull
     public SWRLDArgument getArg1() {
         return verifyNotNull(arg1);
     }
@@ -93,7 +88,6 @@ public class BuilderSWRLDataPropertyAtom
     /**
      * @return arg 0
      */
-    @Nonnull
     public SWRLIArgument getArg0() {
         return verifyNotNull(arg0);
     }

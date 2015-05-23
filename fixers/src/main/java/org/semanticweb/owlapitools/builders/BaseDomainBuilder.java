@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -29,11 +28,11 @@ import org.semanticweb.owlapi.model.OWLObject;
  *        type built
  * @param <B>
  *        builder type
- * @param <P>
+ * @param
+ *        <P>
  *        contained items type
  */
-public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends
-        BaseBuilder<T, B> {
+public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends BaseBuilder<T, B> {
 
     @Nullable
     private P property = null;
@@ -54,7 +53,6 @@ public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends
      *        domain
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withDomain(OWLClassExpression arg) {
         domain = arg;
@@ -66,7 +64,6 @@ public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends
      *        property
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withProperty(P arg) {
         property = arg;
@@ -76,7 +73,6 @@ public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends
     /**
      * @return the property
      */
-    @Nonnull
     public P getProperty() {
         return verifyNotNull(property);
     }
@@ -84,7 +80,6 @@ public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends
     /**
      * @return the domain
      */
-    @Nonnull
     public OWLClassExpression getDomain() {
         return verifyNotNull(domain);
     }

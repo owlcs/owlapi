@@ -34,8 +34,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <I>
  *        contained items type
  */
-public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
-        BaseBuilder<T, B> {
+public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 
     @Nonnull
     protected final Set<I> items = new HashSet<>();
@@ -54,7 +53,6 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
      *        item to add
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withItem(I arg) {
         items.add(arg);
@@ -66,9 +64,8 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
      *        items to add
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
-    public B withItems(@Nonnull Collection<? extends I> arg) {
+    public B withItems(Collection<? extends I> arg) {
         items.addAll(arg);
         return (B) this;
     }
@@ -78,9 +75,8 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
      *        items to add
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings({ "unchecked" })
-    public B withItems(@Nonnull Stream<? extends I> arg) {
+    public B withItems(Stream<? extends I> arg) {
         arg.forEach(x -> withItem(x));
         return (B) this;
     }
@@ -91,9 +87,8 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
      * @return builder
      */
     @java.lang.SafeVarargs
-    @Nonnull
     @SuppressWarnings("unchecked")
-    public final B withItems(@Nonnull I... arg) {
+    public final B withItems(I... arg) {
         for (I i : arg) {
             items.add(i);
         }

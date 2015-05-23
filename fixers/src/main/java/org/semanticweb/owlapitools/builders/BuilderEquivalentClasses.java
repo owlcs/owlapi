@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -21,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 
 /** Builder class for OWLEquivalentClassesAxiom. */
 public class BuilderEquivalentClasses
-        extends
-        BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
+        extends BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
 
     /**
      * @param df
@@ -41,11 +39,9 @@ public class BuilderEquivalentClasses
      * @param df
      *        data factory
      */
-    public BuilderEquivalentClasses(
-            @Nonnull OWLEquivalentClassesAxiom expected, OWLDataFactory df) {
+    public BuilderEquivalentClasses(OWLEquivalentClassesAxiom expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.classExpressions()).withAnnotations(
-                expected.annotations());
+        withItems(expected.classExpressions()).withAnnotations(expected.annotations());
     }
 
     @Override

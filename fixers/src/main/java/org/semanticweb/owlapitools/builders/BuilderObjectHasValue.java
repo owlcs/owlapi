@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 
 /** Builder class for OWLObjectHasValue. */
-public class BuilderObjectHasValue extends
-        BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
+public class BuilderObjectHasValue extends BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
 
     @Nullable
     private OWLIndividual value = null;
@@ -37,8 +35,7 @@ public class BuilderObjectHasValue extends
      * @param df
      *        data factory
      */
-    public BuilderObjectHasValue(@Nonnull OWLObjectHasValue expected,
-            OWLDataFactory df) {
+    public BuilderObjectHasValue(OWLObjectHasValue expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withValue(expected.getFiller());
     }
@@ -57,7 +54,6 @@ public class BuilderObjectHasValue extends
      *        argument
      * @return builder
      */
-    @Nonnull
     public BuilderObjectHasValue withValue(OWLIndividual arg) {
         value = arg;
         return this;
@@ -71,7 +67,6 @@ public class BuilderObjectHasValue extends
     /**
      * @return value
      */
-    @Nonnull
     public OWLIndividual getValue() {
         return verifyNotNull(value);
     }

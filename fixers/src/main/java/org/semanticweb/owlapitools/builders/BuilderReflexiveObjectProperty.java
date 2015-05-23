@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -20,8 +19,7 @@ import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 
 /** Builder class for OWLReflexiveObjectPropertyAxiom. */
 public class BuilderReflexiveObjectProperty
-        extends
-        BaseObjectPropertyBuilder<OWLReflexiveObjectPropertyAxiom, BuilderReflexiveObjectProperty> {
+        extends BaseObjectPropertyBuilder<OWLReflexiveObjectPropertyAxiom, BuilderReflexiveObjectProperty> {
 
     /**
      * Builder initialized from an existing object.
@@ -31,11 +29,9 @@ public class BuilderReflexiveObjectProperty
      * @param df
      *        data factory
      */
-    public BuilderReflexiveObjectProperty(
-            @Nonnull OWLReflexiveObjectPropertyAxiom expected, OWLDataFactory df) {
+    public BuilderReflexiveObjectProperty(OWLReflexiveObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withAnnotations(
-                expected.annotations());
+        withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -49,7 +45,6 @@ public class BuilderReflexiveObjectProperty
 
     @Override
     public OWLReflexiveObjectPropertyAxiom buildObject() {
-        return df
-                .getOWLReflexiveObjectPropertyAxiom(getProperty(), annotations);
+        return df.getOWLReflexiveObjectPropertyAxiom(getProperty(), annotations);
     }
 }

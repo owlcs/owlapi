@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -24,8 +23,7 @@ import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /** Builder class for SWRLClassAtom. */
-public class BuilderSWRLClassAtom extends
-        BaseBuilder<SWRLClassAtom, BuilderSWRLClassAtom> {
+public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRLClassAtom> {
 
     @Nullable
     private SWRLIArgument argument = null;
@@ -40,8 +38,7 @@ public class BuilderSWRLClassAtom extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLClassAtom(@Nonnull SWRLClassAtom expected,
-            OWLDataFactory df) {
+    public BuilderSWRLClassAtom(SWRLClassAtom expected, OWLDataFactory df) {
         this(df);
         with(expected.getPredicate()).with(expected.getArgument());
     }
@@ -60,7 +57,6 @@ public class BuilderSWRLClassAtom extends
      *        argument
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLClassAtom with(SWRLIArgument arg) {
         argument = arg;
         return this;
@@ -71,7 +67,6 @@ public class BuilderSWRLClassAtom extends
      *        class
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLClassAtom with(OWLClassExpression arg) {
         predicate = arg;
         return this;
@@ -85,7 +80,6 @@ public class BuilderSWRLClassAtom extends
     /**
      * @return predicate
      */
-    @Nonnull
     public OWLClassExpression getPredicate() {
         return verifyNotNull(predicate);
     }
@@ -93,7 +87,6 @@ public class BuilderSWRLClassAtom extends
     /**
      * @return predicate
      */
-    @Nonnull
     public SWRLIArgument getArgument() {
         return verifyNotNull(argument);
     }

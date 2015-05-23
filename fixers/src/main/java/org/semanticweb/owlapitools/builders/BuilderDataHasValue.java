@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** Builder class for OWLDataHasValue. */
-public class BuilderDataHasValue extends
-        BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue> {
+public class BuilderDataHasValue extends BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue> {
 
     @Nullable
     private OWLLiteral literal = null;
@@ -46,8 +44,7 @@ public class BuilderDataHasValue extends
      * @param df
      *        data factory
      */
-    public BuilderDataHasValue(@Nonnull OWLDataHasValue expected,
-            OWLDataFactory df) {
+    public BuilderDataHasValue(OWLDataHasValue expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withLiteral(expected.getFiller());
     }
@@ -57,7 +54,6 @@ public class BuilderDataHasValue extends
      *        literal
      * @return builder
      */
-    @Nonnull
     public BuilderDataHasValue withLiteral(OWLLiteral arg) {
         literal = arg;
         return this;
@@ -71,7 +67,6 @@ public class BuilderDataHasValue extends
     /**
      * @return literal
      */
-    @Nonnull
     public OWLLiteral getLiteral() {
         return verifyNotNull(literal);
     }

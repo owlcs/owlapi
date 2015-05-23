@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -20,8 +19,7 @@ import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 
 /** Builder class for OWLFunctionalDataPropertyAxiom. */
 public class BuilderFunctionalDataProperty
-        extends
-        BaseDataPropertyBuilder<OWLFunctionalDataPropertyAxiom, BuilderFunctionalDataProperty> {
+        extends BaseDataPropertyBuilder<OWLFunctionalDataPropertyAxiom, BuilderFunctionalDataProperty> {
 
     /**
      * Builder initialized from an existing object.
@@ -31,11 +29,9 @@ public class BuilderFunctionalDataProperty
      * @param df
      *        data factory
      */
-    public BuilderFunctionalDataProperty(
-            @Nonnull OWLFunctionalDataPropertyAxiom expected, OWLDataFactory df) {
+    public BuilderFunctionalDataProperty(OWLFunctionalDataPropertyAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withAnnotations(
-                expected.annotations());
+        withProperty(expected.getProperty()).withAnnotations(expected.annotations());
     }
 
     /**

@@ -40,10 +40,9 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
      * @param df
      *        data factory
      */
-    public BuilderSWRLRule(@Nonnull SWRLRule expected, OWLDataFactory df) {
+    public BuilderSWRLRule(SWRLRule expected, OWLDataFactory df) {
         this(df);
-        withBody(expected.body()).withHead(expected.head()).withAnnotations(
-                expected.annotations());
+        withBody(expected.body()).withHead(expected.head()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -60,7 +59,6 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
      *        body atom
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLRule withBody(SWRLAtom arg) {
         body.add(arg);
         return this;
@@ -71,7 +69,6 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
      *        head atom
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLRule withHead(SWRLAtom arg) {
         head.add(arg);
         return this;
@@ -82,8 +79,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
      *        body atom
      * @return builder
      */
-    @Nonnull
-    public BuilderSWRLRule withBody(@Nonnull Collection<SWRLAtom> arg) {
+    public BuilderSWRLRule withBody(Collection<SWRLAtom> arg) {
         body.addAll(arg);
         return this;
     }
@@ -93,8 +89,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
      *        body atom
      * @return builder
      */
-    @Nonnull
-    public BuilderSWRLRule withBody(@Nonnull Stream<SWRLAtom> arg) {
+    public BuilderSWRLRule withBody(Stream<SWRLAtom> arg) {
         arg.forEach(x -> withBody(x));
         return this;
     }
@@ -104,8 +99,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
      *        head atom
      * @return builder
      */
-    @Nonnull
-    public BuilderSWRLRule withHead(@Nonnull Collection<SWRLAtom> arg) {
+    public BuilderSWRLRule withHead(Collection<SWRLAtom> arg) {
         head.addAll(arg);
         return this;
     }
@@ -115,8 +109,7 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
      *        head atom
      * @return builder
      */
-    @Nonnull
-    public BuilderSWRLRule withHead(@Nonnull Stream<SWRLAtom> arg) {
+    public BuilderSWRLRule withHead(Stream<SWRLAtom> arg) {
         arg.forEach(x -> withHead(x));
         return this;
     }

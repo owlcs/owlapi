@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -24,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
 /** Builder class for OWLClassAssertionAxiom. */
-public class BuilderClassAssertion extends
-        BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
+public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
 
     @Nullable
     private OWLIndividual i = null;
@@ -49,12 +47,10 @@ public class BuilderClassAssertion extends
      * @param df
      *        data factory
      */
-    public BuilderClassAssertion(@Nonnull OWLClassAssertionAxiom expected,
-            OWLDataFactory df) {
+    public BuilderClassAssertion(OWLClassAssertionAxiom expected, OWLDataFactory df) {
         this(df);
-        withClass(expected.getClassExpression()).withIndividual(
-                expected.getIndividual()).withAnnotations(
-                expected.annotations());
+        withClass(expected.getClassExpression()).withIndividual(expected.getIndividual())
+                .withAnnotations(expected.annotations());
     }
 
     /**
@@ -62,7 +58,6 @@ public class BuilderClassAssertion extends
      *        individual
      * @return builder
      */
-    @Nonnull
     public BuilderClassAssertion withIndividual(OWLIndividual arg) {
         i = arg;
         return this;
@@ -73,7 +68,6 @@ public class BuilderClassAssertion extends
      *        argument
      * @return builder
      */
-    @Nonnull
     public BuilderClassAssertion withClass(OWLClassExpression arg) {
         ce = arg;
         return this;
@@ -81,14 +75,12 @@ public class BuilderClassAssertion extends
 
     @Override
     public OWLClassAssertionAxiom buildObject() {
-        return df.getOWLClassAssertionAxiom(getClassExpression(),
-                getIndividual(), annotations);
+        return df.getOWLClassAssertionAxiom(getClassExpression(), getIndividual(), annotations);
     }
 
     /**
      * @return class expression
      */
-    @Nonnull
     public OWLClassExpression getClassExpression() {
         return verifyNotNull(ce);
     }
@@ -96,7 +88,6 @@ public class BuilderClassAssertion extends
     /**
      * @return individual
      */
-    @Nonnull
     public OWLIndividual getIndividual() {
         return verifyNotNull(i);
     }

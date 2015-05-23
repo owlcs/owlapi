@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -22,8 +21,7 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 
 /** Builder class for SWRLSameIndividualAtom. */
-public class BuilderSWRLSameIndividualAtom extends
-        BaseBuilder<SWRLSameIndividualAtom, BuilderSWRLSameIndividualAtom> {
+public class BuilderSWRLSameIndividualAtom extends BaseBuilder<SWRLSameIndividualAtom, BuilderSWRLSameIndividualAtom> {
 
     private SWRLIArgument arg1;
     private SWRLIArgument arg0;
@@ -36,11 +34,9 @@ public class BuilderSWRLSameIndividualAtom extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLSameIndividualAtom(
-            @Nonnull SWRLSameIndividualAtom expected, OWLDataFactory df) {
+    public BuilderSWRLSameIndividualAtom(SWRLSameIndividualAtom expected, OWLDataFactory df) {
         this(df);
-        withArg0(expected.getFirstArgument()).withArg1(
-                expected.getSecondArgument());
+        withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument());
     }
 
     /**
@@ -57,7 +53,6 @@ public class BuilderSWRLSameIndividualAtom extends
      *        individual
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLSameIndividualAtom withArg0(SWRLIArgument arg) {
         arg0 = arg;
         return this;
@@ -68,7 +63,6 @@ public class BuilderSWRLSameIndividualAtom extends
      *        individual
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLSameIndividualAtom withArg1(SWRLIArgument arg) {
         arg1 = arg;
         return this;
@@ -82,7 +76,6 @@ public class BuilderSWRLSameIndividualAtom extends
     /**
      * @return arg 1
      */
-    @Nonnull
     public SWRLIArgument getArg1() {
         return verifyNotNull(arg1);
     }
@@ -90,7 +83,6 @@ public class BuilderSWRLSameIndividualAtom extends
     /**
      * @return arg 0
      */
-    @Nonnull
     public SWRLIArgument getArg0() {
         return verifyNotNull(arg0);
     }

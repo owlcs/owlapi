@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -22,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 
 /** Builder class for SWRLIndividualArgument. */
-public class BuilderSWRLIndividualArgument extends
-        BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
+public class BuilderSWRLIndividualArgument extends BaseBuilder<SWRLIndividualArgument, BuilderSWRLIndividualArgument> {
 
     private OWLIndividual individual;
 
@@ -35,8 +33,7 @@ public class BuilderSWRLIndividualArgument extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLIndividualArgument(
-            @Nonnull SWRLIndividualArgument expected, OWLDataFactory df) {
+    public BuilderSWRLIndividualArgument(SWRLIndividualArgument expected, OWLDataFactory df) {
         this(df);
         with(expected.getIndividual());
     }
@@ -55,7 +52,6 @@ public class BuilderSWRLIndividualArgument extends
      *        individual
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLIndividualArgument with(OWLIndividual arg) {
         individual = arg;
         return this;
@@ -69,7 +65,6 @@ public class BuilderSWRLIndividualArgument extends
     /**
      * @return individual
      */
-    @Nonnull
     public OWLIndividual getIndividual() {
         return verifyNotNull(individual);
     }

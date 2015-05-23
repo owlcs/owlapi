@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -22,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** Builder class for SWRLVariable. */
-public class BuilderSWRLVariable extends
-        BaseBuilder<SWRLVariable, BuilderSWRLVariable> {
+public class BuilderSWRLVariable extends BaseBuilder<SWRLVariable, BuilderSWRLVariable> {
 
     private IRI iri;
 
@@ -35,7 +33,7 @@ public class BuilderSWRLVariable extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLVariable(@Nonnull SWRLVariable expected, OWLDataFactory df) {
+    public BuilderSWRLVariable(SWRLVariable expected, OWLDataFactory df) {
         this(df);
         with(expected.getIRI());
     }
@@ -54,7 +52,6 @@ public class BuilderSWRLVariable extends
      *        iri
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLVariable with(IRI arg) {
         iri = arg;
         return this;
@@ -68,7 +65,6 @@ public class BuilderSWRLVariable extends
     /**
      * @return iri
      */
-    @Nonnull
     public IRI getIRI() {
         return verifyNotNull(iri);
     }

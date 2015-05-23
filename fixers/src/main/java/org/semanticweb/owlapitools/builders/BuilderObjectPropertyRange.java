@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -20,8 +19,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 
 /** Builder class for OWLObjectPropertyRangeAxiom. */
 public class BuilderObjectPropertyRange
-        extends
-        BaseObjectBuilder<OWLObjectPropertyRangeAxiom, BuilderObjectPropertyRange> {
+        extends BaseObjectBuilder<OWLObjectPropertyRangeAxiom, BuilderObjectPropertyRange> {
 
     /**
      * Builder initialized from an existing object.
@@ -31,11 +29,9 @@ public class BuilderObjectPropertyRange
      * @param df
      *        data factory
      */
-    public BuilderObjectPropertyRange(
-            @Nonnull OWLObjectPropertyRangeAxiom expected, OWLDataFactory df) {
+    public BuilderObjectPropertyRange(OWLObjectPropertyRangeAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withRange(expected.getRange())
-                .withAnnotations(expected.annotations());
+        withProperty(expected.getProperty()).withRange(expected.getRange()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -49,7 +45,6 @@ public class BuilderObjectPropertyRange
 
     @Override
     public OWLObjectPropertyRangeAxiom buildObject() {
-        return df.getOWLObjectPropertyRangeAxiom(getProperty(), getRange(),
-                annotations);
+        return df.getOWLObjectPropertyRangeAxiom(getProperty(), getRange(), annotations);
     }
 }

@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -22,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 
 /** Builder class for SWRLLiteralArgument. */
-public class BuilderSWRLLiteralArgument extends
-        BaseBuilder<SWRLLiteralArgument, BuilderSWRLLiteralArgument> {
+public class BuilderSWRLLiteralArgument extends BaseBuilder<SWRLLiteralArgument, BuilderSWRLLiteralArgument> {
 
     private OWLLiteral literal;
 
@@ -35,8 +33,7 @@ public class BuilderSWRLLiteralArgument extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLLiteralArgument(@Nonnull SWRLLiteralArgument expected,
-            OWLDataFactory df) {
+    public BuilderSWRLLiteralArgument(SWRLLiteralArgument expected, OWLDataFactory df) {
         this(df);
         with(expected.getLiteral());
     }
@@ -55,7 +52,6 @@ public class BuilderSWRLLiteralArgument extends
      *        literal
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLLiteralArgument with(OWLLiteral arg) {
         literal = arg;
         return this;
@@ -69,7 +65,6 @@ public class BuilderSWRLLiteralArgument extends
     /**
      * @return literal
      */
-    @Nonnull
     public OWLLiteral getLiteral() {
         return verifyNotNull(literal);
     }

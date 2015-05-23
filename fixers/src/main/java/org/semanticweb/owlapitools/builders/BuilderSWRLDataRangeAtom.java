@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 
 /** Builder class for SWRLDataRangeAtom. */
-public class BuilderSWRLDataRangeAtom extends
-        BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
+public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
 
     private SWRLDArgument argument;
     private OWLDataRange predicate;
@@ -37,8 +35,7 @@ public class BuilderSWRLDataRangeAtom extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLDataRangeAtom(@Nonnull SWRLDataRangeAtom expected,
-            OWLDataFactory df) {
+    public BuilderSWRLDataRangeAtom(SWRLDataRangeAtom expected, OWLDataFactory df) {
         this(df);
         with(expected.getArgument()).with(expected.getPredicate());
     }
@@ -57,7 +54,6 @@ public class BuilderSWRLDataRangeAtom extends
      *        argument
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLDataRangeAtom with(SWRLDArgument arg) {
         argument = arg;
         return this;
@@ -68,7 +64,6 @@ public class BuilderSWRLDataRangeAtom extends
      *        predicate
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLDataRangeAtom with(OWLDataRange arg) {
         predicate = arg;
         return this;
@@ -82,7 +77,6 @@ public class BuilderSWRLDataRangeAtom extends
     /**
      * @return the argument
      */
-    @Nonnull
     public SWRLDArgument getArgument() {
         return verifyNotNull(argument);
     }
@@ -90,7 +84,6 @@ public class BuilderSWRLDataRangeAtom extends
     /**
      * @return the predicate
      */
-    @Nonnull
     public OWLDataRange getPredicate() {
         return verifyNotNull(predicate);
     }

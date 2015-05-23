@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -24,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 
 /** Builder class for OWLDatatypeDefinitionAxiom. */
-public class BuilderDatatypeDefinition extends
-        BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
+public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
 
     @Nullable
     private OWLDataRange range = null;
@@ -40,11 +38,9 @@ public class BuilderDatatypeDefinition extends
      * @param df
      *        data factory
      */
-    public BuilderDatatypeDefinition(
-            @Nonnull OWLDatatypeDefinitionAxiom expected, OWLDataFactory df) {
+    public BuilderDatatypeDefinition(OWLDatatypeDefinitionAxiom expected, OWLDataFactory df) {
         this(df);
-        with(expected.getDatatype()).withType(expected.getDataRange())
-                .withAnnotations(expected.annotations());
+        with(expected.getDatatype()).withType(expected.getDataRange()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -61,7 +57,6 @@ public class BuilderDatatypeDefinition extends
      *        range
      * @return builder
      */
-    @Nonnull
     public BuilderDatatypeDefinition withType(OWLDataRange arg) {
         range = arg;
         return this;
@@ -72,7 +67,6 @@ public class BuilderDatatypeDefinition extends
      *        type
      * @return builder
      */
-    @Nonnull
     public BuilderDatatypeDefinition with(OWLDatatype arg) {
         type = arg;
         return this;
@@ -80,14 +74,12 @@ public class BuilderDatatypeDefinition extends
 
     @Override
     public OWLDatatypeDefinitionAxiom buildObject() {
-        return df.getOWLDatatypeDefinitionAxiom(getType(), getRange(),
-                annotations);
+        return df.getOWLDatatypeDefinitionAxiom(getType(), getRange(), annotations);
     }
 
     /**
      * @return range
      */
-    @Nonnull
     public OWLDataRange getRange() {
         return verifyNotNull(range);
     }
@@ -95,7 +87,6 @@ public class BuilderDatatypeDefinition extends
     /**
      * @return type
      */
-    @Nonnull
     public OWLDatatype getType() {
         return verifyNotNull(type);
     }

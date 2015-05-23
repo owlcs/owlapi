@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -31,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <I>
  *        contained items type
  */
-public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends
-        BaseBuilder<T, B> {
+public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 
     @Nullable
     private I sub = null;
@@ -53,7 +51,6 @@ public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends
      *        sub item
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withSub(I arg) {
         sub = arg;
@@ -65,7 +62,6 @@ public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends
      *        sup item
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withSup(I arg) {
         sup = arg;
@@ -75,7 +71,6 @@ public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends
     /**
      * @return the sub
      */
-    @Nonnull
     public I getSub() {
         return verifyNotNull(sub);
     }
@@ -83,7 +78,6 @@ public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends
     /**
      * @return the sup
      */
-    @Nonnull
     public I getSup() {
         return verifyNotNull(sup);
     }

@@ -14,24 +14,13 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
@@ -68,7 +57,6 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
      *        annotation
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withAnnotation(OWLAnnotation arg) {
         annotations.add(arg);
@@ -80,9 +68,8 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
      *        annotations
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
-    public B withAnnotations(@Nonnull Collection<OWLAnnotation> arg) {
+    public B withAnnotations(Collection<OWLAnnotation> arg) {
         annotations.addAll(arg);
         return (B) this;
     }
@@ -92,9 +79,8 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
      *        annotations
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
-    public B withAnnotations(@Nonnull Stream<OWLAnnotation> arg) {
+    public B withAnnotations(Stream<OWLAnnotation> arg) {
         arg.forEach(a -> annotations.add(a));
         return (B) this;
     }
@@ -102,9 +88,8 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
     @Override
     public abstract T buildObject();
 
-    @Nonnull
     @Override
-    public List<OWLOntologyChange> applyChanges(@Nonnull OWLOntology o) {
+    public List<OWLOntologyChange> applyChanges(OWLOntology o) {
         T object = buildObject();
         if (!(object instanceof OWLAxiom)) {
             return Collections.emptyList();

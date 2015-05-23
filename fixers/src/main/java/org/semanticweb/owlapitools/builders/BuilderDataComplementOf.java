@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
 /** Builder class for OWLDataComplementOf. */
-public class BuilderDataComplementOf extends
-        BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
+public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
 
     @Nullable
     private OWLDataRange dataRange = null;
@@ -46,8 +44,7 @@ public class BuilderDataComplementOf extends
      * @param df
      *        data factory
      */
-    public BuilderDataComplementOf(@Nonnull OWLDataComplementOf expected,
-            OWLDataFactory df) {
+    public BuilderDataComplementOf(OWLDataComplementOf expected, OWLDataFactory df) {
         this(df);
         withRange(expected.getDataRange());
     }
@@ -57,7 +54,6 @@ public class BuilderDataComplementOf extends
      *        range
      * @return builder
      */
-    @Nonnull
     public BuilderDataComplementOf withRange(OWLDataRange arg) {
         dataRange = arg;
         return this;
@@ -71,7 +67,6 @@ public class BuilderDataComplementOf extends
     /**
      * @return range
      */
-    @Nonnull
     public OWLDataRange getRange() {
         return verifyNotNull(dataRange);
     }

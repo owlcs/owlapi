@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -25,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 
 /** Builder class for OWLDisjointUnionAxiom. */
 public class BuilderDisjointUnion
-        extends
-        BaseSetBuilder<OWLDisjointUnionAxiom, BuilderDisjointUnion, OWLClassExpression> {
+        extends BaseSetBuilder<OWLDisjointUnionAxiom, BuilderDisjointUnion, OWLClassExpression> {
 
     @Nullable
     private OWLClass ce = null;
@@ -39,12 +37,10 @@ public class BuilderDisjointUnion
      * @param df
      *        data factory
      */
-    public BuilderDisjointUnion(@Nonnull OWLDisjointUnionAxiom expected,
-            OWLDataFactory df) {
+    public BuilderDisjointUnion(OWLDisjointUnionAxiom expected, OWLDataFactory df) {
         this(df);
-        withClass(expected.getOWLClass())
-                .withItems(expected.classExpressions()).withAnnotations(
-                        expected.annotations());
+        withClass(expected.getOWLClass()).withItems(expected.classExpressions())
+                .withAnnotations(expected.annotations());
     }
 
     /**
@@ -61,7 +57,6 @@ public class BuilderDisjointUnion
      *        right hand entity
      * @return builder
      */
-    @Nonnull
     public BuilderDisjointUnion withClass(OWLClass arg) {
         ce = arg;
         return this;
@@ -69,14 +64,12 @@ public class BuilderDisjointUnion
 
     @Override
     public OWLDisjointUnionAxiom buildObject() {
-        return df.getOWLDisjointUnionAxiom(getClassExpression(), items,
-                annotations);
+        return df.getOWLDisjointUnionAxiom(getClassExpression(), items, annotations);
     }
 
     /**
      * @return class expression
      */
-    @Nonnull
     public OWLClass getClassExpression() {
         return verifyNotNull(ce);
     }

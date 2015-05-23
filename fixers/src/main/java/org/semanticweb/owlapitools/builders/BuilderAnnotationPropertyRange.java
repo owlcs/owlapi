@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -24,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnnotationPropertyRangeAxiom. */
 public class BuilderAnnotationPropertyRange
-        extends
-        BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
+        extends BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
 
     @Nullable
     private IRI iri = null;
@@ -47,11 +45,9 @@ public class BuilderAnnotationPropertyRange
      * @param df
      *        data factory
      */
-    public BuilderAnnotationPropertyRange(
-            @Nonnull OWLAnnotationPropertyRangeAxiom expected, OWLDataFactory df) {
+    public BuilderAnnotationPropertyRange(OWLAnnotationPropertyRangeAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withRange(expected.getRange())
-                .withAnnotations(expected.annotations());
+        withProperty(expected.getProperty()).withRange(expected.getRange()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -59,7 +55,6 @@ public class BuilderAnnotationPropertyRange
      *        range
      * @return builder
      */
-    @Nonnull
     public BuilderAnnotationPropertyRange withRange(IRI arg) {
         iri = arg;
         return this;
@@ -67,14 +62,12 @@ public class BuilderAnnotationPropertyRange
 
     @Override
     public OWLAnnotationPropertyRangeAxiom buildObject() {
-        return df.getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange(),
-                annotations);
+        return df.getOWLAnnotationPropertyRangeAxiom(getProperty(), getRange(), annotations);
     }
 
     /**
      * @return range
      */
-    @Nonnull
     public IRI getRange() {
         return verifyNotNull(iri);
     }

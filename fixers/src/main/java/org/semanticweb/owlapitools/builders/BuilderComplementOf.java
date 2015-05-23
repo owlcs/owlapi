@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
 /** Builder class for OWLObjectComplementOf. */
-public class BuilderComplementOf extends
-        BaseBuilder<OWLObjectComplementOf, BuilderComplementOf> {
+public class BuilderComplementOf extends BaseBuilder<OWLObjectComplementOf, BuilderComplementOf> {
 
     @Nullable
     private OWLClassExpression c = null;
@@ -46,8 +44,7 @@ public class BuilderComplementOf extends
      * @param df
      *        data factory
      */
-    public BuilderComplementOf(@Nonnull OWLObjectComplementOf expected,
-            OWLDataFactory df) {
+    public BuilderComplementOf(OWLObjectComplementOf expected, OWLDataFactory df) {
         this(df);
         withClass(expected.getOperand());
     }
@@ -57,7 +54,6 @@ public class BuilderComplementOf extends
      *        class expression
      * @return builder
      */
-    @Nonnull
     public BuilderComplementOf withClass(OWLClassExpression arg) {
         c = arg;
         return this;
@@ -71,7 +67,6 @@ public class BuilderComplementOf extends
     /**
      * @return class expression
      */
-    @Nonnull
     public OWLClassExpression getClassExpression() {
         return verifyNotNull(c);
     }

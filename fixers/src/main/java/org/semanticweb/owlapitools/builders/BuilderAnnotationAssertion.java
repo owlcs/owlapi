@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -25,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnnotationAssertionAxiom. */
 public class BuilderAnnotationAssertion
-        extends
-        BaseAnnotationPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
+        extends BaseAnnotationPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
 
     @Nullable
     private OWLAnnotationSubject subject = null;
@@ -49,12 +47,9 @@ public class BuilderAnnotationAssertion
      * @param df
      *        data factory
      */
-    public BuilderAnnotationAssertion(
-            @Nonnull OWLAnnotationAssertionAxiom expected, OWLDataFactory df) {
+    public BuilderAnnotationAssertion(OWLAnnotationAssertionAxiom expected, OWLDataFactory df) {
         this(df);
-        withAnnotations(expected.annotations())
-                .withSubject(expected.getSubject())
-                .withProperty(expected.getProperty())
+        withAnnotations(expected.annotations()).withSubject(expected.getSubject()).withProperty(expected.getProperty())
                 .withValue(expected.getValue());
     }
 
@@ -63,7 +58,6 @@ public class BuilderAnnotationAssertion
      *        subject
      * @return builder
      */
-    @Nonnull
     public BuilderAnnotationAssertion withSubject(OWLAnnotationSubject arg) {
         subject = arg;
         return this;
@@ -74,7 +68,6 @@ public class BuilderAnnotationAssertion
      *        value
      * @return builder
      */
-    @Nonnull
     public BuilderAnnotationAssertion withValue(OWLAnnotationValue arg) {
         value = arg;
         return this;
@@ -82,14 +75,12 @@ public class BuilderAnnotationAssertion
 
     @Override
     public OWLAnnotationAssertionAxiom buildObject() {
-        return df.getOWLAnnotationAssertionAxiom(getProperty(), getSubject(),
-                getValue(), annotations);
+        return df.getOWLAnnotationAssertionAxiom(getProperty(), getSubject(), getValue(), annotations);
     }
 
     /**
      * @return value
      */
-    @Nonnull
     public OWLAnnotationValue getValue() {
         return verifyNotNull(value);
     }
@@ -97,7 +88,6 @@ public class BuilderAnnotationAssertion
     /**
      * @return value
      */
-    @Nonnull
     public OWLAnnotationSubject getSubject() {
         return verifyNotNull(subject);
     }

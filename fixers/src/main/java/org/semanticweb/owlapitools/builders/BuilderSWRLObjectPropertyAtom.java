@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 
 /** Builder class for SWRLObjectPropertyAtom. */
 public class BuilderSWRLObjectPropertyAtom
-        extends
-        BaseObjectPropertyBuilder<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
+        extends BaseObjectPropertyBuilder<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
 
     private SWRLIArgument arg1;
     private SWRLIArgument arg0;
@@ -37,12 +35,10 @@ public class BuilderSWRLObjectPropertyAtom
      * @param df
      *        data factory
      */
-    public BuilderSWRLObjectPropertyAtom(
-            @Nonnull SWRLObjectPropertyAtom expected, OWLDataFactory df) {
+    public BuilderSWRLObjectPropertyAtom(SWRLObjectPropertyAtom expected, OWLDataFactory df) {
         this(df);
-        withArg0(expected.getFirstArgument()).withArg1(
-                expected.getSecondArgument()).withProperty(
-                expected.getPredicate());
+        withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument())
+                .withProperty(expected.getPredicate());
     }
 
     /**
@@ -59,7 +55,6 @@ public class BuilderSWRLObjectPropertyAtom
      *        individual
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLObjectPropertyAtom withArg0(SWRLIArgument arg) {
         arg0 = arg;
         return this;
@@ -70,7 +65,6 @@ public class BuilderSWRLObjectPropertyAtom
      *        individual
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLObjectPropertyAtom withArg1(SWRLIArgument arg) {
         arg1 = arg;
         return this;
@@ -78,14 +72,12 @@ public class BuilderSWRLObjectPropertyAtom
 
     @Override
     public SWRLObjectPropertyAtom buildObject() {
-        return df
-                .getSWRLObjectPropertyAtom(getProperty(), getArg0(), getArg1());
+        return df.getSWRLObjectPropertyAtom(getProperty(), getArg0(), getArg1());
     }
 
     /**
      * @return arg 1
      */
-    @Nonnull
     public SWRLIArgument getArg1() {
         return verifyNotNull(arg1);
     }
@@ -93,7 +85,6 @@ public class BuilderSWRLObjectPropertyAtom
     /**
      * @return arg 0
      */
-    @Nonnull
     public SWRLIArgument getArg0() {
         return verifyNotNull(arg0);
     }

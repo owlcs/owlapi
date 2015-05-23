@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -22,8 +21,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnonymousIndividual. */
-public class BuilderAnonymousIndividual extends
-        BaseBuilder<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
+public class BuilderAnonymousIndividual extends BaseBuilder<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
 
     @Nullable
     private String id = null;
@@ -45,8 +43,7 @@ public class BuilderAnonymousIndividual extends
      * @param df
      *        data factory
      */
-    public BuilderAnonymousIndividual(@Nonnull OWLAnonymousIndividual expected,
-            OWLDataFactory df) {
+    public BuilderAnonymousIndividual(OWLAnonymousIndividual expected, OWLDataFactory df) {
         this(df);
         withId(expected.getID().getID());
     }
@@ -56,7 +53,6 @@ public class BuilderAnonymousIndividual extends
      *        blank node id
      * @return builder
      */
-    @Nonnull
     public BuilderAnonymousIndividual withId(String arg) {
         id = arg;
         return this;
@@ -73,7 +69,6 @@ public class BuilderAnonymousIndividual extends
     /**
      * @return id
      */
-    @Nonnull
     public String getId() {
         return verifyNotNull(id);
     }

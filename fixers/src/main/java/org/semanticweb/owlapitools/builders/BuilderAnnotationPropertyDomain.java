@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -24,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnnotationPropertyDomainAxiom. */
 public class BuilderAnnotationPropertyDomain
-        extends
-        BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
+        extends BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
 
     @Nullable
     private IRI domain = null;
@@ -47,12 +45,9 @@ public class BuilderAnnotationPropertyDomain
      * @param df
      *        data factory
      */
-    public BuilderAnnotationPropertyDomain(
-            @Nonnull OWLAnnotationPropertyDomainAxiom expected,
-            OWLDataFactory df) {
+    public BuilderAnnotationPropertyDomain(OWLAnnotationPropertyDomainAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withDomain(expected.getDomain())
-                .withAnnotations(expected.annotations());
+        withProperty(expected.getProperty()).withDomain(expected.getDomain()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -60,7 +55,6 @@ public class BuilderAnnotationPropertyDomain
      *        domain
      * @return builder
      */
-    @Nonnull
     public BuilderAnnotationPropertyDomain withDomain(IRI arg) {
         domain = arg;
         return this;
@@ -68,14 +62,12 @@ public class BuilderAnnotationPropertyDomain
 
     @Override
     public OWLAnnotationPropertyDomainAxiom buildObject() {
-        return df.getOWLAnnotationPropertyDomainAxiom(getProperty(),
-                getDomain(), annotations);
+        return df.getOWLAnnotationPropertyDomainAxiom(getProperty(), getDomain(), annotations);
     }
 
     /**
      * @return domain
      */
-    @Nonnull
     public IRI getDomain() {
         return verifyNotNull(domain);
     }

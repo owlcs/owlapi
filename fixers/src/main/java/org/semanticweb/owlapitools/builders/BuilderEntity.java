@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -46,7 +45,7 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
      * @param df
      *        data factory
      */
-    public BuilderEntity(@Nonnull OWLClass expected, OWLDataFactory df) {
+    public BuilderEntity(OWLClass expected, OWLDataFactory df) {
         this(df);
         withType(EntityType.CLASS).withIRI(expected.getIRI());
     }
@@ -56,7 +55,6 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
      *        entity type
      * @return builder
      */
-    @Nonnull
     public BuilderEntity withType(EntityType<?> arg) {
         entityType = arg;
         return this;
@@ -65,7 +63,6 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
     /**
      * @return entity type
      */
-    @Nonnull
     public EntityType<?> getEntityType() {
         return verifyNotNull(entityType);
     }
@@ -73,8 +70,7 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
     @Override
     public OWLEntity buildObject() {
         if (pm != null && string != null) {
-            return df
-                    .getOWLEntity(getEntityType(), getPM().getIRI(getString()));
+            return df.getOWLEntity(getEntityType(), getPM().getIRI(getString()));
         }
         return df.getOWLEntity(getEntityType(), getIRI());
     }

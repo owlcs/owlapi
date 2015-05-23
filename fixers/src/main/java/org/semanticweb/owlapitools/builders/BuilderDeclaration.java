@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Builder class for OWLDeclarationAxiom. */
-public class BuilderDeclaration extends
-        BaseBuilder<OWLDeclarationAxiom, BuilderDeclaration> {
+public class BuilderDeclaration extends BaseBuilder<OWLDeclarationAxiom, BuilderDeclaration> {
 
     @Nullable
     private OWLEntity entity = null;
@@ -37,11 +35,9 @@ public class BuilderDeclaration extends
      * @param df
      *        data factory
      */
-    public BuilderDeclaration(@Nonnull OWLDeclarationAxiom expected,
-            OWLDataFactory df) {
+    public BuilderDeclaration(OWLDeclarationAxiom expected, OWLDataFactory df) {
         this(df);
-        withEntity(expected.getEntity())
-                .withAnnotations(expected.annotations());
+        withEntity(expected.getEntity()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -58,7 +54,6 @@ public class BuilderDeclaration extends
      *        entity
      * @return builder
      */
-    @Nonnull
     public BuilderDeclaration withEntity(OWLEntity arg) {
         entity = arg;
         return this;
@@ -72,7 +67,6 @@ public class BuilderDeclaration extends
     /**
      * @return entity
      */
-    @Nonnull
     public OWLEntity getEntity() {
         return verifyNotNull(entity);
     }

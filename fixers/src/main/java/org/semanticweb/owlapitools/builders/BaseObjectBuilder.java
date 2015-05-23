@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -30,8 +29,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <B>
  *        builder type
  */
-public abstract class BaseObjectBuilder<T extends OWLObject, B> extends
-        BaseObjectPropertyBuilder<T, B> {
+public abstract class BaseObjectBuilder<T extends OWLObject, B> extends BaseObjectPropertyBuilder<T, B> {
 
     @Nullable
     private OWLClassExpression range = null;
@@ -50,7 +48,6 @@ public abstract class BaseObjectBuilder<T extends OWLObject, B> extends
      *        range
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withRange(OWLClassExpression arg) {
         range = arg;
@@ -60,7 +57,6 @@ public abstract class BaseObjectBuilder<T extends OWLObject, B> extends
     /**
      * @return range
      */
-    @Nonnull
     public OWLClassExpression getRange() {
         return verifyNotNull(range);
     }

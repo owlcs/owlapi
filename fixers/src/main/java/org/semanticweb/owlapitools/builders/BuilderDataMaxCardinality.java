@@ -12,15 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 
 /** Builder class for OWLDataMaxCardinality. */
-public class BuilderDataMaxCardinality extends
-        BaseDataBuilder<OWLDataMaxCardinality, BuilderDataMaxCardinality> {
+public class BuilderDataMaxCardinality extends BaseDataBuilder<OWLDataMaxCardinality, BuilderDataMaxCardinality> {
 
     private int cardinality = -1;
 
@@ -41,11 +39,9 @@ public class BuilderDataMaxCardinality extends
      * @param df
      *        data factory
      */
-    public BuilderDataMaxCardinality(@Nonnull OWLDataMaxCardinality expected,
-            OWLDataFactory df) {
+    public BuilderDataMaxCardinality(OWLDataMaxCardinality expected, OWLDataFactory df) {
         this(df);
-        withCardinality(expected.getCardinality()).withProperty(
-                expected.getProperty()).withRange(expected.getFiller());
+        withCardinality(expected.getCardinality()).withProperty(expected.getProperty()).withRange(expected.getFiller());
     }
 
     /**
@@ -53,7 +49,6 @@ public class BuilderDataMaxCardinality extends
      *        cardinality
      * @return builder
      */
-    @Nonnull
     public BuilderDataMaxCardinality withCardinality(int arg) {
         cardinality = arg;
         return this;
@@ -61,7 +56,6 @@ public class BuilderDataMaxCardinality extends
 
     @Override
     public OWLDataMaxCardinality buildObject() {
-        return df.getOWLDataMaxCardinality(cardinality, getProperty(),
-                getDataRange());
+        return df.getOWLDataMaxCardinality(cardinality, getProperty(), getDataRange());
     }
 }

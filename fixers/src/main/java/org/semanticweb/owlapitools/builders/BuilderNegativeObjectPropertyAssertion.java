@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
 /** Builder class for OWLNegativeObjectPropertyAssertionAxiom. */
-public class BuilderNegativeObjectPropertyAssertion
-        extends
+public class BuilderNegativeObjectPropertyAssertion extends
         BaseObjectPropertyBuilder<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
 
     @Nullable
@@ -40,12 +38,9 @@ public class BuilderNegativeObjectPropertyAssertion
      * @param df
      *        data factory
      */
-    public BuilderNegativeObjectPropertyAssertion(
-            @Nonnull OWLNegativeObjectPropertyAssertionAxiom expected,
-            OWLDataFactory df) {
+    public BuilderNegativeObjectPropertyAssertion(OWLNegativeObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
-        withSubject(expected.getSubject()).withProperty(expected.getProperty())
-                .withValue(expected.getObject())
+        withSubject(expected.getSubject()).withProperty(expected.getProperty()).withValue(expected.getObject())
                 .withAnnotations(expected.annotations());
     }
 
@@ -63,9 +58,7 @@ public class BuilderNegativeObjectPropertyAssertion
      *        value
      * @return builder
      */
-    @Nonnull
-    public BuilderNegativeObjectPropertyAssertion withValue(
-            @Nonnull OWLIndividual arg) {
+    public BuilderNegativeObjectPropertyAssertion withValue(OWLIndividual arg) {
         value = arg;
         return this;
     }
@@ -75,23 +68,19 @@ public class BuilderNegativeObjectPropertyAssertion
      *        subject
      * @return builder
      */
-    @Nonnull
-    public BuilderNegativeObjectPropertyAssertion withSubject(
-            @Nonnull OWLIndividual arg) {
+    public BuilderNegativeObjectPropertyAssertion withSubject(OWLIndividual arg) {
         subject = arg;
         return this;
     }
 
     @Override
     public OWLNegativeObjectPropertyAssertionAxiom buildObject() {
-        return df.getOWLNegativeObjectPropertyAssertionAxiom(getProperty(),
-                getSubject(), getValue(), annotations);
+        return df.getOWLNegativeObjectPropertyAssertionAxiom(getProperty(), getSubject(), getValue(), annotations);
     }
 
     /**
      * @return individual
      */
-    @Nonnull
     public OWLIndividual getSubject() {
         return verifyNotNull(subject);
     }
@@ -99,7 +88,6 @@ public class BuilderNegativeObjectPropertyAssertion
     /**
      * @return individual
      */
-    @Nonnull
     public OWLIndividual getValue() {
         return verifyNotNull(value);
     }

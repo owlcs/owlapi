@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -25,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 
 /** Builder class for OWLNegativeDataPropertyAssertionAxiom. */
 public class BuilderNegativeDataPropertyAssertion
-        extends
-        BaseDataPropertyBuilder<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
+        extends BaseDataPropertyBuilder<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
 
     @Nullable
     private OWLIndividual subject = null;
@@ -41,12 +39,9 @@ public class BuilderNegativeDataPropertyAssertion
      * @param df
      *        data factory
      */
-    public BuilderNegativeDataPropertyAssertion(
-            @Nonnull OWLNegativeDataPropertyAssertionAxiom expected,
-            OWLDataFactory df) {
+    public BuilderNegativeDataPropertyAssertion(OWLNegativeDataPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withSubject(expected.getSubject())
-                .withValue(expected.getObject())
+        withProperty(expected.getProperty()).withSubject(expected.getSubject()).withValue(expected.getObject())
                 .withAnnotations(expected.annotations());
     }
 
@@ -64,7 +59,6 @@ public class BuilderNegativeDataPropertyAssertion
      *        value
      * @return builder
      */
-    @Nonnull
     public BuilderNegativeDataPropertyAssertion withValue(OWLLiteral arg) {
         value = arg;
         return this;
@@ -75,7 +69,6 @@ public class BuilderNegativeDataPropertyAssertion
      *        subject
      * @return builder
      */
-    @Nonnull
     public BuilderNegativeDataPropertyAssertion withSubject(OWLIndividual arg) {
         subject = arg;
         return this;
@@ -83,14 +76,12 @@ public class BuilderNegativeDataPropertyAssertion
 
     @Override
     public OWLNegativeDataPropertyAssertionAxiom buildObject() {
-        return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(),
-                getSubject(), getLiteral(), annotations);
+        return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(), getSubject(), getLiteral(), annotations);
     }
 
     /**
      * @return individual
      */
-    @Nonnull
     public OWLIndividual getSubject() {
         return verifyNotNull(subject);
     }
@@ -98,7 +89,6 @@ public class BuilderNegativeDataPropertyAssertion
     /**
      * @return literal
      */
-    @Nonnull
     public OWLLiteral getLiteral() {
         return verifyNotNull(value);
     }

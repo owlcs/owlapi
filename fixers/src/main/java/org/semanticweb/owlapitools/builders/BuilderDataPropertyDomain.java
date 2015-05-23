@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -21,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
 /** Builder class for OWLDataPropertyDomainAxiom. */
 public class BuilderDataPropertyDomain
-        extends
-        BaseDomainBuilder<OWLDataPropertyDomainAxiom, BuilderDataPropertyDomain, OWLDataPropertyExpression> {
+        extends BaseDomainBuilder<OWLDataPropertyDomainAxiom, BuilderDataPropertyDomain, OWLDataPropertyExpression> {
 
     /**
      * @param df
@@ -41,16 +39,13 @@ public class BuilderDataPropertyDomain
      * @param df
      *        data factory
      */
-    public BuilderDataPropertyDomain(
-            @Nonnull OWLDataPropertyDomainAxiom expected, OWLDataFactory df) {
+    public BuilderDataPropertyDomain(OWLDataPropertyDomainAxiom expected, OWLDataFactory df) {
         this(df);
-        withProperty(expected.getProperty()).withDomain(expected.getDomain())
-                .withAnnotations(expected.annotations());
+        withProperty(expected.getProperty()).withDomain(expected.getDomain()).withAnnotations(expected.annotations());
     }
 
     @Override
     public OWLDataPropertyDomainAxiom buildObject() {
-        return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain(),
-                annotations);
+        return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain(), annotations);
     }
 }

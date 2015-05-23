@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -25,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 
 /** Builder class for OWLDatatypeRestriction. */
 public class BuilderDatatypeRestriction
-        extends
-        BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
+        extends BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
 
     @Nullable
     private OWLDatatype type = null;
@@ -39,11 +37,9 @@ public class BuilderDatatypeRestriction
      * @param df
      *        data factory
      */
-    public BuilderDatatypeRestriction(@Nonnull OWLDatatypeRestriction expected,
-            OWLDataFactory df) {
+    public BuilderDatatypeRestriction(OWLDatatypeRestriction expected, OWLDataFactory df) {
         this(df);
-        withDatatype(expected.getDatatype()).withItems(
-                expected.facetRestrictions());
+        withDatatype(expected.getDatatype()).withItems(expected.facetRestrictions());
     }
 
     /**
@@ -60,7 +56,6 @@ public class BuilderDatatypeRestriction
      *        range
      * @return builder
      */
-    @Nonnull
     public BuilderDatatypeRestriction withDatatype(OWLDatatype arg) {
         type = arg;
         return this;
@@ -74,7 +69,6 @@ public class BuilderDatatypeRestriction
     /**
      * @return type
      */
-    @Nonnull
     public OWLDatatype getType() {
         return verifyNotNull(type);
     }

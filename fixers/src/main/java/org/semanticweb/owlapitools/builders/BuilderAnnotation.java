@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnnotation. */
-public class BuilderAnnotation extends
-        BaseAnnotationPropertyBuilder<OWLAnnotation, BuilderAnnotation> {
+public class BuilderAnnotation extends BaseAnnotationPropertyBuilder<OWLAnnotation, BuilderAnnotation> {
 
     @Nullable
     private OWLAnnotationValue value = null;
@@ -46,7 +44,7 @@ public class BuilderAnnotation extends
      * @param df
      *        data factory
      */
-    public BuilderAnnotation(@Nonnull OWLAnnotation expected, OWLDataFactory df) {
+    public BuilderAnnotation(OWLAnnotation expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withValue(expected.getValue());
     }
@@ -56,7 +54,6 @@ public class BuilderAnnotation extends
      *        the annotation value
      * @return builder
      */
-    @Nonnull
     public BuilderAnnotation withValue(OWLAnnotationValue arg) {
         value = arg;
         return this;
@@ -70,7 +67,6 @@ public class BuilderAnnotation extends
     /**
      * @return value
      */
-    @Nonnull
     public OWLAnnotationValue getValue() {
         return verifyNotNull(value);
     }

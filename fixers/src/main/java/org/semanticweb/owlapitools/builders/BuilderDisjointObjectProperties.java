@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -20,8 +19,7 @@ import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** Builder class for OWLDisjointObjectPropertiesAxiom. */
-public class BuilderDisjointObjectProperties
-        extends
+public class BuilderDisjointObjectProperties extends
         BaseSetBuilder<OWLDisjointObjectPropertiesAxiom, BuilderDisjointObjectProperties, OWLObjectPropertyExpression> {
 
     /**
@@ -32,12 +30,9 @@ public class BuilderDisjointObjectProperties
      * @param df
      *        data factory
      */
-    public BuilderDisjointObjectProperties(
-            @Nonnull OWLDisjointObjectPropertiesAxiom expected,
-            OWLDataFactory df) {
+    public BuilderDisjointObjectProperties(OWLDisjointObjectPropertiesAxiom expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.properties())
-                .withAnnotations(expected.annotations());
+        withItems(expected.properties()).withAnnotations(expected.annotations());
     }
 
     /**

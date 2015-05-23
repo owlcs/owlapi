@@ -24,9 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 /** Builder class for OWLSubPropertyChainOfAxiom. */
-public class BuilderPropertyChain
-        extends
-        BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
+public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
 
     @Nonnull
     private final List<OWLObjectPropertyExpression> chain = new ArrayList<>();
@@ -39,12 +37,10 @@ public class BuilderPropertyChain
      * @param df
      *        data factory
      */
-    public BuilderPropertyChain(@Nonnull OWLSubPropertyChainOfAxiom expected,
-            OWLDataFactory df) {
+    public BuilderPropertyChain(OWLSubPropertyChainOfAxiom expected, OWLDataFactory df) {
         this(df);
-        withPropertiesInChain(expected.getPropertyChain()).withProperty(
-                expected.getSuperProperty()).withAnnotations(
-                expected.annotations());
+        withPropertiesInChain(expected.getPropertyChain()).withProperty(expected.getSuperProperty())
+                .withAnnotations(expected.annotations());
     }
 
     /**
@@ -61,9 +57,7 @@ public class BuilderPropertyChain
      *        property
      * @return builder
      */
-    @Nonnull
-    public BuilderPropertyChain withPropertyInChain(
-            OWLObjectPropertyExpression arg) {
+    public BuilderPropertyChain withPropertyInChain(OWLObjectPropertyExpression arg) {
         chain.add(arg);
         return this;
     }
@@ -73,16 +67,13 @@ public class BuilderPropertyChain
      *        properties
      * @return builder
      */
-    @Nonnull
-    public BuilderPropertyChain withPropertiesInChain(
-            @Nonnull Collection<OWLObjectPropertyExpression> arg) {
+    public BuilderPropertyChain withPropertiesInChain(Collection<OWLObjectPropertyExpression> arg) {
         chain.addAll(arg);
         return this;
     }
 
     @Override
     public OWLSubPropertyChainOfAxiom buildObject() {
-        return df.getOWLSubPropertyChainOfAxiom(chain, getProperty(),
-                annotations);
+        return df.getOWLSubPropertyChainOfAxiom(chain, getProperty(), annotations);
     }
 }

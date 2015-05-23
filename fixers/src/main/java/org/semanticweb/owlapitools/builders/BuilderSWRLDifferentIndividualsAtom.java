@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,8 +22,7 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /** Builder class for SWRLDifferentIndividualsAtom. */
 public class BuilderSWRLDifferentIndividualsAtom
-        extends
-        BaseBuilder<SWRLDifferentIndividualsAtom, BuilderSWRLDifferentIndividualsAtom> {
+        extends BaseBuilder<SWRLDifferentIndividualsAtom, BuilderSWRLDifferentIndividualsAtom> {
 
     private SWRLIArgument arg0;
     private SWRLIArgument arg1;
@@ -37,11 +35,9 @@ public class BuilderSWRLDifferentIndividualsAtom
      * @param df
      *        data factory
      */
-    public BuilderSWRLDifferentIndividualsAtom(
-            @Nonnull SWRLDifferentIndividualsAtom expected, OWLDataFactory df) {
+    public BuilderSWRLDifferentIndividualsAtom(SWRLDifferentIndividualsAtom expected, OWLDataFactory df) {
         this(df);
-        withArg0(expected.getFirstArgument()).withArg1(
-                expected.getSecondArgument());
+        withArg0(expected.getFirstArgument()).withArg1(expected.getSecondArgument());
     }
 
     /**
@@ -58,7 +54,6 @@ public class BuilderSWRLDifferentIndividualsAtom
      *        arg0
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLDifferentIndividualsAtom withArg0(SWRLIArgument arg) {
         arg0 = arg;
         return this;
@@ -69,7 +64,6 @@ public class BuilderSWRLDifferentIndividualsAtom
      *        arg0
      * @return builder
      */
-    @Nonnull
     public BuilderSWRLDifferentIndividualsAtom withArg1(SWRLIArgument arg) {
         arg1 = arg;
         return this;
@@ -83,7 +77,6 @@ public class BuilderSWRLDifferentIndividualsAtom
     /**
      * @return arg 1
      */
-    @Nonnull
     public SWRLIArgument getArg1() {
         return verifyNotNull(arg1);
     }
@@ -91,7 +84,6 @@ public class BuilderSWRLDifferentIndividualsAtom
     /**
      * @return arg 0
      */
-    @Nonnull
     public SWRLIArgument getArg0() {
         return verifyNotNull(arg0);
     }

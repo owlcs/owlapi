@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -21,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 
 /** Builder class for OWLDisjointClassesAxiom. */
 public class BuilderDisjointClasses
-        extends
-        BaseSetBuilder<OWLDisjointClassesAxiom, BuilderDisjointClasses, OWLClassExpression> {
+        extends BaseSetBuilder<OWLDisjointClassesAxiom, BuilderDisjointClasses, OWLClassExpression> {
 
     /**
      * Builder initialized from an existing object.
@@ -32,11 +30,9 @@ public class BuilderDisjointClasses
      * @param df
      *        data factory
      */
-    public BuilderDisjointClasses(@Nonnull OWLDisjointClassesAxiom expected,
-            OWLDataFactory df) {
+    public BuilderDisjointClasses(OWLDisjointClassesAxiom expected, OWLDataFactory df) {
         this(df);
-        withItems(expected.classExpressions()).withAnnotations(
-                expected.annotations());
+        withItems(expected.classExpressions()).withAnnotations(expected.annotations());
     }
 
     /**

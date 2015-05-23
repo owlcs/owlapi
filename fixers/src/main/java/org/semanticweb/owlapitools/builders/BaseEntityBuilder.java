@@ -14,7 +14,6 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
@@ -32,8 +31,7 @@ import org.semanticweb.owlapi.model.PrefixManager;
  * @param <B>
  *        builder type
  */
-public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends
-        BaseBuilder<T, B> {
+public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuilder<T, B> {
 
     @Nullable
     private IRI iri = null;
@@ -56,7 +54,6 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends
      *        property iri
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withIRI(IRI arg) {
         iri = arg;
@@ -68,7 +65,6 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends
      *        prefix manager
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withPrefixManager(PrefixManager arg) {
         pm = arg;
@@ -80,15 +76,15 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends
      *        prefixed iri
      * @return builder
      */
-    @Nonnull
     @SuppressWarnings("unchecked")
     public B withPrefixedIRI(String arg) {
         string = arg;
         return (B) this;
     }
 
-    /** @return iri */
-    @Nonnull
+    /**
+     * @return iri
+     */
     public IRI getIRI() {
         return verifyNotNull(iri);
     }
@@ -96,7 +92,6 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends
     /**
      * @return string
      */
-    @Nonnull
     public String getString() {
         return verifyNotNull(string);
     }
@@ -104,7 +99,6 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends
     /**
      * @return prefix manager
      */
-    @Nonnull
     public PrefixManager getPM() {
         return verifyNotNull(pm);
     }

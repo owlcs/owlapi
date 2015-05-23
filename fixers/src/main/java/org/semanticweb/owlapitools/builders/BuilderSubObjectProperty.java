@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -21,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 /** Builder class for OWLSubObjectPropertyOfAxiom. */
 public class BuilderSubObjectProperty
-        extends
-        BaseSubBuilder<OWLSubObjectPropertyOfAxiom, BuilderSubObjectProperty, OWLObjectPropertyExpression> {
+        extends BaseSubBuilder<OWLSubObjectPropertyOfAxiom, BuilderSubObjectProperty, OWLObjectPropertyExpression> {
 
     /**
      * Builder initialized from an existing object.
@@ -32,11 +30,9 @@ public class BuilderSubObjectProperty
      * @param df
      *        data factory
      */
-    public BuilderSubObjectProperty(
-            @Nonnull OWLSubObjectPropertyOfAxiom expected, OWLDataFactory df) {
+    public BuilderSubObjectProperty(OWLSubObjectPropertyOfAxiom expected, OWLDataFactory df) {
         this(df);
-        withSub(expected.getSubProperty()).withSup(expected.getSuperProperty())
-                .withAnnotations(expected.annotations());
+        withSub(expected.getSubProperty()).withSup(expected.getSuperProperty()).withAnnotations(expected.annotations());
     }
 
     /**
@@ -50,7 +46,6 @@ public class BuilderSubObjectProperty
 
     @Override
     public OWLSubObjectPropertyOfAxiom buildObject() {
-        return df.getOWLSubObjectPropertyOfAxiom(getSub(), getSup(),
-                annotations);
+        return df.getOWLSubObjectPropertyOfAxiom(getSub(), getSup(), annotations);
     }
 }
