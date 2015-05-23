@@ -19,8 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -41,11 +39,10 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
      * @param o
      *        ontology to use
      */
-    public NumberOfClassesWithMultipleInheritance(@Nonnull OWLOntology o) {
+    public NumberOfClassesWithMultipleInheritance(OWLOntology o) {
         super(o);
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return "Number of classes with asserted multiple inheritance";
@@ -63,9 +60,8 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
                 processed.add(cls);
                 int count = 0;
-                for (OWLClassExpression sup : asList(equivalent(
-                        ont.equivalentClassesAxioms(cls),
-                        OWLClassExpression.class))) {
+                for (OWLClassExpression sup : asList(
+                        equivalent(ont.equivalentClassesAxioms(cls), OWLClassExpression.class))) {
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }
@@ -80,11 +76,9 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
-            if (change.isAxiomChange()
-                    && change.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (change.isAxiomChange() && change.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }

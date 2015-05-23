@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.debugging;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLException;
@@ -35,7 +33,6 @@ public interface OWLDebugger {
      * @throws OWLException
      *         if there is any problem
      */
-    @Nonnull
     OWLOntology getOWLOntology() throws OWLException;
 
     /**
@@ -48,9 +45,7 @@ public interface OWLDebugger {
      * @throws OWLException
      *         if there is any problem
      */
-    @Nonnull
-    Set<OWLAxiom> getSOSForInconsistentClass(@Nonnull OWLClassExpression cls)
-            throws OWLException;
+    Set<OWLAxiom> getSOSForInconsistentClass(OWLClassExpression cls) throws OWLException;
 
     /**
      * Gets the all sos for incosistent class.
@@ -62,9 +57,7 @@ public interface OWLDebugger {
      * @throws OWLException
      *         if there is any problem
      */
-    @Nonnull
-    Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(
-            @Nonnull OWLClassExpression cls) throws OWLException;
+    Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(OWLClassExpression cls) throws OWLException;
 
     /** dispose of resources locked such as reasoners. */
     void dispose();

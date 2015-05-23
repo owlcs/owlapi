@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
@@ -37,7 +35,5 @@ public interface ExplanationOrderer {
      *        The axioms that constitute the unordered explanation
      * @return An order explanation.
      */
-    @Nonnull
-    ExplanationTree getOrderedExplanation(@Nonnull OWLAxiom entailment,
-            @Nonnull Set<OWLAxiom> axioms);
+    ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms);
 }

@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -38,7 +36,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      * @param o
      *        ontology to use
      */
-    public ObjectCountMetric(@Nonnull OWLOntology o) {
+    public ObjectCountMetric(OWLOntology o) {
         super(o);
     }
 
@@ -47,10 +45,8 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      * 
      * @return the object type name
      */
-    @Nonnull
     protected abstract String getObjectTypeName();
 
-    @Nonnull
     @Override
     public String getName() {
         return getObjectTypeName() + " count";
@@ -63,8 +59,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      *        the ont
      * @return the objects
      */
-    @Nonnull
-    protected abstract Stream<? extends E> getObjects(@Nonnull OWLOntology ont);
+    protected abstract Stream<? extends E> getObjects(OWLOntology ont);
 
     @Override
     public Integer recomputeMetric() {
@@ -76,14 +71,12 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      * 
      * @return the objects
      */
-    @Nonnull
     protected Set<? extends E> getObjects() {
         return asSet(getOntologies().flatMap(o -> getObjects(o)));
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return true;
     }
 

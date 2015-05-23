@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -28,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLMetricManager {
 
-    @Nonnull
     private final List<OWLMetric<?>> metrics;
 
     /**
@@ -37,21 +34,21 @@ public class OWLMetricManager {
      * @param metrics
      *        the metrics to use
      */
-    public OWLMetricManager(@Nonnull List<OWLMetric<?>> metrics) {
-        this.metrics = new ArrayList<>(checkNotNull(metrics,
-                "metrics cannot be null"));
+    public OWLMetricManager(List<OWLMetric<?>> metrics) {
+        this.metrics = new ArrayList<>(checkNotNull(metrics, "metrics cannot be null"));
     }
 
     /**
      * @param ontology
      *        the ontology to measure
      */
-    public void setOntology(@Nonnull OWLOntology ontology) {
+    public void setOntology(OWLOntology ontology) {
         metrics.forEach(m -> m.setOntology(ontology));
     }
 
-    /** @return the metrics */
-    @Nonnull
+    /**
+     * @return the metrics
+     */
     public List<OWLMetric<?>> getMetrics() {
         return new ArrayList<>(metrics);
     }

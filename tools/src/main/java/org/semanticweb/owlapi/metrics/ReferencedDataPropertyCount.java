@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -24,8 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.1.0
  */
-public class ReferencedDataPropertyCount extends
-        ObjectCountMetric<OWLDataProperty> {
+public class ReferencedDataPropertyCount extends ObjectCountMetric<OWLDataProperty> {
 
     /**
      * Instantiates a new referenced data property count.
@@ -33,11 +30,10 @@ public class ReferencedDataPropertyCount extends
      * @param o
      *        ontology to use
      */
-    public ReferencedDataPropertyCount(@Nonnull OWLOntology o) {
+    public ReferencedDataPropertyCount(OWLOntology o) {
         super(o);
     }
 
-    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "Data property";

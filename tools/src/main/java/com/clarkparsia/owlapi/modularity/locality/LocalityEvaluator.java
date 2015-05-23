@@ -14,8 +14,6 @@ package com.clarkparsia.owlapi.modularity.locality;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -32,6 +30,5 @@ public interface LocalityEvaluator {
      * @return {@code true} if the axiom is local w.r.t. the signature;
      *         {@code false} otherwise
      */
-    boolean isLocal(@Nonnull OWLAxiom axiom,
-            @Nonnull Set<? extends OWLEntity> signature);
+    boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature);
 }

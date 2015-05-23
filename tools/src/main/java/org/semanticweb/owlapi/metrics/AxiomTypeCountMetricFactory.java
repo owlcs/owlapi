@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.metrics;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -36,11 +34,9 @@ public final class AxiomTypeCountMetricFactory {
      *        ontology to use
      * @return set of metrics
      */
-    @Nonnull
-    public static Set<OWLMetric<?>> createMetrics(@Nonnull OWLOntology o) {
+    public static Set<OWLMetric<?>> createMetrics(OWLOntology o) {
         Set<OWLMetric<?>> metrics = new HashSet<>();
-        AxiomType.AXIOM_TYPES.forEach(t -> metrics
-                .add(new AxiomTypeMetric(o, t)));
+        AxiomType.AXIOM_TYPES.forEach(t -> metrics.add(new AxiomTypeMetric(o, t)));
         return metrics;
     }
 }

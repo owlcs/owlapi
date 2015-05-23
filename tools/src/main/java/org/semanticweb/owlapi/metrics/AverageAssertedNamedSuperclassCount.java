@@ -19,8 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,11 +38,10 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
      * @param o
      *        ontology to use
      */
-    public AverageAssertedNamedSuperclassCount(@Nonnull OWLOntology o) {
+    public AverageAssertedNamedSuperclassCount(OWLOntology o) {
         super(o);
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return "Average number of named superclasses";
@@ -61,9 +58,8 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
                     count++;
                     int prevTotal = total;
                     processedClasses.add(cls);
-                    for (OWLClassExpression desc : asList(sup(
-                            ont.subClassAxiomsForSubClass(cls),
-                            OWLClassExpression.class))) {
+                    for (OWLClassExpression desc : asList(
+                            sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class))) {
                         if (!desc.isAnonymous()) {
                             total++;
                         }
@@ -78,11 +74,9 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange()
-                    && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }

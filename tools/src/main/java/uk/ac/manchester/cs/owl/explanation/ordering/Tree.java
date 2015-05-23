@@ -17,8 +17,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -33,7 +31,6 @@ public interface Tree<N> {
      * 
      * @return The user content of this node.
      */
-    @Nonnull
     N getUserObject();
 
     /**
@@ -42,7 +39,6 @@ public interface Tree<N> {
      * @return The parent tree node, or {@code null} if this node doesn't have a
      *         parent.
      */
-    @Nonnull
     Tree<N> getParent();
 
     /**
@@ -51,7 +47,6 @@ public interface Tree<N> {
      * @return A list of children. If this tree node doesn't have any children
      *         then the list will be empty.
      */
-    @Nonnull
     List<Tree<N>> getChildren();
 
     /**
@@ -67,7 +62,7 @@ public interface Tree<N> {
      * @param comparator
      *        The comparator to be used for the sorting.
      */
-    void sortChildren(@Nonnull Comparator<Tree<N>> comparator);
+    void sortChildren(Comparator<Tree<N>> comparator);
 
     /**
      * A convenience method that gets the number of child nodes that this node
@@ -98,7 +93,6 @@ public interface Tree<N> {
      * 
      * @return The root node, which could be this node.
      */
-    @Nonnull
     Tree<N> getRoot();
 
     /**
@@ -106,7 +100,6 @@ public interface Tree<N> {
      * 
      * @return the path to the root
      */
-    @Nonnull
     List<Tree<N>> getPathToRoot();
 
     /**
@@ -114,7 +107,6 @@ public interface Tree<N> {
      * 
      * @return the elements in the path to root
      */
-    @Nonnull
     List<N> getUserObjectPathToRoot();
 
     /**
@@ -123,7 +115,7 @@ public interface Tree<N> {
      * @param writer
      *        the writer to print to
      */
-    void dump(@Nonnull PrintWriter writer);
+    void dump(PrintWriter writer);
 
     /**
      * Dump.
@@ -133,7 +125,7 @@ public interface Tree<N> {
      * @param indent
      *        how much to indent
      */
-    void dump(@Nonnull PrintWriter writer, int indent);
+    void dump(PrintWriter writer, int indent);
 
     /**
      * Sets the node renderer.
@@ -141,14 +133,13 @@ public interface Tree<N> {
      * @param renderer
      *        the renderer to use
      */
-    void setNodeRenderer(@Nonnull NodeRenderer<N> renderer);
+    void setNodeRenderer(NodeRenderer<N> renderer);
 
     /**
      * Gets the user object closure.
      * 
      * @return the set of user objects
      */
-    @Nonnull
     Set<N> getUserObjectClosure();
 
     /**
@@ -156,6 +147,5 @@ public interface Tree<N> {
      * 
      * @return the list of elements
      */
-    @Nonnull
     List<N> fillDepthFirst();
 }

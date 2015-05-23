@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -34,7 +32,6 @@ public interface OWLMetric<M> {
      * 
      * @return A label which represents the human readable name of this metric.
      */
-    @Nonnull
     String getName();
 
     /**
@@ -46,7 +43,6 @@ public interface OWLMetric<M> {
      *         will result in a human readable string that displays the value of
      *         the metric.
      */
-    @Nonnull
     M getValue();
 
     /**
@@ -56,14 +52,13 @@ public interface OWLMetric<M> {
      * @param ontology
      *        The ontology for which the metric should be computed.
      */
-    void setOntology(@Nonnull OWLOntology ontology);
+    void setOntology(OWLOntology ontology);
 
     /**
      * Gets the ontology which the value of the metric should be based on.
      * 
      * @return The ontology.
      */
-    @Nonnull
     OWLOntology getOntology();
 
     /**
@@ -93,7 +88,6 @@ public interface OWLMetric<M> {
      * 
      * @return An {@code OWLOntologyManager}.
      */
-    @Nonnull
     OWLOntologyManager getManager();
 
     /**

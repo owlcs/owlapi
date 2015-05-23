@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
@@ -35,29 +33,26 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
      * @param o
      *        ontology to use
      */
-    public DLExpressivity(@Nonnull OWLOntology o) {
+    public DLExpressivity(OWLOntology o) {
         super(o);
     }
 
     @Override
     public String recomputeMetric() {
-        DLExpressivityChecker checker = new DLExpressivityChecker(
-                asList(getOntologies()));
+        DLExpressivityChecker checker = new DLExpressivityChecker(asList(getOntologies()));
         return checker.getDescriptionLogicName();
     }
 
     @Override
     protected void disposeMetric() {}
 
-    @Nonnull
     @Override
     public String getName() {
         return "DL expressivity";
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange() && change.getAxiom().isLogicalAxiom()) {
                 return true;

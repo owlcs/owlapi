@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.metrics;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -32,7 +30,7 @@ public class AxiomCount extends IntegerValuedMetric {
      * @param o
      *        ontology to use
      */
-    public AxiomCount(@Nonnull OWLOntology o) {
+    public AxiomCount(OWLOntology o) {
         super(o);
     }
 
@@ -42,15 +40,13 @@ public class AxiomCount extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return true;
     }
 
     @Override
     protected void disposeMetric() {}
 
-    @Nonnull
     @Override
     public String getName() {
         return "Axiom";

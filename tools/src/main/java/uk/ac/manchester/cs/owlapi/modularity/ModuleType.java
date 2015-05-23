@@ -22,13 +22,13 @@ import javax.annotation.Nonnull;
  */
 public enum ModuleType {
     /** Module type representing top modules (aka lower modules). */
-    TOP("top"),
-    /** Module type representing bottom modules (aka upper modules). */
-    BOT("bottom"),
-    /**
-     * Module type representing fixpoint-nested modules
-     * (top-of-bottom-of-top-of-...).
-     */
+    TOP("top"), /**
+                 * Module type representing bottom modules (aka upper modules).
+                 */
+    BOT("bottom"), /**
+                    * Module type representing fixpoint-nested modules
+                    * (top-of-bottom-of-top-of-...).
+                    */
     STAR("nested");
 
     /** The name of the module type in bottom/top notation. */
@@ -41,7 +41,7 @@ public enum ModuleType {
      * @param name
      *        the name in bottom/top notation
      */
-    ModuleType(@Nonnull String name) {
+    ModuleType(String name) {
         this.name = name;
     }
 

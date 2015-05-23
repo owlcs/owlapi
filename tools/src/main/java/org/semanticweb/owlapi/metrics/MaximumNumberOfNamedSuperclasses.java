@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,11 +38,10 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
      * @param o
      *        ontology to use
      */
-    public MaximumNumberOfNamedSuperclasses(@Nonnull OWLOntology o) {
+    public MaximumNumberOfNamedSuperclasses(OWLOntology o) {
         super(o);
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return "Maximum number of asserted named superclasses";
@@ -54,28 +51,20 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     public Integer recomputeMetric() {
         AtomicLong count = new AtomicLong();
         Set<OWLClass> processedClasses = new HashSet<>();
-        getOntologies().forEach(
-                o -> o.classesInSignature()
-                        .filter(c -> processedClasses.add(c))
-                        .forEach(
-                                cls -> {
-                                    long curCount = equivalent(
-                                            o.equivalentClassesAxioms(cls),
-                                            OWLClassExpression.class).filter(
-                                            d -> !d.isAnonymous()).count();
-                                    if (curCount > count.get()) {
-                                        count.set(curCount);
-                                    }
-                                }));
+        getOntologies().forEach(o -> o.classesInSignature().filter(c -> processedClasses.add(c)).forEach(cls -> {
+            long curCount = equivalent(o.equivalentClassesAxioms(cls), OWLClassExpression.class)
+                    .filter(d -> !d.isAnonymous()).count();
+            if (curCount > count.get()) {
+                count.set(curCount);
+            }
+        } ));
         return count.intValue();
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange()
-                    && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }

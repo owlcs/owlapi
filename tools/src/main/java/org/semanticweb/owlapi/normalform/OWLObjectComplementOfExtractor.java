@@ -15,18 +15,7 @@ package org.semanticweb.owlapi.normalform;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Extracts the parts of a class expression which are negated. For example, A
@@ -36,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  *         Informatics Group
  * @since 2.2.0
  */
-public class OWLObjectComplementOfExtractor implements
-        OWLClassExpressionVisitor {
+public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor {
 
     private final Set<OWLClassExpression> result = new HashSet<>();
 
@@ -48,9 +36,7 @@ public class OWLObjectComplementOfExtractor implements
      *        the class to look for
      * @return the complemented expressions
      */
-    @Nonnull
-    public Set<OWLClassExpression> getComplementedClassExpressions(
-            @Nonnull OWLClassExpression desc) {
+    public Set<OWLClassExpression> getComplementedClassExpressions(OWLClassExpression desc) {
         // XXX a stateless visitor would not need copies
         reset();
         desc.accept(this);

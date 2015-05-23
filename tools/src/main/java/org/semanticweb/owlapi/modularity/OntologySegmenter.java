@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.modularity;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -42,8 +40,7 @@ public interface OntologySegmenter {
      *        the seed signature
      * @return the segment as a set of axioms
      */
-    @Nonnull
-    Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> signature);
+    Set<OWLAxiom> extract(Set<OWLEntity> signature);
 
     /**
      * Returns a set of axioms that is a segment of the ontology associated with
@@ -72,10 +69,7 @@ public interface OntologySegmenter {
      *         and indirect super-/subclasses of any class in the signature are
      *         added.
      */
-    @Nonnull
-    Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> signature,
-            int superClassLevel, int subClassLevel,
-            @Nonnull OWLReasoner reasoner);
+    Set<OWLAxiom> extract(Set<OWLEntity> signature, int superClassLevel, int subClassLevel, OWLReasoner reasoner);
 
     /**
      * Returns an ontology that is a segment of the ontology associated with
@@ -89,9 +83,7 @@ public interface OntologySegmenter {
      * @throws OWLOntologyCreationException
      *         if the module cannot be created
      */
-    @Nonnull
-    OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature,
-            @Nonnull IRI iri) throws OWLOntologyCreationException;
+    OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri) throws OWLOntologyCreationException;
 
     /**
      * Returns an ontology that is a segment of the ontology associated with
@@ -124,8 +116,6 @@ public interface OntologySegmenter {
      *         and indirect super-/subclasses of any class in the signature are
      *         added.
      */
-    @Nonnull
-    OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature,
-            @Nonnull IRI iri, int superClassLevel, int subClassLevel,
-            @Nonnull OWLReasoner reasoner) throws OWLOntologyCreationException;
+    OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri, int superClassLevel, int subClassLevel,
+            OWLReasoner reasoner) throws OWLOntologyCreationException;
 }

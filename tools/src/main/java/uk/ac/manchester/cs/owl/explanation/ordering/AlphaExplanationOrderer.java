@@ -19,8 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
@@ -42,18 +40,15 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
      * @param renderer
      *        the renderer to use
      */
-    public AlphaExplanationOrderer(@Nonnull OWLObjectRenderer renderer) {
+    public AlphaExplanationOrderer(OWLObjectRenderer renderer) {
         this.renderer = checkNotNull(renderer, "renderer cannot be null");
     }
 
-    @Nonnull
     @Override
-    public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
-            @Nonnull Set<OWLAxiom> axioms) {
+    public ExplanationTree getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
         List<OWLAxiom> sortedAxioms = new ArrayList<>(axioms);
-        Collections.sort(sortedAxioms, (o1, o2) -> renderer.render(o1)
-                .compareTo(renderer.render(o2)));
+        Collections.sort(sortedAxioms, (o1, o2) -> renderer.render(o1).compareTo(renderer.render(o2)));
         sortedAxioms.forEach(ax -> root.addChild(new ExplanationTree(ax)));
         return root;
     }

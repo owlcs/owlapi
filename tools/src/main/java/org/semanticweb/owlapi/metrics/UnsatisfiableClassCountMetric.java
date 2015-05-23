@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
@@ -36,13 +34,11 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
      * @param reasoner
      *        the reasoner
      */
-    public UnsatisfiableClassCountMetric(@Nonnull OWLReasoner reasoner) {
-        super(checkNotNull(reasoner, "reasoner cannot be null")
-                .getRootOntology());
+    public UnsatisfiableClassCountMetric(OWLReasoner reasoner) {
+        super(checkNotNull(reasoner, "reasoner cannot be null").getRootOntology());
         this.reasoner = reasoner;
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return "Unsatisfiable class count";
@@ -54,8 +50,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return false;
     }
 

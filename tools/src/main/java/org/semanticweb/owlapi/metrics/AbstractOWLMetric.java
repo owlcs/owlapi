@@ -18,8 +18,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -32,10 +30,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * @param <M>
  *        the metric type
  */
-public abstract class AbstractOWLMetric<M extends Serializable> implements
-        OWLMetric<M>, OWLOntologyChangeListener {
+public abstract class AbstractOWLMetric<M extends Serializable> implements OWLMetric<M>, OWLOntologyChangeListener {
 
-    @Nonnull
     private OWLOntology ontology;
     private boolean dirty;
     private boolean importsClosureUsed;
@@ -47,7 +43,7 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements
      * @param o
      *        the ontology to use
      */
-    public AbstractOWLMetric(@Nonnull OWLOntology o) {
+    public AbstractOWLMetric(OWLOntology o) {
         ontology = checkNotNull(o, "o cannot be null");
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         dirty = true;
@@ -60,8 +56,7 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements
 
     @Override
     public void setOntology(OWLOntology ontology) {
-        this.ontology.getOWLOntologyManager()
-                .removeOntologyChangeListener(this);
+        this.ontology.getOWLOntologyManager().removeOntologyChangeListener(this);
         this.ontology = ontology;
         this.ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         setDirty(true);
@@ -72,7 +67,6 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements
      * 
      * @return the m
      */
-    @Nonnull
     protected abstract M recomputeMetric();
 
     @Override
@@ -92,7 +86,6 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements
      * 
      * @return ontologies as a set
      */
-    @Nonnull
     public Stream<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
             return ontology.importsClosure();
@@ -141,13 +134,11 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements
      *         list of changes, or {@code false} if the list of changes do not
      *         cause the value of this metric to be invalidated.
      */
-    protected abstract boolean isMetricInvalidated(
-            @Nonnull List<? extends OWLOntologyChange> changes);
+    protected abstract boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes);
 
     /** Dispose metric. */
     protected abstract void disposeMetric();
 
-    @Nonnull
     @Override
     public String toString() {
         return getName() + ": " + getValue();
