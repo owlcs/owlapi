@@ -51,13 +51,11 @@ public abstract class AbstractRioParserFactory extends OWLParserFactoryImpl {
     @Nonnull
     private final RioRDFDocumentFormatFactory rioFormat;
 
-    protected AbstractRioParserFactory(
-            @Nonnull RioRDFDocumentFormatFactory rioFormat) {
+    protected AbstractRioParserFactory(RioRDFDocumentFormatFactory rioFormat) {
         super(rioFormat);
         this.rioFormat = rioFormat;
     }
 
-    @Nonnull
     @Override
     public OWLParser createParser() {
         return new RioParserImpl(getRioFormatFactory());
@@ -66,7 +64,6 @@ public abstract class AbstractRioParserFactory extends OWLParserFactoryImpl {
     /**
      * @return Rio format factory
      */
-    @Nonnull
     public RioRDFDocumentFormatFactory getRioFormatFactory() {
         return rioFormat;
     }

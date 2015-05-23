@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import javax.annotation.Nonnull;
-
 import org.openrdf.model.BNode;
 import org.openrdf.model.Literal;
 import org.openrdf.model.Resource;
@@ -59,11 +57,9 @@ import org.slf4j.LoggerFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
-        RDFHandler {
+public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandler {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(RioOWLRDFConsumerAdapter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RioOWLRDFConsumerAdapter.class);
 
     /**
      * @param ontology
@@ -73,9 +69,8 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
      * @param configuration
      *        loading configuration
      */
-    public RioOWLRDFConsumerAdapter(@Nonnull OWLOntology ontology,
-            @Nonnull AnonymousNodeChecker checker,
-            @Nonnull OWLOntologyLoaderConfiguration configuration) {
+    public RioOWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker,
+            OWLOntologyLoaderConfiguration configuration) {
         super(ontology, checker, configuration);
     }
 
@@ -98,9 +93,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
 
     @Override
     public void handleStatement(final Statement st) {
-        @Nonnull
         String subjectString;
-        @Nonnull
         String objectString;
         if (st.getSubject() instanceof BNode) {
             subjectString = st.getSubject().stringValue();
@@ -122,8 +115,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
         }
         if (st.getObject() instanceof Resource) {
             LOGGER.trace("statement with resource value");
-            statementWithResourceValue(subjectString, st.getPredicate()
-                    .stringValue(), objectString);
+            statementWithResourceValue(subjectString, st.getPredicate().stringValue(), objectString);
         } else {
             final Literal literalObject = (Literal) st.getObject();
             String literalDatatype = null;
@@ -134,8 +126,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
                 literalDatatype = literalObject.getDatatype().stringValue();
             }
             LOGGER.trace("statement with literal value");
-            statementWithLiteralValue(subjectString, st.getPredicate()
-                    .stringValue(), objectString, literalLanguage,
+            statementWithLiteralValue(subjectString, st.getPredicate().stringValue(), objectString, literalLanguage,
                     literalDatatype);
         }
     }

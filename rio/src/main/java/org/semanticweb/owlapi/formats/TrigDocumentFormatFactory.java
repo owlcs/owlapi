@@ -35,16 +35,13 @@
  */
 package org.semanticweb.owlapi.formats;
 
-import javax.annotation.Nonnull;
-
 import org.openrdf.rio.RDFFormat;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class TrigDocumentFormatFactory extends
-        AbstractRioRDFDocumentFormatFactory {
+public class TrigDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 
@@ -53,7 +50,6 @@ public class TrigDocumentFormatFactory extends
         super(RDFFormat.TRIG);
     }
 
-    @Nonnull
     @Override
     public RioRDFDocumentFormat createFormat() {
         return new TrigDocumentFormat();

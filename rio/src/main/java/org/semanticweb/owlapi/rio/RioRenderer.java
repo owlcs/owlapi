@@ -52,16 +52,7 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.rio.utils.RioUtils;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -75,8 +66,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RioRenderer extends RDFRendererBase {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(RioRenderer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RioRenderer.class);
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
     @Nonnull
@@ -96,8 +86,7 @@ public class RioRenderer extends RDFRendererBase {
      * @param contexts
      *        contexts
      */
-    public RioRenderer(@Nonnull final OWLOntology ontology,
-            final RDFHandler writer, final OWLDocumentFormat format,
+    public RioRenderer(final OWLOntology ontology, final RDFHandler writer, final OWLDocumentFormat format,
             final Resource... contexts) {
         super(ontology, format);
         OpenRDFUtil.verifyContextNotNull(contexts);
@@ -105,8 +94,7 @@ public class RioRenderer extends RDFRendererBase {
         this.writer = writer;
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
-            String ontologyIRIString = ontology.getOntologyID()
-                    .getOntologyIRI().get().toString();
+            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/")) {
                 defaultPrefix = ontologyIRIString + '#';
@@ -181,8 +169,7 @@ public class RioRenderer extends RDFRendererBase {
             return;
         }
         pendingNodes.add(node);
-        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node,
-                true);
+        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node, true);
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("triples.size()={}", triples.size());
             if (!triples.isEmpty()) {
@@ -196,33 +183,28 @@ public class RioRenderer extends RDFRendererBase {
                 remappedNode = triplesWithRemappedNodes.get(tripleToRender);
             }
             if (remappedNode != null) {
-                tripleToRender = new RDFTriple(tripleToRender.getSubject(),
-                        tripleToRender.getPredicate(), remappedNode);
+                tripleToRender = new RDFTriple(tripleToRender.getSubject(), tripleToRender.getPredicate(),
+                        remappedNode);
             }
             if (!node.equals(tripleToRender.getSubject())) {
                 // the node will not match the triple subject if the node itself
                 // is a remapped blank node
                 // in which case the triple subject needs remapping as well
-                tripleToRender = new RDFTriple(node,
-                        tripleToRender.getPredicate(),
-                        tripleToRender.getObject());
+                tripleToRender = new RDFTriple(node, tripleToRender.getPredicate(), tripleToRender.getObject());
             }
             try {
                 if (!renderedStatements.contains(tripleToRender)) {
                     renderedStatements.add(tripleToRender);
                     // then we go back and get context-sensitive statements and
                     // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils.tripleAsStatements(
-                            tripleToRender, contexts)) {
+                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
                         writer.handleStatement(statement);
                         if (tripleToRender.getObject() instanceof RDFResource) {
                             render((RDFResource) tripleToRender.getObject());
                         }
                     }
                 } else if (LOGGER.isTraceEnabled()) {
-                    LOGGER.trace(
-                            "not printing duplicate statement, or recursing on its object: {}",
-                            tripleToRender);
+                    LOGGER.trace("not printing duplicate statement, or recursing on its object: {}", tripleToRender);
                 }
             } catch (RDFHandlerException e) {
                 throw new OWLRuntimeException(e);
@@ -232,8 +214,7 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeAnnotationPropertyComment(
-            @Nonnull OWLAnnotationProperty prop) {
+    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
@@ -251,7 +232,7 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeClassComment(@Nonnull final OWLClass cls) {
+    protected void writeClassComment(final OWLClass cls) {
         writeComment(cls.getIRI().toString());
     }
 
@@ -264,17 +245,17 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop) {
+    protected void writeDataPropertyComment(OWLDataProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
     @Override
-    protected void writeDatatypeComment(@Nonnull OWLDatatype datatype) {
+    protected void writeDatatypeComment(OWLDatatype datatype) {
         writeComment(datatype.getIRI().toString());
     }
 
     @Override
-    protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind) {
+    protected void writeIndividualComments(OWLNamedIndividual ind) {
         writeComment(ind.getIRI().toString());
     }
 
@@ -298,8 +279,7 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeObjectPropertyComment(
-            @Nonnull final OWLObjectProperty prop) {
+    protected void writeObjectPropertyComment(final OWLObjectProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 }

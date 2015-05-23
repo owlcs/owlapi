@@ -42,7 +42,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.openrdf.OpenRDFUtil;
@@ -55,12 +54,7 @@ import org.openrdf.rio.UnsupportedRDFormatException;
 import org.openrdf.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
@@ -86,8 +80,7 @@ public class RioStorer extends AbstractOWLStorer {
      * @param contexts
      *        contexts
      */
-    public RioStorer(OWLDocumentFormatFactory ontologyFormat,
-            RDFHandler rioHandler, Resource... contexts) {
+    public RioStorer(OWLDocumentFormatFactory ontologyFormat, RDFHandler rioHandler, Resource... contexts) {
         this(ontologyFormat, contexts);
         this.rioHandler = rioHandler;
     }
@@ -98,8 +91,7 @@ public class RioStorer extends AbstractOWLStorer {
      * @param contexts
      *        contexts
      */
-    public RioStorer(OWLDocumentFormatFactory ontologyFormat,
-            Resource... contexts) {
+    public RioStorer(OWLDocumentFormatFactory ontologyFormat, Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         ontFormat = ontologyFormat;
         this.contexts = contexts;
@@ -128,8 +120,8 @@ public class RioStorer extends AbstractOWLStorer {
      *         If the format does not have an {@link RDFWriter} implementation
      *         available on the classpath.
      */
-    protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format,
-            Writer writer) throws OWLOntologyStorageException {
+    protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format, Writer writer)
+            throws OWLOntologyStorageException {
         // by default return a StatementCollector if they did not specify a
         // format
         if (format == null) {
@@ -161,8 +153,7 @@ public class RioStorer extends AbstractOWLStorer {
      *         If the format does not have an {@link RDFWriter} implementation
      *         available on the classpath.
      */
-    protected static RDFHandler getRDFHandlerForOutputStream(
-            final RDFFormat format, final OutputStream outputStream)
+    protected static RDFHandler getRDFHandlerForOutputStream(final RDFFormat format, final OutputStream outputStream)
             throws OWLOntologyStorageException {
         // by default return a StatementCollector if they did not specify a
         // format
@@ -193,8 +184,7 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology,
-            PrintWriter writer, OWLDocumentFormat format)
+    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
@@ -208,8 +198,7 @@ public class RioStorer extends AbstractOWLStorer {
             }
             final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
             if (format.isTextual()) {
-                rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(),
-                        writer);
+                rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(), writer);
             } else {
                 throw new OWLOntologyStorageException(
                         "Unable to use storeOntology with a Writer as the desired format is not textual. Format was "
@@ -217,8 +206,7 @@ public class RioStorer extends AbstractOWLStorer {
             }
         }
         try {
-            final RioRenderer ren = new RioRenderer(ontology, rioHandler,
-                    format, contexts);
+            final RioRenderer ren = new RioRenderer(ontology, rioHandler, format, contexts);
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
@@ -226,8 +214,7 @@ public class RioStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology,
-            OutputStream outputStream, OWLDocumentFormat format)
+    protected void storeOntology(OWLOntology ontology, OutputStream outputStream, OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         // This check is performed to allow any Rio RDFHandler to be used to
         // render the output, even if it does not render to a writer. For
@@ -241,18 +228,14 @@ public class RioStorer extends AbstractOWLStorer {
             }
             final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
             if (format.isTextual()) {
-                Writer writer = new BufferedWriter(new OutputStreamWriter(
-                        outputStream, StandardCharsets.UTF_8));
-                rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(),
-                        writer);
+                Writer writer = new BufferedWriter(new OutputStreamWriter(outputStream, StandardCharsets.UTF_8));
+                rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(), writer);
             } else {
-                rioHandler = getRDFHandlerForOutputStream(
-                        rioFormat.getRioFormat(), outputStream);
+                rioHandler = getRDFHandlerForOutputStream(rioFormat.getRioFormat(), outputStream);
             }
         }
         try {
-            final RioRenderer ren = new RioRenderer(ontology, rioHandler,
-                    format, contexts);
+            final RioRenderer ren = new RioRenderer(ontology, rioHandler, format, contexts);
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);

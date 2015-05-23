@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
@@ -49,7 +47,7 @@ public abstract class AbstractRioStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
-    protected AbstractRioStorerFactory(@Nonnull OWLDocumentFormatFactory format) {
+    protected AbstractRioStorerFactory(OWLDocumentFormatFactory format) {
         super(format);
     }
 

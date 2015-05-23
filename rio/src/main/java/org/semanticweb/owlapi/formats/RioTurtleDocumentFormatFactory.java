@@ -35,16 +35,13 @@
  */
 package org.semanticweb.owlapi.formats;
 
-import javax.annotation.Nonnull;
-
 import org.openrdf.rio.RDFFormat;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioTurtleDocumentFormatFactory extends
-        AbstractRioRDFDocumentFormatFactory {
+public class RioTurtleDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 
@@ -53,7 +50,6 @@ public class RioTurtleDocumentFormatFactory extends
         super(RDFFormat.TURTLE);
     }
 
-    @Nonnull
     @Override
     public RioRDFDocumentFormat createFormat() {
         return new RioTurtleDocumentFormat();

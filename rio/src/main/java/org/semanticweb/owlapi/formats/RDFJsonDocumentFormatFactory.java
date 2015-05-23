@@ -35,15 +35,12 @@
  */
 package org.semanticweb.owlapi.formats;
 
-import javax.annotation.Nonnull;
-
 import org.openrdf.rio.RDFFormat;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RDFJsonDocumentFormatFactory extends
-        AbstractRioRDFDocumentFormatFactory {
+public class RDFJsonDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 
@@ -52,7 +49,6 @@ public class RDFJsonDocumentFormatFactory extends
         super(RDFFormat.RDFJSON);
     }
 
-    @Nonnull
     @Override
     public RioRDFDocumentFormat createFormat() {
         return new RDFJsonDocumentFormat();

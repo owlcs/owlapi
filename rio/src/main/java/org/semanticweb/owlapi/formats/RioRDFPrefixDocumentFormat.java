@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFParserRegistry;
@@ -93,9 +93,8 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
         return format;
     }
 
-    @Nonnull
     @Override
-    public String getDefaultMIMEType() {
+    public @Nullable String getDefaultMIMEType() {
         return format.getDefaultMIMEType();
     }
 
