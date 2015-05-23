@@ -3,24 +3,14 @@ package org.obolibrary.macro;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLDataComplementOf;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDataUnionOf;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.*;
 
 /** Data visitor. */
 public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
 
     final OWLDataFactory df;
 
-    protected AbstractDataVisitorEx(@Nonnull OWLDataFactory df) {
+    protected AbstractDataVisitorEx(OWLDataFactory df) {
         this.df = df;
     }
 
@@ -30,7 +20,7 @@ public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
     }
 
     @Override
-    public OWLDataRange visit(@Nonnull OWLDataOneOf node) {
+    public OWLDataRange visit(OWLDataOneOf node) {
         // Encode as a data union of and return result
         Set<OWLDataOneOf> oneOfs = new HashSet<>();
         node.values().forEach(lit -> oneOfs.add(df.getOWLDataOneOf(lit)));
@@ -38,14 +28,14 @@ public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
     }
 
     @Override
-    public OWLDataRange visit(@Nonnull OWLDataIntersectionOf node) {
+    public OWLDataRange visit(OWLDataIntersectionOf node) {
         Set<OWLDataRange> ops = new HashSet<>();
         node.operands().forEach(op -> ops.add(op.accept(this)));
         return df.getOWLDataIntersectionOf(ops);
     }
 
     @Override
-    public OWLDataRange visit(@Nonnull OWLDataUnionOf node) {
+    public OWLDataRange visit(OWLDataUnionOf node) {
         Set<OWLDataRange> ops = new HashSet<>();
         node.operands().forEach(op -> ops.add(op.accept(this)));
         return df.getOWLDataUnionOf(ops);

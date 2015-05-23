@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
@@ -39,10 +37,9 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
-    @Nonnull
     @Override
-    public OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource source,
-            @Nonnull OWLOntology in, OWLOntologyLoaderConfiguration config) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology in,
+            OWLOntologyLoaderConfiguration config) {
         try {
             OBOFormatParser p = new OBOFormatParser();
             OBODoc obodoc = p.parse(wrapInputAsReader(source, config));
@@ -50,19 +47,16 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
             OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(in.getOWLOntologyManager());
             bridge.convert(obodoc, in);
             return new OBODocumentFormat();
-        } catch (OBOFormatParserException | IOException
-                | OWLOntologyInputSourceException e) {
+        } catch (OBOFormatParserException | IOException | OWLOntologyInputSourceException e) {
             throw new OWLParserException(e);
         }
     }
 
-    @Nonnull
     @Override
     public String getName() {
         return "OWLoboformatParser";
     }
 
-    @Nonnull
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
         return new OBODocumentFormatFactory();

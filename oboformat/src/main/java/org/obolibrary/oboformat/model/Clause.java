@@ -27,7 +27,7 @@ public class Clause {
      * @param tag
      *        tag
      */
-    public Clause(@Nonnull OboFormatTag tag) {
+    public Clause(OboFormatTag tag) {
         this(tag.getTag());
     }
 
@@ -56,7 +56,7 @@ public class Clause {
      * @param value
      *        value
      */
-    public Clause(@Nonnull OboFormatTag tag, String value) {
+    public Clause(OboFormatTag tag, String value) {
         this(tag.getTag(), value);
     }
 
@@ -97,7 +97,6 @@ public class Clause {
     /**
      * @return values
      */
-    @Nonnull
     public Collection<Object> getValues() {
         return values;
     }
@@ -106,7 +105,7 @@ public class Clause {
      * @param values
      *        values
      */
-    public void setValues(@Nonnull Collection<Object> values) {
+    public void setValues(Collection<Object> values) {
         this.values.clear();
         this.values.addAll(values);
     }
@@ -133,7 +132,6 @@ public class Clause {
      * @throws FrameStructureException
      *         if there is no value
      */
-    @Nonnull
     public Object getValue() throws FrameStructureException {
         Object value = null;
         if (!values.isEmpty()) {
@@ -154,8 +152,7 @@ public class Clause {
      *        value type
      * @return value
      */
-    @Nonnull
-    public <T> T getValue(@Nonnull Class<T> cls) {
+    public <T> T getValue(Class<T> cls) {
         Object value = getValue();
         return cls.cast(value);
     }
@@ -165,7 +162,6 @@ public class Clause {
      * @throws FrameStructureException
      *         if there is no value
      */
-    @Nonnull
     public Object getValue2() throws FrameStructureException {
         Object value = null;
         if (values.size() > 1) {
@@ -176,8 +172,7 @@ public class Clause {
         if (value == null) {
             // TODO: Throw Exceptions
             LOGGER.error("Cannot translate: {}", this);
-            throw new FrameStructureException("Clause second value is null: "
-                + this);
+            throw new FrameStructureException("Clause second value is null: " + this);
         }
         return value;
     }
@@ -189,8 +184,7 @@ public class Clause {
      *        value type
      * @return value2
      */
-    @Nonnull
-    public <T> T getValue2(@Nonnull Class<T> cls) {
+    public <T> T getValue2(Class<T> cls) {
         Object value = getValue2();
         return cls.cast(value);
     }
@@ -198,7 +192,6 @@ public class Clause {
     /**
      * @return xrefs
      */
-    @Nonnull
     public Collection<Xref> getXrefs() {
         return xrefs;
     }
@@ -207,7 +200,7 @@ public class Clause {
      * @param xrefs
      *        xrefs
      */
-    public void setXrefs(@Nonnull Collection<Xref> xrefs) {
+    public void setXrefs(Collection<Xref> xrefs) {
         this.xrefs.clear();
         this.xrefs.addAll(xrefs);
     }
@@ -223,7 +216,6 @@ public class Clause {
     /**
      * @return qualifier values
      */
-    @Nonnull
     public Collection<QualifierValue> getQualifierValues() {
         return qualifierValues;
     }
@@ -232,8 +224,7 @@ public class Clause {
      * @param qualifierValues
      *        qualifierValues
      */
-    public void setQualifierValues(
-        @Nonnull Collection<QualifierValue> qualifierValues) {
+    public void setQualifierValues(Collection<QualifierValue> qualifierValues) {
         this.qualifierValues.clear();
         this.qualifierValues.addAll(qualifierValues);
     }
@@ -246,7 +237,6 @@ public class Clause {
         qualifierValues.add(qv);
     }
 
-    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(tag);
@@ -275,8 +265,7 @@ public class Clause {
         return sb.toString();
     }
 
-    private static boolean collectionsEquals(@Nullable Collection<?> c1,
-        @Nullable Collection<?> c2) {
+    private static boolean collectionsEquals(@Nullable Collection<?> c1, @Nullable Collection<?> c2) {
         if (c1 == null || c1.isEmpty()) {
             return c2 == null || c2.isEmpty();
         }
@@ -298,8 +287,8 @@ public class Clause {
 
     @Override
     public int hashCode() {
-        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode()
-            + 31 * 31 * values.hashCode() + (tag == null ? 0 : tag.hashCode());
+        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode() + 31 * 31 * values.hashCode()
+                + (tag == null ? 0 : tag.hashCode());
     }
 
     @Override
@@ -325,14 +314,11 @@ public class Clause {
                     if (!v1.equals(v2)) {
                         if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
                             // special case - OK
-                        } else if (Boolean.TRUE.equals(v2) && "true".equals(
-                            v1)) {
+                        } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
                             // special case - OK
-                        } else if (Boolean.FALSE.equals(v1) && "false".equals(
-                            v2)) {
+                        } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
                             // special case - OK
-                        } else if (Boolean.FALSE.equals(v2) && "false".equals(
-                            v1)) {
+                        } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
                             // special case - OK
                         } else {
                             return false;

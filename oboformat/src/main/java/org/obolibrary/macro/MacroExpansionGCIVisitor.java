@@ -8,30 +8,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Macro expansion gci visitor. */
 public class MacroExpansionGCIVisitor {
 
-    protected static final Logger LOG = LoggerFactory
-        .getLogger(MacroExpansionGCIVisitor.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(MacroExpansionGCIVisitor.class);
     @Nonnull
     protected final OWLOntology inputOntology;
     private final OWLOntologyManager outputManager;
@@ -49,9 +33,8 @@ public class MacroExpansionGCIVisitor {
      * @param preserveAnnotationsWhenExpanding
      *        true if annotations should be preserved when expanding
      */
-    public MacroExpansionGCIVisitor(OWLOntology inputOntology,
-        OWLOntologyManager outputManager,
-        boolean preserveAnnotationsWhenExpanding) {
+    public MacroExpansionGCIVisitor(OWLOntology inputOntology, OWLOntologyManager outputManager,
+            boolean preserveAnnotationsWhenExpanding) {
         this(outputManager, inputOntology, false);
         this.preserveAnnotationsWhenExpanding = preserveAnnotationsWhenExpanding;
     }
@@ -64,19 +47,17 @@ public class MacroExpansionGCIVisitor {
      * @param shouldAddExpansionMarker
      *        should expansionMarker be added
      */
-    public MacroExpansionGCIVisitor(OWLOntologyManager outputManager,
-        OWLOntology inputOntology, boolean shouldAddExpansionMarker) {
+    public MacroExpansionGCIVisitor(OWLOntologyManager outputManager, OWLOntology inputOntology,
+            boolean shouldAddExpansionMarker) {
         this.inputOntology = inputOntology;
         this.shouldAddExpansionMarker = shouldAddExpansionMarker;
         this.outputManager = outputManager;
         try {
-            outputOntology = outputManager
-                .createOntology(inputOntology.getOntologyID());
+            outputOntology = outputManager.createOntology(inputOntology.getOntologyID());
         } catch (Exception ex) {
             throw new OWLRuntimeException(ex);
         }
-        dataVisitor = new AbstractDataVisitorEx(
-            inputOntology.getOWLOntologyManager().getOWLDataFactory());
+        dataVisitor = new AbstractDataVisitorEx(inputOntology.getOWLOntologyManager().getOWLDataFactory());
     }
 
     /**
@@ -97,23 +78,19 @@ public class MacroExpansionGCIVisitor {
 
         public MacroExpansions() {
             visitor = new GCIVisitor(inputOntology, newAxioms);
-            for (OWLSubClassOfAxiom axiom : inputOntology
-                .getAxioms(AxiomType.SUBCLASS_OF)) {
+            for (OWLSubClassOfAxiom axiom : inputOntology.getAxioms(AxiomType.SUBCLASS_OF)) {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 // System.out.println("not adding " + newAxiom);
             }
-            for (OWLEquivalentClassesAxiom axiom : inputOntology
-                .getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
+            for (OWLEquivalentClassesAxiom axiom : inputOntology.getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 // System.out.println("not adding " + newAxiom);
             }
-            for (OWLClassAssertionAxiom axiom : inputOntology
-                .getAxioms(AxiomType.CLASS_ASSERTION)) {
+            for (OWLClassAssertionAxiom axiom : inputOntology.getAxioms(AxiomType.CLASS_ASSERTION)) {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 // System.out.println("not adding " + newAxiom);
             }
-            for (OWLAnnotationAssertionAxiom axiom : inputOntology
-                .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            for (OWLAnnotationAssertionAxiom axiom : inputOntology.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
                 if (expand(axiom)) {
                     // System.out.println("not removing " + axiom);
                 }
@@ -135,31 +112,26 @@ public class MacroExpansionGCIVisitor {
             return rmAxioms;
         }
 
-        private boolean expand(@Nonnull OWLAnnotationAssertionAxiom ax) {
+        private boolean expand(OWLAnnotationAssertionAxiom ax) {
             OWLAnnotationProperty prop = ax.getProperty();
             AtomicBoolean didExpansion = new AtomicBoolean(false);
             String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
             if (expandTo != null) {
                 LOG.info("Template to Expand{}", expandTo);
-                expandTo = expandTo.replaceAll("\\?X",
-                    visitor.getTool().getId((IRI) ax.getSubject()));
-                expandTo = expandTo.replaceAll("\\?Y",
-                    visitor.getTool().getId((IRI) ax.getValue()));
+                expandTo = expandTo.replaceAll("\\?X", visitor.getTool().getId((IRI) ax.getSubject()));
+                expandTo = expandTo.replaceAll("\\?Y", visitor.getTool().getId((IRI) ax.getValue()));
                 LOG.info("Expanding {}", expandTo);
                 try {
-                    visitor.getTool().parseManchesterExpressionFrames(expandTo)
-                        .forEach(axp -> {
-                            OWLAxiom axiom = axp.getAxiom();
-                            if (shouldPreserveAnnotationsWhenExpanding()) {
-                                Set<OWLAnnotation> annotationsWithOptionalExpansionMarker = visitor
-                                    .getAnnotationsWithOptionalExpansionMarker(
-                                        ax);
-                                axiom = axiom.getAnnotatedAxiom(
-                                    annotationsWithOptionalExpansionMarker);
-                            }
-                            newAxioms.add(axiom);
-                            didExpansion.set(true);
-                        } );
+                    visitor.getTool().parseManchesterExpressionFrames(expandTo).forEach(axp -> {
+                        OWLAxiom axiom = axp.getAxiom();
+                        if (shouldPreserveAnnotationsWhenExpanding()) {
+                            Set<OWLAnnotation> annotationsWithOptionalExpansionMarker = visitor
+                                    .getAnnotationsWithOptionalExpansionMarker(ax);
+                            axiom = axiom.getAnnotatedAxiom(annotationsWithOptionalExpansionMarker);
+                        }
+                        newAxioms.add(axiom);
+                        didExpansion.set(true);
+                    } );
                 } catch (Exception ex) {
                     LOG.error(ex.getMessage(), ex);
                 }
@@ -173,13 +145,11 @@ public class MacroExpansionGCIVisitor {
         final Set<OWLAnnotation> expansionMarkingAnnotations;
         final Set<OWLAxiom> newAxioms;
 
-        GCIVisitor(@Nonnull OWLOntology inputOntology,
-            Set<OWLAxiom> newAxioms) {
+        GCIVisitor(OWLOntology inputOntology, Set<OWLAxiom> newAxioms) {
             super(inputOntology, shouldAddExpansionMarker);
             this.newAxioms = newAxioms;
             if (shouldAddExpansionMarker) {
-                expansionMarkingAnnotations = Collections
-                    .singleton(expansionMarkerAnnotation);
+                expansionMarkingAnnotations = Collections.singleton(expansionMarkerAnnotation);
             } else {
                 expansionMarkingAnnotations = EMPTY_ANNOTATIONS;
             }
@@ -188,15 +158,12 @@ public class MacroExpansionGCIVisitor {
 
                 @Nullable
                 @Override
-                protected OWLClassExpression expandOWLObjSomeVal(
-                    OWLClassExpression filler,
-                    @Nonnull OWLObjectPropertyExpression p) {
+                protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
+                        OWLObjectPropertyExpression p) {
                     OWLClassExpression gciRHS = expandObject(filler, p);
                     if (gciRHS != null) {
-                        OWLClassExpression gciLHS = df
-                            .getOWLObjectSomeValuesFrom(p, filler);
-                        OWLEquivalentClassesAxiom ax = df
-                            .getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
+                        OWLClassExpression gciLHS = df.getOWLObjectSomeValuesFrom(p, filler);
+                        OWLEquivalentClassesAxiom ax = df.getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
                                 expansionMarkingAnnotations);
                         newAxioms.add(ax);
                     }
@@ -205,15 +172,12 @@ public class MacroExpansionGCIVisitor {
 
                 @Nullable
                 @Override
-                protected OWLClassExpression expandOWLObjHasVal(
-                    OWLObjectHasValue desc, @Nonnull OWLIndividual filler,
-                    @Nonnull OWLObjectPropertyExpression p) {
+                protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
+                        OWLObjectPropertyExpression p) {
                     OWLClassExpression gciRHS = expandObject(filler, p);
                     if (gciRHS != null) {
-                        OWLClassExpression gciLHS = df.getOWLObjectHasValue(p,
-                            filler);
-                        OWLEquivalentClassesAxiom ax = df
-                            .getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
+                        OWLClassExpression gciLHS = df.getOWLObjectHasValue(p, filler);
+                        OWLEquivalentClassesAxiom ax = df.getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
                                 expansionMarkingAnnotations);
                         newAxioms.add(ax);
                     }
@@ -235,8 +199,7 @@ public class MacroExpansionGCIVisitor {
      * @param preserveAnnotationsWhenExpanding
      *        new value
      */
-    public void setPreserveAnnotationsWhenExpanding(
-        boolean preserveAnnotationsWhenExpanding) {
+    public void setPreserveAnnotationsWhenExpanding(boolean preserveAnnotationsWhenExpanding) {
         this.preserveAnnotationsWhenExpanding = preserveAnnotationsWhenExpanding;
     }
 }

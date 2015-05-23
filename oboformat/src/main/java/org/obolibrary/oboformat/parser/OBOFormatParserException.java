@@ -1,7 +1,5 @@
 package org.obolibrary.oboformat.parser;
 
-import javax.annotation.Nonnull;
-
 /** The Class OBOFormatParserException. */
 public class OBOFormatParserException extends OBOFormatException {
 
@@ -19,8 +17,7 @@ public class OBOFormatParserException extends OBOFormatException {
      * @param line
      *        the line
      */
-    public OBOFormatParserException(String message, Throwable e, int lineNo,
-            String line) {
+    public OBOFormatParserException(String message, Throwable e, int lineNo, String line) {
         super(message, e);
         this.lineNo = lineNo;
         this.line = line;
@@ -54,24 +51,25 @@ public class OBOFormatParserException extends OBOFormatException {
         this.line = line;
     }
 
-    /** @return the lineNo */
+    /**
+     * @return the lineNo
+     */
     public int getLineNo() {
         return lineNo;
     }
 
-    /** @return the line */
+    /**
+     * @return the line
+     */
     public String getLine() {
         return line;
     }
 
-    @Nonnull
     @Override
     public String getMessage() {
-        return "LINENO: " + lineNo + " - " + super.getMessage() + "\nLINE: "
-                + line;
+        return "LINENO: " + lineNo + " - " + super.getMessage() + "\nLINE: " + line;
     }
 
-    @Nonnull
     @Override
     public String toString() {
         return getMessage();

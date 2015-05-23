@@ -19,8 +19,7 @@ import org.slf4j.LoggerFactory;
 /** Xref expander. */
 public class XrefExpander {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(
-        XrefExpander.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
@@ -35,7 +34,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(@Nonnull OBODoc src) {
+    public XrefExpander(OBODoc src) {
         sourceOBODoc = src;
         Frame shf = src.getHeaderFrame();
         String ontId = shf.getTagValue(OboFormatTag.TAG_ONTOLOGY, String.class);
@@ -91,39 +90,30 @@ public class XrefExpander {
             parts = v.split("\\s");
             String relation = null;
             String idSpace = parts[0];
-            if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT
-                .getTag())) {
+            if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag())) {
                 addRule(parts[0], new EquivalenceExpansion());
                 // addMacro(idSpace,"is_specific_equivalent_of","Class: ?X
                 // EquivalentTo: ?Y and "+oboIdToIRI(parts[1])+" some
                 // "+oboIdToIRI(parts[2]));
-            } else if (c.getTag().equals(
-                OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
-                addRule(idSpace, new GenusDifferentiaExpansion(parts[1],
-                    parts[2]));
+            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag())) {
+                addRule(idSpace, new GenusDifferentiaExpansion(parts[1], parts[2]));
                 // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y
                 // EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some
                 // "+oboIdToIRI(parts[2]));
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
-            } else if (c.getTag().equals(
-                OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA
-                    .getTag())) {
-                addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1],
-                    parts[2]));
+            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_REVERSE_GENUS_DIFFERENTIA.getTag())) {
+                addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1], parts[2]));
                 // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y
                 // EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some
                 // "+oboIdToIRI(parts[2]));
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
-            } else if (c.getTag().equals(
-                OboFormatTag.TAG_TREAT_XREFS_AS_HAS_SUBCLASS.getTag())) {
+            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_HAS_SUBCLASS.getTag())) {
                 addRule(idSpace, new HasSubClassExpansion());
-            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A
-                .getTag())) {
+            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag())) {
                 addRule(idSpace, new IsaExpansion());
-            } else if (c.getTag().equals(
-                OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag())) {
+            } else if (c.getTag().equals(OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag())) {
                 addRule(idSpace, new RelationshipExpansion(parts[1]));
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
@@ -134,8 +124,7 @@ public class XrefExpander {
                 // create a new bridge ontology for every expansion macro
                 OBODoc tgt = new OBODoc();
                 Frame thf = new Frame(FrameType.HEADER);
-                thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, targetBase
-                    + "-" + idSpace.toLowerCase()));
+                thf.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, targetBase + "-" + idSpace.toLowerCase()));
                 tgt.setHeaderFrame(thf);
                 targetDocMap.put(idSpace, tgt);
                 sourceOBODoc.addImportedOBODoc(tgt);
@@ -169,7 +158,7 @@ public class XrefExpander {
         return targetDocMap.get(idSpace);
     }
 
-    private void addRule(String db, @Nonnull Rule rule) {
+    private void addRule(String db, Rule rule) {
         if (treatMap.containsKey(db)) {
             throw new InvalidXrefMapException(db);
         }
@@ -193,7 +182,7 @@ public class XrefExpander {
         }
     }
 
-    private static String getIDSpace(@Nonnull String x) {
+    private static String getIDSpace(String x) {
         String[] parts = x.split(":", 2);
         return parts[0];
     }
@@ -213,9 +202,8 @@ public class XrefExpander {
          * @param xRef
          *        xref
          */
-        public abstract void expand(@Nonnull Frame sf, String id, String xRef);
+        public abstract void expand(Frame sf, String id, String xRef);
 
-        @Nonnull
         protected Frame getTargetFrame(String id) {
             Frame f = getTargetDoc(idSpace).getTermFrame(id);
             if (f == null) {
@@ -225,8 +213,7 @@ public class XrefExpander {
                     getTargetDoc(idSpace).addTermFrame(f);
                 } catch (FrameMergeException e) {
                     // this should be impossible
-                    LOG.error("Frame merge exceptions should not be possible",
-                        e);
+                    LOG.error("Frame merge exceptions should not be possible", e);
                 }
             }
             return f;
@@ -237,7 +224,7 @@ public class XrefExpander {
     public class EquivalenceExpansion extends Rule {
 
         @Override
-        public void expand(@Nonnull Frame sf, String id, String xRef) {
+        public void expand(Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO, xRef);
             sf.addClause(c);
         }

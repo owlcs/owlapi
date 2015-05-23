@@ -16,13 +16,14 @@ public class QualifierValue implements Comparable<QualifierValue> {
      * @param v
      *        value
      */
-    public QualifierValue(@Nonnull String q, @Nonnull String v) {
+    public QualifierValue(String q, String v) {
         qualifier = q;
         value = v;
     }
 
-    /** @return qualifier */
-    @Nonnull
+    /**
+     * @return qualifier
+     */
     public String getQualifier() {
         return qualifier;
     }
@@ -31,12 +32,13 @@ public class QualifierValue implements Comparable<QualifierValue> {
      * @param qualifier
      *        qualifier
      */
-    public void setQualifier(@Nonnull String qualifier) {
+    public void setQualifier(String qualifier) {
         this.qualifier = qualifier;
     }
 
-    /** @return value */
-    @Nonnull
+    /**
+     * @return value
+     */
     public String getValue() {
         return value;
     }
@@ -45,11 +47,10 @@ public class QualifierValue implements Comparable<QualifierValue> {
      * @param value
      *        value
      */
-    public void setValue(@Nonnull String value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
-    @Nonnull
     @Override
     public String toString() {
         return '{' + qualifier + '=' + value + '}';

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
@@ -95,7 +94,6 @@ public class Frame {
      *        the tag
      * @return the clauses for tag
      */
-    @Nonnull
     public List<Clause> getClauses(String tag) {
         List<Clause> cls = new ArrayList<>();
         for (Clause cl : clauses) {
@@ -111,8 +109,7 @@ public class Frame {
      *        the tag
      * @return the clauses for tag
      */
-    @Nonnull
-    public List<Clause> getClauses(@Nonnull OboFormatTag tag) {
+    public List<Clause> getClauses(OboFormatTag tag) {
         return getClauses(tag.getTag());
     }
 
@@ -138,7 +135,7 @@ public class Frame {
      * @return the clause for tag
      */
     @Nullable
-    public Clause getClause(@Nonnull OboFormatTag tag) {
+    public Clause getClause(OboFormatTag tag) {
         return getClause(tag.getTag());
     }
 
@@ -188,7 +185,7 @@ public class Frame {
      * @return the tag value for tag
      */
     @Nullable
-    public Object getTagValue(@Nonnull OboFormatTag tag) {
+    public Object getTagValue(OboFormatTag tag) {
         return getTagValue(tag.getTag());
     }
 
@@ -202,7 +199,7 @@ public class Frame {
      * @return the tag value for tag and class
      */
     @Nullable
-    public <T> T getTagValue(String tag, @Nonnull Class<T> cls) {
+    public <T> T getTagValue(String tag, Class<T> cls) {
         if (getClause(tag) == null) {
             return null;
         }
@@ -223,7 +220,7 @@ public class Frame {
      * @return the tag value for tag and class
      */
     @Nullable
-    public <T> T getTagValue(@Nonnull OboFormatTag tag, @Nonnull Class<T> cls) {
+    public <T> T getTagValue(OboFormatTag tag, Class<T> cls) {
         return getTagValue(tag.getTag(), cls);
     }
 
@@ -232,8 +229,7 @@ public class Frame {
      *        the tag
      * @return the tag values for tag
      */
-    @Nonnull
-    public Collection<Object> getTagValues(@Nonnull OboFormatTag tag) {
+    public Collection<Object> getTagValues(OboFormatTag tag) {
         return getTagValues(tag.getTag());
     }
 
@@ -242,7 +238,6 @@ public class Frame {
      *        the tag
      * @return the tag values for tag
      */
-    @Nonnull
     public Collection<Object> getTagValues(String tag) {
         Collection<Object> vals = new ArrayList<>();
         getClauses(tag).forEach(v -> vals.add(v.getValue()));
@@ -258,9 +253,7 @@ public class Frame {
      *        the cls
      * @return the tag values for tag and class
      */
-    @Nonnull
-    public <T> Collection<T> getTagValues(@Nonnull OboFormatTag tag,
-        @Nonnull Class<T> cls) {
+    public <T> Collection<T> getTagValues(OboFormatTag tag, Class<T> cls) {
         return getTagValues(tag.getTag(), cls);
     }
 
@@ -273,8 +266,7 @@ public class Frame {
      *        the cls
      * @return the tag values for tag and class
      */
-    @Nonnull
-    public <T> Collection<T> getTagValues(String tag, @Nonnull Class<T> cls) {
+    public <T> Collection<T> getTagValues(String tag, Class<T> cls) {
         Collection<T> vals = new ArrayList<>();
         getClauses(tag).forEach(c -> vals.add(c.getValue(cls)));
         return vals;
@@ -285,7 +277,6 @@ public class Frame {
      *        the tag
      * @return the tag xrefs for tg
      */
-    @Nonnull
     public Collection<Xref> getTagXrefs(String tag) {
         Collection<Xref> xrefs = new ArrayList<>();
         for (Object ob : getClause(tag).getValues()) {
@@ -299,7 +290,6 @@ public class Frame {
     /**
      * @return the tags
      */
-    @Nonnull
     public Set<String> getTags() {
         Set<String> tags = new HashSet<>();
         getClauses().forEach(cl -> tags.add(cl.getTag()));
@@ -312,7 +302,7 @@ public class Frame {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void merge(@Nonnull Frame extFrame) throws FrameMergeException {
+    public void merge(Frame extFrame) throws FrameMergeException {
         if (this == extFrame) {
             return;
         }
@@ -335,21 +325,17 @@ public class Frame {
      */
     public void check() throws FrameStructureException {
         if (FrameType.HEADER.equals(type)) {
-            checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY,
-                OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
-                OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY,
-                OboFormatTag.TAG_AUTO_GENERATED_BY);
+            checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
+                    OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
-            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN,
-                OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
-                OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
+                    OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
             List<Clause> tagIdClauses = getClauses(OboFormatTag.TAG_ID);
             if (tagIdClauses.size() != 1) {
-                throw new FrameStructureException(this,
-                    "cardinality of id field must be 1");
+                throw new FrameStructureException(this, "cardinality of id field must be 1");
             }
             // this call will verify that the value is not null
             tagIdClauses.get(0).getValue();
@@ -357,22 +343,16 @@ public class Frame {
                 throw new FrameStructureException(this, "id field must be set");
             }
         }
-        Collection<Clause> iClauses = getClauses(
-            OboFormatTag.TAG_INTERSECTION_OF);
+        Collection<Clause> iClauses = getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         if (iClauses.size() == 1) {
-            throw new FrameStructureException(this,
-                "single intersection_of tags are not allowed");
+            throw new FrameStructureException(this, "single intersection_of tags are not allowed");
         }
-        checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS,
-            OboFormatTag.TAG_NAME,
-            // OboFormatTag.TAG_NAMESPACE,
-            OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT,
-            OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
-            OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
-            OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
-            OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
-            OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
-            OboFormatTag.TAG_CREATION_DATE);
+        checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS, OboFormatTag.TAG_NAME,
+                // OboFormatTag.TAG_NAMESPACE,
+                OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
+                OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
+                OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+                OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
     }
 
     /**
@@ -383,12 +363,10 @@ public class Frame {
      * @throws FrameStructureException
      *         frame structure exception
      */
-    private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags)
-        throws FrameStructureException {
+    private void checkMaxOneCardinality(OboFormatTag... tags) throws FrameStructureException {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
-                throw new FrameStructureException(this, "multiple " + tag
-                    .getTag() + " tags not allowed.");
+                throw new FrameStructureException(this, "multiple " + tag.getTag() + " tags not allowed.");
             }
         }
     }

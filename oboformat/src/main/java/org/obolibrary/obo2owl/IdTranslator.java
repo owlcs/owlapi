@@ -38,7 +38,7 @@ public class IdTranslator {
      * @return string for id
      */
     @Nullable
-    public String translateIdToIRIString(@Nonnull String id) {
+    public String translateIdToIRIString(String id) {
         if (isURI(id)) {
             return id;
         }
@@ -63,9 +63,8 @@ public class IdTranslator {
      *        id
      * @return boolean
      */
-    public static boolean isURI(@Nonnull String id) {
-        if (id.startsWith("http:") || id.startsWith("ftp:")
-                || id.startsWith("https:")) {
+    public static boolean isURI(String id) {
+        if (id.startsWith("http:") || id.startsWith("ftp:") || id.startsWith("https:")) {
             return true;
         }
         return false;

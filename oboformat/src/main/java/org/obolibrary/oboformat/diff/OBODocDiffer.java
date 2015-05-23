@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -29,26 +27,18 @@ public class OBODocDiffer {
      *        doc2
      * @return list of diffs
      */
-    @Nonnull
-    public static List<Diff>
-            getDiffs(@Nonnull OBODoc doc1, @Nonnull OBODoc doc2) {
+    public static List<Diff> getDiffs(OBODoc doc1, OBODoc doc2) {
         List<Diff> diffs = new ArrayList<>();
-        diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(),
-                doc2.getHeaderFrame()));
-        diffs.addAll(getDiffs("Term", doc1.getTermFrames(),
-                doc2.getTermFrames()));
-        diffs.addAll(getDiffs("Typedef", doc1.getTypedefFrames(),
-                doc2.getTypedefFrames()));
-        diffs.addAll(getDiffs("Instance", doc1.getInstanceFrames(),
-                doc2.getInstanceFrames()));
+        diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(), doc2.getHeaderFrame()));
+        diffs.addAll(getDiffs("Term", doc1.getTermFrames(), doc2.getTermFrames()));
+        diffs.addAll(getDiffs("Typedef", doc1.getTypedefFrames(), doc2.getTypedefFrames()));
+        diffs.addAll(getDiffs("Instance", doc1.getInstanceFrames(), doc2.getInstanceFrames()));
         return diffs;
     }
 
     // FRAME LISTS
-    @Nonnull
-    private static List<Diff> getDiffsAsym(String ftype,
-            @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2,
-            int n, boolean isCheckFrame) {
+    private static List<Diff> getDiffsAsym(String ftype, Collection<Frame> fl1, Collection<Frame> fl2, int n,
+            boolean isCheckFrame) {
         List<Diff> diffs = new ArrayList<>();
         Map<String, Frame> fm2 = new HashMap<>();
         fl2.forEach(f -> fm2.put(f.getId(), f));
@@ -66,18 +56,14 @@ public class OBODocDiffer {
         return diffs;
     }
 
-    @Nonnull
-    private static List<Diff> getDiffs(String ftype,
-            @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2) {
+    private static List<Diff> getDiffs(String ftype, Collection<Frame> fl1, Collection<Frame> fl2) {
         List<Diff> diffs = getDiffsAsym(ftype, fl1, fl2, 1, true);
         diffs.addAll(getDiffsAsym(ftype, fl1, fl2, 2, false));
         return diffs;
     }
 
     // FRAMES
-    @Nonnull
-    private static List<Diff> getDiffsAsym(String ftype, @Nonnull Frame f1,
-            @Nonnull Frame f2, int n) {
+    private static List<Diff> getDiffsAsym(String ftype, Frame f1, Frame f2, int n) {
         List<Diff> diffs = new ArrayList<>();
         for (Clause c : f1.getClauses()) {
             boolean isMatched = false;
@@ -88,8 +74,7 @@ public class OBODocDiffer {
                         if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
                             String a1 = c.getValue(Xref.class).getAnnotation();
                             String a2 = c2.getValue(Xref.class).getAnnotation();
-                            isMatched = a1 == null && a2 == null || a1 != null
-                                    && a1.equals(a2);
+                            isMatched = a1 == null && a2 == null || a1 != null && a1.equals(a2);
                         }
                         break;
                     }
@@ -102,9 +87,7 @@ public class OBODocDiffer {
         return diffs;
     }
 
-    @Nonnull
-    private static List<Diff> getDiffs(String ftype, @Nonnull Frame f1,
-            @Nonnull Frame f2) {
+    private static List<Diff> getDiffs(String ftype, Frame f1, Frame f2) {
         List<Diff> diffs = getDiffsAsym(ftype, f1, f2, 1);
         diffs.addAll(getDiffsAsym(ftype, f2, f1, 2));
         return diffs;

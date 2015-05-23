@@ -10,33 +10,6 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.oboformat;
-
-import java.io.PrintWriter;
-
-import org.semanticweb.owlapi.formats.OBODocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.util.AbstractOWLStorer;
-
-/**
- * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
- *         Group
- * @since 3.4.10
- */
-public class OBOFormatStorer extends AbstractOWLStorer {
-
-    private static final long serialVersionUID = 40000L;
-
-    @Override
-    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
-        return ontologyFormat instanceof OBODocumentFormat;
-    }
-
-    @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
-        OBOFormatRenderer.render(ontology, writer, format);
-    }
-}
+/** Diff package. */
+@javax.annotation.ParametersAreNonnullByDefault
+package org.obolibrary.oboformat.diff;

@@ -13,12 +13,13 @@ public class Xref {
      * @param idref
      *        idref
      */
-    public Xref(@Nonnull String idref) {
+    public Xref(String idref) {
         this.idref = idref;
     }
 
-    /** @return idref */
-    @Nonnull
+    /**
+     * @return idref
+     */
     public String getIdref() {
         return idref;
     }
@@ -27,11 +28,13 @@ public class Xref {
      * @param idref
      *        idref
      */
-    public void setIdref(@Nonnull String idref) {
+    public void setIdref(String idref) {
         this.idref = idref;
     }
 
-    /** @return annotation */
+    /**
+     * @return annotation
+     */
     public String getAnnotation() {
         return annotation;
     }
