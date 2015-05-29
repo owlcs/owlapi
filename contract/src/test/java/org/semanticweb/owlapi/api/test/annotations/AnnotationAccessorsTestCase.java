@@ -38,8 +38,7 @@ import org.semanticweb.owlapi.model.*;
 @RunWith(Parameterized.class)
 public class AnnotationAccessorsTestCase extends TestBase {
 
-    @Nonnull
-    private static final IRI SUBJECT = IRI.create("http://owlapi.sourceforge.net/ontologies/test#X");
+    private static final @Nonnull IRI SUBJECT = IRI.create("http://owlapi.sourceforge.net/ontologies/test#X");
 
     @Parameters
     public static Collection<OWLPrimitive> getData() {

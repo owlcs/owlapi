@@ -38,8 +38,7 @@ public class Filters {
     public abstract static class AxiomFilter<A extends OWLAxiom> implements OWLAxiomSearchFilter {
 
         private static final long serialVersionUID = 40000L;
-        @Nonnull
-        private final Collection<AxiomType<?>> types;
+        private final @Nonnull Collection<AxiomType<?>> types;
 
         /**
          * @param type
@@ -91,8 +90,7 @@ public class Filters {
      * filter returning subannotation axioms where the super property matches
      * the input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter subAnnotationWithSuper = new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter subAnnotationWithSuper = new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(
             AxiomType.SUB_ANNOTATION_PROPERTY_OF) {
 
         private static final long serialVersionUID = 40000L;
@@ -106,8 +104,7 @@ public class Filters {
      * filter returning subannotation axioms where the sub property matches the
      * input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter subAnnotationWithSub = new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter subAnnotationWithSub = new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(
             AxiomType.SUB_ANNOTATION_PROPERTY_OF) {
 
         private static final long serialVersionUID = 40000L;
@@ -121,8 +118,7 @@ public class Filters {
      * filter returning subclass axioms where the super class matches the input
      * key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter subClassWithSuper = new AxiomFilter<OWLSubClassOfAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter subClassWithSuper = new AxiomFilter<OWLSubClassOfAxiom>(
             AxiomType.SUBCLASS_OF) {
 
         private static final long serialVersionUID = 40000L;
@@ -136,8 +132,7 @@ public class Filters {
      * filter returning subclass axioms where the sub class matches the input
      * key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter subClassWithSub = new AxiomFilter<OWLSubClassOfAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter subClassWithSub = new AxiomFilter<OWLSubClassOfAxiom>(
             AxiomType.SUBCLASS_OF) {
 
         private static final long serialVersionUID = 40000L;
@@ -151,8 +146,7 @@ public class Filters {
      * filter returning sub object property axioms where the super property
      * matches the input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter subObjectPropertyWithSuper = new AxiomFilter<OWLSubObjectPropertyOfAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter subObjectPropertyWithSuper = new AxiomFilter<OWLSubObjectPropertyOfAxiom>(
             AxiomType.SUB_OBJECT_PROPERTY) {
 
         private static final long serialVersionUID = 40000L;
@@ -166,8 +160,7 @@ public class Filters {
      * filter returning sub object property axioms where the sub property
      * matches the input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter subObjectPropertyWithSub = new AxiomFilter<OWLSubObjectPropertyOfAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter subObjectPropertyWithSub = new AxiomFilter<OWLSubObjectPropertyOfAxiom>(
             AxiomType.SUB_OBJECT_PROPERTY) {
 
         private static final long serialVersionUID = 40000L;
@@ -181,8 +174,7 @@ public class Filters {
      * filter returning sub data property axioms where the super property
      * matches the input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter subDataPropertyWithSuper = new AxiomFilter<OWLSubDataPropertyOfAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter subDataPropertyWithSuper = new AxiomFilter<OWLSubDataPropertyOfAxiom>(
             AxiomType.SUB_DATA_PROPERTY) {
 
         private static final long serialVersionUID = 40000L;
@@ -196,8 +188,7 @@ public class Filters {
      * filter returning sub data property axioms where the sub property matches
      * the input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter subDataPropertyWithSub = new AxiomFilter<OWLSubDataPropertyOfAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter subDataPropertyWithSub = new AxiomFilter<OWLSubDataPropertyOfAxiom>(
             AxiomType.SUB_DATA_PROPERTY) {
 
         private static final long serialVersionUID = 40000L;
@@ -211,8 +202,7 @@ public class Filters {
      * filter returning datatype definition axioms where the datatype matches
      * the input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter datatypeDefFilter = new AxiomFilter<OWLDatatypeDefinitionAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter datatypeDefFilter = new AxiomFilter<OWLDatatypeDefinitionAxiom>(
             AxiomType.DATATYPE_DEFINITION) {
 
         private static final long serialVersionUID = 40000L;
@@ -226,8 +216,7 @@ public class Filters {
      * filter returning annotation property range axioms where the property
      * matches the input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter apRangeFilter = new AxiomFilter<OWLAnnotationPropertyRangeAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter apRangeFilter = new AxiomFilter<OWLAnnotationPropertyRangeAxiom>(
             AxiomType.ANNOTATION_PROPERTY_RANGE) {
 
         private static final long serialVersionUID = 40000L;
@@ -241,8 +230,7 @@ public class Filters {
      * filter returning annotation property domain axioms where the property
      * matches the input key.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter apDomainFilter = new AxiomFilter<OWLAnnotationPropertyDomainAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter apDomainFilter = new AxiomFilter<OWLAnnotationPropertyDomainAxiom>(
             AxiomType.ANNOTATION_PROPERTY_DOMAIN) {
 
         private static final long serialVersionUID = 40000L;
@@ -260,8 +248,7 @@ public class Filters {
      *             of this filter as it is much faster, thanks to indexing.
      */
     @Deprecated
-    @Nonnull
-    public static final OWLAxiomSearchFilter annotations = new AxiomFilter<OWLAnnotationAssertionAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter annotations = new AxiomFilter<OWLAnnotationAssertionAxiom>(
             AxiomType.ANNOTATION_ASSERTION) {
 
         private static final long serialVersionUID = 40000L;
@@ -275,8 +262,7 @@ public class Filters {
      * filter returning all axioms included in TBox or RBox. No assertions,
      * nonlogical axioms or SWRL rules.
      */
-    @Nonnull
-    public static final OWLAxiomSearchFilter axiomsFromTBoxAndRBox = new AxiomFilter<OWLAxiom>(
+    public static final @Nonnull OWLAxiomSearchFilter axiomsFromTBoxAndRBox = new AxiomFilter<OWLAxiom>(
             AxiomType.TBoxAndRBoxAxiomTypes) {
 
         private static final long serialVersionUID = 40000L;

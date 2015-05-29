@@ -38,10 +38,8 @@ public class OBOFormatWriter {
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
     /** The Class FramesComparator. */
     private static final Comparator<Frame> framesComparator = (o1, o2) -> o1.getId().compareTo(o2.getId());
-    @Nonnull
-    private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
-    @Nonnull
-    private static final Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
+    private static final @Nonnull Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
+    private static final @Nonnull Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
     /**
      * This comparator sorts clauses with the same tag in the specified write
      * order.
@@ -953,8 +951,7 @@ public class OBOFormatWriter {
      *        the obj
      * @return toString representation
      */
-    @Nullable
-    private static String toStringRepresentation(@Nullable Object obj) {
+    private static @Nullable String toStringRepresentation(@Nullable Object obj) {
         String s = null;
         if (obj != null) {
             if (obj instanceof Xref) {
@@ -1015,10 +1012,8 @@ public class OBOFormatWriter {
      */
     public static class OBODocNameProvider implements NameProvider {
 
-        @Nonnull
-        private final OBODoc oboDoc;
-        @Nullable
-        private final String defaultOboNamespace;
+        private final @Nonnull OBODoc oboDoc;
+        private final @Nullable String defaultOboNamespace;
 
         /**
          * Instantiates a new OBO doc name provider.
@@ -1036,9 +1031,8 @@ public class OBOFormatWriter {
             }
         }
 
-        @Nullable
         @Override
-        public String getName(String id) {
+        public @Nullable String getName(String id) {
             String name = null;
             Frame frame = oboDoc.getTermFrame(id);
             if (frame == null) {
@@ -1053,9 +1047,8 @@ public class OBOFormatWriter {
             return name;
         }
 
-        @Nullable
         @Override
-        public String getDefaultOboNamespace() {
+        public @Nullable String getDefaultOboNamespace() {
             return defaultOboNamespace;
         }
     }
@@ -1068,10 +1061,8 @@ public class OBOFormatWriter {
      */
     public static class OWLOntologyNameProvider implements NameProvider {
 
-        @Nonnull
-        private final OWLOntology ont;
-        @Nullable
-        private final String defaultOboNamespace;
+        private final @Nonnull OWLOntology ont;
+        private final @Nullable String defaultOboNamespace;
 
         /**
          * @param ont

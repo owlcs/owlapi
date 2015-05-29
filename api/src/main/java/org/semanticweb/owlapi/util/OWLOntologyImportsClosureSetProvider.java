@@ -34,10 +34,8 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLOntologyManager manager;
-    @Nonnull
-    private final OWLOntology rootOntology;
+    private final @Nonnull OWLOntologyManager manager;
+    private final @Nonnull OWLOntology rootOntology;
 
     /**
      * Constructs an {@code OWLOntologySetProvider} which provides a set

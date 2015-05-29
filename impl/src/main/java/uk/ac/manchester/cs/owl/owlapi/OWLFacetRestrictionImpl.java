@@ -30,10 +30,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLFacet facet;
-    @Nonnull
-    private final OWLLiteral facetValue;
+    private final @Nonnull OWLFacet facet;
+    private final @Nonnull OWLLiteral facetValue;
 
     @Override
     protected int index() {

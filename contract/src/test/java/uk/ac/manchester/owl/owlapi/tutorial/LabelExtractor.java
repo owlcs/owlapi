@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings("javadoc")
 public class LabelExtractor implements OWLAnnotationObjectVisitor {
 
-    @Nullable
-    String result = null;
+    protected @Nullable String result = null;
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {}
@@ -68,8 +67,7 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
     @SuppressWarnings("unused")
     public void visit(OWLAnnotationValue value) {}
 
-    @Nullable
-    public String getResult() {
+    public @Nullable String getResult() {
         return result;
     }
 }

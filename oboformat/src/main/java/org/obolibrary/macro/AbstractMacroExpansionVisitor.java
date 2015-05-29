@@ -32,14 +32,10 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     static final Logger LOG = LoggerFactory.getLogger(AbstractMacroExpansionVisitor.class);
     static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
     final OWLDataFactory df;
-    @Nonnull
-    final Map<IRI, String> expandAssertionToMap;
-    @Nonnull
-    protected final Map<IRI, String> expandExpressionMap;
-    @Nonnull
-    protected OWLDataVisitorEx<OWLDataRange> rangeVisitor;
-    @Nonnull
-    protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
+    final @Nonnull Map<IRI, String> expandAssertionToMap;
+    protected final @Nonnull Map<IRI, String> expandExpressionMap;
+    protected @Nonnull OWLDataVisitorEx<OWLDataRange> rangeVisitor;
+    protected @Nonnull OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
 
     /**
@@ -107,8 +103,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             return result;
         }
 
-        @Nullable
-        protected abstract OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
+        protected abstract @Nullable OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
                 OWLObjectPropertyExpression p);
 
         @Override
@@ -125,8 +120,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             return result;
         }
 
-        @Nullable
-        protected abstract OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
+        protected abstract @Nullable OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
                 OWLObjectPropertyExpression p);
 
         @Override
@@ -246,8 +240,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
                         } );
     }
 
-    @Nullable
-    protected OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
+    protected @Nullable OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
         OWLClassExpression result = null;
         IRI iri = ((OWLObjectProperty) p).getIRI();
         IRI templateVal = null;

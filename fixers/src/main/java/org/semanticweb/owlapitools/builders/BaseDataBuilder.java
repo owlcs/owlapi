@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPropertyBuilder<T, B> {
 
-    @Nullable
-    private OWLDataRange dataRange = null;
+    private @Nullable OWLDataRange dataRange = null;
 
     /**
      * @param df

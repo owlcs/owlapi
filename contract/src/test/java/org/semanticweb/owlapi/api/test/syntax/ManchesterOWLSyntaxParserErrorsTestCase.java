@@ -31,8 +31,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class ManchesterOWLSyntaxParserErrorsTestCase {
 
     @Mock
-    @Nonnull
-    protected OWLEntityChecker entityChecker;
+    protected @Nonnull OWLEntityChecker entityChecker;
     private ParserWrapper parser;
 
     @Before

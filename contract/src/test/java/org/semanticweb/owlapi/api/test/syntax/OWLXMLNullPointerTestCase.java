@@ -29,27 +29,22 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends TestBase {
 
-    @Nonnull
-    private static final String NS = "urn:test";
-    @Nonnull
-    public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
+    private static final @Nonnull String NS = "urn:test";
+    public static final @Nonnull String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
     @Test
     public void testRoundTrip() throws Exception {
         OWLOntology ontology = getOWLOntology(IRI(NS));
         OWLClass cheesy = Class(IRI(NS + "#CheeseyPizza"));
         OWLClass cheese = Class(IRI(NS + "#CheeseTopping"));
-        OWLObjectProperty hasTopping = df
-            .getOWLObjectProperty(NS + "#hasTopping");
+        OWLObjectProperty hasTopping = df.getOWLObjectProperty(NS + "#hasTopping");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
         OWLLiteral lit = df.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION);
-        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(),
-            i, lit);
+        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), i, lit);
         OWLAxiom classAss = df.getOWLClassAssertionAxiom(cheesy, i);
         OWLIndividual j = df.getOWLAnonymousIndividual();
         OWLAxiom classAssj = df.getOWLClassAssertionAxiom(cheese, j);
-        OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i,
-            j);
+        OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i, j);
         ontology.addAxioms(annAss, classAss, classAssj, objAss);
         roundTrip(ontology, new OWLXMLDocumentFormat());
     }
@@ -60,8 +55,7 @@ public class OWLXMLNullPointerTestCase extends TestBase {
         OWLClass c = df.getOWLClass("urn:c");
         OWLObjectProperty p = df.getOWLObjectProperty("urn:p");
         OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
-        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c,
-            df.getOWLObjectHasValue(p, i));
+        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c, df.getOWLObjectHasValue(p, i));
         o.getOWLOntologyManager().addAxiom(o, sub);
         OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);

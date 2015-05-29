@@ -22,6 +22,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * An object that identifies an ontology. Since OWL 2, ontologies do not have to
@@ -37,16 +38,11 @@ import javax.annotation.Nonnull;
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private static final AtomicInteger COUNTER = new AtomicInteger();
-    @Nonnull
-    private static final String ANON_PREFIX = "Anonymous-";
-    @Nonnull
-    private transient Optional<String> internalID = emptyOptional();
-    @Nonnull
-    private transient Optional<IRI> ontologyIRI;
-    @Nonnull
-    private transient Optional<IRI> versionIRI;
+    private static final @Nonnull AtomicInteger COUNTER = new AtomicInteger();
+    private static final @Nonnull String ANON_PREFIX = "Anonymous-";
+    private transient @Nonnull Optional<String> internalID = emptyOptional();
+    private transient @Nonnull Optional<IRI> ontologyIRI;
+    private transient @Nonnull Optional<IRI> versionIRI;
     private int hashCode;
 
     private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
@@ -204,7 +200,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     }
 
     @Override
-    public int compareTo(OWLOntologyID o) {
+    public int compareTo(@Nullable OWLOntologyID o) {
+        checkNotNull(o);
+        assert o != null;
         return toString().compareTo(o.toString());
     }
 
@@ -282,7 +280,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }

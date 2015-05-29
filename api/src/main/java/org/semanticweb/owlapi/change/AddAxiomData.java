@@ -42,9 +42,8 @@ public class AddAxiomData extends AxiomChangeData {
         super(axiom);
     }
 
-    @Nonnull
     @Override
-    public AddAxiom createOntologyChange(@Nonnull OWLOntology ontology) {
+    public @Nonnull AddAxiom createOntologyChange(@Nonnull OWLOntology ontology) {
         return new AddAxiom(ontology, getAxiom());
     }
 

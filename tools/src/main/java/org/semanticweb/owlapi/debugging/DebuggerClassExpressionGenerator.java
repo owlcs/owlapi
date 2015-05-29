@@ -47,8 +47,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
      * 
      * @return the class expression
      */
-    @Nullable
-    public OWLClassExpression getDebuggerClassExpression() {
+    public @Nullable OWLClassExpression getDebuggerClassExpression() {
         return desc;
     }
 

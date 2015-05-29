@@ -53,8 +53,7 @@ public class TripleHandlers {
     static class HandlerAccessor {
 
         /** Handlers for built in types */
-        @Nonnull
-        private final Map<IRI, BuiltInTypeHandler> builtInTypes;
+        private final @Nonnull Map<IRI, BuiltInTypeHandler> builtInTypes;
         /**
          * Handler for triples that denote nodes which represent axioms. i.e.
          * owl:AllDisjointClasses owl:AllDisjointProperties owl:AllDifferent
@@ -63,11 +62,9 @@ public class TripleHandlers {
          * axioms should be in the ontology before annotations on the annotated
          * versions of these axioms are parsed.
          */
-        @Nonnull
-        protected final Map<IRI, BuiltInTypeHandler> axiomTypes;
+        protected final @Nonnull Map<IRI, BuiltInTypeHandler> axiomTypes;
         /** Handlers for build in predicates */
-        @Nonnull
-        protected final Map<IRI, TriplePredicateHandler> predicates;
+        protected final @Nonnull Map<IRI, TriplePredicateHandler> predicates;
         /**
          * Handlers for general literal triples (i.e. triples which have
          * predicates that are not part of the built in OWL/RDFS/RDF vocabulary.
@@ -83,13 +80,10 @@ public class TripleHandlers {
          */
         protected final List<ResourceTripleHandler> resources;
         /** The inverse of handler. */
-        @Nonnull
-        protected final TPInverseOfHandler inverseOf;
+        protected final @Nonnull TPInverseOfHandler inverseOf;
         /** The non built in type handler. */
-        @Nonnull
-        private final TPTypeHandler nonBuiltInTypes;
-        @Nonnull
-        protected final OWLRDFConsumer consumer;
+        private final @Nonnull TPTypeHandler nonBuiltInTypes;
+        protected final @Nonnull OWLRDFConsumer consumer;
 
         HandlerAccessor(OWLRDFConsumer r) {
             consumer = r;
@@ -507,14 +501,10 @@ public class TripleHandlers {
 
     static class AbstractTripleHandler {
 
-        @Nonnull
-        protected final OWLRDFConsumer consumer;
-        @Nonnull
-        private final TypeMatcher ceMatcher = node -> isClassExpressionStrict(node);
-        @Nonnull
-        private final TypeMatcher drMatcher = node -> isDataRangeStrict(node);
-        @Nonnull
-        private final TypeMatcher indMatcher = node -> true;
+        protected final @Nonnull OWLRDFConsumer consumer;
+        private final @Nonnull TypeMatcher ceMatcher = node -> isClassExpressionStrict(node);
+        private final @Nonnull TypeMatcher drMatcher = node -> isDataRangeStrict(node);
+        private final @Nonnull TypeMatcher indMatcher = node -> true;
         protected final OWLDataFactory df;
 
         protected AbstractTripleHandler(OWLRDFConsumer consumer) {
@@ -2282,8 +2272,7 @@ public class TripleHandlers {
          *         For backwards compatibility, a search will also be performed
          *         for triples whos s is the specified mainNode and p rdf:object
          */
-        @Nullable
-        private IRI getObjectOfTargetTriple(IRI mainNode) {
+        private @Nullable IRI getObjectOfTargetTriple(IRI mainNode) {
             IRI objectTripleObject = consumer.getResourceObject(mainNode, getTargetTriplePredicate(), true);
             if (objectTripleObject == null) {
                 objectTripleObject = getRO(mainNode, RDF_OBJECT);
@@ -2294,8 +2283,7 @@ public class TripleHandlers {
             return objectTripleObject;
         }
 
-        @Nullable
-        private IRI getObjectOfPropertyTriple(IRI s) {
+        private @Nullable IRI getObjectOfPropertyTriple(IRI s) {
             IRI predicateTripleObject = consumer.getResourceObject(s, getPropertyTriplePredicate(), true);
             if (predicateTripleObject == null) {
                 predicateTripleObject = getRO(s, RDF_PREDICATE);
@@ -2312,8 +2300,7 @@ public class TripleHandlers {
          * @throws OWLRDFXMLParserMalformedNodeException
          *         malformed node
          */
-        @Nullable
-        private IRI getObjectOfSourceTriple(IRI mainNode) {
+        private @Nullable IRI getObjectOfSourceTriple(IRI mainNode) {
             IRI subjectTripleObject = consumer.getResourceObject(mainNode, getSourceTriplePredicate(), true);
             if (subjectTripleObject == null) {
                 subjectTripleObject = getRO(mainNode, RDF_SUBJECT);

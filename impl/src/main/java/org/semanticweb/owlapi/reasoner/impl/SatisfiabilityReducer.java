@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiomShortCut;
  */
 public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpression> {
 
-    @Nonnull
-    private final OWLDataFactory df;
+    private final @Nonnull OWLDataFactory df;
 
     /**
      * @param dataFactory

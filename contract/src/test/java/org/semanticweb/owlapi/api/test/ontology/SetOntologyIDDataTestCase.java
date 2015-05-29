@@ -34,10 +34,8 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 @SuppressWarnings({ "javadoc" })
 public class SetOntologyIDDataTestCase {
 
-    @Nonnull
-    private final OWLOntology mockOntology = mock(OWLOntology.class);
-    @Nonnull
-    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
+    private final @Nonnull OWLOntology mockOntology = mock(OWLOntology.class);
+    private final @Nonnull OWLOntologyID mockOntologyID = new OWLOntologyID();
 
     @Before
     public void setUp() {

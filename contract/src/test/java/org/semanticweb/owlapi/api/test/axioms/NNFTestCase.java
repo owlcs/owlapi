@@ -137,18 +137,12 @@ public class NNFTestCase extends TestBase {
         assertEquals(cls.getNNF(), nnf);
     }
 
-    @Nonnull
-    private final OWLClass clsA = Class(IRI("A"));
-    @Nonnull
-    private final OWLClass clsB = Class(IRI("B"));
-    @Nonnull
-    private final OWLClass clsC = Class(IRI("C"));
-    @Nonnull
-    private final OWLClass clsD = Class(IRI("D"));
-    @Nonnull
-    private final OWLObjectProperty propP = ObjectProperty(IRI("p"));
-    @Nonnull
-    private final OWLNamedIndividual indA = NamedIndividual(IRI("a"));
+    private final @Nonnull OWLClass clsA = Class(IRI("A"));
+    private final @Nonnull OWLClass clsB = Class(IRI("B"));
+    private final @Nonnull OWLClass clsC = Class(IRI("C"));
+    private final @Nonnull OWLClass clsD = Class(IRI("D"));
+    private final @Nonnull OWLObjectProperty propP = ObjectProperty(IRI("p"));
+    private final @Nonnull OWLNamedIndividual indA = NamedIndividual(IRI("a"));
 
     private static OWLClassExpression getNNF(OWLClassExpression classExpression) {
         NNF nnf = new NNF(df);

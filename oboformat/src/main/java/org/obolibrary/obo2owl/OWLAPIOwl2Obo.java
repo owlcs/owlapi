@@ -38,8 +38,7 @@ import com.google.common.collect.Sets;
  */
 public class OWLAPIOwl2Obo {
 
-    @Nonnull
-    private static final String TOP_BOTTOM_NONTRANSLATEABLE = "Assertions using owl:Thing or owl:Nothing are not translateable OBO";
+    private static final @Nonnull String TOP_BOTTOM_NONTRANSLATEABLE = "Assertions using owl:Thing or owl:Nothing are not translateable OBO";
     /**
      * The log.
      */
@@ -55,8 +54,7 @@ public class OWLAPIOwl2Obo {
     /**
      * The manager.
      */
-    @Nonnull
-    protected OWLOntologyManager manager;
+    protected @Nonnull OWLOntologyManager manager;
     /**
      * The owl ontology.
      */
@@ -80,8 +78,7 @@ public class OWLAPIOwl2Obo {
     /**
      * The annotation property map.
      */
-    @Nonnull
-    public static final Map<String, String> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
+    public static final @Nonnull Map<String, String> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
     /**
      * The ap to declare.
      */
@@ -1113,8 +1110,7 @@ public class OWLAPIOwl2Obo {
      *        the tag
      * @return the value
      */
-    @Nullable
-    protected String getValue(OWLAnnotationValue annVal, String tag) {
+    protected @Nullable String getValue(OWLAnnotationValue annVal, String tag) {
         String value = annVal.toString();
         if (annVal instanceof OWLLiteral) {
             value = ((OWLLiteral) annVal).getLiteral();
@@ -1220,8 +1216,7 @@ public class OWLAPIOwl2Obo {
      *        the ontology
      * @return the data version
      */
-    @Nullable
-    public static String getDataVersion(OWLOntology ontology) {
+    public static @Nullable String getDataVersion(OWLOntology ontology) {
         String oid = getOntologyId(ontology);
         Optional<IRI> v = ontology.getOntologyID().getVersionIRI();
         if (v.isPresent()) {
@@ -1632,8 +1627,7 @@ public class OWLAPIOwl2Obo {
      *        the obj
      * @return the identifier
      */
-    @Nullable
-    public String getIdentifier(OWLObject obj) {
+    public @Nullable String getIdentifier(OWLObject obj) {
         try {
             return getIdentifierFromObject(obj, getOWLOntology());
         } catch (UntranslatableAxiomException e) {
@@ -1729,8 +1723,8 @@ public class OWLAPIOwl2Obo {
      *         the untranslatable axiom exception
      *         {@link UntranslatableAxiomException} is thrown.
      */
-    @Nullable
-    public static String getIdentifierFromObject(OWLObject obj, OWLOntology ont) throws UntranslatableAxiomException {
+    public static @Nullable String getIdentifierFromObject(OWLObject obj, OWLOntology ont)
+            throws UntranslatableAxiomException {
         if (obj instanceof OWLObjectProperty || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
             for (OWLAnnotationAssertionAxiom ax : asList(ont.annotationAssertionAxioms(entity.getIRI()))) {
@@ -1763,8 +1757,7 @@ public class OWLAPIOwl2Obo {
      *        the iri id
      * @return obo identifier or null
      */
-    @Nullable
-    public static String getIdentifier(@Nullable IRI iriId) {
+    public static @Nullable String getIdentifier(@Nullable IRI iriId) {
         if (iriId == null) {
             return null;
         }
@@ -1843,8 +1836,7 @@ public class OWLAPIOwl2Obo {
      *        the obj
      * @return the string
      */
-    @Nullable
-    public static String owlObjectToTag(OWLObject obj) {
+    public static @Nullable String owlObjectToTag(OWLObject obj) {
         IRI iriObj = null;
         if (obj instanceof OWLNamedObject) {
             iriObj = ((OWLNamedObject) obj).getIRI();
@@ -2287,8 +2279,7 @@ public class OWLAPIOwl2Obo {
      *        the list
      * @return the qualifier value
      */
-    @Nullable
-    static QualifierValue findMatchingQualifierValue(QualifierValue query, Collection<QualifierValue> list) {
+    static @Nullable QualifierValue findMatchingQualifierValue(QualifierValue query, Collection<QualifierValue> list) {
         String queryQualifier = query.getQualifier();
         for (QualifierValue qv : list) {
             if (queryQualifier.equals(qv.getQualifier())) {

@@ -37,15 +37,11 @@ import com.google.common.collect.Lists;
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    @Nonnull
-    private final Stack<XMLElement> elementStack;
-    @Nonnull
-    protected final PrintWriter writer;
+    private final @Nonnull Stack<XMLElement> elementStack;
+    protected final @Nonnull PrintWriter writer;
     private String encoding = "";
-    @Nonnull
-    private final String xmlBase;
-    @Nonnull
-    private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    private final @Nonnull String xmlBase;
+    private final @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
@@ -263,8 +259,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         private final String name;
         private final Map<String, String> attributes;
-        @Nullable
-        protected String textContent;
+        protected @Nullable String textContent;
         private boolean startWritten;
         private int indentation;
         private boolean wrapAttributes;

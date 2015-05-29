@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectComplementOf {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLClassExpression operand;
+    private final @Nonnull OWLClassExpression operand;
 
     @Override
     protected int index() {

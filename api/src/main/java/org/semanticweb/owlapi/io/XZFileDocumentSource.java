@@ -39,8 +39,7 @@ import org.tukaani.xz.XZInputStream;
 public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XZFileDocumentSource.class);
-    @Nonnull
-    private final File file;
+    private final @Nonnull File file;
 
     /**
      * Constructs an input source which will read an ontology from a

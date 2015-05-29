@@ -29,12 +29,9 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class RDFLiteral extends RDFNode {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final String lexicalValue;
-    @Nonnull
-    private final String lang;
-    @Nonnull
-    private final IRI datatype;
+    private final @Nonnull String lexicalValue;
+    private final @Nonnull String lang;
+    private final @Nonnull IRI datatype;
     private int hashCode;
 
     /**
@@ -142,6 +139,8 @@ public class RDFLiteral extends RDFNode {
 
     @Override
     public int compareTo(@Nullable RDFNode o) {
+        checkNotNull(o);
+        assert o != null;
         if (!o.isLiteral()) {
             return -1;
         }

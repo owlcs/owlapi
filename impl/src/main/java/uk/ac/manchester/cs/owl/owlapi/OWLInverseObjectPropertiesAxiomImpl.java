@@ -31,10 +31,8 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
         implements OWLInverseObjectPropertiesAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLObjectPropertyExpression first;
-    @Nonnull
-    private final OWLObjectPropertyExpression second;
+    private final @Nonnull OWLObjectPropertyExpression first;
+    private final @Nonnull OWLObjectPropertyExpression second;
 
     /**
      * @param first

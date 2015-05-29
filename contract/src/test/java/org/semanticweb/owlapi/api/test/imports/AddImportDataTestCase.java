@@ -31,10 +31,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings({ "javadoc" })
 public class AddImportDataTestCase {
 
-    @Nonnull
-    private final OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
-    @Nonnull
-    private final OWLOntology mockOntology = mock(OWLOntology.class);
+    private final @Nonnull OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
+    private final @Nonnull OWLOntology mockOntology = mock(OWLOntology.class);
 
     private AddImportData createData() {
         return new AddImportData(mockDeclaration);

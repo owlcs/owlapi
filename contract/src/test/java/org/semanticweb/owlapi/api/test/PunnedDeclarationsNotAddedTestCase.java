@@ -28,8 +28,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
                 new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
     }
 
-    @Nonnull
-    private final OWLDocumentFormat format;
+    private final @Nonnull OWLDocumentFormat format;
 
     public PunnedDeclarationsNotAddedTestCase(OWLDocumentFormat format) {
         this.format = format;

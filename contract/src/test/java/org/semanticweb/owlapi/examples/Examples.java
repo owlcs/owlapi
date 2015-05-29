@@ -55,8 +55,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @SuppressWarnings({ "javadoc", "unused" })
 public class Examples extends TestBase {
 
-    @Nonnull
-    private static final String KOALA = "<?xml version=\"1.0\"?>\n"
+    private static final @Nonnull String KOALA = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
             + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -1007,8 +1006,7 @@ public class Examples extends TestBase {
      */
     private static class RestrictionVisitor implements OWLClassExpressionVisitor {
 
-        @Nonnull
-        private final Set<OWLClass> processedClasses;
+        private final @Nonnull Set<OWLClass> processedClasses;
         private final Set<OWLOntology> onts;
 
         RestrictionVisitor(Set<OWLOntology> onts) {

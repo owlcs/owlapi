@@ -58,33 +58,22 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     // this parser by hand. The error messages that this parser generates
     // are specific to the Manchester OWL Syntax and are such that it should
     // be easy to use this parser in tools such as editors.
-    @Nonnull
-    private Provider<OWLOntologyLoaderConfiguration> configProvider;
-    @Nonnull
-    private Optional<OWLOntologyLoaderConfiguration> config = emptyOptional();
+    private @Nonnull Provider<OWLOntologyLoaderConfiguration> configProvider;
+    private @Nonnull Optional<OWLOntologyLoaderConfiguration> config = emptyOptional();
     protected OWLDataFactory df;
     private List<Token> tokens;
     private int tokenIndex;
     private OWLEntityChecker owlEntityChecker;
     private OWLOntologyChecker owlOntologyChecker = name -> null;
-    @Nonnull
-    protected final Set<String> classNames = new HashSet<>();
-    @Nonnull
-    protected final Set<String> objectPropertyNames = new HashSet<>();
-    @Nonnull
-    protected final Set<String> dataPropertyNames = new HashSet<>();
-    @Nonnull
-    protected final Set<String> individualNames = new HashSet<>();
-    @Nonnull
-    protected final Set<String> dataTypeNames = new HashSet<>();
-    @Nonnull
-    protected final Set<String> annotationPropertyNames = new HashSet<>();
-    @Nonnull
-    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
-    @Nonnull
-    protected DefaultPrefixManager pm = new DefaultPrefixManager();
-    @Nonnull
-    protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
+    protected final @Nonnull Set<String> classNames = new HashSet<>();
+    protected final @Nonnull Set<String> objectPropertyNames = new HashSet<>();
+    protected final @Nonnull Set<String> dataPropertyNames = new HashSet<>();
+    protected final @Nonnull Set<String> individualNames = new HashSet<>();
+    protected final @Nonnull Set<String> dataTypeNames = new HashSet<>();
+    protected final @Nonnull Set<String> annotationPropertyNames = new HashSet<>();
+    private final @Nonnull Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
+    protected @Nonnull DefaultPrefixManager pm = new DefaultPrefixManager();
+    protected final @Nonnull Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private OWLOntology defaultOntology;
     private final boolean allowEmptyFrameSections = false;
     private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(

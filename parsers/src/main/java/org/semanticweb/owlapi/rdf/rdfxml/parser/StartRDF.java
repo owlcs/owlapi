@@ -44,8 +44,7 @@ abstract class AbstractState {
     @Nonnull static final String ABOUT_EACH_UNSUPPORTED      = "rdf:aboutEach attribute is not supported.";
     //@formatter:on
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractState.class);
-    @Nonnull
-    protected final RDFParser parser;
+    protected final @Nonnull RDFParser parser;
 
     AbstractState(RDFParser parser) {
         this.parser = parser;
@@ -108,8 +107,7 @@ abstract class AbstractState {
      *        the attributes
      * @return the IRI of the resource or {@code null}
      */
-    @Nullable
-    String getNodeIDResourceResourceIRI(Attributes atts) {
+    protected @Nullable String getNodeIDResourceResourceIRI(Attributes atts) {
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
         if (value != null) {
             return parser.resolveIRI(value);
@@ -266,8 +264,7 @@ class NodeElement extends AbstractState implements State {
      *        the atts
      * @return reification id
      */
-    @Nullable
-    String getReificationID(Attributes atts) {
+    protected @Nullable String getReificationID(Attributes atts) {
         String rdfID = atts.getValue(RDFNS, ATTR_ID);
         if (rdfID != null) {
             rdfID = parser.resolveIRI('#' + rdfID);
@@ -382,8 +379,7 @@ class ParseTypeCollectionElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
     protected String pIRI;
-    @Nullable
-    protected String reificationID;
+    protected @Nullable String reificationID;
     protected String lastCellIRI;
 
     protected String lastCell() {
@@ -448,11 +444,9 @@ class ParseTypeCollectionElement extends AbstractState implements State {
  */
 class ResourceOrLiteralElement extends AbstractState implements State {
 
-    @Nonnull
-    protected final NodeElement nodeElement;
+    protected final @Nonnull NodeElement nodeElement;
     protected String propertyIRI;
-    @Nullable
-    protected String reificationID;
+    protected @Nullable String reificationID;
     protected String datatype;
     protected StringBuilder text;
     protected NodeElement innerNode;
@@ -510,8 +504,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
     protected String pIRI;
-    @Nullable
-    protected String reificationID;
+    protected @Nullable String reificationID;
     protected int depth;
     protected StringBuilder m_content;
 
@@ -571,8 +564,7 @@ class ParseTypeResourceElement extends AbstractState implements State {
 
     protected final NodeElement nodeElement;
     protected String mpIRI;
-    @Nullable
-    protected String reificationID;
+    protected @Nullable String reificationID;
 
     ParseTypeResourceElement(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -607,8 +599,7 @@ class ParseTypeResourceElement extends AbstractState implements State {
  */
 class PropertyElementList extends AbstractState implements State {
 
-    @Nonnull
-    protected final NodeElement node;
+    protected final @Nonnull NodeElement node;
 
     PropertyElementList(NodeElement nodeElement, RDFParser parser) {
         super(parser);
@@ -651,31 +642,26 @@ class PropertyElementList extends AbstractState implements State {
 
 class ReificationManager {
 
-    @Nonnull
-    public static final ReificationManager INSTANCE = new ReificationManager();
+    public static final @Nonnull ReificationManager INSTANCE = new ReificationManager();
 
-    @Nullable
     @SuppressWarnings("unused")
-    String getReificationID(String reificationID, RDFParser parser) {
+    protected @Nullable String getReificationID(String reificationID, RDFParser parser) {
         return reificationID;
     }
 }
 
 class ReifiedStatementBag extends ReificationManager {
 
-    @Nonnull
-    protected final AtomicLong elements = new AtomicLong(1);
-    @Nonnull
-    protected final String iri;
+    protected final @Nonnull AtomicLong elements = new AtomicLong(1);
+    protected final @Nonnull String iri;
 
     ReifiedStatementBag(String uri, RDFParser parser) {
         iri = uri;
         parser.statementWithResourceValue(iri, RDF_TYPE, RDF_BAG, null);
     }
 
-    @Nullable
     @Override
-    String getReificationID(@Nullable String reificationID, RDFParser parser) {
+    protected @Nullable String getReificationID(@Nullable String reificationID, RDFParser parser) {
         String resultIRI;
         if (reificationID == null) {
             resultIRI = NodeID.nextAnonymousIRI();

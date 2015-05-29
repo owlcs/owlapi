@@ -25,10 +25,8 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 /** Builder class for OWLClassAssertionAxiom. */
 public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
 
-    @Nullable
-    private OWLIndividual i = null;
-    @Nullable
-    private OWLClassExpression ce = null;
+    private @Nullable OWLIndividual i = null;
+    private @Nullable OWLClassExpression ce = null;
 
     /**
      * @param df

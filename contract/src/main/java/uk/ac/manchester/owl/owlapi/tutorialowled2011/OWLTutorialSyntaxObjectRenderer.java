@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 @SuppressWarnings({ "javadoc" })
 public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
-    @Nonnull
-    private final ShortFormProvider shortForms;
+    private final @Nonnull ShortFormProvider shortForms;
     private final Writer writer;
     private int pos;
     int lastNewLinePos;

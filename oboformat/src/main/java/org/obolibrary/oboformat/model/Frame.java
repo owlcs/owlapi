@@ -119,8 +119,7 @@ public class Frame {
      *        the tag
      * @return null if no value set, otherwise first value
      */
-    @Nullable
-    public Clause getClause(String tag) {
+    public @Nullable Clause getClause(String tag) {
         for (Clause cl : clauses) {
             if (cl.getTag().equals(tag)) {
                 return cl;
@@ -135,8 +134,7 @@ public class Frame {
      *        the tag
      * @return the clause for tag
      */
-    @Nullable
-    public Clause getClause(OboFormatTag tag) {
+    public @Nullable Clause getClause(OboFormatTag tag) {
         return getClause(tag.getTag());
     }
 
@@ -171,8 +169,7 @@ public class Frame {
      *        the tag
      * @return the tag value for tag
      */
-    @Nullable
-    public Object getTagValue(String tag) {
+    public @Nullable Object getTagValue(String tag) {
         Clause clause = getClause(tag);
         if (clause == null) {
             return null;
@@ -185,8 +182,7 @@ public class Frame {
      *        the tag
      * @return the tag value for tag
      */
-    @Nullable
-    public Object getTagValue(OboFormatTag tag) {
+    public @Nullable Object getTagValue(OboFormatTag tag) {
         return getTagValue(tag.getTag());
     }
 
@@ -199,8 +195,7 @@ public class Frame {
      *        the cls
      * @return the tag value for tag and class
      */
-    @Nullable
-    public <T> T getTagValue(String tag, Class<T> cls) {
+    public @Nullable <T> T getTagValue(String tag, Class<T> cls) {
         if (getClause(tag) == null) {
             return null;
         }
@@ -220,8 +215,7 @@ public class Frame {
      *        the cls
      * @return the tag value for tag and class
      */
-    @Nullable
-    public <T> T getTagValue(OboFormatTag tag, Class<T> cls) {
+    public @Nullable <T> T getTagValue(OboFormatTag tag, Class<T> cls) {
         return getTagValue(tag.getTag(), cls);
     }
 

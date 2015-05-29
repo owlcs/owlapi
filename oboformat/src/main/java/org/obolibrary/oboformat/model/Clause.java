@@ -16,12 +16,9 @@ public class Clause {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
     protected String tag;
-    @Nonnull
-    protected final Collection<Object> values = new ArrayList<>();
-    @Nonnull
-    protected final Collection<Xref> xrefs = new ArrayList<>();
-    @Nonnull
-    protected final Collection<QualifierValue> qualifierValues = new ArrayList<>();
+    protected final @Nonnull Collection<Object> values = new ArrayList<>();
+    protected final @Nonnull Collection<Xref> xrefs = new ArrayList<>();
+    protected final @Nonnull Collection<QualifierValue> qualifierValues = new ArrayList<>();
 
     /**
      * @param tag

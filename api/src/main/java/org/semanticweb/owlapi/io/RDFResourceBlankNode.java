@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.NodeID;
 public class RDFResourceBlankNode extends RDFResource {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final IRI resource;
+    private final @Nonnull IRI resource;
 
     /**
      * Create an RDFResource that is anonymous.

@@ -30,10 +30,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLLiteralImplString implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
-    @Nonnull
-    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
-    @Nonnull
-    private final String literal;
+    private static final @Nonnull OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
+    private final @Nonnull String literal;
 
     /**
      * @param literal

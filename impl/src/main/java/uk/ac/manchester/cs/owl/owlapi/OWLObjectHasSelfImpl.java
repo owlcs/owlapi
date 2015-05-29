@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements OWLObjectHasSelf {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLObjectPropertyExpression property;
+    private final @Nonnull OWLObjectPropertyExpression property;
 
     @Override
     protected int index() {

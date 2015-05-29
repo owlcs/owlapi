@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
 public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLDocumentFormatFactory format;
+    private final @Nonnull OWLDocumentFormatFactory format;
 
     protected OWLStorerFactoryImpl(OWLDocumentFormatFactory format) {
         this.format = format;

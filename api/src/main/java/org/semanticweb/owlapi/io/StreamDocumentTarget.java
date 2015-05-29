@@ -26,8 +26,7 @@ import javax.annotation.Nonnull;
  */
 public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
 
-    @Nonnull
-    private final Optional<OutputStream> os;
+    private final @Nonnull Optional<OutputStream> os;
 
     /**
      * @param os

@@ -38,12 +38,9 @@ import gnu.trove.map.hash.THashMap;
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final RDFResource subject;
-    @Nonnull
-    private final RDFResourceIRI predicate;
-    @Nonnull
-    private final RDFNode object;
+    private final @Nonnull RDFResource subject;
+    private final @Nonnull RDFResourceIRI predicate;
+    private final @Nonnull RDFNode object;
 
     /**
      * @param subject
@@ -179,6 +176,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     @Override
     public int compareTo(@Nullable RDFTriple o) {
+        checkNotNull(o);
+        assert o != null;
         // compare by predicate, then subject, then object
         int diff = comparePredicates(predicate, o.predicate);
         if (diff == 0) {

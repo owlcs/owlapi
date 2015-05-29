@@ -21,17 +21,13 @@ import com.google.common.collect.Maps;
 public class Obo2OWLConstants {
 
     /** Default iri. */
-    @Nonnull
-    public static final String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
+    public static final @Nonnull String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
     /** OIO vocabulary prefix. */
-    @Nonnull
-    public static final String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
+    public static final @Nonnull String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
     /** IRI for the 'has obsolescence reason' annotation property */
-    @Nonnull
-    public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000231");
+    public static final @Nonnull IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000231");
     /** IRI for the 'terms merged' individual */
-    @Nonnull
-    public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000227");
+    public static final @Nonnull IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000227");
 
     /**
      * @param d
@@ -77,16 +73,11 @@ public class Obo2OWLConstants {
         /**IRI_OIO_NamespaceIdRule. */    IRI_OIO_NamespaceIdRule(OIOVOCAB_IRI_PREFIX, "NamespaceIdRule", "namespace-id-rule", OboFormatTag.TAG_NAMESPACE_ID_RULE.getTag()),
         /**IRI_OIO_LogicalDefinitionViewRelation. */          IRI_OIO_LogicalDefinitionViewRelation(OIOVOCAB_IRI_PREFIX, "logical-definition-view-relation", "logical-definition-view-relation", OboFormatTag.TAG_LOGICAL_DEFINITION_VIEW_RELATION.getTag());
         //@formatter:on
-        @Nonnull
-        final IRI iri;
-        @Nonnull
-        final String namespace;
-        @Nonnull
-        final String shortName;
-        @Nonnull
-        final String label;
-        @Nonnull
-        final String mappedTag;
+        final @Nonnull IRI iri;
+        final @Nonnull String namespace;
+        final @Nonnull String shortName;
+        final @Nonnull String label;
+        final @Nonnull String mappedTag;
 
         Obo2OWLVocabulary(String namespce, String shortName, String label, String mappedTag) {
             iri = IRI.create(namespce + shortName);

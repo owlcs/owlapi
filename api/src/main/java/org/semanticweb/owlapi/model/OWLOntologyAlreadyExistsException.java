@@ -27,8 +27,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
     private static final long serialVersionUID = 40000L;
     private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
     private final OWLOntologyID ontologyID;
-    @Nullable
-    private final IRI documentIRI;
+    private final @Nullable IRI documentIRI;
 
     /**
      * Constructs an {@code OWLOntologyAlreadyExistsException} to describe the
@@ -116,8 +115,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      *         the ontology was created without loading it from an ontology
      *         document then the return value will be {@code null}.
      */
-    @Nullable
-    public IRI getDocumentIRI() {
+    public @Nullable IRI getDocumentIRI() {
         return documentIRI;
     }
 }

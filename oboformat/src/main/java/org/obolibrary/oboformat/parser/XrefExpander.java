@@ -23,10 +23,8 @@ public class XrefExpander {
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
-    @Nonnull
-    Map<String, Rule> treatMap = new HashMap<>();
-    @Nonnull
-    Map<String, OBODoc> targetDocMap = new HashMap<>();
+    protected @Nonnull Map<String, Rule> treatMap = new HashMap<>();
+    protected @Nonnull Map<String, OBODoc> targetDocMap = new HashMap<>();
 
     /**
      * @param src

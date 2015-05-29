@@ -32,12 +32,9 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  */
 public class ManchesterOWLSyntaxOntologyHeader {
 
-    @Nonnull
-    private final OWLOntologyID ontologyID;
-    @Nonnull
-    private final Collection<OWLAnnotation> annotations;
-    @Nonnull
-    private final Collection<OWLImportsDeclaration> importsDeclarations;
+    private final @Nonnull OWLOntologyID ontologyID;
+    private final @Nonnull Collection<OWLAnnotation> annotations;
+    private final @Nonnull Collection<OWLImportsDeclaration> importsDeclarations;
 
     /**
      * @param ontologyIRI

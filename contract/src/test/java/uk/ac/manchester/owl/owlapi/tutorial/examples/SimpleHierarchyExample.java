@@ -41,10 +41,8 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 public final class SimpleHierarchyExample {
 
     private static final int INDENT = 4;
-    @Nonnull
-    private final OWLReasonerFactory reasonerFactory;
-    @Nonnull
-    private final OWLOntology ontology;
+    private final @Nonnull OWLReasonerFactory reasonerFactory;
+    private final @Nonnull OWLOntology ontology;
     private final PrintStream out;
 
     private SimpleHierarchyExample(OWLReasonerFactory reasonerFactory, OWLOntology inputOntology) {

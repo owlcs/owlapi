@@ -33,10 +33,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
-    @Nonnull
-    private final OWLDataFactory df;
-    @Nonnull
-    private final Map<OWLEntity, IRI> replacementMap;
+    private final @Nonnull OWLDataFactory df;
+    private final @Nonnull Map<OWLEntity, IRI> replacementMap;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified

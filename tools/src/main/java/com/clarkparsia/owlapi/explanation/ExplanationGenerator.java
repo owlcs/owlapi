@@ -14,8 +14,6 @@ package com.clarkparsia.owlapi.explanation;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
@@ -31,8 +29,7 @@ public interface ExplanationGenerator {
      * @return A single explanation for the given unsatisfiable class, or empty
      *         set if the concept is satisfiable
      */
-    @Nonnull
-    Set<OWLAxiom> getExplanation(@Nonnull OWLClassExpression unsatClass);
+    Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass);
 
     /**
      * Returns all the explanations for the given unsatisfiable class.
@@ -43,8 +40,7 @@ public interface ExplanationGenerator {
      * @return All explanations for the given unsatisfiable class, or an empty
      *         set if the concept is satisfiable
      */
-    @Nonnull
-    Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLClassExpression unsatClass);
+    Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass);
 
     /**
      * Return a specified number of explanations for the given unsatisfiable
@@ -61,7 +57,5 @@ public interface ExplanationGenerator {
      * @return A specified number of explanations for the given unsatisfiable
      *         class, or an empty set if the concept is satisfiable
      */
-    @Nonnull
-    Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLClassExpression unsatClass,
-            int maxExplanations);
+    Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations);
 }

@@ -33,10 +33,8 @@ import org.semanticweb.owlapi.model.*;
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLDisjointUnionAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLClass owlClass;
-    @Nonnull
-    private final List<? extends OWLClassExpression> classExpressions;
+    private final @Nonnull OWLClass owlClass;
+    private final @Nonnull List<? extends OWLClassExpression> classExpressions;
 
     /**
      * @param owlClass

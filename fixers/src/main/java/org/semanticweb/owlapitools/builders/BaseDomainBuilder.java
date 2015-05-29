@@ -34,10 +34,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends BaseBuilder<T, B> {
 
-    @Nullable
-    private P property = null;
-    @Nullable
-    private OWLClassExpression domain = null;
+    private @Nullable P property = null;
+    private @Nullable OWLClassExpression domain = null;
 
     /**
      * @param df

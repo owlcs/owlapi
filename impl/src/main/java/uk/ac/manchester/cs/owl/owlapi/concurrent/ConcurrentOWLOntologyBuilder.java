@@ -19,8 +19,7 @@ public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
     private static final long serialVersionUID = 40000L;
     private final OWLOntologyBuilder builder;
-    @Nonnull
-    private final ReadWriteLock readWriteLock;
+    private final @Nonnull ReadWriteLock readWriteLock;
 
     /**
      * @param builder

@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLNaryDataRange {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final List<? extends OWLDataRange> operands;
+    private final @Nonnull List<? extends OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(Collection<? extends OWLDataRange> operands) {
         Collection<? extends OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");

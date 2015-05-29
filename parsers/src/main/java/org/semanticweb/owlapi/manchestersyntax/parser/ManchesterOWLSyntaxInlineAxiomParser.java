@@ -28,10 +28,8 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  */
 public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser<OWLAxiom> {
 
-    @Nonnull
-    private final OWLDataFactory dataFactory;
-    @Nonnull
-    private OWLEntityChecker checker;
+    private final @Nonnull OWLDataFactory dataFactory;
+    private @Nonnull OWLEntityChecker checker;
 
     /**
      * @param dataFactory

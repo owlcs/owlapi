@@ -31,27 +31,22 @@ import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 @SuppressWarnings({ "javadoc" })
 public class MoveOntologyTestCase extends TestBase {
 
-    @Nonnull
-    private final static String s = "<?xml version=\"1.0\"?>\n"
-        + "<rdf:RDF xmlns=\"urn:test#\"\n" + "     xml:base=\"urn:test\"\n"
-        + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-        + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
-        + "     xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
-        + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-        + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-        + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-        + "    <owl:Ontology rdf:about=\"urn:test\"/>\n"
-        + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n"
-        + "        <owl:equivalentClass>\n"
-        + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-        + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n"
-        + "    <owl:Axiom>\n"
-        + "        <rdfs:label >datatype definition</rdfs:label>\n"
-        + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#equivalentClass\"/>\n"
-        + "        <owl:annotatedSource rdf:resource=\"urn:mydatatype\"/>\n"
-        + "        <owl:annotatedTarget>\n"
-        + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
-        + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
+    private final static @Nonnull String s = "<?xml version=\"1.0\"?>\n" + "<rdf:RDF xmlns=\"urn:test#\"\n"
+            + "     xml:base=\"urn:test\"\n" + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+            + "     xmlns:swrl=\"http://www.w3.org/2003/11/swrl#\"\n"
+            + "     xmlns:swrlb=\"http://www.w3.org/2003/11/swrlb#\"\n"
+            + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
+            + "    <owl:Ontology rdf:about=\"urn:test\"/>\n" + "    <rdfs:Datatype rdf:about=\"urn:mydatatype\">\n"
+            + "        <owl:equivalentClass>\n"
+            + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
+            + "        </owl:equivalentClass>\n" + "    </rdfs:Datatype>\n" + "    <owl:Axiom>\n"
+            + "        <rdfs:label >datatype definition</rdfs:label>\n"
+            + "        <owl:annotatedProperty rdf:resource=\"http://www.w3.org/2002/07/owl#equivalentClass\"/>\n"
+            + "        <owl:annotatedSource rdf:resource=\"urn:mydatatype\"/>\n" + "        <owl:annotatedTarget>\n"
+            + "            <rdfs:Datatype rdf:about=\"http://www.w3.org/2001/XMLSchema#double\"/>\n"
+            + "        </owl:annotatedTarget>\n" + "    </owl:Axiom></rdf:RDF>";
 
     @Test
     public void testMove() throws OWLOntologyCreationException {

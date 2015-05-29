@@ -17,18 +17,15 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class IdTranslator {
 
-    @Nonnull
-    static final String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
-    @Nonnull
-    private final Map<String, String> idspaceMap = new HashMap<>();
+    static final @Nonnull String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
+    private final @Nonnull Map<String, String> idspaceMap = new HashMap<>();
 
     /**
      * @param iri
      *        iri
      * @return string for iri
      */
-    @Nullable
-    public static String translateIRI(@SuppressWarnings("unused") IRI iri) {
+    public static @Nullable String translateIRI(@SuppressWarnings("unused") IRI iri) {
         return null;
     }
 
@@ -37,8 +34,7 @@ public class IdTranslator {
      *        id
      * @return string for id
      */
-    @Nullable
-    public String translateIdToIRIString(String id) {
+    public @Nullable String translateIdToIRIString(String id) {
         if (isURI(id)) {
             return id;
         }

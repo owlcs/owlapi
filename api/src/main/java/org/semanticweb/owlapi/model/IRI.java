@@ -71,8 +71,7 @@ public class IRI
     /**
      * @return the IRI scheme, e.g., http, urn
      */
-    @Nullable
-    public String getScheme() {
+    public @Nullable String getScheme() {
         int colonIndex = namespace.indexOf(':');
         if (colonIndex == -1) {
             return null;
@@ -304,10 +303,8 @@ public class IRI
     // Impl - All constructors are private - factory methods are used for
     // public creation
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final String remainder;
-    @Nonnull
-    private final String namespace;
+    private final @Nonnull String remainder;
+    private final @Nonnull String namespace;
 
     /**
      * Constructs an IRI which is built from the concatenation of the specified
@@ -328,7 +325,7 @@ public class IRI
      *        suffix to turn to optional. Empty string is the same as null
      * @return optional value for remainder
      */
-    protected Optional<String> asOptional(String suffix) {
+    protected Optional<String> asOptional(@Nullable String suffix) {
         if (suffix == null) {
             return emptyOptional();
         } else if (suffix.isEmpty()) {
@@ -419,7 +416,9 @@ public class IRI
     }
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nullable OWLObject o) {
+        checkNotNull(o);
+        assert o != null;
         if (o == this || equals(o)) {
             return 0;
         }
@@ -463,7 +462,7 @@ public class IRI
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }

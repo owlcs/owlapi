@@ -52,7 +52,6 @@ public class ExistingOutputStreamTestCase extends TestBase {
     }
 
     // test that the stream is not closed by adding a comment at the end
-    @Nonnull
     @Override
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o, OWLDocumentFormat format) {
         try (BufferedOutputStream os = new BufferedOutputStream(new ByteArrayOutputStream());

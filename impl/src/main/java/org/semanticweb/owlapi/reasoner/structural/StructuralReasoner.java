@@ -44,17 +44,12 @@ import org.semanticweb.owlapi.util.Version;
  */
 public class StructuralReasoner extends OWLReasonerBase {
 
-    @Nonnull
-    private final ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
-    @Nonnull
-    private final ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
-    @Nonnull
-    private final DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
-    @Nonnull
-    private static final Version VERSION = new Version(1, 0, 0, 0);
+    private final @Nonnull ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
+    private final @Nonnull ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
+    private final @Nonnull DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
+    private static final @Nonnull Version VERSION = new Version(1, 0, 0, 0);
     private boolean interrupted = false;
-    @Nonnull
-    protected final ReasonerProgressMonitor pm;
+    protected final @Nonnull ReasonerProgressMonitor pm;
     private boolean prepared = false;
 
     /**
@@ -598,17 +593,13 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         private final RawHierarchyProvider<T> rawParentChildProvider;
         /** The entity that always appears in the top node in the hierarchy. */
-        @Nonnull
-        T topEntity;
+        protected @Nonnull T topEntity;
         /**
          * The entity that always appears as the bottom node in the hierarchy.
          */
-        @Nonnull
-        T bottomEntity;
-        @Nonnull
-        private final Set<T> directChildrenOfTopNode = new HashSet<>();
-        @Nonnull
-        private final Set<T> directParentsOfBottomNode = new HashSet<>();
+        protected @Nonnull T bottomEntity;
+        private final @Nonnull Set<T> directChildrenOfTopNode = new HashSet<>();
+        private final @Nonnull Set<T> directParentsOfBottomNode = new HashSet<>();
         private final NodeCache<T> nodeCache;
         private final String name;
         private int classificationSize;
@@ -904,12 +895,10 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private static class NodeCache<T extends OWLObject> {
 
-        @Nonnull
-        private final AbstractHierarchyInfo<T> hierarchyInfo;
+        private final @Nonnull AbstractHierarchyInfo<T> hierarchyInfo;
         private Node<T> topNode;
         private Node<T> bottomNode;
-        @Nonnull
-        private final Map<T, Node<T>> map = new HashMap<>();
+        private final @Nonnull Map<T, Node<T>> map = new HashMap<>();
 
         protected NodeCache(AbstractHierarchyInfo<T> hierarchyInfo) {
             this.hierarchyInfo = hierarchyInfo;

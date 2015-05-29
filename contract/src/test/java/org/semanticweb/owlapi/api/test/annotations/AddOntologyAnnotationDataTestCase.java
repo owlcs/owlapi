@@ -31,10 +31,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings({ "javadoc" })
 public class AddOntologyAnnotationDataTestCase {
 
-    @Nonnull
-    private final OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
-    @Nonnull
-    private final OWLOntology mockOntology = mock(OWLOntology.class);
+    private final @Nonnull OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
+    private final @Nonnull OWLOntology mockOntology = mock(OWLOntology.class);
 
     private AddOntologyAnnotationData createData() {
         return new AddOntologyAnnotationData(mockAnnotation);

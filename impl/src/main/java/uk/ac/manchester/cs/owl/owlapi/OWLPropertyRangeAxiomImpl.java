@@ -38,8 +38,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
         extends OWLUnaryPropertyAxiomImpl<P>implements OWLPropertyRangeAxiom<P, R> {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final R range;
+    private final @Nonnull R range;
 
     /**
      * @param property

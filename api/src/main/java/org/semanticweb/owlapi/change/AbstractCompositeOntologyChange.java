@@ -32,11 +32,9 @@ public abstract class AbstractCompositeOntologyChange implements OWLCompositeOnt
 
     private static final long serialVersionUID = 40000L;
     /** The data factory. */
-    @Nonnull
-    protected final OWLDataFactory df;
+    protected final @Nonnull OWLDataFactory df;
     /** The changes. */
-    @Nonnull
-    private final List<OWLOntologyChange> changes = new ArrayList<>();
+    private final @Nonnull List<OWLOntologyChange> changes = new ArrayList<>();
 
     /**
      * Instantiates a new abstract composite ontology change.

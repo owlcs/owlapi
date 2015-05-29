@@ -32,8 +32,7 @@ public enum ModuleType {
     STAR("nested");
 
     /** The name of the module type in bottom/top notation. */
-    @Nonnull
-    private final String name;
+    private final @Nonnull String name;
 
     /**
      * Constructs a module type with the given name and alternative name.

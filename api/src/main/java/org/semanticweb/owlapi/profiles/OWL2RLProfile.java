@@ -47,7 +47,6 @@ public class OWL2RLProfile implements OWLProfile {
         return "OWL 2 RL";
     }
 
-    @Nonnull
     @Override
     public IRI getIRI() {
         return Profiles.OWL2_RL.getIRI();
@@ -252,8 +251,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-    @Nonnull
-    private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
+    private final @Nonnull OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
 
     protected boolean isOWL2RLSubClassExpression(OWLClassExpression ce) {
         return ce.accept(subClassExpressionChecker).booleanValue();
@@ -316,8 +314,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-    @Nonnull
-    private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
+    private final @Nonnull OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
 
     /**
      * @param ce
@@ -358,8 +355,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-    @Nonnull
-    private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
+    private final @Nonnull OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
 
     /**
      * @param ce

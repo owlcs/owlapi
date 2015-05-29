@@ -68,10 +68,8 @@ public enum Profiles implements HasIRI,KnownFactories,OWLProfile {
     /** http://www.w3.org/ns/owl-profile/RL. **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile();} },
     /** http://www.w3.org/ns/owl-profile/Full. **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} };
     //@formatter:on
-    @Nonnull
-    private final IRI iri;
-    @Nonnull
-    private final List<String> supportingFactories;
+    private final @Nonnull IRI iri;
+    private final @Nonnull List<String> supportingFactories;
 
     Profiles(String name, String... supportingFactories) {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);

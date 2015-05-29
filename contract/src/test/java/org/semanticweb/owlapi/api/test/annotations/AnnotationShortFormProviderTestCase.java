@@ -38,14 +38,10 @@ import org.semanticweb.owlapi.util.*;
 @SuppressWarnings("javadoc")
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
-    @Nonnull
-    PrefixManager pm = new DefaultPrefixManager(null, null, "http://org.semanticweb.owlapi/ont#");
-    @Nonnull
-    OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
-    @Nonnull
-    List<OWLAnnotationProperty> props = CollectionFactory.list(prop);
-    @Nonnull
-    Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<>();
+    protected @Nonnull PrefixManager pm = new DefaultPrefixManager(null, null, "http://org.semanticweb.owlapi/ont#");
+    protected @Nonnull OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
+    protected @Nonnull List<OWLAnnotationProperty> props = CollectionFactory.list(prop);
+    protected @Nonnull Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<>();
 
     @Test
     public void testLiteralWithoutLanguageValue() {

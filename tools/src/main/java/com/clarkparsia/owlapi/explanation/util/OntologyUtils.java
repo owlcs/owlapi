@@ -44,18 +44,14 @@ public final class OntologyUtils {
      *         ontology that contains entailments which are being explained,
      *         otherwise {@code false}
      */
-    public static boolean containsUnreferencedEntity(
-            @Nonnull OWLOntology ontology, @Nonnull OWLClassExpression desc) {
+    public static boolean containsUnreferencedEntity(@Nonnull OWLOntology ontology, @Nonnull OWLClassExpression desc) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(desc, "desc cannot be null");
-        return desc.signature().anyMatch(
-                e -> !ontology.containsEntityInSignature(e)
-                        && !thingOrNothing(e));
+        return desc.signature().anyMatch(e -> !ontology.containsEntityInSignature(e) && !thingOrNothing(e));
     }
 
     protected static boolean thingOrNothing(OWLEntity entity) {
-        return entity.isOWLClass()
-                && (entity.isTopEntity() || entity.isBottomEntity());
+        return entity.isOWLClass() && (entity.isTopEntity() || entity.isBottomEntity());
     }
 
     /**
@@ -68,8 +64,7 @@ public final class OntologyUtils {
      *        ontologies from which axiom is being removed
      * @return set of ontologies that have been affected
      */
-    @Nonnull
-    public static Set<OWLOntology> removeAxiom(@Nonnull OWLAxiom axiom,
+    public static @Nonnull Set<OWLOntology> removeAxiom(@Nonnull OWLAxiom axiom,
             @Nonnull Stream<OWLOntology> ontologies) {
         Set<OWLOntology> modifiedOnts = new HashSet<>();
         checkNotNull(axiom, "axiom cannot be null");
@@ -77,7 +72,7 @@ public final class OntologyUtils {
         ontologies.filter(o -> o.containsAxiom(axiom)).forEach(ont -> {
             modifiedOnts.add(ont);
             ont.removeAxiom(axiom);
-        });
+        } );
         return modifiedOnts;
     }
 
@@ -93,8 +88,7 @@ public final class OntologyUtils {
      * @deprecated use {@link #addAxiom(OWLAxiom, Stream)}
      */
     @Deprecated
-    public static void addAxiom(@Nonnull OWLAxiom axiom,
-            @Nonnull Set<OWLOntology> ontologies,
+    public static void addAxiom(@Nonnull OWLAxiom axiom, @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntologyManager manager) {
         checkNotNull(manager, "manager cannot be null");
         checkNotNull(axiom, "axiom cannot be null");
@@ -110,8 +104,7 @@ public final class OntologyUtils {
      * @param ontologies
      *        the ontologies to add the axiom to
      */
-    public static void addAxiom(@Nonnull OWLAxiom axiom,
-            @Nonnull Stream<OWLOntology> ontologies) {
+    public static void addAxiom(@Nonnull OWLAxiom axiom, @Nonnull Stream<OWLOntology> ontologies) {
         checkNotNull(axiom, "axiom cannot be null");
         checkNotNull(ontologies, "ontologies cannot be null");
         ontologies.forEach(o -> o.addAxiom(axiom));

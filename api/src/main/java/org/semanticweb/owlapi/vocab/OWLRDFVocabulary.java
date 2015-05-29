@@ -163,14 +163,10 @@ public enum OWLRDFVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
     /** Deprecated vocabulary: here for backwards compatibility http://www.w3.org/2002/07/owl#propertyChain.                    */      OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain");
     
     //@formatter:on
-    @Nonnull
-    final IRI iri;
-    @Nonnull
-    final Namespaces namespace;
-    @Nonnull
-    final String shortName;
-    @Nonnull
-    private final String prefixedName;
+    final @Nonnull IRI iri;
+    final @Nonnull Namespaces namespace;
+    final @Nonnull String shortName;
+    private final @Nonnull String prefixedName;
 
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
         this.namespace = namespace;

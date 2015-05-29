@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
 
-    @Nonnull
-    private final OWLOntologyWalker walker;
+    private final @Nonnull OWLOntologyWalker walker;
 
     /**
      * @param walker
@@ -45,11 +44,7 @@ public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
      * @return current axiom from walker
      */
     public OWLAxiom getCurrentAxiom() {
-        OWLAxiom axiom = walker.getAxiom();
-        if (axiom == null) {
-            throw new OWLRuntimeException("No current axiom; is the walker being used outside of an ontology visit?");
-        }
-        return axiom;
+        return walker.getAxiom();
     }
 
     /**
@@ -67,8 +62,7 @@ public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
     /**
      * @return current annotation from walker
      */
-    @Nullable
-    public OWLAnnotation getCurrentAnnotation() {
+    public @Nullable OWLAnnotation getCurrentAnnotation() {
         return walker.getAnnotation();
     }
 }

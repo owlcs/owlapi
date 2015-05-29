@@ -40,10 +40,8 @@ import org.semanticweb.owlapi.model.*;
 public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverterStrategy {
 
     /** default base. */
-    @Nonnull
-    public static final String DEFAULT_BASE = "http://tinyname.org#";
-    @Nonnull
-    private final String base;
+    public static final @Nonnull String DEFAULT_BASE = "http://tinyname.org#";
+    private final @Nonnull String base;
     private final Map<OWLEntity, IRI> entityNameMap = new HashMap<>();
     private final OWLEntityFragmentProvider fragmentProvider = new OWLEntityFragmentProvider();
 

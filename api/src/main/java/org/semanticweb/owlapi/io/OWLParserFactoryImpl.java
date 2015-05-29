@@ -30,9 +30,8 @@ public abstract class OWLParserFactoryImpl implements OWLParserFactory {
         return createParser();
     }
 
-    @Nullable
     @Override
-    public final String getDefaultMIMEType() {
+    public final @Nullable String getDefaultMIMEType() {
         return format.getDefaultMIMEType();
     }
 

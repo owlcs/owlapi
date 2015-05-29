@@ -36,8 +36,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
         implements OWLPropertyDomainAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLClassExpression domain;
+    private final @Nonnull OWLClassExpression domain;
 
     /**
      * @param property

@@ -47,12 +47,9 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLOntology delegate;
-    @Nonnull
-    private final Lock readLock;
-    @Nonnull
-    private final Lock writeLock;
+    private final @Nonnull OWLOntology delegate;
+    private final @Nonnull Lock readLock;
+    private final @Nonnull Lock writeLock;
 
     /**
      * Constructs a ConcurrentOWLOntology that provides concurrent access to a

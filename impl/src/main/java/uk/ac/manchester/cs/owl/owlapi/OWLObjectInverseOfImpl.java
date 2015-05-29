@@ -33,8 +33,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
         return OWLObjectTypeIndexProvider.OBJECT_PROPERTY_INVERSE;
     }
 
-    @Nonnull
-    private final OWLObjectPropertyExpression inverseProperty;
+    private final @Nonnull OWLObjectPropertyExpression inverseProperty;
 
     /**
      * @param inverseProperty

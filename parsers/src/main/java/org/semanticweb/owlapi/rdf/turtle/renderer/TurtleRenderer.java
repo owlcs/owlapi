@@ -90,8 +90,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     int bufferLength = 0;
     int lastNewLineIndex = 0;
-    @Nonnull
-    final Stack<Integer> tabs = new Stack<>();
+    protected @Nonnull final Stack<Integer> tabs = new Stack<>();
 
     protected void pushTab() {
         tabs.push(getIndent());

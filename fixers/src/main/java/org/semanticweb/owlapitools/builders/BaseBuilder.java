@@ -36,12 +36,9 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
  */
 public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> {
 
-    @Nonnull
-    protected final OWLDataFactory df;
-    @Nonnull
-    protected final Set<OWLAnnotation> annotations = new HashSet<>();
-    @Nonnull
-    private final OWLProfile profile = new OWL2DLProfile();
+    protected final @Nonnull OWLDataFactory df;
+    protected final @Nonnull Set<OWLAnnotation> annotations = new HashSet<>();
+    private final @Nonnull OWLProfile profile = new OWL2DLProfile();
 
     /**
      * @param df

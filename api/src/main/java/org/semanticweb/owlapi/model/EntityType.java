@@ -38,8 +38,8 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
 
     private static final long serialVersionUID = 40000L;
     /** Class entity. */
-    @Nonnull
-    public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", "Class", "Classes", OWL_CLASS) {
+    public static final @Nonnull EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", "Class", "Classes",
+            OWL_CLASS) {
 
         private static final long serialVersionUID = 50000L;
 
@@ -49,8 +49,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
         }
     };
     /** Object property entity. */
-    @Nonnull
-    public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
+    public static final @Nonnull EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
             "ObjectProperty", "Object property", "Object properties", OWL_OBJECT_PROPERTY) {
 
         private static final long serialVersionUID = 50000L;
@@ -61,9 +60,8 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
         }
     };
     /** Data property entity. */
-    @Nonnull
-    public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>("DataProperty",
-            "Data property", "Data properties", OWL_DATA_PROPERTY) {
+    public static final @Nonnull EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>(
+            "DataProperty", "Data property", "Data properties", OWL_DATA_PROPERTY) {
 
         private static final long serialVersionUID = 50000L;
 
@@ -73,8 +71,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
         }
     };
     /** Annotation property entity. */
-    @Nonnull
-    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
+    public static final @Nonnull EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
             "AnnotationProperty", "Annotation property", "Annotation properties", OWL_ANNOTATION_PROPERTY) {
 
         private static final long serialVersionUID = 50000L;
@@ -85,8 +82,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
         }
     };
     /** Named individual entity. */
-    @Nonnull
-    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
+    public static final @Nonnull EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
             "NamedIndividual", "Named individual", "Named individuals", OWL_NAMED_INDIVIDUAL) {
 
         private static final long serialVersionUID = 50000L;
@@ -97,8 +93,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
         }
     };
     /** Datatype entity. */
-    @Nonnull
-    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>("Datatype", "Datatype",
+    public static final @Nonnull EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>("Datatype", "Datatype",
             "Datatypes", RDFS_DATATYPE) {
 
         private static final long serialVersionUID = 50000L;
@@ -110,14 +105,10 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
     };
     private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>> unmodifiableList(
             Arrays.asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
-    @Nonnull
-    private final String name;
-    @Nonnull
-    private final OWLRDFVocabulary vocabulary;
-    @Nonnull
-    private final String printName;
-    @Nonnull
-    private final String pluralPrintName;
+    private final @Nonnull String name;
+    private final @Nonnull OWLRDFVocabulary vocabulary;
+    private final @Nonnull String printName;
+    private final @Nonnull String pluralPrintName;
 
     protected EntityType(String name, String print, String pluralPrint, OWLRDFVocabulary vocabulary) {
         this.name = name;

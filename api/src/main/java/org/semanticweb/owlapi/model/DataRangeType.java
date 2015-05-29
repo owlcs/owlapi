@@ -38,12 +38,9 @@ public enum DataRangeType implements Serializable,HasShortForm,HasPrefixedName,H
             "DataUnionOf"), /** Represents {@link OWLDataIntersectionOf}. */
     DATA_INTERSECTION_OF("DataIntersectionOf");
 
-    @Nonnull
-    private final String name;
-    @Nonnull
-    private final String prefixedName;
-    @Nonnull
-    private final IRI iri;
+    private final @Nonnull String name;
+    private final @Nonnull String prefixedName;
+    private final @Nonnull IRI iri;
 
     DataRangeType(String name) {
         this.name = name;

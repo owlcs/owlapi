@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    protected final SWRLPredicate predicate;
+    protected final @Nonnull SWRLPredicate predicate;
 
     protected SWRLAtomImpl(SWRLPredicate predicate) {
         this.predicate = checkNotNull(predicate, "predicate cannot be null");

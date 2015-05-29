@@ -44,8 +44,7 @@ public class DocumentSources {
     private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern.compile(".*owl|rdf|xml|mos");
     private static final String acceptableContentEncoding = "xz,gzip,deflate";
-    @Nonnull
-    private static final String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
+    private static final @Nonnull String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
 
     /**
      * Select the available input source and, if it is not already a Reader,
@@ -275,8 +274,7 @@ public class DocumentSources {
         }
     }
 
-    @Nullable
-    private static String getFileNameFromContentDisposition(URLConnection connection) {
+    private static @Nullable String getFileNameFromContentDisposition(URLConnection connection) {
         String contentDispositionHeaderValue = connection.getHeaderField(CONTENT_DISPOSITION_HEADER);
         if (contentDispositionHeaderValue != null) {
             Matcher matcher = CONTENT_DISPOSITION_FILE_NAME_PATTERN.matcher(contentDispositionHeaderValue);

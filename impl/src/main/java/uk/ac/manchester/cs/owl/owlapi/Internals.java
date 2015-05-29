@@ -152,8 +152,7 @@ public class Internals implements Serializable {
     protected class SetPointer<K extends Serializable> implements Serializable {
 
         private static final long serialVersionUID = 40000L;
-        @Nonnull
-        private final Set<K> set = createSyncSet();
+        private final @Nonnull Set<K> set = createSyncSet();
 
         public boolean isEmpty() {
             return set.isEmpty();

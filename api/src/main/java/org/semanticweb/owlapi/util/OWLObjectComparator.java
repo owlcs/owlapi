@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLObjectComparator implements Comparator<OWLObject> {
 
-    @Nonnull
-    private final OWLEntityComparator entityComparator;
+    private final @Nonnull OWLEntityComparator entityComparator;
 
     /**
      * @param shortFormProvider

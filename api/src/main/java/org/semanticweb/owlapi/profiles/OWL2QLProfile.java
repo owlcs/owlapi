@@ -72,8 +72,7 @@ public class OWL2QLProfile implements OWLProfile {
 
     private class OWL2QLObjectVisitor extends OWLOntologyWalkerVisitor {
 
-        @Nonnull
-        private final Set<OWLProfileViolation> violations = new HashSet<>();
+        private final @Nonnull Set<OWLProfileViolation> violations = new HashSet<>();
 
         OWL2QLObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -251,8 +250,7 @@ public class OWL2QLProfile implements OWLProfile {
         }
     }
 
-    @Nonnull
-    private final OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
+    private final @Nonnull OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
 
     protected boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
         return ce.accept(subClassExpressionChecker).booleanValue();
@@ -293,8 +291,7 @@ public class OWL2QLProfile implements OWLProfile {
         }
     }
 
-    @Nonnull
-    private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
+    private final @Nonnull OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
 
     /**
      * @param ce

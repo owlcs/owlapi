@@ -30,8 +30,7 @@ public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRe
         implements OWLDataCardinalityRestriction {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLDataPropertyExpression property;
+    private final @Nonnull OWLDataPropertyExpression property;
 
     protected OWLDataCardinalityRestrictionImpl(OWLDataPropertyExpression property, int cardinality,
             OWLDataRange filler) {

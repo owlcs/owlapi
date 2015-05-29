@@ -41,8 +41,7 @@ public class SWRLAtomOrderingTestCase {
     @Mock
     protected SWRLAtom atomD;
     private SWRLRuleImpl rule;
-    @Nonnull
-    private final Set<SWRLAtom> body = new LinkedHashSet<>();
+    private final @Nonnull Set<SWRLAtom> body = new LinkedHashSet<>();
 
     @Before
     public void setUp() {
@@ -60,8 +59,7 @@ public class SWRLAtomOrderingTestCase {
         body.add(atomA);
         Set<SWRLAtom> head = new LinkedHashSet<>();
         head.add(atomD);
-        rule = new SWRLRuleImpl(body, head,
-                Collections.<OWLAnnotation> emptySet());
+        rule = new SWRLRuleImpl(body, head, Collections.<OWLAnnotation> emptySet());
     }
 
     @Test

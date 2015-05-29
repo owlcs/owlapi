@@ -36,10 +36,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLDatatype datatype;
-    @Nonnull
-    private final List<OWLFacetRestriction> facetRestrictions;
+    private final @Nonnull OWLDatatype datatype;
+    private final @Nonnull List<OWLFacetRestriction> facetRestrictions;
 
     @Override
     protected int index() {

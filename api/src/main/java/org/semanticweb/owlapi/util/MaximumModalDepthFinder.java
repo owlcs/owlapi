@@ -14,29 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -45,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
-    @Nonnull
-    private static final Integer _1 = 1;
+    private static final @Nonnull Integer _1 = 1;
 
     @Override
     public Integer doDefault(Object o) {
@@ -56,27 +33,23 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     @Override
     public Integer visit(OWLSubClassOfAxiom axiom) {
         int subClassModalDepth = axiom.getSubClass().accept(this).intValue();
-        int superClassModalDepth = axiom.getSuperClass().accept(this)
-                .intValue();
+        int superClassModalDepth = axiom.getSuperClass().accept(this).intValue();
         return Math.max(subClassModalDepth, superClassModalDepth);
     }
 
     @Override
     public Integer visit(OWLOntology ontology) {
-        return ontology.logicalAxioms()
-                .mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return ontology.logicalAxioms().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
     }
 
     @Override
     public Integer visit(OWLObjectIntersectionOf ce) {
-        return ce.operands().mapToInt(ax -> ax.accept(this).intValue()).max()
-                .orElse(0);
+        return ce.operands().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
     }
 
     @Override
     public Integer visit(OWLObjectUnionOf ce) {
-        return ce.operands().mapToInt(ax -> ax.accept(this).intValue()).max()
-                .orElse(0);
+        return ce.operands().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
     }
 
     @Override
@@ -96,8 +69,7 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLDisjointClassesAxiom axiom) {
-        return axiom.classExpressions()
-                .mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return axiom.classExpressions().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
     }
 
     @Override
@@ -167,7 +139,6 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLEquivalentClassesAxiom axiom) {
-        return axiom.classExpressions()
-                .mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return axiom.classExpressions().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
     }
 }

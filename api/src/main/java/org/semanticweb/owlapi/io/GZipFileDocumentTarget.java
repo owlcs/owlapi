@@ -37,8 +37,7 @@ import org.slf4j.LoggerFactory;
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GZipFileDocumentTarget.class);
-    @Nonnull
-    private final File out;
+    private final @Nonnull File out;
 
     /**
      * @param os

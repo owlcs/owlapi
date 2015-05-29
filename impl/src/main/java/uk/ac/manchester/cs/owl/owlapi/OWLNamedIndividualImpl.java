@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLNamedIndividual {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final IRI iri;
+    private final @Nonnull IRI iri;
 
     @Override
     protected int index() {

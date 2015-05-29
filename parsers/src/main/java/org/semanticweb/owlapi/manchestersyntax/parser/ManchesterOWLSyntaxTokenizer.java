@@ -27,8 +27,7 @@ import javax.annotation.Nonnull;
 public class ManchesterOWLSyntaxTokenizer {
 
     /** EOF. */
-    @Nonnull
-    public static final String EOF = "|EOF|";
+    public static final @Nonnull String EOF = "|EOF|";
 
     /**
      * @param s
@@ -39,8 +38,7 @@ public class ManchesterOWLSyntaxTokenizer {
         return EOF.equals(s);
     }
 
-    @Nonnull
-    protected final Set<Character> skip = new HashSet<>();
+    protected final @Nonnull Set<Character> skip = new HashSet<>();
     protected final Set<Character> commentDelimiters = new HashSet<>();
     protected final Set<Character> delims = new HashSet<>();
     private final String buffer;
@@ -219,8 +217,7 @@ public class ManchesterOWLSyntaxTokenizer {
     /** Token. */
     public static class Token {
 
-        @Nonnull
-        private final String token;
+        private final @Nonnull String token;
         private final int pos;
         private final int col;
         private final int row;

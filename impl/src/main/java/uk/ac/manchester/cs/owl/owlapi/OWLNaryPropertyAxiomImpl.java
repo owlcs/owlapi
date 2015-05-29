@@ -35,8 +35,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
         implements OWLNaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    protected final List<P> properties;
+    protected final @Nonnull List<P> properties;
 
     /**
      * @param properties

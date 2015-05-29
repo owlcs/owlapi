@@ -42,12 +42,9 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
-    @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    @Nonnull
-    private final OWLDatatype datatype;
-    @Nonnull
-    private final String language;
+    private static final @Nonnull OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private final @Nonnull OWLDatatype datatype;
+    private final @Nonnull String language;
     private final int hashcode;
 
     @Override

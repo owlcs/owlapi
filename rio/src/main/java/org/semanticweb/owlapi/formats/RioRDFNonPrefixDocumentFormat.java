@@ -93,9 +93,8 @@ public class RioRDFNonPrefixDocumentFormat extends AbstractRDFNonPrefixDocumentF
         return format;
     }
 
-    @Nullable
     @Override
-    public String getDefaultMIMEType() {
+    public @Nullable String getDefaultMIMEType() {
         return format.getDefaultMIMEType();
     }
 

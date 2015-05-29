@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor {
 
-    @Nonnull
-    private final ShortFormProvider shortFormProvider;
+    private final @Nonnull ShortFormProvider shortFormProvider;
     int lastValue;
 
     /**

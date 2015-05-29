@@ -32,12 +32,9 @@ public enum PrimitiveType implements Serializable,HasShortForm {
     /** LITERAL.             */  LITERAL             ("Literal", "Literal", "Literals"), 
     /** IRI.                 */  IRI                 ("IRI", "IRI", "IRIs");
     //@formatter:on
-    @Nonnull
-    private final String shortForm;
-    @Nonnull
-    private final String printName;
-    @Nonnull
-    private final String pluralPrintName;
+    private final @Nonnull String shortForm;
+    private final @Nonnull String printName;
+    private final @Nonnull String pluralPrintName;
 
     PrimitiveType(EntityType<?> entityType) {
         this(entityType.getShortForm(), entityType.getPrintName(), entityType.getPluralPrintName());

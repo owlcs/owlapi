@@ -39,20 +39,15 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
  */
 public abstract class OWLReasonerBase implements OWLReasoner {
 
-    @Nonnull
-    private final OWLOntologyManager manager;
-    @Nonnull
-    private final OWLOntology rootOntology;
-    @Nonnull
-    private final BufferingMode bufferingMode;
+    private final @Nonnull OWLOntologyManager manager;
+    private final @Nonnull OWLOntology rootOntology;
+    private final @Nonnull BufferingMode bufferingMode;
     private final List<OWLOntologyChange> rawChanges = new ArrayList<>();
-    @Nonnull
-    private final Set<OWLAxiom> reasonerAxioms;
+    private final @Nonnull Set<OWLAxiom> reasonerAxioms;
     private final long timeOut;
-    @Nonnull
-    private final OWLReasonerConfiguration configuration;
-    @Nonnull
-    private final OWLOntologyChangeListener ontologyChangeListener = changes -> handleRawOntologyChanges(changes);
+    private final @Nonnull OWLReasonerConfiguration configuration;
+    private final @Nonnull OWLOntologyChangeListener ontologyChangeListener = changes -> handleRawOntologyChanges(
+            changes);
 
     protected OWLReasonerBase(OWLOntology rootOntology, OWLReasonerConfiguration configuration,
             BufferingMode bufferingMode) {

@@ -25,10 +25,8 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 /** Builder class for SWRLClassAtom. */
 public class BuilderSWRLClassAtom extends BaseBuilder<SWRLClassAtom, BuilderSWRLClassAtom> {
 
-    @Nullable
-    private SWRLIArgument argument = null;
-    @Nullable
-    private OWLClassExpression predicate = null;
+    private @Nullable SWRLIArgument argument = null;
+    private @Nullable OWLClassExpression predicate = null;
 
     /**
      * Builder initialized from an existing object.

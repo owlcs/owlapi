@@ -54,8 +54,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     static class OntologyAxiomSet {
 
         /** Array representing all axioms of the associated ontology. */
-        @Nonnull
-        final OWLAxiom[] ax;
+        final @Nonnull OWLAxiom[] ax;
 
         /**
          * Creates a new OntologyAxiomSet from a given set of axioms without
@@ -152,16 +151,13 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
     }
 
-    @Nonnull
-    /** Type of module. */
+    @Nonnull /** Type of module. */
     private ModuleType moduleType;
     /** Represents the associated ontology. */
     private final OntologyAxiomSet ontologyAxiomSet;
-    @Nonnull
-    /** The ontology. */
+    @Nonnull /** The ontology. */
     private final OWLOntology rootOntology;
-    @Nonnull
-    private final OWLOntology ontology;
+    private final @Nonnull OWLOntology ontology;
     /** Represents the manager for the associated ontology. */
     private final OWLOntologyManager manager;
 

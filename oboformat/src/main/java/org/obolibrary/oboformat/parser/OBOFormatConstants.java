@@ -92,8 +92,7 @@ public class OBOFormatConstants {
         TAG_EXACT("EXACT"), /** Related. */
         TAG_RELATED("RELATED");
 
-        @Nonnull
-        private final String tag;
+        private final @Nonnull String tag;
 
         OboFormatTag(String tag) {
             this.tag = tag;
@@ -122,8 +121,7 @@ public class OBOFormatConstants {
     private static final Map<String, OboFormatTag> TAGSTABLE = Maps.uniqueIndex(Arrays.asList(OboFormatTag.values()),
             v -> v.getTag());
     /** tags */
-    @Nonnull
-    public static final Set<String> TAGS = TAGSTABLE.keySet();
+    public static final @Nonnull Set<String> TAGS = TAGSTABLE.keySet();
 
     /**
      * @param tag

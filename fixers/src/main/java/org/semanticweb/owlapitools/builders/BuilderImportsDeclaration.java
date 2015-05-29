@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.model.*;
 /** Builder class for OWLImportsDeclaration. */
 public class BuilderImportsDeclaration implements Builder<OWLImportsDeclaration> {
 
-    @Nonnull
-    protected final OWLDataFactory df;
+    protected final @Nonnull OWLDataFactory df;
     private IRI iri;
 
     /**

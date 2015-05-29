@@ -35,8 +35,7 @@ import org.semanticweb.owlapi.model.*;
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    protected final List<OWLClassExpression> classExpressions;
+    protected final @Nonnull List<OWLClassExpression> classExpressions;
 
     /**
      * @param classExpressions

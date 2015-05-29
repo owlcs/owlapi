@@ -99,12 +99,9 @@ public enum ClassExpressionType implements Serializable,HasShortForm,HasPrefixed
                                     */
     OBJECT_ONE_OF("ObjectOneOf");
 
-    @Nonnull
-    private final String name;
-    @Nonnull
-    private final String prefixedName;
-    @Nonnull
-    private final IRI iri;
+    private final @Nonnull String name;
+    private final @Nonnull String prefixedName;
+    private final @Nonnull IRI iri;
 
     ClassExpressionType(String name) {
         this.name = name;

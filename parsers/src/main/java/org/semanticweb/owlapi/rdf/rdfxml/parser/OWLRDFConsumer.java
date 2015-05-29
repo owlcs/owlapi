@@ -66,11 +66,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLRDFConsumer.class);
-    @Nonnull
-    final TripleLogger tripleLogger;
+    final @Nonnull TripleLogger tripleLogger;
     /** The configuration. */
-    @Nonnull
-    private final OWLOntologyLoaderConfiguration configuration;
+    private final @Nonnull OWLOntologyLoaderConfiguration configuration;
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
@@ -115,8 +113,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     /** The annotated anon source2 annotation map. */
     private final Map<IRI, Set<IRI>> annotatedAnonSource2AnnotationMap = createMap();
     /** The ontology that the RDF will be parsed into. */
-    @Nonnull
-    private final OWLOntology ontology;
+    private final @Nonnull OWLOntology ontology;
     /** The ontology format. */
     private RDFDocumentFormat ontologyFormat;
     /** The data factory. */
@@ -158,8 +155,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     final HandlerAccessor handlerAccessor;
     final TranslatorAccessor translatorAccessor;
     private final AnonymousNodeChecker nodeCheckerDelegate;
-    @Nonnull
-    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
+    private final @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
     /** The translated properties. */
     private final Map<IRI, OWLObjectPropertyExpression> translatedProperties = createMap();
     // Resource triples
@@ -177,8 +173,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     // consumer, so the cache size itself is much smaller than the total memory
     // footprint
     private final Map<String, IRI> IRIMap = createMap();
-    @Nonnull
-    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
+    private static final @Nonnull AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
     private final static Set<IRI> entityTypes = Sets.newHashSet(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
             OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), RDFS_DATATYPE.getIRI(),
             OWL_NAMED_INDIVIDUAL.getIRI());
@@ -418,8 +413,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         pendingAnnotations.addAll(annotations);
     }
 
-    @Nullable
-    private IRI getIRINullable(@Nullable String s) {
+    private @Nullable IRI getIRINullable(@Nullable String s) {
         if (s == null) {
             return null;
         }

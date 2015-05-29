@@ -32,10 +32,8 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 @SuppressWarnings("javadoc")
 public class ManchesterImportTestCase extends TestBase {
 
-    @Nonnull
-    private final String str = "http://owlapitestontologies.com/thesuperont";
-    @Nonnull
-    private final String superpath = "/imports/thesuperont.omn";
+    private final @Nonnull String str = "http://owlapitestontologies.com/thesuperont";
+    private final @Nonnull String superpath = "/imports/thesuperont.omn";
 
     @Test
     public void testManualImports() throws OWLOntologyCreationException {
@@ -46,8 +44,7 @@ public class ManchesterImportTestCase extends TestBase {
 
     private OWLOntologyManager getManager() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        AutoIRIMapper mapper = new AutoIRIMapper(
-                new File(RESOURCES, "imports"), true);
+        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
         manager.getIRIMappers().add(mapper);
         return manager;
     }
@@ -65,8 +62,7 @@ public class ManchesterImportTestCase extends TestBase {
     @Test
     public void testEquivalentLoading() throws OWLOntologyCreationException {
         OWLOntologyManager managerStart = getManager();
-        OWLOntology manualImport = managerStart
-                .loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
+        OWLOntology manualImport = managerStart.loadOntologyFromOntologyDocument(new File(RESOURCES, superpath));
         OWLOntologyManager managerTest = getManager();
         OWLOntology iriImport = managerTest.loadOntology(IRI(str));
         assertEquals(asSet(manualImport.axioms()), asSet(iriImport.axioms()));

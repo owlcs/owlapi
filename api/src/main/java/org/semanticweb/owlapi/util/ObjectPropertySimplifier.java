@@ -30,10 +30,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class ObjectPropertySimplifier {
 
-    @Nonnull
-    private final OWLDataFactory dataFactory;
-    @Nonnull
-    private final Simplifier simplifier = new Simplifier();
+    private final @Nonnull OWLDataFactory dataFactory;
+    private final @Nonnull Simplifier simplifier = new Simplifier();
 
     /**
      * @param dataFactory

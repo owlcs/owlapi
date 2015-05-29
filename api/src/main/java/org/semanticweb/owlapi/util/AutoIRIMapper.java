@@ -256,7 +256,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
+            @Nullable Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
             IRI ontologyIRI = handler.handle(attributes);
@@ -300,6 +301,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
          * @return The ontology IRI or {@code null} if no ontology IRI could be
          *         found.
          */
+        @Nullable
         IRI handle(Attributes attributes);
     }
 
@@ -313,9 +315,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
         RDFXMLOntologyRootElementHandler() {}
 
-        @Nullable
         @Override
-        public IRI handle(Attributes attributes) {
+        public @Nullable IRI handle(Attributes attributes) {
             String baseValue = attributes.getValue(Namespaces.XML.toString(), "base");
             if (baseValue == null) {
                 return null;

@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
 
-    @Nonnull
-    private final OWLOntologyWalker walker;
+    private final @Nonnull OWLOntologyWalker walker;
 
     /**
      * @param walker
@@ -65,8 +64,7 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
     /**
      * @return annotation
      */
-    @Nullable
-    public OWLAnnotation getCurrentAnnotation() {
+    public @Nullable OWLAnnotation getCurrentAnnotation() {
         return walker.getAnnotation();
     }
 }

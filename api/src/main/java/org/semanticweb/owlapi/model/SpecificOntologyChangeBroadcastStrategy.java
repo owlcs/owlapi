@@ -30,8 +30,7 @@ import javax.annotation.Nonnull;
 public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLOntology ontology;
+    private final @Nonnull OWLOntology ontology;
 
     /**
      * Constructs a change broadcast strategy which only causes changes that

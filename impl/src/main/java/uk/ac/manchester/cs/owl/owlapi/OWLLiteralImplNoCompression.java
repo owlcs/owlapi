@@ -30,14 +30,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    @Nonnull
-    private final String literal;
-    @Nonnull
-    private final OWLDatatype datatype;
-    @Nonnull
-    private final String language;
+    private static final @Nonnull OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private final @Nonnull String literal;
+    private final @Nonnull OWLDatatype datatype;
+    private final @Nonnull String language;
 
     @Override
     protected int index() {

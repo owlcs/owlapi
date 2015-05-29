@@ -34,8 +34,7 @@ import org.slf4j.LoggerFactory;
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentTarget.class);
-    @Nonnull
-    private final File file;
+    private final @Nonnull File file;
 
     /**
      * Constructs the document target, with the target being the specified file.

@@ -45,8 +45,7 @@ import org.xml.sax.helpers.LocatorImpl;
 public class RDFParser extends DefaultHandler implements IRIProvider {
 
     private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
-    @Nonnull
-    protected static final Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
+    protected static final @Nonnull Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
     protected final Map<String, IRI> uriCache = new HashMap<>();
     /** Registered error handler. */
@@ -69,8 +68,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** IRI of the document being parsed. */
     protected IRI baseIRI;
     /** The stack of languages. */
-    @Nonnull
-    protected final LinkedList<String> languages = new LinkedList<>();
+    protected final @Nonnull LinkedList<String> languages = new LinkedList<>();
     /** The current language. */
     protected String language;
     /** Consumer receiving notifications about parsing events. */

@@ -31,10 +31,8 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 @SuppressWarnings({ "javadoc" })
 public class RemoveOntologyAnnotationDataTestCase {
 
-    @Nonnull
-    private final OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
-    @Nonnull
-    private final OWLOntology mockOntology = mock(OWLOntology.class);
+    private final @Nonnull OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
+    private final @Nonnull OWLOntology mockOntology = mock(OWLOntology.class);
 
     private RemoveOntologyAnnotationData createData() {
         return new RemoveOntologyAnnotationData(mockAnnotation);

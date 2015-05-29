@@ -48,8 +48,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
     }
 
-    @Nonnull
-    private final OWL2Datatype owl2Datatype;
+    private final @Nonnull OWL2Datatype owl2Datatype;
 
     @Override
     public OWL2Datatype getBuiltInDatatype() {

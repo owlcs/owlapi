@@ -36,21 +36,14 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     private Set<OWLAxiom> currentExplanation;
-    @Nonnull
-    private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = createMap();
-    @Nonnull
-    private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
-    @Nonnull
-    private final SeedExtractor seedExtractor = new SeedExtractor();
-    @Nonnull
-    private final OWLOntologyManager man;
+    private final @Nonnull Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = createMap();
+    private final @Nonnull Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = createMap();
+    private final @Nonnull SeedExtractor seedExtractor = new SeedExtractor();
+    private final @Nonnull OWLOntologyManager man;
     private OWLOntology ont;
-    @Nonnull
-    private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
-    @Nonnull
-    private final Set<OWLAxiom> consumedAxioms = createSet();
-    @Nonnull
-    private final Set<AxiomType<?>> passTypes = createSet();
+    private final @Nonnull Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
+    private final @Nonnull Set<OWLAxiom> consumedAxioms = createSet();
+    private final @Nonnull Set<AxiomType<?>> passTypes = createSet();
 
     /**
      * Instantiates a new explanation orderer impl.

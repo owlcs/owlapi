@@ -27,10 +27,8 @@ import org.semanticweb.owlapi.change.SetOntologyIDData;
 public class SetOntologyID extends OWLOntologyChange {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLOntologyID ontologyID;
-    @Nonnull
-    private final OWLOntologyID newOntologyID;
+    private final @Nonnull OWLOntologyID ontologyID;
+    private final @Nonnull OWLOntologyID newOntologyID;
 
     /**
      * Creates a set ontology id change, which will set the ontology id to the

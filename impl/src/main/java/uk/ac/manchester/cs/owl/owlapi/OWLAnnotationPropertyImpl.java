@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnotationProperty {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final IRI iri;
+    private final @Nonnull IRI iri;
 
     @Override
     protected int index() {

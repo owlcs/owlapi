@@ -27,32 +27,25 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings("javadoc")
 public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
-    @Nonnull
-    private static final String NS = "http://namespace.owl";
-    @Nonnull
-    private static final String BROKEN = "<?xml version=\"1.0\"?>\n"
-        + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
-        + "     xml:base=\"http://namespace.owl\"\n"
-        + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-        + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-        + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-        + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-        + "    <owl:Ontology rdf:about=\"http://namespace.owl\"/>\n"
-        + "    <owl:Class rdf:about=\"http://namespace.owl#A\"/>\n"
-        + "<A/></rdf:RDF>";
-    @Nonnull
-    private static final String FIXED = "Prefix(:=<http://namespace.owl#>)\n"
-        + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
-        + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
-        + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
-        + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-        + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + '\n'
-        + '\n' + "Ontology(<http://namespace.owl>\n" + '\n'
-        + "Declaration(Class(:C))\n"
-        + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n"
-        + "Declaration(Class(:D))\n" + "Declaration(ObjectProperty(:p))\n"
-        + "Declaration(DataProperty(:q))\n" + "ClassAssertion(:D _:genid2)\n"
-        + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n" + ')';
+    private static final @Nonnull String NS = "http://namespace.owl";
+    private static final @Nonnull String BROKEN = "<?xml version=\"1.0\"?>\n"
+            + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n" + "     xml:base=\"http://namespace.owl\"\n"
+            + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+            + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+            + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+            + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
+            + "    <owl:Ontology rdf:about=\"http://namespace.owl\"/>\n"
+            + "    <owl:Class rdf:about=\"http://namespace.owl#A\"/>\n" + "<A/></rdf:RDF>";
+    private static final @Nonnull String FIXED = "Prefix(:=<http://namespace.owl#>)\n"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + '\n' + '\n'
+            + "Ontology(<http://namespace.owl>\n" + '\n' + "Declaration(Class(:C))\n"
+            + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n" + "Declaration(Class(:D))\n"
+            + "Declaration(ObjectProperty(:p))\n" + "Declaration(DataProperty(:q))\n" + "ClassAssertion(:D _:genid2)\n"
+            + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n" + ')';
 
     @Test
     public void shouldRoundTripFixed() throws OWLOntologyCreationException {
@@ -65,8 +58,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
         FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);
-        assertTrue(equalIterators(o.logicalAxioms().iterator(),
-            o1.logicalAxioms().iterator()));
+        assertTrue(equalIterators(o.logicalAxioms().iterator(), o1.logicalAxioms().iterator()));
     }
 
     @Test
@@ -77,9 +69,8 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
         OWLDataProperty q = DataProperty(IRI(NS + "#q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = getOWLOntology();
-        ontology.addAxioms(SubClassOf(c, ObjectHasValue(p, i)),
-            ClassAssertion(d, i),
-            DataPropertyAssertion(q, i, Literal("hello")));
+        ontology.addAxioms(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
+                DataPropertyAssertion(q, i, Literal("hello")));
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         ontology = roundTrip(ontology, format);

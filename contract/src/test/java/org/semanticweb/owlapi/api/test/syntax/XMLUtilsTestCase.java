@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class XMLUtilsTestCase extends TestBase {
 
     private static final int CODE_POINT = 0xEFFFF;
-    @Nonnull
-    private static final String CODE_POINT_STRING = init();
+    private static final @Nonnull String CODE_POINT_STRING = init();
 
     static String init() {
         StringBuilder sb = new StringBuilder();

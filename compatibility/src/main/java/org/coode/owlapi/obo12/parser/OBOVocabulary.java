@@ -274,10 +274,8 @@ public enum OBOVocabulary implements HasIRI {
         this.iri = iri;
     }
 
-    @Nonnull
-    private final String name;
-    @Nonnull
-    private final IRI iri;
+    private final @Nonnull String name;
+    private final @Nonnull IRI iri;
 
     public String getName() {
         return name;

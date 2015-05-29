@@ -76,8 +76,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /** XSD_DATE_TIME. */            XSD_DATE_TIME            (DATE_TIME,            Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
     /** XSD_DATE_TIME_STAMP. */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
-    @Nonnull
-    private static final Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(v -> v.iri));
+    private static final @Nonnull Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(v -> v.iri));
     /**
      * Datatypes allowed in the EL and QL profiles.
      */
@@ -167,19 +166,13 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         return getDatatype(datatype.getIRI());
     }
 
-    @Nonnull
-    private final String shortForm;
-    @Nonnull
-    private final IRI iri;
-    @Nonnull
-    private final Category category;
+    private final @Nonnull String shortForm;
+    private final @Nonnull IRI iri;
+    private final @Nonnull Category category;
     private final boolean finite;
-    @Nonnull
-    private final Pattern pattern;
-    @Nonnull
-    private final String regExpression;
-    @Nonnull
-    private final String prefixedName;
+    private final @Nonnull Pattern pattern;
+    private final @Nonnull String regExpression;
+    private final @Nonnull String prefixedName;
 
     OWL2Datatype(Namespaces namespace, String shortForm, Category category, boolean finite, String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);

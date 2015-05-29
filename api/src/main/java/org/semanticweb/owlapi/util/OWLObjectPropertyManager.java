@@ -32,20 +32,13 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  */
 public class OWLObjectPropertyManager {
 
-    @Nonnull
-    private final OWLDataFactory df;
-    @Nonnull
-    private final OWLOntology ontology;
-    @Nonnull
-    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<>();
-    @Nonnull
-    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<>();
-    @Nonnull
-    private final Set<OWLObjectPropertyExpression> compositeProperties = new HashSet<>();
-    @Nonnull
-    private final Set<OWLObjectPropertyExpression> nonSimpleProperties = new HashSet<>();
-    @Nonnull
-    private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering = new HashMap<>();
+    private final @Nonnull OWLDataFactory df;
+    private final @Nonnull OWLOntology ontology;
+    private final @Nonnull Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<>();
+    private final @Nonnull Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<>();
+    private final @Nonnull Set<OWLObjectPropertyExpression> compositeProperties = new HashSet<>();
+    private final @Nonnull Set<OWLObjectPropertyExpression> nonSimpleProperties = new HashSet<>();
+    private final @Nonnull Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering = new HashMap<>();
     private boolean compositeDirty;
     private boolean hierarchyDirty;
     private boolean reflexiveTransitiveClosureDirty;

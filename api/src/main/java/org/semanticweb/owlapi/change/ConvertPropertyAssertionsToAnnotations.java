@@ -42,8 +42,7 @@ import org.semanticweb.owlapi.model.*;
 public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOntologyChange {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final Set<OWLOntology> ontologies;
+    private final @Nonnull Set<OWLOntology> ontologies;
 
     /**
      * Instantiates a new convert property assertions to annotations.

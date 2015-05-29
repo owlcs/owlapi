@@ -36,8 +36,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings("javadoc")
 public class SWRLRoundTripTestCase extends TestBase {
 
-    @Nonnull
-    private static final String NS = "urn:test";
+    private static final @Nonnull String NS = "urn:test";
 
     @Test
     public void shouldDoCompleteRoundtrip() throws Exception {

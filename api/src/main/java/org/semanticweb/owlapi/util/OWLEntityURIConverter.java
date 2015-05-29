@@ -33,17 +33,13 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLEntityURIConverter {
 
-    @Nonnull
-    private final OWLOntologyManager manager;
+    private final @Nonnull OWLOntologyManager manager;
     // The ontologies that reference the
     // entities whose names will be converted
-    @Nonnull
-    private final Collection<OWLOntology> ontologies;
-    @Nonnull
-    private final Map<OWLEntity, IRI> replacementMap = new HashMap<>();
+    private final @Nonnull Collection<OWLOntology> ontologies;
+    private final @Nonnull Map<OWLEntity, IRI> replacementMap = new HashMap<>();
     private Set<OWLEntity> processedEntities;
-    @Nonnull
-    private final OWLEntityURIConverterStrategy strategy;
+    private final @Nonnull OWLEntityURIConverterStrategy strategy;
 
     /**
      * Creates a converter that will convert the URIs of entities in the

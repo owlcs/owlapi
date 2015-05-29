@@ -36,8 +36,7 @@ import org.semanticweb.owlapi.model.*;
 public class OWLEntityCollector
         implements OWLObjectVisitorEx<Collection<OWLEntity>>, SWRLObjectVisitorEx<Collection<OWLEntity>> {
 
-    @Nonnull
-    private final Collection<OWLEntity> objects;
+    private final @Nonnull Collection<OWLEntity> objects;
 
     /**
      * @param toReturn

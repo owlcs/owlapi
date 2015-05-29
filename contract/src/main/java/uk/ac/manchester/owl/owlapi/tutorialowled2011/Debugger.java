@@ -49,10 +49,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 @SuppressWarnings("javadoc")
 public class Debugger {
 
-    @Nonnull
-    private final OWLOntology ontology;
-    @Nonnull
-    private final OWLDebugger debugger;
+    private final @Nonnull OWLOntology ontology;
+    private final @Nonnull OWLDebugger debugger;
     private final OWLReasoner checker;
 
     public Debugger(OWLOntologyManager manager, OWLOntology ontology, OWLReasonerFactory reasonerFactory) {

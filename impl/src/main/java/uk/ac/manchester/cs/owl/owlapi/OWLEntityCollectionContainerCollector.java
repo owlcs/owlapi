@@ -37,8 +37,7 @@ import org.semanticweb.owlapi.model.*;
 public class OWLEntityCollectionContainerCollector implements AbstractEntityRegistrationManager {
 
     private Collection<OWLEntity> objects;
-    @Nullable
-    private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
+    private final @Nullable Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
     private boolean collectObjectProperties = true;
     private boolean collectDataProperties = true;

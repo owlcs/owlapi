@@ -31,10 +31,8 @@ import org.semanticweb.owlapi.model.*;
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLClassExpression expression;
-    @Nonnull
-    private final List<? extends OWLPropertyExpression> propertyExpressions;
+    private final @Nonnull OWLClassExpression expression;
+    private final @Nonnull List<? extends OWLPropertyExpression> propertyExpressions;
 
     /**
      * @param expression

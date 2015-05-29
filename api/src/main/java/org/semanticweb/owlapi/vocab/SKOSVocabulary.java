@@ -80,14 +80,10 @@ public enum SKOSVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
 //@formatter:on
     /** All IRIs. */
     public static final Set<IRI> ALL_IRIS = asSet(stream().map(v -> v.getIRI()));
-    @Nonnull
-    private final String localName;
-    @Nonnull
-    private final IRI iri;
-    @Nonnull
-    private final EntityType<?> entityType;
-    @Nonnull
-    private final String prefixedName;
+    private final @Nonnull String localName;
+    private final @Nonnull IRI iri;
+    private final @Nonnull EntityType<?> entityType;
+    private final @Nonnull String prefixedName;
 
     private static Stream<SKOSVocabulary> stream() {
         return Stream.of(values());

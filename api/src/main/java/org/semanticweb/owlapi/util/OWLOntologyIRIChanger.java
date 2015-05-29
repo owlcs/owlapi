@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLOntologyIRIChanger {
 
-    @Nonnull
-    private final OWLOntologyManager owlOntologyManager;
+    private final @Nonnull OWLOntologyManager owlOntologyManager;
 
     /**
      * @param owlOntologyManager

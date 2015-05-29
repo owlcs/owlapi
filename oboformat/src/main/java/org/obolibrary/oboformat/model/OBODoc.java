@@ -17,17 +17,13 @@ public class OBODoc {
     /** The header frame. */
     protected Frame headerFrame;
     /** The term frame map. */
-    @Nonnull
-    protected final Map<String, Frame> termFrameMap = new HashMap<>();
+    protected final @Nonnull Map<String, Frame> termFrameMap = new HashMap<>();
     /** The typedef frame map. */
-    @Nonnull
-    protected final Map<String, Frame> typedefFrameMap = new HashMap<>();
+    protected final @Nonnull Map<String, Frame> typedefFrameMap = new HashMap<>();
     /** The instance frame map. */
-    @Nonnull
-    protected final Map<String, Frame> instanceFrameMap = new HashMap<>();
+    protected final @Nonnull Map<String, Frame> instanceFrameMap = new HashMap<>();
     /** The annotation frames. */
-    @Nonnull
-    protected final Collection<Frame> annotationFrames = new LinkedList<>();
+    protected final @Nonnull Collection<Frame> annotationFrames = new LinkedList<>();
     /** The imported obo docs. */
     protected Collection<OBODoc> importedOBODocs = new LinkedList<>();
 
@@ -72,8 +68,7 @@ public class OBODoc {
      *        the id
      * @return the term frame
      */
-    @Nullable
-    public Frame getTermFrame(String id) {
+    public @Nullable Frame getTermFrame(String id) {
         return getTermFrame(id, false);
     }
 
@@ -84,8 +79,7 @@ public class OBODoc {
      *        the follow import
      * @return the term frame
      */
-    @Nullable
-    public Frame getTermFrame(String id, boolean followImport) {
+    public @Nullable Frame getTermFrame(String id, boolean followImport) {
         if (!followImport) {
             return termFrameMap.get(id);
         }
@@ -102,8 +96,7 @@ public class OBODoc {
      *        the visited docs
      * @return the frame
      */
-    @Nullable
-    private Frame getTermFrame(String id, Set<String> visitedDocs) {
+    private @Nullable Frame getTermFrame(String id, Set<String> visitedDocs) {
         Frame f = termFrameMap.get(id);
         if (f != null) {
             return f;
@@ -126,8 +119,7 @@ public class OBODoc {
      *        the id
      * @return the typedef frame
      */
-    @Nullable
-    public Frame getTypedefFrame(String id) {
+    public @Nullable Frame getTypedefFrame(String id) {
         return getTypedefFrame(id, false);
     }
 
@@ -138,8 +130,7 @@ public class OBODoc {
      *        the follow imports
      * @return the typedef frame
      */
-    @Nullable
-    public Frame getTypedefFrame(String id, boolean followImports) {
+    public @Nullable Frame getTypedefFrame(String id, boolean followImports) {
         if (!followImports) {
             return typedefFrameMap.get(id);
         }
@@ -156,8 +147,7 @@ public class OBODoc {
      *        the visited docs
      * @return the frame
      */
-    @Nullable
-    private Frame getTypedefFrame(String id, Set<String> visitedDocs) {
+    private @Nullable Frame getTypedefFrame(String id, Set<String> visitedDocs) {
         Frame f = typedefFrameMap.get(id);
         if (f != null) {
             return f;
@@ -288,8 +278,7 @@ public class OBODoc {
      *        prefix
      * @return IRI prefix as string
      */
-    @Nullable
-    public static String getIDSpace(String prefix) {
+    public static @Nullable String getIDSpace(String prefix) {
         // built-in
         if (prefix.equals("RO")) {
             return "http://purl.obolibrary.org/obo/RO_";

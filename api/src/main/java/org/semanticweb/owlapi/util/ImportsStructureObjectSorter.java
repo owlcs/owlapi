@@ -42,10 +42,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class ImportsStructureObjectSorter<O> {
 
-    @Nonnull
-    private final OWLOntology ontology;
-    @Nonnull
-    private final ObjectSelector<O> objectSelector;
+    private final @Nonnull OWLOntology ontology;
+    private final @Nonnull ObjectSelector<O> objectSelector;
 
     /**
      * Creates a sorter for the specified ontology, whose imports closure is

@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 public class BuilderAnnotationPropertyRange
         extends BaseAnnotationPropertyBuilder<OWLAnnotationPropertyRangeAxiom, BuilderAnnotationPropertyRange> {
 
-    @Nullable
-    private IRI iri = null;
+    private @Nullable IRI iri = null;
 
     /**
      * @param df

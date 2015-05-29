@@ -33,12 +33,9 @@ import org.semanticweb.owlapi.model.PrefixManager;
  */
 public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuilder<T, B> {
 
-    @Nullable
-    private IRI iri = null;
-    @Nullable
-    protected String string = null;
-    @Nullable
-    protected PrefixManager pm = null;
+    private @Nullable IRI iri = null;
+    protected @Nullable String string = null;
+    protected @Nullable PrefixManager pm = null;
 
     /**
      * @param df

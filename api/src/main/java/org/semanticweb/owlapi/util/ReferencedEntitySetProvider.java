@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEntity> {
 
-    @Nonnull
-    private final Collection<OWLOntology> ontologies;
+    private final @Nonnull Collection<OWLOntology> ontologies;
 
     /**
      * @param ontologies

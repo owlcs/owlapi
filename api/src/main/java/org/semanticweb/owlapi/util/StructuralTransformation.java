@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.*;
 public class StructuralTransformation implements Serializable {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    protected final OWLDataFactory df;
+    protected final @Nonnull OWLDataFactory df;
     private int nameCounter = 0;
     protected final Set<OWLEntity> signature = new HashSet<>();
 

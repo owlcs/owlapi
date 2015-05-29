@@ -23,20 +23,13 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /** Builder class for OWLLiteral. */
 public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
 
-    @Nullable
-    private String lang = null;
-    @Nullable
-    private String literalForm = null;
-    @Nullable
-    private Integer intValue = null;
-    @Nullable
-    private Double doubleValue = null;
-    @Nullable
-    private Float floatValue = null;
-    @Nullable
-    private Boolean booleanValue = null;
-    @Nullable
-    private OWLDatatype datatype;
+    private @Nullable String lang = null;
+    private @Nullable String literalForm = null;
+    private @Nullable Integer intValue = null;
+    private @Nullable Double doubleValue = null;
+    private @Nullable Float floatValue = null;
+    private @Nullable Boolean booleanValue = null;
+    private @Nullable OWLDatatype datatype;
 
     /**
      * Builder initialized from an existing object.

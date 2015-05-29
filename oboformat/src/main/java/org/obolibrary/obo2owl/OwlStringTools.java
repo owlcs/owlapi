@@ -55,8 +55,7 @@ public class OwlStringTools {
      *         OwlStringException
      * @see #translate(String, OWLOntologyManager)
      */
-    @Nullable
-    public static String translate(@Nullable Set<OWLAxiom> axioms, OWLOntologyManager translationManager)
+    public static @Nullable String translate(@Nullable Set<OWLAxiom> axioms, OWLOntologyManager translationManager)
             throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;

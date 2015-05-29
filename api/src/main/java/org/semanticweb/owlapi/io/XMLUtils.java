@@ -231,8 +231,7 @@ public final class XMLUtils {
      *         {@code s} that is an NCName, or {@code null} if the character
      *         sequence {@code s} does not have a suffix that is an NCName.
      */
-    @Nullable
-    public static String getNCNameSuffix(CharSequence s) {
+    public static @Nullable String getNCNameSuffix(CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return null;
         }

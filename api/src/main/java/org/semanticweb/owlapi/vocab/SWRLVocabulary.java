@@ -47,12 +47,9 @@ public enum SWRLVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
     /** ARGUMENT_1. */                   ARGUMENT_1              ("argument1"), 
     /** ARGUMENT_2. */                   ARGUMENT_2              ("argument2");
 //@formatter:on
-    @Nonnull
-    private final String shortName;
-    @Nonnull
-    private final IRI iri;
-    @Nonnull
-    private final String prefixedName;
+    private final @Nonnull String shortName;
+    private final @Nonnull IRI iri;
+    private final @Nonnull String prefixedName;
 
     SWRLVocabulary(String name) {
         shortName = name;

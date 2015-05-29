@@ -65,8 +65,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class RioUtils {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(RioUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RioUtils.class);
 
     private RioUtils() {}
 
@@ -77,8 +76,7 @@ public final class RioUtils {
      *        The OWLAPI {@link RDFTriple} to convert.
      * @return An OpenRDF {@link Statement} representing the given RDFTriple.
      */
-    @Nullable
-    public static Statement tripleAsStatement(final RDFTriple triple) {
+    public static @Nullable Statement tripleAsStatement(final RDFTriple triple) {
         return tripleAsStatements(triple).stream().findFirst().orElse(null);
     }
 
@@ -92,8 +90,7 @@ public final class RioUtils {
      * @return A collection of OpenRDF {@link Statement}s representing the given
      *         RDFTriple in each of the given contexts.
      */
-    public static Collection<Statement> tripleAsStatements(
-        final RDFTriple triple, final Resource... contexts) {
+    public static Collection<Statement> tripleAsStatements(final RDFTriple triple, final Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactoryImpl vf = ValueFactoryImpl.getInstance();
         Resource subject;
@@ -133,11 +130,9 @@ public final class RioUtils {
             object = node(triple.getObject(), vf);
         }
         if (contexts == null || contexts.length == 0) {
-            return Collections
-                .singletonList(vf.createStatement(subject, predicate, object));
+            return Collections.singletonList(vf.createStatement(subject, predicate, object));
         } else {
-            return asList(Stream.of(contexts)
-                .map((x) -> vf.createStatement(subject, predicate, object, x)));
+            return asList(Stream.of(contexts).map((x) -> vf.createStatement(subject, predicate, object, x)));
         }
     }
 
@@ -148,21 +143,19 @@ public final class RioUtils {
      *        literal
      * @return value
      */
-    protected static Value literal(final ValueFactoryImpl vf,
-        final RDFLiteral literalObject) {
+    protected static Value literal(final ValueFactoryImpl vf, final RDFLiteral literalObject) {
         Value object;
         // TODO: When updating to Sesame-2.8 the following may need to be
         // rewritten
         if (literalObject.isPlainLiteral()) {
             if (literalObject.hasLang()) {
-                object = vf.createLiteral(literalObject.getLexicalValue(),
-                    literalObject.getLang());
+                object = vf.createLiteral(literalObject.getLexicalValue(), literalObject.getLang());
             } else {
                 object = vf.createLiteral(literalObject.getLexicalValue());
             }
         } else {
             object = vf.createLiteral(literalObject.getLexicalValue(),
-                vf.createURI(literalObject.getDatatype().toString()));
+                    vf.createURI(literalObject.getDatatype().toString()));
         }
         return object;
     }

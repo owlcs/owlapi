@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class DisjointClassesRoundTripTestCase extends TestBase {
 
-    @Nonnull
-    private static final String NS = "http://ns.owl";
+    private static final @Nonnull String NS = "http://ns.owl";
 
     @Test
     public void shouldParse() throws OWLOntologyCreationException {

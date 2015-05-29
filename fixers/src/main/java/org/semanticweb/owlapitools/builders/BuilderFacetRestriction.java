@@ -25,10 +25,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 /** Builder class for OWLFacetRestriction. */
 public class BuilderFacetRestriction extends BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
 
-    @Nullable
-    private OWLLiteral literal = null;
-    @Nullable
-    private OWLFacet facet = null;
+    private @Nullable OWLLiteral literal = null;
+    private @Nullable OWLFacet facet = null;
 
     /**
      * Builder initialized from an existing object.

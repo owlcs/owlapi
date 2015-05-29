@@ -25,12 +25,9 @@ import org.slf4j.LoggerFactory;
 /** Satisfiability converter. */
 public class SatisfiabilityConverter {
 
-    protected static final Logger LOGGER = LoggerFactory
-            .getLogger(SatisfiabilityConverter.class);
-    @Nonnull
-    private final AxiomConverter converter;
-    @Nonnull
-    protected final OWLDataFactory factory;
+    protected static final Logger LOGGER = LoggerFactory.getLogger(SatisfiabilityConverter.class);
+    private final @Nonnull AxiomConverter converter;
+    protected final @Nonnull OWLDataFactory factory;
 
     /**
      * Instantiates a new satisfiability converter.
@@ -50,8 +47,7 @@ public class SatisfiabilityConverter {
      *        axiom to convert
      * @return converted class expression
      */
-    @Nonnull
-    public OWLClassExpression convert(@Nonnull OWLAxiom axiom) {
+    public @Nonnull OWLClassExpression convert(@Nonnull OWLAxiom axiom) {
         return checkNotNull(axiom, "axiom cannot be null").accept(converter);
     }
 }

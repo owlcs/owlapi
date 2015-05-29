@@ -29,10 +29,8 @@ import org.semanticweb.owlapi.model.*;
 public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLAnnotationProperty property;
-    @Nonnull
-    protected final IRI range;
+    private final @Nonnull OWLAnnotationProperty property;
+    protected final @Nonnull IRI range;
 
     /**
      * @param property

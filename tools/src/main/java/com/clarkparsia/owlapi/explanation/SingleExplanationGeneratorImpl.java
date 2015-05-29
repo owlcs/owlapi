@@ -25,20 +25,14 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 
 /** The Class SingleExplanationGeneratorImpl. */
-public abstract class SingleExplanationGeneratorImpl implements
-        TransactionAwareSingleExpGen {
+public abstract class SingleExplanationGeneratorImpl implements TransactionAwareSingleExpGen {
 
     private boolean inTransaction;
-    @Nonnull
-    private final OWLOntologyManager owlOntologyManager;
-    @Nonnull
-    private final OWLOntology ontology;
-    @Nonnull
-    private final OWLReasoner reasoner;
-    @Nonnull
-    private final OWLReasonerFactory reasonerFactory;
-    @Nonnull
-    private final DefinitionTracker definitionTracker;
+    private final @Nonnull OWLOntologyManager owlOntologyManager;
+    private final @Nonnull OWLOntology ontology;
+    private final @Nonnull OWLReasoner reasoner;
+    private final @Nonnull OWLReasonerFactory reasonerFactory;
+    private final @Nonnull DefinitionTracker definitionTracker;
 
     /**
      * Instantiates a new single explanation generator impl.
@@ -50,12 +44,10 @@ public abstract class SingleExplanationGeneratorImpl implements
      * @param reasoner
      *        the reasoner
      */
-    public SingleExplanationGeneratorImpl(@Nonnull OWLOntology ontology,
-            @Nonnull OWLReasonerFactory reasonerFactory,
+    public SingleExplanationGeneratorImpl(@Nonnull OWLOntology ontology, @Nonnull OWLReasonerFactory reasonerFactory,
             @Nonnull OWLReasoner reasoner) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        this.reasonerFactory = checkNotNull(reasonerFactory,
-                "reasonerFactory cannot be null");
+        this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
         this.reasoner = checkNotNull(reasoner, "reasoner cannot be null");
         owlOntologyManager = ontology.getOWLOntologyManager();
         definitionTracker = new DefinitionTracker(ontology);
@@ -71,9 +63,10 @@ public abstract class SingleExplanationGeneratorImpl implements
         return reasoner;
     }
 
-    /** @return the definition tracker */
-    @Nonnull
-    public DefinitionTracker getDefinitionTracker() {
+    /**
+     * @return the definition tracker
+     */
+    public @Nonnull DefinitionTracker getDefinitionTracker() {
         return definitionTracker;
     }
 
@@ -87,7 +80,9 @@ public abstract class SingleExplanationGeneratorImpl implements
         return reasonerFactory;
     }
 
-    /** @return true, if is first explanation */
+    /**
+     * @return true, if is first explanation
+     */
     protected boolean isFirstExplanation() {
         return !inTransaction;
     }

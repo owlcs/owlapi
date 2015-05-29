@@ -43,12 +43,9 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    protected OWLOntologyManager manager;
-    @Nonnull
-    protected OWLDataFactory df;
-    @Nonnull
-    protected OWLOntologyID ontologyID;
+    protected @Nonnull OWLOntologyManager manager;
+    protected @Nonnull OWLDataFactory df;
+    protected @Nonnull OWLOntologyID ontologyID;
 
     @Override
     protected int index() {

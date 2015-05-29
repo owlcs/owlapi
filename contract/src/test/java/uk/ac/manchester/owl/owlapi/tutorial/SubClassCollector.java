@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class SubClassCollector implements OWLAxiomVisitor {
 
     /* Collected axioms */
-    @Nonnull
-    private final Set<OWLSubClassOfAxiom> axioms;
+    private final @Nonnull Set<OWLSubClassOfAxiom> axioms;
     /* Class to look for */
     private final OWLClass clazz;
 

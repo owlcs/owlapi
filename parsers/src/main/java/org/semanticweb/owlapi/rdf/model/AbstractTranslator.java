@@ -53,11 +53,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final OWLOntologyManager manager;
     private final OWLOntology ont;
     private final boolean useStrongTyping;
-    @Nonnull
-    private final Set<OWLIndividual> currentIndividuals = createSet();
+    private final @Nonnull Set<OWLIndividual> currentIndividuals = createSet();
     /** Maps Objects to nodes. */
-    @Nonnull
-    private final Map<OWLObject, N> nodeMap = new IdentityHashMap<>();
+    private final @Nonnull Map<OWLObject, N> nodeMap = new IdentityHashMap<>();
 
     /**
      * @param manager

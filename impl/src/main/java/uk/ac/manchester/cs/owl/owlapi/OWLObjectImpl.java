@@ -46,8 +46,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
-    @Nonnull
-    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
+    protected static final @Nonnull Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     protected int hashCode = 0;
     protected static CacheLoader<OWLObjectImpl, Set<OWLEntity>> builder = new CacheLoader<OWLObjectImpl, Set<OWLEntity>>() {

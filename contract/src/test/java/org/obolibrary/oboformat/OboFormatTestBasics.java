@@ -147,8 +147,7 @@ public class OboFormatTestBasics extends TestBase {
         return new OBOFormatParser().parse(new StringReader(oboString));
     }
 
-    @Nullable
-    protected IRI getIriByLabel(OWLOntology ontology, String label) {
+    protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
         for (OWLAnnotationAssertionAxiom aa : ontology.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
             OWLAnnotationValue v = aa.getValue();
             OWLAnnotationProperty property = aa.getProperty();

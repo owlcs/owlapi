@@ -5,9 +5,8 @@ import javax.annotation.Nonnull;
 /** Xref. */
 public class Xref {
 
-    @Nonnull
-    String idref;
-    String annotation;
+    protected @Nonnull String idref;
+    protected String annotation;
 
     /**
      * @param idref

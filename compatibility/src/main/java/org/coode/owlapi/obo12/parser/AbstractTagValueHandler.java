@@ -127,10 +127,8 @@ interface TagValueHandler {
 
 abstract class AbstractTagValueHandler implements TagValueHandler {
 
-    @Nonnull
-    private final String tag;
-    @Nonnull
-    private OBOConsumer consumer;
+    private final @Nonnull String tag;
+    private @Nonnull OBOConsumer consumer;
 
     public AbstractTagValueHandler(String tag, OBOConsumer consumer) {
         this.tag = tag;
@@ -731,8 +729,7 @@ class SymmetricTagValueHandler extends AbstractTagValueHandler {
 
 class SynonymTagValueHandler extends AbstractTagValueHandler {
 
-    @Nonnull
-    private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
+    private static final @Nonnull String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
     private static final Pattern VALUEPATTERN = Pattern
             .compile("\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
@@ -740,8 +737,7 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     private static final int SCOPE_GROUP = 2;
     private static final int SYNONYM_TYPE_GROUP = 3;
     private static final int XREF_GROUP = 4;
-    @Nonnull
-    public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
+    public static final @Nonnull IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
     public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
 
     public SynonymTagValueHandler(OBOConsumer consumer) {

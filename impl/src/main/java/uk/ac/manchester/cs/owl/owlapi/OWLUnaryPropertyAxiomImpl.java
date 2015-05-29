@@ -34,8 +34,7 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
         implements OWLUnaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final P property;
+    private final @Nonnull P property;
 
     /**
      * @param property

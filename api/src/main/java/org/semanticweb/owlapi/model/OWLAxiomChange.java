@@ -26,8 +26,7 @@ import javax.annotation.Nonnull;
 public abstract class OWLAxiomChange extends OWLOntologyChange {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final OWLAxiom axiom;
+    private final @Nonnull OWLAxiom axiom;
 
     /**
      * @param ont

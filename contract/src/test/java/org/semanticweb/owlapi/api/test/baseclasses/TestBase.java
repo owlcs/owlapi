@@ -64,10 +64,8 @@ public abstract class TestBase {
     }
 
     protected static final Logger logger = LoggerFactory.getLogger(TestBase.class);
-    @Nonnull
-    protected final File RESOURCES = resources();
-    @Nonnull
-    protected final OWLOntologyBuilder builder = (om, id) -> new OWLOntologyImpl(om, id);
+    protected final @Nonnull File RESOURCES = resources();
+    protected final @Nonnull OWLOntologyBuilder builder = (om, id) -> new OWLOntologyImpl(om, id);
 
     protected <T> T get(Optional<T> t) {
         return t.get();
@@ -109,16 +107,11 @@ public abstract class TestBase {
     @Nonnull
     @Rule
     public Timeout timeout = new Timeout(1000000, TimeUnit.MILLISECONDS);
-    @Nonnull
-    protected final OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
-    @Nonnull
-    protected static OWLDataFactory df;
-    @Nonnull
-    protected static OWLOntologyManager masterManager;
-    @Nonnull
-    protected OWLOntologyManager m;
-    @Nonnull
-    protected OWLOntologyManager m1;
+    protected final @Nonnull OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
+    protected static @Nonnull OWLDataFactory df;
+    protected static @Nonnull OWLOntologyManager masterManager;
+    protected @Nonnull OWLOntologyManager m;
+    protected @Nonnull OWLOntologyManager m1;
 
     @BeforeClass
     public static void setupManagers() {
@@ -373,8 +366,7 @@ public abstract class TestBase {
         return false;
     }
 
-    @Nonnull
-    protected static final String uriBase = "http://www.semanticweb.org/owlapi/test";
+    protected static final @Nonnull String uriBase = "http://www.semanticweb.org/owlapi/test";
 
     public OWLOntology getOWLOntology() {
         try {

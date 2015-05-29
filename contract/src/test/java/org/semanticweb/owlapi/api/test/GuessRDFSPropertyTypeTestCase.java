@@ -39,14 +39,10 @@ import org.semanticweb.owlapi.search.Searcher;
 @SuppressWarnings({ "javadoc", "null" })
 public class GuessRDFSPropertyTypeTestCase {
 
-    @Nonnull
-    private static final String CIDOC_FILE = "/cidoc_crm_v5.0.4_official_release.rdfs.xml";
-    @Nonnull
-    private static final String CIDOC_PREFIX = "http://www.cidoc-crm.org/cidoc-crm/";
-    @Nonnull
-    private OWLOntology cidocOntology;
-    @Nonnull
-    private PrefixDocumentFormat prefixOWLOntologyFormat;
+    private static final @Nonnull String CIDOC_FILE = "/cidoc_crm_v5.0.4_official_release.rdfs.xml";
+    private static final @Nonnull String CIDOC_PREFIX = "http://www.cidoc-crm.org/cidoc-crm/";
+    private @Nonnull OWLOntology cidocOntology;
+    private @Nonnull PrefixDocumentFormat prefixOWLOntologyFormat;
 
     @Before
     public void setUp() throws OWLOntologyCreationException {

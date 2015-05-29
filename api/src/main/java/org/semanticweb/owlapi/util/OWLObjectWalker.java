@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,17 +34,14 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     protected OWLOntology ontology;
     private final Collection<O> objects;
-    @Nullable
-    protected OWLObjectVisitor visitor;
-    @Nullable
-    private OWLObjectVisitorEx<?> visitorEx;
+    protected @Nullable OWLObjectVisitor visitor;
+    private @Nullable OWLObjectVisitorEx<?> visitorEx;
     protected final boolean visitDuplicates;
     protected OWLAxiom ax;
     protected OWLAnnotation annotation;
     private final List<OWLClassExpression> classExpressionPath = new ArrayList<>();
     private final List<OWLDataRange> dataRangePath = new ArrayList<>();
-    @Nonnull
-    private StructureWalker<O> walker = new StructureWalker<>(this);
+    private @Nonnull StructureWalker<O> walker = new StructureWalker<>(this);
 
     /**
      * @param objects
@@ -54,7 +51,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         this(objects, true);
     }
 
-    protected Object passToVisitor(OWLObject o) {
+    protected @Nullable Object passToVisitor(OWLObject o) {
         if (visitor != null) {
             o.accept(visitor);
             return null;
@@ -114,8 +111,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @return The last ontology to be visited
      */
-    @Nullable
-    public OWLOntology getOntology() {
+    public @Nullable OWLOntology getOntology() {
         return ontology;
     }
 
@@ -126,7 +122,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      *         be visited
      */
     public OWLAxiom getAxiom() {
-        return ax;
+        return verifyNotNull(ax, "No current axiom; is the walker being used outside of an ontology visit?");
     }
 
     /**

@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.*;
 public final class LatexBracketChecker implements OWLClassExpressionVisitor {
 
     private boolean requiresBracket;
-    @Nonnull
-    private static final LatexBracketChecker INSTANCE = new LatexBracketChecker();
+    private static final @Nonnull LatexBracketChecker INSTANCE = new LatexBracketChecker();
 
     private LatexBracketChecker() {}
 

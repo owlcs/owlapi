@@ -40,31 +40,20 @@ import gnu.trove.strategy.IdentityHashingStrategy;
  */
 public abstract class RDFRendererBase {
 
-    @Nonnull
-    private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
-    @Nonnull
-    private static final String DATATYPES_BANNER_TEXT = "Datatypes";
-    @Nonnull
-    private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
-    @Nonnull
-    private static final String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
-    @Nonnull
-    private static final String CLASSES_BANNER_TEXT = "Classes";
-    @Nonnull
-    private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
-    @Nonnull
-    private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
+    private static final @Nonnull String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
+    private static final @Nonnull String DATATYPES_BANNER_TEXT = "Datatypes";
+    private static final @Nonnull String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
+    private static final @Nonnull String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
+    private static final @Nonnull String CLASSES_BANNER_TEXT = "Classes";
+    private static final @Nonnull String INDIVIDUALS_BANNER_TEXT = "Individuals";
+    private static final @Nonnull String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
     /** General axioms. */
-    @Nonnull
-    private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
+    private static final @Nonnull String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
     /** Rules banner. */
-    @Nonnull
-    private static final String RULES_BANNER_TEXT = "Rules";
-    @Nonnull
-    protected final OWLOntology ontology;
+    private static final @Nonnull String RULES_BANNER_TEXT = "Rules";
+    protected final @Nonnull OWLOntology ontology;
     protected RDFGraph graph;
-    @Nonnull
-    protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
+    protected final @Nonnull Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
 

@@ -36,10 +36,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @ParametersAreNonnullByDefault
 public class OWLDataFactoryTestCase {
 
-    @Nonnull
-    private final AtomicInteger counter = new AtomicInteger(1);
-    @Nonnull
-    private final OWLDataFactory testSubject = new OWLDataFactoryImpl();
+    private final @Nonnull AtomicInteger counter = new AtomicInteger(1);
+    private final @Nonnull OWLDataFactory testSubject = new OWLDataFactoryImpl();
 
     private static IRI IRI() {
         return IRI.getNextDocumentIRI("urn:test#A");

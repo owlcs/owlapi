@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 /** Builder class for OWLSubPropertyChainOfAxiom. */
 public class BuilderPropertyChain extends BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
 
-    @Nonnull
-    private final List<OWLObjectPropertyExpression> chain = new ArrayList<>();
+    private final @Nonnull List<OWLObjectPropertyExpression> chain = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.

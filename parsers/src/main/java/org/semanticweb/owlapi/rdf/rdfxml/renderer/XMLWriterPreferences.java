@@ -23,8 +23,7 @@ import javax.annotation.Nonnull;
  */
 public final class XMLWriterPreferences {
 
-    @Nonnull
-    private static final XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
+    private static final @Nonnull XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
     private boolean useNamespaceEntities;
     private boolean indenting;
     private int indentSize;

@@ -34,10 +34,8 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings("javadoc")
 public class ClosureAxioms {
 
-    @Nonnull
-    private final OWLOntologyManager manager;
-    @Nonnull
-    private final OWLOntology ontology;
+    private final @Nonnull OWLOntologyManager manager;
+    private final @Nonnull OWLOntology ontology;
     private final OWLDataFactory factory;
 
     public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology) {

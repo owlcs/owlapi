@@ -40,18 +40,12 @@ import org.semanticweb.owlapi.model.*;
  */
 public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
-    @Nonnull
-    private final OWLOntologySetProvider ontologySetProvider;
-    @Nonnull
-    private final ShortFormProvider alternateShortFormProvider;
-    @Nonnull
-    private final IRIShortFormProvider alternateIRIShortFormProvider;
-    @Nonnull
-    private final List<OWLAnnotationProperty> annotationProperties;
-    @Nonnull
-    private final Map<OWLAnnotationProperty, List<String>> preferredLanguageMap;
-    @Nonnull
-    private StringAnnotationVisitor literalRenderer = new StringAnnotationVisitor();
+    private final @Nonnull OWLOntologySetProvider ontologySetProvider;
+    private final @Nonnull ShortFormProvider alternateShortFormProvider;
+    private final @Nonnull IRIShortFormProvider alternateIRIShortFormProvider;
+    private final @Nonnull List<OWLAnnotationProperty> annotationProperties;
+    private final @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap;
+    private @Nonnull StringAnnotationVisitor literalRenderer = new StringAnnotationVisitor();
 
     /**
      * Constructs an annotation value short form provider. Using
@@ -198,8 +192,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
         private final OWLAnnotationProperty prop;
         private final List<String> preferredLanguages;
-        @Nullable
-        OWLObject candidateValue = null;
+        protected @Nullable OWLObject candidateValue = null;
         int lastLangMatchIndex = Integer.MAX_VALUE;
 
         AnnotationLanguageFilter(OWLAnnotationProperty prop, List<String> preferredLanguages) {
@@ -207,8 +200,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             this.preferredLanguages = preferredLanguages;
         }
 
-        @Nullable
-        public OWLObject getMatch() {
+        public @Nullable OWLObject getMatch() {
             return candidateValue;
         }
 

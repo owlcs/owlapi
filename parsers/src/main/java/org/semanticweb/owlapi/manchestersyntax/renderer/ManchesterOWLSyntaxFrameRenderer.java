@@ -46,8 +46,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     static class SectionMap<O, V extends OWLAxiom> {
 
-        @Nonnull
-        private final Map<O, Set<V>> object2Axioms = new LinkedHashMap<>();
+        private final @Nonnull Map<O, Set<V>> object2Axioms = new LinkedHashMap<>();
 
         /**
          * @return true if empty
@@ -107,19 +106,16 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     /** The short form provider. */
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
     /** The filtered axiom types. */
-    @Nonnull
-    private final Set<AxiomType<?>> filteredAxiomTypes = Sets.newHashSet(AxiomType.SWRL_RULE);
+    private final @Nonnull Set<AxiomType<?>> filteredAxiomTypes = Sets.newHashSet(AxiomType.SWRL_RULE);
     /** The render extensions. */
     private boolean renderExtensions = false;
     /** The listeners. */
-    @Nonnull
-    private final List<RendererListener> listeners = new ArrayList<>();
+    private final @Nonnull List<RendererListener> listeners = new ArrayList<>();
     /** The axiom filter. */
     private OWLAxiomFilter axiomFilter = axiom -> true;
     /** The rendering director. */
     private RenderingDirector renderingDirector = new DefaultRenderingDirector();
-    @Nonnull
-    private final OWLObjectComparator owlObjectComparator;
+    private final @Nonnull OWLObjectComparator owlObjectComparator;
 
     /**
      * Instantiates a new manchester owl syntax frame renderer.

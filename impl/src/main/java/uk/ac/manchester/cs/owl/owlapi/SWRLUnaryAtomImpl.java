@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final A arg;
+    private final @Nonnull A arg;
 
     /**
      * @param predicate

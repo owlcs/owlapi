@@ -24,12 +24,9 @@ import javax.annotation.Nonnull;
 public class SimpleConfiguration implements OWLReasonerConfiguration {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
-    @Nonnull
-    private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
-    @Nonnull
-    private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
+    private @Nonnull ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
+    private @Nonnull FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
+    private @Nonnull IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
     private long timeOut = Long.MAX_VALUE;
 
     /** Default constructor. */

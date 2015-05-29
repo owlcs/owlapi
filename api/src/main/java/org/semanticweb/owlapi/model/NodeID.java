@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
@@ -125,8 +125,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
         return new NodeID(nonBlankId);
     }
 
-    @Nonnull
-    private final String id;
+    private final @Nonnull String id;
 
     private NodeID(String id) {
         if (id.startsWith(PREFIX)) {
@@ -143,7 +142,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
 
     @Override
     public int compareTo(@Nullable NodeID o) {
-        return id.compareTo(verifyNotNull(o).toString());
+        return id.compareTo(checkNotNull(o).id);
     }
 
     @Override

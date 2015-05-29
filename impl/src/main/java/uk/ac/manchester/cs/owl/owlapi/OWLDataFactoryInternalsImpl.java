@@ -60,18 +60,12 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         }
     }
 
-    @Nonnull
-    private final BuildableWeakIndexCache<OWLClass> classesByURI;
-    @Nonnull
-    private final BuildableWeakIndexCache<OWLObjectProperty> objectPropertiesByURI;
-    @Nonnull
-    private final BuildableWeakIndexCache<OWLDataProperty> dataPropertiesByURI;
-    @Nonnull
-    private final BuildableWeakIndexCache<OWLDatatype> datatypesByURI;
-    @Nonnull
-    private final BuildableWeakIndexCache<OWLNamedIndividual> individualsByURI;
-    @Nonnull
-    private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
+    private final @Nonnull BuildableWeakIndexCache<OWLClass> classesByURI;
+    private final @Nonnull BuildableWeakIndexCache<OWLObjectProperty> objectPropertiesByURI;
+    private final @Nonnull BuildableWeakIndexCache<OWLDataProperty> dataPropertiesByURI;
+    private final @Nonnull BuildableWeakIndexCache<OWLDatatype> datatypesByURI;
+    private final @Nonnull BuildableWeakIndexCache<OWLNamedIndividual> individualsByURI;
+    private final @Nonnull BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
 
     protected final <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
         return new BuildableWeakIndexCache<>();

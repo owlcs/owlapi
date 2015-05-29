@@ -38,8 +38,7 @@ import org.slf4j.LoggerFactory;
 public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileDocumentSource.class);
-    @Nonnull
-    private final File file;
+    private final @Nonnull File file;
 
     /**
      * Constructs an ontology input source using the specified file.

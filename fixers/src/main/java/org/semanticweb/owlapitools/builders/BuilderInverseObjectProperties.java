@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class BuilderInverseObjectProperties
         extends BaseObjectPropertyBuilder<OWLInverseObjectPropertiesAxiom, BuilderInverseObjectProperties> {
 
-    @Nullable
-    private OWLObjectPropertyExpression inverseProperty = null;
+    private @Nullable OWLObjectPropertyExpression inverseProperty = null;
 
     /**
      * Builder initialized from an existing object.

@@ -42,8 +42,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
-    @Nonnull
-    private DefaultPrefixManager defaultPrefixManager;
+    private @Nonnull DefaultPrefixManager defaultPrefixManager;
     private PrefixManager prefixManager;
     protected final OWLOntology ont;
     private final Writer writer;

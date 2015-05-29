@@ -48,8 +48,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 public abstract class AbstractRioParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final RioRDFDocumentFormatFactory rioFormat;
+    private final @Nonnull RioRDFDocumentFormatFactory rioFormat;
 
     protected AbstractRioParserFactory(RioRDFDocumentFormatFactory rioFormat) {
         super(rioFormat);

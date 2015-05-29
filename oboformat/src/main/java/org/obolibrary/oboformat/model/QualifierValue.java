@@ -5,10 +5,8 @@ import javax.annotation.Nonnull;
 /** Qualifier value. */
 public class QualifierValue implements Comparable<QualifierValue> {
 
-    @Nonnull
-    protected String qualifier;
-    @Nonnull
-    protected String value;
+    protected @Nonnull String qualifier;
+    protected @Nonnull String value;
 
     /**
      * @param q

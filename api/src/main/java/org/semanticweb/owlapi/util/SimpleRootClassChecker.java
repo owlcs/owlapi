@@ -45,8 +45,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class SimpleRootClassChecker implements RootClassChecker {
 
-    @Nonnull
-    private final Set<OWLOntology> ontologies;
+    private final @Nonnull Set<OWLOntology> ontologies;
 
     /**
      * Creates a root class checker, which examines axioms contained in
@@ -74,10 +73,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
     // at least one operand in the equivalent class axiom which is an
     // intersection containing a named operand i.e.
     // EquivalentClasses(A (B and hasP some C)) would not be a subclass of Thing
-    @Nonnull
-    private final RootClassCheckerHelper checker = new RootClassCheckerHelper();
-    @Nonnull
-    private final NamedSuperChecker superChecker = new NamedSuperChecker();
+    private final @Nonnull RootClassCheckerHelper checker = new RootClassCheckerHelper();
+    private final @Nonnull NamedSuperChecker superChecker = new NamedSuperChecker();
 
     @Override
     public boolean isRootClass(OWLClass cls) {

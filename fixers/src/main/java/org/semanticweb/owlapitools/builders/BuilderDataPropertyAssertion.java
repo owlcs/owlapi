@@ -26,10 +26,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class BuilderDataPropertyAssertion
         extends BaseDataPropertyBuilder<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
 
-    @Nullable
-    private OWLIndividual subject = null;
-    @Nullable
-    private OWLLiteral object = null;
+    private @Nullable OWLIndividual subject = null;
+    private @Nullable OWLLiteral object = null;
 
     /**
      * @param df

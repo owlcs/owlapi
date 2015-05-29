@@ -56,14 +56,10 @@ public enum OWLFacet implements HasShortForm,HasIRI,HasPrefixedName {
         return Stream.of(values());
     }
 
-    @Nonnull
-    private final IRI iri;
-    @Nonnull
-    private final String shortForm;
-    @Nonnull
-    private final String symbolicForm;
-    @Nonnull
-    private final String prefixedName;
+    private final @Nonnull IRI iri;
+    private final @Nonnull String shortForm;
+    private final @Nonnull String symbolicForm;
+    private final @Nonnull String prefixedName;
 
     OWLFacet(Namespaces ns, String shortForm, String symbolicForm) {
         iri = IRI.create(ns.toString(), shortForm);
@@ -120,8 +116,7 @@ public enum OWLFacet implements HasShortForm,HasIRI,HasPrefixedName {
      * @return The facet or {@code null} if not facet by the specified name
      *         exists.
      */
-    @Nullable
-    public static OWLFacet getFacetByShortName(String shortName) {
+    public static @Nullable OWLFacet getFacetByShortName(String shortName) {
         checkNotNull(shortName);
         return stream().filter(v -> v.getShortForm().equals(shortName)).findAny().orElse(null);
     }

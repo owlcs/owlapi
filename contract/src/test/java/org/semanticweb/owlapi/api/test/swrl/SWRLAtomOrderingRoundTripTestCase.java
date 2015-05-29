@@ -32,12 +32,9 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 @SuppressWarnings({ "javadoc", "null" })
 public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
 
-    @Nonnull
-    private final Set<SWRLAtom> body = new LinkedHashSet<>();
-    @Nonnull
-    private final Set<SWRLAtom> head = new LinkedHashSet<>();
-    @Nonnull
-    private SWRLRule rule;
+    private final @Nonnull Set<SWRLAtom> body = new LinkedHashSet<>();
+    private final @Nonnull Set<SWRLAtom> head = new LinkedHashSet<>();
+    private @Nonnull SWRLRule rule;
 
     @Before
     public void setUpPrefixes() {

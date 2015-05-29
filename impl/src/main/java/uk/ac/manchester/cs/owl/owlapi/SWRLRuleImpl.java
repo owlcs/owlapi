@@ -141,8 +141,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return diff;
     }
 
-    @Nonnull
-    protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
+    protected static final @Nonnull AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
 

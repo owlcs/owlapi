@@ -37,8 +37,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Se
         return OWLObjectTypeIndexProvider.OWL_CLASS;
     }
 
-    @Nonnull
-    private final IRI iri;
+    private final @Nonnull IRI iri;
     private final boolean isThing;
     private final boolean isNothing;
 

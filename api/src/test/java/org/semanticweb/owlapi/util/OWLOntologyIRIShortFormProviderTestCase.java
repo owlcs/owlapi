@@ -19,8 +19,7 @@ import org.semanticweb.owlapi.model.IRI;
 @SuppressWarnings("javadoc")
 public class OWLOntologyIRIShortFormProviderTestCase {
 
-    @Nonnull
-    public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
+    public static final @Nonnull String SCHEME_DOMAIN = "http://www.semanticweb.org";
     private OntologyIRIShortFormProvider sfp;
 
     @Before

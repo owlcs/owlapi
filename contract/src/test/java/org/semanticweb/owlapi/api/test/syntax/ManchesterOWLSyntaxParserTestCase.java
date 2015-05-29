@@ -185,12 +185,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         assertTrue(axioms.contains(SubClassOf(man, person)));
     }
 
-    @Nonnull
-    public static final String NS = "http://protege.org/ontologies/Test.owl";
-    @Nonnull
-    OWLDataProperty p;
-    @Nonnull
-    OWLDatatype dateTime;
+    public static final @Nonnull String NS = "http://protege.org/ontologies/Test.owl";
+    protected @Nonnull OWLDataProperty p;
+    protected @Nonnull OWLDatatype dateTime;
 
     @Before
     public void setUpPAndDateTime() {

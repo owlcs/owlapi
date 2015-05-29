@@ -52,15 +52,11 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 public class OWLXMLWriter {
 
-    @Nonnull
-    private static final String LANG_IRI = "xml:lang";
-    @Nonnull
-    private static final IRI VERSION_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "versionIRI");
-    @Nonnull
-    private static final IRI ONTOLOGY_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
+    private static final @Nonnull String LANG_IRI = "xml:lang";
+    private static final @Nonnull IRI VERSION_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "versionIRI");
+    private static final @Nonnull IRI ONTOLOGY_IRI = IRI.create(Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
     private final XMLWriter writer;
-    @Nonnull
-    private final Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
+    private final @Nonnull Map<String, String> iriPrefixMap = new TreeMap<>(new StringLengthComparator());
 
     /**
      * @param writer

@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.model.*;
 @SuppressWarnings({ "javadoc", "null" })
 public class InvalidAxiomRoundTripTestCase extends TestBase {
 
-    @Nonnull
-    private OWLOntology o;
+    private @Nonnull OWLOntology o;
 
     @Before
     public void setUpO() {

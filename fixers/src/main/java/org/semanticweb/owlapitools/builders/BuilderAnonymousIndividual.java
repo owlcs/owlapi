@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 /** Builder class for OWLAnonymousIndividual. */
 public class BuilderAnonymousIndividual extends BaseBuilder<OWLAnonymousIndividual, BuilderAnonymousIndividual> {
 
-    @Nullable
-    private String id = null;
+    private @Nullable String id = null;
 
     /**
      * @param df

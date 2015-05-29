@@ -63,21 +63,18 @@ public class ManchesterParseErrorTestCase extends TestBase {
             this.factory = factory;
         }
 
-        @Nullable
         @Override
-        public OWLClass getOWLClass(String name) {
+        public @Nullable OWLClass getOWLClass(String name) {
             return null;
         }
 
-        @Nullable
         @Override
-        public OWLObjectProperty getOWLObjectProperty(String name) {
+        public @Nullable OWLObjectProperty getOWLObjectProperty(String name) {
             return null;
         }
 
-        @Nullable
         @Override
-        public OWLDataProperty getOWLDataProperty(@Nullable String name) {
+        public @Nullable OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if ("p".equals(name)) {
                 return factory.getOWLDataProperty("http://protege.org/Test.owl#p");
             } else {
@@ -85,21 +82,18 @@ public class ManchesterParseErrorTestCase extends TestBase {
             }
         }
 
-        @Nullable
         @Override
-        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        public @Nullable OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             return null;
         }
 
-        @Nullable
         @Override
-        public OWLNamedIndividual getOWLIndividual(String name) {
+        public @Nullable OWLNamedIndividual getOWLIndividual(String name) {
             return null;
         }
 
-        @Nullable
         @Override
-        public OWLDatatype getOWLDatatype(@Nullable String name) {
+        public @Nullable OWLDatatype getOWLDatatype(@Nullable String name) {
             if ("rdfs:Literal".equals(name)) {
                 return factory.getTopDatatype();
             } else {

@@ -63,9 +63,8 @@ public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatF
         return key;
     }
 
-    @Nullable
     @Override
-    public String getDefaultMIMEType() {
+    public @Nullable String getDefaultMIMEType() {
         if (mimeTypes.isEmpty()) {
             return null;
         } else {

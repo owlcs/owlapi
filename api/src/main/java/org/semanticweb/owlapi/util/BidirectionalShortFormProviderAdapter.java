@@ -33,12 +33,10 @@ import org.semanticweb.owlapi.model.*;
  */
 public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalShortFormProvider {
 
-    @Nonnull
-    private final ShortFormProvider shortFormProvider;
+    private final @Nonnull ShortFormProvider shortFormProvider;
     protected Collection<OWLOntology> ontologies;
     private OWLOntologyManager man;
-    @Nonnull
-    private final OWLOntologyChangeListener changeListener = changes -> handleChanges(changes);
+    private final @Nonnull OWLOntologyChangeListener changeListener = changes -> handleChanges(changes);
 
     /**
      * @param shortFormProvider

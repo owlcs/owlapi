@@ -43,14 +43,10 @@ public class RDFGraph implements Serializable {
 
     private static final Set<IRI> skippedPredicates = Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
-    @Nonnull
-    private final Set<RDFResourceBlankNode> rootAnonymousNodes = createSet();
-    @Nonnull
-    private final Set<RDFTriple> triples = createSet();
-    @Nonnull
-    private final Map<RDFNode, RDFNode> remappedNodes = createMap();
+    private final @Nonnull Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
+    private final @Nonnull Set<RDFResourceBlankNode> rootAnonymousNodes = createSet();
+    private final @Nonnull Set<RDFTriple> triples = createSet();
+    private final @Nonnull Map<RDFNode, RDFNode> remappedNodes = createMap();
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any

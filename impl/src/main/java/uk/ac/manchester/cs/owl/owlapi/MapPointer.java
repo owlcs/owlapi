@@ -49,13 +49,10 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
     private static final int DEFAULT_INITIAL_CAPACITY = 5;
-    @Nullable
-    private final AxiomType<?> type;
-    @Nullable
-    private final OWLAxiomVisitorEx<?> visitor;
+    private @Nullable final AxiomType<?> type;
+    private @Nullable final OWLAxiomVisitorEx<?> visitor;
     private boolean initialized;
-    @Nonnull
-    protected final Internals i;
+    protected final @Nonnull Internals i;
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
     private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);

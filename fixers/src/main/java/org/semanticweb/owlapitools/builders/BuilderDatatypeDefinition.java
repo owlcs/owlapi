@@ -25,10 +25,8 @@ import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 /** Builder class for OWLDatatypeDefinitionAxiom. */
 public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
 
-    @Nullable
-    private OWLDataRange range = null;
-    @Nullable
-    private OWLDatatype type = null;
+    private @Nullable OWLDataRange range = null;
+    private @Nullable OWLDatatype type = null;
 
     /**
      * Builder initialized from an existing object.

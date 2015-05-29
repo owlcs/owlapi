@@ -37,8 +37,7 @@ import org.semanticweb.owlapi.util.StringComparator;
 public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements PrefixDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private PrefixManager nsm;
+    private @Nonnull PrefixManager nsm;
 
     /** Default constructor. */
     public PrefixDocumentFormatImpl() {
@@ -83,9 +82,8 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements P
         return nsm.containsPrefixMapping(prefixName);
     }
 
-    @Nullable
     @Override
-    public String getDefaultPrefix() {
+    public @Nullable String getDefaultPrefix() {
         return nsm.getDefaultPrefix();
     }
 
@@ -94,9 +92,8 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements P
         return nsm.getPrefixName2PrefixMap();
     }
 
-    @Nullable
     @Override
-    public String getPrefix(String prefixName) {
+    public @Nullable String getPrefix(String prefixName) {
         return nsm.getPrefix(prefixName);
     }
 
@@ -105,9 +102,8 @@ public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements P
         return nsm.getIRI(prefixIRI);
     }
 
-    @Nullable
     @Override
-    public String getPrefixIRI(IRI iri) {
+    public @Nullable String getPrefixIRI(IRI iri) {
         return nsm.getPrefixIRI(iri);
     }
 

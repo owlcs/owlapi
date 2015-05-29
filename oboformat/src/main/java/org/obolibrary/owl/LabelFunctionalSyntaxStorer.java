@@ -44,10 +44,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
     static class LabelPrefixManager implements PrefixManager {
 
         private static final long serialVersionUID = 40000L;
-        @Nonnull
-        private final OWLOntology ontology;
-        @Nonnull
-        private final PrefixManager delegate;
+        private final @Nonnull OWLOntology ontology;
+        private final @Nonnull PrefixManager delegate;
 
         LabelPrefixManager(OWLOntology ontology) {
             this.ontology = ontology;

@@ -20,10 +20,8 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocumentSource {
 
     private final IRI documentIRI;
-    @Nonnull
-    private final Optional<OWLDocumentFormat> format;
-    @Nonnull
-    private final Optional<String> mimeType;
+    private final @Nonnull Optional<OWLDocumentFormat> format;
+    private final @Nonnull Optional<String> mimeType;
     protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
     protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
 

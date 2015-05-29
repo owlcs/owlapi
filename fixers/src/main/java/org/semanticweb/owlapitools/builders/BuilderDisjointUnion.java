@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 public class BuilderDisjointUnion
         extends BaseSetBuilder<OWLDisjointUnionAxiom, BuilderDisjointUnion, OWLClassExpression> {
 
-    @Nullable
-    private OWLClass ce = null;
+    private @Nullable OWLClass ce = null;
 
     /**
      * Builder initialized from an existing object.

@@ -58,8 +58,7 @@ public class OBOFormatParser {
             return line.charAt(pos - 1);
         }
 
-        @Nullable
-        public String rest() {
+        public @Nullable String rest() {
             prepare();
             if (line == null) {
                 return null;
@@ -423,8 +422,7 @@ public class OBOFormatParser {
         return danglingReferences;
     }
 
-    @Nullable
-    private String checkRelation(String relId, String tag, String frameId, OBODoc doc) {
+    private @Nullable String checkRelation(String relId, String tag, String frameId, OBODoc doc) {
         if (doc.getTypedefFrame(relId, followImport) == null) {
             return "The relation '" + relId + "' reference in" + " the tag '" + tag + " ' in the frame of id '"
                     + frameId + "' is not declared";
@@ -432,8 +430,7 @@ public class OBOFormatParser {
         return null;
     }
 
-    @Nullable
-    private String checkClassReference(String classId, String tag, String frameId, OBODoc doc) {
+    private @Nullable String checkClassReference(String classId, String tag, String frameId, OBODoc doc) {
         if (doc.getTermFrame(classId, followImport) == null) {
             return "The class '" + classId + "' reference in" + " the tag '" + tag + " ' in the frame of id '" + frameId
                     + "'is not declared";

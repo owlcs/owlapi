@@ -56,10 +56,8 @@ public class TutorialSnippetsTestCase {
     @Nonnull
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
-    @Nonnull
-    private static final Logger LOG = LoggerFactory.getLogger(TutorialSnippetsTestCase.class);
-    @Nonnull
-    private static final String KOALA = "<?xml version=\"1.0\"?>\n"
+    private static final @Nonnull Logger LOG = LoggerFactory.getLogger(TutorialSnippetsTestCase.class);
+    private static final @Nonnull String KOALA = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
             + " xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
@@ -87,16 +85,12 @@ public class TutorialSnippetsTestCase {
             + "  <owl:FunctionalProperty rdf:ID=\"hasGender\"><rdfs:range rdf:resource=\"#Gender\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:FunctionalProperty>\n"
             + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
             + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
-    @Nonnull
-    public static final IRI KOALA_IRI = IRI.create("http://protege.stanford.edu/plugins/owl/owl-library/koala.owl");
-    @Nonnull
-    public static final IRI EXAMPLE_IRI = IRI.create("http://www.semanticweb.org/ontologies/ont.owl");
-    @Nonnull
-    public static final IRI EXAMPLE_SAVE_IRI = IRI.create("file:materializedOntologies/ont1290535967123.owl");
-    @Nonnull
-    OWLDataFactory df = OWLManager.getOWLDataFactory();
-    @Nonnull
-    OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+    public static final @Nonnull IRI KOALA_IRI = IRI
+            .create("http://protege.stanford.edu/plugins/owl/owl-library/koala.owl");
+    public static final @Nonnull IRI EXAMPLE_IRI = IRI.create("http://www.semanticweb.org/ontologies/ont.owl");
+    public static final @Nonnull IRI EXAMPLE_SAVE_IRI = IRI.create("file:materializedOntologies/ont1290535967123.owl");
+    protected @Nonnull OWLDataFactory df = OWLManager.getOWLDataFactory();
+    protected @Nonnull OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
 
     public OWLOntologyManager create() {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
@@ -448,10 +442,8 @@ public class TutorialSnippetsTestCase {
      */
     private static class RestrictionVisitor implements OWLClassExpressionVisitor {
 
-        @Nonnull
-        private final Set<OWLClass> processedClasses;
-        @Nonnull
-        private final Set<OWLObjectPropertyExpression> restrictedProperties;
+        private final @Nonnull Set<OWLClass> processedClasses;
+        private final @Nonnull Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
 
         RestrictionVisitor(Set<OWLOntology> onts) {
@@ -787,8 +779,7 @@ public class TutorialSnippetsTestCase {
     }
 
     // a visitor to extract label annotations
-    @Nonnull
-    LabelExtractor le = new LabelExtractor();
+    protected @Nonnull LabelExtractor le = new LabelExtractor();
 
     private String labelFor(OWLEntity clazz, OWLOntology o) {
         return annotations(o.annotationAssertionAxioms(clazz.getIRI())).map(a -> a.accept(le)).filter(v -> !v.isEmpty())

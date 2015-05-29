@@ -87,10 +87,8 @@ public enum Namespaces {
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
-    @Nonnull
-    final String prefix;
-    @Nonnull
-    final String ns;
+    private final @Nonnull String prefix;
+    private final @Nonnull String ns;
     final Status status;
     final BuiltIn builtIn;
     final String hashless;

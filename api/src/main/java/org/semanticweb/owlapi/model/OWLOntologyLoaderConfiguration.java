@@ -58,16 +58,13 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /** True if redirects should be followed across protocols. */
     private boolean followRedirects = true;
     /** Set of imports to ignore. */
-    @Nonnull
-    private final Set<IRI> ignoredImports = new HashSet<>();
+    private final @Nonnull Set<IRI> ignoredImports = new HashSet<>();
     /** True if annotations should be loaded, false if skipped. */
     private boolean loadAnnotations = true;
     /** Missing imports handling strategy. */
-    @Nonnull
-    private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
+    private @Nonnull MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
     /** Default missing ontology strategy. */
-    @Nonnull
-    private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
+    private @Nonnull MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
     /** Flag to enable stack traces on parsing exceptions. */
     private boolean reportStackTraces = true;
     /**

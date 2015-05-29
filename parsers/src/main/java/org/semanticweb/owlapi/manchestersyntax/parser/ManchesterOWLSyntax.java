@@ -221,8 +221,7 @@ public enum ManchesterOWLSyntax {
      *        rendering
      * @return manchester owl syntax object
      */
-    @Nullable
-    public static ManchesterOWLSyntax parse(String rendering) {
+    public static @Nullable ManchesterOWLSyntax parse(String rendering) {
         for (ManchesterOWLSyntax m : values()) {
             if (m.matches(rendering)) {
                 return m;

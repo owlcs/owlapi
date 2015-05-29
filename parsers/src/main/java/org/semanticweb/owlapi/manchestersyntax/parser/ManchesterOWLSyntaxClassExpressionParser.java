@@ -33,10 +33,8 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  */
 public class ManchesterOWLSyntaxClassExpressionParser implements OWLExpressionParser<OWLClassExpression> {
 
-    @Nonnull
-    private final OWLDataFactory dataFactory;
-    @Nonnull
-    private OWLEntityChecker checker;
+    private final @Nonnull OWLDataFactory dataFactory;
+    private @Nonnull OWLEntityChecker checker;
 
     /**
      * @param dataFactory

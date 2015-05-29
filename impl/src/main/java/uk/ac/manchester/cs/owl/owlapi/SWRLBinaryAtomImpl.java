@@ -38,10 +38,8 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         implements SWRLBinaryAtom<A, B> {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private final A arg0;
-    @Nonnull
-    private final B arg1;
+    private final @Nonnull A arg0;
+    private final @Nonnull B arg1;
 
     protected SWRLBinaryAtomImpl(SWRLPredicate predicate, A arg0, B arg1) {
         super(predicate);

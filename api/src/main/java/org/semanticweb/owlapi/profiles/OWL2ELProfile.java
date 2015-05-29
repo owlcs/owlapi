@@ -41,7 +41,6 @@ public class OWL2ELProfile implements OWLProfile {
         return "OWL 2 EL";
     }
 
-    @Nonnull
     @Override
     public IRI getIRI() {
         return Profiles.OWL2_EL.getIRI();
@@ -63,8 +62,7 @@ public class OWL2ELProfile implements OWLProfile {
     protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor {
 
         private OWLObjectPropertyManager propertyManager;
-        @Nonnull
-        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
+        private final @Nonnull Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         public OWL2ELProfileObjectVisitor(OWLOntologyWalker walker) {
             super(walker);

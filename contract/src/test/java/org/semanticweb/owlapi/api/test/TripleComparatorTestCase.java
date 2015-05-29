@@ -34,14 +34,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class TripleComparatorTestCase {
 
-    @Nonnull
-    String ns = "http://www.co-ode.org/roberts/pto.owl#";
-    @Nonnull
-    RDFResourceIRI g = r(Class(IRI(ns + "MoleOfGoldAtom")));
-    @Nonnull
-    RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
-    @Nonnull
-    RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
+    private @Nonnull String ns = "http://www.co-ode.org/roberts/pto.owl#";
+    private @Nonnull RDFResourceIRI g = r(Class(IRI(ns + "MoleOfGoldAtom")));
+    private @Nonnull RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
+    private @Nonnull RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
 
     @Test
     public void shouldSort() {

@@ -40,12 +40,9 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
-    @Nonnull
-    private final OWLOntology ontology;
-    @Nonnull
-    private final NamespaceUtil namespaceUtil = new NamespaceUtil();
-    @Nonnull
-    private final OWLDocumentFormat ontologyFormat;
+    private final @Nonnull OWLOntology ontology;
+    private final @Nonnull NamespaceUtil namespaceUtil = new NamespaceUtil();
+    private final @Nonnull OWLDocumentFormat ontologyFormat;
 
     /**
      * @param ontology
@@ -145,9 +142,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         }
     }
 
-    @Nullable
     @Override
-    public String getQName(String name) {
+    public @Nullable String getQName(String name) {
         checkNotNull(name, "name cannot be null");
         String ns = XMLUtils.getNCNamePrefix(name);
         String fragment = XMLUtils.getNCNameSuffix(name);
