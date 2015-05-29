@@ -28,8 +28,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
-        OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
+public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl
+        implements OWLObjectPropertyCharacteristicAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -41,9 +41,8 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLObjectPropertyCharacteristicAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLObjectPropertyCharacteristicAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
     }
@@ -64,14 +63,11 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
         if (!(obj instanceof OWLObjectPropertyCharacteristicAxiom)) {
             return false;
         }
-        return ((OWLObjectPropertyCharacteristicAxiom) obj).getProperty()
-                .equals(property);
+        return ((OWLObjectPropertyCharacteristicAxiom) obj).getProperty().equals(property);
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return property
-                .compareTo(((OWLObjectPropertyCharacteristicAxiom) object)
-                        .getProperty());
+        return property.compareTo(((OWLObjectPropertyCharacteristicAxiom) object).getProperty());
     }
 }

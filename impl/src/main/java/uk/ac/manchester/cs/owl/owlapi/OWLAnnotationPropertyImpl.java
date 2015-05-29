@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
-    OWLAnnotationProperty {
+public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnotationProperty {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -44,7 +43,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
      * @param i
      *        iri for property
      */
-    public OWLAnnotationPropertyImpl(@Nonnull IRI i) {
+    public OWLAnnotationPropertyImpl(IRI i) {
         iri = checkNotNull(i, "i cannot be null");
     }
 
@@ -69,7 +68,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((OWLAnnotationProperty) object).getIRI());
     }
 

@@ -17,8 +17,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -30,9 +28,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLSymmetricObjectPropertyAxiomImpl extends
-        OWLObjectPropertyCharacteristicAxiomImpl implements
-        OWLSymmetricObjectPropertyAxiom {
+public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+        implements OWLSymmetricObjectPropertyAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -42,30 +39,24 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLSymmetricObjectPropertyAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLSymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
-    @Nonnull
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<>(5);
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(),
-                getProperty().getInverseProperty().getSimplified(),
-                NO_ANNOTATIONS));
-        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty()
-                .getInverseProperty().getSimplified(), getProperty(),
-                NO_ANNOTATIONS));
+                getProperty().getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty().getSimplified(),
+                getProperty(), NO_ANNOTATIONS));
         return result;
     }
 
     @Override
-    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(anns));
+    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 
     @Override
@@ -73,8 +64,7 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
-                NO_ANNOTATIONS);
+        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override

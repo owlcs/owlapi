@@ -2,7 +2,6 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -25,13 +24,12 @@ public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
      *        implementation factory
      */
     @Inject
-    public NonConcurrentOWLOntologyBuilder(@Nonnull OWLOntologyImplementationFactory implementationFactory) {
+    public NonConcurrentOWLOntologyBuilder(OWLOntologyImplementationFactory implementationFactory) {
         this.implementationFactory = verifyNotNull(implementationFactory);
     }
 
-    @Nonnull
     @Override
-    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntologyID ontologyID) {
+    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         return implementationFactory.createOWLOntology(manager, ontologyID);
     }
 }

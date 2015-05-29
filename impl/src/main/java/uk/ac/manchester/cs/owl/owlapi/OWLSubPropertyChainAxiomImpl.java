@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
-        implements OWLSubPropertyChainOfAxiom {
+public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainOfAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -49,22 +48,16 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
      * @param annotations
      *        annotations
      */
-    public OWLSubPropertyChainAxiomImpl(
-            @Nonnull List<? extends OWLObjectPropertyExpression> propertyChain,
-            @Nonnull OWLObjectPropertyExpression superProperty,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLSubPropertyChainAxiomImpl(List<? extends OWLObjectPropertyExpression> propertyChain,
+            OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
         super(annotations);
-        this.propertyChain = new ArrayList<>(checkNotNull(propertyChain,
-                "propertyChain cannot be null"));
-        this.superProperty = checkNotNull(superProperty,
-                "superProperty cannot be null");
+        this.propertyChain = new ArrayList<>(checkNotNull(propertyChain, "propertyChain cannot be null"));
+        this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
     }
 
     @Override
-    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(),
-                getSuperProperty(), mergeAnnos(anns));
+    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(), getSuperProperty(), mergeAnnos(anns));
     }
 
     @Override
@@ -72,8 +65,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(),
-                getSuperProperty(), NO_ANNOTATIONS);
+        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(), getSuperProperty(), NO_ANNOTATIONS);
     }
 
     @Override
@@ -89,8 +81,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
     @Override
     public boolean isEncodingOfTransitiveProperty() {
         if (propertyChain.size() == 2) {
-            return superProperty.equals(propertyChain.get(0))
-                    && superProperty.equals(propertyChain.get(1));
+            return superProperty.equals(propertyChain.get(0)) && superProperty.equals(propertyChain.get(1));
         } else {
             return false;
         }
@@ -108,8 +99,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
             return false;
         }
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) obj;
-        return other.getPropertyChain().equals(getPropertyChain())
-                && other.getSuperProperty().equals(superProperty);
+        return other.getPropertyChain().equals(getPropertyChain()) && other.getSuperProperty().equals(superProperty);
     }
 
     @Override
@@ -120,10 +110,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) object;
-        for (int i = 0; i < propertyChain.size()
-                && i < other.getPropertyChain().size(); i++) {
-            int diff = propertyChain.get(i).compareTo(
-                    other.getPropertyChain().get(i));
+        for (int i = 0; i < propertyChain.size() && i < other.getPropertyChain().size(); i++) {
+            int diff = propertyChain.get(i).compareTo(other.getPropertyChain().get(i));
             if (diff != 0) {
                 return diff;
             }

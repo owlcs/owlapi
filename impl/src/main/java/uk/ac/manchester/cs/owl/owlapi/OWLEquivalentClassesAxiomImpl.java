@@ -19,22 +19,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
-        implements OWLEquivalentClassesAxiom {
+public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLEquivalentClassesAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -44,9 +36,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
      * @param annotations
      *        annotations
      */
-    public OWLEquivalentClassesAxiomImpl(
-            @Nonnull Collection<? extends OWLClassExpression> classExpressions,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+            Collection<OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
@@ -55,15 +46,12 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLEquivalentClassesAxiomImpl(classExpressions,
-                NO_ANNOTATIONS);
+        return new OWLEquivalentClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLEquivalentClassesAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> annotationsToAdd) {
-        return new OWLEquivalentClassesAxiomImpl(classExpressions,
-                mergeAnnos(annotationsToAdd));
+    public OWLEquivalentClassesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> annotationsToAdd) {
+        return new OWLEquivalentClassesAxiomImpl(classExpressions, mergeAnnos(annotationsToAdd));
     }
 
     @Override
@@ -72,8 +60,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             OWLClassExpression ceI = classExpressions.get(i);
             OWLClassExpression ceJ = classExpressions.get(i + 1);
-            result.add(new OWLEquivalentClassesAxiomImpl(new HashSet<>(Arrays
-                    .asList(ceI, ceJ)), NO_ANNOTATIONS));
+            result.add(new OWLEquivalentClassesAxiomImpl(new HashSet<>(Arrays.asList(ceI, ceJ)), NO_ANNOTATIONS));
         }
         return result;
     }
@@ -87,17 +74,14 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             OWLClassExpression indI = classExpressions.get(i);
             OWLClassExpression indJ = classExpressions.get(i + 1);
-            result.add(new OWLEquivalentClassesAxiomImpl(Arrays.asList(indI,
-                    indJ), annotations));
+            result.add(new OWLEquivalentClassesAxiomImpl(Arrays.asList(indI, indJ), annotations));
         }
         return result;
     }
 
     @Override
     public boolean containsNamedEquivalentClass() {
-        return classExpressions().anyMatch(
-                desc -> !desc.isAnonymous() && !desc.isOWLNothing()
-                        && !desc.isOWLThing());
+        return classExpressions().anyMatch(desc -> !desc.isAnonymous() && !desc.isOWLNothing() && !desc.isOWLThing());
     }
 
     @Override
@@ -112,9 +96,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Stream<OWLClass> namedClasses() {
-        return classExpressions().filter(
-                desc -> !desc.isAnonymous() && !desc.isOWLNothing()
-                        && !desc.isOWLThing()).map(desc -> desc.asOWLClass());
+        return classExpressions().filter(desc -> !desc.isAnonymous() && !desc.isOWLNothing() && !desc.isOWLThing())
+                .map(desc -> desc.asOWLClass());
     }
 
     @Override
@@ -123,8 +106,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         for (int i = 0; i < classExpressions.size(); i++) {
             for (int j = 0; j < classExpressions.size(); j++) {
                 if (i != j) {
-                    result.add(new OWLSubClassOfAxiomImpl(classExpressions
-                            .get(i), classExpressions.get(j), NO_ANNOTATIONS));
+                    result.add(new OWLSubClassOfAxiomImpl(classExpressions.get(i), classExpressions.get(j),
+                            NO_ANNOTATIONS));
                 }
             }
         }

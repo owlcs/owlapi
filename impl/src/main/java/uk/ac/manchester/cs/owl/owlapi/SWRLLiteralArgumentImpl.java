@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements
-        SWRLLiteralArgument {
+public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLiteralArgument {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -42,7 +41,7 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements
      * @param literal
      *        literal for argument
      */
-    public SWRLLiteralArgumentImpl(@Nonnull OWLLiteral literal) {
+    public SWRLLiteralArgumentImpl(OWLLiteral literal) {
         this.literal = checkNotNull(literal, "literal cannot be null");
     }
 

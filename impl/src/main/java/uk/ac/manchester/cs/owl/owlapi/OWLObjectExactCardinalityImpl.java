@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -28,9 +26,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectExactCardinalityImpl extends
-        OWLObjectCardinalityRestrictionImpl implements
-        OWLObjectExactCardinality {
+public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
+        implements OWLObjectExactCardinality {
 
     private static final long serialVersionUID = 40000L;
 
@@ -47,9 +44,8 @@ public class OWLObjectExactCardinalityImpl extends
      * @param filler
      *        filler
      */
-    public OWLObjectExactCardinalityImpl(
-            @Nonnull OWLObjectPropertyExpression property, int cardinality,
-            @Nonnull OWLClassExpression filler) {
+    public OWLObjectExactCardinalityImpl(OWLObjectPropertyExpression property, int cardinality,
+            OWLClassExpression filler) {
         super(property, cardinality, filler);
     }
 
@@ -69,13 +65,10 @@ public class OWLObjectExactCardinalityImpl extends
         return obj instanceof OWLObjectExactCardinality;
     }
 
-    @Nonnull
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
         return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(
-                Arrays.asList(new OWLObjectMinCardinalityImpl(getProperty(),
-                        getCardinality(), getFiller()),
-                        new OWLObjectMaxCardinalityImpl(getProperty(),
-                                getCardinality(), getFiller()))));
+                Arrays.asList(new OWLObjectMinCardinalityImpl(getProperty(), getCardinality(), getFiller()),
+                        new OWLObjectMaxCardinalityImpl(getProperty(), getCardinality(), getFiller()))));
     }
 }

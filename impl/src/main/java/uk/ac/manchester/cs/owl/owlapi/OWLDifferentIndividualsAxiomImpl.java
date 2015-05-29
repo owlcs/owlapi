@@ -14,31 +14,18 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDifferentIndividualsAxiomImpl extends
-        OWLNaryIndividualAxiomImpl implements OWLDifferentIndividualsAxiom {
+public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
+        implements OWLDifferentIndividualsAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -48,9 +35,8 @@ public class OWLDifferentIndividualsAxiomImpl extends
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLDifferentIndividualsAxiomImpl(
-            @Nonnull Collection<? extends OWLIndividual> individuals,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLDifferentIndividualsAxiomImpl(Collection<? extends OWLIndividual> individuals,
+            Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 
@@ -63,10 +49,8 @@ public class OWLDifferentIndividualsAxiomImpl extends
     }
 
     @Override
-    public OWLDifferentIndividualsAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLDifferentIndividualsAxiomImpl(individuals,
-                mergeAnnos(anns));
+    public OWLDifferentIndividualsAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLDifferentIndividualsAxiomImpl(individuals, mergeAnnos(anns));
     }
 
     @Override
@@ -76,8 +60,8 @@ public class OWLDifferentIndividualsAxiomImpl extends
             for (int j = i + 1; j < individuals.size(); j++) {
                 OWLIndividual indI = individuals.get(i);
                 OWLIndividual indJ = individuals.get(j);
-                result.add(new OWLDifferentIndividualsAxiomImpl(new HashSet<>(
-                        Arrays.asList(indI, indJ)), NO_ANNOTATIONS));
+                result.add(
+                        new OWLDifferentIndividualsAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -92,8 +76,7 @@ public class OWLDifferentIndividualsAxiomImpl extends
         for (int i = 0; i < individuals.size() - 1; i++) {
             OWLIndividual indI = individuals.get(i);
             OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLDifferentIndividualsAxiomImpl(Arrays.asList(indI,
-                    indJ), annotations));
+            result.add(new OWLDifferentIndividualsAxiomImpl(Arrays.asList(indI, indJ), annotations));
         }
         return result;
     }
@@ -117,14 +100,12 @@ public class OWLDifferentIndividualsAxiomImpl extends
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
-        individuals().forEach(
-                i -> nominalsList.add(new OWLObjectOneOfImpl(createSet(i))));
+        individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(createSet(i))));
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             for (int j = i + 1; j < nominalsList.size(); j++) {
                 OWLClassExpression ceI = nominalsList.get(i);
-                OWLClassExpression ceJ = nominalsList.get(j)
-                        .getObjectComplementOf();
+                OWLClassExpression ceJ = nominalsList.get(j).getObjectComplementOf();
                 result.add(new OWLSubClassOfAxiomImpl(ceI, ceJ, NO_ANNOTATIONS));
             }
         }

@@ -30,9 +30,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryBooleanClassExpressionImpl extends
-        OWLAnonymousClassExpressionImpl implements
-        OWLNaryBooleanClassExpression {
+public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
+        implements OWLNaryBooleanClassExpression {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -42,10 +41,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
      * @param operands
      *        operands
      */
-    public OWLNaryBooleanClassExpressionImpl(
-            @Nonnull Collection<? extends OWLClassExpression> operands) {
-        Collection<? extends OWLClassExpression> ops = checkNotNull(operands,
-                "operands cannot be null");
+    public OWLNaryBooleanClassExpressionImpl(Collection<? extends OWLClassExpression> operands) {
+        Collection<? extends OWLClassExpression> ops = checkNotNull(operands, "operands cannot be null");
         this.operands = asList(ops.stream().sorted());
     }
 
@@ -66,16 +63,13 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
             return false;
         }
         if (obj instanceof OWLNaryBooleanClassExpressionImpl) {
-            return ((OWLNaryBooleanClassExpressionImpl) obj).operands
-                    .equals(operands);
+            return ((OWLNaryBooleanClassExpressionImpl) obj).operands.equals(operands);
         }
-        return equalStreams(((OWLNaryBooleanClassExpression) obj).operands(),
-                operands());
+        return equalStreams(((OWLNaryBooleanClassExpression) obj).operands(), operands());
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(operands(),
-                ((OWLNaryBooleanClassExpression) object).operands());
+        return compareStreams(operands(), ((OWLNaryBooleanClassExpression) object).operands());
     }
 }

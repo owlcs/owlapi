@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataComplementOfImpl extends OWLObjectImpl implements
-        OWLDataComplementOf {
+public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataComplementOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -43,7 +42,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
      * @param dataRange
      *        datarange
      */
-    public OWLDataComplementOfImpl(@Nonnull OWLDataRange dataRange) {
+    public OWLDataComplementOfImpl(OWLDataRange dataRange) {
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
     }
 

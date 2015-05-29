@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
@@ -38,7 +36,7 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
      * @param sorting
      *        sorting criterion
      */
-    public ConcurrentPriorityCollection(@Nonnull ReadWriteLock readWriteLock, PriorityCollectionSorting sorting) {
+    public ConcurrentPriorityCollection(ReadWriteLock readWriteLock, PriorityCollectionSorting sorting) {
         super(sorting);
         verifyNotNull(readWriteLock);
         this.readLock = readWriteLock.readLock();
@@ -141,7 +139,7 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
     }
 
     @Override
-    public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {
+    public PriorityCollection<T> getByMIMEType(String mimeType) {
         readLock.lock();
         try {
             return super.getByMIMEType(mimeType);

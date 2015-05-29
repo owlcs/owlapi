@@ -26,17 +26,15 @@ import org.semanticweb.owlapi.model.OWLObject;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLDataCardinalityRestrictionImpl extends
-        OWLCardinalityRestrictionImpl<OWLDataRange> implements
-        OWLDataCardinalityRestriction {
+public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLDataRange>
+        implements OWLDataCardinalityRestriction {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLDataPropertyExpression property;
 
-    protected OWLDataCardinalityRestrictionImpl(
-            @Nonnull OWLDataPropertyExpression property, int cardinality,
-            @Nonnull OWLDataRange filler) {
+    protected OWLDataCardinalityRestrictionImpl(OWLDataPropertyExpression property, int cardinality,
+            OWLDataRange filler) {
         super(cardinality, filler);
         this.property = checkNotNull(property, "property cannot be null");
     }
@@ -62,8 +60,7 @@ public abstract class OWLDataCardinalityRestrictionImpl extends
         if (!(obj instanceof OWLDataCardinalityRestriction)) {
             return false;
         }
-        return getProperty().equals(
-                ((OWLDataCardinalityRestriction) obj).getProperty());
+        return getProperty().equals(((OWLDataCardinalityRestriction) obj).getProperty());
     }
 
     @Override

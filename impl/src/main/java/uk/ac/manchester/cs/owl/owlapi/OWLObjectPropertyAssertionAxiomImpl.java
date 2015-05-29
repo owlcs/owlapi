@@ -15,15 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -32,8 +24,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLObjectPropertyAssertionAxiomImpl
-        extends
-        OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
+        extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
         implements OWLObjectPropertyAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
@@ -48,10 +39,8 @@ public class OWLObjectPropertyAssertionAxiomImpl
      * @param annotations
      *        annotations
      */
-    public OWLObjectPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLIndividual object,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject, OWLObjectPropertyExpression property,
+            OWLIndividual object, Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
@@ -60,23 +49,18 @@ public class OWLObjectPropertyAssertionAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(),
-                getProperty(), getObject(), NO_ANNOTATIONS);
+        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
-                CollectionFactory.createSet(getSubject())),
-                new OWLObjectHasValueImpl(getProperty(), getObject()),
-                NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(CollectionFactory.createSet(getSubject())),
+                new OWLObjectHasValueImpl(getProperty(), getObject()), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(),
-                getProperty(), getObject(), mergeAnnos(anns));
+    public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(anns));
     }
 
     @Override
@@ -97,8 +81,7 @@ public class OWLObjectPropertyAssertionAxiomImpl
         } else {
             OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
             OWLObjectPropertyExpression invProp = property.getInverse();
-            return new OWLObjectPropertyAssertionAxiomImpl(getObject(),
-                    invProp, getSubject(), NO_ANNOTATIONS);
+            return new OWLObjectPropertyAssertionAxiomImpl(getObject(), invProp, getSubject(), NO_ANNOTATIONS);
         }
     }
 

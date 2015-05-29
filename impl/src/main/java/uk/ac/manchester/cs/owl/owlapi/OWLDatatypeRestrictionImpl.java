@@ -33,8 +33,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
-        OWLDatatypeRestriction {
+public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -53,11 +52,9 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
      * @param facetRestrictions
      *        facet restriction
      */
-    public OWLDatatypeRestrictionImpl(@Nonnull OWLDatatype datatype,
-            @Nonnull Collection<OWLFacetRestriction> facetRestrictions) {
+    public OWLDatatypeRestrictionImpl(OWLDatatype datatype, Collection<OWLFacetRestriction> facetRestrictions) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        Collection<OWLFacetRestriction> facets = checkNotNull(
-                facetRestrictions, "facetRestrictions cannot be null");
+        Collection<OWLFacetRestriction> facets = checkNotNull(facetRestrictions, "facetRestrictions cannot be null");
         this.facetRestrictions = asList(facets.stream().sorted());
     }
 
@@ -89,12 +86,10 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
         }
         if (obj instanceof OWLDatatypeRestrictionImpl) {
             return datatype.equals(((OWLDatatypeRestrictionImpl) obj).datatype)
-                    && facetRestrictions
-                            .equals(((OWLDatatypeRestrictionImpl) obj).facetRestrictions);
+                    && facetRestrictions.equals(((OWLDatatypeRestrictionImpl) obj).facetRestrictions);
         }
         OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
-        return other.getDatatype().equals(datatype)
-                && equalStreams(other.facetRestrictions(), facetRestrictions());
+        return other.getDatatype().equals(datatype) && equalStreams(other.facetRestrictions(), facetRestrictions());
     }
 
     @Override

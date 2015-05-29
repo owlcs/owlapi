@@ -19,20 +19,14 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
-        OWLAnnotationPropertyRangeAxiom {
+public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -48,9 +42,8 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLAnnotationPropertyRangeAxiomImpl(
-            @Nonnull OWLAnnotationProperty property, @Nonnull IRI range,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyRangeAxiomImpl(OWLAnnotationProperty property, IRI range,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
         this.range = checkNotNull(range, "range cannot be null");
@@ -61,15 +54,12 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(),
-                getRange(), NO_ANNOTATIONS);
+        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(),
-                getRange(), mergeAnnos(anns));
+    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
     }
 
     @Override
@@ -111,7 +101,6 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
             return false;
         }
         OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-        return property.equals(other.getProperty())
-                && range.equals(other.getRange());
+        return property.equals(other.getProperty()) && range.equals(other.getRange());
     }
 }

@@ -27,11 +27,12 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <P>
+ * @param
+ *        <P>
  *        property type
  */
-public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
+public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
+        implements OWLSubPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -47,14 +48,10 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
      * @param annotations
      *        annotations
      */
-    public OWLSubPropertyAxiomImpl(@Nonnull P subProperty,
-            @Nonnull P superProperty,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLSubPropertyAxiomImpl(P subProperty, P superProperty, Collection<OWLAnnotation> annotations) {
         super(annotations);
-        this.subProperty = checkNotNull(subProperty,
-                "subProperty cannot be null");
-        this.superProperty = checkNotNull(superProperty,
-                "superProperty cannot be null");
+        this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
+        this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
     }
 
     @Override
@@ -79,8 +76,7 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
             return false;
         }
         OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) obj;
-        return other.getSubProperty().equals(subProperty)
-                && other.getSuperProperty().equals(superProperty);
+        return other.getSubProperty().equals(subProperty) && other.getSuperProperty().equals(superProperty);
     }
 
     @Override

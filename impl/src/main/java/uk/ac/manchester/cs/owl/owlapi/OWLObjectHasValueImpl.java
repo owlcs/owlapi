@@ -16,12 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -30,8 +25,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectHasValueImpl extends
-        OWLValueRestrictionImpl<OWLIndividual> implements OWLObjectHasValue {
+public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual>implements OWLObjectHasValue {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -48,8 +42,7 @@ public class OWLObjectHasValueImpl extends
      * @param value
      *        value
      */
-    public OWLObjectHasValueImpl(@Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLIndividual value) {
+    public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {
         super(value);
         this.property = checkNotNull(property, "property cannot be null");
     }
@@ -72,9 +65,7 @@ public class OWLObjectHasValueImpl extends
         if (!super.equals(obj)) {
             return false;
         }
-        return obj instanceof OWLObjectHasValue
-                && getProperty()
-                        .equals(((OWLObjectHasValue) obj).getProperty());
+        return obj instanceof OWLObjectHasValue && getProperty().equals(((OWLObjectHasValue) obj).getProperty());
     }
 
     @Override
@@ -87,11 +78,9 @@ public class OWLObjectHasValueImpl extends
         return value.compareTo(other.getFiller());
     }
 
-    @Nonnull
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return new OWLObjectSomeValuesFromImpl(
-                getProperty(),
+        return new OWLObjectSomeValuesFromImpl(getProperty(),
                 new OWLObjectOneOfImpl(CollectionFactory.createSet(getFiller())));
     }
 }

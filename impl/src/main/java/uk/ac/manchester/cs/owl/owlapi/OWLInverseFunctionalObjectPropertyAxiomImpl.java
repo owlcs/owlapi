@@ -17,8 +17,6 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
@@ -30,9 +28,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
-        OWLObjectPropertyCharacteristicAxiomImpl implements
-        OWLInverseFunctionalObjectPropertyAxiom {
+public class OWLInverseFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+        implements OWLInverseFunctionalObjectPropertyAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -42,9 +39,8 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLInverseFunctionalObjectPropertyAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLInverseFunctionalObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -53,15 +49,12 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
-                NO_ANNOTATIONS);
+        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLInverseFunctionalObjectPropertyAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(anns));
+    public OWLInverseFunctionalObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLInverseFunctionalObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 
     @Override
@@ -83,8 +76,7 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(OWL_THING,
-                new OWLObjectMaxCardinalityImpl(getProperty()
-                        .getInverseProperty().getSimplified(), 1, OWL_THING),
+                new OWLObjectMaxCardinalityImpl(getProperty().getInverseProperty().getSimplified(), 1, OWL_THING),
                 NO_ANNOTATIONS);
     }
 }

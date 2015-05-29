@@ -31,8 +31,7 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
     @Nonnull
-    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(
-            OWL2Datatype.XSD_STRING);
+    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     @Nonnull
     private final String literal;
 
@@ -40,7 +39,7 @@ public class OWLLiteralImplString implements OWLLiteral {
      * @param literal
      *        the lexical form
      */
-    public OWLLiteralImplString(@Nonnull String literal) {
+    public OWLLiteralImplString(String literal) {
         this.literal = literal;
     }
 
@@ -75,8 +74,7 @@ public class OWLLiteralImplString implements OWLLiteral {
             return false;
         }
         OWLLiteral other = (OWLLiteral) obj;
-        return getLiteral().equals(other.getLiteral())
-                && getDatatype().equals(other.getDatatype())
+        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
                 && getLang().equals(other.getLang());
     }
 
@@ -100,8 +98,7 @@ public class OWLLiteralImplString implements OWLLiteral {
         if (o instanceof OWLObjectImpl) {
             otherTypeIndex = ((OWLObjectImpl) o).index();
         } else {
-            otherTypeIndex = OWLObjectImpl.OWLOBJECT_TYPEINDEX_PROVIDER
-                    .getTypeIndex(o);
+            otherTypeIndex = OWLObjectImpl.OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
         if (diff == 0) {

@@ -40,7 +40,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
      * @param lang
      *        the language; can be null or empty
      */
-    public OWLLiteralImplPlain(@Nonnull String literal, @Nullable String lang) {
+    public OWLLiteralImplPlain(String literal, @Nullable String lang) {
         this.literal = literal;
         if (lang == null || lang.length() == 0) {
             this.lang = "";
@@ -134,12 +134,10 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
         }
         OWLLiteral other = (OWLLiteral) obj;
         if (other instanceof OWLLiteralImplPlain) {
-            return literal.equals(((OWLLiteralImplPlain) other).literal)
-                && lang.equals(other.getLang());
+            return literal.equals(((OWLLiteralImplPlain) other).literal) && lang.equals(other.getLang());
         }
-        return getLiteral().equals(other.getLiteral())
-            && getDatatype().equals(other.getDatatype())
-            && lang.equals(other.getLang());
+        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
+                && lang.equals(other.getLang());
     }
 
     @Override

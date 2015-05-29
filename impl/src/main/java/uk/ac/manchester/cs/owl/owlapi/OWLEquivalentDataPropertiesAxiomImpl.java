@@ -19,8 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -32,9 +30,8 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentDataPropertiesAxiomImpl extends
-        OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
-        OWLEquivalentDataPropertiesAxiom {
+public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression>
+        implements OWLEquivalentDataPropertiesAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -44,9 +41,8 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLEquivalentDataPropertiesAxiomImpl(
-            @Nonnull Collection<? extends OWLDataPropertyExpression> properties,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLEquivalentDataPropertiesAxiomImpl(Collection<? extends OWLDataPropertyExpression> properties,
+            Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -55,15 +51,12 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLEquivalentDataPropertiesAxiomImpl(properties,
-                NO_ANNOTATIONS);
+        return new OWLEquivalentDataPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLEquivalentDataPropertiesAxiomImpl(properties,
-                mergeAnnos(anns));
+    public OWLEquivalentDataPropertiesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLEquivalentDataPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }
 
     @Override
@@ -72,8 +65,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
                 result.add(new OWLEquivalentDataPropertiesAxiomImpl(
-                        new HashSet<>(Arrays.asList(properties.get(i),
-                                properties.get(j))), NO_ANNOTATIONS));
+                        new HashSet<>(Arrays.asList(properties.get(i), properties.get(j))), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -88,8 +80,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         for (int i = 0; i < properties.size() - 1; i++) {
             OWLDataPropertyExpression indI = properties.get(i);
             OWLDataPropertyExpression indJ = properties.get(i + 1);
-            result.add(new OWLEquivalentDataPropertiesAxiomImpl(new HashSet<>(
-                    Arrays.asList(indI, indJ)), annotations));
+            result.add(new OWLEquivalentDataPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
         }
         return result;
     }
@@ -116,8 +107,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         for (int i = 0; i < properties.size(); i++) {
             for (int j = 0; j < properties.size(); j++) {
                 if (i != j) {
-                    result.add(new OWLSubDataPropertyOfAxiomImpl(properties
-                            .get(i), properties.get(j), NO_ANNOTATIONS));
+                    result.add(new OWLSubDataPropertyOfAxiomImpl(properties.get(i), properties.get(j), NO_ANNOTATIONS));
                 }
             }
         }

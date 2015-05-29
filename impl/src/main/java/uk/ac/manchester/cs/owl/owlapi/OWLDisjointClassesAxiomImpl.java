@@ -19,8 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -33,8 +31,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
-        implements OWLDisjointClassesAxiom {
+public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLDisjointClassesAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -44,13 +41,11 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
      * @param annotations
      *        annotations
      */
-    public OWLDisjointClassesAxiomImpl(
-            @Nonnull Collection<? extends OWLClassExpression> classExpressions,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLDisjointClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+            Collection<OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLDisjointClassesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -60,10 +55,8 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
     }
 
     @Override
-    public OWLDisjointClassesAxiom
-            getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLDisjointClassesAxiomImpl(classExpressions,
-                mergeAnnos(anns));
+    public OWLDisjointClassesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLDisjointClassesAxiomImpl(classExpressions, mergeAnnos(anns));
     }
 
     @Override
@@ -90,9 +83,9 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
         Set<OWLDisjointClassesAxiom> result = new HashSet<>();
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             for (int j = i + 1; j < classExpressions.size(); j++) {
-                result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays
-                        .asList(classExpressions.get(i),
-                                classExpressions.get(j))), NO_ANNOTATIONS));
+                result.add(new OWLDisjointClassesAxiomImpl(
+                        new HashSet<>(Arrays.asList(classExpressions.get(i), classExpressions.get(j))),
+                        NO_ANNOTATIONS));
             }
         }
         return result;
@@ -107,8 +100,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             OWLClassExpression indI = classExpressions.get(i);
             OWLClassExpression indJ = classExpressions.get(i + 1);
-            result.add(new OWLDisjointClassesAxiomImpl(Arrays
-                    .asList(indI, indJ), annotations));
+            result.add(new OWLDisjointClassesAxiomImpl(Arrays.asList(indI, indJ), annotations));
         }
         return result;
     }
@@ -119,8 +111,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             for (int j = i + 1; j < classExpressions.size(); j++) {
                 result.add(new OWLSubClassOfAxiomImpl(classExpressions.get(i),
-                        classExpressions.get(j).getObjectComplementOf(),
-                        NO_ANNOTATIONS));
+                        classExpressions.get(j).getObjectComplementOf(), NO_ANNOTATIONS));
             }
         }
         return result;

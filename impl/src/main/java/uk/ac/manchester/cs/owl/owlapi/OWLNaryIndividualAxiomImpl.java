@@ -23,21 +23,14 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLPairwiseBooleanVisitor;
-import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
-import org.semanticweb.owlapi.model.OWLPairwiseVoidVisitor;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
-        implements OWLNaryIndividualAxiom {
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements OWLNaryIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -50,9 +43,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
      *        annotations on the axiom
      */
     @SuppressWarnings("unchecked")
-    public OWLNaryIndividualAxiomImpl(
-            @Nonnull Collection<? extends OWLIndividual> individuals,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLNaryIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(individuals, "individuals cannot be null");
         this.individuals = (List<OWLIndividual>) sortOptionally(individuals);
@@ -75,21 +67,18 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
             return false;
         }
         if (obj instanceof OWLNaryIndividualAxiomImpl) {
-            return individuals
-                    .equals(((OWLNaryIndividualAxiomImpl) obj).individuals);
+            return individuals.equals(((OWLNaryIndividualAxiomImpl) obj).individuals);
         }
         return compareObjectOfSameType((OWLNaryIndividualAxiom) obj) == 0;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(individuals(),
-                ((OWLNaryIndividualAxiom) object).individuals());
+        return compareStreams(individuals(), ((OWLNaryIndividualAxiom) object).individuals());
     }
 
     @Override
-    public <T> Collection<T> walkPairwise(
-            OWLPairwiseVisitor<T, OWLIndividual> visitor) {
+    public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, OWLIndividual> visitor) {
         List<T> l = new ArrayList<>();
         for (int i = 0; i < individuals.size() - 1; i++) {
             for (int j = i + 1; j < individuals.size(); j++) {
@@ -115,8 +104,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
     public boolean anyMatch(OWLPairwiseBooleanVisitor<OWLIndividual> visitor) {
         for (int i = 0; i < individuals.size() - 1; i++) {
             for (int j = i + 1; j < individuals.size(); j++) {
-                boolean b = visitor.visit(individuals.get(i),
-                        individuals.get(j));
+                boolean b = visitor.visit(individuals.get(i), individuals.get(j));
                 if (b) {
                     return b;
                 }
@@ -129,8 +117,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
     public boolean allMatch(OWLPairwiseBooleanVisitor<OWLIndividual> visitor) {
         for (int i = 0; i < individuals.size() - 1; i++) {
             for (int j = i + 1; j < individuals.size(); j++) {
-                boolean b = visitor.visit(individuals.get(i),
-                        individuals.get(j));
+                boolean b = visitor.visit(individuals.get(i), individuals.get(j));
                 if (!b) {
                     return b;
                 }

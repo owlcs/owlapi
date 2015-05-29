@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  * @param <B>
  *        atom type
  */
-public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument>
-        extends SWRLAtomImpl implements SWRLBinaryAtom<A, B> {
+public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl
+        implements SWRLBinaryAtom<A, B> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -43,14 +43,12 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     @Nonnull
     private final B arg1;
 
-    protected SWRLBinaryAtomImpl(@Nonnull SWRLPredicate predicate,
-            @Nonnull A arg0, @Nonnull B arg1) {
+    protected SWRLBinaryAtomImpl(SWRLPredicate predicate, A arg0, B arg1) {
         super(predicate);
         this.arg0 = checkNotNull(arg0, "arg0 cannot be null");
         this.arg1 = checkNotNull(arg1, "arg1 cannot be null");
     }
 
-    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         List<SWRLArgument> objs = new ArrayList<>();
@@ -72,8 +70,7 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         SWRLBinaryAtom<?, ?> other = (SWRLBinaryAtom<?, ?>) object;
-        int diff = ((OWLObject) getPredicate()).compareTo((OWLObject) other
-                .getPredicate());
+        int diff = ((OWLObject) getPredicate()).compareTo((OWLObject) other.getPredicate());
         if (diff != 0) {
             return diff;
         }

@@ -44,9 +44,8 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      * @throws NullPointerException
      *         if {@code owl2Datatype} is {@code null}.
      */
-    public OWL2DatatypeImpl(@Nonnull OWL2Datatype owl2Datatype) {
-        this.owl2Datatype = checkNotNull(owl2Datatype,
-            "owl2Datatype must not be null");
+    public OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
+        this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
     }
 
     @Nonnull

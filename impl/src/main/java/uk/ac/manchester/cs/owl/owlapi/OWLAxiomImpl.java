@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -31,8 +32,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
-        CollectionContainer<OWLAnnotation> {
+public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom, CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -40,15 +40,14 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     @Override
     protected int index() {
-        return OWLObjectTypeIndexProvider.AXIOM_TYPE_INDEX_BASE
-                + getAxiomType().getIndex();
+        return OWLObjectTypeIndexProvider.AXIOM_TYPE_INDEX_BASE + getAxiomType().getIndex();
     }
 
     /**
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLAxiomImpl(@Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAxiomImpl(Collection<OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         this.annotations = asAnnotations(annotations);
     }
@@ -76,13 +75,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      *        The annotations to add to the annotations on this axiom
      * @return The annotations
      */
-    @Nonnull
     protected Collection<OWLAnnotation> mergeAnnos(Stream<OWLAnnotation> annos) {
         return asSet(Stream.concat(annos, annotations.stream()));
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

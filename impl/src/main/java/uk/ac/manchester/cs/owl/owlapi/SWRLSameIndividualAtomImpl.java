@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -26,9 +26,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLSameIndividualAtomImpl extends
-        SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
-        SWRLSameIndividualAtom {
+public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
+        implements SWRLSameIndividualAtom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -45,15 +44,13 @@ public class SWRLSameIndividualAtomImpl extends
      * @param arg1
      *        second individual
      */
-    public SWRLSameIndividualAtomImpl(@Nonnull OWLObjectProperty property,
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
-        super(checkNotNull(property, "property cannot be null"), checkNotNull(
-                arg0, "arg0 cannot be null"), checkNotNull(arg1,
-                "arg1 cannot be null"));
+    public SWRLSameIndividualAtomImpl(OWLObjectProperty property, SWRLIArgument arg0, SWRLIArgument arg1) {
+        super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0, "arg0 cannot be null"),
+                checkNotNull(arg1, "arg1 cannot be null"));
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }

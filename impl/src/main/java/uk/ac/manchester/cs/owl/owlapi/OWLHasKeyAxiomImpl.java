@@ -21,20 +21,14 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
-        OWLHasKeyAxiom {
+public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -50,10 +44,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLHasKeyAxiomImpl(
-            @Nonnull OWLClassExpression expression,
-            @Nonnull Collection<? extends OWLPropertyExpression> propertyExpressions,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLHasKeyAxiomImpl(OWLClassExpression expression,
+            Collection<? extends OWLPropertyExpression> propertyExpressions, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
         checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
@@ -65,14 +57,12 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLHasKeyAxiomImpl(getClassExpression(),
-                propertyExpressions, NO_ANNOTATIONS);
+        return new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, NO_ANNOTATIONS);
     }
 
     @Override
     public OWLHasKeyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLHasKeyAxiomImpl(getClassExpression(),
-                propertyExpressions, mergeAnnos(anns));
+        return new OWLHasKeyAxiomImpl(getClassExpression(), propertyExpressions, mergeAnnos(anns));
     }
 
     @Override
@@ -97,8 +87,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         if (diff != 0) {
             return diff;
         }
-        return compareStreams(propertyExpressions(),
-                other.propertyExpressions());
+        return compareStreams(propertyExpressions(), other.propertyExpressions());
     }
 
     @Override
@@ -116,7 +105,6 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         }
         OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
         return expression.equals(other.getClassExpression())
-                && compareStreams(propertyExpressions(),
-                        other.propertyExpressions()) == 0;
+                && compareStreams(propertyExpressions(), other.propertyExpressions()) == 0;
     }
 }

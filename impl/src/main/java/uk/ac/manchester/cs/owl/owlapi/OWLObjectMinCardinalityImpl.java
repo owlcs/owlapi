@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
@@ -25,8 +23,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectMinCardinalityImpl extends
-        OWLObjectCardinalityRestrictionImpl implements OWLObjectMinCardinality {
+public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
+        implements OWLObjectMinCardinality {
 
     private static final long serialVersionUID = 40000L;
 
@@ -43,9 +41,8 @@ public class OWLObjectMinCardinalityImpl extends
      * @param filler
      *        filler
      */
-    public OWLObjectMinCardinalityImpl(
-            @Nonnull OWLObjectPropertyExpression property, int cardinality,
-            @Nonnull OWLClassExpression filler) {
+    public OWLObjectMinCardinalityImpl(OWLObjectPropertyExpression property, int cardinality,
+            OWLClassExpression filler) {
         super(property, cardinality, filler);
     }
 

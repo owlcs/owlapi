@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>
-        implements SWRLClassAtom {
+public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>implements SWRLClassAtom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -41,12 +38,10 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>
      * @param arg
      *        class argument
      */
-    public SWRLClassAtomImpl(@Nonnull OWLClassExpression predicate,
-            @Nonnull SWRLIArgument arg) {
+    public SWRLClassAtomImpl(OWLClassExpression predicate, SWRLIArgument arg) {
         super(predicate, arg);
     }
 
-    @Nonnull
     @Override
     public OWLClassExpression getPredicate() {
         return (OWLClassExpression) super.getPredicate();
@@ -61,8 +56,7 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>
             return false;
         }
         SWRLClassAtom other = (SWRLClassAtom) obj;
-        return other.getArgument().equals(getArgument())
-                && other.getPredicate().equals(getPredicate());
+        return other.getArgument().equals(getArgument()) && other.getPredicate().equals(getPredicate());
     }
 
     @Override

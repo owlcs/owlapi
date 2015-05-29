@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -27,9 +25,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAsymmetricObjectPropertyAxiomImpl extends
-        OWLObjectPropertyCharacteristicAxiomImpl implements
-        OWLAsymmetricObjectPropertyAxiom {
+public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+        implements OWLAsymmetricObjectPropertyAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -39,27 +36,22 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLAsymmetricObjectPropertyAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAsymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(),
-                NO_ANNOTATIONS);
+        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLAsymmetricObjectPropertyAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(anns));
+    public OWLAsymmetricObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 
     @Override

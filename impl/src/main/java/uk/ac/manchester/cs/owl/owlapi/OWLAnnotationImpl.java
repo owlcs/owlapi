@@ -50,9 +50,8 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLAnnotationImpl(@Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationValue value,
-            @Nonnull Stream<OWLAnnotation> annotations) {
+    public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value,
+            Stream<OWLAnnotation> annotations) {
         super(property, value);
         checkNotNull(annotations, "annotations cannot be null");
         anns = asList(annotations.sorted().distinct());
@@ -64,8 +63,7 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
     }
 
     @Override
-    public OWLAnnotation getAnnotatedAnnotation(
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations) {
         if (annotations.isEmpty()) {
             return this;
         }
@@ -73,9 +71,7 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
     }
 
     @Override
-    public OWLAnnotation getAnnotatedAnnotation(
-            @Nonnull Stream<OWLAnnotation> annotations) {
-        return new OWLAnnotationImpl(getProperty(), getValue(), Stream.concat(
-                anns.stream(), annotations));
+    public OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations) {
+        return new OWLAnnotationImpl(getProperty(), getValue(), Stream.concat(anns.stream(), annotations));
     }
 }

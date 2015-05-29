@@ -19,20 +19,14 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
-        implements OWLAnnotationPropertyDomainAxiom {
+public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyDomainAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -48,9 +42,8 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLAnnotationPropertyDomainAxiomImpl(
-            @Nonnull OWLAnnotationProperty property, @Nonnull IRI domain,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyDomainAxiomImpl(OWLAnnotationProperty property, IRI domain,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
@@ -61,15 +54,12 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(),
-                getDomain(), NO_ANNOTATIONS);
+        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(),
-                getDomain(), mergeAnnos(anns));
+    public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
     }
 
     @Override
@@ -111,7 +101,6 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
             return false;
         }
         OWLAnnotationPropertyDomainAxiom other = (OWLAnnotationPropertyDomainAxiom) obj;
-        return property.equals(other.getProperty())
-                && domain.equals(other.getDomain());
+        return property.equals(other.getProperty()) && domain.equals(other.getDomain());
     }
 }

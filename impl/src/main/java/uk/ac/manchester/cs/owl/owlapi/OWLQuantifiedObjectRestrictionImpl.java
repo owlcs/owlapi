@@ -23,9 +23,8 @@ import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 
 /** Quantified object restriction. */
-public abstract class OWLQuantifiedObjectRestrictionImpl extends
-        OWLQuantifiedRestrictionImpl<OWLClassExpression> implements
-        OWLObjectRestriction {
+public abstract class OWLQuantifiedObjectRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLClassExpression>
+        implements OWLObjectRestriction {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -37,9 +36,7 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
      * @param filler
      *        filler
      */
-    public OWLQuantifiedObjectRestrictionImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression filler) {
+    public OWLQuantifiedObjectRestrictionImpl(OWLObjectPropertyExpression property, OWLClassExpression filler) {
         super(filler);
         this.property = checkNotNull(property, "property cannot be null");
     }
@@ -67,8 +64,6 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
         if (!super.equals(obj)) {
             return false;
         }
-        return obj instanceof OWLObjectRestriction
-                && getProperty().equals(
-                        ((OWLObjectRestriction) obj).getProperty());
+        return obj instanceof OWLObjectRestriction && getProperty().equals(((OWLObjectRestriction) obj).getProperty());
     }
 }

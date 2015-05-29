@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataSomeValuesFromImpl extends OWLQuantifiedDataRestrictionImpl
-        implements OWLDataSomeValuesFrom {
+public class OWLDataSomeValuesFromImpl extends OWLQuantifiedDataRestrictionImpl implements OWLDataSomeValuesFrom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -41,9 +38,7 @@ public class OWLDataSomeValuesFromImpl extends OWLQuantifiedDataRestrictionImpl
      * @param filler
      *        filler
      */
-    public OWLDataSomeValuesFromImpl(
-            @Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLDataRange filler) {
+    public OWLDataSomeValuesFromImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
         super(property, filler);
     }
 

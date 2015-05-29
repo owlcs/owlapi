@@ -12,21 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
-/** @author ignazio */
-public class ClassAxiomByClassPointer extends
-        MapPointer<OWLClass, OWLClassAxiom> {
+/**
+ * @author ignazio
+ */
+public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom> {
 
     /**
      * @param t
@@ -38,13 +31,11 @@ public class ClassAxiomByClassPointer extends
      * @param i
      *        internals
      */
-    public ClassAxiomByClassPointer(@Nullable AxiomType<?> t,
-            @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
-            @Nonnull Internals i) {
+    public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
+            Internals i) {
         super(t, v, initialized, i);
     }
 
-    @Nonnull
     @Override
     public synchronized ClassAxiomByClassPointer init() {
         if (isInitialized()) {
@@ -52,17 +43,16 @@ public class ClassAxiomByClassPointer extends
         }
         super.init();
         // special case: this map needs other maps to be initialized first
-        MapPointer<OWLClass, OWLEquivalentClassesAxiom> equivalent = i.get(
-                OWLClass.class, OWLEquivalentClassesAxiom.class).get();
+        MapPointer<OWLClass, OWLEquivalentClassesAxiom> equivalent = i
+                .get(OWLClass.class, OWLEquivalentClassesAxiom.class).get();
         equivalent.forEach((c, ax) -> put(c, ax));
-        MapPointer<OWLClass, OWLSubClassOfAxiom> lhs = i.get(OWLClass.class,
-                OWLSubClassOfAxiom.class).get();
+        MapPointer<OWLClass, OWLSubClassOfAxiom> lhs = i.get(OWLClass.class, OWLSubClassOfAxiom.class).get();
         lhs.forEach((c, ax) -> put(c, ax));
-        MapPointer<OWLClass, OWLDisjointClassesAxiom> disjoints = i.get(
-                OWLClass.class, OWLDisjointClassesAxiom.class).get();
+        MapPointer<OWLClass, OWLDisjointClassesAxiom> disjoints = i.get(OWLClass.class, OWLDisjointClassesAxiom.class)
+                .get();
         disjoints.forEach((c, ax) -> put(c, ax));
-        MapPointer<OWLClass, OWLDisjointUnionAxiom> disjointUnion = i.get(
-                OWLClass.class, OWLDisjointUnionAxiom.class).get();
+        MapPointer<OWLClass, OWLDisjointUnionAxiom> disjointUnion = i.get(OWLClass.class, OWLDisjointUnionAxiom.class)
+                .get();
         disjointUnion.forEach((c, ax) -> put(c, ax));
         return this;
     }

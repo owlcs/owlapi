@@ -45,8 +45,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      * @param annotations
      *        annotations on the axiom
      */
-    public SWRLRuleImpl(@Nonnull Collection<? extends SWRLAtom> body, @Nonnull Collection<? extends SWRLAtom> head,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.head = new LinkedHashSet<>(checkNotNull(head, "head cannot be null"));
         this.body = new LinkedHashSet<>(checkNotNull(body, "body cannot be null"));
@@ -62,7 +62,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(@Nonnull Stream<OWLAnnotation> anns) {
+    public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new SWRLRuleImpl(body, head, mergeAnnos(anns));
     }
 
@@ -72,11 +72,10 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      * @param head
      *        rule head
      */
-    public SWRLRuleImpl(@Nonnull Collection<? extends SWRLAtom> body, @Nonnull Collection<? extends SWRLAtom> head) {
+    public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head) {
         this(body, head, NO_ANNOTATIONS);
     }
 
-    @Nonnull
     @Override
     public Stream<SWRLVariable> variables() {
         return accept(new SWRLVariableExtractor()).stream();

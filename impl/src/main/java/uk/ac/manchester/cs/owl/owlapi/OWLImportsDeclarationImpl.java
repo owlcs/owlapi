@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -26,8 +27,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
-        Serializable {
+public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -37,7 +37,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
      * @param iri
      *        iri to import
      */
-    public OWLImportsDeclarationImpl(@Nonnull IRI iri) {
+    public OWLImportsDeclarationImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }
 
@@ -52,7 +52,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }
@@ -64,8 +64,8 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
     }
 
     @Override
-    public int compareTo(OWLImportsDeclaration o) {
-        return iri.compareTo(o.getIRI());
+    public int compareTo(@Nullable OWLImportsDeclaration o) {
+        return iri.compareTo(checkNotNull(o).getIRI());
     }
 
     @Override

@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
-        SWRLIndividualArgument {
+public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLIndividualArgument {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -42,7 +41,7 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
      * @param individual
      *        individual for argument
      */
-    public SWRLIndividualArgumentImpl(@Nonnull OWLIndividual individual) {
+    public SWRLIndividualArgumentImpl(OWLIndividual individual) {
         this.individual = checkNotNull(individual, "individual cannot be null");
     }
 
@@ -65,7 +64,6 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return individual.compareTo(((SWRLIndividualArgument) object)
-                .getIndividual());
+        return individual.compareTo(((SWRLIndividualArgument) object).getIndividual());
     }
 }

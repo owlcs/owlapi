@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
-        implements OWLObjectComplementOf {
+public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectComplementOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -43,7 +42,7 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
      * @param operand
      *        class to complement
      */
-    public OWLObjectComplementOfImpl(@Nonnull OWLClassExpression operand) {
+    public OWLObjectComplementOfImpl(OWLClassExpression operand) {
         this.operand = checkNotNull(operand, "operand cannot be null");
     }
 

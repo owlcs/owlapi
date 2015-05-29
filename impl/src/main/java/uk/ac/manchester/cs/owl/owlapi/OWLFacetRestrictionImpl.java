@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
-        OWLFacetRestriction {
+public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -47,8 +46,7 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
      * @param facetValue
      *        value
      */
-    public OWLFacetRestrictionImpl(@Nonnull OWLFacet facet,
-            @Nonnull OWLLiteral facetValue) {
+    public OWLFacetRestrictionImpl(OWLFacet facet, OWLLiteral facetValue) {
         this.facet = checkNotNull(facet, "facet cannot be null");
         this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");
     }
@@ -73,8 +71,7 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
         }
         if (obj instanceof OWLFacetRestriction) {
             return facet.equals(((OWLFacetRestriction) obj).getFacet())
-                    && facetValue.equals(((OWLFacetRestriction) obj)
-                            .getFacetValue());
+                    && facetValue.equals(((OWLFacetRestriction) obj).getFacetValue());
         }
         return false;
     }

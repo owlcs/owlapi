@@ -19,13 +19,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -33,8 +27,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
-        implements OWLClassAssertionAxiom {
+public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -50,13 +43,11 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLClassAssertionAxiomImpl(@Nonnull OWLIndividual individual,
-            @Nonnull OWLClassExpression classExpression,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLClassAssertionAxiomImpl(OWLIndividual individual, OWLClassExpression classExpression,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.individual = checkNotNull(individual, "individual cannot be null");
-        this.classExpression = checkNotNull(classExpression,
-                "classExpression cannot be null");
+        this.classExpression = checkNotNull(classExpression, "classExpression cannot be null");
     }
 
     @Override
@@ -64,14 +55,12 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLClassAssertionAxiomImpl(getIndividual(),
-                getClassExpression(), NO_ANNOTATIONS);
+        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLClassAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLClassAssertionAxiomImpl(getIndividual(),
-                getClassExpression(), mergeAnnos(anns));
+        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(), mergeAnnos(anns));
     }
 
     @Override
@@ -96,14 +85,12 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
             return false;
         }
         OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
-        return other.getIndividual().equals(individual)
-                && other.getClassExpression().equals(classExpression);
+        return other.getIndividual().equals(individual) && other.getClassExpression().equals(classExpression);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
-                CollectionFactory.createSet(getIndividual())),
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(CollectionFactory.createSet(getIndividual())),
                 getClassExpression(), NO_ANNOTATIONS);
     }
 

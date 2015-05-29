@@ -746,7 +746,6 @@ public class OBOFormatWriter {
         return in;
     }
 
-    @Nonnull
     private static final Map<String, Integer> HEADERTAGSPRIORITIES = buildHeaderTagsPriorities();
     /** The Class HeaderTagsComparator. */
     private static Comparator<String> headerTagsComparator = (o1, o2) -> {

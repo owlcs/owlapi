@@ -17,14 +17,7 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -32,8 +25,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @since 2.0.0
  */
 public class OWLObjectPropertyRangeAxiomImpl
-        extends
-        OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression>
+        extends OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression>
         implements OWLObjectPropertyRangeAxiom {
 
     private static final long serialVersionUID = 40000L;
@@ -46,10 +38,8 @@ public class OWLObjectPropertyRangeAxiomImpl
      * @param annotations
      *        annotations
      */
-    public OWLObjectPropertyRangeAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression range,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLObjectPropertyRangeAxiomImpl(OWLObjectPropertyExpression property, OWLClassExpression range,
+            Collection<OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 
@@ -64,21 +54,17 @@ public class OWLObjectPropertyRangeAxiomImpl
         return obj instanceof OWLObjectPropertyRangeAxiom;
     }
 
-    @Nonnull
     @Override
     public OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(),
-                NO_ANNOTATIONS);
+        return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(),
-                mergeAnnos(anns));
+    public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
     }
 
     @Override
@@ -88,8 +74,7 @@ public class OWLObjectPropertyRangeAxiomImpl
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sup = new OWLObjectAllValuesFromImpl(getProperty(),
-                getRange());
+        OWLClassExpression sup = new OWLObjectAllValuesFromImpl(getProperty(), getRange());
         return new OWLSubClassOfAxiomImpl(OWL_THING, sup, NO_ANNOTATIONS);
     }
 }

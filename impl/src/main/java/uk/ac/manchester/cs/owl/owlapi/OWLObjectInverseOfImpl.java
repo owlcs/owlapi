@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
-        implements OWLObjectInverseOf {
+public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectInverseOf {
 
     private static final long serialVersionUID = 40000L;
 
@@ -41,8 +40,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
      * @param inverseProperty
      *        property to invert
      */
-    public OWLObjectInverseOfImpl(
-            @Nonnull OWLObjectPropertyExpression inverseProperty) {
+    public OWLObjectInverseOfImpl(OWLObjectPropertyExpression inverseProperty) {
         this.inverseProperty = inverseProperty;
     }
 
@@ -67,7 +65,6 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return inverseProperty.compareTo(((OWLObjectInverseOf) object)
-                .getInverse());
+        return inverseProperty.compareTo(((OWLObjectInverseOf) object).getInverse());
     }
 }

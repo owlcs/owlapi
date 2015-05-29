@@ -36,8 +36,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
-        implements OWLObjectOneOf {
+public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectOneOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -52,10 +51,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
      * @param values
      *        values for oneof
      */
-    public OWLObjectOneOfImpl(
-            @Nonnull Collection<? extends OWLIndividual> values) {
-        Collection<? extends OWLIndividual> vals = checkNotNull(values,
-                "values cannot be null");
+    public OWLObjectOneOfImpl(Collection<? extends OWLIndividual> values) {
+        Collection<? extends OWLIndividual> vals = checkNotNull(values, "values cannot be null");
         this.values = asList(vals.stream().sorted());
     }
 
@@ -63,7 +60,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
      * @param value
      *        value for oneof
      */
-    public OWLObjectOneOfImpl(@Nonnull OWLIndividual value) {
+    public OWLObjectOneOfImpl(OWLIndividual value) {
         values = Arrays.asList(checkNotNull(value, "value cannot be null"));
     }
 
@@ -107,7 +104,6 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(individuals(),
-                ((OWLObjectOneOf) object).individuals());
+        return compareStreams(individuals(), ((OWLObjectOneOf) object).individuals());
     }
 }

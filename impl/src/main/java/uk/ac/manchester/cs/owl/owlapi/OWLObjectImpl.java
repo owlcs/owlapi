@@ -42,14 +42,12 @@ import com.google.common.cache.LoadingCache;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImpl implements OWLObject, Serializable,
-    HasIncrementalSignatureGenerationSupport {
+public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
     @Nonnull
-    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
-        .emptySet();
+    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     protected int hashCode = 0;
     protected static CacheLoader<OWLObjectImpl, Set<OWLEntity>> builder = new CacheLoader<OWLObjectImpl, Set<OWLEntity>>() {
@@ -59,8 +57,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
             return key.addSignatureEntitiesToSet(new HashSet<>());
         }
     };
-    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = CacheBuilder
-        .newBuilder().weakKeys().softValues().build(builder);
+    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = CacheBuilder.newBuilder().weakKeys()
+            .softValues().build(builder);
     protected static CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonbuilder = new CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>>() {
 
         @Override
@@ -68,10 +66,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
             return key.addAnonymousIndividualsToSet(new HashSet<>());
         }
     };
-    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = CacheBuilder
-        .newBuilder().weakKeys().softValues().build(anonbuilder);
+    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = CacheBuilder.newBuilder()
+            .weakKeys().softValues().build(anonbuilder);
 
-    @Nonnull
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
         try {
@@ -81,7 +78,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         }
     }
 
-    @Nonnull
     @Override
     public Stream<OWLEntity> signature() {
         try {
@@ -91,8 +87,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
         }
     }
 
-    protected static List<OWLAnnotation> asAnnotations(
-        Collection<OWLAnnotation> anns) {
+    protected static List<OWLAnnotation> asAnnotations(Collection<OWLAnnotation> anns) {
         if (anns.isEmpty()) {
             return emptyList();
         }
@@ -103,7 +98,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
     }
 
     @Override
-    public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
+    public boolean containsEntityInSignature(OWLEntity owlEntity) {
         return signature().anyMatch(e -> e.equals(owlEntity));
     }
 
@@ -114,32 +109,27 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLDataProperty()).map(e -> e
-            .asOWLDataProperty());
+        return signature().filter(e -> e.isOWLDataProperty()).map(e -> e.asOWLDataProperty());
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLObjectProperty()).map(e -> e
-            .asOWLObjectProperty());
+        return signature().filter(e -> e.isOWLObjectProperty()).map(e -> e.asOWLObjectProperty());
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return signature().filter(e -> e.isOWLNamedIndividual()).map(e -> e
-            .asOWLNamedIndividual());
+        return signature().filter(e -> e.isOWLNamedIndividual()).map(e -> e.asOWLNamedIndividual());
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return signature().filter(e -> e.isOWLDatatype()).map(e -> e
-            .asOWLDatatype());
+        return signature().filter(e -> e.isOWLDatatype()).map(e -> e.asOWLDatatype());
     }
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLAnnotationProperty()).map(e -> e
-            .asOWLAnnotationProperty());
+        return signature().filter(e -> e.isOWLAnnotationProperty()).map(e -> e.asOWLAnnotationProperty());
     }
 
     @Override
@@ -180,14 +170,12 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
             return diff;
         }
         if (this instanceof OWLAxiom) {
-            diff = compareStreams(((OWLAxiom) this).annotations(),
-                ((OWLAxiom) o).annotations());
+            diff = compareStreams(((OWLAxiom) this).annotations(), ((OWLAxiom) o).annotations());
         }
         return diff;
     }
 
-    protected int compareAnnotations(List<OWLAnnotation> l1,
-        List<OWLAnnotation> l2) {
+    protected int compareAnnotations(List<OWLAnnotation> l1, List<OWLAnnotation> l2) {
         int i = 0;
         for (; i < l1.size() && i < l2.size(); i++) {
             int diff = l1.get(i).compareTo(l2.get(i));
@@ -209,10 +197,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable,
 
     protected abstract int index();
 
-    protected abstract int compareObjectOfSameType(@Nonnull OWLObject object);
+    protected abstract int compareObjectOfSameType(OWLObject object);
 
     @Override
-    @Nonnull
     public String toString() {
         return ToStringRenderer.getInstance().getRendering(this);
     }

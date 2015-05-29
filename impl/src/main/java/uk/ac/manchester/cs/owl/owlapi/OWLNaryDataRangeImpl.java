@@ -30,17 +30,14 @@ import org.semanticweb.owlapi.model.OWLObject;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
-        OWLNaryDataRange {
+public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLNaryDataRange {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final List<? extends OWLDataRange> operands;
 
-    protected OWLNaryDataRangeImpl(
-            @Nonnull Collection<? extends OWLDataRange> operands) {
-        Collection<? extends OWLDataRange> ops = checkNotNull(operands,
-                "operands cannot be null");
+    protected OWLNaryDataRangeImpl(Collection<? extends OWLDataRange> operands) {
+        Collection<? extends OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
         this.operands = asList(ops.stream().sorted());
     }
 
@@ -51,7 +48,6 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(operands(),
-                ((OWLNaryDataRange) object).operands());
+        return compareStreams(operands(), ((OWLNaryDataRange) object).operands());
     }
 }

@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
-        OWLSubClassOfAxiom {
+public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubClassOfAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -47,19 +46,16 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
      * @param annotations
      *        annotations
      */
-    public OWLSubClassOfAxiomImpl(@Nonnull OWLClassExpression subClass,
-            @Nonnull OWLClassExpression superClass,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLSubClassOfAxiomImpl(OWLClassExpression subClass, OWLClassExpression superClass,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subClass = checkNotNull(subClass, "subClass cannot be null");
         this.superClass = checkNotNull(superClass, "superClass cannot be null");
     }
 
     @Override
-    public OWLSubClassOfAxiom getAnnotatedAxiom(
-            @Nonnull Stream<OWLAnnotation> anns) {
-        return new OWLSubClassOfAxiomImpl(subClass, superClass,
-                mergeAnnos(anns));
+    public OWLSubClassOfAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(anns));
     }
 
     @Override
@@ -99,8 +95,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         // superclass is responsible for null, identity, owlaxiom type and
         // annotations
         OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) obj;
-        return other.getSubClass().equals(subClass)
-                && other.getSuperClass().equals(superClass);
+        return other.getSubClass().equals(subClass) && other.getSuperClass().equals(superClass);
     }
 
     @Override

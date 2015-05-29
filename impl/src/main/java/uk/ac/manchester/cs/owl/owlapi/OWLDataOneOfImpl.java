@@ -19,8 +19,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -35,7 +33,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
     private final List<? extends OWLLiteral> values;
 
     @Override
@@ -47,7 +44,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
      * @param values
      *        lierals
      */
-    public OWLDataOneOfImpl(@Nonnull Collection<? extends OWLLiteral> values) {
+    public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
         checkNotNull(values, "values cannot be null");
         this.values = asList(values.stream().sorted());
     }

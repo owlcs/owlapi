@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -28,9 +26,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLTransitiveObjectPropertyAxiomImpl extends
-        OWLObjectPropertyCharacteristicAxiomImpl implements
-        OWLTransitiveObjectPropertyAxiom {
+public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+        implements OWLTransitiveObjectPropertyAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -40,26 +37,22 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLTransitiveObjectPropertyAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLTransitiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
-                NO_ANNOTATIONS);
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(anns));
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 
     @Override

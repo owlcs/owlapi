@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
@@ -28,7 +28,7 @@ class NoOpLock implements Lock, Serializable {
     }
 
     @Override
-    public boolean tryLock(long time, TimeUnit unit) {
+    public boolean tryLock(long time, @Nullable TimeUnit unit) {
         return true;
     }
 
@@ -36,7 +36,6 @@ class NoOpLock implements Lock, Serializable {
     public void unlock() {}
 
     @Override
-    @Nonnull
     public Condition newCondition() {
         return NO_OP_CONDITION;
     }
@@ -59,12 +58,12 @@ class NoOpLock implements Lock, Serializable {
         }
 
         @Override
-        public boolean await(long time, TimeUnit unit) {
+        public boolean await(long time, @Nullable TimeUnit unit) {
             return true;
         }
 
         @Override
-        public boolean awaitUntil(Date deadline) {
+        public boolean awaitUntil(@Nullable Date deadline) {
             return true;
         }
 

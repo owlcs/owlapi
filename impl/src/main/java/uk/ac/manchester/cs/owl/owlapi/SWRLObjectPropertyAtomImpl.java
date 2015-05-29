@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
@@ -24,9 +22,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLObjectPropertyAtomImpl extends
-    SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>implements
-    SWRLObjectPropertyAtom {
+public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
+        implements SWRLObjectPropertyAtom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -43,13 +40,10 @@ public class SWRLObjectPropertyAtomImpl extends
      * @param arg1
      *        object
      */
-    public SWRLObjectPropertyAtomImpl(
-        @Nonnull OWLObjectPropertyExpression predicate,
-        @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
+    public SWRLObjectPropertyAtomImpl(OWLObjectPropertyExpression predicate, SWRLIArgument arg0, SWRLIArgument arg1) {
         super(predicate, arg0, arg1);
     }
 
-    @Nonnull
     @Override
     public OWLObjectPropertyExpression getPredicate() {
         return (OWLObjectPropertyExpression) super.getPredicate();
@@ -62,12 +56,11 @@ public class SWRLObjectPropertyAtomImpl extends
             return this;
         } else if (prop.isAnonymous()) {
             // Flip
-            return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty()
-                .getSimplified(), getSecondArgument(), getFirstArgument());
+            return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty().getSimplified(), getSecondArgument(),
+                    getFirstArgument());
         } else {
             // No need to flip
-            return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(),
-                getSecondArgument());
+            return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(), getSecondArgument());
         }
     }
 
@@ -80,8 +73,7 @@ public class SWRLObjectPropertyAtomImpl extends
             return false;
         }
         SWRLObjectPropertyAtom other = (SWRLObjectPropertyAtom) obj;
-        return other.getPredicate().equals(getPredicate()) && other
-            .getFirstArgument().equals(getFirstArgument()) && other
-                .getSecondArgument().equals(getSecondArgument());
+        return other.getPredicate().equals(getPredicate()) && other.getFirstArgument().equals(getFirstArgument())
+                && other.getSecondArgument().equals(getSecondArgument());
     }
 }

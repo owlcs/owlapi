@@ -26,14 +26,14 @@ import org.semanticweb.owlapi.model.OWLObject;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
-        OWLRestrictionImpl implements OWLHasValueRestriction<V> {
+public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends OWLRestrictionImpl
+        implements OWLHasValueRestriction<V> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
     protected final V value;
 
-    protected OWLValueRestrictionImpl(@Nonnull V value) {
+    protected OWLValueRestrictionImpl(V value) {
         this.value = checkNotNull(value, "value cannot be null");
     }
 

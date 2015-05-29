@@ -14,31 +14,17 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
-        implements OWLSameIndividualAxiom {
+public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLSameIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -48,9 +34,8 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLSameIndividualAxiomImpl(
-            @Nonnull Collection<? extends OWLIndividual> individuals,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLSameIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
+            Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 
@@ -73,8 +58,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
         for (int i = 0; i < individuals.size() - 1; i++) {
             OWLIndividual indI = individuals.get(i);
             OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLSameIndividualAxiomImpl(new HashSet<>(Arrays
-                    .asList(indI, indJ)), NO_ANNOTATIONS));
+            result.add(new OWLSameIndividualAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), NO_ANNOTATIONS));
         }
         return result;
     }
@@ -88,8 +72,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
         for (int i = 0; i < individuals.size() - 1; i++) {
             OWLIndividual indI = individuals.get(i);
             OWLIndividual indJ = individuals.get(i + 1);
-            result.add(new OWLSameIndividualAxiomImpl(
-                    Arrays.asList(indI, indJ), annotations));
+            result.add(new OWLSameIndividualAxiomImpl(Arrays.asList(indI, indJ), annotations));
         }
         return result;
     }
@@ -102,8 +85,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
-        individuals().forEach(
-                i -> nominalsList.add(new OWLObjectOneOfImpl(createSet(i))));
+        individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(createSet(i))));
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             OWLClassExpression ceI = nominalsList.get(i);

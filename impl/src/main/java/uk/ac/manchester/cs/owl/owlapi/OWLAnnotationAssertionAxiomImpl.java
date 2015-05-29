@@ -19,21 +19,14 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
-        OWLAnnotationAssertionAxiom {
+public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWLAnnotationAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -53,11 +46,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLAnnotationAssertionAxiomImpl(
-            @Nonnull OWLAnnotationSubject subject,
-            @Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationValue value,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject, OWLAnnotationProperty property,
+            OWLAnnotationValue value, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
@@ -69,8 +59,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
-                getValue(), NO_ANNOTATIONS);
+        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(), getValue(), NO_ANNOTATIONS);
     }
 
     /**
@@ -83,15 +72,12 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
      */
     @Override
     public boolean isDeprecatedIRIAssertion() {
-        return property.isDeprecated()
-                && getAnnotation().isDeprecatedIRIAnnotation();
+        return property.isDeprecated() && getAnnotation().isDeprecatedIRIAnnotation();
     }
 
     @Override
-    public OWLAnnotationAssertionAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
-                getValue(), mergeAnnos(anns));
+    public OWLAnnotationAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(), getValue(), mergeAnnos(anns));
     }
 
     @Override
@@ -147,8 +133,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
             return false;
         }
         OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
-        return subject.equals(other.getSubject())
-                && property.equals(other.getProperty())
+        return subject.equals(other.getSubject()) && property.equals(other.getProperty())
                 && value.equals(other.getValue());
     }
 }

@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -29,8 +27,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements
-        OWLDataIntersectionOf {
+public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements OWLDataIntersectionOf {
 
     private static final long serialVersionUID = 40000L;
 
@@ -43,8 +40,7 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements
      * @param operands
      *        operands
      */
-    public OWLDataIntersectionOfImpl(
-            @Nonnull Collection<? extends OWLDataRange> operands) {
+    public OWLDataIntersectionOfImpl(Collection<? extends OWLDataRange> operands) {
         super(operands);
     }
 

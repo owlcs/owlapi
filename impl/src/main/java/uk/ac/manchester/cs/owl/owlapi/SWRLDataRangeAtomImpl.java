@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -25,8 +23,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
-        implements SWRLDataRangeAtom {
+public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>implements SWRLDataRangeAtom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -41,12 +38,10 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
      * @param arg
      *        range argument
      */
-    public SWRLDataRangeAtomImpl(@Nonnull OWLDataRange predicate,
-            @Nonnull SWRLDArgument arg) {
+    public SWRLDataRangeAtomImpl(OWLDataRange predicate, SWRLDArgument arg) {
         super(predicate, arg);
     }
 
-    @Nonnull
     @Override
     public OWLDataRange getPredicate() {
         return (OWLDataRange) super.getPredicate();
@@ -61,8 +56,7 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
             return false;
         }
         SWRLDataRangeAtom other = (SWRLDataRangeAtom) obj;
-        return other.getArgument().equals(getArgument())
-                && other.getPredicate().equals(getPredicate());
+        return other.getArgument().equals(getArgument()) && other.getPredicate().equals(getPredicate());
     }
 
     @Override

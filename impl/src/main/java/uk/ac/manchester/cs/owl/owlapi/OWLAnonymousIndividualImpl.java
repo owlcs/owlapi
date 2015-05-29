@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnonymousIndividualImpl extends OWLIndividualImpl
-    implements OWLAnonymousIndividual {
+public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -44,7 +43,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl
      * @param nodeID
      *        node id
      */
-    public OWLAnonymousIndividualImpl(@Nonnull NodeID nodeID) {
+    public OWLAnonymousIndividualImpl(NodeID nodeID) {
         nodeId = checkNotNull(nodeID, "nodeID cannot be null");
     }
 
@@ -58,7 +57,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl
         return nodeId.getID();
     }
 
-    @Nonnull
     @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {
         return this;

@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.*;
@@ -43,12 +42,12 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
      *        ontology id
      */
     @Inject
-    public OWLOntologyImpl(@Nonnull @Assisted OWLOntologyManager manager, @Nonnull @Assisted OWLOntologyID ontologyID) {
+    public OWLOntologyImpl(@Assisted OWLOntologyManager manager, @Assisted OWLOntologyID ontologyID) {
         super(manager, ontologyID);
     }
 
     @Override
-    public ChangeApplied applyDirectChange(@Nonnull OWLOntologyChange change) {
+    public ChangeApplied applyDirectChange(OWLOntologyChange change) {
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         return change.accept(changeFilter);
     }
@@ -58,9 +57,8 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         return getOWLOntologyManager().applyChange(change);
     }
 
-    @Nonnull
     @Override
-    public ChangeApplied applyChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
+    public ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes) {
         ChangeApplied appliedChanges = SUCCESSFULLY;
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         for (OWLOntologyChange change : changes) {
@@ -101,7 +99,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         private static final long serialVersionUID = 40000L;
 
         @Override
-        public ChangeApplied visit(@Nonnull RemoveAxiom change) {
+        public ChangeApplied visit(RemoveAxiom change) {
             if (ints.removeAxiom(change.getAxiom())) {
                 return SUCCESSFULLY;
             }
@@ -109,7 +107,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         }
 
         @Override
-        public ChangeApplied visit(@Nonnull SetOntologyID change) {
+        public ChangeApplied visit(SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
             if (!id.equals(ontologyID)) {
                 ontologyID = id;
@@ -119,7 +117,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         }
 
         @Override
-        public ChangeApplied visit(@Nonnull AddAxiom change) {
+        public ChangeApplied visit(AddAxiom change) {
             if (ints.addAxiom(change.getAxiom())) {
                 return SUCCESSFULLY;
             }
@@ -127,7 +125,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         }
 
         @Override
-        public ChangeApplied visit(@Nonnull AddImport change) {
+        public ChangeApplied visit(AddImport change) {
             if (ints.addImportsDeclaration(change.getImportDeclaration())) {
                 return SUCCESSFULLY;
             }
@@ -135,7 +133,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         }
 
         @Override
-        public ChangeApplied visit(@Nonnull RemoveImport change) {
+        public ChangeApplied visit(RemoveImport change) {
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
                 return SUCCESSFULLY;
             }
@@ -143,7 +141,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         }
 
         @Override
-        public ChangeApplied visit(@Nonnull AddOntologyAnnotation change) {
+        public ChangeApplied visit(AddOntologyAnnotation change) {
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
                 return SUCCESSFULLY;
             }
@@ -151,7 +149,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
         }
 
         @Override
-        public ChangeApplied visit(@Nonnull RemoveOntologyAnnotation change) {
+        public ChangeApplied visit(RemoveOntologyAnnotation change) {
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {
                 return SUCCESSFULLY;
             }

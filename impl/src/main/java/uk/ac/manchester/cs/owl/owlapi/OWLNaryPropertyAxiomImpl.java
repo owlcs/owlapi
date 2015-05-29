@@ -15,34 +15,24 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLPairwiseBooleanVisitor;
-import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
-import org.semanticweb.owlapi.model.OWLPairwiseVoidVisitor;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <P>
+ * @param
+ *        <P>
  *        the property expression
  */
-public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
+public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
+        implements OWLNaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -55,18 +45,14 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      *        annotations
      */
     @SuppressWarnings("unchecked")
-    public OWLNaryPropertyAxiomImpl(
-            @Nonnull Collection<? extends P> properties,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties, Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
-        this.properties = (List<P>) CollectionFactory
-                .sortOptionally(properties);
+        this.properties = (List<P>) CollectionFactory.sortOptionally(properties);
     }
 
     @SafeVarargs
-    OWLNaryPropertyAxiomImpl(@Nonnull Collection<OWLAnnotation> annotations,
-            P... properties) {
+    OWLNaryPropertyAxiomImpl(Collection<OWLAnnotation> annotations, P... properties) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
         Arrays.sort(properties);
@@ -97,16 +83,14 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
             return false;
         }
         if (obj instanceof OWLNaryPropertyAxiomImpl) {
-            return properties
-                    .equals(((OWLNaryPropertyAxiomImpl<?>) obj).properties);
+            return properties.equals(((OWLNaryPropertyAxiomImpl<?>) obj).properties);
         }
         return compareObjectOfSameType((OWLNaryPropertyAxiom<?>) obj) == 0;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(properties(),
-                ((OWLNaryPropertyAxiom<?>) object).properties());
+        return compareStreams(properties(), ((OWLNaryPropertyAxiom<?>) object).properties());
     }
 
     @Override

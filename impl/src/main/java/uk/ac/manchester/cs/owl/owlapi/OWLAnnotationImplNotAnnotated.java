@@ -32,8 +32,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
-        OWLAnnotation {
+public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLAnnotation {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -52,9 +51,7 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
      * @param value
      *        annotation value
      */
-    public OWLAnnotationImplNotAnnotated(
-            @Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationValue value) {
+    public OWLAnnotationImplNotAnnotated(OWLAnnotationProperty property, OWLAnnotationValue value) {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
     }
@@ -70,8 +67,7 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
     }
 
     @Override
-    public OWLAnnotation getAnnotatedAnnotation(
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLAnnotation getAnnotatedAnnotation(Collection<OWLAnnotation> annotations) {
         if (annotations.isEmpty()) {
             return this;
         }
@@ -79,15 +75,13 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
     }
 
     @Override
-    public OWLAnnotation getAnnotatedAnnotation(
-            @Nonnull Stream<OWLAnnotation> annotations) {
+    public OWLAnnotation getAnnotatedAnnotation(Stream<OWLAnnotation> annotations) {
         return new OWLAnnotationImpl(property, value, annotations);
     }
 
     @Override
     public boolean isDeprecatedIRIAnnotation() {
-        return property.isDeprecated() && value instanceof OWLLiteral
-                && ((OWLLiteral) value).isBoolean()
+        return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value).isBoolean()
                 && ((OWLLiteral) value).parseBoolean();
     }
 
@@ -103,8 +97,7 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements
             return false;
         }
         OWLAnnotation other = (OWLAnnotation) obj;
-        return other.getProperty().equals(property)
-                && other.getValue().equals(value)
+        return other.getProperty().equals(property) && other.getValue().equals(value)
                 && equalStreams(other.annotations(), annotations());
     }
 

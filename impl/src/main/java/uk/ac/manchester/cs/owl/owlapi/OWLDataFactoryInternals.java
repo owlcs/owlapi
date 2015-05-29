@@ -15,19 +15,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.io.Serializable;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author ignazio Mutable state in an OWLDataFactory is encapsulated by this
@@ -40,8 +30,7 @@ public interface OWLDataFactoryInternals extends Serializable {
      *        new class IRI
      * @return a new OWLClass object, or a cached one depending on policies
      */
-    @Nonnull
-    OWLClass getOWLClass(@Nonnull IRI iri);
+    OWLClass getOWLClass(IRI iri);
 
     /** purge any caches. */
     void purge();
@@ -52,8 +41,7 @@ public interface OWLDataFactoryInternals extends Serializable {
      * @return a new OWLObjectProperty object, or a cached one depending on
      *         policies
      */
-    @Nonnull
-    OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri);
+    OWLObjectProperty getOWLObjectProperty(IRI iri);
 
     /**
      * @param iri
@@ -61,8 +49,7 @@ public interface OWLDataFactoryInternals extends Serializable {
      * @return a new OWLDataProperty object, or a cached one depending on
      *         policies
      */
-    @Nonnull
-    OWLDataProperty getOWLDataProperty(@Nonnull IRI iri);
+    OWLDataProperty getOWLDataProperty(IRI iri);
 
     /**
      * @param iri
@@ -70,16 +57,14 @@ public interface OWLDataFactoryInternals extends Serializable {
      * @return a new OWLNamedIndividual object, or a cached one depending on
      *         policies
      */
-    @Nonnull
-    OWLNamedIndividual getOWLNamedIndividual(@Nonnull IRI iri);
+    OWLNamedIndividual getOWLNamedIndividual(IRI iri);
 
     /**
      * @param iri
      *        new OWLDatatype IRI
      * @return a new OWLDatatype object, or a cached one depending on policies
      */
-    @Nonnull
-    OWLDatatype getOWLDatatype(@Nonnull IRI iri);
+    OWLDatatype getOWLDatatype(IRI iri);
 
     /**
      * @param iri
@@ -87,8 +72,7 @@ public interface OWLDataFactoryInternals extends Serializable {
      * @return a new OWLAnnotationProperty object, or a cached one depending on
      *         policies
      */
-    @Nonnull
-    OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull IRI iri);
+    OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
 
     /**
      * @param lexicalValue
@@ -97,16 +81,13 @@ public interface OWLDataFactoryInternals extends Serializable {
      *        datatype for literal
      * @return new literal
      */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWLDatatype datatype);
+    OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
 
     /**
      * @param value
      *        int value for literal
      * @return new literal
      */
-    @Nonnull
     OWLLiteral getOWLLiteral(int value);
 
     /**
@@ -114,7 +95,6 @@ public interface OWLDataFactoryInternals extends Serializable {
      *        boolean value for literal
      * @return new literal
      */
-    @Nonnull
     OWLLiteral getOWLLiteral(boolean value);
 
     /**
@@ -122,7 +102,6 @@ public interface OWLDataFactoryInternals extends Serializable {
      *        double value for literal
      * @return new literal
      */
-    @Nonnull
     OWLLiteral getOWLLiteral(double value);
 
     /**
@@ -130,7 +109,6 @@ public interface OWLDataFactoryInternals extends Serializable {
      *        float value for literal
      * @return new literal
      */
-    @Nonnull
     OWLLiteral getOWLLiteral(float value);
 
     /**
@@ -138,8 +116,7 @@ public interface OWLDataFactoryInternals extends Serializable {
      *        literal form
      * @return new literal
      */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String value);
+    OWLLiteral getOWLLiteral(String value);
 
     /**
      * @param literal
@@ -148,8 +125,7 @@ public interface OWLDataFactoryInternals extends Serializable {
      *        language tag, can be null
      * @return new literal
      */
-    @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable String lang);
+    OWLLiteral getOWLLiteral(String literal, @Nullable String lang);
 
     /**
      * Construct an OWLAnnotation.
@@ -162,8 +138,6 @@ public interface OWLDataFactoryInternals extends Serializable {
      *        annotations on the annotation
      * @return new annotation
      */
-    @Nonnull
-    OWLAnnotation getOWLAnnotation(@Nonnull OWLAnnotationProperty property,
-        @Nonnull OWLAnnotationValue value,
-        @Nonnull Stream<OWLAnnotation> annotations);
+    OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
+            Stream<OWLAnnotation> annotations);
 }

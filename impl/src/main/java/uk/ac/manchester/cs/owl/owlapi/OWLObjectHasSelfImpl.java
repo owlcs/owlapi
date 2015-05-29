@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
-        OWLObjectHasSelf {
+public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements OWLObjectHasSelf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -43,7 +42,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
      * @param property
      *        self property
      */
-    public OWLObjectHasSelfImpl(@Nonnull OWLObjectPropertyExpression property) {
+    public OWLObjectHasSelfImpl(OWLObjectPropertyExpression property) {
         this.property = checkNotNull(property, "property cannot be null");
     }
 
@@ -65,13 +64,11 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
         if (!super.equals(obj)) {
             return false;
         }
-        return obj instanceof OWLObjectHasSelf
-                && getProperty().equals(((OWLObjectHasSelf) obj).getProperty());
+        return obj instanceof OWLObjectHasSelf && getProperty().equals(((OWLObjectHasSelf) obj).getProperty());
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return getProperty().compareTo(
-                ((OWLObjectHasSelf) object).getProperty());
+        return getProperty().compareTo(((OWLObjectHasSelf) object).getProperty());
     }
 }

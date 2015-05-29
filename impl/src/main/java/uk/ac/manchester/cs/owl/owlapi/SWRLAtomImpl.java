@@ -30,7 +30,7 @@ public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
     @Nonnull
     protected final SWRLPredicate predicate;
 
-    protected SWRLAtomImpl(@Nonnull SWRLPredicate predicate) {
+    protected SWRLAtomImpl(SWRLPredicate predicate) {
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
     }
 

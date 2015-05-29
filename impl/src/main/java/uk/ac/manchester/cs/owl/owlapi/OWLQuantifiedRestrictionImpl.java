@@ -26,8 +26,8 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
  * @param <F>
  *        range type
  */
-public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange>
-        extends OWLRestrictionImpl implements OWLQuantifiedRestriction<F> {
+public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> extends OWLRestrictionImpl
+        implements OWLQuantifiedRestriction<F> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -37,7 +37,7 @@ public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange>
      * @param filler
      *        filler
      */
-    public OWLQuantifiedRestrictionImpl(@Nonnull F filler) {
+    public OWLQuantifiedRestrictionImpl(F filler) {
         this.filler = checkNotNull(filler, "filler cannot be null");
     }
 

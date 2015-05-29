@@ -8,8 +8,6 @@ import static org.mockito.Mockito.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,35 +19,23 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
- * Matthew Horridge
- * Stanford Center for Biomedical Informatics Research
- * 10/04/15
+ * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
 @SuppressWarnings("javadoc")
 public class ConcurrentOWLOntologyBuilder_TestCase {
 
     private ConcurrentOWLOntologyBuilder builder;
-
     @Mock
     private OWLOntologyBuilder delegateBuilder;
-
     @Mock
     private ReadWriteLock readWriteLock;
-
     @Mock
     private Lock readLock, writeLock;
-
-    @SuppressWarnings("null")
     @Mock
-    @Nonnull
     private OWLOntologyManager manager;
-
-    @SuppressWarnings("null")
     @Mock
-    @Nonnull
     private OWLOntologyID ontologyId;
-
     @Mock
     private OWLOntology ontology;
 

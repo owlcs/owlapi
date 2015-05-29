@@ -28,12 +28,12 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <P>
+ * @param
+ *        <P>
  *        property type
  */
-public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression>
-        extends OWLUnaryPropertyAxiomImpl<P> implements
-        OWLPropertyDomainAxiom<P> {
+public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends OWLUnaryPropertyAxiomImpl<P>
+        implements OWLPropertyDomainAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -47,9 +47,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
      * @param annotations
      *        annotations
      */
-    public OWLPropertyDomainAxiomImpl(@Nonnull P property,
-            @Nonnull OWLClassExpression domain,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLPropertyDomainAxiomImpl(P property, OWLClassExpression domain, Collection<OWLAnnotation> annotations) {
         super(property, annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
     }

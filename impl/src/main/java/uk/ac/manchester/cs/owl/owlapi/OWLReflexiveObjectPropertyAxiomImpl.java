@@ -17,8 +17,6 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -30,9 +28,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLReflexiveObjectPropertyAxiomImpl extends
-        OWLObjectPropertyCharacteristicAxiomImpl implements
-        OWLReflexiveObjectPropertyAxiom {
+public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
+        implements OWLReflexiveObjectPropertyAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -42,33 +39,27 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLReflexiveObjectPropertyAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLReflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(),
-                NO_ANNOTATIONS);
+        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectHasSelfImpl(
-                getProperty()), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectHasSelfImpl(getProperty()), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(),
-                mergeAnnos(anns));
+    public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 
     @Override

@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @param <A>
  *        atom type
  */
-public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
-        SWRLAtomImpl implements SWRLUnaryAtom<A> {
+public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -43,7 +42,7 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
      * @param arg
      *        atom
      */
-    public SWRLUnaryAtomImpl(@Nonnull SWRLPredicate predicate, @Nonnull A arg) {
+    public SWRLUnaryAtomImpl(SWRLPredicate predicate, A arg) {
         super(predicate);
         this.arg = checkNotNull(arg, "arg cannot be null");
     }
@@ -53,7 +52,6 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         return arg;
     }
 
-    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         return CollectionFactory.createSet((SWRLArgument) arg);

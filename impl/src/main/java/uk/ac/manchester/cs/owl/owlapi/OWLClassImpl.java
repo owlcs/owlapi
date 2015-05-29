@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
-    Serializable {
+public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
@@ -47,7 +46,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
      * @param iri
      *        class iri
      */
-    public OWLClassImpl(@Nonnull IRI iri) {
+    public OWLClassImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         isThing = getIRI().isThing();
         isNothing = getIRI().isNothing();
@@ -68,7 +67,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         return ClassExpressionType.OWL_CLASS;
     }
 
-    @Nonnull
     @Override
     public OWLClassExpression getObjectComplementOf() {
         return new OWLObjectComplementOfImpl(this);

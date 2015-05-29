@@ -34,8 +34,7 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
-        SWRLBuiltInAtom {
+public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -52,8 +51,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
      * @param args
      *        builtin argument
      */
-    public SWRLBuiltInAtomImpl(@Nonnull IRI predicate,
-            @Nonnull List<SWRLDArgument> args) {
+    public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
         super(predicate);
         this.args = new ArrayList<>(checkNotNull(args, "args cannot be null"));
     }
@@ -87,8 +85,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
             return false;
         }
         SWRLBuiltInAtom other = (SWRLBuiltInAtom) obj;
-        return other.getPredicate().equals(getPredicate())
-                && other.getArguments().equals(getArguments());
+        return other.getPredicate().equals(getPredicate()) && other.getArguments().equals(getArguments());
     }
 
     @Override

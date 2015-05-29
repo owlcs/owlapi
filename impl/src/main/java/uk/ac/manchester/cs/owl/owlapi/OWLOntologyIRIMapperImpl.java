@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Map;
 import java.util.TreeMap;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
@@ -50,7 +48,7 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
      * @param documentIRI
      *        new document iri
      */
-    public void addMapping(@Nonnull IRI ontologyIRI, @Nonnull IRI documentIRI) {
+    public void addMapping(IRI ontologyIRI, IRI documentIRI) {
         iriMap.put(checkNotNull(ontologyIRI, "ontologyIRI cannot be null"),
                 checkNotNull(documentIRI, "documentIRI cannot be null"));
     }

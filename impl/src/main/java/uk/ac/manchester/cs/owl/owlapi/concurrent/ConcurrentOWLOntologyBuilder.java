@@ -13,9 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
- * Matthew Horridge
- * Stanford Center for Biomedical Informatics Research
- * 10/04/15
+ * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
@@ -31,14 +29,14 @@ public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
      *        lock
      */
     @Inject
-    public ConcurrentOWLOntologyBuilder(@NonConcurrentDelegate OWLOntologyBuilder builder, ReadWriteLock readWriteLock) {
+    public ConcurrentOWLOntologyBuilder(@NonConcurrentDelegate OWLOntologyBuilder builder,
+            ReadWriteLock readWriteLock) {
         this.builder = verifyNotNull(builder);
         this.readWriteLock = verifyNotNull(readWriteLock);
     }
 
-    @Nonnull
     @Override
-    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntologyID ontologyID) {
+    public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID) {
         OWLOntology owlOntology = builder.createOWLOntology(manager, ontologyID);
         return new ConcurrentOWLOntologyImpl(owlOntology, readWriteLock);
     }

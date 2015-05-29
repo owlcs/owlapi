@@ -15,14 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -31,8 +24,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLNegativeObjectPropertyAssertionAxiomImpl
-        extends
-        OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
+        extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
         implements OWLNegativeObjectPropertyAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
@@ -47,11 +39,8 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl
      * @param annotations
      *        annotations
      */
-    public OWLNegativeObjectPropertyAssertionAxiomImpl(
-            @Nonnull OWLIndividual subject,
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLIndividual object,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLIndividual subject, OWLObjectPropertyExpression property,
+            OWLIndividual object, Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
@@ -60,23 +49,20 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(),
-                getProperty(), getObject(), NO_ANNOTATIONS);
+        return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(),
-                getProperty(), getObject(), mergeAnnos(anns));
+    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
+                mergeAnnos(anns));
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
-                CollectionFactory.createSet(getSubject())),
-                new OWLObjectComplementOfImpl(new OWLObjectHasValueImpl(
-                        getProperty(), getObject())), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(CollectionFactory.createSet(getSubject())),
+                new OWLObjectComplementOfImpl(new OWLObjectHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
     }
 
     @Override

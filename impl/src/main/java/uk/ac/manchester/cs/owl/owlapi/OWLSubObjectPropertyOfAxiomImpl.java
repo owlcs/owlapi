@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -27,9 +25,8 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLSubObjectPropertyOfAxiomImpl extends
-        OWLSubPropertyAxiomImpl<OWLObjectPropertyExpression> implements
-        OWLSubObjectPropertyOfAxiom {
+public class OWLSubObjectPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLObjectPropertyExpression>
+        implements OWLSubObjectPropertyOfAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -41,10 +38,8 @@ public class OWLSubObjectPropertyOfAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLSubObjectPropertyOfAxiomImpl(
-            @Nonnull OWLObjectPropertyExpression subProperty,
-            @Nonnull OWLObjectPropertyExpression superProperty,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLSubObjectPropertyOfAxiomImpl(OWLObjectPropertyExpression subProperty,
+            OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
 
@@ -53,15 +48,12 @@ public class OWLSubObjectPropertyOfAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(),
-                getSuperProperty(), NO_ANNOTATIONS);
+        return new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLSubObjectPropertyOfAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(),
-                getSuperProperty(), mergeAnnos(anns));
+    public OWLSubObjectPropertyOfAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLSubObjectPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), mergeAnnos(anns));
     }
 
     @Override

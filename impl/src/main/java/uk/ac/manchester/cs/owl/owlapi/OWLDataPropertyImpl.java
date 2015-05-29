@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
-    OWLDataProperty {
+public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements OWLDataProperty {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -45,10 +44,10 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
      * @param iri
      *        property iri
      */
-    public OWLDataPropertyImpl(@Nonnull IRI iri) {
+    public OWLDataPropertyImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
-            || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     @Override

@@ -16,8 +16,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -28,8 +26,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectIntersectionOfImpl extends
-        OWLNaryBooleanClassExpressionImpl implements OWLObjectIntersectionOf {
+public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectIntersectionOf {
 
     private static final long serialVersionUID = 40000L;
 
@@ -42,8 +39,7 @@ public class OWLObjectIntersectionOfImpl extends
      * @param operands
      *        operands
      */
-    public OWLObjectIntersectionOfImpl(
-            @Nonnull Collection<? extends OWLClassExpression> operands) {
+    public OWLObjectIntersectionOfImpl(Collection<? extends OWLClassExpression> operands) {
         super(operands);
     }
 

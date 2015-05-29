@@ -111,7 +111,7 @@ public class OWLOntologyManagerImpl
      *        lock
      */
     @Inject
-    public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory, ReadWriteLock readWriteLock) {
+    public OWLOntologyManagerImpl(OWLDataFactory dataFactory, ReadWriteLock readWriteLock) {
         this(dataFactory, readWriteLock, PriorityCollectionSorting.ON_SET_INJECTION_ONLY);
     }
 
@@ -123,7 +123,7 @@ public class OWLOntologyManagerImpl
      * @param sorting
      *        sorting option
      */
-    public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory, ReadWriteLock readWriteLock,
+    public OWLOntologyManagerImpl(OWLDataFactory dataFactory, ReadWriteLock readWriteLock,
             PriorityCollectionSorting sorting) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         readLock = readWriteLock.readLock();
@@ -160,7 +160,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public void setOntologyLoaderConfigurationProvider(@Nonnull Provider<OWLOntologyLoaderConfiguration> provider) {
+    public void setOntologyLoaderConfigurationProvider(Provider<OWLOntologyLoaderConfiguration> provider) {
         writeLock.lock();
         try {
             configProvider = provider;
@@ -180,7 +180,6 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    @Nonnull
     public OWLOntologyLoaderConfiguration getOntologyLoaderConfiguration() {
         readLock.lock();
         try {
@@ -409,7 +408,7 @@ public class OWLOntologyManagerImpl
      *        imports will be stored in this result set.
      * @return modified result
      */
-    private Set<OWLOntology> getImports(@Nonnull OWLOntology ont, @Nonnull Set<OWLOntology> result) {
+    private Set<OWLOntology> getImports(OWLOntology ont, Set<OWLOntology> result) {
         readLock.lock();
         try {
             directImports(ont).filter(o -> result.add(o)).forEach(o -> getImports(o, result));
@@ -441,7 +440,7 @@ public class OWLOntologyManagerImpl
      *        a place to store the result
      * @return modified ontologies
      */
-    private Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology, @Nonnull Set<OWLOntology> ontologies) {
+    private Set<OWLOntology> getImportsClosure(OWLOntology ontology, Set<OWLOntology> ontologies) {
         readLock.lock();
         try {
             ontologies.add(ontology);
@@ -559,7 +558,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public ChangeApplied addAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
+    public ChangeApplied addAxiom(OWLOntology ont, OWLAxiom axiom) {
         writeLock.lock();
         try {
             return addAxioms(ont, Collections.singleton(axiom));
@@ -569,19 +568,19 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public ChangeApplied addAxioms(@Nonnull OWLOntology ont, @Nonnull Stream<? extends OWLAxiom> axioms) {
+    public ChangeApplied addAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms) {
         // Write lock not needed at this point
         List<AddAxiom> changes = asList(axioms.map(ax -> new AddAxiom(ont, ax)));
         return applyChanges(changes);
     }
 
     @Override
-    public ChangeApplied removeAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
+    public ChangeApplied removeAxiom(OWLOntology ont, OWLAxiom axiom) {
         return removeAxioms(ont, createSet(axiom));
     }
 
     @Override
-    public ChangeApplied removeAxioms(@Nonnull OWLOntology ont, @Nonnull Collection<? extends OWLAxiom> axioms) {
+    public ChangeApplied removeAxioms(OWLOntology ont, Collection<? extends OWLAxiom> axioms) {
         // Write lock not needed at this point
         List<RemoveAxiom> changes = new ArrayList<>(axioms.size() + 2);
         axioms.forEach(ax -> changes.add(new RemoveAxiom(ont, ax)));
@@ -589,7 +588,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public ChangeApplied applyChange(@Nonnull OWLOntologyChange change) {
+    public ChangeApplied applyChange(OWLOntologyChange change) {
         // Write lock not needed at this point
         return applyChanges(list(change));
     }
@@ -658,9 +657,8 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    @Nonnull
     @Override
-    public OWLDocumentFormat getOntologyFormat(@Nonnull OWLOntology ontology) {
+    public OWLDocumentFormat getOntologyFormat(OWLOntology ontology) {
         readLock.lock();
         try {
             OWLOntologyID ontologyID = ontology.getOntologyID();
@@ -670,9 +668,8 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    @Nonnull
     @Override
-    public OWLOntology createOntology(@Nonnull OWLOntologyID ontologyID) throws OWLOntologyCreationException {
+    public OWLOntology createOntology(OWLOntologyID ontologyID) throws OWLOntologyCreationException {
         writeLock.lock();
         try {
             OWLOntology ontology = ontologiesByID.get(ontologyID);
@@ -736,8 +733,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public OWLOntology copyOntology(@Nonnull OWLOntology toCopy, @Nonnull OntologyCopy settings)
-            throws OWLOntologyCreationException {
+    public OWLOntology copyOntology(OWLOntology toCopy, OntologyCopy settings) throws OWLOntologyCreationException {
         writeLock.lock();
         try {
             checkNotNull(toCopy);
@@ -784,9 +780,8 @@ public class OWLOntologyManagerImpl
         return loadOntology(ontologyIRI, false, getOntologyLoaderConfiguration());
     }
 
-    @Nonnull
-    protected OWLOntology loadOntology(@Nonnull IRI iri, boolean allowExists,
-            @Nonnull OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
+    protected OWLOntology loadOntology(IRI iri, boolean allowExists, OWLOntologyLoaderConfiguration configuration)
+            throws OWLOntologyCreationException {
         writeLock.lock();
         try {
             OWLOntology ontByID = null;
@@ -892,9 +887,8 @@ public class OWLOntologyManagerImpl
      * @throws OWLOntologyCreationException
      *         If the ontology could not be loaded.
      */
-    @Nonnull
-    protected OWLOntology loadOntology(@Nullable IRI ontologyIRI, @Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
+    protected OWLOntology loadOntology(@Nullable IRI ontologyIRI, OWLOntologyDocumentSource documentSource,
+            OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         writeLock.lock();
         try {
             if (loadCount.get() != importsLoadCount.get()) {
@@ -1067,7 +1061,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public void saveOntology(@Nonnull OWLOntology ontology, OWLDocumentFormat ontologyFormat)
+    public void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat)
             throws OWLOntologyStorageException {
         // XXX check default
         readLock.lock();
@@ -1307,7 +1301,7 @@ public class OWLOntologyManagerImpl
      * @param changes
      *        The ontology changes to broadcast
      */
-    protected void broadcastChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
+    protected void broadcastChanges(List<? extends OWLOntologyChange> changes) {
         writeLock.lock();
         try {
             if (!broadcastChanges.get()) {
@@ -1336,7 +1330,7 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    protected void broadcastImpendingChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
+    protected void broadcastImpendingChanges(List<? extends OWLOntologyChange> changes) {
         writeLock.lock();
         try {
             if (!broadcastChanges.get()) {
@@ -1424,8 +1418,8 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    private void broadcastOntologyChangesVetoed(@Nonnull List<? extends OWLOntologyChange> changes,
-            @Nonnull OWLOntologyChangeVetoException veto) {
+    private void broadcastOntologyChangesVetoed(List<? extends OWLOntologyChange> changes,
+            OWLOntologyChangeVetoException veto) {
         writeLock.lock();
         try {
             new ArrayList<>(vetoListeners).forEach(l -> l.ontologyChangesVetoed(changes, veto));
@@ -1435,8 +1429,8 @@ public class OWLOntologyManagerImpl
     }
 
     // Imports etc.
-    protected OWLOntology loadImports(OWLImportsDeclaration declaration,
-            @Nonnull OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
+    protected OWLOntology loadImports(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration)
+            throws OWLOntologyCreationException {
         writeLock.lock();
         try {
             importsLoadCount.incrementAndGet();
@@ -1504,7 +1498,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public void removeMissingImportListener(@Nonnull MissingImportListener listener) {
+    public void removeMissingImportListener(MissingImportListener listener) {
         writeLock.lock();
         try {
             missingImportsListeners.remove(listener);
@@ -1513,7 +1507,7 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    protected void fireMissingImportEvent(@Nonnull MissingImportEvent evt) {
+    protected void fireMissingImportEvent(MissingImportEvent evt) {
         writeLock.lock();
         try {
             new ArrayList<>(missingImportsListeners).forEach(l -> l.importMissing(evt));
@@ -1625,7 +1619,7 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    protected void fireChangeApplied(@Nonnull OWLOntologyChange change) {
+    protected void fireChangeApplied(OWLOntologyChange change) {
         writeLock.lock();
         try {
             if (!broadcastChanges.get()) {
@@ -1647,7 +1641,6 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    @Nonnull
     protected <T> Optional<T> of(T t) {
         return optional(t);
     }

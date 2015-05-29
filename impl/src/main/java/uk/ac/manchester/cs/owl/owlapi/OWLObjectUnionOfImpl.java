@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Collection;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
@@ -29,8 +27,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
-        implements OWLObjectUnionOf {
+public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectUnionOf {
 
     private static final long serialVersionUID = 40000L;
 
@@ -43,8 +40,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
      * @param operands
      *        operands
      */
-    public OWLObjectUnionOfImpl(
-            @Nonnull Collection<? extends OWLClassExpression> operands) {
+    public OWLObjectUnionOfImpl(Collection<? extends OWLClassExpression> operands) {
         super(operands);
     }
 
@@ -64,7 +60,6 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
         return obj instanceof OWLObjectUnionOf;
     }
 
-    @Nonnull
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         return asSet(operands().flatMap(op -> op.asDisjunctSet().stream()));

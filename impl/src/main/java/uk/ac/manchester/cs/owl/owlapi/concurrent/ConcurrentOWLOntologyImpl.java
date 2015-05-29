@@ -67,7 +67,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
      *         if any parameters are {@code null}.
      */
     @Inject
-    public ConcurrentOWLOntologyImpl(@Nonnull OWLOntology delegate, @Nonnull ReadWriteLock readWriteLock) {
+    public ConcurrentOWLOntologyImpl(OWLOntology delegate, ReadWriteLock readWriteLock) {
         this.delegate = verifyNotNull(delegate);
         verifyNotNull(readWriteLock);
         readLock = readWriteLock.readLock();

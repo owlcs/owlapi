@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
@@ -25,9 +23,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLDataPropertyAtomImpl extends
-        SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument> implements
-        SWRLDataPropertyAtom {
+public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument>
+        implements SWRLDataPropertyAtom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -44,13 +41,10 @@ public class SWRLDataPropertyAtomImpl extends
      * @param arg1
      *        object
      */
-    public SWRLDataPropertyAtomImpl(
-            @Nonnull OWLDataPropertyExpression predicate,
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLDArgument arg1) {
+    public SWRLDataPropertyAtomImpl(OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
         super(predicate, arg0, arg1);
     }
 
-    @Nonnull
     @Override
     public OWLDataPropertyExpression getPredicate() {
         return (OWLDataPropertyExpression) super.getPredicate();
@@ -65,8 +59,7 @@ public class SWRLDataPropertyAtomImpl extends
             return false;
         }
         SWRLDataPropertyAtom other = (SWRLDataPropertyAtom) obj;
-        return other.getPredicate().equals(getPredicate())
-                && other.getFirstArgument().equals(getFirstArgument())
+        return other.getPredicate().equals(getPredicate()) && other.getFirstArgument().equals(getFirstArgument())
                 && other.getSecondArgument().equals(getSecondArgument());
     }
 }

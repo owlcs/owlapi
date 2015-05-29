@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -29,8 +27,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataExactCardinalityImpl extends
-        OWLDataCardinalityRestrictionImpl implements OWLDataExactCardinality {
+public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataExactCardinality {
 
     private static final long serialVersionUID = 40000L;
 
@@ -47,9 +44,7 @@ public class OWLDataExactCardinalityImpl extends
      * @param filler
      *        filler
      */
-    public OWLDataExactCardinalityImpl(
-            @Nonnull OWLDataPropertyExpression property, int cardinality,
-            @Nonnull OWLDataRange filler) {
+    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
@@ -72,9 +67,7 @@ public class OWLDataExactCardinalityImpl extends
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
         return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(
-                Arrays.asList(new OWLDataMinCardinalityImpl(getProperty(),
-                        getCardinality(), getFiller()),
-                        new OWLDataMaxCardinalityImpl(getProperty(),
-                                getCardinality(), getFiller()))));
+                Arrays.asList(new OWLDataMinCardinalityImpl(getProperty(), getCardinality(), getFiller()),
+                        new OWLDataMaxCardinalityImpl(getProperty(), getCardinality(), getFiller()))));
     }
 }

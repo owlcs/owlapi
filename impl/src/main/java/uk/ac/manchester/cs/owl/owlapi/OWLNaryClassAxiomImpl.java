@@ -25,21 +25,14 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLPairwiseBooleanVisitor;
-import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
-import org.semanticweb.owlapi.model.OWLPairwiseVoidVisitor;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
-        OWLNaryClassAxiom {
+public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -52,9 +45,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
      *        annotations
      */
     @SuppressWarnings("unchecked")
-    public OWLNaryClassAxiomImpl(
-            @Nonnull Collection<? extends OWLClassExpression> classExpressions,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLNaryClassAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(classExpressions, "classExpressions cannot be null");
         this.classExpressions = (List<OWLClassExpression>) sortOptionally(classExpressions);
@@ -76,8 +68,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public Set<OWLClassExpression> getClassExpressionsMinus(
-            OWLClassExpression... desc) {
+    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
         Set<OWLClassExpression> result = new HashSet<>(classExpressions);
         for (OWLClassExpression d : desc) {
             result.remove(d);
@@ -97,26 +88,22 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             return false;
         }
         if (obj instanceof OWLNaryClassAxiomImpl) {
-            return classExpressions
-                    .equals(((OWLNaryClassAxiomImpl) obj).classExpressions);
+            return classExpressions.equals(((OWLNaryClassAxiomImpl) obj).classExpressions);
         }
         return compareObjectOfSameType((OWLNaryClassAxiom) obj) == 0;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(classExpressions(),
-                ((OWLNaryClassAxiom) object).classExpressions());
+        return compareStreams(classExpressions(), ((OWLNaryClassAxiom) object).classExpressions());
     }
 
     @Override
-    public <T> Collection<T> walkPairwise(
-            OWLPairwiseVisitor<T, OWLClassExpression> visitor) {
+    public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, OWLClassExpression> visitor) {
         List<T> l = new ArrayList<>();
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             for (int j = i + 1; j < classExpressions.size(); j++) {
-                T t = visitor.visit(classExpressions.get(i),
-                        classExpressions.get(j));
+                T t = visitor.visit(classExpressions.get(i), classExpressions.get(j));
                 if (t != null) {
                     l.add(t);
                 }
@@ -135,12 +122,10 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public boolean anyMatch(
-            OWLPairwiseBooleanVisitor<OWLClassExpression> visitor) {
+    public boolean anyMatch(OWLPairwiseBooleanVisitor<OWLClassExpression> visitor) {
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             for (int j = i + 1; j < classExpressions.size(); j++) {
-                boolean b = visitor.visit(classExpressions.get(i),
-                        classExpressions.get(j));
+                boolean b = visitor.visit(classExpressions.get(i), classExpressions.get(j));
                 if (b) {
                     return b;
                 }
@@ -150,12 +135,10 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public boolean allMatch(
-            OWLPairwiseBooleanVisitor<OWLClassExpression> visitor) {
+    public boolean allMatch(OWLPairwiseBooleanVisitor<OWLClassExpression> visitor) {
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             for (int j = i + 1; j < classExpressions.size(); j++) {
-                boolean b = visitor.visit(classExpressions.get(i),
-                        classExpressions.get(j));
+                boolean b = visitor.visit(classExpressions.get(i), classExpressions.get(j));
                 if (!b) {
                     return b;
                 }

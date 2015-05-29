@@ -19,8 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
@@ -32,9 +30,8 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentObjectPropertiesAxiomImpl extends
-        OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
-        OWLEquivalentObjectPropertiesAxiom {
+public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+        implements OWLEquivalentObjectPropertiesAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -44,9 +41,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLEquivalentObjectPropertiesAxiomImpl(
-            @Nonnull Collection<? extends OWLObjectPropertyExpression> properties,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLEquivalentObjectPropertiesAxiomImpl(Collection<? extends OWLObjectPropertyExpression> properties,
+            Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -55,15 +51,12 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLEquivalentObjectPropertiesAxiomImpl(properties,
-                NO_ANNOTATIONS);
+        return new OWLEquivalentObjectPropertiesAxiomImpl(properties, NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLEquivalentObjectPropertiesAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLEquivalentObjectPropertiesAxiomImpl(properties,
-                mergeAnnos(anns));
+    public OWLEquivalentObjectPropertiesAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLEquivalentObjectPropertiesAxiomImpl(properties, mergeAnnos(anns));
     }
 
     @Override
@@ -71,9 +64,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         Set<OWLEquivalentObjectPropertiesAxiom> result = new HashSet<>();
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
-                result.add(new OWLEquivalentObjectPropertiesAxiomImpl(Arrays
-                        .asList(properties.get(i), properties.get(j)),
-                        NO_ANNOTATIONS));
+                result.add(new OWLEquivalentObjectPropertiesAxiomImpl(
+                        Arrays.asList(properties.get(i), properties.get(j)), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -88,8 +80,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         for (int i = 0; i < properties.size() - 1; i++) {
             OWLObjectPropertyExpression indI = properties.get(i);
             OWLObjectPropertyExpression indJ = properties.get(i + 1);
-            result.add(new OWLEquivalentObjectPropertiesAxiomImpl(
-                    new HashSet<>(Arrays.asList(indI, indJ)), annotations));
+            result.add(
+                    new OWLEquivalentObjectPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
         }
         return result;
     }
@@ -116,8 +108,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         for (int i = 0; i < properties.size(); i++) {
             for (int j = 0; j < properties.size(); j++) {
                 if (i != j) {
-                    result.add(new OWLSubObjectPropertyOfAxiomImpl(properties
-                            .get(i), properties.get(j), NO_ANNOTATIONS));
+                    result.add(
+                            new OWLSubObjectPropertyOfAxiomImpl(properties.get(i), properties.get(j), NO_ANNOTATIONS));
                 }
             }
         }

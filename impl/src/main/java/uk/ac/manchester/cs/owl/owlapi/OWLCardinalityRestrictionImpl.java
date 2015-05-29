@@ -26,15 +26,15 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  * @param <F>
  *        filler type
  */
-public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
-        extends OWLRestrictionImpl implements OWLCardinalityRestriction<F> {
+public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends OWLRestrictionImpl
+        implements OWLCardinalityRestriction<F> {
 
     private static final long serialVersionUID = 40000L;
     private final int cardinality;
     @Nonnull
     private final F filler;
 
-    protected OWLCardinalityRestrictionImpl(int cardinality, @Nonnull F filler) {
+    protected OWLCardinalityRestrictionImpl(int cardinality, F filler) {
         this.cardinality = cardinality;
         this.filler = checkNotNull(filler, "filler cannot be null");
     }
@@ -62,7 +62,6 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
             return false;
         }
         OWLCardinalityRestriction<F> other = (OWLCardinalityRestriction<F>) obj;
-        return other.getCardinality() == cardinality
-                && other.getFiller().equals(filler);
+        return other.getCardinality() == cardinality && other.getFiller().equals(filler);
     }
 }

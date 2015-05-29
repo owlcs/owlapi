@@ -17,23 +17,15 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLFunctionalDataPropertyAxiomImpl extends
-        OWLDataPropertyCharacteristicAxiomImpl implements
-        OWLFunctionalDataPropertyAxiom {
+public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacteristicAxiomImpl
+        implements OWLFunctionalDataPropertyAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -43,27 +35,22 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLFunctionalDataPropertyAxiomImpl(
-            @Nonnull OWLDataPropertyExpression property,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLFunctionalDataPropertyAxiomImpl(OWLDataPropertyExpression property,
+            Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
-    @Nonnull
     @Override
     public OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(),
-                NO_ANNOTATIONS);
+        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLFunctionalDataPropertyAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(),
-                mergeAnnos(anns));
+    public OWLFunctionalDataPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 
     @Override
@@ -84,14 +71,12 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return getProperty().compareTo(
-                ((OWLFunctionalDataPropertyAxiom) object).getProperty());
+        return getProperty().compareTo(((OWLFunctionalDataPropertyAxiom) object).getProperty());
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING,
-                new OWLDataMaxCardinalityImpl(getProperty(), 1, RDFSLITERAL),
+        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLDataMaxCardinalityImpl(getProperty(), 1, RDFSLITERAL),
                 NO_ANNOTATIONS);
     }
 }

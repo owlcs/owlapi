@@ -16,12 +16,13 @@ public class Frame {
 
     /** The Enum FrameType. */
     public enum FrameType {
-        /** HEADER. */
-        HEADER, /** TERM. */
-        TERM, /** TYPEDEF. */
-        TYPEDEF, /** INSTANCE. */
-        INSTANCE, /** ANNOTATION. */
-        ANNOTATION
+        //@formatter:off
+        /** HEADER. */          HEADER, 
+        /** TERM. */            TERM, 
+        /** TYPEDEF. */         TYPEDEF, 
+        /** INSTANCE. */        INSTANCE, 
+        /** ANNOTATION. */      ANNOTATION
+        //@formatter:on
     }
 
     /** The clauses. */

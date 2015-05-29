@@ -27,13 +27,11 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplNoCompression extends OWLObjectImpl
-    implements OWLLiteral {
+public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
-        OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final String literal;
     @Nonnull
@@ -54,8 +52,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl
      * @param datatype
      *        datatype for literal
      */
-    public OWLLiteralImplNoCompression(@Nonnull String literal,
-        @Nullable String lang, @Nullable OWLDatatype datatype) {
+    public OWLLiteralImplNoCompression(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
         this.literal = literal;
         if (lang == null || lang.isEmpty()) {
             language = "";
@@ -69,8 +66,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal
                 throw new OWLRuntimeException(
-                    "Error: cannot build a literal with type: "
-                        + datatype.getIRI() + " and language: " + lang);
+                        "Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
@@ -78,7 +74,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl
         hashCode = getHashCode();
     }
 
-    @Nonnull
     @Override
     public String getLiteral() {
         return literal;
@@ -86,8 +81,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.getIRI()
-            .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -153,7 +147,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl
         return Float.parseFloat(literal);
     }
 
-    @Nonnull
     @Override
     public String getLang() {
         return language;
@@ -167,7 +160,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl
         return language.equalsIgnoreCase(lang.trim());
     }
 
-    @Nonnull
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
@@ -219,17 +211,15 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl
         }
         OWLLiteral other = (OWLLiteral) obj;
         if (other instanceof OWLLiteralImplNoCompression) {
-            return literal.equals(((OWLLiteralImplNoCompression) other).literal)
-                && datatype.equals(other.getDatatype())
-                && language.equals(other.getLang());
+            return literal.equals(((OWLLiteralImplNoCompression) other).literal) && datatype.equals(other.getDatatype())
+                    && language.equals(other.getLang());
         }
-        return literal.equals(other.getLiteral())
-            && datatype.equals(other.getDatatype())
-            && language.equals(other.getLang());
+        return literal.equals(other.getLiteral()) && datatype.equals(other.getDatatype())
+                && language.equals(other.getLang());
     }
 
     @Override
-    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
         int diff = literal.compareTo(other.getLiteral());
         if (diff != 0) {

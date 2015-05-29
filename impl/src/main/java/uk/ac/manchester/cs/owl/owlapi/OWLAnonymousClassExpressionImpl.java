@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -26,8 +24,8 @@ import org.semanticweb.owlapi.util.NNF;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAnonymousClassExpressionImpl extends
-        OWLClassExpressionImpl implements OWLAnonymousClassExpression {
+public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl
+        implements OWLAnonymousClassExpression {
 
     private static final long serialVersionUID = 40000L;
 
@@ -50,11 +48,9 @@ public abstract class OWLAnonymousClassExpressionImpl extends
     @Override
     public OWLClassExpression getComplementNNF() {
         NNF nnf = new NNF(new OWLDataFactoryImpl());
-        return new OWLObjectComplementOfImpl(this)
-                .accept(nnf.getClassVisitor());
+        return new OWLObjectComplementOfImpl(this).accept(nnf.getClassVisitor());
     }
 
-    @Nonnull
     @Override
     public OWLClassExpression getObjectComplementOf() {
         return new OWLObjectComplementOfImpl(this);

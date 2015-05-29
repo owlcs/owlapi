@@ -37,7 +37,7 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
         return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 6;
     }
 
-    protected SWRLVariableImpl(@Nonnull IRI iri) {
+    protected SWRLVariableImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }
 
@@ -47,7 +47,7 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     }
 
     @Override
-    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((SWRLVariable) object).getIRI());
     }
 

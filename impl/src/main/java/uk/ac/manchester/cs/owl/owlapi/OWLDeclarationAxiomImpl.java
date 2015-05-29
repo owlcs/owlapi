@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
-        OWLDeclarationAxiom {
+public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -43,8 +42,7 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLDeclarationAxiomImpl(@Nonnull OWLEntity entity,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLDeclarationAxiomImpl(OWLEntity entity, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.entity = checkNotNull(entity, "entity cannot be null");
     }

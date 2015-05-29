@@ -16,12 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -30,8 +25,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
-        implements OWLDataHasValue {
+public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>implements OWLDataHasValue {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -48,8 +42,7 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
      * @param value
      *        value
      */
-    public OWLDataHasValueImpl(@Nonnull OWLDataPropertyExpression property,
-            @Nonnull OWLLiteral value) {
+    public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
         super(value);
         this.property = checkNotNull(property, "property cannot be null");
     }
@@ -88,7 +81,6 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
         return value.compareTo(other.getFiller());
     }
 
-    @Nonnull
     @Override
     public OWLClassExpression asSomeValuesFrom() {
         return new OWLDataSomeValuesFromImpl(getProperty(),

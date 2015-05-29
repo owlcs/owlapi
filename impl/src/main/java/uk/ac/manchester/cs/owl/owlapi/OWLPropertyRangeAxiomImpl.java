@@ -28,14 +28,14 @@ import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <P>
+ * @param
+ *        <P>
  *        property type
  * @param <R>
  *        range type
  */
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression, R extends OWLPropertyRange>
-        extends OWLUnaryPropertyAxiomImpl<P> implements
-        OWLPropertyRangeAxiom<P, R> {
+        extends OWLUnaryPropertyAxiomImpl<P>implements OWLPropertyRangeAxiom<P, R> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -49,8 +49,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
      * @param annotations
      *        annotations
      */
-    public OWLPropertyRangeAxiomImpl(@Nonnull P property, @Nonnull R range,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLPropertyRangeAxiomImpl(P property, R range, Collection<OWLAnnotation> annotations) {
         super(property, annotations);
         this.range = checkNotNull(range, "range cannot be null");
     }
@@ -75,13 +74,11 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
     }
 
     @Override
-    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
-        int diff = getProperty().compareTo(
-                ((OWLPropertyRangeAxiom<?, ?>) object).getProperty());
+    protected int compareObjectOfSameType(OWLObject object) {
+        int diff = getProperty().compareTo(((OWLPropertyRangeAxiom<?, ?>) object).getProperty());
         if (diff != 0) {
             return diff;
         }
-        return getRange().compareTo(
-                ((OWLPropertyRangeAxiom<?, ?>) object).getRange());
+        return getRange().compareTo(((OWLPropertyRangeAxiom<?, ?>) object).getRange());
     }
 }

@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -26,8 +24,8 @@ import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectPropertyExpressionImpl extends
-        OWLPropertyExpressionImpl implements OWLObjectPropertyExpression {
+public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl
+        implements OWLObjectPropertyExpression {
 
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression simplestForm;
@@ -49,18 +47,15 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return obj instanceof OWLObjectPropertyExpression;
     }
 
-    @Nonnull
     @Override
     public OWLObjectPropertyExpression getSimplified() {
         if (simplestForm == null) {
-            ObjectPropertySimplifier simplifier = new ObjectPropertySimplifier(
-                    new OWLDataFactoryImpl());
+            ObjectPropertySimplifier simplifier = new ObjectPropertySimplifier(new OWLDataFactoryImpl());
             simplestForm = simplifier.getSimplified(this);
         }
         return verifyNotNull(simplestForm);
     }
 
-    @Nonnull
     @Override
     public OWLObjectPropertyExpression getInverseProperty() {
         if (inverse == null) {
@@ -73,8 +68,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends
     public OWLObjectProperty getNamedProperty() {
         OWLObjectPropertyExpression simp = getSimplified();
         if (simp.isAnonymous()) {
-            return ((OWLObjectInverseOf) simp).getInverse()
-                    .asOWLObjectProperty();
+            return ((OWLObjectInverseOf) simp).getInverse().asOWLObjectProperty();
         } else {
             return simp.asOWLObjectProperty();
         }

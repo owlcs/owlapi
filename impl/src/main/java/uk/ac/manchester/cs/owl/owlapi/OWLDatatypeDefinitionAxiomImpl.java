@@ -19,21 +19,14 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
-        OWLDatatypeDefinitionAxiom {
+public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -49,9 +42,8 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
      * @param annotations
      *        annotations on the axiom
      */
-    public OWLDatatypeDefinitionAxiomImpl(@Nonnull OWLDatatype datatype,
-            @Nonnull OWLDataRange dataRange,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
@@ -62,15 +54,12 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(),
-                getDataRange(), NO_ANNOTATIONS);
+        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(
-            Stream<OWLAnnotation> anns) {
-        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(),
-                getDataRange(), mergeAnnos(anns));
+    public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
+        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(), mergeAnnos(anns));
     }
 
     @Override
@@ -112,7 +101,6 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
             return false;
         }
         OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) obj;
-        return datatype.equals(other.getDatatype())
-                && dataRange.equals(other.getDataRange());
+        return datatype.equals(other.getDatatype()) && dataRange.equals(other.getDataRange());
     }
 }

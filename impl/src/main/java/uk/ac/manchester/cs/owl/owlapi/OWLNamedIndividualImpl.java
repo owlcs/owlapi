@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Management Group
  * @since 3.0.0
  */
-public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
-    OWLNamedIndividual {
+public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLNamedIndividual {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -40,7 +39,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
      * @param iri
      *        the iri
      */
-    public OWLNamedIndividualImpl(@Nonnull IRI iri) {
+    public OWLNamedIndividualImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }
 

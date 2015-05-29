@@ -14,14 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Serializable;
-import java.io.Writer;
+import java.io.*;
 import java.util.Arrays;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -50,8 +43,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
     @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
-        OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
@@ -73,10 +65,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
      *        the datatype; if lang is null or the empty string, it can be null
      *        or it MUST be RDFPlainLiteral
      */
-    public OWLLiteralImpl(@Nonnull String literal, @Nullable String lang,
-        @Nullable OWLDatatype datatype) {
-        this.literal = new LiteralWrapper(
-            checkNotNull(literal, "literal cannot be null"));
+    public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
+        this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
         if (lang == null || lang.isEmpty()) {
             language = "";
             if (datatype == null) {
@@ -89,8 +79,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal
                 throw new OWLRuntimeException(
-                    "Error: cannot build a literal with type: "
-                        + datatype.getIRI() + " and language: " + lang);
+                        "Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
@@ -105,8 +94,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.getIRI()
-            .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -216,9 +204,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return false;
         }
         OWLLiteral other = (OWLLiteral) obj;
-        return literal.get().equals(other.getLiteral())
-            && datatype.equals(other.getDatatype())
-            && language.equals(other.getLang());
+        return literal.get().equals(other.getLiteral()) && datatype.equals(other.getDatatype())
+                && language.equals(other.getLang());
     }
 
     @Override
@@ -258,7 +245,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        @Nonnull
         String get() {
             if (l != null) {
                 return verifyNotNull(l);
@@ -271,7 +257,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        @Nonnull
         static byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             GZIPOutputStream zipout = new GZIPOutputStream(out);
@@ -283,7 +268,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return out.toByteArray();
         }
 
-        @Nonnull
         static String decompress(byte[] result) throws IOException {
             ByteArrayInputStream in = new ByteArrayInputStream(result);
             GZIPInputStream zipin = new GZIPInputStream(in);

@@ -18,15 +18,11 @@ import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 
 /**
- * @param <P>
+ * @param
+ *        <P>
  *        the property expression
  * @param <O>
  *        the object
@@ -55,9 +51,8 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
      * @param annotations
      *        the annotations
      */
-    public OWLIndividualRelationshipAxiomImpl(@Nonnull OWLIndividual subject,
-            @Nonnull P property, @Nonnull O object,
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public OWLIndividualRelationshipAxiomImpl(OWLIndividual subject, P property, O object,
+            Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
@@ -91,8 +86,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
             return false;
         }
         OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) obj;
-        return other.getSubject().equals(subject)
-                && other.getProperty().equals(property)
+        return other.getSubject().equals(subject) && other.getProperty().equals(property)
                 && other.getObject().equals(o);
     }
 
