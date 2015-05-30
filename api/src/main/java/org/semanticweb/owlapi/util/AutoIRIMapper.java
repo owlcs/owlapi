@@ -233,7 +233,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         }
     }
 
-    private IRI parseManLine(File file, String line) {
+    private @Nullable IRI parseManLine(File file, String line) {
         for (String tok : Splitter.on(" ").split(line)) {
             if (tok.startsWith("<") && tok.endsWith(">")) {
                 IRI iri = unquote(tok);

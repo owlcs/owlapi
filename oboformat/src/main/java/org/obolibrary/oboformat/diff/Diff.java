@@ -1,5 +1,7 @@
 package org.obolibrary.oboformat.diff;
 
+import javax.annotation.Nullable;
+
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 
@@ -42,7 +44,7 @@ public class Diff {
      * @param n
      *        n
      */
-    public Diff(String ftype, String type, Frame f1, Frame f2, Clause c, int n) {
+    public Diff(String ftype, String type, Frame f1, @Nullable Frame f2, @Nullable Clause c, int n) {
         this.type = type;
         frame1 = f1;
         frame2 = f2;

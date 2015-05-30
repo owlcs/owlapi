@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
+import javax.annotation.Nullable;
+
 /**
  * Receives notification of ontology loading starting and finishing from a
  * manager.
@@ -107,7 +109,8 @@ public interface OWLOntologyLoaderListener extends Serializable {
 
         private final Exception ex;
 
-        public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported, Exception ex) {
+        public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported,
+                @Nullable Exception ex) {
             super(ontologyID, documentIRI, imported);
             this.ex = ex;
         }

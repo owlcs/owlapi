@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.HashSet;
@@ -101,8 +103,8 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(@Nullable InputStream in, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        StreamDocumentSource source = new StreamDocumentSource(in, IRI.create(baseURI), nextFormat,
-                getRDFFormat().getDefaultMIMEType());
+        StreamDocumentSource source = new StreamDocumentSource(checkNotNull(in), IRI.create(checkNotNull(baseURI)),
+                nextFormat, getRDFFormat().getDefaultMIMEType());
         render(source);
     }
 

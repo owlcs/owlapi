@@ -722,8 +722,8 @@ public class TripleHandlers {
             return o != null && isDPLax(o);
         }
 
-        protected boolean isDataRangeStrict(IRI node) {
-            return isDr(node) && !isCe(node);
+        protected boolean isDataRangeStrict(@Nullable IRI node) {
+            return node != null && isDr(node) && !isCe(node);
         }
 
         protected boolean isDataRangeStrict(IRI mainNode, OWLRDFVocabulary p) {
@@ -1892,7 +1892,7 @@ public class TripleHandlers {
                 // Property chain
                 IRI chainList = getRO(s, OWL_PROPERTY_CHAIN);
                 List<OWLObjectPropertyExpression> properties = consumer.translatorAccessor
-                        .translateToObjectPropertyList(chainList);
+                        .translateToObjectPropertyList(verifyNotNull(chainList));
                 add(df.getOWLSubPropertyChainOfAxiom(properties, op(o), anns()));
                 consume(s, p, o);
             } else if (!isStrict() && consumer.hasPredicate(s, RDF_FIRST.getIRI())) {
@@ -2099,7 +2099,7 @@ public class TripleHandlers {
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
             consume(s, p, o);
-            IRI listNode = getRO(s, OWL_MEMBERS);
+            IRI listNode = verifyNotNull(getRO(s, OWL_MEMBERS));
             if (isOpLax(consumer.getFirstResource(listNode, false))) {
                 Set<OWLObjectPropertyExpression> props = ops(listNode);
                 consumer.addAxiom(df.getOWLDisjointObjectPropertiesAxiom(props, anns(s)));

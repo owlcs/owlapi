@@ -473,10 +473,8 @@ class IDTagValueHandler extends AbstractTagValueHandler {
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         getConsumer().setCurrentId(value);
-        final OWLEntity entity = getConsumer().getCurrentEntity();
-        if (entity != null) {
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(entity)));
-        }
+        OWLEntity entity = getConsumer().getCurrentEntity();
+        applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(entity)));
     }
 }
 

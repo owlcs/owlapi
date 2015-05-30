@@ -208,7 +208,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     @Override
     public void characters(@Nullable char[] ch, int start, int length) throws SAXException {
-        state.characters(ch, start, length);
+        state.characters(verifyNotNull(ch), start, length);
     }
 
     @Override

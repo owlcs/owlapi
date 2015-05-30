@@ -1,5 +1,7 @@
 package org.obolibrary.oboformat.diff;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,7 +31,7 @@ public class OBODocDiffer {
      */
     public static List<Diff> getDiffs(OBODoc doc1, OBODoc doc2) {
         List<Diff> diffs = new ArrayList<>();
-        diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(), doc2.getHeaderFrame()));
+        diffs.addAll(getDiffs("Header", verifyNotNull(doc1.getHeaderFrame()), verifyNotNull(doc2.getHeaderFrame())));
         diffs.addAll(getDiffs("Term", doc1.getTermFrames(), doc2.getTermFrames()));
         diffs.addAll(getDiffs("Typedef", doc1.getTypedefFrames(), doc2.getTypedefFrames()));
         diffs.addAll(getDiffs("Instance", doc1.getInstanceFrames(), doc2.getInstanceFrames()));

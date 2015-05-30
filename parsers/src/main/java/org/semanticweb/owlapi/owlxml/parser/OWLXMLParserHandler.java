@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
@@ -341,7 +342,7 @@ class OWLXMLParserHandler extends DefaultHandler {
             try {
                 OWLElementHandler<?> handler = handlerStack.get(0);
                 if (handler.isTextContentPossible()) {
-                    handler.handleChars(ch, start, length);
+                    handler.handleChars(verifyNotNull(ch), start, length);
                 }
             } catch (OWLRuntimeException e) {
                 throw new SAXException(e);

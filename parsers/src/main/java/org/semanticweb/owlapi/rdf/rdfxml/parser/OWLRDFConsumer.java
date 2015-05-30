@@ -796,7 +796,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *         property IRI and not an annotation property IRI. Otherwise,
      *         {@code false}.
      */
-    protected boolean isObjectPropertyOnly(IRI iri) {
+    protected boolean isObjectPropertyOnly(@Nullable IRI iri) {
         return iri != null && !dataPropertyIRIs.contains(iri) && !annPropertyIRIs.contains(iri)
                 && objectPropertyIRIs.contains(iri);
     }
@@ -824,7 +824,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *         property IRI and not an annotation property IRI. Otherwise,
      *         {@code false}.
      */
-    protected boolean isDataPropertyOnly(IRI iri) {
+    protected boolean isDataPropertyOnly(@Nullable IRI iri) {
         return iri != null && !objectPropertyIRIs.contains(iri) && !annPropertyIRIs.contains(iri)
                 && dataPropertyIRIs.contains(iri);
     }

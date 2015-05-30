@@ -232,7 +232,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return classNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLClass(name) != null;
     }
 
-    private OWLOntology getOntology(String name) {
+    private @Nullable OWLOntology getOntology(String name) {
         return owlOntologyChecker.getOntology(name);
     }
 

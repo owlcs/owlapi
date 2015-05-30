@@ -343,10 +343,10 @@ public class XMLWriterImpl implements XMLWriter {
                         }
                     }
                 } else {
-                    // Name is null so by convension this is a comment
+                    // Name is null so by convention this is a comment
                     if (textContent != null) {
                         writer.write("\n\n\n");
-                        for (String token : Splitter.on('\n').split(textContent)) {
+                        for (String token : Splitter.on('\n').split(verifyNotNull(textContent))) {
                             if (!token.equals("\n")) {
                                 insertIndentation();
                             }
@@ -411,7 +411,7 @@ public class XMLWriterImpl implements XMLWriter {
                 if ("http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral".equals(attributes.get("rdf:datatype"))) {
                     writer.write(textContent);
                 } else {
-                    writer.write(XMLUtils.escapeXML(textContent));
+                    writer.write(XMLUtils.escapeXML(verifyNotNull(textContent)));
                 }
             }
         }

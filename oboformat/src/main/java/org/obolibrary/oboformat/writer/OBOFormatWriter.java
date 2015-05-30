@@ -198,7 +198,7 @@ public class OBOFormatWriter {
             doc.check();
         }
         Frame headerFrame = doc.getHeaderFrame();
-        writeHeader(headerFrame, writer, nameProvider);
+        writeHeader(checkNotNull(headerFrame), writer, nameProvider);
         List<Frame> termFrames = new ArrayList<>();
         termFrames.addAll(doc.getTermFrames());
         Collections.sort(termFrames, framesComparator);

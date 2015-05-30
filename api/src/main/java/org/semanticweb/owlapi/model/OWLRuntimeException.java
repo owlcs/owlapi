@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
+import javax.annotation.Nullable;
+
 /**
  * The root of runtime exceptions in the OWL API.
  * 
@@ -21,8 +23,7 @@ import java.io.Serializable;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLRuntimeException extends RuntimeException implements
-        Serializable {
+public class OWLRuntimeException extends RuntimeException implements Serializable {
 
     private static final long serialVersionUID = 40000L;
 
@@ -43,7 +44,7 @@ public class OWLRuntimeException extends RuntimeException implements
      * @param cause
      *        cause
      */
-    public OWLRuntimeException(String message, Throwable cause) {
+    public OWLRuntimeException(@Nullable String message, Throwable cause) {
         super(message, cause);
     }
 

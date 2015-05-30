@@ -1527,7 +1527,8 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    protected void fireFinishedLoadingEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported, Exception ex) {
+    protected void fireFinishedLoadingEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported,
+            @Nullable Exception ex) {
         writeLock.lock();
         try {
             for (OWLOntologyLoaderListener listener : new ArrayList<>(loaderListeners)) {

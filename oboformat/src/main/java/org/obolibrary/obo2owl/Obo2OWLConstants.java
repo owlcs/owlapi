@@ -143,7 +143,7 @@ public class Obo2OWLConstants {
      *        tag
      * @return obj for tag
      */
-    public static Obo2OWLVocabulary getVocabularyObj(String tag) {
+    public static @Nullable Obo2OWLVocabulary getVocabularyObj(String tag) {
         return TAGSTOVOCAB.get(tag);
     }
 }
