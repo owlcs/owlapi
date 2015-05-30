@@ -17,6 +17,8 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -44,7 +46,7 @@ public class OWLObjectPropertyRangeAxiomImpl
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

@@ -853,8 +853,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *         {@code false}.
      */
     protected boolean isAnnotationPropertyOnly(IRI iri) {
-        return iri != null && !objectPropertyIRIs.contains(iri) && !dataPropertyIRIs.contains(iri)
-                && annPropertyIRIs.contains(iri);
+        checkNotNull(iri);
+        return !objectPropertyIRIs.contains(iri) && !dataPropertyIRIs.contains(iri) && annPropertyIRIs.contains(iri);
     }
 
     /**
@@ -1655,7 +1655,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the consume
      * @return the resource object
      */
-    protected IRI getResourceObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
+    protected @Nullable IRI getResourceObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
         return getResourceObject(subject, predicate.getIRI(), consume);
     }
 
@@ -1670,7 +1670,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the consume
      * @return the resource object
      */
-    protected IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
+    protected @Nullable IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
         Map<IRI, IRI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
             IRI obj = subjPredMap.get(subject);
@@ -1738,7 +1738,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the consume
      * @return the literal object
      */
-    protected OWLLiteral getLiteralObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
+    protected @Nullable OWLLiteral getLiteralObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
         return getLiteralObject(subject, predicate.getIRI(), consume);
     }
 
@@ -1753,7 +1753,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the consume
      * @return the literal object
      */
-    protected OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
+    protected @Nullable OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
         Map<IRI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
             OWLLiteral obj = subjPredMap.get(subject);

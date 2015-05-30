@@ -26,6 +26,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
@@ -439,7 +440,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     // Utility methods for getting/setting various values in maps and sets
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }

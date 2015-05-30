@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({ "javadoc", "null", "deprecation" })
+@SuppressWarnings({ "javadoc", "deprecation" })
 public class ConcurrentOWLOntologyImpl_TestCase {
 
     @Mock

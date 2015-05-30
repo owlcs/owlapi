@@ -262,11 +262,10 @@ class OWLXMLParserHandler extends DefaultHandler {
             if (iri == null) {
                 URI uri = new URI(iriStr);
                 if (!uri.isAbsolute()) {
-                    URI base = getBase();
-                    if (base == null) {
+                    if (bases.isEmpty()) {
                         throw new OWLXMLParserException(this, "Unable to resolve relative URI");
                     }
-                    iri = IRI.create(base + iriStr);
+                    iri = IRI.create(getBase() + iriStr);
                 } else {
                     iri = IRI.create(uri);
                 }

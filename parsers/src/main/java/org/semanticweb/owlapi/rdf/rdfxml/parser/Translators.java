@@ -131,6 +131,7 @@ public class Translators {
             swrlRules.forEach(i -> translator.translateRule(i));
         }
 
+        @Nullable
         public OWLClassExpression getClassExpressionIfTranslated(IRI mainNode) {
             return translatedClassExpression.get(mainNode);
         }

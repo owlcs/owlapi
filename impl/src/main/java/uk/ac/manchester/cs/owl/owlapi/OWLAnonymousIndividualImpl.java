@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -73,7 +74,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }

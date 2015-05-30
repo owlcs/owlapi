@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
 import java.util.Collection;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -56,7 +58,7 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

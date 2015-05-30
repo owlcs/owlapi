@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -49,7 +50,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.HashCode;
@@ -131,7 +132,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }
@@ -163,7 +164,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nullable OWLObject o) {
         if (!(o instanceof OWLDatatype)) {
             OWLObjectTypeIndexProvider provider = new OWLObjectTypeIndexProvider();
             return provider.getTypeIndex(o);

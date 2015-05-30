@@ -195,7 +195,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

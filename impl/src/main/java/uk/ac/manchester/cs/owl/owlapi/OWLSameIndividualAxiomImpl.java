@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import java.util.*;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -97,7 +99,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

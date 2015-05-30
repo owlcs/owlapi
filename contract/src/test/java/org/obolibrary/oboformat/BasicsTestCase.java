@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * the ontology header. WARNING: This conversion will not conserve the order of
  * remark tags in a round-trip via OWL.
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class BasicsTestCase extends OboFormatTestBasics {
 
     @Test

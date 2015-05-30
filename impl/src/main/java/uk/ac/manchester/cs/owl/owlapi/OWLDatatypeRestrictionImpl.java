@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -72,7 +73,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

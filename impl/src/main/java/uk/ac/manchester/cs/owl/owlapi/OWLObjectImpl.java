@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.*;
@@ -138,7 +139,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         return obj == this || obj instanceof OWLObject;
     }
 
@@ -151,7 +152,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     }
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nullable OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImpl) {

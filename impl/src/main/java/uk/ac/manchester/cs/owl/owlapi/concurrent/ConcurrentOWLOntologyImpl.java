@@ -24,6 +24,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 /**
@@ -92,7 +93,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         readLock.lock();
         try {
             return delegate.equals(obj);
@@ -524,7 +525,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
     }
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nullable OWLObject o) {
         readLock.lock();
         try {
             return delegate.compareTo(o);

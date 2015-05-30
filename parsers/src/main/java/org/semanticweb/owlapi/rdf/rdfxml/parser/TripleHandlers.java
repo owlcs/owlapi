@@ -627,11 +627,11 @@ public class TripleHandlers {
             return getResourceObject(mainNode, p) != null;
         }
 
-        protected IRI getResourceObject(IRI mainNode, OWLRDFVocabulary p) {
+        protected @Nullable IRI getResourceObject(IRI mainNode, OWLRDFVocabulary p) {
             return consumer.getResourceObject(mainNode, p, false);
         }
 
-        protected IRI getRO(IRI mainNode, OWLRDFVocabulary p) {
+        protected @Nullable IRI getRO(IRI mainNode, OWLRDFVocabulary p) {
             return consumer.getResourceObject(mainNode, p, true);
         }
 

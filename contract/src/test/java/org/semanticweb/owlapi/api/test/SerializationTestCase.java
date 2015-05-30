@@ -126,7 +126,7 @@ public class SerializationTestCase extends TestBase {
                 asSet(m.getOntology(get(ont.getOntologyID().getOntologyIRI())).axioms()), asSet(ont.axioms())));
     }
 
-    protected OWLAxiom sub(OWLClassExpression c, OWLClassExpression d) {
-        return df.getOWLSubClassOfAxiom(c, d);
+    protected OWLAxiom sub(OWLClassExpression cl, OWLClassExpression d) {
+        return df.getOWLSubClassOfAxiom(cl, d);
     }
 }

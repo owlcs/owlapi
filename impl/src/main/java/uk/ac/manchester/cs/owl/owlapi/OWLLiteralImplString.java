@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -61,7 +62,7 @@ public class OWLLiteralImplString implements OWLLiteral {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }
@@ -90,7 +91,7 @@ public class OWLLiteralImplString implements OWLLiteral {
     }
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nullable OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImpl) {

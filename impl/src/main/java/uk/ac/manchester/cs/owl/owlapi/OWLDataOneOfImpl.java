@@ -19,6 +19,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -60,7 +62,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

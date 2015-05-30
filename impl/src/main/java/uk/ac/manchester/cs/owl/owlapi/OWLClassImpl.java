@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -142,7 +143,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Se
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

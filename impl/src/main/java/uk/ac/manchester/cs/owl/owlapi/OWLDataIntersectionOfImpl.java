@@ -16,6 +16,8 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -56,7 +58,7 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }

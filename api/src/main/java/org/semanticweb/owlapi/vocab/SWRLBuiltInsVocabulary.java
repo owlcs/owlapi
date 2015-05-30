@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.vocab;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
@@ -154,6 +155,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate,HasShortForm,HasIRI,
      * @return The builtin vocabulary having the specified IRI, or {@code null}
      *         if there is no builtin vocabulary with the specified IRI
      */
+    @Nullable
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
         return Stream.of(values()).filter(v -> v.iri.equals(iri)).findAny().orElse(null);
     }

@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
@@ -50,7 +52,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

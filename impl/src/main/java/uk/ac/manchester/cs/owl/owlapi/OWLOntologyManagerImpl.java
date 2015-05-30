@@ -269,7 +269,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public OWLOntology getOntology(IRI iri) {
+    public @Nullable OWLOntology getOntology(IRI iri) {
         OWLOntologyID ontologyID = new OWLOntologyID(of(iri), of((IRI) null));
         readLock.lock();
         try {
@@ -286,7 +286,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public OWLOntology getOntology(OWLOntologyID id) {
+    public @Nullable OWLOntology getOntology(OWLOntologyID id) {
         readLock.lock();
         try {
             OWLOntology result = ontologiesByID.get(id);
@@ -637,7 +637,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public OWLDocumentFormat getOntologyFormat(OWLOntology ontology) {
+    public @Nullable OWLDocumentFormat getOntologyFormat(OWLOntology ontology) {
         readLock.lock();
         try {
             OWLOntologyID ontologyID = ontology.getOntologyID();

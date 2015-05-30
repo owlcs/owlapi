@@ -401,7 +401,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
 
         @Override
-        protected boolean equals(Object notnull, Object two) {
+        protected boolean equals(@Nullable Object notnull, @Nullable Object two) {
             // shortcut: during construction from a set, no element is
             // duplicate. The extra element is also guaranteed to be unique,
             // given the use made in this class.

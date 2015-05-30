@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
@@ -51,7 +52,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

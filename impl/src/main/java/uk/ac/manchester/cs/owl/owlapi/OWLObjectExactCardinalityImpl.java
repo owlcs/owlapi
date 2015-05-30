@@ -15,6 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -55,7 +57,7 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

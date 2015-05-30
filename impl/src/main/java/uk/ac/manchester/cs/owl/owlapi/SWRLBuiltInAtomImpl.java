@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -76,7 +77,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }

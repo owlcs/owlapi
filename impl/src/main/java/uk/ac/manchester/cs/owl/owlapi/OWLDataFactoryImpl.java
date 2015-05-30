@@ -22,7 +22,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.*;
@@ -37,7 +36,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-@ParametersAreNonnullByDefault
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
 
     private static final long serialVersionUID = 40000L;

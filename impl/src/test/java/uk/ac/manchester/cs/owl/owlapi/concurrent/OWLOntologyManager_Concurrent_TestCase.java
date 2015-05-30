@@ -22,7 +22,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -70,27 +69,16 @@ public class OWLOntologyManager_Concurrent_TestCase {
         when(ontologyFactory.canAttemptLoading(any(OWLOntologyDocumentSource.class))).thenReturn(true);
         final OWLOntology owlOntology = new OWLOntologyImpl(manager, new OWLOntologyID());
         when(ontologyFactory.createOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyID.class), any(IRI.class),
-                any(OWLOntologyFactory.OWLOntologyCreationHandler.class))).thenAnswer(new Answer<OWLOntology>() {
-
-                    @Override
-                    public OWLOntology answer(InvocationOnMock invocation) {
-                        ((OWLOntologyFactory.OWLOntologyCreationHandler) invocation.getArguments()[3])
-                                .ontologyCreated(owlOntology);
-                        return owlOntology;
-                    }
-                });
+                any(OWLOntologyFactory.OWLOntologyCreationHandler.class))).thenAnswer(i -> notify(3, i, owlOntology));
         when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyDocumentSource.class),
                 any(OWLOntologyFactory.OWLOntologyCreationHandler.class), any(OWLOntologyLoaderConfiguration.class)))
-                        .thenAnswer(new Answer<OWLOntology>() {
-
-                            @Override
-                            public OWLOntology answer(InvocationOnMock invocation) {
-                                ((OWLOntologyFactory.OWLOntologyCreationHandler) invocation.getArguments()[2])
-                                        .ontologyCreated(owlOntology);
-                                return owlOntology;
-                            }
-                        });
+                        .thenAnswer(i -> notify(2, i, owlOntology));
         manager.setOntologyFactories(Collections.singleton(ontologyFactory));
+    }
+
+    private static OWLOntology notify(int i, InvocationOnMock o, OWLOntology ont) {
+        ((OWLOntologyFactory.OWLOntologyCreationHandler) o.getArguments()[i]).ontologyCreated(ont);
+        return ont;
     }
 
     private void mockAndAddOntologyStorer() {

@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 public class Xref {
 
     protected @Nonnull String idref;
-    protected String annotation;
+    protected @Nullable String annotation;
 
     /**
      * @param idref
@@ -35,7 +35,7 @@ public class Xref {
     /**
      * @return annotation
      */
-    public String getAnnotation() {
+    public @Nullable String getAnnotation() {
         return annotation;
     }
 
