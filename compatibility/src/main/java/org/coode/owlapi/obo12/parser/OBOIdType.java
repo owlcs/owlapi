@@ -43,6 +43,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
@@ -152,7 +154,7 @@ enum OBOIdType {
      * @return The OBOIdType for the specified oboId, or <code>null</code> if
      *         the specified oboId does not conform to any OBO Id type.
      */
-    public static OBOIdType getIdType(String oboId) {
+    public static @Nullable OBOIdType getIdType(String oboId) {
         checkNotNull(oboId, "oboId must not be null");
         for (OBOIdType idType : values()) {
             Pattern pattern = idType.getPattern();

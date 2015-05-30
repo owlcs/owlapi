@@ -378,7 +378,7 @@ public class OWLAPIOwl2Obo {
             OWLAnnotationValue v = ann.getValue();
             if (v instanceof OWLLiteral) {
                 viewRel = ((OWLLiteral) v).getLiteral();
-            } else {
+            } else if (v instanceof IRI) {
                 viewRel = getIdentifier((IRI) v);
             }
             break;
@@ -1298,10 +1298,6 @@ public class OWLAPIOwl2Obo {
             }
         }
         Frame f = getTermFrame(ce1.asOWLClass());
-        if (f == null) {
-            error(ax, false);
-            return;
-        }
         boolean isUntranslateable = false;
         List<Clause> equivalenceAxiomClauses = new ArrayList<>();
         String cls2 = getIdentifier(ce2);
@@ -1757,10 +1753,7 @@ public class OWLAPIOwl2Obo {
      *        the iri id
      * @return obo identifier or null
      */
-    public static @Nullable String getIdentifier(@Nullable IRI iriId) {
-        if (iriId == null) {
-            return null;
-        }
+    public static String getIdentifier(IRI iriId) {
         String iri = iriId.toString();
         // canonical IRIs
         // if (iri.startsWith("http://purl.obolibrary.org/obo/")) {

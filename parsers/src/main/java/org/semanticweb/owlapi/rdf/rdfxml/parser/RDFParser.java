@@ -188,6 +188,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
             @Nullable Attributes attributes) throws SAXException {
+        if (localName == null || attributes == null || uri == null || qName == null) {
+            // this should never happen, but DefaultHandler does not specify
+            // these parameters as Nonnull
+            return;
+        }
         processXMLBase(attributes);
         processXMLLanguage(attributes);
         state.startElement(uri, localName, qName, attributes);

@@ -126,7 +126,7 @@ public enum OWLFacet implements HasShortForm,HasIRI,HasPrefixedName {
      *        symbolic name for facet
      * @return facet for name
      */
-    public static OWLFacet getFacetBySymbolicName(String symbolicName) {
+    public static @Nullable OWLFacet getFacetBySymbolicName(String symbolicName) {
         return stream().filter(v -> v.getSymbolicForm().equals(symbolicName)).findAny().orElse(null);
     }
 

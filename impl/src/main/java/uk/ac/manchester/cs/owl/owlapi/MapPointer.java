@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
@@ -49,8 +49,8 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
     private static final int DEFAULT_INITIAL_CAPACITY = 5;
-    private @Nullable final AxiomType<?> type;
-    private @Nullable final OWLAxiomVisitorEx<?> visitor;
+    private final @Nullable AxiomType<?> type;
+    private final @Nullable OWLAxiomVisitorEx<?> visitor;
     private boolean initialized;
     protected final @Nonnull Internals i;
     private SoftReference<Set<IRI>> iris;
@@ -143,12 +143,13 @@ public class MapPointer<K, V extends OWLAxiom> {
             return this;
         }
         initialized = true;
-        if (visitor == null) {
+        if (visitor == null || type == null) {
             return this;
         }
         assert visitor != null;
+        Collection<V> values = (Collection<V>) i.getAxiomsByType().getValues(verifyNotNull(type));
         if (visitor instanceof InitVisitor) {
-            for (V ax : (Collection<V>) i.getAxiomsByType().getValues(type)) {
+            for (V ax : values) {
                 K key = ax.accept((InitVisitor<K>) visitor);
                 // this can only be null because the visitor return nulls in
                 // methods that do not declare it
@@ -157,7 +158,7 @@ public class MapPointer<K, V extends OWLAxiom> {
                 }
             }
         } else {
-            for (V ax : (Collection<V>) i.getAxiomsByType().getValues(type)) {
+            for (V ax : values) {
                 Collection<K> keys = ax.accept((InitCollectionVisitor<K>) visitor);
                 for (K key : keys) {
                     putInternal(key, ax);

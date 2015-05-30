@@ -260,7 +260,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             @Nullable Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
-            IRI ontologyIRI = handler.handle(attributes);
+            IRI ontologyIRI = handler.handle(checkNotNull(attributes));
             if (ontologyIRI != null && currentFile != null) {
                 addMapping(ontologyIRI, verifyNotNull(currentFile));
             }

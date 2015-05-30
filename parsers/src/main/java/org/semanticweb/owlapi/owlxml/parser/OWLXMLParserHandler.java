@@ -352,8 +352,13 @@ class OWLXMLParserHandler extends DefaultHandler {
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
             @Nullable Attributes attributes) {
+        if (localName == null || attributes == null) {
+            // this should never happen, but DefaultHandler does not specify
+            // these parameters as Nonnull
+            return;
+        }
         processXMLBase(attributes);
-        if (localName.equals(PREFIX.getShortForm())) {
+        if (PREFIX.getShortForm().equals(localName)) {
             String name = attributes.getValue(NAME_ATTRIBUTE.getShortForm());
             String iriString = attributes.getValue(IRI_ATTRIBUTE.getShortForm());
             if (name != null && iriString != null) {

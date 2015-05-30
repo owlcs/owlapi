@@ -599,7 +599,8 @@ public class Internals implements Serializable {
         return new ClassAxiomByClassPointer(null, null, false, this);
     }
 
-    protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t, OWLAxiomVisitorEx<?> v) {
+    protected <K, V extends OWLAxiom> MapPointer<K, V> build(@Nullable AxiomType<?> t,
+            @Nullable OWLAxiomVisitorEx<?> v) {
         return new MapPointer<>(t, v, true, this);
     }
 

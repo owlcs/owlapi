@@ -184,7 +184,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang, OWLDatatype datatype) {
+    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang, @Nullable OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
             if (datatype == null || datatype.isRDFPlainLiteral()) {

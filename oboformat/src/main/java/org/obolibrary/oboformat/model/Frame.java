@@ -71,8 +71,7 @@ public class Frame {
     /**
      * @return the id
      */
-    @Nullable
-    public String getId() {
+    public @Nullable String getId() {
         return id;
     }
 

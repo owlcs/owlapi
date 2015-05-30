@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.google.common.collect.Maps;
 
@@ -128,7 +129,7 @@ public class OBOFormatConstants {
      *        tag
      * @return oboformat tag
      */
-    public static OboFormatTag getTag(String tag) {
+    public static @Nullable OboFormatTag getTag(String tag) {
         return TAGSTABLE.get(tag);
     }
 

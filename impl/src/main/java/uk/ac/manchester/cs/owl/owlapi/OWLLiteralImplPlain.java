@@ -74,8 +74,8 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean hasLang(String l) {
-        if (l == null) {
+    public boolean hasLang(@Nullable String l) {
+        if (l == null || l.isEmpty()) {
             return lang.isEmpty();
         }
         return lang.equalsIgnoreCase(l.trim());

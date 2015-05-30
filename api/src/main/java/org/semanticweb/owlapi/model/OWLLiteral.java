@@ -16,6 +16,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 /**
  * Represents a
  * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Literals" >
@@ -104,7 +106,7 @@ public interface OWLLiteral
      * @return {@code true} if this literal has a language tag equal to
      *         {@code lang}, otherwise {@code false}.
      */
-    default boolean hasLang(@SuppressWarnings("unused") String lang) {
+    default boolean hasLang(@SuppressWarnings("unused") @Nullable String lang) {
         return false;
     }
 

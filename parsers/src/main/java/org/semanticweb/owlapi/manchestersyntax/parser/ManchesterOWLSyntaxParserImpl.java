@@ -598,7 +598,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         throw new ExceptionBuilder().withKeyword(SOME, ONLY, VALUE, MIN, EXACTLY, MAX).build();
     }
 
-    private OWLFacet parseFacet() {
+    private @Nullable OWLFacet parseFacet() {
         String facet = consumeToken();
         if (MIN_INCLUSIVE_FACET.matches(facet, peekToken())) {
             consumeToken();
