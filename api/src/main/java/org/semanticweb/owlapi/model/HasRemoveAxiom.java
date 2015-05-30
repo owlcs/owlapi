@@ -33,6 +33,8 @@ public interface HasRemoveAxiom {
      *         ChangeApplied.UNSUCCESSFULLY otherwise.
      * @throws OWLOntologyChangeException
      *         if there was a problem removing the axiom
+     * @deprecated use {@link OWLOntology#removeAxiom(OWLAxiom)}
      */
+    @Deprecated
     ChangeApplied removeAxiom(OWLOntology ont, OWLAxiom axiom);
 }

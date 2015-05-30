@@ -237,8 +237,8 @@ public final class OboInOwlCardinalityTools {
                     // handle conflict
                     // if conflict is not resolvable, throws exception
                     List<OWLAnnotationAssertionAxiom> changed = handler.handleConflict(owlClass, property, group);
-                    manager.removeAxioms(ontology, group);
-                    manager.addAxioms(ontology, changed);
+                    ontology.removeAxioms(group);
+                    ontology.addAxioms(changed);
                 }
             }
         }

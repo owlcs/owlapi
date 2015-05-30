@@ -122,7 +122,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         reset();
         currentClass = setupDebuggingClass(cls);
         generateSOSAxioms();
-        temporaryAxioms.forEach(ax -> man.removeAxiom(getOWLOntology(), ax));
+        temporaryAxioms.forEach(ax -> getOWLOntology().removeAxiom(ax));
         debuggingAxioms.removeAll(temporaryAxioms);
         return new HashSet<>(debuggingAxioms);
     }

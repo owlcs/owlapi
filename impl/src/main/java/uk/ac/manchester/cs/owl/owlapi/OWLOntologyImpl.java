@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,11 +51,6 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
     }
 
     @Override
-    public ChangeApplied applyChange(OWLOntologyChange change) {
-        return getOWLOntologyManager().applyChange(change);
-    }
-
-    @Override
     public ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes) {
         ChangeApplied appliedChanges = SUCCESSFULLY;
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
@@ -71,27 +64,6 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
             }
         }
         return appliedChanges;
-    }
-
-    @Override
-    public ChangeApplied addAxiom(OWLAxiom axiom) {
-        return getOWLOntologyManager().addAxiom(this, axiom);
-    }
-
-    @Override
-    public ChangeApplied addAxioms(Collection<? extends OWLAxiom> axioms) {
-        // XXX improve interface
-        return getOWLOntologyManager().addAxioms(this, new HashSet<>(axioms));
-    }
-
-    @Override
-    public ChangeApplied removeAxiom(OWLAxiom axiom) {
-        return getOWLOntologyManager().removeAxiom(this, axiom);
-    }
-
-    @Override
-    public ChangeApplied removeAxioms(Collection<? extends OWLAxiom> axioms) {
-        return getOWLOntologyManager().removeAxioms(this, new HashSet<>(axioms));
     }
 
     protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {

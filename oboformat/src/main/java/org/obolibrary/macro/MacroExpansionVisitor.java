@@ -95,8 +95,8 @@ public class MacroExpansionVisitor {
         MacroExpansions macroExpansions = new MacroExpansions();
         Set<OWLAxiom> newAxioms = macroExpansions.getNewAxioms();
         Set<OWLAxiom> rmAxioms = macroExpansions.getRmAxioms();
-        manager.addAxioms(inputOntology, newAxioms);
-        manager.removeAxioms(inputOntology, rmAxioms);
+        inputOntology.addAxioms(newAxioms);
+        inputOntology.removeAxioms(rmAxioms);
         return inputOntology;
     }
 
@@ -188,7 +188,7 @@ public class MacroExpansionVisitor {
                     // TODO:
                 }
             } finally {
-                manager.removeAxioms(inputOntology, declarations);
+                inputOntology.removeAxioms(declarations);
             }
             return expandedSomething.get();
         }

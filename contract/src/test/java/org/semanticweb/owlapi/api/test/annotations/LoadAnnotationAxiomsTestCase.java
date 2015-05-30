@@ -87,7 +87,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
                     throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology reloaded = loadOntologyWithConfig(saveOntology(ontology, format), configuration);
         Set<OWLDeclarationAxiom> declarations = reloaded.getAxioms(AxiomType.DECLARATION);
-        reloaded.getOWLOntologyManager().removeAxioms(reloaded, declarations);
+        reloaded.removeAxioms(declarations);
         return reloaded;
     }
 }

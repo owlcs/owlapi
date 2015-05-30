@@ -62,7 +62,7 @@ public class OwlStringTools {
         }
         try {
             OWLOntology ontology = translationManager.createOntology();
-            translationManager.addAxioms(ontology, axioms);
+            ontology.addAxioms(axioms);
             OWLFunctionalSyntaxRenderer r = new OWLFunctionalSyntaxRenderer();
             Writer writer = new StringWriter();
             PrintWriter w = new PrintWriter(writer);

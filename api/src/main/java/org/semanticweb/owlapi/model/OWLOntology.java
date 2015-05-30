@@ -53,7 +53,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     // OWLMutableOntology hardly appears.
     @Override
     default ChangeApplied applyChange(OWLOntologyChange change) {
-        return ChangeApplied.UNSUCCESSFULLY;
+        return getOWLOntologyManager().applyChange(change);
     }
 
     @Override
@@ -68,7 +68,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
 
     @Override
     default ChangeApplied addAxiom(OWLAxiom axiom) {
-        return ChangeApplied.UNSUCCESSFULLY;
+        return getOWLOntologyManager().addAxiom(this, axiom);
     }
 
     @Override
@@ -83,7 +83,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
 
     @Override
     default ChangeApplied removeAxiom(OWLAxiom axiom) {
-        return ChangeApplied.UNSUCCESSFULLY;
+        return getOWLOntologyManager().removeAxiom(this, axiom);
     }
 
     @Override

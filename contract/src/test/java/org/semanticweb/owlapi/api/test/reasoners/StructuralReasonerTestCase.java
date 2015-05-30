@@ -50,7 +50,7 @@ public class StructuralReasonerTestCase extends TestBase {
         testClassHierarchy(reasoner);
         man.addAxiom(ont, SubClassOf(clsA, OWLThing()));
         testClassHierarchy(reasoner);
-        man.removeAxiom(ont, SubClassOf(clsA, OWLThing()));
+        ont.removeAxiom(SubClassOf(clsA, OWLThing()));
         testClassHierarchy(reasoner);
     }
 

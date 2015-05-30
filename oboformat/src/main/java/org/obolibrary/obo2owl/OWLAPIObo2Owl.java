@@ -391,8 +391,8 @@ public class OWLAPIObo2Owl {
                     newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
                 }
             }
-            manager.removeAxioms(ontology, rmAxioms);
-            manager.addAxioms(ontology, newAxioms);
+            ontology.removeAxioms(rmAxioms);
+            ontology.addAxioms(newAxioms);
         }
     }
 
@@ -504,7 +504,7 @@ public class OWLAPIObo2Owl {
                 // in theory, there should only be one tag
                 // but we can silently collapse multiple tags
                 headerFrame.getTagValues(tag, String.class)
-                        .forEach(s -> manager.addAxioms(getOwlOntology(), OwlStringTools.translate(s, manager)));
+                        .forEach(s -> getOwlOntology().addAxioms(OwlStringTools.translate(s, manager)));
             } else {
                 headerFrame.getClauses(t).forEach(c -> addOntologyAnnotation(trTagToAnnotationProp(t),
                         trLiteral(c.getValue()), trAnnotations(c)));
@@ -884,7 +884,7 @@ public class OWLAPIObo2Owl {
             LOG.error("no axiom");
             return;
         }
-        manager.addAxioms(getOwlOntology(), axioms);
+        getOwlOntology().addAxioms(axioms);
     }
 
     /**
