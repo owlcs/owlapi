@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -58,12 +60,12 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
+    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable String lang) {
         statementWithLiteralValue(subject, predicate, object, lang, null);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
+    public void handleTriple(IRI subject, IRI predicate, String object, @Nullable IRI datatype) {
         statementWithLiteralValue(subject, predicate, object, null, datatype);
     }
 

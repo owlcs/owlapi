@@ -353,7 +353,7 @@ public class OWLAPIOwl2Obo {
         getOWLOntology().axioms().forEach(ax -> ax.accept(visitor));
         if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
             String axiomString = OwlStringTools.translate(untranslatableAxioms, manager);
-            if (axiomString != null) {
+            if (!axiomString.isEmpty()) {
                 Frame headerFrame = getObodoc().getHeaderFrame();
                 if (headerFrame == null) {
                     headerFrame = new Frame(FrameType.HEADER);

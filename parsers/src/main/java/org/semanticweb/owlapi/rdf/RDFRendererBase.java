@@ -514,7 +514,7 @@ public abstract class RDFRendererBase {
     private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
             new IdentityHashingStrategy<>());
 
-    private RDFResourceBlankNode getBlankNodeFor(Object key) {
+    protected RDFResourceBlankNode getBlankNodeFor(Object key) {
         int id = blankNodeMap.get(key);
         if (id == 0) {
             id = nextBlankNodeId++;

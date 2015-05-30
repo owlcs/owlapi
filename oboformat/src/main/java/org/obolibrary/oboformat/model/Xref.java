@@ -1,6 +1,7 @@
 package org.obolibrary.oboformat.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** Xref. */
 public class Xref {
@@ -47,7 +48,7 @@ public class Xref {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (!(obj instanceof Xref)) {
             return false;
         }

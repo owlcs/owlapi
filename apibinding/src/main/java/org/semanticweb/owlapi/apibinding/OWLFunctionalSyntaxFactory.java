@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -39,7 +38,6 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-@ParametersAreNonnullByDefault
 public final class OWLFunctionalSyntaxFactory {
 
     private static final String URNTESTS_URI = "urn:tests#uri";

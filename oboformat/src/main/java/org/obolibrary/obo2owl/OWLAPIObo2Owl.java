@@ -293,7 +293,7 @@ public class OWLAPIObo2Owl {
      */
     protected OWLOntology tr(OWLOntology in) {
         setOwlOntology(in);
-        Frame hf = obodoc.getHeaderFrame();
+        Frame hf = verifyNotNull(obodoc.getHeaderFrame());
         Clause ontClause = hf.getClause(OboFormatTag.TAG_ONTOLOGY);
         if (ontClause != null) {
             String ontOboId = (String) ontClause.getValue();

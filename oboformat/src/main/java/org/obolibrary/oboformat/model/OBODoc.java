@@ -1,5 +1,7 @@
 package org.obolibrary.oboformat.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.*;
 
 import javax.annotation.Nonnull;
@@ -15,7 +17,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class OBODoc {
 
     /** The header frame. */
-    protected Frame headerFrame;
+    protected @Nullable Frame headerFrame;
     /** The term frame map. */
     protected final @Nonnull Map<String, Frame> termFrameMap = new HashMap<>();
     /** The typedef frame map. */
@@ -30,7 +32,7 @@ public class OBODoc {
     /**
      * @return the header frame
      */
-    public Frame getHeaderFrame() {
+    public @Nullable Frame getHeaderFrame() {
         return headerFrame;
     }
 
@@ -326,7 +328,7 @@ public class OBODoc {
      *        the default ont
      */
     public void addDefaultOntologyHeader(String defaultOnt) {
-        Frame hf = getHeaderFrame();
+        Frame hf = verifyNotNull(getHeaderFrame());
         Clause ontClause = hf.getClause(OboFormatTag.TAG_ONTOLOGY);
         if (ontClause == null) {
             ontClause = new Clause(OboFormatTag.TAG_ONTOLOGY, defaultOnt);
@@ -343,7 +345,7 @@ public class OBODoc {
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */
     public void check() throws FrameStructureException {
-        getHeaderFrame().check();
+        verifyNotNull(headerFrame).check();
         for (Frame f : getTermFrames()) {
             f.check();
         }

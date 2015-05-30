@@ -44,8 +44,8 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
      * @param reasoner
      *        the reasoner
      */
-    public SingleExplanationGeneratorImpl(@Nonnull OWLOntology ontology, @Nonnull OWLReasonerFactory reasonerFactory,
-            @Nonnull OWLReasoner reasoner) {
+    public SingleExplanationGeneratorImpl(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
+            OWLReasoner reasoner) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
         this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
         this.reasoner = checkNotNull(reasoner, "reasoner cannot be null");
@@ -66,7 +66,7 @@ public abstract class SingleExplanationGeneratorImpl implements TransactionAware
     /**
      * @return the definition tracker
      */
-    public @Nonnull DefinitionTracker getDefinitionTracker() {
+    public DefinitionTracker getDefinitionTracker() {
         return definitionTracker;
     }
 

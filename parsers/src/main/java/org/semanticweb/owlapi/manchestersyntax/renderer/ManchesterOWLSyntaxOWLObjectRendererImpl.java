@@ -17,6 +17,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -81,7 +82,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
         }
 
         @Override
-        public void write(char[] cbuf, int off, int len) {
+        public void write(@Nullable char[] cbuf, int off, int len) {
             delegate.write(cbuf, off, len);
         }
     }

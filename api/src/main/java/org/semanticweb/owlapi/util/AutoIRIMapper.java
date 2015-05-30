@@ -127,7 +127,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
     }
 
     @Override
-    public IRI getDocumentIRI(IRI ontologyIRI) {
+    public @Nullable IRI getDocumentIRI(IRI ontologyIRI) {
         if (!mapped) {
             mapFiles();
         }
@@ -333,7 +333,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         OWLXMLOntologyRootElementHandler() {}
 
         @Override
-        public IRI handle(Attributes attributes) {
+        public @Nullable IRI handle(Attributes attributes) {
             String ontURI = attributes.getValue(Namespaces.OWL.toString(), "ontologyIRI");
             if (ontURI == null) {
                 ontURI = attributes.getValue("ontologyIRI");

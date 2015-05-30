@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.latex.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
@@ -20,6 +21,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.stream.Stream;
+
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -114,9 +117,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
         OWLAxiomComparator() {}
 
         @Override
-        public int compare(OWLAxiom o1, OWLAxiom o2) {
-            int index1 = o1.getAxiomType().getIndex();
-            int index2 = o2.getAxiomType().getIndex();
+        public int compare(@Nullable OWLAxiom o1, @Nullable OWLAxiom o2) {
+            int index1 = verifyNotNull(o1).getAxiomType().getIndex();
+            int index2 = verifyNotNull(o2).getAxiomType().getIndex();
             return index1 - index2;
         }
     }

@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -23,27 +21,27 @@ class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
         factory = df;
     }
 
-    private @Nonnull OWLObjectIntersectionOf and(@Nonnull OWLClassExpression desc1, @Nonnull OWLClassExpression desc2) {
+    private OWLObjectIntersectionOf and(OWLClassExpression desc1, OWLClassExpression desc2) {
         return factory.getOWLObjectIntersectionOf(set(desc1, desc2));
     }
 
-    private @Nonnull OWLObjectIntersectionOf and(@Nonnull Stream<OWLClassExpression> set) {
+    private OWLObjectIntersectionOf and(Stream<OWLClassExpression> set) {
         return factory.getOWLObjectIntersectionOf(asList(set));
     }
 
-    private @Nonnull OWLObjectComplementOf not(@Nonnull OWLClassExpression desc) {
+    private OWLObjectComplementOf not(OWLClassExpression desc) {
         return factory.getOWLObjectComplementOf(desc);
     }
 
-    private @Nonnull OWLObjectOneOf oneOf(@Nonnull OWLIndividual ind) {
+    private OWLObjectOneOf oneOf(OWLIndividual ind) {
         return factory.getOWLObjectOneOf(CollectionFactory.createSet(ind));
     }
 
-    private @Nonnull OWLObjectUnionOf or(@Nonnull OWLClassExpression desc1, @Nonnull OWLClassExpression desc2) {
+    private OWLObjectUnionOf or(OWLClassExpression desc1, OWLClassExpression desc2) {
         return factory.getOWLObjectUnionOf(set(desc1, desc2));
     }
 
-    private static @Nonnull <T> Set<T> set(@Nonnull T desc1, @Nonnull T desc2) {
+    private static <T> Set<T> set(T desc1, T desc2) {
         Set<T> set = new HashSet<>();
         set.add(desc1);
         set.add(desc2);

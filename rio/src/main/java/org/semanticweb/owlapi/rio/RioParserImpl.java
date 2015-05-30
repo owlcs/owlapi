@@ -46,6 +46,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
@@ -288,7 +289,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         }
 
         @Override
-        public void handleNamespace(String prefix, String uri) {
+        public void handleNamespace(@Nullable String prefix, @Nullable String uri) {
             try {
                 consumer.handleNamespace(prefix, uri);
             } catch (RDFHandlerException e) {
@@ -297,7 +298,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         }
 
         @Override
-        public void handleStatement(Statement nextStatement) {
+        public void handleStatement(@Nullable Statement nextStatement) {
             if (nextStatement.getPredicate().equals(RDF.FIRST) || nextStatement.getPredicate().equals(RDF.REST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
                     typedLists.add(nextStatement.getSubject());
@@ -324,7 +325,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         }
 
         @Override
-        public void handleComment(String comment) {
+        public void handleComment(@Nullable String comment) {
             // do nothing
         }
     }

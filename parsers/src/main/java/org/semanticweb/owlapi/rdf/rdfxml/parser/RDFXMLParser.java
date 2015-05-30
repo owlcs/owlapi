@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.io.IOException;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -41,28 +43,25 @@ public class RDFXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology,
+            OWLOntologyLoaderConfiguration configuration) {
         try {
             final RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
             RDFParser parser = new RDFParser() {
 
                 @Override
-                public void startPrefixMapping(String prefix, String uri)
-                        throws SAXException {
+                public void startPrefixMapping(@Nullable String prefix, @Nullable String uri) throws SAXException {
                     super.startPrefixMapping(prefix, uri);
                     format.setPrefix(prefix, uri);
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology,
-                    configuration);
+            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, configuration);
             consumer.setIRIProvider(parser);
             consumer.setOntologyFormat(format);
             InputSource is = getInputSource(documentSource, configuration);
             parser.parse(is, consumer);
             return format;
-        } catch (RDFParserException | SAXException
-                | OWLOntologyInputSourceException | IOException e) {
+        } catch (RDFParserException | SAXException | OWLOntologyInputSourceException | IOException e) {
             throw new OWLRDFXMLParserException(e);
         }
     }

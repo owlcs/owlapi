@@ -40,6 +40,7 @@ import java.io.Reader;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.openrdf.model.ValueFactory;
@@ -98,7 +99,7 @@ public class RioOWLRDFParser extends RDFParserBase {
     }
 
     @Override
-    public void parse(InputStream in, String baseURI) {
+    public void parse(@Nullable InputStream in, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
         StreamDocumentSource source = new StreamDocumentSource(in, IRI.create(baseURI), nextFormat,
                 getRDFFormat().getDefaultMIMEType());
@@ -128,7 +129,7 @@ public class RioOWLRDFParser extends RDFParserBase {
     }
 
     @Override
-    public void parse(Reader reader, String baseURI) {
+    public void parse(@Nullable Reader reader, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
         ReaderDocumentSource source = new ReaderDocumentSource(reader, IRI.create(baseURI), nextFormat,
                 getRDFFormat().getDefaultMIMEType());

@@ -1,6 +1,7 @@
 package org.obolibrary.oboformat.writer;
 
 import static org.semanticweb.owlapi.model.parameters.Navigation.IN_SUB_POSITION;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.*;
 import java.net.URL;
@@ -973,9 +974,9 @@ public class OBOFormatWriter {
         private static final long serialVersionUID = 40000L;
 
         @Override
-        public int compare(Xref o1, Xref o2) {
-            String idref1 = o1.getIdref();
-            String idref2 = o2.getIdref();
+        public int compare(@Nullable Xref o1, @Nullable Xref o2) {
+            String idref1 = checkNotNull(o1).getIdref();
+            String idref2 = checkNotNull(o2).getIdref();
             return idref1.compareToIgnoreCase(idref2);
         }
     }
@@ -1076,7 +1077,7 @@ public class OBOFormatWriter {
         }
 
         @Override
-        public String getName(String id) {
+        public @Nullable String getName(String id) {
             // convert OBO id to IRI
             OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(ont.getOWLOntologyManager());
             IRI iri = obo2owl.oboIdToIRI(id);
@@ -1095,7 +1096,7 @@ public class OBOFormatWriter {
         }
 
         @Override
-        public String getDefaultOboNamespace() {
+        public @Nullable String getDefaultOboNamespace() {
             return defaultOboNamespace;
         }
     }

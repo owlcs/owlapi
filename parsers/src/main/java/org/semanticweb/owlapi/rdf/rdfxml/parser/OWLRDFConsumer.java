@@ -1315,7 +1315,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void includeModel(String logicalURI, String physicalURI) {
+    public void includeModel(@Nullable String logicalURI, @Nullable String physicalURI) {
         // XXX should this do nothing?
     }
 
@@ -1352,7 +1352,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void statementWithLiteralValue(IRI subject, IRI predicate, String object, String language, IRI datatype) {
+    public void statementWithLiteralValue(IRI subject, IRI predicate, String object, @Nullable String language,
+            @Nullable IRI datatype) {
         tripleLogger.logTriple(subject, predicate, object, language, datatype);
         handlerAccessor.handleStreaming(subject, getSynonym(predicate), object, datatype, language);
     }

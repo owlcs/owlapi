@@ -1,6 +1,7 @@
 package org.obolibrary.oboformat.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** Qualifier value. */
 public class QualifierValue implements Comparable<QualifierValue> {
@@ -64,7 +65,7 @@ public class QualifierValue implements Comparable<QualifierValue> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }
@@ -85,7 +86,7 @@ public class QualifierValue implements Comparable<QualifierValue> {
     }
 
     @Override
-    public int compareTo(QualifierValue o) {
+    public int compareTo(@Nullable QualifierValue o) {
         if (o == null) {
             return 1;
         }

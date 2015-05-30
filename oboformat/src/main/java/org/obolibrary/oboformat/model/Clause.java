@@ -289,7 +289,7 @@ public class Clause {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (!(obj instanceof Clause)) {
             return false;
         }

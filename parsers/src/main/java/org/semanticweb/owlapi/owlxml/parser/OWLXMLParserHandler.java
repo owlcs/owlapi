@@ -76,7 +76,7 @@ class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void setDocumentLocator(Locator locator) {
+    public void setDocumentLocator(@Nullable Locator locator) {
         super.setDocumentLocator(locator);
         this.locator = locator;
         try {
@@ -337,7 +337,7 @@ class OWLXMLParserHandler extends DefaultHandler {
     public void endDocument() {}
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(@Nullable char[] ch, int start, int length) throws SAXException {
         if (!handlerStack.isEmpty()) {
             try {
                 OWLElementHandler<?> handler = handlerStack.get(0);
@@ -351,7 +351,8 @@ class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+    public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
+            @Nullable Attributes attributes) {
         processXMLBase(attributes);
         if (localName.equals(PREFIX.getShortForm())) {
             String name = attributes.getValue(NAME_ATTRIBUTE.getShortForm());
@@ -399,7 +400,7 @@ class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) {
+    public void endElement(@Nullable String uri, @Nullable String localName, @Nullable String qName) {
         if (localName.equals(PREFIX.getShortForm())) {
             return;
         }
@@ -411,12 +412,13 @@ class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void startPrefixMapping(String prefix, String uri) {
+    public void startPrefixMapping(@Nullable String prefix, @Nullable String uri) {
         prefixName2PrefixMap.put(prefix, uri);
     }
 
     @Override
-    public InputSource resolveEntity(String publicId, String systemId) throws IOException, SAXException {
+    public InputSource resolveEntity(@Nullable String publicId, @Nullable String systemId)
+            throws IOException, SAXException {
         return super.resolveEntity(publicId, systemId);
     }
 

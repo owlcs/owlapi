@@ -1030,6 +1030,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
             if (tid.equals("zfa")) {
                 assertEquals(2, tdoc.getTermFrame("ZFA:0001689").getClauses(OboFormatTag.TAG_INTERSECTION_OF).size());
                 Frame pf = tdoc.getTypedefFrame("part_of");
+                assert pf != null;
                 assertEquals("BFO:0000050", pf.getClause(OboFormatTag.TAG_XREF).getValue().toString());
                 n++;
             }

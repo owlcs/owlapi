@@ -16,6 +16,8 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.*;
 
+import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
@@ -62,7 +64,7 @@ public class OBOFormatRenderer implements OWLRenderer {
                 nameProvider = new NameProvider() {
 
                     @Override
-                    public String getName(String id) {
+                    public @Nullable String getName(String id) {
                         String name = primary.getName(id);
                         if (name != null) {
                             return name;
@@ -71,7 +73,7 @@ public class OBOFormatRenderer implements OWLRenderer {
                     }
 
                     @Override
-                    public String getDefaultOboNamespace() {
+                    public @Nullable String getDefaultOboNamespace() {
                         return primary.getDefaultOboNamespace();
                     }
                 };

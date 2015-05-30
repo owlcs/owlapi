@@ -18,8 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TripleLogger {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(TripleLogger.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TripleLogger.class);
     private PrefixManager prefixManager;
     // Debug stuff
     private final AtomicInteger count = new AtomicInteger();
@@ -32,7 +31,9 @@ public class TripleLogger {
         this.prefixManager = prefixManager;
     }
 
-    /** @return triples counted */
+    /**
+     * @return triples counted
+     */
     public int count() {
         return count.get();
     }
@@ -67,8 +68,7 @@ public class TripleLogger {
      * @param datatype
      *        datatype
      */
-    public void logTriple(Object s, Object p, Object o, Object lang,
-            Object datatype) {
+    public void logTriple(Object s, Object p, Object o, @Nullable Object lang, @Nullable Object datatype) {
         justLog(s, p, o, lang, datatype);
         incrementTripleCount();
     }
@@ -85,11 +85,9 @@ public class TripleLogger {
      * @param datatype
      *        datatype
      */
-    public void justLog(Object s, Object p, Object o, Object lang,
-            Object datatype) {
+    public void justLog(Object s, Object p, Object o, @Nullable Object lang, @Nullable Object datatype) {
         if (LOGGER.isTraceEnabled()) {
-            LOGGER.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p),
-                    shorten(o), lang, shorten(datatype));
+            LOGGER.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p), shorten(o), lang, shorten(datatype));
         }
     }
 
@@ -111,9 +109,7 @@ public class TripleLogger {
         if (o == null) {
             return "null";
         }
-        if (o instanceof String
-                && (((String) o).startsWith("http:") || ((String) o)
-                        .startsWith("urn:"))) {
+        if (o instanceof String && (((String) o).startsWith("http:") || ((String) o).startsWith("urn:"))) {
             return shorten(IRI.create((String) o));
         }
         if (prefixManager == null || !(o instanceof IRI)) {

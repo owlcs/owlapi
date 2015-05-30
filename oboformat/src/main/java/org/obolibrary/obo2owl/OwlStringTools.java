@@ -55,10 +55,10 @@ public class OwlStringTools {
      *         OwlStringException
      * @see #translate(String, OWLOntologyManager)
      */
-    public static @Nullable String translate(@Nullable Set<OWLAxiom> axioms, OWLOntologyManager translationManager)
+    public static String translate(Set<OWLAxiom> axioms, OWLOntologyManager translationManager)
             throws OwlStringException {
-        if (axioms == null || axioms.isEmpty()) {
-            return null;
+        if (axioms.isEmpty()) {
+            return "";
         }
         try {
             OWLOntology ontology = translationManager.createOntology();

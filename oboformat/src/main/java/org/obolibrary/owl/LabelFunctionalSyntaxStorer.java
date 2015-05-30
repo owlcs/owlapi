@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
@@ -58,7 +59,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
-        public String getPrefixIRI(IRI iri) {
+        public @Nullable String getPrefixIRI(IRI iri) {
             for (OWLAnnotationAssertionAxiom annotation : asList(ontology.annotationAssertionAxioms(iri))) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
@@ -71,7 +72,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
-        public String getDefaultPrefix() {
+        public @Nullable String getDefaultPrefix() {
             return delegate.getDefaultPrefix();
         }
 
@@ -81,7 +82,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
-        public String getPrefix(String prefixName) {
+        public @Nullable String getPrefix(String prefixName) {
             return delegate.getPrefix(prefixName);
         }
 

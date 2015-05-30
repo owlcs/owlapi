@@ -52,15 +52,15 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected ErrorHandler errorHandler = new ErrorHandler() {
 
         @Override
-        public void warning(SAXParseException exception) {}
+        public void warning(@Nullable SAXParseException exception) {}
 
         @Override
-        public void fatalError(SAXParseException exception) throws SAXException {
-            throw exception;
+        public void fatalError(@Nullable SAXParseException exception) throws SAXException {
+            throw verifyNotNull(exception);
         }
 
         @Override
-        public void error(SAXParseException exception) {}
+        public void error(@Nullable SAXParseException exception) {}
     };
     /** Stack of base IRIs. */
     protected final LinkedList<IRI> baseIRIs = new LinkedList<>();
@@ -118,18 +118,20 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             DeclHandler handler = new DeclHandler() {
 
                 @Override
-                public void internalEntityDecl(String name, String value) {
+                public void internalEntityDecl(@Nullable String name, @Nullable String value) {
                     consumer.addPrefix(name, value);
                 }
 
                 @Override
-                public void externalEntityDecl(String name, String publicId, String systemId) {}
+                public void externalEntityDecl(@Nullable String name, @Nullable String publicId,
+                        @Nullable String systemId) {}
 
                 @Override
-                public void elementDecl(String name, String model) {}
+                public void elementDecl(@Nullable String name, @Nullable String model) {}
 
                 @Override
-                public void attributeDecl(String eName, String aName, String type, String mode, String value) {}
+                public void attributeDecl(@Nullable String eName, @Nullable String aName, @Nullable String type,
+                        @Nullable String mode, @Nullable String value) {}
             };
             SAXParsers.initParserWithOWLAPIStandards(handler).parse(source, this);
             inputConsumer.endModel();
@@ -143,7 +145,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     @Override
-    public void setDocumentLocator(Locator locator) {
+    public void setDocumentLocator(@Nullable Locator locator) {
         documentLocator = checkNotNull(locator, "locator cannot be null");
     }
 
@@ -158,17 +160,17 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     @Override
-    public void warning(SAXParseException e) throws SAXException {
+    public void warning(@Nullable SAXParseException e) throws SAXException {
         errorHandler.warning(e);
     }
 
     @Override
-    public void error(SAXParseException e) throws SAXException {
+    public void error(@Nullable SAXParseException e) throws SAXException {
         errorHandler.error(e);
     }
 
     @Override
-    public void fatalError(SAXParseException e) throws SAXException {
+    public void fatalError(@Nullable SAXParseException e) throws SAXException {
         errorHandler.fatalError(e);
     }
 
@@ -184,26 +186,28 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
+            @Nullable Attributes attributes) throws SAXException {
         processXMLBase(attributes);
         processXMLLanguage(attributes);
         state.startElement(uri, localName, qName, attributes);
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(@Nullable String uri, @Nullable String localName, @Nullable String qName)
+            throws SAXException {
         state.endElement(uri, localName, qName);
         baseIRI = baseIRIs.remove(0);
         language = languages.remove(0);
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(@Nullable char[] ch, int start, int length) throws SAXException {
         state.characters(ch, start, length);
     }
 
     @Override
-    public void processingInstruction(String target, String data) {
+    public void processingInstruction(@Nullable String target, @Nullable String data) {
         if ("include-rdf".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
             verify(arguments.size() > 2, "Incorrect number of arguments for 'include-rdf' processing instruction.");

@@ -19,6 +19,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.util.*;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -746,7 +747,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     @Override
-    public OWLLiteral parseLiteral(OWLDatatype datatype) {
+    public OWLLiteral parseLiteral(@Nullable OWLDatatype datatype) {
         String tok = consumeToken();
         if (tok.startsWith("\"")) {
             String lit = unquoteLiteral(tok);
@@ -2210,7 +2211,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     class DefaultEntityChecker implements OWLEntityChecker {
 
         @Override
-        public OWLClass getOWLClass(String name) {
+        public @Nullable OWLClass getOWLClass(String name) {
             if (name.equals("Thing") || name.equals("owl:Thing")) {
                 return df.getOWLThing();
             } else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
@@ -2222,7 +2223,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public OWLObjectProperty getOWLObjectProperty(String name) {
+        public @Nullable OWLObjectProperty getOWLObjectProperty(String name) {
             if (objectPropertyNames.contains(name)) {
                 return df.getOWLObjectProperty(getIRI(name));
             }
@@ -2230,7 +2231,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public OWLDataProperty getOWLDataProperty(String name) {
+        public @Nullable OWLDataProperty getOWLDataProperty(String name) {
             if (dataPropertyNames.contains(name)) {
                 return df.getOWLDataProperty(getIRI(name));
             }
@@ -2238,7 +2239,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public OWLNamedIndividual getOWLIndividual(String name) {
+        public @Nullable OWLNamedIndividual getOWLIndividual(String name) {
             if (individualNames.contains(name)) {
                 return df.getOWLNamedIndividual(getIRI(name));
             }
@@ -2246,7 +2247,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public OWLDatatype getOWLDatatype(String name) {
+        public @Nullable OWLDatatype getOWLDatatype(String name) {
             if (dataTypeNames.contains(name)) {
                 return df.getOWLDatatype(getIRI(name));
             }
@@ -2254,7 +2255,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        public @Nullable OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             if (annotationPropertyNames.contains(name)) {
                 return df.getOWLAnnotationProperty(getIRI(name));
             }

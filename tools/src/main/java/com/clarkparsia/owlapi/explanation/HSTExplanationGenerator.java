@@ -19,6 +19,7 @@ import java.util.*;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -45,7 +46,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @param singleExplanationGenerator
      *        explanation generator to use
      */
-    public HSTExplanationGenerator(@Nonnull TransactionAwareSingleExpGen singleExplanationGenerator) {
+    public HSTExplanationGenerator(TransactionAwareSingleExpGen singleExplanationGenerator) {
         this.singleExplanationGenerator = checkNotNull(singleExplanationGenerator,
                 "singleExplanationGenerator cannot be null");
     }
@@ -80,7 +81,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * 
      * @return the explanation generator
      */
-    public @Nonnull TransactionAwareSingleExpGen getSingleExplanationGenerator() {
+    public TransactionAwareSingleExpGen getSingleExplanationGenerator() {
         return singleExplanationGenerator;
     }
 
@@ -138,12 +139,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        The set of all MUPS which is used to calculate the ordering
      * @return the ordered mups
      */
-    private static @Nonnull List<OWLAxiom> getOrderedMUPS(@Nonnull List<OWLAxiom> mups,
-            @Nonnull final Set<Set<OWLAxiom>> allMups) {
+    private static List<OWLAxiom> getOrderedMUPS(List<OWLAxiom> mups, final Set<Set<OWLAxiom>> allMups) {
         Comparator<OWLAxiom> mupsComparator = new Comparator<OWLAxiom>() {
 
             @Override
-            public int compare(OWLAxiom o1, OWLAxiom o2) {
+            public int compare(@Nullable OWLAxiom o1, @Nullable OWLAxiom o2) {
                 // The axiom that appears in most MUPS has the lowest index
                 // in the list
                 int occ1 = getOccurrences(o1, allMups);
@@ -165,8 +165,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        The sets to count from
      * @return the occurrences
      */
-    protected static int getOccurrences(@Nonnull OWLAxiom ax, @Nonnull Set<Set<OWLAxiom>> axiomSets) {
+    protected static int getOccurrences(@Nullable OWLAxiom ax, Set<Set<OWLAxiom>> axiomSets) {
         int count = 0;
+        if (ax == null) {
+            return count;
+        }
         for (Set<OWLAxiom> axioms : axiomSets) {
             if (axioms.contains(ax)) {
                 count++;
@@ -182,7 +185,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        axiom whose signature is being computed
      * @return the entities referenced in the axiom
      */
-    private static @Nonnull Set<OWLEntity> getSignature(@Nonnull OWLAxiom axiom) {
+    private static Set<OWLEntity> getSignature(OWLAxiom axiom) {
         Set<OWLEntity> toReturn = new HashSet<>();
         OWLEntityCollector collector = new OWLEntityCollector(toReturn);
         axiom.accept(collector);
@@ -212,9 +215,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @throws OWLException
      *         the oWL exception
      */
-    private void constructHittingSetTree(@Nonnull OWLClassExpression unsatClass, @Nonnull Set<OWLAxiom> mups,
-            @Nonnull Set<Set<OWLAxiom>> allMups, @Nonnull Set<Set<OWLAxiom>> satPaths,
-            @Nonnull Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
+    private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
+            Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
         LOGGER.info("MUPS {}: {}", allMups.size(), mups);
         if (progressMonitor.isCancelled()) {
             return;
@@ -257,8 +259,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        the current path contents
      * @return true, if successful
      */
-    private static boolean checkEarlyTermination(@Nonnull Set<Set<OWLAxiom>> satPaths,
-            @Nonnull Set<OWLAxiom> currentPathContents) {
+    private static boolean checkEarlyTermination(Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents) {
         boolean earlyTermination = false;
         // Early path termination. If our path contents are the superset of
         // the contents of a path then we can terminate here.
@@ -293,9 +294,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @throws OWLException
      *         the oWL exception
      */
-    private @Nonnull List<OWLAxiom> recurse(@Nonnull OWLClassExpression unsatClass, @Nonnull Set<Set<OWLAxiom>> allMups,
-            @Nonnull Set<Set<OWLAxiom>> satPaths, @Nonnull Set<OWLAxiom> currentPathContents, int maxExplanations,
-            @Nonnull List<OWLAxiom> orderedMups, @Nonnull OWLAxiom axiom) throws OWLException {
+    private List<OWLAxiom> recurse(OWLClassExpression unsatClass, Set<Set<OWLAxiom>> allMups,
+            Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations,
+            List<OWLAxiom> orderedMups, OWLAxiom axiom) throws OWLException {
         Set<OWLAxiom> newMUPS = getNewMUPS(unsatClass, allMups, currentPathContents);
         // Generate a new node - i.e. a new justification set
         if (newMUPS.contains(axiom)) {
@@ -321,8 +322,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return orderedMups;
     }
 
-    private void backtrack(@Nonnull Set<OWLAxiom> currentPathContents, @Nonnull OWLAxiom axiom,
-            @Nonnull List<OWLDeclarationAxiom> temporaryDeclarations, @Nonnull Set<OWLOntology> ontologies) {
+    private void backtrack(Set<OWLAxiom> currentPathContents, OWLAxiom axiom,
+            List<OWLDeclarationAxiom> temporaryDeclarations, Set<OWLOntology> ontologies) {
         // Back track - go one level up the tree and run for the next axiom
         currentPathContents.remove(axiom);
         LOGGER.info("Restoring axiom: {}", axiom);
@@ -345,8 +346,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        the current path contents
      * @return the new mups
      */
-    private @Nonnull Set<OWLAxiom> getNewMUPS(@Nonnull OWLClassExpression unsatClass,
-            @Nonnull Set<Set<OWLAxiom>> allMups, @Nonnull Set<OWLAxiom> currentPathContents) {
+    private Set<OWLAxiom> getNewMUPS(OWLClassExpression unsatClass, Set<Set<OWLAxiom>> allMups,
+            Set<OWLAxiom> currentPathContents) {
         Set<OWLAxiom> newMUPS = null;
         for (Set<OWLAxiom> foundMUPS : allMups) {
             Set<OWLAxiom> foundMUPSCopy = new HashSet<>(foundMUPS);
@@ -371,8 +372,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        the temporary declarations
      * @return the sets the
      */
-    private @Nonnull Set<OWLOntology> removeAxiomAndAddDeclarations(@Nonnull OWLAxiom axiom,
-            @Nonnull List<OWLDeclarationAxiom> temporaryDeclarations) {
+    private Set<OWLOntology> removeAxiomAndAddDeclarations(OWLAxiom axiom,
+            List<OWLDeclarationAxiom> temporaryDeclarations) {
         // Remove the current axiom from all the ontologies it is included
         // in
         Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom,
@@ -384,8 +385,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return ontologies;
     }
 
-    private void collectTemporaryDeclarations(@Nonnull OWLAxiom axiom,
-            @Nonnull List<OWLDeclarationAxiom> temporaryDeclarations) {
+    private void collectTemporaryDeclarations(OWLAxiom axiom, List<OWLDeclarationAxiom> temporaryDeclarations) {
         for (OWLEntity e : getSignature(axiom)) {
             boolean referenced = getReasoner().getRootOntology().isDeclared(e, INCLUDED);
             if (!referenced) {
@@ -401,7 +401,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        the e
      * @return the declaration
      */
-    private @Nonnull OWLDeclarationAxiom getDeclaration(@Nonnull OWLEntity e) {
+    private OWLDeclarationAxiom getDeclaration(OWLEntity e) {
         return getOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(e);
     }
 }
