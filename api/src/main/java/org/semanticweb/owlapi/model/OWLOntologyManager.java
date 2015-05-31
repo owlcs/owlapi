@@ -39,10 +39,9 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLOntologyManager
-        extends OWLOntologySetProvider, HasDataFactory, HasGetOntologyById, HasApplyChanges, HasApplyChange,
-        HasAddAxioms, HasAddAxiom, HasRemoveAxioms, HasRemoveAxiom, HasContainsOntology, HasOntologyChangeListeners,
-        HasOntologyLoaderConfigurationProvider, HasOntologyLoaderConfiguration, Serializable {
+public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFactory, HasGetOntologyById, HasApplyChanges,
+    HasApplyChange, HasAddAxioms, HasAddAxiom, HasRemoveAxioms, HasRemoveAxiom, HasContainsOntology,
+    HasOntologyChangeListeners, HasOntologyLoaderConfigurationProvider, HasOntologyLoaderConfiguration, Serializable {
 
     /**
      * Clear all ontologies, listeners and maps from the manager. Leave injected
@@ -82,6 +81,7 @@ public interface OWLOntologyManager
      * @param ontology
      *        The ontology IRI
      * @return The set of ontologies that have the specified ontology IRI.
+     * @deprecated use {@link #versions(IRI)}
      */
     @Deprecated
     default Set<OWLOntology> getVersions(IRI ontology) {
@@ -522,7 +522,7 @@ public interface OWLOntologyManager
      *         manager.
      */
     default OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         return createOntology(ontologyIRI, ontologies.stream(), copyLogicalAxiomsOnly);
     }
 
@@ -561,7 +561,7 @@ public interface OWLOntologyManager
      *         manager.
      */
     OWLOntology createOntology(IRI ontologyIRI, Stream<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
-            throws OWLOntologyCreationException;
+        throws OWLOntologyCreationException;
 
     /**
      * Creates a new ontology that has the specified ontology IRI and is
@@ -593,7 +593,7 @@ public interface OWLOntologyManager
      *         manager.
      */
     default OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         return createOntology(ontologyIRI, ontologies, false);
     }
 
@@ -701,7 +701,7 @@ public interface OWLOntologyManager
     default OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI) throws OWLOntologyCreationException {
         // Ontology URI not known in advance
         return loadOntologyFromOntologyDocument(new IRIDocumentSource(documentIRI, null, null),
-                getOntologyLoaderConfiguration());
+            getOntologyLoaderConfiguration());
     }
 
     /**
@@ -813,7 +813,7 @@ public interface OWLOntologyManager
      *         input source.
      */
     default OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         // Ontology URI not known in advance
         return loadOntologyFromOntologyDocument(documentSource, getOntologyLoaderConfiguration());
     }
@@ -856,7 +856,7 @@ public interface OWLOntologyManager
      *         input source.
      */
     OWLOntology loadOntologyFromOntologyDocument(OWLOntologyDocumentSource documentSource,
-            OWLOntologyLoaderConfiguration config) throws OWLOntologyCreationException;
+        OWLOntologyLoaderConfiguration config) throws OWLOntologyCreationException;
 
     /**
      * Attempts to remove an ontology. The ontology which is identified by the
@@ -1005,7 +1005,7 @@ public interface OWLOntologyManager
      *         if the specified ontology is not managed by this manager
      */
     default void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         saveOntology(ontology, ontologyFormat, getOntologyDocumentIRI(ontology));
     }
 
@@ -1025,7 +1025,7 @@ public interface OWLOntologyManager
      *         if the specified ontology is not managed by the manager.
      */
     void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat, IRI documentIRI)
-            throws OWLOntologyStorageException;
+        throws OWLOntologyStorageException;
 
     /**
      * Saves the specified ontology to the specified output stream in the
@@ -1043,7 +1043,7 @@ public interface OWLOntologyManager
      *         if the specified ontology is not managed by the manager.
      */
     default void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat, OutputStream outputStream)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         saveOntology(ontology, ontologyFormat, new StreamDocumentTarget(outputStream));
     }
 
@@ -1061,7 +1061,7 @@ public interface OWLOntologyManager
      *         if the specified ontology is not managed by this manager.
      */
     default void saveOntology(OWLOntology ontology, OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         saveOntology(ontology, getOntologyFormat(ontology), documentTarget);
     }
 
@@ -1081,7 +1081,7 @@ public interface OWLOntologyManager
      *         If the specified ontology is not managed by this manager.
      */
     void saveOntology(OWLOntology ontology, OWLDocumentFormat ontologyFormat, OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException;
+        throws OWLOntologyStorageException;
 
     /**
      * Add an IRI mapper to the manager

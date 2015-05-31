@@ -27,27 +27,23 @@ public final class Formatter {
 
     private Formatter() {}
 
+    @SuppressWarnings("resource")
     public static void main(String[] args) throws Exception {
         Map<String, String> specials = new HashMap<>();
         specials.put("public void test", "\\begin{beamerboxesrounded}{");
         specials.put("() throws Exception \\{", "}\n\\scriptsize");
-        String[] keywords = { " class ", " void ", " extends ", "public",
-                " static final", "return", "throws" };
+        String[] keywords = { " class ", " void ", " extends ", "public", " static final", "return", "throws" };
         Pattern stringPattern = Pattern.compile("(\"[\\w\\.\\:\\s\\#/\\-]*\")");
-        BufferedReader r = new BufferedReader(
-                new InputStreamReader(
-                        new FileInputStream(
-                                "../OWLAPI3/tutorial2011/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java")));
+        BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(
+            "../OWLAPI3/tutorial2011/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java")));
         String line = r.readLine();
         while (line != null) {
             if (line.trim().isEmpty()) {
                 System.out.println("\\end{beamerboxesrounded}\n\n");
             } else {
-                line = line.replace("{", "\\{").replace("}", "\\}")
-                        .replace("_", "\\_");
+                line = line.replace("{", "\\{").replace("}", "\\}").replace("_", "\\_");
                 if (line.trim().startsWith("//")) {
-                    System.out
-                            .println("\\codecomment{" + line.trim() + "}\\\\");
+                    System.out.println("\\codecomment{" + line.trim() + "}\\\\");
                 } else {
                     // regular code
                     for (String s : specials.keySet()) {
@@ -56,11 +52,8 @@ public final class Formatter {
                     for (String s : keywords) {
                         line = line.replace(s, "\\codekeyword{" + s + '}');
                     }
-                    line = line
-                            .replace("\t", "\\hspace{4mm}")
-                            .replace("    ", "\\hspace{4mm}")
-                            .replace("\\hspace{4mm}\\hspace{4mm}",
-                                    "\\hspace{4mm}");
+                    line = line.replace("\t", "\\hspace{4mm}").replace("    ", "\\hspace{4mm}").replace(
+                        "\\hspace{4mm}\\hspace{4mm}", "\\hspace{4mm}");
                     Matcher match = stringPattern.matcher(line);
                     List<String> strings = new ArrayList<>();
                     while (match.find()) {

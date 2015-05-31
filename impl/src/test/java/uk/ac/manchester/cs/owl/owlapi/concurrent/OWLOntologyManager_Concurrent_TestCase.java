@@ -38,7 +38,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings({ "javadoc", "deprecation", "resource" })
 public class OWLOntologyManager_Concurrent_TestCase {
 
     private OWLOntologyManager manager;
@@ -69,10 +69,10 @@ public class OWLOntologyManager_Concurrent_TestCase {
         when(ontologyFactory.canAttemptLoading(any(OWLOntologyDocumentSource.class))).thenReturn(true);
         final OWLOntology owlOntology = new OWLOntologyImpl(manager, new OWLOntologyID());
         when(ontologyFactory.createOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyID.class), any(IRI.class),
-                any(OWLOntologyFactory.OWLOntologyCreationHandler.class))).thenAnswer(i -> notify(3, i, owlOntology));
-        when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyDocumentSource.class),
-                any(OWLOntologyFactory.OWLOntologyCreationHandler.class), any(OWLOntologyLoaderConfiguration.class)))
-                        .thenAnswer(i -> notify(2, i, owlOntology));
+            any(OWLOntologyFactory.OWLOntologyCreationHandler.class))).thenAnswer(i -> notify(3, i, owlOntology));
+        when(ontologyFactory.loadOWLOntology(any(OWLOntologyManager.class), any(OWLOntologyDocumentSource.class), any(
+            OWLOntologyFactory.OWLOntologyCreationHandler.class), any(OWLOntologyLoaderConfiguration.class)))
+                .thenAnswer(i -> notify(2, i, owlOntology));
         manager.setOntologyFactories(Collections.singleton(ontologyFactory));
     }
 
@@ -647,8 +647,8 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     protected OWLMutableOntology mockOntology() {
         OWLMutableOntology mock = mock(OWLMutableOntology.class);
-        when(mock.getOntologyID())
-                .thenReturn(new OWLOntologyID(optional(IRI.create("urn:mock:ontology")), emptyOptional()));
+        when(mock.getOntologyID()).thenReturn(new OWLOntologyID(optional(IRI.create("urn:mock:ontology")),
+            emptyOptional()));
         return mock;
     }
 

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
@@ -35,8 +36,25 @@ public interface HasRemoveAxioms {
      *         ChangeApplied.UNSUCCESSFULLY otherwise.
      * @throws OWLOntologyChangeException
      *         if there was a problem removing the axioms
-     * @deprecated use {@link OWLOntology#removeAxioms(Collection)}
+     * @deprecated use {@link #removeAxioms(OWLOntology, Collection)}
      */
     @Deprecated
-    ChangeApplied removeAxioms(OWLOntology ont, Collection<? extends OWLAxiom> axioms);
+    default ChangeApplied removeAxioms(OWLOntology ont, Collection<? extends OWLAxiom> axioms) {
+        return removeAxioms(ont, axioms.stream());
+    }
+
+    /**
+     * A convenience method that removes a set of axioms from an ontology. The
+     * appropriate RemoveAxiom change objects are automatically generated.
+     * 
+     * @param ont
+     *        The ontology from which the axioms should be removed.
+     * @param axioms
+     *        The axioms to be removed.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException
+     *         if there was a problem removing the axioms
+     */
+    ChangeApplied removeAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms);
 }

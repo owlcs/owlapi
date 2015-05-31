@@ -215,12 +215,10 @@ public class OBOFormatParser {
      */
     public OBODoc parse(File file) throws IOException {
         location = file;
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
-        try {
+        try (FileInputStream f = new FileInputStream(file);
+            InputStreamReader in2 = new InputStreamReader(f, StandardCharsets.UTF_8);
+            BufferedReader in = new BufferedReader(in2);) {
             return parse(in);
-        } finally {
-            in.close();
         }
     }
 
@@ -402,8 +400,8 @@ public class OBOFormatParser {
                             danglingReferences.add(error);
                         }
                     } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
-                            || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
-                            || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
+                        || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
+                        || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
                         String error = checkRelation(c.getValue().toString(), tag, f.getId(), doc);
                         if (error != null) {
                             danglingReferences.add(error);
@@ -427,7 +425,7 @@ public class OBOFormatParser {
     private @Nullable String checkRelation(String relId, String tag, @Nullable String frameId, OBODoc doc) {
         if (doc.getTypedefFrame(relId, followImport) == null) {
             return "The relation '" + relId + "' reference in" + " the tag '" + tag + " ' in the frame of id '"
-                    + frameId + "' is not declared";
+                + frameId + "' is not declared";
         }
         return null;
     }
@@ -435,7 +433,7 @@ public class OBOFormatParser {
     private @Nullable String checkClassReference(String classId, String tag, @Nullable String frameId, OBODoc doc) {
         if (doc.getTermFrame(classId, followImport) == null) {
             return "The class '" + classId + "' reference in" + " the tag '" + tag + " ' in the frame of id '" + frameId
-                    + "'is not declared";
+                + "'is not declared";
         }
         return null;
     }
@@ -550,9 +548,8 @@ public class OBOFormatParser {
             try {
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
-                throw new OBOFormatParserException(
-                        "Could not add frame " + f + " to document, duplicate frame definition?", e, stream.lineNo,
-                        stream.line);
+                throw new OBOFormatParserException("Could not add frame " + f
+                    + " to document, duplicate frame definition?", e, stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Term] frame, but found unknown stanza type.");
@@ -687,9 +684,8 @@ public class OBOFormatParser {
             try {
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
-                throw new OBOFormatParserException(
-                        "Could not add frame " + f + " to document, duplicate frame definition?", e, stream.lineNo,
-                        stream.line);
+                throw new OBOFormatParserException("Could not add frame " + f
+                    + " to document, duplicate frame definition?", e, stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Typedef] frame, but found unknown stanza type.");
@@ -1098,7 +1094,7 @@ public class OBOFormatParser {
             }
         } else if (!optional) {
             error("Clause: " + cl.getTag() + "; expected an xref list, or at least an empty list '[]' at pos: "
-                    + stream.pos);
+                + stream.pos);
         }
     }
 
@@ -1173,7 +1169,8 @@ public class OBOFormatParser {
         parseZeroOrMoreWs();
         String rest = stream.rest();
         if (!rest.contains("=")) {
-            error("Missing '=' in trailing qualifier block. This might happen for not properly escaped '{', '}' chars in comments.");
+            error(
+                "Missing '=' in trailing qualifier block. This might happen for not properly escaped '{', '}' chars in comments.");
         }
         String q = getParseUntilAdv("=");
         parseZeroOrMoreWs();

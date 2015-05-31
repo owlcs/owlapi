@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
@@ -34,8 +32,7 @@ public interface ExplanationRenderer {
      * @throws IOException
      *         IO troubles
      */
-    void startRendering(@Nonnull Writer writer) throws OWLException,
-            IOException;
+    void startRendering(Writer writer) throws OWLException, IOException;
 
     /**
      * Render.
@@ -49,9 +46,7 @@ public interface ExplanationRenderer {
      * @throws IOException
      *         IO troubles
      */
-    void render(@Nonnull OWLAxiom axiom,
-            @Nonnull Set<Set<OWLAxiom>> explanations) throws OWLException,
-            IOException;
+    void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException, IOException;
 
     /**
      * end of rendering.

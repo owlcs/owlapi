@@ -44,7 +44,7 @@ public final class OboInOwlCardinalityTools {
          * @return list of resolved axioms
          */
         List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity, OWLAnnotationProperty property,
-                Collection<OWLAnnotationAssertionAxiom> axioms);
+            Collection<OWLAnnotationAssertionAxiom> axioms);
 
         /**
          * Resolve a conflict for a given annotation property and ontology
@@ -60,7 +60,7 @@ public final class OboInOwlCardinalityTools {
          *         AnnotationCardinalityException
          */
         List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
-                Collection<OWLAnnotation> ontologyAnnotations) throws AnnotationCardinalityException;
+            Collection<OWLAnnotation> ontologyAnnotations) throws AnnotationCardinalityException;
     }
 
     /**
@@ -80,7 +80,7 @@ public final class OboInOwlCardinalityTools {
          *        axioms
          */
         void reportConflict(OWLEntity entity, OWLAnnotationProperty property,
-                Collection<OWLAnnotationAssertionAxiom> axioms);
+            Collection<OWLAnnotationAssertionAxiom> axioms);
 
         /**
          * Report a conflict for a given annotation property and ontology
@@ -142,21 +142,20 @@ public final class OboInOwlCardinalityTools {
      * @see Frame#check() for implementation in OBO
      */
     public static void checkAnnotationCardinality(OWLOntology ontology,
-            @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler)
-                    throws AnnotationCardinalityException {
+        @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler)
+            throws AnnotationCardinalityException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         Set<OWLAnnotationProperty> headerProperties = getProperties(factory, TAG_ONTOLOGY, TAG_FORMAT_VERSION, TAG_DATE,
-                TAG_DEFAULT_NAMESPACE, TAG_SAVED_BY, TAG_AUTO_GENERATED_BY);
+            TAG_DEFAULT_NAMESPACE, TAG_SAVED_BY, TAG_AUTO_GENERATED_BY);
         checkOntologyAnnotations(headerProperties, ontology, reporter, handler, manager);
         Set<OWLAnnotationProperty> properties = getProperties(factory, TAG_IS_ANONYMOUS, TAG_NAME, TAG_NAMESPACE,
-                TAG_DEF, TAG_COMMENT, TAG_DOMAIN, TAG_RANGE, TAG_IS_ANTI_SYMMETRIC, TAG_IS_CYCLIC, TAG_IS_REFLEXIVE,
-                TAG_IS_SYMMETRIC, TAG_IS_TRANSITIVE, TAG_IS_FUNCTIONAL, TAG_IS_INVERSE_FUNCTIONAL, TAG_IS_OBSELETE,
-                TAG_CREATED_BY, TAG_CREATION_DATE);
-        ontology.classesInSignature(INCLUDED)
-                .forEach(c -> checkOwlEntity(c, properties, ontology, reporter, handler, manager));
-        ontology.objectPropertiesInSignature(INCLUDED)
-                .forEach(p -> checkOwlEntity(p, properties, ontology, reporter, handler, manager));
+            TAG_DEF, TAG_COMMENT, TAG_DOMAIN, TAG_RANGE, TAG_IS_ANTI_SYMMETRIC, TAG_IS_CYCLIC, TAG_IS_REFLEXIVE,
+            TAG_IS_SYMMETRIC, TAG_IS_TRANSITIVE, TAG_IS_FUNCTIONAL, TAG_IS_INVERSE_FUNCTIONAL, TAG_IS_OBSELETE,
+            TAG_CREATED_BY, TAG_CREATION_DATE);
+        ontology.classesInSignature(INCLUDED).forEach(c -> checkOwlEntity(c, properties, ontology, reporter, handler));
+        ontology.objectPropertiesInSignature(INCLUDED).forEach(p -> checkOwlEntity(p, properties, ontology, reporter,
+            handler));
     }
 
     private static Set<OWLAnnotationProperty> getProperties(OWLDataFactory factory, OboFormatTag... tags) {
@@ -168,8 +167,8 @@ public final class OboInOwlCardinalityTools {
     }
 
     private static void checkOntologyAnnotations(Set<OWLAnnotationProperty> properties, OWLOntology ontology,
-            @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler,
-            OWLOntologyManager manager) throws AnnotationCardinalityException {
+        @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler,
+        OWLOntologyManager manager) throws AnnotationCardinalityException {
         Set<OWLAnnotation> annotations = asSet(ontology.annotations());
         Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<>();
         for (OWLAnnotation annotation : annotations) {
@@ -207,8 +206,7 @@ public final class OboInOwlCardinalityTools {
     }
 
     private static void checkOwlEntity(OWLEntity owlClass, Set<OWLAnnotationProperty> properties, OWLOntology ontology,
-            @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler,
-            OWLOntologyManager manager) {
+        @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler) {
         Map<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>> groupedAxioms = new HashMap<>();
         for (OWLAnnotationAssertionAxiom axiom : asSet(ontology.annotationAssertionAxioms(owlClass.getIRI()))) {
             OWLAnnotationProperty current = axiom.getProperty();
@@ -282,7 +280,7 @@ public final class OboInOwlCardinalityTools {
 
         @Override
         public List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity, OWLAnnotationProperty property,
-                Collection<OWLAnnotationAssertionAxiom> axioms) {
+            Collection<OWLAnnotationAssertionAxiom> axioms) {
             if (axioms.size() > 1) {
                 String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
                 if (tag == null) {
@@ -298,7 +296,7 @@ public final class OboInOwlCardinalityTools {
 
         @Override
         public List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
-                Collection<OWLAnnotation> ontologyAnnotations) throws AnnotationCardinalityException {
+            Collection<OWLAnnotation> ontologyAnnotations) throws AnnotationCardinalityException {
             if (ontologyAnnotations.size() > 1) {
                 String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
                 if (tag == null) {

@@ -45,9 +45,9 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @since 2.0.0
  */
 public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports, HasImportsClosure, HasOntologyID,
-        OWLAxiomCollection, OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs, OWLAxiomIndex,
-        HasApplyChange, HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms, HasDirectRemoveAxiom,
-        HasDirectRemoveAxioms, HasApplyDirectChange, IsAnonymous {
+    OWLAxiomCollection, OWLAxiomCollectionBooleanArgs, OWLSignature, OWLSignatureBooleanArgs, OWLAxiomIndex,
+    HasApplyChange, HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms,
+    HasApplyDirectChange, IsAnonymous {
 
     // Default implementation of these mutating methods is to do nothing.
     // Adding them to this interface allows access without casting, since
@@ -85,12 +85,12 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
 
     @Override
     default ChangeApplied removeAxiom(OWLAxiom axiom) {
-        return getOWLOntologyManager().removeAxiom(this, axiom);
+        return getOWLOntologyManager().removeAxioms(this, Stream.of(axiom));
     }
 
     @Override
     default ChangeApplied removeAxioms(Collection<? extends OWLAxiom> axioms) {
-        return getOWLOntologyManager().removeAxioms(this, axioms);
+        return getOWLOntologyManager().removeAxioms(this, axioms.stream());
     }
 
     @Override
@@ -508,7 +508,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         If the ontology could not be saved.
      */
     default void saveOntology(OWLDocumentFormat ontologyFormat, OutputStream outputStream)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, outputStream);
     }
 
@@ -537,7 +537,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         If the ontology could not be saved.
      */
     default void saveOntology(OWLDocumentFormat ontologyFormat, OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         getOWLOntologyManager().saveOntology(this, ontologyFormat, documentTarget);
     }
 

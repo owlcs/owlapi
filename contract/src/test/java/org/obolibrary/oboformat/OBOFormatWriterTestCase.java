@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -74,9 +75,9 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
         Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
         cl.addValue(value);
         StringWriter out = new StringWriter();
-        BufferedWriter bufferedWriter = new BufferedWriter(out);
-        OBOFormatWriter.write(cl, bufferedWriter, null);
-        bufferedWriter.close();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(out)) {
+            OBOFormatWriter.write(cl, bufferedWriter, null);
+        }
         return out.toString().trim();
     }
 
@@ -123,14 +124,16 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
 
     @Test
     public void testPropertyValueOrder() throws Exception {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(getInputStream("tag_order_test.obo")));
         StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-            sb.append('\n');
+        try (InputStream inputStream = getInputStream("tag_order_test.obo");
+            InputStreamReader in = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(in);) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+                sb.append('\n');
+            }
         }
-        reader.close();
         String input = sb.toString();
         OBODoc obodoc = parseOboToString(input);
         String written = renderOboToString(obodoc);

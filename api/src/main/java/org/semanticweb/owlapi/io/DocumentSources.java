@@ -65,7 +65,7 @@ public class DocumentSources {
      *         if an IO related exception is thrown.
      */
     public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
-            OWLOntologyLoaderConfiguration configuration, Charset encoding) throws OWLOntologyInputSourceException {
+        OWLOntologyLoaderConfiguration configuration, Charset encoding) throws OWLOntologyInputSourceException {
         Optional<Reader> reader = source.getReader();
         if (reader.isPresent()) {
             return new BufferedReader(reader.get());
@@ -90,7 +90,7 @@ public class DocumentSources {
      *         if an IO related exception is thrown.
      */
     public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
-            OWLOntologyLoaderConfiguration configuration) throws OWLOntologyInputSourceException {
+        OWLOntologyLoaderConfiguration configuration) throws OWLOntologyInputSourceException {
         return wrapInputAsReader(source, configuration, Charsets.UTF_8);
     }
 
@@ -109,7 +109,7 @@ public class DocumentSources {
      *         if an IO related exception is thrown.
      */
     public static InputStream wrapInput(OWLOntologyDocumentSource source, OWLOntologyLoaderConfiguration configuration)
-            throws OWLOntologyInputSourceException {
+        throws OWLOntologyInputSourceException {
         Optional<InputStream> input = source.getInputStream();
         if (!input.isPresent()) {
             if (!source.hasAlredyFailedOnIRIResolution()) {
@@ -138,7 +138,7 @@ public class DocumentSources {
      */
     @SuppressWarnings("resource")
     public static Optional<InputStream> getInputStream(IRI documentIRI, OWLOntologyLoaderConfiguration config)
-            throws OWLOntologyInputSourceException {
+        throws OWLOntologyInputSourceException {
         try {
             URL originalURL = documentIRI.toURI().toURL();
             String originalProtocol = originalURL.getProtocol();
@@ -156,8 +156,8 @@ public class DocumentSources {
                 int responseCode = con.getResponseCode();
                 // redirect
                 if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
-                        || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                        || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                    || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+                    || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
                     String location = con.getHeaderField("Location");
                     URL newURL = new URL(location);
                     String newProtocol = newURL.getProtocol();
@@ -182,8 +182,8 @@ public class DocumentSources {
                 } catch (SocketTimeoutException e) {
                     count++;
                     if (count == 5) {
-                        throw new OWLOntologyInputSourceException(
-                                "cannot connect to " + documentIRI + "; retry limit exhausted", e);
+                        throw new OWLOntologyInputSourceException("cannot connect to " + documentIRI
+                            + "; retry limit exhausted", e);
                     }
                     conn.setConnectTimeout(connectionTimeout + connectionTimeout * count);
                 }
@@ -221,7 +221,7 @@ public class DocumentSources {
     public static InputStream wrap(InputStream delegate) {
         checkNotNull(delegate, "delegate cannot be null");
         return new BOMInputStream(delegate, ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
-                ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
+            ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
     }
 
     private static boolean couldBeOntology(@Nullable ZipEntry zipEntry) {
@@ -231,8 +231,9 @@ public class DocumentSources {
         return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName()).matches();
     }
 
+    @SuppressWarnings("resource")
     private static InputStream getInputStreamFromContentEncoding(URLConnection conn, @Nullable String contentEncoding)
-            throws IOException {
+        throws IOException {
         InputStream in = conn.getInputStream();
         if (contentEncoding != null) {
             if ("xz".equals(contentEncoding)) {

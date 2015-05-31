@@ -38,8 +38,8 @@ public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
     /** The Class FramesComparator. */
-    private static final Comparator<Frame> framesComparator = (o1, o2) -> checkNotNull(o1.getId())
-            .compareTo(o2.getId());
+    private static final Comparator<Frame> framesComparator = (o1, o2) -> checkNotNull(o1.getId()).compareTo(o2
+        .getId());
     private static final @Nonnull Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
     private static final @Nonnull Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
     /**
@@ -113,11 +113,8 @@ public class OBOFormatWriter {
         if (fn.startsWith("http:")) {
             write(new URL(fn), writer);
         } else {
-            Reader reader = new BufferedReader(new FileReader(new File(fn)));
-            try {
+            try (FileReader r = new FileReader(new File(fn)); Reader reader = new BufferedReader(r);) {
                 write(reader, writer);
-            } finally {
-                reader.close();
             }
         }
     }
@@ -164,11 +161,11 @@ public class OBOFormatWriter {
      *         Signals that an I/O exception has occurred.
      */
     public void write(OBODoc doc, String outFile) throws IOException {
-        FileOutputStream os = new FileOutputStream(new File(outFile));
-        OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-        Writer bw = new BufferedWriter(osw);
-        write(doc, bw);
-        bw.close();
+        try (FileOutputStream os = new FileOutputStream(new File(outFile));
+            OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
+            Writer bw = new BufferedWriter(osw);) {
+            write(doc, bw);
+        }
     }
 
     /**
@@ -342,7 +339,7 @@ public class OBOFormatWriter {
                 } else if (OboFormatTag.TAG_PROPERTY_VALUE.getTag().equals(clauseTag)) {
                     writePropertyValue(clause, writer);
                 } else if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clauseTag)
-                        || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clauseTag)) {
+                    || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clauseTag)) {
                     writeClauseWithQuotedString(clause, writer);
                 } else if (OboFormatTag.TAG_XREF.getTag().equals(clauseTag)) {
                     writeXRefClause(clause, writer);
@@ -471,10 +468,9 @@ public class OBOFormatWriter {
         // to write []
         if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
-        } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
-                || OboFormatTag.TAG_SYNONYM.getTag().equals(clause.getTag())
-                || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
-                || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clause.getTag())) {
+        } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag()) || OboFormatTag.TAG_SYNONYM.getTag().equals(
+            clause.getTag()) || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
+            || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clause.getTag())) {
             sb.append(" []");
         }
         appendQualifiers(sb, clause);
@@ -1086,7 +1082,7 @@ public class OBOFormatWriter {
             IRI iri = obo2owl.oboIdToIRI(id);
             // look for label of entity
             Set<OWLAnnotationAssertionAxiom> axioms = ont.getAxioms(OWLAnnotationAssertionAxiom.class,
-                    OWLAnnotationSubject.class, iri, Imports.INCLUDED, IN_SUB_POSITION);
+                OWLAnnotationSubject.class, iri, Imports.INCLUDED, IN_SUB_POSITION);
             for (OWLAnnotationAssertionAxiom axiom : axioms) {
                 if (axiom.getProperty().isLabel()) {
                     OWLAnnotationValue value = axiom.getValue();
