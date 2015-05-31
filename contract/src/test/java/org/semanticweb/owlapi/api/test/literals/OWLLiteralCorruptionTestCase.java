@@ -47,7 +47,7 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#p"));
         OWLLiteral l = df.getOWLLiteral(literal, OWL2Datatype.RDF_XML_LITERAL);
         OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:test#i"));
-        o.addAxiom(df.getOWLDataPropertyAssertionAxiom(p, i, l));
+        o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
         String string = saveOntology(o).toString();
         assertTrue(string.contains(literal));
     }

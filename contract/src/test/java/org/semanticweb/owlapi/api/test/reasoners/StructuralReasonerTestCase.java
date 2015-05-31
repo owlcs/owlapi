@@ -48,9 +48,9 @@ public class StructuralReasonerTestCase extends TestBase {
         StructuralReasoner reasoner = new StructuralReasoner(ont, new SimpleConfiguration(),
                 BufferingMode.NON_BUFFERING);
         testClassHierarchy(reasoner);
-        man.addAxiom(ont, SubClassOf(clsA, OWLThing()));
+        ont.add(SubClassOf(clsA, OWLThing()));
         testClassHierarchy(reasoner);
-        ont.removeAxiom(SubClassOf(clsA, OWLThing()));
+        ont.remove(SubClassOf(clsA, OWLThing()));
         testClassHierarchy(reasoner);
     }
 

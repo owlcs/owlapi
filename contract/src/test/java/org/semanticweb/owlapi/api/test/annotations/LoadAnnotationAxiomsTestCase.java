@@ -42,18 +42,18 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         OWLClass clsA = Class(IRI("http://ont.com#A"));
         OWLClass clsB = Class(IRI("http://ont.com#B"));
         OWLSubClassOfAxiom sca = SubClassOf(clsA, clsB);
-        ont.addAxiom(sca);
+        ont.add(sca);
         OWLAnnotationProperty rdfsComment = RDFSComment();
         OWLLiteral lit = Literal("Hello world");
         OWLAnnotationAssertionAxiom annoAx1 = AnnotationAssertion(rdfsComment, clsA.getIRI(), lit);
-        ont.addAxiom(annoAx1);
+        ont.add(annoAx1);
         OWLAnnotationPropertyDomainAxiom annoAx2 = df.getOWLAnnotationPropertyDomainAxiom(rdfsComment, clsA.getIRI());
-        ont.addAxiom(annoAx2);
+        ont.add(annoAx2);
         OWLAnnotationPropertyRangeAxiom annoAx3 = df.getOWLAnnotationPropertyRangeAxiom(rdfsComment, clsB.getIRI());
-        ont.addAxiom(annoAx3);
+        ont.add(annoAx3);
         OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#myComment"));
         OWLSubAnnotationPropertyOfAxiom annoAx4 = df.getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
-        ont.addAxiom(annoAx4);
+        ont.add(annoAx4);
         reload(ont, new RDFXMLDocumentFormat());
         reload(ont, new OWLXMLDocumentFormat());
         reload(ont, new TurtleDocumentFormat());
@@ -87,7 +87,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
                     throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology reloaded = loadOntologyWithConfig(saveOntology(ontology, format), configuration);
         Set<OWLDeclarationAxiom> declarations = reloaded.getAxioms(AxiomType.DECLARATION);
-        reloaded.removeAxioms(declarations);
+        reloaded.remove(declarations);
         return reloaded;
     }
 }

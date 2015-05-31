@@ -62,7 +62,7 @@ public class DisjointsTestCase extends TestBase {
         classExpressions.add(descA);
         classExpressions.add(descB);
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(classExpressions);
-        ontA.addAxiom(ax);
+        ontA.add(ax);
         OWLOntology ontB = roundTrip(ontA);
         assertTrue(contains(ontB.axioms(), ax));
     }

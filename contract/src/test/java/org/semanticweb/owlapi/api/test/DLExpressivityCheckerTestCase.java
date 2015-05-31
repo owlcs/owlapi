@@ -125,7 +125,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
 
     public Set<OWLOntology> ont() {
         OWLOntology o = getOWLOntology();
-        o.addAxiom(object);
+        o.add(object);
         Set<OWLOntology> singleton = Collections.singleton(o);
         return singleton;
     }

@@ -64,7 +64,7 @@ public class ParsersStorersTestCase extends TestBase {
 
     public OWLOntology ont() {
         OWLOntology o = getAnonymousOWLOntology();
-        o.addAxiom(object);
+        o.add(object);
         return o;
     }
 

@@ -72,7 +72,7 @@ public class SerializationTestCase extends TestBase {
         m.getIRIMappers().set(new AutoIRIMapper(new File("."), false));
         OWLOntology o = m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/pizza.owl"));
         o.applyChange(new AddImport(o, df.getOWLImportsDeclaration(iri)));
-        o.addAxioms(df.getOWLDeclarationAxiom(df.getOWLClass(iri)), sub(c, df.getOWLClass(string, prefixmanager)),
+        o.add(df.getOWLDeclarationAxiom(df.getOWLClass(iri)), sub(c, df.getOWLClass(string, prefixmanager)),
                 df.getOWLEquivalentClassesAxiom(df.getOWLClass(iri), c),
                 df.getOWLDisjointClassesAxiom(df.getOWLClass(iri), c), df.getOWLSubObjectPropertyOfAxiom(op, op),
                 df.getOWLSubPropertyChainOfAxiom(listowlobjectproperties, op),

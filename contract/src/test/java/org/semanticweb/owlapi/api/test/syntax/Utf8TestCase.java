@@ -118,10 +118,10 @@ public class Utf8TestCase extends TestBase {
         String ns = "http://protege.org/UTF8.owl";
         OWLOntology ontology = getOWLOntology();
         OWLClass a = Class(IRI(ns + "#A"));
-        ontology.addAxiom(df.getOWLDeclarationAxiom(a));
+        ontology.add(df.getOWLDeclarationAxiom(a));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral("Chinese=處方"));
         OWLAxiom axiom = df.getOWLAnnotationAssertionAxiom(a.getIRI(), ann);
-        ontology.addAxiom(axiom);
+        ontology.add(axiom);
         ontology = roundTrip(ontology, new FunctionalSyntaxDocumentFormat());
     }
 
@@ -149,7 +149,7 @@ public class Utf8TestCase extends TestBase {
             throws OWLOntologyCreationException {
         OWLOntology ontology = getOWLOntology(IRI(ns));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
-        ontology.addAxiom(annotationAxiom);
+        ontology.add(annotationAxiom);
         return ontology;
     }
 

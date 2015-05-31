@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public abstract class AxiomsRoundTrippingBase extends
-    AbstractRoundTrippingTestCase {
+public abstract class AxiomsRoundTrippingBase extends AbstractRoundTrippingTestCase {
 
     private AxiomBuilder createAxioms;
 
@@ -35,9 +34,9 @@ public abstract class AxiomsRoundTrippingBase extends
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology();
-        ont.addAxioms(createAxioms.build());
-        ont.signature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e,
-            INCLUDED)).forEach(e -> ont.addAxiom(Declaration(e)));
+        ont.add(createAxioms.build());
+        ont.signature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
+                .forEach(e -> ont.add(Declaration(e)));
         return ont;
     }
 }

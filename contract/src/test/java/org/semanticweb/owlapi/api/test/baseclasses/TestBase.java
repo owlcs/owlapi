@@ -407,10 +407,6 @@ public abstract class TestBase {
         return IRI(uriBase + '#' + name);
     }
 
-    public void addAxiom(OWLOntology ont, OWLAxiom ax) {
-        ont.addAxiom(ax);
-    }
-
     public void roundTripOntology(OWLOntology ont) throws OWLOntologyStorageException, OWLOntologyCreationException {
         roundTripOntology(ont, new RDFXMLDocumentFormat());
     }

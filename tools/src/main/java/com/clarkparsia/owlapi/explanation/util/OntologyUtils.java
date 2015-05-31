@@ -68,7 +68,7 @@ public final class OntologyUtils {
         checkNotNull(ontologies, "ontologies cannot be null");
         ontologies.filter(o -> o.containsAxiom(axiom)).forEach(ont -> {
             modifiedOnts.add(ont);
-            ont.removeAxiom(axiom);
+            ont.remove(axiom);
         } );
         return modifiedOnts;
     }
@@ -103,6 +103,6 @@ public final class OntologyUtils {
     public static void addAxiom(OWLAxiom axiom, Stream<OWLOntology> ontologies) {
         checkNotNull(axiom, "axiom cannot be null");
         checkNotNull(ontologies, "ontologies cannot be null");
-        ontologies.forEach(o -> o.addAxiom(axiom));
+        ontologies.forEach(o -> o.add(axiom));
     }
 }

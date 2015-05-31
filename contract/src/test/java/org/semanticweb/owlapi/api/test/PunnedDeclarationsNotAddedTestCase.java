@@ -38,11 +38,11 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         OWLOntology o = getOWLOntology();
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testProperty"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
-        o.addAxiom(df.getOWLDeclarationAxiom(op));
-        o.addAxiom(df.getOWLTransitiveObjectPropertyAxiom(op));
+        o.add(df.getOWLDeclarationAxiom(op));
+        o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
         OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
                 df.getOWLAnnotation(ap, iri("otherTest")));
-        o.addAxiom(assertion);
+        o.add(assertion);
         return o;
     }
 
@@ -50,10 +50,10 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         OWLOntology o = getOWLOntology();
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testAnnotationProperty"));
-        o.addAxiom(df.getOWLTransitiveObjectPropertyAxiom(op));
+        o.add(df.getOWLTransitiveObjectPropertyAxiom(op));
         OWLAnnotationAssertionAxiom assertion = df.getOWLAnnotationAssertionAxiom(iri("test"),
                 df.getOWLAnnotation(ap, iri("otherTest")));
-        o.addAxiom(assertion);
+        o.add(assertion);
         return o;
     }
 

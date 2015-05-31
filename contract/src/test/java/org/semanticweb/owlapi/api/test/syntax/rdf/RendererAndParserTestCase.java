@@ -51,72 +51,66 @@ public class RendererAndParserTestCase extends TestBase {
     @Parameters
     public static List<AxiomBuilder> getData() {
         return Arrays.asList(
-        // AnonymousIndividual
-        () -> {
-            Set<OWLAxiom> axioms = new HashSet<>();
-            OWLClassExpression desc = df.getOWLObjectComplementOf(
-            createClass());
-            OWLIndividual ind = createIndividual();
-            axioms.add(df.getOWLClassAssertionAxiom(desc, ind));
-            return axioms;
-        } ,
-        // ClassAssertionAxioms
-        () -> {
-            OWLIndividual ind = createIndividual();
-            OWLClass cls = createClass();
-            OWLAxiom ax = df.getOWLClassAssertionAxiom(cls, ind);
-            return singleton(ax);
-        } ,
-        // DifferentIndividualsAxiom
-        () -> {
-            Set<OWLIndividual> individuals = new HashSet<>();
-            for (int i = 0; i < 5; i++) {
-                individuals.add(createIndividual());
-            }
-            OWLAxiom ax = df.getOWLDifferentIndividualsAxiom(individuals);
-            return singleton(ax);
-        } ,
-        // EquivalentClasses
-        () -> {
-            OWLClass clsA = createClass();
-            OWLObjectProperty prop = createObjectProperty();
-            OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop, df
-            .getOWLThing());
-            Set<OWLClassExpression> classExpressions = new HashSet<>();
-            classExpressions.add(clsA);
-            classExpressions.add(descA);
-            OWLAxiom ax = df.getOWLEquivalentClassesAxiom(classExpressions);
-            return singleton(ax);
-        } ,
-        // NegativeDataPropertyAssertionAxiom
-        () -> {
-            OWLIndividual subj = createIndividual();
-            OWLDataProperty prop = createDataProperty();
-            OWLLiteral obj = df.getOWLLiteral("TestConstant");
-            OWLAxiom ax = df.getOWLNegativeDataPropertyAssertionAxiom(prop,
-            subj, obj);
-            return singleton(ax);
-        } ,
-        // NegativeObjectPropertyAssertionAxiom
-        () -> {
-            return singleton((OWLAxiom) df
-            .getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(),
-            createIndividual(), createIndividual()));
-        } ,
-        // QCR
-        () -> {
-            OWLClass clsA = createClass();
-            OWLClass clsB = createClass();
-            OWLClass clsC = createClass();
-            OWLObjectProperty prop = createObjectProperty();
-            OWLClassExpression filler = df.getOWLObjectIntersectionOf(clsB,
-            clsC);
-            OWLCardinalityRestriction<?> restriction = df
-            .getOWLObjectMinCardinality(3, prop, filler);
-            assertTrue(restriction.isQualified());
-            OWLAxiom ax = df.getOWLSubClassOfAxiom(clsA, restriction);
-            return singleton(ax);
-        } );
+                // AnonymousIndividual
+                () -> {
+                    Set<OWLAxiom> axioms = new HashSet<>();
+                    OWLClassExpression desc = df.getOWLObjectComplementOf(createClass());
+                    OWLIndividual ind = createIndividual();
+                    axioms.add(df.getOWLClassAssertionAxiom(desc, ind));
+                    return axioms;
+                } ,
+                // ClassAssertionAxioms
+                () -> {
+                    OWLIndividual ind = createIndividual();
+                    OWLClass cls = createClass();
+                    OWLAxiom ax = df.getOWLClassAssertionAxiom(cls, ind);
+                    return singleton(ax);
+                } ,
+                // DifferentIndividualsAxiom
+                () -> {
+                    Set<OWLIndividual> individuals = new HashSet<>();
+                    for (int i = 0; i < 5; i++) {
+                        individuals.add(createIndividual());
+                    }
+                    OWLAxiom ax = df.getOWLDifferentIndividualsAxiom(individuals);
+                    return singleton(ax);
+                } ,
+                // EquivalentClasses
+                () -> {
+                    OWLClass clsA = createClass();
+                    OWLObjectProperty prop = createObjectProperty();
+                    OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop, df.getOWLThing());
+                    Set<OWLClassExpression> classExpressions = new HashSet<>();
+                    classExpressions.add(clsA);
+                    classExpressions.add(descA);
+                    OWLAxiom ax = df.getOWLEquivalentClassesAxiom(classExpressions);
+                    return singleton(ax);
+                } ,
+                // NegativeDataPropertyAssertionAxiom
+                () -> {
+                    OWLIndividual subj = createIndividual();
+                    OWLDataProperty prop = createDataProperty();
+                    OWLLiteral obj = df.getOWLLiteral("TestConstant");
+                    OWLAxiom ax = df.getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj);
+                    return singleton(ax);
+                } ,
+                // NegativeObjectPropertyAssertionAxiom
+                () -> {
+                    return singleton((OWLAxiom) df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(),
+                            createIndividual(), createIndividual()));
+                } ,
+                // QCR
+                () -> {
+                    OWLClass clsA = createClass();
+                    OWLClass clsB = createClass();
+                    OWLClass clsC = createClass();
+                    OWLObjectProperty prop = createObjectProperty();
+                    OWLClassExpression filler = df.getOWLObjectIntersectionOf(clsB, clsC);
+                    OWLCardinalityRestriction<?> restriction = df.getOWLObjectMinCardinality(3, prop, filler);
+                    assertTrue(restriction.isQualified());
+                    OWLAxiom ax = df.getOWLSubClassOfAxiom(clsA, restriction);
+                    return singleton(ax);
+                } );
     }
 
     @Before
@@ -129,9 +123,7 @@ public class RendererAndParserTestCase extends TestBase {
     @Test
     public void testSaveAndReload() throws Exception {
         OWLOntology ontA = getOWLOntology();
-        for (OWLAxiom ax : axioms.build()) {
-            ontA.addAxiom(ax);
-        }
+        ontA.add(axioms.build());
         OWLOntology ontB = roundTrip(ontA);
         Set<OWLLogicalAxiom> aMinusB = asSet(ontA.logicalAxioms());
         aMinusB.removeAll(asList(ontB.axioms()));
@@ -142,13 +134,11 @@ public class RendererAndParserTestCase extends TestBase {
             msg.append("Ontology save/load roundtrip OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
-            msg.append("=> ").append(aMinusB.size()).append(
-            " axioms lost in roundtripping.\n");
+            msg.append("=> ").append(aMinusB.size()).append(" axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : aMinusB) {
                 msg.append(axiom + "\n");
             }
-            msg.append("=> ").append(bMinusA.size()).append(
-            " axioms added after roundtripping.\n");
+            msg.append("=> ").append(bMinusA.size()).append(" axioms added after roundtripping.\n");
             for (OWLAxiom axiom : bMinusA) {
                 msg.append(axiom + "\n");
             }

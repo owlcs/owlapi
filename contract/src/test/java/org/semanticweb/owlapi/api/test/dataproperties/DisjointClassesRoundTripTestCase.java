@@ -58,7 +58,7 @@ public class DisjointClassesRoundTripTestCase extends TestBase {
         OWLOntology ontology = getOWLOntology();
         OWLDisjointClassesAxiom disjointClasses = DisjointClasses(ObjectUnionOf(c, d), ObjectUnionOf(c, e),
                 ObjectUnionOf(c, f));
-        ontology.addAxioms(disjointClasses);
+        ontology.add(disjointClasses);
         return ontology;
     }
 }

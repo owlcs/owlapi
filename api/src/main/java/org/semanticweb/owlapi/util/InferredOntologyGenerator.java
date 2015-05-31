@@ -122,7 +122,7 @@ public class InferredOntologyGenerator {
     public void fillOntology(OWLDataFactory df, OWLOntology ontology) {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
-        axiomGenerators.stream().flatMap(g -> generate(df, g)).forEach(ax -> ontology.addAxiom(ax));
+        axiomGenerators.stream().flatMap(g -> generate(df, g)).forEach(ax -> ontology.add(ax));
     }
 
     protected Stream<? extends OWLAxiom> generate(OWLDataFactory df, InferredAxiomGenerator<? extends OWLAxiom> g) {

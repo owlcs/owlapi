@@ -491,7 +491,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
                 parsedAnnotationAxioms.add((OWLAnnotationAxiom) axiom);
             }
         } else {
-            ontology.addAxiom(axiom);
+            ontology.add(axiom);
         }
         lastAddedAxiom = axiom;
     }
@@ -1242,11 +1242,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     private void addAnnotationAxioms() {
-        ontology.addAxioms(parsedAnnotationAxioms);
+        ontology.add(parsedAnnotationAxioms);
     }
 
     private void removeAxiomsScheduledForRemoval() {
-        ontology.removeAxioms(axiomsToBeRemoved);
+        ontology.remove(axiomsToBeRemoved);
     }
 
     /**

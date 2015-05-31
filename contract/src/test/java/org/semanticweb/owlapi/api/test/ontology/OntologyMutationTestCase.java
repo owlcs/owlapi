@@ -48,7 +48,7 @@ public class OntologyMutationTestCase extends TestBase {
                 chgs.addAll(changes);
             }
         });
-        ont.getOWLOntologyManager().addAxiom(ont, ax);
+        ont.add(ax);
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }
@@ -65,7 +65,7 @@ public class OntologyMutationTestCase extends TestBase {
                 chgs.addAll(changes);
             }
         });
-        ont.addAxiom(ax);
+        ont.add(ax);
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }

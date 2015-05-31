@@ -228,7 +228,7 @@ public class TurtleTestCase extends TestBase {
         OWLOntology in = loadOntologyFromString(input);
         String string = "urn:test#test.owl/";
         OWLOntology ontology = getOWLOntology(IRI.create(string));
-        ontology.addAxiom(df.getOWLSubClassOfAxiom(df.getOWLClass(string, "t"), df.getOWLClass(string, "q")));
+        ontology.add(df.getOWLSubClassOfAxiom(df.getOWLClass(string, "t"), df.getOWLClass(string, "q")));
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         equal(o, in);
     }

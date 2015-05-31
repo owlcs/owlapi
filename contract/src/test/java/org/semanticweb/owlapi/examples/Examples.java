@@ -1519,7 +1519,7 @@ public class Examples extends TestBase {
         // OWLOntologyManager that will automatically generate the AddAxiom
         // change objects for us. We need to specify the ontology that the
         // axioms should be added to and the axioms to add.
-        ont.addAxioms(axioms);
+        ont.add(axioms);
         // Now specify the genders of John, Mary, Bill and Susan. To do this we
         // need the male and female individuals and the hasGender object
         // property.
@@ -1532,7 +1532,7 @@ public class Examples extends TestBase {
         genders.add(factory.getOWLObjectPropertyAssertionAxiom(hasGender, bill, male));
         genders.add(factory.getOWLObjectPropertyAssertionAxiom(hasGender, susan, female));
         // Add the facts about the genders
-        ont.addAxioms(genders);
+        ont.add(genders);
         // Domain and Range Axioms //At this point, we have an ontology
         // containing facts about several individuals. We now want to specify
         // more information about the various properties that we have used. We
@@ -1560,7 +1560,7 @@ public class Examples extends TestBase {
         OWLDatatype integerDatatype = factory.getIntegerOWLDatatype();
         domainsAndRanges.add(factory.getOWLDataPropertyRangeAxiom(hasAge, integerDatatype));
         // Now add all of our domain and range axioms
-        ont.addAxioms(domainsAndRanges);
+        ont.add(domainsAndRanges);
         // Class assertion axioms //We can also explicitly say than an
         // individual is an instance of a given class. To do this we use a Class
         // assertion axiom.
@@ -1605,7 +1605,7 @@ public class Examples extends TestBase {
         hasWifeAxioms.add(factory.getOWLIrreflexiveObjectPropertyAxiom(hasWife));
         hasWifeAxioms.add(factory.getOWLAsymmetricObjectPropertyAxiom(hasWife));
         // Add all of the axioms that specify the characteristics of hasWife
-        ont.addAxioms(hasWifeAxioms);
+        ont.add(hasWifeAxioms);
         // SubClass axioms //Now we want to start specifying something about
         // classes in our ontology. To begin with we will simply say something
         // about the relationship between named classes Besides the Person class

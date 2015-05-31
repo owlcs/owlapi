@@ -33,7 +33,7 @@ public class DisjointUnionTestCase extends TestBase {
     @Test
     public void testDisjointUnion() {
         OWLOntology ontology = getOWLOntology();
-        ontology.addAxiom(DisjointUnion(A, B, C));
+        ontology.add(DisjointUnion(A, B, C));
         assertEquals(1, ontology.disjointUnionAxioms(A).count());
         assertEquals(0, ontology.disjointUnionAxioms(B).count());
     }

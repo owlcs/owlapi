@@ -43,7 +43,7 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
         OWLClass a = Class(IRI("http://test.org/MissingDeclaration.owl#A"));
         OWLOntology ontology = getOWLOntology();
         OWLAxiom axiom = AnnotationAssertion(p, a.getIRI(), Literal("Hello"));
-        ontology.addAxiom(axiom);
+        ontology.add(axiom);
         return ontology;
     }
 }

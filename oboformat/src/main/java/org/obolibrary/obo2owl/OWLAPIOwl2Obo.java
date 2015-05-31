@@ -414,8 +414,8 @@ public class OWLAPIOwl2Obo {
                 LOG.error("ECA did not fit expected pattern: {}", eca);
             }
         }
-        getOWLOntology().removeAxioms(rmAxioms);
-        getOWLOntology().addAxioms(newAxioms);
+        getOWLOntology().remove(rmAxioms);
+        getOWLOntology().add(newAxioms);
     }
 
     protected void add(@Nullable Frame f) {

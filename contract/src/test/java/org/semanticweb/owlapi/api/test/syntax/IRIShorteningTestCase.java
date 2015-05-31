@@ -55,16 +55,16 @@ public class IRIShorteningTestCase extends TestBase {
     private OWLOntology createTestOntology() {
         OWLOntology o = getOWLOntology();
         OWLNamedIndividual i = df.getOWLNamedIndividual(IRI(Namespaces.RDF.getPrefixIRI()));
-        o.addAxiom(df.getOWLDeclarationAxiom(i));
+        o.add(df.getOWLDeclarationAxiom(i));
         i = df.getOWLNamedIndividual(OWLRDFVocabulary.RDF_TYPE);
-        o.addAxiom(df.getOWLDeclarationAxiom(i));
+        o.add(df.getOWLDeclarationAxiom(i));
         return o;
     }
 
     @Test
     public void shouldOutputURNsCorrectly() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = m.createOntology(IRI.create("urn:ontology:test"));
-        m.addAxiom(o, df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:p"),
+        o.add(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty("urn:p"),
                 df.getOWLNamedIndividual("urn:test"), df.getOWLNamedIndividual("urn:other:test")));
         equal(o, roundTrip(o));
     }

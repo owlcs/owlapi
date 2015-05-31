@@ -29,11 +29,9 @@ public class AnonymousTestCase extends TestBase {
         OWLDataProperty q = DataProperty(IRI("urn:test#q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = getOWLOntology();
-        ontology.addAxioms(SubClassOf(c, ObjectHasValue(p, i)),
-            ClassAssertion(d, i),
-            DataPropertyAssertion(q, i, Literal("hello")));
-        OWLOntology ontologyReloaded = loadOntologyFromString(
-            saveOntology(ontology));
+        ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
+                DataPropertyAssertion(q, i, Literal("hello")));
+        OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
         equal(ontology, ontologyReloaded);
     }
 
@@ -45,11 +43,9 @@ public class AnonymousTestCase extends TestBase {
         OWLDataProperty q = df.getOWLDataProperty(ns, "q");
         OWLOntology ontology = getOWLOntology();
         OWLIndividual ind = df.getOWLAnonymousIndividual();
-        OWLObjectPropertyAssertionAxiom ax1 = df
-            .getOWLObjectPropertyAssertionAxiom(p, i, ind);
-        OWLDataPropertyAssertionAxiom ax2 = df
-            .getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
-        ontology.addAxioms(ax1, ax2);
+        OWLObjectPropertyAssertionAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(p, i, ind);
+        OWLDataPropertyAssertionAxiom ax2 = df.getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
+        ontology.add(ax1, ax2);
         OWLOntology reload = roundTrip(ontology);
         equal(ontology, reload);
     }

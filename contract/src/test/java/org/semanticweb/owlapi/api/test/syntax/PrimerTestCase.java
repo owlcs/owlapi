@@ -45,7 +45,7 @@ public class PrimerTestCase extends TestBase {
         // so that the equality test does not skip gcis because of the format
         OWLClass x = df.getOWLClass("http://example.com/owl/families/X");
         Set<OWLClassAxiom> axioms = asSet(manch.axioms(x));
-        manch.removeAxioms(axioms);
+        manch.remove(axioms);
         OWLClass female = df.getOWLClass("http://example.com/owl/families/Female");
         OWLClassExpression oneOf = df.getOWLObjectOneOf(
                 df.getOWLNamedIndividual("http://example.com/owl/families/Bill"),
@@ -84,7 +84,7 @@ public class PrimerTestCase extends TestBase {
         // inverse(hasParent) is hasParent
         // dropping said tautology to assert equality of the rest of the axioms
         OWLObjectProperty hasParent = df.getOWLObjectProperty("http://example.com/owl/families/hasParent");
-        turt.removeAxiom(df.getOWLInverseObjectPropertiesAxiom(df.getOWLObjectInverseOf(hasParent), hasParent));
+        turt.remove(df.getOWLInverseObjectPropertiesAxiom(df.getOWLObjectInverseOf(hasParent), hasParent));
         equal(func, turt);
     }
 

@@ -118,7 +118,7 @@ public class ProfileValidationTestCase extends TestBase {
         OWLOntology o = getOWLOntology();
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true));
         OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(IRI.create("urn:test:ELProfile"), ann);
-        o.addAxioms(ax, Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
+        o.add(ax, Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
         checkProfile(o, new OWL2ELProfile(), true);
     }
 }

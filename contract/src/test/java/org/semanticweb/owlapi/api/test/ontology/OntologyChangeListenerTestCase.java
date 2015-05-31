@@ -74,7 +74,7 @@ public class OntologyChangeListenerTestCase extends TestBase {
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(additions.contains(ax));
         assertTrue(impendingAdditions.contains(ax));
-        ont.removeAxiom(ax);
+        ont.remove(ax);
         assertTrue(removals.contains(ax));
         assertTrue(impendingRemovals.contains(ax));
     }

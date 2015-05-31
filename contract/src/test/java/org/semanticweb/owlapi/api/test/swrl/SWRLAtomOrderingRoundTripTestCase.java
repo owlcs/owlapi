@@ -114,7 +114,7 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     private void roundTrip(OWLDocumentFormat ontologyFormat)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology ont = getOWLOntology();
-        ont.addAxiom(rule);
+        ont.add(rule);
         StringDocumentTarget documentTarget = new StringDocumentTarget();
         ont.saveOntology(ontologyFormat, documentTarget);
         OWLOntology ont2 = loadOntologyFromString(documentTarget);

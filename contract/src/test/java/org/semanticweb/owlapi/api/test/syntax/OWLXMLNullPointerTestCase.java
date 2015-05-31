@@ -45,7 +45,7 @@ public class OWLXMLNullPointerTestCase extends TestBase {
         OWLIndividual j = df.getOWLAnonymousIndividual();
         OWLAxiom classAssj = df.getOWLClassAssertionAxiom(cheese, j);
         OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i, j);
-        ontology.addAxioms(annAss, classAss, classAssj, objAss);
+        ontology.add(annAss, classAss, classAssj, objAss);
         roundTrip(ontology, new OWLXMLDocumentFormat());
     }
 

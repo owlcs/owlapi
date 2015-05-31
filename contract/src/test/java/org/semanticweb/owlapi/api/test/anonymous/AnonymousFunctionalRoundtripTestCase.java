@@ -69,7 +69,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
         OWLDataProperty q = DataProperty(IRI(NS + "#q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = getOWLOntology();
-        ontology.addAxioms(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
+        ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
                 DataPropertyAssertion(q, i, Literal("hello")));
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setDefaultPrefix(NS + '#');

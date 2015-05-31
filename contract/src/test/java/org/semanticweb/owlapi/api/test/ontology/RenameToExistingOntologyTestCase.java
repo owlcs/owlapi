@@ -28,17 +28,13 @@ import org.semanticweb.owlapi.model.*;
 public class RenameToExistingOntologyTestCase extends TestBase {
 
     @Test(expected = OWLOntologyRenameException.class)
-    public void testRenameToExistingOntology()
-        throws OWLOntologyCreationException {
-        IRI ontologyAIRI = IRI(
-            "http://www.semanticweb.org/ontologies/ontologyA");
+    public void testRenameToExistingOntology() throws OWLOntologyCreationException {
+        IRI ontologyAIRI = IRI("http://www.semanticweb.org/ontologies/ontologyA");
         OWLOntology onto = getOWLOntology(ontologyAIRI);
-        onto.addAxiom(
-            df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
-        IRI ontologyBIRI = IRI(
-            "http://www.semanticweb.org/ontologies/ontologyB");
+        onto.add(df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
+        IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/ontologyB");
         OWLOntology ontologyB = getOWLOntology(ontologyBIRI);
-        ontologyB.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(
-            optional(ontologyAIRI), emptyOptional(IRI.class))));
+        ontologyB.applyChange(
+                new SetOntologyID(ontologyB, new OWLOntologyID(optional(ontologyAIRI), emptyOptional(IRI.class))));
     }
 }

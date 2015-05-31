@@ -31,23 +31,19 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
     @Test
     public void testmain() throws Exception {
         OWLOntology ontology = getOWLOntology();
-        OWLObjectProperty p = df
-            .getOWLObjectProperty("http://example.org/A_#part_of");
+        OWLObjectProperty p = df.getOWLObjectProperty("http://example.org/A_#part_of");
         OWLClass a = Class(IRI("http://example.org/A_A"));
         OWLClass b = Class(IRI("http://example.org/A_B"));
-        ontology.addAxioms(Declaration(p), Declaration(a), Declaration(b),
-            SubClassOf(b, df.getOWLObjectSomeValuesFrom(p, a)));
-        OWLOntology loadOntology = roundTrip(ontology,
-            new RDFXMLDocumentFormat());
+        ontology.add(Declaration(p), Declaration(a), Declaration(b),
+                SubClassOf(b, df.getOWLObjectSomeValuesFrom(p, a)));
+        OWLOntology loadOntology = roundTrip(ontology, new RDFXMLDocumentFormat());
         FunctionalSyntaxDocumentFormat functionalFormat = new FunctionalSyntaxDocumentFormat();
-        functionalFormat.asPrefixOWLOntologyFormat().setPrefix("example",
-            "http://example.org/");
+        functionalFormat.asPrefixOWLOntologyFormat().setPrefix("example", "http://example.org/");
         OWLOntology loadOntology2 = roundTrip(ontology, functionalFormat);
         // won't reach here if functional syntax fails - comment it out and
         // uncomment this to test Manchester
         ManchesterSyntaxDocumentFormat manchesterFormat = new ManchesterSyntaxDocumentFormat();
-        manchesterFormat.asPrefixOWLOntologyFormat().setPrefix("example",
-            "http://example.org/");
+        manchesterFormat.asPrefixOWLOntologyFormat().setPrefix("example", "http://example.org/");
         OWLOntology loadOntology3 = roundTrip(ontology, manchesterFormat);
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);

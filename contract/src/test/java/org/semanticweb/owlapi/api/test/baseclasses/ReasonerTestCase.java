@@ -61,7 +61,7 @@ public class ReasonerTestCase extends TestBase {
         OWLObjectPropertyExpression propQ = getPropQ();
         OWLObjectPropertyExpression propR = getPropR();
         OWLObjectPropertyExpression propS = getPropS();
-        o.addAxioms(SubClassOf(clsG, OWLThing()), SubClassOf(OWLThing(), clsG), EquivalentClasses(clsA, clsB),
+        o.add(SubClassOf(clsG, OWLThing()), SubClassOf(OWLThing(), clsG), EquivalentClasses(clsA, clsB),
                 SubClassOf(clsC, clsB), SubClassOf(clsD, clsA), SubClassOf(clsD, clsF), SubClassOf(clsF, clsD),
                 SubClassOf(clsE, clsC), SubClassOf(clsK, clsD), EquivalentClasses(clsK, OWLNothing()),
                 EquivalentObjectProperties(propP, propQ), SubObjectPropertyOf(propP, propR),

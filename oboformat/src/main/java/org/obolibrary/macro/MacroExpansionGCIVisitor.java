@@ -63,8 +63,8 @@ public class MacroExpansionGCIVisitor {
      */
     public OWLOntology createGCIOntology() {
         MacroExpansions expansions = new MacroExpansions();
-        outputOntology.addAxioms(expansions.getNewAxioms());
-        outputOntology.removeAxioms(expansions.getRmAxioms());
+        outputOntology.add(expansions.getNewAxioms());
+        outputOntology.remove(expansions.getRmAxioms());
         return outputOntology;
     }
 

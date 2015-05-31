@@ -53,7 +53,7 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(DataPropertyDomain(propB, clsAIRI1));
         axioms1.add(ClassAssertion(clsAIRI1, indA));
         axioms1.add(AnnotationAssertion(annoProp, clsAIRI1.getIRI(), Literal("X")));
-        ont.addAxioms(axioms1);
+        ont.add(axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(SubClassOf(clsAIRI2, clsB));
         axioms2.add(EquivalentClasses(clsAIRI2, clsC));
@@ -98,7 +98,7 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(ObjectPropertyAssertion(propA, indA, indB));
         axioms1.add(NegativeObjectPropertyAssertion(propA, indA, indB));
         axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
-        ont.addAxioms(axioms1);
+        ont.add(axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(SubObjectPropertyOf(propA2, propB));
         axioms2.add(EquivalentObjectProperties(propA2, propB));
@@ -143,7 +143,7 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(DataPropertyAssertion(propA, indA, Literal(33)));
         axioms1.add(NegativeDataPropertyAssertion(propA, indA, Literal(44)));
         axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
-        ont.addAxioms(axioms1);
+        ont.add(axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(SubDataPropertyOf(propA2, propB));
         axioms2.add(EquivalentDataProperties(propA2, propB));
@@ -179,7 +179,7 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(AnnotationAssertion(annoProp, propA.getIRI(), Literal("X")));
         axioms1.add(ObjectPropertyAssertion(propB, indA, indB));
         axioms1.add(NegativeObjectPropertyAssertion(propB, indA, indB));
-        ont.addAxioms(axioms1);
+        ont.add(axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(ClassAssertion(clsA, indB));
         axioms2.add(DataPropertyAssertion(propA, indB, Literal(33)));
@@ -213,7 +213,7 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(DataPropertyRange(propB, rng1));
         axioms1.add(DataPropertyRange(propB, rng2));
         axioms1.add(DataPropertyRange(propB, rng3));
-        ont.addAxioms(axioms1);
+        ont.add(axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(DataPropertyRange(propB, rng1R));
         axioms2.add(DataPropertyRange(propB, rng2R));
@@ -241,7 +241,7 @@ public class RenameEntityTestCase extends TestBase {
         axioms1.add(SubAnnotationPropertyOf(annoProp, annoProp2));
         axioms1.add(AnnotationPropertyRange(annoProp, indA.getIRI()));
         axioms1.add(AnnotationPropertyDomain(annoProp, indA.getIRI()));
-        ont.addAxioms(axioms1);
+        ont.add(axioms1);
         Set<OWLAxiom> axioms2 = new HashSet<>();
         axioms2.add(Declaration(annoPropR));
         axioms2.add(AnnotationAssertion(annoPropR, indA.getIRI(), indB.getIRI()));

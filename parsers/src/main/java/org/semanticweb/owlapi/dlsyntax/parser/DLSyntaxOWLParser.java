@@ -50,7 +50,7 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
             DLSyntaxParser parser = new DLSyntaxParser(r);
             parser.setOWLDataFactory(ontology.getOWLOntologyManager().getOWLDataFactory());
             Set<OWLAxiom> set = parser.parseAxioms();
-            ontology.addAxioms(set);
+            ontology.add(set);
             return new DLSyntaxHTMLDocumentFormat();
         } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
             throw new OWLParserException(e.getMessage(), e);
