@@ -13,15 +13,9 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -96,7 +90,7 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     @Override
-    public Object getEdge(Tree<N> child) {
+    public @Nullable Object getEdge(Tree<N> child) {
         return child2EdgeMap.get(child);
     }
 
@@ -246,19 +240,22 @@ public class MutableTree<N> implements Tree<N> {
         return "";
     }
 
-    /** @return the size */
+    /**
+     * @return the size
+     */
     public int getSize() {
         return getUserObjectClosure().size();
     }
 
-    /** @return the max depth */
+    /**
+     * @return the max depth
+     */
     public int getMaxDepth() {
         return getMaxDepth(this);
     }
 
     private int getMaxDepth(Tree<N> tree) {
         int maxChildDepth = tree.getPathToRoot().size();
-        return tree.getChildren().stream().mapToInt(c -> getMaxDepth(c)).max()
-                .orElse(maxChildDepth);
+        return tree.getChildren().stream().mapToInt(c -> getMaxDepth(c)).max().orElse(maxChildDepth);
     }
 }
