@@ -72,11 +72,11 @@ public final class SimpleHierarchyExample {
         LabelExtractor le = new LabelExtractor();
         annotations(ontology.annotationAssertionAxioms(clazz.getIRI())).forEach(a -> a.accept(le));
         /* Print out the label if there is one. If not, just use the class URI */
-        if (le.getResult() != null) {
-            return le.getResult();
-        } else {
-            return clazz.getIRI().toString();
+        String result = le.getResult();
+        if (result != null) {
+            return result;
         }
+        return clazz.getIRI().toString();
     }
 
     /**

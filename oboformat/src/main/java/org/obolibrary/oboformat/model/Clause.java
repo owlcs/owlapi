@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 public class Clause {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
-    protected String tag;
+    protected @Nullable String tag;
     protected final @Nonnull Collection<Object> values = new ArrayList<>();
     protected final @Nonnull Collection<Xref> xrefs = new ArrayList<>();
     protected final @Nonnull Collection<QualifierValue> qualifierValues = new ArrayList<>();
@@ -32,7 +32,7 @@ public class Clause {
      * @param tag
      *        tag
      */
-    public Clause(String tag) {
+    public Clause(@Nullable String tag) {
         this.tag = tag;
     }
 
@@ -42,7 +42,7 @@ public class Clause {
      * @param value
      *        value
      */
-    public Clause(String tag, String value) {
+    public Clause(@Nullable String tag, String value) {
         this(tag);
         setValue(value);
     }
@@ -79,7 +79,7 @@ public class Clause {
     /**
      * @return tag
      */
-    public String getTag() {
+    public @Nullable String getTag() {
         return tag;
     }
 
@@ -285,7 +285,24 @@ public class Clause {
     @Override
     public int hashCode() {
         return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode() + 31 * 31 * values.hashCode()
-                + (tag == null ? 0 : tag.hashCode());
+                + taghash();
+    }
+
+    private int taghash() {
+        if (tag == null) {
+            return 0;
+        } else {
+            assert tag != null;
+            return tag.hashCode();
+        }
+    }
+
+    private boolean tag(@Nullable String otherTag) {
+        if (tag == null) {
+            return otherTag == null;
+        }
+        assert tag != null;
+        return tag.equals(otherTag);
     }
 
     @Override
@@ -297,7 +314,7 @@ public class Clause {
             return true;
         }
         Clause other = (Clause) obj;
-        if (!getTag().equals(other.getTag())) {
+        if (!tag(other.tag)) {
             return false;
         }
         if (getValues().size() == 1 && other.getValues().size() == 1) {

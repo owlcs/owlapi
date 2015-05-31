@@ -1,6 +1,6 @@
 package org.obolibrary.oboformat;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
@@ -21,7 +21,7 @@ public class TagTestCase extends OboFormatTestBasics {
         assertEquals(4, obodoc.getTermFrames().size());
         assertEquals(1, obodoc.getTypedefFrames().size());
         Frame frame = obodoc.getTermFrame("X:1");
-        assertNotNull(frame);
+        assert frame != null;
         assertEquals("x1", frame.getTagValue(OboFormatTag.TAG_NAME));
     }
 
@@ -37,6 +37,7 @@ public class TagTestCase extends OboFormatTestBasics {
         OBODoc obodoc = parseOBODoc("[Term]\nid: x\nname: foo\n\n\n[Term]\nid: y\nname: y");
         assertEquals(2, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrame("x");
+        assert frame != null;
         assertEquals("foo", frame.getTagValue(OboFormatTag.TAG_NAME));
     }
 

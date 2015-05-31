@@ -133,8 +133,8 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(@Nullable Reader reader, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        ReaderDocumentSource source = new ReaderDocumentSource(reader, IRI.create(baseURI), nextFormat,
-                getRDFFormat().getDefaultMIMEType());
+        ReaderDocumentSource source = new ReaderDocumentSource(checkNotNull(reader), IRI.create(checkNotNull(baseURI)),
+                nextFormat, getRDFFormat().getDefaultMIMEType());
         render(source);
     }
 }

@@ -66,6 +66,7 @@ public class SerializationTestCase extends TestBase {
     private @Nonnull Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<>();
     private @Nonnull OWLPropertyExpression[] owlpropertyexpression = {};
 
+    @SuppressWarnings("null")
     @Test
     public void testrun() throws Exception {
         m.getIRIMappers().set(new AutoIRIMapper(new File("."), false));

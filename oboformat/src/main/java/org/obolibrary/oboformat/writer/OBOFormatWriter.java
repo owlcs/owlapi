@@ -38,7 +38,8 @@ public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
     /** The Class FramesComparator. */
-    private static final Comparator<Frame> framesComparator = (o1, o2) -> o1.getId().compareTo(o2.getId());
+    private static final Comparator<Frame> framesComparator = (o1, o2) -> checkNotNull(o1.getId())
+            .compareTo(o2.getId());
     private static final @Nonnull Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
     private static final @Nonnull Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
     /**
@@ -303,7 +304,8 @@ public class OBOFormatWriter {
             writeLine("[Instance]", writer);
             comparator = typeDefTagsComparator;
         }
-        if (frame.getId() != null) {
+        String id = frame.getId();
+        if (id != null) {
             Object label = frame.getTagValue(OboFormatTag.TAG_NAME);
             String extra = "";
             if (label == null && nameProvider != null) {
@@ -313,12 +315,12 @@ public class OBOFormatWriter {
                 // write it as a parser-invisible comment, thus preserving the
                 // document structure but providing useful information for any
                 // person that inspects the obo file
-                label = nameProvider.getName(frame.getId());
+                label = nameProvider.getName(id);
                 if (label != null) {
                     extra = " ! " + label;
                 }
             }
-            writeLine(OboFormatTag.TAG_ID.getTag() + ": " + frame.getId() + extra, writer);
+            writeLine(OboFormatTag.TAG_ID.getTag() + ": " + id + extra, writer);
         }
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, comparator);
@@ -952,17 +954,18 @@ public class OBOFormatWriter {
      *        the obj
      * @return toString representation
      */
-    private static @Nullable String toStringRepresentation(@Nullable Object obj) {
-        String s = null;
-        if (obj != null) {
-            if (obj instanceof Xref) {
-                Xref xref = (Xref) obj;
-                s = xref.getIdref() + ' ' + xref.getAnnotation();
-            } else if (obj instanceof String) {
-                s = (String) obj;
-            } else {
-                s = obj.toString();
-            }
+    private static String toStringRepresentation(@Nullable Object obj) {
+        String s = "";
+        if (obj == null) {
+            return "";
+        }
+        if (obj instanceof Xref) {
+            Xref xref = (Xref) obj;
+            s = xref.getIdref() + ' ' + xref.getAnnotation();
+        } else if (obj instanceof String) {
+            s = (String) obj;
+        } else {
+            s = obj.toString();
         }
         return s;
     }
@@ -1071,7 +1074,7 @@ public class OBOFormatWriter {
          * @param defaultOboNamespace
          *        default OBO namespace
          */
-        public OWLOntologyNameProvider(OWLOntology ont, String defaultOboNamespace) {
+        public OWLOntologyNameProvider(OWLOntology ont, @Nullable String defaultOboNamespace) {
             this.ont = ont;
             this.defaultOboNamespace = defaultOboNamespace;
         }

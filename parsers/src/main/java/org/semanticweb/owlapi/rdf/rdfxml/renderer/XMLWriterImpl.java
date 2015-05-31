@@ -80,7 +80,7 @@ public class XMLWriterImpl implements XMLWriter {
             } else {
                 curPrefix = xmlWriterNamespaceManager.getPrefixForNamespace(curNamespace);
             }
-            if (!curPrefix.isEmpty()) {
+            if (curPrefix != null && !curPrefix.isEmpty()) {
                 entities.put(curNamespace, '&' + curPrefix + ';');
             }
         }

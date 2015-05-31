@@ -101,7 +101,7 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
      *         visit cycle. When called from within a {@code visit} method, the
      *         return value is guarenteed not to be {@code null}.
      */
-    protected OWLOntology getOntology() {
+    protected @Nullable OWLOntology getOntology() {
         return ontology;
     }
 

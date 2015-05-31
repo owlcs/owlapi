@@ -52,7 +52,9 @@ public class RDFXMLParser extends AbstractOWLParser {
                 @Override
                 public void startPrefixMapping(@Nullable String prefix, @Nullable String uri) throws SAXException {
                     super.startPrefixMapping(prefix, uri);
-                    format.setPrefix(prefix, uri);
+                    if (prefix != null && uri != null) {
+                        format.setPrefix(prefix, uri);
+                    }
                 }
             };
             OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, configuration);

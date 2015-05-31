@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
@@ -477,8 +478,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the classes in sig
      * @return the sets the
      */
-    static Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel, boolean superVsSub, OWLReasoner reasoner,
+    static Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel, boolean superVsSub, @Nullable OWLReasoner reasoner,
             Set<OWLClass> classesInSig) {
+        checkNotNull(reasoner);
+        assert reasoner != null;
         Set<OWLClass> superOrSubClasses = new HashSet<>();
         if (superOrSubClassLevel < 0) {
             for (OWLClassExpression ent : classesInSig) {
@@ -530,7 +533,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the reasoner
      * @return the sets the
      */
-    Set<OWLEntity> enrichSignature(Set<OWLEntity> sig, int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
+    Set<OWLEntity> enrichSignature(Set<OWLEntity> sig, int superClassLevel, int subClassLevel,
+            @Nullable OWLReasoner reasoner) {
         Set<OWLEntity> enrichedSig = new HashSet<>(sig);
         Set<OWLClass> classesInSig = new HashSet<>();
         for (OWLEntity ent : sig) {
@@ -589,7 +593,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @return the module
      */
     @Override
-    public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
+    public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel, int subClassLevel,
+            @Nullable OWLReasoner reasoner) {
         Set<OWLEntity> enrichedSig = enrichSignature(sig, superClassLevel, subClassLevel, reasoner);
         switch (moduleType) {
         case TOP:
@@ -632,7 +637,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
     @Override
     public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri, int superClassLevel, int subClassLevel,
-            OWLReasoner reasoner) throws OWLOntologyCreationException {
+            @Nullable OWLReasoner reasoner) throws OWLOntologyCreationException {
         return manager.createOntology(extract(signature, superClassLevel, subClassLevel, reasoner), iri);
     }
 }

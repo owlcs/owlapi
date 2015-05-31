@@ -150,8 +150,9 @@ public class SmallSet<T> extends AbstractSet<T> {
                     return element2;
                 case 3:
                     return element3;
+                default:
+                    throw new IllegalStateException("Iterator pointing past end of virtual array");
                 }
-                throw new IllegalStateException("Iterator pointing past end of virtual array");
             }
         };
     }

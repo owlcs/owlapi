@@ -81,7 +81,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public void setOWLOntologyManager(OWLOntologyManager manager) {
+    public void setOWLOntologyManager(@Nullable OWLOntologyManager manager) {
         this.manager = manager;
     }
 

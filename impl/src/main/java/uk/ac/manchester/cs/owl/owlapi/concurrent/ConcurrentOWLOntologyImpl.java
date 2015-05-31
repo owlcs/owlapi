@@ -113,7 +113,7 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
     }
 
     @Override
-    public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
+    public void setOWLOntologyManager(@Nullable OWLOntologyManager owlOntologyManager) {
         writeLock.lock();
         try {
             delegate.setOWLOntologyManager(owlOntologyManager);

@@ -157,7 +157,7 @@ public class MapPointer<K, V extends OWLAxiom> {
                     putInternal(key, ax);
                 }
             }
-        } else {
+        } else if (visitor instanceof InitCollectionVisitor) {
             for (V ax : values) {
                 Collection<K> keys = ax.accept((InitCollectionVisitor<K>) visitor);
                 for (K key : keys) {

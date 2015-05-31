@@ -95,10 +95,13 @@ public class Frame {
      *        the tag
      * @return the clauses for tag
      */
-    public List<Clause> getClauses(String tag) {
+    public List<Clause> getClauses(@Nullable String tag) {
         List<Clause> cls = new ArrayList<>();
+        if (tag == null) {
+            return cls;
+        }
         for (Clause cl : clauses) {
-            if (cl.getTag().equals(tag)) {
+            if (tag.equals(cl.getTag())) {
                 cls.add(cl);
             }
         }
@@ -124,7 +127,7 @@ public class Frame {
             return null;
         }
         for (Clause cl : clauses) {
-            if (cl.getTag().equals(tag)) {
+            if (tag.equals(cl.getTag())) {
                 return cl;
             }
             // TODO - throw exception if more than one clause of this type?
@@ -199,10 +202,11 @@ public class Frame {
      * @return the tag value for tag and class
      */
     public @Nullable <T> T getTagValue(String tag, Class<T> cls) {
-        if (getClause(tag) == null) {
+        Clause clause = getClause(tag);
+        if (clause == null) {
             return null;
         }
-        Object value = getClause(tag).getValue();
+        Object value = clause.getValue();
         if (value.getClass().isAssignableFrom(cls)) {
             return cls.cast(value);
         }
@@ -277,9 +281,12 @@ public class Frame {
      */
     public Collection<Xref> getTagXrefs(String tag) {
         Collection<Xref> xrefs = new ArrayList<>();
-        for (Object ob : getClause(tag).getValues()) {
-            if (ob instanceof Xref) {
-                xrefs.add((Xref) ob);
+        Clause clause = getClause(tag);
+        if (clause != null) {
+            for (Object ob : clause.getValues()) {
+                if (ob instanceof Xref) {
+                    xrefs.add((Xref) ob);
+                }
             }
         }
         return xrefs;
@@ -294,6 +301,13 @@ public class Frame {
         return tags;
     }
 
+    private boolean sameID(Frame f) {
+        if (id == null) {
+            return f.getId() == null;
+        }
+        return id.equals(f.getId());
+    }
+
     /**
      * @param extFrame
      *        the external frame
@@ -304,7 +318,7 @@ public class Frame {
         if (this == extFrame) {
             return;
         }
-        if (!extFrame.getId().equals(getId())) {
+        if (!sameID(extFrame)) {
             throw new FrameMergeException("ids do not match");
         }
         if (!extFrame.getType().equals(getType())) {

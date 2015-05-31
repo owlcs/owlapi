@@ -399,7 +399,7 @@ public class OWLAPIOwl2Obo {
                     numNamed.incrementAndGet();
                 } else if (x instanceof OWLObjectSomeValuesFrom) {
                     OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x).getProperty();
-                    if (!getIdentifier(p).equals(view)) {
+                    if (!view.equals(getIdentifier(p))) {
                         LOG.error("Expected: {} got: {} in {}", view, p, eca);
                     }
                     xs.add(((OWLObjectSomeValuesFrom) x).getFiller());
@@ -454,6 +454,7 @@ public class OWLAPIOwl2Obo {
         Frame f = getTypedefFrame(prop);
         if (OboFormatTag.TAG_ID.getTag().equals(tag)) {
             Clause clause = f.getClause(tag);
+            assert clause != null;
             clause.setValue(value);
             return clause;
         } else {
@@ -809,7 +810,8 @@ public class OWLAPIOwl2Obo {
                     scope = owlObjectToTag(axiom.getValue());
                 }
             }
-            Frame hf = getObodoc().getHeaderFrame();
+            Frame hf = checkNotNull(getObodoc().getHeaderFrame());
+            assert hf != null;
             Clause clause = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF);
             clause.addValue(getIdentifier(sub));
             clause.addValue(name);
@@ -832,7 +834,8 @@ public class OWLAPIOwl2Obo {
                     break;
                 }
             }
-            Frame hf = getObodoc().getHeaderFrame();
+            Frame hf = checkNotNull(getObodoc().getHeaderFrame());
+            assert hf != null;
             Clause clause = new Clause(OboFormatTag.TAG_SUBSETDEF);
             clause.addValue(getIdentifier(sub));
             clause.addValue(comment);
@@ -913,7 +916,7 @@ public class OWLAPIOwl2Obo {
         String value = getValue(annVal, tagString);
         if (!value.trim().isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
-                if (!frame.getId().equals(value)) {
+                if (!value.equals(frame.getId())) {
                     warn("Conflicting id definitions: 1) " + frame.getId() + "  2)" + value);
                     return false;
                 }
@@ -1074,7 +1077,7 @@ public class OWLAPIOwl2Obo {
         Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
         String propId = getIdentifier(prop);
         addQualifiers(clause, qualifiers);
-        if (!propId.equals("shorthand")) {
+        if (!shorthand(propId)) {
             clause.addValue(propId);
             if (annVal instanceof OWLLiteral) {
                 OWLLiteral owlLiteral = (OWLLiteral) annVal;
@@ -1098,6 +1101,10 @@ public class OWLAPIOwl2Obo {
             frame.addClause(clause);
         }
         return true;
+    }
+
+    protected static boolean shorthand(@Nullable String propId) {
+        return "shorthand".equals(propId);
     }
 
     /**
@@ -1726,7 +1733,7 @@ public class OWLAPIOwl2Obo {
                 String propId = getIdentifierFromObject(ax.getProperty().getIRI(), ont);
                 // see BFOROXrefTest
                 // 5.9.3. Special Rules for Relations
-                if (propId.equals("shorthand")) {
+                if (shorthand(propId)) {
                     OWLAnnotationValue value = ax.getValue();
                     if (value instanceof OWLLiteral) {
                         return ((OWLLiteral) value).getLiteral();
@@ -1894,7 +1901,7 @@ public class OWLAPIOwl2Obo {
      */
     protected Frame getTypedefFrame(OWLEntity entity) {
         String id = getIdentifier(entity);
-        return getTypedefFrame(id);
+        return getTypedefFrame(checkNotNull(id));
     }
 
     private Frame getTypedefFrame(String id) {
@@ -1920,11 +1927,12 @@ public class OWLAPIOwl2Obo {
             return;
         }
         String clsIRI = ((OWLClass) cls).getIRI().toString();
+        Frame f = checkNotNull(getObodoc().getHeaderFrame());
+        assert f != null;
         if (IRI_CLASS_SYNONYMTYPEDEF.equals(clsIRI)) {
-            Frame f = getObodoc().getHeaderFrame();
             Clause c = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag());
             OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
-            String indvId = getIdentifier(indv);
+            String indvId = checkNotNull(getIdentifier(indv));
             // TODO: full specify this in the spec document.
             // we may want to allow full IDs for subsets in future.
             // here we would have a convention that an unprefixed
@@ -1952,7 +1960,6 @@ public class OWLAPIOwl2Obo {
             }
             f.addClause(c);
         } else if (IRI_CLASS_SUBSETDEF.equals(clsIRI)) {
-            Frame f = getObodoc().getHeaderFrame();
             Clause c = new Clause(OboFormatTag.TAG_SUBSETDEF.getTag());
             OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
             String indvId = checkNotNull(getIdentifier(indv));
@@ -2201,13 +2208,16 @@ public class OWLAPIOwl2Obo {
      */
     static List<Clause> findSimilarClauses(List<Clause> clauses, Clause target) {
         String targetTag = target.getTag();
+        List<Clause> similar = new ArrayList<>();
+        if (targetTag == null) {
+            return similar;
+        }
         int size = target.getValues().size();
         Object targetValue = target.getValue();
         Object targetValue2 = null;
         if (size > 1) {
             targetValue2 = target.getValue2();
         }
-        List<Clause> similar = new ArrayList<>();
         Iterator<Clause> iterator = clauses.iterator();
         while (iterator.hasNext()) {
             Clause current = iterator.next();

@@ -29,6 +29,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     public void testSortTermClausesIntersectionOf() {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
         Frame frame = oboDoc.getTermFrame("X:1");
+        assert frame != null;
         List<Clause> clauses = new ArrayList<>(frame.getClauses(OboFormatTag.TAG_INTERSECTION_OF));
         OBOFormatWriter.sortTermClauses(clauses);
         assertEquals("Y:1", clauses.get(0).getValue());

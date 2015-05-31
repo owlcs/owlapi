@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.owlxml.parser;
 
 import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
@@ -79,9 +79,9 @@ class OWLXMLParserHandler extends DefaultHandler {
     @Override
     public void setDocumentLocator(@Nullable Locator locator) {
         super.setDocumentLocator(locator);
-        this.locator = locator;
+        this.locator = checkNotNull(locator);
         try {
-            String systemId = locator.getSystemId();
+            String systemId = this.locator.getSystemId();
             if (systemId != null) {
                 bases.push(new URI(systemId));
             }
@@ -406,7 +406,7 @@ class OWLXMLParserHandler extends DefaultHandler {
 
     @Override
     public void endElement(@Nullable String uri, @Nullable String localName, @Nullable String qName) {
-        if (localName.equals(PREFIX.getShortForm())) {
+        if (PREFIX.getShortForm().equals(localName)) {
             return;
         }
         if (!handlerStack.isEmpty()) {

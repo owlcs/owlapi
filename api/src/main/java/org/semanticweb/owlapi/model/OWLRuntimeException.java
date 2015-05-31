@@ -34,7 +34,7 @@ public class OWLRuntimeException extends RuntimeException implements Serializabl
      * @param message
      *        message
      */
-    public OWLRuntimeException(String message) {
+    public OWLRuntimeException(@Nullable String message) {
         super(message);
     }
 
@@ -44,7 +44,7 @@ public class OWLRuntimeException extends RuntimeException implements Serializabl
      * @param cause
      *        cause
      */
-    public OWLRuntimeException(@Nullable String message, Throwable cause) {
+    public OWLRuntimeException(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 
@@ -52,7 +52,7 @@ public class OWLRuntimeException extends RuntimeException implements Serializabl
      * @param cause
      *        cause
      */
-    public OWLRuntimeException(Throwable cause) {
+    public OWLRuntimeException(@Nullable Throwable cause) {
         super(cause);
     }
 }

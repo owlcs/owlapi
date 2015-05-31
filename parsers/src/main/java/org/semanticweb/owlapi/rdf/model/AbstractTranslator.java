@@ -938,7 +938,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
-    private void processIfAnonymous(Stream<? extends OWLIndividual> inds, OWLAxiom root) {
+    private void processIfAnonymous(Stream<? extends OWLIndividual> inds, @Nullable OWLAxiom root) {
         inds.sorted().forEach(i -> processIfAnonymous(i, root));
     }
 

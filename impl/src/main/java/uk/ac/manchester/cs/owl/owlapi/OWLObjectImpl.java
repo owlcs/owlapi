@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static java.util.Collections.emptyList;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import java.io.Serializable;
@@ -153,6 +154,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public int compareTo(@Nullable OWLObject o) {
+        checkNotNull(o);
+        assert o != null;
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImpl) {

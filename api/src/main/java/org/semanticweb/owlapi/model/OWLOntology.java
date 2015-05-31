@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Imports;
@@ -137,7 +139,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @param manager
      *        the new manager for this ontology
      */
-    void setOWLOntologyManager(OWLOntologyManager manager);
+    void setOWLOntologyManager(@Nullable OWLOntologyManager manager);
 
     // Imported ontologies
     /**

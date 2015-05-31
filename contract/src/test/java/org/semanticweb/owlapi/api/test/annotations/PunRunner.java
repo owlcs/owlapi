@@ -4,6 +4,7 @@ package org.semanticweb.owlapi.api.test.annotations;
  * Created by ses on 3/2/15.
  */
 import static org.junit.Assert.assertEquals;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -100,6 +101,8 @@ public class PunRunner extends org.junit.runner.Runner {
      */
     @Override
     public void run(@Nullable RunNotifier notifier) {
+        checkNotNull(notifier);
+        assert notifier != null;
         for (Map.Entry<Description, TestSetting> entry : testSettings.entrySet()) {
             Description description = entry.getKey();
             notifier.fireTestStarted(description);

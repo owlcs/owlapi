@@ -70,7 +70,7 @@ public class OBODocDiffer {
         for (Clause c : f1.getClauses()) {
             boolean isMatched = false;
             for (Clause c2 : f2.getClauses()) {
-                if (c.getTag().equals(c2.getTag())) {
+                if (sameTag(c, c2)) {
                     if (c.equals(c2)) {
                         isMatched = true;
                         if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
@@ -87,6 +87,14 @@ public class OBODocDiffer {
             }
         }
         return diffs;
+    }
+
+    private static boolean sameTag(Clause tag1, Clause tag2) {
+        String tag = tag1.getTag();
+        if (tag == null) {
+            return tag2.getTag() == null;
+        }
+        return tag.equals(tag2.getTag());
     }
 
     private static List<Diff> getDiffs(String ftype, Frame f1, Frame f2) {

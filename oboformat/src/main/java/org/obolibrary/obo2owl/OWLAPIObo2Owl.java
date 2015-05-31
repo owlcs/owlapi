@@ -464,19 +464,21 @@ public class OWLAPIObo2Owl {
                 }
             } else if (tag == OboFormatTag.TAG_DATE) {
                 Clause clause = headerFrame.getClause(tag);
-                Object value = clause.getValue();
-                String dateString = null;
-                if (value instanceof Date) {
-                    dateString = OBOFormatConstants.headerDateFormat().format((Date) value);
-                } else if (value instanceof String) {
-                    dateString = (String) value;
-                }
-                if (dateString != null) {
-                    addOntologyAnnotation(trTagToAnnotationProp(t), trLiteral(dateString), trAnnotations(clause));
-                } else {
-                    // TODO: Throw Exceptions
-                    OBOFormatException e = new OBOFormatException("Cannot translate clause «" + clause + '»');
-                    LOG.error("Cannot translate: {}", clause, e);
+                if (clause != null) {
+                    Object value = clause.getValue();
+                    String dateString = null;
+                    if (value instanceof Date) {
+                        dateString = OBOFormatConstants.headerDateFormat().format((Date) value);
+                    } else if (value instanceof String) {
+                        dateString = (String) value;
+                    }
+                    if (dateString != null) {
+                        addOntologyAnnotation(trTagToAnnotationProp(t), trLiteral(dateString), trAnnotations(clause));
+                    } else {
+                        // TODO: Throw Exceptions
+                        OBOFormatException e = new OBOFormatException("Cannot translate clause «" + clause + '»');
+                        LOG.error("Cannot translate: {}", clause, e);
+                    }
                 }
             } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
                 addPropertyValueHeaders(headerFrame.getClauses(OboFormatTag.TAG_PROPERTY_VALUE));
@@ -580,7 +582,7 @@ public class OWLAPIObo2Owl {
      * @return the oWL class expression
      */
     public OWLClassExpression trTermFrame(Frame termFrame) {
-        OWLClass cls = trClass(termFrame.getId());
+        OWLClass cls = trClass(checkNotNull(termFrame.getId()));
         add(fac.getOWLDeclarationAxiom(cls));
         termFrame.getTags().stream().filter(t -> OboFormatTag.TAG_ALT_ID.getTag().equals(t)).forEach(t ->
         // Generate deprecated and replaced_by details for alternate
@@ -922,7 +924,7 @@ public class OWLAPIObo2Owl {
      *        the clause
      * @return axiom
      */
-    protected OWLAxiom trTermClause(OWLClass cls, String tag, Clause clause) {
+    protected @Nullable OWLAxiom trTermClause(OWLClass cls, String tag, Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
         Set<OWLAnnotation> annotations = trAnnotations(clause);
         OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
@@ -930,9 +932,9 @@ public class OWLAPIObo2Owl {
         // The gci_relation qualifier translate cls to a class expression
         OWLClassExpression clsx = cls;
         String gciRel = getQVString("gci_relation", qvs);
-        if (gciRel != null && !gciRel.isEmpty()) {
-            String gciFiller = getQVString("gci_filler", qvs);
-            OWLClassExpression r = trRel(gciRel, gciFiller, new HashSet<QualifierValue>());
+        String gciFiller = getQVString("gci_filler", qvs);
+        if (!gciRel.isEmpty() && !gciFiller.isEmpty()) {
+            OWLClassExpression r = trRel(gciRel, gciFiller, Collections.emptySet());
             clsx = fac.getOWLObjectIntersectionOf(cls, r);
         }
         OWLAxiom ax;
@@ -1235,7 +1237,7 @@ public class OWLAPIObo2Owl {
      *        the clauses
      * @return the set of annotations
      */
-    protected @Nullable Set<OWLAnnotation> trAnnotations(Collection<Clause> clauses) {
+    protected Set<OWLAnnotation> trAnnotations(Collection<Clause> clauses) {
         Set<OWLAnnotation> anns = new HashSet<>();
         clauses.forEach(c -> trAnnotations(c, anns));
         return anns;
@@ -1304,13 +1306,13 @@ public class OWLAPIObo2Owl {
      *        the quals
      * @return the qV string
      */
-    protected @Nullable static String getQVString(String q, Collection<QualifierValue> quals) {
+    protected static String getQVString(String q, Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 return qv.getValue();
             }
         }
-        return null;
+        return "";
     }
 
     /**

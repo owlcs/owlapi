@@ -299,6 +299,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
         @Override
         public void handleStatement(@Nullable Statement nextStatement) {
+            checkNotNull(nextStatement);
+            assert nextStatement != null;
             if (nextStatement.getPredicate().equals(RDF.FIRST) || nextStatement.getPredicate().equals(RDF.REST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
                     typedLists.add(nextStatement.getSubject());
