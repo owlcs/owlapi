@@ -36,4 +36,19 @@ public interface HasDirectAddAxiom {
      *         if there was a problem adding the axiom
      */
     ChangeApplied addAxiom(OWLAxiom axiom);
+
+    /**
+     * A convenience method that adds a single axiom to an ontology. The
+     * appropriate AddAxiom change object is automatically generated.
+     * 
+     * @param axiom
+     *        The axiom to be added
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException
+     *         if there was a problem adding the axiom
+     */
+    default ChangeApplied add(OWLAxiom axiom) {
+        return addAxiom(axiom);
+    }
 }

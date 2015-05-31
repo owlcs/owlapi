@@ -47,4 +47,30 @@ public interface HasDirectAddAxioms {
      *         ChangeApplied.UNSUCCESSFULLY otherwise.
      */
     ChangeApplied addAxioms(OWLAxiom... axioms);
+
+    /**
+     * A convenience method that adds a set of axioms to an ontology. The
+     * appropriate AddAxiom change objects are automatically generated.
+     * 
+     * @param axioms
+     *        The axioms to be added. Not {@code null}.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     */
+    default ChangeApplied add(Collection<? extends OWLAxiom> axioms) {
+        return addAxioms(axioms);
+    }
+
+    /**
+     * A convenience method that adds a set of axioms to an ontology. The
+     * appropriate AddAxiom change objects are automatically generated.
+     * 
+     * @param axioms
+     *        The axioms to be added. Not {@code null}.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     */
+    default ChangeApplied add(OWLAxiom... axioms) {
+        return addAxioms(axioms);
+    }
 }

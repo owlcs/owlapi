@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
+import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -549,7 +550,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             Set<OWLAxiom> axioms = new HashSet<>();
             // axioms referring entities with this IRI, data property assertions
             // with IRI as subject, annotations with IRI as subject or object.
-            entitiesInSignature((IRI) owlEntity).forEach(e -> add(referencingAxioms(e), axioms));
+            entitiesInSignature((IRI) owlEntity).forEach(e -> OWLAPIStreamUtils.add(referencingAxioms(e), axioms));
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
                 if (OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype())) {
                     if (ax.getObject().getLiteral().equals(owlEntity.toString())) {

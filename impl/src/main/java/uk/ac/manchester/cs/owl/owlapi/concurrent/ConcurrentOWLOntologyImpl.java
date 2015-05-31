@@ -2244,6 +2244,46 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         }
     }
 
+    @Override
+    public ChangeApplied addAxioms(OWLAxiom... set) {
+        writeLock.lock();
+        try {
+            return getMutableOntology().addAxioms(set);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public ChangeApplied add(OWLAxiom owlAxiom) {
+        writeLock.lock();
+        try {
+            return getMutableOntology().add(owlAxiom);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public ChangeApplied add(Collection<? extends OWLAxiom> set) {
+        writeLock.lock();
+        try {
+            return getMutableOntology().add(set);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public ChangeApplied add(OWLAxiom... set) {
+        writeLock.lock();
+        try {
+            return getMutableOntology().add(set);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
     private OWLMutableOntology getMutableOntology() {
         return (OWLMutableOntology) delegate;
     }
@@ -2325,6 +2365,46 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         writeLock.lock();
         try {
             return delegate.removeAxioms(axioms);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public ChangeApplied removeAxioms(OWLAxiom... axioms) {
+        writeLock.lock();
+        try {
+            return delegate.removeAxioms(axioms);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public ChangeApplied remove(OWLAxiom axiom) {
+        writeLock.lock();
+        try {
+            return delegate.remove(axiom);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public ChangeApplied remove(Collection<? extends OWLAxiom> axioms) {
+        writeLock.lock();
+        try {
+            return delegate.remove(axioms);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
+    public ChangeApplied remove(OWLAxiom... axioms) {
+        writeLock.lock();
+        try {
+            return delegate.remove(axioms);
         } finally {
             writeLock.unlock();
         }
