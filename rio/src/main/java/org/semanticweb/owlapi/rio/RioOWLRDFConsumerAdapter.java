@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
 import javax.annotation.Nullable;
 
 import org.openrdf.model.BNode;
@@ -87,14 +89,18 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     @Override
     public void handleNamespace(@Nullable String prefix, @Nullable String uri) {
         RDFDocumentFormat format = getOntologyFormat();
+        // XXX this pattern might be cleaned up by making PrefixDocumentFormat
+        // methods default methods on OWLDocumentFormat
         if (format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat prefixDocumentFormat = (PrefixDocumentFormat) format;
-            prefixDocumentFormat.setPrefix(prefix + ':', uri);
+            prefixDocumentFormat.setPrefix(prefix + ':', verifyNotNull(uri));
         }
     }
 
     @Override
     public void handleStatement(final @Nullable Statement st) {
+        checkNotNull(st);
+        assert st != null;
         String subjectString;
         String objectString;
         if (st.getSubject() instanceof BNode) {

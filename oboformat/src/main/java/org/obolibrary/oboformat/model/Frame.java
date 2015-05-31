@@ -119,7 +119,10 @@ public class Frame {
      *        the tag
      * @return null if no value set, otherwise first value
      */
-    public @Nullable Clause getClause(String tag) {
+    public @Nullable Clause getClause(@Nullable String tag) {
+        if (tag == null) {
+            return null;
+        }
         for (Clause cl : clauses) {
             if (cl.getTag().equals(tag)) {
                 return cl;

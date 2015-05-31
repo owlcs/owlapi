@@ -169,9 +169,7 @@ public class XMLWriterImpl implements XMLWriter {
     public void writeAttribute(IRI attr, String val) {
         XMLElement element = elementStack.peek();
         String qName = xmlWriterNamespaceManager.getQName(attr);
-        if (qName != null) {
-            element.setAttribute(qName, val);
-        }
+        element.setAttribute(qName, val);
     }
 
     @Override
@@ -257,12 +255,12 @@ public class XMLWriterImpl implements XMLWriter {
     /** XML element. */
     public class XMLElement {
 
-        private final String name;
-        private final Map<String, String> attributes;
-        protected @Nullable String textContent;
-        private boolean startWritten;
+        private final @Nullable String name;
+        private final Map<String, String> attributes = new LinkedHashMap<>();
+        protected @Nullable String textContent = null;
+        private boolean startWritten = false;
         private int indentation;
-        private boolean wrapAttributes;
+        private boolean wrapAttributes = false;
 
         /**
          * @param name
@@ -270,12 +268,9 @@ public class XMLWriterImpl implements XMLWriter {
          * @param indentation
          *        indentation
          */
-        public XMLElement(String name, int indentation) {
+        public XMLElement(@Nullable String name, int indentation) {
             this.name = name;
-            attributes = new LinkedHashMap<>();
             this.indentation = indentation;
-            textContent = null;
-            startWritten = false;
         }
 
         /**

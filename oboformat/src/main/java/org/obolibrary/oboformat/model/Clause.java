@@ -120,7 +120,7 @@ public class Clause {
      * @param v
      *        v
      */
-    public void addValue(Object v) {
+    public void addValue(@Nullable Object v) {
         values.add(v);
     }
 

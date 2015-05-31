@@ -413,13 +413,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         pendingAnnotations.addAll(annotations);
     }
 
-    private @Nullable IRI getIRINullable(@Nullable String s) {
-        if (s == null) {
-            return null;
-        }
-        return getIRI(s);
-    }
-
     private IRI getIRI(String s) {
         checkNotNull(s, "s cannot be null");
         IRI iri = null;
@@ -1348,7 +1341,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         IRI subjectIRI = getIRI(remapOnlyIfRemapped(subject));
         IRI predicateIRI = getIRI(predicate);
         predicateIRI = getSynonym(predicateIRI);
-        handlerAccessor.handleStreaming(subjectIRI, predicateIRI, object, getIRINullable(datatype), language);
+        handlerAccessor.handleStreaming(subjectIRI, predicateIRI, object, datatype == null ? null : getIRI(datatype),
+                language);
     }
 
     @Override
@@ -1963,7 +1957,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the consume
      * @return the first resource
      */
-    protected IRI getFirstResource(IRI subject, boolean consume) {
+    protected @Nullable IRI getFirstResource(IRI subject, boolean consume) {
         if (consume) {
             return listFirstResourceTripleMap.remove(subject);
         }
@@ -1977,7 +1971,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the subject
      * @return the first literal
      */
-    protected OWLLiteral getFirstLiteral(IRI subject) {
+    protected @Nullable OWLLiteral getFirstLiteral(IRI subject) {
         return listFirstLiteralTripleMap.get(subject);
     }
 
@@ -1990,7 +1984,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the consume
      * @return the rest
      */
-    protected IRI getRest(IRI subject, boolean consume) {
+    protected @Nullable IRI getRest(IRI subject, boolean consume) {
         if (consume) {
             return listRestTripleMap.remove(subject);
         }

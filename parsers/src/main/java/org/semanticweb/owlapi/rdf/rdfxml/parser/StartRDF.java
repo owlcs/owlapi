@@ -645,7 +645,7 @@ class ReificationManager {
     public static final @Nonnull ReificationManager INSTANCE = new ReificationManager();
 
     @SuppressWarnings("unused")
-    protected @Nullable String getReificationID(String reificationID, RDFParser parser) {
+    protected @Nullable String getReificationID(@Nullable String reificationID, RDFParser parser) {
         return reificationID;
     }
 }

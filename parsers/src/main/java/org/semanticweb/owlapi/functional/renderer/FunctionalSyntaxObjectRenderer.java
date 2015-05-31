@@ -62,10 +62,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         defaultPrefixManager = new DefaultPrefixManager();
         prefixManager = defaultPrefixManager;
         OWLDocumentFormat ontologyFormat = ontology.getOWLOntologyManager().getOntologyFormat(ontology);
-        // reuse the setting on the existing format, if there is one
-        if (ontologyFormat != null) {
-            addMissingDeclarations = ontologyFormat.isAddMissingTypes();
-        }
+        // reuse the setting on the existing format
+        addMissingDeclarations = ontologyFormat.isAddMissingTypes();
         if (ontologyFormat instanceof PrefixDocumentFormat) {
             prefixManager.copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
             prefixManager.setPrefixComparator(((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());

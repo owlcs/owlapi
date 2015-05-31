@@ -165,12 +165,12 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public int compareTo(@Nullable OWLObject o) {
-        if (!(o instanceof OWLDatatype)) {
-            OWLObjectTypeIndexProvider provider = new OWLObjectTypeIndexProvider();
-            return provider.getTypeIndex(o);
+        if (o instanceof OWLDatatype) {
+            OWLDatatype other = (OWLDatatype) o;
+            return getIRI().compareTo(other.getIRI());
         }
-        OWLDatatype other = (OWLDatatype) o;
-        return getIRI().compareTo(other.getIRI());
+        OWLObjectTypeIndexProvider provider = new OWLObjectTypeIndexProvider();
+        return provider.getTypeIndex(checkNotNull(o));
     }
 
     @Override

@@ -922,7 +922,6 @@ public interface OWLOntologyManager
      * @throws UnknownOWLOntologyException
      *         If the specified ontology is not managed by this manager.
      */
-    @Nullable
     OWLDocumentFormat getOntologyFormat(OWLOntology ontology);
 
     /**

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.coode.owlapi.manchesterowlsyntax;
 
+import javax.annotation.Nullable;
+
 /**
  * The vocabulary that the Manchester OWL Syntax uses.
  * 
@@ -203,7 +205,7 @@ public enum ManchesterOWLSyntax {
      *        rendering
      * @return manchester owl syntax object
      */
-    public static ManchesterOWLSyntax parse(String rendering) {
+    public static @Nullable ManchesterOWLSyntax parse(String rendering) {
         for (ManchesterOWLSyntax m : values()) {
             if (m.matches(rendering)) {
                 return m;

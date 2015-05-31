@@ -20,6 +20,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
@@ -52,8 +54,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
      * @param focusedObject
      *        focusedObject
      */
-    public void setFocusedObject(OWLObject focusedObject) {
-        this.focusedObject = checkNotNull(focusedObject, "focusedObject cannot be null");
+    public void setFocusedObject(@Nullable OWLObject focusedObject) {
+        this.focusedObject = focusedObject;
     }
 
     /**

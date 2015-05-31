@@ -664,7 +664,7 @@ public class OWLAPIObo2Owl {
     protected @Nullable OWLNamedObject trTypedefToAnnotationProperty(Frame typedefFrame) {
         Object tagValue = typedefFrame.getTagValue(OboFormatTag.TAG_IS_METADATA_TAG);
         if (Boolean.TRUE.equals(tagValue)) {
-            String id = typedefFrame.getId();
+            String id = checkNotNull(typedefFrame.getId());
             OWLAnnotationProperty p = trAnnotationProp(id);
             add(fac.getOWLDeclarationAxiom(p));
             // handle xrefs also for meta data tags
@@ -707,7 +707,7 @@ public class OWLAPIObo2Owl {
             // see: trTypedefToAnnotationProperty(Frame typedefFrame)
             return null;
         } else {
-            String id = typedefFrame.getId();
+            String id = checkNotNull(typedefFrame.getId());
             OWLObjectProperty p = trObjectProp(id);
             add(fac.getOWLDeclarationAxiom(p));
             String xid = translateShorthandIdToExpandedId(id);
@@ -1061,7 +1061,7 @@ public class OWLAPIObo2Owl {
      *        the clause
      * @return the oWL axiom
      */
-    protected OWLAxiom trGenericClause(OWLNamedObject e, String tag, Clause clause) {
+    protected @Nullable OWLAxiom trGenericClause(OWLNamedObject e, String tag, Clause clause) {
         /*
          * Collection<QualifierValue> qvs = clause.getQualifierValues(); Set<?
          * extends OWLAnnotation> annotations = trAnnotations(clause);

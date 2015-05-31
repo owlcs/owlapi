@@ -192,7 +192,7 @@ public class TripleHandlers {
             }
         }
 
-        public void handleStreaming(IRI s, IRI p, String literal, IRI datatype, String lang) {
+        public void handleStreaming(IRI s, IRI p, String literal, @Nullable IRI datatype, @Nullable String lang) {
             // Convert all literals to OWLConstants
             OWLLiteral con = consumer.getOWLLiteral(literal, datatype, lang);
             handleStreaming(s, p, con);
@@ -695,7 +695,10 @@ public class TripleHandlers {
             return o != null && isObjectPropertyStrict(o);
         }
 
-        protected boolean isOpLax(IRI node) {
+        protected boolean isOpLax(@Nullable IRI node) {
+            if (node == null) {
+                return false;
+            }
             return consumer.isObjectProperty(node);
         }
 

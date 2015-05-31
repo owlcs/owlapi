@@ -270,7 +270,7 @@ public class OWLOntologyManagerImpl
 
     @Override
     public @Nullable OWLOntology getOntology(IRI iri) {
-        OWLOntologyID ontologyID = new OWLOntologyID(of(iri), of((IRI) null));
+        OWLOntologyID ontologyID = new OWLOntologyID(optional(iri), emptyOptional());
         readLock.lock();
         try {
             OWLOntology result = ontologiesByID.get(ontologyID);
@@ -637,7 +637,7 @@ public class OWLOntologyManagerImpl
     }
 
     @Override
-    public @Nullable OWLDocumentFormat getOntologyFormat(OWLOntology ontology) {
+    public OWLDocumentFormat getOntologyFormat(OWLOntology ontology) {
         readLock.lock();
         try {
             OWLOntologyID ontologyID = ontology.getOntologyID();
@@ -684,7 +684,7 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             if (contains(ontologyIRI)) {
-                throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(of(ontologyIRI), emptyOptional()));
+                throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(optional(ontologyIRI), emptyOptional()));
             }
             OWLOntology ont = createOntology(ontologyIRI);
             Function<? super OWLOntology, ? extends Stream<? extends OWLAxiom>> mapper = o -> copyLogicalAxiomsOnly
@@ -701,7 +701,7 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             if (contains(ontologyIRI)) {
-                throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(of(ontologyIRI), emptyOptional()));
+                throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(optional(ontologyIRI), emptyOptional()));
             }
             OWLOntology ont = createOntology(ontologyIRI);
             addAxioms(ont, axioms);
@@ -737,10 +737,7 @@ public class OWLOntologyManagerImpl
             OWLOntologyManager m = toCopy.getOWLOntologyManager();
             if (settings == OntologyCopy.MOVE || settings == OntologyCopy.DEEP) {
                 setOntologyDocumentIRI(toReturn, m.getOntologyDocumentIRI(toCopy));
-                OWLDocumentFormat f = m.getOntologyFormat(toCopy);
-                if (f != null) {
-                    setOntologyFormat(toReturn, f);
-                }
+                setOntologyFormat(toReturn, m.getOntologyFormat(toCopy));
             }
             if (settings == OntologyCopy.MOVE) {
                 m.removeOntology(toCopy);
@@ -772,7 +769,7 @@ public class OWLOntologyManagerImpl
             if (ontByID != null) {
                 return ontByID;
             }
-            OWLOntologyID id = new OWLOntologyID(of(iri), emptyOptional());
+            OWLOntologyID id = new OWLOntologyID(optional(iri), emptyOptional());
             IRI documentIRI = getDocumentIRIFromMappers(id);
             if (documentIRI != null) {
                 if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
@@ -804,7 +801,7 @@ public class OWLOntologyManagerImpl
         }
     }
 
-    private OWLOntology getOntologyByDocumentIRI(IRI iri) {
+    private @Nullable OWLOntology getOntologyByDocumentIRI(IRI iri) {
         readLock.lock();
         try {
             java.util.Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet().stream()
@@ -874,7 +871,7 @@ public class OWLOntologyManagerImpl
                 LOGGER.error(
                         "Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
             }
-            fireStartedLoadingEvent(new OWLOntologyID(of(ontologyIRI), emptyOptional()),
+            fireStartedLoadingEvent(new OWLOntologyID(optional(ontologyIRI), emptyOptional()),
                     documentSource.getDocumentIRI(), loadCount.get() > 0);
             loadCount.incrementAndGet();
             broadcastChanges.set(false);
@@ -1407,8 +1404,8 @@ public class OWLOntologyManagerImpl
     }
 
     // Imports etc.
-    protected OWLOntology loadImports(OWLImportsDeclaration declaration, OWLOntologyLoaderConfiguration configuration)
-            throws OWLOntologyCreationException {
+    protected @Nullable OWLOntology loadImports(OWLImportsDeclaration declaration,
+            OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         writeLock.lock();
         try {
             importsLoadCount.incrementAndGet();
@@ -1618,9 +1615,5 @@ public class OWLOntologyManagerImpl
         } finally {
             writeLock.unlock();
         }
-    }
-
-    protected <T> Optional<T> of(T t) {
-        return optional(t);
     }
 }

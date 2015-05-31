@@ -258,7 +258,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         return result;
     }
 
-    protected OWLClassExpression resultFromVal(IRI iri, IRI templateVal) {
+    protected @Nullable OWLClassExpression resultFromVal(IRI iri, IRI templateVal) {
         String tStr = expandExpressionMap.get(iri);
         String exStr = tStr.replace("?Y", manchesterSyntaxTool.getId(templateVal));
         try {
@@ -269,7 +269,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         }
     }
 
-    protected IRI valFromOneOf(Object filler) {
+    protected @Nullable IRI valFromOneOf(Object filler) {
         Set<OWLIndividual> inds = asSet(((OWLObjectOneOf) filler).individuals(), OWLIndividual.class);
         if (inds.size() == 1) {
             OWLIndividual ind = inds.iterator().next();

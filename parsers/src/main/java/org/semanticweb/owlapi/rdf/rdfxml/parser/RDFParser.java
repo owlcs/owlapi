@@ -119,7 +119,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
                 @Override
                 public void internalEntityDecl(@Nullable String name, @Nullable String value) {
-                    consumer.addPrefix(name, value);
+                    consumer.addPrefix(checkNotNull(name), checkNotNull(value));
                 }
 
                 @Override
@@ -201,7 +201,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     @Override
     public void endElement(@Nullable String uri, @Nullable String localName, @Nullable String qName)
             throws SAXException {
-        state.endElement(uri, localName, qName);
+        state.endElement(checkNotNull(uri), checkNotNull(localName), checkNotNull(qName));
         baseIRI = baseIRIs.remove(0);
         language = languages.remove(0);
     }
@@ -214,7 +214,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     @Override
     public void processingInstruction(@Nullable String target, @Nullable String data) {
         if ("include-rdf".equals(target)) {
-            Map<String, String> arguments = parseStringArguments(data);
+            Map<String, String> arguments = parseStringArguments(checkNotNull(data));
             verify(arguments.size() > 2, "Incorrect number of arguments for 'include-rdf' processing instruction.");
             String logicalIRI = arguments.get("logicalIRI");
             String physicalIRI = arguments.get("physicalIRI");

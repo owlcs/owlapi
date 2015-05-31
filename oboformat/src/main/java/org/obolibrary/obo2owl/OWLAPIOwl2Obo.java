@@ -446,22 +446,21 @@ public class OWLAPIOwl2Obo {
         if (prop == null || value == null) {
             return false;
         }
-        Frame f = getTypedefFrame(prop);
-        Clause clause;
-        if (OboFormatTag.TAG_ID.getTag().equals(tag)) {
-            clause = f.getClause(tag);
-            if (tag != null) {
-                clause.setValue(value);
-            } else {
-                clause = new Clause(tag, value);
-                f.addClause(clause);
-            }
-        } else {
-            clause = new Clause(tag, value);
-            f.addClause(clause);
-        }
-        addQualifiers(clause, annotations);
+        addQualifiers(clause(prop, tag, value), annotations);
         return true;
+    }
+
+    protected Clause clause(OWLObjectProperty prop, @Nullable String tag, String value) {
+        Frame f = getTypedefFrame(prop);
+        if (OboFormatTag.TAG_ID.getTag().equals(tag)) {
+            Clause clause = f.getClause(tag);
+            clause.setValue(value);
+            return clause;
+        } else {
+            Clause clause = new Clause(tag, value);
+            f.addClause(clause);
+            return clause;
+        }
     }
 
     /**
@@ -778,7 +777,7 @@ public class OWLAPIOwl2Obo {
             return;
         }
         if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
-            String supId = getIdentifier(sup);
+            String supId = checkNotNull(getIdentifier(sup));
             if (supId.startsWith("owl:")) {
                 return;
             }
@@ -846,8 +845,8 @@ public class OWLAPIOwl2Obo {
             return;
         }
         if (sub.isOWLObjectProperty() && sup.isOWLObjectProperty()) {
-            String supId = getIdentifier(sup); // getIdentifier(sup);
-            if (supId.startsWith("owl:")) {
+            String supId = getIdentifier(sup);
+            if (supId == null || supId.startsWith("owl:")) {
                 return;
             }
             Frame f = getTypedefFrame(sub);
@@ -1110,7 +1109,7 @@ public class OWLAPIOwl2Obo {
      *        the tag
      * @return the value
      */
-    protected @Nullable String getValue(OWLAnnotationValue annVal, String tag) {
+    protected String getValue(OWLAnnotationValue annVal, @Nullable String tag) {
         String value = annVal.toString();
         if (annVal instanceof OWLLiteral) {
             value = ((OWLLiteral) annVal).getLiteral();
@@ -1751,7 +1750,7 @@ public class OWLAPIOwl2Obo {
      * 
      * @param iriId
      *        the iri id
-     * @return obo identifier or null
+     * @return obo identifier
      */
     public static String getIdentifier(IRI iriId) {
         String iri = iriId.toString();
@@ -1956,7 +1955,7 @@ public class OWLAPIOwl2Obo {
             Frame f = getObodoc().getHeaderFrame();
             Clause c = new Clause(OboFormatTag.TAG_SUBSETDEF.getTag());
             OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
-            String indvId = getIdentifier(indv);
+            String indvId = checkNotNull(getIdentifier(indv));
             // TODO: full specify this in the spec document.
             // we may want to allow full IDs for subsets in future.
             // here we would have a convention that an unprefixed
@@ -2018,8 +2017,8 @@ public class OWLAPIOwl2Obo {
                 }
                 if (c != null && p != null && filler != null) {
                     sub = c;
-                    qvs.add(new QualifierValue("gci_relation", getIdentifier(p)));
-                    qvs.add(new QualifierValue("gci_filler", getIdentifier(filler)));
+                    qvs.add(new QualifierValue("gci_relation", checkNotNull(getIdentifier(p))));
+                    qvs.add(new QualifierValue("gci_filler", checkNotNull(getIdentifier(filler))));
                 }
             }
         }
@@ -2027,7 +2026,7 @@ public class OWLAPIOwl2Obo {
             Frame f = getTermFrame((OWLClass) sub);
             if (sup instanceof OWLClass) {
                 Clause c = new Clause(OboFormatTag.TAG_IS_A.getTag());
-                c.setValue(getIdentifier(sup));
+                c.setValue(checkNotNull(getIdentifier(sup)));
                 c.setQualifierValues(qvs);
                 f.addClause(c);
                 addQualifiers(c, ax.annotations());
