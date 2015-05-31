@@ -42,7 +42,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
      * @param defaultPrefix
      *        default prefix
      */
-    @Deprecated
     public DefaultPrefixManager(@Nullable String defaultPrefix) {
         this(null, null, defaultPrefix);
     }
@@ -56,7 +55,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
      *        default prefix
      */
     public DefaultPrefixManager(@Nullable PrefixManager pm, @Nullable StringComparator c,
-            @Nullable String defaultPrefix) {
+        @Nullable String defaultPrefix) {
         comparator = c == null ? new StringLengthComparator() : c;
         prefix2NamespaceMap = new TreeMap<>(comparator);
         setupDefaultPrefixes();
@@ -194,7 +193,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
             if (v.equals(namespace)) {
                 toRemove.add(k);
             }
-        } );
+        });
         reverseprefix2NamespaceMap.remove(namespace);
         prefix2NamespaceMap.keySet().removeAll(toRemove);
     }

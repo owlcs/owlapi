@@ -39,7 +39,7 @@ public final class Searcher {
      * @return literals
      */
     public static Stream<OWLLiteral> values(Stream<OWLDataPropertyAssertionAxiom> axioms,
-            @Nullable OWLDataPropertyExpression p) {
+        @Nullable OWLDataPropertyExpression p) {
         return axioms.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getObject()).distinct();
     }
 
@@ -53,7 +53,7 @@ public final class Searcher {
      * @return objects
      */
     public static Stream<OWLIndividual> values(Stream<OWLObjectPropertyAssertionAxiom> axioms,
-            @Nullable OWLObjectPropertyExpression p) {
+        @Nullable OWLObjectPropertyExpression p) {
         return axioms.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getObject());
     }
 
@@ -67,7 +67,7 @@ public final class Searcher {
      * @return literals
      */
     public static Stream<OWLLiteral> negValues(Stream<OWLNegativeDataPropertyAssertionAxiom> axioms,
-            @Nullable OWLDataPropertyExpression p) {
+        @Nullable OWLDataPropertyExpression p) {
         return axioms.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getObject());
     }
 
@@ -81,7 +81,7 @@ public final class Searcher {
      * @return objects
      */
     public static Stream<OWLIndividual> negValues(Stream<OWLNegativeObjectPropertyAssertionAxiom> axioms,
-            @Nullable OWLObjectPropertyExpression p) {
+        @Nullable OWLObjectPropertyExpression p) {
         return axioms.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getObject());
     }
 
@@ -117,12 +117,12 @@ public final class Searcher {
      * @return inverses of p
      */
     public static Stream<OWLObjectPropertyExpression> inverse(Stream<OWLInverseObjectPropertiesAxiom> axioms,
-            OWLObjectPropertyExpression p) {
+        OWLObjectPropertyExpression p) {
         return axioms.map(ax -> getInverse(p, ax));
     }
 
     protected static OWLObjectPropertyExpression getInverse(OWLObjectPropertyExpression p,
-            OWLInverseObjectPropertiesAxiom ax) {
+        OWLInverseObjectPropertiesAxiom ax) {
         if (ax.getFirstProperty().equals(p)) {
             return ax.getSecondProperty();
         } else {
@@ -151,7 +151,7 @@ public final class Searcher {
      * @return annotation values
      */
     public static Stream<OWLAnnotationValue> values(Stream<OWLAnnotation> annotations,
-            @Nullable OWLAnnotationProperty p) {
+        @Nullable OWLAnnotationProperty p) {
         return annotations.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getValue());
     }
 
@@ -180,7 +180,7 @@ public final class Searcher {
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotations(Stream<? extends OWLAxiom> axioms,
-            @Nullable OWLAnnotationProperty p) {
+        @Nullable OWLAnnotationProperty p) {
         return axioms.flatMap(ax -> annotations(ax, p)).distinct();
     }
 
@@ -195,6 +195,7 @@ public final class Searcher {
      *        optional annotation property to filter. Null means all.
      * @return annotations
      */
+    @SuppressWarnings("resource")
     public static Stream<OWLAnnotation> annotations(OWLAxiom axiom, @Nullable OWLAnnotationProperty p) {
         Stream<OWLAnnotation> stream = empty();
         if (axiom instanceof OWLAnnotationAssertionAxiom) {
@@ -269,7 +270,7 @@ public final class Searcher {
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom,
-            @SuppressWarnings("unused") Class<C> type) {
+        @SuppressWarnings("unused") Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(true));
     }
 
