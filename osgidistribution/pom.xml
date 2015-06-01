@@ -64,6 +64,21 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.3.3</version>
+		</dependency>
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-compatibility</artifactId>
 			<version>${project.version}</version>
@@ -301,7 +316,7 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-parsers</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboformat</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-compatibility</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-fixers</dependencySourceInclude>
 							</dependencySourceIncludes>
