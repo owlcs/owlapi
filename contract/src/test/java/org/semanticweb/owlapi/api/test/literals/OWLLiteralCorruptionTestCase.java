@@ -53,6 +53,20 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     }
 
     @Test
+    public void shouldFailOnMalformedXMLLiteral() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String literal = "<ncicp:ComplexDefinition><ncicp:def-definition>A form of cancer that begins in melanocytes (cells that make the pigment melanin). It may begin in a mole (skin melanoma), but can also begin in other pigmented tissues, such as in the eye or in the intestines.</ncicp:def-definition><ncicp:def-source>NCI-GLOSS</ncicp:def-source></ncicp:ComplexDefinition>";
+        OWLOntology o = m.createOntology();
+        OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:test#p"));
+        OWLLiteral l = df.getOWLLiteral(literal, OWL2Datatype.RDF_XML_LITERAL);
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:test#i"));
+        o.add( df.getOWLDataPropertyAssertionAxiom(p, i, l));
+        expectedException.expect(OWLOntologyStorageException.class);
+        expectedException.expectMessage(literal);
+        expectedException.expectMessage("XML literal is not self contained");
+        saveOntology(o).toString();
+    }
+
+    @Test
     public void shouldRoundtripPaddedLiterals() throws OWLOntologyCreationException, OWLOntologyStorageException {
         String in = "Prefix(:=<urn:test#>)\n" + "Prefix(a:=<urn:test#>)\n"
                 + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n"

@@ -14,7 +14,9 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.*;
 
 import javax.annotation.Nonnull;
@@ -23,7 +25,11 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.SAXParsers;
 import org.semanticweb.owlapi.util.StringLengthComparator;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -59,10 +65,10 @@ public class XMLWriterImpl implements XMLWriter {
      *        xml writer preferences instance
      */
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase,
-            XMLWriterPreferences preferences) {
+        XMLWriterPreferences preferences) {
         this.writer = checkNotNull(writer, "writer cannot be null");
         this.xmlWriterNamespaceManager = checkNotNull(xmlWriterNamespaceManager,
-                "xmlWriterNamespaceManager cannot be null");
+            "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
         xmlPreferences = checkNotNull(preferences, "preferences cannot be null");
         elementStack = new Stack<>();
@@ -237,8 +243,8 @@ public class XMLWriterImpl implements XMLWriter {
         }
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
             if (!curPrefix.isEmpty()) {
-                writeAttribute("xmlns:" + curPrefix,
-                        verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(curPrefix)));
+                writeAttribute("xmlns:" + curPrefix, verifyNotNull(xmlWriterNamespaceManager.getNamespaceForPrefix(
+                    curPrefix)));
             }
         }
     }
@@ -404,10 +410,20 @@ public class XMLWriterImpl implements XMLWriter {
             if (textContent != null) {
                 // only escape the data if this is not an XML literal
                 if ("http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral".equals(attributes.get("rdf:datatype"))) {
+                    checkProperXMLLiteral(textContent);
                     writer.write(textContent);
                 } else {
                     writer.write(XMLUtils.escapeXML(verifyNotNull(textContent)));
                 }
+            }
+        }
+
+        private void checkProperXMLLiteral(String text) {
+            try {
+                SAXParsers.initParserWithOWLAPIStandards(null).parse(new InputSource(new StringReader(text)),
+                    new DefaultHandler());
+            } catch (SAXException | IOException e) {
+                throw new OWLRuntimeException("XML literal is not self contained: \"" + text + "\"", e);
             }
         }
 
