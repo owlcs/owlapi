@@ -17,7 +17,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.1.0-RC1</version>
+	<version>4.1.0-RC2</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -391,7 +391,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- remove this line for releases, if the release process fails because 
 			of missing javadoc jars -->
-		<no-javadoc>true</no-javadoc>
+		<no-javadoc>false</no-javadoc>
 	</properties>
 
 	<!-- Parameters for the Source Code Management system. -->
