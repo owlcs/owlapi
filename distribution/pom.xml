@@ -9,7 +9,6 @@
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
 		<version>4.1.0-RC2</version>
-		<relativePath>../</relativePath>
 	</parent>
 	<properties>
 		<sesame.version>2.7.12</sesame.version>
