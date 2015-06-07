@@ -9,10 +9,9 @@
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
 		<version>5.0.0-ALPHA</version>
-		<relativePath>../</relativePath>
 	</parent>
 	<properties>
-		<sesame.version>2.7.12</sesame.version>
+		<inherited.sesame.version>${sesame.version}</inherited.sesame.version>
 	</properties>
 
 	<!-- NOTE: These dependency declarations are only required to sort this 
@@ -84,81 +83,6 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-model</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-api</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-languages</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-datatypes</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-binary</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-n3</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-nquads</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-ntriples</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-rdfjson</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-rdfxml</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-trix</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-turtle</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-rio-trig</artifactId>
-			<version>${sesame.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.jsonld-java</groupId>
-			<artifactId>jsonld-java-sesame</artifactId>
-			<version>0.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.semarglproject</groupId>
-			<artifactId>semargl-sesame</artifactId>
-			<version>0.6.1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.tukaani</groupId>
 			<artifactId>xz</artifactId>
 			<version>1.5</version>
@@ -177,8 +101,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.7</version>
+			<version>1.7.10</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -199,9 +128,9 @@
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Embed-Dependency>
-							!artifactId=slf4j-api,
 							groupId=${project.groupId};inline=true;scope=compile|runtime|provided,
-							groupId=!${project.groupId};scope=compile|runtime|provided;inline=false
+							groupId=!${project.groupId};scope=compile|runtime|provided;inline=false,
+							groupId=trove4j;scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<Embed-Directory>lib</Embed-Directory>
 						<Embed-Transitive>true</Embed-Transitive>
@@ -219,11 +148,12 @@
 							com.google.common.*;-split-package:=merge-first,
 							com.google.thirdparty.*;-split-package:=merge-first,
 							com.google.inject.*;-split-package:=merge-first,
+							!com.google.inject.internal.*,
 							org.semarglproject.*;-split-package:=merge-first,
 							org.apache.commons.*;-split-package:=merge-first,
 							org.apache.http.*;-split-package:=merge-first,
 							org.aopalliance.*;-split-package:=merge-first,
-							gnu.trove.*;-split-package:=merge-first,
+							!gnu.trove.*,
 							javax.annotation.*;-split-package:=merge-first,
 							javax.inject.*;-split-package:=merge-first
 						</_exportcontents>
