@@ -18,23 +18,13 @@
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
 
-	<modules>
-		<module>api</module>
-		<module>impl</module>
-		<module>tools</module>
-		<module>parsers</module>
-		<module>oboformat</module>
-		<module>fixers</module>
-		<module>rio</module>
-		<module>compatibility</module>
-		<module>apibinding</module>
-		<module>contract</module>
-		<!-- The distribution module is a single-jar build of the whole OWL API. -->
-		<module>distribution</module>
-		<module>osgidistribution</module>
-		<module>benchmarks</module>
-	</modules>
-
+	<properties>
+		<!-- Specify the encoding of the source files. -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<sesame.version>2.7.12</sesame.version>
+		<!-- remove this line for releases, if the release process fails because of missing javadoc jars -->
+		<no-javadoc>true</no-javadoc>
+	</properties>
 
 	<issueManagement>
 		<system>GitHub</system>
@@ -88,17 +78,17 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>4.0-beta</version>
+			<version>4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-assistedinject</artifactId>
-			<version>4.0-beta</version>
+			<version>4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
-			<version>4.0-beta</version>
+			<version>4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
@@ -108,12 +98,12 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.7</version>
+			<version>1.7.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.7</version>
+			<version>1.7.10</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -382,13 +372,6 @@
 		</plugins>
 	</build>
 
-	<properties>
-		<!-- Specify the encoding of the source files. -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- remove this line for releases, if the release process fails because 
-			of missing javadoc jars -->
-		<no-javadoc>false</no-javadoc>
-	</properties>
 
 	<!-- Parameters for the Source Code Management system. -->
 	<scm>

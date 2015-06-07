@@ -10,9 +10,6 @@
 		<artifactId>owlapi-parent</artifactId>
 		<version>4.1.0-RC2</version>
 	</parent>
-	<properties>
-		<sesame.version>2.7.12</sesame.version>
-	</properties>
 
 	<!-- NOTE: These dependency declarations are only required to sort this 
 		project to the end of the line in the multimodule build. -->

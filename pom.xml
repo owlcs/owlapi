@@ -4,15 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>4.1.0-RC2</version>
 	</parent>
 
-	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-modules</artifactId>
 	<packaging>pom</packaging>
-	<version>4.1.0-RC1</version>
 	<name>OWLAPI modules</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
@@ -33,13 +31,5 @@
 		<module>osgidistribution</module>
 		<module>benchmarks</module>
 	</modules>
-
-	<properties>
-	<!-- Specify the encoding of the source files. -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- remove this line for releases, if the release process fails because 
-			of missing javadoc jars -->
-		<no-javadoc>true</no-javadoc>
-	</properties>
 
 </project>
