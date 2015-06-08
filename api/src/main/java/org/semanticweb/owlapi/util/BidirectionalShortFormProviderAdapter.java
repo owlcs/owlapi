@@ -59,10 +59,10 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      *        forms of the referenced entities.
      */
     public BidirectionalShortFormProviderAdapter(Collection<OWLOntology> ontologies,
-            ShortFormProvider shortFormProvider) {
+        ShortFormProvider shortFormProvider) {
         this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
-        rebuild(new ReferencedEntitySetProvider(ontologies));
+        rebuild(ontologies.stream().flatMap(o -> o.signature()));
     }
 
     /**
@@ -85,7 +85,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
      *        ontologies contain references to entities or not.
      */
     public BidirectionalShortFormProviderAdapter(OWLOntologyManager man, Collection<OWLOntology> ontologies,
-            ShortFormProvider shortFormProvider) {
+        ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
         this.man = checkNotNull(man, "man cannot be null");
         this.man.addOntologyChangeListener(changeListener);

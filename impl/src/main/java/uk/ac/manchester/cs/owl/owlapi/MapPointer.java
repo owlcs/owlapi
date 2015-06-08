@@ -207,7 +207,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return empty();
         }
-        return ((Collection<O>) t).stream();
+        return new ArrayList<>((Collection<O>) t).stream();
     }
 
     /**
@@ -401,6 +401,11 @@ public class MapPointer<K, V extends OWLAxiom> {
             constructing = false;
         }
 
+        public THashSetForSet(int capacity, float load) {
+            super(capacity, load);
+            constructing = false;
+        }
+
         @Override
         protected boolean equals(@Nullable Object notnull, @Nullable Object two) {
             // shortcut: during construction from a set, no element is
@@ -410,6 +415,11 @@ public class MapPointer<K, V extends OWLAxiom> {
                 return notnull == two;
             }
             return super.equals(notnull, two);
+        }
+
+        @Override
+        public Stream<E> stream() {
+            return new ArrayList<>(this).stream();
         }
     }
 
@@ -448,7 +458,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             for (Map.Entry<K, Collection<V>> entry : map.entrySet()) {
                 Collection<V> set = entry.getValue();
                 if (set instanceof ArrayList) {
-                    THashSet<V> value = new THashSet<>(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
+                    THashSet<V> value = new THashSetForSet<>(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
                     value.addAll(set);
                     entry.setValue(value);
                     size = size - set.size() + value.size();

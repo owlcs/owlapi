@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.createSyncMap;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -35,8 +35,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public abstract class CachingBidirectionalShortFormProvider implements BidirectionalShortFormProvider {
 
-    private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<>();
-    private final Map<OWLEntity, String> entity2ShortFormMap = new HashMap<>();
+    private final Map<String, Set<OWLEntity>> shortForm2EntityMap = createSyncMap();
+    private final Map<OWLEntity, String> entity2ShortFormMap = createSyncMap();
 
     protected CachingBidirectionalShortFormProvider() {}
 
@@ -62,14 +62,13 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
      * Rebuilds the cache using entities obtained from the specified entity set
      * provider.
      * 
-     * @param entitySetProvider
-     *        The {@code OWLEntitySetProvider} that should be used to obtain the
-     *        entities whose short forms will be cached.
+     * @param entities
+     *        The entities whose short forms will be cached.
      */
-    protected void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
+    protected void rebuild(Stream<OWLEntity> entities) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
-        entitySetProvider.entities().forEach(e -> add(e));
+        entities.forEach(e -> add(e));
     }
 
     /**
@@ -82,12 +81,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     public void add(OWLEntity entity) {
         String shortForm = generateShortForm(entity);
         entity2ShortFormMap.put(entity, shortForm);
-        Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
-        if (entities == null) {
-            entities = new HashSet<>(1);
-        }
-        entities.add(entity);
-        shortForm2EntityMap.put(shortForm, entities);
+        shortForm2EntityMap.computeIfAbsent(shortForm, s -> new HashSet<>(1)).add(entity);
     }
 
     /**
@@ -106,7 +100,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     @Override
     public Stream<OWLEntity> entities(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
-        if (entities != null) {
+        if (entities != null && !entities.isEmpty()) {
             return entities.stream();
         }
         return empty();
@@ -115,11 +109,8 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     @Override
     public @Nullable OWLEntity getEntity(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
-        if (entities != null) {
-            if (!entities.isEmpty()) {
-                return entities.iterator().next();
-            }
-            return null;
+        if (entities != null && !entities.isEmpty()) {
+            return entities.iterator().next();
         }
         return null;
     }

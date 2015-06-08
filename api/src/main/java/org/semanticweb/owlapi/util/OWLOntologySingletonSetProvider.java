@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -33,7 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
 
     private static final long serialVersionUID = 40000L;
-    private final @Nonnull Set<OWLOntology> ontologySingletonSet;
+    private final @Nonnull OWLOntology o;
 
     /**
      * Constructs an {@code OWLOntologySingletonSetProvider} which provides a
@@ -44,11 +43,11 @@ public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
      *        provided by this provider.
      */
     public OWLOntologySingletonSetProvider(OWLOntology ontology) {
-        ontologySingletonSet = CollectionFactory.createSet(checkNotNull(ontology, "ontology cannot be null"));
+        o = checkNotNull(ontology, "ontology cannot be null");
     }
 
     @Override
     public Stream<OWLOntology> ontologies() {
-        return ontologySingletonSet.stream();
+        return Stream.of(o);
     }
 }

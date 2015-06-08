@@ -15,7 +15,9 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -42,7 +44,7 @@ import org.semanticweb.owlapi.model.*;
 public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOntologyChange {
 
     private static final long serialVersionUID = 40000L;
-    private final @Nonnull Set<OWLOntology> ontologies;
+    private final @Nonnull List<OWLOntology> ontologies;
 
     /**
      * Instantiates a new convert property assertions to annotations.
@@ -54,7 +56,8 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
      */
     public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
         super(dataFactory);
-        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
+        checkNotNull(ontologies, "ontologies cannot be null");
+        this.ontologies = new ArrayList<>(ontologies);
         generateChanges();
     }
 
@@ -86,14 +89,14 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
         ontologies().forEach(o -> {
             remove(o.declarationAxioms(prop), o);
             remove(o.axioms(prop), o);
-        } );
+        });
     }
 
     private void remove(OWLNamedIndividual ind) {
         ontologies().forEach(o -> {
             remove(o.declarationAxioms(ind), o);
             remove(o.classAssertionAxioms(ind), o);
-        } );
+        });
     }
 
     private void convertToAnnotations(OWLNamedIndividual ind) {
@@ -102,14 +105,14 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
                 addChange(new RemoveAxiom(ont, ax));
                 addChange(new AddAxiom(ont, convertToAnnotation(ind, ax)));
                 remove(ax.getProperty().asOWLDataProperty());
-            } );
-        } );
+            });
+        });
         remove(ind);
     }
 
     private OWLAnnotationAssertionAxiom convertToAnnotation(OWLNamedIndividual ind, OWLDataPropertyAssertionAxiom ax) {
-        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(ax.getProperty().asOWLDataProperty()),
-                ax.getObject());
+        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(ax.getProperty().asOWLDataProperty()), ax
+            .getObject());
         return df.getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
     }
 }

@@ -6,6 +6,7 @@ import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +35,7 @@ public class SmallSet<T> extends AbstractSet<T> {
     public SmallSet(Collection<T> collection) {
         if (collection.size() > 3) {
             throw new IllegalArgumentException(
-                    "Trying to create a small set with too many elements - max 3, requested: " + collection.size());
+                "Trying to create a small set with too many elements - max 3, requested: " + collection.size());
         }
         for (T t : collection) {
             add(t);
@@ -155,6 +156,21 @@ public class SmallSet<T> extends AbstractSet<T> {
                 }
             }
         };
+    }
+
+    @Override
+    public Stream<T> stream() {
+        Stream<T> stream = Stream.empty();
+        if (element1 != null) {
+            stream = Stream.of(element1);
+        }
+        if (element2 != null) {
+            stream = Stream.concat(stream, Stream.of(element2));
+        }
+        if (element3 != null) {
+            stream = Stream.concat(stream, Stream.of(element3));
+        }
+        return stream;
     }
 
     @Override
