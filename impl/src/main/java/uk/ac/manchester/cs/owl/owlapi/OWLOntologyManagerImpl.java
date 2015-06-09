@@ -25,7 +25,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -229,7 +228,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
      * @return stream of ids
      */
     protected Stream<OWLOntologyID> ids() {
-        return ontologiesByID.keySet().stream();
+        readLock.lock();
+        try {
+            return ontologiesByID.keySet().stream();
+        } finally {
+            readLock.unlock();
+        }
     }
 
     @Override
@@ -327,7 +331,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     @Override
     public Stream<OWLOntology> versions(IRI ontology) {
         readLock.lock();
-        // XXX check default
         try {
             return OWLOntologyManager.super.versions(ontology);
         } finally {
@@ -538,31 +541,24 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
 
     @Override
     public ChangeApplied addAxiom(OWLOntology ont, OWLAxiom axiom) {
-        writeLock.lock();
-        try {
-            return addAxioms(ont, Stream.of(axiom));
-        } finally {
-            writeLock.unlock();
-        }
+        return applyChanges(list(new AddAxiom(ont, axiom)));
     }
 
     @Override
     public ChangeApplied addAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms) {
         // Write lock not needed at this point
-        List<AddAxiom> changes = asList(axioms.map(ax -> new AddAxiom(ont, ax)));
-        return applyChanges(changes);
+        return applyChanges(asList(axioms.map(ax -> new AddAxiom(ont, ax))));
     }
 
     @Override
     public ChangeApplied removeAxiom(OWLOntology ont, OWLAxiom axiom) {
-        return removeAxioms(ont, Stream.of(axiom));
+        return applyChanges(list(new RemoveAxiom(ont, axiom)));
     }
 
     @Override
     public ChangeApplied removeAxioms(OWLOntology ont, Stream<? extends OWLAxiom> axioms) {
         // Write lock not needed at this point
-        List<RemoveAxiom> changes = asList(axioms.map(ax -> new RemoveAxiom(ont, ax)));
-        return applyChanges(changes);
+        return applyChanges(asList(axioms.map(ax -> new RemoveAxiom(ont, ax))));
     }
 
     @Override
@@ -686,9 +682,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
                 throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(optional(ontologyIRI), emptyOptional()));
             }
             OWLOntology ont = createOntology(ontologyIRI);
-            Function<? super OWLOntology, ? extends Stream<? extends OWLAxiom>> mapper = o -> copyLogicalAxiomsOnly ? o
-                .logicalAxioms() : o.axioms();
-            addAxioms(ont, ontologies.flatMap(mapper));
+            addAxioms(ont, ontologies.flatMap(o -> copyLogicalAxiomsOnly ? o.logicalAxioms() : o.axioms()));
             return ont;
         } finally {
             writeLock.unlock();

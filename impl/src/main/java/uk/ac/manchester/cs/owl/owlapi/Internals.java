@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -35,10 +36,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.search.Filters;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
-
-import com.google.common.collect.Iterables;
 
 /**
  * @author ignazio
@@ -158,20 +156,8 @@ public class Internals implements Serializable {
             return set.isEmpty();
         }
 
-        public Set<K> copy() {
-            return CollectionFactory.copyMutable(set);
-        }
-
-        public Iterable<K> iterable() {
-            return set;
-        }
-
         public boolean add(K k) {
             return set.add(k);
-        }
-
-        public boolean contains(K k) {
-            return set.contains(k);
         }
 
         public boolean remove(K k) {
@@ -179,7 +165,10 @@ public class Internals implements Serializable {
         }
 
         public Stream<K> stream() {
-            return set.stream();
+            if (set.isEmpty()) {
+                return Stream.empty();
+            }
+            return new ArrayList<>(set).stream();
         }
     }
 
@@ -229,9 +218,9 @@ public class Internals implements Serializable {
         objectPropertyAssertionsByIndividual = buildLazy(OBJECT_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
         dataPropertyAssertionsByIndividual = buildLazy(DATA_PROPERTY_ASSERTION, INDIVIDUALSUBNAMED);
         negativeObjectPropertyAssertionAxiomsByIndividual = buildLazy(NEGATIVE_OBJECT_PROPERTY_ASSERTION,
-                INDIVIDUALSUBNAMED);
+            INDIVIDUALSUBNAMED);
         negativeDataPropertyAssertionAxiomsByIndividual = buildLazy(NEGATIVE_DATA_PROPERTY_ASSERTION,
-                INDIVIDUALSUBNAMED);
+            INDIVIDUALSUBNAMED);
         differentIndividualsAxiomsByIndividual = buildLazy(DIFFERENT_INDIVIDUALS, ICOLLECTIONS);
         sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS);
         axiomsForSerialization.forEach(ax -> addAxiom(ax));
@@ -437,7 +426,7 @@ public class Internals implements Serializable {
     // not always not null, but supposed to be
     @SuppressWarnings({ "unchecked" })
     <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type, Class<A> axiom,
-            Navigation position) {
+        Navigation position) {
         if (OWLEntity.class.isAssignableFrom(type) && axiom.equals(OWLDeclarationAxiom.class)) {
             return optional((MapPointer<T, A>) declarationsByEntity);
         }
@@ -600,7 +589,7 @@ public class Internals implements Serializable {
     }
 
     protected <K, V extends OWLAxiom> MapPointer<K, V> build(@Nullable AxiomType<?> t,
-            @Nullable OWLAxiomVisitorEx<?> v) {
+        @Nullable OWLAxiomVisitorEx<?> v) {
         return new MapPointer<>(t, v, true, this);
     }
 
@@ -735,11 +724,9 @@ public class Internals implements Serializable {
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
         if (filter == Filters.annotations) {
             Optional<MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>> mapPointerOptional = get(
-                    OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
+                OWLAnnotationSubject.class, OWLAnnotationAssertionAxiom.class);
             if (mapPointerOptional.isPresent()) {
-                MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom> mapPointer = mapPointerOptional.get();
-                Collection<OWLAnnotationAssertionAxiom> values = mapPointer.getValues((OWLAnnotationSubject) key);
-                return values;
+                return mapPointerOptional.get().getValuesAsCollection((OWLAnnotationSubject) key);
             }
         }
         return getAxiomsByType().filterAxioms(filter, key);
@@ -755,11 +742,10 @@ public class Internals implements Serializable {
      * @return true if the filter is matched at least once
      */
     public <K> boolean contains(OWLAxiomSearchFilter filter, K key) {
+        MapPointer<AxiomType<?>, OWLAxiom> types = getAxiomsByType();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
-            for (OWLAxiom t : getAxiomsByType().getValues(at)) {
-                if (filter.pass(t, key)) {
-                    return true;
-                }
+            if (types.getValues(at).anyMatch(t -> filter.pass(t, key))) {
+                return true;
             }
         }
         return false;
@@ -859,15 +845,15 @@ public class Internals implements Serializable {
         if (!axiomsByType.isInitialized()) {
             return 0;
         }
-        return Iterables.size(axiomsByType.getValues(axiomType));
+        return axiomsByType.countValues(axiomType);
     }
 
     /**
      * @return logical axioms
      */
     public Stream<OWLLogicalAxiom> getLogicalAxioms() {
-        return LOGICAL_AXIOM_TYPES.stream().map(type -> axiomsByType.values(type, OWLLogicalAxiom.class))
-                .flatMap(x -> x);
+        return LOGICAL_AXIOM_TYPES.stream().map(type -> axiomsByType.values(type, OWLLogicalAxiom.class)).flatMap(
+            x -> x);
     }
 
     /**
@@ -876,7 +862,7 @@ public class Internals implements Serializable {
     public int getLogicalAxiomCount() {
         int count = 0;
         for (AxiomType<?> type : LOGICAL_AXIOM_TYPES) {
-            count += Iterables.size(axiomsByType.getValues(type));
+            count += axiomsByType.countValues(type);
         }
         return count;
     }
@@ -973,7 +959,7 @@ public class Internals implements Serializable {
                 disjointClassesAxiomsByClass.put(cls, axiom);
                 classAxiomsByClass.put(cls, axiom);
                 allAnon.set(false);
-            } );
+            });
             if (allAnon.get()) {
                 addGeneralClassAxioms(axiom);
             }
@@ -1101,7 +1087,7 @@ public class Internals implements Serializable {
                 equivalentClassesAxiomsByClass.put((OWLClass) desc, axiom);
                 classAxiomsByClass.put((OWLClass) desc, axiom);
                 allAnon.set(false);
-            } );
+            });
             if (allAnon.get()) {
                 addGeneralClassAxioms(axiom);
             }
@@ -1184,7 +1170,7 @@ public class Internals implements Serializable {
                 disjointClassesAxiomsByClass.remove(c, axiom);
                 classAxiomsByClass.remove(c, axiom);
                 allAnon.set(false);
-            } );
+            });
             if (allAnon.get()) {
                 removeGeneralClassAxioms(axiom);
             }
@@ -1312,7 +1298,7 @@ public class Internals implements Serializable {
                 equivalentClassesAxiomsByClass.remove(c, axiom);
                 classAxiomsByClass.remove(c, axiom);
                 allAnon.set(false);
-            } );
+            });
             if (allAnon.get()) {
                 removeGeneralClassAxioms(axiom);
             }

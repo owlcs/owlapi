@@ -147,23 +147,23 @@ public class MapPointer<K, V extends OWLAxiom> {
             return this;
         }
         assert visitor != null;
-        Collection<V> values = (Collection<V>) i.getAxiomsByType().getValues(verifyNotNull(type));
+        Stream<V> values = (Stream<V>) i.getAxiomsByType().getValues(verifyNotNull(type));
         if (visitor instanceof InitVisitor) {
-            for (V ax : values) {
+            values.forEach(ax -> {
                 K key = ax.accept((InitVisitor<K>) visitor);
                 // this can only be null because the visitor return nulls in
                 // methods that do not declare it
                 if (key != null) {
                     putInternal(key, ax);
                 }
-            }
+            });
         } else if (visitor instanceof InitCollectionVisitor) {
-            for (V ax : values) {
+            values.forEach(ax -> {
                 Collection<K> keys = ax.accept((InitCollectionVisitor<K>) visitor);
                 for (K key : keys) {
                     putInternal(key, ax);
                 }
-            }
+            });
         }
         return this;
     }
@@ -188,9 +188,45 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        key to look up
      * @return value
      */
-    public synchronized Collection<V> getValues(K key) {
+    public synchronized Stream<V> getValues(K key) {
         init();
         return get(key);
+    }
+
+    /**
+     * @param key
+     *        key to look up
+     * @return value
+     */
+    public synchronized Collection<V> getValuesAsCollection(K key) {
+        init();
+        return getCollection(key);
+    }
+
+    private Collection<V> getCollection(K k) {
+        Collection<V> t = map.get(k);
+        if (t == null) {
+            return Collections.emptySet();
+        }
+        return new ArrayList<>(t);
+    }
+
+    /**
+     * @param key
+     *        key to look up
+     * @return value
+     */
+    public synchronized int countValues(K key) {
+        init();
+        return count(key);
+    }
+
+    private int count(K k) {
+        Collection<V> t = map.get(k);
+        if (t == null) {
+            return 0;
+        }
+        return t.size();
     }
 
     /**
@@ -436,12 +472,12 @@ public class MapPointer<K, V extends OWLAxiom> {
         return map.values().stream().flatMap(s -> s.stream());
     }
 
-    private Collection<V> get(K k) {
+    private Stream<V> get(K k) {
         Collection<V> t = map.get(k);
         if (t == null) {
-            return Collections.emptyList();
+            return Stream.empty();
         }
-        return new ArrayList<>(t);
+        return t.stream();
     }
 
     private static final AtomicLong totalInUse = new AtomicLong(0);

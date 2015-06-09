@@ -134,7 +134,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType) {
-        return (Stream<T>) ints.getAxiomsByType().getValues(axiomType).stream();
+        return (Stream<T>) ints.getAxiomsByType().getValues(axiomType);
     }
 
     @Override
