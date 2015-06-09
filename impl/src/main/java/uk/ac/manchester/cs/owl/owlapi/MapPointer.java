@@ -207,7 +207,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (t == null) {
             return empty();
         }
-        return new ArrayList<>((Collection<O>) t).stream();
+        return ((Collection<O>) t).stream();
     }
 
     /**
