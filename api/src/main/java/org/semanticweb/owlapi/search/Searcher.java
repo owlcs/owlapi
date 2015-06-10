@@ -21,26 +21,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * A collection of static search utilities.
@@ -61,9 +42,8 @@ public final class Searcher {
      * @return literals
      */
     @Nonnull
-    public static Collection<OWLLiteral> values(
-            @Nonnull Collection<OWLDataPropertyAssertionAxiom> axioms,
-            @Nullable OWLDataPropertyExpression p) {
+    public static Collection<OWLLiteral> values(@Nonnull Collection<OWLDataPropertyAssertionAxiom> axioms,
+        @Nullable OWLDataPropertyExpression p) {
         Set<OWLLiteral> literals = new HashSet<>();
         for (OWLDataPropertyAssertionAxiom ax : axioms) {
             if (p == null || ax.getProperty().equals(p)) {
@@ -83,9 +63,8 @@ public final class Searcher {
      * @return objects
      */
     @Nonnull
-    public static Collection<OWLIndividual> values(
-            @Nonnull Collection<OWLObjectPropertyAssertionAxiom> axioms,
-            @Nullable OWLObjectPropertyExpression p) {
+    public static Collection<OWLIndividual> values(@Nonnull Collection<OWLObjectPropertyAssertionAxiom> axioms,
+        @Nullable OWLObjectPropertyExpression p) {
         Set<OWLIndividual> objects = new HashSet<>();
         for (OWLObjectPropertyAssertionAxiom ax : axioms) {
             if (p == null || ax.getProperty().equals(p)) {
@@ -105,9 +84,8 @@ public final class Searcher {
      * @return literals
      */
     @Nonnull
-    public static Collection<OWLLiteral> negValues(
-            @Nonnull Collection<OWLNegativeDataPropertyAssertionAxiom> axioms,
-            @Nullable OWLDataPropertyExpression p) {
+    public static Collection<OWLLiteral> negValues(@Nonnull Collection<OWLNegativeDataPropertyAssertionAxiom> axioms,
+        @Nullable OWLDataPropertyExpression p) {
         Set<OWLLiteral> literals = new HashSet<>();
         for (OWLNegativeDataPropertyAssertionAxiom ax : axioms) {
             if (p == null || ax.getProperty().equals(p)) {
@@ -127,11 +105,8 @@ public final class Searcher {
      * @return objects
      */
     @Nonnull
-    public static
-            Collection<OWLIndividual>
-            negValues(
-                    @Nonnull Collection<OWLNegativeObjectPropertyAssertionAxiom> axioms,
-                    @Nullable OWLObjectPropertyExpression p) {
+    public static Collection<OWLIndividual> negValues(
+        @Nonnull Collection<OWLNegativeObjectPropertyAssertionAxiom> axioms, @Nullable OWLObjectPropertyExpression p) {
         Set<OWLIndividual> objects = new HashSet<>();
         for (OWLNegativeObjectPropertyAssertionAxiom ax : axioms) {
             if (p == null || ax.getProperty().equals(p)) {
@@ -149,8 +124,7 @@ public final class Searcher {
      * @return classes
      */
     @Nonnull
-    public static Collection<OWLClassExpression> types(
-            @Nonnull Collection<OWLClassAssertionAxiom> axioms) {
+    public static Collection<OWLClassExpression> types(@Nonnull Collection<OWLClassAssertionAxiom> axioms) {
         Set<OWLClassExpression> objects = new HashSet<>();
         for (OWLClassAssertionAxiom ax : axioms) {
             objects.add(ax.getClassExpression());
@@ -166,8 +140,7 @@ public final class Searcher {
      * @return individuals
      */
     @Nonnull
-    public static Collection<OWLIndividual> instances(
-            @Nonnull Collection<OWLClassAssertionAxiom> axioms) {
+    public static Collection<OWLIndividual> instances(@Nonnull Collection<OWLClassAssertionAxiom> axioms) {
         Set<OWLIndividual> objects = new HashSet<>();
         for (OWLClassAssertionAxiom ax : axioms) {
             objects.add(ax.getIndividual());
@@ -186,8 +159,7 @@ public final class Searcher {
      */
     @Nonnull
     public static Collection<OWLObjectPropertyExpression> inverse(
-            @Nonnull Collection<OWLInverseObjectPropertiesAxiom> axioms,
-            @Nonnull OWLObjectPropertyExpression p) {
+        @Nonnull Collection<OWLInverseObjectPropertiesAxiom> axioms, @Nonnull OWLObjectPropertyExpression p) {
         List<OWLObjectPropertyExpression> toReturn = new ArrayList<>();
         for (OWLInverseObjectPropertiesAxiom ax : axioms) {
             if (ax.getFirstProperty().equals(p)) {
@@ -207,8 +179,7 @@ public final class Searcher {
      * @return annotation values
      */
     @Nonnull
-    public static Collection<OWLAnnotationValue> values(
-            @Nonnull Collection<OWLAnnotation> annotations) {
+    public static Collection<OWLAnnotationValue> values(@Nonnull Collection<OWLAnnotation> annotations) {
         return values(annotations, null);
     }
 
@@ -222,9 +193,8 @@ public final class Searcher {
      * @return annotation values
      */
     @Nonnull
-    public static Collection<OWLAnnotationValue> values(
-            @Nonnull Collection<OWLAnnotation> annotations,
-            @Nullable OWLAnnotationProperty p) {
+    public static Collection<OWLAnnotationValue> values(@Nonnull Collection<OWLAnnotation> annotations,
+        @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotationValue> toReturn = new HashSet<>();
         for (OWLAnnotation ax : annotations) {
             if (p == null || ax.getProperty().equals(p)) {
@@ -244,9 +214,48 @@ public final class Searcher {
      * @return annotations
      */
     @Nonnull
-    public static Collection<OWLAnnotation> annotations(
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static Collection<OWLAnnotation> annotations(@Nonnull Collection<? extends OWLAxiom> axioms) {
         return annotations(axioms, null);
+    }
+
+    /**
+     * Retrieve annotations from a collection of annotation assertion axioms.
+     * 
+     * @param axioms
+     *        axioms
+     * @param p
+     *        optional annotation property to filter. Null means all.
+     * @return annotations
+     */
+    @Nonnull
+    public static Collection<OWLAnnotation> annotationObjects(@Nonnull Collection<OWLAnnotationAssertionAxiom> axioms,
+        @Nullable OWLAnnotationProperty p) {
+        Set<OWLAnnotation> toReturn = new HashSet<>();
+        for (OWLAnnotationAssertionAxiom ax : axioms) {
+            assert ax != null;
+            OWLAnnotation c = ax.getAnnotation();
+            if (p == null || c.getProperty().equals(p)) {
+                toReturn.add(c);
+            }
+        }
+        return toReturn;
+    }
+
+    /**
+     * Retrieve the annotation from an annotation assertion axiom.
+     * 
+     * @param axiom
+     *        axiom
+     * @param p
+     *        optional annotation property to filter. Null means all.
+     * @return annotations
+     */
+    public static OWLAnnotation annotationObject(@Nonnull OWLAnnotationAssertionAxiom axiom,
+        @Nullable OWLAnnotationProperty p) {
+        if (p == null || axiom.getProperty().equals(p)) {
+            return axiom.getAnnotation();
+        }
+        return null;
     }
 
     /**
@@ -261,9 +270,8 @@ public final class Searcher {
      * @return annotations
      */
     @Nonnull
-    public static Collection<OWLAnnotation> annotations(
-            @Nonnull Collection<? extends OWLAxiom> axioms,
-            @Nullable OWLAnnotationProperty p) {
+    public static Collection<OWLAnnotation> annotations(@Nonnull Collection<? extends OWLAxiom> axioms,
+        @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
             assert ax != null;
@@ -285,13 +293,10 @@ public final class Searcher {
      * @return annotations
      */
     @Nonnull
-    public static Set<OWLAnnotation> annotations(@Nonnull OWLAxiom axiom,
-            @Nullable OWLAnnotationProperty p) {
+    public static Set<OWLAnnotation> annotations(@Nonnull OWLAxiom axiom, @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotation> set = new HashSet<>();
         if (axiom instanceof OWLAnnotationAssertionAxiom) {
-            if (p == null
-                    || ((OWLAnnotationAssertionAxiom) axiom).getProperty()
-                            .equals(p)) {
+            if (p == null || ((OWLAnnotationAssertionAxiom) axiom).getProperty().equals(p)) {
                 set.add(((OWLAnnotationAssertionAxiom) axiom).getAnnotation());
             }
         }
@@ -317,8 +322,7 @@ public final class Searcher {
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> equivalent(
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> equivalent(@Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) equivalent(axioms, OWLObject.class);
     }
 
@@ -337,9 +341,8 @@ public final class Searcher {
      * @return equivalent entities
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> equivalent(
-            @Nonnull Collection<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+    public static <C extends OWLObject> Collection<C> equivalent(@Nonnull Collection<? extends OWLAxiom> axioms,
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         Set<C> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
             assert ax != null;
@@ -360,8 +363,7 @@ public final class Searcher {
      * @return equivalent entities
      */
     @Nonnull
-    public static <C extends OWLObject> Set<C> equivalent(
-            @Nonnull OWLAxiom axiom) {
+    public static <C extends OWLObject> Set<C> equivalent(@Nonnull OWLAxiom axiom) {
         return axiom.accept(new EquivalentVisitor<C>(true));
     }
 
@@ -379,8 +381,7 @@ public final class Searcher {
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> different(
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> different(@Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) different(axioms, OWLObject.class);
     }
 
@@ -399,9 +400,8 @@ public final class Searcher {
      * @return disjoint entities
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> different(
-            @Nonnull Collection<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+    public static <C extends OWLObject> Collection<C> different(@Nonnull Collection<? extends OWLAxiom> axioms,
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         Set<C> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
             assert ax != null;
@@ -422,8 +422,7 @@ public final class Searcher {
      * @return disjoint entities
      */
     @Nonnull
-    public static <C extends OWLObject> Set<C>
-            different(@Nonnull OWLAxiom axiom) {
+    public static <C extends OWLObject> Set<C> different(@Nonnull OWLAxiom axiom) {
         return axiom.accept(new EquivalentVisitor<C>(false));
     }
 
@@ -440,8 +439,7 @@ public final class Searcher {
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> sub(
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> sub(@Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) sub(axioms, OWLObject.class);
     }
 
@@ -459,9 +457,8 @@ public final class Searcher {
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> sub(
-            @Nonnull Collection<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+    public static <C extends OWLObject> Collection<C> sub(@Nonnull Collection<? extends OWLAxiom> axioms,
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
             assert ax != null;
@@ -501,9 +498,8 @@ public final class Searcher {
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> sup(
-            @Nonnull Collection<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+    public static <C extends OWLObject> Collection<C> sup(@Nonnull Collection<? extends OWLAxiom> axioms,
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
             assert ax != null;
@@ -526,8 +522,7 @@ public final class Searcher {
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> sup(
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> sup(@Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) sup(axioms, OWLObject.class);
     }
 
@@ -559,8 +554,7 @@ public final class Searcher {
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> domain(
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> domain(@Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) domain(axioms, OWLObject.class);
     }
 
@@ -577,9 +571,8 @@ public final class Searcher {
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> domain(
-            @Nonnull Collection<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+    public static <C extends OWLObject> Collection<C> domain(@Nonnull Collection<? extends OWLAxiom> axioms,
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
             assert ax != null;
@@ -616,8 +609,7 @@ public final class Searcher {
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public static <C extends OWLObject> Collection<C> range(
-            @Nonnull Collection<? extends OWLAxiom> axioms) {
+    public static <C extends OWLObject> Collection<C> range(@Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) range(axioms, OWLObject.class);
     }
 
@@ -634,9 +626,8 @@ public final class Searcher {
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends OWLObject> Collection<C> range(
-            @Nonnull Collection<? extends OWLAxiom> axioms,
-            @SuppressWarnings("unused") @Nonnull Class<C> type) {
+    public static <C extends OWLObject> Collection<C> range(@Nonnull Collection<? extends OWLAxiom> axioms,
+        @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
             assert ax != null;
@@ -670,8 +661,7 @@ public final class Searcher {
      * @return collection of IRIs for the ontologies.
      */
     @Nonnull
-    public static Collection<IRI>
-            ontologyIRIs(Iterable<OWLOntology> ontologies) {
+    public static Collection<IRI> ontologyIRIs(Iterable<OWLOntology> ontologies) {
         Collection<OWLOntologyID> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             list.add(o.getOntologyID());
