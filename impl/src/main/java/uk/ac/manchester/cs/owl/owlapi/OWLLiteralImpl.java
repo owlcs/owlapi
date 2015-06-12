@@ -14,14 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.Serializable;
-import java.io.Writer;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
@@ -30,19 +23,7 @@ import java.util.zip.GZIPOutputStream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -56,15 +37,13 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
-        implements OWLLiteral {
+public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
     @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
-            OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
@@ -86,10 +65,8 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
      *        the datatype; if lang is null or the empty string, it can be null
      *        or it MUST be RDFPlainLiteral
      */
-    public OWLLiteralImpl(@Nonnull String literal, @Nullable String lang,
-            @Nullable OWLDatatype datatype) {
-        this.literal = new LiteralWrapper(checkNotNull(literal,
-                "literal cannot be null"));
+    public OWLLiteralImpl(@Nonnull String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
+        this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
         if (lang == null || lang.isEmpty()) {
             language = "";
             if (datatype == null) {
@@ -101,9 +78,8 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal
-                throw new OWLRuntimeException(
-                        "Error: cannot build a literal with type: "
-                                + datatype.getIRI() + " and language: " + lang);
+                throw new OWLRuntimeException("Error: cannot build a literal with type: " + datatype.getIRI()
+                    + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
@@ -126,8 +102,7 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.getIRI()
-                .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -237,9 +212,8 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
             return false;
         }
         OWLLiteral other = (OWLLiteral) obj;
-        return literal.get().equals(other.getLiteral())
-                && datatype.equals(other.getDatatype())
-                && language.equals(other.getLang());
+        return literal.get().equals(other.getLiteral()) && datatype.equals(other.getDatatype()) && language.equals(other
+            .getLang());
     }
 
     @Override
@@ -286,19 +260,16 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral> of(this);
@@ -340,7 +311,6 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
             }
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         static byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -353,7 +323,6 @@ public class OWLLiteralImpl extends OWLObjectImplWithoutEntityAndAnonCaching
             return out.toByteArray();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         static String decompress(byte[] result) throws IOException {
             ByteArrayInputStream in = new ByteArrayInputStream(result);

@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * 
  * @author ignazio
  */
-public abstract class OWLDocumentFormatFactoryImpl implements
-        OWLDocumentFormatFactory {
+public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
     private final List<String> mimeTypes;
@@ -47,15 +46,13 @@ public abstract class OWLDocumentFormatFactoryImpl implements
         this(mimeTypes, true);
     }
 
-    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes,
-            boolean isTextualFormat) {
+    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat) {
         this.mimeTypes = new ArrayList<>(mimeTypes);
         this.isTextualFormat = isTextualFormat;
-        this.key = this.getClass().getName();
+        key = this.getClass().getName();
     }
 
-    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes,
-            boolean isTextualFormat, String key) {
+    protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat, String key) {
         this.mimeTypes = new ArrayList<>(mimeTypes);
         this.isTextualFormat = isTextualFormat;
         this.key = key;
@@ -63,23 +60,22 @@ public abstract class OWLDocumentFormatFactoryImpl implements
 
     @Override
     public String getKey() {
-        return this.key;
+        return key;
     }
 
     @Nullable
     @Override
     public String getDefaultMIMEType() {
-        if (this.mimeTypes.isEmpty()) {
+        if (mimeTypes.isEmpty()) {
             return null;
         } else {
-            return this.mimeTypes.get(0);
+            return mimeTypes.get(0);
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<String> getMIMETypes() {
-        if (this.mimeTypes.isEmpty()) {
+        if (mimeTypes.isEmpty()) {
             return Collections.emptyList();
         } else {
             return Collections.unmodifiableList(mimeTypes);
@@ -108,7 +104,7 @@ public abstract class OWLDocumentFormatFactoryImpl implements
 
     @Override
     public boolean isTextual() {
-        return this.isTextualFormat;
+        return isTextualFormat;
     }
 
     @Override

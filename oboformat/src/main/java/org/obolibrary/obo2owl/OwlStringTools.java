@@ -58,9 +58,8 @@ public class OwlStringTools {
      * @see #translate(String, OWLOntologyManager)
      */
     @Nullable
-    public static String translate(@Nullable Set<OWLAxiom> axioms,
-            @Nonnull OWLOntologyManager translationManager)
-            throws OwlStringException {
+    public static String translate(@Nullable Set<OWLAxiom> axioms, @Nonnull OWLOntologyManager translationManager)
+        throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
         }
@@ -92,19 +91,16 @@ public class OwlStringTools {
      * @see #translate(Set,OWLOntologyManager)
      */
     @Nullable
-    public static Set<OWLAxiom> translate(@Nullable String axioms,
-            @Nonnull OWLOntologyManager translationManager)
-            throws OwlStringException {
+    public static Set<OWLAxiom> translate(@Nullable String axioms, @Nonnull OWLOntologyManager translationManager)
+        throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
         }
         try {
             OWLFunctionalSyntaxOWLParser p = new OWLFunctionalSyntaxOWLParser();
-            OWLOntologyDocumentSource documentSource = new StringDocumentSource(
-                    axioms);
+            OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms);
             OWLOntology ontology = translationManager.createOntology();
-            p.parse(documentSource, ontology,
-                    translationManager.getOntologyLoaderConfiguration());
+            p.parse(documentSource, ontology, translationManager.getOntologyLoaderConfiguration());
             return ontology.getAxioms();
         } catch (UnloadableImportException e) {
             throw new OwlStringException(e);

@@ -13,7 +13,9 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** @author Shahid Manzoor */
+/**
+ * @author Shahid Manzoor
+ */
 public class Obo2OWLConstants {
 
     /** default iri */
@@ -22,28 +24,24 @@ public class Obo2OWLConstants {
     /** OIO vocabulary prefix */
     @Nonnull
     public static final String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
-
     /** IRI for the 'has obsolescence reason' annotation property */
     @Nonnull
-    public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX+"IAO_0000231");
-
+    public static final IRI IRI_IAO_0000231 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000231");
     /** IRI for the 'terms merged' individual */
     @Nonnull
-    public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX+"IAO_0000227");
+    public static final IRI IRI_IAO_0000227 = IRI.create(DEFAULT_IRI_PREFIX + "IAO_0000227");
 
     /**
      * @param d
      *        date to format
      * @return formatted string
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static synchronized String format(@Nonnull Date d) {
         return FORMATTER.format(d);
     }
 
-    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss'Z'");
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     /** obo to owl vocabulary */
     public enum Obo2OWLVocabulary implements HasIRI {
@@ -89,8 +87,8 @@ public class Obo2OWLConstants {
         @Nonnull
         final String mappedTag;
 
-        Obo2OWLVocabulary(@Nonnull String namespce, @Nonnull String shortName,
-                @Nonnull String label, @Nonnull String mappedTag) {
+        Obo2OWLVocabulary(@Nonnull String namespce, @Nonnull String shortName, @Nonnull String label,
+            @Nonnull String mappedTag) {
             iri = IRI.create(namespce + shortName);
             this.shortName = shortName;
             namespace = namespce;
@@ -98,13 +96,17 @@ public class Obo2OWLConstants {
             this.mappedTag = mappedTag;
         }
 
-        /** @return short name */
+        /**
+         * @return short name
+         */
         @Nonnull
         public String getShortName() {
             return shortName;
         }
 
-        /** @return namespace */
+        /**
+         * @return namespace
+         */
         @Nonnull
         public String getNamespace() {
             return namespace;
@@ -115,13 +117,17 @@ public class Obo2OWLConstants {
             return iri;
         }
 
-        /** @return label */
+        /**
+         * @return label
+         */
         @Nonnull
         public String getLabel() {
             return label;
         }
 
-        /** @return mapped tag */
+        /**
+         * @return mapped tag
+         */
         @Nonnull
         public String getMappedTag() {
             return mappedTag;

@@ -36,7 +36,6 @@ public class StringDocumentTarget implements OWLOntologyDocumentTarget {
         writer = new StringWriter();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {
@@ -61,7 +60,7 @@ public class StringDocumentTarget implements OWLOntologyDocumentTarget {
     @Override
     public OutputStream getOutputStream() {
         throw new OWLRuntimeException(
-                "OutputStream not available.  getOutputStream() should not be called if isOutputStreamAvailable() returns false.");
+            "OutputStream not available.  getOutputStream() should not be called if isOutputStreamAvailable() returns false.");
     }
 
     @Override
@@ -72,6 +71,6 @@ public class StringDocumentTarget implements OWLOntologyDocumentTarget {
     @Override
     public IRI getDocumentIRI() {
         throw new OWLRuntimeException(
-                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
+            "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

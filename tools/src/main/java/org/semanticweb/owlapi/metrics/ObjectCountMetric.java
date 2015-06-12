@@ -64,7 +64,6 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
     @Nonnull
     protected abstract Set<? extends E> getObjects(@Nonnull OWLOntology ont);
 
-    @SuppressWarnings("null")
     @Override
     public Integer recomputeMetric() {
         return getObjects().size();
@@ -86,8 +85,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return true;
     }
 

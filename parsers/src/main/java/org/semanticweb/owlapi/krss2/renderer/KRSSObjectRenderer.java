@@ -29,43 +29,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
@@ -212,7 +176,8 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * <tr>
  * <td>OWLDifferentIndividualsAxiom</td>
  * <td>(distinct i1 i2)</td>
- * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be splitted into:<br>
+ * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be splitted into:
+ * <br>
  * { (distinct i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k}</td>
  * </tr>
  * <tr>
@@ -231,7 +196,6 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-@SuppressWarnings("null")
 public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Nonnull
@@ -253,21 +217,18 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
      * @param writer
      *        writer
      */
-    public KRSSObjectRenderer(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer) {
+    public KRSSObjectRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer writer) {
         ont = checkNotNull(ontology);
         this.writer = new PrintWriter(writer);
     }
 
     @Nonnull
-    protected static <T extends OWLObject> List<T> sort(
-            @Nonnull Collection<T> objects) {
+    protected static <T extends OWLObject> List<T> sort(@Nonnull Collection<T> objects) {
         return CollectionFactory.sortOptionally(objects);
     }
 
     @Nonnull
-    protected static <T extends OWLObject> List<T> sort(
-            @Nonnull Iterable<T> objects) {
+    protected static <T extends OWLObject> List<T> sort(@Nonnull Iterable<T> objects) {
         Collection<T> sortedDescriptions = new ArrayList<>();
         for (T t : objects) {
             sortedDescriptions.add(t);
@@ -346,9 +307,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         obj.accept(this);
     }
 
-    protected void flattenProperties(
-            @Nonnull Iterable<OWLObjectPropertyExpression> properties,
-            @Nullable KRSSVocabulary junctor) {
+    protected void flattenProperties(@Nonnull Iterable<OWLObjectPropertyExpression> properties,
+        @Nullable KRSSVocabulary junctor) {
         List<OWLObjectPropertyExpression> props = sort(properties);
         int size = props.size();
         if (size == 0) {
@@ -374,8 +334,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    protected void flatten(@Nonnull Iterable<OWLClassExpression> description,
-            @Nonnull KRSSVocabulary junctor) {
+    protected void flatten(@Nonnull Iterable<OWLClassExpression> description, @Nonnull KRSSVocabulary junctor) {
         List<OWLClassExpression> descs = sort(description);
         int size = descs.size();
         if (size == 0) {
@@ -399,10 +358,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     @Override
     public void visit(@Nonnull OWLOntology ontology) {
         Set<OWLClass> classes = ontology.getClassesInSignature();
-        classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
-                .getOWLThing());
-        classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
-                .getOWLNothing());
+        classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
+        classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
         for (OWLClass eachClass : sort(classes)) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
@@ -410,9 +367,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Iterable<OWLClassExpression> supclasses = sup(
-                        ontology.getSubClassAxiomsForSubClass(eachClass),
-                        OWLClassExpression.class);
+                Iterable<OWLClassExpression> supclasses = sup(ontology.getSubClassAxiomsForSubClass(eachClass),
+                    OWLClassExpression.class);
                 flatten(supclasses, AND);
                 writeCloseBracket();
                 writeln();
@@ -420,18 +376,17 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Iterable<OWLClassExpression> equivalentClasses = equivalent(ontology
-                        .getEquivalentClassesAxioms(eachClass));
+                Iterable<OWLClassExpression> equivalentClasses = equivalent(ontology.getEquivalentClassesAxioms(
+                    eachClass));
                 flatten(equivalentClasses, AND);
                 writeCloseBracket();
                 writeln();
             }
         }
-        for (OWLObjectProperty property : sort(ontology
-                .getObjectPropertiesInSignature())) {
+        for (OWLObjectProperty property : sort(ontology.getObjectPropertiesInSignature())) {
             writeOpenBracket();
             Collection<OWLObjectPropertyExpression> properties = equivalent(ontology
-                    .getEquivalentObjectPropertiesAxioms(property));
+                .getEquivalentObjectPropertiesAxioms(property));
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
                 write(DEFINE_ROLE);
@@ -445,8 +400,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 writeSpace();
-                Collection<OWLAxiom> axioms = ontology.filterAxioms(
-                        Filters.subObjectPropertyWithSub, property, INCLUDED);
+                Collection<OWLAxiom> axioms = ontology.filterAxioms(Filters.subObjectPropertyWithSub, property,
+                    INCLUDED);
                 properties = sup(axioms, OWLObjectPropertyExpression.class);
                 if (!properties.isEmpty()) {
                     write(properties.iterator().next());

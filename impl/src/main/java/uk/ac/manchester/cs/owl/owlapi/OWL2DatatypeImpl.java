@@ -20,29 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
-import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
@@ -69,8 +47,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *         if {@code owl2Datatype} is {@code null}.
      */
     public OWL2DatatypeImpl(@Nonnull OWL2Datatype owl2Datatype) {
-        this.owl2Datatype = checkNotNull(owl2Datatype,
-                "owl2Datatype must not be null");
+        this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
     }
 
     @Nonnull
@@ -281,9 +258,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLEntity> singleton(this));
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections.<OWLEntity> singleton(this));
     }
 
     @Override
@@ -293,58 +268,48 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLAnonymousIndividual> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(CollectionFactory
+            .<OWLAnonymousIndividual> emptySet());
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLClass> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(CollectionFactory.<OWLClass> emptySet());
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLDataProperty> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(CollectionFactory
+            .<OWLDataProperty> emptySet());
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLObjectProperty> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(CollectionFactory
+            .<OWLObjectProperty> emptySet());
     }
 
     @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLAnnotationProperty> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(CollectionFactory
+            .<OWLAnnotationProperty> emptySet());
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLNamedIndividual> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(CollectionFactory
+            .<OWLNamedIndividual> emptySet());
     }
 
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .singleton((OWLDatatype) this));
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections.singleton((OWLDatatype) this));
     }
 
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLClassExpression> emptySet());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(CollectionFactory
+            .<OWLClassExpression> emptySet());
     }
 
     @Override
@@ -357,7 +322,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return false;
     }
 
-    @SuppressWarnings("null")
     @Override
     public int compareTo(OWLObject o) {
         if (!(o instanceof OWLDatatype)) {

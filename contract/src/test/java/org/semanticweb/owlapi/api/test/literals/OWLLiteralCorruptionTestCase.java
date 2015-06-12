@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc", })
 public class OWLLiteralCorruptionTestCase extends TestBase {
 
     @Test

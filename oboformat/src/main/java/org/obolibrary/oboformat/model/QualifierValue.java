@@ -21,7 +21,9 @@ public class QualifierValue implements Comparable<QualifierValue> {
         value = v;
     }
 
-    /** @return qualifier */
+    /**
+     * @return qualifier
+     */
     @Nonnull
     public String getQualifier() {
         return qualifier;
@@ -35,7 +37,9 @@ public class QualifierValue implements Comparable<QualifierValue> {
         this.qualifier = qualifier;
     }
 
-    /** @return value */
+    /**
+     * @return value
+     */
     @Nonnull
     public String getValue() {
         return value;

@@ -18,18 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.google.common.base.Optional;
@@ -39,8 +28,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplFloat extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplFloat extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final float literal;
@@ -86,7 +74,6 @@ public class OWLLiteralImplFloat extends
         return code;
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getLiteral() {
         return Float.toString(literal);
@@ -109,8 +96,7 @@ public class OWLLiteralImplFloat extends
 
     @Override
     public int parseInteger() {
-        throw new NumberFormatException(
-                "this literal is not an integer but a float");
+        throw new NumberFormatException("this literal is not an integer but a float");
     }
 
     @Override
@@ -120,8 +106,7 @@ public class OWLLiteralImplFloat extends
 
     @Override
     public boolean parseBoolean() {
-        throw new NumberFormatException(
-                "this literal is not a boolean but a float");
+        throw new NumberFormatException("this literal is not a boolean but a float");
     }
 
     @Override
@@ -131,8 +116,7 @@ public class OWLLiteralImplFloat extends
 
     @Override
     public double parseDouble() {
-        throw new NumberFormatException(
-                "this literal is not a double but a float");
+        throw new NumberFormatException("this literal is not a double but a float");
     }
 
     @Override
@@ -171,12 +155,10 @@ public class OWLLiteralImplFloat extends
         }
         if (obj instanceof OWLLiteralImplFloat) {
             OWLLiteralImplFloat other = (OWLLiteralImplFloat) obj;
-            return literal == other.literal
-                    && datatype.equals(other.getDatatype());
+            return literal == other.literal && datatype.equals(other.getDatatype());
         }
         if (obj instanceof OWLLiteral) {
-            return ((OWLLiteral) obj).isFloat()
-                    && Float.compare(literal, ((OWLLiteral) obj).parseFloat()) == 0;
+            return ((OWLLiteral) obj).isFloat() && Float.compare(literal, ((OWLLiteral) obj).parseFloat()) == 0;
         }
         return false;
     }
@@ -225,19 +207,16 @@ public class OWLLiteralImplFloat extends
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral> of(this);

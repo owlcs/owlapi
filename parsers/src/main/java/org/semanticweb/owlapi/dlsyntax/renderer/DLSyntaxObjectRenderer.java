@@ -24,94 +24,7 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLDataComplementOf;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataUnionOf;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasValueRestriction;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
-import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
-import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
-import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -125,8 +38,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  *         Informatics Group
  * @since 2.2.0
  */
-public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
-        OWLObjectRenderer, OWLObjectVisitor {
+public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements OWLObjectRenderer, OWLObjectVisitor {
 
     private ShortFormProvider shortFormProvider;
     private final IRIShortFormProvider iriShortFormProvider;
@@ -145,8 +57,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
      *        focusedObject
      */
     public void setFocusedObject(@Nonnull OWLObject focusedObject) {
-        this.focusedObject = checkNotNull(focusedObject,
-                "focusedObject cannot be null");
+        this.focusedObject = checkNotNull(focusedObject, "focusedObject cannot be null");
     }
 
     /**
@@ -163,11 +74,9 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider,
-                "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String render(OWLObject object) {
@@ -178,8 +87,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLAxiom ax : new TreeSet<>(checkNotNull(ontology,
-                "ontology cannot be null").getLogicalAxioms())) {
+        for (OWLAxiom ax : new TreeSet<>(checkNotNull(ontology, "ontology cannot be null").getLogicalAxioms())) {
             ax.accept(this);
             write("\n");
         }
@@ -191,8 +99,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Nonnull
     protected String renderEntity(@Nonnull OWLEntity entity) {
-        return shortFormProvider.getShortForm(checkNotNull(entity,
-                "entity cannot be null"));
+        return shortFormProvider.getShortForm(checkNotNull(entity, "entity cannot be null"));
     }
 
     protected void writeEntity(@Nonnull OWLEntity entity) {
@@ -203,7 +110,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(checkNotNull(keyword, "keyword cannot be null").toString());
     }
 
-    @SuppressWarnings("null")
     protected void write(int i) {
         write(Integer.toString(i));
     }
@@ -233,8 +139,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         }
     }
 
-    protected void write(@Nonnull Collection<? extends OWLObject> objects,
-            @Nonnull DLSyntax delim, boolean nest) {
+    protected void write(@Nonnull Collection<? extends OWLObject> objects, @Nonnull DLSyntax delim, boolean nest) {
         checkNotNull(objects, "objects cannot be null");
         checkNotNull(delim, "delim cannot be null");
         if (objects.size() == 2) {
@@ -257,8 +162,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
                 writeObject(o1, nest);
             }
         } else {
-            for (Iterator<? extends OWLObject> it = objects.iterator(); it
-                    .hasNext();) {
+            for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
                 OWLObject o = it.next();
                 assert o != null;
                 writeObject(o, nest);
@@ -280,11 +184,10 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         axiom.getSuperClass().accept(this);
     }
 
-    private void writePropertyAssertion(
-            @Nonnull OWLPropertyAssertionAxiom<?, ?> ax) {
+    private void writePropertyAssertion(@Nonnull OWLPropertyAssertionAxiom<?, ?> ax) {
         checkNotNull(ax, "ax cannot be null");
         if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom
-                || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
+            || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
             write(NOT);
         }
         ax.getProperty().accept(this);
@@ -316,8 +219,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> descs = new ArrayList<>(
-                axiom.getClassExpressions());
+        List<OWLClassExpression> descs = new ArrayList<>(axiom.getClassExpressions());
         for (int i = 0; i < descs.size() - 1; i++) {
             for (int j = i + 1; j < descs.size(); j++) {
                 descs.get(i).accept(this);
@@ -410,8 +312,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writePropertyAssertion(axiom);
     }
 
-    private void
-            writeFunctionalProperty(@Nonnull OWLPropertyExpression property) {
+    private void writeFunctionalProperty(@Nonnull OWLPropertyExpression property) {
         checkNotNull(property, "property cannot be null");
         write(TOP);
         writeSpace();
@@ -624,10 +525,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writeNested(ce.getOperand());
     }
 
-    private void
-            writeCardinalityRestriction(
-                    OWLDataCardinalityRestriction restriction,
-                    @Nonnull DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLDataCardinalityRestriction restriction, @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -637,9 +535,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writeNested(restriction.getFiller());
     }
 
-    private void writeCardinalityRestriction(
-            OWLObjectCardinalityRestriction restriction,
-            @Nonnull DLSyntax keyword) {
+    private void writeCardinalityRestriction(OWLObjectCardinalityRestriction restriction, @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -649,10 +545,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writeNested(restriction.getFiller());
     }
 
-    private void
-            writeQuantifiedRestriction(
-                    OWLQuantifiedDataRestriction restriction,
-                    @Nonnull DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedDataRestriction restriction, @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -660,9 +553,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writeNested(restriction.getFiller());
     }
 
-    private void writeQuantifiedRestriction(
-            OWLQuantifiedObjectRestriction restriction,
-            @Nonnull DLSyntax keyword) {
+    private void writeQuantifiedRestriction(OWLQuantifiedObjectRestriction restriction, @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -680,8 +571,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writeQuantifiedRestriction(ce, FORALL);
     }
 
-    private <V extends OWLObject> void writeValueRestriction(
-            OWLHasValueRestriction<V> restriction, OWLPropertyExpression p) {
+    private <V extends OWLObject> void writeValueRestriction(OWLHasValueRestriction<V> restriction,
+        OWLPropertyExpression p) {
         write(EXISTS);
         writeSpace();
         p.accept(this);
@@ -722,8 +613,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        for (Iterator<OWLIndividual> it = ce.getIndividuals().iterator(); it
-                .hasNext();) {
+        for (Iterator<OWLIndividual> it = ce.getIndividuals().iterator(); it.hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");
@@ -778,8 +668,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (Iterator<OWLLiteral> it = node.getValues().iterator(); it
-                .hasNext();) {
+        for (Iterator<OWLLiteral> it = node.getValues().iterator(); it.hasNext();) {
             write("{");
             it.next().accept(this);
             write("}");

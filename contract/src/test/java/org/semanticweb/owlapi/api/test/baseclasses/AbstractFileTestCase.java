@@ -27,15 +27,13 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  *         Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("null")
 public abstract class AbstractFileTestCase extends TestBase {
 
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         String fileName = getFileName();
         URL uri = getClass().getResource('/' + fileName);
-        return m.loadOntologyFromOntologyDocument(
-                new IRIDocumentSource(IRI.create(uri), null, null),
-                getConfiguration());
+        return m.loadOntologyFromOntologyDocument(new IRIDocumentSource(IRI.create(uri), null, null),
+            getConfiguration());
     }
 
     @Nonnull

@@ -334,7 +334,6 @@ public class XMLWriterImpl implements XMLWriter {
                     writer.write(name);
                     writeAttributes();
                     if (textContent != null) {
-                        @SuppressWarnings("null")
                         boolean wrap = textContent.length() > TEXT_CONTENT_WRAP_LIMIT;
                         if (wrap) {
                             writeNewLine();

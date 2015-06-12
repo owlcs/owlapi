@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class RemoveOntologyAnnotationDataTestCase {
 
     @Nonnull
@@ -65,8 +65,7 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Test
     public void testCreateOntologyChange() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = data
-                .createOntologyChange(mockOntology);
+        RemoveOntologyAnnotation change = data.createOntologyChange(mockOntology);
         assertEquals(mockOntology, change.getOntology());
         assertEquals(mockAnnotation, change.getAnnotation());
     }
@@ -74,8 +73,7 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Test
     public void testGetChangeData() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(
-                mockOntology, mockAnnotation);
+        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(mockOntology, mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
 }

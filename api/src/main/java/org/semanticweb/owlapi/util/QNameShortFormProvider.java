@@ -48,9 +48,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
      *        The map which contains a prefix to namespace mapping. The prefix
      *        must not have a trailing ":"; if one is there, it will be removed
      */
-    @SuppressWarnings("null")
-    public QNameShortFormProvider(
-            @Nonnull Map<String, String> prefix2NamespaceMap) {
+    public QNameShortFormProvider(@Nonnull Map<String, String> prefix2NamespaceMap) {
         checkNotNull(prefix2NamespaceMap, "prefix2NamespaceMap cannot be null");
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
             String key = e.getKey();

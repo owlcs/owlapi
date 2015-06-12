@@ -17,14 +17,10 @@ public class Frame {
     /** The Enum FrameType. */
     public enum FrameType {
         /** HEADER. */
-        HEADER,
-        /** TERM. */
-        TERM,
-        /** TYPEDEF. */
-        TYPEDEF,
-        /** INSTANCE. */
-        INSTANCE,
-        /** ANNOTATION. */
+        HEADER, /** TERM. */
+        TERM, /** TYPEDEF. */
+        TYPEDEF, /** INSTANCE. */
+        INSTANCE, /** ANNOTATION. */
         ANNOTATION
     }
 
@@ -56,7 +52,9 @@ public class Frame {
         clauses = new ArrayList<>();
     }
 
-    /** @return the type */
+    /**
+     * @return the type
+     */
     public FrameType getType() {
         return type;
     }
@@ -69,7 +67,9 @@ public class Frame {
         this.type = type;
     }
 
-    /** @return the id */
+    /**
+     * @return the id
+     */
     public String getId() {
         return id;
     }
@@ -82,7 +82,9 @@ public class Frame {
         this.id = id;
     }
 
-    /** @return the clauses */
+    /**
+     * @return the clauses
+     */
     public Collection<Clause> getClauses() {
         return clauses;
     }
@@ -264,8 +266,7 @@ public class Frame {
      * @return the tag values for tag and class
      */
     @Nonnull
-    public <T> Collection<T> getTagValues(@Nonnull OboFormatTag tag,
-            @Nonnull Class<T> cls) {
+    public <T> Collection<T> getTagValues(@Nonnull OboFormatTag tag, @Nonnull Class<T> cls) {
         return getTagValues(tag.getTag(), cls);
     }
 
@@ -304,7 +305,9 @@ public class Frame {
         return xrefs;
     }
 
-    /** @return the tags */
+    /**
+     * @return the tags
+     */
     @Nonnull
     public Set<String> getTags() {
         Set<String> tags = new HashSet<>();
@@ -346,25 +349,19 @@ public class Frame {
     @SuppressWarnings("null")
     public void check() throws FrameStructureException {
         if (FrameType.HEADER.equals(type)) {
-            checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY,
-                    OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
-                    OboFormatTag.TAG_DEFAULT_NAMESPACE,
-                    OboFormatTag.TAG_SAVED_BY,
-                    OboFormatTag.TAG_AUTO_GENERATED_BY);
+            checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
+                OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
-            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN,
-                    OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
-                    OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
+                OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
             if (getClauses(OboFormatTag.TAG_ID).size() != 1) {
-                throw new FrameStructureException(this,
-                        "cardinality of id field must be 1");
+                throw new FrameStructureException(this, "cardinality of id field must be 1");
             }
             if (getClause(OboFormatTag.TAG_ID).getValue() == null) {
-                throw new FrameStructureException(this,
-                        "id field must not be null");
+                throw new FrameStructureException(this, "id field must not be null");
             }
             if (getId() == null) {
                 throw new FrameStructureException(this, "id field must be set");
@@ -372,20 +369,14 @@ public class Frame {
         }
         Collection<Clause> iClauses = getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         if (iClauses.size() == 1) {
-            throw new FrameStructureException(this,
-                    "single intersection_of tags are not allowed");
+            throw new FrameStructureException(this, "single intersection_of tags are not allowed");
         }
-        checkMaxOneCardinality(
-                OboFormatTag.TAG_IS_ANONYMOUS,
-                OboFormatTag.TAG_NAME,
-                // OboFormatTag.TAG_NAMESPACE,
-                OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT,
-                OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
-                OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
-                OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
-                OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
-                OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
-                OboFormatTag.TAG_CREATION_DATE);
+        checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS, OboFormatTag.TAG_NAME,
+            // OboFormatTag.TAG_NAMESPACE,
+            OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
+            OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
+            OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+            OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
     }
 
     /**
@@ -396,13 +387,10 @@ public class Frame {
      * @throws FrameStructureException
      *         frame structure exception
      */
-    @SuppressWarnings("null")
-    private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags)
-            throws FrameStructureException {
+    private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags) throws FrameStructureException {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
-                throw new FrameStructureException(this, "multiple "
-                        + tag.getTag() + " tags not allowed.");
+                throw new FrameStructureException(this, "multiple " + tag.getTag() + " tags not allowed.");
             }
         }
     }

@@ -16,31 +16,24 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 
 /**
- * Matthew Horridge
- * Stanford Center for Biomedical Informatics Research
- * 10/04/15
+ * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
+@SuppressWarnings("javadoc")
 @RunWith(MockitoJUnitRunner.class)
 public class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
 
     private ConcurrentPriorityCollection<T> collection;
-
     @Mock
     private ReadWriteLock readWriteLock;
-
     @Mock
     private Lock readLock, writeLock;
-
     @Mock
     private T element;
-
     private PriorityCollectionSorting hasOntologyLoaderConfiguration = PriorityCollectionSorting.NEVER;
-
     private Iterable<T> iterable;
 
-
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         iterable = Arrays.asList(element);

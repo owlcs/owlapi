@@ -13,17 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -45,8 +35,7 @@ import com.google.common.collect.Sets;
  */
 public class CollectionFactory {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(CollectionFactory.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CollectionFactory.class.getName());
     private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(8);
 
     /**
@@ -60,20 +49,16 @@ public class CollectionFactory {
      * @param toReturn
      *        list to sort
      */
-    public static <T extends Comparable<T>> void sortOptionallyComparables(
-            @Nonnull List<T> toReturn) {
+    public static <T extends Comparable<T>> void sortOptionallyComparables(@Nonnull List<T> toReturn) {
         try {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted",
-                    e);
+            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
         }
     }
 
@@ -86,20 +71,16 @@ public class CollectionFactory {
      * @param toReturn
      *        list to sort
      */
-    public static void sortOptionally(
-            @Nonnull List<? extends OWLObject> toReturn) {
+    public static void sortOptionally(@Nonnull List<? extends OWLObject> toReturn) {
         try {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted",
-                    e);
+            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
         }
     }
 
@@ -117,21 +98,17 @@ public class CollectionFactory {
      *         original otherwise.
      */
     @Nonnull
-    public static <T extends Comparable<T>> List<T> sortOptionallyComparables(
-            @Nonnull Collection<T> toReturn) {
+    public static <T extends Comparable<T>> List<T> sortOptionallyComparables(@Nonnull Collection<T> toReturn) {
         List<T> list = new ArrayList<>(toReturn);
         try {
             Collections.sort(list);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted",
-                    e);
+            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
         }
         return list;
     }
@@ -150,21 +127,17 @@ public class CollectionFactory {
      *         original otherwise.
      */
     @Nonnull
-    public static <T extends OWLObject> List<T> sortOptionally(
-            @Nonnull Collection<T> toReturn) {
+    public static <T extends OWLObject> List<T> sortOptionally(@Nonnull Collection<T> toReturn) {
         List<T> list = new ArrayList<>(toReturn);
         try {
             Collections.sort(list);
         } catch (IllegalArgumentException e) {
             // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
+            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            LOGGER.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted",
-                    e);
+            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
         }
         return list;
     }
@@ -176,7 +149,6 @@ public class CollectionFactory {
      *        set type
      * @return empty set
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Set<T> emptySet() {
         return Collections.emptySet();
@@ -192,7 +164,9 @@ public class CollectionFactory {
         EXPECTEDTHREADS.set(value);
     }
 
-    /** @return The current number of expected threads. */
+    /**
+     * @return The current number of expected threads.
+     */
     public static int getExpectedThreads() {
         return EXPECTEDTHREADS.get();
     }
@@ -235,7 +209,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> List<T> list(Iterable<T> i) {
         return Lists.newArrayList(i);
@@ -248,7 +221,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @SuppressWarnings("null")
     @Nonnull
     @SafeVarargs
     public static <T> List<T> list(T... i) {
@@ -262,7 +234,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> List<T> list(T i) {
         return Collections.singletonList(i);
@@ -273,7 +244,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> List<T> emptyList() {
         return Collections.emptyList();
@@ -323,8 +293,7 @@ public class CollectionFactory {
      *        value type
      */
     public static <K, V> Map<K, WeakReference<V>> createSyncWeakMap() {
-        return Collections
-                .synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
+        return Collections.synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
     }
 
     /**
@@ -334,7 +303,6 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @SuppressWarnings("null")
     @Nonnull
     @SafeVarargs
     public static <T> Set<T> createSet(@Nonnull T... elements) {
@@ -360,7 +328,6 @@ public class CollectionFactory {
      * @param <T>
      *        set type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Set<T> createSyncSet() {
         ConcurrentHashMap<T, Boolean> internalMap = createSyncMap();
@@ -401,8 +368,7 @@ public class CollectionFactory {
      *        axiom type
      */
     @Nonnull
-    public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
-            @Nullable Collection<T> source) {
+    public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(@Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return emptySet();
         }
@@ -417,8 +383,7 @@ public class CollectionFactory {
      *        axiom type
      */
     @Nonnull
-    public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
-            @Nullable Collection<T> source) {
+    public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(@Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return emptySet();
         }
@@ -461,8 +426,7 @@ public class CollectionFactory {
          * @param listCopy
          *        true if a copy must be made
          */
-        public ConditionalCopySet(@Nonnull Collection<T> source,
-                boolean listCopy) {
+        public ConditionalCopySet(@Nonnull Collection<T> source, boolean listCopy) {
             if (listCopy) {
                 delegate = new ArrayList<>(source);
             } else {
@@ -479,14 +443,11 @@ public class CollectionFactory {
                 return true;
             }
             if (obj instanceof ConditionalCopySet) {
-                return delegate
-                        .containsAll(((ConditionalCopySet<?>) obj).delegate)
-                        && ((ConditionalCopySet<?>) obj).delegate
-                                .containsAll(delegate);
+                return delegate.containsAll(((ConditionalCopySet<?>) obj).delegate)
+                    && ((ConditionalCopySet<?>) obj).delegate.containsAll(delegate);
             }
             if (obj instanceof Collection) {
-                return delegate.containsAll((Collection<?>) obj)
-                        && ((Collection<?>) obj).containsAll(delegate);
+                return delegate.containsAll((Collection<?>) obj) && ((Collection<?>) obj).containsAll(delegate);
             }
             return false;
         }
@@ -560,7 +521,6 @@ public class CollectionFactory {
             return delegate.isEmpty();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Iterator<T> iterator() {
@@ -599,14 +559,12 @@ public class CollectionFactory {
             return delegate.size();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Object[] toArray() {
             return delegate.toArray();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public <Type> Type[] toArray(Type[] a) {

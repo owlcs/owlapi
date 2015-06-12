@@ -7,16 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,38 +26,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedObject;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLProperty;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -81,11 +41,10 @@ import com.google.common.collect.Sets;
 public class OWLAPIObo2Owl {
 
     /** The log. */
-    private static final Logger LOG = LoggerFactory
-            .getLogger(OWLAPIObo2Owl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
     /** The Constant IRI_PROP_isReversiblePropertyChain. */
     public static final String IRI_PROP_ISREVERSIBLEPROPERTYCHAIN = DEFAULT_IRI_PREFIX
-            + "IAO_isReversiblePropertyChain";
+        + "IAO_isReversiblePropertyChain";
     /** The default id space. */
     @Nonnull
     protected String defaultIDSpace = "";
@@ -112,9 +71,8 @@ public class OWLAPIObo2Owl {
     /** The typedef to annotation property. */
     @Nonnull
     protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
-    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet(
-            "gci_relation", "gci_filler", "cardinality", "minCardinality",
-            "maxCardinality", "all_some", "all_only");
+    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation", "gci_filler", "cardinality",
+        "minCardinality", "maxCardinality", "all_some", "all_only");
 
     /**
      * Instantiates a new oWLAPI obo2 owl.
@@ -167,9 +125,8 @@ public class OWLAPIObo2Owl {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public static void convertURL(@Nonnull String iri, @Nonnull String outFile,
-            @Nonnull OWLOntologyManager manager) throws IOException,
-            OWLOntologyCreationException, OWLOntologyStorageException {
+    public static void convertURL(@Nonnull String iri, @Nonnull String outFile, @Nonnull OWLOntologyManager manager)
+        throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new URL(iri));
@@ -202,9 +159,8 @@ public class OWLAPIObo2Owl {
      *         the oBO format parser exception
      *         {@link #convertURL(String iri, String outFile, OWLOntologyManager manager)}
      */
-    public static void convertURL(String iri, @Nonnull String outFile,
-            String defaultOnt, @Nonnull OWLOntologyManager manager)
-            throws IOException, OWLOntologyCreationException,
+    public static void convertURL(String iri, @Nonnull String outFile, String defaultOnt,
+        @Nonnull OWLOntologyManager manager) throws IOException, OWLOntologyCreationException,
             OWLOntologyStorageException {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
         OBOFormatParser p = new OBOFormatParser();
@@ -225,12 +181,9 @@ public class OWLAPIObo2Owl {
     @Nonnull
     protected static Map<String, IRI> initAnnotationPropertyMap() {
         Map<String, IRI> map = new HashMap<>();
-        map.put(OboFormatTag.TAG_IS_OBSELETE.getTag(),
-                OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
-        map.put(OboFormatTag.TAG_NAME.getTag(),
-                OWLRDFVocabulary.RDFS_LABEL.getIRI());
-        map.put(OboFormatTag.TAG_COMMENT.getTag(),
-                OWLRDFVocabulary.RDFS_COMMENT.getIRI());
+        map.put(OboFormatTag.TAG_IS_OBSELETE.getTag(), OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
+        map.put(OboFormatTag.TAG_NAME.getTag(), OWLRDFVocabulary.RDFS_LABEL.getIRI());
+        map.put(OboFormatTag.TAG_COMMENT.getTag(), OWLRDFVocabulary.RDFS_COMMENT.getIRI());
         for (Obo2OWLVocabulary vac : Obo2OWLVocabulary.values()) {
             map.put(vac.getMappedTag(), vac.getIRI());
         }
@@ -305,18 +258,14 @@ public class OWLAPIObo2Owl {
      * @throws OWLOntologyCreationException
      *         the oWL ontology creation exception
      */
-    public OWLOntology convert(@Nonnull String oboFile)
-            throws OWLOntologyCreationException {
+    public OWLOntology convert(@Nonnull String oboFile) throws OWLOntologyCreationException {
         try {
             OBOFormatParser p = new OBOFormatParser();
             return convert(p.parse(oboFile));
         } catch (IOException ex) {
-            throw new OWLOntologyCreationException(
-                    "Error Occured while parsing OBO '" + oboFile + '\'', ex);
+            throw new OWLOntologyCreationException("Error Occured while parsing OBO '" + oboFile + '\'', ex);
         } catch (OBOFormatParserException ex) {
-            throw new OWLOntologyCreationException(
-                    "Syntax error occured while parsing OBO '" + oboFile + '\'',
-                    ex);
+            throw new OWLOntologyCreationException("Syntax error occured while parsing OBO '" + oboFile + '\'', ex);
         }
     }
 
@@ -376,10 +325,8 @@ public class OWLAPIObo2Owl {
             Clause dvclause = hf.getClause(OboFormatTag.TAG_DATA_VERSION);
             if (dvclause != null) {
                 String dv = dvclause.getValue().toString();
-                IRI vIRI = IRI.create(DEFAULT_IRI_PREFIX + ontOboId + '/' + dv
-                        + '/' + ontOboId + ".owl");
-                OWLOntologyID oid = new OWLOntologyID(Optional.of(ontIRI),
-                        Optional.of(vIRI));
+                IRI vIRI = IRI.create(DEFAULT_IRI_PREFIX + ontOboId + '/' + dv + '/' + ontOboId + ".owl");
+                OWLOntologyID oid = new OWLOntologyID(Optional.of(ontIRI), Optional.of(vIRI));
                 // if the ontology being read has a differet id from the one
                 // that was passed in, update it
                 // when parsing, the original ontology is likely an anonymous,
@@ -392,18 +339,15 @@ public class OWLAPIObo2Owl {
                 // that was passed in, update it
                 // when parsing, the original ontology is likely an anonymous,
                 // empty one
-                if (!ontIRI
-                        .equals(in.getOntologyID().getOntologyIRI().orNull())) {
-                    manager.applyChange(new SetOntologyID(in,
-                            new OWLOntologyID(Optional.of(ontIRI), Optional
-                                    .<IRI> absent())));
+                if (!ontIRI.equals(in.getOntologyID().getOntologyIRI().orNull())) {
+                    manager.applyChange(new SetOntologyID(in, new OWLOntologyID(Optional.of(ontIRI), Optional
+                        .<IRI> absent())));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
-            manager.applyChange(new SetOntologyID(in,
-                    new OWLOntologyID(Optional.of(IRI.create(DEFAULT_IRI_PREFIX
-                            + defaultIDSpace)), Optional.<IRI> absent())));
+            manager.applyChange(new SetOntologyID(in, new OWLOntologyID(Optional.of(IRI.create(DEFAULT_IRI_PREFIX
+                + defaultIDSpace)), Optional.<IRI> absent())));
             // TODO - warn
         }
         trHeaderFrame(hf);
@@ -420,10 +364,8 @@ public class OWLAPIObo2Owl {
         for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
             String path = getURI(cl.getValue().toString());
             IRI importIRI = IRI.create(path);
-            OWLImportsDeclaration owlImportsDeclaration = fac
-                    .getOWLImportsDeclaration(importIRI);
-            manager.makeLoadImportRequest(owlImportsDeclaration,
-                    new OWLOntologyLoaderConfiguration());
+            OWLImportsDeclaration owlImportsDeclaration = fac.getOWLImportsDeclaration(importIRI);
+            manager.makeLoadImportRequest(owlImportsDeclaration, new OWLOntologyLoaderConfiguration());
             AddImport ai = new AddImport(in, owlImportsDeclaration);
             manager.applyChange(ai);
         }
@@ -441,8 +383,7 @@ public class OWLAPIObo2Owl {
     protected void postProcess(@Nonnull OWLOntology ontology) {
         IRI pIRI = null;
         for (OWLAnnotation ann : ontology.getAnnotations()) {
-            if (Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation
-                    .sameIRI(ann.getProperty())) {
+            if (Obo2OWLVocabulary.IRI_OIO_LogicalDefinitionViewRelation.sameIRI(ann.getProperty())) {
                 OWLAnnotationValue v = ann.getValue();
                 if (v instanceof OWLLiteral) {
                     String rel = ((OWLLiteral) v).getLiteral();
@@ -457,8 +398,7 @@ public class OWLAPIObo2Owl {
             OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
             Set<OWLAxiom> rmAxioms = new HashSet<>();
             Set<OWLAxiom> newAxioms = new HashSet<>();
-            for (OWLEquivalentClassesAxiom eca : ontology
-                    .getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
+            for (OWLEquivalentClassesAxiom eca : ontology.getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
                 int numNamed = 0;
                 Set<OWLClassExpression> xs = new HashSet<>();
                 for (OWLClassExpression x : eca.getClassExpressions()) {
@@ -524,40 +464,29 @@ public class OWLAPIObo2Owl {
                  * cls); }
                  */
                 for (Clause clause : headerFrame.getClauses(t)) {
-                    OWLAnnotationProperty childAnnotProp = trAnnotationProp(clause
-                            .getValue(String.class));
+                    OWLAnnotationProperty childAnnotProp = trAnnotationProp(clause.getValue(String.class));
                     Set<OWLAnnotation> annotations = trAnnotations(clause);
-                    add(fac.getOWLSubAnnotationPropertyOfAxiom(childAnnotProp,
-                            parentAnnotProp, annotations));
+                    add(fac.getOWLSubAnnotationPropertyOfAxiom(childAnnotProp, parentAnnotProp, annotations));
                     // OWLIndividual indv= trIndividual(
                     // clause.getValue().toString() );
                     // add (fac.getOWLClassAssertionAxiom(cls, indv) );
-                    OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_COMMENT
-                            .getTag());
-                    add(fac.getOWLAnnotationAssertionAxiom(ap,
-                            childAnnotProp.getIRI(),
-                            trLiteral(clause.getValue2())));
+                    OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_COMMENT.getTag());
+                    add(fac.getOWLAnnotationAssertionAxiom(ap, childAnnotProp.getIRI(), trLiteral(clause.getValue2())));
                 }
             } else if (tag == OboFormatTag.TAG_SYNONYMTYPEDEF) {
                 OWLAnnotationProperty parentAnnotProp = trTagToAnnotationProp(t);
                 for (Clause clause : headerFrame.getClauses(t)) {
                     Object[] values = clause.getValues().toArray();
-                    OWLAnnotationProperty childAnnotProp = trAnnotationProp(values[0]
-                            .toString());
+                    OWLAnnotationProperty childAnnotProp = trAnnotationProp(values[0].toString());
                     IRI childIRI = childAnnotProp.getIRI();
                     Set<OWLAnnotation> annotations = trAnnotations(clause);
-                    add(fac.getOWLSubAnnotationPropertyOfAxiom(childAnnotProp,
-                            parentAnnotProp, annotations));
-                    OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_NAME
-                            .getTag());
-                    add(fac.getOWLAnnotationAssertionAxiom(ap, childIRI,
-                            trLiteral(values[1])));
+                    add(fac.getOWLSubAnnotationPropertyOfAxiom(childAnnotProp, parentAnnotProp, annotations));
+                    OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_NAME.getTag());
+                    add(fac.getOWLAnnotationAssertionAxiom(ap, childIRI, trLiteral(values[1])));
                     if (values.length > 2 && !values[2].toString().isEmpty()) {
-                        ap = trTagToAnnotationProp(OboFormatTag.TAG_SCOPE
-                                .getTag());
-                        add(fac.getOWLAnnotationAssertionAxiom(ap, childIRI,
-                                trTagToAnnotationProp(values[2].toString())
-                                        .getIRI()));
+                        ap = trTagToAnnotationProp(OboFormatTag.TAG_SCOPE.getTag());
+                        add(fac.getOWLAnnotationAssertionAxiom(ap, childIRI, trTagToAnnotationProp(values[2].toString())
+                            .getIRI()));
                     }
                 }
             } else if (tag == OboFormatTag.TAG_DATE) {
@@ -565,23 +494,19 @@ public class OWLAPIObo2Owl {
                 Object value = clause.getValue();
                 String dateString = null;
                 if (value instanceof Date) {
-                    dateString = OBOFormatConstants.headerDateFormat().format(
-                            (Date) value);
+                    dateString = OBOFormatConstants.headerDateFormat().format((Date) value);
                 } else if (value instanceof String) {
                     dateString = (String) value;
                 }
                 if (dateString != null) {
-                    addOntologyAnnotation(trTagToAnnotationProp(t),
-                            trLiteral(dateString), trAnnotations(clause));
+                    addOntologyAnnotation(trTagToAnnotationProp(t), trLiteral(dateString), trAnnotations(clause));
                 } else {
                     // TODO: Throw Exceptions
-                    OBOFormatException e = new OBOFormatException(
-                            "Cannot translate clause «" + clause + '»');
+                    OBOFormatException e = new OBOFormatException("Cannot translate clause «" + clause + '»');
                     LOG.error("Cannot translate: {}", clause, e);
                 }
             } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
-                addPropertyValueHeaders(headerFrame
-                        .getClauses(OboFormatTag.TAG_PROPERTY_VALUE));
+                addPropertyValueHeaders(headerFrame.getClauses(OboFormatTag.TAG_PROPERTY_VALUE));
             } else if (tag == OboFormatTag.TAG_DATA_VERSION) {
                 /*
                  * Clause clause = headerFrame.getClause(tag); String dv =
@@ -600,20 +525,17 @@ public class OWLAPIObo2Owl {
                 // translate remark as rdfs:comment
                 Collection<Clause> clauses = headerFrame.getClauses(t);
                 for (Clause clause : clauses) {
-                    addOntologyAnnotation(fac.getRDFSComment(),
-                            trLiteral(clause.getValue()), trAnnotations(clause));
+                    addOntologyAnnotation(fac.getRDFSComment(), trLiteral(clause.getValue()), trAnnotations(clause));
                 }
             } else if (tag == OboFormatTag.TAG_IDSPACE) {
                 // do not translate, as they are just directives? TODO ask Chris
             } else if (tag == OboFormatTag.TAG_OWL_AXIOMS) {
                 // in theory, there should only be one tag
                 // but we can silently collapse multiple tags
-                Collection<String> axiomStrings = headerFrame.getTagValues(tag,
-                        String.class);
+                Collection<String> axiomStrings = headerFrame.getTagValues(tag, String.class);
                 try {
                     for (String axiomString : axiomStrings) {
-                        Set<OWLAxiom> axioms = OwlStringTools.translate(
-                                axiomString, manager);
+                        Set<OWLAxiom> axioms = OwlStringTools.translate(axiomString, manager);
                         if (axioms != null) {
                             manager.addAxioms(getOwlOntology(), axioms);
                         }
@@ -624,8 +546,8 @@ public class OWLAPIObo2Owl {
             } else {
                 Collection<Clause> clauses = headerFrame.getClauses(t);
                 for (Clause clause : clauses) {
-                    addOntologyAnnotation(trTagToAnnotationProp(t),
-                            trLiteral(clause.getValue()), trAnnotations(clause));
+                    addOntologyAnnotation(trTagToAnnotationProp(t), trLiteral(clause.getValue()), trAnnotations(
+                        clause));
                 }
             }
         }
@@ -650,12 +572,9 @@ public class OWLAPIObo2Owl {
             } else if (values.size() == 2) {
                 // property_value(Rel-ID Entity-ID Qualifiers)
                 OWLAnnotationProperty prop = trAnnotationProp((String) v);
-                OWLAnnotationValue value = trAnnotationProp(v2.toString())
-                        .getIRI();
-                OWLAnnotation ontAnn = fac.getOWLAnnotation(prop, value,
-                        annotations);
-                AddOntologyAnnotation addAnn = new AddOntologyAnnotation(
-                        getOwlOntology(), ontAnn);
+                OWLAnnotationValue value = trAnnotationProp(v2.toString()).getIRI();
+                OWLAnnotation ontAnn = fac.getOWLAnnotation(prop, value, annotations);
+                AddOntologyAnnotation addAnn = new AddOntologyAnnotation(getOwlOntology(), ontAnn);
                 apply(addAnn);
             } else if (values.size() == 3) {
                 // property_value(Rel-ID Value XSD-Type Qualifiers)
@@ -665,18 +584,14 @@ public class OWLAPIObo2Owl {
                 String v3String = (String) it.next();
                 IRI valueIRI;
                 if (v3String.startsWith("xsd:")) {
-                    valueIRI = IRI.create(Namespaces.XSD
-                            + v3String.substring(4));
+                    valueIRI = IRI.create(Namespaces.XSD + v3String.substring(4));
                 } else {
                     valueIRI = IRI.create(v3String);
                 }
-                OWLAnnotationValue value = fac.getOWLLiteral((String) v2,
-                        OWL2Datatype.getDatatype(valueIRI));
+                OWLAnnotationValue value = fac.getOWLLiteral((String) v2, OWL2Datatype.getDatatype(valueIRI));
                 OWLAnnotationProperty prop = trAnnotationProp((String) v);
-                OWLAnnotation ontAnn = fac.getOWLAnnotation(prop, value,
-                        annotations);
-                AddOntologyAnnotation addAnn = new AddOntologyAnnotation(
-                        getOwlOntology(), ontAnn);
+                OWLAnnotation ontAnn = fac.getOWLAnnotation(prop, value, annotations);
+                AddOntologyAnnotation addAnn = new AddOntologyAnnotation(getOwlOntology(), ontAnn);
                 apply(addAnn);
             } else {
                 LOG.error("Cannot translate: {}", clause);
@@ -695,12 +610,10 @@ public class OWLAPIObo2Owl {
      * @param annotations
      *        the annotations
      */
-    protected void addOntologyAnnotation(@Nonnull OWLAnnotationProperty ap,
-            @Nonnull OWLAnnotationValue v,
-            @Nonnull Set<OWLAnnotation> annotations) {
+    protected void addOntologyAnnotation(@Nonnull OWLAnnotationProperty ap, @Nonnull OWLAnnotationValue v,
+        @Nonnull Set<OWLAnnotation> annotations) {
         OWLAnnotation ontAnn = fac.getOWLAnnotation(ap, v, annotations);
-        AddOntologyAnnotation addAnn = new AddOntologyAnnotation(
-                getOwlOntology(), ontAnn);
+        AddOntologyAnnotation addAnn = new AddOntologyAnnotation(getOwlOntology(), ontAnn);
         apply(addAnn);
     }
 
@@ -711,7 +624,6 @@ public class OWLAPIObo2Owl {
      *        the term frame
      * @return the oWL class expression
      */
-    @SuppressWarnings("null")
     public OWLClassExpression trTermFrame(@Nonnull Frame termFrame) {
         OWLClass cls = trClass(termFrame.getId());
         add(fac.getOWLDeclarationAxiom(cls));
@@ -721,8 +633,7 @@ public class OWLAPIObo2Owl {
             if (OboFormatTag.TAG_ALT_ID.getTag().equals(t)) {
                 // Generate deprecated and replaced_by details for alternate
                 // identifier
-                Set<OWLAxiom> axioms = translateAltIds(clauses, cls.getIRI(),
-                        true);
+                Set<OWLAxiom> axioms = translateAltIds(clauses, cls.getIRI(), true);
                 if (!axioms.isEmpty()) {
                     add(axioms);
                 }
@@ -749,9 +660,8 @@ public class OWLAPIObo2Owl {
      * @return set of axioms generated for the alt_id clauses
      */
     @Nonnull
-    protected Set<OWLAxiom> translateAltIds(
-            @Nonnull Collection<Clause> clauses, @Nonnull IRI replacedBy,
-            boolean isClass) {
+    protected Set<OWLAxiom> translateAltIds(@Nonnull Collection<Clause> clauses, @Nonnull IRI replacedBy,
+        boolean isClass) {
         Set<OWLAxiom> axioms = new HashSet<>();
         for (Clause clause : clauses) {
             final String altId = clause.getValue(String.class);
@@ -766,23 +676,15 @@ public class OWLAPIObo2Owl {
                 // entity declaration axiom
                 axioms.add(fac.getOWLDeclarationAxiom(altIdEntity));
                 // annotate as deprecated
-                axioms.add(fac.getOWLAnnotationAssertionAxiom(
-                        altIdEntity.getIRI(),
-                        fac.getOWLAnnotation(fac.getOWLDeprecated(),
-                                fac.getOWLLiteral(true))));
+                axioms.add(fac.getOWLAnnotationAssertionAxiom(altIdEntity.getIRI(), fac.getOWLAnnotation(fac
+                    .getOWLDeprecated(), fac.getOWLLiteral(true))));
                 // annotate with replaced_by (IAO_0100001)
-                axioms.add(fac.getOWLAnnotationAssertionAxiom(
-                        altIdEntity.getIRI(),
-                        fac.getOWLAnnotation(
-                                fac.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0100001.iri),
-                                replacedBy)));
+                axioms.add(fac.getOWLAnnotationAssertionAxiom(altIdEntity.getIRI(), fac.getOWLAnnotation(fac
+                    .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0100001.iri), replacedBy)));
                 // annotate with obo:IAO_0000231=obo:IAO_0000227
                 // 'has obsolescence reason' 'terms merged'
-                axioms.add(fac.getOWLAnnotationAssertionAxiom(
-                        altIdEntity.getIRI(),
-                        fac.getOWLAnnotation(
-                                fac.getOWLAnnotationProperty(Obo2OWLConstants.IRI_IAO_0000231),
-                                Obo2OWLConstants.IRI_IAO_0000227)));
+                axioms.add(fac.getOWLAnnotationAssertionAxiom(altIdEntity.getIRI(), fac.getOWLAnnotation(fac
+                    .getOWLAnnotationProperty(Obo2OWLConstants.IRI_IAO_0000231), Obo2OWLConstants.IRI_IAO_0000227)));
             }
         }
         return axioms;
@@ -800,8 +702,7 @@ public class OWLAPIObo2Owl {
      * @return the sets the
      */
     @Nonnull
-    public Set<OWLAxiom> trTermFrameClauses(@Nonnull OWLClass cls,
-            @Nonnull Collection<Clause> clauses, String t) {
+    public Set<OWLAxiom> trTermFrameClauses(@Nonnull OWLClass cls, @Nonnull Collection<Clause> clauses, String t) {
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         Set<OWLAxiom> axioms = new HashSet<>();
         if (tag == OboFormatTag.TAG_INTERSECTION_OF) {
@@ -824,12 +725,9 @@ public class OWLAPIObo2Owl {
      *        the typedef frame
      * @return the oWL named object
      */
-    @SuppressWarnings("null")
     @Nullable
-    protected OWLNamedObject trTypedefToAnnotationProperty(
-            @Nonnull Frame typedefFrame) {
-        Object tagValue = typedefFrame
-                .getTagValue(OboFormatTag.TAG_IS_METADATA_TAG);
+    protected OWLNamedObject trTypedefToAnnotationProperty(@Nonnull Frame typedefFrame) {
+        Object tagValue = typedefFrame.getTagValue(OboFormatTag.TAG_IS_METADATA_TAG);
         if (Boolean.TRUE.equals(tagValue)) {
             String id = typedefFrame.getId();
             OWLAnnotationProperty p = trAnnotationProp(id);
@@ -837,9 +735,8 @@ public class OWLAPIObo2Owl {
             // handle xrefs also for meta data tags
             String xid = translateShorthandIdToExpandedId(id);
             if (!id.equals(xid)) {
-                OWLAxiom ax = fac.getOWLAnnotationAssertionAxiom(
-                        trTagToAnnotationProp("shorthand"), p.getIRI(),
-                        trLiteral(id), new HashSet<OWLAnnotation>());
+                OWLAxiom ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp("shorthand"), p.getIRI(),
+                    trLiteral(id), new HashSet<OWLAnnotation>());
                 add(ax);
             }
             typedefToAnnotationProperty.put(p.getIRI().toString(), p);
@@ -870,12 +767,10 @@ public class OWLAPIObo2Owl {
      *        the typedef frame
      * @return the oWL named object
      */
-    @SuppressWarnings("null")
     @Nullable
     public OWLNamedObject trTypedefFrame(@Nonnull Frame typedefFrame) {
         // TODO - annotation props
-        Object tagValue = typedefFrame
-                .getTagValue(OboFormatTag.TAG_IS_METADATA_TAG);
+        Object tagValue = typedefFrame.getTagValue(OboFormatTag.TAG_IS_METADATA_TAG);
         if (Boolean.TRUE.equals(tagValue)) {
             // already handled
             // see: trTypedefToAnnotationProperty(Frame typedefFrame)
@@ -886,9 +781,8 @@ public class OWLAPIObo2Owl {
             add(fac.getOWLDeclarationAxiom(p));
             String xid = translateShorthandIdToExpandedId(id);
             if (!xid.equals(id)) {
-                OWLAxiom ax = fac.getOWLAnnotationAssertionAxiom(
-                        trTagToAnnotationProp("shorthand"), p.getIRI(),
-                        trLiteral(id), new HashSet<OWLAnnotation>());
+                OWLAxiom ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp("shorthand"), p.getIRI(),
+                    trLiteral(id), new HashSet<OWLAnnotation>());
                 add(ax);
             }
             /*
@@ -943,12 +837,10 @@ public class OWLAPIObo2Owl {
      */
     @Nullable
     @SuppressWarnings("unused")
-    protected static OWLAxiom trRelationUnionOf(String id, OWLProperty p,
-            Collection<Clause> clauses) {
+    protected static OWLAxiom trRelationUnionOf(String id, OWLProperty p, Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
-        LOG.error(
-                "The relation union_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
-                id, clauses);
+        LOG.error("The relation union_of for {} is currently non-translatable to OWL. Ignoring clauses: {}", id,
+            clauses);
         return null;
     }
 
@@ -965,12 +857,10 @@ public class OWLAPIObo2Owl {
      */
     @Nullable
     @SuppressWarnings("unused")
-    protected static OWLAxiom trRelationIntersectionOf(String id,
-            OWLProperty p, Collection<Clause> clauses) {
+    protected static OWLAxiom trRelationIntersectionOf(String id, OWLProperty p, Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
-        LOG.error(
-                "The relation intersection_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
-                id, clauses);
+        LOG.error("The relation intersection_of for {} is currently non-translatable to OWL. Ignoring clauses: {}", id,
+            clauses);
         return null;
     }
 
@@ -985,8 +875,7 @@ public class OWLAPIObo2Owl {
      */
     @SuppressWarnings("null")
     @Nonnull
-    protected OWLAxiom trUnionOf(OWLClass cls,
-            @Nonnull Collection<Clause> clauses) {
+    protected OWLAxiom trUnionOf(OWLClass cls, @Nonnull Collection<Clause> clauses) {
         Set<? extends OWLAnnotation> annotations = trAnnotations(clauses);
         Set<OWLClassExpression> eSet = new HashSet<>();
         eSet.add(cls);
@@ -998,9 +887,9 @@ public class OWLAPIObo2Owl {
                 iSet.add(trClass(clause.getValue()));
             } else {
                 LOG.error("union_of n-ary slots not is standard - converting anyway");
-                // System.err.println("union_of n-ary slots not is standard - converting anyway");
-                iSet.add(trRel((String) clause.getValue(),
-                        (String) clause.getValue2(), qvs));
+                // System.err.println("union_of n-ary slots not is standard -
+                // converting anyway");
+                iSet.add(trRel((String) clause.getValue(), (String) clause.getValue2(), qvs));
             }
         }
         // out.println(cls+" CL:"+clauses+" I:"+iSet+" E:"+eSet);
@@ -1023,8 +912,7 @@ public class OWLAPIObo2Owl {
      * @return the oWL axiom
      */
     @SuppressWarnings("null")
-    protected OWLAxiom trIntersectionOf(OWLClass cls,
-            @Nonnull Collection<Clause> clauses) {
+    protected OWLAxiom trIntersectionOf(OWLClass cls, @Nonnull Collection<Clause> clauses) {
         Set<? extends OWLAnnotation> annotations = trAnnotations(clauses);
         Set<OWLClassExpression> eSet = new HashSet<>();
         eSet.add(cls);
@@ -1034,8 +922,7 @@ public class OWLAPIObo2Owl {
             if (clause.getValues().size() == 1) {
                 iSet.add(trClass(clause.getValue()));
             } else {
-                iSet.add(trRel((String) clause.getValue(),
-                        (String) clause.getValue2(), qvs));
+                iSet.add(trRel((String) clause.getValue(), (String) clause.getValue2(), qvs));
             }
         }
         // out.println(cls+" CL:"+clauses+" I:"+iSet+" E:"+eSet);
@@ -1112,8 +999,7 @@ public class OWLAPIObo2Owl {
      * @return axiom
      */
     @SuppressWarnings("null")
-    protected OWLAxiom trTermClause(@Nonnull OWLClass cls, String tag,
-            @Nonnull Clause clause) {
+    protected OWLAxiom trTermClause(@Nonnull OWLClass cls, String tag, @Nonnull Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
         Set<? extends OWLAnnotation> annotations = trAnnotations(clause);
         OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
@@ -1123,27 +1009,22 @@ public class OWLAPIObo2Owl {
         String gciRel = getQVString("gci_relation", qvs);
         if (gciRel != null && !gciRel.isEmpty()) {
             String gciFiller = getQVString("gci_filler", qvs);
-            OWLClassExpression r = trRel(gciRel, gciFiller,
-                    new HashSet<QualifierValue>());
+            OWLClassExpression r = trRel(gciRel, gciFiller, new HashSet<QualifierValue>());
             clsx = fac.getOWLObjectIntersectionOf(cls, r);
         }
         OWLAxiom ax;
         if (tagConstant == OboFormatTag.TAG_IS_A) {
-            ax = fac.getOWLSubClassOfAxiom(clsx,
-                    trClass((String) clause.getValue()), annotations);
+            ax = fac.getOWLSubClassOfAxiom(clsx, trClass((String) clause.getValue()), annotations);
         } else if (tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
             // TODO
             IRI relId = oboIdToIRI((String) clause.getValue());
-            OWLAnnotationProperty prop = typedefToAnnotationProperty.get(relId
-                    .toString());
+            OWLAnnotationProperty prop = typedefToAnnotationProperty.get(relId.toString());
             if (prop != null) {
-                ax = fac.getOWLAnnotationAssertionAxiom(prop, cls.getIRI(),
-                        oboIdToIRI((String) clause.getValue2()), annotations);
+                ax = fac.getOWLAnnotationAssertionAxiom(prop, cls.getIRI(), oboIdToIRI((String) clause.getValue2()),
+                    annotations);
             } else {
-                ax = fac.getOWLSubClassOfAxiom(
-                        clsx,
-                        trRel((String) clause.getValue(),
-                                (String) clause.getValue2(), qvs), annotations);
+                ax = fac.getOWLSubClassOfAxiom(clsx, trRel((String) clause.getValue(), (String) clause.getValue2(),
+                    qvs), annotations);
             }
         } else if (tagConstant == OboFormatTag.TAG_DISJOINT_FROM) {
             Set<OWLClassExpression> cSet = new HashSet<>();
@@ -1175,22 +1056,19 @@ public class OWLAPIObo2Owl {
      */
     @SuppressWarnings("null")
     @Nullable
-    protected OWLAxiom trTypedefClause(@Nonnull OWLObjectProperty p,
-            String tag, @Nonnull Clause clause) {
+    protected OWLAxiom trTypedefClause(@Nonnull OWLObjectProperty p, String tag, @Nonnull Clause clause) {
         OWLAxiom ax = null;
         Object v = clause.getValue();
         Set<OWLAnnotation> annotations = trAnnotations(clause);
         OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
         if (tagConstant == OboFormatTag.TAG_IS_A) {
-            ax = fac.getOWLSubObjectPropertyOfAxiom(p,
-                    trObjectProp((String) v), annotations);
+            ax = fac.getOWLSubObjectPropertyOfAxiom(p, trObjectProp((String) v), annotations);
         } else if (tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
             IRI relId = oboIdToIRI((String) clause.getValue());
-            OWLAnnotationProperty metaProp = typedefToAnnotationProperty
-                    .get(relId.toString());
+            OWLAnnotationProperty metaProp = typedefToAnnotationProperty.get(relId.toString());
             if (metaProp != null) {
-                ax = fac.getOWLAnnotationAssertionAxiom(metaProp, p.getIRI(),
-                        oboIdToIRI((String) clause.getValue2()), annotations);
+                ax = fac.getOWLAnnotationAssertionAxiom(metaProp, p.getIRI(), oboIdToIRI((String) clause.getValue2()),
+                    annotations);
             } else {
                 // System.err.println("no annotation prop:"+relId);
                 // ax = null; // TODO
@@ -1201,8 +1079,7 @@ public class OWLAPIObo2Owl {
             cSet.add(trObjectProp((String) v));
             ax = fac.getOWLDisjointObjectPropertiesAxiom(cSet, annotations);
         } else if (tagConstant == OboFormatTag.TAG_INVERSE_OF) {
-            ax = fac.getOWLInverseObjectPropertiesAxiom(p,
-                    trObjectProp((String) v), annotations);
+            ax = fac.getOWLInverseObjectPropertiesAxiom(p, trObjectProp((String) v), annotations);
         } else if (tagConstant == OboFormatTag.TAG_EQUIVALENT_TO) {
             Set<OWLObjectPropertyExpression> cSet = new HashSet<>();
             cSet.add(p);
@@ -1218,11 +1095,10 @@ public class OWLAPIObo2Owl {
             chain.add(trObjectProp(v));
             ax = fac.getOWLSubPropertyChainOfAxiom(chain, p, annotations);
         } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
-                || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
+            || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
             if (tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN) {
-                OWLAnnotation ann = fac.getOWLAnnotation(
-                        trAnnotationProp(IRI_PROP_ISREVERSIBLEPROPERTYCHAIN),
-                        trLiteral("true"));
+                OWLAnnotation ann = fac.getOWLAnnotation(trAnnotationProp(IRI_PROP_ISREVERSIBLEPROPERTYCHAIN),
+                    trLiteral("true"));
                 annotations.add(ann);
                 // isReversiblePropertyChain
             }
@@ -1232,23 +1108,18 @@ public class OWLAPIObo2Owl {
             ax = fac.getOWLSubPropertyChainOfAxiom(chain, p, annotations);
             // System.out.println("chain:"+ax);
             // TODO - annotations for equivalent to
-        } else if (tagConstant == OboFormatTag.TAG_IS_TRANSITIVE
-                && "true".equals(clause.getValue().toString())) {
+        } else if (tagConstant == OboFormatTag.TAG_IS_TRANSITIVE && "true".equals(clause.getValue().toString())) {
             ax = fac.getOWLTransitiveObjectPropertyAxiom(p, annotations);
-        } else if (tagConstant == OboFormatTag.TAG_IS_REFLEXIVE
-                && "true".equals(clause.getValue().toString())) {
+        } else if (tagConstant == OboFormatTag.TAG_IS_REFLEXIVE && "true".equals(clause.getValue().toString())) {
             ax = fac.getOWLReflexiveObjectPropertyAxiom(p, annotations);
-        } else if (tagConstant == OboFormatTag.TAG_IS_SYMMETRIC
-                && "true".equals(clause.getValue().toString())) {
+        } else if (tagConstant == OboFormatTag.TAG_IS_SYMMETRIC && "true".equals(clause.getValue().toString())) {
             ax = fac.getOWLSymmetricObjectPropertyAxiom(p, annotations);
-        } else if (tagConstant == OboFormatTag.TAG_IS_ASYMMETRIC
-                && "true".equals(clause.getValue().toString())) {
+        } else if (tagConstant == OboFormatTag.TAG_IS_ASYMMETRIC && "true".equals(clause.getValue().toString())) {
             ax = fac.getOWLAsymmetricObjectPropertyAxiom(p, annotations);
-        } else if (tagConstant == OboFormatTag.TAG_IS_FUNCTIONAL
-                && "true".equals(clause.getValue().toString())) {
+        } else if (tagConstant == OboFormatTag.TAG_IS_FUNCTIONAL && "true".equals(clause.getValue().toString())) {
             ax = fac.getOWLFunctionalObjectPropertyAxiom(p, annotations);
-        } else if (tagConstant == OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL
-                && "true".equals(clause.getValue().toString())) {
+        } else if (tagConstant == OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL && "true".equals(clause.getValue()
+            .toString())) {
             ax = fac.getOWLInverseFunctionalObjectPropertyAxiom(p, annotations);
         } else {
             return trGenericClause(p, tag, clause);
@@ -1268,8 +1139,7 @@ public class OWLAPIObo2Owl {
      *        the clause
      * @return the oWL axiom
      */
-    protected OWLAxiom trGenericClause(@Nonnull OWLNamedObject e,
-            @Nonnull String tag, @Nonnull Clause clause) {
+    protected OWLAxiom trGenericClause(@Nonnull OWLNamedObject e, @Nonnull String tag, @Nonnull Clause clause) {
         /*
          * Collection<QualifierValue> qvs = clause.getQualifierValues(); Set<?
          * extends OWLAnnotation> annotations = trAnnotations(clause);
@@ -1302,8 +1172,7 @@ public class OWLAPIObo2Owl {
      */
     @SuppressWarnings("null")
     @Nullable
-    protected OWLAxiom trGenericClause(@Nonnull OWLAnnotationSubject sub,
-            @Nonnull String tag, @Nonnull Clause clause) {
+    protected OWLAxiom trGenericClause(@Nonnull OWLAnnotationSubject sub, @Nonnull String tag, @Nonnull Clause clause) {
         Set<OWLAnnotation> annotations = trAnnotations(clause);
         if (clause.getValue() == null) {
             LOG.error("Problem: {}", clause);
@@ -1312,20 +1181,19 @@ public class OWLAPIObo2Owl {
         OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
         // System.out.println("CLAUSE: "+clause+" // TAG="+_tag);
         if (tagConstant == OboFormatTag.TAG_NAME) {
-            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag),
-                    sub, trLiteral(clause.getValue()), annotations);
+            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub, trLiteral(clause.getValue()),
+                annotations);
         } else if (tagConstant == OboFormatTag.TAG_DEF) {
-            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag),
-                    sub, trLiteral(clause.getValue()), annotations);
+            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub, trLiteral(clause.getValue()),
+                annotations);
         } else if (tagConstant == OboFormatTag.TAG_SUBSET) {
             Object v = clause.getValue();
             if (v == null) {
                 // TODO: Throw Exceptions
                 LOG.error("Cannot translate: {}", clause);
             } else {
-                ax = fac.getOWLAnnotationAssertionAxiom(
-                        trTagToAnnotationProp(tag), sub,
-                        trAnnotationProp(v.toString()).getIRI(), annotations);
+                ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub, trAnnotationProp(v.toString())
+                    .getIRI(), annotations);
             }
         } else if (tagConstant == OboFormatTag.TAG_PROPERTY_VALUE) {
             Collection<Object> values = clause.getValues();
@@ -1336,9 +1204,8 @@ public class OWLAPIObo2Owl {
                 LOG.error("Cannot translate: {}", clause);
             } else if (values.size() == 2) {
                 // property_value(Rel-ID Entity-ID Qualifiers)
-                ax = fac.getOWLAnnotationAssertionAxiom(
-                        trAnnotationProp((String) v), sub,
-                        trAnnotationProp(v2.toString()).getIRI(), annotations);
+                ax = fac.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub, trAnnotationProp(v2
+                    .toString()).getIRI(), annotations);
             } else if (values.size() == 3) {
                 // property_value(Rel-ID Value XSD-Type Qualifiers)
                 Iterator<Object> it = clause.getValues().iterator();
@@ -1347,15 +1214,12 @@ public class OWLAPIObo2Owl {
                 String v3String = (String) it.next();
                 IRI valueIRI;
                 if (v3String.startsWith("xsd:")) {
-                    valueIRI = IRI.create(Namespaces.XSD
-                            + v3String.substring(4));
+                    valueIRI = IRI.create(Namespaces.XSD + v3String.substring(4));
                 } else {
                     valueIRI = IRI.create(v3String);
                 }
-                OWLAnnotationValue value = fac.getOWLLiteral((String) v2,
-                        OWL2Datatype.getDatatype(valueIRI));
-                ax = fac.getOWLAnnotationAssertionAxiom(
-                        trAnnotationProp((String) v), sub, value, annotations);
+                OWLAnnotationValue value = fac.getOWLLiteral((String) v2, OWL2Datatype.getDatatype(valueIRI));
+                ax = fac.getOWLAnnotationAssertionAxiom(trAnnotationProp((String) v), sub, value, annotations);
             } else {
                 LOG.error("Cannot translate: {}", clause);
                 // TODO
@@ -1366,39 +1230,33 @@ public class OWLAPIObo2Owl {
             if (values.length > 1) {
                 synType = values[1].toString();
                 if (values.length > 2) {
-                    OWLAnnotation ann = fac
-                            .getOWLAnnotation(
-                                    trTagToAnnotationProp(OboFormatTag.TAG_HAS_SYNONYM_TYPE
-                                            .getTag()),
-                                    trAnnotationProp(values[2].toString())
-                                            .getIRI());
+                    OWLAnnotation ann = fac.getOWLAnnotation(trTagToAnnotationProp(OboFormatTag.TAG_HAS_SYNONYM_TYPE
+                        .getTag()), trAnnotationProp(values[2].toString()).getIRI());
                     annotations.add(ann);
                 }
             } else {
-                LOG.warn(
-                        "Assume 'RELATED'for missing scope in synonym clause: {}",
-                        clause);
+                LOG.warn("Assume 'RELATED'for missing scope in synonym clause: {}", clause);
                 // we make allowances for obof1.0, where the synonym scope is
                 // optional
                 synType = OboFormatTag.TAG_RELATED.getTag();
             }
-            ax = fac.getOWLAnnotationAssertionAxiom(trSynonymType(synType),
-                    sub, trLiteral(clause.getValue()), annotations);
+            ax = fac.getOWLAnnotationAssertionAxiom(trSynonymType(synType), sub, trLiteral(clause.getValue()),
+                annotations);
         } else if (tagConstant == OboFormatTag.TAG_XREF) {
             Xref xref = (Xref) clause.getValue();
             String xrefAnnotation = xref.getAnnotation();
             if (xrefAnnotation != null) {
-                OWLAnnotation owlAnnotation = fac.getOWLAnnotation(
-                        fac.getRDFSLabel(), fac.getOWLLiteral(xrefAnnotation));
+                OWLAnnotation owlAnnotation = fac.getOWLAnnotation(fac.getRDFSLabel(), fac.getOWLLiteral(
+                    xrefAnnotation));
                 annotations.add(owlAnnotation);
             }
-            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag),
-                    sub, trLiteral(clause.getValue()), annotations);
+            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub, trLiteral(clause.getValue()),
+                annotations);
         } else {
             // generic
             // System.out.println("generic clause:"+clause);
-            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag),
-                    sub, trLiteral(clause.getValue()), annotations);
+            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub, trLiteral(clause.getValue()),
+                annotations);
         }
         return ax;
     }
@@ -1411,10 +1269,8 @@ public class OWLAPIObo2Owl {
      * @return the oWL annotation property
      */
     protected OWLAnnotationProperty trSynonymType(@Nonnull String type) {
-        if (type.equals(OboFormatTag.TAG_RELATED.getTag())
-                || type.equals(OboFormatTag.TAG_EXACT.getTag())
-                || type.equals(OboFormatTag.TAG_NARROW.getTag())
-                || type.equals(OboFormatTag.TAG_BROAD.getTag())) {
+        if (type.equals(OboFormatTag.TAG_RELATED.getTag()) || type.equals(OboFormatTag.TAG_EXACT.getTag()) || type
+            .equals(OboFormatTag.TAG_NARROW.getTag()) || type.equals(OboFormatTag.TAG_BROAD.getTag())) {
             return trTagToAnnotationProp(type);
         }
         return trAnnotationProp(type);
@@ -1443,13 +1299,11 @@ public class OWLAPIObo2Owl {
      *        the anns
      */
     @SuppressWarnings("null")
-    protected void trAnnotations(@Nonnull Clause clause,
-            @Nonnull Set<OWLAnnotation> anns) {
+    protected void trAnnotations(@Nonnull Clause clause, @Nonnull Set<OWLAnnotation> anns) {
         Collection<Xref> xrefs = clause.getXrefs();
         for (Xref x : xrefs) {
             if (x.getIdref() != null && !x.getIdref().isEmpty()) {
-                OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_XREF
-                        .getTag());
+                OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_XREF.getTag());
                 OWLAnnotation ann = fac.getOWLAnnotation(ap, trLiteral(x));
                 anns.add(ann);
             }
@@ -1461,8 +1315,7 @@ public class OWLAPIObo2Owl {
                 continue;
             }
             OWLAnnotationProperty ap = trTagToAnnotationProp(qTag);
-            OWLAnnotation ann = fac.getOWLAnnotation(ap,
-                    trLiteral(qv.getValue()));
+            OWLAnnotation ann = fac.getOWLAnnotation(ap, trLiteral(qv.getValue()));
             anns.add(ann);
         }
     }
@@ -1475,8 +1328,7 @@ public class OWLAPIObo2Owl {
      * @return the set of annotations
      */
     @Nullable
-    protected Set<? extends OWLAnnotation> trAnnotations(
-            @Nonnull Collection<Clause> clauses) {
+    protected Set<? extends OWLAnnotation> trAnnotations(@Nonnull Collection<Clause> clauses) {
         Set<OWLAnnotation> anns = new HashSet<>();
         for (Clause clause : clauses) {
             assert clause != null;
@@ -1496,8 +1348,8 @@ public class OWLAPIObo2Owl {
      *        the quals
      * @return the oWL class expression
      */
-    public OWLClassExpression trRel(@Nonnull String relId,
-            @Nonnull String classId, @Nonnull Collection<QualifierValue> quals) {
+    public OWLClassExpression trRel(@Nonnull String relId, @Nonnull String classId,
+        @Nonnull Collection<QualifierValue> quals) {
         Frame relFrame = obodoc.getTypedefFrame(relId);
         OWLObjectPropertyExpression pe = trObjectProp(relId);
         OWLClassExpression ce = trClass(classId);
@@ -1521,22 +1373,18 @@ public class OWLAPIObo2Owl {
             OWLObjectComplementOf ceCompl = fac.getOWLObjectComplementOf(ce);
             ex = fac.getOWLObjectAllValuesFrom(pe, ceCompl);
         } else if (max != null && min != null) {
-            ex = fac.getOWLObjectIntersectionOf(
-                    fac.getOWLObjectMinCardinality(min, pe, ce),
-                    fac.getOWLObjectMaxCardinality(max, pe, ce));
+            ex = fac.getOWLObjectIntersectionOf(fac.getOWLObjectMinCardinality(min, pe, ce), fac
+                .getOWLObjectMaxCardinality(max, pe, ce));
         } else if (min != null) {
             ex = fac.getOWLObjectMinCardinality(min, pe, ce);
         } else if (max != null) {
             ex = fac.getOWLObjectMaxCardinality(max, pe, ce);
         } else if (allSome && allOnly) {
-            ex = fac.getOWLObjectIntersectionOf(
-                    fac.getOWLObjectSomeValuesFrom(pe, ce),
-                    fac.getOWLObjectAllValuesFrom(pe, ce));
+            ex = fac.getOWLObjectIntersectionOf(fac.getOWLObjectSomeValuesFrom(pe, ce), fac.getOWLObjectAllValuesFrom(
+                pe, ce));
         } else if (allOnly) {
             ex = fac.getOWLObjectAllValuesFrom(pe, ce);
-        } else if (relFrame != null
-                && Boolean.TRUE.equals(relFrame
-                        .getTagValue(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG))) {
+        } else if (relFrame != null && Boolean.TRUE.equals(relFrame.getTagValue(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG))) {
             // pun
             ex = fac.getOWLObjectHasValue(pe, trIndividual(classId));
         } else {
@@ -1556,8 +1404,7 @@ public class OWLAPIObo2Owl {
      * @return the qV string
      */
     @Nullable
-    protected static String getQVString(String q,
-            @Nonnull Collection<QualifierValue> quals) {
+    protected static String getQVString(String q, @Nonnull Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 return qv.getValue();
@@ -1575,8 +1422,7 @@ public class OWLAPIObo2Owl {
      *        the quals
      * @return the qV boolean
      */
-    protected static boolean getQVBoolean(String q,
-            @Nonnull Collection<QualifierValue> quals) {
+    protected static boolean getQVBoolean(String q, @Nonnull Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 Object v = qv.getValue();
@@ -1596,8 +1442,7 @@ public class OWLAPIObo2Owl {
      * @return the qV int
      */
     @Nullable
-    protected static Integer getQVInt(String q,
-            @Nonnull Collection<QualifierValue> quals) {
+    protected static Integer getQVInt(String q, @Nonnull Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 Object v = qv.getValue();
@@ -1641,8 +1486,7 @@ public class OWLAPIObo2Owl {
     protected String mapPropId(@Nonnull String id) {
         Frame f = obodoc.getTypedefFrame(id);
         if (f != null) {
-            Collection<Xref> xrefs = f.getTagValues(OboFormatTag.TAG_XREF,
-                    Xref.class);
+            Collection<Xref> xrefs = f.getTagValues(OboFormatTag.TAG_XREF, Xref.class);
             for (Xref x : xrefs) {
                 String xid = x.getIdref();
                 if (OBODoc.isTreatXrefsAsEquivalent(getIdPrefix(xid))) {
@@ -1710,8 +1554,7 @@ public class OWLAPIObo2Owl {
             add(fac.getOWLDeclarationAxiom(ap));
             Obo2OWLVocabulary vocab = Obo2OWLConstants.getVocabularyObj(tag);
             if (vocab != null) {
-                add(fac.getOWLAnnotationAssertionAxiom(fac.getRDFSLabel(), iri,
-                        trLiteral(vocab.getLabel())));
+                add(fac.getOWLAnnotationAssertionAxiom(fac.getRDFSLabel(), iri, trLiteral(vocab.getLabel())));
             }
         }
         return ap;
@@ -1723,8 +1566,7 @@ public class OWLAPIObo2Owl {
      * @param declaredProperties
      *        the declared properties
      */
-    protected void addDeclaredAnnotationProperties(
-            @Nullable Collection<OWLAnnotationProperty> declaredProperties) {
+    protected void addDeclaredAnnotationProperties(@Nullable Collection<OWLAnnotationProperty> declaredProperties) {
         if (declaredProperties != null) {
             apToDeclare.addAll(declaredProperties);
         }
@@ -1894,8 +1736,7 @@ public class OWLAPIObo2Owl {
         if (tdf == null) {
             return id;
         }
-        Collection<Xref> xrefs = tdf.getTagValues(OboFormatTag.TAG_XREF,
-                Xref.class);
+        Collection<Xref> xrefs = tdf.getTagValues(OboFormatTag.TAG_XREF, Xref.class);
         String matchingExpandedId = null;
         for (Xref xref : xrefs) {
             // System.err.println("ID:"+id+" xref:"+xref);
@@ -1918,7 +1759,7 @@ public class OWLAPIObo2Owl {
         if (matchingExpandedId == null) {
             return id;
         }
-        // System.err.println("  ID:"+id+" matching:"+matchingExpandedId);
+        // System.err.println(" ID:"+id+" matching:"+matchingExpandedId);
         return matchingExpandedId;
     }
 

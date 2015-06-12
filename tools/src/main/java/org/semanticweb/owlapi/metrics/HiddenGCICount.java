@@ -51,19 +51,16 @@ public class HiddenGCICount extends IntegerValuedMetric {
     protected void disposeMetric() {}
 
     @Override
-    protected boolean isMetricInvalidated(
-            @Nonnull List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(@Nonnull List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange()
-                    && chg.getAxiom() instanceof OWLEquivalentClassesAxiom
-                    || chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLEquivalentClassesAxiom || chg
+                .getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }
         return false;
     }
 
-    @SuppressWarnings("null")
     @Override
     protected Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<>();
@@ -80,12 +77,10 @@ public class HiddenGCICount extends IntegerValuedMetric {
                 boolean foundSubClassAxiom = false;
                 for (OWLOntology o : getOntologies()) {
                     if (!foundEquivalentClassesAxiom) {
-                        foundEquivalentClassesAxiom = !o
-                                .getEquivalentClassesAxioms(cls).isEmpty();
+                        foundEquivalentClassesAxiom = !o.getEquivalentClassesAxioms(cls).isEmpty();
                     }
                     if (!foundSubClassAxiom) {
-                        foundSubClassAxiom = !o.getSubClassAxiomsForSubClass(
-                                cls).isEmpty();
+                        foundSubClassAxiom = !o.getSubClassAxiomsForSubClass(cls).isEmpty();
                     }
                     if (foundSubClassAxiom && foundEquivalentClassesAxiom) {
                         result.add(cls);

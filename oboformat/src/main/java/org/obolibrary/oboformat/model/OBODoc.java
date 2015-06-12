@@ -1,12 +1,6 @@
 package org.obolibrary.oboformat.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -15,7 +9,9 @@ import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-/** An OBODoc is a container for a header frame and zero or more entity frames. */
+/**
+ * An OBODoc is a container for a header frame and zero or more entity frames.
+ */
 public class OBODoc {
 
     /** The header frame. */
@@ -38,7 +34,9 @@ public class OBODoc {
     /** default constructor. */
     public OBODoc() {}
 
-    /** @return the header frame */
+    /**
+     * @return the header frame
+     */
     public Frame getHeaderFrame() {
         return headerFrame;
     }
@@ -51,22 +49,25 @@ public class OBODoc {
         this.headerFrame = headerFrame;
     }
 
-    /** @return the term frames */
-    @SuppressWarnings("null")
+    /**
+     * @return the term frames
+     */
     @Nonnull
     public Collection<Frame> getTermFrames() {
         return termFrameMap.values();
     }
 
-    /** @return the typedef frames */
-    @SuppressWarnings("null")
+    /**
+     * @return the typedef frames
+     */
     @Nonnull
     public Collection<Frame> getTypedefFrames() {
         return typedefFrameMap.values();
     }
 
-    /** @return the instance frames */
-    @SuppressWarnings("null")
+    /**
+     * @return the instance frames
+     */
     @Nonnull
     public Collection<Frame> getInstanceFrames() {
         return instanceFrameMap.values();
@@ -189,7 +190,9 @@ public class OBODoc {
         return instanceFrameMap.get(id);
     }
 
-    /** @return the imported obo docs */
+    /**
+     * @return the imported obo docs
+     */
     public Collection<OBODoc> getImportedOBODocs() {
         return importedOBODocs;
     }
@@ -321,8 +324,7 @@ public class OBODoc {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void mergeContents(@Nonnull OBODoc extDoc)
-            throws FrameMergeException {
+    public void mergeContents(@Nonnull OBODoc extDoc) throws FrameMergeException {
         for (Frame f : extDoc.getTermFrames()) {
             assert f != null;
             addTermFrame(f);
@@ -379,7 +381,9 @@ public class OBODoc {
         return getHeaderDescriptor();
     }
 
-    /** @return the header descriptor */
+    /**
+     * @return the header descriptor
+     */
     @Nonnull
     private String getHeaderDescriptor() {
         return "OBODoc(" + headerFrame + ')';

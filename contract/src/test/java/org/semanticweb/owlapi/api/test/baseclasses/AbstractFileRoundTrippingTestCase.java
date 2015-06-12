@@ -24,9 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  *         Management Group
  * @since 2.2.0
  */
-@SuppressWarnings("null")
-public abstract class AbstractFileRoundTrippingTestCase extends
-        AbstractRoundTrippingTestCase {
+public abstract class AbstractFileRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
     protected OWLOntology createOntology() {

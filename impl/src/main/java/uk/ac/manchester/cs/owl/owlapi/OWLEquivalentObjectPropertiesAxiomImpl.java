@@ -12,34 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLEquivalentObjectPropertiesAxiomImpl extends
-        OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
-        OWLEquivalentObjectPropertiesAxiom {
+public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
+    implements OWLEquivalentObjectPropertiesAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -49,9 +34,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
      * @param annotations
      *        annotations
      */
-    public OWLEquivalentObjectPropertiesAxiomImpl(
-            @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+    public OWLEquivalentObjectPropertiesAxiomImpl(@Nonnull Set<? extends OWLObjectPropertyExpression> properties,
+        @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -60,27 +44,22 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLEquivalentObjectPropertiesAxiomImpl(getProperties(),
-                NO_ANNOTATIONS);
+        return new OWLEquivalentObjectPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLEquivalentObjectPropertiesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return new OWLEquivalentObjectPropertiesAxiomImpl(getProperties(),
-                mergeAnnos(annotations));
+    public OWLEquivalentObjectPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLEquivalentObjectPropertiesAxiomImpl(getProperties(), mergeAnnos(annotations));
     }
 
     @Override
     public Set<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms() {
         Set<OWLEquivalentObjectPropertiesAxiom> result = new HashSet<>();
-        List<OWLObjectPropertyExpression> list = new ArrayList<>(
-                getProperties());
+        List<OWLObjectPropertyExpression> list = new ArrayList<>(getProperties());
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                result.add(new OWLEquivalentObjectPropertiesAxiomImpl(
-                        new HashSet<>(Arrays.asList(list.get(i), list.get(j))),
-                        NO_ANNOTATIONS));
+                result.add(new OWLEquivalentObjectPropertiesAxiomImpl(new HashSet<>(Arrays.asList(list.get(i), list.get(
+                    j))), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -90,15 +69,14 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
     public Set<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs() {
         List<OWLObjectPropertyExpression> ops = new ArrayList<>(getProperties());
         if (ops.size() == 2) {
-            return Collections
-                    .<OWLEquivalentObjectPropertiesAxiom> singleton(this);
+            return Collections.<OWLEquivalentObjectPropertiesAxiom> singleton(this);
         }
         Set<OWLEquivalentObjectPropertiesAxiom> result = new HashSet<>();
         for (int i = 0; i < ops.size() - 1; i++) {
             OWLObjectPropertyExpression indI = ops.get(i);
             OWLObjectPropertyExpression indJ = ops.get(i + 1);
-            result.add(new OWLEquivalentObjectPropertiesAxiomImpl(
-                    new HashSet<>(Arrays.asList(indI, indJ)), getAnnotations()));
+            result.add(new OWLEquivalentObjectPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)),
+                getAnnotations()));
         }
         return result;
     }
@@ -139,17 +117,14 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         return AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<>();
-        List<OWLObjectPropertyExpression> props = new ArrayList<>(
-                getProperties());
+        List<OWLObjectPropertyExpression> props = new ArrayList<>(getProperties());
         for (int i = 0; i < props.size(); i++) {
             for (int j = 0; j < props.size(); j++) {
                 if (i != j) {
-                    result.add(new OWLSubObjectPropertyOfAxiomImpl(
-                            props.get(i), props.get(j), NO_ANNOTATIONS));
+                    result.add(new OWLSubObjectPropertyOfAxiomImpl(props.get(i), props.get(j), NO_ANNOTATIONS));
                 }
             }
         }

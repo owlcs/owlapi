@@ -36,15 +36,13 @@ public class ImportClosureSize extends IntegerValuedMetric {
         super(o);
     }
 
-    @SuppressWarnings("null")
     @Override
     protected Integer recomputeMetric() {
         return getOntology().getImportsClosure().size();
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            @Nonnull List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(@Nonnull List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (change.isImportChange()) {
                 return true;

@@ -35,25 +35,21 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImplWithEntityAndAnonCaching implements
-    OWLObject, Serializable {
+public abstract class OWLObjectImplWithEntityAndAnonCaching implements OWLObject, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
     @Nonnull
-    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = CollectionFactory
-        .emptySet();
+    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = CollectionFactory.emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
     @Nullable
     private transient WeakReference<Set<OWLEntity>> signature = null;
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
     @Nonnull
-    protected static final OWLClass OWL_THING = new OWLClassImpl(
-        OWLRDFVocabulary.OWL_THING.getIRI());
+    protected static final OWLClass OWL_THING = new OWLClassImpl(OWLRDFVocabulary.OWL_THING.getIRI());
 
-    private void readObject(java.io.ObjectInputStream stream)
-        throws IOException, ClassNotFoundException {
+    private void readObject(java.io.ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         signature = null;
         anons = null;
@@ -68,14 +64,12 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
         if (set == null) {
             set = new HashSet<>();
             Set<OWLAnonymousIndividual> anon = new HashSet<>();
-            OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(
-                set, anon);
+            OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(set, anon);
             accept(collector);
             signature = new WeakReference<>(set);
             anons = new WeakReference<>(anon);
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(
-            set);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(set);
     }
 
     @Override
@@ -88,8 +82,7 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
         if (signature == null || verifyNotNull(signature).get() == null) {
             getSignature();
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(
-            anons.get());
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons.get());
     }
 
     @Override
@@ -179,14 +172,12 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
 
     protected abstract int index();
 
-    @SuppressWarnings("null")
     @Override
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImplWithEntityAndAnonCaching) {
-            otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o)
-                .index();
+            otherTypeIndex = ((OWLObjectImplWithEntityAndAnonCaching) o).index();
         } else {
             otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
         }
@@ -200,15 +191,13 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
             return diff;
         }
         if (this instanceof OWLAxiom) {
-            diff = compareLists(new ArrayList<>(((OWLAxiom) this)
-                .getAnnotations()), new ArrayList<>(((OWLAxiom) o)
-                    .getAnnotations()));
+            diff = compareLists(new ArrayList<>(((OWLAxiom) this).getAnnotations()), new ArrayList<>(((OWLAxiom) o)
+                .getAnnotations()));
         }
         return diff;
     }
 
-    protected int compareAnnotations(List<OWLAnnotation> l1,
-        List<OWLAnnotation> l2) {
+    protected int compareAnnotations(List<OWLAnnotation> l1, List<OWLAnnotation> l2) {
         int i = 0;
         for (; i < l1.size() && i < l2.size(); i++) {
             int diff = l1.get(i).compareTo(l2.get(i));
@@ -230,7 +219,6 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
 
     protected abstract int compareObjectOfSameType(@Nonnull OWLObject object);
 
-    @SuppressWarnings("null")
     @Override
     @Nonnull
     public String toString() {
@@ -247,8 +235,7 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
         return false;
     }
 
-    protected static int compareSets(Collection<? extends OWLObject> set1,
-        Collection<? extends OWLObject> set2) {
+    protected static int compareSets(Collection<? extends OWLObject> set1, Collection<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {
             ss1 = (SortedSet<? extends OWLObject>) set1;
@@ -276,8 +263,7 @@ public abstract class OWLObjectImplWithEntityAndAnonCaching implements
         return ss1.size() - ss2.size();
     }
 
-    protected static int compareLists(List<? extends OWLObject> list1,
-        List<? extends OWLObject> list2) {
+    protected static int compareLists(List<? extends OWLObject> list1, List<? extends OWLObject> list2) {
         int i = 0;
         int size = list1.size() < list2.size() ? list1.size() : list2.size();
         while (i < size) {

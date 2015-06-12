@@ -12,17 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
 import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -32,11 +30,8 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -52,8 +47,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private final RDFXMLNamespaceManager qnameManager;
     @Nonnull
     private final OWLDocumentFormat format;
-
     ShortFormProvider labelMaker;
+
     /**
      * @param ontology
      *        ontology
@@ -61,9 +56,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
      *        writer
      */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
-        this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w,
-                "w cannot be null"), verifyNotNull(ontology
-                .getOWLOntologyManager().getOntologyFormat(ontology)));
+        this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w, "w cannot be null"), verifyNotNull(
+            ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
     }
 
     /**
@@ -74,25 +68,21 @@ public class RDFXMLRenderer extends RDFRendererBase {
      * @param format
      *        format
      */
-    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
-            @Nonnull OWLDocumentFormat format) {
-        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(
-                format, "format cannot be null"));
+    public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w, @Nonnull OWLDocumentFormat format) {
+        super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format, "format cannot be null"));
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
-        writer = new RDFXMLWriter(XMLWriterFactory.createXMLWriter(
-                checkNotNull(w, "w cannot be null"), qnameManager, base));
-
-        Map<OWLAnnotationProperty, List<String>> prefLangMap=new HashMap<>();
+        writer = new RDFXMLWriter(XMLWriterFactory.createXMLWriter(checkNotNull(w, "w cannot be null"), qnameManager,
+            base));
+        Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory df = manager.getOWLDataFactory();
         OWLAnnotationProperty labelProp = df.getOWLAnnotationProperty(RDFS_LABEL.getIRI());
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),prefLangMap, manager);
+        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap, manager);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String base(@Nonnull String defaultNamespace) {
         String base;
@@ -104,7 +94,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
         return base;
     }
 
-    /** @return unserializable entities */
+    /**
+     * @return unserializable entities
+     */
     @Nonnull
     public Set<OWLEntity> getUnserialisableEntities() {
         return qnameManager.getEntitiesWithInvalidQNames();
@@ -118,8 +110,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Override
     protected void endDocument() throws IOException {
         writer.endDocument();
-        writer.writeComment(VersionInfo.getVersionInfo()
-                .getGeneratedByMessage());
+        writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
         if (!format.isAddMissingTypes()) {
             // missing type declarations could have been omitted, adding a
             // comment to document it
@@ -128,11 +119,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind)
-            throws IOException {
+    protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind) throws IOException {
         writeCommentForEntity("ind", ind);
     }
-
 
     @Override
     protected void writeClassComment(@Nonnull OWLClass cls) throws IOException {
@@ -140,26 +129,22 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop)
-            throws IOException {
+    protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop) throws IOException {
         writeCommentForEntity("prop", prop);
     }
 
     @Override
-    protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop)
-            throws IOException {
+    protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop) throws IOException {
         writeCommentForEntity("prop", prop);
     }
 
     @Override
-    protected void writeAnnotationPropertyComment(
-            @Nonnull OWLAnnotationProperty prop) throws IOException {
+    protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop) throws IOException {
         writeCommentForEntity("prop", prop);
     }
 
     @Override
-    protected void writeDatatypeComment(@Nonnull OWLDatatype datatype)
-            throws IOException {
+    protected void writeDatatypeComment(@Nonnull OWLDatatype datatype) throws IOException {
         writeCommentForEntity("datatype", datatype);
     }
 
@@ -168,9 +153,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
         String iriString = entity.getIRI().toString();
         String labelString = labelMaker.getShortForm(entity);
         String commentString = null;
-        if(!iriString.equals(labelString)) {
-            commentString= labelString;
-        }  else {
+        if (!iriString.equals(labelString)) {
+            commentString = labelString;
+        } else {
             commentString = iriString;
         }
         writer.writeComment(XMLUtils.escapeXML(commentString));
@@ -178,7 +163,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     @Override
     protected void writeBanner(@Nonnull String name) throws IOException {
-        writer.writeComment("\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
+        writer.writeComment(
+            "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
                 + checkNotNull(name, "name cannot be null")
                 + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
     }
@@ -194,19 +180,15 @@ public class RDFXMLRenderer extends RDFRendererBase {
         Collection<RDFTriple> triples = graph.getTriplesForSubject(node, true);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
-            if (propertyIRI.equals(RDF_TYPE.getIRI())
-                    && !triple.getObject().isAnonymous()
-                    && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject()
-                            .getIRI())
-                    && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && BUILT_IN_VOCABULARY_IRIS
+                .contains(triple.getObject().getIRI()) && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                 candidatePrettyPrintTypeTriple = triple;
             }
         }
         if (candidatePrettyPrintTypeTriple == null) {
             writer.writeStartElement(RDF_DESCRIPTION.getIRI());
         } else {
-            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject()
-                    .getIRI());
+            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
@@ -217,8 +199,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         // writer.writeNodeIDAttribute(node);
         // }
         for (RDFTriple triple : triples) {
-            if (candidatePrettyPrintTypeTriple != null
-                    && candidatePrettyPrintTypeTriple.equals(triple)) {
+            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());
@@ -237,21 +218,16 @@ public class RDFXMLRenderer extends RDFRendererBase {
                             } else {
                                 if (n.isLiteral()) {
                                     RDFLiteral litNode = (RDFLiteral) n;
-                                    writer.writeStartElement(RDFS_LITERAL
-                                            .getIRI());
+                                    writer.writeStartElement(RDFS_LITERAL.getIRI());
                                     if (!litNode.isPlainLiteral()) {
-                                        writer.writeDatatypeAttribute(litNode
-                                                .getDatatype());
+                                        writer.writeDatatypeAttribute(litNode.getDatatype());
                                     } else if (litNode.hasLang()) {
-                                        writer.writeLangAttribute(litNode
-                                                .getLang());
+                                        writer.writeLangAttribute(litNode.getLang());
                                     }
-                                    writer.writeTextContent(litNode
-                                            .getLexicalValue());
+                                    writer.writeTextContent(litNode.getLexicalValue());
                                     writer.writeEndElement();
                                 } else {
-                                    writer.writeStartElement(RDF_DESCRIPTION
-                                            .getIRI());
+                                    writer.writeStartElement(RDF_DESCRIPTION.getIRI());
                                     writer.writeAboutAttribute(n.getIRI());
                                     writer.writeEndElement();
                                 }

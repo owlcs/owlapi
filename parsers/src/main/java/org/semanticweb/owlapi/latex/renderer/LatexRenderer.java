@@ -17,25 +17,13 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -50,22 +38,19 @@ public class LatexRenderer extends AbstractOWLRenderer {
     @Nonnull
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 
-    private void writeEntitySection(@Nonnull OWLEntity entity,
-            @Nonnull LatexWriter w) {
+    private void writeEntitySection(@Nonnull OWLEntity entity, @Nonnull LatexWriter w) {
         w.write("\\subsubsection*{");
         w.write(escapeName(shortFormProvider.getShortForm(entity)));
         w.write("}\n\n");
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String escapeName(String name) {
         return name.replace("_", "\\_");
     }
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
-            throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
             LatexWriter w = new LatexWriter(writer);
             w.write("\\documentclass{article}\n");
@@ -74,10 +59,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\oddsidemargin 0cm\n");
             w.write("\\textwidth 19cm\n");
             w.write("\\begin{document}\n\n");
-            LatexObjectVisitor renderer = new LatexObjectVisitor(w, ontology
-                    .getOWLOntologyManager().getOWLDataFactory());
-            Collection<OWLClass> clses = sortEntities(ontology
-                    .getClassesInSignature());
+            LatexObjectVisitor renderer = new LatexObjectVisitor(w, ontology.getOWLOntologyManager()
+                .getOWLDataFactory());
+            Collection<OWLClass> clses = sortEntities(ontology.getClassesInSignature());
             if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");
             }
@@ -91,30 +75,25 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 }
             }
             w.write("\\section*{Object properties}");
-            for (OWLObjectProperty prop : sortEntities(ontology
-                    .getObjectPropertiesInSignature())) {
+            for (OWLObjectProperty prop : sortEntities(ontology.getObjectPropertiesInSignature())) {
                 assert prop != null;
                 writeEntitySection(prop, w);
-                for (OWLAxiom ax : sortAxioms(ontology
-                        .getAxioms(prop, EXCLUDED))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop, EXCLUDED))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
             }
             w.write("\\section*{Data properties}");
-            for (OWLDataProperty prop : sortEntities(ontology
-                    .getDataPropertiesInSignature())) {
+            for (OWLDataProperty prop : sortEntities(ontology.getDataPropertiesInSignature())) {
                 assert prop != null;
                 writeEntitySection(prop, w);
-                for (OWLAxiom ax : sortAxioms(ontology
-                        .getAxioms(prop, EXCLUDED))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop, EXCLUDED))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
             }
             w.write("\\section*{Individuals}");
-            for (OWLNamedIndividual ind : sortEntities(ontology
-                    .getIndividualsInSignature())) {
+            for (OWLNamedIndividual ind : sortEntities(ontology.getIndividualsInSignature())) {
                 assert ind != null;
                 writeEntitySection(ind, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind, EXCLUDED))) {
@@ -123,12 +102,10 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 }
             }
             w.write("\\section*{Datatypes}");
-            for (OWLDatatype type : sortEntities(ontology
-                    .getDatatypesInSignature())) {
+            for (OWLDatatype type : sortEntities(ontology.getDatatypesInSignature())) {
                 assert type != null;
                 writeEntitySection(type, w);
-                for (OWLAxiom ax : sortAxioms(ontology
-                        .getAxioms(type, EXCLUDED))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(type, EXCLUDED))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -142,21 +119,18 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private <T extends OWLEntity> Collection<T> sortEntities(Set<T> entites) {
         List<T> list = new ArrayList<>(entites);
-        OWLEntityComparator entityComparator = new OWLEntityComparator(
-                shortFormProvider);
+        OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
         Collections.sort(list, entityComparator);
         return list;
     }
 
-    private static Collection<OWLAxiom> sortAxioms(
-            Set<? extends OWLAxiom> axioms) {
+    private static Collection<OWLAxiom> sortAxioms(Set<? extends OWLAxiom> axioms) {
         List<OWLAxiom> list = new ArrayList<>(axioms);
         Collections.sort(list, new OWLAxiomComparator());
         return list;
     }
 
-    private static class OWLAxiomComparator implements Comparator<OWLAxiom>,
-            Serializable {
+    private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 

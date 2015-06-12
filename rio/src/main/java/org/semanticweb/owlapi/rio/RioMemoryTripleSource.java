@@ -36,7 +36,6 @@
 package org.semanticweb.owlapi.rio;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import info.aduna.iteration.CloseableIteration;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -58,6 +57,8 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+
+import info.aduna.iteration.CloseableIteration;
 
 /**
  * An implementation of the OWLOntologyDocumentSource interface that does not
@@ -85,10 +86,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        source.
      */
     public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("rio-memory-triples:");
-        statementIterator = checkNotNull(statements,
-                "statements cannot be null");
+        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
+        statementIterator = checkNotNull(statements, "statements cannot be null");
     }
 
     /**
@@ -102,8 +101,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A Map of namespaces from prefix to full URI which are to be used
      *        by this source.
      */
-    public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements,
-            @Nonnull Map<String, String> namespaces) {
+    public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements, @Nonnull Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
     }
@@ -118,14 +116,11 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A {@link CloseableIteration} of {@link Statement} objects that
      *        make up this source.
      */
-    @SuppressWarnings("null")
     public RioMemoryTripleSource(@Nonnull Iterable<Statement> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = statements.iterator();
         if (statements instanceof Model) {
-            namespaces.putAll(Namespaces.asMap(((Model) statements)
-                    .getNamespaces()));
+            namespaces.putAll(Namespaces.asMap(((Model) statements).getNamespaces()));
         }
     }
 
@@ -138,16 +133,13 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A {@link CloseableIteration} of {@link Statement} objects that
      *        make up this source.
      */
-    public RioMemoryTripleSource(
-            final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("rio-memory-triples:");
+    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
+        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = new Iterator<Statement>() {
 
             @Override
             public void remove() {
-                throw new UnsupportedOperationException(
-                        "Cannot remove statements using this iterator");
+                throw new UnsupportedOperationException("Cannot remove statements using this iterator");
             }
 
             @Override
@@ -158,12 +150,10 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
                     if (nextStatement != null) {
                         return nextStatement;
                     } else {
-                        throw new NoSuchElementException(
-                                "No more statements in this iterator");
+                        throw new NoSuchElementException("No more statements in this iterator");
                     }
                 } catch (OpenRDFException e) {
-                    throw new OWLRuntimeException(
-                            "Found exception while iterating", e);
+                    throw new OWLRuntimeException("Found exception while iterating", e);
                 } finally {
                     if (nextStatement == null) {
                         try {
@@ -182,8 +172,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
                     result = statements.hasNext();
                     return result;
                 } catch (OpenRDFException e) {
-                    throw new OWLRuntimeException(
-                            "Found exception while iterating", e);
+                    throw new OWLRuntimeException("Found exception while iterating", e);
                 } finally {
                     if (!result) {
                         try {
@@ -209,9 +198,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A Map of namespaces from prefix to full URI which are to be used
      *        by this source.
      */
-    public RioMemoryTripleSource(
-            final CloseableIteration<Statement, ? extends OpenRDFException> statements,
-            final Map<String, String> namespaces) {
+    public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends OpenRDFException> statements,
+        final Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
     }
@@ -224,7 +212,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     @Override
     public Reader getReader() {
         throw new UnsupportedOperationException(
-                "No reader available for RioMemoryTripleSource, use isReaderAvailable() to check");
+            "No reader available for RioMemoryTripleSource, use isReaderAvailable() to check");
     }
 
     @Override
@@ -235,7 +223,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     @Override
     public InputStream getInputStream() {
         throw new UnsupportedOperationException(
-                "No input stream available for RioMemoryTripleSource, use isInputStreamAvailable() to check");
+            "No input stream available for RioMemoryTripleSource, use isInputStreamAvailable() to check");
     }
 
     @Override

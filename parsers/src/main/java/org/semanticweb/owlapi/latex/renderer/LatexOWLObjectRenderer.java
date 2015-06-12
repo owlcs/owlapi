@@ -42,13 +42,11 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
         this.dataFactory = checkNotNull(dataFactory);
     }
 
-    @SuppressWarnings("null")
     @Override
     public String render(@Nonnull OWLObject object) {
         StringWriter writer = new StringWriter();
         LatexWriter latexWriter = new LatexWriter(writer);
-        LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter,
-                dataFactory);
+        LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter, dataFactory);
         visitor.setShortFormProvider(shortFormProvider);
         object.accept(visitor);
         return writer.getBuffer().toString();

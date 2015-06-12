@@ -23,12 +23,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.NNF;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -37,9 +32,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLAxiom,
-        CollectionContainer<OWLAnnotation> {
+public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends OWLObjectImplWithoutEntityAndAnonCaching
+    implements OWLAxiom, CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -47,8 +41,7 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
 
     @Override
     protected int index() {
-        return OWLObjectTypeIndexProvider.AXIOM_TYPE_INDEX_BASE
-                + getAxiomType().getIndex();
+        return OWLObjectTypeIndexProvider.AXIOM_TYPE_INDEX_BASE + getAxiomType().getIndex();
     }
 
     /**
@@ -56,8 +49,7 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
      *        annotations on the axiom
      */
     @SuppressWarnings("unchecked")
-    public OWLAxiomImplWithoutEntityAndAnonCaching(
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+    public OWLAxiomImplWithoutEntityAndAnonCaching(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
             if (annotations.size() == 1) {
@@ -86,7 +78,6 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
         return getCopyOnRequestSetFromImmutableCollection(annotations);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
         int size = annotations.size();
@@ -96,8 +87,7 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
     }
 
     @Override
-    public Set<OWLAnnotation> getAnnotations(
-            OWLAnnotationProperty annotationProperty) {
+    public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
             return emptySet();
         } else {
@@ -113,8 +103,7 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
 
     @Override
     public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
-        return getAxiomWithoutAnnotations().equals(
-                axiom.getAxiomWithoutAnnotations());
+        return getAxiomWithoutAnnotations().equals(axiom.getAxiomWithoutAnnotations());
     }
 
     @Override
@@ -161,8 +150,7 @@ public abstract class OWLAxiomImplWithoutEntityAndAnonCaching extends
         OWLAxiom other = (OWLAxiom) obj;
         // for OWLAxiomImpl comparisons, do not create wrapper objects
         if (other instanceof OWLAxiomImplWithoutEntityAndAnonCaching) {
-            return annotations
-                    .equals(((OWLAxiomImplWithoutEntityAndAnonCaching) other).annotations);
+            return annotations.equals(((OWLAxiomImplWithoutEntityAndAnonCaching) other).annotations);
         }
         return getAnnotations().equals(other.getAnnotations());
     }

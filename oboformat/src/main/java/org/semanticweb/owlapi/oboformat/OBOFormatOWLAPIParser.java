@@ -29,12 +29,7 @@ import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.*;
 
 /** oboformat parser */
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
@@ -43,8 +38,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Nonnull
     @Override
-    public OWLDocumentFormat parse(IRI documentIRI,
-            @Nonnull OWLOntology ontology) throws IOException {
+    public OWLDocumentFormat parse(IRI documentIRI, @Nonnull OWLOntology ontology) throws IOException {
         try {
             parse(documentIRI, null, ontology);
         } catch (OBOFormatParserException e) {
@@ -57,10 +51,8 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Nonnull
     @Override
-    public OWLDocumentFormat parse(
-            @Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) throws IOException {
+    public OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource documentSource, @Nonnull OWLOntology ontology,
+        OWLOntologyLoaderConfiguration configuration) throws IOException {
         // XXX configuration is not used
         try {
             parse(null, documentSource, ontology);
@@ -73,14 +65,10 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     }
 
     @SuppressWarnings("null")
-    private static OWLOntology
-            parse(@Nullable IRI iri,
-                    @Nullable OWLOntologyDocumentSource source,
-                    @Nonnull OWLOntology in) throws IOException,
-                    OWLOntologyCreationException {
+    private static OWLOntology parse(@Nullable IRI iri, @Nullable OWLOntologyDocumentSource source,
+        @Nonnull OWLOntology in) throws IOException, OWLOntologyCreationException {
         if (iri == null && source == null) {
-            throw new IllegalArgumentException(
-                    "iri and source annot both be null");
+            throw new IllegalArgumentException("iri and source annot both be null");
         }
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
@@ -90,8 +78,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
             if (source.isReaderAvailable()) {
                 obodoc = p.parse(new BufferedReader(source.getReader()));
             } else if (source.isInputStreamAvailable()) {
-                obodoc = p.parse(new BufferedReader(new InputStreamReader(
-                        source.getInputStream())));
+                obodoc = p.parse(new BufferedReader(new InputStreamReader(source.getInputStream())));
             } else {
                 return parse(source.getDocumentIRI(), null, in);
             }

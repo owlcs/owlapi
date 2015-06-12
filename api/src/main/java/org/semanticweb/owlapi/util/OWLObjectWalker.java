@@ -22,14 +22,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
@@ -62,7 +55,6 @@ public class OWLObjectWalker<O extends OWLObject> {
         this(objects, true);
     }
 
-    @SuppressWarnings("null")
     protected Object passToVisitor(OWLObject o) {
         if (visitor != null) {
             o.accept(visitor);
@@ -90,8 +82,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      *        the set of objects to visit
      */
     public OWLObjectWalker(@Nonnull Set<O> objects, boolean visitDuplicates) {
-        this.objects = new ArrayList<>(checkNotNull(objects,
-                "objects cannot be null"));
+        this.objects = new ArrayList<>(checkNotNull(objects, "objects cannot be null"));
         this.visitDuplicates = visitDuplicates;
     }
 
@@ -182,11 +173,9 @@ public class OWLObjectWalker<O extends OWLObject> {
      *         expression in the current class expression path, otherwise
      *         {@code false} ({@code false} if the path is empty)
      */
-    public boolean isFirstClassExpressionInPath(
-            @Nonnull OWLClassExpression classExpression) {
+    public boolean isFirstClassExpressionInPath(@Nonnull OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
-        return !classExpressionPath.isEmpty()
-                && classExpressionPath.get(0).equals(classExpression);
+        return !classExpressionPath.isEmpty() && classExpressionPath.get(0).equals(classExpression);
     }
 
     /**

@@ -50,7 +50,6 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         return "Number of classes with asserted multiple inheritance";
     }
 
-    @SuppressWarnings("null")
     @Override
     public Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<>();
@@ -64,9 +63,8 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
                 processed.add(cls);
                 int count = 0;
-                for (OWLClassExpression sup : equivalent(
-                        ont.getEquivalentClassesAxioms(cls),
-                        OWLClassExpression.class)) {
+                for (OWLClassExpression sup : equivalent(ont.getEquivalentClassesAxioms(cls),
+                    OWLClassExpression.class)) {
                     assert sup != null;
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
@@ -82,11 +80,9 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
     }
 
     @Override
-    protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
-            if (change.isAxiomChange()
-                    && change.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (change.isAxiomChange() && change.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }

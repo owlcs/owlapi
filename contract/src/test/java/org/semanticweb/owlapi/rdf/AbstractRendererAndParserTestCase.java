@@ -17,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import javax.annotation.Nonnull;
 
 import org.junit.Before;
@@ -36,20 +37,21 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc", })
 public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
     @Nonnull
-    private final OWLOntologyManager man = new OWLOntologyManagerImpl(
-            new OWLDataFactoryImpl(), new ReentrantReadWriteLock());
+    private final OWLOntologyManager man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl(),
+        new ReentrantReadWriteLock());
 
     @Before
     public void setUp() {
         OWLOntologyBuilder builder = new OWLOntologyBuilder() {
+
             @Nonnull
             @Override
             public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-                                                 @Nonnull OWLOntologyID ontologyID) {
+                @Nonnull OWLOntologyID ontologyID) {
                 return new OWLOntologyImpl(manager, ontologyID);
             }
         };
@@ -70,8 +72,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
     @Test
     public void testSaveAndReload() throws Exception {
-        OWLOntology ontA = man.createOntology(IRI
-                .create("http://rdfxmltests/ontology"));
+        OWLOntology ontA = man.createOntology(IRI.create("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));
         }
@@ -82,8 +83,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
         File tempFile = folder.newFile("Ontology.owlapi");
         man.saveOntology(ontA, IRI.create(tempFile.toURI()));
         man.removeOntology(ontA);
-        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI
-                .create(tempFile.toURI()));
+        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI.create(tempFile.toURI()));
         Set<OWLLogicalAxiom> aMinusB = ontA.getLogicalAxioms();
         aMinusB.removeAll(ontB.getAxioms());
         Set<OWLLogicalAxiom> bMinusA = ontB.getLogicalAxioms();
@@ -93,13 +93,11 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
             msg.append("Ontology save/load roundtrip OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
-            msg.append("=> ").append(aMinusB.size())
-                    .append(" axioms lost in roundtripping.\n");
+            msg.append("=> ").append(aMinusB.size()).append(" axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : aMinusB) {
                 msg.append(axiom + "\n");
             }
-            msg.append("=> ").append(bMinusA.size())
-                    .append(" axioms added after roundtripping.\n");
+            msg.append("=> ").append(bMinusA.size()).append(" axioms added after roundtripping.\n");
             for (OWLAxiom axiom : bMinusA) {
                 msg.append(axiom + "\n");
             }

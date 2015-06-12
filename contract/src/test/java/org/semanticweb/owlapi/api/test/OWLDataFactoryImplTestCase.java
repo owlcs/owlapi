@@ -40,7 +40,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImplNoCache;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc", })
 @RunWith(Parameterized.class)
 public class OWLDataFactoryImplTestCase {
 
@@ -55,8 +55,7 @@ public class OWLDataFactoryImplTestCase {
     public static Collection<Object[]> parameters() {
         OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
         OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
-        return Arrays.asList(new Object[] { noCaching },
-                new Object[] { withCaching });
+        return Arrays.asList(new Object[] { noCaching }, new Object[] { withCaching });
     }
 
     @Test
@@ -131,10 +130,8 @@ public class OWLDataFactoryImplTestCase {
 
     @Test
     public void getOWLBackwardCompatibleWith() {
-        OWLAnnotationProperty call1 = dataFactory
-                .getOWLBackwardCompatibleWith();
-        OWLAnnotationProperty call2 = dataFactory
-                .getOWLBackwardCompatibleWith();
+        OWLAnnotationProperty call1 = dataFactory.getOWLBackwardCompatibleWith();
+        OWLAnnotationProperty call2 = dataFactory.getOWLBackwardCompatibleWith();
         assertSame(call1, call2);
     }
 

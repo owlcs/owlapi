@@ -32,7 +32,7 @@ import com.google.common.base.Optional;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class SetOntologyIDDataTestCase {
 
     @Nonnull
@@ -42,9 +42,8 @@ public class SetOntologyIDDataTestCase {
 
     @Before
     public void setUp() {
-        when(mockOntology.getOntologyID()).thenReturn(
-                new OWLOntologyID(Optional.of(IRI.create("urn:test:onto1")),
-                        Optional.of(IRI.create("urn:test:onto1_1"))));
+        when(mockOntology.getOntologyID()).thenReturn(new OWLOntologyID(Optional.of(IRI.create("urn:test:onto1")),
+            Optional.of(IRI.create("urn:test:onto1_1"))));
     }
 
     @Nonnull

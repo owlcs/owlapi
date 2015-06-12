@@ -19,14 +19,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -56,31 +49,38 @@ public abstract class OWLProfileViolation {
      * @param o
      *        violation expression
      */
-    public OWLProfileViolation(@Nonnull OWLOntology ontology,
-            @Nullable OWLAxiom axiom, @Nullable Object o) {
+    public OWLProfileViolation(@Nonnull OWLOntology ontology, @Nullable OWLAxiom axiom, @Nullable Object o) {
         this.axiom = axiom;
         this.ontology = ontology;
         df = ontology.getOWLOntologyManager().getOWLDataFactory();
         expression = o;
     }
 
-    /** @return ontology id */
+    /**
+     * @return ontology id
+     */
     public OWLOntologyID getOntologyID() {
         return ontology.getOntologyID();
     }
 
-    /** @return ontology */
+    /**
+     * @return ontology
+     */
     public OWLOntology getOntology() {
         return ontology;
     }
 
-    /** @return the expression object of this violation */
+    /**
+     * @return the expression object of this violation
+     */
     @Nonnull
     public Object getExpression() {
         return verifyNotNull(expression);
     }
 
-    /** @return the offending axiom */
+    /**
+     * @return the offending axiom
+     */
     @Nonnull
     public OWLAxiom getAxiom() {
         return verifyNotNull(axiom);
@@ -119,28 +119,21 @@ public abstract class OWLProfileViolation {
      * @return visitor return value
      */
     @Nonnull
-    public abstract <O> O accept(
-            @Nonnull OWLProfileViolationVisitorEx<O> visitor);
+    public abstract <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor);
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String toString(String template) {
-        return String.format(template + " [%s in %s]", axiom,
-                ontology.getOntologyID());
+        return String.format(template + " [%s in %s]", axiom, ontology.getOntologyID());
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String toString(String template, Object object) {
-        return String.format(template + " [%s in %s]", object, axiom,
-                ontology.getOntologyID());
+        return String.format(template + " [%s in %s]", object, axiom, ontology.getOntologyID());
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String toString(String template, Object object1, Object object2) {
-        return String.format(template + " [%s in %s]", object1, object2, axiom,
-                ontology.getOntologyID());
+        return String.format(template + " [%s in %s]", object1, object2, axiom, ontology.getOntologyID());
     }
 
     @Nonnull

@@ -17,19 +17,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -41,13 +29,11 @@ import com.google.common.base.Optional;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
  */
-public class OWLLiteralImplPlain extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplPlain extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
     @Nonnull
-    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
-            OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final String literal;
     @Nonnull
@@ -124,20 +110,17 @@ public class OWLLiteralImplPlain extends
 
     @Override
     public boolean parseBoolean() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a boolean value");
+        throw new OWLRuntimeException(getClass().getName() + " does not have a boolean value");
     }
 
     @Override
     public double parseDouble() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a double value");
+        throw new OWLRuntimeException(getClass().getName() + " does not have a double value");
     }
 
     @Override
     public float parseFloat() {
-        throw new OWLRuntimeException(getClass().getName()
-                + " does not have a float value");
+        throw new OWLRuntimeException(getClass().getName() + " does not have a float value");
     }
 
     @Override
@@ -204,12 +187,10 @@ public class OWLLiteralImplPlain extends
         }
         OWLLiteral other = (OWLLiteral) obj;
         if (other instanceof OWLLiteralImplPlain) {
-            return literal.equals(((OWLLiteralImplPlain) other).literal)
-                    && lang.equals(other.getLang());
+            return literal.equals(((OWLLiteralImplPlain) other).literal) && lang.equals(other.getLang());
         }
-        return getLiteral().equals(other.getLiteral())
-                && getDatatype().equals(other.getDatatype())
-                && lang.equals(other.getLang());
+        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype()) && lang.equals(other
+            .getLang());
     }
 
     @Override
@@ -256,19 +237,16 @@ public class OWLLiteralImplPlain extends
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral> of(this);

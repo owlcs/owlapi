@@ -12,22 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import com.google.common.base.Optional;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
-import javax.annotation.Nonnull;
-import java.util.Set;
-
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
-        OWLAnonymousIndividual {
+public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -74,8 +75,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
 
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new OWLRuntimeException(
-                "Not a named individual! This method should only be called on named individuals");
+        throw new OWLRuntimeException("Not a named individual! This method should only be called on named individuals");
     }
 
     @Override
@@ -124,19 +124,16 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.<OWLAnonymousIndividual> of(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.absent();

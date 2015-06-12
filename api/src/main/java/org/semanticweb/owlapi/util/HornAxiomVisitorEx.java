@@ -14,39 +14,11 @@ package org.semanticweb.owlapi.util;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
 public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
-    @SuppressWarnings("null")
     @Nonnull
     static Boolean b(boolean b) {
         return b;
@@ -87,8 +59,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     @Override
     public Boolean visit(@Nonnull OWLSubClassOfAxiom axiom) {
-        return b(checkNegative(axiom.getSubClass())
-                && checkNegative(axiom.getSuperClass()));
+        return b(checkNegative(axiom.getSubClass()) && checkNegative(axiom.getSuperClass()));
     }
 
     @Override
@@ -180,8 +151,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         return b(true);
     }
 
-    private class PositiveAppearanceVisitorEx extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private class PositiveAppearanceVisitorEx extends OWLClassExpressionVisitorExAdapter<Boolean> {
 
         PositiveAppearanceVisitorEx() {
             super(b(false));
@@ -224,9 +194,8 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectExactCardinality ce) {
-            return b(ce.getCardinality() <= 1
-                    && ce.getFiller().accept(this).booleanValue()
-                    && checkNegative(ce.getFiller()));
+            return b(ce.getCardinality() <= 1 && ce.getFiller().accept(this).booleanValue() && checkNegative(ce
+                .getFiller()));
         }
 
         @Override
@@ -235,8 +204,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         }
     }
 
-    private class NegativeAppearanceVisitorEx extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private class NegativeAppearanceVisitorEx extends OWLClassExpressionVisitorExAdapter<Boolean> {
 
         NegativeAppearanceVisitorEx() {
             super(b(false));
@@ -274,8 +242,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectMinCardinality ce) {
-            return b(ce.getCardinality() <= 1
-                    && ce.getFiller().accept(this).booleanValue());
+            return b(ce.getCardinality() <= 1 && ce.getFiller().accept(this).booleanValue());
         }
     }
 }

@@ -18,18 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.google.common.base.Optional;
@@ -39,8 +28,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplInteger extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final int literal;
@@ -86,7 +74,6 @@ public class OWLLiteralImplInteger extends
         return code;
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getLiteral() {
         return Integer.toString(literal);
@@ -119,8 +106,7 @@ public class OWLLiteralImplInteger extends
 
     @Override
     public boolean parseBoolean() {
-        throw new NumberFormatException(
-                "this literal is not a boolean but a int");
+        throw new NumberFormatException("this literal is not a boolean but a int");
     }
 
     @Override
@@ -130,8 +116,7 @@ public class OWLLiteralImplInteger extends
 
     @Override
     public double parseDouble() {
-        throw new NumberFormatException(
-                "this literal is not a double but a int");
+        throw new NumberFormatException("this literal is not a double but a int");
     }
 
     @Override
@@ -173,9 +158,8 @@ public class OWLLiteralImplInteger extends
             return literal == other.literal;
         }
         if (obj instanceof OWLLiteral) {
-            return ((OWLLiteral) obj).isInteger()
-                    && ((OWLLiteral) obj).getLiteral().charAt(0) != '0'
-                    && literal == ((OWLLiteral) obj).parseInteger();
+            return ((OWLLiteral) obj).isInteger() && ((OWLLiteral) obj).getLiteral().charAt(0) != '0'
+                && literal == ((OWLLiteral) obj).parseInteger();
         }
         return false;
     }
@@ -224,19 +208,16 @@ public class OWLLiteralImplInteger extends
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral> of(this);

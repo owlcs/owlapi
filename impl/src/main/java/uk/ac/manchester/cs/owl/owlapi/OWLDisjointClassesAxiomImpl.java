@@ -20,23 +20,14 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
-        implements OWLDisjointClassesAxiom {
+public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLDisjointClassesAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -46,9 +37,8 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
      * @param annotations
      *        annotations
      */
-    public OWLDisjointClassesAxiomImpl(
-            @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+    public OWLDisjointClassesAxiomImpl(@Nonnull Set<? extends OWLClassExpression> classExpressions,
+        @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
@@ -58,15 +48,12 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
-                NO_ANNOTATIONS);
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDisjointClassesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
-                mergeAnnos(annotations));
+    public OWLDisjointClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(), mergeAnnos(annotations));
     }
 
     @Override
@@ -111,8 +98,8 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
         List<OWLClassExpression> list = getClassExpressionsAsList();
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays
-                        .asList(list.get(i), list.get(j))), NO_ANNOTATIONS));
+                result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays.asList(list.get(i), list.get(j))),
+                    NO_ANNOTATIONS));
             }
         }
         return result;
@@ -128,21 +115,19 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
         for (int i = 0; i < ops.size() - 1; i++) {
             OWLClassExpression indI = ops.get(i);
             OWLClassExpression indJ = ops.get(i + 1);
-            result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays
-                    .asList(indI, indJ)), getAnnotations()));
+            result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), getAnnotations()));
         }
         return result;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
         List<OWLClassExpression> list = getClassExpressionsAsList();
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                result.add(new OWLSubClassOfAxiomImpl(list.get(i), list.get(j)
-                        .getObjectComplementOf(), NO_ANNOTATIONS));
+                result.add(new OWLSubClassOfAxiomImpl(list.get(i), list.get(j).getObjectComplementOf(),
+                    NO_ANNOTATIONS));
             }
         }
         return result;

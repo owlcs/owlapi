@@ -2488,7 +2488,6 @@ public class EntitySearcher {
      *        ontology to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLDataPropertyExpression, OWLLiteral> getDataPropertyValues(@Nonnull OWLIndividual i,
         @Nonnull OWLOntology ontology) {
@@ -2525,7 +2524,6 @@ public class EntitySearcher {
      *        ontology to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getObjectPropertyValues(@Nonnull OWLIndividual i,
         @Nonnull OWLOntology ontology) {
@@ -2543,7 +2541,6 @@ public class EntitySearcher {
      *        ontologies to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getObjectPropertyValues(@Nonnull OWLIndividual i,
         @Nonnull Iterable<OWLOntology> ontologies) {
@@ -2561,7 +2558,6 @@ public class EntitySearcher {
      *        ontology to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getNegativeObjectPropertyValues(
         @Nonnull OWLIndividual i, @Nonnull OWLOntology ontology) {
@@ -2579,7 +2575,6 @@ public class EntitySearcher {
      *        ontology to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLDataPropertyExpression, OWLLiteral> getNegativeDataPropertyValues(
         @Nonnull OWLIndividual i, @Nonnull OWLOntology ontology) {
@@ -2597,7 +2592,6 @@ public class EntitySearcher {
      *        ontologies to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual> getNegativeObjectPropertyValues(
         @Nonnull OWLIndividual i, @Nonnull Iterable<OWLOntology> ontologies) {
@@ -2615,7 +2609,6 @@ public class EntitySearcher {
      *        ontologies to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLDataPropertyExpression, OWLLiteral> getNegativeDataPropertyValues(
         @Nonnull OWLIndividual i, @Nonnull Iterable<OWLOntology> ontologies) {

@@ -16,15 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
@@ -34,16 +26,7 @@ import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
@@ -72,16 +55,14 @@ public class TurtleRenderer extends RDFRendererBase {
      * @param format
      *        format
      */
-    public TurtleRenderer(@Nonnull OWLOntology ontology, Writer writer,
-            OWLDocumentFormat format) {
+    public TurtleRenderer(@Nonnull OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
         super(ontology, format);
         this.format = checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
         pending = new HashSet<>();
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
-            String ontologyIRIString = ontology.getOntologyID()
-                    .getOntologyIRI().get().toString();
+            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().get().toString();
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/")) {
                 defaultPrefix = ontologyIRIString + '#';
@@ -96,10 +77,8 @@ public class TurtleRenderer extends RDFRendererBase {
         base = "";
     }
 
-    @SuppressWarnings("null")
     private void writeNamespaces() {
-        for (Map.Entry<String, String> e : pm.getPrefixName2PrefixMap()
-                .entrySet()) {
+        for (Map.Entry<String, String> e : pm.getPrefixName2PrefixMap().entrySet()) {
             write("@prefix ");
             write(e.getKey());
             write(" ");
@@ -141,7 +120,6 @@ public class TurtleRenderer extends RDFRendererBase {
         return getCurrentPos() - lastNewLineIndex;
     }
 
-    @SuppressWarnings("null")
     private void writeAsURI(@Nonnull String s) {
         write("<");
         if (s.startsWith(base)) {
@@ -194,8 +172,7 @@ public class TurtleRenderer extends RDFRendererBase {
         if (!node.isPlainLiteral()) {
             if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
                 write(node.getLexicalValue());
-            } else if (node.getDatatype()
-                    .equals(XSDVocabulary.DECIMAL.getIRI())) {
+            } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
                 write(node.getLexicalValue());
             } else {
                 writeStringLiteral(node.getLexicalValue());
@@ -305,8 +282,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeAnnotationPropertyComment(
-            @Nonnull OWLAnnotationProperty prop) {
+    protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
@@ -363,8 +339,7 @@ public class TurtleRenderer extends RDFRendererBase {
         for (RDFTriple triple : triples) {
             RDFResource subj = triple.getSubject();
             RDFResourceIRI pred = triple.getPredicate();
-            if (lastSubject != null
-                    && (subj.equals(lastSubject) || subj.isAnonymous())) {
+            if (lastSubject != null && (subj.equals(lastSubject) || subj.isAnonymous())) {
                 if (lastPredicate != null && pred.equals(lastPredicate)) {
                     // Only the object differs from previous triple
                     // Just write the object

@@ -49,29 +49,32 @@ public class ManchesterOWLSyntaxOntologyHeader {
      * @param importsDeclarations
      *        the imports declarations
      */
-    @SuppressWarnings("null")
-    public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
-            @Nonnull Set<OWLAnnotation> annotations,
-            Set<OWLImportsDeclaration> importsDeclarations) {
-        ontologyID = new OWLOntologyID(Optional.fromNullable(ontologyIRI),
-                Optional.fromNullable(versionIRI));
+    public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI, @Nonnull Set<OWLAnnotation> annotations,
+        Set<OWLImportsDeclaration> importsDeclarations) {
+        ontologyID = new OWLOntologyID(Optional.fromNullable(ontologyIRI), Optional.fromNullable(versionIRI));
         this.annotations = new ArrayList<>(annotations);
         this.importsDeclarations = new ArrayList<>(importsDeclarations);
     }
 
-    /** @return the ontology ID */
+    /**
+     * @return the ontology ID
+     */
     @Nonnull
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
-    /** @return the annotations */
+    /**
+     * @return the annotations
+     */
     @Nonnull
     public Collection<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
-    /** @return the imports declarations */
+    /**
+     * @return the imports declarations
+     */
     @Nonnull
     public Collection<OWLImportsDeclaration> getImportsDeclarations() {
         return importsDeclarations;

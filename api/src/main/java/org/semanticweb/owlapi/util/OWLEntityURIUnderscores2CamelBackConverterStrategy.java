@@ -34,8 +34,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.2.0
  */
-public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
-        OWLEntityURIConverterStrategy {
+public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements OWLEntityURIConverterStrategy {
 
     private final Map<IRI, IRI> iriMap = new HashMap<>();
 
@@ -55,7 +54,6 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         Optional<String> fragment = iri.getRemainder();
         if (fragment.isPresent()) {
             String base = iri.getNamespace();
-            @SuppressWarnings("null")
             String camelCaseFragment = toCamelCase(fragment.get());
             return IRI.create(base, camelCaseFragment);
         }
@@ -68,8 +66,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
             assert lastPathElement != null;
             String camelCaseElement = toCamelCase(lastPathElement);
             String iriString = iri.toString();
-            String base = iriString
-                    .substring(0, iriString.lastIndexOf('/') + 1);
+            String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
             return IRI.create(base, camelCaseElement);
         }
         return iri;

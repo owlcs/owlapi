@@ -42,8 +42,8 @@ import com.google.common.cache.LoadingCache;
  *         Management Group
  * @since 3.0.0
  */
-public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
-        SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
+public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive,
+    HasShortForm {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -51,7 +51,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * 
      * @return The URI
      */
-    @SuppressWarnings("null")
     @Nonnull
     public URI toURI() {
         return URI.create(namespace + remainder);
@@ -70,15 +69,16 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         }
         for (int i = 0; i < colonIndex; i++) {
             char ch = namespace.charAt(i);
-            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.'
-                    && ch != '+' && ch != '-') {
+            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
                 return false;
             }
         }
         return true;
     }
 
-    /** @return the IRI scheme, e.g., http, urn */
+    /**
+     * @return the IRI scheme, e.g., http, urn
+     */
     @Nullable
     public String getScheme() {
         int colonIndex = namespace.indexOf(':');
@@ -88,7 +88,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return namespace.substring(0, colonIndex);
     }
 
-    /** @return the prefix */
+    /**
+     * @return the prefix
+     */
     @Nonnull
     public String getNamespace() {
         return namespace;
@@ -100,7 +102,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @return s resolved against this IRI (with the URI::resolve() method,
      *         unless this IRI is opaque)
      */
-    @SuppressWarnings("null")
     @Nonnull
     public IRI resolve(@Nonnull String s) {
         // shortcut: checking absolute and opaque here saves the creation of an
@@ -124,10 +125,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         {@code false}.
      */
     public boolean isReservedVocabulary() {
-        return Namespaces.OWL.inNamespace(namespace)
-                || Namespaces.RDF.inNamespace(namespace)
-                || Namespaces.RDFS.inNamespace(namespace)
-                || Namespaces.XSD.inNamespace(namespace);
+        return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace) || Namespaces.RDFS
+            .inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
     }
 
     /**
@@ -163,8 +162,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         otherwise {@code false}
      */
     public boolean isPlainLiteral() {
-        return remainder.equals("PlainLiteral")
-                && Namespaces.RDF.inNamespace(namespace);
+        return remainder.equals("PlainLiteral") && Namespaces.RDF.inNamespace(namespace);
     }
 
     /**
@@ -184,7 +182,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     /**
      * @return the remainder (coincident with NCName usually) for this IRI.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public Optional<String> getRemainder() {
         if (remainder.isEmpty()) {
@@ -210,7 +207,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        The String that specifies the IRI
      * @return The IRI that has the specified string representation.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull String str) {
         checkNotNull(str, "str cannot be null");
@@ -236,8 +232,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     public static IRI create(@Nullable String prefix, @Nullable String suffix) {
         if (prefix == null && suffix == null) {
-            throw new IllegalArgumentException(
-                    "prefix and suffix cannot both be null");
+            throw new IllegalArgumentException("prefix and suffix cannot both be null");
         }
         if (prefix == null) {
             assert suffix != null;
@@ -270,7 +265,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        the file to create the IRI from
      * @return file.toURI() IRI
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull File file) {
         checkNotNull(file, "file cannot be null");
@@ -295,7 +289,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @throws OWLRuntimeException
      *         if the URL is ill formed
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull URL url) {
         checkNotNull(url, "url cannot be null");
@@ -321,17 +314,15 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     // Impl - All constructors are private - factory methods are used for
     // public creation
     private static final long serialVersionUID = 40000L;
-    private static final LoadingCache<String, String> PREFIX_CACHE = CacheBuilder
-            .newBuilder().concurrencyLevel(8).maximumSize(1024)
-            .build(new CacheLoader<String, String>() {
+    private static final LoadingCache<String, String> PREFIX_CACHE = CacheBuilder.newBuilder().concurrencyLevel(8)
+        .maximumSize(1024).build(new CacheLoader<String, String>() {
 
-                @Override
-                public String load(String key) {
-                    return key;
-                }
-            });
+            @Override
+            public String load(String key) {
+                return key;
+            }
+        });
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String cache(@Nonnull String s) {
         try {
@@ -365,7 +356,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        suffix to turn to optional. Empty string is the same as null
      * @return optional value for remainder
      */
-    @SuppressWarnings("null")
     @Nonnull
     protected Optional<String> asOptional(String suffix) {
         if (suffix == null) {
@@ -380,7 +370,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
     }
 
-    @SuppressWarnings("null")
     protected IRI(@Nonnull URI uri) {
         this(checkNotNull(uri, "uri cannot be null").toString());
     }
@@ -424,7 +413,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    @SuppressWarnings("null")
     @Nonnull
     public String getShortForm() {
         if (!remainder.isEmpty()) {
@@ -555,19 +543,16 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.of(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.absent();
@@ -595,7 +580,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             return false;
         }
         IRI other = (IRI) obj;
-        return remainder.equals(other.remainder)
-                && other.namespace.equals(namespace);
+        return remainder.equals(other.remainder) && other.namespace.equals(namespace);
     }
 }

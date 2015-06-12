@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc", })
 public class AddOntologyAnnotationDataTestCase {
 
     @Nonnull
@@ -73,8 +73,7 @@ public class AddOntologyAnnotationDataTestCase {
     @Test
     public void testOntologyChangeSymmetry() {
         AddOntologyAnnotationData data = createData();
-        AddOntologyAnnotation change = new AddOntologyAnnotation(mockOntology,
-                mockAnnotation);
+        AddOntologyAnnotation change = new AddOntologyAnnotation(mockOntology, mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
 }

@@ -17,7 +17,9 @@ public class Xref {
         this.idref = idref;
     }
 
-    /** @return idref */
+    /**
+     * @return idref
+     */
     @Nonnull
     public String getIdref() {
         return idref;
@@ -31,7 +33,9 @@ public class Xref {
         this.idref = idref;
     }
 
-    /** @return annotation */
+    /**
+     * @return annotation
+     */
     public String getAnnotation() {
         return annotation;
     }

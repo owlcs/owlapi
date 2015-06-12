@@ -42,8 +42,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     private static final String RDF_EXTENSION = ".rdf";
     private static final String XML_EXTENSION = ".xml";
     private static final String OBO_EXTENSION = ".obo";
-    private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION,
-            XML_EXTENSION, OBO_EXTENSION };
+    private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION, XML_EXTENSION, OBO_EXTENSION };
     private static final Map<IRI, String> WELL_KNOWN_SHORTFORMS = initWellKnownShortForms();
     private static final long serialVersionUID = 40000L;
 
@@ -123,14 +122,12 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return The short form with the extension removed if it was present, or
      *         the original short form if no extension was present.
      */
-    @SuppressWarnings("null")
     @Nonnull
     private static String stripExtensionIfPresent(String shortForm) {
         String lowerCaseShortForm = shortForm.toLowerCase();
         for (String extension : EXTENSIONS) {
             if (lowerCaseShortForm.endsWith(extension)) {
-                return shortForm.substring(0,
-                        shortForm.length() - extension.length());
+                return shortForm.substring(0, shortForm.length() - extension.length());
             }
         }
         return shortForm;

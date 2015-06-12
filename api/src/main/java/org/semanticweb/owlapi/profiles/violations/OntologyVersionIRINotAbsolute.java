@@ -58,16 +58,13 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString("Ontology version IRI not absolute: %s",
-                getExpression());
+        return toString("Ontology version IRI not absolute: %s", getExpression());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
-        return list(new SetOntologyID(ontology, new OWLOntologyID(
-                Optional.of(IRI.create("urn:ontology#replaced")),
-                Optional.of(IRI.create("urn:ontology#replaced1")))));
+        return list(new SetOntologyID(ontology, new OWLOntologyID(Optional.of(IRI.create("urn:ontology#replaced")),
+            Optional.of(IRI.create("urn:ontology#replaced1")))));
     }
 }

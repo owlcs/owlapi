@@ -6,8 +6,8 @@ package uk.ac.manchester.cs.owl.owlapi.concurrent;
  * 13/04/15
  */
 public enum Concurrency {
-
+    /** Concurrent implementation. */
     CONCURRENT,
-
+    /** Non concurrent implementation. */
     NON_CONCURRENT
 }

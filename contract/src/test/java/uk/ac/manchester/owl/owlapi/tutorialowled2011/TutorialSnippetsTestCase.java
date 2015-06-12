@@ -17,12 +17,7 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
@@ -34,68 +29,13 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.PrefixManager;
-import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
-import org.semanticweb.owlapi.reasoner.InferenceType;
-import org.semanticweb.owlapi.reasoner.Node;
-import org.semanticweb.owlapi.reasoner.NodeSet;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
-import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
+import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
-import org.semanticweb.owlapi.util.AutoIRIMapper;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
-import org.semanticweb.owlapi.util.InferredAxiomGenerator;
-import org.semanticweb.owlapi.util.InferredOntologyGenerator;
-import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
-import org.semanticweb.owlapi.util.OWLEntityRemover;
-import org.semanticweb.owlapi.util.OWLOntologyMerger;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
-import org.semanticweb.owlapi.util.PriorityCollection;
-import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -105,53 +45,49 @@ import org.slf4j.LoggerFactory;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class TutorialSnippetsTestCase {
 
     @Nonnull
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
     @Nonnull
-    private static final Logger LOG = LoggerFactory
-            .getLogger(TutorialSnippetsTestCase.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TutorialSnippetsTestCase.class);
     @Nonnull
     private static final String KOALA = "<?xml version=\"1.0\"?>\n"
-            + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
-            + " xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
-            + "  <owl:Ontology rdf:about=\"\"/>\n"
-            + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Marsupials\"><owl:disjointWith><owl:Class rdf:about=\"#Person\"/></owl:disjointWith><rdfs:subClassOf><owl:Class rdf:about=\"#Animal\"/></rdfs:subClassOf></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Student\"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Class rdf:about=\"#Person\"/><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#isHardWorking\"/></owl:onProperty><owl:hasValue rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</owl:hasValue></owl:Restriction><owl:Restriction><owl:someValuesFrom><owl:Class rdf:about=\"#University\"/></owl:someValuesFrom><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasHabitat\"/></owl:onProperty></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"KoalaWithPhD\"><owl:versionInfo>1.2</owl:versionInfo><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Restriction><owl:hasValue><Degree rdf:ID=\"PhD\"/></owl:hasValue><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasDegree\"/></owl:onProperty></owl:Restriction><owl:Class rdf:about=\"#Koala\"/></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"University\"><rdfs:subClassOf><owl:Class rdf:ID=\"Habitat\"/></rdfs:subClassOf></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Koala\"><rdfs:subClassOf><owl:Restriction><owl:hasValue rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">false</owl:hasValue><owl:onProperty><owl:FunctionalProperty rdf:about=\"#isHardWorking\"/></owl:onProperty></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf><owl:Restriction><owl:someValuesFrom><owl:Class rdf:about=\"#DryEucalyptForest\"/></owl:someValuesFrom><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasHabitat\"/></owl:onProperty></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf rdf:resource=\"#Marsupials\"/></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Animal\"><rdfs:seeAlso>Male</rdfs:seeAlso><rdfs:subClassOf><owl:Restriction><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasHabitat\"/></owl:onProperty><owl:minCardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">1</owl:minCardinality></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf><owl:Restriction><owl:cardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">1</owl:cardinality><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty></owl:Restriction></rdfs:subClassOf><owl:versionInfo>1.1</owl:versionInfo></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Forest\"><rdfs:subClassOf rdf:resource=\"#Habitat\"/></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Rainforest\"><rdfs:subClassOf rdf:resource=\"#Forest\"/></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"GraduateStudent\"><rdfs:subClassOf><owl:Restriction><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasDegree\"/></owl:onProperty><owl:someValuesFrom><owl:Class><owl:oneOf rdf:parseType=\"Collection\"><Degree rdf:ID=\"BA\"/><Degree rdf:ID=\"BS\"/></owl:oneOf></owl:Class></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf rdf:resource=\"#Student\"/></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Parent\"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Class rdf:about=\"#Animal\"/><owl:Restriction><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasChildren\"/></owl:onProperty><owl:minCardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">1</owl:minCardinality></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass><rdfs:subClassOf rdf:resource=\"#Animal\"/></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"DryEucalyptForest\"><rdfs:subClassOf rdf:resource=\"#Forest\"/></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Quokka\"><rdfs:subClassOf><owl:Restriction><owl:hasValue rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</owl:hasValue><owl:onProperty><owl:FunctionalProperty rdf:about=\"#isHardWorking\"/></owl:onProperty></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf rdf:resource=\"#Marsupials\"/></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"TasmanianDevil\"><rdfs:subClassOf rdf:resource=\"#Marsupials\"/></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"MaleStudentWith3Daughters\"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Class rdf:about=\"#Student\"/><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"male\"/></owl:hasValue></owl:Restriction><owl:Restriction><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasChildren\"/></owl:onProperty><owl:cardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">3</owl:cardinality></owl:Restriction><owl:Restriction><owl:allValuesFrom rdf:resource=\"#Female\"/><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasChildren\"/></owl:onProperty></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Degree\"/>\n  <owl:Class rdf:ID=\"Gender\"/>\n"
-            + "  <owl:Class rdf:ID=\"Male\"><owl:equivalentClass><owl:Restriction><owl:hasValue rdf:resource=\"#male\"/><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty></owl:Restriction></owl:equivalentClass></owl:Class>\n"
-            + "  <owl:Class rdf:ID=\"Person\"><rdfs:subClassOf rdf:resource=\"#Animal\"/><owl:disjointWith rdf:resource=\"#Marsupials\"/></owl:Class>\n"
-            + "  <owl:ObjectProperty rdf:ID=\"hasHabitat\"><rdfs:range rdf:resource=\"#Habitat\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:ObjectProperty>\n"
-            + "  <owl:ObjectProperty rdf:ID=\"hasDegree\"><rdfs:domain rdf:resource=\"#Person\"/><rdfs:range rdf:resource=\"#Degree\"/></owl:ObjectProperty>\n"
-            + "  <owl:ObjectProperty rdf:ID=\"hasChildren\"><rdfs:range rdf:resource=\"#Animal\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:ObjectProperty>\n"
-            + "  <owl:FunctionalProperty rdf:ID=\"hasGender\"><rdfs:range rdf:resource=\"#Gender\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:FunctionalProperty>\n"
-            + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
-            + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
+        + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
+        + " xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
+        + "  <owl:Ontology rdf:about=\"\"/>\n"
+        + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Marsupials\"><owl:disjointWith><owl:Class rdf:about=\"#Person\"/></owl:disjointWith><rdfs:subClassOf><owl:Class rdf:about=\"#Animal\"/></rdfs:subClassOf></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Student\"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Class rdf:about=\"#Person\"/><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#isHardWorking\"/></owl:onProperty><owl:hasValue rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</owl:hasValue></owl:Restriction><owl:Restriction><owl:someValuesFrom><owl:Class rdf:about=\"#University\"/></owl:someValuesFrom><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasHabitat\"/></owl:onProperty></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"KoalaWithPhD\"><owl:versionInfo>1.2</owl:versionInfo><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Restriction><owl:hasValue><Degree rdf:ID=\"PhD\"/></owl:hasValue><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasDegree\"/></owl:onProperty></owl:Restriction><owl:Class rdf:about=\"#Koala\"/></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"University\"><rdfs:subClassOf><owl:Class rdf:ID=\"Habitat\"/></rdfs:subClassOf></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Koala\"><rdfs:subClassOf><owl:Restriction><owl:hasValue rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">false</owl:hasValue><owl:onProperty><owl:FunctionalProperty rdf:about=\"#isHardWorking\"/></owl:onProperty></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf><owl:Restriction><owl:someValuesFrom><owl:Class rdf:about=\"#DryEucalyptForest\"/></owl:someValuesFrom><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasHabitat\"/></owl:onProperty></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf rdf:resource=\"#Marsupials\"/></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Animal\"><rdfs:seeAlso>Male</rdfs:seeAlso><rdfs:subClassOf><owl:Restriction><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasHabitat\"/></owl:onProperty><owl:minCardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">1</owl:minCardinality></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf><owl:Restriction><owl:cardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">1</owl:cardinality><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty></owl:Restriction></rdfs:subClassOf><owl:versionInfo>1.1</owl:versionInfo></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Forest\"><rdfs:subClassOf rdf:resource=\"#Habitat\"/></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Rainforest\"><rdfs:subClassOf rdf:resource=\"#Forest\"/></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"GraduateStudent\"><rdfs:subClassOf><owl:Restriction><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasDegree\"/></owl:onProperty><owl:someValuesFrom><owl:Class><owl:oneOf rdf:parseType=\"Collection\"><Degree rdf:ID=\"BA\"/><Degree rdf:ID=\"BS\"/></owl:oneOf></owl:Class></owl:someValuesFrom></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf rdf:resource=\"#Student\"/></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Parent\"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Class rdf:about=\"#Animal\"/><owl:Restriction><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasChildren\"/></owl:onProperty><owl:minCardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">1</owl:minCardinality></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass><rdfs:subClassOf rdf:resource=\"#Animal\"/></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"DryEucalyptForest\"><rdfs:subClassOf rdf:resource=\"#Forest\"/></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Quokka\"><rdfs:subClassOf><owl:Restriction><owl:hasValue rdf:datatype=\"http://www.w3.org/2001/XMLSchema#boolean\">true</owl:hasValue><owl:onProperty><owl:FunctionalProperty rdf:about=\"#isHardWorking\"/></owl:onProperty></owl:Restriction></rdfs:subClassOf><rdfs:subClassOf rdf:resource=\"#Marsupials\"/></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"TasmanianDevil\"><rdfs:subClassOf rdf:resource=\"#Marsupials\"/></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"MaleStudentWith3Daughters\"><owl:equivalentClass><owl:Class><owl:intersectionOf rdf:parseType=\"Collection\"><owl:Class rdf:about=\"#Student\"/><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"male\"/></owl:hasValue></owl:Restriction><owl:Restriction><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasChildren\"/></owl:onProperty><owl:cardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#int\">3</owl:cardinality></owl:Restriction><owl:Restriction><owl:allValuesFrom rdf:resource=\"#Female\"/><owl:onProperty><owl:ObjectProperty rdf:about=\"#hasChildren\"/></owl:onProperty></owl:Restriction></owl:intersectionOf></owl:Class></owl:equivalentClass></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Degree\"/>\n  <owl:Class rdf:ID=\"Gender\"/>\n"
+        + "  <owl:Class rdf:ID=\"Male\"><owl:equivalentClass><owl:Restriction><owl:hasValue rdf:resource=\"#male\"/><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty></owl:Restriction></owl:equivalentClass></owl:Class>\n"
+        + "  <owl:Class rdf:ID=\"Person\"><rdfs:subClassOf rdf:resource=\"#Animal\"/><owl:disjointWith rdf:resource=\"#Marsupials\"/></owl:Class>\n"
+        + "  <owl:ObjectProperty rdf:ID=\"hasHabitat\"><rdfs:range rdf:resource=\"#Habitat\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:ObjectProperty>\n"
+        + "  <owl:ObjectProperty rdf:ID=\"hasDegree\"><rdfs:domain rdf:resource=\"#Person\"/><rdfs:range rdf:resource=\"#Degree\"/></owl:ObjectProperty>\n"
+        + "  <owl:ObjectProperty rdf:ID=\"hasChildren\"><rdfs:range rdf:resource=\"#Animal\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:ObjectProperty>\n"
+        + "  <owl:FunctionalProperty rdf:ID=\"hasGender\"><rdfs:range rdf:resource=\"#Gender\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:FunctionalProperty>\n"
+        + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
+        + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
     @Nonnull
-    public static final IRI KOALA_IRI = IRI
-            .create("http://protege.stanford.edu/plugins/owl/owl-library/koala.owl");
+    public static final IRI KOALA_IRI = IRI.create("http://protege.stanford.edu/plugins/owl/owl-library/koala.owl");
     @Nonnull
-    public static final IRI EXAMPLE_IRI = IRI
-            .create("http://www.semanticweb.org/ontologies/ont.owl");
+    public static final IRI EXAMPLE_IRI = IRI.create("http://www.semanticweb.org/ontologies/ont.owl");
     @Nonnull
-    public static final IRI EXAMPLE_SAVE_IRI = IRI
-            .create("file:materializedOntologies/ont1290535967123.owl");
+    public static final IRI EXAMPLE_SAVE_IRI = IRI.create("file:materializedOntologies/ont1290535967123.owl");
     @Nonnull
     OWLDataFactory df = OWLManager.getOWLDataFactory();
     @Nonnull
@@ -161,16 +97,13 @@ public class TutorialSnippetsTestCase {
     public OWLOntologyManager create() {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         PriorityCollection<OWLOntologyIRIMapper> iriMappers = m.getIRIMappers();
-        iriMappers.add(new AutoIRIMapper(new File("materializedOntologies"),
-                true));
+        iriMappers.add(new AutoIRIMapper(new File("materializedOntologies"), true));
         return m;
     }
 
     @Nonnull
-    private static OWLOntology loadPizzaOntology(@Nonnull OWLOntologyManager m)
-            throws OWLOntologyCreationException {
-        return m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                KOALA));
+    private static OWLOntology loadPizzaOntology(@Nonnull OWLOntologyManager m) throws OWLOntologyCreationException {
+        return m.loadOntologyFromOntologyDocument(new StringDocumentSource(KOALA));
     }
 
     @Test
@@ -248,8 +181,7 @@ public class TutorialSnippetsTestCase {
         // File output = File.createTempFile("saved_pizza", ".owl");
         IRI documentIRI = IRI.create(output);
         // Set up a mapping, which maps the ontology to the document IRI
-        SimpleIRIMapper mapper = new SimpleIRIMapper(EXAMPLE_SAVE_IRI,
-                documentIRI);
+        SimpleIRIMapper mapper = new SimpleIRIMapper(EXAMPLE_SAVE_IRI, documentIRI);
         m.getIRIMappers().add(mapper);
         // set up a mapper to read local copies of ontologies
         File localFolder = new File("materializedOntologies");
@@ -286,8 +218,7 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         OWLClass quokkaCls = df.getOWLClass(IRI.create(KOALA_IRI + "#Quokka"));
-        Collection<OWLSubClassOfAxiom> classes = o
-                .getSubClassAxiomsForSubClass(quokkaCls);
+        Collection<OWLSubClassOfAxiom> classes = o.getSubClassAxiomsForSubClass(quokkaCls);
         // for each superclass there will be a corresponding axiom
         // the ontology indexes axioms in a variety of ways
         assertEquals(2, classes.size());
@@ -301,25 +232,18 @@ public class TutorialSnippetsTestCase {
         OWLClass clsA = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#A"));
         OWLClass clsB = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#B"));
         SWRLVariable var = df.getSWRLVariable(IRI.create(EXAMPLE_IRI + "#x"));
-        Set<SWRLClassAtom> body = Collections.singleton(df.getSWRLClassAtom(
-                clsA, var));
-        Set<SWRLClassAtom> head = Collections.singleton(df.getSWRLClassAtom(
-                clsB, var));
+        Set<SWRLClassAtom> body = Collections.singleton(df.getSWRLClassAtom(clsA, var));
+        Set<SWRLClassAtom> head = Collections.singleton(df.getSWRLClassAtom(clsB, var));
         SWRLRule rule = df.getSWRLRule(body, head);
         m.applyChange(new AddAxiom(o, rule));
-        OWLObjectProperty prop = df.getOWLObjectProperty(IRI.create(EXAMPLE_IRI
-                + "#propA"));
-        OWLObjectProperty propB = df.getOWLObjectProperty(IRI
-                .create(EXAMPLE_IRI + "#propB"));
-        SWRLObjectPropertyAtom propAtom = df.getSWRLObjectPropertyAtom(prop,
-                var, var);
-        SWRLObjectPropertyAtom propAtom2 = df.getSWRLObjectPropertyAtom(propB,
-                var, var);
+        OWLObjectProperty prop = df.getOWLObjectProperty(IRI.create(EXAMPLE_IRI + "#propA"));
+        OWLObjectProperty propB = df.getOWLObjectProperty(IRI.create(EXAMPLE_IRI + "#propB"));
+        SWRLObjectPropertyAtom propAtom = df.getSWRLObjectPropertyAtom(prop, var, var);
+        SWRLObjectPropertyAtom propAtom2 = df.getSWRLObjectPropertyAtom(propB, var, var);
         Set<SWRLAtom> antecedent = new HashSet<>();
         antecedent.add(propAtom);
         antecedent.add(propAtom2);
-        SWRLRule rule2 = df.getSWRLRule(antecedent,
-                Collections.singleton(propAtom));
+        SWRLRule rule2 = df.getSWRLRule(antecedent, Collections.singleton(propAtom));
         m.applyChange(new AddAxiom(o, rule2));
     }
 
@@ -328,24 +252,18 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // We want to state that matthew has a father who is peter.
-        OWLIndividual matthew = df.getOWLNamedIndividual(IRI.create(EXAMPLE_IRI
-                + "#matthew"));
-        OWLIndividual peter = df.getOWLNamedIndividual(IRI.create(EXAMPLE_IRI
-                + "#peter"));
+        OWLIndividual matthew = df.getOWLNamedIndividual(IRI.create(EXAMPLE_IRI + "#matthew"));
+        OWLIndividual peter = df.getOWLNamedIndividual(IRI.create(EXAMPLE_IRI + "#peter"));
         // We need the hasFather property
-        OWLObjectProperty hasFather = df.getOWLObjectProperty(IRI
-                .create(EXAMPLE_IRI + "#hasFather"));
+        OWLObjectProperty hasFather = df.getOWLObjectProperty(IRI.create(EXAMPLE_IRI + "#hasFather"));
         // matthew --> hasFather --> peter
-        OWLObjectPropertyAssertionAxiom assertion = df
-                .getOWLObjectPropertyAssertionAxiom(hasFather, matthew, peter);
+        OWLObjectPropertyAssertionAxiom assertion = df.getOWLObjectPropertyAssertionAxiom(hasFather, matthew, peter);
         // Finally, add the axiom to our ontology and save
         AddAxiom addAxiomChange = new AddAxiom(o, assertion);
         m.applyChange(addAxiomChange);
         // matthew is an instance of Person
-        OWLClass personClass = df.getOWLClass(IRI.create(EXAMPLE_IRI
-                + "#Person"));
-        OWLClassAssertionAxiom ax = df.getOWLClassAssertionAxiom(personClass,
-                matthew);
+        OWLClass personClass = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#Person"));
+        OWLClassAssertionAxiom ax = df.getOWLClassAssertionAxiom(personClass, matthew);
         // Add this axiom to our ontology - with a convenience method
         m.addAxiom(o, ax);
     }
@@ -359,8 +277,7 @@ public class TutorialSnippetsTestCase {
         // OWLEntityRemover will remove an entity (class, property or
         // individual)
         // from a set of ontologies by removing all referencing axioms
-        OWLEntityRemover remover = new OWLEntityRemover(
-                Collections.singleton(o));
+        OWLEntityRemover remover = new OWLEntityRemover(Collections.singleton(o));
         int previousNumberOfIndividuals = o.getIndividualsInSignature().size();
         // Visit all individuals with the remover
         // Changes needed for removal will be prepared
@@ -370,8 +287,8 @@ public class TutorialSnippetsTestCase {
         // Now apply the changes
         m.applyChanges(remover.getChanges());
         int size = o.getIndividualsInSignature().size();
-        assertTrue(previousNumberOfIndividuals + " supposed to be larger than "
-                + size, previousNumberOfIndividuals > size);
+        assertTrue(previousNumberOfIndividuals + " supposed to be larger than " + size,
+            previousNumberOfIndividuals > size);
     }
 
     @Test
@@ -380,13 +297,11 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // all Heads have parts that are noses (at least one)
         // We do this by creating an existential (some) restriction
-        OWLObjectProperty hasPart = df.getOWLObjectProperty(IRI
-                .create(EXAMPLE_IRI + "#hasPart"));
+        OWLObjectProperty hasPart = df.getOWLObjectProperty(IRI.create(EXAMPLE_IRI + "#hasPart"));
         OWLClass nose = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#Nose"));
         // Now let's describe the class of individuals that have at
         // least one part that is a kind of nose
-        OWLClassExpression hasPartSomeNose = df.getOWLObjectSomeValuesFrom(
-                hasPart, nose);
+        OWLClassExpression hasPartSomeNose = df.getOWLObjectSomeValuesFrom(hasPart, nose);
         OWLClass head = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#Head"));
         // Head subclass of our restriction
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(head, hasPartSomeNose);
@@ -400,19 +315,15 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(EXAMPLE_IRI);
         // Adults have an age greater than 18.
-        OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create(EXAMPLE_IRI
-                + "hasAge"));
+        OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create(EXAMPLE_IRI + "hasAge"));
         // Create the restricted data range by applying the facet restriction
         // with a value of 18 to int
-        OWLDataRange greaterThan18 = df.getOWLDatatypeRestriction(
-                df.getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE,
-                df.getOWLLiteral(18));
+        OWLDataRange greaterThan18 = df.getOWLDatatypeRestriction(df.getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE, df
+            .getOWLLiteral(18));
         // Now we can use this in our datatype restriction on hasAge
-        OWLClassExpression adultDefinition = df.getOWLDataSomeValuesFrom(
-                hasAge, greaterThan18);
+        OWLClassExpression adultDefinition = df.getOWLDataSomeValuesFrom(hasAge, greaterThan18);
         OWLClass adult = df.getOWLClass(IRI.create(EXAMPLE_IRI + "#Adult"));
-        OWLSubClassOfAxiom ax = df
-                .getOWLSubClassOfAxiom(adult, adultDefinition);
+        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(adult, adultDefinition);
         m.applyChange(new AddAxiom(o, ax));
     }
 
@@ -422,10 +333,8 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         // Create a console progress monitor. This will print the reasoner
         // progress out to the console.
-        ReasonerProgressMonitor progressMonitor = new LoggingReasonerProgressMonitor(
-                LOG, "testUnsatisfiableClasses");
-        OWLReasonerConfiguration config = new SimpleConfiguration(
-                progressMonitor);
+        ReasonerProgressMonitor progressMonitor = new LoggingReasonerProgressMonitor(LOG, "testUnsatisfiableClasses");
+        OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor);
         // Create a reasoner that will reason over our ontology and its imports
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
@@ -454,10 +363,8 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         // Create a console progress monitor. This will print the reasoner
         // progress out to the console.
-        ReasonerProgressMonitor progressMonitor = new LoggingReasonerProgressMonitor(
-                LOG, "testDescendants");
-        OWLReasonerConfiguration config = new SimpleConfiguration(
-                progressMonitor);
+        ReasonerProgressMonitor progressMonitor = new LoggingReasonerProgressMonitor(LOG, "testDescendants");
+        OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor);
         // Create a reasoner that will reason over our ontology and its imports
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
@@ -486,10 +393,8 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         // Create a console progress monitor. This will print the reasoner
         // progress out to the console.
-        ReasonerProgressMonitor progressMonitor = new LoggingReasonerProgressMonitor(
-                LOG, "testPetInstances");
-        OWLReasonerConfiguration config = new SimpleConfiguration(
-                progressMonitor);
+        ReasonerProgressMonitor progressMonitor = new LoggingReasonerProgressMonitor(LOG, "testPetInstances");
+        OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor);
         // Create a reasoner that will reason over our ontology and its imports
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
@@ -505,17 +410,14 @@ public class TutorialSnippetsTestCase {
             // a NodeSet represents a set of Nodes.
             // a Node represents a set of equivalent classes/or sameAs
             // individuals
-            NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(c,
-                    true);
+            NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(c, true);
             for (OWLNamedIndividual i : instances.getFlattened()) {
                 assert i != null;
                 // look up all property assertions
                 for (OWLObjectProperty op : o.getObjectPropertiesInSignature()) {
                     assert op != null;
-                    NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
-                            .getObjectPropertyValues(i, op);
-                    for (OWLNamedIndividual value : petValuesNodeSet
-                            .getFlattened()) {
+                    NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner.getObjectPropertyValues(i, op);
+                    for (OWLNamedIndividual value : petValuesNodeSet.getFlattened()) {
                         assertNotNull(value);
                         // use the value individuals
                     }
@@ -532,8 +434,7 @@ public class TutorialSnippetsTestCase {
         for (OWLClass c : o.getClassesInSignature()) {
             assert c != null;
             // collect the properties which are used in existential restrictions
-            RestrictionVisitor visitor = new RestrictionVisitor(
-                    Collections.singleton(o));
+            RestrictionVisitor visitor = new RestrictionVisitor(Collections.singleton(o));
             for (OWLSubClassOfAxiom ax : o.getSubClassAxiomsForSubClass(c)) {
                 // Ask our superclass to accept a visit from the
                 // RestrictionVisitor
@@ -542,13 +443,12 @@ public class TutorialSnippetsTestCase {
             // Our RestrictionVisitor has now collected all of the properties
             // that have been restricted in existential
             // restrictions - print them out.
-            Set<OWLObjectPropertyExpression> restrictedProperties = visitor
-                    .getRestrictedProperties();
+            Set<OWLObjectPropertyExpression> restrictedProperties = visitor.getRestrictedProperties();
             // System.out.println("Restricted properties for " + labelFor(c, o)
             // + ": " + restrictedProperties.size());
             for (OWLObjectPropertyExpression prop : restrictedProperties) {
                 assertNotNull(prop);
-                // System.out.println("    " + prop);
+                // System.out.println(" " + prop);
             }
         }
     }
@@ -557,8 +457,7 @@ public class TutorialSnippetsTestCase {
      * Visits existential restrictions and collects the properties which are
      * restricted
      */
-    private static class RestrictionVisitor extends
-            OWLClassExpressionVisitorAdapter {
+    private static class RestrictionVisitor extends OWLClassExpressionVisitorAdapter {
 
         @Nonnull
         private final Set<OWLClass> processedClasses;
@@ -585,8 +484,7 @@ public class TutorialSnippetsTestCase {
                 // we recursively visit named supers.
                 processedClasses.add(ce);
                 for (OWLOntology ont : onts) {
-                    for (OWLSubClassOfAxiom ax : ont
-                            .getSubClassAxiomsForSubClass(ce)) {
+                    for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(ce)) {
                         ax.getSuperClass().accept(this);
                     }
                 }
@@ -609,11 +507,10 @@ public class TutorialSnippetsTestCase {
         // We want to add a comment to the pizza class.
         OWLClass quokkaCls = df.getOWLClass(IRI.create(KOALA_IRI + "#Quokka"));
         // the content of our comment: a string and a language tag
-        OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(),
-                df.getOWLLiteral("A class which represents Quokkas", "en"));
+        OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(
+            "A class which represents Quokkas", "en"));
         // Specify that the pizza class has an annotation
-        OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(quokkaCls.getIRI(),
-                commentAnno);
+        OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(quokkaCls.getIRI(), commentAnno);
         // Add the axiom to the ontology
         m.applyChange(new AddAxiom(o, ax));
         // add a version info annotation to the ontology
@@ -626,9 +523,8 @@ public class TutorialSnippetsTestCase {
         // We want to add a comment to the pizza class.
         OWLLiteral lit = df.getOWLLiteral("Added a comment to the pizza class");
         // create an annotation to pair a URI with the constant
-        OWLAnnotationProperty owlAnnotationProperty = df
-                .getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO
-                        .getIRI());
+        OWLAnnotationProperty owlAnnotationProperty = df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO
+            .getIRI());
         OWLAnnotation anno = df.getOWLAnnotation(owlAnnotationProperty, lit);
         // Now we can add this as an ontology annotation
         // Apply the change in the usual way
@@ -641,9 +537,8 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         for (OWLClass cls : o.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : annotations(
-                    o.getAnnotationAssertionAxioms(cls.getIRI()),
-                    df.getRDFSLabel())) {
+            for (OWLAnnotation annotation : annotations(o.getAnnotationAssertionAxioms(cls.getIRI()), df
+                .getRDFSLabel())) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
                     // look for portuguese labels
@@ -670,8 +565,7 @@ public class TutorialSnippetsTestCase {
         gens.add(new InferredSubClassAxiomGenerator());
         OWLOntology infOnt = m.createOntology();
         // create the inferred ontology generator
-        InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner,
-                gens);
+        InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
         iog.fillOntology(m.getOWLDataFactory(), infOnt);
     }
 
@@ -680,18 +574,14 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o1 = loadPizzaOntology(m);
         OWLOntology o2 = m.createOntology(EXAMPLE_IRI);
-        m.addAxiom(
-                o2,
-                df.getOWLDeclarationAxiom(df.getOWLClass(IRI.create(EXAMPLE_IRI
-                        + "#Weasel"))));
+        m.addAxiom(o2, df.getOWLDeclarationAxiom(df.getOWLClass(IRI.create(EXAMPLE_IRI + "#Weasel"))));
         // Create our ontology merger
         OWLOntologyMerger merger = new OWLOntologyMerger(m);
         // We merge all of the loaded ontologies. Since an OWLOntologyManager is
         // an OWLOntologySetProvider we
         // just pass this in. We also need to specify the URI of the new
         // ontology that will be created.
-        IRI mergedOntologyIRI = IRI
-                .create("http://www.semanticweb.com/mymergedont");
+        IRI mergedOntologyIRI = IRI.create("http://www.semanticweb.com/mymergedont");
         OWLOntology merged = merger.createMergedOntology(m, mergedOntologyIRI);
         assertTrue(merged.getAxiomCount() > o1.getAxiomCount());
         assertTrue(merged.getAxiomCount() > o2.getAxiomCount());
@@ -704,11 +594,9 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // Create the walker
-        OWLOntologyWalker walker = new OWLOntologyWalker(
-                Collections.singleton(o));
+        OWLOntologyWalker walker = new OWLOntologyWalker(Collections.singleton(o));
         // Now ask our walker to walk over the ontology
-        OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<Object>(
-                walker) {
+        OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<Object>(walker) {
 
             @Override
             public Object visit(OWLObjectSomeValuesFrom ce) {
@@ -716,7 +604,7 @@ public class TutorialSnippetsTestCase {
                 // Print out the restriction
                 // System.out.println(desc);
                 // Print out the axiom where the restriction is used
-                // System.out.println("         " + getCurrentAxiom());
+                // System.out.println(" " + getCurrentAxiom());
                 // System.out.println();
                 // We don't need to return anything here.
                 return "";
@@ -753,19 +641,16 @@ public class TutorialSnippetsTestCase {
      * @param cls
      *        The class expression
      */
-    private void printProperties(@Nonnull OWLOntology o,
-            @Nonnull OWLReasoner reasoner, OWLClass cls) {
-        for (OWLObjectPropertyExpression prop : o
-                .getObjectPropertiesInSignature()) {
+    private void printProperties(@Nonnull OWLOntology o, @Nonnull OWLReasoner reasoner, OWLClass cls) {
+        for (OWLObjectPropertyExpression prop : o.getObjectPropertiesInSignature()) {
             assert prop != null;
             // To test whether an instance of A MUST have a property p with a
             // filler, check for the satisfiability of A and not (some p Thing)
             // if this is satisfiable, then there might be instances with no
             // p-filler
-            OWLClassExpression restriction = df.getOWLObjectSomeValuesFrom(
-                    prop, df.getOWLThing());
-            OWLClassExpression intersection = df.getOWLObjectIntersectionOf(
-                    cls, df.getOWLObjectComplementOf(restriction));
+            OWLClassExpression restriction = df.getOWLObjectSomeValuesFrom(prop, df.getOWLThing());
+            OWLClassExpression intersection = df.getOWLObjectIntersectionOf(cls, df.getOWLObjectComplementOf(
+                restriction));
             boolean sat = !reasoner.isSatisfiable(intersection);
             if (sat) {
                 assertNotNull(prop);
@@ -791,15 +676,13 @@ public class TutorialSnippetsTestCase {
         for (OWLEntity ent : sig) {
             seedSig.add(ent);
             if (ent.isOWLClass()) {
-                NodeSet<OWLClass> subClasses = reasoner.getSubClasses(
-                        ent.asOWLClass(), false);
+                NodeSet<OWLClass> subClasses = reasoner.getSubClasses(ent.asOWLClass(), false);
                 seedSig.addAll(subClasses.getFlattened());
             }
         }
         // We now extract a locality-based module. STAR provides the smallest
         // ones
-        SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(
-                m, o, ModuleType.STAR);
+        SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(m, o, ModuleType.STAR);
         Set<OWLAxiom> mod = sme.extract(seedSig);
         assertNotNull(mod);
     }
@@ -815,14 +698,12 @@ public class TutorialSnippetsTestCase {
         OWLNamedIndividual mary = df.getOWLNamedIndividual(":Mary", pm);
         // create a ClassAssertion to specify that :Mary is an instance of
         // :Person
-        OWLClassAssertionAxiom classAssertion = df.getOWLClassAssertionAxiom(
-                person, mary);
+        OWLClassAssertionAxiom classAssertion = df.getOWLClassAssertionAxiom(person, mary);
         OWLOntology o = m.createOntology(IRI.create(base));
         // Add the class assertion
         m.addAxiom(o, classAssertion);
         // Dump the ontology
-        StreamDocumentTarget target = new StreamDocumentTarget(
-                new ByteArrayOutputStream());
+        StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
         m.saveOntology(o, target);
     }
 
@@ -834,8 +715,7 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         // OWLDatatype represents named datatypes in OWL
         // The OWL2Datatype enum defines built in OWL 2 Datatypes
-        OWLDatatype integer = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER
-                .getIRI());
+        OWLDatatype integer = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
         // For common data types there are some convenience methods of
         // OWLDataFactory
         OWLDatatype integerDatatype = df.getIntegerOWLDatatype();
@@ -847,28 +727,20 @@ public class TutorialSnippetsTestCase {
         // Custom data ranges can be built up from these basic datatypes
         // Get hold of a literal that is an integer value 18
         OWLLiteral eighteen = df.getOWLLiteral(18);
-        OWLDatatypeRestriction integerGE18 = df.getOWLDatatypeRestriction(
-                integer, OWLFacet.MIN_INCLUSIVE, eighteen);
-        OWLDataProperty hasAge = df
-                .getOWLDataProperty(IRI
-                        .create("http://www.semanticweb.org/ontologies/dataranges#hasAge"));
-        OWLDataPropertyRangeAxiom rangeAxiom = df.getOWLDataPropertyRangeAxiom(
-                hasAge, integerGE18);
-        OWLOntology o = m.createOntology(IRI
-                .create("http://www.semanticweb.org/ontologies/dataranges"));
+        OWLDatatypeRestriction integerGE18 = df.getOWLDatatypeRestriction(integer, OWLFacet.MIN_INCLUSIVE, eighteen);
+        OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create(
+            "http://www.semanticweb.org/ontologies/dataranges#hasAge"));
+        OWLDataPropertyRangeAxiom rangeAxiom = df.getOWLDataPropertyRangeAxiom(hasAge, integerGE18);
+        OWLOntology o = m.createOntology(IRI.create("http://www.semanticweb.org/ontologies/dataranges"));
         // Add the range axiom to our ontology
         m.addAxiom(o, rangeAxiom);
         // Now create a datatype definition axiom
-        OWLDatatypeDefinitionAxiom datatypeDef = df
-                .getOWLDatatypeDefinitionAxiom(
-                        df.getOWLDatatype(IRI
-                                .create("http://www.semanticweb.org/ontologies/dataranges#age")),
-                        integerGE18);
+        OWLDatatypeDefinitionAxiom datatypeDef = df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype(IRI.create(
+            "http://www.semanticweb.org/ontologies/dataranges#age")), integerGE18);
         // Add the definition to our ontology
         m.addAxiom(o, datatypeDef);
         // Dump our ontology
-        StreamDocumentTarget target = new StreamDocumentTarget(
-                new ByteArrayOutputStream());
+        StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
         m.saveOntology(o, target);
     }
 
@@ -878,8 +750,7 @@ public class TutorialSnippetsTestCase {
         OWLOntologyManager m = create();
         IRI ontologyIRI = IRI.create("http://example.com/owl/families/");
         OWLOntology o = m.createOntology(ontologyIRI);
-        PrefixManager pm = new DefaultPrefixManager(null, null,
-                ontologyIRI.toString());
+        PrefixManager pm = new DefaultPrefixManager(null, null, ontologyIRI.toString());
         // Let's specify the :John has a wife :Mary
         // Get hold of the necessary individuals and object property
         OWLNamedIndividual john = df.getOWLNamedIndividual(":John", pm);
@@ -888,16 +759,14 @@ public class TutorialSnippetsTestCase {
         // To specify that :John is related to :Mary via the :hasWife property
         // we create an object property
         // assertion and add it to the ontology
-        OWLObjectPropertyAssertionAxiom propertyAssertion = df
-                .getOWLObjectPropertyAssertionAxiom(hasWife, john, mary);
+        OWLObjectPropertyAssertionAxiom propertyAssertion = df.getOWLObjectPropertyAssertionAxiom(hasWife, john, mary);
         m.addAxiom(o, propertyAssertion);
         // Now let's specify that :John is aged 51.
         // Get hold of a data property called :hasAge
         OWLDataProperty hasAge = df.getOWLDataProperty(":hasAge", pm);
         // To specify that :John has an age of 51 we create a data property
         // assertion and add it to the ontology
-        OWLDataPropertyAssertionAxiom dataPropertyAssertion = df
-                .getOWLDataPropertyAssertionAxiom(hasAge, john, 51);
+        OWLDataPropertyAssertionAxiom dataPropertyAssertion = df.getOWLDataPropertyAssertionAxiom(hasAge, john, 51);
         m.addAxiom(o, dataPropertyAssertion);
     }
 
@@ -920,8 +789,7 @@ public class TutorialSnippetsTestCase {
         reasoner.dispose();
     }
 
-    public static class LoggingReasonerProgressMonitor implements
-            ReasonerProgressMonitor {
+    public static class LoggingReasonerProgressMonitor implements ReasonerProgressMonitor {
 
         private static final long serialVersionUID = 40000L;
         private static Logger logger;
@@ -930,8 +798,7 @@ public class TutorialSnippetsTestCase {
             logger = log;
         }
 
-        public LoggingReasonerProgressMonitor(@Nonnull Logger log,
-                String methodName) {
+        public LoggingReasonerProgressMonitor(@Nonnull Logger log, String methodName) {
             String loggerName = log.getName() + '.' + methodName;
             logger = LoggerFactory.getLogger(loggerName);
         }
@@ -962,8 +829,7 @@ public class TutorialSnippetsTestCase {
     LabelExtractor le = new LabelExtractor();
 
     private String labelFor(@Nonnull OWLEntity clazz, @Nonnull OWLOntology o) {
-        Iterable<OWLAnnotation> annotations = annotations(o
-                .getAnnotationAssertionAxioms(clazz.getIRI()));
+        Iterable<OWLAnnotation> annotations = annotations(o.getAnnotationAssertionAxioms(clazz.getIRI()));
         for (OWLAnnotation anno : annotations) {
             String result = anno.accept(le);
             if (!result.isEmpty()) {
@@ -973,8 +839,8 @@ public class TutorialSnippetsTestCase {
         return clazz.getIRI().toString();
     }
 
-    public void printHierarchy(@Nonnull OWLReasoner reasoner,
-            @Nonnull OWLClass clazz, int level, @Nonnull Set<OWLClass> visited) {
+    public void printHierarchy(@Nonnull OWLReasoner reasoner, @Nonnull OWLClass clazz, int level,
+        @Nonnull Set<OWLClass> visited) {
         // Only print satisfiable classes to skip Nothing
         if (!visited.contains(clazz) && reasoner.isSatisfiable(clazz)) {
             visited.add(clazz);
@@ -996,7 +862,7 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         // Get Thing
         OWLClass clazz = df.getOWLThing();
-        // System.out.println("Class       : " + clazz);
+        // System.out.println("Class : " + clazz);
         // Print the hierarchy below thing
         printHierarchy(o, clazz);
     }
@@ -1009,8 +875,7 @@ public class TutorialSnippetsTestCase {
         // Register the ontology storer with the manager
         m.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
         // Save using a different format
-        StreamDocumentTarget target = new StreamDocumentTarget(
-                new ByteArrayOutputStream());
+        StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
         m.saveOntology(o, new OWLTutorialSyntaxOntologyFormat(), target);
     }
 

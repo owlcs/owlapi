@@ -43,8 +43,7 @@ public class NamespaceUtil implements Serializable {
 
     /** default constructor */
     public NamespaceUtil() {
-        standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE,
-                "dc");
+        standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
         namespace2PrefixMap.put(Namespaces.OWL.toString(), "owl");
         namespace2PrefixMap.put(Namespaces.RDFS.toString(), "rdfs");
@@ -74,8 +73,9 @@ public class NamespaceUtil implements Serializable {
         return prefix;
     }
 
-    /** @return namespace to prefix map */
-    @SuppressWarnings("null")
+    /**
+     * @return namespace to prefix map
+     */
     @Nonnull
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);
@@ -115,8 +115,7 @@ public class NamespaceUtil implements Serializable {
         String computedPrefix = null;
         if (startIndex != -1) {
             int endIndex = startIndex + 1;
-            for (int i = startIndex; endIndex < namespace.length()
-                    && i < namespace.length(); i++) {
+            for (int i = startIndex; endIndex < namespace.length() && i < namespace.length(); i++) {
                 char curChar = namespace.charAt(endIndex);
                 // We include any NCNameChar except a full stop (.) so
                 // that if the URI looks like a file with an extension the
@@ -132,9 +131,8 @@ public class NamespaceUtil implements Serializable {
             computedPrefix = "p";
         }
         String candidatePrefix = computedPrefix;
-        while (namespace2PrefixMap.containsValue(candidatePrefix)
-                || standardNamespacePrefixMappings
-                        .containsValue(candidatePrefix)) {
+        while (namespace2PrefixMap.containsValue(candidatePrefix) || standardNamespacePrefixMappings.containsValue(
+            candidatePrefix)) {
             candidatePrefix = computedPrefix + candidateIndex.getAndIncrement();
         }
         return verifyNotNull(candidatePrefix);

@@ -17,25 +17,12 @@ import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.HasIRI;
-import org.semanticweb.owlapi.model.HasPrefixedName;
-import org.semanticweb.owlapi.model.HasShortForm;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * An enumeration of the datatypes in the OWL 2 specification. These are the
@@ -45,18 +32,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *         Management Group
  * @since 2.2.0
  */
-public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
-
-
-
-
-
-
-
-
-
-
-
+public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -96,7 +72,6 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Nonnull
     private static final Set<IRI> ALL_IRIS = init();
 
-    @SuppressWarnings("null")
     @Nonnull
     static Set<IRI> init() {
         List<IRI> iris = new ArrayList<>();
@@ -163,8 +138,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Nonnull
     public static OWL2Datatype getDatatype(IRI datatype) {
         if (!isBuiltIn(datatype)) {
-            throw new OWLRuntimeException(datatype
-                    + " is not a built in datatype!");
+            throw new OWLRuntimeException(datatype + " is not a built in datatype!");
         }
         for (OWL2Datatype v : values()) {
             if (v.iri.equals(datatype)) {
@@ -188,9 +162,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    @SuppressWarnings("null")
-    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm,
-            @Nonnull Category category, boolean finite, @Nonnull String regEx) {
+    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm, @Nonnull Category category, boolean finite,
+        @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ':' + shortForm;
@@ -200,9 +173,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    @SuppressWarnings("null")
-    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category,
-            boolean finite, @Nonnull String regEx) {
+    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category, boolean finite, @Nonnull String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();
@@ -312,12 +283,16 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             this.facets = Collections.unmodifiableSet(f);
         }
 
-        /** @return name */
+        /**
+         * @return name
+         */
         public String getName() {
             return name;
         }
 
-        /** @return facets */
+        /**
+         * @return facets
+         */
         public Set<OWLFacet> getFacets() {
             return facets;
         }
@@ -356,8 +331,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
             @Override
             public String getNormalisedString(@Nonnull String s) {
-                return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ")
-                        .trim();
+                return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ").trim();
             }
         };
 

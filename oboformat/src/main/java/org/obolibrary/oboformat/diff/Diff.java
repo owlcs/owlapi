@@ -53,7 +53,9 @@ public class Diff {
         frameType = ftype;
     }
 
-    /** @return type */
+    /**
+     * @return type
+     */
     public String getType() {
         return type;
     }
@@ -66,7 +68,9 @@ public class Diff {
         this.type = type;
     }
 
-    /** @return frame1 */
+    /**
+     * @return frame1
+     */
     public Frame getFrame1() {
         return frame1;
     }
@@ -79,7 +83,9 @@ public class Diff {
         this.frame1 = frame1;
     }
 
-    /** @return frame2 */
+    /**
+     * @return frame2
+     */
     public Frame getFrame2() {
         return frame2;
     }
@@ -92,7 +98,9 @@ public class Diff {
         this.frame2 = frame2;
     }
 
-    /** @return clause1 */
+    /**
+     * @return clause1
+     */
     public Clause getClause1() {
         return clause1;
     }
@@ -105,7 +113,9 @@ public class Diff {
         this.clause1 = clause1;
     }
 
-    /** @return clause2 */
+    /**
+     * @return clause2
+     */
     public Clause getClause2() {
         return clause2;
     }
@@ -121,11 +131,9 @@ public class Diff {
     @Nonnull
     @Override
     public String toString() {
-        return type + ' ' + frameType + " Frame1="
-                + (frame1 == null ? "-" : frame1.getId()) + " Frame2="
-                + (frame2 == null ? "-" : frame2.getId()) + " Clause1="
-                + (clause1 == null ? "-" : clause1) + " Clause2="
-                + (clause2 == null ? "-" : clause2) + " In=Frame" + frameNum;
+        return type + ' ' + frameType + " Frame1=" + (frame1 == null ? "-" : frame1.getId()) + " Frame2="
+            + (frame2 == null ? "-" : frame2.getId()) + " Clause1=" + (clause1 == null ? "-" : clause1) + " Clause2="
+            + (clause2 == null ? "-" : clause2) + " In=Frame" + frameNum;
     }
     /*
      * public String toOboDelta() throws IOException { Vector<String> lines =

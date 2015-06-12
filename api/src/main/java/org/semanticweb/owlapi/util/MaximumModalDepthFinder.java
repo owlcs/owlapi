@@ -14,30 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataExactCardinality;
-import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
-import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectHasSelf;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -46,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> {
 
-    @SuppressWarnings("null")
     @Nonnull
     static Integer i(int b) {
         return b;
@@ -63,8 +39,7 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
     @Override
     public Integer visit(OWLSubClassOfAxiom axiom) {
         int subClassModalDepth = axiom.getSubClass().accept(this).intValue();
-        int superClassModalDepth = axiom.getSuperClass().accept(this)
-                .intValue();
+        int superClassModalDepth = axiom.getSuperClass().accept(this).intValue();
         return i(Math.max(subClassModalDepth, superClassModalDepth));
     }
 

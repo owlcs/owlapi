@@ -18,18 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.google.common.base.Optional;
@@ -39,8 +28,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLLiteralImplDouble extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
+public class OWLLiteralImplDouble extends OWLObjectImplWithoutEntityAndAnonCaching implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final double literal;
@@ -86,7 +74,6 @@ public class OWLLiteralImplDouble extends
         return code;
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getLiteral() {
         return Double.toString(literal);
@@ -109,8 +96,7 @@ public class OWLLiteralImplDouble extends
 
     @Override
     public int parseInteger() {
-        throw new NumberFormatException(
-                "this literal is not an integer but a double");
+        throw new NumberFormatException("this literal is not an integer but a double");
     }
 
     @Override
@@ -120,8 +106,7 @@ public class OWLLiteralImplDouble extends
 
     @Override
     public boolean parseBoolean() {
-        throw new NumberFormatException(
-                "this literal is not a boolean but a double");
+        throw new NumberFormatException("this literal is not a boolean but a double");
     }
 
     @Override
@@ -141,8 +126,7 @@ public class OWLLiteralImplDouble extends
 
     @Override
     public float parseFloat() {
-        throw new NumberFormatException(
-                "this literal is not a float but a double");
+        throw new NumberFormatException("this literal is not a float but a double");
     }
 
     @Nonnull
@@ -174,9 +158,7 @@ public class OWLLiteralImplDouble extends
             return literal == other.literal;
         }
         if (obj instanceof OWLLiteral) {
-            return ((OWLLiteral) obj).isDouble()
-                    && Double
-                            .compare(literal, ((OWLLiteral) obj).parseDouble()) == 0;
+            return ((OWLLiteral) obj).isDouble() && Double.compare(literal, ((OWLLiteral) obj).parseDouble()) == 0;
         }
         return false;
     }
@@ -225,19 +207,16 @@ public class OWLLiteralImplDouble extends
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral> of(this);

@@ -66,7 +66,9 @@ public class Clause {
     @Deprecated
     public Clause() {}
 
-    /** @return tag */
+    /**
+     * @return tag
+     */
     public String getTag() {
         return tag;
     }
@@ -79,7 +81,9 @@ public class Clause {
         this.tag = tag;
     }
 
-    /** @return values */
+    /**
+     * @return values
+     */
     @Nonnull
     public Collection<Object> getValues() {
         return values;
@@ -111,7 +115,9 @@ public class Clause {
         values.add(v);
     }
 
-    /** @return value */
+    /**
+     * @return value
+     */
     @Nullable
     public Object getValue() {
         Object value = null;
@@ -137,7 +143,9 @@ public class Clause {
         return null;
     }
 
-    /** @return value2 */
+    /**
+     * @return value2
+     */
     @Nullable
     public Object getValue2() {
         Object value = null;
@@ -163,7 +171,9 @@ public class Clause {
         return null;
     }
 
-    /** @return xrefs */
+    /**
+     * @return xrefs
+     */
     @Nonnull
     public Collection<Xref> getXrefs() {
         return xrefs;
@@ -186,7 +196,9 @@ public class Clause {
         xrefs.add(xref);
     }
 
-    /** @return qualifier values */
+    /**
+     * @return qualifier values
+     */
     @Nonnull
     public Collection<QualifierValue> getQualifierValues() {
         return qualifierValues;
@@ -196,8 +208,7 @@ public class Clause {
      * @param qualifierValues
      *        qualifierValues
      */
-    public void setQualifierValues(
-            @Nonnull Collection<QualifierValue> qualifierValues) {
+    public void setQualifierValues(@Nonnull Collection<QualifierValue> qualifierValues) {
         this.qualifierValues.clear();
         this.qualifierValues.addAll(qualifierValues);
     }
@@ -210,7 +221,6 @@ public class Clause {
         qualifierValues.add(qv);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {
@@ -240,8 +250,7 @@ public class Clause {
         return sb.toString();
     }
 
-    private static boolean collectionsEquals(@Nullable Collection<?> c1,
-            @Nullable Collection<?> c2) {
+    private static boolean collectionsEquals(@Nullable Collection<?> c1, @Nullable Collection<?> c2) {
         if (c1 == null || c1.isEmpty()) {
             return c2 == null || c2.isEmpty();
         }
@@ -263,9 +272,8 @@ public class Clause {
 
     @Override
     public int hashCode() {
-        return 31 * 31 * 31 * qualifierValues.hashCode() + 31
-                * xrefs.hashCode() + 31 * 31 * values.hashCode()
-                + (tag == null ? 0 : tag.hashCode());
+        return 31 * 31 * 31 * qualifierValues.hashCode() + 31 * xrefs.hashCode() + 31 * 31 * values.hashCode()
+            + (tag == null ? 0 : tag.hashCode());
     }
 
     @Override
@@ -293,11 +301,9 @@ public class Clause {
                             // special case - OK
                         } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
                             // special case - OK
-                        } else if (Boolean.FALSE.equals(v1)
-                                && "false".equals(v2)) {
+                        } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
                             // special case - OK
-                        } else if (Boolean.FALSE.equals(v2)
-                                && "false".equals(v1)) {
+                        } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
                             // special case - OK
                         } else {
                             return false;

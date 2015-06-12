@@ -37,7 +37,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final AtomicInteger COUNTER = new AtomicInteger();
     @Nonnull
     private static final String ANON_PREFIX = "Anonymous-";
-    @SuppressWarnings("null")
     @Nonnull
     private Optional<String> internalID = Optional.absent();
     @Nonnull
@@ -54,7 +53,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *        The ontology IRI (may be {@code null})
      * @deprecated use the Optional based constructor instead
      */
-    @SuppressWarnings("null")
     @Deprecated
     public OWLOntologyID(IRI iri) {
         this(opt(iri), Optional.<IRI> absent());
@@ -75,7 +73,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         this(opt(iri), opt(versionIRI));
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static Optional<IRI> opt(IRI i) {
         if (NodeID.isAnonymousNodeIRI(i)) {
@@ -92,7 +89,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @return input optional if its iri is not a blank node iri, absent
      *         otherwise
      */
-    @SuppressWarnings("null")
     @Nonnull
     private static Optional<IRI> opt(Optional<IRI> i) {
         if (NodeID.isAnonymousNodeIRI(i.orNull())) {
@@ -101,7 +97,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         return i;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static <T> Optional<T> opt(T i) {
         return Optional.fromNullable(i);
@@ -116,8 +111,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @param version
      *        The version IRI (must be absent if the ontologyIRI is absent)
      */
-    public OWLOntologyID(@Nonnull Optional<IRI> iri,
-            @Nonnull Optional<IRI> version) {
+    public OWLOntologyID(@Nonnull Optional<IRI> iri, @Nonnull Optional<IRI> version) {
         ontologyIRI = opt(iri);
         hashCode = 17;
         if (ontologyIRI.isPresent()) {
@@ -130,7 +124,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         if (versionIRI.isPresent()) {
             if (!ontologyIRI.isPresent()) {
                 throw new IllegalArgumentException(
-                        "If the ontology IRI is null then it is not possible to specify a version IRI");
+                    "If the ontology IRI is null then it is not possible to specify a version IRI");
             }
             hashCode += 37 * versionIRI.hashCode();
         }
@@ -140,7 +134,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * Constructs an ontology identifier specifying that the ontology IRI (and
      * hence the version IRI) is not present.
      */
-    @SuppressWarnings("null")
     public OWLOntologyID() {
         this(Optional.<IRI> absent(), Optional.<IRI> absent());
     }
@@ -154,10 +147,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary()
      */
     public boolean isOWL2DLOntologyID() {
-        return !ontologyIRI.isPresent()
-                || !ontologyIRI.get().isReservedVocabulary()
-                && (!versionIRI.isPresent() || !versionIRI.get()
-                        .isReservedVocabulary());
+        return !ontologyIRI.isPresent() || !ontologyIRI.get().isReservedVocabulary() && (!versionIRI.isPresent()
+            || !versionIRI.get().isReservedVocabulary());
     }
 
     @Override
@@ -193,15 +184,14 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * representation of an ontology with this ID. This will be the version IRI
      * if there is an ontology IRI and version IRI, else it will be the ontology
      * IRI if there is an ontology IRI but no version IRI, else it will be
-     * {@code null} if there is no ontology IRI. See <a
-     * href="http://www.w3.org/TR/owl2-syntax/#Ontology_Documents">Ontology
+     * {@code null} if there is no ontology IRI. See
+     * <a href="http://www.w3.org/TR/owl2-syntax/#Ontology_Documents">Ontology
      * Documents</a> in the OWL 2 Structural Specification.
      * 
      * @return An Optional of the IRI that can be used as a default for an
      *         ontology document containing an ontology as identified by this
      *         ontology ID. Returns the default IRI or an Optional.absent.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public Optional<IRI> getDefaultDocumentIRI() {
         if (ontologyIRI.isPresent()) {
@@ -227,14 +217,12 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         return !ontologyIRI.isPresent();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {
         if (ontologyIRI.isPresent()) {
             String template = "OntologyID(OntologyIRI(<%s>) VersionIRI(<%s>))";
-            return String.format(template, ontologyIRI.get(),
-                    versionIRI.orNull());
+            return String.format(template, ontologyIRI.get(), versionIRI.orNull());
         }
         return "OntologyID(" + internalID.orNull() + ')';
     }

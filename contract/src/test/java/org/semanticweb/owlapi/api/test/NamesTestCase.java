@@ -17,33 +17,13 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.change.AddAxiomData;
-import org.semanticweb.owlapi.change.AddImportData;
-import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
-import org.semanticweb.owlapi.change.OWLOntologyChangeData;
-import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
-import org.semanticweb.owlapi.change.RemoveAxiomData;
-import org.semanticweb.owlapi.change.RemoveImportData;
-import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
-import org.semanticweb.owlapi.change.SetOntologyIDData;
+import org.semanticweb.owlapi.change.*;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.krss1.parser.KRSSOWLParser;
 import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParser;
-import org.semanticweb.owlapi.metrics.AverageAssertedNamedSuperclassCount;
-import org.semanticweb.owlapi.metrics.AxiomCount;
-import org.semanticweb.owlapi.metrics.HiddenGCICount;
-import org.semanticweb.owlapi.metrics.ImportClosureSize;
-import org.semanticweb.owlapi.metrics.MaximumNumberOfNamedSuperclasses;
-import org.semanticweb.owlapi.metrics.NumberOfClassesWithMultipleInheritance;
-import org.semanticweb.owlapi.metrics.UnsatisfiableClassCountMetric;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.metrics.*;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
@@ -51,7 +31,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import com.google.common.base.Optional;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc", })
 public class NamesTestCase {
 
     @Test
@@ -65,8 +45,7 @@ public class NamesTestCase {
                 return super.getName();
             }
         }.getName());
-        assertEquals("AddImportData", new AddImportData(
-                mock(OWLImportsDeclaration.class)) {
+        assertEquals("AddImportData", new AddImportData(mock(OWLImportsDeclaration.class)) {
 
             private static final long serialVersionUID = 1L;
 
@@ -75,18 +54,7 @@ public class NamesTestCase {
                 return super.getName();
             }
         }.getName());
-        assertEquals("AddOntologyAnnotationData",
-                new AddOntologyAnnotationData(mock(OWLAnnotation.class)) {
-
-                    private static final long serialVersionUID = 1L;
-
-                    @Override
-                    public String getName() {
-                        return super.getName();
-                    }
-                }.getName());
-        assertEquals("OWLOntologyChangeRecord", new OWLOntologyChangeRecord(
-                mock(OWLOntologyID.class), mock(OWLOntologyChangeData.class)) {
+        assertEquals("AddOntologyAnnotationData", new AddOntologyAnnotationData(mock(OWLAnnotation.class)) {
 
             private static final long serialVersionUID = 1L;
 
@@ -95,8 +63,8 @@ public class NamesTestCase {
                 return super.getName();
             }
         }.getName());
-        assertEquals("RemoveAxiomData", new RemoveAxiomData(
-                mock(OWLAxiom.class)) {
+        assertEquals("OWLOntologyChangeRecord", new OWLOntologyChangeRecord(mock(OWLOntologyID.class), mock(
+            OWLOntologyChangeData.class)) {
 
             private static final long serialVersionUID = 1L;
 
@@ -105,8 +73,7 @@ public class NamesTestCase {
                 return super.getName();
             }
         }.getName());
-        assertEquals("RemoveImportData", new RemoveImportData(
-                mock(OWLImportsDeclaration.class)) {
+        assertEquals("RemoveAxiomData", new RemoveAxiomData(mock(OWLAxiom.class)) {
 
             private static final long serialVersionUID = 1L;
 
@@ -115,19 +82,26 @@ public class NamesTestCase {
                 return super.getName();
             }
         }.getName());
-        assertEquals("RemoveOntologyAnnotationData",
-                new RemoveOntologyAnnotationData(mock(OWLAnnotation.class)) {
+        assertEquals("RemoveImportData", new RemoveImportData(mock(OWLImportsDeclaration.class)) {
 
-                    private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-                    @Override
-                    public String getName() {
-                        return super.getName();
-                    }
-                }.getName());
-        assertEquals("SetOntologyIDData", new SetOntologyIDData(
-                new OWLOntologyID(Optional.of(IRI.create("urn:test1")),
-                        Optional.of(IRI.create("urn:test2")))) {
+            @Override
+            public String getName() {
+                return super.getName();
+            }
+        }.getName());
+        assertEquals("RemoveOntologyAnnotationData", new RemoveOntologyAnnotationData(mock(OWLAnnotation.class)) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public String getName() {
+                return super.getName();
+            }
+        }.getName());
+        assertEquals("SetOntologyIDData", new SetOntologyIDData(new OWLOntologyID(Optional.of(IRI.create("urn:test1")),
+            Optional.of(IRI.create("urn:test2")))) {
 
             private static final long serialVersionUID = 1L;
 
@@ -138,32 +112,23 @@ public class NamesTestCase {
         }.getName());
         assertEquals("KRSS2OWLParser", new KRSS2OWLParser().getName());
         assertEquals("KRSSOWLParser", new KRSSOWLParser().getName());
-        assertEquals("OWLFunctionalSyntaxOWLParser",
-                new OWLFunctionalSyntaxOWLParser().getName());
-        assertEquals("ManchesterOWLSyntaxOntologyParser",
-                new ManchesterOWLSyntaxOntologyParser().getName());
+        assertEquals("OWLFunctionalSyntaxOWLParser", new OWLFunctionalSyntaxOWLParser().getName());
+        assertEquals("ManchesterOWLSyntaxOntologyParser", new ManchesterOWLSyntaxOntologyParser().getName());
         assertEquals("OWLXMLParser", new OWLXMLParser().getName());
         assertEquals("RDFXMLParser", new RDFXMLParser().getName());
-        assertEquals("TurtleOntologyParser",
-                new TurtleOntologyParser().getName());
-        OWLOntology createOntology = OWLManager.createOWLOntologyManager()
-                .createOntology();
-        assertEquals("Average number of named superclasses",
-                new AverageAssertedNamedSuperclassCount(createOntology)
-                        .getName());
+        assertEquals("TurtleOntologyParser", new TurtleOntologyParser().getName());
+        OWLOntology createOntology = OWLManager.createOWLOntologyManager().createOntology();
+        assertEquals("Average number of named superclasses", new AverageAssertedNamedSuperclassCount(createOntology)
+            .getName());
         assertEquals("Axiom", new AxiomCount(createOntology).getName());
-        assertEquals("Hidden GCI Count",
-                new HiddenGCICount(createOntology).getName());
-        assertEquals("Imports closure size", new ImportClosureSize(
-                createOntology).getName());
-        assertEquals("Maximum number of asserted named superclasses",
-                new MaximumNumberOfNamedSuperclasses(createOntology).getName());
-        assertEquals("Number of classes with asserted multiple inheritance",
-                new NumberOfClassesWithMultipleInheritance(createOntology)
-                        .getName());
+        assertEquals("Hidden GCI Count", new HiddenGCICount(createOntology).getName());
+        assertEquals("Imports closure size", new ImportClosureSize(createOntology).getName());
+        assertEquals("Maximum number of asserted named superclasses", new MaximumNumberOfNamedSuperclasses(
+            createOntology).getName());
+        assertEquals("Number of classes with asserted multiple inheritance", new NumberOfClassesWithMultipleInheritance(
+            createOntology).getName());
         OWLReasoner mock = mock(OWLReasoner.class);
         when(mock.getRootOntology()).thenReturn(createOntology);
-        assertEquals("Unsatisfiable class count",
-                new UnsatisfiableClassCountMetric(mock).getName());
+        assertEquals("Unsatisfiable class count", new UnsatisfiableClassCountMetric(mock).getName());
     }
 }

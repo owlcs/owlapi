@@ -58,17 +58,13 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
 
     @Override
     public String toString() {
-        return toString(
-                "Use of reserved vocabulary for ontology version IRI: %s",
-                getExpression());
+        return toString("Use of reserved vocabulary for ontology version IRI: %s", getExpression());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
-        return list(new SetOntologyID(ontology, new OWLOntologyID(
-                Optional.of(IRI.create("urn:ontology#renamed")),
-                Optional.of(IRI.create("urn:ontology#renamed1")))));
+        return list(new SetOntologyID(ontology, new OWLOntologyID(Optional.of(IRI.create("urn:ontology#renamed")),
+            Optional.of(IRI.create("urn:ontology#renamed1")))));
     }
 }
