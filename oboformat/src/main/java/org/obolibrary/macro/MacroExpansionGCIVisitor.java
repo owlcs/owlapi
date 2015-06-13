@@ -1,5 +1,7 @@
 package org.obolibrary.macro;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -16,10 +18,17 @@ public class MacroExpansionGCIVisitor {
     private final OWLOntologyManager outputManager;
     private final OWLOntology outputOntology;
     protected final ManchesterSyntaxTool manchesterSyntaxTool;
-    private final GCIVisitor visitor;
     private final boolean shouldAddExpansionMarker;
     protected boolean preserveAnnotationsWhenExpanding = false;
 
+    /**
+     * @param inputOntology
+     *        input ontology
+     * @param outputManager
+     *        manager for output ontology
+     * @param preserveAnnotationsWhenExpanding
+     *        annotations should be preserved
+     */
     public MacroExpansionGCIVisitor(OWLOntology inputOntology, OWLOntologyManager outputManager,
         boolean preserveAnnotationsWhenExpanding) {
         this(outputManager, inputOntology, false);
@@ -31,12 +40,13 @@ public class MacroExpansionGCIVisitor {
      *        inputOntology
      * @param outputManager
      *        outputManager
+     * @param shouldAddExpansionMarker
+     *        expansion marker should be added
      */
     public MacroExpansionGCIVisitor(OWLOntologyManager outputManager, OWLOntology inputOntology,
         boolean shouldAddExpansionMarker) {
         this.inputOntology = inputOntology;
         this.shouldAddExpansionMarker = shouldAddExpansionMarker;
-        visitor = new GCIVisitor(inputOntology);
         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
         this.outputManager = outputManager;
         try {
@@ -64,97 +74,157 @@ public class MacroExpansionGCIVisitor {
      * @return ontology for gci
      */
     public OWLOntology createGCIOntology() {
-        for (OWLAxiom ax : inputOntology.getAxioms()) {
-            if (ax instanceof OWLSubClassOfAxiom) {
-                visitor.visit((OWLSubClassOfAxiom) ax);
-            } else if (ax instanceof OWLEquivalentClassesAxiom) {
-                visitor.visit((OWLEquivalentClassesAxiom) ax);
-            } else if (ax instanceof OWLClassAssertionAxiom) {
-                visitor.visit((OWLClassAssertionAxiom) ax);
-            } else if (ax instanceof OWLAnnotationAssertionAxiom) {
-                expand((OWLAnnotationAssertionAxiom) ax);
-            }
-        }
+        MacroExpansions expansions = new MacroExpansions();
+        outputManager.addAxioms(outputOntology, expansions.getNewAxioms());
+        outputManager.removeAxioms(outputOntology, expansions.getRmAxioms());
         return outputOntology;
     }
 
-    private void expand(OWLAnnotationAssertionAxiom ax) {
-        OWLAnnotationProperty prop = ax.getProperty();
-        String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
-        if (expandTo != null) {
-            LOG.info("Template to Expand {}", expandTo);
-            expandTo = expandTo.replaceAll("\\?X", manchesterSyntaxTool.getId((IRI) ax.getSubject()));
-            expandTo = expandTo.replaceAll("\\?Y", manchesterSyntaxTool.getId((IRI) ax.getValue()));
-            LOG.info("Expanding {}", expandTo);
-            try {
-                Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool.parseManchesterExpressionFrames(expandTo);
-                for (OntologyAxiomPair axp : setAxp) {
-                    output(axp.getAxiom());
+    private class MacroExpansions {
+
+        private Set<OWLAxiom> newAxioms = new HashSet<>();
+        private Set<OWLAxiom> rmAxioms = new HashSet<>();
+        GCIVisitor visitor = new GCIVisitor(inputOntology);
+
+        public MacroExpansions() {
+            for (OWLSubClassOfAxiom axiom : inputOntology.getAxioms(AxiomType.SUBCLASS_OF)) {
+                OWLAxiom newAxiom = visitor.visit(axiom);
+                // System.out.println("not adding " + newAxiom);
+            }
+            for (OWLEquivalentClassesAxiom axiom : inputOntology.getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
+                OWLAxiom newAxiom = visitor.visit(axiom);
+                // System.out.println("not adding " + newAxiom);
+            }
+            for (OWLClassAssertionAxiom axiom : inputOntology.getAxioms(AxiomType.CLASS_ASSERTION)) {
+                OWLAxiom newAxiom = visitor.visit(axiom);
+                // System.out.println("not adding " + newAxiom);
+            }
+            for (OWLAnnotationAssertionAxiom axiom : inputOntology.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+                if (expand(axiom)) {
+                    // System.out.println("not removing " + axiom);
                 }
-            } catch (Exception ex) {
-                LOG.error(ex.getMessage(), ex);
+            }
+        }
+
+        private void replaceIfDifferent(OWLAxiom ax, OWLAxiom exAx) {
+            if (!ax.equals(exAx)) {
+                newAxioms.add(exAx);
+                rmAxioms.add(ax);
+            }
+        }
+
+        public Set<OWLAxiom> getNewAxioms() {
+            return newAxioms;
+        }
+
+        public Set<OWLAxiom> getRmAxioms() {
+            return rmAxioms;
+        }
+
+        private boolean expand(OWLAnnotationAssertionAxiom ax) {
+            OWLAnnotationProperty prop = ax.getProperty();
+            boolean didExpansion = false;
+            String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
+            if (expandTo != null) {
+                LOG.info("Template to Expand {}", expandTo);
+                expandTo = expandTo.replaceAll("\\?X", manchesterSyntaxTool.getId((IRI) ax.getSubject()));
+                expandTo = expandTo.replaceAll("\\?Y", manchesterSyntaxTool.getId((IRI) ax.getValue()));
+                LOG.info("Expanding {}", expandTo);
+                try {
+                    Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool.parseManchesterExpressionFrames(expandTo);
+                    for (OntologyAxiomPair axp : setAxp) {
+                        OWLAxiom axiom = axp.getAxiom();
+                        if (shouldPreserveAnnotationsWhenExpanding()) {
+                            Set<OWLAnnotation> annotationsWithOptionalExpansionMarker = visitor
+                                .getAnnotationsWithOptionalExpansionMarker(ax);
+                            axiom = axiom.getAnnotatedAxiom(annotationsWithOptionalExpansionMarker);
+                        }
+                        newAxioms.add(axiom);
+                        didExpansion = true;
+                    }
+                } catch (Exception ex) {
+                    LOG.error(ex.getMessage(), ex);
+                }
+            }
+            return didExpansion;
+        }
+
+        private class GCIVisitor extends AbstractMacroExpansionVisitor {
+
+            final Set<OWLAnnotation> expansionMarkingAnnotations;
+
+            GCIVisitor(OWLOntology inputOntology) {
+                super(inputOntology, shouldAddExpansionMarker);
+                if (shouldAddExpansionMarker) {
+                    expansionMarkingAnnotations = Collections.singleton(expansionMarkerAnnotation);
+                } else {
+                    expansionMarkingAnnotations = EMPTY_ANNOTATIONS;
+                }
+            }
+
+            @Override
+            protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler, OWLObjectPropertyExpression p) {
+                OWLClassExpression gciRHS = expandObject(filler, p);
+                if (gciRHS != null) {
+                    OWLClassExpression gciLHS = dataFactory.getOWLObjectSomeValuesFrom(p, filler);
+                    OWLEquivalentClassesAxiom ax = dataFactory.getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
+                        expansionMarkingAnnotations);
+                    newAxioms.add(ax);
+                }
+                return gciRHS;
+            }
+
+            @Override
+            protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
+                OWLObjectPropertyExpression p) {
+                OWLClassExpression gciRHS = expandObject(filler, p);
+                if (gciRHS != null) {
+                    OWLClassExpression gciLHS = dataFactory.getOWLObjectHasValue(p, filler);
+                    OWLEquivalentClassesAxiom ax = dataFactory.getOWLEquivalentClassesAxiom(gciLHS, gciRHS,
+                        expansionMarkingAnnotations);
+                    newAxioms.add(ax);
+                }
+                return gciRHS;
+            }
+
+            private OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
+                OWLClassExpression result = null;
+                IRI iri = ((OWLObjectProperty) p).getIRI();
+                IRI templateVal = null;
+                if (expandExpressionMap.containsKey(iri)) {
+                    if (filler instanceof OWLObjectOneOf) {
+                        Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).getIndividuals();
+                        if (inds.size() == 1) {
+                            OWLIndividual ind = inds.iterator().next();
+                            if (ind instanceof OWLNamedIndividual) {
+                                templateVal = ((OWLNamedObject) ind).getIRI();
+                            }
+                        }
+                    }
+                    if (filler instanceof OWLNamedObject) {
+                        templateVal = ((OWLNamedObject) filler).getIRI();
+                    }
+                    if (templateVal != null) {
+                        String tStr = expandExpressionMap.get(iri);
+                        String exStr = tStr.replaceAll("\\?Y", manchesterSyntaxTool.getId(templateVal));
+                        try {
+                            result = manchesterSyntaxTool.parseManchesterExpression(exStr);
+                        } catch (OWLParserException e) {
+                            LOG.error(e.getMessage(), e);
+                        }
+                    }
+                }
+                return result;
             }
         }
     }
 
-    private class GCIVisitor extends AbstractMacroExpansionVisitor {
+    public boolean shouldPreserveAnnotationsWhenExpanding() {
+        return preserveAnnotationsWhenExpanding;
+    }
 
-        GCIVisitor(OWLOntology inputOntology) {
-            super(inputOntology);
-        }
-
-        @Override
-        protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler, OWLObjectPropertyExpression p) {
-            OWLClassExpression gciRHS = expandObject(filler, p);
-            if (gciRHS != null) {
-                OWLClassExpression gciLHS = dataFactory.getOWLObjectSomeValuesFrom(p, filler);
-                OWLEquivalentClassesAxiom ax = dataFactory.getOWLEquivalentClassesAxiom(gciLHS, gciRHS);
-                output(ax);
-            }
-            return gciRHS;
-        }
-
-        @Override
-        protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
-            OWLObjectPropertyExpression p) {
-            OWLClassExpression gciRHS = expandObject(filler, p);
-            if (gciRHS != null) {
-                OWLClassExpression gciLHS = dataFactory.getOWLObjectHasValue(p, filler);
-                OWLEquivalentClassesAxiom ax = dataFactory.getOWLEquivalentClassesAxiom(gciLHS, gciRHS);
-                output(ax);
-            }
-            return gciRHS;
-        }
-
-        private OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
-            OWLClassExpression result = null;
-            IRI iri = ((OWLObjectProperty) p).getIRI();
-            IRI templateVal = null;
-            if (expandExpressionMap.containsKey(iri)) {
-                if (filler instanceof OWLObjectOneOf) {
-                    Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).getIndividuals();
-                    if (inds.size() == 1) {
-                        OWLIndividual ind = inds.iterator().next();
-                        if (ind instanceof OWLNamedIndividual) {
-                            templateVal = ((OWLNamedObject) ind).getIRI();
-                        }
-                    }
-                }
-                if (filler instanceof OWLNamedObject) {
-                    templateVal = ((OWLNamedObject) filler).getIRI();
-                }
-                if (templateVal != null) {
-                    String tStr = expandExpressionMap.get(iri);
-                    String exStr = tStr.replaceAll("\\?Y", manchesterSyntaxTool.getId(templateVal));
-                    try {
-                        result = manchesterSyntaxTool.parseManchesterExpression(exStr);
-                    } catch (OWLParserException e) {
-                        LOG.error(e.getMessage(), e);
-                    }
-                }
-            }
-            return result;
-        }
+    public void setPreserveAnnotationsWhenExpanding(boolean preserveAnnotationsWhenExpanding) {
+        this.preserveAnnotationsWhenExpanding = preserveAnnotationsWhenExpanding;
     }
 
     /** Call this method to clear internal references. */
