@@ -14,13 +14,10 @@ public class ExpandWithAnnotationsTest extends OboFormatTestBasics {
     @Test
     public void testExpand() {
         OWLOntology ontology = convert(parseOBOFile("annotated_no_overlap.obo"));
-        MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology, true,
-                true);
+        MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology, true, true);
         OWLOntology gciOntology = mev.expandAll();
-        for (OWLDisjointClassesAxiom disjointClassesAxiom : gciOntology
-                .getAxioms(AxiomType.DISJOINT_CLASSES)) {
-            assertEquals("annotation count", 2, disjointClassesAxiom
-                    .getAnnotations().size());
+        for (OWLDisjointClassesAxiom disjointClassesAxiom : gciOntology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
+            assertEquals("annotation count", 2, disjointClassesAxiom.getAnnotations().size());
         }
     }
 }
