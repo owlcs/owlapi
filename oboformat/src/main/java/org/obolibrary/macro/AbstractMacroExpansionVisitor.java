@@ -1,7 +1,7 @@
 package org.obolibrary.macro;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.util.*;
 
@@ -70,7 +70,7 @@ public abstract class AbstractMacroExpansionVisitor extends OWLDataVisitorExAdap
         expansionMarkerAnnotation = dataFactory.getOWLAnnotation(OIO_ISEXPANSION, dataFactory.getOWLLiteral(true));
         for (OWLObjectProperty p : inputOntology.getObjectPropertiesInSignature()) {
             for (OWLOntology o : inputOntology.getImportsClosure()) {
-                for (OWLAnnotation a : annotations(o.getAnnotationAssertionAxioms(p.getIRI()), expandExpressionAP)) {
+                for (OWLAnnotation a : annotationObjects(o.getAnnotationAssertionAxioms(p.getIRI()), expandExpressionAP)) {
                     OWLAnnotationValue v = a.getValue();
                     if (v instanceof OWLLiteral) {
                         String str = ((OWLLiteral) v).getLiteral();
@@ -82,7 +82,7 @@ public abstract class AbstractMacroExpansionVisitor extends OWLDataVisitorExAdap
         }
         for (OWLAnnotationProperty p : inputOntology.getAnnotationPropertiesInSignature(EXCLUDED)) {
             for (OWLOntology o : inputOntology.getImportsClosure()) {
-                for (OWLAnnotation a : annotations(o.getAnnotationAssertionAxioms(p.getIRI()), expandAssertionAP)) {
+                for (OWLAnnotation a : annotationObjects(o.getAnnotationAssertionAxioms(p.getIRI()), expandAssertionAP)) {
                     OWLAnnotationValue v = a.getValue();
                     if (v instanceof OWLLiteral) {
                         String str = ((OWLLiteral) v).getLiteral();

@@ -22,8 +22,9 @@ public class ExpandExpressionGCITest extends OboFormatTestBasics {
     @Test
     public void testExpand() {
         OWLOntology ontology = convert(parseOBOFile("no_overlap.obo"));
-        MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(ontology,
-                OWLManager.createOWLOntologyManager());
+        MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(OWLManager.createOWLOntologyManager(), ontology,
+            false);
+
         OWLOntology gciOntology = mev.createGCIOntology();
         int axiomCount = gciOntology.getAxiomCount();
         assertTrue(axiomCount > 0);

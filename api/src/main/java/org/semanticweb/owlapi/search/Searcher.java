@@ -242,6 +242,25 @@ public final class Searcher {
     }
 
     /**
+     * Retrieve annotations from a collection of annotation assertion axioms.
+     * 
+     * @param axioms
+     *        axioms
+     * @param p
+     *        optional annotation property to filter. Null means all.
+     * @return annotations
+     */
+    @Nonnull
+    public static Collection<OWLAnnotation> annotationObjects(@Nonnull Collection<OWLAnnotationAssertionAxiom> axioms) {
+        Set<OWLAnnotation> toReturn = new HashSet<>();
+        for (OWLAnnotationAssertionAxiom ax : axioms) {
+            assert ax != null;
+            toReturn.add(ax.getAnnotation());
+        }
+        return toReturn;
+    }
+
+    /**
      * Retrieve the annotation from an annotation assertion axiom.
      * 
      * @param axiom

@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.UnsupportedEncodingException;
@@ -25,7 +25,6 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1907,6 +1906,7 @@ public class OWLAPIOwl2Obo {
             return;
         }
         String clsIRI = ((OWLClass) cls).getIRI().toString();
+        OWLAnnotationProperty labelProperty = manager.getOWLDataFactory().getRDFSLabel();
         if (IRI_CLASS_SYNONYMTYPEDEF.equals(clsIRI)) {
             Frame f = getObodoc().getHeaderFrame();
             Clause c = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag());
@@ -1923,10 +1923,9 @@ public class OWLAPIOwl2Obo {
             c.addValue(indvId);
             String nameValue = "";
             String scopeValue = null;
-            for (OWLAnnotation ann : annotations(getOWLOntology().getAnnotationAssertionAxioms(indv.getIRI()))) {
-                String propId = ann.getProperty().getIRI().toString();
+            for (OWLAnnotation ann : getAnnotationObjects(indv, getOWLOntology(), null)) {
                 String value = ((OWLLiteral) ann.getValue()).getLiteral();
-                if (OWLRDFVocabulary.RDFS_LABEL.getIRI().toString().equals(propId)) {
+                if (ann.getProperty().equals(labelProperty)) {
                     nameValue = '"' + value + '"';
                 } else {
                     scopeValue = value;
@@ -1951,10 +1950,9 @@ public class OWLAPIOwl2Obo {
             indvId = indvId.replaceFirst(".*:", "");
             c.addValue(indvId);
             String nameValue = "";
-            for (OWLAnnotation ann : annotations(getOWLOntology().getAnnotationAssertionAxioms(indv.getIRI()))) {
-                String propId = ann.getProperty().getIRI().toString();
+            for (OWLAnnotation ann : getAnnotationObjects(indv, getOWLOntology(), null)) {
                 String value = ((OWLLiteral) ann.getValue()).getLiteral();
-                if (OWLRDFVocabulary.RDFS_LABEL.getIRI().toString().equals(propId)) {
+                if (ann.getProperty().equals(labelProperty)) {
                     nameValue = '"' + value + '"';
                 }
             }

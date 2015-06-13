@@ -13,7 +13,8 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
+import static org.semanticweb.owlapi.search.Searcher.annotationObjects;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -537,7 +538,7 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         for (OWLClass cls : o.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : annotations(o.getAnnotationAssertionAxioms(cls.getIRI()), df
+            for (OWLAnnotation annotation : annotationObjects(o.getAnnotationAssertionAxioms(cls.getIRI()), df
                 .getRDFSLabel())) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
@@ -829,7 +830,7 @@ public class TutorialSnippetsTestCase {
     LabelExtractor le = new LabelExtractor();
 
     private String labelFor(@Nonnull OWLEntity clazz, @Nonnull OWLOntology o) {
-        Iterable<OWLAnnotation> annotations = annotations(o.getAnnotationAssertionAxioms(clazz.getIRI()));
+        Iterable<OWLAnnotation> annotations = getAnnotationObjects(clazz, o);
         for (OWLAnnotation anno : annotations) {
             String result = anno.accept(le);
             if (!result.isEmpty()) {

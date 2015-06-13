@@ -17,6 +17,14 @@ public class MacroExpansionGCIVisitor {
     private final OWLOntology outputOntology;
     protected final ManchesterSyntaxTool manchesterSyntaxTool;
     private final GCIVisitor visitor;
+    private final boolean shouldAddExpansionMarker;
+    protected boolean preserveAnnotationsWhenExpanding = false;
+
+    public MacroExpansionGCIVisitor(OWLOntology inputOntology, OWLOntologyManager outputManager,
+        boolean preserveAnnotationsWhenExpanding) {
+        this(outputManager, inputOntology, false);
+        this.preserveAnnotationsWhenExpanding = preserveAnnotationsWhenExpanding;
+    }
 
     /**
      * @param inputOntology
@@ -24,8 +32,10 @@ public class MacroExpansionGCIVisitor {
      * @param outputManager
      *        outputManager
      */
-    public MacroExpansionGCIVisitor(OWLOntology inputOntology, OWLOntologyManager outputManager) {
+    public MacroExpansionGCIVisitor(OWLOntologyManager outputManager, OWLOntology inputOntology,
+        boolean shouldAddExpansionMarker) {
         this.inputOntology = inputOntology;
+        this.shouldAddExpansionMarker = shouldAddExpansionMarker;
         visitor = new GCIVisitor(inputOntology);
         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
         this.outputManager = outputManager;

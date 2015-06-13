@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
-import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 
 import java.io.PrintStream;
 
@@ -72,7 +72,7 @@ public final class SimpleHierarchyExample {
          * Use a visitor to extract label annotations
          */
         LabelExtractor le = new LabelExtractor();
-        for (OWLAnnotation anno : annotations(ontology.getAnnotationAssertionAxioms(clazz.getIRI()))) {
+        for (OWLAnnotation anno : getAnnotationObjects(clazz, ontology)) {
             anno.accept(le);
         }
         /* Print out the label if there is one. If not, just use the class URI */
