@@ -54,8 +54,8 @@ public class EntitySearcher {
      *         this entity.
      */
     @Nonnull
-    public static Collection<OWLAnnotation> _getAnnotations(@Nonnull OWLEntity e, @Nonnull OWLOntology ontology) {
-        return _getAnnotations(e.getIRI(), ontology);
+    public static Collection<OWLAnnotation> getAnnotations(@Nonnull OWLEntity e, @Nonnull OWLOntology ontology) {
+        return getAnnotations(e.getIRI(), ontology);
     }
 
     /**
@@ -73,7 +73,7 @@ public class EntitySearcher {
      *         this entity.
      */
     @Nonnull
-    public static Collection<OWLAnnotation> _getAnnotations(@Nonnull OWLAnnotationSubject e,
+    public static Collection<OWLAnnotation> getAnnotations(@Nonnull OWLAnnotationSubject e,
         @Nonnull OWLOntology ontology) {
         return Searcher.annotations(ontology.getAnnotationAssertionAxioms(e));
     }
@@ -93,9 +93,9 @@ public class EntitySearcher {
      *         URI.
      */
     @Nonnull
-    public static Collection<OWLAnnotation> _getAnnotations(@Nonnull OWLEntity e, @Nonnull OWLOntology ontology,
+    public static Collection<OWLAnnotation> getAnnotations(@Nonnull OWLEntity e, @Nonnull OWLOntology ontology,
         @Nonnull OWLAnnotationProperty annotationProperty) {
-        return _getAnnotations(e.getIRI(), ontology, annotationProperty);
+        return getAnnotations(e.getIRI(), ontology, annotationProperty);
     }
 
     /**
@@ -113,7 +113,7 @@ public class EntitySearcher {
      *         URI.
      */
     @Nonnull
-    public static Collection<OWLAnnotation> _getAnnotations(@Nonnull OWLAnnotationSubject e,
+    public static Collection<OWLAnnotation> getAnnotations(@Nonnull OWLAnnotationSubject e,
         @Nonnull OWLOntology ontology, @Nonnull OWLAnnotationProperty annotationProperty) {
         return Searcher.annotations(ontology.getAnnotationAssertionAxioms(e), annotationProperty);
     }
@@ -133,12 +133,12 @@ public class EntitySearcher {
      *         URI.
      */
     @Nonnull
-    public static Collection<OWLAnnotation> _getAnnotations(@Nonnull OWLAnnotationSubject e,
+    public static Collection<OWLAnnotation> getAnnotations(@Nonnull OWLAnnotationSubject e,
         @Nonnull Iterable<OWLOntology> ontologies, @Nonnull OWLAnnotationProperty annotationProperty) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
-            toReturn.addAll(_getAnnotations(e, o, annotationProperty));
+            toReturn.addAll(getAnnotations(e, o, annotationProperty));
         }
         return toReturn;
     }
@@ -158,12 +158,12 @@ public class EntitySearcher {
      *         URI.
      */
     @Nonnull
-    public static Collection<OWLAnnotation> _getAnnotations(@Nonnull OWLEntity e,
+    public static Collection<OWLAnnotation> getAnnotations(@Nonnull OWLEntity e,
         @Nonnull Iterable<OWLOntology> ontologies, @Nonnull OWLAnnotationProperty annotationProperty) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
-            toReturn.addAll(_getAnnotations(e, o, annotationProperty));
+            toReturn.addAll(getAnnotations(e, o, annotationProperty));
         }
         return toReturn;
     }
