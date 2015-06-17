@@ -52,17 +52,17 @@ class LiteralFoldingEqualityTester {
         } else if (a instanceof OWLHasKeyAxiom && b instanceof OWLHasKeyAxiom) {
             return equals((OWLHasKeyAxiom) a, (OWLHasKeyAxiom) b);
         } else if (a instanceof OWLInverseFunctionalObjectPropertyAxiom
-                && b instanceof OWLInverseFunctionalObjectPropertyAxiom) {
+            && b instanceof OWLInverseFunctionalObjectPropertyAxiom) {
             return equals((OWLInverseFunctionalObjectPropertyAxiom) a, (OWLInverseFunctionalObjectPropertyAxiom) b);
         } else if (a instanceof OWLInverseObjectPropertiesAxiom && b instanceof OWLInverseObjectPropertiesAxiom) {
             return equals((OWLInverseObjectPropertiesAxiom) a, (OWLInverseObjectPropertiesAxiom) b);
         } else if (a instanceof OWLIrreflexiveObjectPropertyAxiom && b instanceof OWLIrreflexiveObjectPropertyAxiom) {
             return equals((OWLIrreflexiveObjectPropertyAxiom) a, (OWLIrreflexiveObjectPropertyAxiom) b);
         } else if (a instanceof OWLNegativeDataPropertyAssertionAxiom
-                && b instanceof OWLNegativeDataPropertyAssertionAxiom) {
+            && b instanceof OWLNegativeDataPropertyAssertionAxiom) {
             return equals((OWLNegativeDataPropertyAssertionAxiom) a, (OWLNegativeDataPropertyAssertionAxiom) b);
         } else if (a instanceof OWLNegativeObjectPropertyAssertionAxiom
-                && b instanceof OWLNegativeObjectPropertyAssertionAxiom) {
+            && b instanceof OWLNegativeObjectPropertyAssertionAxiom) {
             return equals((OWLNegativeObjectPropertyAssertionAxiom) a, (OWLNegativeObjectPropertyAssertionAxiom) b);
         } else if (a instanceof OWLObjectPropertyAssertionAxiom && b instanceof OWLObjectPropertyAssertionAxiom) {
             return equals((OWLObjectPropertyAssertionAxiom) a, (OWLObjectPropertyAssertionAxiom) b);
@@ -241,7 +241,7 @@ class LiteralFoldingEqualityTester {
         } else if (a instanceof OWLDataOneOf && b instanceof OWLDataOneOf) {
             return equals((OWLDataOneOf) a, (OWLDataOneOf) b);
         } else if (a instanceof OWLDatatype && b instanceof OWLDatatype) {
-            return equals(a, b);
+            return equals(((OWLEntity) a).getIRI(), ((OWLEntity) b).getIRI());
         } else if (a instanceof OWLDatatypeRestriction && b instanceof OWLDatatypeRestriction) {
             return equals((OWLDatatypeRestriction) a, (OWLDatatypeRestriction) b);
         } else if (a instanceof OWLDataUnionOf && b instanceof OWLDataUnionOf) {
@@ -397,7 +397,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLAnnotationPropertyDomainAxiom a,
-            @Nullable OWLAnnotationPropertyDomainAxiom b) {
+        @Nullable OWLAnnotationPropertyDomainAxiom b) {
         if (a == b) {
             return true;
         }
@@ -414,7 +414,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLAnnotationPropertyRangeAxiom a,
-            @Nullable OWLAnnotationPropertyRangeAxiom b) {
+        @Nullable OWLAnnotationPropertyRangeAxiom b) {
         if (a == b) {
             return true;
         }
@@ -463,7 +463,7 @@ class LiteralFoldingEqualityTester {
 
     // Individual related Axioms
     public static boolean equals(@Nullable OWLObjectPropertyAssertionAxiom a,
-            @Nullable OWLObjectPropertyAssertionAxiom b) {
+        @Nullable OWLObjectPropertyAssertionAxiom b) {
         if (a == b) {
             return true;
         }
@@ -483,7 +483,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLNegativeObjectPropertyAssertionAxiom a,
-            @Nullable OWLNegativeObjectPropertyAssertionAxiom b) {
+        @Nullable OWLNegativeObjectPropertyAssertionAxiom b) {
         if (a == b) {
             return true;
         }
@@ -522,7 +522,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLNegativeDataPropertyAssertionAxiom a,
-            @Nullable OWLNegativeDataPropertyAssertionAxiom b) {
+        @Nullable OWLNegativeDataPropertyAssertionAxiom b) {
         if (a == b) {
             return true;
         }
@@ -642,7 +642,7 @@ class LiteralFoldingEqualityTester {
     // Property Axioms
     // Property characteristics
     public static boolean equals(@Nullable OWLAsymmetricObjectPropertyAxiom a,
-            @Nullable OWLAsymmetricObjectPropertyAxiom b) {
+        @Nullable OWLAsymmetricObjectPropertyAxiom b) {
         if (a == b) {
             return true;
         }
@@ -656,7 +656,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLReflexiveObjectPropertyAxiom a,
-            @Nullable OWLReflexiveObjectPropertyAxiom b) {
+        @Nullable OWLReflexiveObjectPropertyAxiom b) {
         if (a == b) {
             return true;
         }
@@ -670,7 +670,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLIrreflexiveObjectPropertyAxiom a,
-            @Nullable OWLIrreflexiveObjectPropertyAxiom b) {
+        @Nullable OWLIrreflexiveObjectPropertyAxiom b) {
         if (a == b) {
             return true;
         }
@@ -684,7 +684,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLFunctionalObjectPropertyAxiom a,
-            @Nullable OWLFunctionalObjectPropertyAxiom b) {
+        @Nullable OWLFunctionalObjectPropertyAxiom b) {
         if (a == b) {
             return true;
         }
@@ -698,7 +698,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLInverseFunctionalObjectPropertyAxiom a,
-            @Nullable OWLInverseFunctionalObjectPropertyAxiom b) {
+        @Nullable OWLInverseFunctionalObjectPropertyAxiom b) {
         if (a == b) {
             return true;
         }
@@ -712,7 +712,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLSymmetricObjectPropertyAxiom a,
-            @Nullable OWLSymmetricObjectPropertyAxiom b) {
+        @Nullable OWLSymmetricObjectPropertyAxiom b) {
         if (a == b) {
             return true;
         }
@@ -726,7 +726,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLTransitiveObjectPropertyAxiom a,
-            @Nullable OWLTransitiveObjectPropertyAxiom b) {
+        @Nullable OWLTransitiveObjectPropertyAxiom b) {
         if (a == b) {
             return true;
         }
@@ -740,7 +740,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLFunctionalDataPropertyAxiom a,
-            @Nullable OWLFunctionalDataPropertyAxiom b) {
+        @Nullable OWLFunctionalDataPropertyAxiom b) {
         if (a == b) {
             return true;
         }
@@ -787,7 +787,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLEquivalentObjectPropertiesAxiom a,
-            @Nullable OWLEquivalentObjectPropertiesAxiom b) {
+        @Nullable OWLEquivalentObjectPropertiesAxiom b) {
         if (a == b) {
             return true;
         }
@@ -801,7 +801,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLDisjointObjectPropertiesAxiom a,
-            @Nullable OWLDisjointObjectPropertiesAxiom b) {
+        @Nullable OWLDisjointObjectPropertiesAxiom b) {
         if (a == b) {
             return true;
         }
@@ -847,7 +847,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLInverseObjectPropertiesAxiom a,
-            @Nullable OWLInverseObjectPropertiesAxiom b) {
+        @Nullable OWLInverseObjectPropertiesAxiom b) {
         if (a == b) {
             return true;
         }
@@ -891,7 +891,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLDisjointDataPropertiesAxiom a,
-            @Nullable OWLDisjointDataPropertiesAxiom b) {
+        @Nullable OWLDisjointDataPropertiesAxiom b) {
         if (a == b) {
             return true;
         }
@@ -905,7 +905,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLEquivalentDataPropertiesAxiom a,
-            @Nullable OWLEquivalentDataPropertiesAxiom b) {
+        @Nullable OWLEquivalentDataPropertiesAxiom b) {
         if (a == b) {
             return true;
         }
@@ -1062,7 +1062,7 @@ class LiteralFoldingEqualityTester {
     }
 
     public static boolean equals(@Nullable OWLObjectCardinalityRestriction a,
-            @Nullable OWLObjectCardinalityRestriction b) {
+        @Nullable OWLObjectCardinalityRestriction b) {
         if (a == b) {
             return true;
         }

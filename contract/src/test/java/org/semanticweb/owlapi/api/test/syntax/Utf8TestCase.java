@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
@@ -37,8 +37,8 @@ public class Utf8TestCase extends TestBase {
     @Test
     public void testUTF8roundTrip() throws Exception {
         String onto = "Ontology(<http://protege.org/UTF8.owl>" + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
-                + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
-                + "\"Chinese=處方\"^^<http://www.w3.org/2001/XMLSchema#string>))";
+            + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
+            + "\"Chinese=處方\"^^<http://www.w3.org/2001/XMLSchema#string>))";
         saveOntology(loadOntologyFromString(onto));
         // ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes());
         // ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -52,13 +52,13 @@ public class Utf8TestCase extends TestBase {
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
         String onto = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-                + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-                + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-                + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-                + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-                + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
-                + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n" + "<owl:Ontology rdf:about=\"#\" />\n"
-                + (char) 0240 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
+            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+            + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
+            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
         ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         try {
@@ -76,13 +76,13 @@ public class Utf8TestCase extends TestBase {
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
         String onto = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-                + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-                + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-                + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-                + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-                + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
-                + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n" + "<owl:Ontology rdf:about=\"#\" />\n"
-                + (char) 0240 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
+            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+            + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
+            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
         ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(StandardCharsets.ISO_8859_1));
         m.loadOntologyFromOntologyDocument(in);
     }
@@ -93,22 +93,22 @@ public class Utf8TestCase extends TestBase {
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
         String onto1 = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-                + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-                + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-                + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-                + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-                + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
-                + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n" + "<owl:Ontology rdf:about=\"#\" />\n"
-                + (char) 0240 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
+            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+            + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
+            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(onto1);
         String onto2 = "<!DOCTYPE rdf:RDF [\n" + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n" + "]>\n"
-                + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
-                + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
-                + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
-                + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
-                + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
-                + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n" + "<owl:Ontology rdf:about=\"#\" />\n"
-                + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
+            + "<rdf:RDF \n" + "xml:base=\n" + "\"http://www.example.org/ISA14#\" \n"
+            + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+            + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+            + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+            + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n" + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+            + "<owl:Ontology rdf:about=\"#\" />\n"
+            + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
         OWLOntology o2 = loadOntologyFromString(onto2);
         equal(o1, o2);
     }
@@ -146,7 +146,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     private OWLOntology createOriginalOntology(String ns, OWLClass c, String chinese)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntology ontology = getOWLOntology(IRI(ns));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(), Literal(chinese));
         ontology.add(annotationAxiom);
@@ -154,7 +154,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     private static boolean checkOntology(OWLOntology ontology, OWLClass c, String chinese) {
-        return annotations(ontology.annotationAssertionAxioms(c.getIRI()))
-                .anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(chinese));
+        return getAnnotationObjects(c, ontology).anyMatch(a -> a.getValue().asLiteral().get().getLiteral().equals(
+            chinese));
     }
 }

@@ -169,6 +169,50 @@ public final class Searcher {
     }
 
     /**
+     * Retrieve annotations from a collection of annotation assertion axioms.
+     * 
+     * @param axioms
+     *        axioms
+     * @param p
+     *        optional annotation property to filter. Null means all.
+     * @return annotations
+     */
+    public static Stream<OWLAnnotation> annotationObjects(Stream<OWLAnnotationAssertionAxiom> axioms,
+        @Nullable OWLAnnotationProperty p) {
+        return axioms.flatMap(ax -> annotationObject(ax, p)).distinct();
+    }
+
+    /**
+     * Retrieve the annotation from an annotation assertion axiom.
+     * 
+     * @param axiom
+     *        axiom
+     * @param p
+     *        optional annotation property to filter. Null means all.
+     * @return annotations
+     */
+    public static Stream<OWLAnnotation> annotationObject(OWLAnnotationAssertionAxiom axiom,
+        @Nullable OWLAnnotationProperty p) {
+        if (p == null || axiom.getProperty().equals(p)) {
+            return Stream.of(axiom.getAnnotation());
+        }
+        return Stream.empty();
+    }
+
+    /**
+     * Retrieve annotations from a collection of annotation assertion axioms.
+     * This is limited to the annotation object and excludes annotations on the
+     * axiom itself.
+     * 
+     * @param axioms
+     *        axioms
+     * @return annotations
+     */
+    public static Stream<OWLAnnotation> annotationObjects(Stream<OWLAnnotationAssertionAxiom> axioms) {
+        return axioms.map(ax -> ax.getAnnotation()).distinct();
+    }
+
+    /**
      * Retrieve annotations from a collection of axioms. For regular axioms,
      * their annotations are retrieved; for annotation assertion axioms, their
      * asserted annotation is retrieved as well.

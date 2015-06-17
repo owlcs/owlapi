@@ -2,8 +2,7 @@ package org.obolibrary.macro;
 
 import static java.util.stream.Collectors.toSet;
 import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.search.Searcher.annotations;
+import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collections;
@@ -104,7 +103,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         }
 
         protected abstract @Nullable OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
-                OWLObjectPropertyExpression p);
+            OWLObjectPropertyExpression p);
 
         @Override
         public OWLClassExpression visit(OWLObjectHasValue ce) {
@@ -121,7 +120,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         }
 
         protected abstract @Nullable OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
-                OWLObjectPropertyExpression p);
+            OWLObjectPropertyExpression p);
 
         @Override
         public OWLClassExpression visit(OWLObjectAllValuesFrom ce) {
@@ -216,28 +215,30 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         df = o.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<>();
         expandAssertionToMap = new HashMap<>();
-        o.objectPropertiesInSignature().forEach(p -> annotations(o.annotationAssertionAxioms(p.getIRI(), INCLUDED),
-                df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI())).forEach(a -> {
-                    OWLAnnotationValue v = a.getValue();
-                    if (v instanceof OWLLiteral) {
-                        String str = ((OWLLiteral) v).getLiteral();
-                        LOG.info("mapping {} to {}", p.getIRI(), str);
-                        expandExpressionMap.put(p.getIRI(), str);
-                    }
-                } ));
+        OWLAnnotationProperty ap424 = df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI());
+        o.objectPropertiesInSignature().forEach(p -> {
+            getAnnotationObjects(p, o.importsClosure(), ap424).forEach(a -> {
+                OWLAnnotationValue v = a.getValue();
+                if (v instanceof OWLLiteral) {
+                    String str = ((OWLLiteral) v).getLiteral();
+                    LOG.info("mapping {} to {}", p.getIRI(), str);
+                    expandExpressionMap.put(p.getIRI(), str);
+                }
+            });
+        });
         o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
         OIO_ISEXPANSION = df.getOWLAnnotationProperty(IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
         expansionMarkerAnnotation = df.getOWLAnnotation(OIO_ISEXPANSION, df.getOWLLiteral(true));
     }
 
     protected void expandAssertions(OWLOntology o, OWLAnnotationProperty p) {
-        annotations(o.annotationAssertionAxioms(p.getIRI(), INCLUDED),
-                df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI())).map(a -> a.getValue().asLiteral())
-                        .filter(v -> v.isPresent()).forEach(v -> {
-                            String str = v.get().getLiteral();
-                            LOG.info("assertion mapping {} to {}", p, str);
-                            expandAssertionToMap.put(p.getIRI(), str);
-                        } );
+        OWLAnnotationProperty ap425 = df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI());
+        getAnnotationObjects(p, o.importsClosure(), ap425).map(a -> a.getValue().asLiteral()).filter(v -> v.isPresent())
+            .forEach(v -> {
+                String str = v.get().getLiteral();
+                LOG.info("assertion mapping {} to {}", p, str);
+                expandAssertionToMap.put(p.getIRI(), str);
+            });
     }
 
     protected @Nullable OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
@@ -290,8 +291,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         if (subClass.equals(newSubclass) && superClass.equals(newSuperclass)) {
             return axiom;
         } else {
-            return df.getOWLSubClassOfAxiom(newSubclass, newSuperclass,
-                    getAnnotationsWithOptionalExpansionMarker(axiom));
+            return df.getOWLSubClassOfAxiom(newSubclass, newSuperclass, getAnnotationsWithOptionalExpansionMarker(
+                axiom));
         }
     }
 
@@ -318,7 +319,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             if (!op.equals(newOp)) {
                 sawChange.set(true);
             }
-        } );
+        });
         if (!sawChange.get()) {
             return axiom;
         }
@@ -335,12 +336,12 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             if (!op.equals(newOp)) {
                 sawChange.set(true);
             }
-        } );
+        });
         if (!sawChange.get()) {
             return axiom;
         }
-        return df.getOWLDisjointUnionAxiom(axiom.getOWLClass(), newOps,
-                getAnnotationsWithOptionalExpansionMarker(axiom));
+        return df.getOWLDisjointUnionAxiom(axiom.getOWLClass(), newOps, getAnnotationsWithOptionalExpansionMarker(
+            axiom));
     }
 
     @Override
@@ -351,7 +352,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             return axiom;
         }
         return df.getOWLDataPropertyDomainAxiom(axiom.getProperty(), newDomain,
-                getAnnotationsWithOptionalExpansionMarker(axiom));
+            getAnnotationsWithOptionalExpansionMarker(axiom));
     }
 
     @Override
@@ -362,7 +363,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             return axiom;
         }
         return df.getOWLObjectPropertyDomainAxiom(axiom.getProperty(), newDomain,
-                getAnnotationsWithOptionalExpansionMarker(axiom));
+            getAnnotationsWithOptionalExpansionMarker(axiom));
     }
 
     @Override
@@ -373,7 +374,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             return axiom;
         }
         return df.getOWLObjectPropertyRangeAxiom(axiom.getProperty(), newRange,
-                getAnnotationsWithOptionalExpansionMarker(axiom));
+            getAnnotationsWithOptionalExpansionMarker(axiom));
     }
 
     @Override
@@ -383,8 +384,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         if (range.equals(newRange)) {
             return axiom;
         }
-        return df.getOWLDataPropertyRangeAxiom(axiom.getProperty(), newRange,
-                getAnnotationsWithOptionalExpansionMarker(axiom));
+        return df.getOWLDataPropertyRangeAxiom(axiom.getProperty(), newRange, getAnnotationsWithOptionalExpansionMarker(
+            axiom));
     }
 
     @Override
@@ -394,7 +395,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             OWLClassExpression newClassExpression = classExpression.accept(classVisitor);
             if (!classExpression.equals(newClassExpression)) {
                 return df.getOWLClassAssertionAxiom(newClassExpression, axiom.getIndividual(),
-                        getAnnotationsWithOptionalExpansionMarker(axiom));
+                    getAnnotationsWithOptionalExpansionMarker(axiom));
             }
         }
         return axiom;
@@ -410,7 +411,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             if (!op.equals(newExpression)) {
                 sawChange.set(true);
             }
-        } );
+        });
         if (!sawChange.get()) {
             return axiom;
         }
