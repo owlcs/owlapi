@@ -899,7 +899,7 @@ public class Internals implements Serializable {
      */
     @Nonnull
     public Set<OWLLogicalAxiom> getLogicalAxioms() {
-        Set<OWLLogicalAxiom> axioms = createSet();
+        Set<OWLLogicalAxiom> axioms = createLinkedSet();
         for (AxiomType<?> type : AXIOM_TYPES) {
             if (type.isLogical()) {
                 for (OWLAxiom ax : (Collection<OWLAxiom>) axiomsByType.getValues(type)) {

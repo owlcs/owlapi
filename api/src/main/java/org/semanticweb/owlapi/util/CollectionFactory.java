@@ -183,6 +183,17 @@ public class CollectionFactory {
     }
 
     /**
+     * @return fresh non threadsafe set
+     * @param <T>
+     *        axiom type
+     */
+    @Nonnull
+    public static <T> Set<T> createLinkedSet() {
+        // TODO large number of sets stay very small, wasting space
+        return new LinkedHashSet<>();
+    }
+
+    /**
      * @return fresh non threadsafe list
      * @param <T>
      *        axiom type

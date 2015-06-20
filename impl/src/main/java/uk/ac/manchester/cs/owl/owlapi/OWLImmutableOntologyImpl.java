@@ -13,7 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.OutputStream;
@@ -203,7 +203,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return getAxioms(axiomType);
         }
-        Set<T> toReturn = createSet();
+        Set<T> toReturn = createLinkedSet();
         for (OWLOntology o : getImportsClosure()) {
             toReturn.addAll(o.getAxioms(axiomType));
         }
@@ -258,7 +258,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return ints.getLogicalAxioms();
         }
-        Set<OWLLogicalAxiom> result = createSet();
+        Set<OWLLogicalAxiom> result = createLinkedSet();
         for (OWLOntology o : getImportsClosure()) {
             result.addAll(o.getLogicalAxioms(EXCLUDED));
         }
@@ -345,7 +345,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     @Nonnull
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
-        Set<OWLAxiom> result = createSet();
+        Set<OWLAxiom> result = createLinkedSet();
         if (containsAxiom(axiom)) {
             result.add(axiom);
         }
@@ -367,7 +367,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return getAxiomsIgnoreAnnotations(axiom);
         }
-        Set<OWLAxiom> result = createSet();
+        Set<OWLAxiom> result = createLinkedSet();
         for (OWLOntology ont : getImportsClosure()) {
             result.addAll(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED));
         }
@@ -659,7 +659,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     public Set<OWLEntity> getSignature() {
         // We might want to cache this for performance reasons,
         // but I'm not sure right now.
-        Set<OWLEntity> entities = createSet();
+        Set<OWLEntity> entities = createLinkedSet();
         entities.addAll(getClassesInSignature());
         entities.addAll(getObjectPropertiesInSignature());
         entities.addAll(getDataPropertiesInSignature());
@@ -730,7 +730,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return getClassesInSignature();
         }
-        Set<OWLClass> results = createSet();
+        Set<OWLClass> results = createLinkedSet();
         for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getClassesInSignature());
         }
@@ -742,7 +742,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return getObjectPropertiesInSignature();
         }
-        Set<OWLObjectProperty> results = createSet();
+        Set<OWLObjectProperty> results = createLinkedSet();
         for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getObjectPropertiesInSignature());
         }
@@ -754,7 +754,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return getDataPropertiesInSignature();
         }
-        Set<OWLDataProperty> results = createSet();
+        Set<OWLDataProperty> results = createLinkedSet();
         for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getDataPropertiesInSignature());
         }
@@ -766,7 +766,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return getIndividualsInSignature();
         }
-        Set<OWLNamedIndividual> results = createSet();
+        Set<OWLNamedIndividual> results = createLinkedSet();
         for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getIndividualsInSignature());
         }
@@ -778,7 +778,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().keySet());
         }
-        Set<OWLAnonymousIndividual> result = createSet();
+        Set<OWLAnonymousIndividual> result = createLinkedSet();
         for (OWLOntology o : getImportsClosure()) {
             result.addAll(o.getReferencedAnonymousIndividuals(EXCLUDED));
         }
@@ -790,7 +790,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return getDatatypesInSignature();
         }
-        Set<OWLDatatype> results = createSet();
+        Set<OWLDatatype> results = createLinkedSet();
         for (OWLOntology ont : getImportsClosure()) {
             results.addAll(ont.getDatatypesInSignature());
         }
@@ -799,7 +799,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(Imports includeImportsClosure) {
-        Set<OWLAnnotationProperty> props = createSet();
+        Set<OWLAnnotationProperty> props = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
             Iterables.addAll(props, ints.get(OWLAnnotationProperty.class, OWLAxiom.class, Navigation.IN_SUB_POSITION)
                 .get().keySet());
@@ -822,7 +822,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Set<IRI> getDirectImportsDocuments() {
-        Set<IRI> result = createSet();
+        Set<IRI> result = createLinkedSet();
         for (OWLImportsDeclaration importsDeclaration : ints.getImportsDeclarations(false)) {
             result.add(importsDeclaration.getIRI());
         }
@@ -934,7 +934,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return asSet(ints.get(OWLClass.class, OWLClassAxiom.class).get().getValues(cls));
         }
-        Set<OWLClassAxiom> result = createSet();
+        Set<OWLClassAxiom> result = createLinkedSet();
         for (OWLOntology o : getImportsClosure()) {
             result.addAll(o.getAxioms(cls, EXCLUDED));
         }
@@ -968,7 +968,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property, Imports includeImportsClosure) {
-        Set<OWLAnnotationAxiom> result = createSet();
+        Set<OWLAnnotationAxiom> result = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
             for (OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
                 if (ax.getSubProperty().equals(property)) {
@@ -995,7 +995,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property, Imports includeImportsClosure) {
-        Set<OWLDataPropertyAxiom> result = createSet();
+        Set<OWLDataPropertyAxiom> result = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
             result.addAll(getDataPropertyDomainAxioms(property));
             result.addAll(getEquivalentDataPropertiesAxioms(property));
@@ -1013,7 +1013,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual, Imports includeImportsClosure) {
-        Set<OWLIndividualAxiom> result = createSet();
+        Set<OWLIndividualAxiom> result = createLinkedSet();
         if (includeImportsClosure == EXCLUDED) {
             result.addAll(getClassAssertionAxioms(individual));
             result.addAll(getObjectPropertyAssertionAxioms(individual));
@@ -1035,7 +1035,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImportsClosure == EXCLUDED) {
             return getDatatypeDefinitions(datatype);
         }
-        Set<OWLDatatypeDefinitionAxiom> result = createSet();
+        Set<OWLDatatypeDefinitionAxiom> result = createLinkedSet();
         for (OWLOntology o : getImportsClosure()) {
             result.addAll(o.getAxioms(datatype, EXCLUDED));
         }
@@ -1058,7 +1058,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             if (includeImportsClosure == EXCLUDED) {
                 return asSet(ints.getReferencingAxioms((OWLEntity) owlEntity));
             }
-            Set<OWLAxiom> result = createSet();
+            Set<OWLAxiom> result = createLinkedSet();
             for (OWLOntology ont : getImportsClosure()) {
                 result.addAll(ont.getReferencingAxioms(owlEntity, EXCLUDED));
             }
@@ -1121,7 +1121,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (includeImports == EXCLUDED) {
             return getAxioms(type, entity.getClass(), entity, EXCLUDED, forSubPosition);
         }
-        Set<A> result = createSet();
+        Set<A> result = createLinkedSet();
         for (OWLOntology o : getImportsClosure()) {
             result.addAll(o.getAxioms(type, entity, EXCLUDED, forSubPosition));
         }
@@ -1147,7 +1147,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             }
             return toReturn;
         }
-        Set<A> result = createSet();
+        Set<A> result = createLinkedSet();
         for (OWLOntology o : getImportsClosure()) {
             result.addAll(o.getAxioms(type, entity, EXCLUDED, forSubPosition));
         }
