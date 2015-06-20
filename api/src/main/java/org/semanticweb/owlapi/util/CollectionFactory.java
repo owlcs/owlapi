@@ -177,6 +177,15 @@ public class CollectionFactory {
     }
 
     /**
+     * @return fresh non threadsafe set
+     * @param <T>
+     *        axiom type
+     */
+    public static <T> Set<T> createLinkedSet() {
+        return new LinkedHashSet<>(0);
+    }
+
+    /**
      * @return fresh non threadsafe list
      * @param <T>
      *        axiom type
@@ -436,7 +445,7 @@ public class CollectionFactory {
             }
             if (obj instanceof ConditionalCopySet) {
                 return delegate.containsAll(((ConditionalCopySet<?>) obj).delegate)
-                        && ((ConditionalCopySet<?>) obj).delegate.containsAll(delegate);
+                    && ((ConditionalCopySet<?>) obj).delegate.containsAll(delegate);
             }
             if (obj instanceof Collection) {
                 return delegate.containsAll((Collection<?>) obj) && ((Collection<?>) obj).containsAll(delegate);

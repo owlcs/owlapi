@@ -44,8 +44,8 @@ public class RDFGraph implements Serializable {
     private static final Set<IRI> skippedPredicates = Sets.newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private static final long serialVersionUID = 40000L;
     private final @Nonnull Map<RDFResource, Set<RDFTriple>> triplesBySubject = createMap();
-    private final @Nonnull Set<RDFResourceBlankNode> rootAnonymousNodes = createSet();
-    private final @Nonnull Set<RDFTriple> triples = createSet();
+    private final @Nonnull Set<RDFResourceBlankNode> rootAnonymousNodes = createLinkedSet();
+    private final @Nonnull Set<RDFTriple> triples = createLinkedSet();
     private final @Nonnull Map<RDFNode, RDFNode> remappedNodes = createMap();
 
     /**

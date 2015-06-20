@@ -50,7 +50,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjec
      *        the set that will contain the anon individuals
      */
     public DeprecatedOWLEntityCollector(Set<OWLEntity> toReturn,
-            @Nullable Collection<OWLAnonymousIndividual> anonsToReturn) {
+        @Nullable Collection<OWLAnonymousIndividual> anonsToReturn) {
         objects = toReturn;
         anonymousIndividuals = anonsToReturn;
     }
@@ -151,7 +151,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjec
     @Deprecated
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         if (anonymousIndividuals == null) {
-            return CollectionFactory.createSet();
+            return CollectionFactory.createLinkedSet();
         }
         return CollectionFactory.createSet(anonymousIndividuals);
     }

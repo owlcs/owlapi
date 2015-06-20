@@ -42,8 +42,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private final @Nonnull OWLOntologyManager man;
     private OWLOntology ont;
     private final @Nonnull Map<OWLObject, Set<OWLAxiom>> mappedAxioms = createMap();
-    private final @Nonnull Set<OWLAxiom> consumedAxioms = createSet();
-    private final @Nonnull Set<AxiomType<?>> passTypes = createSet();
+    private final @Nonnull Set<OWLAxiom> consumedAxioms = createLinkedSet();
+    private final @Nonnull Set<AxiomType<?>> passTypes = createLinkedSet();
 
     /**
      * Instantiates a new explanation orderer impl.
@@ -88,7 +88,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 return -1;
             }
             return 0;
-        } );
+        });
         rootAxioms.forEach(ax -> root.addChild(new ExplanationTree(ax)));
         return root;
     }
@@ -132,7 +132,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 tree.addChild(child);
                 getRHSEntitiesSorted(ax).forEach(ent -> insertChildren(ent, child));
             }
-        } );
+        });
         sortChildrenAxioms(tree);
     }
 
@@ -192,8 +192,8 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             if (ont != null) {
                 man.removeOntology(verifyNotNull(ont));
             }
-            ont = man.createOntology(
-                    IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART.incrementAndGet()));
+            ont = man.createOntology(IRI.create("http://www.semanticweb.org/", "ontology" + RANDOMSTART
+                .incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
                 changes.add(new AddAxiom(verifyNotNull(ont), ax));
@@ -225,11 +225,11 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      */
     private static <K, E> Set<E> getIndexedSet(K obj, Map<K, Set<E>> map, boolean addIfEmpty) {
         if (addIfEmpty) {
-            return map.computeIfAbsent(obj, (x) -> CollectionFactory.<E> createSet());
+            return map.computeIfAbsent(obj, x -> CollectionFactory.<E> createLinkedSet());
         }
         Set<E> set = map.get(obj);
         if (set == null) {
-            return createSet();
+            return createLinkedSet();
         }
         return set;
     }
@@ -342,7 +342,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 } else {
                     return;
                 }
-            } );
+            });
         }
 
         @Override
@@ -371,7 +371,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 } else if (target == null) {
                     target = cls;
                 }
-            } );
+            });
         }
 
         @Override
@@ -412,7 +412,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                     getAxiomsForLHS(desc.asOWLClass()).add(axiom);
                 }
                 indexAxiomsByRHSEntities(desc, axiom);
-            } );
+            });
         }
 
         @Override
@@ -436,7 +436,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                     getAxiomsForLHS(prop.asOWLObjectProperty()).add(axiom);
                 }
                 indexAxiomsByRHSEntities(prop, axiom);
-            } );
+            });
         }
 
         @Override
@@ -446,7 +446,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                     getAxiomsForLHS(ind.asOWLNamedIndividual()).add(axiom);
                     indexAxiomsByRHSEntities(ind, axiom);
                 }
-            } );
+            });
         }
 
         @Override
@@ -454,7 +454,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             axiom.properties().forEach(prop -> {
                 getAxiomsForLHS(prop.asOWLDataProperty()).add(axiom);
                 indexAxiomsByRHSEntities(prop, axiom);
-            } );
+            });
         }
 
         @Override
@@ -464,7 +464,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                     getAxiomsForLHS(prop.asOWLObjectProperty()).add(axiom);
                 }
                 indexAxiomsByRHSEntities(prop, axiom);
-            } );
+            });
         }
 
         @Override
@@ -522,7 +522,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             axiom.properties().forEach(prop -> {
                 getAxiomsForLHS(prop.asOWLDataProperty()).add(axiom);
                 indexAxiomsByRHSEntities(prop, axiom);
-            } );
+            });
         }
 
         @Override
@@ -540,7 +540,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                     getAxiomsForLHS(desc.asOWLClass()).add(axiom);
                 }
                 indexAxiomsByRHSEntities(desc, axiom);
-            } );
+            });
         }
 
         @Override
@@ -580,7 +580,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             axiom.individuals().filter(ind -> !ind.isAnonymous()).forEach(ind -> {
                 getAxiomsForLHS(ind.asOWLNamedIndividual()).add(axiom);
                 indexAxiomsByRHSEntities(ind, axiom);
-            } );
+            });
         }
 
         @Override
