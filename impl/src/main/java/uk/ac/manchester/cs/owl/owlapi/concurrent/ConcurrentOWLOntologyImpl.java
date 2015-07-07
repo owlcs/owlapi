@@ -25,11 +25,12 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 03/04/15
  */
-public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
+public class ConcurrentOWLOntologyImpl implements OWLMutableOntology,HasTrimToSize {
 
     private final OWLOntology delegate;
     private final ReadWriteLock readWriteLock;
@@ -48,6 +49,20 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology {
         this.readWriteLock = verifyNotNull(readWriteLock);
         this.readLock = verifyNotNull(readWriteLock).readLock();
         this.writeLock = verifyNotNull(readWriteLock).writeLock();
+    }
+
+    @Override
+    public void trimToSize() {
+        writeLock.lock();
+        try {
+            if (delegate instanceof HasTrimToSize) {
+                HasTrimToSize trimmableDelegate = (HasTrimToSize) delegate;
+                trimmableDelegate.trimToSize();
+            }
+        } finally {
+            writeLock.unlock();
+        }
+
     }
 
     @Override
