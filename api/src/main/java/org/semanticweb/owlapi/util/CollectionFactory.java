@@ -195,6 +195,18 @@ public class CollectionFactory {
     }
 
     /**
+     * @param elements
+     *        values to add to the list
+     * @return fresh non threadsafe list
+     * @param <T>
+     *        axiom type
+     */
+    @SafeVarargs
+    public static <T> List<T> createList(T... elements) {
+        return Lists.newArrayList(elements);
+    }
+
+    /**
      * @return fresh threadsafe list
      * @param <T>
      *        content type

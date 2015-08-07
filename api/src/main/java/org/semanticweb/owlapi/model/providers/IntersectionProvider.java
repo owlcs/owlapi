@@ -60,6 +60,6 @@ public interface IntersectionProvider {
      */
     default OWLObjectIntersectionOf getOWLObjectIntersectionOf(OWLClassExpression... operands) {
         checkIterableNotNull(operands, "operands cannot be null", true);
-        return getOWLObjectIntersectionOf(CollectionFactory.createSet(operands));
+        return getOWLObjectIntersectionOf(CollectionFactory.createList(operands));
     }
 }
