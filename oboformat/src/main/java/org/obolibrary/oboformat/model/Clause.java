@@ -124,6 +124,13 @@ public class Clause {
 
 
     /**
+     * @return true if no xrefs or qualifiers exist
+     */
+    public boolean hasNoAnnotations() {
+        return xrefs.isEmpty() && qualifierValues.isEmpty();
+    }
+
+    /**
      * @return tag
      */
     public String getTag() {
