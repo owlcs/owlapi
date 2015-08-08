@@ -1239,7 +1239,6 @@ public class OWLAPIObo2Owl {
                 // TODO
             }
         } else if (tagConstant == OboFormatTag.TAG_SYNONYM) {
-            Set<OWLAnnotation> annotationsToUse = annotations;
             Object[] values = clause.getValues().toArray();
             String synType;
             if (values.length > 1) {
@@ -1247,12 +1246,7 @@ public class OWLAPIObo2Owl {
                 if (values.length > 2) {
                     OWLAnnotation ann = fac.getOWLAnnotation(trTagToAnnotationProp(OboFormatTag.TAG_HAS_SYNONYM_TYPE
                         .getTag()), trAnnotationProp(values[2].toString()).getIRI());
-                    // The annotations to use might be an immutable empty set at this point.
-                    // We can't check that, but we can make sure we have an editable set
-                    if (annotationsToUse.isEmpty()) {
-                        annotationsToUse = new HashSet<>();
-                    }
-                    annotationsToUse.add(ann);
+                    annotations.add(ann);
                 }
             } else {
                 LOG.warn("Assume 'RELATED'for missing scope in synonym clause: {}", clause);
@@ -1261,7 +1255,7 @@ public class OWLAPIObo2Owl {
                 synType = OboFormatTag.TAG_RELATED.getTag();
             }
             ax = fac.getOWLAnnotationAssertionAxiom(trSynonymType(synType), sub, trLiteral(clause.getValue()),
-                annotationsToUse);
+                annotations);
         } else if (tagConstant == OboFormatTag.TAG_XREF) {
             Xref xref = (Xref) clause.getValue();
             String xrefAnnotation = xref.getAnnotation();
@@ -1306,7 +1300,7 @@ public class OWLAPIObo2Owl {
     @Nonnull
     protected Set<OWLAnnotation> trAnnotations(@Nonnull Clause clause) {
         if (clause.hasNoAnnotations()) {
-            return Collections.emptySet();
+            return CollectionFactory.createSet();
         }
         Set<OWLAnnotation> anns = new HashSet<>();
         trAnnotations(clause, anns);
