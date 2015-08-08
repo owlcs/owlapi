@@ -2,11 +2,10 @@ package org.obolibrary.oboformat.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 /** Clause */
@@ -14,11 +13,11 @@ public class Clause {
 
     protected String tag;
     @Nonnull
-    protected final List<Object> values = new ArrayList<>();
+    protected List<Object> values = new ArrayList<>();
     @Nonnull
-    protected final Collection<Xref> xrefs = new ArrayList<>();
+    protected Collection<Xref> xrefs = new ArrayList<>();
     @Nonnull
-    protected final Collection<QualifierValue> qualifierValues = new ArrayList<>();
+    protected Collection<QualifierValue> qualifierValues = new ArrayList<>();
 
     /**
      * @param tag
@@ -67,6 +66,64 @@ public class Clause {
     public Clause() {}
 
     /**
+     * freezing a clause signals that the clause has become quiescent, and that data structures can be adjusted to
+     * increase performance, or reduce memory consumption.
+     */
+    void freeze() {
+        freezeValues();
+        freezeXrefs();
+        freezeQualifiers();
+    }
+
+    void freezeValues() {
+        switch (values.size()) {
+            case 0:
+                values = Collections.emptyList();
+                break;
+            case 1:
+                Object o = values.iterator().next();
+                values = Collections.singletonList(o);
+                break;
+            default:
+                ((ArrayList) values).trimToSize();
+        }
+    }
+
+    void freezeXrefs() {
+        switch (xrefs.size()) {
+            case 0:
+                xrefs = Collections.emptyList();
+                break;
+            case 1:
+                Xref xref = xrefs.iterator().next();
+                xrefs = Collections.singletonList(xref);
+                break;
+            default:
+            if (values instanceof ArrayList) {
+                ((ArrayList) values).trimToSize();
+            }
+        }
+    }
+
+    void freezeQualifiers() {
+        switch (qualifierValues.size()) {
+            case 0:
+                qualifierValues = Collections.emptyList();
+                break;
+            case 1:
+                QualifierValue qualifierValue = qualifierValues.iterator().next();
+                qualifierValues = Collections.singletonList(qualifierValue);
+                break;
+            default:
+                if (qualifierValues instanceof ArrayList) {
+                    ((ArrayList) qualifierValues).trimToSize();
+                }
+        }
+    }
+
+
+
+    /**
      * @return tag
      */
     public String getTag() {
@@ -94,8 +151,22 @@ public class Clause {
      *        values
      */
     public void setValues(@Nonnull Collection<Object> values) {
-        this.values.clear();
-        this.values.addAll(values);
+        if (!(this.values instanceof ArrayList)) {
+            switch (values.size()) {
+                case 0:
+                    this.values = Collections.emptyList();
+                    break;
+                case 1:
+                    Object o = values.iterator().next();
+                    this.values = Collections.singletonList(o);
+                    break;
+                default:
+                    this.values = new ArrayList<>(values);
+            }
+        } else {
+            this.values.clear();
+            this.values.addAll(values);
+        }
     }
 
     /**
@@ -103,8 +174,12 @@ public class Clause {
      *        v
      */
     public void setValue(Object v) {
-        values.clear();
-        values.add(v);
+        if(values instanceof ArrayList) {
+            values.clear(); // TODO: Remove this line after profile gathering
+            values.add(v);
+        }  else {
+            this.values = Collections.singletonList(v);
+        }
     }
 
     /**
@@ -112,6 +187,11 @@ public class Clause {
      *        v
      */
     public void addValue(Object v) {
+        if (!(this.values instanceof ArrayList)) {
+            List<Object> newValues = new ArrayList<>(values.size() + 1);
+            newValues.addAll(this.values);
+            this.values = newValues;
+        }
         values.add(v);
     }
 
@@ -184,8 +264,22 @@ public class Clause {
      *        xrefs
      */
     public void setXrefs(@Nonnull Collection<Xref> xrefs) {
-        this.xrefs.clear();
-        this.xrefs.addAll(xrefs);
+        if (!(this.xrefs instanceof ArrayList)) {
+            switch (xrefs.size()) {
+                case 0:
+                    this.xrefs = Collections.emptyList();
+                    break;
+                case 1:
+                    Xref xref = xrefs.iterator().next();
+                    this.xrefs = Collections.singletonList(xref);
+                    break;
+                default:
+                    this.xrefs = new ArrayList<>(xrefs);
+            }
+        } else {
+            this.xrefs.clear();
+            this.xrefs.addAll(xrefs);
+        }
     }
 
     /**
@@ -193,6 +287,11 @@ public class Clause {
      *        xref
      */
     public void addXref(Xref xref) {
+        if (!(xrefs instanceof ArrayList)) {
+            List<Xref> newXrefs = new ArrayList<>(xrefs.size() + 1);
+            newXrefs.addAll(xrefs);
+            this.xrefs = newXrefs;
+        }
         xrefs.add(xref);
     }
 
@@ -209,15 +308,36 @@ public class Clause {
      *        qualifierValues
      */
     public void setQualifierValues(@Nonnull Collection<QualifierValue> qualifierValues) {
-        this.qualifierValues.clear();
-        this.qualifierValues.addAll(qualifierValues);
+        if (!(this.qualifierValues instanceof ArrayList)) {
+            switch (qualifierValues.size()) {
+                case 0:
+                    this.qualifierValues = Collections.emptyList();
+                    break;
+                case 1:
+                    QualifierValue qualifierValue = qualifierValues.iterator().next();
+                    this.qualifierValues = Collections.singletonList(qualifierValue);
+                    break;
+                default:
+                    this.qualifierValues = new ArrayList<>(qualifierValues);
+            }
+        } else {
+            this.qualifierValues.clear();
+            this.qualifierValues.addAll(qualifierValues);
+        }
     }
+
 
     /**
      * @param qv
      *        qv
      */
     public void addQualifierValue(QualifierValue qv) {
+        if (!(qualifierValues instanceof ArrayList)) {
+            List<QualifierValue> newQualifierValues = new ArrayList<>(qualifierValues.size() + 1);
+            newQualifierValues.addAll(qualifierValues);
+            this.qualifierValues = newQualifierValues;
+        }
+
         qualifierValues.add(qv);
     }
 
@@ -327,4 +447,5 @@ public class Clause {
          */
         return collectionsEquals(qualifierValues, other.getQualifierValues());
     }
+
 }

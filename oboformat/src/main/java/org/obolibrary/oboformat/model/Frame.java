@@ -2,12 +2,11 @@ package org.obolibrary.oboformat.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
@@ -50,6 +49,33 @@ public class Frame {
     /** Init clauses. */
     protected final void init() {
         clauses = new ArrayList<>();
+    }
+
+    /**
+     * freezing a frame signals that a frame has become quiescent, and that data structures can be adjusted to
+     * increase performance or reduce memory consumption. If a frozen frame is subsequently modified it will be thawed
+     * as necessary.
+     */
+    public void freeze() {
+        if (clauses.isEmpty()) {
+            clauses = Collections.emptyList();
+            return;
+        }
+
+        for (Clause clause : clauses) {
+            clause.freeze();
+        }
+
+        if (clauses.size() == 1) {
+            clauses = Collections.singletonList(clauses.iterator().next());
+            return;
+        }
+
+        if (clauses instanceof ArrayList<?>) {
+            ArrayList<?> arrayList = (ArrayList<?>) clauses;
+            arrayList.trimToSize();
+        }
+
     }
 
     /**
@@ -154,6 +180,9 @@ public class Frame {
      *        the clause
      */
     public void addClause(Clause cl) {
+        if (!(clauses instanceof ArrayList)) {
+            clauses = new ArrayList<>(clauses.size()+1);
+        }
         clauses.add(cl);
     }
 
