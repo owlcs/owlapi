@@ -178,7 +178,9 @@ public class Frame {
      */
     public void addClause(Clause cl) {
         if (!(clauses instanceof ArrayList)) {
-            clauses = new ArrayList<>(clauses.size() + 1);
+            Collection<Clause> tmp = new ArrayList<>(clauses.size() + 1);
+            tmp.addAll(clauses);
+            clauses = tmp;
         }
         clauses.add(cl);
     }
