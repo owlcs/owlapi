@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -287,5 +288,25 @@ public class TurtleTestCase extends TestBase {
         for (OWLLogicalAxiom ax : o.getLogicalAxioms()) {
             assertTrue(ax instanceof OWLAnnotationAssertionAxiom);
         }
+    }
+
+    @Test
+    public void shouldReloadSamePrefixAbbreviations() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "@prefix : <http://www.hbp.FIXME.org/hbp_abam_ontology/> .\n"
+            + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+            + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+            + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            + "@prefix nsu: <http://www.FIXME.org/nsupper#> .\n"
+            + "@prefix ABA: <http://api.brain-map.org/api/v2/data/Structure/> .\n"
+            + "@base <http://www.hbp.FIXME.org/hbp_abam_ontology> .\n"
+            + "<http://www.hbp.FIXME.org/hbp_abam_ontology> rdf:type owl:Ontology .\n" + "ABA:1 rdf:type owl:Class ;\n"
+            + "      rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty nsu:part_of ; owl:someValuesFrom ABA:10 ] .\n"
+            + "ABA:10 rdf:type owl:Class ;\n"
+            + "       rdfs:subClassOf [ rdf:type owl:Restriction ; owl:onProperty nsu:part_of ; owl:someValuesFrom owl:Thing ] .\n";
+        OWLOntology o = loadOntologyFromString(input);
+        StringDocumentTarget t = saveOntology(o);
+        assertTrue(t.toString().contains("ABA:10"));
     }
 }

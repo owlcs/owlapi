@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.*;
+import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 
@@ -137,6 +138,11 @@ public class TurtleRenderer extends RDFRendererBase {
             String name = pm.getPrefixIRI(iri);
             if (name == null) {
                 // No QName!
+                // As this is not an XML output, qnames are not necessary; other splits are allowed.
+                name = forceSplitIfPrefixExists(iri);
+            }
+            if (name == null) {
+                // no qname and no matching prefix
                 writeAsURI(iri.toString());
             } else {
                 if (name.indexOf(':') != -1) {
@@ -147,6 +153,26 @@ public class TurtleRenderer extends RDFRendererBase {
                 }
             }
         }
+    }
+
+    private String forceSplitIfPrefixExists(IRI iri) {
+        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
+        // sort the entries in reverse lexicographic order by value (longest prefix first)
+        Collections.sort(prefixName2PrefixMap, new Comparator<Map.Entry<String, String>>() {
+
+            @Override
+            public int compare(Entry<String, String> o1, Entry<String, String> o2) {
+                // TODO Auto-generated method stub
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+        String actualIRI = iri.toString();
+        for (Map.Entry<String, String> e : prefixName2PrefixMap) {
+            if (actualIRI.startsWith(e.getValue())) {
+                return e.getKey() + actualIRI.substring(e.getValue().length());
+            }
+        }
+        return null;
     }
 
     private void writeNewLine() {
