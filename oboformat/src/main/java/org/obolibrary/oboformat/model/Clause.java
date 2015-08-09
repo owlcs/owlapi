@@ -99,8 +99,8 @@ public class Clause {
                 xrefs = Collections.singletonList(xref);
                 break;
             default:
-            if (values instanceof ArrayList) {
-                ((ArrayList) values).trimToSize();
+            if (xrefs instanceof ArrayList) {
+                ((ArrayList) xrefs).trimToSize();
             }
         }
     }
