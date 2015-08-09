@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
@@ -35,7 +36,11 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Sets;
+import com.google.common.util.concurrent.UncheckedExecutionException;
 
 /** The Class OWLAPIObo2Owl. */
 public class OWLAPIObo2Owl {
@@ -67,6 +72,15 @@ public class OWLAPIObo2Owl {
     protected final @Nonnull Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
     private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation", "gci_filler", "cardinality",
         "minCardinality", "maxCardinality", "all_some", "all_only");
+    /** Cache for the id to IRI conversion. */
+    private LoadingCache<String, IRI> idToIRICache = CacheBuilder.newBuilder().maximumSize(1024).build(
+        new CacheLoader<String, IRI>() {
+
+            @Override
+            public IRI load(String key) {
+                return oboIdToIRI_load(key);
+            }
+        });
 
     /**
      * Instantiates a new oWLAPI obo2 owl.
@@ -1195,6 +1209,9 @@ public class OWLAPIObo2Owl {
      * @return the sets the
      */
     protected Set<OWLAnnotation> trAnnotations(Clause clause) {
+        if (clause.hasNoAnnotations()) {
+            return CollectionFactory.createSet();
+        }
         Set<OWLAnnotation> anns = new HashSet<>();
         trAnnotations(clause, anns);
         return anns;
@@ -1524,7 +1541,7 @@ public class OWLAPIObo2Owl {
             value = value.toString();
         }
         String value2 = (String) value;
-        return fac.getOWLLiteral(value2); // TODO
+        return fac.getOWLLiteral(value2);// TODO
     }
 
     /**
@@ -1535,6 +1552,25 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     public IRI oboIdToIRI(String id) {
+        try {
+            return idToIRICache.get(id);
+        } catch (ExecutionException | UncheckedExecutionException e) {
+            if (e.getCause() instanceof OWLParserException) {
+                throw (OWLParserException) e.getCause();
+            }
+            LOG.error("error executing obo id to IRI", e);
+            return oboIdToIRI_load(id);
+        }
+    }
+
+    /**
+     * Obo id to iri.
+     * 
+     * @param id
+     *        the id
+     * @return the iri
+     */
+    public IRI oboIdToIRI_load(String id) {
         if (id.contains(" ")) {
             LOG.error("id contains space: \"{}\"", id);
             throw new OWLParserException("spaces not allowed: '" + id + '\'');
@@ -1569,19 +1605,19 @@ public class OWLAPIObo2Owl {
             db = idParts[0];
             localId = idParts[1];
             if (localId.contains("_")) {
-                db += "#_"; // NonCanonical-Prefixed-ID
+                db += "#_";// NonCanonical-Prefixed-ID
             } else {
                 db += "_";
             }
         } else if (idParts.length == 0) {
             db = getDefaultIDSpace() + '#';
             localId = id;
-        } else { // == 1
+        } else {// == 1
             // todo use owlOntology IRI
             db = getDefaultIDSpace() + '#';
             // if(id.contains("_"))
             // db += "_";
-            localId = idParts[0]; // Unprefixed-ID
+            localId = idParts[0];// Unprefixed-ID
         }
         String uriPrefix = DEFAULT_IRI_PREFIX + db;
         if (idSpaceMap.containsKey(db)) {
