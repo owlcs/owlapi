@@ -66,6 +66,28 @@ public class OBODoc {
     }
 
     /**
+     * Freezing an OBODoc signals that the document has become quiescent, and that the system may optimize data
+     * structures for performance or space.
+     */
+
+    public void freezeFrames() {
+        headerFrame.freeze();
+        freezeFrameMap(termFrameMap);
+        freezeFrameMap(typedefFrameMap);
+        freezeFrameMap(instanceFrameMap);
+        for (Frame frame : annotationFrames) {
+            frame.freeze();
+        }
+
+    }
+
+    private static void freezeFrameMap(Map<String, Frame> frameMap) {
+        for (Frame frame : frameMap.values()) {
+            frame.freeze();
+        }
+    }
+
+    /**
      * @param id
      *        the id
      * @return the term frame

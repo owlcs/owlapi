@@ -1,10 +1,6 @@
 package org.obolibrary.oboformat.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nullable;
 
@@ -51,6 +47,30 @@ public class Frame {
     /** Init clauses. */
     protected final void init() {
         clauses = new ArrayList<>();
+    }
+
+    /**
+     * freezing a frame signals that a frame has become quiescent, and that data
+     * structures can be adjusted to increase performance or reduce memory
+     * consumption. If a frozen frame is subsequently modified it will be thawed
+     * as necessary.
+     */
+    public void freeze() {
+        if (clauses.isEmpty()) {
+            clauses = Collections.emptyList();
+            return;
+        }
+        for (Clause clause : clauses) {
+            clause.freeze();
+        }
+        if (clauses.size() == 1) {
+            clauses = Collections.singletonList(clauses.iterator().next());
+            return;
+        }
+        if (clauses instanceof ArrayList<?>) {
+            ArrayList<?> arrayList = (ArrayList<?>) clauses;
+            arrayList.trimToSize();
+        }
     }
 
     /**
@@ -157,6 +177,9 @@ public class Frame {
      *        the clause
      */
     public void addClause(Clause cl) {
+        if (!(clauses instanceof ArrayList)) {
+            clauses = new ArrayList<>(clauses.size() + 1);
+        }
         clauses.add(cl);
     }
 
@@ -338,11 +361,11 @@ public class Frame {
     public void check() throws FrameStructureException {
         if (FrameType.HEADER.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
-                    OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
+                OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
-                    OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+                OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
             List<Clause> tagIdClauses = getClauses(OboFormatTag.TAG_ID);
@@ -360,11 +383,11 @@ public class Frame {
             throw new FrameStructureException(this, "single intersection_of tags are not allowed");
         }
         checkMaxOneCardinality(OboFormatTag.TAG_IS_ANONYMOUS, OboFormatTag.TAG_NAME,
-                // OboFormatTag.TAG_NAMESPACE,
-                OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
-                OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
-                OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
-                OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
+            // OboFormatTag.TAG_NAMESPACE,
+            OboFormatTag.TAG_DEF, OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
+            OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
+            OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL, OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+            OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
     }
 
     /**
