@@ -19,6 +19,10 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.Weigher;
+
 /** implements the OBO Format 1.4 specification. */
 public class OBOFormatParser {
 
@@ -32,6 +36,41 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
     protected final MyStream stream;
+    public final com.google.common.cache.LoadingCache<String, String> stringCache;
+
+    /**
+     *
+     */
+    public OBOFormatParser() {
+        this(new MyStream());
+    }
+
+    /**
+     * @param s
+     */
+    protected OBOFormatParser(MyStream s) {
+        stream = s;
+        Weigher<String, String> stringWeigher = new Weigher<String, String>() {
+
+            @Override
+            public int weigh(String key, String value) {
+                return key.length();
+            }
+        };
+        CacheLoader<String, String> loader = new CacheLoader<String, String>() {
+
+            @Override
+            public String load(String key) throws Exception {
+                return key;
+            }
+        };
+        if (LOG.isDebugEnabled()) {
+            stringCache = CacheBuilder.newBuilder().recordStats().maximumWeight(8192 * 1024).weigher(stringWeigher)
+                .build(loader);
+        } else {
+            stringCache = CacheBuilder.newBuilder().maximumWeight(8192 * 1024).weigher(stringWeigher).build(loader);
+        }
+    }
 
     protected static class MyStream {
 
@@ -148,17 +187,6 @@ public class OBOFormatParser {
         public int getLineNo() {
             return lineNo;
         }
-    }
-
-    /**
-     * 
-     */
-    public OBOFormatParser() {
-        this(new MyStream());
-    }
-
-    protected OBOFormatParser(MyStream s) {
-        stream = s;
     }
 
     /**
@@ -329,6 +357,7 @@ public class OBOFormatParser {
         Frame h = new Frame(FrameType.HEADER);
         obodoc.setHeaderFrame(h);
         parseHeaderFrame(h);
+        h.freeze();
         parseZeroOrMoreWsOptCmtNl();
         while (!stream.eof()) {
             parseEntityFrame(obodoc);
@@ -546,6 +575,7 @@ public class OBOFormatParser {
                 parseZeroOrMoreWsOptCmtNl();
             }
             try {
+                f.freeze();
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
                 throw new OBOFormatParserException("Could not add frame " + f
@@ -682,6 +712,7 @@ public class OBOFormatParser {
                 parseZeroOrMoreWsOptCmtNl();
             }
             try {
+                f.freeze();
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
                 throw new OBOFormatParserException("Could not add frame " + f
@@ -931,7 +962,7 @@ public class OBOFormatParser {
             // do noy parse trailing qualifiers.
             getParseUntilAdv("}");
         }
-        parseHiddenComment(); // ignore return value, as comments are optional
+        parseHiddenComment();// ignore return value, as comments are optional
         return true;
     }
 
@@ -1335,7 +1366,7 @@ public class OBOFormatParser {
         while (i < r.length()) {
             if (r.charAt(i) == '\\') {
                 hasEscapedChars = true;
-                i += 2; // Escape
+                i += 2;// Escape
                 continue;
             }
             if (compl.contains(r.subSequence(i, i + 1))) {
@@ -1366,24 +1397,24 @@ public class OBOFormatParser {
                     if (next < ret.length()) {
                         char nextChar = ret.charAt(next);
                         switch (nextChar) {
-                        case 'n': // newline
-                            sb.append('\n');
-                            break;
-                        case 'W': // single space
-                            sb.append(' ');
-                            break;
-                        case 't': // tab
-                            sb.append('\n');
-                            break;
-                        default:
-                            // assume that any char after a backlash is an
-                            // escaped char.
-                            // spec for this optional behavior
-                            // http://www.geneontology.org/GO.format.obo-1_2.shtml#S.1.5
-                            sb.append(nextChar);
-                            break;
+                            case 'n':// newline
+                                sb.append('\n');
+                                break;
+                            case 'W':// single space
+                                sb.append(' ');
+                                break;
+                            case 't':// tab
+                                sb.append('\n');
+                                break;
+                            default:
+                                // assume that any char after a backlash is an
+                                // escaped char.
+                                // spec for this optional behavior
+                                // http://www.geneontology.org/GO.format.obo-1_2.shtml#S.1.5
+                                sb.append(nextChar);
+                                break;
                         }
-                        j += 1; // skip the next char
+                        j += 1;// skip the next char
                     }
                 } else {
                     sb.append(c);
@@ -1392,7 +1423,13 @@ public class OBOFormatParser {
             ret = sb.toString();
         }
         stream.advance(i);
-        return ret;
+        String cachedValue = stringCache.getUnchecked(ret);
+        if (LOG.isTraceEnabled()) {
+            if (ret != cachedValue) {
+                LOG.trace("Cache hit for  {}", cachedValue);
+            }
+        }
+        return cachedValue;
     }
 
     private static String mapDeprecatedTag(String tag) {
