@@ -825,7 +825,7 @@ public class OBOFormatParser {
         } else if (tag == OboFormatTag.TAG_RELATIONSHIP) {
             parseRelationship(cl);
         } else if (tag == OboFormatTag.TAG_CREATED_BY) {
-            parseIdRef(cl);
+            parsePerson(cl);
         } else if (tag == OboFormatTag.TAG_CREATION_DATE) {
             parseISODate(cl);
         } else if (tag == OboFormatTag.TAG_IS_OBSELETE) {
