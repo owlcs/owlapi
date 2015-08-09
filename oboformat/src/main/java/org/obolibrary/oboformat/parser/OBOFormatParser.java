@@ -1,8 +1,5 @@
 package org.obolibrary.oboformat.parser;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.Weigher;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,18 +13,19 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.obolibrary.oboformat.model.Clause;
-import org.obolibrary.oboformat.model.Frame;
+
+import org.obolibrary.oboformat.model.*;
 import org.obolibrary.oboformat.model.Frame.FrameType;
-import org.obolibrary.oboformat.model.FrameMergeException;
-import org.obolibrary.oboformat.model.OBODoc;
-import org.obolibrary.oboformat.model.QualifierValue;
-import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.Weigher;
 
 /** implements the OBO Format 1.4 specification. */
 public class OBOFormatParser {
@@ -43,7 +41,7 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
     protected final MyStream stream;
-    public  final com.google.common.cache.LoadingCache<String,String> stringCache;
+    public final com.google.common.cache.LoadingCache<String, String> stringCache;
 
     /**
      *
@@ -53,30 +51,31 @@ public class OBOFormatParser {
     }
 
     /**
-     *
      * @param s
      */
     protected OBOFormatParser(MyStream s) {
         stream = s;
         Weigher<String, String> stringWeigher = new Weigher<String, String>() {
+
             @Override
             public int weigh(String key, String value) {
                 return key.length();
             }
         };
         CacheLoader<String, String> loader = new CacheLoader<String, String>() {
+
             @Override
             public String load(String key) throws Exception {
                 return key;
             }
         };
         if (LOG.isDebugEnabled()) {
-            stringCache = CacheBuilder.newBuilder().recordStats().maximumWeight(8192*1024).weigher(stringWeigher).build(loader);
+            stringCache = CacheBuilder.newBuilder().recordStats().maximumWeight(8192 * 1024).weigher(stringWeigher)
+                .build(loader);
         } else {
-            stringCache = CacheBuilder.newBuilder().maximumWeight(8192*1024).weigher(stringWeigher).build(loader);
+            stringCache = CacheBuilder.newBuilder().maximumWeight(8192 * 1024).weigher(stringWeigher).build(loader);
         }
     }
-
 
     protected static class MyStream {
 
@@ -855,7 +854,7 @@ public class OBOFormatParser {
         } else if (tag == OboFormatTag.TAG_RELATIONSHIP) {
             parseRelationship(cl);
         } else if (tag == OboFormatTag.TAG_CREATED_BY) {
-            parseIdRef(cl);
+            parsePerson(cl);
         } else if (tag == OboFormatTag.TAG_CREATION_DATE) {
             parseISODate(cl);
         } else if (tag == OboFormatTag.TAG_IS_OBSELETE) {
@@ -969,8 +968,8 @@ public class OBOFormatParser {
             // and no scope
             if (stream.peekCharIs(' ')) {
                 parseOneOrMoreWs();
-                parseIdRef(cl, true); // TODO - verify that this is a valid
-                                      // scope
+                parseIdRef(cl, true);// TODO - verify that this is a valid
+                                     // scope
             }
         }
         parseZeroOrMoreWs();
@@ -1001,7 +1000,7 @@ public class OBOFormatParser {
             // do noy parse trailing qualifiers.
             getParseUntilAdv("}");
         }
-        parseHiddenComment(); // ignore return value, as comments are optional
+        parseHiddenComment();// ignore return value, as comments are optional
         return true;
     }
 
@@ -1410,7 +1409,7 @@ public class OBOFormatParser {
         while (i < r.length()) {
             if (r.charAt(i) == '\\') {
                 hasEscapedChars = true;
-                i += 2; // Escape
+                i += 2;// Escape
                 continue;
             }
             if (compl.contains(r.subSequence(i, i + 1))) {
@@ -1441,24 +1440,24 @@ public class OBOFormatParser {
                     if (next < ret.length()) {
                         char nextChar = ret.charAt(next);
                         switch (nextChar) {
-                        case 'n': // newline
-                            sb.append('\n');
-                            break;
-                        case 'W': // single space
-                            sb.append(' ');
-                            break;
-                        case 't': // tab
-                            sb.append('\n');
-                            break;
-                        default:
-                            // assume that any char after a backlash is an
-                            // escaped char.
-                            // spec for this optional behavior
-                            // http://www.geneontology.org/GO.format.obo-1_2.shtml#S.1.5
-                            sb.append(nextChar);
-                            break;
+                            case 'n':// newline
+                                sb.append('\n');
+                                break;
+                            case 'W':// single space
+                                sb.append(' ');
+                                break;
+                            case 't':// tab
+                                sb.append('\n');
+                                break;
+                            default:
+                                // assume that any char after a backlash is an
+                                // escaped char.
+                                // spec for this optional behavior
+                                // http://www.geneontology.org/GO.format.obo-1_2.shtml#S.1.5
+                                sb.append(nextChar);
+                                break;
                         }
-                        j += 1; // skip the next char
+                        j += 1;// skip the next char
                     }
                 } else {
                     sb.append(c);
@@ -1468,7 +1467,7 @@ public class OBOFormatParser {
         }
         stream.advance(i);
         String cachedValue = stringCache.getUnchecked(ret);
-        if(LOG.isTraceEnabled()) {
+        if (LOG.isTraceEnabled()) {
             if (ret != cachedValue) {
                 LOG.trace("Cache hit for  {}", cachedValue);
             }
