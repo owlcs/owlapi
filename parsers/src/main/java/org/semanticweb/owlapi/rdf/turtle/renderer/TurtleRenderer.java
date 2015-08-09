@@ -19,6 +19,7 @@ import java.io.Writer;
 import java.util.*;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
@@ -85,7 +86,7 @@ public class TurtleRenderer extends RDFRendererBase {
             writeAsURI(v);
             write(" .");
             writeNewLine();
-        } );
+        });
     }
 
     int bufferLength = 0;
@@ -136,6 +137,11 @@ public class TurtleRenderer extends RDFRendererBase {
             String name = pm.getPrefixIRI(iri);
             if (name == null) {
                 // No QName!
+                // As this is not an XML output, qnames are not necessary; other splits are allowed.
+                name = forceSplitIfPrefixExists(iri);
+            }
+            if (name == null) {
+                // no qname and no matching prefix
                 writeAsURI(iri.toString());
             } else {
                 if (name.indexOf(':') != -1) {
@@ -146,6 +152,21 @@ public class TurtleRenderer extends RDFRendererBase {
                 }
             }
         }
+    }
+
+    //TODO move to PrefixManager
+    @Nullable
+    private String forceSplitIfPrefixExists(IRI iri) {
+        List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
+        // sort the entries in reverse lexicographic order by value (longest prefix first)
+        Collections.sort(prefixName2PrefixMap, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+        String actualIRI = iri.toString();
+        for (Map.Entry<String, String> e : prefixName2PrefixMap) {
+            if (actualIRI.startsWith(e.getValue())) {
+                return e.getKey() + actualIRI.substring(e.getValue().length());
+            }
+        }
+        return null;
     }
 
     private void writeNewLine() {
