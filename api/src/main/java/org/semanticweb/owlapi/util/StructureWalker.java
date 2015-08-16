@@ -27,13 +27,26 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
 
     protected final OWLObjectWalker<O> walkerCallback;
     protected final Set<OWLObject> visited = new HashSet<>();
+    protected final AnnotationWalkingControl annotationWalkFlag;
 
     /**
      * @param owlObjectWalker
      *        callback object walker
      */
     public StructureWalker(OWLObjectWalker<O> owlObjectWalker) {
-        walkerCallback = owlObjectWalker;
+        this(owlObjectWalker, AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY);
+    }
+
+    /**
+     * @param owlObjectWalker
+     *        callback object walker
+     * @param annotationWalkFlag
+     *        control flag for annotation walking
+     */
+    public StructureWalker(OWLObjectWalker<O> owlObjectWalker,
+        AnnotationWalkingControl annotationWalkFlag) {
+        this.walkerCallback = owlObjectWalker;
+        this.annotationWalkFlag = annotationWalkFlag;
     }
 
     protected void process(OWLObject object) {
@@ -51,6 +64,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         } else {
             walkerCallback.passToVisitor(object);
         }
+        annotationWalkFlag.walk(this, object);
     }
 
     @Override
@@ -63,7 +77,6 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         walkerCallback.ontology = ontology;
         walkerCallback.ax = null;
         process(ontology);
-        ontology.annotations().forEach(a -> a.accept(this));
         ontology.axioms().forEach(a -> a.accept(this));
     }
 

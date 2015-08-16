@@ -13,10 +13,12 @@
 package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,14 +43,42 @@ public class OWLObjectWalker<O extends OWLObject> {
     protected OWLAnnotation annotation;
     private final List<OWLClassExpression> classExpressionPath = new ArrayList<>();
     private final List<OWLDataRange> dataRangePath = new ArrayList<>();
-    private @Nonnull StructureWalker<O> walker = new StructureWalker<>(this);
+    private @Nonnull StructureWalker<O> walker;
 
     /**
      * @param objects
-     *        the set of objects to visit
+     *        objects to visit
      */
     public OWLObjectWalker(Collection<O> objects) {
-        this(objects, true);
+        this(objects.stream(), true, AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY);
+    }
+
+    /**
+     * @param objects
+     *        objects to visit
+     */
+    public OWLObjectWalker(Stream<O> objects) {
+        this(objects, true, AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY);
+    }
+
+    /**
+     * @param walkDuplicates
+     *        true if duplicates should be visited
+     * @param objects
+     *        objects to visit
+     */
+    public OWLObjectWalker(Collection<O> objects, boolean walkDuplicates) {
+        this(objects.stream(), walkDuplicates, AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY);
+    }
+
+    /**
+     * @param walkDuplicates
+     *        true if duplicates should be visited
+     * @param objects
+     *        objects to visit
+     */
+    public OWLObjectWalker(Stream<O> objects, boolean walkDuplicates) {
+        this(objects, walkDuplicates, AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY);
     }
 
     protected @Nullable Object passToVisitor(OWLObject o) {
@@ -70,14 +100,27 @@ public class OWLObjectWalker<O extends OWLObject> {
     }
 
     /**
+     * @param walkDuplicates
+     *        true if duplicates should be visited
+     * @param objects
+     *        objects to visit
+     * @param walkFlag
+     *        control which annotations to visit
+     */
+    public OWLObjectWalker(Stream<O> objects, boolean walkDuplicates, AnnotationWalkingControl walkFlag) {
+        this.objects = asList(checkNotNull(objects, "objects cannot be null"));
+        this.visitDuplicates = walkDuplicates;
+        this.walker = new StructureWalker<>(this, walkFlag);
+    }
+
+    /**
      * @param visitDuplicates
      *        true if duplicates should be visited
      * @param objects
      *        the set of objects to visit
      */
-    public OWLObjectWalker(Collection<O> objects, boolean visitDuplicates) {
-        this.objects = new ArrayList<>(checkNotNull(objects, "objects cannot be null"));
-        this.visitDuplicates = visitDuplicates;
+    public OWLObjectWalker(Collection<O> objects, boolean visitDuplicates, AnnotationWalkingControl walkFlag) {
+        this(objects.stream(), visitDuplicates, walkFlag);
     }
 
     /**
