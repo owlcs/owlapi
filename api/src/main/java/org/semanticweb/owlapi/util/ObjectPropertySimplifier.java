@@ -29,11 +29,19 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
  * simplest form. Let P be an object property name and PE a property expression,
  * then the simplification is inductively defined as: simp(P) = P simp(inv(P)) =
  * inv(P) simp(inv(inv(PE)) = simp(PE)
- * 
+ *
+ *
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group
  * @since 2.2.0
+ *
+ * @deprecated Legal Object property expressions should always be irreducible - the standard specifies that
+ * inv : P -> PE , not PE -> PE, so inv (inv P) is an error .
+ * Versions of the OWLAPI  prior to 4.1.0 did not check for this.
+ *
+
  */
+@Deprecated
 public class ObjectPropertySimplifier {
 
     @Nonnull
