@@ -504,7 +504,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         axiom.properties().forEach(p -> {
             p.accept(this);
             writeSpace();
-        } );
+        });
     }
 
     @Override
@@ -514,7 +514,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         axiom.classExpressions().forEach(p -> {
             p.accept(this);
             writeSpace();
-        } );
+        });
     }
 
     @Override
@@ -584,8 +584,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(axiom.getProperty());
-        df.getOWLObjectMaxCardinality(1, prop).accept(this);
+        OWLObjectPropertyExpression property = axiom.getProperty();
+        if (property.isAnonymous()) {
+            df.getOWLObjectMaxCardinality(1, property).accept(this);
+        } else {
+            OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(property.asOWLObjectProperty());
+            df.getOWLObjectMaxCardinality(1, prop).accept(this);
+        }
     }
 
     @Override
@@ -805,7 +810,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         node.facetRestrictions().forEach(r -> {
             writeSpace();
             r.accept(this);
-        } );
+        });
     }
 
     @Override
@@ -946,7 +951,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         axiom.propertyExpressions().forEach(p -> {
             writeSpace();
             p.accept(this);
-        } );
+        });
     }
 
     @Override

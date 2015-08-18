@@ -86,13 +86,13 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public FunctionalSyntaxDocumentFormat parse() throws OWLParserException, UnloadableImportException {
         label_1: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case PREFIX: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[0] = jj_gen;
-                break label_1;
+                case PREFIX: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[0] = jj_gen;
+                    break label_1;
             }
             Prefix();
         }
@@ -119,103 +119,103 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_consume_token(ONTOLOGY);
         jj_consume_token(OPENPAR);
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case FULLIRI:
-        case PNAME_LN: {
-            ontologyIRI = IRI();
-            switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
             case FULLIRI:
             case PNAME_LN: {
-                versionIRI = IRI();
+                ontologyIRI = IRI();
+                switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
+                    case FULLIRI:
+                    case PNAME_LN: {
+                        versionIRI = IRI();
+                        break;
+                    }
+                    default:
+                        jj_la1[1] = jj_gen;
+                        ;
+                }
                 break;
             }
             default:
-                jj_la1[1] = jj_gen;
+                jj_la1[2] = jj_gen;
                 ;
-            }
-            break;
-        }
-        default:
-            jj_la1[2] = jj_gen;
-            ;
         }
         OWLOntologyID id = new OWLOntologyID(ontologyIRI, versionIRI);
         applyChange(new SetOntologyID(ontology, id));
         label_2: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case IMPORT:
-            case ANNOTATION: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[3] = jj_gen;
-                break label_2;
+                case IMPORT:
+                case ANNOTATION: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[3] = jj_gen;
+                    break label_2;
             }
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case IMPORT: {
-                decl = ImportsDeclaration();
-                applyChange(new AddImport(ontology, decl));
-                man.makeLoadImportRequest(decl, configuration);
-                break;
-            }
-            case ANNOTATION: {
-                anno = Annotation();
-                applyChange(new AddOntologyAnnotation(ontology, anno));
-                currentAnnotations.clear();
-                break;
-            }
-            default:
-                jj_la1[4] = jj_gen;
-                jj_consume_token(-1);
-                throw new ParseException();
+                case IMPORT: {
+                    decl = ImportsDeclaration();
+                    applyChange(new AddImport(ontology, decl));
+                    man.makeLoadImportRequest(decl, configuration);
+                    break;
+                }
+                case ANNOTATION: {
+                    anno = Annotation();
+                    applyChange(new AddOntologyAnnotation(ontology, anno));
+                    currentAnnotations.clear();
+                    break;
+                }
+                default:
+                    jj_la1[4] = jj_gen;
+                    jj_consume_token(-1);
+                    throw new ParseException();
             }
         }
         label_3: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case SUBCLASSOF:
-            case EQUIVALENTCLASSES:
-            case DISJOINTCLASSES:
-            case DISJOINTUNION:
-            case ANNOTATIONASSERTION:
-            case SUBANNOTATIONPROPERTYOF:
-            case ANNOTATIONPROPERTYDOMAIN:
-            case ANNOTATIONPROPERTYRANGE:
-            case HASKEY:
-            case DECLARATION:
-            case INVERSEOBJECTPROPERTIES:
-            case DATATYPEDEFINITION:
-            case SUBOBJECTPROPERTYOF:
-            case EQUIVALENTOBJECTPROPERTIES:
-            case DISJOINTOBJECTPROPERTIES:
-            case OBJECTPROPERTYDOMAIN:
-            case OBJECTPROPERTYRANGE:
-            case FUNCTIONALOBJECTPROPERTY:
-            case INVERSEFUNCTIONALOBJECTPROPERTY:
-            case REFLEXIVEOBJECTPROPERTY:
-            case IRREFLEXIVEOBJECTPROPERTY:
-            case SYMMETRICOBJECTPROPERTY:
-            case ASYMMETRICOBJECTPROPERTY:
-            case TRANSITIVEOBJECTPROPERTY:
-            case SUBDATAPROPERTYOF:
-            case EQUIVALENTDATAPROPERTIES:
-            case DISJOINTDATAPROPERTIES:
-            case DATAPROPERTYDOMAIN:
-            case DATAPROPERTYRANGE:
-            case FUNCTIONALDATAPROPERTY:
-            case SAMEINDIVIDUAL:
-            case DIFFERENTINDIVIDUALS:
-            case CLASSASSERTION:
-            case OBJECTPROPERTYASSERTION:
-            case NEGATIVEOBJECTPROPERTYASSERTION:
-            case DATAPROPERTYASSERTION:
-            case NEGATIVEDATAPROPERTYASSERTION:
-            case DLSAFERULE: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[5] = jj_gen;
-                break label_3;
+                case SUBCLASSOF:
+                case EQUIVALENTCLASSES:
+                case DISJOINTCLASSES:
+                case DISJOINTUNION:
+                case ANNOTATIONASSERTION:
+                case SUBANNOTATIONPROPERTYOF:
+                case ANNOTATIONPROPERTYDOMAIN:
+                case ANNOTATIONPROPERTYRANGE:
+                case HASKEY:
+                case DECLARATION:
+                case INVERSEOBJECTPROPERTIES:
+                case DATATYPEDEFINITION:
+                case SUBOBJECTPROPERTYOF:
+                case EQUIVALENTOBJECTPROPERTIES:
+                case DISJOINTOBJECTPROPERTIES:
+                case OBJECTPROPERTYDOMAIN:
+                case OBJECTPROPERTYRANGE:
+                case FUNCTIONALOBJECTPROPERTY:
+                case INVERSEFUNCTIONALOBJECTPROPERTY:
+                case REFLEXIVEOBJECTPROPERTY:
+                case IRREFLEXIVEOBJECTPROPERTY:
+                case SYMMETRICOBJECTPROPERTY:
+                case ASYMMETRICOBJECTPROPERTY:
+                case TRANSITIVEOBJECTPROPERTY:
+                case SUBDATAPROPERTYOF:
+                case EQUIVALENTDATAPROPERTIES:
+                case DISJOINTDATAPROPERTIES:
+                case DATAPROPERTYDOMAIN:
+                case DATAPROPERTYRANGE:
+                case FUNCTIONALDATAPROPERTY:
+                case SAMEINDIVIDUAL:
+                case DIFFERENTINDIVIDUALS:
+                case CLASSASSERTION:
+                case OBJECTPROPERTYASSERTION:
+                case NEGATIVEOBJECTPROPERTYASSERTION:
+                case DATAPROPERTYASSERTION:
+                case NEGATIVEDATAPROPERTYASSERTION:
+                case DLSAFERULE: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[5] = jj_gen;
+                    break label_3;
             }
             ax = Axiom();
             addAxiom(ax);
@@ -239,18 +239,18 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public IRI IRI() throws ParseException {
         IRI iri;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case FULLIRI: {
-            iri = FullIRI();
-            break;
-        }
-        case PNAME_LN: {
-            iri = AbbreviatedIRI();
-            break;
-        }
-        default:
-            jj_la1[6] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case FULLIRI: {
+                iri = FullIRI();
+                break;
+            }
+            case PNAME_LN: {
+                iri = AbbreviatedIRI();
+                break;
+            }
+            default:
+                jj_la1[6] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -301,83 +301,83 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLClassExpression ClassExpression() throws ParseException {
         OWLClassExpression desc;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case FULLIRI:
-        case PNAME_LN: {
-            desc = ClassIRI();
-            break;
-        }
-        case OBJECTUNIONOF: {
-            desc = ObjectUnionOf();
-            break;
-        }
-        case OBJECTINTERSECTIONOF: {
-            desc = ObjectIntersectionOf();
-            break;
-        }
-        case OBJECTCOMPLEMENTOF: {
-            desc = ObjectComplementOf();
-            break;
-        }
-        case OBJECTONEOF: {
-            desc = ObjectOneOf();
-            break;
-        }
-        case OBJECTSOMEVALUESFROM: {
-            desc = ObjectSomeValuesFrom();
-            break;
-        }
-        case OBJECTALLVALUESFROM: {
-            desc = ObjectAllValuesFrom();
-            break;
-        }
-        case OBJECTHASVALUE: {
-            desc = ObjectHasValue();
-            break;
-        }
-        case OBJECTHASSELF: {
-            desc = ObjectSelf();
-            break;
-        }
-        case OBJECTMINCARDINALITY: {
-            desc = ObjectMinCardinality();
-            break;
-        }
-        case OBJECTEXACTCARDINALITY: {
-            desc = ObjectExactCardinality();
-            break;
-        }
-        case OBJECTMAXCARDINALITY: {
-            desc = ObjectMaxCardinality();
-            break;
-        }
-        case DATASOMEVALUESFROM: {
-            desc = DataSomeValuesFrom();
-            break;
-        }
-        case DATAALLVALUESFROM: {
-            desc = DataAllValuesFrom();
-            break;
-        }
-        case DATAHASVALUE: {
-            desc = DataHasValue();
-            break;
-        }
-        case DATAMINCARDINALITY: {
-            desc = DataMinCardinality();
-            break;
-        }
-        case DATAEXACTCARDINALITY: {
-            desc = DataExactCardinality();
-            break;
-        }
-        case DATAMAXCARDINALITY: {
-            desc = DataMaxCardinality();
-            break;
-        }
-        default:
-            jj_la1[7] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case FULLIRI:
+            case PNAME_LN: {
+                desc = ClassIRI();
+                break;
+            }
+            case OBJECTUNIONOF: {
+                desc = ObjectUnionOf();
+                break;
+            }
+            case OBJECTINTERSECTIONOF: {
+                desc = ObjectIntersectionOf();
+                break;
+            }
+            case OBJECTCOMPLEMENTOF: {
+                desc = ObjectComplementOf();
+                break;
+            }
+            case OBJECTONEOF: {
+                desc = ObjectOneOf();
+                break;
+            }
+            case OBJECTSOMEVALUESFROM: {
+                desc = ObjectSomeValuesFrom();
+                break;
+            }
+            case OBJECTALLVALUESFROM: {
+                desc = ObjectAllValuesFrom();
+                break;
+            }
+            case OBJECTHASVALUE: {
+                desc = ObjectHasValue();
+                break;
+            }
+            case OBJECTHASSELF: {
+                desc = ObjectSelf();
+                break;
+            }
+            case OBJECTMINCARDINALITY: {
+                desc = ObjectMinCardinality();
+                break;
+            }
+            case OBJECTEXACTCARDINALITY: {
+                desc = ObjectExactCardinality();
+                break;
+            }
+            case OBJECTMAXCARDINALITY: {
+                desc = ObjectMaxCardinality();
+                break;
+            }
+            case DATASOMEVALUESFROM: {
+                desc = DataSomeValuesFrom();
+                break;
+            }
+            case DATAALLVALUESFROM: {
+                desc = DataAllValuesFrom();
+                break;
+            }
+            case DATAHASVALUE: {
+                desc = DataHasValue();
+                break;
+            }
+            case DATAMINCARDINALITY: {
+                desc = DataMinCardinality();
+                break;
+            }
+            case DATAEXACTCARDINALITY: {
+                desc = DataExactCardinality();
+                break;
+            }
+            case DATAMAXCARDINALITY: {
+                desc = DataMaxCardinality();
+                break;
+            }
+            default:
+                jj_la1[7] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -407,31 +407,31 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         classExpressions.add(desc);
         label_4: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case OBJECTONEOF:
-            case OBJECTUNIONOF:
-            case OBJECTHASVALUE:
-            case OBJECTINTERSECTIONOF:
-            case OBJECTCOMPLEMENTOF:
-            case OBJECTALLVALUESFROM:
-            case OBJECTSOMEVALUESFROM:
-            case OBJECTHASSELF:
-            case OBJECTMINCARDINALITY:
-            case OBJECTMAXCARDINALITY:
-            case OBJECTEXACTCARDINALITY:
-            case DATAALLVALUESFROM:
-            case DATASOMEVALUESFROM:
-            case DATAHASVALUE:
-            case DATAMINCARDINALITY:
-            case DATAMAXCARDINALITY:
-            case DATAEXACTCARDINALITY:
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[8] = jj_gen;
-                break label_4;
+                case OBJECTONEOF:
+                case OBJECTUNIONOF:
+                case OBJECTHASVALUE:
+                case OBJECTINTERSECTIONOF:
+                case OBJECTCOMPLEMENTOF:
+                case OBJECTALLVALUESFROM:
+                case OBJECTSOMEVALUESFROM:
+                case OBJECTHASSELF:
+                case OBJECTMINCARDINALITY:
+                case OBJECTMAXCARDINALITY:
+                case OBJECTEXACTCARDINALITY:
+                case DATAALLVALUESFROM:
+                case DATASOMEVALUESFROM:
+                case DATAHASVALUE:
+                case DATAMINCARDINALITY:
+                case DATAMAXCARDINALITY:
+                case DATAEXACTCARDINALITY:
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[8] = jj_gen;
+                    break label_4;
             }
             desc = ClassExpression();
             classExpressions.add(desc);
@@ -451,15 +451,15 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         individuals.add(ind);
         label_5: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case FULLIRI:
-            case PNAME_LN:
-            case NODEID: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[9] = jj_gen;
-                break label_5;
+                case FULLIRI:
+                case PNAME_LN:
+                case NODEID: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[9] = jj_gen;
+                    break label_5;
             }
             ind = Individual();
             individuals.add(ind);
@@ -599,31 +599,31 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         cardinality = Cardinality();
         prop = ObjectPropertyExpression();
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case OBJECTONEOF:
-        case OBJECTUNIONOF:
-        case OBJECTHASVALUE:
-        case OBJECTINTERSECTIONOF:
-        case OBJECTCOMPLEMENTOF:
-        case OBJECTALLVALUESFROM:
-        case OBJECTSOMEVALUESFROM:
-        case OBJECTHASSELF:
-        case OBJECTMINCARDINALITY:
-        case OBJECTMAXCARDINALITY:
-        case OBJECTEXACTCARDINALITY:
-        case DATAALLVALUESFROM:
-        case DATASOMEVALUESFROM:
-        case DATAHASVALUE:
-        case DATAMINCARDINALITY:
-        case DATAMAXCARDINALITY:
-        case DATAEXACTCARDINALITY:
-        case FULLIRI:
-        case PNAME_LN: {
-            filler = ClassExpression();
-            break;
-        }
-        default:
-            jj_la1[10] = jj_gen;
-            ;
+            case OBJECTONEOF:
+            case OBJECTUNIONOF:
+            case OBJECTHASVALUE:
+            case OBJECTINTERSECTIONOF:
+            case OBJECTCOMPLEMENTOF:
+            case OBJECTALLVALUESFROM:
+            case OBJECTSOMEVALUESFROM:
+            case OBJECTHASSELF:
+            case OBJECTMINCARDINALITY:
+            case OBJECTMAXCARDINALITY:
+            case OBJECTEXACTCARDINALITY:
+            case DATAALLVALUESFROM:
+            case DATASOMEVALUESFROM:
+            case DATAHASVALUE:
+            case DATAMINCARDINALITY:
+            case DATAMAXCARDINALITY:
+            case DATAEXACTCARDINALITY:
+            case FULLIRI:
+            case PNAME_LN: {
+                filler = ClassExpression();
+                break;
+            }
+            default:
+                jj_la1[10] = jj_gen;
+                ;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -651,31 +651,31 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         cardinality = Cardinality();
         prop = ObjectPropertyExpression();
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case OBJECTONEOF:
-        case OBJECTUNIONOF:
-        case OBJECTHASVALUE:
-        case OBJECTINTERSECTIONOF:
-        case OBJECTCOMPLEMENTOF:
-        case OBJECTALLVALUESFROM:
-        case OBJECTSOMEVALUESFROM:
-        case OBJECTHASSELF:
-        case OBJECTMINCARDINALITY:
-        case OBJECTMAXCARDINALITY:
-        case OBJECTEXACTCARDINALITY:
-        case DATAALLVALUESFROM:
-        case DATASOMEVALUESFROM:
-        case DATAHASVALUE:
-        case DATAMINCARDINALITY:
-        case DATAMAXCARDINALITY:
-        case DATAEXACTCARDINALITY:
-        case FULLIRI:
-        case PNAME_LN: {
-            filler = ClassExpression();
-            break;
-        }
-        default:
-            jj_la1[11] = jj_gen;
-            ;
+            case OBJECTONEOF:
+            case OBJECTUNIONOF:
+            case OBJECTHASVALUE:
+            case OBJECTINTERSECTIONOF:
+            case OBJECTCOMPLEMENTOF:
+            case OBJECTALLVALUESFROM:
+            case OBJECTSOMEVALUESFROM:
+            case OBJECTHASSELF:
+            case OBJECTMINCARDINALITY:
+            case OBJECTMAXCARDINALITY:
+            case OBJECTEXACTCARDINALITY:
+            case DATAALLVALUESFROM:
+            case DATASOMEVALUESFROM:
+            case DATAHASVALUE:
+            case DATAMINCARDINALITY:
+            case DATAMAXCARDINALITY:
+            case DATAEXACTCARDINALITY:
+            case FULLIRI:
+            case PNAME_LN: {
+                filler = ClassExpression();
+                break;
+            }
+            default:
+                jj_la1[11] = jj_gen;
+                ;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -703,31 +703,31 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         cardinality = Cardinality();
         prop = ObjectPropertyExpression();
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case OBJECTONEOF:
-        case OBJECTUNIONOF:
-        case OBJECTHASVALUE:
-        case OBJECTINTERSECTIONOF:
-        case OBJECTCOMPLEMENTOF:
-        case OBJECTALLVALUESFROM:
-        case OBJECTSOMEVALUESFROM:
-        case OBJECTHASSELF:
-        case OBJECTMINCARDINALITY:
-        case OBJECTMAXCARDINALITY:
-        case OBJECTEXACTCARDINALITY:
-        case DATAALLVALUESFROM:
-        case DATASOMEVALUESFROM:
-        case DATAHASVALUE:
-        case DATAMINCARDINALITY:
-        case DATAMAXCARDINALITY:
-        case DATAEXACTCARDINALITY:
-        case FULLIRI:
-        case PNAME_LN: {
-            filler = ClassExpression();
-            break;
-        }
-        default:
-            jj_la1[12] = jj_gen;
-            ;
+            case OBJECTONEOF:
+            case OBJECTUNIONOF:
+            case OBJECTHASVALUE:
+            case OBJECTINTERSECTIONOF:
+            case OBJECTCOMPLEMENTOF:
+            case OBJECTALLVALUESFROM:
+            case OBJECTSOMEVALUESFROM:
+            case OBJECTHASSELF:
+            case OBJECTMINCARDINALITY:
+            case OBJECTMAXCARDINALITY:
+            case OBJECTEXACTCARDINALITY:
+            case DATAALLVALUESFROM:
+            case DATASOMEVALUESFROM:
+            case DATAHASVALUE:
+            case DATAMINCARDINALITY:
+            case DATAMAXCARDINALITY:
+            case DATAEXACTCARDINALITY:
+            case FULLIRI:
+            case PNAME_LN: {
+                filler = ClassExpression();
+                break;
+            }
+            default:
+                jj_la1[12] = jj_gen;
+                ;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -803,19 +803,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         cardinality = Cardinality();
         prop = DataPropertyExpression();
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case DATAONEOF:
-        case DATAUNIONOF:
-        case DATAINTERSECTIONOF:
-        case DATACOMPLEMENTOF:
-        case DATATYPERESTRICTION:
-        case FULLIRI:
-        case PNAME_LN: {
-            rng = DataRange();
-            break;
-        }
-        default:
-            jj_la1[13] = jj_gen;
-            ;
+            case DATAONEOF:
+            case DATAUNIONOF:
+            case DATAINTERSECTIONOF:
+            case DATACOMPLEMENTOF:
+            case DATATYPERESTRICTION:
+            case FULLIRI:
+            case PNAME_LN: {
+                rng = DataRange();
+                break;
+            }
+            default:
+                jj_la1[13] = jj_gen;
+                ;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -843,19 +843,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         cardinality = Cardinality();
         prop = DataPropertyExpression();
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case DATAONEOF:
-        case DATAUNIONOF:
-        case DATAINTERSECTIONOF:
-        case DATACOMPLEMENTOF:
-        case DATATYPERESTRICTION:
-        case FULLIRI:
-        case PNAME_LN: {
-            rng = DataRange();
-            break;
-        }
-        default:
-            jj_la1[14] = jj_gen;
-            ;
+            case DATAONEOF:
+            case DATAUNIONOF:
+            case DATAINTERSECTIONOF:
+            case DATACOMPLEMENTOF:
+            case DATATYPERESTRICTION:
+            case FULLIRI:
+            case PNAME_LN: {
+                rng = DataRange();
+                break;
+            }
+            default:
+                jj_la1[14] = jj_gen;
+                ;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -883,19 +883,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         cardinality = Cardinality();
         prop = DataPropertyExpression();
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case DATAONEOF:
-        case DATAUNIONOF:
-        case DATAINTERSECTIONOF:
-        case DATACOMPLEMENTOF:
-        case DATATYPERESTRICTION:
-        case FULLIRI:
-        case PNAME_LN: {
-            rng = DataRange();
-            break;
-        }
-        default:
-            jj_la1[15] = jj_gen;
-            ;
+            case DATAONEOF:
+            case DATAUNIONOF:
+            case DATAINTERSECTIONOF:
+            case DATACOMPLEMENTOF:
+            case DATATYPERESTRICTION:
+            case FULLIRI:
+            case PNAME_LN: {
+                rng = DataRange();
+                break;
+            }
+            default:
+                jj_la1[15] = jj_gen;
+                ;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -931,19 +931,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLObjectPropertyExpression ObjectPropertyExpression() throws ParseException {
         OWLObjectPropertyExpression prop;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case OBJECTINVERSEOF: {
-            prop = InverseObjectProperty();
-            break;
-        }
-        case FULLIRI:
-        case PNAME_LN: {
-            prop = ObjectPropertyIRI();
-            break;
-        }
-        default:
-            jj_la1[16] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case OBJECTINVERSEOF: {
+                prop = InverseObjectProperty();
+                break;
+            }
+            case FULLIRI:
+            case PNAME_LN: {
+                prop = ObjectPropertyIRI();
+                break;
+            }
+            default:
+                jj_la1[16] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -954,10 +954,10 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     }
 
     final public OWLObjectPropertyExpression InverseObjectProperty() throws ParseException {
-        OWLObjectPropertyExpression prop;
+        OWLObjectProperty prop;
         jj_consume_token(OBJECTINVERSEOF);
         jj_consume_token(OPENPAR);
-        prop = ObjectPropertyExpression();
+        prop = ObjectPropertyIRI();
         jj_consume_token(CLOSEPAR);
         {
             if ("" != null) {
@@ -1137,35 +1137,35 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLDataRange DataRange() throws ParseException {
         OWLDataRange rng;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case FULLIRI:
-        case PNAME_LN: {
-            rng = DatatypeIRI();
-            break;
-        }
-        case DATAONEOF: {
-            rng = DataOneOf();
-            break;
-        }
-        case DATACOMPLEMENTOF: {
-            rng = DataComplementOf();
-            break;
-        }
-        case DATATYPERESTRICTION: {
-            rng = DataRangeRestriction();
-            break;
-        }
-        case DATAINTERSECTIONOF: {
-            rng = DataIntersectionOf();
-            break;
-        }
-        case DATAUNIONOF: {
-            rng = DataUnionOf();
-            break;
-        }
-        default:
-            jj_la1[17] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case FULLIRI:
+            case PNAME_LN: {
+                rng = DatatypeIRI();
+                break;
+            }
+            case DATAONEOF: {
+                rng = DataOneOf();
+                break;
+            }
+            case DATACOMPLEMENTOF: {
+                rng = DataComplementOf();
+                break;
+            }
+            case DATATYPERESTRICTION: {
+                rng = DataRangeRestriction();
+                break;
+            }
+            case DATAINTERSECTIONOF: {
+                rng = DataIntersectionOf();
+                break;
+            }
+            case DATAUNIONOF: {
+                rng = DataUnionOf();
+                break;
+            }
+            default:
+                jj_la1[17] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -1199,13 +1199,13 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
             con = Literal();
             values.add(con);
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case STRINGLITERAL: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[18] = jj_gen;
-                break label_6;
+                case STRINGLITERAL: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[18] = jj_gen;
+                    break label_6;
             }
         }
         jj_consume_token(CLOSEPAR);
@@ -1226,19 +1226,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
             dataRange = DataRange();
             ranges.add(dataRange);
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case DATAONEOF:
-            case DATAUNIONOF:
-            case DATAINTERSECTIONOF:
-            case DATACOMPLEMENTOF:
-            case DATATYPERESTRICTION:
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[19] = jj_gen;
-                break label_7;
+                case DATAONEOF:
+                case DATAUNIONOF:
+                case DATAINTERSECTIONOF:
+                case DATACOMPLEMENTOF:
+                case DATATYPERESTRICTION:
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[19] = jj_gen;
+                    break label_7;
             }
         }
         jj_consume_token(CLOSEPAR);
@@ -1259,19 +1259,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
             dataRange = DataRange();
             ranges.add(dataRange);
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case DATAONEOF:
-            case DATAUNIONOF:
-            case DATAINTERSECTIONOF:
-            case DATACOMPLEMENTOF:
-            case DATATYPERESTRICTION:
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[20] = jj_gen;
-                break label_8;
+                case DATAONEOF:
+                case DATAUNIONOF:
+                case DATAINTERSECTIONOF:
+                case DATACOMPLEMENTOF:
+                case DATATYPERESTRICTION:
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[20] = jj_gen;
+                    break label_8;
             }
         }
         jj_consume_token(CLOSEPAR);
@@ -1295,14 +1295,14 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
             facetRestriction = DataRangeFacetRestriction();
             facetRestrictions.add(facetRestriction);
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[21] = jj_gen;
-                break label_9;
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[21] = jj_gen;
+                    break label_9;
             }
         }
         jj_consume_token(CLOSEPAR);
@@ -1336,75 +1336,75 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLAxiom Axiom() throws ParseException {
         OWLAxiom ax = null;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case SUBCLASSOF:
-        case EQUIVALENTCLASSES:
-        case DISJOINTCLASSES:
-        case DISJOINTUNION: {
-            ax = ClassAxiom();
-            break;
-        }
-        case INVERSEOBJECTPROPERTIES:
-        case SUBOBJECTPROPERTYOF:
-        case EQUIVALENTOBJECTPROPERTIES:
-        case DISJOINTOBJECTPROPERTIES:
-        case OBJECTPROPERTYDOMAIN:
-        case OBJECTPROPERTYRANGE:
-        case FUNCTIONALOBJECTPROPERTY:
-        case INVERSEFUNCTIONALOBJECTPROPERTY:
-        case REFLEXIVEOBJECTPROPERTY:
-        case IRREFLEXIVEOBJECTPROPERTY:
-        case SYMMETRICOBJECTPROPERTY:
-        case ASYMMETRICOBJECTPROPERTY:
-        case TRANSITIVEOBJECTPROPERTY: {
-            ax = ObjectPropertyAxiom();
-            break;
-        }
-        case SUBDATAPROPERTYOF:
-        case EQUIVALENTDATAPROPERTIES:
-        case DISJOINTDATAPROPERTIES:
-        case DATAPROPERTYDOMAIN:
-        case DATAPROPERTYRANGE:
-        case FUNCTIONALDATAPROPERTY: {
-            ax = DataPropertyAxiom();
-            break;
-        }
-        case SAMEINDIVIDUAL:
-        case DIFFERENTINDIVIDUALS:
-        case CLASSASSERTION:
-        case OBJECTPROPERTYASSERTION:
-        case NEGATIVEOBJECTPROPERTYASSERTION:
-        case DATAPROPERTYASSERTION:
-        case NEGATIVEDATAPROPERTYASSERTION: {
-            ax = IndividualAxiom();
-            break;
-        }
-        case DECLARATION: {
-            ax = Declaration();
-            break;
-        }
-        case HASKEY: {
-            ax = HasKey();
-            break;
-        }
-        case DATATYPEDEFINITION: {
-            ax = DatatypeDefinitionAxiom();
-            break;
-        }
-        case ANNOTATIONASSERTION:
-        case SUBANNOTATIONPROPERTYOF:
-        case ANNOTATIONPROPERTYDOMAIN:
-        case ANNOTATIONPROPERTYRANGE: {
-            ax = AnnotationAxiom();
-            break;
-        }
-        case DLSAFERULE: {
-            ax = DLSafeRule();
-            break;
-        }
-        default:
-            jj_la1[22] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case SUBCLASSOF:
+            case EQUIVALENTCLASSES:
+            case DISJOINTCLASSES:
+            case DISJOINTUNION: {
+                ax = ClassAxiom();
+                break;
+            }
+            case INVERSEOBJECTPROPERTIES:
+            case SUBOBJECTPROPERTYOF:
+            case EQUIVALENTOBJECTPROPERTIES:
+            case DISJOINTOBJECTPROPERTIES:
+            case OBJECTPROPERTYDOMAIN:
+            case OBJECTPROPERTYRANGE:
+            case FUNCTIONALOBJECTPROPERTY:
+            case INVERSEFUNCTIONALOBJECTPROPERTY:
+            case REFLEXIVEOBJECTPROPERTY:
+            case IRREFLEXIVEOBJECTPROPERTY:
+            case SYMMETRICOBJECTPROPERTY:
+            case ASYMMETRICOBJECTPROPERTY:
+            case TRANSITIVEOBJECTPROPERTY: {
+                ax = ObjectPropertyAxiom();
+                break;
+            }
+            case SUBDATAPROPERTYOF:
+            case EQUIVALENTDATAPROPERTIES:
+            case DISJOINTDATAPROPERTIES:
+            case DATAPROPERTYDOMAIN:
+            case DATAPROPERTYRANGE:
+            case FUNCTIONALDATAPROPERTY: {
+                ax = DataPropertyAxiom();
+                break;
+            }
+            case SAMEINDIVIDUAL:
+            case DIFFERENTINDIVIDUALS:
+            case CLASSASSERTION:
+            case OBJECTPROPERTYASSERTION:
+            case NEGATIVEOBJECTPROPERTYASSERTION:
+            case DATAPROPERTYASSERTION:
+            case NEGATIVEDATAPROPERTYASSERTION: {
+                ax = IndividualAxiom();
+                break;
+            }
+            case DECLARATION: {
+                ax = Declaration();
+                break;
+            }
+            case HASKEY: {
+                ax = HasKey();
+                break;
+            }
+            case DATATYPEDEFINITION: {
+                ax = DatatypeDefinitionAxiom();
+                break;
+            }
+            case ANNOTATIONASSERTION:
+            case SUBANNOTATIONPROPERTYOF:
+            case ANNOTATIONPROPERTYDOMAIN:
+            case ANNOTATIONPROPERTYRANGE: {
+                ax = AnnotationAxiom();
+                break;
+            }
+            case DLSAFERULE: {
+                ax = DLSafeRule();
+                break;
+            }
+            default:
+                jj_la1[22] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -1422,26 +1422,26 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLClassAxiom ClassAxiom() throws ParseException {
         OWLClassAxiom ax;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case SUBCLASSOF: {
-            ax = SubClassOf();
-            break;
-        }
-        case EQUIVALENTCLASSES: {
-            ax = EquivalentClasses();
-            break;
-        }
-        case DISJOINTCLASSES: {
-            ax = DisjointClasses();
-            break;
-        }
-        case DISJOINTUNION: {
-            ax = DisjointUnion();
-            break;
-        }
-        default:
-            jj_la1[23] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case SUBCLASSOF: {
+                ax = SubClassOf();
+                break;
+            }
+            case EQUIVALENTCLASSES: {
+                ax = EquivalentClasses();
+                break;
+            }
+            case DISJOINTCLASSES: {
+                ax = DisjointClasses();
+                break;
+            }
+            case DISJOINTUNION: {
+                ax = DisjointUnion();
+                break;
+            }
+            default:
+                jj_la1[23] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -1527,62 +1527,62 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLPropertyAxiom ObjectPropertyAxiom() throws ParseException {
         OWLPropertyAxiom ax;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case SUBOBJECTPROPERTYOF: {
-            ax = SubObjectPropertyOf();
-            break;
-        }
-        case EQUIVALENTOBJECTPROPERTIES: {
-            ax = EquivalentObjectProperties();
-            break;
-        }
-        case DISJOINTOBJECTPROPERTIES: {
-            ax = DisjointObjectProperties();
-            break;
-        }
-        case OBJECTPROPERTYRANGE: {
-            ax = ObjectPropertyRange();
-            break;
-        }
-        case OBJECTPROPERTYDOMAIN: {
-            ax = ObjectPropertyDomain();
-            break;
-        }
-        case FUNCTIONALOBJECTPROPERTY: {
-            ax = FunctionalObjectProperty();
-            break;
-        }
-        case INVERSEFUNCTIONALOBJECTPROPERTY: {
-            ax = InverseFunctionalObjectProperty();
-            break;
-        }
-        case SYMMETRICOBJECTPROPERTY: {
-            ax = SymmetricObjectProperty();
-            break;
-        }
-        case ASYMMETRICOBJECTPROPERTY: {
-            ax = AsymmetricObjectProperty();
-            break;
-        }
-        case REFLEXIVEOBJECTPROPERTY: {
-            ax = ReflexiveObjectProperty();
-            break;
-        }
-        case IRREFLEXIVEOBJECTPROPERTY: {
-            ax = IrreflexiveObjectProperty();
-            break;
-        }
-        case TRANSITIVEOBJECTPROPERTY: {
-            ax = TransitiveObjectProperty();
-            break;
-        }
-        case INVERSEOBJECTPROPERTIES: {
-            ax = InverseObjectProperties();
-            break;
-        }
-        default:
-            jj_la1[24] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case SUBOBJECTPROPERTYOF: {
+                ax = SubObjectPropertyOf();
+                break;
+            }
+            case EQUIVALENTOBJECTPROPERTIES: {
+                ax = EquivalentObjectProperties();
+                break;
+            }
+            case DISJOINTOBJECTPROPERTIES: {
+                ax = DisjointObjectProperties();
+                break;
+            }
+            case OBJECTPROPERTYRANGE: {
+                ax = ObjectPropertyRange();
+                break;
+            }
+            case OBJECTPROPERTYDOMAIN: {
+                ax = ObjectPropertyDomain();
+                break;
+            }
+            case FUNCTIONALOBJECTPROPERTY: {
+                ax = FunctionalObjectProperty();
+                break;
+            }
+            case INVERSEFUNCTIONALOBJECTPROPERTY: {
+                ax = InverseFunctionalObjectProperty();
+                break;
+            }
+            case SYMMETRICOBJECTPROPERTY: {
+                ax = SymmetricObjectProperty();
+                break;
+            }
+            case ASYMMETRICOBJECTPROPERTY: {
+                ax = AsymmetricObjectProperty();
+                break;
+            }
+            case REFLEXIVEOBJECTPROPERTY: {
+                ax = ReflexiveObjectProperty();
+                break;
+            }
+            case IRREFLEXIVEOBJECTPROPERTY: {
+                ax = IrreflexiveObjectProperty();
+                break;
+            }
+            case TRANSITIVEOBJECTPROPERTY: {
+                ax = TransitiveObjectProperty();
+                break;
+            }
+            case INVERSEOBJECTPROPERTIES: {
+                ax = InverseObjectProperties();
+                break;
+            }
+            default:
+                jj_la1[24] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -1601,15 +1601,15 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         props.add(prop);
         label_10: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case OBJECTINVERSEOF:
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[25] = jj_gen;
-                break label_10;
+                case OBJECTINVERSEOF:
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[25] = jj_gen;
+                    break label_10;
             }
             prop = ObjectPropertyExpression();
             props.add(prop);
@@ -1632,20 +1632,20 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_consume_token(OPENPAR);
         axiomAnnos = AxiomAnnotationSet();
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case OBJECTINVERSEOF:
-        case FULLIRI:
-        case PNAME_LN: {
-            subProperty = ObjectPropertyExpression();
-            break;
-        }
-        case SUBOBJECTPROPERTYCHAIN: {
-            chain = SubObjectPropertyChain();
-            break;
-        }
-        default:
-            jj_la1[26] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case OBJECTINVERSEOF:
+            case FULLIRI:
+            case PNAME_LN: {
+                subProperty = ObjectPropertyExpression();
+                break;
+            }
+            case SUBOBJECTPROPERTYCHAIN: {
+                chain = SubObjectPropertyChain();
+                break;
+            }
+            default:
+                jj_la1[26] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         superProperty = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
@@ -1712,15 +1712,15 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         props.add(prop);
         label_11: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case OBJECTINVERSEOF:
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[27] = jj_gen;
-                break label_11;
+                case OBJECTINVERSEOF:
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[27] = jj_gen;
+                    break label_11;
             }
             prop = ObjectPropertyExpression();
             props.add(prop);
@@ -1907,34 +1907,34 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLPropertyAxiom DataPropertyAxiom() throws ParseException {
         OWLPropertyAxiom ax;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case SUBDATAPROPERTYOF: {
-            ax = SubDataPropertyOf();
-            break;
-        }
-        case EQUIVALENTDATAPROPERTIES: {
-            ax = EquivalentDataProperties();
-            break;
-        }
-        case DISJOINTDATAPROPERTIES: {
-            ax = DisjointDataProperties();
-            break;
-        }
-        case DATAPROPERTYRANGE: {
-            ax = DataPropertyRange();
-            break;
-        }
-        case DATAPROPERTYDOMAIN: {
-            ax = DataPropertyDomain();
-            break;
-        }
-        case FUNCTIONALDATAPROPERTY: {
-            ax = FunctionalDataProperty();
-            break;
-        }
-        default:
-            jj_la1[28] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case SUBDATAPROPERTYOF: {
+                ax = SubDataPropertyOf();
+                break;
+            }
+            case EQUIVALENTDATAPROPERTIES: {
+                ax = EquivalentDataProperties();
+                break;
+            }
+            case DISJOINTDATAPROPERTIES: {
+                ax = DisjointDataProperties();
+                break;
+            }
+            case DATAPROPERTYRANGE: {
+                ax = DataPropertyRange();
+                break;
+            }
+            case DATAPROPERTYDOMAIN: {
+                ax = DataPropertyDomain();
+                break;
+            }
+            case FUNCTIONALDATAPROPERTY: {
+                ax = FunctionalDataProperty();
+                break;
+            }
+            default:
+                jj_la1[28] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -2003,14 +2003,14 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         props.add(prop);
         label_12: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[29] = jj_gen;
-                break label_12;
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[29] = jj_gen;
+                    break label_12;
             }
             prop = DataPropertyExpression();
             props.add(prop);
@@ -2083,38 +2083,38 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLIndividualAxiom IndividualAxiom() throws ParseException {
         OWLIndividualAxiom ax;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case SAMEINDIVIDUAL: {
-            ax = SameIndividuals();
-            break;
-        }
-        case DIFFERENTINDIVIDUALS: {
-            ax = DifferentIndividuals();
-            break;
-        }
-        case CLASSASSERTION: {
-            ax = ClassAssertion();
-            break;
-        }
-        case OBJECTPROPERTYASSERTION: {
-            ax = ObjectPropertyAssertion();
-            break;
-        }
-        case DATAPROPERTYASSERTION: {
-            ax = DataPropertyAssertion();
-            break;
-        }
-        case NEGATIVEOBJECTPROPERTYASSERTION: {
-            ax = NegativeObjectPropertyAssertion();
-            break;
-        }
-        case NEGATIVEDATAPROPERTYASSERTION: {
-            ax = NegativeDataPropertyAssertion();
-            break;
-        }
-        default:
-            jj_la1[30] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case SAMEINDIVIDUAL: {
+                ax = SameIndividuals();
+                break;
+            }
+            case DIFFERENTINDIVIDUALS: {
+                ax = DifferentIndividuals();
+                break;
+            }
+            case CLASSASSERTION: {
+                ax = ClassAssertion();
+                break;
+            }
+            case OBJECTPROPERTYASSERTION: {
+                ax = ObjectPropertyAssertion();
+                break;
+            }
+            case DATAPROPERTYASSERTION: {
+                ax = DataPropertyAssertion();
+                break;
+            }
+            case NEGATIVEOBJECTPROPERTYASSERTION: {
+                ax = NegativeObjectPropertyAssertion();
+                break;
+            }
+            case NEGATIVEDATAPROPERTYASSERTION: {
+                ax = NegativeDataPropertyAssertion();
+                break;
+            }
+            default:
+                jj_la1[30] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -2133,15 +2133,15 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         individuals.add(ind);
         label_13: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case FULLIRI:
-            case PNAME_LN:
-            case NODEID: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[31] = jj_gen;
-                break label_13;
+                case FULLIRI:
+                case PNAME_LN:
+                case NODEID: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[31] = jj_gen;
+                    break label_13;
             }
             ind = Individual();
             individuals.add(ind);
@@ -2298,19 +2298,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLIndividual Individual() throws ParseException {
         OWLIndividual ind;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case FULLIRI:
-        case PNAME_LN: {
-            ind = IndividualIRI();
-            break;
-        }
-        case NODEID: {
-            ind = AnonymousIndividual();
-            break;
-        }
-        default:
-            jj_la1[32] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case FULLIRI:
+            case PNAME_LN: {
+                ind = IndividualIRI();
+                break;
+            }
+            case NODEID: {
+                ind = AnonymousIndividual();
+                break;
+            }
+            default:
+                jj_la1[32] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -2339,26 +2339,26 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLAxiom AnnotationAxiom() throws ParseException {
         OWLAxiom axiom;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case ANNOTATIONASSERTION: {
-            axiom = AnnotationAssertion();
-            break;
-        }
-        case ANNOTATIONPROPERTYDOMAIN: {
-            axiom = AnnotationPropertyDomain();
-            break;
-        }
-        case ANNOTATIONPROPERTYRANGE: {
-            axiom = AnnotationPropertyRange();
-            break;
-        }
-        case SUBANNOTATIONPROPERTYOF: {
-            axiom = SubAnnotationPropertyOf();
-            break;
-        }
-        default:
-            jj_la1[33] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case ANNOTATIONASSERTION: {
+                axiom = AnnotationAssertion();
+                break;
+            }
+            case ANNOTATIONPROPERTYDOMAIN: {
+                axiom = AnnotationPropertyDomain();
+                break;
+            }
+            case ANNOTATIONPROPERTYRANGE: {
+                axiom = AnnotationPropertyRange();
+                break;
+            }
+            case SUBANNOTATIONPROPERTYOF: {
+                axiom = SubAnnotationPropertyOf();
+                break;
+            }
+            default:
+                jj_la1[33] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -2378,13 +2378,13 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_consume_token(OPENPAR);
         label_14: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case ANNOTATION: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[34] = jj_gen;
-                break label_14;
+                case ANNOTATION: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[34] = jj_gen;
+                    break label_14;
             }
             anno = Annotation();
             annos.add(anno);
@@ -2403,19 +2403,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLAnnotationSubject AnnotationSubject() throws ParseException {
         OWLAnnotationSubject subj;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case FULLIRI:
-        case PNAME_LN: {
-            subj = IRI();
-            break;
-        }
-        case NODEID: {
-            subj = AnonymousIndividual();
-            break;
-        }
-        default:
-            jj_la1[35] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case FULLIRI:
+            case PNAME_LN: {
+                subj = IRI();
+                break;
+            }
+            case NODEID: {
+                subj = AnonymousIndividual();
+                break;
+            }
+            default:
+                jj_la1[35] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -2428,23 +2428,23 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLAnnotationValue AnnotationValue() throws ParseException {
         OWLAnnotationValue value;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case FULLIRI:
-        case PNAME_LN: {
-            value = IRI();
-            break;
-        }
-        case NODEID: {
-            value = AnonymousIndividual();
-            break;
-        }
-        case STRINGLITERAL: {
-            value = Literal();
-            break;
-        }
-        default:
-            jj_la1[36] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case FULLIRI:
+            case PNAME_LN: {
+                value = IRI();
+                break;
+            }
+            case NODEID: {
+                value = AnonymousIndividual();
+                break;
+            }
+            case STRINGLITERAL: {
+                value = Literal();
+                break;
+            }
+            default:
+                jj_la1[36] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -2459,13 +2459,13 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         OWLAnnotation anno;
         label_15: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case ANNOTATION: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[37] = jj_gen;
-                break label_15;
+                case ANNOTATION: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[37] = jj_gen;
+                    break label_15;
             }
             anno = Annotation();
             if (annos == null) {
@@ -2585,15 +2585,15 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_consume_token(OPENPAR);
         label_16: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case OBJECTINVERSEOF:
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[38] = jj_gen;
-                break label_16;
+                case OBJECTINVERSEOF:
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[38] = jj_gen;
+                    break label_16;
             }
             prop = ObjectPropertyExpression();
             props.add(prop);
@@ -2602,14 +2602,14 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_consume_token(OPENPAR);
         label_17: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case FULLIRI:
-            case PNAME_LN: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[39] = jj_gen;
-                break label_17;
+                case FULLIRI:
+                case PNAME_LN: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[39] = jj_gen;
+                    break label_17;
             }
             prop = DataPropertyExpression();
             props.add(prop);
@@ -2653,34 +2653,34 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public OWLEntity Entity() throws ParseException {
         OWLEntity entity;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case CLASS: {
-            entity = Class();
-            break;
-        }
-        case OBJECTPROP: {
-            entity = ObjectProperty();
-            break;
-        }
-        case DATAPROP: {
-            entity = DataProperty();
-            break;
-        }
-        case NAMEDINDIVIDUAL: {
-            entity = NamedIndividual();
-            break;
-        }
-        case DATATYPE: {
-            entity = Datatype();
-            break;
-        }
-        case ANNOTATIONPROPERTY: {
-            entity = AnnotationProperty();
-            break;
-        }
-        default:
-            jj_la1[40] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case CLASS: {
+                entity = Class();
+                break;
+            }
+            case OBJECTPROP: {
+                entity = ObjectProperty();
+                break;
+            }
+            case DATAPROP: {
+                entity = DataProperty();
+                break;
+            }
+            case NAMEDINDIVIDUAL: {
+                entity = NamedIndividual();
+                break;
+            }
+            case DATATYPE: {
+                entity = Datatype();
+                break;
+            }
+            case ANNOTATIONPROPERTY: {
+                entity = AnnotationProperty();
+                break;
+            }
+            default:
+                jj_la1[40] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -2702,30 +2702,30 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         String lang = "";
         literal = QuotedString();
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case LANGIDENTIFIER:
-        case DATATYPEIDENTIFIER: {
-            switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
+            case LANGIDENTIFIER:
             case DATATYPEIDENTIFIER: {
-                jj_consume_token(DATATYPEIDENTIFIER);
-                plain = false;
-                datatype = DatatypeIRI();
-                break;
-            }
-            case LANGIDENTIFIER: {
-                jj_consume_token(LANGIDENTIFIER);
-                lang = LangTag();
+                switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
+                    case DATATYPEIDENTIFIER: {
+                        jj_consume_token(DATATYPEIDENTIFIER);
+                        plain = false;
+                        datatype = DatatypeIRI();
+                        break;
+                    }
+                    case LANGIDENTIFIER: {
+                        jj_consume_token(LANGIDENTIFIER);
+                        lang = LangTag();
+                        break;
+                    }
+                    default:
+                        jj_la1[41] = jj_gen;
+                        jj_consume_token(-1);
+                        throw new ParseException();
+                }
                 break;
             }
             default:
-                jj_la1[41] = jj_gen;
-                jj_consume_token(-1);
-                throw new ParseException();
-            }
-            break;
-        }
-        default:
-            jj_la1[42] = jj_gen;
-            ;
+                jj_la1[42] = jj_gen;
+                ;
         }
         if (plain) {
             {
@@ -2737,7 +2737,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
             // a float value in this syntax has an extra 'f' or 'F' character
             // that must be removed to make a valid OWL literal
             if (datatype.isFloat() && (literal.endsWith("f") || literal.endsWith("F"))
-                    && !(literal.endsWith("inf") || literal.endsWith("INF"))) {
+                && !(literal.endsWith("inf") || literal.endsWith("INF"))) {
                 literal = literal.substring(0, literal.length() - 1);
             }
             {
@@ -2792,19 +2792,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_consume_token(OPENPAR);
         label_18: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case CLASSATOM:
-            case DATARANGEATOM:
-            case OBJECTPROPERTYATOM:
-            case DATAPROPERTYATOM:
-            case BUILTINATOM:
-            case SAMEINDIVIDUALATOM:
-            case DIFFERENTINDIVIDUALSATOM: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[43] = jj_gen;
-                break label_18;
+                case CLASSATOM:
+                case DATARANGEATOM:
+                case OBJECTPROPERTYATOM:
+                case DATAPROPERTYATOM:
+                case BUILTINATOM:
+                case SAMEINDIVIDUALATOM:
+                case DIFFERENTINDIVIDUALSATOM: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[43] = jj_gen;
+                    break label_18;
             }
             atom = Atom();
             body.add(atom);
@@ -2815,19 +2815,19 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_consume_token(OPENPAR);
         label_19: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case CLASSATOM:
-            case DATARANGEATOM:
-            case OBJECTPROPERTYATOM:
-            case DATAPROPERTYATOM:
-            case BUILTINATOM:
-            case SAMEINDIVIDUALATOM:
-            case DIFFERENTINDIVIDUALSATOM: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[44] = jj_gen;
-                break label_19;
+                case CLASSATOM:
+                case DATARANGEATOM:
+                case OBJECTPROPERTYATOM:
+                case DATAPROPERTYATOM:
+                case BUILTINATOM:
+                case SAMEINDIVIDUALATOM:
+                case DIFFERENTINDIVIDUALSATOM: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[44] = jj_gen;
+                    break label_19;
             }
             atom = Atom();
             head.add(atom);
@@ -2845,38 +2845,38 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     final public SWRLAtom Atom() throws ParseException {
         SWRLAtom atom;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case CLASSATOM: {
-            atom = ClassAtom();
-            break;
-        }
-        case DATARANGEATOM: {
-            atom = DataRangeAtom();
-            break;
-        }
-        case OBJECTPROPERTYATOM: {
-            atom = ObjectPropertyAtom();
-            break;
-        }
-        case DATAPROPERTYATOM: {
-            atom = DataPropertyAtom();
-            break;
-        }
-        case BUILTINATOM: {
-            atom = BuiltInAtom();
-            break;
-        }
-        case SAMEINDIVIDUALATOM: {
-            atom = SameIndividualAtom();
-            break;
-        }
-        case DIFFERENTINDIVIDUALSATOM: {
-            atom = DifferentIndividualsAtom();
-            break;
-        }
-        default:
-            jj_la1[45] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            case CLASSATOM: {
+                atom = ClassAtom();
+                break;
+            }
+            case DATARANGEATOM: {
+                atom = DataRangeAtom();
+                break;
+            }
+            case OBJECTPROPERTYATOM: {
+                atom = ObjectPropertyAtom();
+                break;
+            }
+            case DATAPROPERTYATOM: {
+                atom = DataPropertyAtom();
+                break;
+            }
+            case BUILTINATOM: {
+                atom = BuiltInAtom();
+                break;
+            }
+            case SAMEINDIVIDUALATOM: {
+                atom = SameIndividualAtom();
+                break;
+            }
+            case DIFFERENTINDIVIDUALSATOM: {
+                atom = DifferentIndividualsAtom();
+                break;
+            }
+            default:
+                jj_la1[45] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         {
             if ("" != null) {
@@ -2967,14 +2967,14 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         args.add(arg);
         label_20: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-            case STRINGLITERAL:
-            case VARIABLE: {
-                ;
-                break;
-            }
-            default:
-                jj_la1[46] = jj_gen;
-                break label_20;
+                case STRINGLITERAL:
+                case VARIABLE: {
+                    ;
+                    break;
+                }
+                default:
+                    jj_la1[46] = jj_gen;
+                    break label_20;
             }
             arg = DArg();
             args.add(arg);
@@ -3025,32 +3025,32 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         SWRLIArgument arg;
         IRI iri;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case VARIABLE: {
-            jj_consume_token(VARIABLE);
-            jj_consume_token(OPENPAR);
-            iri = IRI();
-            jj_consume_token(CLOSEPAR);
-            {
-                if ("" != null) {
-                    return dataFactory.getSWRLVariable(iri);
+            case VARIABLE: {
+                jj_consume_token(VARIABLE);
+                jj_consume_token(OPENPAR);
+                iri = IRI();
+                jj_consume_token(CLOSEPAR);
+                {
+                    if ("" != null) {
+                        return dataFactory.getSWRLVariable(iri);
+                    }
                 }
+                break;
             }
-            break;
-        }
-        case FULLIRI:
-        case PNAME_LN: {
-            ind = IndividualIRI();
-            {
-                if ("" != null) {
-                    return dataFactory.getSWRLIndividualArgument(ind);
+            case FULLIRI:
+            case PNAME_LN: {
+                ind = IndividualIRI();
+                {
+                    if ("" != null) {
+                        return dataFactory.getSWRLIndividualArgument(ind);
+                    }
                 }
+                break;
             }
-            break;
-        }
-        default:
-            jj_la1[47] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            default:
+                jj_la1[47] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         throw new Error("Missing return statement in function");
     }
@@ -3059,31 +3059,31 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         OWLLiteral literal;
         IRI iri;
         switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
-        case VARIABLE: {
-            jj_consume_token(VARIABLE);
-            jj_consume_token(OPENPAR);
-            iri = IRI();
-            jj_consume_token(CLOSEPAR);
-            {
-                if ("" != null) {
-                    return dataFactory.getSWRLVariable(iri);
+            case VARIABLE: {
+                jj_consume_token(VARIABLE);
+                jj_consume_token(OPENPAR);
+                iri = IRI();
+                jj_consume_token(CLOSEPAR);
+                {
+                    if ("" != null) {
+                        return dataFactory.getSWRLVariable(iri);
+                    }
                 }
+                break;
             }
-            break;
-        }
-        case STRINGLITERAL: {
-            literal = Literal();
-            {
-                if ("" != null) {
-                    return dataFactory.getSWRLLiteralArgument(literal);
+            case STRINGLITERAL: {
+                literal = Literal();
+                {
+                    if ("" != null) {
+                        return dataFactory.getSWRLLiteralArgument(literal);
+                    }
                 }
+                break;
             }
-            break;
-        }
-        default:
-            jj_la1[48] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
+            default:
+                jj_la1[48] = jj_gen;
+                jj_consume_token(-1);
+                throw new ParseException();
         }
         throw new Error("Missing return statement in function");
     }
@@ -3113,36 +3113,36 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
     private static void jj_la1_init_0() {
         jj_la1_0 = new int[] { 0x0, 0x0, 0x0, 0x1010000, 0x1010000, 0xfce40000, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-                0x0, 0x0, 0x0, 0x0, 0x800, 0x0, 0x0, 0x0, 0xfce40000, 0xe40000, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-                0x0, 0x3c000000, 0x1000000, 0x0, 0x800, 0x1000000, 0x0, 0x0, 0x2000000, 0x180000, 0x180000, 0x0, 0x0,
-                0x0, 0x800, 0x0, 0x800, };
+            0x0, 0x0, 0x0, 0x0, 0x800, 0x0, 0x0, 0x0, 0xfce40000, 0xe40000, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+            0x0, 0x3c000000, 0x1000000, 0x0, 0x800, 0x1000000, 0x0, 0x0, 0x2000000, 0x180000, 0x180000, 0x0, 0x0,
+            0x0, 0x800, 0x0, 0x800, };
     }
 
     private static void jj_la1_init_1() {
         jj_la1_1 = new int[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x12000, 0x0, 0x7ffe0e00, 0x7ffe0e00, 0x0, 0x7ffe0e00,
-                0x7ffe0e00, 0x7ffe0e00, 0xc1c0, 0xc1c0, 0xc1c0, 0x1000, 0xc1c0, 0x0, 0xc1c0, 0xc1c0, 0x0, 0x12000, 0x0,
-                0x2000, 0x1000, 0x80001000, 0x1000, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1000, 0x0, 0x3e,
-                0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, };
+            0x7ffe0e00, 0x7ffe0e00, 0xc1c0, 0xc1c0, 0xc1c0, 0x1000, 0xc1c0, 0x0, 0xc1c0, 0xc1c0, 0x0, 0x12000, 0x0,
+            0x2000, 0x1000, 0x80001000, 0x1000, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1000, 0x0, 0x3e,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, };
     }
 
     private static void jj_la1_init_2() {
         jj_la1_2 = new int[] { 0x2000000, 0x0, 0x0, 0x0, 0x0, 0x1ffffff, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-                0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1ffffff, 0x0, 0xfff, 0x0, 0x0, 0x0, 0x3f000, 0x0, 0x1fc0000, 0x0,
-                0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, };
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1ffffff, 0x0, 0xfff, 0x0, 0x0, 0x0, 0x3f000, 0x0, 0x1fc0000, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, };
     }
 
     private static void jj_la1_init_3() {
         jj_la1_3 = new int[] { 0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x10, 0x9000000, 0x9000000, 0x9000000, 0x9000000,
-                0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x0, 0x9000000,
-                0x9000000, 0x9000000, 0x10, 0x0, 0x0, 0x9000000, 0x9000000, 0x9000000, 0x0, 0x9000000, 0x0, 0x9000000,
-                0x9000000, 0x0, 0x0, 0x9000000, 0x9000000, 0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x0, 0x3f80, 0x3f80,
-                0x3f80, 0x4000, 0x9004000, 0x4000, };
+            0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x9000000, 0x0, 0x9000000,
+            0x9000000, 0x9000000, 0x10, 0x0, 0x0, 0x9000000, 0x9000000, 0x9000000, 0x0, 0x9000000, 0x0, 0x9000000,
+            0x9000000, 0x0, 0x0, 0x9000000, 0x9000000, 0x0, 0x9000000, 0x9000000, 0x0, 0x0, 0x0, 0x3f80, 0x3f80,
+            0x3f80, 0x4000, 0x9004000, 0x4000, };
     }
 
     private static void jj_la1_init_4() {
         jj_la1_4 = new int[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
-                0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x1, 0x0, 0x0, 0x1, 0x1, 0x0, 0x0,
-                0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, };
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x1, 0x0, 0x0, 0x1, 0x1, 0x0, 0x0,
+            0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, };
     }
 
     /** Constructor with user supplied Token Manager. */

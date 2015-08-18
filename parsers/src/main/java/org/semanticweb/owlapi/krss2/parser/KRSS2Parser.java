@@ -14,28 +14,11 @@
 package org.semanticweb.owlapi.krss2.parser;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.krss1.parser.NameResolverStrategy;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLMutableOntology;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 @SuppressWarnings("all")
@@ -67,7 +50,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
     protected void addAxiom(OWLAxiom ax) {
         try {
             ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology,
-                    ax));
+                ax));
         } catch (OWLOntologyChangeException e) {
             throw new KRSS2OWLParserException(e);
         }
@@ -97,7 +80,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
                     }
                     adaptiveMaxRuns--;
                 }
-                //$FALL-THROUGH$
+                    //$FALL-THROUGH$
                 case CHECK: {
                     String ns = XMLUtils.getNCNamePrefix(s);
                     if (ns.equals("")) {
@@ -189,7 +172,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
         jj_consume_token(CLOSEPAR);
         if (superClass == null) {
             addAxiom(dataFactory.getOWLSubClassOfAxiom(subClass,
-                    dataFactory.getOWLThing()));
+                dataFactory.getOWLThing()));
         } else {
             addAxiom(dataFactory.getOWLSubClassOfAxiom(subClass, superClass));
         }
@@ -240,7 +223,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
         superDescription = ConceptExpression();
         jj_consume_token(CLOSEPAR);
         addAxiom(dataFactory.getOWLSubClassOfAxiom(subDescription,
-                superDescription));
+            superDescription));
     }
 
     // Roles
@@ -286,7 +269,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             jj_consume_token(RIGHT_IDENTITY_ATTRIBUTE);
             s = RoleName();
             List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(
-                    2);
+                2);
             chain.add(r);
             chain.add(s);
             addAxiom(dataFactory.getOWLSubPropertyChainOfAxiom(chain, r));
@@ -299,7 +282,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             jj_consume_token(LEFT_IDENTITY_ATTRIBUTE);
             s = RoleName();
             List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(
-                    2);
+                2);
             chain.add(s);
             chain.add(r);
             addAxiom(dataFactory.getOWLSubPropertyChainOfAxiom(chain, r));
@@ -312,7 +295,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             jj_consume_token(INVERSE_ATTRIBUTE);
             superProp = RoleExpression();
             addAxiom(dataFactory.getOWLInverseObjectPropertiesAxiom(subProp,
-                    superProp));
+                superProp));
         } else {}
     }
 
@@ -342,7 +325,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             }
             for (OWLClassExpression eachDescription : descs) {
                 addAxiom(dataFactory.getOWLObjectPropertyDomainAxiom(subProp,
-                        eachDescription));
+                    eachDescription));
             }
         } else {}
     }
@@ -373,7 +356,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             }
             for (OWLClassExpression eachDescription : descs) {
                 addAxiom(dataFactory.getOWLObjectPropertyRangeAxiom(subProp,
-                        eachDescription));
+                    eachDescription));
             }
         } else {}
     }
@@ -386,7 +369,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             } else if (jj_2_32(2)) {
                 jj_consume_token(TRUE);
                 addAxiom(dataFactory
-                        .getOWLTransitiveObjectPropertyAxiom(property));
+                    .getOWLTransitiveObjectPropertyAxiom(property));
             } else {
                 jj_consume_token(-1);
                 throw new ParseException();
@@ -402,7 +385,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             } else if (jj_2_35(2)) {
                 jj_consume_token(TRUE);
                 addAxiom(dataFactory
-                        .getOWLSymmetricObjectPropertyAxiom(property));
+                    .getOWLSymmetricObjectPropertyAxiom(property));
             } else {
                 jj_consume_token(-1);
                 throw new ParseException();
@@ -418,7 +401,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             } else if (jj_2_38(2)) {
                 jj_consume_token(TRUE);
                 addAxiom(dataFactory
-                        .getOWLReflexiveObjectPropertyAxiom(property));
+                    .getOWLReflexiveObjectPropertyAxiom(property));
             } else {
                 jj_consume_token(-1);
                 throw new ParseException();
@@ -441,8 +424,8 @@ class KRSS2Parser implements KRSS2ParserConstants {
                     if (roles != null) {
                         for (OWLObjectProperty prop : roles) {
                             addAxiom(dataFactory
-                                    .getOWLSubObjectPropertyOfAxiom(subProp,
-                                            prop));
+                                .getOWLSubObjectPropertyOfAxiom(subProp,
+                                    prop));
                         }
                     }
                 } else {
@@ -456,7 +439,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
                 } else if (jj_2_43(2)) {
                     superProp = RoleName();
                     addAxiom(dataFactory.getOWLSubObjectPropertyOfAxiom(
-                            subProp, superProp));
+                        subProp, superProp));
                 } else {
                     jj_consume_token(-1);
                     throw new ParseException();
@@ -473,7 +456,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
         if (jj_2_47(2)) {
             superProp = RoleName();
             addAxiom(dataFactory.getOWLSubObjectPropertyOfAxiom(subProp,
-                    superProp));
+                superProp));
         } else {}
     }
 
@@ -746,11 +729,11 @@ class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private OWLObjectPropertyExpression RoleExpression() {
-        OWLObjectPropertyExpression exp;
+        OWLObjectProperty exp;
         if (jj_2_64(2)) {
             jj_consume_token(OPENPAR);
             jj_consume_token(INV);
-            exp = RoleExpression();
+            exp = RoleName();
             jj_consume_token(CLOSEPAR);
             return dataFactory.getOWLObjectInverseOf(exp);
         } else if (jj_2_65(2)) {
@@ -799,7 +782,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
         obj = IndividualName();
         jj_consume_token(CLOSEPAR);
         addAxiom(dataFactory
-                .getOWLObjectPropertyAssertionAxiom(prop, subj, obj));
+            .getOWLObjectPropertyAssertionAxiom(prop, subj, obj));
     }
 
     private void Equal() {
@@ -2891,6 +2874,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
     static private int[] jj_la1_0;
     static private int[] jj_la1_1;
     static private int[] jj_la1_2;
+
     static {
         jj_la1_init_0();
         jj_la1_init_1();
@@ -3054,7 +3038,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
             jj_la--;
             if (jj_scanpos.next == null) {
                 jj_lastpos = jj_scanpos = jj_scanpos.next = token_source
-                        .getNextToken();
+                    .getNextToken();
             } else {
                 jj_lastpos = jj_scanpos = jj_scanpos.next;
             }
@@ -3130,7 +3114,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
                 jj_expentry[i] = jj_lasttokens[i];
             }
             jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries
-                    .iterator(); it.hasNext();) {
+                .iterator(); it.hasNext();) {
                 int[] oldentry = (int[]) it.next();
                 if (oldentry.length == jj_expentry.length) {
                     for (int i = 0; i < jj_expentry.length; i++) {

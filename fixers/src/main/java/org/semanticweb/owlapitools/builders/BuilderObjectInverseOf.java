@@ -44,6 +44,6 @@ public class BuilderObjectInverseOf extends BaseObjectPropertyBuilder<OWLObjectI
 
     @Override
     public OWLObjectInverseOf buildObject() {
-        return df.getOWLObjectInverseOf(getProperty());
+        return df.getOWLObjectInverseOf(getProperty().asOWLObjectProperty());
     }
 }

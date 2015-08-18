@@ -17,6 +17,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -34,18 +35,28 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
         return OWLObjectTypeIndexProvider.OBJECT_PROPERTY_INVERSE;
     }
 
-    private final @Nonnull OWLObjectPropertyExpression inverseProperty;
+    private final @Nonnull OWLObjectProperty inverseProperty;
 
     /**
      * @param inverseProperty
      *        property to invert
      */
-    public OWLObjectInverseOfImpl(OWLObjectPropertyExpression inverseProperty) {
+    public OWLObjectInverseOfImpl(OWLObjectProperty inverseProperty) {
         this.inverseProperty = inverseProperty;
     }
 
     @Override
-    public OWLObjectPropertyExpression getInverse() {
+    public OWLObjectProperty getInverse() {
+        return inverseProperty;
+    }
+
+    @Override
+    public OWLObjectPropertyExpression getInverseProperty() {
+        return getInverse();
+    }
+
+    @Override
+    public OWLObjectProperty getNamedProperty() {
         return inverseProperty;
     }
 

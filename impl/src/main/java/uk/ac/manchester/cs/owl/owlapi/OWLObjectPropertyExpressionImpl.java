@@ -12,14 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -27,11 +22,9 @@ import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
  * @since 2.0.0
  */
 public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl
-        implements OWLObjectPropertyExpression {
+    implements OWLObjectPropertyExpression {
 
     private static final long serialVersionUID = 40000L;
-    private OWLObjectPropertyExpression simplestForm;
-    private OWLObjectPropertyExpression inverse;
 
     @Override
     public boolean isObjectPropertyExpression() {
@@ -51,28 +44,6 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
 
     @Override
     public OWLObjectPropertyExpression getSimplified() {
-        if (simplestForm == null) {
-            ObjectPropertySimplifier simplifier = new ObjectPropertySimplifier(new OWLDataFactoryImpl());
-            simplestForm = simplifier.getSimplified(this);
-        }
-        return verifyNotNull(simplestForm);
-    }
-
-    @Override
-    public OWLObjectPropertyExpression getInverseProperty() {
-        if (inverse == null) {
-            inverse = new OWLObjectInverseOfImpl(this);
-        }
-        return verifyNotNull(inverse);
-    }
-
-    @Override
-    public OWLObjectProperty getNamedProperty() {
-        OWLObjectPropertyExpression simp = getSimplified();
-        if (simp.isAnonymous()) {
-            return ((OWLObjectInverseOf) simp).getInverse().asOWLObjectProperty();
-        } else {
-            return simp.asOWLObjectProperty();
-        }
+        return this;
     }
 }

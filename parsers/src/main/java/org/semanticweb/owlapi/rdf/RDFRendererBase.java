@@ -53,16 +53,11 @@ public abstract class RDFRendererBase {
     private static final @Nonnull String RULES_BANNER_TEXT = "Rules";
     protected final @Nonnull OWLOntology ontology;
     protected RDFGraph graph;
-    protected final @Nonnull Set<IRI> prettyPrintedTypes = initPrettyTypes();
+    protected final @Nonnull Set<IRI> prettyPrintedTypes = asSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
+        OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY, OWL_RESTRICTION, OWL_THING, OWL_NOTHING, OWL_ONTOLOGY,
+        OWL_ANNOTATION_PROPERTY, OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION).map(a -> a.getIRI()));
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
-
-    protected static Set<IRI> initPrettyTypes() {
-        return new HashSet<>(Arrays.asList(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(), OWL_DATA_PROPERTY.getIRI(),
-                OWL_ANNOTATION_PROPERTY.getIRI(), OWL_RESTRICTION.getIRI(), OWL_THING.getIRI(), OWL_NOTHING.getIRI(),
-                OWL_ONTOLOGY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), OWL_NAMED_INDIVIDUAL.getIRI(),
-                RDFS_DATATYPE.getIRI(), OWL_AXIOM.getIRI(), OWL_ANNOTATION.getIRI()));
-    }
 
     /**
      * @param ontology
@@ -164,7 +159,7 @@ public abstract class RDFRendererBase {
 
     private void renderOntologyComponents() {
         renderInOntologySignatureEntities(OWLDocumentFormat.determineIllegalPunnings(shouldInsertDeclarations(),
-                asList(ontology.signature()), ontology.getPunnedIRIs(INCLUDED)));
+            asList(ontology.signature()), ontology.getPunnedIRIs(INCLUDED)));
         renderAnonymousIndividuals();
         renderUntypedIRIAnnotationAssertions();
         renderGeneralAxioms();
@@ -359,7 +354,7 @@ public abstract class RDFRendererBase {
         addAnnotationsToOntologyHeader(ontologyHeaderNode);
         if (!ontID.isAnonymous() || !graph.isEmpty()) {
             graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(RDF_TYPE.getIRI()),
-                    new RDFResourceIRI(OWL_ONTOLOGY.getIRI())));
+                new RDFResourceIRI(OWL_ONTOLOGY.getIRI())));
         }
         if (!graph.isEmpty()) {
             render(ontologyHeaderNode);
@@ -379,13 +374,13 @@ public abstract class RDFRendererBase {
         OWLOntologyID ontID = ontology.getOntologyID();
         if (ontID.getVersionIRI().isPresent()) {
             graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(OWL_VERSION_IRI.getIRI()),
-                    new RDFResourceIRI(ontID.getVersionIRI().get())));
+                new RDFResourceIRI(ontID.getVersionIRI().get())));
         }
     }
 
     private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode) {
         ontology.importsDeclarations().forEach(decl -> graph.addTriple(new RDFTriple(ontologyHeaderNode,
-                new RDFResourceIRI(OWL_IMPORTS.getIRI()), new RDFResourceIRI(decl.getIRI()))));
+            new RDFResourceIRI(OWL_IMPORTS.getIRI()), new RDFResourceIRI(decl.getIRI()))));
     }
 
     private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode) {
@@ -407,7 +402,7 @@ public abstract class RDFRendererBase {
             }
         };
         ontology.annotations().forEach(a -> graph.addTriple(new RDFTriple(ontologyHeaderNode,
-                new RDFResourceIRI(a.getProperty().getIRI()), a.getValue().accept(valVisitor))));
+            new RDFResourceIRI(a.getProperty().getIRI()), a.getValue().accept(valVisitor))));
     }
 
     private boolean createGraph(OWLEntity entity, Collection<IRI> illegalPuns) {
@@ -431,7 +426,7 @@ public abstract class RDFRendererBase {
                     axioms.add(ax);
                 }
                 ontology.axioms(AxiomType.HAS_KEY).filter(ax -> ax.getClassExpression().equals(cls))
-                        .forEach(ax -> axioms.add(ax));
+                    .forEach(ax -> axioms.add(ax));
             }
 
             @Override
@@ -468,7 +463,7 @@ public abstract class RDFRendererBase {
             public void visit(OWLDataProperty property) {
                 for (OWLAxiom ax : asList(ontology.axioms(property))) {
                     if (ax instanceof OWLDisjointDataPropertiesAxiom
-                            && ((OWLDisjointDataPropertiesAxiom) ax).properties().count() > 2) {
+                        && ((OWLDisjointDataPropertiesAxiom) ax).properties().count() > 2) {
                         continue;
                     }
                     axioms.add(ax);
@@ -479,7 +474,7 @@ public abstract class RDFRendererBase {
             public void visit(OWLObjectProperty property) {
                 for (OWLAxiom ax : ontology.axioms(property).collect(toList())) {
                     if (ax instanceof OWLDisjointObjectPropertiesAxiom
-                            && ((OWLDisjointObjectPropertiesAxiom) ax).properties().count() > 2) {
+                        && ((OWLDisjointObjectPropertiesAxiom) ax).properties().count() > 2) {
                         continue;
                     }
                     axioms.add(ax);
@@ -490,7 +485,7 @@ public abstract class RDFRendererBase {
                     }
                 }
                 add(ontology.axioms(
-                        ontology.getOWLOntologyManager().getOWLDataFactory().getOWLObjectInverseOf(property)), axioms);
+                    ontology.getOWLOntologyManager().getOWLDataFactory().getOWLObjectInverseOf(property)), axioms);
             }
 
             @Override
@@ -499,7 +494,7 @@ public abstract class RDFRendererBase {
             }
         });
         if (axioms.isEmpty() && shouldInsertDeclarations() && !illegalPuns.contains(entity.getIRI())
-                && OWLDocumentFormatImpl.isMissingType(entity, ontology)) {
+            && OWLDocumentFormatImpl.isMissingType(entity, ontology)) {
             axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(entity));
         }
         createGraph(axioms.stream());
@@ -512,7 +507,7 @@ public abstract class RDFRendererBase {
 
     private int nextBlankNodeId = 1;
     private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-            new IdentityHashingStrategy<>());
+        new IdentityHashingStrategy<>());
 
     protected RDFResourceBlankNode getBlankNodeFor(Object key) {
         int id = blankNodeMap.get(key);
@@ -570,7 +565,7 @@ public abstract class RDFRendererBase {
     protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : graph.getTriplesForSubject(node, false)) {
             if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
-                    && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
+                && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
                 List<RDFNode> items = new ArrayList<>();
                 toJavaList(node, items);
                 for (RDFNode n : items) {

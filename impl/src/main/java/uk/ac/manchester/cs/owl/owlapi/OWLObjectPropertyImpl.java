@@ -20,6 +20,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -47,7 +48,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     public OWLObjectPropertyImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI())
-                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+            || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
     }
 
     @Override
@@ -117,5 +118,17 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     @Override
     public boolean isOWLBottomObjectProperty() {
         return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+    }
+
+    @Nonnull
+    @Override
+    public OWLObjectInverseOf getInverseProperty() {
+        return new OWLObjectInverseOfImpl(this);
+    }
+
+    @Nonnull
+    @Override
+    public OWLObjectProperty getNamedProperty() {
+        return this;
     }
 }
