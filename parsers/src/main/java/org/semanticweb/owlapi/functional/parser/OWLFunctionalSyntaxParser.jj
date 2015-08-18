@@ -1236,10 +1236,10 @@ OWLObjectPropertyExpression ObjectPropertyExpression()  :
 
 OWLObjectPropertyExpression InverseObjectProperty()  :
 {
-    OWLObjectPropertyExpression prop;
+    OWLObjectProperty prop;
 }
 {
-    <OBJECTINVERSEOF><OPENPAR>prop=ObjectPropertyExpression()<CLOSEPAR> {
+    <OBJECTINVERSEOF><OPENPAR>prop=ObjectPropertyIRI()<CLOSEPAR> {
         return dataFactory.getOWLObjectInverseOf(prop);
     }
 }

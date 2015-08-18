@@ -1044,10 +1044,10 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
     final public OWLObjectPropertyExpression InverseObjectProperty()
             throws ParseException {
-        OWLObjectPropertyExpression prop;
+        OWLObjectProperty prop;
         jj_consume_token(OBJECTINVERSEOF);
         jj_consume_token(OPENPAR);
-        prop = ObjectPropertyExpression();
+        prop = ObjectPropertyIRI();
         jj_consume_token(CLOSEPAR);
         {
             if ("" != null) {
