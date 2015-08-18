@@ -38,7 +38,7 @@ public class ObjectPropertySimplifierTestCase extends TestBase {
     @Test
     public void testInverseSimplification() {
         OWLObjectProperty p = ObjectProperty(IRI("p"));
-        OWLObjectPropertyExpression inv = ObjectInverseOf(p);
+        OWLObjectPropertyExpression inv = p.getInverseProperty();
         OWLObjectPropertyExpression exp = inv.getSimplified();
         assertEquals(inv, exp);
     }
@@ -46,8 +46,8 @@ public class ObjectPropertySimplifierTestCase extends TestBase {
     @Test
     public void testInverseInverseSimplification() {
         OWLObjectProperty p = ObjectProperty(IRI("p"));
-        OWLObjectPropertyExpression inv = ObjectInverseOf(p);
-        OWLObjectPropertyExpression inv2 = ObjectInverseOf(inv);
+        OWLObjectPropertyExpression inv = p.getInverseProperty();
+        OWLObjectPropertyExpression inv2 = inv.getInverseProperty();
         OWLObjectPropertyExpression exp = inv2.getSimplified();
         assertEquals(p, exp);
     }
@@ -55,9 +55,9 @@ public class ObjectPropertySimplifierTestCase extends TestBase {
     @Test
     public void testInverseInverseInverseSimplification() {
         OWLObjectProperty p = ObjectProperty(IRI("p"));
-        OWLObjectPropertyExpression inv = ObjectInverseOf(p);
-        OWLObjectPropertyExpression inv2 = ObjectInverseOf(inv);
-        OWLObjectPropertyExpression inv3 = ObjectInverseOf(inv2);
+        OWLObjectPropertyExpression inv = p.getInverseProperty();
+        OWLObjectPropertyExpression inv2 = inv.getInverseProperty();
+        OWLObjectPropertyExpression inv3 = inv2.getInverseProperty();
         OWLObjectPropertyExpression exp = inv3.getSimplified();
         assertEquals(inv, exp);
     }

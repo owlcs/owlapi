@@ -1556,6 +1556,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLObjectInverseOf getOWLObjectInverseOf(
             OWLObjectPropertyExpression property) {
         checkNotNull(property, "property cannot be null");
+        if(!(property instanceof OWLObjectProperty)) {
+            throw new IllegalArgumentException("ObjectInverseOf can only be applied to Object Properties");
+        }
         return new OWLObjectInverseOfImpl(property);
     }
 

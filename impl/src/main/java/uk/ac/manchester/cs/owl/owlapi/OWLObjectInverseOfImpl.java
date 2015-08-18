@@ -45,7 +45,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Nonnull
-    private final OWLObjectPropertyExpression inverseProperty;
+    private final OWLObjectProperty inverseProperty;
 
     /**
      * @param inverseProperty
@@ -53,7 +53,11 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
      */
     public OWLObjectInverseOfImpl(
             @Nonnull OWLObjectPropertyExpression inverseProperty) {
-        this.inverseProperty = inverseProperty;
+        if(!(inverseProperty instanceof OWLObjectProperty)) {
+            throw new IllegalArgumentException("ObjectInverseOf can only be applied to Object Properties");
+        }
+
+        this.inverseProperty = inverseProperty.asOWLObjectProperty();
     }
 
     @Override
@@ -66,8 +70,20 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         addAnonymousIndividualsToSetForValue(anons, inverseProperty);
     }
 
+    @Nonnull
     @Override
-    public OWLObjectPropertyExpression getInverse() {
+    public OWLObjectPropertyExpression getInverseProperty() {
+        return getInverse();
+    }
+
+    @Override
+    public OWLObjectProperty getInverse() {
+        return inverseProperty;
+    }
+
+    @Nonnull
+    @Override
+    public OWLObjectProperty getNamedProperty() {
         return inverseProperty;
     }
 
