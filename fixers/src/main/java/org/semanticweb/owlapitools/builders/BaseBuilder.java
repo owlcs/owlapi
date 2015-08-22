@@ -93,7 +93,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         }
         // create and apply the new change
         AddAxiom change = new AddAxiom(o, (OWLAxiom) object);
-        o.getOWLOntologyManager().applyChange(change);
+        o.applyChange(change);
         List<OWLOntologyChange> changes = new ArrayList<>();
         // check conformity to the profile
         OWLProfileReport report = profile.checkOntology(o);

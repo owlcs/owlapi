@@ -21,13 +21,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
@@ -96,8 +90,7 @@ public class OWLOntologyManagerImplTestCase extends TestBase {
         OWLImportsDeclaration declB = manager.getOWLDataFactory()
             .getOWLImportsDeclaration(
                 get(ontC.getOntologyID().getOntologyIRI()));
-        manager.applyChange(new AddImport(ontA, declA));
-        manager.applyChange(new AddImport(ontB, declB));
+        manager.applyChanges(new AddImport(ontA, declA), new AddImport(ontB, declB));
         assertTrue(contains(manager.importsClosure(ontA), ontA));
         assertTrue(contains(manager.importsClosure(ontA), ontB));
         assertTrue(contains(manager.importsClosure(ontA), ontC));

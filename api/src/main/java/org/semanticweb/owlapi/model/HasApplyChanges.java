@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
@@ -37,4 +38,21 @@ public interface HasApplyChanges {
      *         If one or more of the changes could not be applied.
      */
     ChangeApplied applyChanges(List<? extends OWLOntologyChange> changes);
+
+    /**
+     * Applies a list ontology changes to a collection of ontologies. Note that
+     * the ontologies need to be managed by this manager, since import closures,
+     * ontology ids and configurations might be affected by the changes, and
+     * they are held by the manager.
+     * 
+     * @param changes
+     *        The changes to be applied.
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @throws OWLOntologyChangeException
+     *         If one or more of the changes could not be applied.
+     */
+    default ChangeApplied applyChanges(OWLOntologyChange... changes) {
+        return applyChanges(Arrays.asList(changes));
+    }
 }
