@@ -116,12 +116,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
-            violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
-        }
-
-        @Override
-        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
             violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
         }
 
@@ -138,11 +133,6 @@ public class OWL2RLProfile implements OWLProfile {
                     violations.add(new UseOfNonEquivalentClassExpression(getCurrentOntology(), axiom, ce));
                 }
             }
-        }
-
-        @Override
-        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
         }
 
         @Override
@@ -179,11 +169,6 @@ public class OWL2RLProfile implements OWLProfile {
         @Override
         public void visit(SWRLRule rule) {
             violations.add(new UseOfIllegalAxiom(getCurrentOntology(), rule));
-        }
-
-        @Override
-        public void visit(OWLDataIntersectionOf node) {
-            violations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
         }
 
         @Override

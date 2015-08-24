@@ -150,11 +150,6 @@ public class OWL2QLProfile implements OWLProfile {
         }
 
         @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
-            violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
-        }
-
-        @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
             if (!isOWL2QLSuperClassExpression(axiom.getDomain())) {
                 violations.add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom, axiom.getDomain()));
@@ -225,11 +220,6 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
-            violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
-        }
-
-        @Override
-        public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
             violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
         }
 

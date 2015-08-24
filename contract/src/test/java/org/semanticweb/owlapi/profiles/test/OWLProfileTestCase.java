@@ -1139,13 +1139,13 @@ public class OWLProfileTestCase {
 
     @Test
     @Tests(method = "public Object visit(OWLDisjointClassesAxiom axiom)")
-    public void shouldCreateViolationForOWLDisjointClassesAxiomInOWL2QLProfile() throws Exception {
+    public void shouldNotCreateViolationForOWLDisjointClassesAxiomInOWL2QLProfile() throws Exception {
         OWLOntology o = createOnto();
         OWLOntologyManager m = o.getOWLOntologyManager();
         OWL2QLProfile profile = new OWL2QLProfile();
         m.addAxiom(o, DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
-        int expected = 1;
-        Class[] expectedViolations = { UseOfIllegalAxiom.class };
+        int expected = 0;
+        Class[] expectedViolations = {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1327,14 +1327,14 @@ public class OWLProfileTestCase {
 
     @Test
     @Tests(method = "public Object visit(OWLIrreflexiveObjectPropertyAxiom axiom)")
-    public void shouldCreateViolationForOWLIrreflexiveObjectPropertyAxiomInOWL2QLProfile() throws Exception {
+    public void shouldNotCreateViolationForOWLIrreflexiveObjectPropertyAxiomInOWL2QLProfile() throws Exception {
         OWLOntology o = createOnto();
         OWLOntologyManager m = o.getOWLOntologyManager();
         declare(o, OP);
         m.addAxiom(o, IrreflexiveObjectProperty(OP));
         OWL2QLProfile profile = new OWL2QLProfile();
-        int expected = 1;
-        Class[] expectedViolations = { UseOfIllegalAxiom.class };
+        int expected = 0;
+        Class[] expectedViolations = {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1435,8 +1435,8 @@ public class OWLProfileTestCase {
         OWLOntologyManager m = o.getOWLOntologyManager();
         m.addAxiom(o, DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 1;
-        Class[] expectedViolations = { UseOfIllegalAxiom.class };
+        int expected = 0;
+        Class[] expectedViolations = {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1449,8 +1449,8 @@ public class OWLProfileTestCase {
         declare(o, DATAP, dp);
         m.addAxiom(o, DisjointDataProperties(DATAP, dp));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 1;
-        Class[] expectedViolations = { UseOfIllegalAxiom.class };
+        int expected = 0;
+        Class[] expectedViolations = {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1481,15 +1481,15 @@ public class OWLProfileTestCase {
 
     @Test
     @Tests(method = "public Object visit(OWLEquivalentDataPropertiesAxiom axiom)")
-    public void shouldCreateViolationForOWLEquivalentDataPropertiesAxiomInOWL2RLProfile() throws Exception {
+    public void shouldNotCreateViolationForOWLEquivalentDataPropertiesAxiomInOWL2RLProfile() throws Exception {
         OWLOntology o = createOnto();
         OWLOntologyManager m = o.getOWLOntologyManager();
         OWLDataProperty dp = DataProperty(IRI("urn:test#test"));
         declare(o, DATAP, dp);
         m.addAxiom(o, EquivalentDataProperties(DATAP, dp));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 1;
-        Class[] expectedViolations = { UseOfIllegalAxiom.class };
+        int expected = 0;
+        Class[] expectedViolations = {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1584,14 +1584,14 @@ public class OWLProfileTestCase {
 
     @Test
     @Tests(method = "public Object visit(OWLDataIntersectionOf node)")
-    public void shouldCreateViolationForOWLDataIntersectionOfInOWL2RLProfile() throws Exception {
+    public void shouldNotCreateViolationForOWLDataIntersectionOfInOWL2RLProfile() throws Exception {
         OWLOntology o = createOnto();
         OWLOntologyManager m = o.getOWLOntologyManager();
         declare(o, DATAP);
         m.addAxiom(o, DataPropertyRange(DATAP, DataIntersectionOf(Integer(), Boolean())));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 1;
-        Class[] expectedViolations = { UseOfIllegalDataRange.class };
+        int expected = 0;
+        Class[] expectedViolations = {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
