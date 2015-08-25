@@ -1139,13 +1139,13 @@ public class OWLProfileTestCase {
 
     @Test
     @Tests(method = "public Object visit(OWLDisjointClassesAxiom axiom)")
-    public void shouldNotCreateViolationForOWLDisjointClassesAxiomInOWL2QLProfile() throws Exception {
+    public void shouldCreateViolationForOWLDisjointClassesAxiomInOWL2QLProfile() throws Exception {
         OWLOntology o = createOnto();
         OWLOntologyManager m = o.getOWLOntologyManager();
         OWL2QLProfile profile = new OWL2QLProfile();
         m.addAxiom(o, DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
-        int expected = 0;
-        Class[] expectedViolations = {};
+        int expected = 1;
+        Class[] expectedViolations = { UseOfNonSubClassExpression.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1435,8 +1435,8 @@ public class OWLProfileTestCase {
         OWLOntologyManager m = o.getOWLOntologyManager();
         m.addAxiom(o, DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 0;
-        Class[] expectedViolations = {};
+        int expected = 2;
+        Class[] expectedViolations = { UseOfNonSubClassExpression.class, UseOfNonSubClassExpression.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 

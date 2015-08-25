@@ -136,6 +136,16 @@ public class OWL2RLProfile implements OWLProfile {
         }
 
         @Override
+        public void visit(OWLDisjointClassesAxiom axiom) {
+            for (OWLClassExpression ce : axiom.getClassExpressions()) {
+                assert ce != null;
+                if (!isOWL2RLEquivalentClassExpression(ce)) {
+                    violations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce));
+                }
+            }
+        }
+
+        @Override
         public void visit(OWLHasKeyAxiom axiom) {
             if (!isOWL2RLSubClassExpression(axiom.getClassExpression())) {
                 violations.add(new UseOfNonSubClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
