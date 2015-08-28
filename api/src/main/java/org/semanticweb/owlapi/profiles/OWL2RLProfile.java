@@ -90,7 +90,7 @@ public class OWL2RLProfile implements OWLProfile {
         public void visit(OWLClassAssertionAxiom axiom) {
             if (!isOWL2RLSuperClassExpression(axiom.getClassExpression())) {
                 violations
-                        .add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
+                    .add(new UseOfNonSuperClassExpression(getCurrentOntology(), axiom, axiom.getClassExpression()));
             }
         }
 
@@ -103,12 +103,8 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
-        }
-
-        @Override
-        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-            violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
+            axiom.classExpressions().filter(ce -> !isOWL2RLEquivalentClassExpression(ce)).forEach(ce -> violations.add(
+                new UseOfNonSubClassExpression(getCurrentOntology(), axiom, ce)));
         }
 
         @Override
@@ -119,12 +115,7 @@ public class OWL2RLProfile implements OWLProfile {
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             axiom.classExpressions().filter(ce -> !isOWL2RLEquivalentClassExpression(ce)).forEach(
-                    ce -> violations.add(new UseOfNonEquivalentClassExpression(getCurrentOntology(), axiom, ce)));
-        }
-
-        @Override
-        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            violations.add(new UseOfIllegalAxiom(getCurrentOntology(), axiom));
+                ce -> violations.add(new UseOfNonEquivalentClassExpression(getCurrentOntology(), axiom, ce)));
         }
 
         @Override
@@ -161,11 +152,6 @@ public class OWL2RLProfile implements OWLProfile {
         @Override
         public void visit(SWRLRule rule) {
             violations.add(new UseOfIllegalAxiom(getCurrentOntology(), rule));
-        }
-
-        @Override
-        public void visit(OWLDataIntersectionOf node) {
-            violations.add(new UseOfIllegalDataRange(getCurrentOntology(), getCurrentAxiom(), node));
         }
 
         @Override
@@ -295,7 +281,7 @@ public class OWL2RLProfile implements OWLProfile {
         @Override
         public Boolean visit(OWLObjectMaxCardinality ce) {
             return (ce.getCardinality() == 0 || ce.getCardinality() == 1)
-                    && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller()));
+                && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce.getFiller()));
         }
 
         @Override
