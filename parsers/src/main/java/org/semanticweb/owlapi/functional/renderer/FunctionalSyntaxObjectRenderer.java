@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
@@ -219,9 +220,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeSortedEntities("Datatypes", "Datatype", ontology.getDatatypesInSignature(), writtenAxioms);
         writeSortedEntities("Classes", "Class", ontology.getClassesInSignature(), writtenAxioms);
         writeSortedEntities("Named Individuals", "Individual", ontology.getIndividualsInSignature(), writtenAxioms);
-        TreeSet<OWLAxiom> otherAxioms = new TreeSet<>(ontology.getAxioms());
+        Set<OWLAxiom> otherAxioms = ontology.getAxioms();
         otherAxioms.removeAll(writtenAxioms);
-        for (OWLAxiom ax : otherAxioms) {
+        for (OWLAxiom ax : sortOptionally(otherAxioms)) {
             ax.accept(this);
             writeReturn();
         }
@@ -282,8 +283,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Nonnull
-    private static Set<OWLAnnotation> getSortedAnnotations(HasAnnotations annotationBearer) {
-        return new TreeSet<>(annotationBearer.getAnnotations());
+    private static List<OWLAnnotation> getSortedAnnotations(HasAnnotations annotationBearer) {
+        return CollectionFactory.sortOptionally(annotationBearer.getAnnotations());
     }
 
     /**

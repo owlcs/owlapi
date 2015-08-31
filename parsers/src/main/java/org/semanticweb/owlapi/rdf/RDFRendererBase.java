@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.*;
 
 import javax.annotation.Nonnull;
@@ -27,6 +26,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.OWLEntityIRIComparator;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 import com.google.common.base.Optional;
@@ -698,19 +698,6 @@ public abstract class RDFRendererBase {
                     }
                 }
             }
-        }
-    }
-
-    /** Comparator that uses IRI ordering to order entities. */
-    private static class OWLEntityIRIComparator implements Comparator<OWLEntity>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
-
-        OWLEntityIRIComparator() {}
-
-        @Override
-        public int compare(OWLEntity o1, OWLEntity o2) {
-            return o1.getIRI().compareTo(o2.getIRI());
         }
     }
 }

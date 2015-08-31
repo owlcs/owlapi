@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -141,7 +140,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     protected void render(Set<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it = toSortedSet(objects).iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLObject> it = CollectionFactory.sortOptionally(objects).iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 sb.append(' ');
@@ -168,10 +167,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             anno.accept(this);
             insertSpace();
         }
-    }
-
-    private static <N extends OWLObject> Set<N> toSortedSet(Set<N> set) {
-        return new TreeSet<>(set);
     }
 
     @Override

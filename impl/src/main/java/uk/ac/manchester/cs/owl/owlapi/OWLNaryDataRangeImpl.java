@@ -14,17 +14,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNaryDataRange;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -33,21 +28,22 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 3.0.0
  */
 public abstract class OWLNaryDataRangeImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLNaryDataRange {
+    OWLObjectImplWithoutEntityAndAnonCaching implements OWLNaryDataRange {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Set<OWLDataRange> operands;
+    private final List<OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(@Nonnull Set<? extends OWLDataRange> operands) {
-        this.operands = new TreeSet<>(checkNotNull(operands,
-                "operands cannot be null"));
+        checkNotNull(operands,
+            "operands cannot be null");
+        this.operands = CollectionFactory.sortOptionally((Set<OWLDataRange>) operands);
     }
 
     @Override
     public Set<OWLDataRange> getOperands() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(operands);
+            .getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
     @Override

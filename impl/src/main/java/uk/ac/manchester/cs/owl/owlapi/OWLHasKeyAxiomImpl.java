@@ -15,25 +15,13 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -42,14 +30,14 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 3.0.0
  */
 public class OWLHasKeyAxiomImpl extends
-        OWLLogicalAxiomImplWithoutEntityAndAnonCaching implements
-        OWLHasKeyAxiom {
+    OWLLogicalAxiomImplWithoutEntityAndAnonCaching implements
+    OWLHasKeyAxiom {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLClassExpression expression;
     @Nonnull
-    private final Set<OWLPropertyExpression> propertyExpressions;
+    private final List<OWLPropertyExpression> propertyExpressions;
 
     /**
      * @param expression
@@ -60,12 +48,13 @@ public class OWLHasKeyAxiomImpl extends
      *        annotations on the axiom
      */
     public OWLHasKeyAxiomImpl(@Nonnull OWLClassExpression expression,
-            @Nonnull Set<? extends OWLPropertyExpression> propertyExpressions,
-            @Nonnull Collection<? extends OWLAnnotation> annotations) {
+        @Nonnull Set<? extends OWLPropertyExpression> propertyExpressions,
+        @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
-        this.propertyExpressions = new TreeSet<>(checkNotNull(
-                propertyExpressions, "propertyExpressions cannot be null"));
+        checkNotNull(
+            propertyExpressions, "propertyExpressions cannot be null");
+        this.propertyExpressions = CollectionFactory.sortOptionally((Set<OWLPropertyExpression>) propertyExpressions);
     }
 
     @Override
@@ -90,13 +79,13 @@ public class OWLHasKeyAxiomImpl extends
             return this;
         }
         return new OWLHasKeyAxiomImpl(getClassExpression(),
-                getPropertyExpressions(), NO_ANNOTATIONS);
+            getPropertyExpressions(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLHasKeyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return new OWLHasKeyAxiomImpl(getClassExpression(),
-                getPropertyExpressions(), mergeAnnos(annotations));
+            getPropertyExpressions(), mergeAnnos(annotations));
     }
 
     @Override
@@ -112,7 +101,7 @@ public class OWLHasKeyAxiomImpl extends
     @Override
     public Set<OWLPropertyExpression> getPropertyExpressions() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
+            .getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
     }
 
     @Override
@@ -180,8 +169,12 @@ public class OWLHasKeyAxiomImpl extends
         if (!(obj instanceof OWLHasKeyAxiom)) {
             return false;
         }
+        if (obj instanceof OWLHasKeyAxiomImpl) {
+            return expression.equals(((OWLHasKeyAxiomImpl) obj).expression) && propertyExpressions.equals(
+                ((OWLHasKeyAxiomImpl) obj).propertyExpressions);
+        }
         OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
         return expression.equals(other.getClassExpression())
-                && propertyExpressions.equals(other.getPropertyExpressions());
+            && getPropertyExpressions().equals(other.getPropertyExpressions());
     }
 }

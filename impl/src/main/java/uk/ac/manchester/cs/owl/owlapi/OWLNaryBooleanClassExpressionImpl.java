@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -34,21 +33,22 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 2.0.0
  */
 public abstract class OWLNaryBooleanClassExpressionImpl extends
-        OWLAnonymousClassExpressionImpl implements
-        OWLNaryBooleanClassExpression {
+    OWLAnonymousClassExpressionImpl implements
+    OWLNaryBooleanClassExpression {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Set<OWLClassExpression> operands;
+    private final List<OWLClassExpression> operands;
 
     /**
      * @param operands
      *        operands
      */
     public OWLNaryBooleanClassExpressionImpl(
-            @Nonnull Set<? extends OWLClassExpression> operands) {
-        this.operands = new TreeSet<>(checkNotNull(operands,
-                "operands cannot be null"));
+        @Nonnull Set<? extends OWLClassExpression> operands) {
+        checkNotNull(operands,
+            "operands cannot be null");
+        this.operands = CollectionFactory.sortOptionally((Set<OWLClassExpression>) operands);
     }
 
     @Override
@@ -73,7 +73,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     @Override
     public Set<OWLClassExpression> getOperands() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(operands);
+            .getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
     @Override
@@ -86,13 +86,16 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
         if (!(obj instanceof OWLNaryBooleanClassExpression)) {
             return false;
         }
+        if (obj instanceof OWLNaryBooleanClassExpressionImpl) {
+            return operands.equals(((OWLNaryBooleanClassExpressionImpl) obj).operands);
+        }
         return ((OWLNaryBooleanClassExpression) obj).getOperands().equals(
-                operands);
+            getOperands());
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(operands,
-                ((OWLNaryBooleanClassExpression) object).getOperands());
+            ((OWLNaryBooleanClassExpression) object).getOperands());
     }
 }

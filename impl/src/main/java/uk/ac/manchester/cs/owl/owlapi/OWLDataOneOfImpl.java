@@ -14,25 +14,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -42,11 +29,11 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
-        implements OWLDataOneOf {
+    implements OWLDataOneOf {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Set<OWLLiteral> values;
+    private final List<OWLLiteral> values;
 
     @Override
     protected int index() {
@@ -58,8 +45,9 @@ public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
      *        lierals
      */
     public OWLDataOneOfImpl(@Nonnull Set<? extends OWLLiteral> values) {
-        this.values = new TreeSet<>(checkNotNull(values,
-                "values cannot be null"));
+        checkNotNull(values,
+            "values cannot be null");
+        this.values = CollectionFactory.sortOptionally((Set<OWLLiteral>) values);
     }
 
     @Override
@@ -80,7 +68,7 @@ public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     @Override
     public Set<OWLLiteral> getValues() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(values);
+            .getCopyOnRequestSetFromImmutableCollection(values);
     }
 
     @Override
@@ -106,7 +94,10 @@ public class OWLDataOneOfImpl extends OWLObjectImplWithoutEntityAndAnonCaching
         if (!(obj instanceof OWLDataOneOf)) {
             return false;
         }
-        return ((OWLDataOneOf) obj).getValues().equals(values);
+        if (obj instanceof OWLDataOneOfImpl) {
+            return values.equals(((OWLDataOneOfImpl) obj).values);
+        }
+        return ((OWLDataOneOf) obj).getValues().equals(getValues());
     }
 
     @Override

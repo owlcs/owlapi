@@ -91,7 +91,7 @@ public class ManchesterOWLSyntaxParserImpl implements
     @Nonnull
     protected final Set<String> annotationPropertyNames = new HashSet<>();
     @Nonnull
-    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
+    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new HashMap<>();
     @Nonnull
     protected DefaultPrefixManager pm = new DefaultPrefixManager();
     @Nonnull
@@ -1579,10 +1579,10 @@ public class ManchesterOWLSyntaxParserImpl implements
             return parseBuiltInAtom();
         } else {
             consumeToken();
-            Set<String> kw = new TreeSet<>();
-            kw.addAll(ruleBuiltIns.keySet());
+            List<String> kw = new ArrayList<>(ruleBuiltIns.keySet());
             kw.add(DIFFERENT_FROM.toString());
             kw.add(SAME_AS.toString());
+            Collections.sort(kw);
             throw new ExceptionBuilder().withKeyword(kw).withClass()
                 .withObject().withData().build();
         }
@@ -1848,9 +1848,8 @@ public class ManchesterOWLSyntaxParserImpl implements
     }
 
     @Nonnull
-    protected OWLObjectPropertyCharacteristicAxiom
-        parseObjectPropertyCharacteristic(
-            @Nonnull OWLObjectPropertyExpression prop) {
+    protected OWLObjectPropertyCharacteristicAxiom parseObjectPropertyCharacteristic(
+        @Nonnull OWLObjectPropertyExpression prop) {
         String characteristic = consumeToken();
         if (FUNCTIONAL.matches(characteristic)) {
             return dataFactory.getOWLFunctionalObjectPropertyAxiom(prop);
@@ -1875,9 +1874,8 @@ public class ManchesterOWLSyntaxParserImpl implements
     }
 
     @Nonnull
-    protected OWLDataPropertyCharacteristicAxiom
-        parseDataPropertyCharacteristic(
-            @Nonnull OWLDataPropertyExpression prop) {
+    protected OWLDataPropertyCharacteristicAxiom parseDataPropertyCharacteristic(
+        @Nonnull OWLDataPropertyExpression prop) {
         String characteristic = consumeToken();
         if (FUNCTIONAL.matches(characteristic)) {
             return dataFactory.getOWLFunctionalDataPropertyAxiom(prop);
@@ -2880,11 +2878,11 @@ public class ManchesterOWLSyntaxParserImpl implements
     interface AnnotatedListItemParser<F, O> {
 
         @Nonnull
-            O parseItem(@Nonnull F s);
+        O parseItem(@Nonnull F s);
 
         @Nonnull
-            OWLAxiom createAxiom(@Nonnull F s, @Nonnull O o,
-                @Nonnull Set<OWLAnnotation> anns);
+        OWLAxiom createAxiom(@Nonnull F s, @Nonnull O o,
+            @Nonnull Set<OWLAnnotation> anns);
 
         ManchesterOWLSyntax getFrameSectionKeyword();
     }

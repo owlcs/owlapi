@@ -14,21 +14,14 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import javax.annotation.Nonnull;
+import java.util.Set;
 
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLFacet;
-
-import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -36,7 +29,7 @@ import java.util.Set;
  * @since 2.0.0
  */
 public class OWLFacetRestrictionImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements OWLFacetRestriction {
+    OWLObjectImplWithoutEntityAndAnonCaching implements OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -56,7 +49,7 @@ public class OWLFacetRestrictionImpl extends
      *        value
      */
     public OWLFacetRestrictionImpl(@Nonnull OWLFacet facet,
-            @Nonnull OWLLiteral facetValue) {
+        @Nonnull OWLLiteral facetValue) {
         this.facet = checkNotNull(facet, "facet cannot be null");
         this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");
     }
@@ -99,6 +92,21 @@ public class OWLFacetRestrictionImpl extends
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof OWLFacetRestriction) {
+            return facet.equals(((OWLFacetRestriction) obj).getFacet())
+                && facetValue.equals(((OWLFacetRestriction) obj).getFacetValue());
+        }
+        return false;
     }
 
     @Override

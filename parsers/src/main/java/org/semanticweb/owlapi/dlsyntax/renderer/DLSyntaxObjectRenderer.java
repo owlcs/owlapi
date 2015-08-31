@@ -19,17 +19,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.IRIShortFormProvider;
-import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
-import org.semanticweb.owlapi.util.ShortFormProvider;
-import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
-import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.util.*;
 
 /**
  * Renders objects in unicode DL syntax.
@@ -87,7 +82,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements O
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLAxiom ax : new TreeSet<>(checkNotNull(ontology, "ontology cannot be null").getLogicalAxioms())) {
+        checkNotNull(ontology, "ontology cannot be null");
+        for (OWLAxiom ax : CollectionFactory.sortOptionally(ontology.getLogicalAxioms())) {
             ax.accept(this);
             write("\n");
         }

@@ -12,16 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Set;
-import org.semanticweb.owlapi.model.*;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
 import java.io.Serializable;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** no cache used @author ignazio */
@@ -30,27 +30,27 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private static final OWLDatatype PLAIN = new OWL2DatatypeImpl(
-            RDF_PLAIN_LITERAL);
+        RDF_PLAIN_LITERAL);
     @Nonnull
     private static final OWLDatatype XSDBOOLEAN = new OWL2DatatypeImpl(
-            XSD_BOOLEAN);
+        XSD_BOOLEAN);
     @Nonnull
     private static final OWLDatatype XSDDOUBLE = new OWL2DatatypeImpl(
-            XSD_DOUBLE);
+        XSD_DOUBLE);
     @Nonnull
     private static final OWLDatatype XSDFLOAT = new OWL2DatatypeImpl(XSD_FLOAT);
     @Nonnull
     private static final OWLDatatype XSDINTEGER = new OWL2DatatypeImpl(
-            XSD_INTEGER);
+        XSD_INTEGER);
     @Nonnull
     private static final OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(
-            RDFS_LITERAL);
+        RDFS_LITERAL);
     @Nonnull
     private static final OWLLiteral TRUELITERAL = new OWLLiteralImplBoolean(
-            true, XSDBOOLEAN);
+        true, XSDBOOLEAN);
     @Nonnull
     private static final OWLLiteral FALSELITERAL = new OWLLiteralImplBoolean(
-            false, XSDBOOLEAN);
+        false, XSDBOOLEAN);
     @Nullable
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
@@ -105,7 +105,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     public OWLLiteral getOWLLiteral(@Nonnull String value) {
         if (useCompression) {
             return new OWLLiteralImpl(value, "",
-                    getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+                getOWLDatatype(XSDVocabulary.STRING.getIRI()));
         }
         return new OWLLiteralImplString(value);
     }
@@ -142,7 +142,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWLDatatype datatype) {
+        @Nonnull OWLDatatype datatype) {
         OWLLiteral literal;
         if (datatype.isRDFPlainLiteral()) {
             int sep = lexicalValue.lastIndexOf('@');
@@ -160,14 +160,14 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
                     literal = getOWLLiteral(lexicalValue);
                 } else if (datatype.isBoolean()) {
                     literal = getOWLLiteral(isBooleanTrueValue(lexicalValue
-                            .trim()));
+                        .trim()));
                 } else if (datatype.isFloat()) {
                     if (lexicalValue.trim().equals("-0.0")) {
                         // according to some W3C test, this needs to be
                         // different from 0.0; Java floats disagree
                         if (negativeFloatZero == null) {
                             negativeFloatZero = getBasicLiteral("-0.0",
-                                    XSDFLOAT);
+                                XSDFLOAT);
                         }
                         literal = negativeFloatZero;
                     } else {
@@ -185,13 +185,13 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
                     // literals different
                     if (lexicalValue.trim().charAt(0) == '0') {
                         literal = getBasicLiteral(lexicalValue,
-                                getIntegerOWLDatatype());
+                            getIntegerOWLDatatype());
                     } else {
                         try {
                             // this is fine for values that can be parsed as
                             // ints - not all values are
                             literal = getOWLLiteral(Integer
-                                    .parseInt(lexicalValue));
+                                .parseInt(lexicalValue));
                         } catch (NumberFormatException ex) {
                             // try as a big decimal
                             literal = getBasicLiteral(lexicalValue, datatype);
@@ -210,13 +210,13 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
 
     @Nonnull
     protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
-            OWLDatatype datatype) {
+        OWLDatatype datatype) {
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
     @Nonnull
     protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
-            String lang, OWLDatatype datatype) {
+        String lang, OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
             if (datatype == null || datatype.isRDFPlainLiteral()) {
@@ -226,7 +226,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
             }
         } else {
             literal = new OWLLiteralImplNoCompression(lexicalValue, lang,
-                    datatype);
+                datatype);
         }
         return literal;
     }
@@ -266,8 +266,8 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     }
 
     @Override
-    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value, @Nonnull Set<? extends OWLAnnotation> annotations) {
+    public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
+        @Nonnull Set<? extends OWLAnnotation> annotations) {
         return new OWLAnnotationImpl(property, value, annotations);
     }
-
 }

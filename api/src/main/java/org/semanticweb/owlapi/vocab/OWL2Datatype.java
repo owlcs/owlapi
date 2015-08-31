@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * An enumeration of the datatypes in the OWL 2 specification. These are the
@@ -78,7 +79,8 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
         for (OWL2Datatype v : OWL2Datatype.values()) {
             iris.add(v.iri);
         }
-        return Collections.unmodifiableSet(new TreeSet<>(iris));
+        Collections.sort(iris);
+        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(iris);
     }
 
     /**

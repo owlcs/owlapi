@@ -138,7 +138,8 @@ public class TurtleRenderer extends RDFRendererBase {
             String name = pm.getPrefixIRI(iri);
             if (name == null) {
                 // No QName!
-                // As this is not an XML output, qnames are not necessary; other splits are allowed.
+                // As this is not an XML output, qnames are not necessary; other
+                // splits are allowed.
                 name = forceSplitIfPrefixExists(iri);
             }
             if (name == null) {
@@ -157,12 +158,12 @@ public class TurtleRenderer extends RDFRendererBase {
 
     private String forceSplitIfPrefixExists(IRI iri) {
         List<Map.Entry<String, String>> prefixName2PrefixMap = new ArrayList<>(pm.getPrefixName2PrefixMap().entrySet());
-        // sort the entries in reverse lexicographic order by value (longest prefix first)
+        // sort the entries in reverse lexicographic order by value (longest
+        // prefix first)
         Collections.sort(prefixName2PrefixMap, new Comparator<Map.Entry<String, String>>() {
 
             @Override
             public int compare(Entry<String, String> o1, Entry<String, String> o2) {
-                // TODO Auto-generated method stub
                 return o2.getValue().compareTo(o1.getValue());
             }
         });

@@ -15,22 +15,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -40,7 +30,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
-        implements OWLAnnotation {
+    implements OWLAnnotation {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -48,7 +38,7 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     @Nonnull
     private final OWLAnnotationValue value;
     @Nonnull
-    private final Set<OWLAnnotation> anns;
+    private final List<OWLAnnotation> anns;
 
     @Override
     protected int index() {
@@ -64,18 +54,18 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
      *        annotations on the axiom
      */
     public OWLAnnotationImpl(@Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationValue value,
-            @Nonnull Set<? extends OWLAnnotation> annotations) {
+        @Nonnull OWLAnnotationValue value,
+        @Nonnull Set<? extends OWLAnnotation> annotations) {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
-        anns = CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(new TreeSet<>(
-                        checkNotNull(annotations, "annotations cannot be null")));
+        checkNotNull(annotations, "annotations cannot be null");
+        anns = CollectionFactory.sortOptionally((Set<OWLAnnotation>) annotations);
     }
 
     @Override
     public Set<OWLAnnotation> getAnnotations() {
-        return anns;
+        return CollectionFactory
+            .getCopyOnRequestSetFromImmutableCollection(anns);
     }
 
     @Override
@@ -90,7 +80,7 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
 
     @Override
     public OWLAnnotation getAnnotatedAnnotation(
-            @Nonnull Set<OWLAnnotation> annotations) {
+        @Nonnull Set<OWLAnnotation> annotations) {
         if (annotations.isEmpty()) {
             return this;
         }
@@ -111,8 +101,8 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
     @Override
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral
-                && ((OWLLiteral) value).isBoolean()
-                && ((OWLLiteral) value).parseBoolean();
+            && ((OWLLiteral) value).isBoolean()
+            && ((OWLLiteral) value).parseBoolean();
     }
 
     @Override
@@ -120,11 +110,17 @@ public class OWLAnnotationImpl extends OWLObjectImplWithoutEntityAndAnonCaching
         if (obj == this) {
             return true;
         }
+        if (obj instanceof OWLAnnotationImpl) {
+            OWLAnnotationImpl other = (OWLAnnotationImpl) obj;
+            return other.getProperty().equals(property)
+                && other.getValue().equals(value)
+                && other.anns.equals(anns);
+        }
         if (obj instanceof OWLAnnotation) {
             OWLAnnotation other = (OWLAnnotation) obj;
             return other.getProperty().equals(property)
-                    && other.getValue().equals(value)
-                    && other.getAnnotations().equals(anns);
+                && other.getValue().equals(value)
+                && other.getAnnotations().equals(getAnnotations());
         }
         return false;
     }

@@ -14,25 +14,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.DataRangeType;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
-import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
-import org.semanticweb.owlapi.model.OWLDataVisitor;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -42,14 +29,14 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class OWLDatatypeRestrictionImpl extends
-        OWLObjectImplWithoutEntityAndAnonCaching implements
-        OWLDatatypeRestriction {
+    OWLObjectImplWithoutEntityAndAnonCaching implements
+    OWLDatatypeRestriction {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
-    private final Set<OWLFacetRestriction> facetRestrictions;
+    private final List<OWLFacetRestriction> facetRestrictions;
 
     @Override
     protected int index() {
@@ -63,10 +50,11 @@ public class OWLDatatypeRestrictionImpl extends
      *        facet restriction
      */
     public OWLDatatypeRestrictionImpl(@Nonnull OWLDatatype datatype,
-            @Nonnull Set<OWLFacetRestriction> facetRestrictions) {
+        @Nonnull Set<OWLFacetRestriction> facetRestrictions) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        this.facetRestrictions = new TreeSet<>(checkNotNull(facetRestrictions,
-                "facetRestrictions cannot be null"));
+        checkNotNull(facetRestrictions,
+            "facetRestrictions cannot be null");
+        this.facetRestrictions = CollectionFactory.sortOptionally(facetRestrictions);
     }
 
     @Override
@@ -112,7 +100,7 @@ public class OWLDatatypeRestrictionImpl extends
     @Override
     public Set<OWLFacetRestriction> getFacetRestrictions() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(facetRestrictions);
+            .getCopyOnRequestSetFromImmutableCollection(facetRestrictions);
     }
 
     @Override
@@ -123,9 +111,14 @@ public class OWLDatatypeRestrictionImpl extends
         if (!(obj instanceof OWLDatatypeRestriction)) {
             return false;
         }
+        if (obj instanceof OWLDatatypeRestrictionImpl) {
+            OWLDatatypeRestrictionImpl other = (OWLDatatypeRestrictionImpl) obj;
+            return other.getDatatype().equals(datatype)
+                && other.facetRestrictions.equals(facetRestrictions);
+        }
         OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
         return other.getDatatype().equals(datatype)
-                && other.getFacetRestrictions().equals(facetRestrictions);
+            && other.getFacetRestrictions().equals(getFacetRestrictions());
     }
 
     @Override
