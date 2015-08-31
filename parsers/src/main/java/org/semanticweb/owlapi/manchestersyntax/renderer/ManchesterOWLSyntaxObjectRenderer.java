@@ -74,7 +74,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     protected void writeCommaSeparatedList(List<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLObject> it = objects.stream().sorted().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
@@ -116,7 +116,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         boolean conjunctionOrDisjunction = false;
         if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
             if (restriction.getFiller() instanceof OWLObjectIntersectionOf
-                    || restriction.getFiller() instanceof OWLObjectUnionOf) {
+                || restriction.getFiller() instanceof OWLObjectUnionOf) {
                 conjunctionOrDisjunction = true;
                 incrementTab(4);
                 writeNewLine();
@@ -133,14 +133,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     private <V extends OWLObject> void writeRestriction(OWLHasValueRestriction<V> restriction,
-            OWLPropertyExpression p) {
+        OWLPropertyExpression p) {
         p.accept(this);
         write(VALUE);
         restriction.getFiller().accept(this);
     }
 
     private <F extends OWLPropertyRange> void writeRestriction(OWLCardinalityRestriction<F> restriction,
-            ManchesterOWLSyntax keyword, OWLPropertyExpression p) {
+        ManchesterOWLSyntax keyword, OWLPropertyExpression p) {
         p.accept(this);
         write(keyword);
         write(Integer.toString(restriction.getCardinality()));
@@ -310,7 +310,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     @Override
     public void visit(OWLAnnotation node) {
-        writeAnnotations(node.annotations().iterator());
+        writeAnnotations(node.annotations().sorted().iterator());
         node.getProperty().accept(this);
         writeSpace();
         node.getValue().accept(this);
@@ -473,9 +473,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword, List<? extends OWLObject> objects,
-            ManchesterOWLSyntax naryKeyword) {
+        ManchesterOWLSyntax naryKeyword) {
         if (objects.size() == 2) {
-            Iterator<? extends OWLObject> it = objects.iterator();
+            Iterator<? extends OWLObject> it = sort(objects).iterator();
             it.next().accept(this);
             write(binaryKeyword);
             it.next().accept(this);
@@ -486,7 +486,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     }
 
     private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword, Stream<? extends OWLObject> objects,
-            ManchesterOWLSyntax naryKeyword) {
+        ManchesterOWLSyntax naryKeyword) {
         writeBinaryOrNaryList(binaryKeyword, asList(objects), naryKeyword);
     }
 
@@ -872,7 +872,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             write(node.getPredicate().toQuotedString());
         }
         write("(");
-        for (Iterator<SWRLDArgument> it = node.getArguments().iterator(); it.hasNext();) {
+        for (Iterator<SWRLDArgument> it = node.arguments().sorted().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
