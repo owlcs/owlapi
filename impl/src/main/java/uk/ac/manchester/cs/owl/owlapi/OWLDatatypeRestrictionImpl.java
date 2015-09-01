@@ -84,8 +84,8 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
             return false;
         }
         if (obj instanceof OWLDatatypeRestrictionImpl) {
-            return datatype.equals(((OWLDatatypeRestrictionImpl) obj).datatype)
-                    && facetRestrictions.equals(((OWLDatatypeRestrictionImpl) obj).facetRestrictions);
+            OWLDatatypeRestrictionImpl object = (OWLDatatypeRestrictionImpl) obj;
+            return datatype.equals(object.datatype) && facetRestrictions.equals(object.facetRestrictions);
         }
         OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
         return other.getDatatype().equals(datatype) && equalStreams(other.facetRestrictions(), facetRestrictions());

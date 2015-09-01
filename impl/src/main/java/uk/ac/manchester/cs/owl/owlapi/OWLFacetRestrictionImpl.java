@@ -69,8 +69,8 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
             return true;
         }
         if (obj instanceof OWLFacetRestriction) {
-            return facet.equals(((OWLFacetRestriction) obj).getFacet())
-                    && facetValue.equals(((OWLFacetRestriction) obj).getFacetValue());
+            OWLFacetRestriction object = (OWLFacetRestriction) obj;
+            return facet.equals(object.getFacet()) && facetValue.equals(object.getFacetValue());
         }
         return false;
     }

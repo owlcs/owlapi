@@ -18,7 +18,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -83,7 +82,6 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>impl
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return new OWLDataSomeValuesFromImpl(getProperty(),
-                new OWLDataOneOfImpl(CollectionFactory.createSet(getFiller())));
+        return new OWLDataSomeValuesFromImpl(getProperty(), new OWLDataOneOfImpl(getFiller()));
     }
 }

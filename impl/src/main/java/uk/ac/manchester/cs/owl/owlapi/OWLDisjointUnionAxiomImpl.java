@@ -15,9 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -25,6 +23,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
+
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -46,11 +46,11 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
      *        annotations
      */
     public OWLDisjointUnionAxiomImpl(OWLClass owlClass, Collection<? extends OWLClassExpression> classExpressions,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
         Collection<? extends OWLClassExpression> classes = checkNotNull(classExpressions,
-                "classExpressions cannot be null");
+            "classExpressions cannot be null");
         this.classExpressions = asList(classes.stream().sorted());
     }
 
@@ -91,10 +91,11 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
             return false;
         }
         if (obj instanceof OWLDisjointUnionAxiomImpl) {
-            return classExpressions.equals(((OWLDisjointUnionAxiomImpl) obj).classExpressions);
+            OWLDisjointUnionAxiomImpl object = (OWLDisjointUnionAxiomImpl) obj;
+            return owlClass.equals(object.owlClass) && classExpressions.equals(object.classExpressions);
         }
-        return ((OWLDisjointUnionAxiom) obj).getOWLClass().equals(owlClass)
-                && equalStreams(classExpressions(), ((OWLDisjointUnionAxiom) obj).classExpressions());
+        OWLDisjointUnionAxiom object = (OWLDisjointUnionAxiom) obj;
+        return object.getOWLClass().equals(owlClass) && equalStreams(classExpressions(), object.classExpressions());
     }
 
     @Override
@@ -104,8 +105,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
 
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
-        return new OWLEquivalentClassesAxiomImpl(
-                new HashSet<>(Arrays.asList(owlClass, new OWLObjectUnionOfImpl(classExpressions))), NO_ANNOTATIONS);
+        return new OWLEquivalentClassesAxiomImpl(Sets.newHashSet(owlClass, new OWLObjectUnionOfImpl(classExpressions)),
+            NO_ANNOTATIONS);
     }
 
     @Override

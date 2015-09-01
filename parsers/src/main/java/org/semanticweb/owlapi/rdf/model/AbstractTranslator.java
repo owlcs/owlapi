@@ -303,7 +303,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         if (axiom.classExpressions().count() == 2) {
-            addPairwise(axiom, axiom.classExpressions(), OWL_EQUIVALENT_CLASS.getIRI());
+            addPairwise(axiom, axiom.classExpressions().sorted(), OWL_EQUIVALENT_CLASS.getIRI());
         } else {
             axiom.splitToAnnotatedPairs().stream().sorted().forEach(ax -> ax.accept(this));
         }
@@ -312,7 +312,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         if (axiom.classExpressions().count() == 2) {
-            addPairwise(axiom, axiom.classExpressions(), OWL_DISJOINT_WITH.getIRI());
+            addPairwise(axiom, axiom.classExpressions().sorted(), OWL_DISJOINT_WITH.getIRI());
         } else {
             translateAnonymousNode(axiom);
             addTriple(axiom, RDF_TYPE.getIRI(), OWL_ALL_DISJOINT_CLASSES.getIRI());
@@ -341,7 +341,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         if (axiom.properties().count() == 2) {
-            addPairwise(axiom, axiom.properties(), OWL_EQUIVALENT_PROPERTY.getIRI());
+            addPairwise(axiom, axiom.properties().sorted(), OWL_EQUIVALENT_PROPERTY.getIRI());
         } else {
             axiom.splitToAnnotatedPairs().stream().sorted().forEach(ax -> ax.accept(this));
         }
@@ -417,9 +417,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         if (axiom.properties().count() == 2) {
-            addPairwise(axiom, axiom.properties(), OWL_EQUIVALENT_PROPERTY.getIRI());
+            addPairwise(axiom, axiom.properties().sorted(), OWL_EQUIVALENT_PROPERTY.getIRI());
         } else {
-            axiom.splitToAnnotatedPairs().forEach(ax -> ax.accept(this));
+            axiom.splitToAnnotatedPairs().stream().sorted().forEach(ax -> ax.accept(this));
         }
     }
 

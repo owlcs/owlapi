@@ -48,7 +48,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         ontology.classesInSignature().sorted().forEach(c -> write(ontology, c, ontology.axioms(c), printWriter));
         ontology.individualsInSignature().sorted().forEach(i -> write(ontology, i, ontology.axioms(i), printWriter));
         beginWritingGeneralAxioms(printWriter);
-        ontology.generalClassAxioms().forEach(ax -> {
+        ontology.generalClassAxioms().sorted().forEach(ax -> {
             beginWritingAxiom(printWriter);
             writeAxiom(null, ax, printWriter);
             endWritingAxiom(printWriter);
@@ -65,7 +65,7 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
             writeAxiom(entity, ax, writer);
             endWritingAxiom(writer);
         }
-        List<OWLAxiom> usages = asList(ont.referencingAxioms(entity));
+        List<OWLAxiom> usages = asList(ont.referencingAxioms(entity).sorted());
         usages.removeAll(axioms);
         beginWritingUsage(usages.size(), writer);
         for (OWLAxiom usage : usages) {

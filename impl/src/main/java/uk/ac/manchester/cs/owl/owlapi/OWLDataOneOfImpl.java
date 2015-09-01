@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -49,6 +50,15 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
         checkNotNull(values, "values cannot be null");
         this.values = asList(values.stream().sorted());
+    }
+
+    /**
+     * @param value
+     *        lieral
+     */
+    public OWLDataOneOfImpl(OWLLiteral value) {
+        checkNotNull(value, "value cannot be null");
+        values = Collections.singletonList(value);
     }
 
     @Override
