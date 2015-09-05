@@ -50,19 +50,18 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLOntology ontology) {
         checkNotNull(ontology, "ontology cannot be null");
-        ontology.importsDeclarations().forEach(decl -> {
+        ontology.importsDeclarations().sorted().forEach(decl -> {
             writer.writeStartElement(IMPORT);
             writer.writeTextContent(decl.getIRI().toString());
             writer.writeEndElement();
-        } );
+        });
         render(ontology.annotations());
         // treat declarations separately from other axioms
-        Collection<OWLDeclarationAxiom> declarations = ontology.getAxioms(AxiomType.DECLARATION);
         Set<OWLEntity> declared = asSet(ontology.signature());
-        for (OWLDeclarationAxiom ax : declarations) {
+        ontology.axioms(AxiomType.DECLARATION).sorted().forEach(ax -> {
             ax.accept(this);
             declared.remove(ax.getEntity());
-        }
+        });
         // any undeclared entities?
         if (!declared.isEmpty()) {
             boolean addMissing = true;
@@ -70,10 +69,10 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             addMissing = format.isAddMissingTypes();
             if (addMissing) {
                 Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(addMissing,
-                        asList(ontology.signature()), ontology.getPunnedIRIs(Imports.INCLUDED));
+                    asList(ontology.signature()), ontology.getPunnedIRIs(Imports.INCLUDED));
                 for (OWLEntity e : declared) {
                     if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
-                            && !ontology.isDeclared(e, Imports.INCLUDED)) {
+                        && !ontology.isDeclared(e, Imports.INCLUDED)) {
                         ontology.getOWLOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(e).accept(this);
                     }
                 }
@@ -81,7 +80,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         }
         Collection<OWLAxiom> axioms = new ArrayList<>();
         AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(AxiomType.DECLARATION))
-                .forEach(t -> axioms.addAll(ontology.getAxioms(t)));
+            .forEach(t -> axioms.addAll(ontology.getAxioms(t)));
         render(CollectionFactory.sortOptionally(axioms));
     }
 
