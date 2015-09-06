@@ -12,11 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.Version;
+
+import com.google.common.collect.Sets;
 
 /**
  * An OWLReasoner reasons over a set of axioms (the set of reasoner axioms) that
@@ -495,6 +500,26 @@ public interface OWLReasoner {
     boolean isEntailed(Set<? extends OWLAxiom> axioms);
 
     /**
+     * @see OWLReasoner#isEntailed(Set)
+     * @param axioms
+     *        The set of axioms to be tested
+     * @return true if axioms are entailed
+     */
+    default boolean isEntailed(Stream<? extends OWLAxiom> axioms) {
+        return isEntailed(asSet(axioms));
+    }
+
+    /**
+     * @see OWLReasoner#isEntailed(Set)
+     * @param axioms
+     *        The set of axioms to be tested
+     * @return true if axioms are entailed
+     */
+    default boolean isEntailed(OWLAxiom... axioms) {
+        return isEntailed(Sets.newHashSet(axioms));
+    }
+
+    /**
      * Determines if entailment checking for the specified axiom type is
      * supported.
      * 
@@ -580,6 +605,44 @@ public interface OWLReasoner {
     NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct);
 
     /**
+     * @see OWLReasoner#getSubClasses(OWLClassExpression, boolean)
+     * @param ce
+     *        The class expression whose strict (direct) subclasses are to be
+     *        retrieved.
+     * @param depth
+     *        use {@code DIRECT} for direct subclasses only, {@code ALL} for all
+     *        subclasses
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each
+     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
+     *         entails {@code DirectSubClassOf(C, ce)}. <br>
+     *         If direct is {@code ALL}, a {@code NodeSet} such that for each
+     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
+     *         entails {@code StrictSubClassOf(C, ce)}. <br>
+     *         If {@code ce} is equivalent to {@code owl:Nothing} then the empty
+     *         {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, InferenceDepth depth) {
+        return getSubClasses(ce, depth.isDirectOnly());
+    }
+
+    /**
+     * Returns all subclasses.
+     * 
+     * @see OWLReasoner#getSubClasses(OWLClassExpression, boolean)
+     * @param ce
+     *        The class expression whose strict (direct) subclasses are to be
+     *        retrieved.
+     * @return a {@code NodeSet} such that for each class {@code C} in the
+     *         {@code NodeSet} the set of reasoner axioms entails
+     *         {@code StrictSubClassOf(C, ce)}. <br>
+     *         If {@code ce} is equivalent to {@code owl:Nothing} then the empty
+     *         {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLClass> getSubClasses(OWLClassExpression ce) {
+        return getSubClasses(ce, false);
+    }
+
+    /**
      * Gets the set of named classes that are the strict (potentially direct)
      * super classes of the specified class expression with respect to the
      * imports closure of the root ontology. Note that the classes are returned
@@ -621,6 +684,44 @@ public interface OWLReasoner {
     NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct);
 
     /**
+     * @see OWLReasoner#getSuperClasses(OWLClassExpression, boolean)
+     * @param ce
+     *        The class expression whose strict (direct) super classes are to be
+     *        retrieved.
+     * @param depth
+     *        Specifies if the direct super classes should be retrived (
+     *        {@code DIRECT}) or if the all super classes (ancestors) classes
+     *        should be retrieved ({@code ALL}).
+     * @return If direct is {@code DIRECT}, a {@code NodeSet} such that for each
+     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
+     *         entails {@code DirectSubClassOf(ce, C)}. <br>
+     *         If direct is {@code false}, a {@code NodeSet} such that for each
+     *         class {@code C} in the {@code NodeSet} the set of reasoner axioms
+     *         entails {@code StrictSubClassOf(ce, C)}. <br>
+     *         If {@code ce} is equivalent to {@code owl:Thing} then the empty
+     *         {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, InferenceDepth depth) {
+        return getSuperClasses(ce, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getSuperClasses(OWLClassExpression, boolean) Return all
+     *      superclasses.
+     * @param ce
+     *        The class expression whose strict (direct) super classes are to be
+     *        retrieved.
+     * @return a {@code NodeSet} such that for each class {@code C} in the
+     *         {@code NodeSet} the set of reasoner axioms entails
+     *         {@code StrictSubClassOf(ce, C)}. <br>
+     *         If {@code ce} is equivalent to {@code owl:Thing} then the empty
+     *         {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce) {
+        return getSuperClasses(ce, false);
+    }
+
+    /**
      * Gets the set of named classes that are equivalent to the specified class
      * expression with respect to the set of reasoner axioms. The classes are
      * returned as a {@link org.semanticweb.owlapi.reasoner.Node}.
@@ -639,9 +740,8 @@ public interface OWLReasoner {
      *         {@code owl:Nothing}, i.e. the bottom node, will be returned. <br>
      *         If {@code ce} is equivalent to {@code owl:Thing} with respect to
      *         the set of reasoner axioms then the node representing and
-     *         containing {@code owl:Thing}, i.e. the top node, will be returned
-     *         <br>
-     *         .
+     *         containing {@code owl:Thing}, i.e. the top node, will be
+     *         returned.
      * @throws InconsistentOntologyException
      *         if the imports closure of the root ontology is inconsistent
      * @throws ClassExpressionNotInProfileException
@@ -765,6 +865,64 @@ public interface OWLReasoner {
     NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe, boolean direct);
 
     /**
+     * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression,
+     *      boolean) Gets the set of <a href="#spe">simplified object property
+     *      expressions</a> that are the strict (potentially direct)
+     *      subproperties of the specified object property expression with
+     *      respect to the imports closure of the root ontology. Note that the
+     *      properties are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe
+     *        The object property expression whose strict (direct) super
+     *        properties are to be retrieved.
+     * @param depth
+     *        Specifies if the direct subproperties should be retrived (
+     *        {@code DIRECT}) or if the all subproperties (descendants) should
+     *        be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} of
+     *         <a href="#spe">simplified object property expressions</a>, such
+     *         that for each <a href="#spe">simplified object property
+     *         expression</a>, {@code P}, in the {@code NodeSet} the set of
+     *         reasoner axioms entails {@code DirectSubObjectPropertyOf(P, pe)}.
+     *         <br>
+     *         If direct is {@code ALL}, a {@code NodeSet} of
+     *         <a href="#spe">simplified object property expressions</a>, such
+     *         that for each <a href="#spe">simplified object property
+     *         expression</a>, {@code P}, in the {@code NodeSet} the set of
+     *         reasoner axioms entails {@code StrictSubObjectPropertyOf(P, pe)}.
+     *         <br>
+     *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty}
+     *         then the empty {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe,
+        InferenceDepth depth) {
+        return getSubObjectProperties(pe, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression,
+     *      boolean) Gets the set of all <a href="#spe">simplified object
+     *      property expressions</a> that are the strict (potentially direct)
+     *      subproperties of the specified object property expression with
+     *      respect to the imports closure of the root ontology. Note that the
+     *      properties are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe
+     *        The object property expression whose strict (direct) super
+     *        properties are to be retrieved.
+     * @return A {@code NodeSet} of <a href="#spe">simplified object property
+     *         expressions</a>, such that for each <a href="#spe">simplified
+     *         object property expression</a>, {@code P}, in the {@code NodeSet}
+     *         the set of reasoner axioms entails
+     *         {@code StrictSubObjectPropertyOf(P, pe)}. <br>
+     *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty}
+     *         then the empty {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(OWLObjectPropertyExpression pe) {
+        return getSubObjectProperties(pe, false);
+    }
+
+    /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
      * that are the strict (potentially direct) super properties of the
      * specified object property expression with respect to the imports closure
@@ -808,6 +966,64 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe, boolean direct);
+
+    /**
+     * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression,
+     *      boolean) Gets the set of <a href="#spe">simplified object property
+     *      expressions</a> that are the strict (potentially direct) super
+     *      properties of the specified object property expression with respect
+     *      to the imports closure of the root ontology. Note that the
+     *      properties are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe
+     *        The object property expression whose strict (direct) super
+     *        properties are to be retrieved.
+     * @param depth
+     *        Specifies if the direct super properties should be retrived (
+     *        {@code DIRECT}) or if the all super properties (ancestors) should
+     *        be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} of
+     *         <a href="#spe">simplified object property expressions</a>, such
+     *         that for each <a href="#spe">simplified object property
+     *         expression</a>, {@code P}, in the {@code NodeSet}, the set of
+     *         reasoner axioms entails {@code DirectSubObjectPropertyOf(pe, P)}.
+     *         <br>
+     *         If depth is {@code ALL}, a {@code NodeSet} of
+     *         <a href="#spe">simplified object property expressions</a>, such
+     *         that for each <a href="#spe">simplified object property
+     *         expression</a>, {@code P}, in the {@code NodeSet}, the set of
+     *         reasoner axioms entails {@code StrictSubObjectPropertyOf(pe, P)}.
+     *         <br>
+     *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then
+     *         the empty {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe,
+        InferenceDepth depth) {
+        return getSuperObjectProperties(pe, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression,
+     *      boolean) Gets the set of all <a href="#spe">simplified object
+     *      property expressions</a> that are the strict (potentially direct)
+     *      super properties of the specified object property expression with
+     *      respect to the imports closure of the root ontology. Note that the
+     *      properties are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe
+     *        The object property expression whose strict (direct) super
+     *        properties are to be retrieved.
+     * @return A {@code NodeSet} of <a href="#spe">simplified object property
+     *         expressions</a>, such that for each <a href="#spe">simplified
+     *         object property expression</a>, {@code P}, in the {@code NodeSet}
+     *         , the set of reasoner axioms entails
+     *         {@code StrictSubObjectPropertyOf(pe, P)}. <br>
+     *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then
+     *         the empty {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(OWLObjectPropertyExpression pe) {
+        return getSuperObjectProperties(pe, false);
+    }
 
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
@@ -959,6 +1175,53 @@ public interface OWLReasoner {
     NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, boolean direct);
 
     /**
+     * @see OWLReasoner#getObjectPropertyDomains(OWLObjectPropertyExpression,
+     *      boolean) Gets the named classes that are the direct or indirect
+     *      domains of this property with respect to the imports closure of the
+     *      root ontology. The classes are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
+     * @param pe
+     *        The property expression whose domains are to be retrieved.
+     * @param depth
+     *        Specifies if the direct domains should be retrieved (
+     *        {@code DIRECT} ), or if all domains should be retrieved (
+     *        {@code ALL}).
+     * @return Let
+     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))}
+     *         . <br>
+     *         If {@code direct} is {@code DIRECT}: then if {@code N} is not
+     *         empty then the return value is {@code N}, else the return value
+     *         is the result of
+     *         {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), true)}
+     *         . <br>
+     *         If {@code direct} is {@code ALL}: then the result of
+     *         {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)}
+     *         together with {@code N} if {@code N} is non-empty.
+     */
+    default NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe, InferenceDepth depth) {
+        return getObjectPropertyDomains(pe, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getObjectPropertyDomains(OWLObjectPropertyExpression,
+     *      boolean) Gets the named classes that are the direct or indirect
+     *      domains of this property with respect to the imports closure of the
+     *      root ontology. The classes are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
+     * @param pe
+     *        The property expression whose domains are to be retrieved.
+     * @return Let
+     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(pe owl:Thing))}
+     *         . <br>
+     *         Return the result of
+     *         {@code getSuperClasses(ObjectSomeValuesFrom(pe owl:Thing), false)}
+     *         together with {@code N} if {@code N} is non-empty.
+     */
+    default NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe) {
+        return getObjectPropertyDomains(pe, false);
+    }
+
+    /**
      * Gets the named classes that are the direct or indirect ranges of this
      * property with respect to the imports closure of the root ontology. The
      * classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}
@@ -996,6 +1259,67 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, boolean direct);
+
+    /**
+     * @see OWLReasoner#getObjectPropertyRanges(OWLObjectPropertyExpression,
+     *      boolean) Gets the named classes that are the direct or indirect
+     *      ranges of this property with respect to the imports closure of the
+     *      root ontology. The classes are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
+     * @param pe
+     *        The property expression whose ranges are to be retrieved.
+     * @param depth
+     *        Specifies if the direct ranges should be retrieved (
+     *        {@code DIRECT} ), or if all ranges should be retrieved (
+     *        {@code ALL}).
+     * @return Let
+     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing))}
+     *         . <br>
+     *         If {@code depth} is {@code DIRECT}: then if {@code N} is not
+     *         empty then the return value is {@code N}, else the return value
+     *         is the result of
+     *         {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), true)}
+     *         . <br>
+     *         If {@code depth} is {@code ALL}: then the result of
+     *         {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), false)}
+     *         together with {@code N} if {@code N} is non-empty.
+     */
+    default NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe, InferenceDepth depth) {
+        return getObjectPropertyRanges(pe, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getObjectPropertyRanges(OWLObjectPropertyExpression,
+     *      boolean) Gets the named classes that are the direct or indirect
+     *      ranges of this property with respect to the imports closure of the
+     *      root ontology. The classes are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
+     * @param pe
+     *        The property expression whose ranges are to be retrieved.
+     * @return Let
+     *         {@code N = getEquivalentClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing))}
+     *         . <br>
+     *         Return the result of
+     *         {@code getSuperClasses(ObjectSomeValuesFrom(ObjectInverseOf(pe) owl:Thing), false)}
+     *         together with {@code N} if {@code N} is non-empty.
+     * @throws InconsistentOntologyException
+     *         if the imports closure of the root ontology is inconsistent
+     * @throws FreshEntitiesException
+     *         if the signature of the object property expression is not
+     *         contained within the signature of the imports closure of the root
+     *         ontology and the undeclared entity policy of this reasoner is set
+     *         to {@link FreshEntityPolicy#DISALLOW}.
+     * @throws ReasonerInterruptedException
+     *         if the reasoning process was interrupted for any particular
+     *         reason (for example if reasoning was cancelled by a client
+     *         process)
+     * @throws TimeOutException
+     *         if the reasoner timed out during a basic reasoning operation. See
+     *         {@link #getTimeOut()}.
+     */
+    default NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe) {
+        return getObjectPropertyRanges(pe, false);
+    }
 
     // Methods for dealing with the data property hierarchy
     /**
@@ -1063,6 +1387,53 @@ public interface OWLReasoner {
     NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, boolean direct);
 
     /**
+     * @see OWLReasoner#getSubDataProperties(OWLDataProperty, boolean) Gets the
+     *      set of named data properties that are the strict (potentially
+     *      direct) subproperties of the specified data property expression with
+     *      respect to the imports closure of the root ontology. Note that the
+     *      properties are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe
+     *        The data property whose strict (direct) subproperties are to be
+     *        retrieved.
+     * @param depth
+     *        Specifies if the direct subproperties should be retrived (
+     *        {@code DIRECT}) or if the all subproperties (descendants) should
+     *        be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each
+     *         property {@code P} in the {@code NodeSet} the set of reasoner
+     *         axioms entails {@code DirectSubDataPropertyOf(P, pe)}. <br>
+     *         If depth is {@code ALL}, a {@code NodeSet} such that for each
+     *         property {@code P} in the {@code NodeSet} the set of reasoner
+     *         axioms entails {@code StrictSubDataPropertyOf(P, pe)}. <br>
+     *         If {@code pe} is equivalent to {@code owl:bottomDataProperty}
+     *         then the empty {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe, InferenceDepth depth) {
+        return getSubDataProperties(pe, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getSubDataProperties(OWLDataProperty, boolean) Gets the
+     *      set of named data properties that are the strict (potentially
+     *      direct) subproperties of the specified data property expression with
+     *      respect to the imports closure of the root ontology. Note that the
+     *      properties are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe
+     *        The data property whose strict (direct) subproperties are to be
+     *        retrieved.
+     * @return a {@code NodeSet} such that for each property {@code P} in the
+     *         {@code NodeSet} the set of reasoner axioms entails
+     *         {@code StrictSubDataPropertyOf(P, pe)}. <br>
+     *         If {@code pe} is equivalent to {@code owl:bottomDataProperty}
+     *         then the empty {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe) {
+        return getSubDataProperties(pe, false);
+    }
+
+    /**
      * Gets the set of named data properties that are the strict (potentially
      * direct) super properties of the specified data property with respect to
      * the imports closure of the root ontology. Note that the properties are
@@ -1099,6 +1470,53 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe, boolean direct);
+
+    /**
+     * @see OWLReasoner#getSuperDataProperties(OWLDataProperty, boolean) Gets
+     *      the set of named data properties that are the strict (potentially
+     *      direct) super properties of the specified data property with respect
+     *      to the imports closure of the root ontology. Note that the
+     *      properties are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe
+     *        The data property whose strict (direct) super properties are to be
+     *        retrieved.
+     * @param depth
+     *        Specifies if the direct super properties should be retrived (
+     *        {@code DIRECT}) or if the all super properties (ancestors) should
+     *        be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each
+     *         property {@code P} in the {@code NodeSet} the set of reasoner
+     *         axioms entails {@code DirectSubDataPropertyOf(pe, P)}. <br>
+     *         If depth is {@code ALL}, a {@code NodeSet} such that for each
+     *         property {@code P} in the {@code NodeSet} the set of reasoner
+     *         axioms entails {@code StrictSubDataPropertyOf(pe, P)}. <br>
+     *         If {@code pe} is equivalent to {@code owl:topDataProperty} then
+     *         the empty {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe, InferenceDepth depth) {
+        return getSuperDataProperties(pe, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getSuperDataProperties(OWLDataProperty, boolean) Gets
+     *      the set of named data properties that are the strict (potentially
+     *      direct) super properties of the specified data property with respect
+     *      to the imports closure of the root ontology. Note that the
+     *      properties are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param pe
+     *        The data property whose strict (direct) super properties are to be
+     *        retrieved.
+     * @return a {@code NodeSet} such that for each property {@code P} in the
+     *         {@code NodeSet} the set of reasoner axioms entails
+     *         {@code StrictSubDataPropertyOf(pe, P)}. <br>
+     *         If {@code pe} is equivalent to {@code owl:topDataProperty} then
+     *         the empty {@code NodeSet} will be returned.
+     */
+    default NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe) {
+        return getSuperDataProperties(pe, false);
+    }
 
     /**
      * Gets the set of named data properties that are equivalent to the
@@ -1215,6 +1633,55 @@ public interface OWLReasoner {
      */
     NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, boolean direct);
 
+    /**
+     * @see OWLReasoner#getDataPropertyDomains(OWLDataProperty, boolean) Gets
+     *      the named classes that are the direct or indirect domains of this
+     *      property with respect to the imports closure of the root ontology.
+     *      The classes are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
+     * @param pe
+     *        The property expression whose domains are to be retrieved.
+     * @param depth
+     *        Specifies if the direct domains should be retrieved (
+     *        {@code DIRECT} ), or if all domains should be retrieved (
+     *        {@code ALL}).
+     * @return Let
+     *         {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))}
+     *         . <br>
+     *         If {@code depth} is {@code DIRECT}: then if {@code N} is not
+     *         empty then the return value is {@code N}, else the return value
+     *         is the result of
+     *         {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), true)}
+     *         . <br>
+     *         If {@code direct} is {@code ALL}: then the result of
+     *         {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)}
+     *         together with {@code N} if {@code N} is non-empty. <br>
+     *         (Note, {@code rdfs:Literal} is the top datatype).
+     */
+    default NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, InferenceDepth depth) {
+        return getDataPropertyDomains(pe, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getDataPropertyDomains(OWLDataProperty, boolean) Gets
+     *      the named classes that are the direct or indirect domains of this
+     *      property with respect to the imports closure of the root ontology.
+     *      The classes are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet} .
+     * @param pe
+     *        The property expression whose domains are to be retrieved.
+     * @return Let
+     *         {@code N = getEquivalentClasses(DataSomeValuesFrom(pe rdfs:Literal))}
+     *         . <br>
+     *         Return the result of
+     *         {@code getSuperClasses(DataSomeValuesFrom(pe rdfs:Literal), false)}
+     *         together with {@code N} if {@code N} is non-empty. <br>
+     *         (Note, {@code rdfs:Literal} is the top datatype).
+     */
+    default NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe) {
+        return getDataPropertyDomains(pe, false);
+    }
+
     // Methods for dealing with individuals and their types
     /**
      * Gets the named classes which are (potentially direct) types of the
@@ -1250,6 +1717,44 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct);
+
+    /**
+     * @see OWLReasoner#getTypes(OWLNamedIndividual, boolean) Gets the named
+     *      classes which are (potentially direct) types of the specified named
+     *      individual. The classes are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param ind
+     *        The individual whose types are to be retrieved.
+     * @param depth
+     *        Specifies if the direct types should be retrieved ( {@code DIRECT}
+     *        ), or if all types should be retrieved ( {@code ALL}).
+     * @return If {@code depth} is {@code DIRECT}, a {@code NodeSet} containing
+     *         named classes such that for each named class {@code C} in the
+     *         node set, the set of reasoner axioms entails
+     *         {@code DirectClassAssertion(C, ind)}. <br>
+     *         If {@code depth} is {@code ALL}, a {@code NodeSet} containing
+     *         named classes such that for each named class {@code C} in the
+     *         node set, the set of reasoner axioms entails
+     *         {@code ClassAssertion(C, ind)}. <br>
+     */
+    default NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, InferenceDepth depth) {
+        return getTypes(ind, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getTypes(OWLNamedIndividual, boolean) Gets the named
+     *      classes which are (potentially direct) types of the specified named
+     *      individual. The classes are returned as a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param ind
+     *        The individual whose types are to be retrieved.
+     * @return a {@code NodeSet} containing named classes such that for each
+     *         named class {@code C} in the node set, the set of reasoner axioms
+     *         entails {@code ClassAssertion(C, ind)}. <br>
+     */
+    default NodeSet<OWLClass> getTypes(OWLNamedIndividual ind) {
+        return getTypes(ind, false);
+    }
 
     /**
      * Gets the individuals which are instances of the specified class
@@ -1292,6 +1797,49 @@ public interface OWLReasoner {
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
     NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, boolean direct);
+
+    /**
+     * @see OWLReasoner#getInstances(OWLClassExpression, boolean) Gets the
+     *      individuals which are instances of the specified class expression.
+     *      The individuals are returned a a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param ce
+     *        The class expression whose instances are to be retrieved.
+     * @param depth
+     *        Specifies if the direct instances should be retrieved (
+     *        {@code DIRECT}), or if all instances should be retrieved (
+     *        {@code ALL}).
+     * @return If {@code depth} is {@code DIRECT}, a {@code NodeSet} containing
+     *         named individuals such that for each named individual {@code j}
+     *         in the node set, the set of reasoner axioms entails
+     *         {@code DirectClassAssertion(ce, j)}. <br>
+     *         If {@code depth} is {@code ALL}, a {@code NodeSet} containing
+     *         named individuals such that for each named individual {@code j}
+     *         in the node set, the set of reasoner axioms entails
+     *         {@code ClassAssertion(ce, j)}. <br>
+     *         If ce is unsatisfiable with respect to the set of reasoner axioms
+     *         then the empty {@code NodeSet} is returned.
+     */
+    default NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce, InferenceDepth depth) {
+        return getInstances(ce, depth.isDirectOnly());
+    }
+
+    /**
+     * @see OWLReasoner#getInstances(OWLClassExpression, boolean) Gets the
+     *      individuals which are instances of the specified class expression.
+     *      The individuals are returned a a
+     *      {@link org.semanticweb.owlapi.reasoner.NodeSet}.
+     * @param ce
+     *        The class expression whose instances are to be retrieved.
+     * @return a {@code NodeSet} containing named individuals such that for each
+     *         named individual {@code j} in the node set, the set of reasoner
+     *         axioms entails {@code ClassAssertion(ce, j)}. <br>
+     *         If ce is unsatisfiable with respect to the set of reasoner axioms
+     *         then the empty {@code NodeSet} is returned.
+     */
+    default NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce) {
+        return getInstances(ce, false);
+    }
 
     /**
      * Gets the object property values for the specified individual and object
