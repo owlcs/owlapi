@@ -5,10 +5,9 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Date;
 
-import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
+@SuppressWarnings("javadoc")
 public class GazetteerMemoryBenchmark {
 
     public static void main(String[] args) throws Exception {
@@ -16,10 +15,9 @@ public class GazetteerMemoryBenchmark {
             .getPath("gazetteer" + new Date() + ".hprof"));
     }
 
-    public static void memoryProfile(Path ontologyPath, Path hprofPath) throws OWLOntologyCreationException,
-        IOException {
+    public static void memoryProfile(Path ontologyPath, Path hprofPath) throws IOException {
         OBOFormatParser parser = new OBOFormatParser();
-        OBODoc parse = parser.parse(ontologyPath.toFile());
+        parser.parse(ontologyPath.toFile());
         MemoryBenchmark.getDiagnostics().dumpHeap(hprofPath.toString(), true);
     }
 }

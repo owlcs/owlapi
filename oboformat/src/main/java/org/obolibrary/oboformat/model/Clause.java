@@ -82,7 +82,7 @@ public class Clause {
      * data structures can be adjusted to increase performance, or reduce memory
      * consumption.
      */
-        void freeze() {
+    void freeze() {
         freezeValues();
         freezeXrefs();
         freezeQualifiers();
@@ -98,7 +98,7 @@ public class Clause {
                 values = Collections.singletonList(o);
                 break;
             default:
-                ((ArrayList) values).trimToSize();
+                ((ArrayList<?>) values).trimToSize();
         }
     }
 
@@ -113,7 +113,7 @@ public class Clause {
                 break;
             default:
                 if (xrefs instanceof ArrayList) {
-                    ((ArrayList) xrefs).trimToSize();
+                    ((ArrayList<?>) xrefs).trimToSize();
                 }
         }
     }
@@ -129,7 +129,7 @@ public class Clause {
                 break;
             default:
                 if (qualifierValues instanceof ArrayList) {
-                    ((ArrayList) qualifierValues).trimToSize();
+                    ((ArrayList<?>) qualifierValues).trimToSize();
                 }
         }
     }

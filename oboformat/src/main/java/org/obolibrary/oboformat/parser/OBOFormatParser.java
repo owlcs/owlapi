@@ -36,7 +36,7 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
     protected final MyStream stream;
-    public final com.google.common.cache.LoadingCache<String, String> stringCache;
+    private final com.google.common.cache.LoadingCache<String, String> stringCache;
 
     /**
      *
@@ -47,6 +47,7 @@ public class OBOFormatParser {
 
     /**
      * @param s
+     *        input stream
      */
     protected OBOFormatParser(MyStream s) {
         stream = s;
@@ -60,7 +61,7 @@ public class OBOFormatParser {
         CacheLoader<String, String> loader = new CacheLoader<String, String>() {
 
             @Override
-            public String load(String key) throws Exception {
+            public String load(String key) {
                 return key;
             }
         };

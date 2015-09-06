@@ -152,6 +152,16 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
     }
 
     /**
+     * Remove the argument.
+     * 
+     * @param c
+     *        element to remove
+     */
+    public void remove(T c) {
+        delegate.remove(c);
+    }
+
+    /**
      * Rmove all elements from the collection.
      */
     public void clear() {

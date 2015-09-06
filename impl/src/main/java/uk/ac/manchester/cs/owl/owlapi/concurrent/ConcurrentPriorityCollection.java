@@ -124,6 +124,16 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
     }
 
     @Override
+    public void remove(T c) {
+        writeLock.lock();
+        try {
+            super.remove(c);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    @Override
     public void clear() {
         writeLock.lock();
         try {

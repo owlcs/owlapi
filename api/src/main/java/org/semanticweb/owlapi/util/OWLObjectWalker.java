@@ -118,6 +118,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      *        true if duplicates should be visited
      * @param objects
      *        the set of objects to visit
+     * @param walkFlag
+     *        control which annotations to visit
      */
     public OWLObjectWalker(Collection<O> objects, boolean visitDuplicates, AnnotationWalkingControl walkFlag) {
         this(objects.stream(), visitDuplicates, walkFlag);
