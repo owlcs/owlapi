@@ -14,13 +14,13 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * This composite change adds a 'closure' axiom to an ontology for a given class
@@ -58,32 +58,32 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
      *        The target ontology that changes will be applied to.
      */
     public AddClassExpressionClosureAxiom(OWLDataFactory dataFactory, OWLClass cls,
-            OWLObjectPropertyExpression property, Set<OWLOntology> ontologies, OWLOntology targetOntology) {
+        OWLObjectPropertyExpression property, Collection<OWLOntology> ontologies, OWLOntology targetOntology) {
         super(dataFactory);
         generateChanges(checkNotNull(cls, "cls cannot be null"), checkNotNull(property, "property cannot be null"),
-                checkNotNull(ontologies, "ontologies cannot be null"),
-                checkNotNull(targetOntology, "targetOntology cannot be null"));
+            checkNotNull(ontologies, "ontologies cannot be null"),
+            checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 
-    private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property, Set<OWLOntology> ontologies,
-            OWLOntology targetOntology) {
+    private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property, Collection<OWLOntology> ontologies,
+        OWLOntology targetOntology) {
         // We collect all of the fillers for existential restrictions along
         // the target property and all of the fillers for hasValue restrictions
         // as nominals
         FillerCollector collector = new FillerCollector(property);
         ontologies.forEach(o -> o.subClassAxiomsForSubClass(cls).forEach(ax -> ax.getSuperClass().accept(collector)));
-        Set<OWLClassExpression> fillers = collector.getFillers();
-        if (fillers.isEmpty()) {
+        if (collector.fillers.isEmpty()) {
             return;
         }
-        OWLClassExpression closureAxiomDesc = df.getOWLObjectAllValuesFrom(property, df.getOWLObjectUnionOf(fillers));
+        OWLObjectUnionOf union = df.getOWLObjectUnionOf(collector.fillers);
+        OWLClassExpression closureAxiomDesc = df.getOWLObjectAllValuesFrom(property, union);
         addChange(new AddAxiom(targetOntology, df.getOWLSubClassOfAxiom(cls, closureAxiomDesc)));
     }
 
     private class FillerCollector implements OWLClassExpressionVisitor {
 
-        private final @Nonnull Set<OWLClassExpression> fillers = new HashSet<>();
-        private final @Nonnull OWLObjectPropertyExpression property;
+        final @Nonnull List<OWLClassExpression> fillers = new ArrayList<>();
+        final @Nonnull OWLObjectPropertyExpression property;
 
         /**
          * @param p
@@ -91,13 +91,6 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
          */
         FillerCollector(OWLObjectPropertyExpression p) {
             property = checkNotNull(p, "p cannot be null");
-        }
-
-        /**
-         * @return the fillers
-         */
-        public Set<OWLClassExpression> getFillers() {
-            return fillers;
         }
 
         @Override
@@ -110,7 +103,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
         @Override
         public void visit(OWLObjectHasValue ce) {
             if (ce.getProperty().equals(property)) {
-                fillers.add(df.getOWLObjectOneOf(CollectionFactory.createSet(ce.getFiller())));
+                fillers.add(df.getOWLObjectOneOf(ce.getFiller()));
             }
         }
     }

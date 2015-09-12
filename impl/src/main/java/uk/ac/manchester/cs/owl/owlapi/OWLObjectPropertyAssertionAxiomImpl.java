@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -26,8 +25,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLObjectPropertyAssertionAxiomImpl
-        extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
-        implements OWLObjectPropertyAssertionAxiom {
+    extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
+    implements OWLObjectPropertyAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -42,7 +41,7 @@ public class OWLObjectPropertyAssertionAxiomImpl
      *        annotations
      */
     public OWLObjectPropertyAssertionAxiomImpl(OWLIndividual subject, OWLObjectPropertyExpression property,
-            OWLIndividual object, Collection<OWLAnnotation> annotations) {
+        OWLIndividual object, Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
@@ -56,8 +55,8 @@ public class OWLObjectPropertyAssertionAxiomImpl
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(CollectionFactory.createSet(getSubject())),
-                new OWLObjectHasValueImpl(getProperty(), getObject()), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
+            new OWLObjectHasValueImpl(getProperty(), getObject()), NO_ANNOTATIONS);
     }
 
     @Override

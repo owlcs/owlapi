@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -26,8 +25,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLNegativeDataPropertyAssertionAxiomImpl
-        extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
-        implements OWLNegativeDataPropertyAssertionAxiom {
+    extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
+    implements OWLNegativeDataPropertyAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -42,14 +41,14 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
      *        annotations
      */
     public OWLNegativeDataPropertyAssertionAxiomImpl(OWLIndividual subject, OWLDataPropertyExpression property,
-            OWLLiteral object, Collection<OWLAnnotation> annotations) {
+        OWLLiteral object, Collection<OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(CollectionFactory.createSet(getSubject())),
-                new OWLObjectComplementOfImpl(new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getSubject()),
+            new OWLObjectComplementOfImpl(new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
     @Override
     public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(),
-                mergeAnnos(anns));
+            mergeAnnos(anns));
     }
 
     @Override

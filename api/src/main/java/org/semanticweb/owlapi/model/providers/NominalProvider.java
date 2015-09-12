@@ -12,9 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.providers;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -56,7 +57,16 @@ public interface NominalProvider {
      *        indivudals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals
      */
-    OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values);
+    OWLObjectOneOf getOWLObjectOneOf(Stream<? extends OWLIndividual> values);
+
+    /**
+     * @param values
+     *        indivudals for restriction. Cannot be null or contain nulls.
+     * @return a OneOf expression on specified individuals
+     */
+    default OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values) {
+        return getOWLObjectOneOf(checkNotNull(values, "values cannot be null").stream());
+    }
 
     /**
      * @param individuals
@@ -64,7 +74,7 @@ public interface NominalProvider {
      * @return a OneOf expression on specified individuals
      */
     default OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals) {
-        checkIterableNotNull(individuals, "individuals cannot be null", true);
-        return getOWLObjectOneOf(CollectionFactory.createSet(individuals));
+        checkNotNull(individuals, "individuals cannot be null");
+        return getOWLObjectOneOf(Stream.of(individuals));
     }
 }

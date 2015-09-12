@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -43,7 +42,7 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
      *        annotations on the axiom
      */
     public OWLClassAssertionAxiomImpl(OWLIndividual individual, OWLClassExpression classExpression,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.individual = checkNotNull(individual, "individual cannot be null");
         this.classExpression = checkNotNull(classExpression, "classExpression cannot be null");
@@ -89,8 +88,8 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(CollectionFactory.createSet(getIndividual())),
-                getClassExpression(), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getIndividual()),
+            getClassExpression(), NO_ANNOTATIONS);
     }
 
     @Override

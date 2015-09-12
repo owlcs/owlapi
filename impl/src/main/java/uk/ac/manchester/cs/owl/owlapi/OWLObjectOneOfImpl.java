@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,9 +49,17 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
      * @param values
      *        values for oneof
      */
-    public OWLObjectOneOfImpl(Collection<? extends OWLIndividual> values) {
-        Collection<? extends OWLIndividual> vals = checkNotNull(values, "values cannot be null");
-        this.values = asList(vals.stream().sorted());
+    public OWLObjectOneOfImpl(Stream<? extends OWLIndividual> values) {
+        checkNotNull(values, "values cannot be null");
+        this.values = asListNullsForbidden(values.distinct().sorted());
+    }
+
+    /**
+     * @param values
+     *        values for oneof
+     */
+    public OWLObjectOneOfImpl(OWLIndividual... values) {
+        this(Stream.of(values));
     }
 
     /**
@@ -61,7 +67,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
      *        value for oneof
      */
     public OWLObjectOneOfImpl(OWLIndividual value) {
-        values = Arrays.asList(checkNotNull(value, "value cannot be null"));
+        this(Stream.of(value));
     }
 
     @Override

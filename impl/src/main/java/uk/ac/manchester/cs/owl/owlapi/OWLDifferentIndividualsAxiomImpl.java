@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
-
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -27,7 +25,7 @@ import org.semanticweb.owlapi.model.*;
  * @since 2.0.0
  */
 public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
-        implements OWLDifferentIndividualsAxiom {
+    implements OWLDifferentIndividualsAxiom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -38,7 +36,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
      *        annotations on the axiom
      */
     public OWLDifferentIndividualsAxiomImpl(Collection<? extends OWLIndividual> individuals,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 
@@ -63,7 +61,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
                 OWLIndividual indI = individuals.get(i);
                 OWLIndividual indJ = individuals.get(j);
                 result.add(
-                        new OWLDifferentIndividualsAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), NO_ANNOTATIONS));
+                    new OWLDifferentIndividualsAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -102,7 +100,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
-        individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(createSet(i))));
+        individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(i)));
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             for (int j = i + 1; j < nominalsList.size(); j++) {

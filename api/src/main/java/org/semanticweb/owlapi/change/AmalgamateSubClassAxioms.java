@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
      * @param ontologies
      *        the ontologies to use
      */
-    public AmalgamateSubClassAxioms(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
+    public AmalgamateSubClassAxioms(OWLDataFactory dataFactory, Collection<OWLOntology> ontologies) {
         super(dataFactory);
         checkNotNull(ontologies, "ontologies cannot be null");
         ontologies.forEach(o -> o.classesInSignature().forEach(cls -> amalgamate(o, cls)));
@@ -59,7 +60,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
         axioms.forEach(ax -> {
             addChange(new RemoveAxiom(ont, ax));
             superClasses.add(ax.getSuperClass());
-        } );
+        });
         addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls, df.getOWLObjectIntersectionOf(superClasses))));
     }
 }

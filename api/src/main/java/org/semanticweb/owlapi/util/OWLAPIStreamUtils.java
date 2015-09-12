@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
@@ -44,6 +46,17 @@ public class OWLAPIStreamUtils {
     public static <T> List<T> asList(Stream<T> s) {
         List<T> set = new ArrayList<>();
         s.forEach(x -> set.add(x));
+        return set;
+    }
+
+    /**
+     * @param s
+     *        stream to turn to list. The stream is consumed by this operation.
+     * @return list including all elements in the stream
+     */
+    public static <T> List<T> asListNullsForbidden(Stream<T> s) {
+        List<T> set = new ArrayList<>();
+        s.forEach(x -> set.add(checkNotNull(x)));
         return set;
     }
 

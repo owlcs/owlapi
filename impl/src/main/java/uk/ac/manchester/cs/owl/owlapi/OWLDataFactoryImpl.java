@@ -345,8 +345,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
-    public OWLObjectOneOf getOWLObjectOneOf(Collection<? extends OWLIndividual> values) {
-        checkIterableNotNull(values, "values cannot be null", true);
+    public OWLObjectOneOf getOWLObjectOneOf(Stream<? extends OWLIndividual> values) {
         return new OWLObjectOneOfImpl(values);
     }
 
