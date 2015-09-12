@@ -256,8 +256,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
-    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(Collection<? extends OWLClassExpression> operands) {
-        checkIterableNotNull(operands, "operands cannot be null", true);
+    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(Stream<? extends OWLClassExpression> operands) {
         return new OWLObjectIntersectionOfImpl(operands);
     }
 
@@ -420,8 +419,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
-    public OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
-        checkIterableNotNull(operands, "operands cannot be null", true);
+    public OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands) {
         return new OWLObjectUnionOfImpl(operands);
     }
 

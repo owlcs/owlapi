@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -29,7 +28,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
-        implements OWLObjectExactCardinality {
+    implements OWLObjectExactCardinality {
 
     private static final long serialVersionUID = 40000L;
 
@@ -47,7 +46,7 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
      *        filler
      */
     public OWLObjectExactCardinalityImpl(OWLObjectPropertyExpression property, int cardinality,
-            OWLClassExpression filler) {
+        OWLClassExpression filler) {
         super(property, cardinality, filler);
     }
 
@@ -69,8 +68,8 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
 
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
-        return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(
-                Arrays.asList(new OWLObjectMinCardinalityImpl(getProperty(), getCardinality(), getFiller()),
-                        new OWLObjectMaxCardinalityImpl(getProperty(), getCardinality(), getFiller()))));
+        return new OWLObjectIntersectionOfImpl(Stream.of(
+            new OWLObjectMinCardinalityImpl(getProperty(), getCardinality(), getFiller()),
+            new OWLObjectMaxCardinalityImpl(getProperty(), getCardinality(), getFiller())));
     }
 }

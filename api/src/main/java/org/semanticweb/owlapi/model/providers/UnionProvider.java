@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model.providers;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkIterableNotNull;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -49,7 +50,16 @@ public interface UnionProvider {
      *        class expressions for union
      * @return a class union over the specified arguments
      */
-    OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands);
+    OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands);
+
+    /**
+     * @param operands
+     *        class expressions for union
+     * @return a class union over the specified arguments
+     */
+    default OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
+        return getOWLObjectUnionOf(operands.stream());
+    }
 
     /**
      * @param operands

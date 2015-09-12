@@ -105,7 +105,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
 
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
-        return new OWLEquivalentClassesAxiomImpl(Sets.newHashSet(owlClass, new OWLObjectUnionOfImpl(classExpressions)),
+        return new OWLEquivalentClassesAxiomImpl(
+            Sets.newHashSet(owlClass, new OWLObjectUnionOfImpl(classExpressions.stream())),
             NO_ANNOTATIONS);
     }
 

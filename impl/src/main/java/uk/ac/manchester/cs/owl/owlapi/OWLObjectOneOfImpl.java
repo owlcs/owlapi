@@ -15,9 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -85,9 +83,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
         if (values.size() == 1) {
             return this;
         } else {
-            Set<OWLClassExpression> ops = new HashSet<>();
-            individuals().forEach(i -> ops.add(new OWLObjectOneOfImpl(i)));
-            return new OWLObjectUnionOfImpl(ops);
+            return new OWLObjectUnionOfImpl(individuals().map(i -> new OWLObjectOneOfImpl(i)));
         }
     }
 

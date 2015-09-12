@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -32,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @since 2.0.0
  */
 public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
-        implements OWLNaryBooleanClassExpression {
+    implements OWLNaryBooleanClassExpression {
 
     private static final long serialVersionUID = 40000L;
     private final @Nonnull List<? extends OWLClassExpression> operands;
@@ -41,9 +40,9 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
      * @param operands
      *        operands
      */
-    public OWLNaryBooleanClassExpressionImpl(Collection<? extends OWLClassExpression> operands) {
-        Collection<? extends OWLClassExpression> ops = checkNotNull(operands, "operands cannot be null");
-        this.operands = asList(ops.stream().sorted());
+    public OWLNaryBooleanClassExpressionImpl(Stream<? extends OWLClassExpression> operands) {
+        checkNotNull(operands, "operands cannot be null");
+        this.operands = asListNullsForbidden(operands.distinct().sorted());
     }
 
     @Override
