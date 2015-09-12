@@ -342,7 +342,7 @@ public class OutputSyntaxSortTestCase extends TestBase {
             "DataPropertyAssertion(<urn:dp> _:genid1 \"true\"^^xsd:boolean)\n" +
             "AnnotationAssertion(<urn:ap> <urn:i> \"true\"^^xsd:boolean))"
     };
-    private OWLDocumentFormat format;
+    private final OWLDocumentFormat format;
 
     public OutputSyntaxSortTestCase(OWLDocumentFormat format) {
         this.format = format;

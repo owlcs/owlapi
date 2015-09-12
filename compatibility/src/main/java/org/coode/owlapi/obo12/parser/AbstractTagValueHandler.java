@@ -128,7 +128,7 @@ interface TagValueHandler {
 abstract class AbstractTagValueHandler implements TagValueHandler {
 
     private final @Nonnull String tag;
-    private @Nonnull OBOConsumer consumer;
+    private final @Nonnull OBOConsumer consumer;
 
     public AbstractTagValueHandler(String tag, OBOConsumer consumer) {
         this.tag = tag;
@@ -268,7 +268,7 @@ class AltIdTagValueHandler extends AbstractTagValueHandler {
         OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(OBOVocabulary.ALT_ID);
         IRI object = getIRIFromOBOId(value);
         OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
-                object);
+            object);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
@@ -399,7 +399,7 @@ class DefTagValueHandler extends AbstractTagValueHandler {
         OWLEntity currentEntity = getConsumer().getCurrentEntity();
         OWLLiteral literal = df.getOWLLiteral(annotationValue);
         OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(property, currentEntity.getIRI(), literal,
-                xrefAnnotations);
+            xrefAnnotations);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 
@@ -424,7 +424,7 @@ class DisjointFromHandler extends AbstractTagValueHandler {
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         OWLAxiom ax = getDataFactory()
-                .getOWLDisjointClassesAxiom(CollectionFactory.createSet(getCurrentClass(), getOWLClass(value)));
+            .getOWLDisjointClassesAxiom(CollectionFactory.createSet(getCurrentClass(), getOWLClass(value)));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
@@ -499,7 +499,7 @@ class InverseHandler extends AbstractTagValueHandler {
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         OWLAxiom ax = getDataFactory().getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty(currentId),
-                getOWLObjectProperty(value));
+            getOWLObjectProperty(value));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
@@ -515,11 +515,11 @@ class IsATagValueHandler extends AbstractTagValueHandler {
         if (getConsumer().isTerm()) {
             // We simply add a subclass axiom
             applyChange(new AddAxiom(getOntology(),
-                    getDataFactory().getOWLSubClassOfAxiom(getClassFromId(currentId), getClassFromId(value))));
+                getDataFactory().getOWLSubClassOfAxiom(getClassFromId(currentId), getClassFromId(value))));
         } else if (getConsumer().isTypedef()) {
             // We simply add a sub property axiom
             applyChange(new AddAxiom(getOntology(), getDataFactory()
-                    .getOWLSubObjectPropertyOfAxiom(getOWLObjectProperty(currentId), getOWLObjectProperty(value))));
+                .getOWLSubObjectPropertyOfAxiom(getOWLObjectProperty(currentId), getOWLObjectProperty(value))));
         }
     }
 }
@@ -537,7 +537,7 @@ class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
         OWLLiteral annotationValue = df.getOWLLiteral(true);
         IRI subject = getIRIFromOBOId(currentId);
         OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(deprecatedProperty, subject,
-                annotationValue);
+            annotationValue);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
@@ -561,7 +561,7 @@ class NameTagValueHandler extends AbstractTagValueHandler {
         }
         OWLLiteral con = getDataFactory().getOWLLiteral(value);
         OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getRDFSLabel(), ent.getIRI(),
-                con);
+            con);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
@@ -601,10 +601,10 @@ class PartOfTagValueHandler extends AbstractTagValueHandler {
 class RawFrameHandler implements OBOParserHandler {
 
     private String currentFrameType;
-    private List<OBOTagValuePair> currentTagValuePairs = new ArrayList<>();
+    private final List<OBOTagValuePair> currentTagValuePairs = new ArrayList<>();
     private OBOFrame headerFrame;
-    private List<OBOFrame> typeDefFrames = new ArrayList<>();
-    private List<OBOFrame> nonTypeDefFrames = new ArrayList<>();
+    private final List<OBOFrame> typeDefFrames = new ArrayList<>();
+    private final List<OBOFrame> nonTypeDefFrames = new ArrayList<>();
 
     @Override
     public void startHeader() {
@@ -685,7 +685,7 @@ class ReflexiveHandler extends AbstractTagValueHandler {
 
 class RelationshipTagValueHandler extends AbstractTagValueHandler {
 
-    private Pattern tagValuePattern = Pattern.compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
+    private final Pattern tagValuePattern = Pattern.compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
 
     public RelationshipTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
@@ -730,7 +730,7 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     private static final @Nonnull String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
     private static final Pattern VALUEPATTERN = Pattern
-            .compile("\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
+        .compile("\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
     private static final int VALUE_GROUP = 1;
     private static final int SCOPE_GROUP = 2;
     private static final int SYNONYM_TYPE_GROUP = 3;
@@ -755,7 +755,7 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
             String synonym = matcher.group(VALUE_GROUP);
             OWLLiteral synonymLiteral = df.getOWLLiteral(synonym);
             OWLAnnotationAssertionAxiom annoAssertion = df.getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
-                    synonymLiteral, annotations);
+                synonymLiteral, annotations);
             applyChange(new AddAxiom(getOntology(), annoAssertion));
         }
     }
@@ -830,10 +830,10 @@ class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
             IRI subsetdefIRI = getTagIRI(OBOVocabulary.SUBSETDEF.getName());
             OWLAnnotationProperty subsetdefAnnotationProperty = df.getOWLAnnotationProperty(subsetdefIRI);
             applyChange(new AddAxiom(getOntology(),
-                    df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty, subsetdefAnnotationProperty)));
+                df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty, subsetdefAnnotationProperty)));
             OWLLiteral nameLiteral = df.getOWLLiteral(name);
             applyChange(new AddAxiom(getOntology(),
-                    df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), annotationPropertyIRI, nameLiteral)));
+                df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(), annotationPropertyIRI, nameLiteral)));
         } else {
             OWLAnnotation annotation = getAnnotationForTagValuePair(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);
             applyChange(new AddOntologyAnnotation(getOntology(), annotation));
@@ -907,7 +907,7 @@ class XRefTagHandler extends AbstractTagValueHandler {
         OWLAnnotation xrefAnnotation = getConsumer().parseXRef(value);
         IRI subject = getIRIFromOBOId(currentId);
         OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(xrefAnnotation.getProperty(),
-                subject, xrefAnnotation.getValue());
+            subject, xrefAnnotation.getValue());
         applyChange(new AddAxiom(getOntology(), ax));
         if (getConsumer().isTypedef() && xrefAnnotation.getValue() instanceof IRI) {
             IRI xrefIRI = (IRI) xrefAnnotation.getValue();

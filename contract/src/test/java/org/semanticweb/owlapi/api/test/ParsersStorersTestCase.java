@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorerFactory;
 @RunWith(Parameterized.class)
 public class ParsersStorersTestCase extends TestBase {
 
-    private OWLAxiom object;
+    private final OWLAxiom object;
 
     public ParsersStorersTestCase(OWLAxiom object) {
         this.object = object;

@@ -27,8 +27,8 @@ import org.semanticweb.owlapi.util.StructuralTransformation;
 @RunWith(Parameterized.class)
 public class StructuralTransformationTestCase {
 
-    private OWLAxiom object;
-    private String expected;
+    private final OWLAxiom object;
+    private final String expected;
 
     public StructuralTransformationTestCase(OWLAxiom object, String expected) {
         this.object = object;

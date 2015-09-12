@@ -192,8 +192,8 @@ public class BuildersTestCase {
         return toReturn;
     }
 
-    private Builder<?> b;
-    private Object expected;
+    private final Builder<?> b;
+    private final Object expected;
 
     public BuildersTestCase(Builder<?> b, Object o) {
         this.b = b;

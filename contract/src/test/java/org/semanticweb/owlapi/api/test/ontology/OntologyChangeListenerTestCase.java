@@ -58,16 +58,12 @@ public class OntologyChangeListenerTestCase extends TestBase {
                 }
             }
         });
-        ont.getOWLOntologyManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
-
-            @Override
-            public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes) {
-                for (OWLOntologyChange change : changes) {
-                    if (change.isAddAxiom()) {
-                        additions.add(change.getAxiom());
-                    } else if (change.isRemoveAxiom()) {
-                        removals.add(change.getAxiom());
-                    }
+        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> {
+            for (OWLOntologyChange change : changes) {
+                if (change.isAddAxiom()) {
+                    additions.add(change.getAxiom());
+                } else if (change.isRemoveAxiom()) {
+                    removals.add(change.getAxiom());
                 }
             }
         });

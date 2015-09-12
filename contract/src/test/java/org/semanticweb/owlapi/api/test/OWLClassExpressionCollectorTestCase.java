@@ -54,8 +54,8 @@ public class OWLClassExpressionCollectorTestCase {
     private static final String DMAX = "DataMaxCardinality(1 <urn:test#dp> <urn:test#datatype>)";
     private static final String DEQ = "DataExactCardinality(1 <urn:test#dp> <urn:test#datatype>)";
     private static final String THING = "owl:Thing";
-    private OWLAxiom object;
-    private Set<String> expected;
+    private final OWLAxiom object;
+    private final Set<String> expected;
 
     public OWLClassExpressionCollectorTestCase(OWLAxiom object, String[] expected) {
         this.object = object;

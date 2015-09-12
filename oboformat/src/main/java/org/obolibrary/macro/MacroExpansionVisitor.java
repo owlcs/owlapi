@@ -102,8 +102,8 @@ public class MacroExpansionVisitor {
 
     private class MacroExpansions {
 
-        private Set<OWLAxiom> newAxioms = new HashSet<>();
-        private Set<OWLAxiom> rmAxioms = new HashSet<>();
+        private final Set<OWLAxiom> newAxioms = new HashSet<>();
+        private final Set<OWLAxiom> rmAxioms = new HashSet<>();
 
         public MacroExpansions() {
             for (OWLSubClassOfAxiom axiom : inputOntology.getAxioms(AxiomType.SUBCLASS_OF)) {

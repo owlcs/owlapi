@@ -42,7 +42,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyFactoryImpl;
 @RunWith(Parameterized.class)
 public class RendererAndParserTestCase extends TestBase {
 
-    private AxiomBuilder axioms;
+    private final AxiomBuilder axioms;
 
     public RendererAndParserTestCase(AxiomBuilder b) {
         axioms = b;

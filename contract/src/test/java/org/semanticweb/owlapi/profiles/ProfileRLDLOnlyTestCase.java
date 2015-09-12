@@ -12,7 +12,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class ProfileRLDLOnlyTestCase extends ProfileBase {
 
-    private String premise;
+    private final String premise;
 
     public ProfileRLDLOnlyTestCase(String premise) {
         this.premise = premise;

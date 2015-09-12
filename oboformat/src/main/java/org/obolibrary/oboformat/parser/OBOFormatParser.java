@@ -51,13 +51,7 @@ public class OBOFormatParser {
      */
     protected OBOFormatParser(MyStream s) {
         stream = s;
-        Weigher<String, String> stringWeigher = new Weigher<String, String>() {
-
-            @Override
-            public int weigh(String key, String value) {
-                return key.length();
-            }
-        };
+        Weigher<String, String> stringWeigher = (key, value) -> key.length();
         CacheLoader<String, String> loader = new CacheLoader<String, String>() {
 
             @Override

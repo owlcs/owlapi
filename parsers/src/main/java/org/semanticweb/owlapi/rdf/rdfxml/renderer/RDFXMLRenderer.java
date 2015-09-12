@@ -38,7 +38,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private final @Nonnull Set<RDFResource> pending = new HashSet<>();
     private final @Nonnull RDFXMLNamespaceManager qnameManager;
     private final @Nonnull OWLDocumentFormat format;
-    private ShortFormProvider labelMaker;
+    private final ShortFormProvider labelMaker;
 
     /**
      * @param ontology

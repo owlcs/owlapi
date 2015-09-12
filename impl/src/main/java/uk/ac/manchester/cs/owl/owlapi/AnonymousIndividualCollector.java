@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
  */
 public class AnonymousIndividualCollector implements AbstractEntityRegistrationManager {
 
-    private Collection<OWLAnonymousIndividual> anonymousIndividuals;
+    private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
 
     /**
      * @param anonsToReturn

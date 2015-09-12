@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.util.NNF;
 @RunWith(Parameterized.class)
 public class NNFTestCase {
 
-    private OWLAxiom object;
-    private String expected;
+    private final OWLAxiom object;
+    private final String expected;
 
     public NNFTestCase(OWLAxiom object, String expected) {
         this.object = object;

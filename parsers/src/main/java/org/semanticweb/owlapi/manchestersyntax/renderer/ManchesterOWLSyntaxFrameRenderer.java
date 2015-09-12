@@ -387,8 +387,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return Collections.emptySet();
     }
 
-    private Predicate<OWLAxiom> display = ax -> isDisplayed(ax);
-    private Predicate<OWLAxiom> props = ax -> ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
+    private final Predicate<OWLAxiom> display = ax -> isDisplayed(ax);
+    private final Predicate<OWLAxiom> props = ax -> ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
 
     protected <T extends OWLAxiom> Stream<T> filtersort(Stream<T> s) {
         return s.filter(display).sorted(ooc);

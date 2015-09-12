@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
 @RunWith(Parameterized.class)
 public class VisitorsTestCase {
 
-    private OWLObject object;
-    private String expected;
+    private final OWLObject object;
+    private final String expected;
 
     public VisitorsTestCase(OWLObject object, String expected) {
         this.object = object;

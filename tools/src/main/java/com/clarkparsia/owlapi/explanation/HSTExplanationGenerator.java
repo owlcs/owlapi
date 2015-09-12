@@ -140,16 +140,12 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @return the ordered mups
      */
     private static List<OWLAxiom> getOrderedMUPS(List<OWLAxiom> mups, final Set<Set<OWLAxiom>> allMups) {
-        Comparator<OWLAxiom> mupsComparator = new Comparator<OWLAxiom>() {
-
-            @Override
-            public int compare(@Nullable OWLAxiom o1, @Nullable OWLAxiom o2) {
-                // The axiom that appears in most MUPS has the lowest index
-                // in the list
-                int occ1 = getOccurrences(o1, allMups);
-                int occ2 = getOccurrences(o2, allMups);
-                return -occ1 + occ2;
-            }
+        Comparator<OWLAxiom> mupsComparator = (o1, o2) -> {
+            // The axiom that appears in most MUPS has the lowest index
+            // in the list
+            int occ1 = getOccurrences(o1, allMups);
+            int occ2 = getOccurrences(o2, allMups);
+            return -occ1 + occ2;
         };
         Collections.sort(mups, mupsComparator);
         return mups;

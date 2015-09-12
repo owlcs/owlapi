@@ -18,15 +18,12 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
@@ -40,14 +37,8 @@ public class OntologyMutationTestCase extends TestBase {
     public void testAddAxiom() {
         OWLOntology ont = getOWLOntology();
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
-        final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
-
-            @Override
-            public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes) {
-                chgs.addAll(changes);
-            }
-        });
+        List<OWLOntologyChange> chgs = new ArrayList<>();
+        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
         ont.add(ax);
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -57,14 +48,8 @@ public class OntologyMutationTestCase extends TestBase {
     public void testAddAxioms() {
         OWLOntology ont = getOWLOntology();
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
-        final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
-
-            @Override
-            public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes) {
-                chgs.addAll(changes);
-            }
-        });
+        List<OWLOntologyChange> chgs = new ArrayList<>();
+        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
         ont.add(ax);
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -74,14 +59,8 @@ public class OntologyMutationTestCase extends TestBase {
     public void testApplyChange() {
         OWLOntology ont = getOWLOntology();
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
-        final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
-
-            @Override
-            public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes) {
-                chgs.addAll(changes);
-            }
-        });
+        List<OWLOntologyChange> chgs = new ArrayList<>();
+        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
         ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
@@ -91,14 +70,8 @@ public class OntologyMutationTestCase extends TestBase {
     public void testApplyChanges() {
         OWLOntology ont = getOWLOntology();
         OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
-        final List<OWLOntologyChange> chgs = new ArrayList<>();
-        ont.getOWLOntologyManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
-
-            @Override
-            public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes) {
-                chgs.addAll(changes);
-            }
-        });
+        List<OWLOntologyChange> chgs = new ArrayList<>();
+        ont.getOWLOntologyManager().addOntologyChangeListener(changes -> chgs.addAll(changes));
         ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));

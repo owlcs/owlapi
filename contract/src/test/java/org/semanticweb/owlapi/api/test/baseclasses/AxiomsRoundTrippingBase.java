@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public abstract class AxiomsRoundTrippingBase extends AbstractRoundTrippingTestCase {
 
-    private AxiomBuilder createAxioms;
+    private final AxiomBuilder createAxioms;
 
     public AxiomsRoundTrippingBase(AxiomBuilder f) {
         createAxioms = f;

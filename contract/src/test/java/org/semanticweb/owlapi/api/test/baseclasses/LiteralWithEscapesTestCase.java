@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @RunWith(Parameterized.class)
 public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
 
-    private String escape;
+    private final String escape;
 
     public LiteralWithEscapesTestCase(String s) {
         escape = s;

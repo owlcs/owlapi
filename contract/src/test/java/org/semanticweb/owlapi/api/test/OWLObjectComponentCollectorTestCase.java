@@ -176,8 +176,8 @@ public class OWLObjectComponentCollectorTestCase {
     private static final String v3 = "Variable(<urn:swrl#var3>)";
     private static final String var236 = "BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )";
     private static final String SHORTRULE = "DLSafeRule( Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) )) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )) )";
-    private OWLAxiom object;
-    private Set<String> expected;
+    private final OWLAxiom object;
+    private final Set<String> expected;
 
     public OWLObjectComponentCollectorTestCase(OWLAxiom object, String[] expected) {
         this.object = object;

@@ -38,26 +38,26 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings({ "javadoc" })
 public class SerializationTestCase extends TestBase {
 
-    private @Nonnull OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
-    private @Nonnull OWLDataProperty dp = df.getOWLDataProperty("urn:dp");
-    private @Nonnull OWLObjectProperty op = df.getOWLObjectProperty("urn:op");
-    private @Nonnull IRI iri = IRI.create("urn:iri");
-    private @Nonnull OWLLiteral owlliteral = df.getOWLLiteral(true);
-    private @Nonnull OWLAnnotationSubject as = IRI.create("urn:i");
-    private @Nonnull OWLDatatype owldatatype = df.getOWLDatatype(owl2datatype);
-    private @Nonnull OWLDataRange dr = df.getOWLDatatypeRestriction(owldatatype);
-    private @Nonnull OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:ap");
-    private @Nonnull OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
-    private @Nonnull String string = "testString";
-    private @Nonnull OWLClassExpression c = df.getOWLClass("urn:classexpression");
-    private @Nonnull PrefixManager prefixmanager = new DefaultPrefixManager();
-    private @Nonnull OWLIndividual ai = df.getOWLAnonymousIndividual();
-    private @Nonnull OWLAnnotationValue owlannotationvalue = owlliteral;
-    private @Nonnull Set<OWLObjectPropertyExpression> setop = new HashSet<>();
-    private @Nonnull Set<OWLDataPropertyExpression> setdp = new HashSet<>();
-    private @Nonnull List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
-    private @Nonnull Set<OWLIndividual> setowlindividual = new HashSet<>();
-    private @Nonnull Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
+    private final @Nonnull OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
+    private final @Nonnull OWLDataProperty dp = df.getOWLDataProperty("urn:dp");
+    private final @Nonnull OWLObjectProperty op = df.getOWLObjectProperty("urn:op");
+    private final @Nonnull IRI iri = IRI.create("urn:iri");
+    private final @Nonnull OWLLiteral owlliteral = df.getOWLLiteral(true);
+    private final @Nonnull OWLAnnotationSubject as = IRI.create("urn:i");
+    private final @Nonnull OWLDatatype owldatatype = df.getOWLDatatype(owl2datatype);
+    private final @Nonnull OWLDataRange dr = df.getOWLDatatypeRestriction(owldatatype);
+    private final @Nonnull OWLAnnotationProperty ap = df.getOWLAnnotationProperty("urn:ap");
+    private final @Nonnull OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
+    private final @Nonnull String string = "testString";
+    private final @Nonnull OWLClassExpression c = df.getOWLClass("urn:classexpression");
+    private final @Nonnull PrefixManager prefixmanager = new DefaultPrefixManager();
+    private final @Nonnull OWLIndividual ai = df.getOWLAnonymousIndividual();
+    private final @Nonnull OWLAnnotationValue owlannotationvalue = owlliteral;
+    private final @Nonnull Set<OWLObjectPropertyExpression> setop = new HashSet<>();
+    private final @Nonnull Set<OWLDataPropertyExpression> setdp = new HashSet<>();
+    private final @Nonnull List<OWLObjectPropertyExpression> listowlobjectproperties = new ArrayList<>();
+    private final @Nonnull Set<OWLIndividual> setowlindividual = new HashSet<>();
+    private final @Nonnull Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
 
     @SuppressWarnings("null")
     @Test

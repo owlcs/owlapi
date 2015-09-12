@@ -28,8 +28,8 @@ import org.semanticweb.owlapi.util.DLExpressivityChecker;
 @RunWith(Parameterized.class)
 public class DLExpressivityCheckerTestCase extends TestBase {
 
-    private OWLAxiom object;
-    private String expected;
+    private final OWLAxiom object;
+    private final String expected;
 
     public DLExpressivityCheckerTestCase(OWLAxiom object, String expected) {
         this.object = object;

@@ -12,7 +12,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class SimpleRoundTripTestCase extends RoundTripTestBasics {
 
-    private String file;
+    private final String file;
 
     public SimpleRoundTripTestCase(String f) {
         file = f;

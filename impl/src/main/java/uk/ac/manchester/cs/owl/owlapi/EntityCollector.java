@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class EntityCollector implements AbstractEntityRegistrationManager {
 
-    private Collection<OWLEntity> objects;
+    private final Collection<OWLEntity> objects;
 
     /**
      * @param toReturn

@@ -46,7 +46,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
             Datatype(SUBJECT), AnnotationProperty(SUBJECT), AnonymousIndividual());
     }
 
-    private OWLPrimitive e;
+    private final OWLPrimitive e;
 
     public AnnotationAccessorsTestCase(OWLPrimitive e) {
         this.e = e;

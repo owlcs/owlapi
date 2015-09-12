@@ -15,17 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
-import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.LatexDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.*;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**

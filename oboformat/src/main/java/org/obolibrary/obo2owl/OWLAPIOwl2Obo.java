@@ -97,7 +97,7 @@ public class OWLAPIOwl2Obo {
     protected boolean discardUntranslatable = false;
     /** Mute untranslatable axiom warnings. */
     private boolean muteUntranslatableAxioms = false;
-    private OWLDataFactory df;
+    private final OWLDataFactory df;
 
     protected final void init() {
         idSpaceMap = new HashMap<>();

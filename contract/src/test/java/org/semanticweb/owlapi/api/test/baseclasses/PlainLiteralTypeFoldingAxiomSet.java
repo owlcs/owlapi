@@ -16,7 +16,7 @@ import gnu.trove.strategy.HashingStrategy;
  */
 public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
 
-    private Set<OWLAxiom> delegate = createPlainLiteralTypeFoldingSet();
+    private final Set<OWLAxiom> delegate = createPlainLiteralTypeFoldingSet();
 
     /**
      * @param axioms

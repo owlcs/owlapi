@@ -21,12 +21,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplBoolean;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplDouble;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplFloat;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
+import uk.ac.manchester.cs.owl.owlapi.*;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics

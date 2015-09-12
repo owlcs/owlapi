@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 @RunWith(Parameterized.class)
 public class AxiomSubjectProviderExTestCase {
 
-    private OWLAxiom object;
-    private String expected;
+    private final OWLAxiom object;
+    private final String expected;
 
     public AxiomSubjectProviderExTestCase(OWLAxiom object, String expected) {
         this.object = object;

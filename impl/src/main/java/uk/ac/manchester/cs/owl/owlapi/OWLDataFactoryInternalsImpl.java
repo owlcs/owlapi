@@ -38,7 +38,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
 
     private static Logger logger = LoggerFactory.getLogger(OWLDataFactoryInternalsImpl.class);
     private static final long serialVersionUID = 40000L;
-    private AtomicInteger annotationsCount = new AtomicInteger(0);
+    private final AtomicInteger annotationsCount = new AtomicInteger(0);
 
     protected class BuildableWeakIndexCache<V extends OWLEntity> extends WeakIndexCache<IRI, V> {
 

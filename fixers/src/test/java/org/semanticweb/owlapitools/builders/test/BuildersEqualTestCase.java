@@ -198,8 +198,8 @@ public class BuildersEqualTestCase {
         return toReturn;
     }
 
-    private Builder<?> b;
-    private Object expected;
+    private final Builder<?> b;
+    private final Object expected;
 
     public BuildersEqualTestCase(Builder<?> b, Object o) {
         this.b = b;

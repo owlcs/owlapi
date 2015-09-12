@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.util.HornAxiomVisitorEx;
 @RunWith(Parameterized.class)
 public class HornAxiomVisitorExTestCase {
 
-    private OWLAxiom object;
-    private Boolean b;
+    private final OWLAxiom object;
+    private final Boolean b;
 
     public HornAxiomVisitorExTestCase(OWLAxiom object, Boolean b) {
         this.object = object;

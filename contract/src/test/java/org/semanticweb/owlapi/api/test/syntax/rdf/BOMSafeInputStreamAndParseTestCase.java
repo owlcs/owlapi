@@ -38,7 +38,7 @@ public class BOMSafeInputStreamAndParseTestCase extends TestBase {
                         + "\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\" xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" ><owl:Ontology rdf:about=\"#\" /><owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/></rdf:RDF>");
     }
 
-    private String input;
+    private final String input;
 
     public BOMSafeInputStreamAndParseTestCase(String in) {
         input = in;

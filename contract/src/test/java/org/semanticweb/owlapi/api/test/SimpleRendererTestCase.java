@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
 @SuppressWarnings("javadoc")
 public class SimpleRendererTestCase extends TestBase {
 
-    private SimpleRenderer testSubject = new SimpleRenderer();
+    private final SimpleRenderer testSubject = new SimpleRenderer();
 
     @Test
     public void shouldSetPrefixes() {

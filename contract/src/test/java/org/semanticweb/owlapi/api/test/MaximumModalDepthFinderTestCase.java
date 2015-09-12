@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.util.MaximumModalDepthFinder;
 @RunWith(Parameterized.class)
 public class MaximumModalDepthFinderTestCase {
 
-    private OWLObject object;
-    private int expected;
+    private final OWLObject object;
+    private final int expected;
 
     public MaximumModalDepthFinderTestCase(OWLObject object, int expected) {
         this.object = object;

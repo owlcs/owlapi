@@ -73,7 +73,7 @@ public class OWLAPIObo2Owl {
     private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation", "gci_filler", "cardinality",
         "minCardinality", "maxCardinality", "all_some", "all_only");
     /** Cache for the id to IRI conversion. */
-    private LoadingCache<String, IRI> idToIRICache = CacheBuilder.newBuilder().maximumSize(1024).build(
+    private final LoadingCache<String, IRI> idToIRICache = CacheBuilder.newBuilder().maximumSize(1024).build(
         new CacheLoader<String, IRI>() {
 
             @Override

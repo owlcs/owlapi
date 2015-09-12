@@ -43,7 +43,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class LatexRenderer extends AbstractOWLRenderer {
 
     private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
-    private OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
+    private final OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
 
     private void writeEntitySection(OWLEntity entity, LatexWriter w) {
         w.write("\\subsubsection*{");

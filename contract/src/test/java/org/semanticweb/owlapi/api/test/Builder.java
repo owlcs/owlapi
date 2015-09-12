@@ -37,12 +37,12 @@ public class Builder {
     private final @Nonnull SWRLDArgument var1 = df.getSWRLVariable("urn:swrl#var1");
     private final @Nonnull List<SWRLDArgument> var1list = Arrays.asList(var1);
     private final @Nonnull SWRLIArgument var2 = df.getSWRLVariable("urn:swrl#var2");
-    private @Nonnull LinkedHashSet<SWRLAtom> body2 = Sets.newLinkedHashSet(Arrays.asList(v1,
+    private final @Nonnull LinkedHashSet<SWRLAtom> body2 = Sets.newLinkedHashSet(Arrays.asList(v1,
             df.getSWRLClassAtom(ce, var2), df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
             df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
             df.getSWRLSameIndividualAtom(var2, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri))),
             df.getSWRLBuiltInAtom(iri, var1list)));
-    private @Nonnull LinkedHashSet<SWRLAtom> head2 = Sets
+    private final @Nonnull LinkedHashSet<SWRLAtom> head2 = Sets
             .newLinkedHashSet(Arrays.asList(v2, df.getSWRLDataPropertyAtom(dp, var2, df.getSWRLLiteralArgument(lit)),
                     df.getSWRLObjectPropertyAtom(op, var2, var2)));
     private final @Nonnull OWLOntologyManager m = getManager();

@@ -49,10 +49,10 @@ import javax.annotation.Nonnull;
 @SuppressWarnings("all")
 class OBOTagValuePair {
 
-    private @Nonnull String tagName;
-    private @Nonnull String value;
-    private @Nonnull String qualifier;
-    private @Nonnull String comment;
+    private final @Nonnull String tagName;
+    private final @Nonnull String value;
+    private final @Nonnull String qualifier;
+    private final @Nonnull String comment;
 
     /**
      * @param tagName
