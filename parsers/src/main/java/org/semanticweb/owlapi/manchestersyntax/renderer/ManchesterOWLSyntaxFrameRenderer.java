@@ -118,7 +118,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * @param entityShortFormProvider
      *        the entity short form provider
      */
-    public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies, Writer writer,
+    public ManchesterOWLSyntaxFrameRenderer(Collection<OWLOntology> ontologies, Writer writer,
         ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         if (ontologies.size() != 1) {

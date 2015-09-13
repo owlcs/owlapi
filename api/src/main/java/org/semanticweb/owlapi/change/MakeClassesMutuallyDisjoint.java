@@ -16,8 +16,8 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -55,22 +55,24 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
      *        compatibility with OWL 1.0), or {@code false} if one disjoint
      *        classes axiom should be used (preferred OWL 1.1 method).
      */
-    public MakeClassesMutuallyDisjoint(OWLDataFactory dataFactory, Set<? extends OWLClassExpression> classExpressions,
-            boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
+    public MakeClassesMutuallyDisjoint(OWLDataFactory dataFactory,
+        Collection<? extends OWLClassExpression> classExpressions,
+        boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
         super(dataFactory);
         checkNotNull(classExpressions, "classExpressions cannot be null");
         checkNotNull(targetOntology, "targetOntology cannot be null");
         generateChanges(classExpressions, usePairwiseDisjointAxioms, targetOntology);
     }
 
-    private void generateChanges(Set<? extends OWLClassExpression> classExpressions, boolean usePairwiseDisjointAxioms,
-            OWLOntology targetOntology) {
+    private void generateChanges(Collection<? extends OWLClassExpression> classExpressions,
+        boolean usePairwiseDisjointAxioms,
+        OWLOntology targetOntology) {
         if (usePairwiseDisjointAxioms) {
             List<OWLClassExpression> descList = new ArrayList<>(classExpressions);
             for (int i = 0; i < descList.size(); i++) {
                 for (int j = i + 1; j < descList.size(); j++) {
                     addChange(new AddAxiom(targetOntology,
-                            df.getOWLDisjointClassesAxiom(createSet(descList.get(i), descList.get(j)))));
+                        df.getOWLDisjointClassesAxiom(createSet(descList.get(i), descList.get(j)))));
                 }
             }
         } else {

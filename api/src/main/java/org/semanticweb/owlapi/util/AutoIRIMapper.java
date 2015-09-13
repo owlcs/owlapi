@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -92,7 +93,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * @return A {@code Set} of file extensions.
      */
     public Set<String> getFileExtensions() {
-        return fileExtensions;
+        return new HashSet<>(fileExtensions);
     }
 
     /**
@@ -104,7 +105,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * @param extensions
      *        the set of extensions
      */
-    public void setFileExtensions(Set<String> extensions) {
+    public void setFileExtensions(Collection<String> extensions) {
         fileExtensions.clear();
         fileExtensions.addAll(extensions);
     }
@@ -184,8 +185,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      */
     private void parseFSSFile(File file) {
         try (InputStream input = new FileInputStream(file);
-                Reader reader = new InputStreamReader(input, "UTF-8");
-                BufferedReader br = new BufferedReader(reader)) {
+            Reader reader = new InputStreamReader(input, "UTF-8");
+            BufferedReader br = new BufferedReader(reader)) {
             String line = "";
             IRI ontologyIRI = null;
             Matcher m = pattern.matcher(line);
@@ -207,8 +208,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     private void parseFile(File file) {
         try (FileInputStream in = new FileInputStream(file);
-                BufferedInputStream delegate = new BufferedInputStream(in);
-                InputStream is = DocumentSources.wrap(delegate);) {
+            BufferedInputStream delegate = new BufferedInputStream(in);
+            InputStream is = DocumentSources.wrap(delegate);) {
             currentFile = file;
             SAXParsers.initParserWithOWLAPIStandards(null).parse(is, this);
         } catch (@SuppressWarnings("unused") Exception e) {
@@ -218,8 +219,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     private void parseManchesterSyntaxFile(File file) {
         try (FileInputStream input = new FileInputStream(file);
-                InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
-                BufferedReader br = new BufferedReader(reader)) {
+            InputStreamReader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(reader)) {
             // Ontology: <URI>
             String line = br.readLine();
             while (line != null) {
@@ -257,7 +258,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
-            @Nullable Attributes attributes) throws SAXException {
+        @Nullable Attributes attributes) throws SAXException {
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
             IRI ontologyIRI = handler.handle(checkNotNull(attributes));
@@ -283,7 +284,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         StringBuilder sb = new StringBuilder("AutoIRIMapper: (");
         sb.append(ontologyIRI2PhysicalURIMap.size()).append(" ontologies)\n");
         ontologyIRI2PhysicalURIMap
-                .forEach((k, v) -> sb.append("    ").append(k.toQuotedString()).append(" -> ").append(v).append('\n'));
+            .forEach((k, v) -> sb.append("    ").append(k.toQuotedString()).append(" -> ").append(v).append('\n'));
         return sb.toString();
     }
 

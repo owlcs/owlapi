@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
@@ -128,7 +128,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     @Deprecated
-    protected void render(Set<? extends OWLObject> objects) {
+    protected void render(Collection<? extends OWLObject> objects) {
         if (objects.isEmpty()) {
             return;
         }
@@ -149,7 +149,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLOntology ontology) {
         sb.append("Ontology(").append(ontology.getOntologyID()).append(" [Axioms: ").append(ontology.getAxiomCount())
-                .append("] [Logical axioms: ").append(ontology.getLogicalAxiomCount()).append("])");
+            .append("] [Logical axioms: ").append(ontology.getLogicalAxiomCount()).append("])");
     }
 
     private void insertSpace() {
@@ -164,7 +164,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         axiom.annotations().forEach(a -> {
             a.accept(this);
             insertSpace();
-        } );
+        });
     }
 
     @Override
@@ -668,7 +668,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         node.facetRestrictions().forEach(r -> {
             insertSpace();
             r.accept(this);
-        } );
+        });
         sb.append(')');
     }
 
@@ -737,12 +737,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         axiom.objectPropertyExpressions().forEach(p -> {
             p.accept(this);
             sb.append(' ');
-        } );
+        });
         sb.append(") (");
         axiom.dataPropertyExpressions().forEach(p -> {
             p.accept(this);
             sb.append(' ');
-        } );
+        });
         sb.append("))");
     }
 
@@ -752,7 +752,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         node.operands().forEach(r -> {
             r.accept(this);
             sb.append(' ');
-        } );
+        });
         sb.append(')');
     }
 
@@ -762,7 +762,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         node.operands().forEach(r -> {
             r.accept(this);
             sb.append(' ');
-        } );
+        });
         sb.append(')');
     }
 
@@ -817,7 +817,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         node.annotations().forEach(a -> {
             a.accept(this);
             sb.append(' ');
-        } );
+        });
         node.getProperty().accept(this);
         sb.append(' ');
         node.getValue().accept(this);

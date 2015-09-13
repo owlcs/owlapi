@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -51,7 +50,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      *        The set of ontologies that contain references to axioms to be
      *        removed.
      */
-    public OWLEntityRemover(Set<OWLOntology> ontologies) {
+    public OWLEntityRemover(Collection<OWLOntology> ontologies) {
         this(ontologies.stream());
     }
 

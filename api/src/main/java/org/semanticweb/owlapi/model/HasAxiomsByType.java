@@ -39,6 +39,7 @@ public interface HasAxiomsByType {
      *         Modifications to the returned set will not be reflected in this
      *         object.
      */
+    @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
         return asSet(axioms(axiomType));
     }

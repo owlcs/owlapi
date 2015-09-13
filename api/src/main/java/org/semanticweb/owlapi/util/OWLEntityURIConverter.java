@@ -52,8 +52,8 @@ public class OWLEntityURIConverter {
      * @param strategy
      *        The conversion strategy to be used.
      */
-    public OWLEntityURIConverter(OWLOntologyManager manager, Set<OWLOntology> ontologies,
-            OWLEntityURIConverterStrategy strategy) {
+    public OWLEntityURIConverter(OWLOntologyManager manager, Collection<OWLOntology> ontologies,
+        OWLEntityURIConverterStrategy strategy) {
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologies = new ArrayList<>(checkNotNull(ontologies, "ontologies cannot be null"));
         this.strategy = checkNotNull(strategy, "strategy cannot be null");
@@ -83,7 +83,7 @@ public class OWLEntityURIConverter {
                     changes.add(new RemoveAxiom(ont, ax));
                     changes.add(new AddAxiom(ont, dupAx));
                 }
-            } );
+            });
         }
         return changes;
     }

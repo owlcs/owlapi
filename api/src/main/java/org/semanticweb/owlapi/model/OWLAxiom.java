@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -159,7 +158,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         otherwise {@code false}
      * @since 3.0
      */
-    default boolean isOfType(Set<AxiomType<?>> types) {
+    default boolean isOfType(Collection<AxiomType<?>> types) {
         return types.contains(getAxiomType());
     }
 

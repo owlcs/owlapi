@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -58,6 +59,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @return The set of ontologies such that for each ontology, O the
      *         specified axiom is contained in O.
      */
+    @Deprecated
     default Set<OWLOntology> getOntologies(OWLAxiom axiom) {
         return asSet(ontologies(axiom));
     }
@@ -344,7 +346,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @throws OWLOntologyChangeException
      *         if there was a problem copying the axioms.
      */
-    default OWLOntology createOntology(Set<OWLAxiom> axioms) throws OWLOntologyCreationException {
+    default OWLOntology createOntology(Collection<OWLAxiom> axioms) throws OWLOntologyCreationException {
         return createOntology(axioms, IRI.getNextDocumentIRI("owlapi:ontology#ont"));
     }
 
@@ -395,7 +397,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         document IRI for which there already exists a mapping in this
      *         manager.
      */
-    default OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI) throws OWLOntologyCreationException {
+    default OWLOntology createOntology(Collection<OWLAxiom> axioms, IRI ontologyIRI)
+        throws OWLOntologyCreationException {
         return createOntology(axioms.stream(), ontologyIRI);
     }
 
@@ -521,8 +524,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         document IRI for which there already exists a mapping in this
      *         manager.
      */
-    default OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
-        throws OWLOntologyCreationException {
+    default OWLOntology createOntology(IRI ontologyIRI, Collection<OWLOntology> ontologies,
+        boolean copyLogicalAxiomsOnly)
+            throws OWLOntologyCreationException {
         return createOntology(ontologyIRI, ontologies.stream(), copyLogicalAxiomsOnly);
     }
 
@@ -592,7 +596,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         document IRI for which there already exists a mapping in this
      *         manager.
      */
-    default OWLOntology createOntology(IRI ontologyIRI, Set<OWLOntology> ontologies)
+    default OWLOntology createOntology(IRI ontologyIRI, Collection<OWLOntology> ontologies)
         throws OWLOntologyCreationException {
         return createOntology(ontologyIRI, ontologies, false);
     }

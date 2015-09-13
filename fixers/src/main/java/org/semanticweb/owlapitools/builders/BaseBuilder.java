@@ -14,16 +14,18 @@ package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.profiles.OWL2DLProfile;
-import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.profiles.Profiles;
 
 /**
  * Base builder class, providing annotations storage.
@@ -37,8 +39,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> {
 
     protected final @Nonnull OWLDataFactory df;
-    protected final @Nonnull Set<OWLAnnotation> annotations = new HashSet<>();
-    private final @Nonnull OWLProfile profile = new OWL2DLProfile();
+    protected final @Nonnull List<OWLAnnotation> annotations = new ArrayList<>();
 
     /**
      * @param df
@@ -96,7 +97,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         o.applyChange(change);
         List<OWLOntologyChange> changes = new ArrayList<>();
         // check conformity to the profile
-        OWLProfileReport report = profile.checkOntology(o);
+        OWLProfileReport report = Profiles.OWL2_DL.checkOntology(o);
         // collect all changes to fix the ontology
         report.getViolations().forEach(v -> changes.addAll(v.repair()));
         // fix the ontology

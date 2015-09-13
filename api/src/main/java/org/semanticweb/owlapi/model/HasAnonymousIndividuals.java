@@ -30,7 +30,9 @@ public interface HasAnonymousIndividuals {
      * method returns a modifiable, empty set.
      * 
      * @return A set of anonymous individuals
+     * @deprecated use {@link #anonymousIndividuals()}
      */
+    @Deprecated
     default Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return asSet(anonymousIndividuals());
     }

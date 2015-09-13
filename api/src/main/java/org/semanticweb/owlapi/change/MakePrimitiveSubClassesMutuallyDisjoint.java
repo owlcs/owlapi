@@ -15,9 +15,9 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.sub;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.util.Set;
+import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -55,7 +55,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
      *        the target ontology
      */
     public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls,
-            OWLOntology targetOntology) {
+        OWLOntology targetOntology) {
         this(dataFactory, cls, targetOntology, false);
     }
 
@@ -72,15 +72,15 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
      *        true if pairwise disjoint axioms should be used
      */
     public MakePrimitiveSubClassesMutuallyDisjoint(OWLDataFactory dataFactory, OWLClass cls, OWLOntology targetOntology,
-            boolean usePairwiseDisjointAxioms) {
+        boolean usePairwiseDisjointAxioms) {
         super(dataFactory);
         generateChanges(checkNotNull(cls, "cls cannot be null"),
-                checkNotNull(targetOntology, "targetOntology cannot be null"), usePairwiseDisjointAxioms);
+            checkNotNull(targetOntology, "targetOntology cannot be null"), usePairwiseDisjointAxioms);
     }
 
     private void generateChanges(OWLClass cls, OWLOntology o, boolean usePairwiseDisjointAxioms) {
-        Set<OWLClassExpression> sub = asSet(sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
-                .filter(c -> undefinedPrimitive(o, c)));
+        Collection<OWLClassExpression> sub = asList(sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
+            .filter(c -> undefinedPrimitive(o, c)));
         addChanges(new MakeClassesMutuallyDisjoint(df, sub, usePairwiseDisjointAxioms, o).getChanges());
     }
 

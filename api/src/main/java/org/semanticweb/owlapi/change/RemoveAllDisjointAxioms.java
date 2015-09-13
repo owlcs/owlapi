@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.Collection;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -41,12 +41,12 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
      * @param ontologies
      *        ontologies to change
      */
-    public RemoveAllDisjointAxioms(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
+    public RemoveAllDisjointAxioms(OWLDataFactory dataFactory, Collection<OWLOntology> ontologies) {
         super(dataFactory);
         generateChanges(checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
-    private void generateChanges(Set<OWLOntology> ontologies) {
+    private void generateChanges(Collection<OWLOntology> ontologies) {
         for (OWLOntology ont : ontologies) {
             ont.axioms(AxiomType.DISJOINT_CLASSES).forEach(ax -> addChange(new RemoveAxiom(ont, ax)));
         }

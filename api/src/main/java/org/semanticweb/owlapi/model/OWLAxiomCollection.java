@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @since 4.0.0
  */
 public interface OWLAxiomCollection
-        extends HasAxioms, HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, HasImportsClosure {
+    extends HasAxioms, HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, HasImportsClosure {
 
     /**
      * @param includeImportsClosure
@@ -120,6 +120,7 @@ public interface OWLAxiomCollection
      * @param <T>
      *        axiom type
      */
+    @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, Imports includeImportsClosure) {
         return asSet(axioms(axiomType, includeImportsClosure));
     }
@@ -208,6 +209,7 @@ public interface OWLAxiomCollection
      *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
      *         will be contained in the set.
      */
+    @Deprecated
     Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom);
 
     /**
@@ -227,6 +229,7 @@ public interface OWLAxiomCollection
      *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
      *         will be contained in the set.
      */
+    @Deprecated
     Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, Imports includeImportsClosure);
 
     /**
@@ -792,10 +795,10 @@ public interface OWLAxiomCollection
      */
     default Stream<OWLAnnotationAxiom> axioms(OWLAnnotationProperty property) {
         return Stream
-                .of(axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).filter(a -> a.getSubProperty().equals(property)),
-                        axioms(AxiomType.ANNOTATION_PROPERTY_RANGE).filter(a -> a.getProperty().equals(property)),
-                        axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN).filter(a -> a.getProperty().equals(property)))
-                .flatMap(x -> x);
+            .of(axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).filter(a -> a.getSubProperty().equals(property)),
+                axioms(AxiomType.ANNOTATION_PROPERTY_RANGE).filter(a -> a.getProperty().equals(property)),
+                axioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN).filter(a -> a.getProperty().equals(property)))
+            .flatMap(x -> x);
     }
 
     /**

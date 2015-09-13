@@ -44,10 +44,10 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
      */
     @SuppressWarnings("unchecked")
     public OWLNaryIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(individuals, "individuals cannot be null");
-        this.individuals = (List<OWLIndividual>) sortOptionally(individuals);
+        this.individuals = (List<OWLIndividual>) sortOptionally(individuals.stream().distinct());
     }
 
     @Override

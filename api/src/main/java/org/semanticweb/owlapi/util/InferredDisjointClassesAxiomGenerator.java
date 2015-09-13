@@ -32,15 +32,17 @@ public class InferredDisjointClassesAxiomGenerator extends InferredClassAxiomGen
 
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLDisjointClassesAxiom> result) {
-        for (OWLClass cls : getAllEntities(reasoner)) {
-            if (!cls.equals(entity)) {
-                OWLObjectIntersectionOf intersection = dataFactory
-                        .getOWLObjectIntersectionOf(CollectionFactory.createSet(entity, cls));
-                if (!reasoner.isSatisfiable(intersection)) {
-                    result.add(dataFactory.getOWLDisjointClassesAxiom(entity, cls));
-                }
-            }
+        Set<OWLDisjointClassesAxiom> result) {
+        getAllEntities(reasoner).filter(cls -> !cls.equals(entity)).forEach(
+            cls -> adddisjointIfIntersectionNotSatisfiable(entity, reasoner, dataFactory, result, cls));
+    }
+
+    protected void adddisjointIfIntersectionNotSatisfiable(OWLClass entity, OWLReasoner reasoner,
+        OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result, OWLClass cls) {
+        OWLObjectIntersectionOf intersection = dataFactory
+            .getOWLObjectIntersectionOf(entity, cls);
+        if (!reasoner.isSatisfiable(intersection)) {
+            result.add(dataFactory.getOWLDisjointClassesAxiom(entity, cls));
         }
     }
 

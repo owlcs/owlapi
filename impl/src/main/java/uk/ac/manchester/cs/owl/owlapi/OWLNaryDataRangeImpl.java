@@ -37,7 +37,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
 
     protected OWLNaryDataRangeImpl(Collection<? extends OWLDataRange> operands) {
         Collection<? extends OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
-        this.operands = asList(ops.stream().sorted());
+        this.operands = asList(ops.stream().distinct().sorted());
     }
 
     @Override

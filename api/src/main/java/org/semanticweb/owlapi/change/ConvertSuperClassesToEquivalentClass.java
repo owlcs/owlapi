@@ -14,8 +14,10 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -56,27 +58,24 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
      *        The targetOntology which the equivalent classes axiom should be
      *        added to
      */
-    public ConvertSuperClassesToEquivalentClass(OWLDataFactory dataFactory, OWLClass cls, Set<OWLOntology> ontologies,
-            OWLOntology targetOntology) {
+    public ConvertSuperClassesToEquivalentClass(OWLDataFactory dataFactory, OWLClass cls,
+        Collection<OWLOntology> ontologies, OWLOntology targetOntology) {
         super(dataFactory);
         generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"),
-                checkNotNull(cls, "cls cannot be null"), checkNotNull(ontologies, "ontologies cannot be null"));
+            checkNotNull(cls, "cls cannot be null"), checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
-    private void generateChanges(OWLOntology targetOntology, OWLClass cls, Set<OWLOntology> ontologies) {
+    private void generateChanges(OWLOntology targetOntology, OWLClass cls, Collection<OWLOntology> ontologies) {
         // We remove the existing superclasses and then combine these
         // into an intersection which is made equivalent.
-        Set<OWLClassExpression> descs = new HashSet<>();
+        List<OWLClassExpression> descs = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
             ont.subClassAxiomsForSubClass(cls).forEach(ax -> {
                 addChange(new RemoveAxiom(ont, ax));
                 descs.add(ax.getSuperClass());
-            } );
+            });
         }
         OWLClassExpression equivalentClass = df.getOWLObjectIntersectionOf(descs);
-        Set<OWLClassExpression> equivalentClasses = new HashSet<>();
-        equivalentClasses.add(cls);
-        equivalentClasses.add(equivalentClass);
-        addChange(new AddAxiom(targetOntology, df.getOWLEquivalentClassesAxiom(equivalentClasses)));
+        addChange(new AddAxiom(targetOntology, df.getOWLEquivalentClassesAxiom(Arrays.asList(cls, equivalentClass))));
     }
 }

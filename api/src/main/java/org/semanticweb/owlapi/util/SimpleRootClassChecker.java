@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -45,7 +46,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class SimpleRootClassChecker implements RootClassChecker {
 
-    private final @Nonnull Set<OWLOntology> ontologies;
+    private final @Nonnull Collection<OWLOntology> ontologies;
 
     /**
      * Creates a root class checker, which examines axioms contained in
@@ -57,7 +58,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
      *        when determining if a class is a syntactic direct subclass of
      *        owl:Thing
      */
-    public SimpleRootClassChecker(Set<OWLOntology> ontologies) {
+    public SimpleRootClassChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
@@ -79,7 +80,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
     @Override
     public boolean isRootClass(OWLClass cls) {
         return !ontologies.stream().flatMap(o -> o.referencingAxioms(cls))
-                .anyMatch(ax -> !ax.accept(checker.setOWLClass(cls)));
+            .anyMatch(ax -> !ax.accept(checker.setOWLClass(cls)));
     }
 
     private static class NamedSuperChecker implements OWLClassExpressionVisitorEx<Boolean> {

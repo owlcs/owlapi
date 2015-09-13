@@ -15,10 +15,7 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -44,7 +41,7 @@ import org.semanticweb.owlapi.model.*;
 public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOntologyChange {
 
     private static final long serialVersionUID = 40000L;
-    private final @Nonnull List<OWLOntology> ontologies;
+    private final @Nonnull Collection<OWLOntology> ontologies;
 
     /**
      * Instantiates a new convert property assertions to annotations.
@@ -54,10 +51,9 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
      * @param ontologies
      *        ontologies to change
      */
-    public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
+    public ConvertPropertyAssertionsToAnnotations(OWLDataFactory dataFactory, Collection<OWLOntology> ontologies) {
         super(dataFactory);
-        checkNotNull(ontologies, "ontologies cannot be null");
-        this.ontologies = new ArrayList<>(ontologies);
+        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         generateChanges();
     }
 
@@ -111,8 +107,8 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     }
 
     private OWLAnnotationAssertionAxiom convertToAnnotation(OWLNamedIndividual ind, OWLDataPropertyAssertionAxiom ax) {
-        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(ax.getProperty().asOWLDataProperty()), ax
-            .getObject());
+        OWLDataProperty hasIRI = ax.getProperty().asOWLDataProperty();
+        OWLAnnotation anno = df.getOWLAnnotation(df.getOWLAnnotationProperty(hasIRI), ax.getObject());
         return df.getOWLAnnotationAssertionAxiom(ind.getIRI(), anno);
     }
 }

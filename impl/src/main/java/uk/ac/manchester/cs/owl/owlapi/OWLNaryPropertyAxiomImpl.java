@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *        the property expression
  */
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
-        implements OWLNaryPropertyAxiom<P> {
+    implements OWLNaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
     protected final @Nonnull List<P> properties;
@@ -48,7 +48,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
     public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties, Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
-        this.properties = (List<P>) CollectionFactory.sortOptionally(properties);
+        this.properties = (List<P>) CollectionFactory.sortOptionally(properties.stream().distinct());
     }
 
     @SafeVarargs

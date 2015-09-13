@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
      * @param dataFactory
      *        The data factory which should be used to create new axioms.
      */
-    public SplitSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
+    public SplitSubClassAxioms(Collection<OWLOntology> ontologies, OWLDataFactory dataFactory) {
         super(dataFactory);
         ontologies.forEach(o -> o.axioms(AxiomType.SUBCLASS_OF).forEach(ax -> split(o, ax)));
     }
@@ -52,7 +53,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         if (splitter.result.size() > 1) {
             addChange(new RemoveAxiom(o, ax));
             splitter.result
-                    .forEach(desc -> addChange(new AddAxiom(o, df.getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
+                .forEach(desc -> addChange(new AddAxiom(o, df.getOWLSubClassOfAxiom(ax.getSubClass(), desc))));
         }
     }
 

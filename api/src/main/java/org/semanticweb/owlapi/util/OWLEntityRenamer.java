@@ -15,10 +15,10 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.*;
 public class OWLEntityRenamer {
 
     private final OWLDataFactory df;
-    private final Set<OWLOntology> ontologies;
+    private final Collection<OWLOntology> ontologies;
 
     /**
      * @param owlOntologyManager
@@ -43,7 +43,7 @@ public class OWLEntityRenamer {
      * @param ontologies
      *        the ontologies to use
      */
-    public OWLEntityRenamer(OWLOntologyManager owlOntologyManager, Set<OWLOntology> ontologies) {
+    public OWLEntityRenamer(OWLOntologyManager owlOntologyManager, Collection<OWLOntology> ontologies) {
         df = owlOntologyManager.getOWLDataFactory();
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
@@ -99,14 +99,14 @@ public class OWLEntityRenamer {
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap, df);
         for (OWLOntology ont : ontologies) {
             entity2IRIMap.keySet()
-                    .forEach(e -> fillListWithTransformChanges(changes, getAxioms(ont, e), ont, duplicator));
+                .forEach(e -> fillListWithTransformChanges(changes, getAxioms(ont, e), ont, duplicator));
         }
         return changes;
     }
 
     private static Stream<OWLAxiom> getAxioms(OWLOntology ont, OWLEntity entity) {
         return Stream.of(ont.referencingAxioms(entity), ont.declarationAxioms(entity),
-                ont.annotationAssertionAxioms(entity.getIRI())).flatMap(x -> x);
+            ont.annotationAssertionAxioms(entity.getIRI())).flatMap(x -> x);
     }
 
     /**
@@ -125,11 +125,11 @@ public class OWLEntityRenamer {
      *        The duplicator that will do the duplicating
      */
     private static void fillListWithTransformChanges(List<OWLOntologyChange> changes, Stream<OWLAxiom> axioms,
-            OWLOntology ont, OWLObjectDuplicator duplicator) {
+        OWLOntology ont, OWLObjectDuplicator duplicator) {
         axioms.forEach(ax -> {
             changes.add(new RemoveAxiom(ont, ax));
             OWLAxiom dupAx = duplicator.duplicateObject(ax);
             changes.add(new AddAxiom(ont, dupAx));
-        } );
+        });
     }
 }

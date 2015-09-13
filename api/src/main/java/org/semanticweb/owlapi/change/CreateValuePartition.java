@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.Collection;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -57,16 +57,17 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
      *        the value partition will be added to.
      */
     public CreateValuePartition(OWLDataFactory dataFactory, OWLClass valuePartitionClass,
-            Set<OWLClass> valuePartionClasses, OWLObjectProperty valuePartitionProperty, OWLOntology targetOntology) {
+        Collection<OWLClass> valuePartionClasses, OWLObjectProperty valuePartitionProperty,
+        OWLOntology targetOntology) {
         super(dataFactory);
         generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"),
-                checkNotNull(valuePartionClasses, "valuePartionClasses cannot be null"),
-                checkNotNull(valuePartitionClass, "valuePartitionClass cannot be null"),
-                checkNotNull(valuePartitionProperty, "valuePartitionProperty cannot be null"));
+            checkNotNull(valuePartionClasses, "valuePartionClasses cannot be null"),
+            checkNotNull(valuePartitionClass, "valuePartitionClass cannot be null"),
+            checkNotNull(valuePartitionProperty, "valuePartitionProperty cannot be null"));
     }
 
-    private void generateChanges(OWLOntology targetOntology, Set<OWLClass> valuePartitionClasses,
-            OWLClass valuePartitionClass, OWLObjectProperty valuePartitionProperty) {
+    private void generateChanges(OWLOntology targetOntology, Collection<OWLClass> valuePartitionClasses,
+        OWLClass valuePartitionClass, OWLObjectProperty valuePartitionProperty) {
         // To create a value partition from a set of classes which represent the
         // values, a value partition class, a property we...
         // 1) Make the classes which represent the values, subclasses of the
@@ -83,6 +84,6 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         addChange(new AddAxiom(targetOntology, df.getOWLFunctionalObjectPropertyAxiom(valuePartitionProperty)));
         // 5) Set the range of the property to be the value partition
         addChange(new AddAxiom(targetOntology,
-                df.getOWLObjectPropertyRangeAxiom(valuePartitionProperty, valuePartitionClass)));
+            df.getOWLObjectPropertyRangeAxiom(valuePartitionProperty, valuePartitionClass)));
     }
 }

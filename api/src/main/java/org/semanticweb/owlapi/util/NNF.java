@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static java.util.stream.Collectors.toSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.util.Set;
+import java.util.List;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -75,15 +74,14 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
                     }
                 } else {
                     // Encode as a data union of and return result
-                    Set<OWLDataOneOf> oneOfs = node.values().map(lit -> dataFactory.getOWLDataOneOf(lit))
-                            .collect(toSet());
+                    List<OWLDataOneOf> oneOfs = asList(node.values().map(lit -> dataFactory.getOWLDataOneOf(lit)));
                     return dataFactory.getOWLDataUnionOf(oneOfs).accept(this);
                 }
             }
 
             @Override
             public OWLDataRange visit(OWLDataIntersectionOf node) {
-                Set<OWLDataRange> ops = node.operands().map(p -> p.accept(this)).collect(toSet());
+                List<OWLDataRange> ops = asList(node.operands().map(p -> p.accept(this)));
                 if (negated) {
                     return dataFactory.getOWLDataUnionOf(ops);
                 } else {
@@ -93,7 +91,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLDataRange visit(OWLDataUnionOf node) {
-                Set<OWLDataRange> ops = node.operands().map(p -> p.accept(this)).collect(toSet());
+                List<OWLDataRange> ops = asList(node.operands().map(p -> p.accept(this)));
                 if (negated) {
                     // Flip to an intersection
                     return dataFactory.getOWLDataIntersectionOf(ops);
@@ -133,7 +131,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
-                Set<OWLClassExpression> ops = asSet(ce.operands().map(p -> p.accept(this)));
+                List<OWLClassExpression> ops = asList(ce.operands().map(p -> p.accept(this)));
                 if (negated) {
                     return dataFactory.getOWLObjectUnionOf(ops);
                 } else {
@@ -143,7 +141,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
             @Override
             public OWLClassExpression visit(OWLObjectUnionOf ce) {
-                Set<OWLClassExpression> ops = asSet(ce.operands().map(p -> p.accept(this)));
+                List<OWLClassExpression> ops = asList(ce.operands().map(p -> p.accept(this)));
                 if (negated) {
                     // Flip to an intersection
                     return dataFactory.getOWLObjectIntersectionOf(ops);
@@ -352,7 +350,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
     @Override
     public OWLAxiom visit(OWLSubClassOfAxiom axiom) {
         return dataFactory.getOWLSubClassOfAxiom(axiom.getSubClass().accept(classVisitor),
-                axiom.getSuperClass().accept(classVisitor));
+            axiom.getSuperClass().accept(classVisitor));
     }
 
     @Override
@@ -372,7 +370,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = asSet(axiom.classExpressions().map(p -> p.accept(classVisitor)));
+        List<OWLClassExpression> ops = asList(axiom.classExpressions().map(p -> p.accept(classVisitor)));
         return dataFactory.getOWLDisjointClassesAxiom(ops);
     }
 
@@ -433,7 +431,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> ops = asSet(axiom.classExpressions().map(p -> p.accept(classVisitor)));
+        List<OWLClassExpression> ops = asList(axiom.classExpressions().map(p -> p.accept(classVisitor)));
         return dataFactory.getOWLDisjointUnionAxiom(axiom.getOWLClass(), ops);
     }
 
@@ -471,7 +469,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
     public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
         if (axiom.getClassExpression().isAnonymous()) {
             return dataFactory.getOWLClassAssertionAxiom(axiom.getClassExpression().accept(classVisitor),
-                    axiom.getIndividual());
+                axiom.getIndividual());
         } else {
             return axiom;
         }
@@ -479,7 +477,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
     @Override
     public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> ops = asSet(axiom.classExpressions().map(p -> p.accept(classVisitor)));
+        List<OWLClassExpression> ops = asList(axiom.classExpressions().map(p -> p.accept(classVisitor)));
         return dataFactory.getOWLEquivalentClassesAxiom(ops);
     }
 

@@ -59,7 +59,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         }
     };
     protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = CacheBuilder.newBuilder().weakKeys()
-            .softValues().build(builder);
+        .softValues().build(builder);
     protected static CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonbuilder = new CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>>() {
 
         @Override
@@ -68,7 +68,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         }
     };
     protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = CacheBuilder.newBuilder()
-            .weakKeys().softValues().build(anonbuilder);
+        .weakKeys().softValues().build(anonbuilder);
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
@@ -95,7 +95,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         if (anns.size() == 1) {
             return Collections.singletonList(anns.iterator().next());
         }
-        return sortOptionally(anns);
+        return sortOptionally(anns.stream().distinct());
     }
 
     @Override

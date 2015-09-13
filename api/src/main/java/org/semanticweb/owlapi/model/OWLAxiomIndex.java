@@ -54,8 +54,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return set of axioms satisfying the conditions. The set is a copy of the
      *         data.
      */
+    @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity, Imports includeImports,
-            Navigation forSubPosition) {
+        Navigation forSubPosition) {
         return asSet(axioms(type, entity, includeImports, forSubPosition));
     }
 
@@ -81,7 +82,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *         data.
      */
     default <T extends OWLAxiom> Stream<T> axioms(Class<T> type, OWLObject entity, Imports imports,
-            Navigation forSubPosition) {
+        Navigation forSubPosition) {
         return imports.stream(this).flatMap(o -> o.axioms(type, entity.getClass(), entity, forSubPosition));
     }
 
@@ -104,6 +105,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return set of axioms satisfying the conditions. The set is a copy of the
      *         data.
      */
+    @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity, Navigation forSubPosition) {
         return asSet(axioms(type, entity, forSubPosition));
     }
@@ -150,7 +152,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default <T extends OWLAxiom> Collection<T> filterAxioms(OWLAxiomSearchFilter filter, Object key,
-            Imports includeImportsClosure) {
+        Imports includeImportsClosure) {
         return asSet(axioms(filter, key, includeImportsClosure));
     }
 
@@ -260,8 +262,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return set of axioms satisfying the conditions. The set is a copy of the
      *         data.
      */
+    @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, Class<? extends OWLObject> explicitClass,
-            OWLObject entity, Navigation forSubPosition) {
+        OWLObject entity, Navigation forSubPosition) {
         return asSet(axioms(type, explicitClass, entity, forSubPosition));
     }
 
@@ -288,7 +291,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *         data.
      */
     <T extends OWLAxiom> Stream<T> axioms(Class<T> type, Class<? extends OWLObject> explicitClass, OWLObject entity,
-            Navigation forSubPosition);
+        Navigation forSubPosition);
 
     /**
      * Generic search method: resutns all axioms which refer entity, are
@@ -314,8 +317,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return set of axioms satisfying the conditions. The set is a copy of the
      *         data.
      */
+    @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, Class<? extends OWLObject> explicitClass,
-            OWLObject entity, Imports includeImports, Navigation forSubPosition) {
+        OWLObject entity, Imports includeImports, Navigation forSubPosition) {
         return asSet(axioms(type, explicitClass, entity, includeImports, forSubPosition));
     }
 
@@ -344,7 +348,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *         data.
      */
     default <T extends OWLAxiom> Stream<T> axioms(Class<T> type, Class<? extends OWLObject> explicitClass,
-            OWLObject entity, Imports imports, Navigation forSubPosition) {
+        OWLObject entity, Imports imports, Navigation forSubPosition) {
         return imports.stream(this).flatMap(o -> o.axioms(type, explicitClass, entity, forSubPosition));
     }
 
@@ -467,7 +471,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLAnnotationSubject entity,
-            Imports imports) {
+        Imports imports) {
         return asSet(annotationAssertionAxioms(entity, imports));
     }
 
@@ -492,7 +496,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLAnnotationAssertionAxiom> annotationAssertionAxioms(OWLAnnotationSubject entity,
-            Imports imports) {
+        Imports imports) {
         return axioms(OWLAnnotationAssertionAxiom.class, OWLAnnotationSubject.class, entity, imports, IN_SUB_POSITION);
     }
 
@@ -663,7 +667,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
-            OWLObjectPropertyExpression subProperty) {
+        OWLObjectPropertyExpression subProperty) {
         return asSet(objectSubPropertyAxiomsForSubProperty(subProperty));
     }
 
@@ -677,9 +681,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsForSubProperty(
-            OWLObjectPropertyExpression subProperty) {
+        OWLObjectPropertyExpression subProperty) {
         return axioms(OWLSubObjectPropertyOfAxiom.class, OWLObjectPropertyExpression.class, subProperty, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -693,7 +697,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
-            OWLObjectPropertyExpression superProperty) {
+        OWLObjectPropertyExpression superProperty) {
         return asSet(objectSubPropertyAxiomsForSuperProperty(superProperty));
     }
 
@@ -707,9 +711,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLSubObjectPropertyOfAxiom> objectSubPropertyAxiomsForSuperProperty(
-            OWLObjectPropertyExpression superProperty) {
+        OWLObjectPropertyExpression superProperty) {
         return axioms(OWLSubObjectPropertyOfAxiom.class, OWLObjectPropertyExpression.class, superProperty, EXCLUDED,
-                IN_SUPER_POSITION);
+            IN_SUPER_POSITION);
     }
 
     /**
@@ -737,7 +741,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLObjectPropertyDomainAxiom> objectPropertyDomainAxioms(OWLObjectPropertyExpression property) {
         return axioms(OWLObjectPropertyDomainAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -765,7 +769,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLObjectPropertyRangeAxiom> objectPropertyRangeAxioms(OWLObjectPropertyExpression property) {
         return axioms(OWLObjectPropertyRangeAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -795,7 +799,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLInverseObjectPropertiesAxiom> inverseObjectPropertyAxioms(OWLObjectPropertyExpression property) {
         return axioms(OWLInverseObjectPropertiesAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -810,7 +814,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(equivalentObjectPropertiesAxioms(property));
     }
 
@@ -825,9 +829,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLEquivalentObjectPropertiesAxiom> equivalentObjectPropertiesAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLEquivalentObjectPropertiesAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -842,7 +846,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(disjointObjectPropertiesAxioms(property));
     }
 
@@ -857,9 +861,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLDisjointObjectPropertiesAxiom> disjointObjectPropertiesAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLDisjointObjectPropertiesAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -872,7 +876,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(functionalObjectPropertyAxioms(property));
     }
 
@@ -885,9 +889,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLFunctionalObjectPropertyAxiom> functionalObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLFunctionalObjectPropertyAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -900,7 +904,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(inverseFunctionalObjectPropertyAxioms(property));
     }
 
@@ -913,9 +917,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLInverseFunctionalObjectPropertyAxiom> inverseFunctionalObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLInverseFunctionalObjectPropertyAxiom.class, OWLObjectPropertyExpression.class, property,
-                EXCLUDED, IN_SUB_POSITION);
+            EXCLUDED, IN_SUB_POSITION);
     }
 
     /**
@@ -928,7 +932,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(symmetricObjectPropertyAxioms(property));
     }
 
@@ -941,9 +945,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLSymmetricObjectPropertyAxiom> symmetricObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLSymmetricObjectPropertyAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -956,7 +960,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(asymmetricObjectPropertyAxioms(property));
     }
 
@@ -969,9 +973,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLAsymmetricObjectPropertyAxiom> asymmetricObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLAsymmetricObjectPropertyAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -984,7 +988,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(reflexiveObjectPropertyAxioms(property));
     }
 
@@ -997,9 +1001,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLReflexiveObjectPropertyAxiom> reflexiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLReflexiveObjectPropertyAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1012,7 +1016,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(irreflexiveObjectPropertyAxioms(property));
     }
 
@@ -1025,9 +1029,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLIrreflexiveObjectPropertyAxiom> irreflexiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLIrreflexiveObjectPropertyAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1040,7 +1044,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return asSet(transitiveObjectPropertyAxioms(property));
     }
 
@@ -1053,9 +1057,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLTransitiveObjectPropertyAxiom> transitiveObjectPropertyAxioms(
-            OWLObjectPropertyExpression property) {
+        OWLObjectPropertyExpression property) {
         return axioms(OWLTransitiveObjectPropertyAxiom.class, OWLObjectPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     // Data properties
@@ -1084,7 +1088,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSubProperty(OWLDataProperty subProperty) {
         return axioms(OWLSubDataPropertyOfAxiom.class, OWLDataPropertyExpression.class, subProperty, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1098,7 +1102,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
-            OWLDataPropertyExpression superProperty) {
+        OWLDataPropertyExpression superProperty) {
         return asSet(dataSubPropertyAxiomsForSuperProperty(superProperty));
     }
 
@@ -1112,9 +1116,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLSubDataPropertyOfAxiom> dataSubPropertyAxiomsForSuperProperty(
-            OWLDataPropertyExpression superProperty) {
+        OWLDataPropertyExpression superProperty) {
         return axioms(OWLSubDataPropertyOfAxiom.class, OWLDataPropertyExpression.class, superProperty, EXCLUDED,
-                IN_SUPER_POSITION);
+            IN_SUPER_POSITION);
     }
 
     /**
@@ -1142,7 +1146,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLDataPropertyDomainAxiom> dataPropertyDomainAxioms(OWLDataProperty property) {
         return axioms(OWLDataPropertyDomainAxiom.class, OWLDataPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1170,7 +1174,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLDataPropertyRangeAxiom> dataPropertyRangeAxioms(OWLDataProperty property) {
         return axioms(OWLDataPropertyRangeAxiom.class, OWLDataPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1199,7 +1203,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLEquivalentDataPropertiesAxiom> equivalentDataPropertiesAxioms(OWLDataProperty property) {
         return axioms(OWLEquivalentDataPropertiesAxiom.class, OWLDataPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1227,7 +1231,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLDisjointDataPropertiesAxiom> disjointDataPropertiesAxioms(OWLDataProperty property) {
         return axioms(OWLDisjointDataPropertiesAxiom.class, OWLDataPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1253,7 +1257,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLFunctionalDataPropertyAxiom> functionalDataPropertyAxioms(OWLDataPropertyExpression property) {
         return axioms(OWLFunctionalDataPropertyAxiom.class, OWLDataPropertyExpression.class, property, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     // Individuals
@@ -1367,7 +1371,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     default Stream<OWLObjectPropertyAssertionAxiom> objectPropertyAssertionAxioms(OWLIndividual individual) {
         return axioms(OWLObjectPropertyAssertionAxiom.class, OWLIndividual.class, individual, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1381,7 +1385,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(
-            OWLIndividual individual) {
+        OWLIndividual individual) {
         return asSet(negativeObjectPropertyAssertionAxioms(individual));
     }
 
@@ -1395,9 +1399,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLNegativeObjectPropertyAssertionAxiom> negativeObjectPropertyAssertionAxioms(
-            OWLIndividual individual) {
+        OWLIndividual individual) {
         return axioms(OWLNegativeObjectPropertyAssertionAxiom.class, OWLIndividual.class, individual, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**
@@ -1411,7 +1415,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      */
     @Deprecated
     default Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
-            OWLIndividual individual) {
+        OWLIndividual individual) {
         return asSet(negativeDataPropertyAssertionAxioms(individual));
     }
 
@@ -1425,9 +1429,9 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return the axioms matching the search. The set is a copy of the data.
      */
     default Stream<OWLNegativeDataPropertyAssertionAxiom> negativeDataPropertyAssertionAxioms(
-            OWLIndividual individual) {
+        OWLIndividual individual) {
         return axioms(OWLNegativeDataPropertyAssertionAxiom.class, OWLIndividual.class, individual, EXCLUDED,
-                IN_SUB_POSITION);
+            IN_SUB_POSITION);
     }
 
     /**

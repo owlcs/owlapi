@@ -712,19 +712,19 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
             checkNotNull(settings);
             OWLOntology toReturn = null;
             switch (settings) {
-            case MOVE:
-                toReturn = toCopy;
-                ontologiesByID.put(toReturn.getOntologyID(), toReturn);
-                break;
-            case SHALLOW:
-            case DEEP:
-                OWLOntology o = createOntology(toCopy.getOntologyID());
-                AxiomType.AXIOM_TYPES.forEach(t -> addAxioms(o, toCopy.axioms(t)));
-                toCopy.annotations().forEach(a -> applyChange(new AddOntologyAnnotation(o, a)));
-                toReturn = o;
-                break;
-            default:
-                throw new OWLRuntimeException("settings value not understood: " + settings);
+                case MOVE:
+                    toReturn = toCopy;
+                    ontologiesByID.put(toReturn.getOntologyID(), toReturn);
+                    break;
+                case SHALLOW:
+                case DEEP:
+                    OWLOntology o = createOntology(toCopy.getOntologyID());
+                    AxiomType.AXIOM_TYPES.forEach(t -> addAxioms(o, toCopy.axioms(t)));
+                    toCopy.annotations().forEach(a -> applyChange(new AddOntologyAnnotation(o, a)));
+                    toReturn = o;
+                    break;
+                default:
+                    throw new OWLRuntimeException("settings value not understood: " + settings);
             }
             // toReturn now initialized
             OWLOntologyManager m = toCopy.getOWLOntologyManager();

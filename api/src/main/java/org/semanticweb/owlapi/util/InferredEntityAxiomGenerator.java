@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -36,14 +34,13 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  *        the axiom type
  */
 public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extends OWLAxiom>
-        implements InferredAxiomGenerator<A> {
+    implements InferredAxiomGenerator<A> {
 
     @Override
     public Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner) {
-        Set<E> processedEntities = new HashSet<>();
         Set<A> result = new HashSet<>();
-        reasoner.getRootOntology().importsClosure().flatMap(o -> getEntities(o)).filter(e -> processedEntities.add(e))
-                .forEach(e -> addAxioms(e, reasoner, df, result));
+        reasoner.getRootOntology().importsClosure().flatMap(o -> getEntities(o)).distinct()
+            .forEach(e -> addAxioms(e, reasoner, df, result));
         return result;
     }
 
@@ -72,8 +69,8 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
      */
     protected abstract Stream<E> getEntities(OWLOntology ont);
 
-    protected Set<E> getAllEntities(OWLReasoner reasoner) {
-        return asSet(reasoner.getRootOntology().importsClosure().flatMap(o -> getEntities(o)));
+    protected Stream<E> getAllEntities(OWLReasoner reasoner) {
+        return reasoner.getRootOntology().importsClosure().flatMap(o -> getEntities(o)).distinct();
     }
 
     @Override
