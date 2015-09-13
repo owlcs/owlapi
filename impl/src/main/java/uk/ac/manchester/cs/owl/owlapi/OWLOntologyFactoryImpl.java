@@ -15,7 +15,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -24,13 +27,15 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
+import com.google.common.collect.Sets;
+
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
 public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
     private static final long serialVersionUID = 40000L;
-    private final Set<String> parsableSchemes = new HashSet<>(Arrays.asList("http", "https", "file", "ftp"));
+    private final Set<String> parsableSchemes = Sets.newHashSet("http", "https", "file", "ftp");
     private final OWLOntologyBuilder ontologyBuilder;
 
     /**
@@ -50,12 +55,12 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
     @Override
     public boolean canAttemptLoading(OWLOntologyDocumentSource source) {
         return !source.hasAlredyFailedOnStreams() || !source.hasAlredyFailedOnIRIResolution()
-                && parsableSchemes.contains(source.getDocumentIRI().getScheme());
+            && parsableSchemes.contains(source.getDocumentIRI().getScheme());
     }
 
     @Override
     public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler) {
+        OWLOntologyCreationHandler handler) {
         OWLOntology ont = ontologyBuilder.createOWLOntology(manager, ontologyID);
         handler.ontologyCreated(ont);
         handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
@@ -74,7 +79,7 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
      * @return selected parsers
      */
     private static PriorityCollection<OWLParserFactory> getParsers(OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParserFactory> parsers) {
+        PriorityCollection<OWLParserFactory> parsers) {
         if (parsers.isEmpty()) {
             return parsers;
         }
@@ -106,9 +111,9 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
      * @return candidate parsers
      */
     private static PriorityCollection<OWLParserFactory> getParsersByFormat(OWLDocumentFormat format,
-            PriorityCollection<OWLParserFactory> parsers) {
+        PriorityCollection<OWLParserFactory> parsers) {
         PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>(
-                PriorityCollectionSorting.NEVER);
+            PriorityCollectionSorting.NEVER);
         for (OWLParserFactory parser : parsers) {
             if (parser.getSupportedFormat().getKey().equals(format.getKey())) {
                 candidateParsers.add(parser);
@@ -127,14 +132,14 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
      * @return candidate parsers
      */
     private static PriorityCollection<OWLParserFactory> getParserCandidatesByMIME(String mimeType,
-            PriorityCollection<OWLParserFactory> parsers) {
+        PriorityCollection<OWLParserFactory> parsers) {
         return parsers.getByMIMEType(mimeType);
     }
 
     @Override
     public OWLOntology loadOWLOntology(OWLOntologyManager manager, OWLOntologyDocumentSource documentSource,
-            OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration)
-                    throws OWLOntologyCreationException {
+        OWLOntologyCreationHandler handler, OWLOntologyLoaderConfiguration configuration)
+            throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers. If the
         // ontology is parsed successfully then we break out and return the
         // ontology.

@@ -1,7 +1,8 @@
 package org.obolibrary.macro;
 
-import java.util.HashSet;
-import java.util.Set;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+
+import java.util.List;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -22,22 +23,19 @@ public class AbstractDataVisitorEx implements OWLDataVisitorEx<OWLDataRange> {
     @Override
     public OWLDataRange visit(OWLDataOneOf node) {
         // Encode as a data union of and return result
-        Set<OWLDataOneOf> oneOfs = new HashSet<>();
-        node.values().forEach(lit -> oneOfs.add(df.getOWLDataOneOf(lit)));
+        List<OWLDataOneOf> oneOfs = asList(node.values().map(lit -> df.getOWLDataOneOf(lit)));
         return df.getOWLDataUnionOf(oneOfs).accept(this);
     }
 
     @Override
     public OWLDataRange visit(OWLDataIntersectionOf node) {
-        Set<OWLDataRange> ops = new HashSet<>();
-        node.operands().forEach(op -> ops.add(op.accept(this)));
+        List<OWLDataRange> ops = asList(node.operands().map(op -> op.accept(this)));
         return df.getOWLDataIntersectionOf(ops);
     }
 
     @Override
     public OWLDataRange visit(OWLDataUnionOf node) {
-        Set<OWLDataRange> ops = new HashSet<>();
-        node.operands().forEach(op -> ops.add(op.accept(this)));
+        List<OWLDataRange> ops = asList(node.operands().map(op -> op.accept(this)));
         return df.getOWLDataUnionOf(ops);
     }
 
