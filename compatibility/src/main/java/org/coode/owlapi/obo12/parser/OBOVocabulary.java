@@ -61,82 +61,153 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 @SuppressWarnings("javadoc")
 public enum OBOVocabulary implements HasIRI {
-    DATA_VERSION("data-version"), VERSION("version"), DATE("date", DublinCoreVocabulary.DATE.getIRI()), SAVED_BY(
-            "saved-by"), AUTO_GENERATED_BY("auto-generated-by"), ONTOLOGY("ontology"), SUBSETDEF("subsetdef",
-                    OBOPrefix.OBO_IN_OWL, "SubsetProperty"), IMPORT("import"), SYNONYM_TYPE_DEF("synonymtypedef",
-                            OBOPrefix.OBO_IN_OWL, "SynonymTypeProperty"), SYNONYM_TYPE("synonym-type",
-                                    OBOPrefix.OBO_IN_OWL,
-                                    "hasSynonymType"), ID_SPACE("id_space"), DEFAULT_RELATIONSHIP_ID_PREFIX(
-                                            "default-relationship-id-prefix"), ID_MAPPING("id-mapping"), REMARK(
-                                                    "remark"), ID("id"), NAME("name",
-                                                            OWLRDFVocabulary.RDFS_LABEL.getIRI()), FORMAT_VERSION(
-                                                                    "format-version"), TYPEDEF("Typedef"), ALT_ID(
-                                                                            "alt_id", OBOPrefix.OBO_IN_OWL,
-                                                                            "hasAlternativeId"), SHORT_HAND("shorthand",
-                                                                                    OBOPrefix.OBO_IN_OWL,
-                                                                                    "shorthand"), ALT_NAME(
-                                                                                            "alt_name"), NAMESPACE(
-                                                                                                    "namespace"), DEFAULT_NAMESPACE(
-                                                                                                            "default-namespace"), DEF(
-                                                                                                                    "def"), COMMENT(
-                                                                                                                            "comment",
-                                                                                                                            OWLRDFVocabulary.RDFS_COMMENT
-                                                                                                                                    .getIRI()), SUBSET(
-                                                                                                                                            "subset",
-                                                                                                                                            OBOPrefix.OBO_IN_OWL,
-                                                                                                                                            "inSubset"), SYNONYM(
-                                                                                                                                                    "synonym"), HAS_SCOPE(
-                                                                                                                                                            "hasScope",
-                                                                                                                                                            OBOPrefix.OBO_IN_OWL), RELATED_SYNONYM(
-                                                                                                                                                                    "relatedSynonym",
-                                                                                                                                                                    OBOPrefix.OBO_IN_OWL,
-                                                                                                                                                                    "hasRelatedSynonym"), EXACT_SYNONYM(
-                                                                                                                                                                            "exactSynonym",
-                                                                                                                                                                            OBOPrefix.OBO_IN_OWL,
-                                                                                                                                                                            "hasExactSynonym"), BROAD_SYNONYM(
-                                                                                                                                                                                    "broadSynonym",
-                                                                                                                                                                                    OBOPrefix.OBO_IN_OWL,
-                                                                                                                                                                                    "hasBroadSynonym"), NARROW_SYNONYM(
-                                                                                                                                                                                            "narrowSynonym",
-                                                                                                                                                                                            OBOPrefix.OBO_IN_OWL,
-                                                                                                                                                                                            "hasNarrowSynonym"), XREF(
-                                                                                                                                                                                                    "xref",
-                                                                                                                                                                                                    OBOPrefix.OBO_IN_OWL), XREF_ANALOGUE(
-                                                                                                                                                                                                            "xref_analogue"), XREF_UNKNOWN(
-                                                                                                                                                                                                                    "xref_unk"), IS_A(
-                                                                                                                                                                                                                            "is_a"), IS_OBSOLETE(
-                                                                                                                                                                                                                                    "is_obsolete",
-                                                                                                                                                                                                                                    OWLRDFVocabulary.OWL_DEPRECATED
-                                                                                                                                                                                                                                            .getIRI()), PART_OF(
-                                                                                                                                                                                                                                                    "part_of"), RELATIONSHIP(
-                                                                                                                                                                                                                                                            "relationship"), REPLACED_BY(
-                                                                                                                                                                                                                                                                    "replaced_by"), CONSIDER(
-                                                                                                                                                                                                                                                                            "consider",
-                                                                                                                                                                                                                                                                            OBOPrefix.OBO_IN_OWL,
-                                                                                                                                                                                                                                                                            "consider"), USE_TERM(
-                                                                                                                                                                                                                                                                                    "use_term"), DOMAIN(
-                                                                                                                                                                                                                                                                                            "domain"), RANGE(
-                                                                                                                                                                                                                                                                                                    "range"), IS_CYCLIC(
-                                                                                                                                                                                                                                                                                                            "is_cyclic"), IS_TRANSITIVE(
-                                                                                                                                                                                                                                                                                                                    "is_transitive"), IS_SYMMETRIC(
-                                                                                                                                                                                                                                                                                                                            "is_symmetric"), IS_ASYMMETRIC(
-                                                                                                                                                                                                                                                                                                                                    "is_asymmetric"), IS_REFLEXIVE(
-                                                                                                                                                                                                                                                                                                                                            "is_reflexive"), INVERSE(
-                                                                                                                                                                                                                                                                                                                                                    "inverse"), TRANSITIVE_OVER(
-                                                                                                                                                                                                                                                                                                                                                            "transitive_over"), INTERSECTION_OF(
-                                                                                                                                                                                                                                                                                                                                                                    "intersection_of"), UNION_OF(
-                                                                                                                                                                                                                                                                                                                                                                            "union_of"), DISJOINT_FROM(
-                                                                                                                                                                                                                                                                                                                                                                                    "disjoint_from"), TERM(
-                                                                                                                                                                                                                                                                                                                                                                                            "Term"), BUILTIN(
-                                                                                                                                                                                                                                                                                                                                                                                                    "builtin"), IS_METADATA_TAG(
-                                                                                                                                                                                                                                                                                                                                                                                                            "is_metadata_tag"), CARDINALITY(
-                                                                                                                                                                                                                                                                                                                                                                                                                    "cardinality"), MAX_CARDINALITY(
-                                                                                                                                                                                                                                                                                                                                                                                                                            "maxCardinality"), MIN_CARDINALITY(
-                                                                                                                                                                                                                                                                                                                                                                                                                                    "minCardinality"), INSTANCE(
-                                                                                                                                                                                                                                                                                                                                                                                                                                            "Instance"), INSTANCE_OF(
-                                                                                                                                                                                                                                                                                                                                                                                                                                                    "instance_of"), PROPERTY_VALUE(
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            "property_value"), IS_ANONYMOUS(
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "is_anonymous");
+    DATA_VERSION("data-version"),
+    VERSION("version"),
+    DATE("date", DublinCoreVocabulary.DATE.getIRI()),
+    SAVED_BY(
+        "saved-by"),
+    AUTO_GENERATED_BY("auto-generated-by"),
+    ONTOLOGY("ontology"),
+    SUBSETDEF(
+        "subsetdef",
+        OBOPrefix.OBO_IN_OWL,
+        "SubsetProperty"),
+    IMPORT("import"),
+    SYNONYM_TYPE_DEF(
+        "synonymtypedef",
+        OBOPrefix.OBO_IN_OWL,
+        "SynonymTypeProperty"),
+    SYNONYM_TYPE(
+        "synonym-type",
+        OBOPrefix.OBO_IN_OWL,
+        "hasSynonymType"),
+    ID_SPACE("id_space"),
+    DEFAULT_RELATIONSHIP_ID_PREFIX(
+        "default-relationship-id-prefix"),
+    ID_MAPPING("id-mapping"),
+    REMARK(
+        "remark"),
+    ID("id"),
+    NAME(
+        "name",
+        OWLRDFVocabulary.RDFS_LABEL.getIRI()),
+    FORMAT_VERSION(
+        "format-version"),
+    TYPEDEF("Typedef"),
+    ALT_ID(
+        "alt_id",
+        OBOPrefix.OBO_IN_OWL,
+        "hasAlternativeId"),
+    SHORT_HAND(
+        "shorthand",
+        OBOPrefix.OBO_IN_OWL,
+        "shorthand"),
+    ALT_NAME(
+        "alt_name"),
+    NAMESPACE(
+        "namespace"),
+    DEFAULT_NAMESPACE(
+        "default-namespace"),
+    DEF(
+        "def"),
+    COMMENT(
+        "comment",
+        OWLRDFVocabulary.RDFS_COMMENT
+            .getIRI()),
+    SUBSET(
+        "subset",
+        OBOPrefix.OBO_IN_OWL,
+        "inSubset"),
+    SYNONYM(
+        "synonym"),
+    HAS_SCOPE(
+        "hasScope",
+        OBOPrefix.OBO_IN_OWL),
+    RELATED_SYNONYM(
+        "relatedSynonym",
+        OBOPrefix.OBO_IN_OWL,
+        "hasRelatedSynonym"),
+    EXACT_SYNONYM(
+        "exactSynonym",
+        OBOPrefix.OBO_IN_OWL,
+        "hasExactSynonym"),
+    BROAD_SYNONYM(
+        "broadSynonym",
+        OBOPrefix.OBO_IN_OWL,
+        "hasBroadSynonym"),
+    NARROW_SYNONYM(
+        "narrowSynonym",
+        OBOPrefix.OBO_IN_OWL,
+        "hasNarrowSynonym"),
+    XREF(
+        "xref",
+        OBOPrefix.OBO_IN_OWL),
+    XREF_ANALOGUE(
+        "xref_analogue"),
+    XREF_UNKNOWN(
+        "xref_unk"),
+    IS_A(
+        "is_a"),
+    IS_OBSOLETE(
+        "is_obsolete",
+        OWLRDFVocabulary.OWL_DEPRECATED
+            .getIRI()),
+    PART_OF(
+        "part_of"),
+    RELATIONSHIP(
+        "relationship"),
+    REPLACED_BY(
+        "replaced_by"),
+    CONSIDER(
+        "consider",
+        OBOPrefix.OBO_IN_OWL,
+        "consider"),
+    USE_TERM(
+        "use_term"),
+    DOMAIN(
+        "domain"),
+    RANGE(
+        "range"),
+    IS_CYCLIC(
+        "is_cyclic"),
+    IS_TRANSITIVE(
+        "is_transitive"),
+    IS_SYMMETRIC(
+        "is_symmetric"),
+    IS_ASYMMETRIC(
+        "is_asymmetric"),
+    IS_REFLEXIVE(
+        "is_reflexive"),
+    INVERSE(
+        "inverse"),
+    TRANSITIVE_OVER(
+        "transitive_over"),
+    INTERSECTION_OF(
+        "intersection_of"),
+    UNION_OF(
+        "union_of"),
+    DISJOINT_FROM(
+        "disjoint_from"),
+    TERM(
+        "Term"),
+    BUILTIN(
+        "builtin"),
+    IS_METADATA_TAG(
+        "is_metadata_tag"),
+    CARDINALITY(
+        "cardinality"),
+    MAX_CARDINALITY(
+        "maxCardinality"),
+    MIN_CARDINALITY(
+        "minCardinality"),
+    INSTANCE(
+        "Instance"),
+    INSTANCE_OF(
+        "instance_of"),
+    PROPERTY_VALUE(
+        "property_value"),
+    IS_ANONYMOUS(
+        "is_anonymous");
 
     /**
      * @deprecated Use {@link #OBO_IRI_BASE}
@@ -157,9 +228,9 @@ public enum OBOVocabulary implements HasIRI {
      */
     public static final Pattern OBO_ID_PATTERN = Pattern.compile("(([^:]+):)?(.+)");
     private static final String bases = Pattern.quote(OBO_IRI_BASE) + "|" + Pattern.quote(ONTOLOGY_URI_BASE + "/") + "|"
-            + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|" + Pattern.quote(ANNOTATION_URI_BASE);
+        + Pattern.quote(LEGACY_OBO_IRI_BASE) + "|" + Pattern.quote(ANNOTATION_URI_BASE);
     public static final Pattern OBO_IRI_PATTERN = Pattern
-            .compile("(" + bases + ")" + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
+        .compile("(" + bases + ")" + "(([^\\_]*)\\_)?([A-Za-z0-9\\_\\-]*)");
     private static final IDSpaceManager DEFAULT_ID_SPACE_MANAGER = new IDSpaceManager() {
 
         @Override
@@ -201,7 +272,7 @@ public enum OBOVocabulary implements HasIRI {
             StringBuilder sb = new StringBuilder();
             String iriPrefix = idSpaceManager.getIRIPrefix(idSpace);
             sb.append(iriPrefix);
-            if (idSpace != null) {
+            if (idSpace != null && !idSpace.isEmpty()) {
                 sb.append(idSpace);
                 sb.append("_");
             }
@@ -242,17 +313,17 @@ public enum OBOVocabulary implements HasIRI {
     }
 
     private static final List<OBOVocabulary> headerTags = Arrays.asList(FORMAT_VERSION, DATA_VERSION, DATE, SAVED_BY,
-            AUTO_GENERATED_BY, SUBSETDEF, IMPORT, SYNONYM_TYPE_DEF, ID_SPACE, DEFAULT_RELATIONSHIP_ID_PREFIX,
-            ID_MAPPING, REMARK);
+        AUTO_GENERATED_BY, SUBSETDEF, IMPORT, SYNONYM_TYPE_DEF, ID_SPACE, DEFAULT_RELATIONSHIP_ID_PREFIX,
+        ID_MAPPING, REMARK);
     private static final List<OBOVocabulary> termStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF, COMMENT,
-            SUBSET, SYNONYM, XREF, IS_A, INTERSECTION_OF, UNION_OF, DISJOINT_FROM, RELATIONSHIP, IS_OBSOLETE,
-            REPLACED_BY, CONSIDER);
+        SUBSET, SYNONYM, XREF, IS_A, INTERSECTION_OF, UNION_OF, DISJOINT_FROM, RELATIONSHIP, IS_OBSOLETE,
+        REPLACED_BY, CONSIDER);
     private static final List<OBOVocabulary> typeDefStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
-            COMMENT, SUBSET, SYNONYM, XREF, DOMAIN, RANGE, IS_ASYMMETRIC, IS_CYCLIC, IS_REFLEXIVE, IS_SYMMETRIC,
-            IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER, RELATIONSHIP, IS_METADATA_TAG, IS_OBSOLETE, REPLACED_BY,
-            CONSIDER);
+        COMMENT, SUBSET, SYNONYM, XREF, DOMAIN, RANGE, IS_ASYMMETRIC, IS_CYCLIC, IS_REFLEXIVE, IS_SYMMETRIC,
+        IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER, RELATIONSHIP, IS_METADATA_TAG, IS_OBSOLETE, REPLACED_BY,
+        CONSIDER);
     private static final List<OBOVocabulary> instanceStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
-            COMMENT, SYNONYM, XREF, INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY, CONSIDER);
+        COMMENT, SYNONYM, XREF, INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY, CONSIDER);
 
     OBOVocabulary(String name) {
         this.name = name;

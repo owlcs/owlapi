@@ -1418,13 +1418,7 @@ public class OBOFormatParser {
             ret = sb.toString();
         }
         stream.advance(i);
-        String cachedValue = stringCache.getUnchecked(ret);
-        if (LOG.isTraceEnabled()) {
-            if (ret != cachedValue) {
-                LOG.trace("Cache hit for  {}", cachedValue);
-            }
-        }
-        return cachedValue;
+        return stringCache.getUnchecked(ret);
     }
 
     private static String mapDeprecatedTag(String tag) {

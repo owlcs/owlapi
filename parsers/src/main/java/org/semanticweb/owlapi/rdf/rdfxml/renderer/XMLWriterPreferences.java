@@ -12,6 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -24,15 +27,11 @@ import javax.annotation.Nonnull;
 public final class XMLWriterPreferences {
 
     private static final @Nonnull XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
-    private boolean useNamespaceEntities;
-    private boolean indenting;
-    private int indentSize;
+    private AtomicBoolean useNamespaceEntities = new AtomicBoolean(false);
+    private AtomicBoolean indenting = new AtomicBoolean(true);
+    private AtomicInteger indentSize = new AtomicInteger(4);
 
-    private XMLWriterPreferences() {
-        useNamespaceEntities = false;
-        indenting = true;
-        indentSize = 4;
-    }
+    private XMLWriterPreferences() {}
 
     /**
      * @return copy of the current XMLWriterPreferences instance. Passing this
@@ -42,9 +41,9 @@ public final class XMLWriterPreferences {
      */
     public synchronized XMLWriterPreferences copy() {
         XMLWriterPreferences p = new XMLWriterPreferences();
-        p.setIndenting(indenting);
-        p.setIndentSize(indentSize);
-        p.setUseNamespaceEntities(useNamespaceEntities);
+        p.indenting.set(indenting.get());
+        p.indentSize.set(indentSize.get());
+        p.useNamespaceEntities.set(useNamespaceEntities.get());
         return p;
     }
 
@@ -59,44 +58,44 @@ public final class XMLWriterPreferences {
      * @return use namespace entities
      */
     public boolean isUseNamespaceEntities() {
-        return useNamespaceEntities;
+        return useNamespaceEntities.get();
     }
 
     /**
      * @param useNamespaceEntities
      *        useNamespaceEntities
      */
-    public synchronized void setUseNamespaceEntities(boolean useNamespaceEntities) {
-        this.useNamespaceEntities = useNamespaceEntities;
+    public void setUseNamespaceEntities(boolean useNamespaceEntities) {
+        this.useNamespaceEntities.set(useNamespaceEntities);
     }
 
     /**
      * @return indenting
      */
     public boolean isIndenting() {
-        return indenting;
+        return indenting.get();
     }
 
     /**
      * @param indenting
      *        indenting
      */
-    public synchronized void setIndenting(boolean indenting) {
-        this.indenting = indenting;
+    public void setIndenting(boolean indenting) {
+        this.indenting.set(indenting);
     }
 
     /**
      * @return indent size
      */
     public int getIndentSize() {
-        return indentSize;
+        return indentSize.get();
     }
 
     /**
      * @param indentSize
      *        indentSize
      */
-    public synchronized void setIndentSize(int indentSize) {
-        this.indentSize = indentSize;
+    public void setIndentSize(int indentSize) {
+        this.indentSize.set(indentSize);
     }
 }
