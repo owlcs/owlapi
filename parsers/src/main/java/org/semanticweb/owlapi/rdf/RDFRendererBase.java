@@ -234,7 +234,7 @@ public abstract class RDFRendererBase {
 
     private void renderUntypedIRIAnnotationAssertions() {
         Set<IRI> annotatedIRIs = new TreeSet<>();
-        for (OWLAnnotationAssertionAxiom ax : ontology.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+        ontology.axioms(AxiomType.ANNOTATION_ASSERTION).forEach(ax -> {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
@@ -242,7 +242,7 @@ public abstract class RDFRendererBase {
                     annotatedIRIs.add(iri);
                 }
             }
-        }
+        });
         if (!annotatedIRIs.isEmpty()) {
             writeBanner(ANNOTATED_IRIS_BANNER_TEXT);
             for (IRI iri : annotatedIRIs) {
@@ -320,27 +320,16 @@ public abstract class RDFRendererBase {
     private List<OWLAxiom> getGeneralAxioms() {
         List<OWLAxiom> generalAxioms = new ArrayList<>();
         add(generalAxioms, ontology.generalClassAxioms());
-        generalAxioms.addAll(ontology.getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
-        for (OWLDisjointClassesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_CLASSES)) {
-            if (ax.classExpressions().count() > 2) {
-                generalAxioms.add(ax);
-            }
-        }
-        for (OWLDisjointObjectPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
-            if (ax.properties().count() > 2) {
-                generalAxioms.add(ax);
-            }
-        }
-        for (OWLDisjointDataPropertiesAxiom ax : ontology.getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
-            if (ax.properties().count() > 2) {
-                generalAxioms.add(ax);
-            }
-        }
-        for (OWLHasKeyAxiom ax : ontology.getAxioms(AxiomType.HAS_KEY)) {
-            if (ax.getClassExpression().isAnonymous()) {
-                generalAxioms.add(ax);
-            }
-        }
+        add(generalAxioms, ontology.axioms(AxiomType.DIFFERENT_INDIVIDUALS));
+        ontology.axioms(AxiomType.DISJOINT_CLASSES)
+            .filter(ax -> ax.classExpressions().count() > 2)
+            .forEach(ax -> generalAxioms.add(ax));
+        ontology.axioms(AxiomType.DISJOINT_OBJECT_PROPERTIES).filter(ax -> ax.properties().count() > 2).forEach(
+            ax -> generalAxioms.add(ax));
+        ontology.axioms(AxiomType.DISJOINT_DATA_PROPERTIES).filter(ax -> ax.properties().count() > 2).forEach(
+            ax -> generalAxioms.add(ax));
+        ontology.axioms(AxiomType.HAS_KEY).filter(ax -> ax.getClassExpression().isAnonymous()).forEach(
+            ax -> generalAxioms.add(ax));
         generalAxioms.sort(null);
         return generalAxioms;
     }
@@ -479,11 +468,8 @@ public abstract class RDFRendererBase {
                     }
                     axioms.add(ax);
                 }
-                for (OWLSubPropertyChainOfAxiom ax : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
-                    if (ax.getSuperProperty().equals(property)) {
-                        axioms.add(ax);
-                    }
-                }
+                ontology.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF).filter(ax -> ax.getSuperProperty().equals(property))
+                    .forEach(ax -> axioms.add(ax));
                 add(ontology.axioms(
                     ontology.getOWLOntologyManager().getOWLDataFactory().getOWLObjectInverseOf(property)), axioms);
             }

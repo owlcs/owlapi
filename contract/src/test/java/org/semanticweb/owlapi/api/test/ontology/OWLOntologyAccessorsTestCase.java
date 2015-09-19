@@ -43,14 +43,14 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
             }
             assertEquals(ont.getLogicalAxiomCount(), axioms.length);
             AxiomType<?> axiomType = ax.getAxiomType();
-            assertTrue(ont.getAxioms(axiomType).contains(ax));
-            assertTrue(ont.getAxioms(axiomType, INCLUDED).contains(ax));
+            assertTrue(contains(ont.axioms(axiomType), ax));
+            assertTrue(contains(ont.axioms(axiomType, INCLUDED), ax));
             assertEquals(ont.getAxiomCount(axiomType), axioms.length);
             assertEquals(ont.getAxiomCount(axiomType, INCLUDED), axioms.length);
             ax.signature().forEach(e -> {
                 assertTrue(contains(ont.referencingAxioms(e), ax));
                 assertTrue(contains(ont.signature(), e));
-            } );
+            });
         }
     }
 

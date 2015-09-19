@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -78,9 +77,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 }
             }
         }
-        Collection<OWLAxiom> axioms = new ArrayList<>();
-        AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(AxiomType.DECLARATION))
-            .forEach(t -> axioms.addAll(ontology.getAxioms(t)));
+        Stream<? extends OWLAxiom> axioms = AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(AxiomType.DECLARATION))
+            .flatMap(t -> ontology.axioms(t));
         render(CollectionFactory.sortOptionally(axioms));
     }
 

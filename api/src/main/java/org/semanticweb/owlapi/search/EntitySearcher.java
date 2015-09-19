@@ -1185,7 +1185,22 @@ public class EntitySearcher {
      * @return matching axioms
      */
     public static Collection<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom a, OWLOntology o, Imports imports) {
-        return o.getAxiomsIgnoreAnnotations(a, imports);
+        return asList(o.axiomsIgnoreAnnotations(a, imports));
+    }
+
+    /**
+     * Get matching axioms for a, ignoring annotations.
+     * 
+     * @param o
+     *        ontology
+     * @param a
+     *        axiom
+     * @param imports
+     *        true if imports closure is included
+     * @return matching axioms
+     */
+    public static Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom a, OWLOntology o, Imports imports) {
+        return o.axiomsIgnoreAnnotations(a, imports);
     }
 
     /**

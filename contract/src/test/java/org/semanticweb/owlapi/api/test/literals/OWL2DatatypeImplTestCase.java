@@ -180,7 +180,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     public void toStringID() {
         assertNotNull(plainLiteral.toStringID());
         assertEquals(RDF_PLAIN_LITERAL.getIRI().toString(), plainLiteral
-        .toStringID());
+            .toStringID());
     }
 
     @Test
@@ -203,7 +203,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
 
     @Test
     public void getAnonymousIndividuals() {
-        assertTrue(plainLiteral.getAnonymousIndividuals().isEmpty());
+        assertEquals(0L, plainLiteral.anonymousIndividuals().count());
     }
 
     @Test

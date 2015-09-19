@@ -54,9 +54,9 @@ public class MacroExpansionVisitor {
      *        true if expansions should be added
      */
     public MacroExpansionVisitor(OWLOntology ontology, boolean shouldTransferAnnotations,
-            boolean shouldAddExpansionMarker) {
+        boolean shouldAddExpansionMarker) {
         this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, shouldTransferAnnotations,
-                shouldAddExpansionMarker);
+            shouldAddExpansionMarker);
     }
 
     /**
@@ -70,7 +70,7 @@ public class MacroExpansionVisitor {
      *        true if expansions should be added
      */
     public MacroExpansionVisitor(OWLOntology inputOntology, Set<OWLAnnotation> extraAnnotations,
-            boolean shouldTransferAnnotations, boolean shouldAddExpansionMarker) {
+        boolean shouldTransferAnnotations, boolean shouldAddExpansionMarker) {
         this.inputOntology = inputOntology;
         this.extraAnnotations = extraAnnotations;
         this.shouldTransferAnnotations = shouldTransferAnnotations;
@@ -106,23 +106,20 @@ public class MacroExpansionVisitor {
         private final Set<OWLAxiom> rmAxioms = new HashSet<>();
 
         public MacroExpansions() {
-            for (OWLSubClassOfAxiom axiom : inputOntology.getAxioms(AxiomType.SUBCLASS_OF)) {
+            inputOntology.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 replaceIfDifferent(axiom, newAxiom);
-            }
-            for (OWLEquivalentClassesAxiom axiom : inputOntology.getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
+            });
+            inputOntology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(axiom -> {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 replaceIfDifferent(axiom, newAxiom);
-            }
-            for (OWLClassAssertionAxiom axiom : inputOntology.getAxioms(AxiomType.CLASS_ASSERTION)) {
+            });
+            inputOntology.axioms(AxiomType.CLASS_ASSERTION).forEach(axiom -> {
                 OWLAxiom newAxiom = visitor.visit(axiom);
                 replaceIfDifferent(axiom, newAxiom);
-            }
-            for (OWLAnnotationAssertionAxiom axiom : inputOntology.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-                if (expand(axiom)) {
-                    rmAxioms.add(axiom);
-                }
-            }
+            });
+            inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).filter(axiom -> expand(axiom)).forEach(
+                axiom -> rmAxioms.add(axiom));
         }
 
         private void replaceIfDifferent(OWLAxiom ax, OWLAxiom exAx) {
@@ -163,7 +160,7 @@ public class MacroExpansionVisitor {
                     OWLClass axValClass = dataFactory.getOWLClass(axValIRI);
                     if (asList(inputOntology.declarationAxioms(axValClass)).isEmpty()) {
                         OWLDeclarationAxiom declarationAxiom = dataFactory.getOWLDeclarationAxiom(axValClass,
-                                annotations);
+                            annotations);
                         declarations.add(declarationAxiom);
                         newAxioms.add(declarationAxiom);
                         manager.addAxiom(inputOntology, declarationAxiom);
@@ -194,13 +191,13 @@ public class MacroExpansionVisitor {
         }
 
         protected void expandAndAddAnnotations(String expandTo, AtomicBoolean expandedSomething,
-                Set<OWLAnnotation> annotations) {
+            Set<OWLAnnotation> annotations) {
             visitor.getTool().parseManchesterExpressionFrames(expandTo).stream().map(axp -> axp.getAxiom())
-                    .map(ax -> shouldTransferAnnotations() ? ax.getAnnotatedAxiom(annotations) : ax)
-                    .forEach(expandedAxiom -> {
-                        newAxioms.add(expandedAxiom);
-                        expandedSomething.set(true);
-                    } );
+                .map(ax -> shouldTransferAnnotations() ? ax.getAnnotatedAxiom(annotations) : ax)
+                .forEach(expandedAxiom -> {
+                    newAxioms.add(expandedAxiom);
+                    expandedSomething.set(true);
+                });
         }
     }
 
@@ -213,13 +210,13 @@ public class MacroExpansionVisitor {
 
                 @Override
                 protected @Nullable OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
-                        OWLObjectPropertyExpression p) {
+                    OWLObjectPropertyExpression p) {
                     return expandObject(filler, p);
                 }
 
                 @Override
                 protected @Nullable OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
-                        OWLObjectPropertyExpression p) {
+                    OWLObjectPropertyExpression p) {
                     OWLClassExpression result = expandObject(filler, p);
                     if (result != null) {
                         result = df.getOWLObjectSomeValuesFrom(desc.getProperty(), result);

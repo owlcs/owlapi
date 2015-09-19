@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  */
 @SuppressWarnings("javadoc")
 public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
-AbstractFileRoundTrippingTestCase {
+    AbstractFileRoundTrippingTestCase {
 
     public FileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
         super("SubClassOfUntypedOWLClass.rdf");
@@ -40,13 +40,13 @@ AbstractFileRoundTrippingTestCase {
     @Test
     public void testAxioms() {
         OWLOntology ont = createOntology();
-        assertTrue(ont.getAxioms(AxiomType.SUBCLASS_OF).isEmpty());
+        assertEquals(0, ont.axioms(AxiomType.SUBCLASS_OF).count());
         OWLDocumentFormat format = ont.getOWLOntologyManager()
-        .getOntologyFormat(ont);
+            .getOntologyFormat(ont);
         assertTrue(format instanceof RDFXMLDocumentFormat);
         RDFXMLDocumentFormat rdfxmlFormat = (RDFXMLDocumentFormat) format;
         Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()
-        .getUnparsedTriples();
+            .getUnparsedTriples();
         assertEquals(1, triples.size());
     }
 

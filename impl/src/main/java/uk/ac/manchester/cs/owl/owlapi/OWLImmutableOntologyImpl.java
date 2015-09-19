@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -193,12 +193,12 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
+    public Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom) {
         @SuppressWarnings("unchecked")
-        Set<OWLAxiom> filter = asSet((Stream<OWLAxiom>) axioms(axiom.getAxiomType()).filter(ax -> ax
-            .equalsIgnoreAnnotations(axiom)));
+        Stream<OWLAxiom> filter = (Stream<OWLAxiom>) axioms(axiom.getAxiomType()).filter(ax -> ax
+            .equalsIgnoreAnnotations(axiom));
         if (containsAxiom(axiom)) {
-            filter.add(axiom);
+            filter = Stream.concat(filter, Stream.of(axiom));
         }
         return filter;
     }
@@ -212,8 +212,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, Imports imports) {
-        return asSet(imports.stream(this).flatMap(o -> o.getAxiomsIgnoreAnnotations(axiom).stream()));
+    public Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom, Imports imports) {
+        return imports.stream(this).flatMap(o -> o.axiomsIgnoreAnnotations(axiom));
     }
 
     @Override
@@ -498,17 +498,15 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
                 (OWLAnonymousIndividual) owlEntity, OWLAxiom.class);
         } else if (owlEntity instanceof IRI) {
             Set<OWLAxiom> axioms = new HashSet<>();
+            String iriString = owlEntity.toString();
             // axioms referring entities with this IRI, data property assertions
             // with IRI as subject, annotations with IRI as subject or object.
             entitiesInSignature((IRI) owlEntity).forEach(e -> OWLAPIStreamUtils.add(referencingAxioms(e), axioms));
-            for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype())) {
-                    if (ax.getObject().getLiteral().equals(owlEntity.toString())) {
-                        axioms.add(ax);
-                    }
-                }
-            }
-            for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            axioms(AxiomType.DATA_PROPERTY_ASSERTION)
+                .filter(ax -> OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype()))
+                .filter(ax -> ax.getObject().getLiteral().equals(iriString))
+                .forEach(ax -> axioms.add(ax));
+            axioms(AxiomType.ANNOTATION_ASSERTION).forEach(ax -> {
                 if (ax.getSubject().equals(owlEntity)) {
                     axioms.add(ax);
                 } else if (ax.getValue().asLiteral().isPresent()) {
@@ -519,22 +517,17 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
                         }
                     }
                 }
-            }
+            });
             return axioms.stream();
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
-            for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
-                if (OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype())) {
-                    if (ax.getObject().equals(owlEntity)) {
-                        axioms.add(ax);
-                    }
-                }
-            }
-            for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-                if (owlEntity.equals(ax.getValue().asLiteral().orElse(null))) {
-                    axioms.add(ax);
-                }
-            }
+            axioms(AxiomType.DATA_PROPERTY_ASSERTION)
+                .filter(ax -> OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype()))
+                .filter(ax -> ax.getObject().equals(owlEntity))
+                .forEach(ax -> axioms.add(ax));
+            axioms(AxiomType.ANNOTATION_ASSERTION)
+                .filter(ax -> owlEntity.equals(ax.getValue().asLiteral().orElse(null)))
+                .forEach(ax -> axioms.add(ax));
             return axioms.stream();
         }
         return empty();

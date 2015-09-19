@@ -210,7 +210,9 @@ public interface OWLAxiomCollection
      *         will be contained in the set.
      */
     @Deprecated
-    Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom);
+    default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
+        return asSet(axiomsIgnoreAnnotations(axiom));
+    }
 
     /**
      * Gets the set of axioms contained in this collection that have the same
@@ -230,7 +232,45 @@ public interface OWLAxiomCollection
      *         will be contained in the set.
      */
     @Deprecated
-    Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, Imports includeImportsClosure);
+    default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, Imports includeImportsClosure) {
+        return asSet(axiomsIgnoreAnnotations(axiom, includeImportsClosure));
+    }
+
+    /**
+     * Gets the set of axioms contained in this collection that have the same
+     * "logical structure" as the specified axiom; i.e., all axioms that equal
+     * the specified axiom, when ignoring annotations. Optionally the imports
+     * closure is included.
+     * 
+     * @param axiom
+     *        The axiom that the returned axioms must equal, ignoring
+     *        annotations.
+     * @return The set of axioms such that for any two axioms, {@code axiomA}
+     *         and {@code axiomB} in the set,
+     *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to
+     *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
+     *         will be contained in the set.
+     */
+    Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom);
+
+    /**
+     * Gets the set of axioms contained in this collection that have the same
+     * "logical structure" as the specified axiom; i.e., all axioms that equal
+     * the specified axiom, when ignoring annotations. Optionally the imports
+     * closure is included.
+     * 
+     * @param axiom
+     *        The axiom that the returned axioms must equal, ignoring
+     *        annotations.
+     * @param includeImportsClosure
+     *        if INCLUDED, include imports closure.
+     * @return The set of axioms such that for any two axioms, {@code axiomA}
+     *         and {@code axiomB} in the set,
+     *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to
+     *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
+     *         will be contained in the set.
+     */
+    Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom, Imports includeImportsClosure);
 
     /**
      * Gets the axioms where the specified {@link OWLPrimitive} appears in the

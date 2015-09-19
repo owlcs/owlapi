@@ -387,7 +387,7 @@ public class OWLAPIObo2Owl {
             OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
             Set<OWLAxiom> rmAxioms = new HashSet<>();
             Set<OWLAxiom> newAxioms = new HashSet<>();
-            for (OWLEquivalentClassesAxiom eca : ontology.getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
+            ontology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(eca -> {
                 AtomicInteger numNamed = new AtomicInteger();
                 Set<OWLClassExpression> xs = new HashSet<>();
                 eca.classExpressions().forEach(x -> {
@@ -404,7 +404,7 @@ public class OWLAPIObo2Owl {
                     rmAxioms.add(eca);
                     newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
                 }
-            }
+            });
             ontology.remove(rmAxioms);
             ontology.add(newAxioms);
         }

@@ -36,7 +36,7 @@ public class SearcherTestCase extends TestBase {
         OWLClass d = Class(IRI("urn:d"));
         OWLAxiom ax = SubClassOf(c, d);
         o.getOWLOntologyManager().addAxiom(o, ax);
-        assertTrue(o.getAxioms(AxiomType.SUBCLASS_OF).contains(ax));
+        assertTrue(contains(o.axioms(AxiomType.SUBCLASS_OF), ax));
         assertTrue(contains(o.axioms(c), ax));
     }
 
@@ -57,15 +57,15 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax2);
         o.getOWLOntologyManager().addAxiom(o, ax3);
         o.getOWLOntologyManager().addAxiom(o, ax4);
-        assertTrue(o.getAxioms(AxiomType.SUB_OBJECT_PROPERTY).contains(ax));
+        assertTrue(contains(o.axioms(AxiomType.SUB_OBJECT_PROPERTY), ax));
         Collection<OWLAxiom> axioms = asSet(o.axioms(
-        Filters.subObjectPropertyWithSuper, d, INCLUDED));
+            Filters.subObjectPropertyWithSuper, d, INCLUDED));
         assertTrue(contains(sub(axioms.stream()), c));
         axioms = asSet(o.axioms(Filters.subObjectPropertyWithSub, c, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), d));
         assertTrue(contains(domain(o.objectPropertyDomainAxioms(c)), x));
         assertTrue(contains(equivalent(o.equivalentObjectPropertiesAxioms(c)),
-        e));
+            e));
     }
 
     @Test
@@ -84,15 +84,15 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax2);
         o.getOWLOntologyManager().addAxiom(o, ax3);
         o.getOWLOntologyManager().addAxiom(o, ax4);
-        assertTrue(o.getAxioms(AxiomType.SUB_DATA_PROPERTY).contains(ax));
+        assertTrue(contains(o.axioms(AxiomType.SUB_DATA_PROPERTY), ax));
         assertTrue(contains(sub(o.axioms(Filters.subDataPropertyWithSuper, d,
-        INCLUDED)), c));
+            INCLUDED)), c));
         Collection<OWLAxiom> axioms = asSet(o.axioms(
-        Filters.subDataPropertyWithSub, c, INCLUDED));
+            Filters.subDataPropertyWithSub, c, INCLUDED));
         assertTrue(contains(sup(axioms.stream()), d));
         assertTrue(contains(domain(o.dataPropertyDomainAxioms(c)), x));
         assertTrue(contains(range(o.dataPropertyRangeAxioms(c)), Boolean()));
         assertTrue(contains(equivalent(o.equivalentDataPropertiesAxioms(c)),
-        e));
+            e));
     }
 }

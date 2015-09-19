@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Set;
 
@@ -207,12 +207,12 @@ public class TurtleTestCase extends TestBase {
             + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
         OWLOntology ontology = loadOntologyFromString(input);
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
-        Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);
+        Set<OWLSubClassOfAxiom> axioms = asSet(o.axioms(AxiomType.SUBCLASS_OF));
         assertEquals(1, axioms.size());
         OWLAnnotation next = axioms.iterator().next().annotations().iterator().next();
         assertTrue(next.getValue() instanceof OWLAnonymousIndividual);
         OWLAnonymousIndividual ind = (OWLAnonymousIndividual) next.getValue();
-        Set<OWLAxiom> anns = asSet(o.axioms().filter(ax -> ax.getAnonymousIndividuals().contains(ind)));
+        Set<OWLAxiom> anns = asSet(o.axioms().filter(ax -> contains(ax.anonymousIndividuals(), ind)));
         assertEquals(3, anns.size());
     }
 

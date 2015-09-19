@@ -3,6 +3,7 @@ package org.obolibrary.oboformat;
 import static org.junit.Assert.*;
 
 import java.io.*;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
@@ -148,17 +149,11 @@ public class OboFormatTestBasics extends TestBase {
     }
 
     protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
-        for (OWLAnnotationAssertionAxiom aa : ontology.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-            OWLAnnotationValue v = aa.getValue();
-            OWLAnnotationProperty property = aa.getProperty();
-            if (property.isLabel() && v instanceof OWLLiteral) {
-                if (label.equals(((OWLLiteral) v).getLiteral())) {
-                    OWLAnnotationSubject subject = aa.getSubject();
-                    if (subject instanceof IRI) {
-                        return (IRI) subject;
-                    }
-                }
-            }
+        Optional<OWLAnnotationAssertionAxiom> anyMatch = ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
+            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral && label.equals(
+                ((OWLLiteral) aa.getValue()).getLiteral())).filter(aa -> aa.getSubject() instanceof IRI).findAny();
+        if (anyMatch.isPresent()) {
+            return (IRI) anyMatch.get().getSubject();
         }
         return null;
     }
@@ -166,8 +161,8 @@ public class OboFormatTestBasics extends TestBase {
     protected String readResource(String resource) throws IOException {
         StringBuilder sb = new StringBuilder();
         try (InputStream inputStream = getInputStream(resource);
-                Reader r = new InputStreamReader(inputStream);
-                BufferedReader reader = new BufferedReader(r);) {
+            Reader r = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(r);) {
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append('\n');

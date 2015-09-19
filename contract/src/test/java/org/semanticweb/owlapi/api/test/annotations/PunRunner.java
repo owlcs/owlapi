@@ -137,7 +137,7 @@ public class PunRunner extends org.junit.runner.Runner {
             ontologyManager.removeOntology(o);
             o = ontologyManager.loadOntologyFromOntologyDocument(in);
         }
-        assertEquals("annotationCount", entities.length, o.getAxioms(AxiomType.ANNOTATION_ASSERTION).size());
+        assertEquals("annotationCount", entities.length, o.axioms(AxiomType.ANNOTATION_ASSERTION).count());
     }
 
     public static OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(

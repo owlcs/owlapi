@@ -9,7 +9,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -156,7 +155,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
             if (v.getLiteral().equals("Wikipedia:Mandibular_condyle")) {
                 n.incrementAndGet();
             }
-        } ));
+        }));
         assertEquals(3, n.intValue());
     }
 
@@ -244,8 +243,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         AtomicBoolean hasAnnotation = new AtomicBoolean(false);
         OWLAnnotationProperty infIRI = df
             .getOWLAnnotationProperty(isInferredIRI);
-        Set<OWLSubClassOfAxiom> axioms = owl.getAxioms(AxiomType.SUBCLASS_OF);
-        for (OWLSubClassOfAxiom axiom : axioms) {
+        owl.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> {
             OWLClassExpression superClassCE = axiom.getSuperClass();
             OWLClassExpression subClassCE = axiom.getSubClass();
             if (!superClassCE.isAnonymous() && !subClassCE.isAnonymous()) {
@@ -255,19 +253,19 @@ public class RoundTripTestCase extends RoundTripTestBasics {
                     && subClass.getIRI().equals(t3)) {
                     axiom.annotations(infIRI).map(a -> a.getValue())
                         .forEach(v -> {
-                            if (v instanceof OWLLiteral) {
-                                assertEquals("true",
-                                    ((OWLLiteral) v).getLiteral());
-                            } else {
-                                fail(
-                                    "The value is not the expected type, expected OWLiteral but was: "
-                                        + v.getClass().getName());
-                            }
-                            hasAnnotation.set(true);
-                        } );
+                        if (v instanceof OWLLiteral) {
+                            assertEquals("true",
+                                ((OWLLiteral) v).getLiteral());
+                        } else {
+                            fail(
+                                "The value is not the expected type, expected OWLiteral but was: "
+                                    + v.getClass().getName());
+                        }
+                        hasAnnotation.set(true);
+                    });
                 }
             }
-        }
+        });
         assertTrue(
             "The sub class reation between t3 and t1 should have an is_inferred=true annotation",
             hasAnnotation.get());
@@ -321,8 +319,8 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         assertNotNull(regulatesIRI);
         boolean ok = false;
         // test that transitive over is translated to a property chain
-        Set<OWLSubPropertyChainOfAxiom> axioms = ontology
-            .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF);
+        List<OWLSubPropertyChainOfAxiom> axioms = asList(ontology
+            .axioms(AxiomType.SUB_PROPERTY_CHAIN_OF));
         for (OWLSubPropertyChainOfAxiom axiom : axioms) {
             OWLObjectProperty p = (OWLObjectProperty) axiom.getSuperProperty();
             if (regulatesIRI.equals(p.getIRI())) {

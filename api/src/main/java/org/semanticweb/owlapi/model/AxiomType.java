@@ -31,7 +31,7 @@ import com.google.common.collect.Sets;
 /**
  * Represents the type of axioms which can belong to ontologies. Axioms can be
  * retrieved from ontologies by their {@code AxiomType}. For example, see
- * {@link org.semanticweb.owlapi.model.OWLOntology#getAxioms(AxiomType)} and
+ * {@link org.semanticweb.owlapi.model.OWLOntology#axioms(AxiomType)} and
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, org.semanticweb.owlapi.model.parameters.Imports)}
  * .
  * 
@@ -53,7 +53,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
     private final Class<C> actualClass;
 
     private AxiomType(Class<C> actualClass, int ind, String name, boolean owl2Axiom, boolean nonSyntacticOWL2Axiom,
-            boolean isLogical) {
+        boolean isLogical) {
         this.actualClass = actualClass;
         this.name = name;
         this.owl2Axiom = owl2Axiom;
@@ -63,7 +63,7 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
     }
 
     private static <O extends OWLAxiom> AxiomType<O> getInstance(Class<O> c, int i, String name, boolean owl2Axiom,
-            boolean nonSyntacticOWL2Axiom, boolean isLogical) {
+        boolean nonSyntacticOWL2Axiom, boolean isLogical) {
         return new AxiomType<>(c, i, name, owl2Axiom, nonSyntacticOWL2Axiom, isLogical);
     }
 
@@ -238,25 +238,25 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
   //@formatter:on
     /** Axiom types. */
     public static final @Nonnull Set<AxiomType<?>> AXIOM_TYPES = CollectionFactory.createSet(SUBCLASS_OF,
-            EQUIVALENT_CLASSES, DISJOINT_CLASSES, CLASS_ASSERTION, SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS,
-            OBJECT_PROPERTY_ASSERTION, NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION,
-            NEGATIVE_DATA_PROPERTY_ASSERTION, OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE, DISJOINT_OBJECT_PROPERTIES,
-            SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES, INVERSE_OBJECT_PROPERTIES, SUB_PROPERTY_CHAIN_OF,
-            FUNCTIONAL_OBJECT_PROPERTY, INVERSE_FUNCTIONAL_OBJECT_PROPERTY, SYMMETRIC_OBJECT_PROPERTY,
-            ASYMMETRIC_OBJECT_PROPERTY, TRANSITIVE_OBJECT_PROPERTY, REFLEXIVE_OBJECT_PROPERTY,
-            IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN, DATA_PROPERTY_RANGE, DISJOINT_DATA_PROPERTIES,
-            SUB_DATA_PROPERTY, EQUIVALENT_DATA_PROPERTIES, FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION,
-            DISJOINT_UNION, DECLARATION, SWRL_RULE, ANNOTATION_ASSERTION, SUB_ANNOTATION_PROPERTY_OF,
-            ANNOTATION_PROPERTY_DOMAIN, ANNOTATION_PROPERTY_RANGE, HAS_KEY);
+        EQUIVALENT_CLASSES, DISJOINT_CLASSES, CLASS_ASSERTION, SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS,
+        OBJECT_PROPERTY_ASSERTION, NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION,
+        NEGATIVE_DATA_PROPERTY_ASSERTION, OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE, DISJOINT_OBJECT_PROPERTIES,
+        SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES, INVERSE_OBJECT_PROPERTIES, SUB_PROPERTY_CHAIN_OF,
+        FUNCTIONAL_OBJECT_PROPERTY, INVERSE_FUNCTIONAL_OBJECT_PROPERTY, SYMMETRIC_OBJECT_PROPERTY,
+        ASYMMETRIC_OBJECT_PROPERTY, TRANSITIVE_OBJECT_PROPERTY, REFLEXIVE_OBJECT_PROPERTY,
+        IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN, DATA_PROPERTY_RANGE, DISJOINT_DATA_PROPERTIES,
+        SUB_DATA_PROPERTY, EQUIVALENT_DATA_PROPERTIES, FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION,
+        DISJOINT_UNION, DECLARATION, SWRL_RULE, ANNOTATION_ASSERTION, SUB_ANNOTATION_PROPERTY_OF,
+        ANNOTATION_PROPERTY_DOMAIN, ANNOTATION_PROPERTY_RANGE, HAS_KEY);
     /** Axiom types. */
     public static final @Nonnull Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = asSet(
-            AXIOM_TYPES.stream().filter(a -> a.isLogical));
+        AXIOM_TYPES.stream().filter(a -> a.isLogical));
     /** Logical axioms and declarations */
     public static final @Nonnull Set<AxiomType<?>> LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES = asSet(
-            Stream.concat(AXIOM_TYPES.stream().filter(a -> a.isLogical), Stream.of(DECLARATION)));
+        Stream.concat(AXIOM_TYPES.stream().filter(a -> a.isLogical), Stream.of(DECLARATION)));
     private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES, t -> t.getName());
     private static final Map<Class<?>, AxiomType<?>> CLASS_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES,
-            t -> t.getActualClass());
+        t -> t.getActualClass());
 
     /**
      * @param t
@@ -275,21 +275,21 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
 
     /** Set of tbox axiom types. */
     public static final @Nonnull Set<AxiomType<?>> TBoxAxiomTypes = CollectionFactory.createSet(
-            (AxiomType<?>) SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES, OBJECT_PROPERTY_DOMAIN,
-            OBJECT_PROPERTY_RANGE, INVERSE_OBJECT_PROPERTIES, FUNCTIONAL_OBJECT_PROPERTY,
-            INVERSE_FUNCTIONAL_OBJECT_PROPERTY, SYMMETRIC_OBJECT_PROPERTY, ASYMMETRIC_OBJECT_PROPERTY,
-            REFLEXIVE_OBJECT_PROPERTY, IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN, DATA_PROPERTY_RANGE,
-            FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION, DISJOINT_UNION, HAS_KEY);
+        (AxiomType<?>) SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES, OBJECT_PROPERTY_DOMAIN,
+        OBJECT_PROPERTY_RANGE, INVERSE_OBJECT_PROPERTIES, FUNCTIONAL_OBJECT_PROPERTY,
+        INVERSE_FUNCTIONAL_OBJECT_PROPERTY, SYMMETRIC_OBJECT_PROPERTY, ASYMMETRIC_OBJECT_PROPERTY,
+        REFLEXIVE_OBJECT_PROPERTY, IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN, DATA_PROPERTY_RANGE,
+        FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION, DISJOINT_UNION, HAS_KEY);
     /** Set of abox axiom types. */
     public static final @Nonnull Set<AxiomType<?>> ABoxAxiomTypes = CollectionFactory.createSet(
-            (AxiomType<?>) CLASS_ASSERTION, SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
-            NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION);
+        (AxiomType<?>) CLASS_ASSERTION, SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
+        NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION);
     /** Set of rbox axiom types. */
     public static final @Nonnull Set<AxiomType<?>> RBoxAxiomTypes = CollectionFactory.createSet(
-            (AxiomType<?>) TRANSITIVE_OBJECT_PROPERTY, DISJOINT_DATA_PROPERTIES, SUB_DATA_PROPERTY,
-            EQUIVALENT_DATA_PROPERTIES, DISJOINT_OBJECT_PROPERTIES, SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES,
-            SUB_PROPERTY_CHAIN_OF);
+        (AxiomType<?>) TRANSITIVE_OBJECT_PROPERTY, DISJOINT_DATA_PROPERTIES, SUB_DATA_PROPERTY,
+        EQUIVALENT_DATA_PROPERTIES, DISJOINT_OBJECT_PROPERTIES, SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES,
+        SUB_PROPERTY_CHAIN_OF);
     /** Set of tbox and rbox axiom types. */
     public static final @Nonnull Set<AxiomType<?>> TBoxAndRBoxAxiomTypes = Sets
-            .newHashSet(Iterables.concat(TBoxAxiomTypes, RBoxAxiomTypes));
+        .newHashSet(Iterables.concat(TBoxAxiomTypes, RBoxAxiomTypes));
 }

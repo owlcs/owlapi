@@ -390,7 +390,7 @@ public class OWLAPIOwl2Obo {
         // OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
         Set<OWLAxiom> rmAxioms = new HashSet<>();
         Set<OWLAxiom> newAxioms = new HashSet<>();
-        for (OWLEquivalentClassesAxiom eca : getOWLOntology().getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
+        getOWLOntology().axioms(AxiomType.EQUIVALENT_CLASSES).forEach(eca -> {
             AtomicInteger numNamed = new AtomicInteger();
             Set<OWLClassExpression> xs = new HashSet<>();
             eca.classExpressions().forEach(x -> {
@@ -413,7 +413,7 @@ public class OWLAPIOwl2Obo {
             } else {
                 LOG.error("ECA did not fit expected pattern: {}", eca);
             }
-        }
+        });
         getOWLOntology().remove(rmAxioms);
         getOWLOntology().add(newAxioms);
     }

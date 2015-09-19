@@ -48,7 +48,7 @@ public class ClosureAxioms {
         /* Get the class axioms */
         /* Collect those that assert superclasses of the class */
         SubClassCollector collector = new SubClassCollector(clazz);
-        ontology.getAxioms(AxiomType.SUBCLASS_OF).forEach(a -> a.accept(collector));
+        ontology.axioms(AxiomType.SUBCLASS_OF).forEach(a -> a.accept(collector));
         Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions = new HashMap<>();
         /* For each axiom.... */
         for (OWLSubClassOfAxiom axiom : collector.getAxioms()) {

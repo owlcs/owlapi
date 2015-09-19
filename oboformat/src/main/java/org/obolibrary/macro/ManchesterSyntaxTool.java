@@ -3,6 +3,7 @@ package org.obolibrary.macro;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -81,7 +82,7 @@ public class ManchesterSyntaxTool {
             auxiliaryOntologies.forEach(o -> add(ontologies, o.importsClosure()));
         }
         ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
-                new BidirectionalShortFormProviderAdapter(manager, ontologies, shortFormProvider));
+            new BidirectionalShortFormProviderAdapter(manager, ontologies, shortFormProvider));
         entityChecker = new AdvancedEntityChecker(defaultInstance, ontologies, inputOntology.getOWLOntologyManager());
     }
 
@@ -178,7 +179,7 @@ public class ManchesterSyntaxTool {
          *        manager
          */
         AdvancedEntityChecker(OWLEntityChecker defaultInstance, Set<OWLOntology> ontologies,
-                OWLOntologyManager manager) {
+            OWLOntologyManager manager) {
             this.defaultInstance = defaultInstance;
             this.ontologies = ontologies;
             this.manager = manager;
@@ -270,15 +271,11 @@ public class ManchesterSyntaxTool {
          */
         protected @Nullable IRI getIRIByLabel(String label) {
             for (OWLOntology o : ontologies) {
-                for (OWLAnnotationAssertionAxiom aa : o.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-                    OWLAnnotationValue v = aa.getValue();
-                    OWLAnnotationProperty property = aa.getProperty();
-                    if (isMatchingLabel(label, v, property)) {
-                        OWLAnnotationSubject obj = aa.getSubject();
-                        if (obj instanceof IRI) {
-                            return (IRI) obj;
-                        }
-                    }
+                Optional<OWLAnnotationAssertionAxiom> anyMatch = o.axioms(AxiomType.ANNOTATION_ASSERTION).filter(
+                    aa -> isMatchingLabel(label, aa.getValue(), aa.getProperty())
+                        && aa.getSubject() instanceof IRI).findAny();
+                if (anyMatch.isPresent()) {
+                    return (IRI) anyMatch.get().getSubject();
                 }
             }
             return null;

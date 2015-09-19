@@ -2,6 +2,7 @@ package org.obolibrary.oboformat.writer;
 
 import static org.semanticweb.owlapi.model.parameters.Navigation.IN_SUB_POSITION;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.*;
 import java.net.URL;
@@ -1081,8 +1082,8 @@ public class OBOFormatWriter {
             OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(ont.getOWLOntologyManager());
             IRI iri = obo2owl.oboIdToIRI(id);
             // look for label of entity
-            Set<OWLAnnotationAssertionAxiom> axioms = ont.getAxioms(OWLAnnotationAssertionAxiom.class,
-                OWLAnnotationSubject.class, iri, Imports.INCLUDED, IN_SUB_POSITION);
+            List<OWLAnnotationAssertionAxiom> axioms = asList(ont.axioms(OWLAnnotationAssertionAxiom.class,
+                OWLAnnotationSubject.class, iri, Imports.INCLUDED, IN_SUB_POSITION));
             for (OWLAnnotationAssertionAxiom axiom : axioms) {
                 if (axiom.getProperty().isLabel()) {
                     OWLAnnotationValue value = axiom.getValue();

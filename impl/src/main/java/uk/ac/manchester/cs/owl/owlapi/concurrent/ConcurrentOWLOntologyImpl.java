@@ -719,6 +719,16 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    public Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom owlAxiom, Imports imports) {
+        readLock.lock();
+        try {
+            return delegate.axiomsIgnoreAnnotations(owlAxiom, imports);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlPrimitive, Imports imports) {
         readLock.lock();
         try {
@@ -1075,6 +1085,16 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
         readLock.lock();
         try {
             return delegate.getAxiomsIgnoreAnnotations(owlAxiom);
+        } finally {
+            readLock.unlock();
+        }
+    }
+
+    @Override
+    public Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom owlAxiom) {
+        readLock.lock();
+        try {
+            return delegate.axiomsIgnoreAnnotations(owlAxiom);
         } finally {
             readLock.unlock();
         }

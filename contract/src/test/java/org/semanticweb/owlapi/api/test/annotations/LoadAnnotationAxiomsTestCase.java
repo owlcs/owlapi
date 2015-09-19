@@ -61,7 +61,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
     }
 
     private void reload(OWLOntology ontology, OWLDocumentFormat format)
-            throws OWLOntologyStorageException, OWLOntologyCreationException {
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
         Set<OWLAxiom> annotationAxioms = new HashSet<>();
         Set<OWLAxiom> axioms = asSet(ontology.axioms());
         for (OWLAxiom ax : axioms) {
@@ -74,7 +74,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         Set<OWLAxiom> axioms2 = reloadedWithAnnoAxioms.axioms().collect(toSet());
         assertEquals(axioms, axioms2);
         OWLOntologyLoaderConfiguration withoutAnnosConfig = new OWLOntologyLoaderConfiguration()
-                .setLoadAnnotationAxioms(false);
+            .setLoadAnnotationAxioms(false);
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format, withoutAnnosConfig);
         assertFalse(axioms.equals(reloadedWithoutAnnoAxioms.axioms().collect(toSet())));
         Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<>(axioms);
@@ -83,11 +83,10 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
     }
 
     private OWLOntology reload(OWLOntology ontology, OWLDocumentFormat format,
-            OWLOntologyLoaderConfiguration configuration)
-                    throws OWLOntologyStorageException, OWLOntologyCreationException {
+        OWLOntologyLoaderConfiguration configuration)
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology reloaded = loadOntologyWithConfig(saveOntology(ontology, format), configuration);
-        Set<OWLDeclarationAxiom> declarations = reloaded.getAxioms(AxiomType.DECLARATION);
-        reloaded.remove(declarations);
+        reloaded.remove(reloaded.axioms(AxiomType.DECLARATION));
         return reloaded;
     }
 }

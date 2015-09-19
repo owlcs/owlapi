@@ -3,7 +3,7 @@ package org.semanticweb.owlapi.api.test.fileroundtrip;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +45,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
         OWLNamedIndividual object = NamedIndividual(IRI("http://Example.com#myLocation"));
         OWLAxiom ax = ObjectPropertyAssertion(predicate, subject, object);
         assertTrue(ontology.containsAxiom(ax, EXCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS));
-        Set<OWLAxiom> axioms = ontology.getAxiomsIgnoreAnnotations(ax, EXCLUDED);
+        Set<OWLAxiom> axioms = asSet(ontology.axiomsIgnoreAnnotations(ax, EXCLUDED));
         assertEquals(1, axioms.size());
         OWLAxiom theAxiom = axioms.iterator().next();
         assertTrue(theAxiom.isAnnotated());
@@ -284,7 +284,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     @Test
     public void testParsedAxiomsSubClassOfUntypedOWLClass() {
         OWLOntology ontology = ontologyFromClasspathFile("SubClassOfUntypedOWLClass.rdf");
-        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+        List<OWLSubClassOfAxiom> axioms = asList(ontology.axioms(AxiomType.SUBCLASS_OF));
         assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.iterator().next();
         OWLClass subCls = Class(IRI("http://www.semanticweb.org/owlapi/test#A"));
@@ -296,7 +296,7 @@ public class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     @Test
     public void testParsedAxiomsSubClassOfUntypedSomeValuesFrom() {
         OWLOntology ontology = ontologyFromClasspathFile("SubClassOfUntypedSomeValuesFrom.rdf");
-        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+        List<OWLSubClassOfAxiom> axioms = asList(ontology.axioms(AxiomType.SUBCLASS_OF));
         assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.iterator().next();
         OWLClass subCls = Class(IRI("http://www.semanticweb.org/owlapi/test#A"));

@@ -94,6 +94,11 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     }
 
     @Override
+    default ChangeApplied removeAxioms(Stream<? extends OWLAxiom> axioms) {
+        return getOWLOntologyManager().removeAxioms(this, axioms);
+    }
+
+    @Override
     default ChangeApplied removeAxioms(OWLAxiom... axioms) {
         return removeAxioms(Arrays.asList(axioms));
     }
