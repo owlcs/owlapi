@@ -77,8 +77,9 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 }
             }
         }
-        Stream<? extends OWLAxiom> axioms = AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(AxiomType.DECLARATION))
-            .flatMap(t -> ontology.axioms(t));
+        Stream<AxiomType<? extends OWLAxiom>> skipDeclarations = AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(
+            AxiomType.DECLARATION));
+        Stream<? extends OWLAxiom> axioms = skipDeclarations.flatMap(t -> ontology.axioms(t));
         render(CollectionFactory.sortOptionally(axioms));
     }
 

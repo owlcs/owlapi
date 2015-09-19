@@ -237,7 +237,8 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
     /** AnnotationPropertyDomain. */         @Nonnull public static final AxiomType<OWLAnnotationPropertyDomainAxiom>         ANNOTATION_PROPERTY_DOMAIN          = getInstance(OWLAnnotationPropertyDomainAxiom.class,        37, "AnnotationPropertyDomain",        true, true, false);
   //@formatter:on
     /** Axiom types. */
-    public static final @Nonnull Set<AxiomType<?>> AXIOM_TYPES = CollectionFactory.createSet(SUBCLASS_OF,
+    public static final @Nonnull Set<AxiomType<? extends OWLAxiom>> AXIOM_TYPES = CollectionFactory.createSet(
+        SUBCLASS_OF,
         EQUIVALENT_CLASSES, DISJOINT_CLASSES, CLASS_ASSERTION, SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS,
         OBJECT_PROPERTY_ASSERTION, NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION,
         NEGATIVE_DATA_PROPERTY_ASSERTION, OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE, DISJOINT_OBJECT_PROPERTIES,
@@ -249,13 +250,14 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
         DISJOINT_UNION, DECLARATION, SWRL_RULE, ANNOTATION_ASSERTION, SUB_ANNOTATION_PROPERTY_OF,
         ANNOTATION_PROPERTY_DOMAIN, ANNOTATION_PROPERTY_RANGE, HAS_KEY);
     /** Axiom types. */
-    public static final @Nonnull Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = asSet(
-        AXIOM_TYPES.stream().filter(a -> a.isLogical));
+    public static final @Nonnull Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = asSet(AXIOM_TYPES.stream().filter(
+        a -> a.isLogical));
     /** Logical axioms and declarations */
-    public static final @Nonnull Set<AxiomType<?>> LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES = asSet(
-        Stream.concat(AXIOM_TYPES.stream().filter(a -> a.isLogical), Stream.of(DECLARATION)));
-    private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES, t -> t.getName());
-    private static final Map<Class<?>, AxiomType<?>> CLASS_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES,
+    public static final @Nonnull Set<AxiomType<? extends OWLAxiom>> LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES = asSet(Stream
+        .concat(AXIOM_TYPES.stream().filter(a -> a.isLogical), Stream.of(DECLARATION)));
+    private static final Map<String, AxiomType<? extends OWLAxiom>> NAME_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES, t -> t
+        .getName());
+    private static final Map<Class<?>, AxiomType<? extends OWLAxiom>> CLASS_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES,
         t -> t.getActualClass());
 
     /**
