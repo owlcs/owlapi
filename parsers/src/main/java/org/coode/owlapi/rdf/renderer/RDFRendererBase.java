@@ -42,14 +42,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.coode.owlapi.rdf.model.RDFGraph;
 import org.coode.owlapi.rdf.model.RDFNode;
@@ -57,39 +50,7 @@ import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTranslator;
 import org.coode.owlapi.rdf.model.RDFTriple;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.HasIRI;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
@@ -121,7 +82,7 @@ public abstract class RDFRendererBase {
      */
     public RDFRendererBase(OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(
-                ontology));
+            ontology));
     }
 
     /**
@@ -134,13 +95,13 @@ public abstract class RDFRendererBase {
     @SuppressWarnings("unused")
     public RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(
-                ontology));
+            ontology));
     }
 
     @Deprecated
     @SuppressWarnings("unused")
     protected RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager,
-            OWLOntologyFormat format) {
+        OWLOntologyFormat format) {
         this(ontology, format);
     }
 
@@ -149,12 +110,16 @@ public abstract class RDFRendererBase {
         this.format = format;
     }
 
-    /** @return graph */
+    /**
+     * @return graph
+     */
     public RDFGraph getGraph() {
         return graph;
     }
 
-    /** @return ontology */
+    /**
+     * @return ontology
+     */
     public OWLOntology getOntology() {
         return ontology;
     }
@@ -214,7 +179,7 @@ public abstract class RDFRendererBase {
      *         if there was a problem writing to the output stream
      */
     protected abstract void writeAnnotationPropertyComment(
-            OWLAnnotationProperty prop) throws IOException;
+        OWLAnnotationProperty prop) throws IOException;
 
     /**
      * Called before a data property is rendered to give subclasses the chance
@@ -226,7 +191,7 @@ public abstract class RDFRendererBase {
      *         if there was a problem writing to the output stream
      */
     protected abstract void writeDataPropertyComment(OWLDataProperty prop)
-            throws IOException;
+        throws IOException;
 
     /**
      * Called before an object property is rendered.
@@ -237,7 +202,7 @@ public abstract class RDFRendererBase {
      *         if there was a problem writing to the output stream
      */
     protected abstract void writeObjectPropertyComment(OWLObjectProperty prop)
-            throws IOException;
+        throws IOException;
 
     /**
      * Called before a class is rendered to give subclasses the chance to prefix
@@ -260,7 +225,7 @@ public abstract class RDFRendererBase {
      *         if there was a problem writing to the output stream
      */
     protected abstract void writeDatatypeComment(OWLDatatype datatype)
-            throws IOException;
+        throws IOException;
 
     /**
      * Called before an individual is rendered to give subclasses the chance to
@@ -272,7 +237,7 @@ public abstract class RDFRendererBase {
      *         if there was a problem writing to the output stream
      */
     protected abstract void writeIndividualComments(OWLNamedIndividual ind)
-            throws IOException;
+        throws IOException;
 
     private Map<IRI, Integer> punCounts = new HashMap<IRI, Integer>();
 
@@ -312,6 +277,7 @@ public abstract class RDFRendererBase {
      *         io error
      */
     public void render() throws IOException {
+        graph = new RDFGraph();
         findPuns();
         beginDocument();
         renderOntologyHeader();
@@ -347,13 +313,13 @@ public abstract class RDFRendererBase {
 
     private void renderAnnotationProperties() throws IOException {
         Set<OWLAnnotationProperty> annotationProperties = ontology
-                .getAnnotationPropertiesInSignature();
+            .getAnnotationPropertiesInSignature();
         renderEntities(annotationProperties, ANNOTATION_PROPERTIES_BANNER_TEXT);
     }
 
     private void renderNamedIndividuals() throws IOException {
         Set<OWLNamedIndividual> individuals = ontology
-                .getIndividualsInSignature();
+            .getIndividualsInSignature();
         renderEntities(individuals, INDIVIDUALS_BANNER_TEXT);
     }
 
@@ -364,13 +330,13 @@ public abstract class RDFRendererBase {
 
     private void renderDataProperties() throws IOException {
         Set<OWLDataProperty> dataProperties = ontology
-                .getDataPropertiesInSignature();
+            .getDataPropertiesInSignature();
         renderEntities(dataProperties, DATA_PROPERTIES_BANNER_TEXT);
     }
 
     private void renderObjectProperties() throws IOException {
         Set<OWLObjectProperty> objectProperties = ontology
-                .getObjectPropertiesInSignature();
+            .getObjectPropertiesInSignature();
         renderEntities(objectProperties, OBJECT_PROPERTIES_BANNER_TEXT);
     }
 
@@ -392,7 +358,7 @@ public abstract class RDFRendererBase {
      *         If there was a problem writing the rendering
      */
     private void renderEntities(Set<? extends OWLEntity> entities,
-            String bannerText) throws IOException {
+        String bannerText) throws IOException {
         boolean firstRendering = true;
         for (OWLEntity entity : toSortedSet(entities)) {
             if (createGraph(entity)) {
@@ -442,7 +408,7 @@ public abstract class RDFRendererBase {
     private void renderUntypedIRIAnnotationAssertions() throws IOException {
         Set<IRI> annotatedIRIs = new HashSet<IRI>();
         for (OWLAnnotationAssertionAxiom ax : ontology
-                .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
@@ -465,7 +431,7 @@ public abstract class RDFRendererBase {
 
     private void renderAnonymousIndividuals() throws IOException {
         for (OWLAnonymousIndividual anonInd : ontology
-                .getReferencedAnonymousIndividuals()) {
+            .getReferencedAnonymousIndividuals()) {
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd)) {
@@ -529,21 +495,21 @@ public abstract class RDFRendererBase {
         Set<OWLAxiom> generalAxioms = new HashSet<OWLAxiom>();
         generalAxioms.addAll(ontology.getGeneralClassAxioms());
         generalAxioms.addAll(ontology
-                .getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
+            .getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
         for (OWLDisjointClassesAxiom ax : ontology
-                .getAxioms(AxiomType.DISJOINT_CLASSES)) {
+            .getAxioms(AxiomType.DISJOINT_CLASSES)) {
             if (ax.getClassExpressions().size() > 2) {
                 generalAxioms.add(ax);
             }
         }
         for (OWLDisjointObjectPropertiesAxiom ax : ontology
-                .getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
+            .getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
                 generalAxioms.add(ax);
             }
         }
         for (OWLDisjointDataPropertiesAxiom ax : ontology
-                .getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
+            .getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
                 generalAxioms.add(ax);
             }
@@ -557,74 +523,54 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyHeader() throws IOException {
-        graph = new RDFGraph();
-        OWLOntologyID ontID = ontology.getOntologyID();
-        RDFResourceNode ontologyHeaderNode = createOntologyHeaderNode();
-        addVersionIRIToOntologyHeader(ontologyHeaderNode);
-        addImportsDeclarationsToOntologyHeader(ontologyHeaderNode);
-        addAnnotationsToOntologyHeader(ontologyHeaderNode);
-        if (!ontID.isAnonymous() || !graph.isEmpty()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode,
-                    new RDFResourceNode(RDF_TYPE.getIRI()),
-                    new RDFResourceNode(OWL_ONTOLOGY.getIRI())));
-        }
+        RDFTranslator translator = new RDFTranslator(
+            ontology.getOWLOntologyManager(), ontology,
+            shouldInsertDeclarations());
+        graph = translator.getGraph();
+        RDFResourceNode ontologyHeaderNode = createOntologyHeaderNode(translator);
+        addVersionIRIToOntologyHeader(ontologyHeaderNode, translator);
+        addImportsDeclarationsToOntologyHeader(ontologyHeaderNode, translator);
+        addAnnotationsToOntologyHeader(ontologyHeaderNode, translator);
         if (!graph.isEmpty()) {
             render(ontologyHeaderNode);
         }
     }
 
-    private RDFResourceNode createOntologyHeaderNode() {
-        OWLOntologyID ontID = ontology.getOntologyID();
-        if (ontID.isAnonymous()) {
-            return new RDFResourceNode(System.identityHashCode(ontology));
-        } else {
-            return new RDFResourceNode(ontID.getOntologyIRI());
-        }
+    private RDFResourceNode createOntologyHeaderNode(RDFTranslator translator) {
+        ontology.accept(translator);
+        return translator.getMappedNode(ontology);
     }
 
     private void addVersionIRIToOntologyHeader(
-            RDFResourceNode ontologyHeaderNode) {
+        RDFResourceNode ontologyHeaderNode, RDFTranslator translator) {
         OWLOntologyID ontID = ontology.getOntologyID();
         if (ontID.getVersionIRI() != null) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode,
-                    new RDFResourceNode(OWL_VERSION_IRI.getIRI()),
-                    new RDFResourceNode(ontID.getVersionIRI())));
+            translator.addTriple(ontologyHeaderNode,
+                OWL_VERSION_IRI.getIRI(),
+                ontID.getVersionIRI());
         }
     }
 
     private void addImportsDeclarationsToOntologyHeader(
-            RDFResourceNode ontologyHeaderNode) {
+        RDFResourceNode ontologyHeaderNode, RDFTranslator translator) {
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode,
-                    new RDFResourceNode(OWL_IMPORTS.getIRI()),
-                    new RDFResourceNode(decl.getIRI())));
+            translator.addTriple(ontologyHeaderNode,
+                OWL_IMPORTS.getIRI(),
+                decl.getIRI());
         }
     }
 
     private void addAnnotationsToOntologyHeader(
-            RDFResourceNode ontologyHeaderNode) {
+        RDFResourceNode ontologyHeaderNode, RDFTranslator translator) {
         for (OWLAnnotation anno : ontology.getAnnotations()) {
-            OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
-
-                @Override
-                public RDFNode visit(IRI iri) {
-                    return new RDFResourceNode(iri);
+            translator.addTriple(ontologyHeaderNode,
+                anno.getProperty().getIRI(), anno.getValue());
+            if (anno.getValue() instanceof OWLAnonymousIndividual) {
+                OWLAnonymousIndividual i = (OWLAnonymousIndividual) anno.getValue();
+                for (OWLAxiom ax : ontology.getReferencingAxioms(i)) {
+                    ax.accept(translator);
                 }
-
-                @Override
-                public RDFNode visit(OWLAnonymousIndividual individual) {
-                    return new RDFResourceNode(
-                            System.identityHashCode(individual));
-                }
-
-                @Override
-                public RDFNode visit(OWLLiteral literal) {
-                    return RDFTranslator.translateLiteralNode(literal);
-                }
-            };
-            RDFNode node = anno.getValue().accept(valVisitor);
-            graph.addTriple(new RDFTriple(ontologyHeaderNode,
-                    new RDFResourceNode(anno.getProperty().getIRI()), node));
+            }
         }
     }
 
@@ -669,7 +615,8 @@ public abstract class RDFRendererBase {
                         continue;
                     }
                     axioms.add(ax);
-                }   // for object property assertion axioms where the property is
+                }
+                // for object property assertion axioms where the property is
                 // anonymous and the individual is the object, the renderer will
                 // save the simplified version of the axiom.
                 // As they will have subject and object inverted, we need to
@@ -679,7 +626,7 @@ public abstract class RDFRendererBase {
                     if (ax instanceof OWLObjectPropertyAssertionAxiom) {
                         OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
                         if (candidate.getProperty().isAnonymous()
-                                && candidate.getObject().equals(individual)) {
+                            && candidate.getObject().equals(individual)) {
                             axioms.add(candidate);
                         }
                     }
@@ -691,7 +638,7 @@ public abstract class RDFRendererBase {
                 for (OWLAxiom ax : ontology.getAxioms(property)) {
                     if (ax instanceof OWLDisjointDataPropertiesAxiom) {
                         if (((OWLDisjointDataPropertiesAxiom) ax)
-                                .getProperties().size() > 2) {
+                            .getProperties().size() > 2) {
                             continue;
                         }
                     }
@@ -704,21 +651,21 @@ public abstract class RDFRendererBase {
                 for (OWLAxiom ax : ontology.getAxioms(property)) {
                     if (ax instanceof OWLDisjointObjectPropertiesAxiom) {
                         if (((OWLDisjointObjectPropertiesAxiom) ax)
-                                .getProperties().size() > 2) {
+                            .getProperties().size() > 2) {
                             continue;
                         }
                     }
                     axioms.add(ax);
                 }
                 for (OWLSubPropertyChainOfAxiom ax : ontology
-                        .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
+                    .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     if (ax.getSuperProperty().equals(property)) {
                         axioms.add(ax);
                     }
                 }
                 axioms.addAll(ontology.getAxioms(ontology
-                        .getOWLOntologyManager().getOWLDataFactory()
-                        .getOWLObjectInverseOf(property)));
+                    .getOWLOntologyManager().getOWLDataFactory()
+                    .getOWLObjectInverseOf(property)));
             }
 
             @Override
@@ -729,7 +676,7 @@ public abstract class RDFRendererBase {
         if (axioms.isEmpty() && shouldInsertDeclarations()) {
             if (RDFOntologyFormat.isMissingType(entity, ontology)) {
                 axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory()
-                        .getOWLDeclarationAxiom(entity));
+                    .getOWLDeclarationAxiom(entity));
             }
         }
         createGraph(axioms);
@@ -738,18 +685,18 @@ public abstract class RDFRendererBase {
 
     private boolean isIndividualAndClass(OWLEntity entity) {
         return entity.isOWLNamedIndividual()
-                && ontology.containsClassInSignature(entity.getIRI());
+            && ontology.containsClassInSignature(entity.getIRI());
     }
 
     protected boolean shouldInsertDeclarations() {
         return !(format instanceof RDFOntologyFormat)
-                || ((RDFOntologyFormat) format).isAddMissingTypes();
+            || ((RDFOntologyFormat) format).isAddMissingTypes();
     }
 
     protected void createGraph(Set<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(
-                ontology.getOWLOntologyManager(), ontology,
-                shouldInsertDeclarations());
+            ontology.getOWLOntologyManager(), ontology,
+            shouldInsertDeclarations());
         for (OWLObject obj : objects) {
             obj.accept(translator);
         }
@@ -758,8 +705,7 @@ public abstract class RDFRendererBase {
 
     protected abstract void writeBanner(String name) throws IOException;
 
-    private static List<OWLEntity>
-            toSortedSet(Set<? extends OWLEntity> entities) {
+    private static List<OWLEntity> toSortedSet(Set<? extends OWLEntity> entities) {
         List<OWLEntity> results = new ArrayList<OWLEntity>(entities);
         Collections.sort(results, OWL_ENTITY_IRI_COMPARATOR);
         return results;
@@ -810,17 +756,17 @@ public abstract class RDFRendererBase {
         RDFNode currentNode = n;
         while (currentNode != null) {
             for (RDFTriple triple : graph.getTriplesForSubject(currentNode,
-                    false)) {
+                false)) {
                 if (triple.getProperty().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
             for (RDFTriple triple : graph.getTriplesForSubject(currentNode,
-                    false)) {
+                false)) {
                 if (triple.getProperty().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
                         if (triple.getObject().getIRI()
-                                .equals(RDF_NIL.getIRI())) {
+                            .equals(RDF_NIL.getIRI())) {
                             // End of list
                             currentNode = null;
                         }
@@ -836,7 +782,7 @@ public abstract class RDFRendererBase {
 
     /** Comparator that uses IRI ordering to order entities. */
     private static final class OWLEntityIRIComparator implements
-            Comparator<OWLEntity>, Serializable {
+        Comparator<OWLEntity>, Serializable {
 
         private static final long serialVersionUID = 30406L;
 

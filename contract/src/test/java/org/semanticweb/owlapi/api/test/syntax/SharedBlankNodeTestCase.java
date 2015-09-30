@@ -1,60 +1,38 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import org.junit.Ignore;
+import java.util.Set;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * test for 3294629 - currently disabled. Not clear whether structure sharing is
  * allowed or disallowed. Data is equivalent, ontology annotations are not
  */
 @SuppressWarnings("javadoc")
-@Ignore
 public class SharedBlankNodeTestCase {
-
-    @Test
-    public void verify() throws OWLOntologyCreationException {
-        String input = "Ontology:\n" + "    DataProperty: xsd:a\n"
-                + "        Range: {1.2}";
-        for (OWLAxiom ax : Factory
-                .getManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(input)).getAxioms()) {
-            System.out.println("HasKeyTestCase.verify() " + ax);
-        }
-    }
 
     @Test
     public void shouldSaveOneIndividual() throws Exception {
         OWLOntology ontology = createOntology();
-        testAnnotation(ontology);
-        String s = saveOntology(ontology);
-        ontology = loadOntology(s);
-        testAnnotation(ontology);
+        String s = saveOntology(ontology, new RDFXMLOntologyFormat());
+        String functionalSyntax = saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat());
+        testAnnotation(loadOntology(functionalSyntax));
+        testAnnotation(loadOntology(s));
     }
 
     public static OWLOntology createOntology()
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         String NS = "urn:test";
         OWLDataProperty P = DataProperty(IRI(NS + "#p"));
         OWLObjectProperty P1 = ObjectProperty(IRI(NS + "#p1"));
@@ -68,7 +46,7 @@ public class SharedBlankNodeTestCase {
         manager.addAxiom(ontology, Declaration(P2));
         manager.addAxiom(ontology, Declaration(ann));
         manager.applyChange(new AddOntologyAnnotation(ontology, Annotation(ann,
-                i)));
+            i)));
         OWLAxiom ass = DataPropertyAssertion(P, i, Literal("hello world"));
         OWLNamedIndividual ind = NamedIndividual(IRI(NS + "#test"));
         OWLAxiom ax1 = ObjectPropertyAssertion(P1, ind, i);
@@ -79,33 +57,46 @@ public class SharedBlankNodeTestCase {
         return ontology;
     }
 
-    public static String saveOntology(OWLOntology ontology)
-            throws OWLOntologyStorageException {
+    public static String saveOntology(OWLOntology ontology, OWLOntologyFormat format)
+        throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology,
-                new RDFXMLOntologyFormat(), target);
+            format, target);
         return target.toString();
     }
 
     public static OWLOntology loadOntology(String ontology)
-            throws OWLOntologyCreationException {
-        return Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(ontology));
+        throws OWLOntologyCreationException {
+        return OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
+            new StringDocumentSource(ontology));
     }
 
     public static void displayOntology(OWLOntology ontology)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
         manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
     }
 
     public static void testAnnotation(OWLOntology ontology) {
+        for (OWLIndividual i : ontology.getIndividualsInSignature()) {
+            assertEquals(2, ontology.getObjectPropertyAssertionAxioms(i).size());
+        }
         for (OWLAnnotation annotation : ontology.getAnnotations()) {
             OWLIndividual i = (OWLIndividual) annotation.getValue();
-            System.out.println("Found individual " + i);
-            System.out.println("Property values = "
-                    + i.getDataPropertyValues(ontology));
+            assertEquals(1, ontology.getDataPropertyAssertionAxioms(i).size());
         }
+    }
+
+    @Test
+    public void shouldRoundtripBlankNodeAnnotations() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "<?xml version=\"1.0\"?>\r\n<rdf:RDF xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:Class rdf:about=\"http://E\"><rdfs:comment><rdf:Description><rdfs:comment>E</rdfs:comment></rdf:Description></rdfs:comment></owl:Class></rdf:RDF>";
+        OWLOntology o = loadOntology(input);
+        OWLOntology o1 = loadOntology(saveOntology(o, new OWLFunctionalSyntaxOntologyFormat()));
+        OWLOntology o2 = loadOntology(saveOntology(o1, new RDFXMLOntologyFormat()));
+        Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms = o2.getAnnotationAssertionAxioms(IRI("http://E"));
+        assertEquals(1, annotationAssertionAxioms.size());
+        OWLAnnotationAssertionAxiom next = annotationAssertionAxioms.iterator().next();
+        assertEquals(1, o2.getAnnotationAssertionAxioms((OWLAnnotationSubject) next.getValue()).size());
     }
 }
