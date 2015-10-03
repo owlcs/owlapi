@@ -50,6 +50,7 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
     private final IRI iri;
     private final int anonId;
     private final boolean isIndividual;
+    private final boolean forceIdOutput;
 
     /**
      * Constructs a named resource (i.e. a resource with a IRI).
@@ -61,6 +62,7 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
         this.iri = iri;
         anonId = 0;
         isIndividual = false;
+        forceIdOutput = false;
     }
 
     /**
@@ -69,14 +71,19 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
      * @param anonId
      *        The id of the node
      */
-    public RDFResourceNode(int anonId, boolean isIndividual) {
+    public RDFResourceNode(int anonId, boolean isIndividual, boolean forceId) {
         this.anonId = anonId;
         this.isIndividual = isIndividual;
         iri = null;
+        forceIdOutput = forceId;
     }
 
     public boolean isIndividual() {
         return isIndividual;
+    }
+
+    public boolean shouldOutputId() {
+        return forceIdOutput;
     }
 
     @Override

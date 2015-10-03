@@ -45,6 +45,7 @@ import java.util.*;
 
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
@@ -70,6 +71,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     private OWLOntologyManager manager;
     private OWLOntology ontology;
     private boolean useStrongTyping = true;
+    protected final OWLAnonymousIndividualsWithMultipleOccurrences multipleOccurrences;
 
     /**
      * @param manager
@@ -80,10 +82,11 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      *        true if strong typing should be used
      */
     public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology,
-        boolean useStrongTyping) {
+        boolean useStrongTyping, OWLAnonymousIndividualsWithMultipleOccurrences multiple) {
         this.ontology = ontology;
         this.manager = manager;
         this.useStrongTyping = useStrongTyping;
+        multipleOccurrences = multiple;
     }
 
     @Override

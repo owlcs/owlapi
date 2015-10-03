@@ -52,6 +52,7 @@ import org.coode.owlapi.rdf.model.RDFTriple;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
@@ -75,6 +76,7 @@ public abstract class RDFRendererBase {
     private RDFGraph graph;
     protected Set<IRI> prettyPrintedTypes;
     private OWLOntologyFormat format;
+    private final OWLAnonymousIndividualsWithMultipleOccurrences occurrences;
 
     /**
      * @param ontology
@@ -108,6 +110,8 @@ public abstract class RDFRendererBase {
     protected RDFRendererBase(OWLOntology ontology, OWLOntologyFormat format) {
         this.ontology = ontology;
         this.format = format;
+        occurrences = new OWLAnonymousIndividualsWithMultipleOccurrences();
+        ontology.accept(occurrences);
     }
 
     /**
@@ -525,7 +529,7 @@ public abstract class RDFRendererBase {
     private void renderOntologyHeader() throws IOException {
         RDFTranslator translator = new RDFTranslator(
             ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations());
+            shouldInsertDeclarations(), occurrences);
         graph = translator.getGraph();
         RDFResourceNode ontologyHeaderNode = createOntologyHeaderNode(translator);
         addVersionIRIToOntologyHeader(ontologyHeaderNode, translator);
@@ -696,7 +700,7 @@ public abstract class RDFRendererBase {
     protected void createGraph(Set<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(
             ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations());
+            shouldInsertDeclarations(), occurrences);
         for (OWLObject obj : objects) {
             obj.accept(translator);
         }

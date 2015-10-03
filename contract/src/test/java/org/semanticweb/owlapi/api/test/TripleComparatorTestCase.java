@@ -120,6 +120,6 @@ public class TripleComparatorTestCase {
     }
 
     private RDFNode r(int s) {
-        return new RDFResourceNode(s, false);
+        return new RDFResourceNode(s, false, false);
     }
 }

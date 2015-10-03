@@ -19,7 +19,7 @@ public class ContractRdfModelTest {
     public void shouldTestAbstractTranslator() throws Exception {
         @SuppressWarnings("rawtypes")
         AbstractTranslator testSubject0 = new AbstractTranslator(
-            Utils.getMockManager(), Utils.getMockOntology(), false) {
+            Utils.getMockManager(), Utils.getMockOntology(), false, null) {
 
             @Override
             protected Object getResourceNode(IRI IRI) {
@@ -105,7 +105,7 @@ public class ContractRdfModelTest {
 
     @Test
     public void shouldTestRDFResourceNode() throws Exception {
-        RDFResourceNode testSubject0 = new RDFResourceNode(0, false);
+        RDFResourceNode testSubject0 = new RDFResourceNode(0, false, false);
         RDFResourceNode testSubject1 = new RDFResourceNode(IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         boolean result1 = testSubject0.isAnonymous();
@@ -115,7 +115,7 @@ public class ContractRdfModelTest {
 
     public void shouldTestRDFTranslator() throws Exception {
         RDFTranslator testSubject0 = new RDFTranslator(Utils.getMockManager(),
-            Utils.getMockOntology(), false);
+            Utils.getMockOntology(), false, null);
         testSubject0.reset();
         RDFGraph result0 = testSubject0.getGraph();
         RDFLiteralNode result1 = RDFTranslator

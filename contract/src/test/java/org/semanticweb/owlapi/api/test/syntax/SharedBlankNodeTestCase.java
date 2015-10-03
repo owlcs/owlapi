@@ -196,4 +196,61 @@ public class SharedBlankNodeTestCase {
         }
         assertEquals(values1.toString(), values1.size(), 1);
     }
+
+    @Test
+    public void shouldRemapUponReading3() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "<?xml version=\"1.0\"?>\r\n" +
+            "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n" +
+            "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n" +
+            "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n" +
+            "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\r\n" +
+            "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\r\n" +
+            "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\r\n" +
+            "    <Ontology/>\r\n" +
+            "    <Class rdf:about=\"http://E\">\r\n" +
+            "        <rdfs:comment>\r\n" +
+            "            <rdf:Description rdf:nodeID=\"1058025095\">\r\n" +
+            "                <rdfs:comment>E</rdfs:comment>\r\n" +
+            "            </rdf:Description>\r\n" +
+            "        </rdfs:comment>\r\n" +
+            "    </Class>\r\n" +
+            "</rdf:RDF>";
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        String result = saveOntology(o1,
+            new RDFXMLOntologyFormat());
+        assertFalse(result.contains("1058025095"));
+    }
+
+    @Test
+    public void shouldRemapUponReading4() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "<?xml version=\"1.0\"?>\r\n" +
+            "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n" +
+            "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n" +
+            "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n" +
+            "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\r\n" +
+            "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\r\n" +
+            "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\r\n" +
+            "    <Ontology/>\r\n" +
+            "    <Class rdf:about=\"http://E\">\r\n" +
+            "        <rdfs:comment>\r\n" +
+            "            <rdf:Description rdf:nodeID=\"1058025095\">\r\n" +
+            "                <rdfs:comment>E</rdfs:comment>\r\n" +
+            "            </rdf:Description>\r\n" +
+            "        </rdfs:comment>\r\n" +
+            "    </Class>\r\n" +
+            "    <Class rdf:about=\"http://F\">\r\n" +
+            "        <rdfs:comment>\r\n" +
+            "            <rdf:Description rdf:nodeID=\"1058025095\">\r\n" +
+            "                <rdfs:comment>E</rdfs:comment>\r\n" +
+            "            </rdf:Description>\r\n" +
+            "        </rdfs:comment>\r\n" +
+            "    </Class>\r\n" +
+            "</rdf:RDF>";
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        String result = saveOntology(o1,
+            new RDFXMLOntologyFormat());
+        assertTrue(result.contains("rdf:nodeID"));
+    }
 }
