@@ -42,13 +42,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Dec-2006
  */
 public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
 
-    private IRI iri;
-    private int anonId;
+    private final IRI iri;
+    private final int anonId;
+    private final boolean isIndividual;
 
     /**
      * Constructs a named resource (i.e. a resource with a IRI).
@@ -58,6 +59,8 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
      */
     public RDFResourceNode(IRI iri) {
         this.iri = iri;
+        anonId = 0;
+        isIndividual = false;
     }
 
     /**
@@ -66,8 +69,14 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
      * @param anonId
      *        The id of the node
      */
-    public RDFResourceNode(int anonId) {
+    public RDFResourceNode(int anonId, boolean isIndividual) {
         this.anonId = anonId;
+        this.isIndividual = isIndividual;
+        iri = null;
+    }
+
+    public boolean isIndividual() {
+        return isIndividual;
     }
 
     @Override
@@ -75,7 +84,9 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
         return iri;
     }
 
-    /** @return id */
+    /**
+     * @return id
+     */
     public int getId() {
         return anonId;
     }
@@ -117,10 +128,12 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
     @Override
     public String toString() {
         return iri != null ? "<" + iri.toString() + ">" : NodeID
-                .nodeString(anonId);
+            .nodeString(anonId);
     }
 
-    /** @return a comparable id for this node */
+    /**
+     * @return a comparable id for this node
+     */
     protected Comparable id() {
         return iri != null ? iri : anonId;
     }

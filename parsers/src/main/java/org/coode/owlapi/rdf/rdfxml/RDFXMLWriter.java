@@ -47,24 +47,24 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Dec-2006
  */
 public class RDFXMLWriter {
 
     private static final IRI RDF_RDF = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "RDF");
+        Namespaces.RDF.getPrefixIRI(), "RDF");
     private static final IRI RDF_RESOURCE = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "resource");
+        Namespaces.RDF.getPrefixIRI(), "resource");
     private static final String XML_LANG = "xml:lang";
     private static final IRI RDF_NODEID = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "nodeID");
+        Namespaces.RDF.getPrefixIRI(), "nodeID");
     private static final IRI RDF_ABOUT = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "about");
+        Namespaces.RDF.getPrefixIRI(), "about");
     private static final IRI RDF_DATATYPE = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "datatype");
+        Namespaces.RDF.getPrefixIRI(), "datatype");
     private static final IRI PARSETYPE_IRI = IRI.create(
-            Namespaces.RDF.getPrefixIRI(), "parseType");
+        Namespaces.RDF.getPrefixIRI(), "parseType");
     private XMLWriter writer;
 
     protected RDFXMLWriter(XMLWriter writer) {
@@ -145,11 +145,11 @@ public class RDFXMLWriter {
      *         io exception
      */
     public void writeNodeIDAttribute(RDFResourceNode node) throws IOException {
-        writer.writeAttribute(RDF_NODEID, node.toString());
+        writer.writeAttribute(RDF_NODEID, Integer.toString(node.getId()));
     }
 
     private void writeAttribute(IRI attributeName, IRI value)
-            throws IOException {
+        throws IOException {
         writer.writeAttribute(attributeName, value.toString());
     }
 

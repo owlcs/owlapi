@@ -1,8 +1,9 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
@@ -98,5 +99,101 @@ public class SharedBlankNodeTestCase {
         assertEquals(1, annotationAssertionAxioms.size());
         OWLAnnotationAssertionAxiom next = annotationAssertionAxioms.iterator().next();
         assertEquals(1, o2.getAnnotationAssertionAxioms((OWLAnnotationSubject) next.getValue()).size());
+    }
+
+    @Test
+    public void shouldRemapUponReading() throws OWLOntologyCreationException {
+        String input = "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\r\n" +
+            "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\r\n" +
+            "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\r\n" +
+            "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\r\n" +
+            "Ontology(\r\n" +
+            "Declaration(Class(<http://E>))\r\n" +
+            "AnnotationAssertion(rdfs:comment <http://E> _:genid1)\r\n" +
+            "AnnotationAssertion(rdfs:comment _:genid1 \"E\"))";
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        OWLOntology o2 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        Set<OWLAnnotationValue> values1 = new HashSet<OWLAnnotationValue>();
+        Set<OWLAnnotationValue> values2 = new HashSet<OWLAnnotationValue>();
+        for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            OWLAnnotationValue value = a.getValue();
+            if (value instanceof OWLAnonymousIndividual) {
+                values1.add(value);
+            }
+        }
+        for (OWLAnnotationAssertionAxiom a : o2.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            OWLAnnotationValue value = a.getValue();
+            if (value instanceof OWLAnonymousIndividual) {
+                values2.add(value);
+            }
+        }
+        assertEquals(values1.toString(), values1.size(), 1);
+        assertEquals(values1.toString(), values2.size(), 1);
+        // XXX enable to test functional syntax remapping
+        // assertNotEquals(values1, values2);
+    }
+
+    @Test
+    public void shouldRemapUponReading1() throws OWLOntologyCreationException {
+        String input = "<?xml version=\"1.0\"?>\r\n<rdf:RDF xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:Class rdf:about=\"http://E\"><rdfs:comment><rdf:Description><rdfs:comment>E</rdfs:comment></rdf:Description></rdfs:comment></owl:Class></rdf:RDF>";
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        OWLOntology o2 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        Set<OWLAnnotationValue> values1 = new HashSet<OWLAnnotationValue>();
+        Set<OWLAnnotationValue> values2 = new HashSet<OWLAnnotationValue>();
+        for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            OWLAnnotationValue value = a.getValue();
+            if (value instanceof OWLAnonymousIndividual) {
+                values1.add(value);
+            }
+        }
+        for (OWLAnnotationAssertionAxiom a : o2.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            OWLAnnotationValue value = a.getValue();
+            if (value instanceof OWLAnonymousIndividual) {
+                values2.add(value);
+            }
+        }
+        assertEquals(values1.toString(), values1.size(), 1);
+        assertEquals(values1.toString(), values2.size(), 1);
+        assertNotEquals(values1, values2);
+    }
+
+    @Test
+    public void shouldRemapUponReading2() throws OWLOntologyCreationException {
+        String input = "<?xml version=\"1.0\"?>\r\n" +
+            "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n" +
+            "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n" +
+            "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n" +
+            "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\r\n" +
+            "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\r\n" +
+            "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\r\n" +
+            "    <Ontology/>\r\n" +
+            "    <Class rdf:about=\"http://E\">\r\n" +
+            "        <rdfs:comment>\r\n" +
+            "            <rdf:Description rdf:nodeID=\"1058025095\">\r\n" +
+            "                <rdfs:comment>E</rdfs:comment>\r\n" +
+            "            </rdf:Description>\r\n" +
+            "        </rdfs:comment>\r\n" +
+            "    </Class>\r\n" +
+            "</rdf:RDF>";
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        Set<OWLAnnotationValue> values1 = new HashSet<OWLAnnotationValue>();
+        values1.add(m.getOWLDataFactory().getOWLAnonymousIndividual("_:genid-nodeid-1058025095"));
+        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            OWLAnnotationValue value = a.getValue();
+            if (value instanceof OWLAnonymousIndividual) {
+                values1.add(value);
+            }
+        }
+        o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            OWLAnnotationValue value = a.getValue();
+            if (value instanceof OWLAnonymousIndividual) {
+                values1.add(value);
+            }
+        }
+        assertEquals(values1.toString(), values1.size(), 1);
     }
 }

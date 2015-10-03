@@ -56,7 +56,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
     private static final String PREFIX = "_:";
     private static final String PREFIX_NODE = PREFIX + NODE_ID_PREFIX;
     private static final String PREFIX_SHARED_NODE = PREFIX
-            + SHARED_NODE_ID_PREFIX;
+        + SHARED_NODE_ID_PREFIX;
 
     /**
      * @param id
@@ -75,6 +75,9 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return absolute IRI
      */
     public static String getIRIFromNodeID(String nodeID) {
+        if (nodeID.startsWith(PREFIX_SHARED_NODE)) {
+            return nodeID;
+        }
         return PREFIX_SHARED_NODE + nodeID.replace(NODE_ID_PREFIX, "");
     }
 
@@ -98,7 +101,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      */
     public static boolean isAnonymousNodeIRI(String uri) {
         return uri != null && uri.startsWith(PREFIX)
-                && uri.contains(NodeID.NODE_ID_PREFIX);
+            && uri.contains(NodeID.NODE_ID_PREFIX);
     }
 
     /**
@@ -112,8 +115,8 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      */
     public static boolean isAnonymousNodeIRI(IRI iri) {
         return iri != null && iri.getNamespace() != null
-                && iri.getNamespace().startsWith(PREFIX)
-                && iri.getNamespace().contains(NODE_ID_PREFIX);
+            && iri.getNamespace().startsWith(PREFIX)
+            && iri.getNamespace().contains(NODE_ID_PREFIX);
     }
 
     /**
@@ -137,7 +140,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      */
     public static NodeID getNodeID(String id) {
         String _id = id == null || id.length() == 0 ? PREFIX_NODE
-                + Long.toString(counter.incrementAndGet()) : id;
+            + Long.toString(counter.incrementAndGet()) : id;
         return new NodeID(_id);
     }
 
@@ -173,7 +176,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
             return false;
         }
         NodeID other = (NodeID) obj;
-        return id.equals(other.getID());
+        return id.equals(other.id);
     }
 
     @Override

@@ -7,13 +7,7 @@ import java.io.Writer;
 import java.util.Collection;
 import java.util.Set;
 
-import org.coode.owlapi.rdf.model.AbstractTranslator;
-import org.coode.owlapi.rdf.model.RDFGraph;
-import org.coode.owlapi.rdf.model.RDFLiteralNode;
-import org.coode.owlapi.rdf.model.RDFNode;
-import org.coode.owlapi.rdf.model.RDFResourceNode;
-import org.coode.owlapi.rdf.model.RDFTranslator;
-import org.coode.owlapi.rdf.model.RDFTriple;
+import org.coode.owlapi.rdf.model.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -25,7 +19,7 @@ public class ContractRdfModelTest {
     public void shouldTestAbstractTranslator() throws Exception {
         @SuppressWarnings("rawtypes")
         AbstractTranslator testSubject0 = new AbstractTranslator(
-                Utils.getMockManager(), Utils.getMockOntology(), false) {
+            Utils.getMockManager(), Utils.getMockOntology(), false) {
 
             @Override
             protected Object getResourceNode(IRI IRI) {
@@ -48,8 +42,7 @@ public class ContractRdfModelTest {
             }
 
             @Override
-            protected void
-                    addTriple(Object subject, Object pred, Object object) {}
+            protected void addTriple(Object subject, Object pred, Object object) {}
         };
         String result0 = testSubject0.toString();
     }
@@ -58,9 +51,9 @@ public class ContractRdfModelTest {
         RDFGraph testSubject0 = new RDFGraph();
         testSubject0.addTriple(mock(RDFTriple.class));
         Collection<RDFTriple> result1 = testSubject0.getTriplesForSubject(
-                mock(RDFNode.class), false);
+            mock(RDFNode.class), false);
         boolean result2 = testSubject0
-                .isAnonymousNodeSharedSubject(mock(RDFResourceNode.class));
+            .isAnonymousNodeSharedSubject(mock(RDFResourceNode.class));
         Set<RDFResourceNode> result3 = testSubject0.getRootAnonymousNodes();
         testSubject0.dumpTriples(mock(Writer.class));
         String result4 = testSubject0.toString();
@@ -112,7 +105,7 @@ public class ContractRdfModelTest {
 
     @Test
     public void shouldTestRDFResourceNode() throws Exception {
-        RDFResourceNode testSubject0 = new RDFResourceNode(0);
+        RDFResourceNode testSubject0 = new RDFResourceNode(0, false);
         RDFResourceNode testSubject1 = new RDFResourceNode(IRI("urn:aFake"));
         String result0 = testSubject0.toString();
         boolean result1 = testSubject0.isAnonymous();
@@ -122,18 +115,18 @@ public class ContractRdfModelTest {
 
     public void shouldTestRDFTranslator() throws Exception {
         RDFTranslator testSubject0 = new RDFTranslator(Utils.getMockManager(),
-                Utils.getMockOntology(), false);
+            Utils.getMockOntology(), false);
         testSubject0.reset();
         RDFGraph result0 = testSubject0.getGraph();
         RDFLiteralNode result1 = RDFTranslator
-                .translateLiteralNode(mock(OWLLiteral.class));
+            .translateLiteralNode(mock(OWLLiteral.class));
         String result2 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestRDFTriple() throws Exception {
         RDFTriple testSubject0 = new RDFTriple(mock(RDFResourceNode.class),
-                mock(RDFResourceNode.class), mock(RDFNode.class));
+            mock(RDFResourceNode.class), mock(RDFNode.class));
         RDFResourceNode result0 = testSubject0.getProperty();
         String result1 = testSubject0.toString();
         RDFNode result2 = testSubject0.getObject();
