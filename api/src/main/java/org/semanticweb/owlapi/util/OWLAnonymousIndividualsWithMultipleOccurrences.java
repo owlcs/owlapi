@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.*;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 13-Nov-2006
  */
-public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObjectVisitor, SWRLObjectVisitor {
+public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObjectVisitor, SWRLObjectVisitor,
+    IndividualAppearance {
 
     private Set<OWLObject> singleAppearance = new HashSet<OWLObject>();
     private Set<OWLObject> multipleAppearances = new HashSet<OWLObject>();
@@ -69,6 +70,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
         }
     }
 
+    @Override
     public boolean appearsMultipleTimes(OWLAnonymousIndividual i) {
         return multipleAppearances.contains(i);
     }

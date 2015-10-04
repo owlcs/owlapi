@@ -9,11 +9,7 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -135,7 +131,7 @@ public class SharedBlankNodeTestCase {
     }
 
     @Test
-    public void shouldRemapUponReading1() throws OWLOntologyCreationException {
+    public void shouldHaveOnlyOneAnonIndividual() throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\r\n<rdf:RDF xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:Class rdf:about=\"http://E\"><rdfs:comment><rdf:Description><rdfs:comment>E</rdfs:comment></rdf:Description></rdfs:comment></owl:Class></rdf:RDF>";
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
@@ -160,7 +156,10 @@ public class SharedBlankNodeTestCase {
     }
 
     @Test
-    public void shouldRemapUponReading2() throws OWLOntologyCreationException {
+    public void shouldNotRemapUponReloading() throws OWLOntologyCreationException {
+        // XXX this test shows a condition that can cause clashes between
+        // imported ontologies
+        // XXX Code needs to be changed so remapping always happens
         String input = "<?xml version=\"1.0\"?>\r\n" +
             "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n" +
             "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n" +
@@ -198,7 +197,7 @@ public class SharedBlankNodeTestCase {
     }
 
     @Test
-    public void shouldRemapUponReading3() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldNotOutputNodeIdWhenNotNeeded() throws OWLOntologyCreationException, OWLOntologyStorageException {
         String input = "<?xml version=\"1.0\"?>\r\n" +
             "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n" +
             "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n" +
@@ -219,11 +218,41 @@ public class SharedBlankNodeTestCase {
         OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
         String result = saveOntology(o1,
             new RDFXMLOntologyFormat());
-        assertFalse(result.contains("1058025095"));
+        assertFalse(result.contains("rdf:nodeID"));
     }
 
     @Test
-    public void shouldRemapUponReading4() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldOutputNodeIdEvenIfNotNeeded() throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "<?xml version=\"1.0\"?>\r\n" +
+            "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n" +
+            "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n" +
+            "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\r\n" +
+            "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\r\n" +
+            "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\r\n" +
+            "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\">\r\n" +
+            "    <Ontology/>\r\n" +
+            "    <Class rdf:about=\"http://E\">\r\n" +
+            "        <rdfs:comment>\r\n" +
+            "            <rdf:Description>\r\n" +
+            "                <rdfs:comment>E</rdfs:comment>\r\n" +
+            "            </rdf:Description>\r\n" +
+            "        </rdfs:comment>\r\n" +
+            "    </Class>\r\n" +
+            "</rdf:RDF>";
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+        AnonymousIndividualProperties.setSaveIdsForAllAnonymousIndividuals(true);
+        try {
+            String result = saveOntology(o1, new RDFXMLOntologyFormat());
+            assertTrue(result.contains("rdf:nodeID"));
+        } finally {
+            // make sure the static variable is reset after the test
+            AnonymousIndividualProperties.resetToDefault();
+        }
+    }
+
+    @Test
+    public void shouldOutputNodeIdWhenNeeded() throws OWLOntologyCreationException, OWLOntologyStorageException {
         String input = "<?xml version=\"1.0\"?>\r\n" +
             "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n" +
             "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n" +

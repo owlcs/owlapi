@@ -49,9 +49,11 @@ import org.coode.owlapi.rdf.model.RDFNode;
 import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTranslator;
 import org.coode.owlapi.rdf.model.RDFTriple;
+import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
@@ -76,7 +78,7 @@ public abstract class RDFRendererBase {
     private RDFGraph graph;
     protected Set<IRI> prettyPrintedTypes;
     private OWLOntologyFormat format;
-    private final OWLAnonymousIndividualsWithMultipleOccurrences occurrences;
+    private final IndividualAppearance occurrences;
 
     /**
      * @param ontology
@@ -110,8 +112,19 @@ public abstract class RDFRendererBase {
     protected RDFRendererBase(OWLOntology ontology, OWLOntologyFormat format) {
         this.ontology = ontology;
         this.format = format;
-        occurrences = new OWLAnonymousIndividualsWithMultipleOccurrences();
-        ontology.accept(occurrences);
+        if (AnonymousIndividualProperties.shouldSaveIdsForAllAnonymousIndividuals()) {
+            occurrences = new IndividualAppearance() {
+
+                @Override
+                public boolean appearsMultipleTimes(OWLAnonymousIndividual i) {
+                    return true;
+                }
+            };
+        } else {
+            OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
+            occurrences = visitor;
+            ontology.accept(visitor);
+        }
     }
 
     /**

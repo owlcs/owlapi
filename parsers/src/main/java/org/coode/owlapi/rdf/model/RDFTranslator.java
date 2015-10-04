@@ -43,7 +43,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
+import org.semanticweb.owlapi.util.IndividualAppearance;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -64,7 +64,7 @@ public class RDFTranslator
      *        true if strong typing is required
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology,
-        boolean useStrongTyping, OWLAnonymousIndividualsWithMultipleOccurrences occurrences) {
+        boolean useStrongTyping, IndividualAppearance occurrences) {
         super(manager, ontology, useStrongTyping, occurrences);
         graph = new RDFGraph();
     }
