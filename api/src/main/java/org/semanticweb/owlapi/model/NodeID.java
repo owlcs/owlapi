@@ -139,9 +139,17 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return A NodeID
      */
     public static NodeID getNodeID(String id) {
-        String _id = id == null || id.length() == 0 ? PREFIX_NODE
-            + Long.toString(counter.incrementAndGet()) : id;
+        String _id = id == null || id.length() == 0 ? nextAnonymousIRI() : id;
         return new NodeID(_id);
+    }
+
+    /**
+     * Gets a fresh NodeID with a new identifier.
+     * 
+     * @return A NodeID
+     */
+    public static NodeID getNodeID() {
+        return new NodeID(nextAnonymousIRI());
     }
 
     private final String id;

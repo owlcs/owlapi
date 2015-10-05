@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.vocab.*;
 import java.net.*;
 import java.util.*;
 import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import java.io.IOException;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -38,6 +39,8 @@ public class OWLFunctionalSyntaxParser {
     private boolean ignoreAnnotationsAndDeclarations = false;
 
     private Set<OWLAnnotation> currentAnnotations;
+    
+    protected RemappingIndividualProvider anonProvider;
 
     @Deprecated
     public void setUp(OWLOntologyManager man, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
@@ -49,6 +52,7 @@ public class OWLFunctionalSyntaxParser {
         this.ontology = ontology;
         this.configuration = configuration;
         this.dataFactory = man.getOWLDataFactory();
+        anonProvider=new RemappingIndividualProvider(dataFactory);
         this.currentAnnotations = new HashSet<OWLAnnotation>();
         if(prefixMap == null) {
             prefixMap = new HashMap<String, String>();
@@ -1317,7 +1321,7 @@ OWLAnonymousIndividual AnonymousIndividual() :
 {
     t=<NODEID> {
         String id = t.image.substring(2, t.image.length());
-        return dataFactory.getOWLAnonymousIndividual(id);
+        return anonProvider.getOWLAnonymousIndividual(id);
     }
 }
 

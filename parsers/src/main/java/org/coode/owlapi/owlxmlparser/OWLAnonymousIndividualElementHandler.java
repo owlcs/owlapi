@@ -41,15 +41,17 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-May-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 17-May-2009
  */
 public class OWLAnonymousIndividualElementHandler extends
-        AbstractOWLElementHandler<OWLAnonymousIndividual> {
+    AbstractOWLElementHandler<OWLAnonymousIndividual> {
 
+    protected RemappingIndividualProvider anonProvider;
     private OWLAnonymousIndividual ind;
 
     /**
@@ -58,6 +60,7 @@ public class OWLAnonymousIndividualElementHandler extends
      */
     public OWLAnonymousIndividualElementHandler(OWLXMLParserHandler handler) {
         super(handler);
+        anonProvider = new RemappingIndividualProvider(getOWLDataFactory());
     }
 
     @Override
@@ -67,9 +70,9 @@ public class OWLAnonymousIndividualElementHandler extends
 
     @Override
     public void attribute(String localName, String value)
-            throws OWLParserException {
+        throws OWLParserException {
         if (localName.equals(OWLXMLVocabulary.NODE_ID.getShortName())) {
-            ind = getOWLDataFactory().getOWLAnonymousIndividual(value.trim());
+            ind = anonProvider.getOWLAnonymousIndividual(value.trim());
         } else {
             super.attribute(localName, value);
         }
@@ -77,7 +80,7 @@ public class OWLAnonymousIndividualElementHandler extends
 
     @Override
     public void endElement() throws OWLParserException,
-            UnloadableImportException {
+        UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 }

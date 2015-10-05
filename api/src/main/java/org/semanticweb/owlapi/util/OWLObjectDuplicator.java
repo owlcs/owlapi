@@ -38,26 +38,20 @@
  */
 package org.semanticweb.owlapi.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.*;
 
 import org.semanticweb.owlapi.model.*;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Dec-2006
  */
 public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private final OWLDataFactory dataFactory;
     private Object obj;
     private Map<OWLEntity, IRI> replacementMap;
-    private AtomicInteger anonsCounter = new AtomicInteger();
+    protected RemappingIndividualProvider anonProvider;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified
@@ -68,6 +62,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      */
     public OWLObjectDuplicator(OWLDataFactory dataFactory) {
         this(new HashMap<OWLEntity, IRI>(), dataFactory);
+        anonProvider = new RemappingIndividualProvider(dataFactory);
     }
 
     /**
@@ -82,7 +77,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      *        used to "rename" entities.
      */
     public OWLObjectDuplicator(OWLDataFactory dataFactory,
-            Map<IRI, IRI> iriReplacementMap) {
+        Map<IRI, IRI> iriReplacementMap) {
         this.dataFactory = dataFactory;
         replacementMap = new HashMap<OWLEntity, IRI>();
         for (Map.Entry<IRI, IRI> e : iriReplacementMap.entrySet()) {
@@ -94,7 +89,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             replacementMap.put(dataFactory.getOWLNamedIndividual(iri), repIRI);
             replacementMap.put(dataFactory.getOWLDatatype(iri), repIRI);
             replacementMap.put(dataFactory.getOWLAnnotationProperty(iri),
-                    repIRI);
+                repIRI);
         }
     }
 
@@ -110,7 +105,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      *        used to "rename" entities.
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap,
-            OWLDataFactory dataFactory) {
+        OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
         replacementMap = new HashMap<OWLEntity, IRI>(entityIRIReplacementMap);
     }
@@ -163,8 +158,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         obj = dataFactory.getOWLAsymmetricObjectPropertyAxiom(
-                (OWLObjectPropertyExpression) obj,
-                duplicateAxiomAnnotations(axiom));
+            (OWLObjectPropertyExpression) obj,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -174,7 +169,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getClassExpression().accept(this);
         OWLClassExpression type = (OWLClassExpression) obj;
         obj = dataFactory.getOWLClassAssertionAxiom(type, ind,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -186,7 +181,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getObject().accept(this);
         OWLLiteral con = (OWLLiteral) obj;
         obj = dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, con,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -196,7 +191,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getDomain().accept(this);
         OWLClassExpression domain = (OWLClassExpression) obj;
         obj = dataFactory.getOWLDataPropertyDomainAxiom(prop, domain,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -206,7 +201,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getRange().accept(this);
         OWLDataRange range = (OWLDataRange) obj;
         obj = dataFactory.getOWLDataPropertyRangeAxiom(prop, range,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -216,7 +211,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getSuperProperty().accept(this);
         OWLDataPropertyExpression supProp = (OWLDataPropertyExpression) obj;
         obj = dataFactory.getOWLSubDataPropertyOfAxiom(subProp, supProp,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -224,38 +219,38 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getEntity().accept(this);
         OWLEntity ent = (OWLEntity) obj;
         obj = dataFactory.getOWLDeclarationAxiom(ent,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         Set<OWLIndividual> inds = duplicateSet(axiom.getIndividuals());
         obj = dataFactory.getOWLDifferentIndividualsAxiom(inds,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         Set<OWLClassExpression> descs = duplicateSet(axiom
-                .getClassExpressions());
+            .getClassExpressions());
         obj = dataFactory.getOWLDisjointClassesAxiom(descs,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         Set<OWLDataPropertyExpression> props = duplicateSet(axiom
-                .getProperties());
+            .getProperties());
         obj = dataFactory.getOWLDisjointDataPropertiesAxiom(props,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         Set<OWLObjectPropertyExpression> props = duplicateSet(axiom
-                .getProperties());
+            .getProperties());
         obj = dataFactory.getOWLDisjointObjectPropertiesAxiom(props,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -264,7 +259,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLClass cls = (OWLClass) obj;
         Set<OWLClassExpression> ops = duplicateSet(axiom.getClassExpressions());
         obj = dataFactory.getOWLDisjointUnionAxiom(cls, ops,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -276,55 +271,55 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getValue().accept(this);
         OWLAnnotationValue value = (OWLAnnotationValue) obj;
         obj = dataFactory.getOWLAnnotationAssertionAxiom(prop, subject, value,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         Set<OWLClassExpression> descs = duplicateSet(axiom
-                .getClassExpressions());
+            .getClassExpressions());
         obj = dataFactory.getOWLEquivalentClassesAxiom(descs,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         Set<OWLDataPropertyExpression> props = duplicateSet(axiom
-                .getProperties());
+            .getProperties());
         obj = dataFactory.getOWLEquivalentDataPropertiesAxiom(props,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         Set<OWLObjectPropertyExpression> props = duplicateSet(axiom
-                .getProperties());
+            .getProperties());
         obj = dataFactory.getOWLEquivalentObjectPropertiesAxiom(props,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         obj = dataFactory.getOWLFunctionalDataPropertyAxiom(
-                (OWLDataPropertyExpression) obj,
-                duplicateAxiomAnnotations(axiom));
+            (OWLDataPropertyExpression) obj,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         obj = dataFactory.getOWLFunctionalObjectPropertyAxiom(
-                (OWLObjectPropertyExpression) obj,
-                duplicateAxiomAnnotations(axiom));
+            (OWLObjectPropertyExpression) obj,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         obj = dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(
-                (OWLObjectPropertyExpression) obj,
-                duplicateAxiomAnnotations(axiom));
+            (OWLObjectPropertyExpression) obj,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -334,15 +329,15 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getSecondProperty().accept(this);
         OWLObjectPropertyExpression propB = (OWLObjectPropertyExpression) obj;
         obj = dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         obj = dataFactory.getOWLIrreflexiveObjectPropertyAxiom(
-                (OWLObjectPropertyExpression) obj,
-                duplicateAxiomAnnotations(axiom));
+            (OWLObjectPropertyExpression) obj,
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -354,7 +349,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getObject().accept(this);
         OWLLiteral con = (OWLLiteral) obj;
         obj = dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, ind,
-                con, duplicateAxiomAnnotations(axiom));
+            con, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -366,7 +361,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getObject().accept(this);
         OWLIndividual ind2 = (OWLIndividual) obj;
         obj = dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop, ind,
-                ind2, duplicateAxiomAnnotations(axiom));
+            ind2, duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -378,7 +373,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getObject().accept(this);
         OWLIndividual ind2 = (OWLIndividual) obj;
         obj = dataFactory.getOWLObjectPropertyAssertionAxiom(prop, ind, ind2,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -391,7 +386,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
             chain.add((OWLObjectPropertyExpression) obj);
         }
         obj = dataFactory.getOWLSubPropertyChainOfAxiom(chain, prop,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -401,7 +396,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getDomain().accept(this);
         OWLClassExpression domain = (OWLClassExpression) obj;
         obj = dataFactory.getOWLObjectPropertyDomainAxiom(prop, domain,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -411,7 +406,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getRange().accept(this);
         OWLClassExpression range = (OWLClassExpression) obj;
         obj = dataFactory.getOWLObjectPropertyRangeAxiom(prop, range,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -421,7 +416,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getSuperProperty().accept(this);
         OWLObjectPropertyExpression supProp = (OWLObjectPropertyExpression) obj;
         obj = dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, supProp,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -429,14 +424,14 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         obj = dataFactory.getOWLReflexiveObjectPropertyAxiom(prop,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         Set<OWLIndividual> individuals = duplicateSet(axiom.getIndividuals());
         obj = dataFactory.getOWLSameIndividualAxiom(individuals,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -446,7 +441,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getSuperClass().accept(this);
         OWLClassExpression supClass = (OWLClassExpression) obj;
         obj = dataFactory.getOWLSubClassOfAxiom(subClass, supClass,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -454,7 +449,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         obj = dataFactory.getOWLSymmetricObjectPropertyAxiom(prop,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -462,7 +457,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getProperty().accept(this);
         OWLObjectPropertyExpression prop = (OWLObjectPropertyExpression) obj;
         obj = dataFactory.getOWLTransitiveObjectPropertyAxiom(prop,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -487,7 +482,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         desc.getFiller().accept(this);
         OWLDataRange filler = (OWLDataRange) obj;
         obj = dataFactory.getOWLDataExactCardinality(desc.getCardinality(),
-                prop, filler);
+            prop, filler);
     }
 
     @Override
@@ -497,7 +492,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         desc.getFiller().accept(this);
         OWLDataRange filler = (OWLDataRange) obj;
         obj = dataFactory.getOWLDataMaxCardinality(desc.getCardinality(), prop,
-                filler);
+            filler);
     }
 
     @Override
@@ -507,7 +502,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         desc.getFiller().accept(this);
         OWLDataRange filler = (OWLDataRange) obj;
         obj = dataFactory.getOWLDataMinCardinality(desc.getCardinality(), prop,
-                filler);
+            filler);
     }
 
     @Override
@@ -551,7 +546,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         desc.getFiller().accept(this);
         OWLClassExpression filler = (OWLClassExpression) obj;
         obj = dataFactory.getOWLObjectExactCardinality(desc.getCardinality(),
-                prop, filler);
+            prop, filler);
     }
 
     @Override
@@ -567,7 +562,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         desc.getFiller().accept(this);
         OWLClassExpression filler = (OWLClassExpression) obj;
         obj = dataFactory.getOWLObjectMaxCardinality(desc.getCardinality(),
-                prop, filler);
+            prop, filler);
     }
 
     @Override
@@ -577,7 +572,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         desc.getFiller().accept(this);
         OWLClassExpression filler = (OWLClassExpression) obj;
         obj = dataFactory.getOWLObjectMinCardinality(desc.getCardinality(),
-                prop, filler);
+            prop, filler);
     }
 
     @Override
@@ -806,9 +801,9 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getClassExpression().accept(this);
         OWLClassExpression ce = (OWLClassExpression) obj;
         Set<OWLPropertyExpression<?, ?>> props = duplicateSet(axiom
-                .getPropertyExpressions());
+            .getPropertyExpressions());
         obj = dataFactory.getOWLHasKeyAxiom(ce, props,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -835,7 +830,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getDomain().accept(this);
         IRI domain = (IRI) obj;
         obj = dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -845,7 +840,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getRange().accept(this);
         IRI range = (IRI) obj;
         obj = dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -855,7 +850,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getSuperProperty().accept(this);
         OWLAnnotationProperty sup = (OWLAnnotationProperty) obj;
         obj = dataFactory.getOWLSubAnnotationPropertyOfAxiom(sub, sup,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     @Override
@@ -869,8 +864,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-        obj = dataFactory.getOWLAnonymousIndividual(NodeID
-                .nodeString(anonsCounter.incrementAndGet()));
+        obj = dataFactory.getOWLAnonymousIndividual(NodeID.nextAnonymousIRI());
     }
 
     @Override
@@ -893,7 +887,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         axiom.getDataRange().accept(this);
         OWLDataRange rng = (OWLDataRange) obj;
         obj = dataFactory.getOWLDatatypeDefinitionAxiom(dt, rng,
-                duplicateAxiomAnnotations(axiom));
+            duplicateAxiomAnnotations(axiom));
     }
 
     /**

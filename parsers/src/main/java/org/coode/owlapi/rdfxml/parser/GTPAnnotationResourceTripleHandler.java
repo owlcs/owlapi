@@ -38,21 +38,15 @@
  */
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Dec-2006
  */
 public class GTPAnnotationResourceTripleHandler extends
-        AbstractResourceTripleHandler {
+    AbstractResourceTripleHandler {
 
     /**
      * @param consumer
@@ -68,37 +62,36 @@ public class GTPAnnotationResourceTripleHandler extends
             return false;
         } else {
             return !isAnonymous(subject) && !isAnonymous(object)
-                    && getConsumer().isAnnotationProperty(predicate);
+                && getConsumer().isAnnotationProperty(predicate);
         }
     }
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         boolean builtInAnnotationProperty = OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS
-                .contains(predicate);
+            .contains(predicate);
         return !getConsumer().isAxiom(subject)
-                && !getConsumer().isAnnotation(subject)
-                && (builtInAnnotationProperty || !predicate
-                        .isReservedVocabulary());
+            && !getConsumer().isAnnotation(subject)
+            && (builtInAnnotationProperty || !predicate
+                .isReservedVocabulary());
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object)
-            throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object) {
         OWLAnnotationValue value;
         if (isAnonymous(object)) {
-            value = getDataFactory().getOWLAnonymousIndividual(
-                    object.toString());
+            value = getConsumer().getOWLAnonymousIndividual(
+                object.toString());
         } else {
             value = object;
         }
         OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(
-                predicate);
+            predicate);
         OWLAnnotation anno = getDataFactory().getOWLAnnotation(prop, value);
         OWLAnnotationSubject annoSubject;
         if (isAnonymous(subject)) {
-            annoSubject = getDataFactory().getOWLAnonymousIndividual(
-                    subject.toString());
+            annoSubject = getConsumer().getOWLAnonymousIndividual(
+                subject.toString());
         } else {
             annoSubject = subject;
         }
@@ -107,7 +100,7 @@ public class GTPAnnotationResourceTripleHandler extends
             getConsumer().addOntologyAnnotation(anno);
         } else {
             OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(
-                    annoSubject, anno, getPendingAnnotations());
+                annoSubject, anno, getPendingAnnotations());
             addAxiom(decAx);
         }
     }

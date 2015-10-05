@@ -9,7 +9,11 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
+import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -68,13 +72,6 @@ public class SharedBlankNodeTestCase {
             new StringDocumentSource(ontology));
     }
 
-    public static void displayOntology(OWLOntology ontology)
-        throws OWLOntologyStorageException {
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
-        manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
-    }
-
     public static void testAnnotation(OWLOntology ontology) {
         for (OWLIndividual i : ontology.getIndividualsInSignature()) {
             assertEquals(2, ontology.getObjectPropertyAssertionAxioms(i).size());
@@ -126,8 +123,7 @@ public class SharedBlankNodeTestCase {
         }
         assertEquals(values1.toString(), values1.size(), 1);
         assertEquals(values1.toString(), values2.size(), 1);
-        // XXX enable to test functional syntax remapping
-        // assertNotEquals(values1, values2);
+        assertNotEquals(values1, values2);
     }
 
     @Test
@@ -157,9 +153,7 @@ public class SharedBlankNodeTestCase {
 
     @Test
     public void shouldNotRemapUponReloading() throws OWLOntologyCreationException {
-        // XXX this test shows a condition that can cause clashes between
-        // imported ontologies
-        // XXX Code needs to be changed so remapping always happens
+        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
         String input = "<?xml version=\"1.0\"?>\r\n" +
             "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\r\n" +
             "     xml:base=\"http://www.w3.org/2002/07/owl\"\r\n" +
@@ -176,24 +170,29 @@ public class SharedBlankNodeTestCase {
             "        </rdfs:comment>\r\n" +
             "    </Class>\r\n" +
             "</rdf:RDF>";
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        Set<OWLAnnotationValue> values1 = new HashSet<OWLAnnotationValue>();
-        values1.add(m.getOWLDataFactory().getOWLAnonymousIndividual("_:genid-nodeid-1058025095"));
-        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
-        for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-            OWLAnnotationValue value = a.getValue();
-            if (value instanceof OWLAnonymousIndividual) {
-                values1.add(value);
+        try {
+            OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+            Set<OWLAnnotationValue> values1 = new HashSet<OWLAnnotationValue>();
+            values1.add(m.getOWLDataFactory().getOWLAnonymousIndividual("_:genid-nodeid-1058025095"));
+            OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+            for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+                OWLAnnotationValue value = a.getValue();
+                if (value instanceof OWLAnonymousIndividual) {
+                    values1.add(value);
+                }
             }
-        }
-        o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
-        for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-            OWLAnnotationValue value = a.getValue();
-            if (value instanceof OWLAnonymousIndividual) {
-                values1.add(value);
+            o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+            for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+                OWLAnnotationValue value = a.getValue();
+                if (value instanceof OWLAnonymousIndividual) {
+                    values1.add(value);
+                }
             }
+            assertEquals(values1.toString(), values1.size(), 1);
+        } finally {
+            // make sure config is restored
+            AnonymousIndividualProperties.resetToDefault();
         }
-        assertEquals(values1.toString(), values1.size(), 1);
     }
 
     @Test

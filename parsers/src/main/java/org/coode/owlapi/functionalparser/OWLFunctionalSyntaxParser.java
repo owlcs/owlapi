@@ -68,6 +68,7 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -93,6 +94,8 @@ public class OWLFunctionalSyntaxParser implements
     private boolean ignoreAnnotationsAndDeclarations = false;
     /** The current annotations. */
     private Set<OWLAnnotation> currentAnnotations;
+    
+    protected RemappingIndividualProvider anonProvider;
 
     /**
      * Sets the up.
@@ -125,6 +128,7 @@ public class OWLFunctionalSyntaxParser implements
         this.ontology = ontology;
         this.configuration = configuration;
         dataFactory = man.getOWLDataFactory();
+        anonProvider=new RemappingIndividualProvider(dataFactory);
         currentAnnotations = new HashSet<OWLAnnotation>();
         if (prefixMap == null) {
             prefixMap = new HashMap<String, String>();
@@ -1015,7 +1019,7 @@ public class OWLFunctionalSyntaxParser implements
         Token t;
         t = jj_consume_token(NODEID);
         String id = t.image.substring(2, t.image.length());
-        return dataFactory.getOWLAnonymousIndividual(id);
+        return anonProvider.getOWLAnonymousIndividual(id);
     }
 
     /**

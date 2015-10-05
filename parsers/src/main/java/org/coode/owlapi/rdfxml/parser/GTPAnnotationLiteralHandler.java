@@ -60,9 +60,9 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
 
     @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate,
-            OWLLiteral object) {
+        OWLLiteral object) {
         return !isAnonymous(subject) && !getConsumer().isAnnotation(subject)
-                && getConsumer().isAnnotationProperty(predicate);
+            && getConsumer().isAnnotationProperty(predicate);
     }
 
     @Override
@@ -103,22 +103,22 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         consumeTriple(subject, predicate, object);
         OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(
-                predicate);
+            predicate);
         OWLAnnotationSubject annotationSubject;
         if (isAnonymous(subject)) {
-            annotationSubject = getDataFactory().getOWLAnonymousIndividual(
-                    subject.toString());
+            annotationSubject = getConsumer().getOWLAnonymousIndividual(
+                subject.toString());
         } else {
             annotationSubject = subject;
         }
         if (getConsumer().isOntology(subject)) {
             getConsumer().addOntologyAnnotation(
-                    getDataFactory().getOWLAnnotation(prop, object,
-                            getPendingAnnotations()));
+                getDataFactory().getOWLAnnotation(prop, object,
+                    getPendingAnnotations()));
         } else {
             OWLAnnotationAssertionAxiom ax = getDataFactory()
-                    .getOWLAnnotationAssertionAxiom(prop, annotationSubject,
-                            object, getPendingAnnotations());
+                .getOWLAnnotationAssertionAxiom(prop, annotationSubject,
+                    object, getPendingAnnotations());
             addAxiom(ax);
         }
     }

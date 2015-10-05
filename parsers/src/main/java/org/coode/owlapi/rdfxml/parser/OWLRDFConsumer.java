@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.syntax.RDFConsumer;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -74,7 +75,7 @@ import org.xml.sax.SAXException;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 07-Dec-2006
  */
-public class OWLRDFConsumer implements RDFConsumer {
+public class OWLRDFConsumer implements RDFConsumer, OWLAnonymousIndividualByIdProvider {
 
     /** The Constant logger. */
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class
@@ -244,6 +245,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
     /** The parsed all triples. */
     private boolean parsedAllTriples = false;
+    protected RemappingIndividualProvider anonProvider;
 
     /**
      * Instantiates a new oWLRDF consumer.
@@ -260,6 +262,7 @@ public class OWLRDFConsumer implements RDFConsumer {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         dataFactory = owlOntologyManager.getOWLDataFactory();
+        anonProvider = new RemappingIndividualProvider(dataFactory);
         anonymousNodeChecker = checker;
         this.configuration = configuration;
         classExpressionTranslators.add(new NamedClassTranslator(this));
@@ -1532,10 +1535,15 @@ public class OWLRDFConsumer implements RDFConsumer {
      */
     protected OWLIndividual getOWLIndividual(IRI iri) {
         if (isAnonymousNode(iri)) {
-            return dataFactory.getOWLAnonymousIndividual(iri.toString());
+            return getOWLAnonymousIndividual(iri.toString());
         } else {
             return dataFactory.getOWLNamedIndividual(iri);
         }
+    }
+
+    @Override
+    public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
+        return anonProvider.getOWLAnonymousIndividual(nodeId);
     }
 
     /**
@@ -2539,7 +2547,7 @@ public class OWLRDFConsumer implements RDFConsumer {
                         .getOWLAnnotationProperty(predicate);
                     OWLAnnotationValue val;
                     if (isAnonymousNode(resVal)) {
-                        val = dataFactory.getOWLAnonymousIndividual(resVal
+                        val = anonProvider.getOWLAnonymousIndividual(resVal
                             .toString());
                     } else {
                         val = resVal;
