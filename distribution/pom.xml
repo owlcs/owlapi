@@ -217,6 +217,7 @@
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
+						<phase>deploy</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -249,6 +250,7 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
+						<phase>deploy</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
