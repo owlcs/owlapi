@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.io;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 /**
  * Settings for anonymous individual treatment. Note: these cannot be specified
  * for a specific ontology or manager at this point, and so they are system
@@ -9,20 +7,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class AnonymousIndividualProperties {
 
-    private static AtomicBoolean saveIds = new AtomicBoolean(false);
-    private static AtomicBoolean remapIds = new AtomicBoolean(true);
+    private static boolean saveIds = false;
+    private static boolean remapIds = true;
 
     /** Ensure the config is back to default values. */
     public static void resetToDefault() {
-        saveIds.set(false);
-        remapIds.set(true);
+        saveIds = false;
+        remapIds = true;
     }
 
     /**
      * @return true if all anonymous individuals should have their ids persisted
      */
     public static boolean shouldSaveIdsForAllAnonymousIndividuals() {
-        return saveIds.get();
+        return saveIds;
     }
 
     /**
@@ -30,7 +28,7 @@ public class AnonymousIndividualProperties {
      *         upon reading
      */
     public static boolean shouldRemapAllAnonymousIndividualsIds() {
-        return remapIds.get();
+        return remapIds;
     }
 
     /**
@@ -38,7 +36,7 @@ public class AnonymousIndividualProperties {
      *        true if all anonymous individuals should have their ids persisted
      */
     public static void setSaveIdsForAllAnonymousIndividuals(boolean b) {
-        saveIds.set(b);
+        saveIds = b;
     }
 
     /**
@@ -47,6 +45,6 @@ public class AnonymousIndividualProperties {
      *        after parsing
      */
     public static void setRemapAllAnonymousIndividualsIds(boolean b) {
-        remapIds.set(b);
+        remapIds = b;
     }
 }

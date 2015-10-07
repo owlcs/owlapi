@@ -21,18 +21,11 @@ import java.util.*;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi.io.RDFResourceIRI;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
-import org.semanticweb.owlapi.util.AxiomSubjectProvider;
-import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
-import org.semanticweb.owlapi.util.OWLEntityIRIComparator;
-import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.util.*;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -70,7 +63,7 @@ public abstract class RDFRendererBase {
     protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
-    private final OWLAnonymousIndividualsWithMultipleOccurrences occurrences;
+    private final IndividualAppearance occurrences;
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
@@ -91,8 +84,13 @@ public abstract class RDFRendererBase {
     protected RDFRendererBase(@Nonnull OWLOntology ontology, OWLDocumentFormat format) {
         this.ontology = ontology;
         this.format = format;
-        occurrences = new OWLAnonymousIndividualsWithMultipleOccurrences();
-        ontology.accept(occurrences);
+        if (AnonymousIndividualProperties.shouldSaveIdsForAllAnonymousIndividuals()) {
+            occurrences = new AlwaysOutputId();
+        } else {
+            OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
+            occurrences = visitor;
+            ontology.accept(visitor);
+        }
     }
 
     /** Hooks for subclasses */

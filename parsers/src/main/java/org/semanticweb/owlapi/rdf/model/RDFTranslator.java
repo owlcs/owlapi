@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
+import org.semanticweb.owlapi.util.IndividualAppearance;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -45,7 +45,7 @@ public class RDFTranslator extends
      */
     public RDFTranslator(@Nonnull OWLOntologyManager manager,
         @Nonnull OWLOntology ontology, boolean useStrongTyping,
-        OWLAnonymousIndividualsWithMultipleOccurrences occurrences) {
+        IndividualAppearance occurrences) {
         super(manager, ontology, useStrongTyping, occurrences);
     }
 

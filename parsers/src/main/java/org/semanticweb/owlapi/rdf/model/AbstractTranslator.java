@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
+import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
@@ -55,7 +55,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final OWLOntologyManager manager;
     private final OWLOntology ont;
     private final boolean useStrongTyping;
-    protected final OWLAnonymousIndividualsWithMultipleOccurrences multipleOccurrences;
+    protected final IndividualAppearance multipleOccurrences;
 
     /**
      * @param manager
@@ -66,7 +66,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      *        true if strong typing should be used
      */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
-        boolean useStrongTyping, OWLAnonymousIndividualsWithMultipleOccurrences multiple) {
+        boolean useStrongTyping, IndividualAppearance multiple) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
