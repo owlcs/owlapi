@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.HasIRI;
  * @since 3.2
  */
 public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
-        HasIRI {
+    HasIRI {
 
     private static final long serialVersionUID = 40000L;
 
@@ -41,4 +41,11 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
      *         {@code false} if this is a resource node and is not anonymous.
      */
     public abstract boolean isAnonymous();
+
+    /**
+     * @return true if this is an anonymous individual
+     */
+    public boolean isIndividual() {
+        return false;
+    }
 }

@@ -1735,7 +1735,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     @Nonnull
     private RDFResource getRDFResource(@Nonnull IRI iri) {
         if (isAnonymousNode(iri)) {
-            return new RDFResourceBlankNode(iri);
+            return new RDFResourceBlankNode(iri, false);
         } else {
             return new RDFResourceIRI(iri);
         }

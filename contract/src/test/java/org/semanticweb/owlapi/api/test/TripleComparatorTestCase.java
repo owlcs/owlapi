@@ -46,7 +46,7 @@ public class TripleComparatorTestCase {
     @Test
     public void shouldSort() {
         List<RDFTriple> list = new ArrayList<>(Arrays.asList(
-                //@formatter:off
+            //@formatter:off
                 triple("MoleOfNiobiumAtom"), 
                 triple("MoleOfMercuryAtom"),
                 triple("MoleOfHydrogenAtom"), 
@@ -113,7 +113,7 @@ public class TripleComparatorTestCase {
                 , triple("MoleOfRheniumAtom")
                 , triple("MoleOfZincAtom")
                 //@formatter:on
-                ));
+        ));
         Collections.sort(list);
     }
 
@@ -124,7 +124,7 @@ public class TripleComparatorTestCase {
 
     @Nonnull
     private RDFTriple triple(@Nonnull OWLRDFVocabulary p,
-            @Nonnull OWLRDFVocabulary n) {
+        @Nonnull OWLRDFVocabulary n) {
         return new RDFTriple(g, r(p.getIRI()), r(n.getIRI()));
     }
 
@@ -145,6 +145,6 @@ public class TripleComparatorTestCase {
 
     @Nonnull
     private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(s);
+        return new RDFResourceBlankNode(s, false);
     }
 }

@@ -21,12 +21,7 @@ import java.util.*;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
@@ -192,12 +187,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
+        } else if (node.isIndividual()) {
+            writer.writeNodeIDAttribute((RDFResourceBlankNode) node);
         }
-        // XXX this call looks like it should be made, but only when the node id
-        // is necessary
-        // else {
-        // writer.writeNodeIDAttribute(node);
-        // }
         for (RDFTriple triple : triples) {
             if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;

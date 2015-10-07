@@ -17,14 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 
@@ -48,7 +41,7 @@ import com.google.common.collect.Sets;
 public class RDFGraph implements Serializable {
 
     private static final Set<IRI> skippedPredicates = Sets
-            .newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
+        .newHashSet(OWLRDFVocabulary.OWL_ANNOTATED_TARGET.getIRI());
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<>();
@@ -96,7 +89,7 @@ public class RDFGraph implements Serializable {
      * @return sorted triples
      */
     public Collection<RDFTriple> getTriplesForSubject(RDFNode subject,
-            boolean sort) {
+        boolean sort) {
         Set<RDFTriple> set = triplesBySubject.get(subject);
         if (set == null) {
             // check if the node is remapped
@@ -117,13 +110,12 @@ public class RDFGraph implements Serializable {
      * @return for each triple with a blank node object that is shared with
      *         other triples, compute a remapping of the node.
      */
-    public Map<RDFTriple, RDFResourceBlankNode>
-            computeRemappingForSharedNodes() {
+    public Map<RDFTriple, RDFResourceBlankNode> computeRemappingForSharedNodes() {
         Map<RDFTriple, RDFResourceBlankNode> toReturn = new HashMap<>();
         Map<RDFNode, List<RDFTriple>> sharers = new HashMap<>();
         for (RDFTriple t : triples) {
             if (t.getObject().isAnonymous()
-                    && notInSkippedPredicates(t.getPredicate())) {
+                && notInSkippedPredicates(t.getPredicate())) {
                 List<RDFTriple> list = sharers.get(t.getObject());
                 if (list == null) {
                     list = new ArrayList<>(2);
@@ -137,7 +129,7 @@ public class RDFGraph implements Serializable {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
                     RDFResourceBlankNode bnode = new RDFResourceBlankNode(
-                            IRI.create(NodeID.nextAnonymousIRI()));
+                        IRI.create(NodeID.nextAnonymousIRI()), e.getKey().isIndividual());
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
                 }
@@ -156,7 +148,9 @@ public class RDFGraph implements Serializable {
         return !skippedPredicates.contains(predicate.getIRI());
     }
 
-    /** @return root anonymous nodes */
+    /**
+     * @return root anonymous nodes
+     */
     @Nonnull
     public Set<RDFResourceBlankNode> getRootAnonymousNodes() {
         if (rootAnonymousNodes.isEmpty()) {
@@ -170,7 +164,7 @@ public class RDFGraph implements Serializable {
         for (RDFTriple triple : triples) {
             if (triple.getSubject() instanceof RDFResourceBlankNode) {
                 rootAnonymousNodes.add((RDFResourceBlankNode) triple
-                        .getSubject());
+                    .getSubject());
             }
         }
         for (RDFTriple triple : triples) {
@@ -200,7 +194,9 @@ public class RDFGraph implements Serializable {
         w.flush();
     }
 
-    /** @return all triples in an unmodifiable set */
+    /**
+     * @return all triples in an unmodifiable set
+     */
     public Set<RDFTriple> getAllTriples() {
         return Collections.unmodifiableSet(triples);
     }

@@ -33,9 +33,6 @@ import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.OWLEntityIRIComparator;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
-import gnu.trove.strategy.IdentityHashingStrategy;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -568,20 +565,6 @@ public abstract class RDFRendererBase {
         return format == null || format.isAddMissingTypes();
     }
 
-    private int nextBlankNodeId = 1;
-    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-        new IdentityHashingStrategy<>());
-
-    @Nonnull
-    protected RDFResourceBlankNode getBlankNodeFor(Object key) {
-        int id = blankNodeMap.get(key);
-        if (id == 0) {
-            id = nextBlankNodeId++;
-            blankNodeMap.put(key, id);
-        }
-        return new RDFResourceBlankNode(id);
-    }
-
     private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
 
         public SequentialBlankNodeRDFTranslator() {
@@ -593,9 +576,9 @@ public abstract class RDFRendererBase {
             checkNotNull(key, "key cannot be null");
             if (key instanceof OWLAnonymousIndividual) {
                 OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
-                key = anonymousIndividual.getID().getID();
+                return new RDFResourceBlankNode(System.identityHashCode(anonymousIndividual.getID().getID()), true);
             }
-            return getBlankNodeFor(key);
+            return new RDFResourceBlankNode(System.identityHashCode(key), false);
         }
     }
 
