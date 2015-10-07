@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
 import org.semanticweb.owlapi.util.OWLEntityIRIComparator;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
@@ -69,6 +70,7 @@ public abstract class RDFRendererBase {
     protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
+    private final OWLAnonymousIndividualsWithMultipleOccurrences occurrences;
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
@@ -89,6 +91,8 @@ public abstract class RDFRendererBase {
     protected RDFRendererBase(@Nonnull OWLOntology ontology, OWLDocumentFormat format) {
         this.ontology = ontology;
         this.format = format;
+        occurrences = new OWLAnonymousIndividualsWithMultipleOccurrences();
+        ontology.accept(occurrences);
     }
 
     /** Hooks for subclasses */
@@ -418,7 +422,7 @@ public abstract class RDFRendererBase {
     protected void renderOntologyHeader() throws IOException {
         RDFTranslator translator = new RDFTranslator(
             ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations());
+            shouldInsertDeclarations(), occurrences);
         graph = translator.getGraph();
         RDFResource ontologyHeaderNode = createOntologyHeaderNode(translator);
         addVersionIRIToOntologyHeader(ontologyHeaderNode, translator);
@@ -565,20 +569,22 @@ public abstract class RDFRendererBase {
         return format == null || format.isAddMissingTypes();
     }
 
+    // XXX review
     private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
 
         public SequentialBlankNodeRDFTranslator() {
-            super(ontology.getOWLOntologyManager(), ontology, shouldInsertDeclarations());
+            super(ontology.getOWLOntologyManager(), ontology, shouldInsertDeclarations(), occurrences);
         }
 
         @Override
         protected RDFResourceBlankNode getAnonymousNode(Object key) {
             checkNotNull(key, "key cannot be null");
             if (key instanceof OWLAnonymousIndividual) {
-                OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
-                return new RDFResourceBlankNode(System.identityHashCode(anonymousIndividual.getID().getID()), true);
+                OWLAnonymousIndividual i = (OWLAnonymousIndividual) key;
+                return new RDFResourceBlankNode(System.identityHashCode(i.getID().getID()), true, occurrences
+                    .appearsMultipleTimes(i));
             }
-            return new RDFResourceBlankNode(System.identityHashCode(key), false);
+            return new RDFResourceBlankNode(System.identityHashCode(key), false, false);
         }
     }
 

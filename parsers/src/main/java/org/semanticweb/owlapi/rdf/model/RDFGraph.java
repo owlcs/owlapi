@@ -129,7 +129,7 @@ public class RDFGraph implements Serializable {
                 // found reused blank nodes
                 for (RDFTriple t : e.getValue()) {
                     RDFResourceBlankNode bnode = new RDFResourceBlankNode(
-                        IRI.create(NodeID.nextAnonymousIRI()), e.getKey().isIndividual());
+                        IRI.create(NodeID.nextAnonymousIRI()), e.getKey().isIndividual(), e.getKey().shouldOutputId());
                     remappedNodes.put(bnode, e.getKey());
                     toReturn.put(t, bnode);
                 }

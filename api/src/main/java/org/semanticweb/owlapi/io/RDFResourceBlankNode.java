@@ -26,6 +26,7 @@ public class RDFResourceBlankNode extends RDFResource {
     @Nonnull
     private final IRI resource;
     private final boolean isIndividual;
+    private final boolean forceIdOutput;
 
     /**
      * Create an RDFResource that is anonymous
@@ -33,9 +34,10 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param resource
      *        The IRI of the resource
      */
-    public RDFResourceBlankNode(@Nonnull IRI resource, boolean isIndividual) {
+    public RDFResourceBlankNode(@Nonnull IRI resource, boolean isIndividual, boolean forceId) {
         this.resource = checkNotNull(resource, "resource cannot be null");
-        this.isIndividual=isIndividual;
+        this.isIndividual = isIndividual;
+        forceIdOutput = forceId;
     }
 
     /**
@@ -44,13 +46,17 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param anonId
      *        the number at the end of the anon IRI
      */
-    public RDFResourceBlankNode(int anonId, boolean isIndividual) {
-        this(NodeID.nodeId(anonId),isIndividual);
+    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId) {
+        this(NodeID.nodeId(anonId), isIndividual, forceId);
     }
 
     @Override
     public boolean isIndividual() {
         return isIndividual;
+    }
+
+    public boolean shouldOutputId() {
+        return forceIdOutput;
     }
 
     @Override
