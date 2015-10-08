@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.vocab.*;
 
@@ -100,6 +101,7 @@ public class ManchesterOWLSyntaxParserImpl implements
     private final boolean allowEmptyFrameSections = false;
     private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
+    protected RemappingIndividualProvider anonProvider;
 
     /**
      * @param configurationProvider
@@ -113,6 +115,7 @@ public class ManchesterOWLSyntaxParserImpl implements
         @Nonnull OWLDataFactory dataFactory) {
         configProvider = configurationProvider;
         this.dataFactory = dataFactory;
+        anonProvider = new RemappingIndividualProvider(this.dataFactory);
         pm.setPrefix("rdf:", Namespaces.RDF.toString());
         pm.setPrefix("rdfs:", Namespaces.RDFS.toString());
         pm.setPrefix("owl:", Namespaces.OWL.toString());
@@ -364,7 +367,7 @@ public class ManchesterOWLSyntaxParserImpl implements
     @Nonnull
     private OWLIndividual getOWLIndividual(@Nonnull String name) {
         if (name.startsWith("_:")) {
-            return dataFactory.getOWLAnonymousIndividual(name);
+            return anonProvider.getOWLAnonymousIndividual(name);
         }
         return getOWLNamedIndividual(name);
     }
@@ -1236,7 +1239,7 @@ public class ManchesterOWLSyntaxParserImpl implements
             consumeToken();
             OWLAnnotationValue value;
             if (obj.startsWith("_:")) {
-                value = dataFactory.getOWLAnonymousIndividual(obj);
+                value = anonProvider.getOWLAnonymousIndividual(obj);
             } else {
                 value = getIRI(obj);
             }

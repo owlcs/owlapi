@@ -33,7 +33,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
     private static final String PREFIX = "_:";
     private static final String PREFIX_NODE = PREFIX + NODE_ID_PREFIX;
     private static final String PREFIX_SHARED_NODE = PREFIX
-            + SHARED_NODE_ID_PREFIX;
+        + SHARED_NODE_ID_PREFIX;
 
     /**
      * @param id
@@ -91,7 +91,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      */
     public static boolean isAnonymousNodeIRI(String uri) {
         return uri != null && uri.startsWith(PREFIX)
-                && uri.contains(NODE_ID_PREFIX);
+            && uri.contains(NODE_ID_PREFIX);
     }
 
     /**
@@ -105,7 +105,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      */
     public static boolean isAnonymousNodeIRI(IRI iri) {
         return iri != null && iri.getNamespace().startsWith(PREFIX)
-                && iri.getNamespace().contains(NODE_ID_PREFIX);
+            && iri.getNamespace().contains(NODE_ID_PREFIX);
     }
 
     /**
@@ -129,9 +129,13 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      */
     @Nonnull
     public static NodeID getNodeID(String id) {
-        String nonBlankId = id == null || id.isEmpty() ? PREFIX_NODE
-                + Long.toString(COUNTER.incrementAndGet()) : id;
+        String nonBlankId = id == null || id.isEmpty() ? nextAnonymousIRI() : id;
         return new NodeID(nonBlankId);
+    }
+
+    @Nonnull
+    public static NodeID getNodeID() {
+        return getNodeID(nextAnonymousIRI());
     }
 
     @Nonnull

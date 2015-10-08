@@ -32,6 +32,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     private Object obj;
     @Nonnull
     private final Map<OWLEntity, IRI> replacementMap;
+    protected RemappingIndividualProvider anonProvider;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified
@@ -86,6 +87,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public OWLObjectDuplicator(@Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
         @Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
+        anonProvider = new RemappingIndividualProvider(this.dataFactory);
         replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
 
@@ -804,7 +806,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-        obj = individual;
+        obj = anonProvider.getOWLAnonymousIndividual(individual.getID().getID());
     }
 
     @Override

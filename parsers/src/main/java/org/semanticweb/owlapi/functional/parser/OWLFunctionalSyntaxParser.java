@@ -71,6 +71,7 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
@@ -86,6 +87,8 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private IRI ontologyIRI;
     private boolean ignoreAnnotationsAndDeclarations = false;
     private Set<OWLAnnotation> currentAnnotations;
+    
+    protected RemappingIndividualProvider anonProvider;
 
     public void setUp(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
@@ -93,6 +96,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         this.ontology = ontology;
         this.configuration = configuration;
         dataFactory = man.getOWLDataFactory();
+        anonProvider=new RemappingIndividualProvider(dataFactory);
         currentAnnotations = new HashSet<OWLAnnotation>();
         if (prefixMap == null) {
             prefixMap = new HashMap<String, String>();
@@ -1156,7 +1160,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         String id = t.image.substring(2, t.image.length());
         {
             if ("" != null) {
-                return dataFactory.getOWLAnonymousIndividual(id);
+                return anonProvider.getOWLAnonymousIndividual(id);
             }
         }
         throw new Error("Missing return statement in function");

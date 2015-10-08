@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 import org.semanticweb.owlapi.util.AnonymousNodeCheckerImpl;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -60,7 +61,7 @@ import com.google.common.collect.ArrayListMultimap;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
+public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAnonymousIndividualByIdProvider {
 
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
@@ -165,6 +166,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private final AnonymousNodeChecker nodeCheckerDelegate;
     @Nonnull
     private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
+    RemappingIndividualProvider anonProvider;
 
     /**
      * Instantiates a new oWLRDF consumer.
@@ -194,6 +196,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         dataFactory = owlOntologyManager.getOWLDataFactory();
+        anonProvider = new RemappingIndividualProvider(dataFactory);
         this.configuration = configuration;
         handlerAccessor = new HandlerAccessor(this);
         translatorAccessor = new TranslatorAccessor(this);
@@ -1057,10 +1060,15 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     @Nonnull
     protected OWLIndividual getOWLIndividual(@Nonnull IRI iri) {
         if (isAnonymousNode(iri)) {
-            return dataFactory.getOWLAnonymousIndividual(iri.toString());
+            return getOWLAnonymousIndividual(iri.toString());
         } else {
             return dataFactory.getOWLNamedIndividual(iri);
         }
+    }
+
+    @Override
+    public OWLAnonymousIndividual getOWLAnonymousIndividual(String nodeId) {
+        return anonProvider.getOWLAnonymousIndividual(nodeId);
     }
 
     /**

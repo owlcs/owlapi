@@ -940,7 +940,7 @@ public class TripleHandlers {
             OWLAnnotationProperty prop = df.getOWLAnnotationProperty(predicate);
             OWLAnnotationSubject annotationSubject;
             if (isAnonymous(subject)) {
-                annotationSubject = df.getOWLAnonymousIndividual(subject.toString());
+                annotationSubject = consumer.getOWLAnonymousIndividual(subject.toString());
             } else {
                 annotationSubject = subject;
             }
@@ -981,7 +981,7 @@ public class TripleHandlers {
         public void handleTriple(@Nonnull IRI subject, IRI predicate, @Nonnull IRI object) {
             OWLAnnotationValue value;
             if (isAnonymous(object)) {
-                value = df.getOWLAnonymousIndividual(object.toString());
+                value = consumer.getOWLAnonymousIndividual(object.toString());
             } else {
                 value = object;
             }
