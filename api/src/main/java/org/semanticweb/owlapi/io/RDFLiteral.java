@@ -43,8 +43,8 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 21/12/2010
  * @since 3.2
  */
 public class RDFLiteral extends RDFNode implements Serializable {
@@ -60,7 +60,9 @@ public class RDFLiteral extends RDFNode implements Serializable {
         this.literal = literal;
     }
 
-    /** @return the OWLLiteral */
+    /**
+     * @return the OWLLiteral
+     */
     public OWLLiteral getLiteral() {
         return literal;
     }
@@ -90,5 +92,25 @@ public class RDFLiteral extends RDFNode implements Serializable {
     @Override
     public String toString() {
         return literal.toString();
+    }
+
+    @Override
+    public int compareTo(RDFNode o) {
+        if (!o.isLiteral()) {
+            return -1;
+        }
+        if (equals(o)) {
+            return 0;
+        }
+        int diff = 0;
+        RDFLiteral lit2 = (RDFLiteral) o;
+        diff = literal.getLiteral().compareTo(lit2.literal.getLiteral());
+        if (diff == 0) {
+            diff = literal.getDatatype().compareTo(lit2.literal.getDatatype());
+        }
+        if (diff == 0) {
+            diff = literal.getLang().compareTo(lit2.literal.getLang());
+        }
+        return diff;
     }
 }

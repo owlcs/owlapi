@@ -39,11 +39,11 @@
 package org.semanticweb.owlapi.io;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 21/12/2010
  * @since 3.2
  */
-public abstract class RDFNode {
+public abstract class RDFNode implements Comparable<RDFNode> {
 
     /**
      * Determines if this node is a literal node.

@@ -38,17 +38,23 @@
  */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
+import gnu.trove.map.hash.THashMap;
+
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 21/12/2010
  * @since 3.2
  */
-public class RDFTriple implements Serializable {
+public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static final long serialVersionUID = 30406L;
     private final RDFResource subject;
@@ -84,7 +90,7 @@ public class RDFTriple implements Serializable {
      *        whether the object is anonymous
      */
     public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
-            boolean predicateAnon, IRI object, boolean objectAnon) {
+        boolean predicateAnon, IRI object, boolean objectAnon) {
         this.subject = new RDFResource(subject, subjectAnon);
         this.predicate = new RDFResource(predicate, predicateAnon);
         this.object = new RDFResource(object, objectAnon);
@@ -103,23 +109,29 @@ public class RDFTriple implements Serializable {
      *        the object
      */
     public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
-            boolean predicateAnon, OWLLiteral object) {
+        boolean predicateAnon, OWLLiteral object) {
         this.subject = new RDFResource(subject, subjectAnon);
         this.predicate = new RDFResource(predicate, predicateAnon);
         this.object = new RDFLiteral(object);
     }
 
-    /** @return the subject */
+    /**
+     * @return the subject
+     */
     public RDFResource getSubject() {
         return subject;
     }
 
-    /** @return the predicate */
+    /**
+     * @return the predicate
+     */
     public RDFResource getPredicate() {
         return predicate;
     }
 
-    /** @return the object */
+    /**
+     * @return the object
+     */
     public RDFNode getObject() {
         return object;
     }
@@ -127,7 +139,7 @@ public class RDFTriple implements Serializable {
     @Override
     public int hashCode() {
         return subject.hashCode() * 37 + predicate.hashCode() * 17
-                + object.hashCode();
+            + object.hashCode();
     }
 
     @Override
@@ -140,8 +152,8 @@ public class RDFTriple implements Serializable {
         }
         RDFTriple other = (RDFTriple) o;
         return subject.equals(other.subject)
-                && predicate.equals(other.predicate)
-                && object.equals(other.object);
+            && predicate.equals(other.predicate)
+            && object.equals(other.object);
     }
 
     @Override
@@ -154,5 +166,51 @@ public class RDFTriple implements Serializable {
         sb.append(object.toString());
         sb.append(".");
         return sb.toString();
+    }
+
+    private static final List<IRI> ORDERED_URIS = Arrays.asList(
+        RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(),
+        OWL_EQUIVALENT_CLASS.getIRI(), RDFS_SUBCLASS_OF.getIRI(),
+        OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
+        OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
+    static final THashMap<IRI, Integer> specialPredicateRanks = new THashMap<IRI, Integer>();
+
+    static {
+        for (int i = 0; i < ORDERED_URIS.size(); i++) {
+            specialPredicateRanks.put(ORDERED_URIS.get(i), i);
+        }
+    }
+
+    @Override
+    public int compareTo(RDFTriple o) {
+        // compare by predicate, then subject, then object
+        int diff = comparePredicates(predicate, o.predicate);
+        if (diff == 0) {
+            diff = subject.compareTo(o.subject);
+        }
+        if (diff == 0) {
+            diff = object.compareTo(o.object);
+        }
+        return diff;
+    }
+
+    private int comparePredicates(RDFResource predicate, RDFResource otherPredicate) {
+        IRI predicateIRI = predicate.getResource();
+        Integer specialPredicateRank = specialPredicateRanks.get(predicateIRI);
+        IRI otherPredicateIRI = otherPredicate.getResource();
+        Integer otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
+        if (specialPredicateRank != null) {
+            if (otherSpecialPredicateRank != null) {
+                return specialPredicateRank - otherSpecialPredicateRank;
+            } else {
+                return -1;
+            }
+        } else {
+            if (otherSpecialPredicateRank != null) {
+                return +1;
+            } else {
+                return predicateIRI.compareTo(otherPredicateIRI);
+            }
+        }
     }
 }

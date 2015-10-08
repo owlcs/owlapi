@@ -43,8 +43,8 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 21/12/2010
  * @since 3.2
  */
 public class RDFResource extends RDFNode implements Serializable {
@@ -79,12 +79,16 @@ public class RDFResource extends RDFNode implements Serializable {
         return false;
     }
 
-    /** @return the IRI */
+    /**
+     * @return the IRI
+     */
     public IRI getResource() {
         return resource;
     }
 
-    /** @return true if resource is anonymous */
+    /**
+     * @return true if resource is anonymous
+     */
     public boolean isAnonymous() {
         return anonymous;
     }
@@ -113,5 +117,34 @@ public class RDFResource extends RDFNode implements Serializable {
         } else {
             return "_:" + resource;
         }
+    }
+
+    @Override
+    public int compareTo(RDFNode o) {
+        if (o.isLiteral()) {
+            return 1;
+        }
+        if (equals(o)) {
+            return 0;
+        }
+        int diff = 0;
+        boolean anonA = isAnonymous();
+        RDFResource other = (RDFResource) o;
+        boolean anonB = other.isAnonymous();
+        if (anonA == anonB) {
+            // if both are anonymous or both are not anonymous,
+            // comparing the id() values corresponds to comparing IRIs or
+            // comparing bnode ids
+            diff = getResource().compareTo(other.getResource());
+        } else {
+            // if one is anonymous and the other is not,
+            // named nodes come first
+            if (!anonA) {
+                diff = -1;
+            } else {
+                diff = 1;
+            }
+        }
+        return diff;
     }
 }
