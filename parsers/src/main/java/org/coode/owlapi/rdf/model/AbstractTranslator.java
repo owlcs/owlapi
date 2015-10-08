@@ -892,7 +892,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     private void translateAnnotations(OWLAxiom ax) {
         translateAnonymousNode(ax);
-        for (OWLAnnotation anno : ax.getAnnotations()) {
+        for (OWLAnnotation anno : new TreeSet<OWLAnnotation>(ax.getAnnotations())) {
             translateAnnotation(ax, anno);
         }
     }
@@ -918,7 +918,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
             processIfAnonymous(ind);
         }
         // If the annotation doesn't have annotations on it then we're done
-        if (annotation.getAnnotations().isEmpty()) {
+        Set<OWLAnnotation> annotations = annotation.getAnnotations();
+        if (annotations.isEmpty()) {
             return;
         }
         // The annotation has annotations on it so we need to reify the
@@ -931,7 +932,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
             .getProperty().getIRI());
         addTriple(annotation, OWL_ANNOTATED_TARGET.getIRI(),
             annotation.getValue());
-        for (OWLAnnotation anno : annotation.getAnnotations()) {
+        for (OWLAnnotation anno : new TreeSet<OWLAnnotation>(annotations)) {
             translateAnnotation(annotation, anno);
         }
     }
