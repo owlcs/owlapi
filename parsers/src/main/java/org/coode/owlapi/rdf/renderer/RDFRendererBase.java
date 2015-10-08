@@ -43,6 +43,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.coode.owlapi.rdf.model.RDFGraph;
 import org.coode.owlapi.rdf.model.RDFNode;
@@ -56,6 +57,9 @@ import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -423,7 +427,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderUntypedIRIAnnotationAssertions() throws IOException {
-        Set<IRI> annotatedIRIs = new HashSet<IRI>();
+        Set<IRI> annotatedIRIs = new TreeSet<IRI>();
         for (OWLAnnotationAssertionAxiom ax : ontology
             .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
             OWLAnnotationSubject subject = ax.getSubject();
@@ -487,14 +491,21 @@ public abstract class RDFRendererBase {
     }
 
     private void renderGeneralAxioms() throws IOException {
+        boolean haveWrittenBanner = false;
         Set<OWLAxiom> generalAxioms = getGeneralAxioms();
-        createGraph(generalAxioms);
-        Set<RDFResourceNode> rootNodes = graph.getRootAnonymousNodes();
-        if (!rootNodes.isEmpty()) {
-            writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
-            beginObject();
-            renderAnonRoots();
-            endObject();
+        for (OWLAxiom axiom : generalAxioms) {
+            Set<OWLAxiom> axiomSet = Collections.singleton(axiom);
+            createGraph(axiomSet);
+            Set<RDFResourceNode> rootNodes = graph.getRootAnonymousNodes();
+            if (!rootNodes.isEmpty()) {
+                if (!haveWrittenBanner) {
+                    writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
+                    haveWrittenBanner = true;
+                }
+                beginObject();
+                renderAnonRoots();
+                endObject();
+            }
         }
     }
 
@@ -509,7 +520,7 @@ public abstract class RDFRendererBase {
      *         in a frame-based style).
      */
     private Set<OWLAxiom> getGeneralAxioms() {
-        Set<OWLAxiom> generalAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> generalAxioms = new TreeSet<OWLAxiom>();
         generalAxioms.addAll(ontology.getGeneralClassAxioms());
         generalAxioms.addAll(ontology
             .getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
@@ -592,7 +603,7 @@ public abstract class RDFRendererBase {
     }
 
     private boolean createGraph(OWLEntity entity) {
-        final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        final Set<OWLAxiom> axioms = new TreeSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
         if (!isPunned(entity)) {
             // if (!isIndividualAndClass(entity)) {
@@ -710,8 +721,38 @@ public abstract class RDFRendererBase {
             || ((RDFOntologyFormat) format).isAddMissingTypes();
     }
 
+    private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<Object>(
+        new IdentityHashingStrategy<Object>());
+
+    private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
+
+        public SequentialBlankNodeRDFTranslator(OWLOntologyManager m, OWLOntology o,
+            boolean typing, IndividualAppearance occ) {
+            super(m, o, typing, occ);
+        }
+
+        @Override
+        protected RDFResourceNode getAnonymousNode(Object key) {
+            if (key instanceof OWLAnonymousIndividual) {
+                OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+                key = anonymousIndividual.getID().getID();
+            }
+            int id = blankNodeMap.get(key);
+            if (id == 0) {
+                id = nextBlankNodeId.getAndIncrement();
+                blankNodeMap.put(key, id);
+            }
+            if (key instanceof OWLAnonymousIndividual) {
+                return new RDFResourceNode(id, true, occurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
+            } else {
+                return new RDFResourceNode(id, false, false);
+            }
+        }
+    }
+
     protected void createGraph(Set<? extends OWLObject> objects) {
-        RDFTranslator translator = new RDFTranslator(
+        RDFTranslator translator = new SequentialBlankNodeRDFTranslator(
             ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences);
         for (OWLObject obj : objects) {
@@ -733,7 +774,7 @@ public abstract class RDFRendererBase {
      *         io error
      */
     public void renderAnonRoots() throws IOException {
-        for (RDFResourceNode node : graph.getRootAnonymousNodes()) {
+        for (RDFResourceNode node : new TreeSet<RDFResourceNode>(graph.getRootAnonymousNodes())) {
             render(node);
         }
     }
