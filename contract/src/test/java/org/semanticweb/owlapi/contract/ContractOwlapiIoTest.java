@@ -3,73 +3,15 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.io.AbstractOWLParser;
-import org.semanticweb.owlapi.io.AbstractOWLRenderer;
-import org.semanticweb.owlapi.io.DefaultOntologyFormat;
-import org.semanticweb.owlapi.io.FileDocumentSource;
-import org.semanticweb.owlapi.io.FileDocumentTarget;
-import org.semanticweb.owlapi.io.IOProperties;
-import org.semanticweb.owlapi.io.IRIDocumentSource;
-import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.io.OWLObjectRenderer;
-import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
-import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
-import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
-import org.semanticweb.owlapi.io.OWLParserIOException;
-import org.semanticweb.owlapi.io.OWLParserSAXException;
-import org.semanticweb.owlapi.io.OWLParserURISyntaxException;
-import org.semanticweb.owlapi.io.OWLRenderer;
-import org.semanticweb.owlapi.io.OWLRendererException;
-import org.semanticweb.owlapi.io.OWLRendererIOException;
-import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
-import org.semanticweb.owlapi.io.RDFLiteral;
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
-import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
-import org.semanticweb.owlapi.io.RDFParserMetaData;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceParseError;
-import org.semanticweb.owlapi.io.RDFTriple;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.ReaderDocumentSource;
-import org.semanticweb.owlapi.io.StreamDocumentSource;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
-import org.semanticweb.owlapi.io.ToStringRenderer;
-import org.semanticweb.owlapi.io.WriterDocumentTarget;
-import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.io.ZipDocumentTarget;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
@@ -84,8 +26,8 @@ public class ContractOwlapiIoTest {
 
             @Override
             public OWLOntologyFormat parse(
-                    OWLOntologyDocumentSource documentSource,
-                    OWLOntology ontology) throws OWLParserException,
+                OWLOntologyDocumentSource documentSource,
+                OWLOntology ontology) throws OWLParserException,
                     IOException, OWLOntologyChangeException,
                     UnloadableImportException {
                 return null;
@@ -93,22 +35,22 @@ public class ContractOwlapiIoTest {
 
             @Override
             public OWLOntologyFormat parse(
-                    OWLOntologyDocumentSource documentSource,
-                    OWLOntology ontology,
-                    OWLOntologyLoaderConfiguration configuration)
+                OWLOntologyDocumentSource documentSource,
+                OWLOntology ontology,
+                OWLOntologyLoaderConfiguration configuration)
                     throws OWLParserException, IOException,
                     OWLOntologyChangeException, UnloadableImportException {
                 return null;
             }
         };
         OWLOntologyFormat result0 = testSubject0.parse(IRI("urn:aFake"),
-                Utils.getMockOntology());
+            Utils.getMockOntology());
         String result2 = testSubject0.toString();
         OWLOntologyFormat result3 = testSubject0.parse(
-                mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
+            mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
         OWLOntologyFormat result4 = testSubject0.parse(
-                mock(OWLOntologyDocumentSource.class), Utils.getMockOntology(),
-                new OWLOntologyLoaderConfiguration());
+            mock(OWLOntologyDocumentSource.class), Utils.getMockOntology(),
+            new OWLOntologyLoaderConfiguration());
     }
 
     @Test
@@ -117,7 +59,7 @@ public class ContractOwlapiIoTest {
 
             @Override
             public void render(OWLOntology ontology, Writer writer)
-                    throws OWLRendererException {}
+                throws OWLRendererException {}
         };
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
@@ -129,10 +71,10 @@ public class ContractOwlapiIoTest {
         String result0 = testSubject0.toString();
         RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
         OWLOntologyLoaderMetaData result2 = testSubject0
-                .getOntologyLoaderMetaData();
+            .getOntologyLoaderMetaData();
         boolean result3 = testSubject0.isAddMissingTypes();
         boolean result4 = RDFOntologyFormat.isMissingType(
-                Utils.mockOWLEntity(), Utils.getMockOntology());
+            Utils.mockOWLEntity(), Utils.getMockOntology());
         testSubject0.setAddMissingTypes(false);
         testSubject0.addError(mock(RDFResourceParseError.class));
         String result5 = testSubject0.getPrefix("");
@@ -149,17 +91,17 @@ public class ContractOwlapiIoTest {
         String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result12 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
+            mock(Object.class));
         boolean result13 = testSubject0.isPrefixOWLOntologyFormat();
         PrefixOWLOntologyFormat result14 = testSubject0
-                .asPrefixOWLOntologyFormat();
+            .asPrefixOWLOntologyFormat();
         testSubject0
-                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+            .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     public void shouldTestFileDocumentSource() throws Exception {
         FileDocumentSource testSubject0 = new FileDocumentSource(
-                mock(File.class));
+            mock(File.class));
         InputStream result0 = testSubject0.getInputStream();
         boolean result1 = testSubject0.isReaderAvailable();
         Reader result2 = testSubject0.getReader();
@@ -170,7 +112,7 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestFileDocumentTarget() throws Exception {
         FileDocumentTarget testSubject0 = new FileDocumentTarget(
-                mock(File.class));
+            mock(File.class));
         OutputStream result0 = testSubject0.getOutputStream();
         IRI result1 = testSubject0.getDocumentIRI();
         boolean result2 = testSubject0.isWriterAvailable();
@@ -203,9 +145,9 @@ public class ContractOwlapiIoTest {
 
     @Test
     public void shouldTestOntologyIRIMappingNotFoundException()
-            throws Exception {
+        throws Exception {
         OntologyIRIMappingNotFoundException testSubject0 = new OntologyIRIMappingNotFoundException(
-                IRI("urn:aFake"));
+            IRI("urn:aFake"));
         IRI result0 = testSubject0.getOntologyIRI();
         Throwable result2 = testSubject0.getCause();
         String result4 = testSubject0.toString();
@@ -231,14 +173,14 @@ public class ContractOwlapiIoTest {
         String result7 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result8 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
+            mock(Object.class));
         boolean result9 = testSubject0.isPrefixOWLOntologyFormat();
         PrefixOWLOntologyFormat result10 = testSubject0
-                .asPrefixOWLOntologyFormat();
+            .asPrefixOWLOntologyFormat();
         OWLOntologyLoaderMetaData result11 = testSubject0
-                .getOntologyLoaderMetaData();
+            .getOntologyLoaderMetaData();
         testSubject0
-                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+            .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     @Test
@@ -251,7 +193,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOWLOntologyCreationIOException() throws Exception {
         OWLOntologyCreationIOException testSubject0 = new OWLOntologyCreationIOException(
-                mock(IOException.class));
+            mock(IOException.class));
         IOException result0 = testSubject0.getCause();
         Throwable result1 = testSubject0.getCause();
         String result2 = testSubject0.getMessage();
@@ -284,11 +226,11 @@ public class ContractOwlapiIoTest {
     public void shouldTestOWLOntologyInputSourceException() throws Exception {
         OWLOntologyInputSourceException testSubject0 = new OWLOntologyInputSourceException();
         OWLOntologyInputSourceException testSubject1 = new OWLOntologyInputSourceException(
-                new RuntimeException());
+            new RuntimeException());
         OWLOntologyInputSourceException testSubject2 = new OWLOntologyInputSourceException(
-                "");
+            "");
         OWLOntologyInputSourceException testSubject3 = new OWLOntologyInputSourceException(
-                "", new RuntimeException());
+            "", new RuntimeException());
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();
         String result4 = testSubject0.getMessage();
@@ -303,7 +245,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOWLOntologyStorageIOException() throws Exception {
         OWLOntologyStorageIOException testSubject0 = new OWLOntologyStorageIOException(
-                mock(IOException.class));
+            mock(IOException.class));
         IOException result0 = testSubject0.getIOException();
         Throwable result2 = testSubject0.getCause();
         String result4 = testSubject0.toString();
@@ -315,12 +257,12 @@ public class ContractOwlapiIoTest {
     public void shouldTestInterfaceOWLParser() throws Exception {
         OWLParser testSubject0 = mock(OWLParser.class);
         OWLOntologyFormat result0 = testSubject0.parse(IRI("urn:aFake"),
-                Utils.getMockOntology());
+            Utils.getMockOntology());
         OWLOntologyFormat result1 = testSubject0.parse(
-                mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
+            mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
         OWLOntologyFormat result2 = testSubject0.parse(
-                mock(OWLOntologyDocumentSource.class), Utils.getMockOntology(),
-                new OWLOntologyLoaderConfiguration());
+            mock(OWLOntologyDocumentSource.class), Utils.getMockOntology(),
+            new OWLOntologyLoaderConfiguration());
     }
 
     @Test
@@ -328,14 +270,14 @@ public class ContractOwlapiIoTest {
         OWLParserException testSubject0 = new OWLParserException();
         OWLParserException testSubject1 = new OWLParserException("");
         OWLParserException testSubject2 = new OWLParserException("",
-                new RuntimeException());
+            new RuntimeException());
         OWLParserException testSubject3 = new OWLParserException(
-                new RuntimeException());
+            new RuntimeException());
         OWLParserException testSubject4 = new OWLParserException("", 0, 0);
         OWLParserException testSubject5 = new OWLParserException(
-                new RuntimeException(), 0, 0);
+            new RuntimeException(), 0, 0);
         OWLParserException testSubject6 = new OWLParserException("",
-                new RuntimeException(), 0, 0);
+            new RuntimeException(), 0, 0);
         String result0 = testSubject0.getMessage();
         int result1 = testSubject0.getLineNumber();
         int result2 = testSubject0.getColumnNumber();
@@ -352,9 +294,9 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestOWLParserFactoryRegistry() throws Exception {
         OWLParserFactoryRegistry testSubject0 = OWLParserFactoryRegistry
-                .getInstance();
+            .getInstance();
         OWLParserFactoryRegistry result0 = OWLParserFactoryRegistry
-                .getInstance();
+            .getInstance();
         testSubject0.clearParserFactories();
         List<OWLParserFactory> result1 = testSubject0.getParserFactories();
         testSubject0.registerParserFactory(mock(OWLParserFactory.class));
@@ -365,7 +307,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOWLParserIOException() throws Exception {
         OWLParserIOException testSubject0 = new OWLParserIOException(
-                mock(IOException.class));
+            mock(IOException.class));
         IOException result0 = testSubject0.getCause();
         Throwable result1 = testSubject0.getCause();
         String result2 = testSubject0.getMessage();
@@ -378,7 +320,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOWLParserSAXException() throws Exception {
         OWLParserSAXException testSubject0 = new OWLParserSAXException(
-                mock(SAXException.class));
+            mock(SAXException.class));
         SAXException result0 = testSubject0.getCause();
         Throwable result1 = testSubject0.getCause();
         String result2 = testSubject0.getMessage();
@@ -391,7 +333,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOWLParserURISyntaxException() throws Exception {
         OWLParserURISyntaxException testSubject0 = new OWLParserURISyntaxException(
-                mock(URISyntaxException.class), 0, 0);
+            mock(URISyntaxException.class), 0, 0);
         URISyntaxException result0 = testSubject0.getCause();
         Throwable result1 = testSubject0.getCause();
         String result2 = testSubject0.getMessage();
@@ -411,9 +353,9 @@ public class ContractOwlapiIoTest {
     public void shouldTestOWLRendererException() throws Exception {
         OWLRendererException testSubject0 = new OWLRendererException("");
         OWLRendererException testSubject1 = new OWLRendererException("",
-                new RuntimeException());
+            new RuntimeException());
         OWLRendererException testSubject2 = new OWLRendererException(
-                new RuntimeException());
+            new RuntimeException());
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();
         String result4 = testSubject0.getMessage();
@@ -423,7 +365,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestOWLRendererIOException() throws Exception {
         OWLRendererIOException testSubject0 = new OWLRendererIOException(
-                mock(IOException.class));
+            mock(IOException.class));
         Throwable result1 = testSubject0.getCause();
         String result3 = testSubject0.toString();
         String result4 = testSubject0.getMessage();
@@ -448,14 +390,14 @@ public class ContractOwlapiIoTest {
         String result7 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result8 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
+            mock(Object.class));
         boolean result9 = testSubject0.isPrefixOWLOntologyFormat();
         PrefixOWLOntologyFormat result10 = testSubject0
-                .asPrefixOWLOntologyFormat();
+            .asPrefixOWLOntologyFormat();
         OWLOntologyLoaderMetaData result11 = testSubject0
-                .getOntologyLoaderMetaData();
+            .getOntologyLoaderMetaData();
         testSubject0
-                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+            .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     @Test
@@ -474,6 +416,11 @@ public class ContractOwlapiIoTest {
             public boolean isLiteral() {
                 return false;
             }
+
+            @Override
+            public int compareTo(RDFNode o) {
+                return 0;
+            }
         };
         boolean result0 = testSubject0.isLiteral();
         String result1 = testSubject0.toString();
@@ -486,10 +433,10 @@ public class ContractOwlapiIoTest {
         };
         RDFParserMetaData result0 = testSubject0.getOntologyLoaderMetaData();
         OWLOntologyLoaderMetaData result1 = testSubject0
-                .getOntologyLoaderMetaData();
+            .getOntologyLoaderMetaData();
         boolean result2 = testSubject0.isAddMissingTypes();
         boolean result3 = RDFOntologyFormat.isMissingType(
-                Utils.mockOWLEntity(), Utils.getMockOntology());
+            Utils.mockOWLEntity(), Utils.getMockOntology());
         testSubject0.setAddMissingTypes(false);
         testSubject0.addError(mock(RDFResourceParseError.class));
         String result4 = testSubject0.getPrefix("");
@@ -506,12 +453,12 @@ public class ContractOwlapiIoTest {
         String result10 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result11 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
+            mock(Object.class));
         boolean result12 = testSubject0.isPrefixOWLOntologyFormat();
         PrefixOWLOntologyFormat result13 = testSubject0
-                .asPrefixOWLOntologyFormat();
+            .asPrefixOWLOntologyFormat();
         testSubject0
-                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+            .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
         String result14 = testSubject0.toString();
     }
 
@@ -526,8 +473,8 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestRDFParserMetaData() throws Exception {
         RDFParserMetaData testSubject0 = new RDFParserMetaData(
-                mock(RDFOntologyHeaderStatus.class), 0,
-                Utils.mockSet(mock(RDFTriple.class)));
+            mock(RDFOntologyHeaderStatus.class), 0,
+            Utils.mockSet(mock(RDFTriple.class)));
         int result0 = testSubject0.getTripleCount();
         RDFOntologyHeaderStatus result1 = testSubject0.getHeaderState();
         Set<RDFTriple> result2 = testSubject0.getUnparsedTriples();
@@ -547,8 +494,8 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestRDFResourceParseError() throws Exception {
         RDFResourceParseError testSubject0 = new RDFResourceParseError(
-                Utils.mockOWLEntity(), mock(RDFNode.class),
-                Utils.mockSet(mock(RDFTriple.class)));
+            Utils.mockOWLEntity(), mock(RDFNode.class),
+            Utils.mockSet(mock(RDFTriple.class)));
         OWLEntity result0 = testSubject0.getParserGeneratedErrorEntity();
         RDFNode result1 = testSubject0.getMainNode();
         Set<RDFTriple> result2 = testSubject0.getMainNodeTriples();
@@ -558,11 +505,11 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestRDFTriple() throws Exception {
         RDFTriple testSubject0 = new RDFTriple(IRI("urn:aFake"), false,
-                IRI("urn:aFake"), false, IRI("urn:aFake"), false);
+            IRI("urn:aFake"), false, IRI("urn:aFake"), false);
         RDFTriple testSubject1 = new RDFTriple(IRI("urn:aFake"), false,
-                IRI("urn:aFake"), false, mock(OWLLiteral.class));
+            IRI("urn:aFake"), false, mock(OWLLiteral.class));
         RDFTriple testSubject2 = new RDFTriple(mock(RDFResource.class),
-                mock(RDFResource.class), mock(RDFNode.class));
+            mock(RDFResource.class), mock(RDFNode.class));
         String result0 = testSubject0.toString();
         RDFNode result1 = testSubject0.getObject();
         RDFResource result2 = testSubject0.getSubject();
@@ -574,10 +521,10 @@ public class ContractOwlapiIoTest {
         String result0 = testSubject0.toString();
         RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
         OWLOntologyLoaderMetaData result2 = testSubject0
-                .getOntologyLoaderMetaData();
+            .getOntologyLoaderMetaData();
         boolean result3 = testSubject0.isAddMissingTypes();
         boolean result4 = RDFOntologyFormat.isMissingType(
-                Utils.mockOWLEntity(), Utils.getMockOntology());
+            Utils.mockOWLEntity(), Utils.getMockOntology());
         testSubject0.setAddMissingTypes(false);
         testSubject0.addError(mock(RDFResourceParseError.class));
         String result5 = testSubject0.getPrefix("");
@@ -594,19 +541,19 @@ public class ContractOwlapiIoTest {
         String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result12 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
+            mock(Object.class));
         boolean result13 = testSubject0.isPrefixOWLOntologyFormat();
         PrefixOWLOntologyFormat result14 = testSubject0
-                .asPrefixOWLOntologyFormat();
+            .asPrefixOWLOntologyFormat();
         testSubject0
-                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+            .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     public void shouldTestReaderDocumentSource() throws Exception {
         ReaderDocumentSource testSubject0 = new ReaderDocumentSource(
-                mock(Reader.class), IRI("urn:aFake"));
+            mock(Reader.class), IRI("urn:aFake"));
         ReaderDocumentSource testSubject1 = new ReaderDocumentSource(
-                mock(Reader.class));
+            mock(Reader.class));
         InputStream result0 = testSubject0.getInputStream();
         boolean result1 = testSubject0.isReaderAvailable();
         Reader result2 = testSubject0.getReader();
@@ -618,9 +565,9 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestStreamDocumentSource() throws Exception {
         StreamDocumentSource testSubject0 = new StreamDocumentSource(
-                mock(InputStream.class));
+            mock(InputStream.class));
         StreamDocumentSource testSubject1 = new StreamDocumentSource(
-                mock(InputStream.class), IRI("urn:aFake"));
+            mock(InputStream.class), IRI("urn:aFake"));
         InputStream result0 = testSubject0.getInputStream();
         boolean result1 = testSubject0.isReaderAvailable();
         Reader result2 = testSubject0.getReader();
@@ -632,7 +579,7 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestStreamDocumentTarget() throws Exception {
         StreamDocumentTarget testSubject0 = new StreamDocumentTarget(
-                mock(OutputStream.class));
+            mock(OutputStream.class));
         OutputStream result0 = testSubject0.getOutputStream();
         IRI result1 = testSubject0.getDocumentIRI();
         boolean result2 = testSubject0.isWriterAvailable();
@@ -645,7 +592,7 @@ public class ContractOwlapiIoTest {
     public void shouldTestStringDocumentSource() throws Exception {
         StringDocumentSource testSubject0 = new StringDocumentSource("");
         StringDocumentSource testSubject1 = new StringDocumentSource("",
-                IRI("urn:aFake"));
+            IRI("urn:aFake"));
         InputStream result0 = testSubject0.getInputStream();
         boolean result1 = testSubject0.isReaderAvailable();
         Reader result2 = testSubject0.getReader();
@@ -688,7 +635,7 @@ public class ContractOwlapiIoTest {
 
     public void shouldTestWriterDocumentTarget() throws Exception {
         WriterDocumentTarget testSubject0 = new WriterDocumentTarget(
-                mock(Writer.class));
+            mock(Writer.class));
         OutputStream result0 = testSubject0.getOutputStream();
         IRI result1 = testSubject0.getDocumentIRI();
         boolean result2 = testSubject0.isWriterAvailable();

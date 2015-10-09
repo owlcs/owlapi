@@ -352,14 +352,48 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
             addPairwiseClassExpressions(axiom, axiom.getClassExpressions(),
                 OWL_EQUIVALENT_CLASS.getIRI());
         } else {
-            // see http://www.w3.org/TR/2009/REC-owl2-mapping-to-rdf-20091027/
-            List<OWLClassExpression> list = axiom.getClassExpressionsAsList();
-            int count = list.size();
-            for (int i = 0; i + 1 < count; i++) {
-                addTriple(list.get(i), OWL_EQUIVALENT_CLASS.getIRI(),
-                    list.get(i + 1));
+            for (OWLEquivalentClassesAxiom ax : splitToAnnotatedPairs(axiom)) {
+                ax.accept(this);
             }
         }
+    }
+
+    private List<OWLEquivalentClassesAxiom> splitToAnnotatedPairs(OWLEquivalentClassesAxiom ax) {
+        List<OWLClassExpression> individuals = new ArrayList<OWLClassExpression>(ax.getClassExpressions());
+        List<OWLEquivalentClassesAxiom> result = new ArrayList<OWLEquivalentClassesAxiom>();
+        for (int i = 0; i < individuals.size() - 1; i++) {
+            OWLClassExpression indI = individuals.get(i);
+            OWLClassExpression indJ = individuals.get(i + 1);
+            result.add(manager.getOWLDataFactory().getOWLEquivalentClassesAxiom(indI, indJ, ax.getAnnotations()));
+        }
+        Collections.sort(result);
+        return result;
+    }
+
+    private List<OWLEquivalentObjectPropertiesAxiom> splitToAnnotatedPairs(OWLEquivalentObjectPropertiesAxiom ax) {
+        List<OWLObjectPropertyExpression> individuals = new ArrayList<OWLObjectPropertyExpression>(ax.getProperties());
+        List<OWLEquivalentObjectPropertiesAxiom> result = new ArrayList<OWLEquivalentObjectPropertiesAxiom>();
+        for (int i = 0; i < individuals.size() - 1; i++) {
+            OWLObjectPropertyExpression indI = individuals.get(i);
+            OWLObjectPropertyExpression indJ = individuals.get(i + 1);
+            result.add(manager.getOWLDataFactory().getOWLEquivalentObjectPropertiesAxiom(indI, indJ, ax
+                .getAnnotations()));
+        }
+        Collections.sort(result);
+        return result;
+    }
+
+    private List<OWLEquivalentDataPropertiesAxiom> splitToAnnotatedPairs(OWLEquivalentDataPropertiesAxiom ax) {
+        List<OWLDataPropertyExpression> individuals = new ArrayList<OWLDataPropertyExpression>(ax.getProperties());
+        List<OWLEquivalentDataPropertiesAxiom> result = new ArrayList<OWLEquivalentDataPropertiesAxiom>();
+        for (int i = 0; i < individuals.size() - 1; i++) {
+            OWLDataPropertyExpression indI = individuals.get(i);
+            OWLDataPropertyExpression indJ = individuals.get(i + 1);
+            result.add(manager.getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(indI, indJ, ax
+                .getAnnotations()));
+        }
+        Collections.sort(result);
+        return result;
     }
 
     @Override
@@ -379,8 +413,10 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
+        List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(axiom.getClassExpressions());
+        Collections.sort(classExpressions);
         addSingleTripleAxiom(axiom, axiom.getOWLClass(),
-            OWL_DISJOINT_UNION_OF.getIRI(), axiom.getClassExpressions());
+            OWL_DISJOINT_UNION_OF.getIRI(), classExpressions);
     }
 
     @Override
@@ -397,8 +433,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        addPairwise(axiom, axiom.getProperties(),
-            OWL_EQUIVALENT_PROPERTY.getIRI());
+        if (axiom.getProperties().size() == 2) {
+            addPairwise(axiom, axiom.getProperties(),
+                OWL_EQUIVALENT_PROPERTY.getIRI());
+        } else {
+            for (OWLEquivalentObjectPropertiesAxiom ax : splitToAnnotatedPairs(axiom)) {
+                ax.accept(this);
+            }
+        }
     }
 
     @Override
@@ -483,8 +525,15 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        addPairwise(axiom, axiom.getProperties(),
-            OWL_EQUIVALENT_PROPERTY.getIRI());
+        Set<OWLDataPropertyExpression> properties = axiom.getProperties();
+        if (properties.size() == 2) {
+            addPairwise(axiom, properties,
+                OWL_EQUIVALENT_PROPERTY.getIRI());
+        } else {
+            for (OWLEquivalentDataPropertiesAxiom ax : splitToAnnotatedPairs(axiom)) {
+                ax.accept(this);
+            }
+        }
     }
 
     @Override
@@ -527,8 +576,11 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
+        List<OWLPropertyExpression<?, ?>> propertyExpressions = new ArrayList<OWLPropertyExpression<?, ?>>(axiom
+            .getPropertyExpressions());
+        Collections.sort(propertyExpressions);
         addSingleTripleAxiom(axiom, axiom.getClassExpression(),
-            OWL_HAS_KEY.getIRI(), axiom.getPropertyExpressions());
+            OWL_HAS_KEY.getIRI(), propertyExpressions);
     }
 
     @Override
@@ -585,14 +637,12 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         translateAnonymousNode(axiom);
-        for (OWLAnnotation anno : axiom.getAnnotations()) {
-            addTriple(axiom, anno.getProperty().getIRI(), anno.getValue());
-        }
         addTriple(axiom, RDF_TYPE.getIRI(),
             OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         addTriple(axiom, OWL_SOURCE_INDIVIDUAL.getIRI(), axiom.getSubject());
         addTriple(axiom, OWL_ASSERTION_PROPERTY.getIRI(), axiom.getProperty());
         addTriple(axiom, OWL_TARGET_VALUE.getIRI(), axiom.getObject());
+        translateAnnotations(axiom);
         processIfAnonymous(axiom.getSubject(), axiom);
     }
 
@@ -837,9 +887,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, IRI pred,
-        Collection<? extends OWLObject> obj) {
+        List<? extends OWLObject> obj) {
         addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred),
-            translateList(new ArrayList<OWLObject>(obj)));
+            translateList(obj));
     }
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj,
@@ -1064,8 +1114,10 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     private void addListTriples(OWLObject subject, IRI pred,
         Set<? extends OWLObject> objects) {
+        List<OWLObject> list = new ArrayList<OWLObject>(objects);
+        Collections.sort(list);
         addTriple(getResourceNode(subject), getPredicateNode(pred),
-            translateList(new ArrayList<OWLObject>(objects)));
+            translateList(list));
     }
 
     private void addTriple(OWLObject subject, IRI pred,
@@ -1082,7 +1134,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     private void processIfAnonymous(Set<OWLIndividual> inds, OWLAxiom root) {
-        for (OWLIndividual ind : inds) {
+        for (OWLIndividual ind : new TreeSet<OWLIndividual>(inds)) {
             processIfAnonymous(ind, root);
         }
     }
@@ -1093,14 +1145,12 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ontology.getAxioms(ind)) {
+                for (OWLAxiom ax : getSortedIndividualAxioms(ind)) {
                     if (root == null || !root.equals(ax)) {
                         ax.accept(this);
                     }
                 }
-                for (OWLAnnotationAssertionAxiom ax : ontology
-                    .getAnnotationAssertionAxioms(ind
-                        .asOWLAnonymousIndividual())) {
+                for (OWLAnnotationAssertionAxiom ax : getSortedAxioms(getAnnotationAssertionsForAnonymous(ind))) {
                     ax.accept(this);
                 }
             }
@@ -1112,12 +1162,11 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ontology.getAxioms(ind)) {
+                Set<OWLIndividualAxiom> axioms = getSortedIndividualAxioms(ind);
+                for (OWLAxiom ax : axioms) {
                     ax.accept(this);
                 }
-                for (OWLAnnotationAssertionAxiom ax : ontology
-                    .getAnnotationAssertionAxioms(ind
-                        .asOWLAnonymousIndividual())) {
+                for (OWLAnnotationAssertionAxiom ax : getSortedAxioms(getAnnotationAssertionsForAnonymous(ind))) {
                     ax.accept(this);
                 }
             }
@@ -1125,9 +1174,23 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
     }
 
+    private <T> TreeSet<T> getSortedAxioms(Set<T> axioms) {
+        return new TreeSet<T>(axioms);
+    }
+
+    private Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionsForAnonymous(OWLIndividual ind) {
+        OWLAnonymousIndividual owlAnonymousIndividual = ind.asOWLAnonymousIndividual();
+        return ontology.getAnnotationAssertionAxioms(owlAnonymousIndividual);
+    }
+
+    private SortedSet<OWLIndividualAxiom> getSortedIndividualAxioms(OWLIndividual ind) {
+        return getSortedAxioms(ontology.getAxioms(ind));
+    }
+
     private void addPairwise(OWLAxiom axiom,
         Collection<? extends OWLObject> objects, IRI IRI) {
         List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);
+        Collections.sort(objectList);
         for (int i = 0; i < objectList.size(); i++) {
             for (int j = i; j < objectList.size(); j++) {
                 if (i != j) {

@@ -180,39 +180,43 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
     }
 
+    private void writeCommentForEntity(OWLEntity entity) throws IOException {
+        writer.writeComment(XMLUtils.escapeXML(entity.getIRI().toString()));
+    }
+
     @Override
     protected void writeIndividualComments(OWLNamedIndividual ind)
         throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(ind.getIRI().toString()));
+        writeCommentForEntity(ind);
     }
 
     @Override
     protected void writeClassComment(OWLClass cls) throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(cls.getIRI().toString()));
+        writeCommentForEntity(cls);
     }
 
     @Override
     protected void writeDataPropertyComment(OWLDataProperty prop)
         throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
+        writeCommentForEntity(prop);
     }
 
     @Override
     protected void writeObjectPropertyComment(OWLObjectProperty prop)
         throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
+        writeCommentForEntity(prop);
     }
 
     @Override
     protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop)
         throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
+        writeCommentForEntity(prop);
     }
 
     @Override
     protected void writeDatatypeComment(OWLDatatype datatype)
         throws IOException {
-        writer.writeComment(XMLUtils.escapeXML(datatype.getIRI().toString()));
+        writeCommentForEntity(datatype);
     }
 
     @Override

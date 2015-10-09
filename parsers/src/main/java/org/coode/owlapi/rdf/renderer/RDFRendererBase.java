@@ -454,7 +454,7 @@ public abstract class RDFRendererBase {
         for (OWLAnonymousIndividual anonInd : ontology
             .getReferencedAnonymousIndividuals()) {
             boolean anonRoot = true;
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> axioms = new TreeSet<OWLAxiom>();
             for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd)) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
                     AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
@@ -475,7 +475,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() throws IOException {
-        Set<SWRLRule> ruleAxioms = ontology.getAxioms(AxiomType.SWRL_RULE);
+        Set<SWRLRule> ruleAxioms = new TreeSet<SWRLRule>(ontology.getAxioms(AxiomType.SWRL_RULE));
         createGraph(ruleAxioms);
         if (!ruleAxioms.isEmpty()) {
             writeBanner(RULES_BANNER_TEXT);
@@ -551,7 +551,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyHeader() throws IOException {
-        RDFTranslator translator = new RDFTranslator(
+        RDFTranslator translator = new SequentialBlankNodeRDFTranslator(
             ontology.getOWLOntologyManager(), ontology,
             shouldInsertDeclarations(), occurrences);
         graph = translator.getGraph();
