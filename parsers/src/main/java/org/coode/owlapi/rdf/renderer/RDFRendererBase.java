@@ -733,9 +733,11 @@ public abstract class RDFRendererBase {
         }
 
         @Override
-        protected RDFResourceNode getAnonymousNode(Object key) {
-            if (key instanceof OWLAnonymousIndividual) {
-                OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+        protected RDFResourceNode getAnonymousNode(Object _key) {
+            boolean anoIndividualDetected = _key instanceof OWLAnonymousIndividual;
+            Object key = _key;
+            if (anoIndividualDetected) {
+                OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) _key;
                 key = anonymousIndividual.getID().getID();
             }
             int id = blankNodeMap.get(key);
@@ -743,8 +745,8 @@ public abstract class RDFRendererBase {
                 id = nextBlankNodeId.getAndIncrement();
                 blankNodeMap.put(key, id);
             }
-            if (key instanceof OWLAnonymousIndividual) {
-                return new RDFResourceNode(id, true, occurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
+            if (anoIndividualDetected) {
+                return new RDFResourceNode(id, true, occurrences.appearsMultipleTimes((OWLAnonymousIndividual) _key));
             } else {
                 return new RDFResourceNode(id, false, false);
             }
