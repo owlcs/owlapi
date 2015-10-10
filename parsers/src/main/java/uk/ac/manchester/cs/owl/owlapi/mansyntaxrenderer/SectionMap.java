@@ -44,14 +44,16 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 22/12/2010
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 22/12/2010
  */
 public class SectionMap {
 
-    private Map<Object, Set<OWLAxiom>> object2Axioms = new LinkedHashMap<Object, Set<OWLAxiom>>();
+    private Map<Object, Collection<OWLAxiom>> object2Axioms = new LinkedHashMap<Object, Collection<OWLAxiom>>();
 
-    /** @return true if empty */
+    /**
+     * @return true if empty
+     */
     public boolean isEmpty() {
         return object2Axioms.isEmpty();
     }
@@ -63,9 +65,9 @@ public class SectionMap {
      *        axiom to add
      */
     public void add(Object o, OWLAxiom forAxiom) {
-        Set<OWLAxiom> axioms = object2Axioms.get(o);
+        Collection<OWLAxiom> axioms = object2Axioms.get(o);
         if (axioms == null) {
-            axioms = new LinkedHashSet<OWLAxiom>();
+            axioms = new TreeSet<OWLAxiom>();
             object2Axioms.put(o, axioms);
         }
         axioms.add(forAxiom);
@@ -79,7 +81,9 @@ public class SectionMap {
         object2Axioms.remove(o);
     }
 
-    /** @return sections */
+    /**
+     * @return sections
+     */
     public Collection<Object> getSectionObjects() {
         return object2Axioms.keySet();
     }
@@ -89,15 +93,16 @@ public class SectionMap {
      *        sectionObject
      * @return annotations for objects
      */
-    public Set<Set<OWLAnnotation>> getAnnotationsForSectionObject(
-            Object sectionObject) {
+    public Collection<Collection<OWLAnnotation>> getAnnotationsForSectionObject(
+        Object sectionObject) {
         Collection<OWLAxiom> axioms = object2Axioms.get(sectionObject);
         if (axioms == null) {
-            return new HashSet<Set<OWLAnnotation>>();
+            return new TreeSet<Collection<OWLAnnotation>>();
         }
-        Set<Set<OWLAnnotation>> annos = new HashSet<Set<OWLAnnotation>>();
+        List<Collection<OWLAnnotation>> annos = new ArrayList<Collection<OWLAnnotation>>();
         for (OWLAxiom ax : axioms) {
-            annos.add(ax.getAnnotations());
+            Set<OWLAnnotation> annotations = ax.getAnnotations();
+            annos.add(new TreeSet<OWLAnnotation>(annotations));
         }
         return annos;
     }
