@@ -67,7 +67,7 @@ public class SectionMap {
     public void add(Object o, OWLAxiom forAxiom) {
         Collection<OWLAxiom> axioms = object2Axioms.get(o);
         if (axioms == null) {
-            axioms = new TreeSet<OWLAxiom>();
+            axioms = new HashSet<OWLAxiom>();
             object2Axioms.put(o, axioms);
         }
         axioms.add(forAxiom);

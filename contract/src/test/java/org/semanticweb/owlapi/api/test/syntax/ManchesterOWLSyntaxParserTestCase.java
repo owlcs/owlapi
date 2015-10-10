@@ -41,20 +41,24 @@ public class ManchesterOWLSyntaxParserTestCase {
                 new StringDocumentSource(input));
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, target);
-        assertEquals("Prefix: o: <urn:test#>"
-            + "Prefix: dc: <http://purl.org/dc/elements/1.1/>"
-            + "Prefix: owl: <http://www.w3.org/2002/07/owl#>"
-            + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-            + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>"
-            + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>"
-            + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-            + "Ontology: <urn:test>" + "AnnotationProperty: rdfs:label"
-            + "AnnotationProperty: o:bob" + "Annotations: "
-            + "rdfs:label \"bob-label\"@en" + "Datatype: rdf:PlainLiteral",
-            target.toString().replace("\n", "").replace("    ", ""));
+        String string = target.toString();
+        assertEquals(
+            "Prefix: dc: <http://purl.org/dc/elements/1.1/>\n" +
+                "Prefix: o: <urn:test#>\n" +
+                "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n" +
+                "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
+                "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+                "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n" +
+                "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n\n\n\n" +
+                "Ontology: <urn:test>\n\n\n" +
+                "AnnotationProperty: rdfs:label\n\n    \n" +
+                "AnnotationProperty: o:bob\n" +
+                "\n    Annotations: \n        rdfs:label \"bob-label\"@en\n    \n    \n" +
+                "Datatype: rdf:PlainLiteral\n\n    \n",
+            string);
         OWLOntology o2 = OWLManager.createOWLOntologyManager()
             .loadOntologyFromOntologyDocument(
-                new StringDocumentSource(target.toString()));
+                new StringDocumentSource(string));
         assertEquals(o.getAxioms(AxiomType.ANNOTATION_ASSERTION),
             o2.getAxioms(AxiomType.ANNOTATION_ASSERTION));
     }
