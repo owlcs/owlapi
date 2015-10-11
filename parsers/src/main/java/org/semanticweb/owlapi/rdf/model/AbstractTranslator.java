@@ -55,7 +55,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final boolean useStrongTyping;
     private final @Nonnull Set<OWLIndividual> currentIndividuals = createLinkedSet();
     /** Maps Objects to nodes. */
-    private final @Nonnull Map<OWLObject, N> nodeMap = new IdentityHashMap<>();
+    private final @Nonnull Map<OWLObject, N> nodeMap = new HashMap<>();
 
     /**
      * @param manager
@@ -831,6 +831,25 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void translateAnonymousNode(OWLObject object) {
         nodeMap.put(object, getAnonymousNode(object));
+    }
+
+    /**
+     * @param object
+     *        that has already been mapped
+     * @param <T>
+     *        type needed
+     * @return mapped node, or null if the node is absent
+     */
+    public <T extends N> T getMappedNode(OWLObject object) {
+        return (T) nodeMap.get(object);
+    }
+
+    public void addTriple(R subject, IRI pred, IRI object) {
+        addTriple(subject, getPredicateNode(pred), getResourceNode(object));
+    }
+
+    public void addTriple(R subject, IRI pred, OWLObject object) {
+        addTriple(subject, getPredicateNode(pred), getNode(object));
     }
 
     /**

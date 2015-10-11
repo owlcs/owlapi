@@ -18,12 +18,20 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.*;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
@@ -150,6 +158,7 @@ public abstract class RDFRendererBase {
 
     /** Render document. */
     public void render() {
+        graph = new RDFGraph();
         punned = ontology.getPunnedIRIs(EXCLUDED);
         beginDocument();
         renderOntologyHeader();
@@ -335,63 +344,45 @@ public abstract class RDFRendererBase {
     }
 
     protected void renderOntologyHeader() {
-        graph = new RDFGraph();
-        OWLOntologyID ontID = ontology.getOntologyID();
-        RDFResource ontologyHeaderNode = createOntologyHeaderNode();
-        addVersionIRIToOntologyHeader(ontologyHeaderNode);
-        addImportsDeclarationsToOntologyHeader(ontologyHeaderNode);
-        addAnnotationsToOntologyHeader(ontologyHeaderNode);
-        if (!ontID.isAnonymous() || !graph.isEmpty()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(RDF_TYPE.getIRI()),
-                new RDFResourceIRI(OWL_ONTOLOGY.getIRI())));
-        }
+        RDFTranslator translator = new RDFTranslator(
+            ontology.getOWLOntologyManager(), ontology,
+            shouldInsertDeclarations());
+        graph = translator.getGraph();
+        RDFResource ontologyHeaderNode = createOntologyHeaderNode(translator);
+        addVersionIRIToOntologyHeader(ontologyHeaderNode, translator);
+        addImportsDeclarationsToOntologyHeader(ontologyHeaderNode, translator);
+        addAnnotationsToOntologyHeader(ontologyHeaderNode, translator);
         if (!graph.isEmpty()) {
             render(ontologyHeaderNode);
         }
     }
 
-    private RDFResource createOntologyHeaderNode() {
-        Optional<IRI> id = ontology.getOntologyID().getOntologyIRI();
-        if (id.isPresent()) {
-            return new RDFResourceIRI(id.get());
-        } else {
-            return getBlankNodeFor(ontology);
-        }
+    private RDFResource createOntologyHeaderNode(RDFTranslator translator) {
+        ontology.accept(translator);
+        return translator.getMappedNode(ontology);
     }
 
-    private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode) {
+    private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode, RDFTranslator translator) {
         OWLOntologyID ontID = ontology.getOntologyID();
         if (ontID.getVersionIRI().isPresent()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(OWL_VERSION_IRI.getIRI()),
-                new RDFResourceIRI(ontID.getVersionIRI().get())));
+            translator.addTriple(ontologyHeaderNode, OWL_VERSION_IRI.getIRI(), ontID.getVersionIRI().get());
         }
     }
 
-    private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode) {
-        ontology.importsDeclarations().forEach(decl -> graph.addTriple(new RDFTriple(ontologyHeaderNode,
-            new RDFResourceIRI(OWL_IMPORTS.getIRI()), new RDFResourceIRI(decl.getIRI()))));
+    private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode, RDFTranslator translator) {
+        ontology.importsDeclarations().forEach(decl -> translator.addTriple(ontologyHeaderNode, OWL_IMPORTS.getIRI(),
+            decl.getIRI()));
     }
 
-    private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode) {
-        OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
-
-            @Override
-            public RDFNode visit(IRI iri) {
-                return new RDFResourceIRI(iri);
+    private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode, RDFTranslator translator) {
+        ontology.annotations().forEach(a -> {
+            translator.addTriple(ontologyHeaderNode,
+                a.getProperty().getIRI(), a.getValue());
+            if (a.getValue() instanceof OWLAnonymousIndividual) {
+                OWLAnonymousIndividual i = (OWLAnonymousIndividual) a.getValue();
+                ontology.referencingAxioms(i).forEach(ax -> ax.accept(translator));
             }
-
-            @Override
-            public RDFNode visit(OWLAnonymousIndividual individual) {
-                return getBlankNodeFor(individual);
-            }
-
-            @Override
-            public RDFNode visit(OWLLiteral literal) {
-                return new RDFLiteral(literal);
-            }
-        };
-        ontology.annotations().forEach(a -> graph.addTriple(new RDFTriple(ontologyHeaderNode,
-            new RDFResourceIRI(a.getProperty().getIRI()), a.getValue().accept(valVisitor))));
+        });
     }
 
     private boolean createGraph(OWLEntity entity, Collection<IRI> illegalPuns) {
