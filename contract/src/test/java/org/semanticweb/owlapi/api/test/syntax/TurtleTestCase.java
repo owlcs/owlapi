@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
@@ -145,10 +146,15 @@ public class TurtleTestCase extends TestBase {
     // test for 3543488
     @Test
     public void shouldRoundTripTurtleWithsharedBnodes() throws Exception {
-        String input = "@prefix ex: <http://example.com/test> .\n ex:ex1 a ex:Something ; ex:prop1 _:a .\n _:a a ex:Something1 ; ex:prop2 _:b .\n _:b a ex:Something ; ex:prop3 _:a .";
-        OWLOntology ontology = loadOntologyFromString(input);
-        OWLOntology onto2 = roundTrip(ontology, new TurtleDocumentFormat());
-        equal(ontology, onto2);
+        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
+        try {
+            String input = "@prefix ex: <http://example.com/test> .\n ex:ex1 a ex:Something ; ex:prop1 _:a .\n _:a a ex:Something1 ; ex:prop2 _:b .\n _:b a ex:Something ; ex:prop3 _:a .";
+            OWLOntology ontology = loadOntologyFromString(input);
+            OWLOntology onto2 = roundTrip(ontology, new TurtleDocumentFormat());
+            equal(ontology, onto2);
+        } finally {
+            AnonymousIndividualProperties.resetToDefault();
+        }
     }
 
     // test for 335

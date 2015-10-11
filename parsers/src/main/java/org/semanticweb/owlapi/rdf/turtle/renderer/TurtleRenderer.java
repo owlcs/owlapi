@@ -357,7 +357,7 @@ public class TurtleRenderer extends RDFRendererBase {
             // cycles therefore indicate a bug!
             triples = Collections.emptyList();
         } else {
-            triples = graph.getTriplesForSubject(node, true);
+            triples = graph.getTriplesForSubject(node);
         }
         pending.add(node);
         RDFResource lastSubject = null;

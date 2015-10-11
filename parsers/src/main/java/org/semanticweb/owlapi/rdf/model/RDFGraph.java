@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import com.google.common.collect.Sets;
@@ -75,7 +74,7 @@ public class RDFGraph implements Serializable {
         triples.add(triple);
         Set<RDFTriple> tripleSet = triplesBySubject.get(triple.getSubject());
         if (tripleSet == null) {
-            tripleSet = new HashSet<>();
+            tripleSet = new LinkedHashSet<>();
             triplesBySubject.put(triple.getSubject(), tripleSet);
         }
         tripleSet.add(triple);
@@ -84,12 +83,9 @@ public class RDFGraph implements Serializable {
     /**
      * @param subject
      *        subject
-     * @param sort
-     *        sort
      * @return sorted triples
      */
-    public Collection<RDFTriple> getTriplesForSubject(RDFNode subject,
-        boolean sort) {
+    public Collection<RDFTriple> getTriplesForSubject(RDFNode subject) {
         Set<RDFTriple> set = triplesBySubject.get(subject);
         if (set == null) {
             // check if the node is remapped
@@ -98,12 +94,9 @@ public class RDFGraph implements Serializable {
                 return Collections.emptyList();
             }
             // else return the triples for the remapped node
-            return getTriplesForSubject(rdfNode, sort);
+            return getTriplesForSubject(rdfNode);
         }
-        if (!sort) {
-            return set;
-        }
-        return CollectionFactory.sortOptionallyComparables(set);
+        return set;
     }
 
     /**

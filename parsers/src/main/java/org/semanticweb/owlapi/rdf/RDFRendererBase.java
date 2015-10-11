@@ -13,11 +13,13 @@
 package org.semanticweb.owlapi.rdf;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 
@@ -26,6 +28,9 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.util.*;
+
+import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
+import gnu.trove.strategy.IdentityHashingStrategy;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -320,11 +325,11 @@ public abstract class RDFRendererBase {
     }
 
     private void renderAnonymousIndividuals() throws IOException {
-        for (OWLAnonymousIndividual anonInd : ontology.getReferencedAnonymousIndividuals(EXCLUDED)) {
+        for (OWLAnonymousIndividual anonInd : sortOptionally(ontology.getReferencedAnonymousIndividuals(EXCLUDED))) {
             assert anonInd != null;
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new TreeSet<>();
-            for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, EXCLUDED)) {
+            for (OWLAxiom ax : sortOptionally(ontology.getReferencingAxioms(anonInd, EXCLUDED))) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
                     assert ax != null;
                     AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
@@ -499,7 +504,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLNamedIndividual individual) {
-                for (OWLAxiom ax : ontology.getAxioms(individual, EXCLUDED)) {
+                for (OWLAxiom ax : sortOptionally(ontology.getAxioms(individual, EXCLUDED))) {
                     if (ax instanceof OWLDifferentIndividualsAxiom) {
                         continue;
                     }
@@ -567,7 +572,20 @@ public abstract class RDFRendererBase {
         return format == null || format.isAddMissingTypes();
     }
 
-    // XXX review
+    private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+        new IdentityHashingStrategy<>());
+
+    @Nonnull
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
+        int id = blankNodeMap.get(key);
+        if (id == 0) {
+            id = nextBlankNodeId.getAndIncrement();
+            blankNodeMap.put(key, id);
+        }
+        return new RDFResourceBlankNode(id, isIndividual, needId);
+    }
+
     private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
 
         public SequentialBlankNodeRDFTranslator() {
@@ -577,12 +595,14 @@ public abstract class RDFRendererBase {
         @Override
         protected RDFResourceBlankNode getAnonymousNode(Object key) {
             checkNotNull(key, "key cannot be null");
-            if (key instanceof OWLAnonymousIndividual) {
-                OWLAnonymousIndividual i = (OWLAnonymousIndividual) key;
-                return new RDFResourceBlankNode(System.identityHashCode(i.getID().getID()), true, occurrences
-                    .appearsMultipleTimes(i));
+            boolean isIndividual = key instanceof OWLAnonymousIndividual;
+            boolean needId = false;
+            if (isIndividual) {
+                OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+                needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
+                key = anonymousIndividual.getID().getID();
             }
-            return new RDFResourceBlankNode(System.identityHashCode(key), false, false);
+            return getBlankNodeFor(key, isIndividual, needId);
         }
     }
 
@@ -627,7 +647,7 @@ public abstract class RDFRendererBase {
     public abstract void render(@Nonnull RDFResource node) throws IOException;
 
     protected boolean isObjectList(RDFResource node) {
-        for (RDFTriple triple : graph.getTriplesForSubject(node, false)) {
+        for (RDFTriple triple : graph.getTriplesForSubject(node)) {
             if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous() && triple
                 .getObject().getIRI().equals(RDF_LIST.getIRI())) {
                 List<RDFNode> items = new ArrayList<>();
@@ -646,12 +666,12 @@ public abstract class RDFRendererBase {
     protected void toJavaList(RDFNode n, @Nonnull List<RDFNode> list) {
         RDFNode currentNode = n;
         while (currentNode != null) {
-            for (RDFTriple triple : graph.getTriplesForSubject(currentNode, false)) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
                 if (triple.getPredicate().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
-            for (RDFTriple triple : graph.getTriplesForSubject(currentNode, false)) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
                 if (triple.getPredicate().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
                         if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {

@@ -14,14 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
-import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -30,7 +23,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class OWLObjectSomeValuesFromImpl extends
-        OWLQuantifiedObjectRestrictionImpl implements OWLObjectSomeValuesFrom {
+    OWLQuantifiedObjectRestrictionImpl implements OWLObjectSomeValuesFrom {
 
     private static final long serialVersionUID = 40000L;
 
@@ -46,8 +39,8 @@ public class OWLObjectSomeValuesFromImpl extends
      *        filler
      */
     public OWLObjectSomeValuesFromImpl(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLClassExpression filler) {
+        @Nonnull OWLObjectPropertyExpression property,
+        @Nonnull OWLClassExpression filler) {
         super(property, filler);
     }
 

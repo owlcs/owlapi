@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -351,7 +352,7 @@ public class OutputSyntaxSortTestCase extends TestBase {
     }
 
     @Nonnull
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> getData() {
         return Arrays.<Object[]> asList(new Object[] { new ManchesterSyntaxDocumentFormat() },
             new Object[] { new FunctionalSyntaxDocumentFormat() },
@@ -362,19 +363,24 @@ public class OutputSyntaxSortTestCase extends TestBase {
 
     @Test
     public void shouldOutputAllInSameOrder() throws OWLOntologyStorageException, OWLOntologyCreationException {
-        List<OWLOntology> ontologies = new ArrayList<>();
-        List<String> set = new ArrayList<>();
-        for (String s : input) {
-            OWLOntology o = loadOntologyFromString(new StringDocumentSource(s, IRI.generateDocumentIRI(),
-                new FunctionalSyntaxDocumentFormat(), null));
-            set.add(saveOntology(o, format).toString());
-            ontologies.add(o);
-        }
-        for (int i = 0; i < ontologies.size() - 1; i++) {
-            equal(ontologies.get(i), ontologies.get(i + 1));
-        }
-        for (int i = 0; i < set.size() - 1; i++) {
-            assertEquals(set.get(i), set.get(i + 1));
+        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
+        try {
+            List<OWLOntology> ontologies = new ArrayList<>();
+            List<String> set = new ArrayList<>();
+            for (String s : input) {
+                OWLOntology o = loadOntologyFromString(new StringDocumentSource(s, IRI.generateDocumentIRI(),
+                    new FunctionalSyntaxDocumentFormat(), null));
+                set.add(saveOntology(o, format).toString());
+                ontologies.add(o);
+            }
+            for (int i = 0; i < ontologies.size() - 1; i++) {
+                equal(ontologies.get(i), ontologies.get(i + 1));
+            }
+            for (int i = 0; i < set.size() - 1; i++) {
+                assertEquals(set.get(i), set.get(i + 1));
+            }
+        } finally {
+            AnonymousIndividualProperties.resetToDefault();
         }
     }
 }
