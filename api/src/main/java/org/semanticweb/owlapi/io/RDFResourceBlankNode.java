@@ -55,6 +55,7 @@ public class RDFResourceBlankNode extends RDFResource {
         return isIndividual;
     }
 
+    @Override
     public boolean shouldOutputId() {
         return forceIdOutput;
     }

@@ -181,7 +181,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
-        } else if (node.isIndividual()) {
+        } else if (node.isIndividual() && node.shouldOutputId()) {
             writer.writeNodeIDAttribute(node);
         }
         for (RDFTriple triple : triples) {
