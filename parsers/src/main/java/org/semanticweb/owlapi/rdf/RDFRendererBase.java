@@ -23,19 +23,19 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFResource;
-import org.semanticweb.owlapi.io.RDFResourceBlankNode;
-import org.semanticweb.owlapi.io.RDFResourceIRI;
-import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
+import org.semanticweb.owlapi.util.AlwaysOutputId;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
+import org.semanticweb.owlapi.util.IndividualAppearance;
+import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
@@ -66,6 +66,7 @@ public abstract class RDFRendererBase {
         OWL_ANNOTATION_PROPERTY, OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION).map(a -> a.getIRI()));
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
+    private final IndividualAppearance occurrences;
 
     /**
      * @param ontology
@@ -78,6 +79,13 @@ public abstract class RDFRendererBase {
     protected RDFRendererBase(OWLOntology ontology, OWLDocumentFormat format) {
         this.ontology = ontology;
         this.format = format;
+        if (AnonymousIndividualProperties.shouldSaveIdsForAllAnonymousIndividuals()) {
+            occurrences = new AlwaysOutputId();
+        } else {
+            OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
+            occurrences = visitor;
+            ontology.accept(visitor);
+        }
     }
 
     /** Hooks for subclasses */
@@ -346,7 +354,7 @@ public abstract class RDFRendererBase {
     protected void renderOntologyHeader() {
         RDFTranslator translator = new RDFTranslator(
             ontology.getOWLOntologyManager(), ontology,
-            shouldInsertDeclarations());
+            shouldInsertDeclarations(), occurrences);
         graph = translator.getGraph();
         RDFResource ontologyHeaderNode = createOntologyHeaderNode(translator);
         addVersionIRIToOntologyHeader(ontologyHeaderNode, translator);
@@ -482,33 +490,36 @@ public abstract class RDFRendererBase {
         return format == null || format.isAddMissingTypes();
     }
 
-    private int nextBlankNodeId = 1;
-    private final TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+    private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
         new IdentityHashingStrategy<>());
 
-    protected RDFResourceBlankNode getBlankNodeFor(Object key) {
+    protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
         int id = blankNodeMap.get(key);
         if (id == 0) {
-            id = nextBlankNodeId++;
+            id = nextBlankNodeId.getAndIncrement();
             blankNodeMap.put(key, id);
         }
-        return new RDFResourceBlankNode(id);
+        return new RDFResourceBlankNode(id, isIndividual, needId);
     }
 
     private class SequentialBlankNodeRDFTranslator extends RDFTranslator {
 
         public SequentialBlankNodeRDFTranslator() {
-            super(ontology.getOWLOntologyManager(), ontology, shouldInsertDeclarations());
+            super(ontology.getOWLOntologyManager(), ontology, shouldInsertDeclarations(), occurrences);
         }
 
         @Override
         protected RDFResourceBlankNode getAnonymousNode(Object key) {
             checkNotNull(key, "key cannot be null");
-            if (key instanceof OWLAnonymousIndividual) {
+            boolean isIndividual = key instanceof OWLAnonymousIndividual;
+            boolean needId = false;
+            if (isIndividual) {
                 OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
+                needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
                 key = anonymousIndividual.getID().getID();
             }
-            return getBlankNodeFor(key);
+            return getBlankNodeFor(key, isIndividual, needId);
         }
     }
 
@@ -540,7 +551,7 @@ public abstract class RDFRendererBase {
     public abstract void render(RDFResource node);
 
     protected boolean isObjectList(RDFResource node) {
-        for (RDFTriple triple : graph.getTriplesForSubject(node, false)) {
+        for (RDFTriple triple : graph.getTriplesForSubject(node)) {
             if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
                 && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
                 List<RDFNode> items = new ArrayList<>();
@@ -559,12 +570,12 @@ public abstract class RDFRendererBase {
     protected void toJavaList(RDFNode n, List<RDFNode> list) {
         RDFNode currentNode = n;
         while (currentNode != null) {
-            for (RDFTriple triple : graph.getTriplesForSubject(currentNode, false)) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
                 if (triple.getPredicate().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
-            for (RDFTriple triple : graph.getTriplesForSubject(currentNode, false)) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode)) {
                 if (triple.getPredicate().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
                         if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {

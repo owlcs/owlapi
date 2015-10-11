@@ -45,62 +45,62 @@ public class RioUtilsTestCase {
     @Before
     public void setUp() {
         RDFResourceIRI testOwlApiSubjectUri1 = new RDFResourceIRI(IRI.create(
-        "urn:test:subject:uri:1"));
+            "urn:test:subject:uri:1"));
         RDFResourceIRI testOwlApiPredicateUri1 = new RDFResourceIRI(IRI.create(
-        "urn:test:predicate:uri:1"));
+            "urn:test:predicate:uri:1"));
         RDFResourceIRI testOwlApiObjectUri1 = new RDFResourceIRI(IRI.create(
-        "urn:test:object:uri:1"));
+            "urn:test:object:uri:1"));
         RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral(
-        "Test literal", "", null);
+            "Test literal", "", null);
         RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral("Test literal",
-        "en", null);
+            "en", null);
         RDFLiteral testOwlApiObjectTypedLiteral1 = new RDFLiteral(
-        "Test literal", null, IRI.create("urn:test:datatype:1"));
+            "Test literal", null, IRI.create("urn:test:datatype:1"));
         RDFResourceBlankNode testOwlApiSubjectBNode1 = new RDFResourceBlankNode(
-        IRI.create("subjectBnode1"));
+            IRI.create("subjectBnode1"), true, false);
         RDFResourceBlankNode testOwlApiObjectBNode1 = new RDFResourceBlankNode(
-        IRI.create("objectBnode1"));
+            IRI.create("objectBnode1"), true, false);
         testOwlApiTripleAllIRI = new RDFTriple(testOwlApiSubjectUri1,
-        testOwlApiPredicateUri1, testOwlApiObjectUri1);
+            testOwlApiPredicateUri1, testOwlApiObjectUri1);
         testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1,
-        testOwlApiPredicateUri1, testOwlApiObjectPlainLiteral1);
+            testOwlApiPredicateUri1, testOwlApiObjectPlainLiteral1);
         testOwlApiTripleLangLiteral = new RDFTriple(testOwlApiSubjectUri1,
-        testOwlApiPredicateUri1, testOwlApiObjectLangLiteral1);
+            testOwlApiPredicateUri1, testOwlApiObjectLangLiteral1);
         testOwlApiTripleTypedLiteral = new RDFTriple(testOwlApiSubjectUri1,
-        testOwlApiPredicateUri1, testOwlApiObjectTypedLiteral1);
+            testOwlApiPredicateUri1, testOwlApiObjectTypedLiteral1);
         testOwlApiTripleSubjectBNode = new RDFTriple(testOwlApiSubjectBNode1,
-        testOwlApiPredicateUri1, testOwlApiObjectUri1);
+            testOwlApiPredicateUri1, testOwlApiObjectUri1);
         testOwlApiTripleObjectBNode = new RDFTriple(testOwlApiSubjectUri1,
-        testOwlApiPredicateUri1, testOwlApiObjectBNode1);
+            testOwlApiPredicateUri1, testOwlApiObjectBNode1);
         testOwlApiTripleSubjectObjectBNode = new RDFTriple(
-        testOwlApiSubjectBNode1, testOwlApiPredicateUri1,
-        testOwlApiObjectBNode1);
+            testOwlApiSubjectBNode1, testOwlApiPredicateUri1,
+            testOwlApiObjectBNode1);
         URI testSesameSubjectUri1 = VF.createURI("urn:test:subject:uri:1");
         URI testSesamePredicateUri1 = VF.createURI("urn:test:predicate:uri:1");
         URI testSesameObjectUri1 = VF.createURI("urn:test:object:uri:1");
         Literal testSesameObjectPlainLiteral1 = VF.createLiteral(
-        "Test literal");
+            "Test literal");
         Literal testSesameObjectLangLiteral1 = VF.createLiteral("Test literal",
-        "en");
+            "en");
         Literal testSesameObjectTypedLiteral1 = VF.createLiteral("Test literal",
-        VF.createURI("urn:test:datatype:1"));
+            VF.createURI("urn:test:datatype:1"));
         BNode testSesameSubjectBNode1 = VF.createBNode("subjectBnode1");
         BNode testSesameObjectBNode1 = VF.createBNode("objectBnode1");
         testSesameTripleAllIRI = VF.createStatement(testSesameSubjectUri1,
-        testSesamePredicateUri1, testSesameObjectUri1);
+            testSesamePredicateUri1, testSesameObjectUri1);
         testSesameTriplePlainLiteral = VF.createStatement(testSesameSubjectUri1,
-        testSesamePredicateUri1, testSesameObjectPlainLiteral1);
+            testSesamePredicateUri1, testSesameObjectPlainLiteral1);
         testSesameTripleLangLiteral = VF.createStatement(testSesameSubjectUri1,
-        testSesamePredicateUri1, testSesameObjectLangLiteral1);
+            testSesamePredicateUri1, testSesameObjectLangLiteral1);
         testSesameTripleTypedLiteral = VF.createStatement(testSesameSubjectUri1,
-        testSesamePredicateUri1, testSesameObjectTypedLiteral1);
+            testSesamePredicateUri1, testSesameObjectTypedLiteral1);
         testSesameTripleSubjectBNode = VF.createStatement(
-        testSesameSubjectBNode1, testSesamePredicateUri1, testSesameObjectUri1);
+            testSesameSubjectBNode1, testSesamePredicateUri1, testSesameObjectUri1);
         testSesameTripleObjectBNode = VF.createStatement(testSesameSubjectUri1,
-        testSesamePredicateUri1, testSesameObjectBNode1);
+            testSesamePredicateUri1, testSesameObjectBNode1);
         testSesameTripleSubjectObjectBNode = VF.createStatement(
-        testSesameSubjectBNode1, testSesamePredicateUri1,
-        testSesameObjectBNode1);
+            testSesameSubjectBNode1, testSesamePredicateUri1,
+            testSesameObjectBNode1);
     }
 
     /*
@@ -110,28 +110,28 @@ public class RioUtilsTestCase {
     @Test
     public void testTripleAllIRI() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(
-        testOwlApiTripleAllIRI);
+            testOwlApiTripleAllIRI);
         assertEquals(testSesameTripleAllIRI, tripleAsStatement);
     }
 
     @Test
     public void testTripleBNodeComparisonObject() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(
-        testOwlApiTripleObjectBNode);
+            testOwlApiTripleObjectBNode);
         assertEquals(testSesameTripleObjectBNode, tripleAsStatement);
     }
 
     @Test
     public void testTripleBNodeComparisonSubject() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(
-        testOwlApiTripleSubjectBNode);
+            testOwlApiTripleSubjectBNode);
         assertEquals(testSesameTripleSubjectBNode, tripleAsStatement);
     }
 
     @Test
     public void testTripleBNodeComparisonSubjectAndObject() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(
-        testOwlApiTripleSubjectObjectBNode);
+            testOwlApiTripleSubjectObjectBNode);
         assertEquals(testSesameTripleSubjectObjectBNode, tripleAsStatement);
     }
 
@@ -142,7 +142,7 @@ public class RioUtilsTestCase {
     @Test
     public void testTripleLangLiteral() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(
-        testOwlApiTripleLangLiteral);
+            testOwlApiTripleLangLiteral);
         assertEquals(testSesameTripleLangLiteral, tripleAsStatement);
     }
 
@@ -153,7 +153,7 @@ public class RioUtilsTestCase {
     @Test
     public void testTriplePlainLiteral() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(
-        testOwlApiTriplePlainLiteral);
+            testOwlApiTriplePlainLiteral);
         assertEquals(testSesameTriplePlainLiteral, tripleAsStatement);
     }
 
@@ -164,7 +164,7 @@ public class RioUtilsTestCase {
     @Test
     public void testTripleTypedLiteral() {
         Statement tripleAsStatement = RioUtils.tripleAsStatement(
-        testOwlApiTripleTypedLiteral);
+            testOwlApiTripleTypedLiteral);
         assertEquals(testSesameTripleTypedLiteral, tripleAsStatement);
     }
 }

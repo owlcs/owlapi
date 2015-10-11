@@ -63,6 +63,9 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      * @return absolute IRI
      */
     public static String getIRIFromNodeID(String nodeID) {
+        if (nodeID.startsWith(PREFIX_SHARED_NODE)) {
+            return nodeID;
+        }
         return PREFIX_SHARED_NODE + nodeID.replace(NODE_ID_PREFIX, "");
     }
 
@@ -157,7 +160,7 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
             return false;
         }
         NodeID other = (NodeID) obj;
-        return id.equals(other.getID());
+        return id.equals(other.id);
     }
 
     @Override

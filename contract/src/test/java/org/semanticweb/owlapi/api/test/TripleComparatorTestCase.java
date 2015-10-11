@@ -42,7 +42,7 @@ public class TripleComparatorTestCase {
     @Test
     public void shouldSort() {
         List<RDFTriple> list = new ArrayList<>(Arrays.asList(
-                //@formatter:off
+            //@formatter:off
                 triple("MoleOfNiobiumAtom"), 
                 triple("MoleOfMercuryAtom"),
                 triple("MoleOfHydrogenAtom"), 
@@ -134,6 +134,6 @@ public class TripleComparatorTestCase {
     }
 
     private static RDFNode r(int s) {
-        return new RDFResourceBlankNode(s);
+        return new RDFResourceBlankNode(s, false, false);
     }
 }

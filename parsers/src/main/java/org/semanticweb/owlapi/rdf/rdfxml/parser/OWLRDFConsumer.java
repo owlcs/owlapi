@@ -1500,8 +1500,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         IRI inverseOfObject = getResourceObject(mainNode, OWL_INVERSE_OF, true);
         if (inverseOfObject != null) {
             OWLObjectPropertyExpression otherProperty = translateObjectPropertyExpression(inverseOfObject);
-            if(otherProperty.isAnonymous()) {
-                throw new OWLRuntimeException("Found nested object property expression but only object property allowed in inverseOf construct");
+            if (otherProperty.isAnonymous()) {
+                throw new OWLRuntimeException(
+                    "Found nested object property expression but only object property allowed in inverseOf construct");
             }
             prop = df.getOWLObjectInverseOf(otherProperty.asOWLObjectProperty());
         } else {
@@ -1575,7 +1576,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     private RDFResource getRDFResource(IRI iri) {
         if (isAnonymousNode(iri)) {
-            return new RDFResourceBlankNode(iri);
+            return new RDFResourceBlankNode(iri, false, false);
         }
         return new RDFResourceIRI(iri);
     }

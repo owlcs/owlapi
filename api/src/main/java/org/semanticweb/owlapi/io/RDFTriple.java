@@ -76,7 +76,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static RDFResource getResource(IRI iri, boolean anon) {
         if (anon) {
-            return new RDFResourceBlankNode(iri);
+            return new RDFResourceBlankNode(iri, true, true);
         }
         return new RDFResourceIRI(iri);
     }

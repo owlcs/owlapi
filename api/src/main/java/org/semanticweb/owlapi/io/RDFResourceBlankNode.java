@@ -25,6 +25,8 @@ public class RDFResourceBlankNode extends RDFResource {
 
     private static final long serialVersionUID = 40000L;
     private final @Nonnull IRI resource;
+    private final boolean isIndividual;
+    private final boolean forceIdOutput;
 
     /**
      * Create an RDFResource that is anonymous.
@@ -32,8 +34,10 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param resource
      *        The IRI of the resource
      */
-    public RDFResourceBlankNode(IRI resource) {
+    public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId) {
         this.resource = checkNotNull(resource, "resource cannot be null");
+        this.isIndividual=isIndividual;
+        forceIdOutput = forceId;
     }
 
     /**
@@ -42,9 +46,24 @@ public class RDFResourceBlankNode extends RDFResource {
      * @param anonId
      *        the number at the end of the anon IRI
      */
-    public RDFResourceBlankNode(int anonId) {
-        this(NodeID.nodeId(anonId));
+    public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId) {
+        this(NodeID.nodeId(anonId), isIndividual, forceId);
     }
+
+    @Override
+    public boolean isIndividual() {
+        return isIndividual;
+    }
+
+    public boolean shouldOutputId() {
+        return forceIdOutput;
+    }
+
+    @Override
+    public boolean isLiteral() {
+        return false;
+    }
+
 
     @Override
     public boolean isAnonymous() {

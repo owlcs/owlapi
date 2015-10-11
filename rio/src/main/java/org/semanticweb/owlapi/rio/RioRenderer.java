@@ -85,7 +85,7 @@ public class RioRenderer extends RDFRendererBase {
      *        contexts
      */
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer, final OWLDocumentFormat format,
-            final Resource... contexts) {
+        final Resource... contexts) {
         super(ontology, format);
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.contexts = contexts;
@@ -167,7 +167,7 @@ public class RioRenderer extends RDFRendererBase {
             return;
         }
         pendingNodes.add(node);
-        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node, true);
+        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("triples.size()={}", triples.size());
             if (!triples.isEmpty()) {
@@ -182,7 +182,7 @@ public class RioRenderer extends RDFRendererBase {
             }
             if (remappedNode != null) {
                 tripleToRender = new RDFTriple(tripleToRender.getSubject(), tripleToRender.getPredicate(),
-                        remappedNode);
+                    remappedNode);
             }
             if (!node.equals(tripleToRender.getSubject())) {
                 // the node will not match the triple subject if the node itself

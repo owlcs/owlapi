@@ -48,7 +48,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w) {
         this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w, "w cannot be null"),
-                verifyNotNull(ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
+            verifyNotNull(ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
     }
 
     /**
@@ -66,7 +66,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
         writer = new RDFXMLWriter(
-                XMLWriterFactory.createXMLWriter(checkNotNull(w, "w cannot be null"), qnameManager, base));
+            XMLWriterFactory.createXMLWriter(checkNotNull(w, "w cannot be null"), qnameManager, base));
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
@@ -152,9 +152,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Override
     protected void writeBanner(String name) {
         writer.writeComment(
-                "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
-                        + checkNotNull(name, "name cannot be null")
-                        + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
+            "\n///////////////////////////////////////////////////////////////////////////////////////\n//\n// "
+                + checkNotNull(name, "name cannot be null")
+                + "\n//\n///////////////////////////////////////////////////////////////////////////////////////\n");
     }
 
     @Override
@@ -165,12 +165,12 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        Collection<RDFTriple> triples = graph.getTriplesForSubject(node, true);
+        Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
             if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
-                    && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
-                    && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+                && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
+                && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
                 candidatePrettyPrintTypeTriple = triple;
             }
         }
@@ -181,12 +181,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
+        } else if (node.isIndividual()) {
+            writer.writeNodeIDAttribute(node);
         }
-        // XXX this call looks like it should be made, but only when the node id
-        // is necessary
-        // else {
-        // writer.writeNodeIDAttribute(node);
-        // }
         for (RDFTriple triple : triples) {
             if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;

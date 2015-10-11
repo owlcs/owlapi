@@ -45,4 +45,17 @@ public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
     public boolean isAnonymous() {
         return false;
     }
+
+    /**
+     * @return true if this is an anonymous individual
+     */
+    public boolean isIndividual() {
+        return false;
+    }
+    /**
+     * @return true if blank node id is mandatory for this resource
+     */
+    public boolean shouldOutputId() {
+        return false;
+    }
 }

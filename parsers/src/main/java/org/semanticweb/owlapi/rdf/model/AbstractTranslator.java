@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
@@ -56,6 +57,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final @Nonnull Set<OWLIndividual> currentIndividuals = createLinkedSet();
     /** Maps Objects to nodes. */
     private final @Nonnull Map<OWLObject, N> nodeMap = new HashMap<>();
+    protected final IndividualAppearance multipleOccurrences;
+
 
     /**
      * @param manager
@@ -65,10 +68,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @param useStrongTyping
      *        true if strong typing should be used
      */
-    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping) {
+    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping, IndividualAppearance multiple) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
+        multipleOccurrences = multiple;
     }
 
     @Override

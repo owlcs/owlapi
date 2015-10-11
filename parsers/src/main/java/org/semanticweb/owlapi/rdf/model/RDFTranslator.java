@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.IndividualAppearance;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -40,8 +41,9 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
      * @param useStrongTyping
      *        true if strong typing is required
      */
-    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping) {
-        super(manager, ontology, useStrongTyping);
+    public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
+        IndividualAppearance occurrences) {
+        super(manager, ontology, useStrongTyping, occurrences);
     }
 
     /**
@@ -61,9 +63,10 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
         if (key instanceof OWLAnonymousIndividual) {
-            return new RDFResourceBlankNode(System.identityHashCode(((OWLAnonymousIndividual) key).getID().getID()));
+            return new RDFResourceBlankNode(System.identityHashCode(((OWLAnonymousIndividual) key).getID().getID()), true
+                , multipleOccurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
         }
-        return new RDFResourceBlankNode(System.identityHashCode(key));
+        return new RDFResourceBlankNode(System.identityHashCode(key),false, false);
     }
 
     @Override
