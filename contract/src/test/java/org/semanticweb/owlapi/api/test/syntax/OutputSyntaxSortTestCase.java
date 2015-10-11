@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -359,6 +360,8 @@ public class OutputSyntaxSortTestCase extends TestBase {
 
     @Test
     public void shouldOutputAllInSameOrder() throws OWLOntologyStorageException, OWLOntologyCreationException {
+        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
+        try {
         List<OWLOntology> ontologies = new ArrayList<>();
         List<String> set = new ArrayList<>();
         for (String s : input) {
@@ -372,6 +375,9 @@ public class OutputSyntaxSortTestCase extends TestBase {
         }
         for (int i = 0; i < set.size() - 1; i++) {
             assertEquals(set.get(i), set.get(i + 1));
+        }
+        } finally {
+            AnonymousIndividualProperties.resetToDefault();
         }
     }
 }

@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
@@ -118,10 +119,15 @@ public class TurtleTestCase extends TestBase {
     // test for 3543488
     @Test
     public void shouldRoundTripTurtleWithsharedBnodes() throws Exception {
-        String input = "@prefix ex: <http://example.com/test> .\n ex:ex1 a ex:Something ; ex:prop1 _:a .\n _:a a ex:Something1 ; ex:prop2 _:b .\n _:b a ex:Something ; ex:prop3 _:a .";
-        OWLOntology ontology = loadOntologyFromString(input);
-        OWLOntology onto2 = roundTrip(ontology, new TurtleDocumentFormat());
-        equal(ontology, onto2);
+        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
+        try {
+            String input = "@prefix ex: <http://example.com/test> .\n ex:ex1 a ex:Something ; ex:prop1 _:a .\n _:a a ex:Something1 ; ex:prop2 _:b .\n _:b a ex:Something ; ex:prop3 _:a .";
+            OWLOntology ontology = loadOntologyFromString(input);
+            OWLOntology onto2 = roundTrip(ontology, new TurtleDocumentFormat());
+            equal(ontology, onto2);
+        } finally {
+            AnonymousIndividualProperties.resetToDefault();
+        }
     }
 
     // test for 335
@@ -192,28 +198,36 @@ public class TurtleTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripAxiomAnnotation() throws Exception {
-        String input = "@prefix : <urn:fm2#> .\n" + "@prefix fm:    <urn:fm2#> .\n"
-            + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
-            + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
-            + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
-            + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" + "@prefix prov: <urn:prov#> .\n"
-            + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n" + "@base <urn:fm2> .\n\n"
-            + "<http://www.ida.org/fm2.owl> rdf:type owl:Ontology.\n" + ":prov rdf:type owl:AnnotationProperty .\n\n"
-            + ":Manage rdf:type owl:Class ; rdfs:subClassOf :ManagementType .\n" + "[ rdf:type owl:Axiom ;\n"
-            + "  owl:annotatedSource :Manage ;\n" + "  owl:annotatedTarget :ManagementType ;\n"
-            + "  owl:annotatedProperty rdfs:subClassOf ;\n"
-            + "  :prov [\n prov:gen :FMDomain ;\n prov:att :DM .\n ]\n ] .\n" + ":ManagementType rdf:type owl:Class .\n"
-            + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
-            + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
-        OWLOntology ontology = loadOntologyFromString(input);
-        OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
-        Set<OWLSubClassOfAxiom> axioms = asSet(o.axioms(AxiomType.SUBCLASS_OF));
-        assertEquals(1, axioms.size());
-        OWLAnnotation next = axioms.iterator().next().annotations().iterator().next();
-        assertTrue(next.getValue() instanceof OWLAnonymousIndividual);
-        OWLAnonymousIndividual ind = (OWLAnonymousIndividual) next.getValue();
-        Set<OWLAxiom> anns = asSet(o.axioms().filter(ax -> contains(ax.anonymousIndividuals(), ind)));
-        assertEquals(3, anns.size());
+        AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
+        try {
+            String input = "@prefix : <urn:fm2#> .\n" + "@prefix fm:    <urn:fm2#> .\n"
+                + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" + "@prefix prov: <urn:prov#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n" + "@base <urn:fm2> .\n\n"
+                + "<http://www.ida.org/fm2.owl> rdf:type owl:Ontology.\n"
+                + ":prov rdf:type owl:AnnotationProperty .\n\n"
+                + ":Manage rdf:type owl:Class ; rdfs:subClassOf :ManagementType .\n" + "[ rdf:type owl:Axiom ;\n"
+                + "  owl:annotatedSource :Manage ;\n" + "  owl:annotatedTarget :ManagementType ;\n"
+                + "  owl:annotatedProperty rdfs:subClassOf ;\n"
+                + "  :prov [\n prov:gen :FMDomain ;\n prov:att :DM .\n ]\n ] .\n"
+                + ":ManagementType rdf:type owl:Class .\n"
+                + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
+                + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
+            OWLOntology ontology = loadOntologyFromString(input);
+            OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
+            equal(ontology, o);
+            Set<OWLSubClassOfAxiom> axioms = asSet(o.axioms(AxiomType.SUBCLASS_OF));
+            assertEquals(1, axioms.size());
+            OWLAnnotation next = axioms.iterator().next().annotations().iterator().next();
+            assertTrue(next.getValue() instanceof OWLAnonymousIndividual);
+            OWLAnonymousIndividual ind = (OWLAnonymousIndividual) next.getValue();
+            Set<OWLAxiom> anns = asSet(o.axioms().filter(ax -> contains(ax.anonymousIndividuals(), ind)));
+            assertEquals(3, anns.size());
+        } finally {
+            AnonymousIndividualProperties.resetToDefault();
+        }
     }
 
     @Test

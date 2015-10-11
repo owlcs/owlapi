@@ -70,7 +70,7 @@ public class RDFGraph implements Serializable {
         triples.add(triple);
         Set<RDFTriple> tripleSet = triplesBySubject.get(triple.getSubject());
         if (tripleSet == null) {
-            tripleSet = new HashSet<>();
+            tripleSet = new LinkedHashSet<>();
             triplesBySubject.put(triple.getSubject(), tripleSet);
         }
         tripleSet.add(triple);

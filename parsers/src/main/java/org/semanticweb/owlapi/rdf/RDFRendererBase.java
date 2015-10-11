@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.rdf;
 
 import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -273,10 +274,10 @@ public abstract class RDFRendererBase {
     }
 
     private void renderAnonymousIndividuals() {
-        for (OWLAnonymousIndividual anonInd : asList(ontology.referencedAnonymousIndividuals())) {
+        for (OWLAnonymousIndividual anonInd : sortOptionally(ontology.referencedAnonymousIndividuals())) {
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new TreeSet<>();
-            for (OWLAxiom ax : asList(ontology.referencingAxioms(anonInd))) {
+            for (OWLAxiom ax : sortOptionally(ontology.referencingAxioms(anonInd))) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
                     OWLObject obj = AxiomSubjectProviderEx.getSubject(ax);
                     if (!obj.equals(anonInd)) {
@@ -425,7 +426,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLNamedIndividual individual) {
-                for (OWLAxiom ax : asList(ontology.axioms(individual))) {
+                for (OWLAxiom ax : sortOptionally(ontology.axioms(individual))) {
                     if (ax instanceof OWLDifferentIndividualsAxiom) {
                         continue;
                     }
