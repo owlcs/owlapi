@@ -124,8 +124,12 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
      * @return A NodeID
      */
     public static NodeID getNodeID(@Nullable String id) {
-        String nonBlankId = id == null || id.isEmpty() ? PREFIX_NODE + Long.toString(COUNTER.incrementAndGet()) : id;
+        String nonBlankId = id == null || id.isEmpty() ? nextAnonymousIRI() : id;
         return new NodeID(nonBlankId);
+    }
+
+    public static NodeID getNodeID() {
+        return getNodeID(nextAnonymousIRI());
     }
 
     private final @Nonnull String id;

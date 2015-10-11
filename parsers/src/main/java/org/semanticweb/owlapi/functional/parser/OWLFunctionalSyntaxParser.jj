@@ -50,11 +50,14 @@ public class OWLFunctionalSyntaxParser {
 
     private Set<OWLAnnotation> currentAnnotations;
 
+    protected RemappingIndividualProvider anonProvider;
+
     public void setUp(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this.man = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
         this.dataFactory = man.getOWLDataFactory();
+        anonProvider=new RemappingIndividualProvider(dataFactory);
         this.currentAnnotations = new HashSet<OWLAnnotation>();
         if(prefixMap == null) {
             prefixMap = new HashMap<String, String>();
@@ -1323,7 +1326,7 @@ OWLAnonymousIndividual AnonymousIndividual() :
 {
     t=<NODEID> {
         String id = t.image.substring(2, t.image.length());
-        return dataFactory.getOWLAnonymousIndividual(id);
+        return anonProvider.getOWLAnonymousIndividual(id);
     }
 }
 

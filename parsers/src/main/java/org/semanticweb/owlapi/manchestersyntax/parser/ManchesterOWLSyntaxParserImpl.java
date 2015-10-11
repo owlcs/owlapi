@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
+import org.semanticweb.owlapi.util.RemappingIndividualProvider;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.vocab.*;
 
@@ -79,6 +80,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     private final boolean allowEmptyFrameSections = false;
     private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
+    protected RemappingIndividualProvider anonProvider;
 
     /**
      * @param configurationProvider
@@ -91,6 +93,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         OWLDataFactory dataFactory) {
         configProvider = configurationProvider;
         df = dataFactory;
+        anonProvider = new RemappingIndividualProvider(df);
         pm.setPrefix("rdf:", Namespaces.RDF.toString());
         pm.setPrefix("rdfs:", Namespaces.RDFS.toString());
         pm.setPrefix("owl:", Namespaces.OWL.toString());
@@ -294,7 +297,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     private OWLIndividual getOWLIndividual(String name) {
         if (name.startsWith("_:")) {
-            return df.getOWLAnonymousIndividual(name);
+            return anonProvider.getOWLAnonymousIndividual(name);
         }
         return getOWLNamedIndividual(name);
     }
@@ -1093,7 +1096,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             consumeToken();
             OWLAnnotationValue value;
             if (obj.startsWith("_:")) {
-                value = df.getOWLAnonymousIndividual(obj);
+                value = anonProvider.getOWLAnonymousIndividual(obj);
             } else {
                 value = getIRI(obj);
             }

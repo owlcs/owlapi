@@ -35,6 +35,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     private final @Nonnull OWLDataFactory df;
     private final @Nonnull Map<OWLEntity, IRI> replacementMap;
+    protected RemappingIndividualProvider anonProvider;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified
@@ -69,7 +70,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
             replacementMap.put(dataFactory.getOWLNamedIndividual(k), v);
             replacementMap.put(dataFactory.getOWLDatatype(k), v);
             replacementMap.put(dataFactory.getOWLAnnotationProperty(k), v);
-        } );
+        });
     }
 
     /**
@@ -85,6 +86,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
      */
     public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, OWLDataFactory dataFactory) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
+        anonProvider = new RemappingIndividualProvider(df);
         replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
 
@@ -136,7 +138,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLDataPropertyAssertionAxiom visit(OWLDataPropertyAssertionAxiom axiom) {
         return df.getOWLDataPropertyAssertionAxiom(get(axiom.getProperty()), get(axiom.getSubject()),
-                get(axiom.getObject()), anns(axiom));
+            get(axiom.getObject()), anns(axiom));
     }
 
     @Override
@@ -187,7 +189,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLAnnotationAssertionAxiom visit(OWLAnnotationAssertionAxiom axiom) {
         return df.getOWLAnnotationAssertionAxiom(get(axiom.getProperty()), get(axiom.getSubject()),
-                get(axiom.getValue()), anns(axiom));
+            get(axiom.getValue()), anns(axiom));
     }
 
     @Override
@@ -223,7 +225,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLInverseObjectPropertiesAxiom visit(OWLInverseObjectPropertiesAxiom axiom) {
         return df.getOWLInverseObjectPropertiesAxiom(get(axiom.getFirstProperty()), get(axiom.getSecondProperty()),
-                anns(axiom));
+            anns(axiom));
     }
 
     @Override
@@ -234,19 +236,19 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLNegativeDataPropertyAssertionAxiom visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         return df.getOWLNegativeDataPropertyAssertionAxiom(get(axiom.getProperty()), get(axiom.getSubject()),
-                get(axiom.getObject()), anns(axiom));
+            get(axiom.getObject()), anns(axiom));
     }
 
     @Override
     public OWLNegativeObjectPropertyAssertionAxiom visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return df.getOWLNegativeObjectPropertyAssertionAxiom(get(axiom.getProperty()), get(axiom.getSubject()),
-                get(axiom.getObject()), anns(axiom));
+            get(axiom.getObject()), anns(axiom));
     }
 
     @Override
     public OWLObjectPropertyAssertionAxiom visit(OWLObjectPropertyAssertionAxiom axiom) {
         return df.getOWLObjectPropertyAssertionAxiom(get(axiom.getProperty()), get(axiom.getSubject()),
-                get(axiom.getObject()), anns(axiom));
+            get(axiom.getObject()), anns(axiom));
     }
 
     @Override
@@ -269,7 +271,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLSubObjectPropertyOfAxiom visit(OWLSubObjectPropertyOfAxiom axiom) {
         return df.getOWLSubObjectPropertyOfAxiom(get(axiom.getSubProperty()), get(axiom.getSuperProperty()),
-                anns(axiom));
+            anns(axiom));
     }
 
     @Override
@@ -465,13 +467,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public SWRLObjectPropertyAtom visit(SWRLObjectPropertyAtom node) {
         return df.getSWRLObjectPropertyAtom(get(node.getPredicate()), get(node.getFirstArgument()),
-                get(node.getSecondArgument()));
+            get(node.getSecondArgument()));
     }
 
     @Override
     public SWRLDataPropertyAtom visit(SWRLDataPropertyAtom node) {
         return df.getSWRLDataPropertyAtom(get(node.getPredicate()), get(node.getFirstArgument()),
-                get(node.getSecondArgument()));
+            get(node.getSecondArgument()));
     }
 
     @Override
@@ -539,7 +541,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
     @Override
     public OWLSubAnnotationPropertyOfAxiom visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         return df.getOWLSubAnnotationPropertyOfAxiom(get(axiom.getSubProperty()), get(axiom.getSuperProperty()),
-                anns(axiom));
+            anns(axiom));
     }
 
     @Override
@@ -549,7 +551,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<Object> {
 
     @Override
     public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
-        return individual;
+        return anonProvider.getOWLAnonymousIndividual(individual.getID().getID());
     }
 
     @Override
