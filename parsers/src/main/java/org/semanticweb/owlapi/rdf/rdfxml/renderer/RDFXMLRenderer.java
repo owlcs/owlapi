@@ -139,14 +139,18 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private void writeCommentForEntity(String msg, OWLEntity entity) {
         checkNotNull(entity, msg);
         String iriString = entity.getIRI().toString();
-        String labelString = labelMaker.getShortForm(entity);
-        String commentString = null;
-        if (!iriString.equals(labelString)) {
-            commentString = labelString;
+        if (XMLWriterPreferences.getInstance().isLabelsAsBanner()) {
+            String labelString = labelMaker.getShortForm(entity);
+            String commentString = null;
+            if (!iriString.equals(labelString)) {
+                commentString = labelString;
+            } else {
+                commentString = iriString;
+            }
+            writer.writeComment(XMLUtils.escapeXML(commentString));
         } else {
-            commentString = iriString;
+            writer.writeComment(XMLUtils.escapeXML(iriString));
         }
-        writer.writeComment(XMLUtils.escapeXML(commentString));
     }
 
     @Override

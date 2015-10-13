@@ -29,6 +29,7 @@ public final class XMLWriterPreferences {
     private static final @Nonnull XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
     private AtomicBoolean useNamespaceEntities = new AtomicBoolean(false);
     private AtomicBoolean indenting = new AtomicBoolean(true);
+    private AtomicBoolean labelsAsBanner = new AtomicBoolean(false);
     private AtomicInteger indentSize = new AtomicInteger(4);
 
     private XMLWriterPreferences() {}
@@ -44,6 +45,7 @@ public final class XMLWriterPreferences {
         p.indenting.set(indenting.get());
         p.indentSize.set(indentSize.get());
         p.useNamespaceEntities.set(useNamespaceEntities.get());
+        p.labelsAsBanner.set(labelsAsBanner.get());
         return p;
     }
 
@@ -97,5 +99,13 @@ public final class XMLWriterPreferences {
      */
     public void setIndentSize(int indentSize) {
         this.indentSize.set(indentSize);
+    }
+
+    public void setLabelsAsBanner(boolean labelsAsBanner) {
+        this.labelsAsBanner.set(labelsAsBanner);
+    }
+
+    public boolean isLabelsAsBanner() {
+        return labelsAsBanner.get();
     }
 }
