@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * An OWLLiteral with xsd:string datatype and no language tag.
@@ -33,7 +32,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLLiteralImplString implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
-    private static final @Nonnull OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     private final @Nonnull String literal;
 
     /**
@@ -55,7 +53,7 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     @Override
     public OWLDatatype getDatatype() {
-        return XSD_STRING;
+        return InternalizedEntities.XSDSTRING;
     }
 
     @Override
@@ -76,7 +74,7 @@ public class OWLLiteralImplString implements OWLLiteral {
         }
         OWLLiteral other = (OWLLiteral) obj;
         return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
-                && getLang().equals(other.getLang());
+            && getLang().equals(other.getLang());
     }
 
     protected int compareObjectOfSameType(OWLObject object) {
