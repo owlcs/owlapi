@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -256,8 +255,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLSubPropertyChainOfAxiom visit(OWLSubPropertyChainOfAxiom axiom) {
-        List<OWLObjectPropertyExpression> chain = new ArrayList<>();
-        axiom.getPropertyChain().forEach(p -> chain.add(get(p)));
+        List<OWLObjectPropertyExpression> chain = asList(axiom.getPropertyChain().stream().map(p -> get(p)));
         return df.getOWLSubPropertyChainOfAxiom(chain, get(axiom.getSuperProperty()), anns(axiom));
     }
 

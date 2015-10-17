@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  */
 public class IRI
-        implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
+    implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -115,7 +115,7 @@ public class IRI
      */
     public boolean isReservedVocabulary() {
         return Namespaces.OWL.inNamespace(namespace) || Namespaces.RDF.inNamespace(namespace)
-                || Namespaces.RDFS.inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
+            || Namespaces.RDFS.inNamespace(namespace) || Namespaces.XSD.inNamespace(namespace);
     }
 
     /**
@@ -219,8 +219,7 @@ public class IRI
             throw new IllegalArgumentException("prefix and suffix cannot both be null");
         }
         if (prefix == null) {
-            assert suffix != null;
-            return create(suffix);
+            return create(verifyNotNull(suffix));
         } else if (suffix == null) {
             // suffix set deliberately to null is used only in blank node
             // management

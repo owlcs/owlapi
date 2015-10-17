@@ -50,18 +50,16 @@ public class CollectionFactory {
      *        list type
      * @param toReturn
      *        list to sort
+     * @return sorted input, if no errors are raised. Original otherwise.
      */
-    public static <T extends Comparable<T>> void sortOptionallyComparables(List<T> toReturn) {
+    public static <T extends Comparable<T>> List<T> sortOptionallyComparables(List<T> toReturn) {
         try {
-            Collections.sort(toReturn);
+            toReturn.sort(null);
         } catch (IllegalArgumentException e) {
-            // catch possible sorting misbehaviour
-            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
-                throw e;
-            }
-            // otherwise print a warning and leave the list unsorted
+            // print a warning and leave the list unsorted
             LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
         }
+        return toReturn;
     }
 
     /**
@@ -75,17 +73,7 @@ public class CollectionFactory {
      * @return sorted input list
      */
     public static <T extends OWLObject> List<T> sortOptionally(List<T> toReturn) {
-        try {
-            Collections.sort(toReturn);
-        } catch (IllegalArgumentException e) {
-            // catch possible sorting misbehaviour
-            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
-                throw e;
-            }
-            // otherwise print a warning and leave the list unsorted
-            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
-        }
-        return toReturn;
+        return sortOptionallyComparables((List) toReturn);
     }
 
     /**
@@ -102,18 +90,7 @@ public class CollectionFactory {
      *         original otherwise.
      */
     public static <T extends Comparable<T>> List<T> sortOptionallyComparables(Collection<T> toReturn) {
-        List<T> list = new ArrayList<>(toReturn);
-        try {
-            Collections.sort(list);
-        } catch (IllegalArgumentException e) {
-            // catch possible sorting misbehaviour
-            if (!e.getMessage().contains("Comparison method violates its general contract!")) {
-                throw e;
-            }
-            // otherwise print a warning and leave the list unsorted
-            LOGGER.warn("Misbehaving triple comparator, leaving triples unsorted", e);
-        }
-        return list;
+        return sortOptionallyComparables(new ArrayList<>(toReturn));
     }
 
     /**

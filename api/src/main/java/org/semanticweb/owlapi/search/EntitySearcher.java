@@ -1577,9 +1577,9 @@ public class EntitySearcher {
      */
     public static Multimap<OWLDataPropertyExpression, OWLLiteral> getDataPropertyValues(OWLIndividual i,
         Stream<OWLOntology> ontologies) {
-        Multimap<OWLDataPropertyExpression, OWLLiteral> collection = LinkedListMultimap.create();
-        ontologies.forEach(o -> collection.putAll(getDataPropertyValues(i, o)));
-        return collection;
+        Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap.create();
+        ontologies.forEach(o -> map.putAll(getDataPropertyValues(i, o)));
+        return map;
     }
 
     /**
