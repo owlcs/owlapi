@@ -59,7 +59,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final @Nonnull Map<OWLObject, N> nodeMap = new HashMap<>();
     protected final IndividualAppearance multipleOccurrences;
 
-
     /**
      * @param manager
      *        the manager
@@ -67,8 +66,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      *        the ontology
      * @param useStrongTyping
      *        true if strong typing should be used
+     * @param multiple
+     *        will tell whether anonymous individuals need an id or not
      */
-    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping, IndividualAppearance multiple) {
+    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
+        IndividualAppearance multiple) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
@@ -848,10 +850,26 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         return (T) nodeMap.get(object);
     }
 
+    /**
+     * @param subject
+     *        subject
+     * @param pred
+     *        predicate
+     * @param object
+     *        object
+     */
     public void addTriple(R subject, IRI pred, IRI object) {
         addTriple(subject, getPredicateNode(pred), getResourceNode(object));
     }
 
+    /**
+     * @param subject
+     *        subject
+     * @param pred
+     *        predicate
+     * @param object
+     *        object
+     */
     public void addTriple(R subject, IRI pred, OWLObject object) {
         addTriple(subject, getPredicateNode(pred), getNode(object));
     }

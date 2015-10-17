@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -39,9 +39,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
     // ////////////////////////////////////////////////////////////////////////////////////////////
     protected void processAxiomAnnotations(OWLAxiom ax) {
         // default behavior: iterate over the annotations outside the axiom
-        for (OWLAnnotation anno : ax.getAnnotations()) {
-            anno.accept(this);
-        }
+        ax.annotations().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -77,9 +75,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.classExpressions().forEach(c -> c.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -99,9 +95,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.properties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -114,25 +108,19 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        for (OWLIndividual ind : axiom.getIndividuals()) {
-            ind.accept(this);
-        }
+        axiom.individuals().forEach(c -> c.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.properties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.properties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -166,9 +154,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.classExpressions().forEach(c -> c.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -199,9 +185,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        for (OWLDataPropertyExpression prop : axiom.getProperties()) {
-            prop.accept(this);
-        }
+        axiom.properties().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -213,9 +197,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        for (OWLClassExpression desc : axiom.getClassExpressions()) {
-            desc.accept(this);
-        }
+        axiom.classExpressions().forEach(c -> c.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -253,9 +235,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        for (OWLIndividual ind : axiom.getIndividuals()) {
-            ind.accept(this);
-        }
+        axiom.individuals().forEach(c -> c.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -278,9 +258,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
-        for (OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
-            prop.accept(this);
-        }
+        axiom.propertyExpressions().forEach(p -> p.accept(this));
         processAxiomAnnotations(axiom);
     }
 
@@ -294,16 +272,12 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLObjectIntersectionOf desc) {
-        for (OWLClassExpression operand : desc.getOperands()) {
-            operand.accept(this);
-        }
+        desc.operands().forEach(c -> c.accept(this));
     }
 
     @Override
     public void visit(OWLObjectUnionOf desc) {
-        for (OWLClassExpression operand : desc.getOperands()) {
-            operand.accept(this);
-        }
+        desc.operands().forEach(c -> c.accept(this));
     }
 
     @Override
@@ -354,9 +328,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLObjectOneOf desc) {
-        for (OWLIndividual ind : desc.getIndividuals()) {
-            ind.accept(this);
-        }
+        desc.individuals().forEach(c -> c.accept(this));
     }
 
     @Override
@@ -407,31 +379,23 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (OWLLiteral val : node.getValues()) {
-            val.accept(this);
-        }
+        node.values().forEach(v -> v.accept(this));
     }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        for (OWLDataRange dr : node.getOperands()) {
-            dr.accept(this);
-        }
+        node.operands().forEach(c -> c.accept(this));
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        for (OWLDataRange dr : node.getOperands()) {
-            dr.accept(this);
-        }
+        node.operands().forEach(c -> c.accept(this));
     }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
-        for (OWLFacetRestriction facetRestriction : node.getFacetRestrictions()) {
-            facetRestriction.accept(this);
-        }
+        node.facetRestrictions().forEach(f -> f.accept(this));
     }
 
     @Override
@@ -475,9 +439,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
     public void visit(OWLAnnotation annotation) {
         annotation.getProperty().accept(this);
         annotation.getValue().accept(this);
-        for (OWLAnnotation anno : annotation.getAnnotations()) {
-            anno.accept(this);
-        }
+        annotation.annotations().forEach(a -> a.accept(this));
     }
 
     @Override
@@ -497,22 +459,16 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(OWLOntology ontology) {
-        checkOccurrence(ontology.getAnnotations());
-        for (AxiomType<?> t : AxiomType.AXIOM_TYPES) {
-            for (OWLAxiom ax : ontology.getAxioms(t)) {
-                checkOccurrence(ax.getAnnotations());
-                ax.accept(this);
-            }
-        }
+        checkOccurrence(ontology.annotations());
+        AxiomType.AXIOM_TYPES.forEach(t -> ontology.axioms(t).forEach(ax -> {
+            checkOccurrence(ax.annotations());
+            ax.accept(this);
+        }));
         singleAppearance.clear();
     }
 
-    private void checkOccurrence(Collection<OWLAnnotation> c) {
-        for (OWLAnnotation a : c) {
-            if (a.getValue() instanceof OWLAnonymousIndividual) {
-                checkAppearance((OWLAnonymousIndividual) a.getValue());
-            }
-        }
+    private void checkOccurrence(Stream<OWLAnnotation> c) {
+        c.forEach(a -> a.getValue().asAnonymousIndividual().ifPresent(t -> checkAppearance(t)));
     }
 
     protected void checkAppearance(OWLAnonymousIndividual a) {
@@ -561,12 +517,8 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(SWRLRule rule) {
-        for (SWRLAtom atom : rule.getBody()) {
-            atom.accept(this);
-        }
-        for (SWRLAtom atom : rule.getHead()) {
-            atom.accept(this);
-        }
+        rule.body().forEach(a -> a.accept(this));
+        rule.head().forEach(a -> a.accept(this));
         processAxiomAnnotations(rule);
     }
 

@@ -60,9 +60,11 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
     public AddClassExpressionClosureAxiom(OWLDataFactory dataFactory, OWLClass cls,
         OWLObjectPropertyExpression property, Collection<OWLOntology> ontologies, OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(cls, "cls cannot be null"), checkNotNull(property, "property cannot be null"),
-            checkNotNull(ontologies, "ontologies cannot be null"),
-            checkNotNull(targetOntology, "targetOntology cannot be null"));
+        checkNotNull(cls, "cls cannot be null");
+        checkNotNull(property, "property cannot be null");
+        checkNotNull(ontologies, "ontologies cannot be null");
+        checkNotNull(targetOntology, "targetOntology cannot be null");
+        generateChanges(cls, property, ontologies, targetOntology);
     }
 
     private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property, Collection<OWLOntology> ontologies,

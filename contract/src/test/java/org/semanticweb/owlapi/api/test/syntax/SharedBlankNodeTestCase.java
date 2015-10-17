@@ -2,9 +2,11 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -55,14 +57,10 @@ public class SharedBlankNodeTestCase extends TestBase {
         return ontology;
     }
 
-    public static void testAnnotation(OWLOntology ontology) {
-        for (OWLIndividual i : ontology.getIndividualsInSignature()) {
-            assertEquals(2, ontology.getObjectPropertyAssertionAxioms(i).size());
-        }
-        for (OWLAnnotation annotation : ontology.getAnnotations()) {
-            OWLIndividual i = (OWLIndividual) annotation.getValue();
-            assertEquals(1, ontology.getDataPropertyAssertionAxioms(i).size());
-        }
+    public static void testAnnotation(OWLOntology o) {
+        o.individualsInSignature().forEach(i -> assertEquals(2L, o.objectPropertyAssertionAxioms(i).count()));
+        o.annotations().map(a -> (OWLIndividual) a.getValue()).forEach(i -> assertEquals(1L, o
+            .dataPropertyAssertionAxioms(i).count()));
     }
 
     @Test
@@ -71,10 +69,10 @@ public class SharedBlankNodeTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(input);
         OWLOntology o1 = loadOntologyFromString(saveOntology(o, new FunctionalSyntaxDocumentFormat()));
         OWLOntology o2 = loadOntologyFromString(saveOntology(o1, new RDFXMLDocumentFormat()));
-        Set<OWLAnnotationAssertionAxiom> annotationAssertionAxioms = o2.getAnnotationAssertionAxioms(IRI("http://E"));
-        assertEquals(1, annotationAssertionAxioms.size());
-        OWLAnnotationAssertionAxiom next = annotationAssertionAxioms.iterator().next();
-        assertEquals(1, o2.getAnnotationAssertionAxioms((OWLAnnotationSubject) next.getValue()).size());
+        assertEquals(1L, o2.annotationAssertionAxioms(IRI("http://E")).count());
+        Stream<OWLAnnotationSubject> s = o2.annotationAssertionAxioms(IRI("http://E")).map(a -> (OWLAnnotationSubject) a
+            .getValue());
+        s.forEach(a -> assertEquals(1L, o2.annotationAssertionAxioms(a).count()));
     }
 
     @Test
@@ -89,20 +87,10 @@ public class SharedBlankNodeTestCase extends TestBase {
             "AnnotationAssertion(rdfs:comment _:genid1 \"E\"))";
         OWLOntology o1 = loadOntologyFromString(input);
         OWLOntology o2 = loadOntologyFromString(input);
-        Set<OWLAnnotationValue> values1 = new HashSet<>();
-        Set<OWLAnnotationValue> values2 = new HashSet<>();
-        for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-            OWLAnnotationValue value = a.getValue();
-            if (value instanceof OWLAnonymousIndividual) {
-                values1.add(value);
-            }
-        }
-        for (OWLAnnotationAssertionAxiom a : o2.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-            OWLAnnotationValue value = a.getValue();
-            if (value instanceof OWLAnonymousIndividual) {
-                values2.add(value);
-            }
-        }
+        Set<OWLAnnotationValue> values1 = asSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
+            a -> a instanceof OWLAnonymousIndividual));
+        Set<OWLAnnotationValue> values2 = asSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
+            a -> a instanceof OWLAnonymousIndividual));
         assertEquals(values1.toString(), values1.size(), 1);
         assertEquals(values1.toString(), values2.size(), 1);
         assertNotEquals(values1, values2);
@@ -113,20 +101,10 @@ public class SharedBlankNodeTestCase extends TestBase {
         String input = "<?xml version=\"1.0\"?>\r\n<rdf:RDF xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"><owl:Class rdf:about=\"http://E\"><rdfs:comment><rdf:Description><rdfs:comment>E</rdfs:comment></rdf:Description></rdfs:comment></owl:Class></rdf:RDF>";
         OWLOntology o1 = loadOntologyFromString(input);
         OWLOntology o2 = loadOntologyFromString(input);
-        Set<OWLAnnotationValue> values1 = new HashSet<>();
-        Set<OWLAnnotationValue> values2 = new HashSet<>();
-        for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-            OWLAnnotationValue value = a.getValue();
-            if (value instanceof OWLAnonymousIndividual) {
-                values1.add(value);
-            }
-        }
-        for (OWLAnnotationAssertionAxiom a : o2.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-            OWLAnnotationValue value = a.getValue();
-            if (value instanceof OWLAnonymousIndividual) {
-                values2.add(value);
-            }
-        }
+        Set<OWLAnnotationValue> values1 = asSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
+            a -> a instanceof OWLAnonymousIndividual));
+        Set<OWLAnnotationValue> values2 = asSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
+            a -> a instanceof OWLAnonymousIndividual));
         assertEquals(values1.toString(), values1.size(), 1);
         assertEquals(values1.toString(), values2.size(), 1);
         assertNotEquals(values1, values2);
@@ -155,19 +133,11 @@ public class SharedBlankNodeTestCase extends TestBase {
             Set<OWLAnnotationValue> values1 = new HashSet<>();
             values1.add(m.getOWLDataFactory().getOWLAnonymousIndividual("_:genid-nodeid-1058025095"));
             OWLOntology o1 = loadOntologyFromString(input);
-            for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-                OWLAnnotationValue value = a.getValue();
-                if (value instanceof OWLAnonymousIndividual) {
-                    values1.add(value);
-                }
-            }
+            add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
+                a -> a instanceof OWLAnonymousIndividual));
             o1 = loadOntologyFromString(input);
-            for (OWLAnnotationAssertionAxiom a : o1.getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
-                OWLAnnotationValue value = a.getValue();
-                if (value instanceof OWLAnonymousIndividual) {
-                    values1.add(value);
-                }
-            }
+            add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue()).filter(
+                a -> a instanceof OWLAnonymousIndividual));
             assertEquals(values1.toString(), values1.size(), 1);
         } finally {
             // make sure config is restored

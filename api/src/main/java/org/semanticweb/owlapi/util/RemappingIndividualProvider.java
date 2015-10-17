@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.util;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,8 @@ public class RemappingIndividualProvider implements AnonymousIndividualByIdProvi
         remapEnabled = AnonymousIndividualProperties.shouldRemapAllAnonymousIndividualsIds();
         if (remapEnabled) {
             map = new HashMap<>();
+        } else {
+            map = Collections.emptyMap();
         }
     }
 

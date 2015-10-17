@@ -410,7 +410,7 @@ public class XMLWriterImpl implements XMLWriter {
             if (textContent != null) {
                 // only escape the data if this is not an XML literal
                 if ("http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral".equals(attributes.get("rdf:datatype"))) {
-                    checkProperXMLLiteral(textContent);
+                    checkProperXMLLiteral(verifyNotNull(textContent));
                     writer.write(textContent);
                 } else {
                     writer.write(XMLUtils.escapeXML(verifyNotNull(textContent)));

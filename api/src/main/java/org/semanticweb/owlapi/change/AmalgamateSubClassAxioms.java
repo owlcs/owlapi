@@ -15,9 +15,9 @@ package org.semanticweb.owlapi.change;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -55,10 +55,9 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
         if (axioms.size() < 2) {
             return;
         }
-        Collection<OWLClassExpression> superClasses = new ArrayList<>();
         axioms.forEach(ax -> addChange(new RemoveAxiom(ont, ax)));
-        axioms.forEach(ax -> superClasses.add(ax.getSuperClass()));
-        addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls, df.getOWLObjectIntersectionOf(superClasses
-            .stream()))));
+        Stream<OWLClassExpression> superclasses = axioms.stream().map(ax -> ax.getSuperClass());
+        OWLObjectIntersectionOf intersection = df.getOWLObjectIntersectionOf(superclasses);
+        addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls, intersection)));
     }
 }

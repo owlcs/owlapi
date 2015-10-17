@@ -149,21 +149,9 @@ public class MapPointer<K, V extends OWLAxiom> {
         assert visitor != null;
         Stream<V> values = (Stream<V>) i.getAxiomsByType().getValues(verifyNotNull(type));
         if (visitor instanceof InitVisitor) {
-            values.forEach(ax -> {
-                K key = ax.accept((InitVisitor<K>) visitor);
-                // this can only be null because the visitor return nulls in
-                // methods that do not declare it
-                if (key != null) {
-                    putInternal(key, ax);
-                }
-            });
+            values.forEach(ax -> putInternal(ax.accept((InitVisitor<K>) visitor), ax));
         } else if (visitor instanceof InitCollectionVisitor) {
-            values.forEach(ax -> {
-                Collection<K> keys = ax.accept((InitCollectionVisitor<K>) visitor);
-                for (K key : keys) {
-                    putInternal(key, ax);
-                }
-            });
+            values.forEach(ax -> ax.accept((InitCollectionVisitor<K>) visitor).forEach(key -> putInternal(key, ax)));
         }
         return this;
     }
@@ -357,7 +345,10 @@ public class MapPointer<K, V extends OWLAxiom> {
         return size == 0;
     }
 
-    private boolean putInternal(K k, V v) {
+    private boolean putInternal(@Nullable K k, V v) {
+        if (k == null) {
+            return false;
+        }
         Collection<V> set = map.get(k);
         if (set == null) {
             set = Collections.singleton(v);

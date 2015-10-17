@@ -92,7 +92,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
      * @param c
      *        list of elements to set
      */
-    public void set(T... c) {
+    public void set(@SuppressWarnings("unchecked") T... c) {
         clear();
         add(c);
     }
@@ -104,7 +104,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
      * @param c
      *        list of elements to add
      */
-    public void add(T... c) {
+    public void add(@SuppressWarnings("unchecked") T... c) {
         int i = 0;
         for (T t : c) {
             delegate.add(i++, t);
@@ -145,7 +145,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
      * @param c
      *        list of elements to remove
      */
-    public void remove(T... c) {
+    public void remove(@SuppressWarnings("unchecked") T... c) {
         for (T t : c) {
             delegate.remove(t);
         }

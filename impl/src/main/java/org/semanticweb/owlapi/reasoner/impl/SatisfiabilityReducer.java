@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.impl;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -27,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiomShortCut;
  *         Management Group
  * @since 3.0.0
  */
-public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpression> {
+public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClassExpression>> {
 
     private final @Nonnull OWLDataFactory df;
 
@@ -40,15 +42,16 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpressi
     }
 
     @Override
-    public OWLClassExpression doDefault(Object o) {
+    public Optional<OWLClassExpression> doDefault(Object o) {
         if (o instanceof OWLSubClassOfAxiomShortCut) {
             return ((OWLSubClassOfAxiomShortCut) o).asOWLSubClassOfAxiom().accept(this);
         }
-        return null;
+        return emptyOptional();
     }
 
     @Override
-    public OWLClassExpression visit(OWLSubClassOfAxiom axiom) {
-        return df.getOWLObjectIntersectionOf(axiom.getSubClass(), df.getOWLObjectComplementOf(axiom.getSuperClass()));
+    public Optional<OWLClassExpression> visit(OWLSubClassOfAxiom axiom) {
+        return Optional.of(df.getOWLObjectIntersectionOf(axiom.getSubClass(), df.getOWLObjectComplementOf(axiom
+            .getSuperClass())));
     }
 }

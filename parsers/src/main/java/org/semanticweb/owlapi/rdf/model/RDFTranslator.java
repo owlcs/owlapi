@@ -40,6 +40,8 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
      *        the ontology
      * @param useStrongTyping
      *        true if strong typing is required
+     * @param occurrences
+     *        will tell whether anonymous individuals need an id or not
      */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology, boolean useStrongTyping,
         IndividualAppearance occurrences) {
@@ -56,17 +58,17 @@ public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFR
     @Override
     protected void addTriple(RDFResource subject, RDFResourceIRI pred, @Nonnull RDFNode object) {
         graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"),
-                checkNotNull(pred, "pred cannot be null"), checkNotNull(object, "object cannot be null")));
+            checkNotNull(pred, "pred cannot be null"), checkNotNull(object, "object cannot be null")));
     }
 
     @Override
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
         if (key instanceof OWLAnonymousIndividual) {
-            return new RDFResourceBlankNode(System.identityHashCode(((OWLAnonymousIndividual) key).getID().getID()), true
-                , multipleOccurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
+            return new RDFResourceBlankNode(System.identityHashCode(((OWLAnonymousIndividual) key).getID().getID()),
+                true, multipleOccurrences.appearsMultipleTimes((OWLAnonymousIndividual) key));
         }
-        return new RDFResourceBlankNode(System.identityHashCode(key),false, false);
+        return new RDFResourceBlankNode(System.identityHashCode(key), false, false);
     }
 
     @Override

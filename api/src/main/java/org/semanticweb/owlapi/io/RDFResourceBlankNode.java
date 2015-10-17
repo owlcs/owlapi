@@ -33,10 +33,14 @@ public class RDFResourceBlankNode extends RDFResource {
      * 
      * @param resource
      *        The IRI of the resource
+     * @param isIndividual
+     *        true if the node represents an individual
+     * @param forceId
+     *        true if id should be outputted
      */
     public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId) {
         this.resource = checkNotNull(resource, "resource cannot be null");
-        this.isIndividual=isIndividual;
+        this.isIndividual = isIndividual;
         forceIdOutput = forceId;
     }
 
@@ -45,6 +49,10 @@ public class RDFResourceBlankNode extends RDFResource {
      * 
      * @param anonId
      *        the number at the end of the anon IRI
+     * @param isIndividual
+     *        true if the node represents an individual
+     * @param forceId
+     *        true if id should be outputted
      */
     public RDFResourceBlankNode(int anonId, boolean isIndividual, boolean forceId) {
         this(NodeID.nodeId(anonId), isIndividual, forceId);
@@ -64,7 +72,6 @@ public class RDFResourceBlankNode extends RDFResource {
     public boolean isLiteral() {
         return false;
     }
-
 
     @Override
     public boolean isAnonymous() {

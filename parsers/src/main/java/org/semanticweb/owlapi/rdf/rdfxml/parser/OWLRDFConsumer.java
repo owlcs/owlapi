@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.formats.RDFDocumentFormat;
 import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.providers.AnonymousIndividualByIdProvider;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.TranslatorAccessor;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
@@ -62,7 +63,7 @@ import com.google.common.collect.Sets;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAnonymousIndividualByIdProvider {
+public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, AnonymousIndividualByIdProvider {
 
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";

@@ -101,10 +101,17 @@ public final class XMLWriterPreferences {
         this.indentSize.set(indentSize);
     }
 
+    /**
+     * @param labelsAsBanner
+     *        true if labels should be used for banner comments
+     */
     public void setLabelsAsBanner(boolean labelsAsBanner) {
         this.labelsAsBanner.set(labelsAsBanner);
     }
 
+    /**
+     * @return true if labels should be used for banner comments
+     */
     public boolean isLabelsAsBanner() {
         return labelsAsBanner.get();
     }

@@ -12,14 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
-
-import java.util.Collection;
-import java.util.Collections;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author ignazio
@@ -210,7 +205,7 @@ public class InitVisitorFactory {
      *        collection type
      */
     @SuppressWarnings("unchecked")
-    public static class InitCollectionVisitor<K> implements OWLAxiomVisitorEx<Collection<K>> {
+    public static class InitCollectionVisitor<K> implements OWLAxiomVisitorEx<Stream<K>> {
 
         private final boolean named;
 
@@ -223,66 +218,66 @@ public class InitVisitorFactory {
         }
 
         @Override
-        public Collection<K> doDefault(Object object) {
-            return Collections.<K> emptySet();
+        public Stream<K> doDefault(Object object) {
+            return Stream.empty();
         }
 
         @Override
-        public Collection<K> visit(OWLDisjointClassesAxiom axiom) {
+        public Stream<K> visit(OWLDisjointClassesAxiom axiom) {
             Stream<OWLClassExpression> stream = axiom.classExpressions();
             if (named) {
                 stream = stream.filter(c -> !c.isAnonymous());
             }
-            return (Collection<K>) asList(stream);
+            return (Stream<K>) stream;
         }
 
         @Override
-        public Collection<K> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            return (Collection<K>) asList(axiom.properties());
+        public Stream<K> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+            return (Stream<K>) axiom.properties();
         }
 
         @Override
-        public Collection<K> visit(OWLDifferentIndividualsAxiom axiom) {
-            return (Collection<K>) asList(axiom.individuals());
+        public Stream<K> visit(OWLDifferentIndividualsAxiom axiom) {
+            return (Stream<K>) axiom.individuals();
         }
 
         @Override
-        public Collection<K> visit(OWLDisjointDataPropertiesAxiom axiom) {
-            return (Collection<K>) asList(axiom.properties());
+        public Stream<K> visit(OWLDisjointDataPropertiesAxiom axiom) {
+            return (Stream<K>) axiom.properties();
         }
 
         @Override
-        public Collection<K> visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            return (Collection<K>) asList(axiom.properties());
+        public Stream<K> visit(OWLDisjointObjectPropertiesAxiom axiom) {
+            return (Stream<K>) axiom.properties();
         }
 
         @Override
-        public Collection<K> visit(OWLDisjointUnionAxiom axiom) {
-            return CollectionFactory.createSet((K) axiom.getOWLClass());
+        public Stream<K> visit(OWLDisjointUnionAxiom axiom) {
+            return Stream.of((K) axiom.getOWLClass());
         }
 
         @Override
-        public Collection<K> visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            return (Collection<K>) asList(axiom.properties());
+        public Stream<K> visit(OWLEquivalentDataPropertiesAxiom axiom) {
+            return (Stream<K>) axiom.properties();
         }
 
         @Override
-        public Collection<K> visit(OWLEquivalentClassesAxiom axiom) {
+        public Stream<K> visit(OWLEquivalentClassesAxiom axiom) {
             Stream<OWLClassExpression> stream = axiom.classExpressions();
             if (named) {
                 stream = stream.filter(c -> !c.isAnonymous());
             }
-            return (Collection<K>) asList(stream);
+            return (Stream<K>) stream;
         }
 
         @Override
-        public Collection<K> visit(OWLSameIndividualAxiom axiom) {
-            return (Collection<K>) asList(axiom.individuals());
+        public Stream<K> visit(OWLSameIndividualAxiom axiom) {
+            return (Stream<K>) axiom.individuals();
         }
 
         @Override
-        public Collection<K> visit(OWLInverseObjectPropertiesAxiom axiom) {
-            return (Collection<K>) asList(axiom.properties());
+        public Stream<K> visit(OWLInverseObjectPropertiesAxiom axiom) {
+            return (Stream<K>) axiom.properties();
         }
     }
 

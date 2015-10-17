@@ -84,7 +84,7 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
     }
 
     @Override
-    public void set(T... c) {
+    public void set(@SuppressWarnings("unchecked") T... c) {
         writeLock.lock();
         try {
             super.set(c);
@@ -94,7 +94,7 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
     }
 
     @Override
-    public void add(T... c) {
+    public void add(@SuppressWarnings("unchecked") T... c) {
         writeLock.lock();
         try {
             super.add(c);
@@ -114,7 +114,7 @@ public class ConcurrentPriorityCollection<T extends Serializable> extends Priori
     }
 
     @Override
-    public void remove(T... c) {
+    public void remove(@SuppressWarnings("unchecked") T... c) {
         writeLock.lock();
         try {
             super.remove(c);
