@@ -23,8 +23,6 @@ import java.util.List;
 public class DefaultImpendingChangeBroadcastStrategy
         implements ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
             List<? extends OWLOntologyChange> changes) {

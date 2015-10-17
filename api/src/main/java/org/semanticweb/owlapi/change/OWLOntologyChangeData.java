@@ -33,8 +33,6 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  */
 public abstract class OWLOntologyChangeData implements HasSignature, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor for serialization purposes. */
     protected OWLOntologyChangeData() {}
 

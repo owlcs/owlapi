@@ -37,8 +37,6 @@ import org.semanticweb.owlapi.model.*;
  */
 public class CreateValuePartition extends AbstractCompositeOntologyChange {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Creates a composite change that will create a value partition.
      * 

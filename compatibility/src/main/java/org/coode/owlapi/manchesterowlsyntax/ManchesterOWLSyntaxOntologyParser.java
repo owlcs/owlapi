@@ -21,10 +21,4 @@ package org.coode.owlapi.manchesterowlsyntax;
 @Deprecated
 public class ManchesterOWLSyntaxOntologyParser
         extends
-        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParser {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 40000L;
-}
+        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParser {}

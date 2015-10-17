@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull NodeID nodeId;
 
     @Override

@@ -16,7 +16,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImplementationFactory;
  */
 public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
-    private static final long serialVersionUID = 1L;
     private transient final OWLOntologyImplementationFactory implementationFactory;
 
     /**

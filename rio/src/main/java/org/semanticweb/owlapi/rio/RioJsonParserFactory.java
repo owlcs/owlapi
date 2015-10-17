@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.formats.RDFJsonDocumentFormatFactory;
 @HasPriority(9)
 public class RioJsonParserFactory extends AbstractRioParserFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RioJsonParserFactory() {
         super(new RDFJsonDocumentFormatFactory());

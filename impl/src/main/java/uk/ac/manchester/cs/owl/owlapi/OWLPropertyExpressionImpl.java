@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 public abstract class OWLPropertyExpressionImpl extends OWLObjectImpl implements
         OWLPropertyExpression {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public boolean equals(@Nullable Object obj) {
         if (this == obj) {

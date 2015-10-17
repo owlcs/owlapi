@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLAxiom axiom;
     private final IRI profile;
 

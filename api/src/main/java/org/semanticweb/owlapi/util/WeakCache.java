@@ -26,7 +26,6 @@ import java.util.Map;
  */
 public class WeakCache<K> implements Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private transient Map<K, WeakReference<K>> prefixCache = CollectionFactory.createSyncWeakMap();
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {

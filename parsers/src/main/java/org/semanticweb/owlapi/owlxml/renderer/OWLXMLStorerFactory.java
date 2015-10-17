@@ -47,8 +47,6 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(1)
 public class OWLXMLStorerFactory extends OWLStorerFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public OWLXMLStorerFactory() {
         super(new OWLXMLDocumentFormatFactory());

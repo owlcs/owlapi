@@ -50,7 +50,6 @@ import com.google.common.base.Splitter;
 @HasPriority(1)
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private final Set<String> fileExtensions = new HashSet<>();
     private boolean mapped;
     private final boolean recursive;
@@ -312,8 +311,6 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      */
     private static class RDFXMLOntologyRootElementHandler implements OntologyRootElementHandler, Serializable {
 
-        private static final long serialVersionUID = 40000L;
-
         RDFXMLOntologyRootElementHandler() {}
 
         @Override
@@ -328,8 +325,6 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
     /** A handler that can handle OWL/XML files. */
     private static class OWLXMLOntologyRootElementHandler implements OntologyRootElementHandler, Serializable {
-
-        private static final long serialVersionUID = 40000L;
 
         OWLXMLOntologyRootElementHandler() {}
 

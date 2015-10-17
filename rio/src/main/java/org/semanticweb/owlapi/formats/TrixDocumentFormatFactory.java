@@ -11,8 +11,6 @@ import org.openrdf.rio.RDFFormat;
  */
 public class TrixDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public TrixDocumentFormatFactory() {
         super(RDFFormat.TRIX);

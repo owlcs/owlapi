@@ -5,7 +5,6 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 @SuppressWarnings("all")
 class TokenMgrError extends Error {
 
-    private static final long serialVersionUID = 1L;
     static final int LEXICAL_ERROR = 0;
     static final int STATIC_LEXER_ERROR = 1;
     static final int INVALID_LEXICAL_STATE = 2;

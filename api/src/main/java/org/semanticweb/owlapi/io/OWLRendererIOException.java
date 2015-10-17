@@ -20,8 +20,6 @@ package org.semanticweb.owlapi.io;
  */
 public class OWLRendererIOException extends OWLRendererException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param cause
      *        the cause

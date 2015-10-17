@@ -33,8 +33,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
         implements OWLReflexiveObjectPropertyAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param property
      *        property

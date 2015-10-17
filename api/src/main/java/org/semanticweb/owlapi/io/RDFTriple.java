@@ -37,7 +37,6 @@ import gnu.trove.map.hash.THashMap;
  */
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull RDFResource subject;
     private final @Nonnull RDFResourceIRI predicate;
     private final @Nonnull RDFNode object;

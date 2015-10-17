@@ -3,7 +3,6 @@ package org.obolibrary.oboformat.parser;
 /** The Class OBOFormatParserException. */
 public class OBOFormatParserException extends OBOFormatException {
 
-    private static final long serialVersionUID = 40000L;
     private final int lineNo;
     private final String line;
 

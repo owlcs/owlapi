@@ -30,8 +30,6 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLEquivalentClassesAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param classExpressions
      *        equivalent classes

@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyDomainAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLAnnotationProperty property;
     private final @Nonnull IRI domain;
 

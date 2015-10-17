@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractOWLStorer implements OWLStorer {
 
-    private static final long serialVersionUID = 40000L;
     protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractOWLStorer.class);
 
     @Override

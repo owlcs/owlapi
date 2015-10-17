@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class IRIComparator implements Comparator<IRI>, Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private final IRIShortFormProvider iriShortFormProvider;
 
     /**

@@ -30,8 +30,6 @@ import org.xml.sax.InputSource;
  */
 public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     protected AbstractOWLParser() {}
 
     @SuppressWarnings("resource")

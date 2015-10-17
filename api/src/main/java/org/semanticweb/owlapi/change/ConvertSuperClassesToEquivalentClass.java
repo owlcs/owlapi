@@ -42,8 +42,6 @@ import org.semanticweb.owlapi.model.*;
  */
 public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Instantiates a new convert super classes to equivalent class.
      * 

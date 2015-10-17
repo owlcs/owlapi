@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String getShortForm(IRI iri) {
         checkNotNull(iri);

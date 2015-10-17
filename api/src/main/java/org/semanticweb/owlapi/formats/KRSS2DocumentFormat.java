@@ -19,8 +19,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
  */
 public class KRSS2DocumentFormat extends OWLDocumentFormatImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String getKey() {
         return "KRSS2 Syntax";

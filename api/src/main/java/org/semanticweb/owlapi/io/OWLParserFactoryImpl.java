@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  */
 public abstract class OWLParserFactoryImpl implements OWLParserFactory {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLDocumentFormatFactory format;
 
     protected OWLParserFactoryImpl(OWLDocumentFormatFactory format) {

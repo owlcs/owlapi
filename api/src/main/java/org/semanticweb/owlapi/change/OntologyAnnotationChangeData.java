@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLAnnotation annotation;
 
     /**

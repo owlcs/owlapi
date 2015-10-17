@@ -25,8 +25,6 @@ import org.semanticweb.owlapi.change.AddAxiomData;
  */
 public class AddAxiom extends OWLAxiomChange {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param ont
      *        the ontology to which the change is to be applied

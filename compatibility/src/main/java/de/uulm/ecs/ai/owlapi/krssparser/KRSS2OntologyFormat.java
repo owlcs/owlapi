@@ -23,7 +23,6 @@ public class KRSS2OntologyFormat extends
         org.semanticweb.owlapi.formats.KRSS2DocumentFormat implements
         OWLOntologyFormat {
 
-    private static final long serialVersionUID = 30406L;
     /** ignore ontology iri parameter */
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 

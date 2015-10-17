@@ -22,8 +22,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class TranslatedOntologyChangeException extends OWLRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param e
      *        cause

@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.formats.NQuadsDocumentFormatFactory;
 @HasPriority(8)
 public class RioNQuadsParserFactory extends AbstractRioParserFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RioNQuadsParserFactory() {
         super(new NQuadsDocumentFormatFactory());

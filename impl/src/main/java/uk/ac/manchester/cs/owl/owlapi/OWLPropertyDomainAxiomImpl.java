@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends OWLUnaryPropertyAxiomImpl<P>
         implements OWLPropertyDomainAxiom<P> {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLClassExpression domain;
 
     /**

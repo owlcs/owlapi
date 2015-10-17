@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
 public class RioNQuadsStorerFactory extends AbstractRioStorerFactory implements
         RioRDFStorerFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RioNQuadsStorerFactory() {
         super(new NQuadsDocumentFormatFactory());

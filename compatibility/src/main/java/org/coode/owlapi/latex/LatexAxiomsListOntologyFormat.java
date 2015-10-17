@@ -23,7 +23,4 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 @Deprecated
 public class LatexAxiomsListOntologyFormat extends
         org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat implements
-        OWLOntologyFormat {
-
-    private static final long serialVersionUID = 30406L;
-}
+        OWLOntologyFormat {}

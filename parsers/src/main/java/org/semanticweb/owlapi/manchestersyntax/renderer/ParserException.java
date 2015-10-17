@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class ParserException extends OWLParserException {
 
-    private static final long serialVersionUID = 40000L;
     /** The current token. */
     private String currentToken;
     /** The line number. */

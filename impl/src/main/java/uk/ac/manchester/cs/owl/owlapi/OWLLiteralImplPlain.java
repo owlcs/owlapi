@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
-    private static final long serialVersionUID = 30406L;
     private final @Nonnull String literal;
     private final @Nonnull String lang;
 

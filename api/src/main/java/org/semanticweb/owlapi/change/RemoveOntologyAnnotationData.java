@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  */
 public class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Constructs a {@code RemoveOntologyAnnotationData} object that describes a
      * {@link org.semanticweb.owlapi.model.RemoveOntologyAnnotation} change for

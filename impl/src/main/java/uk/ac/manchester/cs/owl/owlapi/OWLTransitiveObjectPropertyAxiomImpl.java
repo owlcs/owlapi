@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
         implements OWLTransitiveObjectPropertyAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param property
      *        property

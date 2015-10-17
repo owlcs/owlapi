@@ -22,7 +22,4 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 @Deprecated
 public class OBOOntologyFormat extends
         org.semanticweb.owlapi.formats.OBODocumentFormat implements
-        OWLOntologyFormat {
-
-    private static final long serialVersionUID = 30406L;
-}
+        OWLOntologyFormat {}

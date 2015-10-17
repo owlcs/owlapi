@@ -34,7 +34,6 @@ import org.semanticweb.owlapi.model.*;
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
         extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLIndividual subject;
     private final @Nonnull P property;
     private final @Nonnull O o;

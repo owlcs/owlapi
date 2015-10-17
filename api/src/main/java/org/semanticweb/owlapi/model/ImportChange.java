@@ -21,7 +21,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
  */
 public abstract class ImportChange extends OWLOntologyChange {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLImportsDeclaration declaration;
 
     /**

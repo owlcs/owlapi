@@ -23,8 +23,6 @@ package org.semanticweb.owlapi.model;
  */
 public class OWLOntologyCreationException extends OWLException {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public OWLOntologyCreationException() {}
 

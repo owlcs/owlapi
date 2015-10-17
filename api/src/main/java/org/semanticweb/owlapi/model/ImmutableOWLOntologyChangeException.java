@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
  */
 public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Constructs an exception which describes the attempted change.
      * 

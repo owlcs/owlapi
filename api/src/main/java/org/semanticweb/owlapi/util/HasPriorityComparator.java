@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.annotations.HasPriority;
  */
 public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     private static double getPriority(@Nullable Object p) {
         HasPriority priority = checkNotNull(p).getClass().getAnnotation(HasPriority.class);
         if (priority != null) {

@@ -30,8 +30,6 @@ public class OWLObjectPropertyRangeAxiomImpl
         extends OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression>
         implements OWLObjectPropertyRangeAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param property
      *        property

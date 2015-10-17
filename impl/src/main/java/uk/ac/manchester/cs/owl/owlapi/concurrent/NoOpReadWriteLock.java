@@ -9,7 +9,6 @@ import java.util.concurrent.locks.ReadWriteLock;
  */
 public class NoOpReadWriteLock implements ReadWriteLock, Serializable {
 
-    private static final long serialVersionUID = 1L;
     private static final NoOpLock NO_OP_LOCK = new NoOpLock();
 
     @Override

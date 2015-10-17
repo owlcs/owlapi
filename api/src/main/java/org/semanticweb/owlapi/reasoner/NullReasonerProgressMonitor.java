@@ -25,8 +25,6 @@ import java.io.Serializable;
 public class NullReasonerProgressMonitor implements ReasonerProgressMonitor,
         Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public void reasonerTaskStarted(String taskName) {}
 

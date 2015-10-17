@@ -40,8 +40,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class OWLOntologyLoaderConfiguration implements Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * what action to take if the ontology header is missing.
      */

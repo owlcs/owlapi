@@ -37,12 +37,9 @@ import com.google.common.cache.LoadingCache;
 public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCache {
 
     private static Logger logger = LoggerFactory.getLogger(OWLDataFactoryInternalsImpl.class);
-    private static final long serialVersionUID = 40000L;
     private final AtomicInteger annotationsCount = new AtomicInteger(0);
 
     protected class BuildableWeakIndexCache<V extends OWLEntity> extends WeakIndexCache<IRI, V> {
-
-        private static final long serialVersionUID = 40000L;
 
         public V cache(IRI s, Buildable v) {
             WeakReference<V> w = prefixCache.get(s);

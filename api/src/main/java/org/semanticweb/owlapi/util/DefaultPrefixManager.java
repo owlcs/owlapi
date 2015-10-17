@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
-    private static final long serialVersionUID = 40000L;
     private @Nonnull Map<String, String> prefix2NamespaceMap;
     private final @Nonnull Map<String, String> reverseprefix2NamespaceMap = new HashMap<>();
     private @Nonnull StringComparator comparator;

@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  */
 public class StringAnnotationVisitor implements OWLAnnotationValueVisitorEx<String>, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String visit(IRI iri) {
         // TODO refactor the short form providers in here

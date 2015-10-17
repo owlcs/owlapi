@@ -47,8 +47,6 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(4)
 public class TurtleStorerFactory extends OWLStorerFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public TurtleStorerFactory() {
         super(new TurtleDocumentFormatFactory());

@@ -44,8 +44,6 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  */
 public class TutorialSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public TutorialSyntaxStorerFactory() {
         super(new OWLTutorialSyntaxOntologyFormatFactory());

@@ -35,8 +35,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLDisjointClassesAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param classExpressions
      *        disjoint classes

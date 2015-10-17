@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
  */
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
-    private static final long serialVersionUID = 40000L;
     private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
     private @Nonnull OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
     private boolean addMissingTypes = true;
@@ -147,8 +146,6 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
     }
 
     private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData, Serializable {
-
-        private static final long serialVersionUID = 40000L;
 
         NullLoaderMetaData() {}
     }

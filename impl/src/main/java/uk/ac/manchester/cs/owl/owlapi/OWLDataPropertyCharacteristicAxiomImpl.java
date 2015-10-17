@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl
         implements OWLDataPropertyCharacteristicAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLDataPropertyExpression property;
 
     /**

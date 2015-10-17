@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.util.StringComparator;
  */
 public class PrefixDocumentFormatImpl extends OWLDocumentFormatImpl implements PrefixDocumentFormat {
 
-    private static final long serialVersionUID = 40000L;
     private @Nonnull PrefixManager nsm;
 
     /** Default constructor. */

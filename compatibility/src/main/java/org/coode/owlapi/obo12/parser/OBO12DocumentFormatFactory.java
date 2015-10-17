@@ -6,8 +6,6 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 @SuppressWarnings("javadoc")
 public class OBO12DocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLDocumentFormat get() {
         return createFormat();

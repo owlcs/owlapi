@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.formats.BinaryRDFDocumentFormatFactory;
 @HasPriority(10)
 public class RioBinaryRdfParserFactory extends AbstractRioParserFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RioBinaryRdfParserFactory() {
         super(new BinaryRDFDocumentFormatFactory());

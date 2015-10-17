@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  */
 public class FunctionalSyntaxStorer extends AbstractOWLStorer {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
         return ontologyFormat instanceof FunctionalSyntaxDocumentFormat;

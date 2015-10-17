@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 public class ClassExpressionNotInProfileException extends
         OWLReasonerRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLClassExpression classExpression;
     private final IRI profile;
 

@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLAnnotation {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLAnnotationProperty property;
     private final @Nonnull OWLAnnotationValue value;
 

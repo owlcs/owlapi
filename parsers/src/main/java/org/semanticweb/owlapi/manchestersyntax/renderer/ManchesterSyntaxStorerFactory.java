@@ -47,8 +47,6 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 @HasPriority(3)
 public class ManchesterSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public ManchesterSyntaxStorerFactory() {
         super(new ManchesterSyntaxDocumentFormatFactory());

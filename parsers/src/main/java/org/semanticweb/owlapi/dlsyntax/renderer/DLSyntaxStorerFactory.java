@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  */
 public class DLSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public DLSyntaxStorerFactory() {
         super(new DLSyntaxDocumentFormatFactory());

@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 public abstract class AbstractRDFNonPrefixDocumentFormat extends
         OWLDocumentFormatImpl implements RDFDocumentFormat {
 
-    private static final long serialVersionUID = 40000L;
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();
 

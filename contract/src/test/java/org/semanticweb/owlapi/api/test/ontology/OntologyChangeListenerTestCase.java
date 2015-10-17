@@ -45,8 +45,6 @@ public class OntologyChangeListenerTestCase extends TestBase {
         final Set<OWLAxiom> removals = new HashSet<>();
         ont.getOWLOntologyManager().addImpendingOntologyChangeListener(new ImpendingOWLOntologyChangeListener() {
 
-            private static final long serialVersionUID = 40000L;
-
             @Override
             public void handleImpendingOntologyChanges(@Nonnull List<? extends OWLOntologyChange> impendingChanges) {
                 for (OWLOntologyChange change : impendingChanges) {

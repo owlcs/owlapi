@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.*;
 public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange>
         implements OWLDataPropertyRangeAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param property
      *        property

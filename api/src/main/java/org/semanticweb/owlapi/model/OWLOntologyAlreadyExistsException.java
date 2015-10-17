@@ -24,7 +24,6 @@ import javax.annotation.Nullable;
  */
 public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationException {
 
-    private static final long serialVersionUID = 40000L;
     private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
     private final OWLOntologyID ontologyID;
     private final @Nullable IRI documentIRI;

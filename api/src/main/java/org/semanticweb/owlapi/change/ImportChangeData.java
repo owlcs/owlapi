@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  */
 public abstract class ImportChangeData extends OWLOntologyChangeData {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLImportsDeclaration declaration;
 
     /**

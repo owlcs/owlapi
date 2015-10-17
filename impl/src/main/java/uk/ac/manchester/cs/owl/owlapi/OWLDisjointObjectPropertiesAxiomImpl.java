@@ -34,8 +34,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
         implements OWLDisjointObjectPropertiesAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param properties
      *        disjoint properties

@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends OWLRestrictionImpl
         implements OWLHasValueRestriction<V> {
 
-    private static final long serialVersionUID = 40000L;
     protected final @Nonnull V value;
 
     protected OWLValueRestrictionImpl(V value) {

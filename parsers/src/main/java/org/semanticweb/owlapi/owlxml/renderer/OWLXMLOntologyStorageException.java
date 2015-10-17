@@ -23,8 +23,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 public class OWLXMLOntologyStorageException extends OWLOntologyStorageException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Instantiates a new oWLXML ontology storage exception.
      * 

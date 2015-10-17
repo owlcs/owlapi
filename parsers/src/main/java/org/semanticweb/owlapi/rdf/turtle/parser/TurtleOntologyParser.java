@@ -35,8 +35,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  */
 public class TurtleOntologyParser extends AbstractOWLParser {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
         return new TurtleDocumentFormatFactory();

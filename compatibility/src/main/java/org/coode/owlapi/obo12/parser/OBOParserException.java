@@ -49,8 +49,6 @@ import org.semanticweb.owlapi.io.OWLParserException;
  */
 class OBOParserException extends OWLParserException {
 
-    private static final long serialVersionUID = 30406L;
-
     public OBOParserException(String message) {
         super(message);
     }

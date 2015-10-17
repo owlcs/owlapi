@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  */
 public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatFactory {
 
-    private static final long serialVersionUID = 40000L;
     private final List<String> mimeTypes;
     private final String key;
     private final boolean isTextualFormat;

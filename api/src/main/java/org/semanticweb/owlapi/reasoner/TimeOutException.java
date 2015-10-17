@@ -22,8 +22,6 @@ package org.semanticweb.owlapi.reasoner;
  */
 public class TimeOutException extends OWLReasonerRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public TimeOutException() {
         this("Timeout occurred while reasoning!");

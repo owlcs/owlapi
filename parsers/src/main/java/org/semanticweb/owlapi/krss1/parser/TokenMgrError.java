@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.io.OWLParserException;
 
 class TokenMgrError extends OWLParserException {
 
-    private static final long serialVersionUID = 40000L;
     static final int LEXICAL_ERROR = 0;
     static final int STATIC_LEXER_ERROR = 1;
     static final int INVALID_LEXICAL_STATE = 2;

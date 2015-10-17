@@ -28,8 +28,6 @@ public class OWLDataPropertyAssertionAxiomImpl
     extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
     implements OWLDataPropertyAssertionAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param subject
      *        subject

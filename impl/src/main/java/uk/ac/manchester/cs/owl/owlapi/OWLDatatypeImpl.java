@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull IRI iri;
     private final boolean top;
     private final boolean builtin;

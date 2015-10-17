@@ -25,8 +25,6 @@ import javax.annotation.Nullable;
  */
 public class OWLRuntimeException extends RuntimeException implements Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public OWLRuntimeException() {}
 

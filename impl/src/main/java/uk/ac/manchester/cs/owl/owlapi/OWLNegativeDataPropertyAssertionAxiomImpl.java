@@ -28,8 +28,6 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
     extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
     implements OWLNegativeDataPropertyAssertionAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param subject
      *        subject

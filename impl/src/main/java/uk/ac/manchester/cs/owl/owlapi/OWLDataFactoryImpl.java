@@ -38,7 +38,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLDataFactoryInternals dataFactoryInternals;
 
     /**

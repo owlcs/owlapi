@@ -22,7 +22,6 @@ import java.io.Serializable;
 public class ConsoleProgressMonitor implements ReasonerProgressMonitor,
         Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private int lastPercentage;
 
     @Override

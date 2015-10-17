@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  */
 public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
 
-    private static final long serialVersionUID = 40000L;
     /** The data factory. */
     protected final @Nonnull OWLDataFactory df;
     /** The changes. */

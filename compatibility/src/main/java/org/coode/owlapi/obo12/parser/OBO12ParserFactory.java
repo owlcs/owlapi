@@ -56,8 +56,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  */
 public class OBO12ParserFactory implements OWLParserFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLParser get() {
         return createParser();

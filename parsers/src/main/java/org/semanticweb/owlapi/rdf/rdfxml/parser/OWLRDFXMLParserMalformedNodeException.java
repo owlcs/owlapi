@@ -22,8 +22,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 public class OWLRDFXMLParserMalformedNodeException extends
         OWLRDFXMLParserException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Instantiates a new oWLRDFXML parser malformed node exception.
      * 

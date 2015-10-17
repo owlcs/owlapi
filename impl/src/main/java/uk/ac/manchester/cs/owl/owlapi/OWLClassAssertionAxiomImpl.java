@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLIndividual individual;
     private final @Nonnull OWLClassExpression classExpression;
 

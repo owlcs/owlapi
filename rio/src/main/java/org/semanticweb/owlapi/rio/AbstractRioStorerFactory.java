@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  */
 public abstract class AbstractRioStorerFactory extends OWLStorerFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     protected AbstractRioStorerFactory(OWLDocumentFormatFactory format) {
         super(format);
     }

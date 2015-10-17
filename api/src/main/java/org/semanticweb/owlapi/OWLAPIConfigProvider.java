@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 public class OWLAPIConfigProvider implements
         Provider<OWLOntologyLoaderConfiguration>, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLOntologyLoaderConfiguration get() {
         return new OWLOntologyLoaderConfiguration();

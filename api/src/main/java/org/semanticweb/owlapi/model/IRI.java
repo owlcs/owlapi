@@ -302,7 +302,6 @@ public class IRI
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
     // Impl - All constructors are private - factory methods are used for
     // public creation
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull String remainder;
     private final @Nonnull String namespace;
 

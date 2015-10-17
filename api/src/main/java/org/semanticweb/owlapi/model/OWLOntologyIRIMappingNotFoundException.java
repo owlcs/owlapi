@@ -23,8 +23,6 @@ package org.semanticweb.owlapi.model;
  */
 public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param ontologyIRI
      *        iri that cannot be mapped

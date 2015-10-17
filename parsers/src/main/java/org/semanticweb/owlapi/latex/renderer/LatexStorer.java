@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  */
 public class LatexStorer extends AbstractOWLStorer {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
             throws OWLOntologyStorageException {

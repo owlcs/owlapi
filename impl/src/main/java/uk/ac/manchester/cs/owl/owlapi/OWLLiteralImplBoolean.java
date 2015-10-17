@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
-    private static final long serialVersionUID = 40000L;
     private final boolean literal;
 
     @Override

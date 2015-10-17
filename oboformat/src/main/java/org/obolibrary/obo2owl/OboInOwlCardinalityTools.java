@@ -100,9 +100,6 @@ public final class OboInOwlCardinalityTools {
      */
     public static class AnnotationCardinalityException extends OWLRuntimeException {
 
-        // generated
-        private static final long serialVersionUID = 40000L;
-
         /**
          * Create a new Exception.
          * 

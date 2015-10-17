@@ -34,8 +34,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2DatatypeImpl implements OWLDatatype {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
      * specified {@link OWL2Datatype}.

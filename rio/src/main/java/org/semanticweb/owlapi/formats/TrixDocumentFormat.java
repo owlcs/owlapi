@@ -43,8 +43,6 @@ import org.openrdf.rio.RDFFormat;
  */
 public class TrixDocumentFormat extends RioRDFPrefixDocumentFormat {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * RDF format for {@link RDFFormat#TRIX} documents.
      */

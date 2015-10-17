@@ -30,9 +30,6 @@ public class OwlStringTools {
      */
     public static class OwlStringException extends OWLRuntimeException {
 
-        // generated
-        private static final long serialVersionUID = 40000L;
-
         /**
          * @param cause
          *        cause

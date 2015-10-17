@@ -26,8 +26,6 @@ import javax.swing.SwingUtilities;
  */
 public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public void broadcastChanges(OWLOntologyChangeListener l, List<? extends OWLOntologyChange> changes)
             throws OWLException {

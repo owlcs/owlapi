@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
 
-    private static final long serialVersionUID = 40000L;
     private boolean includeStackTraceInMessage = true;
     private final IRI documentIRI;
     private final Map<OWLParser, OWLParserException> exceptions;

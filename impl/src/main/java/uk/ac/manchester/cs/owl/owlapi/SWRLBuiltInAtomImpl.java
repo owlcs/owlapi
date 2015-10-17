@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull List<SWRLDArgument> args;
 
     @Override

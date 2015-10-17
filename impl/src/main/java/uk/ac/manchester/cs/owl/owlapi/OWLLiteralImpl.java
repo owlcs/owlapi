@@ -39,7 +39,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
-    private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
     private static final @Nonnull OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
@@ -222,7 +221,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     // Literal Wrapper
     private static class LiteralWrapper implements Serializable {
 
-        private static final long serialVersionUID = 40000L;
         String l;
         byte[] bytes;
 

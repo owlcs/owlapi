@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 public class OWLOntologyStorageIOException extends OWLOntologyStorageException {
 
-    private static final long serialVersionUID = 40000L;
     private final IOException ioException;
 
     /**

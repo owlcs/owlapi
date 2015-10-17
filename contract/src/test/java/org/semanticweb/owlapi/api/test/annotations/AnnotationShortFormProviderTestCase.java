@@ -85,8 +85,6 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                 new SimpleIRIShortFormProvider(), props, langMap);
         sfp.setLiteralRenderer(new StringAnnotationVisitor() {
 
-            private static final long serialVersionUID = 1L;
-
             @Override
             public String visit(OWLLiteral literal) {
                 return '"' + literal.getLiteral() + '"';

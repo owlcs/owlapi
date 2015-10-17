@@ -22,8 +22,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  */
 public class DLSyntaxStorer extends DLSyntaxStorerBase {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
         return ontologyFormat instanceof DLSyntaxDocumentFormat;

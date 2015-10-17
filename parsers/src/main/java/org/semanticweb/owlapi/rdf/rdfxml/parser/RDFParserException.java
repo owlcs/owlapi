@@ -20,7 +20,6 @@ import org.xml.sax.Locator;
 /** Thrown if an RDF error is encountered while parsing RDF. */
 public class RDFParserException extends OWLRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
     protected final String publicId;
     protected final String systemId;
     protected final int lineNumber;

@@ -29,8 +29,6 @@ import org.semanticweb.owlapi.model.*;
 public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression>
         implements OWLDataPropertyDomainAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param property
      *        property

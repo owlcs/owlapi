@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLLogicalAxiom;
  */
 public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements OWLLogicalAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param annotations
      *        annotations on the axiom

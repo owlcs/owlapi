@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWLAnnotationAssertionAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLAnnotationSubject subject;
     private final @Nonnull OWLAnnotationProperty property;
     private final @Nonnull OWLAnnotationValue value;

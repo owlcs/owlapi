@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
 
-    private static final long serialVersionUID = 40000L;
     private final Map<IRI, IRI> iriMap = new TreeMap<>();
 
     @Override

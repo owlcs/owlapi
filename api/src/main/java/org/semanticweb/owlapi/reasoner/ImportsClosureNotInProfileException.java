@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.IRI;
 public class ImportsClosureNotInProfileException extends
         OWLReasonerRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
     private final IRI profile;
 
     /**

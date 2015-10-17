@@ -37,7 +37,6 @@ import javax.annotation.Nullable;
  */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
 
-    private static final long serialVersionUID = 40000L;
     private static final @Nonnull AtomicInteger COUNTER = new AtomicInteger();
     private static final @Nonnull String ANON_PREFIX = "Anonymous-";
     private transient @Nonnull Optional<String> internalID = emptyOptional();

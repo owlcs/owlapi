@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
         implements OWLInverseObjectPropertiesAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLObjectPropertyExpression first;
     private final @Nonnull OWLObjectPropertyExpression second;
 

@@ -22,7 +22,4 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 @Deprecated
 public class KRSSOntologyFormat extends
         org.semanticweb.owlapi.formats.KRSSDocumentFormat implements
-        OWLOntologyFormat {
-
-    private static final long serialVersionUID = 30406L;
-}
+        OWLOntologyFormat {}

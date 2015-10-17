@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> extends OWLRestrictionImpl
         implements OWLQuantifiedRestriction<F> {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull F filler;
 
     /**

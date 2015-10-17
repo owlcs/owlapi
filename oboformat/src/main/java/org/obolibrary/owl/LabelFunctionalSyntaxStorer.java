@@ -21,9 +21,6 @@ import org.semanticweb.owlapi.util.StringComparator;
 @ParametersAreNonnullByDefault
 public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
-    // generated
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
         return ontologyFormat instanceof LabelFunctionalDocumentFormat;
@@ -44,7 +41,6 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     static class LabelPrefixManager implements PrefixManager {
 
-        private static final long serialVersionUID = 40000L;
         private final @Nonnull OWLOntology ontology;
         private final @Nonnull PrefixManager delegate;
 

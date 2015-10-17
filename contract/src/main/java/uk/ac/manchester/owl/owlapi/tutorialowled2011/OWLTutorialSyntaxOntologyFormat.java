@@ -21,8 +21,6 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormatImpl;
  */
 public class OWLTutorialSyntaxOntologyFormat extends PrefixDocumentFormatImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String getKey() {
         return "OWL Tutorial Syntax";

@@ -971,7 +971,6 @@ public class OBOFormatWriter {
     private static class XrefComparator implements Comparator<Xref>, Serializable {
 
         static final XrefComparator INSTANCE = new XrefComparator();
-        private static final long serialVersionUID = 40000L;
 
         @Override
         public int compare(@Nullable Xref o1, @Nullable Xref o2) {

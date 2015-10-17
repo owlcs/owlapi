@@ -19,8 +19,6 @@ import javax.annotation.Nullable;
 /** String comparator that takes length into account before natural ordering. */
 public class StringLengthComparator implements StringComparator {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public int compare(@Nullable String o1, @Nullable String o2) {
         int diff = verifyNotNull(o1).length() - verifyNotNull(o2).length();

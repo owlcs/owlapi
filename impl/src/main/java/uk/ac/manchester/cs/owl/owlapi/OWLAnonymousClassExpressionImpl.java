@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.util.NNF;
 public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl
         implements OWLAnonymousClassExpression {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public boolean isOWLThing() {
         return false;

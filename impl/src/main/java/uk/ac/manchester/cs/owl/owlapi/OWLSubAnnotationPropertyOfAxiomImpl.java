@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
  */
 public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements OWLSubAnnotationPropertyOfAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLAnnotationProperty subProperty;
     private final @Nonnull OWLAnnotationProperty superProperty;
 

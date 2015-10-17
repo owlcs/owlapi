@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
  */
 public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLOntology ont;
 
     /**

@@ -35,8 +35,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 /** OBOformat parser. */
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource source, OWLOntology in,
             OWLOntologyLoaderConfiguration config) {

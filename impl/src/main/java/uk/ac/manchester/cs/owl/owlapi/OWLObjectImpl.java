@@ -46,7 +46,6 @@ import com.google.common.cache.LoadingCache;
  */
 public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
 
-    private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
     protected static final @Nonnull Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();

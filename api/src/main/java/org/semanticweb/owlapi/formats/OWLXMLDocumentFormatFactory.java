@@ -22,8 +22,6 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
  */
 public class OWLXMLDocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String getKey() {
         return "OWL/XML Syntax";

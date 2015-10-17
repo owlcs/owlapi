@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectInverseOf {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     protected int index() {
         return OWLObjectTypeIndexProvider.OBJECT_PROPERTY_INVERSE;

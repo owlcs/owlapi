@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
  */
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param change
      *        change causing the error

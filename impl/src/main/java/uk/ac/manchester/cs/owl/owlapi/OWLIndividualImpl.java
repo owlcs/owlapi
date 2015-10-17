@@ -20,7 +20,4 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  * @since 2.0.0
  */
 public abstract class OWLIndividualImpl extends OWLObjectImpl implements
-        OWLIndividual {
-
-    private static final long serialVersionUID = 40000L;
-}
+        OWLIndividual {}

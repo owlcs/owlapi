@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>implements OWLDataHasValue {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLDataPropertyExpression property;
 
     @Override

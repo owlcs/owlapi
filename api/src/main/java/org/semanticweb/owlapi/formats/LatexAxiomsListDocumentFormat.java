@@ -21,8 +21,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
  */
 public class LatexAxiomsListDocumentFormat extends OWLDocumentFormatImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String getKey() {
         return "Latex Axiom List";

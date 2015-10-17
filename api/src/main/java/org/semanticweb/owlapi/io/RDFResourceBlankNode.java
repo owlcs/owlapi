@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.model.NodeID;
 /** Anonymous node implementation. */
 public class RDFResourceBlankNode extends RDFResource {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull IRI resource;
     private final boolean isIndividual;
     private final boolean forceIdOutput;

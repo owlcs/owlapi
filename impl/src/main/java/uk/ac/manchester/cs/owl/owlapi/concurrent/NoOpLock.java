@@ -13,7 +13,6 @@ import javax.annotation.Nullable;
  */
 class NoOpLock implements Lock, Serializable {
 
-    private static final long serialVersionUID = 1L;
     public static final NoOpCondition NO_OP_CONDITION = new NoOpCondition();
 
     @Override
@@ -41,8 +40,6 @@ class NoOpLock implements Lock, Serializable {
     }
 
     private static class NoOpCondition implements Condition, Serializable {
-
-        private static final long serialVersionUID = 1L;
 
         public NoOpCondition() {}
 

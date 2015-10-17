@@ -78,7 +78,6 @@ import org.slf4j.LoggerFactory;
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();
-    private static final long serialVersionUID = 40000L;
     protected static final Logger LOGGER = LoggerFactory.getLogger(RioParserImpl.class);
     private final @Nonnull RioRDFDocumentFormatFactory owlFormatFactory;
 

@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements
         OWLDocumentFormat {
 
-    private static final long serialVersionUID = 30406L;
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
 
     @Override

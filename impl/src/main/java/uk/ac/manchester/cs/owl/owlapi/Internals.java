@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  */
 public class Internals implements Serializable {
 
-    private static final long serialVersionUID = 40000L;
     //@formatter:off
     @Nonnull protected transient MapPointer<OWLClassExpression, OWLClassAssertionAxiom>                          classAssertionAxiomsByClass                         = buildLazy(CLASS_ASSERTION, CLASSEXPRESSIONS);
     @Nonnull protected transient MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>                   annotationAssertionAxiomsBySubject                  = buildLazy(ANNOTATION_ASSERTION, ANNOTSUPERNAMED);
@@ -112,8 +111,6 @@ public class Internals implements Serializable {
     //@formatter:on
     private class ReferenceChecker implements OWLEntityVisitorEx<Boolean>, Serializable {
 
-        private static final long serialVersionUID = 40000L;
-
         ReferenceChecker() {}
 
         @Override
@@ -149,7 +146,6 @@ public class Internals implements Serializable {
 
     protected class SetPointer<K extends Serializable> implements Serializable {
 
-        private static final long serialVersionUID = 40000L;
         private final @Nonnull Set<K> set = createSyncSet();
 
         public boolean isEmpty() {
@@ -919,8 +915,6 @@ public class Internals implements Serializable {
 
     class AddAxiomVisitor implements OWLAxiomVisitor, Serializable {
 
-        private static final long serialVersionUID = 40000L;
-
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {
@@ -1131,8 +1125,6 @@ public class Internals implements Serializable {
     }
 
     class RemoveAxiomVisitor implements OWLAxiomVisitor, Serializable {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
@@ -1368,8 +1360,6 @@ public class Internals implements Serializable {
     }
 
     private class ReferencedAxiomsCollector implements OWLEntityVisitorEx<Stream<OWLAxiom>>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
 
         ReferencedAxiomsCollector() {}
 

@@ -36,12 +36,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public abstract class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
 
-    private static final long serialVersionUID = 40000L;
     /** Class entity. */
     public static final @Nonnull EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", "Class", "Classes",
             OWL_CLASS) {
-
-        private static final long serialVersionUID = 50000L;
 
         @Override
         public OWLClass buildEntity(IRI i, EntityProvider df) {
@@ -52,8 +49,6 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
     public static final @Nonnull EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
             "ObjectProperty", "Object property", "Object properties", OWL_OBJECT_PROPERTY) {
 
-        private static final long serialVersionUID = 50000L;
-
         @Override
         public OWLObjectProperty buildEntity(IRI i, EntityProvider df) {
             return df.getOWLObjectProperty(i);
@@ -62,8 +57,6 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
     /** Data property entity. */
     public static final @Nonnull EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>(
             "DataProperty", "Data property", "Data properties", OWL_DATA_PROPERTY) {
-
-        private static final long serialVersionUID = 50000L;
 
         @Override
         public OWLDataProperty buildEntity(IRI i, EntityProvider df) {
@@ -74,8 +67,6 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
     public static final @Nonnull EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
             "AnnotationProperty", "Annotation property", "Annotation properties", OWL_ANNOTATION_PROPERTY) {
 
-        private static final long serialVersionUID = 50000L;
-
         @Override
         public OWLAnnotationProperty buildEntity(IRI i, EntityProvider df) {
             return df.getOWLAnnotationProperty(i);
@@ -85,8 +76,6 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
     public static final @Nonnull EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
             "NamedIndividual", "Named individual", "Named individuals", OWL_NAMED_INDIVIDUAL) {
 
-        private static final long serialVersionUID = 50000L;
-
         @Override
         public OWLNamedIndividual buildEntity(IRI i, EntityProvider df) {
             return df.getOWLNamedIndividual(i);
@@ -95,8 +84,6 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
     /** Datatype entity. */
     public static final @Nonnull EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>("Datatype", "Datatype",
             "Datatypes", RDFS_DATATYPE) {
-
-        private static final long serialVersionUID = 50000L;
 
         @Override
         public OWLDatatype buildEntity(IRI i, EntityProvider df) {

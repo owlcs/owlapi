@@ -43,8 +43,6 @@ import org.openrdf.rio.RDFFormat;
  */
 public class TrigDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public TrigDocumentFormatFactory() {
         super(RDFFormat.TRIG);

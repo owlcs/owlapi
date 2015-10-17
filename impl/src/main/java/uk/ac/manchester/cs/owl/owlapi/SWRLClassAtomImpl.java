@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>implements SWRLClassAtom {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     protected int index() {
         return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 1;

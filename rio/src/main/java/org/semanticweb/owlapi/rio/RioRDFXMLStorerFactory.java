@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
 public class RioRDFXMLStorerFactory extends AbstractRioStorerFactory implements
         RioRDFStorerFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RioRDFXMLStorerFactory() {
         super(new RioRDFXMLDocumentFormatFactory());

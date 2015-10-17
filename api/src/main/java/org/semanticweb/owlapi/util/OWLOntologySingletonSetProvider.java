@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLOntology o;
 
     /**

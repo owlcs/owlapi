@@ -22,12 +22,4 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 @Deprecated
 public class LatexOntologyFormat extends
         org.semanticweb.owlapi.formats.LatexDocumentFormat implements
-        OWLOntologyFormat {
-
-    private static final long serialVersionUID = 30406L;
-
-    @Override
-    public String toString() {
-        return "Latex";
-    }
-}
+        OWLOntologyFormat {}

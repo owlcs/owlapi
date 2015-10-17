@@ -17,7 +17,6 @@ package org.semanticweb.owlapi.krss2.parser;
 @SuppressWarnings("all")
 class Token implements java.io.Serializable {
 
-    private static final long serialVersionUID = 40000L;
     int kind;
     int beginLine;
     int beginColumn;

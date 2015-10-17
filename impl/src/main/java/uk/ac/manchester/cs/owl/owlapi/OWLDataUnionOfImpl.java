@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     protected int index() {
         return OWLObjectTypeIndexProvider.AXIOM_TYPE_INDEX_BASE + 5;

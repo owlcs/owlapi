@@ -745,7 +745,6 @@ public class TutorialSnippetsTestCase {
 
     public static class LoggingReasonerProgressMonitor implements ReasonerProgressMonitor {
 
-        private static final long serialVersionUID = 40000L;
         private static Logger logger;
 
         public LoggingReasonerProgressMonitor(Logger log) {

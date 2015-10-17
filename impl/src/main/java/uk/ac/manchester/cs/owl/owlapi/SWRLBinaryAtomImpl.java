@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl
         implements SWRLBinaryAtom<A, B> {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull A arg0;
     private final @Nonnull B arg1;
 

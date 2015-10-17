@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
     implements OWLNaryBooleanClassExpression {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull List<? extends OWLClassExpression> operands;
 
     /**

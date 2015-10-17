@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements OWLDataIntersectionOf {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     protected int index() {
         return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 4;

@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLDatatype datatype;
     private final @Nonnull OWLDataRange dataRange;
 

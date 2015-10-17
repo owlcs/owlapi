@@ -52,7 +52,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
     Serializable {
 
     private static final String BADLISTENER = "BADLY BEHAVING LISTENER: {} has been removed";
-    private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyManagerImpl.class);
     protected final @Nonnull Map<OWLOntologyID, OWLOntology> ontologiesByID = createSyncMap();
     protected final @Nonnull Map<OWLOntologyID, IRI> documentIRIsByID = createSyncMap();

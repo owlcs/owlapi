@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
  */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
-    private static final long serialVersionUID = 40000L;
     private final LinkedHashSet<SWRLAtom> head;
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;

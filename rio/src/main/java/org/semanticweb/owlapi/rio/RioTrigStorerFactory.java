@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.formats.TrigDocumentFormatFactory;
 public class RioTrigStorerFactory extends AbstractRioStorerFactory implements
         RioRDFStorerFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RioTrigStorerFactory() {
         super(new TrigDocumentFormatFactory());

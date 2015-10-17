@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
 public class RioRDFNonPrefixDocumentFormat extends AbstractRDFNonPrefixDocumentFormat
         implements MIMETypeAware, RioRDFDocumentFormat {
 
-    private static final long serialVersionUID = 40000L;
     private transient RDFFormat format;
     private final String formatName;
 

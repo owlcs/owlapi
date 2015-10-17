@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology, Serializable {
 
-    private static final long serialVersionUID = 40000L;
     protected @Nonnull OWLOntologyManager manager;
     protected @Nonnull OWLDataFactory df;
     protected @Nonnull OWLOntologyID ontologyID;
@@ -414,7 +413,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
         OWLEntityReferenceChecker() {}
 
-        private static final long serialVersionUID = 40000L;
         private boolean ref;
 
         public boolean containsReference(OWLEntity entity) {

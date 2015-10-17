@@ -22,8 +22,6 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
  */
 public class LabelFunctionalDocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String getKey() {
         return "Label functional Syntax";

@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
     implements OWLNaryPropertyAxiom<P> {
 
-    private static final long serialVersionUID = 40000L;
     protected final @Nonnull List<P> properties;
 
     /**

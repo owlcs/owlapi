@@ -34,7 +34,6 @@ import com.google.common.collect.Sets;
  */
 public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
 
-    private static final long serialVersionUID = 40000L;
     private final Set<String> parsableSchemes = Sets.newHashSet("http", "https", "file", "ftp");
     private final OWLOntologyBuilder ontologyBuilder;
 

@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
         implements OWLObjectMinCardinality {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     protected int index() {
         return OWLObjectTypeIndexProvider.CLASS_EXPRESSION_TYPE_INDEX_BASE + 8;

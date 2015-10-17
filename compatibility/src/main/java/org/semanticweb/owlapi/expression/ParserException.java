@@ -24,8 +24,6 @@ package org.semanticweb.owlapi.expression;
 public class ParserException extends
         org.semanticweb.owlapi.manchestersyntax.renderer.ParserException {
 
-    private static final long serialVersionUID = 40000L;
-
     @SuppressWarnings("javadoc")
     public ParserException(
             org.semanticweb.owlapi.manchestersyntax.renderer.ParserException delegate) {

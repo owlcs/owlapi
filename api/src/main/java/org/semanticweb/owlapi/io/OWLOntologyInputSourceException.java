@@ -21,8 +21,6 @@ import org.semanticweb.owlapi.model.OWLException;
  */
 public class OWLOntologyInputSourceException extends OWLException {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public OWLOntologyInputSourceException() {}
 

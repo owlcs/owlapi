@@ -3,9 +3,6 @@ package org.obolibrary.oboformat.model;
 /** The Class FrameStructureException. */
 public class FrameStructureException extends DocumentStructureException {
 
-    // generated
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Instantiates a new frame structure exception.
      * 

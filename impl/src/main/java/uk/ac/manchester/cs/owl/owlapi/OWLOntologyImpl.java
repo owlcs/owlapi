@@ -31,8 +31,6 @@ import com.google.inject.assistedinject.Assisted;
  */
 public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param manager
      *        ontology manager
@@ -67,8 +65,6 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMuta
     }
 
     protected class OWLOntologyChangeFilter implements OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         public ChangeApplied visit(RemoveAxiom change) {

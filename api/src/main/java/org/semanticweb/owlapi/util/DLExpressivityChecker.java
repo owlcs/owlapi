@@ -106,7 +106,6 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
      */
     private static class ConstructComparator implements Comparator<Construct>, Serializable {
 
-        private static final long serialVersionUID = 40000L;
         private final List<Construct> order = Arrays.asList(S, AL, C, U, E, R, H, O, I, N, Q, F, TRAN, D);
 
         ConstructComparator() {}

@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectOneOf {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull List<? extends OWLIndividual> values;
 
     @Override

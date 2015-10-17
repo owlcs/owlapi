@@ -47,8 +47,6 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 @HasPriority(2)
 public class OWLFunctionalSyntaxOWLParserFactory extends OWLParserFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public OWLFunctionalSyntaxOWLParserFactory() {
         super(new FunctionalSyntaxDocumentFormatFactory());

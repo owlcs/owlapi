@@ -2219,8 +2219,6 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
     static private final class LookaheadSuccess extends java.lang.Error {
 
         LookaheadSuccess() {}
-
-        private static final long serialVersionUID = 40000L;
     }
 
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();

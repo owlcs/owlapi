@@ -5,7 +5,6 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 @SuppressWarnings("all")
 class Token implements java.io.Serializable {
 
-    private static final long serialVersionUID = 1L;
     int kind;
     int beginLine;
     int beginColumn;

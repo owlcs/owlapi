@@ -36,8 +36,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Creates a composite change which makes a set of classes mutually
      * disjoint.

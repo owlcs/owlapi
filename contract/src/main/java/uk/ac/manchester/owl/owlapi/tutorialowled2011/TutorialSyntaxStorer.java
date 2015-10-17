@@ -29,8 +29,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
 @HasPriority(-1)
 public class TutorialSyntaxStorer extends AbstractOWLStorer {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
         return ontologyFormat instanceof OWLTutorialSyntaxOntologyFormat;

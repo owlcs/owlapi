@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLOntologyManager manager;
     private final @Nonnull OWLOntology rootOntology;
 

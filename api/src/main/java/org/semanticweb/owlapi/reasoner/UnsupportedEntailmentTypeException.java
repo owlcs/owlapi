@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class UnsupportedEntailmentTypeException extends OWLRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLAxiom axiom;
 
     /**

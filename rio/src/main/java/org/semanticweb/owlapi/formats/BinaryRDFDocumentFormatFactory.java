@@ -43,8 +43,6 @@ import org.openrdf.rio.RDFFormat;
  */
 public class BinaryRDFDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public BinaryRDFDocumentFormatFactory() {
         super(RDFFormat.BINARY, false);

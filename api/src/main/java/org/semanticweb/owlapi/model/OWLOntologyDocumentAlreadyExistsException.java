@@ -24,7 +24,6 @@ package org.semanticweb.owlapi.model;
 public class OWLOntologyDocumentAlreadyExistsException extends
         OWLOntologyCreationException {
 
-    private static final long serialVersionUID = 40000L;
     private final IRI ontologyDocumentIRI;
 
     /**

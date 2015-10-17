@@ -47,6 +47,4 @@ public class RioBinaryRdfStorerFactory extends AbstractRioStorerFactory {
     public RioBinaryRdfStorerFactory() {
         super(new BinaryRDFDocumentFormatFactory());
     }
-
-    private static final long serialVersionUID = 40000L;
 }

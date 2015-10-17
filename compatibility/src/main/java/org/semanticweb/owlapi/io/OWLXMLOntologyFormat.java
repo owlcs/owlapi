@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public class OWLXMLOntologyFormat extends OWLXMLDocumentFormat implements
         PrefixOWLOntologyFormat {
 
-    private static final long serialVersionUID = 30406L;
-
     @Override
     public String toString() {
         return "OWL/XML";

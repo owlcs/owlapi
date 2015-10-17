@@ -1658,9 +1658,6 @@ public class OWLAPIOwl2Obo {
      */
     public static class UntranslatableAxiomException extends Exception {
 
-        // generated
-        private static final long serialVersionUID = 40000L;
-
         /**
          * Instantiates a new untranslatable axiom exception.
          * 

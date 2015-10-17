@@ -23,8 +23,6 @@ import org.semanticweb.owlapi.io.OWLRendererException;
  */
 public class LatexRendererException extends OWLRendererException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Instantiates a new latex renderer exception.
      * 

@@ -33,8 +33,6 @@ public class PlainLiteralTypeFoldingAxiomSet implements Set<OWLAxiom> {
 
     private static class OWLAxiomHashingStrategy implements HashingStrategy<OWLAxiom> {
 
-        private static final long serialVersionUID = 50000L;
-
         public OWLAxiomHashingStrategy() {}
 
         /**

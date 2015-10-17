@@ -33,8 +33,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  */
 public class KRSSOWLParser extends AbstractOWLParser {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
         return new KRSSDocumentFormatFactory();

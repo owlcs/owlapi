@@ -31,7 +31,6 @@ import com.google.common.collect.Multimaps;
  */
 public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
     private final Set<RDFTriple> unparsedTriples;

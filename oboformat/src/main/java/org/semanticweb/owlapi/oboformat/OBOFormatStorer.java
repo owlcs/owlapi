@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  */
 public class OBOFormatStorer extends AbstractOWLStorer {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
         return ontologyFormat instanceof OBODocumentFormat;

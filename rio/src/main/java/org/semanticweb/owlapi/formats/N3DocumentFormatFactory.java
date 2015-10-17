@@ -11,8 +11,6 @@ import org.openrdf.rio.RDFFormat;
  */
 public class N3DocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public N3DocumentFormatFactory() {
         super(RDFFormat.N3);

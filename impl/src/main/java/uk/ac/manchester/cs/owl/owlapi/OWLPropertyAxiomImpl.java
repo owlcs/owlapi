@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLPropertyAxiom;
  */
 public abstract class OWLPropertyAxiomImpl extends OWLLogicalAxiomImpl implements OWLPropertyAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param annotations
      *        annotations on the axiom

@@ -22,7 +22,4 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @Deprecated
 public class TurtleOntologyFormat extends
         org.semanticweb.owlapi.formats.TurtleDocumentFormat implements
-        PrefixOWLOntologyFormat {
-
-    private static final long serialVersionUID = 30406L;
-}
+        PrefixOWLOntologyFormat {}

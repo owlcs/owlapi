@@ -17,8 +17,6 @@ import org.semanticweb.owlapi.io.OWLParserException;
 /* @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 class KRSS2OWLParserException extends OWLParserException {
 
-    private static final long serialVersionUID = 40000L;
-
     KRSS2OWLParserException(Throwable cause) {
         super(cause);
     }

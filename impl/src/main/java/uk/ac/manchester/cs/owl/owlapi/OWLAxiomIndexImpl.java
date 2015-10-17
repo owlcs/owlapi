@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.search.Filters;
  */
 public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements OWLAxiomIndex, HasTrimToSize {
 
-    private static final long serialVersionUID = 40000L;
     protected final @Nonnull Internals ints = new Internals();
 
     @Override

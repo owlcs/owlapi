@@ -60,7 +60,6 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
             return empty();
         }
     };
-    private static final long serialVersionUID = 40000L;
     /** The target ontology. */
     private final @Nonnull OWLOntology targetOntology;
     /** The OWL class. */

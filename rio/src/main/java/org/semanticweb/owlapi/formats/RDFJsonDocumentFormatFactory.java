@@ -42,8 +42,6 @@ import org.openrdf.rio.RDFFormat;
  */
 public class RDFJsonDocumentFormatFactory extends AbstractRioRDFDocumentFormatFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RDFJsonDocumentFormatFactory() {
         super(RDFFormat.RDFJSON);

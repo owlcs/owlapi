@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals, Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private @Nullable OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 

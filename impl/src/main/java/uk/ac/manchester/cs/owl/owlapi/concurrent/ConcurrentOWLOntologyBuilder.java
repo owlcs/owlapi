@@ -17,7 +17,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  */
 public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLOntologyBuilder builder;
     private final @Nonnull ReadWriteLock readWriteLock;
 

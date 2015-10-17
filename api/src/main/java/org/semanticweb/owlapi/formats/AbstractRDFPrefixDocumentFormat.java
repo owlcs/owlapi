@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.io.RDFResourceParseError;
 public abstract class AbstractRDFPrefixDocumentFormat extends
         PrefixDocumentFormatImpl implements RDFDocumentFormat {
 
-    private static final long serialVersionUID = 40000L;
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();
 

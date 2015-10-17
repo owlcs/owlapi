@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataComplementOf {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLDataRange dataRange;
 
     @Override

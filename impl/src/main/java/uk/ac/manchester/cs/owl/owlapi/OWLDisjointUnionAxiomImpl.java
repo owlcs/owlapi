@@ -33,7 +33,6 @@ import com.google.common.collect.Sets;
  */
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLDisjointUnionAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLClass owlClass;
     private final @Nonnull List<? extends OWLClassExpression> classExpressions;
 

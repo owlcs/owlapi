@@ -354,7 +354,6 @@ public class JustificationMap {
     /** The Class OWLAxiomComparator. */
     private static class OWLAxiomComparator implements OWLAxiomVisitor, Comparator<OWLAxiom>, Serializable {
 
-        private static final long serialVersionUID = 40000L;
         private int result;
 
         /** Instantiates a new oWL axiom comparator. */

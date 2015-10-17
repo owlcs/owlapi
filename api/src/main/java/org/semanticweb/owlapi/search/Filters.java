@@ -37,7 +37,6 @@ public class Filters {
      */
     public abstract static class AxiomFilter<A extends OWLAxiom> implements OWLAxiomSearchFilter {
 
-        private static final long serialVersionUID = 40000L;
         private final @Nonnull Collection<AxiomType<?>> types;
 
         /**
@@ -93,8 +92,6 @@ public class Filters {
     public static final @Nonnull OWLAxiomSearchFilter subAnnotationWithSuper = new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(
             AxiomType.SUB_ANNOTATION_PROPERTY_OF) {
 
-        private static final long serialVersionUID = 40000L;
-
         @Override
         protected Object axiomValue(OWLSubAnnotationPropertyOfAxiom axiom) {
             return axiom.getSuperProperty();
@@ -106,8 +103,6 @@ public class Filters {
      */
     public static final @Nonnull OWLAxiomSearchFilter subAnnotationWithSub = new AxiomFilter<OWLSubAnnotationPropertyOfAxiom>(
             AxiomType.SUB_ANNOTATION_PROPERTY_OF) {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         protected Object axiomValue(OWLSubAnnotationPropertyOfAxiom axiom) {
@@ -121,8 +116,6 @@ public class Filters {
     public static final @Nonnull OWLAxiomSearchFilter subClassWithSuper = new AxiomFilter<OWLSubClassOfAxiom>(
             AxiomType.SUBCLASS_OF) {
 
-        private static final long serialVersionUID = 40000L;
-
         @Override
         protected Object axiomValue(OWLSubClassOfAxiom axiom) {
             return axiom.getSuperClass();
@@ -134,8 +127,6 @@ public class Filters {
      */
     public static final @Nonnull OWLAxiomSearchFilter subClassWithSub = new AxiomFilter<OWLSubClassOfAxiom>(
             AxiomType.SUBCLASS_OF) {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         protected Object axiomValue(OWLSubClassOfAxiom axiom) {
@@ -149,8 +140,6 @@ public class Filters {
     public static final @Nonnull OWLAxiomSearchFilter subObjectPropertyWithSuper = new AxiomFilter<OWLSubObjectPropertyOfAxiom>(
             AxiomType.SUB_OBJECT_PROPERTY) {
 
-        private static final long serialVersionUID = 40000L;
-
         @Override
         protected Object axiomValue(OWLSubObjectPropertyOfAxiom axiom) {
             return axiom.getSuperProperty();
@@ -162,8 +151,6 @@ public class Filters {
      */
     public static final @Nonnull OWLAxiomSearchFilter subObjectPropertyWithSub = new AxiomFilter<OWLSubObjectPropertyOfAxiom>(
             AxiomType.SUB_OBJECT_PROPERTY) {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         protected Object axiomValue(OWLSubObjectPropertyOfAxiom axiom) {
@@ -177,8 +164,6 @@ public class Filters {
     public static final @Nonnull OWLAxiomSearchFilter subDataPropertyWithSuper = new AxiomFilter<OWLSubDataPropertyOfAxiom>(
             AxiomType.SUB_DATA_PROPERTY) {
 
-        private static final long serialVersionUID = 40000L;
-
         @Override
         protected Object axiomValue(OWLSubDataPropertyOfAxiom axiom) {
             return axiom.getSuperProperty();
@@ -190,8 +175,6 @@ public class Filters {
      */
     public static final @Nonnull OWLAxiomSearchFilter subDataPropertyWithSub = new AxiomFilter<OWLSubDataPropertyOfAxiom>(
             AxiomType.SUB_DATA_PROPERTY) {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         protected Object axiomValue(OWLSubDataPropertyOfAxiom axiom) {
@@ -205,8 +188,6 @@ public class Filters {
     public static final @Nonnull OWLAxiomSearchFilter datatypeDefFilter = new AxiomFilter<OWLDatatypeDefinitionAxiom>(
             AxiomType.DATATYPE_DEFINITION) {
 
-        private static final long serialVersionUID = 40000L;
-
         @Override
         protected Object axiomValue(OWLDatatypeDefinitionAxiom axiom) {
             return axiom.getDatatype();
@@ -219,8 +200,6 @@ public class Filters {
     public static final @Nonnull OWLAxiomSearchFilter apRangeFilter = new AxiomFilter<OWLAnnotationPropertyRangeAxiom>(
             AxiomType.ANNOTATION_PROPERTY_RANGE) {
 
-        private static final long serialVersionUID = 40000L;
-
         @Override
         protected Object axiomValue(OWLAnnotationPropertyRangeAxiom axiom) {
             return axiom.getProperty();
@@ -232,8 +211,6 @@ public class Filters {
      */
     public static final @Nonnull OWLAxiomSearchFilter apDomainFilter = new AxiomFilter<OWLAnnotationPropertyDomainAxiom>(
             AxiomType.ANNOTATION_PROPERTY_DOMAIN) {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         protected Object axiomValue(OWLAnnotationPropertyDomainAxiom axiom) {
@@ -251,8 +228,6 @@ public class Filters {
     public static final @Nonnull OWLAxiomSearchFilter annotations = new AxiomFilter<OWLAnnotationAssertionAxiom>(
             AxiomType.ANNOTATION_ASSERTION) {
 
-        private static final long serialVersionUID = 40000L;
-
         @Override
         protected Object axiomValue(OWLAnnotationAssertionAxiom axiom) {
             return axiom.getSubject();
@@ -264,8 +239,6 @@ public class Filters {
      */
     public static final @Nonnull OWLAxiomSearchFilter axiomsFromTBoxAndRBox = new AxiomFilter<OWLAxiom>(
             AxiomType.TBoxAndRBoxAxiomTypes) {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         protected Object axiomValue(OWLAxiom axiom) {
@@ -283,8 +256,6 @@ public class Filters {
      * nonlogical axioms and SWRL rules.
      */
     public static final OWLAxiomSearchFilter axiomsNotInTBoxOrRBox = new AxiomFilter<OWLAxiom>(AxiomType.AXIOM_TYPES) {
-
-        private static final long serialVersionUID = 40000L;
 
         @Override
         protected Object axiomValue(OWLAxiom axiom) {

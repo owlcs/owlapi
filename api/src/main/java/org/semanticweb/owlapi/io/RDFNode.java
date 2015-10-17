@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.model.HasIRI;
 public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
         HasIRI {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Determines if this node is a literal node.
      * 

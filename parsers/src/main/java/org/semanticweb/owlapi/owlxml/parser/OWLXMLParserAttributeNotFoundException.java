@@ -19,8 +19,6 @@ package org.semanticweb.owlapi.owlxml.parser;
  */
 class OWLXMLParserAttributeNotFoundException extends OWLXMLParserException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param h
      *        handler

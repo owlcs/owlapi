@@ -44,7 +44,6 @@ import com.google.common.collect.Sets;
 @SuppressWarnings({ "unchecked" })
 public final class AxiomType<C extends OWLAxiom> implements Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private final String name;
     private final boolean owl2Axiom;
     private final boolean nonSyntacticOWL2Axiom;

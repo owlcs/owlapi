@@ -6,8 +6,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 class ParseException extends OWLRuntimeException {
 
-    private static final long serialVersionUID = 30406L;
-
     public ParseException(Token currentTokenVal,
             int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
         super(initialise(currentTokenVal, expectedTokenSequencesVal,

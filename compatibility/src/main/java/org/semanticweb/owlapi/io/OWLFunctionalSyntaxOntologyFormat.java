@@ -25,8 +25,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public class OWLFunctionalSyntaxOntologyFormat extends
         FunctionalSyntaxDocumentFormat implements PrefixOWLOntologyFormat {
 
-    private static final long serialVersionUID = 30406L;
-
     @Override
     public String toString() {
         return "OWL Functional Syntax";

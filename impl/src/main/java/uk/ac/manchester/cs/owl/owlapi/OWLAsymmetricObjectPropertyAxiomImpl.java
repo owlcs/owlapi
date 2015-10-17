@@ -30,8 +30,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
         implements OWLAsymmetricObjectPropertyAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param property
      *        property

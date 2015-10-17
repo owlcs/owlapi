@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class RemoveAxiomData extends AxiomChangeData {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Constructs an {@code RemoveAxiomData} object which specifies the removal
      * of an axiom from an ontology.

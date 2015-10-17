@@ -58,8 +58,6 @@ import org.semanticweb.owlapi.model.*;
  */
 class OWLOBO12Parser extends AbstractOWLParser {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
             OWLOntology ontology, OWLOntologyLoaderConfiguration config) {

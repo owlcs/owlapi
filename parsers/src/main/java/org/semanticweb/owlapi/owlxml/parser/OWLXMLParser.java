@@ -35,8 +35,6 @@ import org.xml.sax.SAXException;
  */
 public class OWLXMLParser extends AbstractOWLParser {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
         return new OWLXMLDocumentFormatFactory();

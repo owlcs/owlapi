@@ -21,8 +21,6 @@ import org.semanticweb.owlapi.io.OWLParserException;
  */
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param message
      *        message

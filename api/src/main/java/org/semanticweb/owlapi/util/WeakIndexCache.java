@@ -30,7 +30,6 @@ import javax.annotation.Nullable;
  */
 public class WeakIndexCache<K, V> implements Serializable {
 
-    private static final long serialVersionUID = 40000L;
     protected transient Map<K, WeakReference<V>> prefixCache = CollectionFactory.createSyncWeakMap();
 
     /**

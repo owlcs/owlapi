@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  */
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
-    private static final long serialVersionUID = 40000L;
     private static final String COMMENT_START_CHAR = "#";
 
     @Override

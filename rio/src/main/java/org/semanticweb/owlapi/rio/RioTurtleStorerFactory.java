@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory;
 public class RioTurtleStorerFactory extends AbstractRioStorerFactory implements
         RioRDFStorerFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RioTurtleStorerFactory() {
         super(new RioTurtleDocumentFormatFactory());

@@ -23,8 +23,6 @@ import org.semanticweb.owlapi.change.RemoveImportData;
  */
 public class RemoveImport extends ImportChange {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param ont
      *        the ontology to which the change is to be applied

@@ -35,8 +35,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  */
 public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     protected void storeOntology(OWLOntology ontology, PrintWriter printWriter, OWLDocumentFormat format) {
         checkNotNull(ontology, "ontology cannot be null");

@@ -29,7 +29,6 @@ import javax.annotation.Nullable;
  */
 public final class NodeID implements Comparable<NodeID>, Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private static final AtomicLong COUNTER = new AtomicLong();
     private static final String NODE_ID_PREFIX = "genid";
     private static final String SHARED_NODE_ID_PREFIX = "genid-nodeid-";

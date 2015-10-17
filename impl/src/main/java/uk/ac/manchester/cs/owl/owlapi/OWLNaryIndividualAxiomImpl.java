@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.*;
  */
 public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements OWLNaryIndividualAxiom {
 
-    private static final long serialVersionUID = 40000L;
     protected final @Nonnull List<OWLIndividual> individuals;
 
     /**

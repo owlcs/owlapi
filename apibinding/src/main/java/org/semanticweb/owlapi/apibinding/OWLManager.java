@@ -37,8 +37,6 @@ import uk.ac.manchester.cs.owl.owlapi.concurrent.Concurrency;
  */
 public class OWLManager implements OWLOntologyManagerFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public OWLOntologyManager get() {
         return createOWLOntologyManager();

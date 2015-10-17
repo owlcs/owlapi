@@ -34,7 +34,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom, CollectionContainer<OWLAnnotation> {
 
-    private static final long serialVersionUID = 40000L;
     protected final @Nonnull List<OWLAnnotation> annotations;
 
     @Override

@@ -19,7 +19,6 @@ package org.semanticweb.owlapi.model;
  */
 public class UnloadableImportException extends OWLRuntimeException {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLImportsDeclaration importsDeclaration;
     private final OWLOntologyCreationException ontologyCreationException;
 

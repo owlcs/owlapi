@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  */
 public class KRSSOWLParserFactory extends OWLParserFactoryImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public KRSSOWLParserFactory() {
         super(new KRSSDocumentFormatFactory());

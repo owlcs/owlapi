@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLIndividualArgument {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLIndividual individual;
 
     @Override

@@ -25,8 +25,6 @@ import java.util.List;
  */
 public class DefaultChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
         // Just broadcast all changes

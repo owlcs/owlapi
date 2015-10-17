@@ -19,8 +19,6 @@ package org.semanticweb.owlapi.formats;
  */
 public class OWLXMLDocumentFormat extends PrefixDocumentFormatImpl {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String getKey() {
         return "OWL/XML Syntax";

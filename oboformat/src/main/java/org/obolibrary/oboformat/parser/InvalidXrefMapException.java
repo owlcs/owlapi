@@ -3,9 +3,6 @@ package org.obolibrary.oboformat.parser;
 /** The Class InvalidXrefMapException. */
 public class InvalidXrefMapException extends OBOFormatException {
 
-    // generated
-    private static final long serialVersionUID = 40000L;
-
     /** Instantiates a new invalid xref map exception. */
     public InvalidXrefMapException() {}
 

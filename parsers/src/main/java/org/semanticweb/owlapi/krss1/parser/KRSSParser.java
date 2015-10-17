@@ -1268,8 +1268,6 @@ class KRSSParser implements KRSSParserConstants {
 
     static private final class LookaheadSuccess extends RuntimeException {
 
-        private static final long serialVersionUID = 40000L;
-
         public LookaheadSuccess() {}
     }
 

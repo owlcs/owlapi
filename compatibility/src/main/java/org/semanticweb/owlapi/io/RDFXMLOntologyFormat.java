@@ -22,7 +22,4 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 @Deprecated
 public class RDFXMLOntologyFormat extends
         org.semanticweb.owlapi.formats.RDFXMLDocumentFormat implements
-        PrefixOWLOntologyFormat {
-
-    private static final long serialVersionUID = 30406L;
-}
+        PrefixOWLOntologyFormat {}

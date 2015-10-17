@@ -35,8 +35,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
         implements OWLEquivalentObjectPropertiesAxiom {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * @param properties
      *        properties

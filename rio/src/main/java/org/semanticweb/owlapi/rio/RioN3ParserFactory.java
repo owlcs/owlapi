@@ -45,8 +45,6 @@ import org.semanticweb.owlapi.formats.N3DocumentFormatFactory;
 @HasPriority(11)
 public class RioN3ParserFactory extends AbstractRioParserFactory {
 
-    private static final long serialVersionUID = 40000L;
-
     /** Default constructor. */
     public RioN3ParserFactory() {
         super(new N3DocumentFormatFactory());

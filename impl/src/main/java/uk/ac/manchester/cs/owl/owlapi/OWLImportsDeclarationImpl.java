@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  */
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull IRI iri;
 
     /**

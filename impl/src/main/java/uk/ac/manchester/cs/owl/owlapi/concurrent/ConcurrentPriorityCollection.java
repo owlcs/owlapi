@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  */
 public class ConcurrentPriorityCollection<T extends Serializable> extends PriorityCollection<T> {
 
-    private static final long serialVersionUID = 1L;
     private final Lock readLock;
     private final Lock writeLock;
 

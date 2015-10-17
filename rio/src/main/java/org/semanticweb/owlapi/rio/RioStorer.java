@@ -67,7 +67,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  */
 public class RioStorer extends AbstractOWLStorer {
 
-    private static final long serialVersionUID = 40000L;
     private transient RDFHandler rioHandler;
     private final OWLDocumentFormatFactory ontFormat;
     private final Resource[] contexts;

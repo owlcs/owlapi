@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Serializable {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     protected int index() {
         return OWLObjectTypeIndexProvider.OWL_CLASS;

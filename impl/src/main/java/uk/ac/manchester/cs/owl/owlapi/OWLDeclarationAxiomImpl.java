@@ -33,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
 
-    private static final long serialVersionUID = 40000L;
     private final @Nonnull OWLEntity entity;
 
     /**
