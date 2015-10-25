@@ -1,3 +1,19 @@
+3.5.4 25 October 2015
+
+Features
+Add config to switch saving all anon individuals
+Manimal  - jdk 1.6 compatibility fixes, with maven animal-sniffing during test phase.
+
+Bug fixes
+Fixed sorting bugs
+Sort annotation assertions on output for manchester syntax #332
+Add remapper anon provider
+Only output node id for anonymous individuals if needed
+Anon individuals appearing more than once as objects #443
+Blank node remapping errors #442
+#373 Individuals in SWRL rules get extra type
+Missing port of #317
+
 3.5.2 7 March 2015
 
 Features
