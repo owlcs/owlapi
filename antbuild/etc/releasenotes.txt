@@ -1,9 +1,15 @@
-4.1.0 17 May 2015
+4.1.0 25 October 2015
 Features:
 Port protege-owlapi concurrency support to the OWL API
 Enabled the creation of a concurrent manager
 Part of Add transactional support to OWLOntology #382 : ability to rollback the application of a set of changes if one fails. Added a ChangeApplied.NO_OPERATION to track those changes that did not have any effect (e.g., adding an axiom that is already present or removing an axiom that is not present).
 ManchesterOWLSyntaxParser could use a convenience method parseClassExpression(String s) #384
+Add setting to use labels as banner comment or use IRIs as before
+Add config to switch saving all anon individuals
+Enforce correct argument types for OWLObjectInverseProperty in default impl
+Add control flag to structure walking to allow annotations to be walked
+Reduce space used by OBO Parser
+update jackson dependency to 2.5.1
 
 Bug fixes:
 OWLImmutableOntologyImpl.asSet() assumes input iterable is coming from a duplicate free collection #404
@@ -16,6 +22,17 @@ Return types of RemoveAxiom(s) vs. AddAxiom(s) #408
 Examples file needs review #407
 BFO fails to load in API version 4.0.X #405
 Fix RDF/XML renderer does not like properties using urns (or almost urns) #301
+All anonymous individuals are remapped consistently upon loading. #443
+Only output node id for anonymous individuals if needed
+Anon individuals appearing more than once as objects #443
+Sort annotation assertions on output for manchester syntax #332
+OWL 2 profile validation mistakes #435
+[Typedef] created_by don't support space #419
+ttl namespace abbreviations not preserved on serialization #421
+Use EntitySearcher.getAnnotationObjects() when interested only in the object of annotation assertion axioms on an entity rather than the annotations on the annotation assertion axioms.
+convincing owlapi-distribution to export rio dependencies
+RDF issues testing 4.1.0 RC 1 #412
+Annotation subproperty/domain/range disappear after save/load cycle (punning enhancement) #351
 
 4.0.2 17 April 2015
 Features:
