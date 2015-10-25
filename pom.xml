@@ -18,7 +18,7 @@
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.5.4-SNAPSHOT</version>
+	<version>3.5.4</version>
 	<name>OWLAPI</name>
 	<description>The OWL API is a Java API and reference implementation for creating, manipulating and serialising OWL Ontologies. The latest version of the API is focused towards OWL 2</description>
 	<url>http://owlapi.sourceforge.net/</url>
@@ -116,7 +116,7 @@
 	<profiles>
 
 		<profile>
-			<id>release-sign-artifacts</id>
+			<id>release</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 				<property>
@@ -177,7 +177,8 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>2.8.1</version>
 						<configuration>
-							<skip>false</skip>
+							<show>public</show>
+							<skip>${no-javadoc}</skip>
 						</configuration>
 						<executions>
 							<execution>
@@ -217,6 +218,7 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
+						<phase>package</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -235,6 +237,7 @@
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
+						<phase>package</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
