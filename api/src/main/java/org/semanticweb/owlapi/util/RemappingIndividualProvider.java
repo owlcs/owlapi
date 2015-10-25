@@ -21,11 +21,15 @@ public class RemappingIndividualProvider implements OWLAnonymousIndividualByIdPr
     private boolean remapEnabled;
     private Map<String, OWLAnonymousIndividual> map;
 
+    /**
+     * @param df
+     *        data factory
+     */
     public RemappingIndividualProvider(OWLDataFactory df) {
         this.df = df;
         remapEnabled = AnonymousIndividualProperties.shouldRemapAllAnonymousIndividualsIds();
         if (remapEnabled) {
-            map = new HashMap<String, OWLAnonymousIndividual>();
+            map = new HashMap<>();
         }
     }
 

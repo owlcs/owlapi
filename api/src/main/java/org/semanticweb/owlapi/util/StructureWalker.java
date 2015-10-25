@@ -12,13 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.StructureWalker.AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
-import static org.semanticweb.owlapi.util.StructureWalker.AnnotationWalkingControl.*;
 
 /**
  * Structure walker for object walkers.
@@ -31,7 +32,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     /**
      * Control flag for whether to walk annotations
      */
-    public static enum  AnnotationWalkingControl {
+    public static enum AnnotationWalkingControl {
         /**
          * Do not walk any annotations
          */
@@ -50,6 +51,10 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     protected final Set<OWLObject> visited = new HashSet<>();
     protected final AnnotationWalkingControl annotationWalkFlag;
 
+    /**
+     * @param owlObjectWalker
+     *        object walker
+     */
     public StructureWalker(OWLObjectWalker<O> owlObjectWalker) {
         this(owlObjectWalker, WALK_ONTOLOGY_ANNOTATIONS_ONLY);
     }
@@ -58,10 +63,10 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
      * @param owlObjectWalker
      *        callback object walker
      * @param annotationWalkFlag
-     *    control flag for annotation walking
+     *        control flag for annotation walking
      */
     public StructureWalker(OWLObjectWalker<O> owlObjectWalker,
-                           AnnotationWalkingControl annotationWalkFlag) {
+        AnnotationWalkingControl annotationWalkFlag) {
         this.walkerCallback = owlObjectWalker;
         this.annotationWalkFlag = annotationWalkFlag;
     }
@@ -83,14 +88,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         }
         if (object instanceof HasAnnotations) {
             HasAnnotations hasAnnotations = (HasAnnotations) object;
-            switch(annotationWalkFlag) {
+            switch (annotationWalkFlag) {
                 case DONT_WALK_ANNOTATIONS:
                     break;
                 case WALK_ONTOLOGY_ANNOTATIONS_ONLY:
                     if (!(object instanceof OWLOntology)) {
                         break;
                     }
-                    //  fall-through
+                    // fall-through
                 case WALK_ANNOTATIONS:
                     for (OWLAnnotation anno : hasAnnotations.getAnnotations()) {
                         anno.accept(this);
@@ -437,11 +442,11 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         walkerCallback.ax = axiom;
         axiom.getClassExpression().accept(this);
         for (OWLObjectPropertyExpression prop : axiom
-                .getObjectPropertyExpressions()) {
+            .getObjectPropertyExpressions()) {
             prop.accept(this);
         }
         for (OWLDataPropertyExpression prop : axiom
-                .getDataPropertyExpressions()) {
+            .getDataPropertyExpressions()) {
             prop.accept(this);
         }
     }

@@ -538,6 +538,9 @@ public class EntitySearcher {
      * @param ontology
      *        The ontology to be examined for {@code SubAnnotationPropertyOf}
      *        axioms.
+     * @param
+     *        <P>
+     *        type of property
      * @return A set of properties such that for each property {@code p} in the
      *         set, it is the case that {@code ontology} contains an
      *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
@@ -573,6 +576,9 @@ public class EntitySearcher {
      *        axioms.
      * @param imports
      *        if true include imports closure
+     * @param
+     *        <P>
+     *        type of property
      * @return A set of properties such that for each property {@code p} in the
      *         set, it is the case that {@code ontology} contains an
      *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
@@ -594,6 +600,9 @@ public class EntitySearcher {
      * @param ontologies
      *        The ontologies to be examined for {@code SubAnnotationPropertyOf}
      *        axioms.
+     * @param
+     *        <P>
+     *        type of property
      * @return A set of properties such that for each property {@code p} in the
      *         set, it is the case that {@code ontology} contains an
      *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
@@ -620,6 +629,9 @@ public class EntitySearcher {
      * @param ontology
      *        The ontology to be examined for {@code SubAnnotationPropertyOf}
      *        axioms.
+     * @param
+     *        <P>
+     *        type of property
      * @return A set of properties such that for each property {@code p} in the
      *         set, it is the case that {@code ontology} contains an
      *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
@@ -655,6 +667,9 @@ public class EntitySearcher {
      *        axioms.
      * @param imports
      *        if true include imports closure
+     * @param
+     *        <P>
+     *        type of property
      * @return A set of properties such that for each property {@code p} in the
      *         set, it is the case that {@code ontology} contains an
      *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
@@ -676,6 +691,9 @@ public class EntitySearcher {
      * @param ontologies
      *        The ontologies to be examined for {@code SubAnnotationPropertyOf}
      *        axioms.
+     * @param
+     *        <P>
+     *        type of property
      * @return A set of properties such that for each property {@code p} in the
      *         set, it is the case that {@code ontology} contains an
      *         {@code SubPropertyOf(p, this)} axiom where {@code this} refers to
@@ -1186,6 +1204,9 @@ public class EntitySearcher {
      *        entity
      * @param ontology
      *        The ontology to be examined for axioms
+     * @param
+     *        <P>
+     *        type of property
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the
      *         equivalent classes of this class, that have been asserted in the
      *         specified ontology.
@@ -1208,6 +1229,9 @@ public class EntitySearcher {
      *        entity
      * @param ontologies
      *        The ontologies to be examined for axioms
+     * @param
+     *        <P>
+     *        type of property
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the
      *         equivalent classes of this class, that have been asserted in the
      *         specified ontologies.
@@ -1270,6 +1294,9 @@ public class EntitySearcher {
      *        entity
      * @param ontology
      *        The ontology to search for disjoint class axioms
+     * @param
+     *        <P>
+     *        type of property
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the
      *         disjoint classes of this class.
      */
@@ -1290,6 +1317,9 @@ public class EntitySearcher {
      *        entity
      * @param ontologies
      *        The ontologies to search for disjoint class axioms
+     * @param
+     *        <P>
+     *        type of property
      * @return A {@code Set} of {@code OWLClassExpression}s that represent the
      *         disjoint classes of this class.
      */

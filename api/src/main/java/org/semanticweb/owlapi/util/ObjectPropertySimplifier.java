@@ -16,13 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLObjectInverseOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * This utility class can be used to obtain an object property expression in its
@@ -30,16 +24,13 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
  * then the simplification is inductively defined as: simp(P) = P simp(inv(P)) =
  * inv(P) simp(inv(inv(PE)) = simp(PE)
  *
- *
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group
  * @since 2.2.0
- *
- * @deprecated Legal Object property expressions should always be irreducible - the standard specifies that
- * inv : P -> PE , not PE -> PE, so inv (inv P) is an error .
- * Versions of the OWLAPI  prior to 4.1.0 did not check for this.
- *
-
+ * @deprecated Legal Object property expressions should always be irreducible -
+ *             the standard specifies that inv : P -&gt; PE , not PE -&gt; PE,
+ *             so inv (inv P) is an error . Versions of the OWLAPI prior to
+ *             4.1.0 did not check for this.
  */
 @Deprecated
 public class ObjectPropertySimplifier {
@@ -55,7 +46,7 @@ public class ObjectPropertySimplifier {
      */
     public ObjectPropertySimplifier(@Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory,
-                "dataFactory cannot be null");
+            "dataFactory cannot be null");
     }
 
     /**
@@ -67,7 +58,7 @@ public class ObjectPropertySimplifier {
      */
     @Nonnull
     public OWLObjectPropertyExpression getSimplified(
-            @Nonnull OWLObjectPropertyExpression prop) {
+        @Nonnull OWLObjectPropertyExpression prop) {
         checkNotNull(prop, "prop cannot be null");
         simplifier.reset();
         prop.accept(simplifier);

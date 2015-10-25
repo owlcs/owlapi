@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
  * @since 2.0.0
  */
 public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
-        SWRLPredicate {
+    SWRLPredicate {
 
     /**
      * If the property is a named object property then this method will obtain
@@ -46,10 +46,10 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
     OWLObjectPropertyExpression getInverseProperty();
 
     /**
-     * Returns this property in its simplified form.
-     * @deprecated Since it is not legal to apply ObjectInverseOf to anything other than an Object Property,
-     * all object properties are always in the simpled form.
-     *
+     * @return this property in its simplified form.
+     * @deprecated Since it is not legal to apply ObjectInverseOf to anything
+     *             other than an Object Property, all object properties are
+     *             always in the simpled form.
      */
     @Deprecated
     @Nonnull

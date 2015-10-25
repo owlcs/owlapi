@@ -133,6 +133,9 @@ public final class NodeID implements Comparable<NodeID>, Serializable {
         return new NodeID(nonBlankId);
     }
 
+    /**
+     * @return node id with fresh id value
+     */
     @Nonnull
     public static NodeID getNodeID() {
         return getNodeID(nextAnonymousIRI());

@@ -246,8 +246,6 @@ public final class Searcher {
      * 
      * @param axioms
      *        axioms
-     * @param p
-     *        optional annotation property to filter. Null means all.
      * @return annotations
      */
     @Nonnull

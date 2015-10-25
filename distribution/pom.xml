@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.1.0-RC4-SNAPSHOT</version>
+		<version>4.1.0</version>
 	</parent>
 
 	<properties>
@@ -214,15 +214,19 @@
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.8.1</version>
+				<configuration>
+					<show>public</show>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
-						<phase>deploy</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
 						<configuration>
 							<skip>${no-javadoc}</skip>
+							<show>public</show>
 							<includeDependencySources>true</includeDependencySources>
 							<dependencySourceIncludes>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-api</dependencySourceInclude>
@@ -250,7 +254,7 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>deploy</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
