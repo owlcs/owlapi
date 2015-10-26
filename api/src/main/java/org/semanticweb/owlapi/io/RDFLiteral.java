@@ -49,7 +49,8 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
     public RDFLiteral(String literal, @Nullable String lang, @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang == null ? "" : lang;
-        this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL.getIRI() : datatype;
+        OWL2Datatype defaultType = this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL : OWL2Datatype.RDF_LANG_STRING;
+        this.datatype = datatype == null ? defaultType.getIRI() : datatype;
     }
 
     /**
@@ -187,7 +188,9 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
   		String escaped = '"' +
   				EscapeUtils.escapeString(getLexicalValue()).
   				replace("\n", "\\n").replace("\r", "\\r") + '"';
-  		if (hasLang()) {
+  		if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI())) {
+  			return escaped;
+  		} else if (hasLang()) {
   			return escaped + "@" + getLang();
   		} else {
   			return escaped + "^^" + getDatatype().ntriplesString();
