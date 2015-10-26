@@ -51,12 +51,17 @@ public class RDFResourceIRI extends RDFResource implements org.apache.commons.rd
     public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
+        }        
+        if (obj instanceof RDFResourceIRI) {            
+	        RDFResourceIRI other = (RDFResourceIRI) obj;
+	        return resource.equals(other.resource);
         }
-        if (!(obj instanceof RDFResourceIRI)) {
-            return false;
+        // Commons RDF IRI equals() contract
+        if (obj instanceof org.apache.commons.rdf.api.IRI) {
+        	org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
+			return ntriplesString().equals(iri.ntriplesString());
         }
-        RDFResourceIRI other = (RDFResourceIRI) obj;
-        return resource.equals(other.resource);
+        return false;
     }
 
     @Override

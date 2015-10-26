@@ -464,11 +464,16 @@ public class IRI
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof IRI)) {
-            return false;
+        if (obj instanceof IRI) {
+	        IRI other = (IRI) obj;
+	        return remainder.equals(other.remainder) && other.namespace.equals(namespace);
         }
-        IRI other = (IRI) obj;
-        return remainder.equals(other.remainder) && other.namespace.equals(namespace);
+        // Commons RDF IRI equals() contract
+        if (obj instanceof org.apache.commons.rdf.api.IRI) {
+        	org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
+			return ntriplesString().equals(iri.ntriplesString());
+        }
+        return false;        
     }
 
   	@Override
