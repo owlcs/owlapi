@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 
 /** IRI node implementation. */
-public class RDFResourceIRI extends RDFResource {
+public class RDFResourceIRI extends RDFResource implements org.apache.commons.rdf.api.IRI {
 
     private final @Nonnull IRI resource;
 
@@ -63,4 +63,10 @@ public class RDFResourceIRI extends RDFResource {
     public String toString() {
         return resource.toQuotedString();
     }
+
+    @Override
+  	public String getIRIString() {
+  		  return resource.getIRIString();
+  	}
+
 }
