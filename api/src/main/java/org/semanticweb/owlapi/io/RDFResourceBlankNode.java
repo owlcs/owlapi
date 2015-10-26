@@ -19,6 +19,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.commons.rdf.api.BlankNode;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
@@ -94,11 +95,16 @@ public class RDFResourceBlankNode extends RDFResource implements org.apache.comm
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RDFResourceBlankNode)) {
-            return false;
+        if (obj instanceof RDFResourceBlankNode) {
+            RDFResourceBlankNode other = (RDFResourceBlankNode) obj;
+            return resource.equals(other.resource);            
         }
-        RDFResourceBlankNode other = (RDFResourceBlankNode) obj;
-        return resource.equals(other.resource);
+        // Commons RDF BlankNode.equals() contract
+        if (obj instanceof BlankNode) {
+        	BlankNode blankNode = (BlankNode) obj;
+			return uniqueReference().equals(blankNode.uniqueReference());
+        }
+        return false;
     }
 
     @Override
