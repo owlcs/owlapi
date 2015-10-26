@@ -63,8 +63,8 @@ public class CommonsRDFTermTest extends AbstractRDFTermFactoryTest {
 		@Override
 		public Triple createTriple(BlankNodeOrIRI subject, org.apache.commons.rdf.api.IRI predicate, RDFTerm object)
 				throws IllegalArgumentException, UnsupportedOperationException {
+			RDFResource subject2 = (RDFResource) convert(subject);
 			RDFResourceIRI predicate2 = (RDFResourceIRI) convert(predicate);
-			RDFResource subject2 = (RDFResource) convert(predicate);
 			RDFNode object2 = convert(object);
 			return new RDFTriple(subject2, predicate2, object2);
 		}
