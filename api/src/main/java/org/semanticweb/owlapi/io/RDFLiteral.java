@@ -188,7 +188,8 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
   		String escaped = '"' +
   				EscapeUtils.escapeString(getLexicalValue()).
   				replace("\n", "\\n").replace("\r", "\\r") + '"';
-  		if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI())) {
+  		if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || 
+  			datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
   			return escaped;
   		} else if (hasLang()) {
   			return escaped + "@" + getLang();
