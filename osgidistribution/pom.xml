@@ -200,6 +200,9 @@
 									<exclude>org.slf4j:slf4j-api</exclude>
 									<exclude>org.apache.directory.studio:*</exclude>
 									<exclude>commons-io:*</exclude>
+									<exclude>org.tukaani:*</exclude>
+									<exclude>trove4j:*</exclude>
+									<exclude>net.sf.trove4j:*</exclude>
 								</excludes>
 							</artifactSet>
 							<transformers>
@@ -235,6 +238,7 @@
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
+						<phase>package</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -268,6 +272,7 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
+						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
