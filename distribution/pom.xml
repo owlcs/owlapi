@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.1.0</version>
+		<version>4.1.1</version>
 	</parent>
 
 	<properties>
@@ -152,7 +152,6 @@
 			<artifactId>semargl-sesame</artifactId>
 			<version>0.6.1</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>

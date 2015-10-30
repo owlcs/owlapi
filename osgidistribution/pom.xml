@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.1.0</version>
+		<version>4.1.1</version>
 	</parent>
 
 	<properties>
@@ -21,11 +21,6 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-apibinding</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -89,6 +84,81 @@
 			<version>1.5</version>
 		</dependency>
 		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-model</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-api</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-languages</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-datatypes</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-binary</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-n3</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-nquads</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-ntriples</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-rdfjson</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-rdfxml</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-trix</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-turtle</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-trig</artifactId>
+			<version>${inherited.sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.jsonld-java</groupId>
+			<artifactId>jsonld-java-sesame</artifactId>
+			<version>0.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.semarglproject</groupId>
+			<artifactId>semargl-sesame</artifactId>
+			<version>0.6.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.framework</artifactId>
 			<version>4.6.0</version>
@@ -98,17 +168,6 @@
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 			<version>1.4.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.10</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.10</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -182,6 +241,17 @@
 						</goals>
 						<configuration>
 							<artifactSet>
+								<includes>
+									<include>net.sourceforge.owlapi:owlapi-api</include>
+									<include>net.sourceforge.owlapi:owlapi-apibinding</include>
+									<include>net.sourceforge.owlapi:owlapi-fixers</include>
+									<include>net.sourceforge.owlapi:owlapi-impl</include>
+									<include>net.sourceforge.owlapi:owlapi-oboformat</include>
+									<include>net.sourceforge.owlapi:owlapi-parsers</include>
+									<include>net.sourceforge.owlapi:owlapi-rio</include>
+									<include>net.sourceforge.owlapi:owlapi-compatibility</include>
+									<include>net.sourceforge.owlapi:owlapi-tools</include>
+								</includes>
 								<excludes>
 									<exclude>org.apache.felix:org.osgi.core</exclude>
 									<exclude>org.openrdf.sesame:*</exclude>
@@ -201,6 +271,9 @@
 									<exclude>org.slf4j:slf4j-api</exclude>
 									<exclude>org.apache.directory.studio:*</exclude>
 									<exclude>commons-io:*</exclude>
+									<exclude>org.tukaani:*</exclude>
+									<exclude>trove4j:*</exclude>
+									<exclude>net.sf.trove4j:*</exclude>
 								</excludes>
 							</artifactSet>
 							<transformers>
@@ -239,6 +312,7 @@
 				<executions>
 					<execution>
 						<id>attach-javadoc</id>
+						<phase>package</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
@@ -273,6 +347,7 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
+						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
