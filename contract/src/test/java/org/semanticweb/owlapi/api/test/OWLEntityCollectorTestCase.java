@@ -137,7 +137,7 @@ public class OWLEntityCollectorTestCase {
         map.put(b.assD(),
                 "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#boolean, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
         map.put(b.assDPlain(),
-                "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral, <urn:test#dp>]");
+                "[<urn:test#i>, <urn:test#ann>, http://www.w3.org/1999/02/22-rdf-syntax-ns#langString, http://www.w3.org/2001/XMLSchema#string, <urn:test#dp>]");
         map.put(b.dDom(), "[<urn:test#ann>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>, <urn:test#dp>]");
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
