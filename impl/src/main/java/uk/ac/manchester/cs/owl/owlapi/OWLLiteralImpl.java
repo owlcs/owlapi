@@ -42,6 +42,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
     private static final @Nonnull OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    private static final @Nonnull OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
+    private static final @Nonnull OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     private final @Nonnull OWLDatatype datatype;
     private final @Nonnull String language;
     private final int hashcode;
@@ -66,7 +68,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         if (lang == null || lang.isEmpty()) {
             language = "";
             if (datatype == null) {
-                this.datatype = RDF_PLAIN_LITERAL;
+                this.datatype = XSD_STRING;
             } else {
                 this.datatype = datatype;
             }
@@ -78,7 +80,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                         "Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
-            this.datatype = RDF_PLAIN_LITERAL;
+            this.datatype = RDF_LANG_STRING;
         }
         hashcode = getHashCode();
     }
