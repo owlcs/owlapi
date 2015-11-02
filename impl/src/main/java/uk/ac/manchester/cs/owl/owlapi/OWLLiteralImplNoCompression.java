@@ -35,7 +35,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     private final @Nonnull String literal;
     private final @Nonnull OWLDatatype datatype;
     private final @Nonnull String language;
-    private final int hashcode;
 
     @Override
     protected int index() {

@@ -37,6 +37,8 @@ package org.semanticweb.owlapi.rio;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
+import java.util.Optional;
+
 import javax.annotation.Nullable;
 
 import org.openrdf.model.BNode;
@@ -127,7 +129,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
         } else {
             final Literal literalObject = (Literal) st.getObject();
             String literalDatatype = null;
-            final String literalLanguage = literalObject.getLanguage();
+            final String literalLanguage = literalObject.getLanguage().orElse(null);
             if (literalLanguage == null) {
                 literalDatatype = literalObject.getDatatype().stringValue();
             }

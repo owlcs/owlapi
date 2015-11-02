@@ -15,9 +15,18 @@ package org.semanticweb.owlapi.api.test.literals;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -29,33 +38,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
-public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
-
-    @Nonnull
-    @Override
-    protected Set<? extends OWLAxiom> createAxioms() {
-        OWLLiteral literalWithLang = Literal("abc", "en");
-        OWLLiteral literalWithoutLang = Literal("abcd", "");
-        OWLLiteral literalPlain = Literal("abcde");
-        OWLLiteral literalString = Literal("abcdef", OWL2Datatype.XSD_STRING);
-        OWLClass cls = Class(iri("A"));
-        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop,
-                cls.getIRI(), literalWithLang);
-        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop,
-                cls.getIRI(), literalWithoutLang);
-        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop,
-                cls.getIRI(), literalPlain);
-        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop,
-                cls.getIRI(), literalString);
-        Set<OWLAxiom> axioms = new HashSet<>();
-        axioms.add(ax1);
-        axioms.add(ax2);
-        axioms.add(ax3);
-        axioms.add(ax4);
-        axioms.add(Declaration(cls));
-        return axioms;
-    }
+public class LiteralTestCase extends TestBase {
 
     @Test
     public void testHasLangMethod() {

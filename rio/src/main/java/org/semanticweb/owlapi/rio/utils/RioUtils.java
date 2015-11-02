@@ -94,13 +94,13 @@ public final class RioUtils {
      */
     public static Collection<Statement> tripleAsStatements(final RDFTriple triple, final Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
-        final ValueFactoryImpl vf = ValueFactoryImpl.getInstance();
+        final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
-        URI predicate;
+        org.openrdf.model.IRI predicate;
         Value object;
         if (triple.getSubject() instanceof RDFResourceIRI) {
             try {
-                subject = vf.createURI(triple.getSubject().getIRI().toString());
+                subject = vf.createIRI(triple.getSubject().getIRI().toString());
             } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
                 LOGGER.error("Subject URI was invalid: {}", triple);
                 return Collections.emptyList();
@@ -111,14 +111,14 @@ public final class RioUtils {
             subject = node(triple.getSubject(), vf);
         }
         try {
-            predicate = vf.createURI(triple.getPredicate().getIRI().toString());
+            predicate = vf.createIRI(triple.getPredicate().getIRI().toString());
         } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
             LOGGER.error("Predicate URI was invalid: {}", triple);
             return Collections.emptyList();
         }
         if (triple.getObject() instanceof RDFResourceIRI) {
             try {
-                object = vf.createURI(triple.getObject().getIRI().toString());
+                object = vf.createIRI(triple.getObject().getIRI().toString());
             } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
                 LOGGER.error("Object URI was invalid: {}", triple);
                 return Collections.emptyList();
@@ -155,7 +155,7 @@ public final class RioUtils {
                     XMLSchema.STRING);
         } else {
             object = vf.createLiteral(literalObject.getLexicalValue(),
-                    vf.createURI(literalObject.getDatatype().toString()));
+                    vf.createIRI(literalObject.getDatatype().toString()));
         }
         return object;
     }
@@ -167,7 +167,7 @@ public final class RioUtils {
      *        value factory
      * @return blank node
      */
-    protected static BNode node(final RDFNode node, final ValueFactoryImpl vf) {
+    protected static BNode node(final RDFNode node, final ValueFactory vf) {
         if (node.getIRI().getNamespace().startsWith("_:")) {
             return vf.createBNode(node.getIRI().toString().substring(2));
         }

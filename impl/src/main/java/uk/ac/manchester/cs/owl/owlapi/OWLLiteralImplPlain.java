@@ -31,9 +31,6 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     private final @Nonnull String literal;
     private final @Nonnull OWLDatatype datatype;
     private final @Nonnull String lang;
-    private final int hashcode;
-    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
-    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
 
     /**
      * @param literal
@@ -45,10 +42,10 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
         this.literal = literal;
         if (lang == null || lang.isEmpty()) {
             this.lang = "";
-            this.datatype = XSD_STRING;
+            this.datatype = InternalizedEntities.XSDSTRING;
         } else {
             this.lang = lang.trim();
-            this.datatype = RDF_LANG_STRING;
+            this.datatype = InternalizedEntities.LANGSTRING;
         }
         hashCode = getHashCode();
     }
@@ -128,6 +125,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
+        }
         if (super.equals(obj)) {
             if (!(obj instanceof OWLLiteral)) {
                 return false;
