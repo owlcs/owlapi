@@ -88,39 +88,14 @@
 			<version>${inherited.sesame.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.jsonld-java</groupId>
-			<artifactId>jsonld-java-sesame</artifactId>
-			<version>0.5.0</version>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-jsonld</artifactId>
+			<version>${inherited.sesame.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.semarglproject</groupId>
-			<artifactId>semargl-sesame</artifactId>
-			<version>0.6.1</version>
+			<groupId>com.github.jsonld-java</groupId>
+			<artifactId>jsonld-java</artifactId>
+			<version>0.7.0</version>
 		</dependency>
 	</dependencies>
-	
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-core</artifactId>
-				<version>2.5.1</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-databind</artifactId>
-				<version>2.5.1</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-annotations</artifactId>
-				<version>2.5.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.openrdf.sesame</groupId>
-				<artifactId>sesame-bom</artifactId>
-				<version>${inherited.sesame.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>
