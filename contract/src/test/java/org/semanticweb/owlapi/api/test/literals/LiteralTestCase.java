@@ -29,7 +29,33 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
-public class LiteralTestCase extends TestBase {
+public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
+
+    @Nonnull
+    @Override
+    protected Set<? extends OWLAxiom> createAxioms() {
+        OWLLiteral literalWithLang = Literal("abc", "en");
+        OWLLiteral literalWithoutLang = Literal("abcd", "");
+        OWLLiteral literalPlain = Literal("abcde");
+        OWLLiteral literalString = Literal("abcdef", OWL2Datatype.XSD_STRING);
+        OWLClass cls = Class(iri("A"));
+        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
+        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop,
+                cls.getIRI(), literalWithLang);
+        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop,
+                cls.getIRI(), literalWithoutLang);
+        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop,
+                cls.getIRI(), literalPlain);
+        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop,
+                cls.getIRI(), literalString);
+        Set<OWLAxiom> axioms = new HashSet<>();
+        axioms.add(ax1);
+        axioms.add(ax2);
+        axioms.add(ax3);
+        axioms.add(ax4);
+        axioms.add(Declaration(cls));
+        return axioms;
+    }
 
     @Test
     public void testHasLangMethod() {
@@ -60,30 +86,36 @@ public class LiteralTestCase extends TestBase {
         assertFalse(literalWithLang.getDatatype().getIRI().isPlainLiteral());
         assertFalse(literalWithLang.isRDFPlainLiteral());
         assertTrue(literalWithLang.hasLang());
+        assertEquals("en", literalWithLang.getLang());
+        assertEquals(literalWithLang.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
     }
 
     @Test
     public void testPlainLiteralWithEmbeddedLang() {
         OWLLiteral literal = Literal("abc@en", PlainLiteral());
         assertTrue(literal.hasLang());
+        assertFalse(literal.isRDFPlainLiteral());
         assertEquals("en", literal.getLang());
         assertEquals("abc", literal.getLiteral());
-        assertEquals(literal.getDatatype(), PlainLiteral());
+        assertEquals(literal.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
     }
 
     public void tesPlainLiteralWithEmbeddedEmptyLang() {
         OWLLiteral literal = Literal("abc@", PlainLiteral());
         assertFalse(literal.hasLang());
+        assertFalse(literal.isRDFPlainLiteral());
         assertEquals("", literal.getLang());
         assertEquals("abc", literal.getLiteral());
-        assertEquals(literal.getDatatype(), PlainLiteral());
+        assertEquals(literal.getDatatype(), OWL2Datatype.XSD_STRING.getDatatype(df));
     }
 
     public void tesPlainLiteralWithDoubleSep() {
         OWLLiteral literal = Literal("abc@@en", PlainLiteral());
+        assertTrue(literal.hasLang());
+        assertFalse(literal.isRDFPlainLiteral());
         assertEquals("en", literal.getLang());
         assertEquals("abc@", literal.getLiteral());
-        assertEquals(literal.getDatatype(), PlainLiteral());
+        assertEquals(literal.getDatatype(), OWL2Datatype.RDF_LANG_STRING.getDatatype(df));
     }
 
     @Test
