@@ -272,6 +272,9 @@ public class OWLObjectComponentCollectorTestCase {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
         Set<OWLObject> components = testsubject.getComponents(object);
         Set<String> strings = asSet(components.stream().map(c -> c.toString()));
+        if(!expected.equals(strings)) {
+            System.out.println("Failed comparison for object: " + object);
+        }
         assertEquals(expected, strings);
     }
 }
