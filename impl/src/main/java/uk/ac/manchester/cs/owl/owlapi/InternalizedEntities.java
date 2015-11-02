@@ -30,6 +30,7 @@ public class InternalizedEntities {
     protected static final @Nonnull OWLDataProperty         OWL_TOP_DATA_PROPERTY       = new OWLDataPropertyImpl           (OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
     protected static final @Nonnull OWLDataProperty         OWL_BOTTOM_DATA_PROPERTY    = new OWLDataPropertyImpl           (OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     protected static final @Nonnull OWLDatatype             PLAIN                       = new OWL2DatatypeImpl              (RDF_PLAIN_LITERAL);
+    protected static final @Nonnull OWLDatatype             LANGSTRING                       = new OWL2DatatypeImpl              (RDF_LANG_STRING);
     protected static final @Nonnull OWLDatatype             XSDBOOLEAN                  = new OWL2DatatypeImpl              (XSD_BOOLEAN);
     protected static final @Nonnull OWLDatatype             XSDDOUBLE                   = new OWL2DatatypeImpl              (XSD_DOUBLE);
     protected static final @Nonnull OWLDatatype             XSDFLOAT                    = new OWL2DatatypeImpl              (XSD_FLOAT);

@@ -76,6 +76,8 @@ public class TestPlainLiteralTestCase extends TestBase {
         OWLIndividual i = df.getOWLNamedIndividual("urn:test#ind");
         OWLLiteral l = df.getOWLLiteral("test", OWL2Datatype.RDF_PLAIN_LITERAL);
         o.add(df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), i.asOWLNamedIndividual().getIRI(), l));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        o.saveOntology(out);
         String expectedStart = "<rdfs:comment";
    		String expectedEnd = ">test</rdfs:comment>";
         assertTrue(out.toString(), out.toString().contains(expectedStart));
