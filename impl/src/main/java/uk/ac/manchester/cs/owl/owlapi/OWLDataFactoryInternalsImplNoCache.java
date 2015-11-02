@@ -31,6 +31,25 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals, Serializable {
 
+    private static final @Nonnull OWLDatatype PLAIN = new OWL2DatatypeImpl(
+            RDF_PLAIN_LITERAL);
+    private static final @Nonnull OWLDatatype LANGSTRING = new OWL2DatatypeImpl(
+            RDF_LANG_STRING);
+    private static final @Nonnull OWLDatatype XSDBOOLEAN = new OWL2DatatypeImpl(
+            XSD_BOOLEAN);
+    private static final @Nonnull OWLDatatype XSDDOUBLE = new OWL2DatatypeImpl(
+            XSD_DOUBLE);
+    private static final @Nonnull OWLDatatype XSDFLOAT = new OWL2DatatypeImpl(XSD_FLOAT);
+    private static final @Nonnull OWLDatatype XSDINTEGER = new OWL2DatatypeImpl(
+            XSD_INTEGER);
+    private static final @Nonnull OWLDatatype XSDSTRING = new OWL2DatatypeImpl(
+            XSD_STRING);
+    private static final @Nonnull OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(
+            RDFS_LITERAL);
+    private static final @Nonnull OWLLiteral trueLiteral = new OWLLiteralImplBoolean(
+            true, XSDBOOLEAN);
+    private static final @Nonnull OWLLiteral falseLiteral = new OWLLiteralImplBoolean(
+            false, XSDBOOLEAN);
     private @Nullable OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
@@ -120,14 +139,14 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     @Override
     public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
         OWLLiteral literal = null;
-        if (datatype.isRDFPlainLiteral()) {
+        if (datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
             int sep = lexicalValue.lastIndexOf('@');
             if (sep != -1) {
                 String lex = lexicalValue.substring(0, sep);
                 String lang = lexicalValue.substring(sep + 1);
-                literal = getBasicLiteral(lex, lang, PLAIN);
+                literal = getBasicLiteral(lex, lang, LANGSTRING);
             } else {
-                literal = getBasicLiteral(lexicalValue, datatype);
+                literal = getBasicLiteral(lexicalValue, XSDSTRING);
             }
         } else {
             // check the special cases
@@ -187,7 +206,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     protected OWLLiteral getBasicLiteral(String lexicalValue, String lang, @Nullable OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
-            if (datatype == null || datatype.isRDFPlainLiteral()) {
+            if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(RDF_LANG_STRING)) {
                 literal = new OWLLiteralImplPlain(lexicalValue, lang);
             } else {
                 literal = new OWLLiteralImpl(lexicalValue, lang, datatype);

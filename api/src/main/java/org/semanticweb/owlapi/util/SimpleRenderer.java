@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * A simple renderer that can be used for debugging purposes and provide an
@@ -684,7 +685,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLLiteral node) {
         String literal = EscapeUtils.escapeString(node.getLiteral());
-        if (node.isRDFPlainLiteral()) {
+        if (node.isRDFPlainLiteral() || node.getDatatype().getIRI().equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
             // We can use a syntactic shortcut
             sb.append('"').append(literal).append('"');
             if (node.hasLang()) {
