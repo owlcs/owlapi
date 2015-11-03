@@ -740,7 +740,7 @@ public class Internals implements Serializable {
     public <K> boolean contains(OWLAxiomSearchFilter filter, K key) {
         MapPointer<AxiomType<?>, OWLAxiom> types = getAxiomsByType();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
-            if (types.getValues(at).anyMatch(t -> filter.pass(t, key))) {
+            if (types.matchOnValues(at, t -> filter.pass(t, key))) {
                 return true;
             }
         }

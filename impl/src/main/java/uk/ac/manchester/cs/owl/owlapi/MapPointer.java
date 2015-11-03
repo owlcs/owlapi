@@ -12,13 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.empty;
 
 import java.lang.ref.SoftReference;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -82,7 +84,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        a consumer with two arguments
      */
     public void forEach(BiConsumer<K, V> consumer) {
-        keySet().forEach(k -> getValues(k).forEach(v -> consumer.accept(k, v)));
+        keySet().forEach(k -> forEach(k, v -> consumer.accept(k, v)));
     }
 
     /**
@@ -147,11 +149,11 @@ public class MapPointer<K, V extends OWLAxiom> {
             return this;
         }
         assert visitor != null;
-        Stream<V> values = (Stream<V>) i.getAxiomsByType().getValues(verifyNotNull(type));
         if (visitor instanceof InitVisitor) {
-            values.forEach(ax -> putInternal(ax.accept((InitVisitor<K>) visitor), ax));
+            i.getAxiomsByType().forEach(type, ax -> putInternal(ax.accept((InitVisitor<K>) visitor), (V) ax));
         } else if (visitor instanceof InitCollectionVisitor) {
-            values.forEach(ax -> ax.accept((InitCollectionVisitor<K>) visitor).forEach(key -> putInternal(key, ax)));
+            i.getAxiomsByType().forEach(type, ax -> ax.accept((InitCollectionVisitor<K>) visitor).forEach(
+                key -> putInternal(key, (V) ax)));
         }
         return this;
     }
@@ -178,7 +180,37 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     public synchronized Stream<V> getValues(K key) {
         init();
-        return get(key);
+        Collection<V> t = map.get(key);
+        if (t == null) {
+            return Stream.empty();
+        }
+        if (t.size() < 3) {
+            return t.stream();
+        }
+        return new ArrayList<>(t).stream();
+    }
+
+    /**
+     * @param key
+     *        key to look up
+     * @param function
+     *        consumer to apply
+     */
+    public synchronized void forEach(K key, Consumer<V> function) {
+        init();
+        get(key).forEach(function);
+    }
+
+    /**
+     * @param key
+     *        key to look up
+     * @param function
+     *        predicate to evaluate
+     * @return value
+     */
+    public synchronized boolean matchOnValues(K key, Predicate<V> function) {
+        init();
+        return get(key).anyMatch(function);
     }
 
     /**
