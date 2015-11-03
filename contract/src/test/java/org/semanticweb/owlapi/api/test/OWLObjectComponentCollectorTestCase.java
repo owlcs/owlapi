@@ -66,7 +66,7 @@ public class OWLObjectComponentCollectorTestCase {
     private static final String DSJOP = "DisjointObjectProperties(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#iri> <urn:test#op> )";
     private static final String II = "<urn:test#i>";
     private static final String SYMM = "SymmetricObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
-    private static final String plain = "http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral";
+    private static final String plain = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
     private static final String adp = "DataPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#i> \"string\"@en)";
     private static final String dpdomain = "DataPropertyDomain(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> <urn:test#c>)";
     private static final String VAR1 = "Variable(<urn:swrl#var1>)";
@@ -184,10 +184,11 @@ public class OWLObjectComponentCollectorTestCase {
         this.expected = Sets.newHashSet(expected);
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{0}")
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
         Map<OWLAxiom, String[]> map = new LinkedHashMap<>();
+        map.put(b.assDPlain(), new String[] { plain, DP, I, DPI, II, adp, plain, "\"string\"@en" });
         map.put(b.dRange(), new String[] { DT, DP, DPI, DPR, DTI });
         map.put(b.dDef(), new String[] { DB, DT, DTD, DB, DTI });
         map.put(b.decC(), new String[] { C, CI, DC });
@@ -259,9 +260,9 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.assDPlain(), new String[] { plain, DP, I, DPI, II, adp, plain, "\"string\"@en" });
         map.put(b.dDom(), new String[] { DP, DPI, dpdomain });
         map.put(b.bigRule(),
-                new String[] { FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236, FALSE, diffvar2, DP, VAR1, CI,
-                        DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI, classvar2, IRII, I, rule, DTI, II,
-                        DPI });
+            new String[] { FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236, FALSE, diffvar2, DP, VAR1, CI,
+                DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C, IRI, classvar2, IRII, I, rule, DTI, II,
+                DPI });
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));
         return toReturn;
