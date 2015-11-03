@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  */
 public class IRI
-    implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
+    implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -183,7 +183,7 @@ public class IRI
      * @return This IRI surrounded by &lt; and &gt;
      */
     public String toQuotedString() {
-        return '<' + namespace + remainder + '>';
+        return ntriplesString();
     }
 
     /**
@@ -433,10 +433,7 @@ public class IRI
 
     @Override
     public String toString() {
-        if (remainder.isEmpty()) {
-            return namespace;
-        }
-        return namespace + remainder;
+    	return getIRIString();
     }
 
     @Override
@@ -467,10 +464,28 @@ public class IRI
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof IRI)) {
-            return false;
+        if (obj instanceof IRI) {
+	        IRI other = (IRI) obj;
+	        return remainder.equals(other.remainder) && other.namespace.equals(namespace);
         }
-        IRI other = (IRI) obj;
-        return remainder.equals(other.remainder) && other.namespace.equals(namespace);
+        // Commons RDF IRI equals() contract
+        if (obj instanceof org.apache.commons.rdf.api.IRI) {
+        	org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
+			return ntriplesString().equals(iri.ntriplesString());
+        }
+        return false;        
     }
+
+  	@Override
+  	public String ntriplesString() {
+  		return '<' + namespace + remainder + '>';
+  	}
+
+  	@Override
+  	public String getIRIString() {
+          if (remainder.isEmpty()) {
+              return namespace;
+          }
+          return namespace + remainder;
+  	}
 }

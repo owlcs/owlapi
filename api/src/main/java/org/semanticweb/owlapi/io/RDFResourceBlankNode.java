@@ -14,22 +14,30 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.commons.rdf.api.BlankNode;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
 /** Anonymous node implementation. */
-public class RDFResourceBlankNode extends RDFResource {
+public class RDFResourceBlankNode extends RDFResource implements org.apache.commons.rdf.api.BlankNode {
 
     private final @Nonnull IRI resource;
     private final boolean isIndividual;
     private final boolean forceIdOutput;
 
     /**
+     * Random UUID, used by {@link #uniqueReference()}
+     */
+    private static final UUID UNIQUE_BASE = UUID.randomUUID();
+
+    /**
      * Create an RDFResource that is anonymous.
-     * 
+     *
      * @param resource
      *        The IRI of the resource
      * @param isIndividual
@@ -87,11 +95,16 @@ public class RDFResourceBlankNode extends RDFResource {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RDFResourceBlankNode)) {
-            return false;
+        if (obj instanceof RDFResourceBlankNode) {
+            RDFResourceBlankNode other = (RDFResourceBlankNode) obj;
+            return resource.equals(other.resource);            
         }
-        RDFResourceBlankNode other = (RDFResourceBlankNode) obj;
-        return resource.equals(other.resource);
+        // Commons RDF BlankNode.equals() contract
+        if (obj instanceof BlankNode) {
+        	BlankNode blankNode = (BlankNode) obj;
+			return uniqueReference().equals(blankNode.uniqueReference());
+        }
+        return false;
     }
 
     @Override
@@ -108,4 +121,11 @@ public class RDFResourceBlankNode extends RDFResource {
     public IRI getResource() {
         return resource;
     }
+
+  	@Override
+  	public String uniqueReference() {
+  		String nodeId = resource.getIRIString().replace("_:", "");
+  		return UNIQUE_BASE + ":" + nodeId;
+  	}
+
 }

@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.commons.rdf.api.Triple;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -35,7 +36,7 @@ import gnu.trove.map.hash.THashMap;
  *         Informatics Group
  * @since 3.2
  */
-public class RDFTriple implements Serializable, Comparable<RDFTriple> {
+public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
 
     private final @Nonnull RDFResource subject;
     private final @Nonnull RDFResourceIRI predicate;
@@ -125,11 +126,24 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RDFTriple)) {
-            return false;
+        if (obj instanceof RDFTriple) {
+        	RDFTriple other = (RDFTriple) obj;
+        	return subject.equals(other.subject) && predicate.equals(other.predicate) && object.equals(other.object);            
         }
-        RDFTriple other = (RDFTriple) obj;
-        return subject.equals(other.subject) && predicate.equals(other.predicate) && object.equals(other.object);
+        // Commons RDF Triple.equals() contract
+        if (obj instanceof Triple) {
+        	// Note: This also works on RDFLiteral
+        	// but is slightly more expensive as it must call the 
+        	// getter methods when accessing obj.
+        	// 
+        	// To ensure future compatibility, the Commons RDF getter 
+        	// methods are also called on this rather than using the fields.
+			Triple triple = (Triple) obj;
+        	return getSubject().equals(triple.getSubject()) && 
+        			getPredicate().equals(triple.getPredicate()) &&
+        			getObject().equals(triple.getObject());
+        }
+        return false;
     }
 
     @Override

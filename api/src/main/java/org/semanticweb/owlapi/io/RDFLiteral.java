@@ -14,11 +14,15 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.commons.rdf.api.Literal;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -26,7 +30,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  *         Informatics Group
  * @since 3.2
  */
-public class RDFLiteral extends RDFNode {
+public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Literal {
 
     private final @Nonnull String lexicalValue;
     private final @Nonnull String lang;
@@ -46,7 +50,8 @@ public class RDFLiteral extends RDFNode {
     public RDFLiteral(String literal, @Nullable String lang, @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang == null ? "" : lang;
-        this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL.getIRI() : datatype;
+        OWL2Datatype defaultType = this.lang.isEmpty() ? OWL2Datatype.RDF_PLAIN_LITERAL : OWL2Datatype.RDF_LANG_STRING;
+        this.datatype = datatype == null ? defaultType.getIRI() : datatype;
     }
 
     /**
@@ -78,17 +83,33 @@ public class RDFLiteral extends RDFNode {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RDFLiteral)) {
-            return false;
+        if (obj instanceof RDFLiteral) {            
+	        RDFLiteral other = (RDFLiteral) obj;
+	        if (!lexicalValue.equals(other.lexicalValue)) {
+	            return false;
+	        }
+	        if (!lang.equals(other.lang)) {
+	            return false;
+	        }
+	        return datatype.equals(other.datatype);
         }
-        RDFLiteral other = (RDFLiteral) obj;
-        if (!lexicalValue.equals(other.lexicalValue)) {
-            return false;
+        if (obj instanceof Literal) {
+        	// Note: This also works on RDFLiteral
+        	// but is slightly more expensive as it must call the 
+        	// getter methods when accessing obj.
+        	// 
+        	// To ensure future compatibility, the Commons RDF getter 
+        	// methods are also called on this rather than using the fields.
+			Literal literal = (Literal) obj;
+        	if (! getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
+        		return false;
+        	}
+        	if (! getLanguageTag().equals(literal.getLanguageTag())) {
+        		return false;
+        	}
+        	return getDatatype().equals(literal.getDatatype());        	
         }
-        if (!lang.equals(other.lang)) {
-            return false;
-        }
-        return datatype.equals(other.datatype);
+        return false;
     }
 
     @Override
@@ -109,10 +130,28 @@ public class RDFLiteral extends RDFNode {
     }
 
     /**
+     * {@inheritDoc}
+     */
+  	@Override
+  	public String getLexicalForm() {
+  		return getLexicalValue();
+  	}
+
+    /**
      * @return the lang tag for this literal
      */
     public String getLang() {
         return lang;
+    }
+
+    @Override
+    public Optional<String> getLanguageTag() {
+    	if (hasLang()) {
+    		return Optional.of(lang);
+    	} else {
+    		return Optional.empty();
+    	}
+
     }
 
     /**
@@ -157,4 +196,23 @@ public class RDFLiteral extends RDFNode {
         }
         return diff;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+  	@Override
+  	public String ntriplesString() {
+  		String escaped = '"' +
+  				EscapeUtils.escapeString(getLexicalValue()).
+  				replace("\n", "\\n").replace("\r", "\\r") + '"';
+  		if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || 
+  			datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
+  			return escaped;
+  		} else if (hasLang()) {
+  			return escaped + "@" + getLang();
+  		} else {
+  			return escaped + "^^" + getDatatype().ntriplesString();
+  		}
+  	}
+
 }
