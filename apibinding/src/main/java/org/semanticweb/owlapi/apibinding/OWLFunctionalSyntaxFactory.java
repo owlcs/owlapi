@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.model.IRI.getNextDocumentIRI;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -24,6 +25,8 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
+
+import com.google.common.collect.Sets;
 
 /**
  * A utility class whose methods may be statically imported so that OWL API
@@ -172,6 +175,10 @@ public final class OWLFunctionalSyntaxFactory {
 
     public static OWLDeclarationAxiom Declaration(OWLEntity entity, Collection<OWLAnnotation> a) {
         return DF.getOWLDeclarationAxiom(entity, a);
+    }
+
+    public static OWLDeclarationAxiom Declaration(OWLEntity entity, OWLAnnotation... a) {
+        return DF.getOWLDeclarationAxiom(entity, Sets.newHashSet(a));
     }
 
     // Class Expressions
@@ -590,6 +597,11 @@ public final class OWLFunctionalSyntaxFactory {
         return DF.getOWLAnnotationAssertionAxiom(property, subject, value, set);
     }
 
+    public static OWLAnnotationAssertionAxiom AnnotationAssertion(OWLAnnotationProperty property,
+        OWLAnnotationSubject subject, OWLAnnotationValue value, OWLAnnotation... set) {
+        return DF.getOWLAnnotationAssertionAxiom(property, subject, value, Sets.newHashSet(set));
+    }
+
     public static OWLAnnotation Annotation(OWLAnnotationProperty property, OWLAnnotationValue value) {
         return DF.getOWLAnnotation(property, value);
     }
@@ -597,6 +609,11 @@ public final class OWLFunctionalSyntaxFactory {
     public static OWLAnnotation Annotation(OWLAnnotationProperty property, OWLAnnotationValue value,
         Collection<OWLAnnotation> anns) {
         return DF.getOWLAnnotation(property, value, anns.stream());
+    }
+
+    public static OWLAnnotation Annotation(OWLAnnotationProperty property, OWLAnnotationValue value,
+        OWLAnnotation... anns) {
+        return DF.getOWLAnnotation(property, value, Stream.of(anns));
     }
 
     public static OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf(OWLAnnotationProperty subProperty,
