@@ -19,6 +19,7 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.commons.rdf.api.Literal;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.util.EscapeUtils;
@@ -82,9 +83,7 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof RDFLiteral)) {
-            return false;
-        }
+        if (obj instanceof RDFLiteral) {            
         RDFLiteral other = (RDFLiteral) obj;
         if (!lexicalValue.equals(other.lexicalValue)) {
             return false;
@@ -93,6 +92,24 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
             return false;
         }
         return datatype.equals(other.datatype);
+    }
+        if (obj instanceof Literal) {
+        	// Note: This also works on RDFLiteral
+        	// but is slightly more expensive as it must call the 
+        	// getter methods when accessing obj.
+        	// 
+        	// To ensure future compatibility, the Commons RDF getter 
+        	// methods are also called on this rather than using the fields.
+			Literal literal = (Literal) obj;
+        	if (! getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
+        		return false;
+        	}
+        	if (! getLanguageTag().equals(literal.getLanguageTag())) {
+        		return false;
+        	}
+        	return getDatatype().equals(literal.getDatatype());        	
+        }
+        return false;
     }
 
     @Override
