@@ -47,7 +47,6 @@ import org.openrdf.OpenRDFUtil;
 import org.openrdf.model.BNode;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
-import org.openrdf.model.URI;
 import org.openrdf.model.Value;
 import org.openrdf.model.ValueFactory;
 import org.openrdf.model.impl.SimpleValueFactory;
@@ -149,13 +148,13 @@ public final class RioUtils {
         Value object;
         if (literalObject.hasLang()) {
             object = vf.createLiteral(literalObject.getLexicalValue(),
-                    literalObject.getLang());
-        } else if (literalObject.getDatatype() == null) {
+                literalObject.getLang());
+        } else if (literalObject.isPlainLiteral()) {
             object = vf.createLiteral(literalObject.getLexicalValue(),
-                    XMLSchema.STRING);
+                XMLSchema.STRING);
         } else {
             object = vf.createLiteral(literalObject.getLexicalValue(),
-                    vf.createIRI(literalObject.getDatatype().toString()));
+                vf.createIRI(literalObject.getDatatype().toString()));
         }
         return object;
     }
