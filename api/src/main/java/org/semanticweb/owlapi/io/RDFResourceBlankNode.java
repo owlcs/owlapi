@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -21,11 +23,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
 /** Anonymous node implementation. */
-public class RDFResourceBlankNode extends RDFResource {
+public class RDFResourceBlankNode extends RDFResource implements org.apache.commons.rdf.api.BlankNode {
 
     private final @Nonnull IRI resource;
     private final boolean isIndividual;
     private final boolean forceIdOutput;
+
+    /**
+     * Random UUID, used by {@link #uniqueReference()}
+     */
+    private static final UUID UNIQUE_BASE = UUID.randomUUID();
 
     /**
      * Create an RDFResource that is anonymous.
@@ -108,4 +115,18 @@ public class RDFResourceBlankNode extends RDFResource {
     public IRI getResource() {
         return resource;
     }
+
+  	@Override
+  	public String uniqueReference() {
+  		String nodeId;
+  		if (NodeID.isAnonymousNodeIRI(resource)) {
+  			nodeId = resource.getRemainder().orElse("");
+  		} else {
+  			// Not made from NodeID, so we won't assume much, but still include
+  			// the UUID as we can't assume a globally unique IRI
+  			nodeId = resource.getIRIString().replace("_:", "");
+  		}
+  		return UNIQUE_BASE + ":" + nodeId;
+  	}
+
 }

@@ -14,11 +14,14 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Optional;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -26,7 +29,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  *         Informatics Group
  * @since 3.2
  */
-public class RDFLiteral extends RDFNode {
+public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Literal {
 
     private final @Nonnull String lexicalValue;
     private final @Nonnull String lang;
@@ -46,12 +49,12 @@ public class RDFLiteral extends RDFNode {
     public RDFLiteral(String literal, @Nullable String lang, @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang == null ? "" : lang;
-        if (lang == null || lang.isEmpty()) {
+        if (this.lang.isEmpty()) {
             if (datatype == null) {
-               this.datatype = OWL2Datatype.XSD_STRING.getIRI();
-           } else {
-               this.datatype = datatype;
-           }
+                this.datatype = OWL2Datatype.XSD_STRING.getIRI();
+            } else {
+                this.datatype = datatype;
+            }
         } else {
             this.datatype = OWL2Datatype.RDF_LANG_STRING.getIRI();
         }
@@ -116,11 +119,24 @@ public class RDFLiteral extends RDFNode {
         return lexicalValue;
     }
 
+    @Override
+    public String getLexicalForm() {
+        return getLexicalValue();
+    }
+
     /**
      * @return the lang tag for this literal
      */
     public String getLang() {
         return lang;
+    }
+
+    @Override
+    public Optional<String> getLanguageTag() {
+        if (hasLang()) {
+            return Optional.of(lang);
+        }
+        return Optional.empty();
     }
 
     /**
@@ -134,7 +150,7 @@ public class RDFLiteral extends RDFNode {
      * @return true if this literal has a non empty lang tag
      */
     public boolean hasLang() {
-        return lang != null && !lang.isEmpty();
+        return !lang.isEmpty();
     }
 
     /**
@@ -165,4 +181,17 @@ public class RDFLiteral extends RDFNode {
         }
         return diff;
     }
+
+  	@Override
+  	public String ntriplesString() {
+  		String escaped = '"' +
+  				EscapeUtils.escapeString(getLexicalValue()).
+  				replace("\n", "\\n").replace("\r", "\\r") + '"';
+  		if (hasLang()) {
+  			return escaped + "@" + getLang();
+  		} else {
+  			return escaped + "^^" + getDatatype().ntriplesString();
+  		}
+  	}
+
 }

@@ -36,7 +36,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  */
 public class IRI
-    implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
+    implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm,
+    org.apache.commons.rdf.api.IRI {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -183,7 +184,7 @@ public class IRI
      * @return This IRI surrounded by &lt; and &gt;
      */
     public String toQuotedString() {
-        return '<' + namespace + remainder + '>';
+        return ntriplesString();
     }
 
     /**
@@ -433,10 +434,7 @@ public class IRI
 
     @Override
     public String toString() {
-        if (remainder.isEmpty()) {
-            return namespace;
-        }
-        return namespace + remainder;
+        return getIRIString();
     }
 
     @Override
@@ -472,5 +470,18 @@ public class IRI
         }
         IRI other = (IRI) obj;
         return remainder.equals(other.remainder) && other.namespace.equals(namespace);
+    }
+
+    @Override
+    public String ntriplesString() {
+        return '<' + namespace + remainder + '>';
+    }
+
+    @Override
+    public String getIRIString() {
+        if (remainder.isEmpty()) {
+            return namespace;
+        }
+        return namespace + remainder;
     }
 }

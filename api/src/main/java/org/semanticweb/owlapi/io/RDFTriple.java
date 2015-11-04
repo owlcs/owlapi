@@ -35,7 +35,7 @@ import gnu.trove.map.hash.THashMap;
  *         Informatics Group
  * @since 3.2
  */
-public class RDFTriple implements Serializable, Comparable<RDFTriple> {
+public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
 
     private final @Nonnull RDFResource subject;
     private final @Nonnull RDFResourceIRI predicate;

@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group
  * @since 3.2
  */
-public abstract class RDFResource extends RDFNode {
+public abstract class RDFResource extends RDFNode implements org.apache.commons.rdf.api.BlankNodeOrIRI {
 
     // XXX implement equals()
     /**
@@ -60,4 +60,11 @@ public abstract class RDFResource extends RDFNode {
         }
         return diff;
     }
+    
+	@Override
+	public String ntriplesString() {
+		return getResource().ntriplesString();
+	}
+
+
 }
