@@ -118,14 +118,7 @@ public class RDFResourceBlankNode extends RDFResource implements org.apache.comm
 
   	@Override
   	public String uniqueReference() {
-  		String nodeId;
-  		if (NodeID.isAnonymousNodeIRI(resource)) {
-  			nodeId = resource.getRemainder().orElse("");
-  		} else {
-  			// Not made from NodeID, so we won't assume much, but still include
-  			// the UUID as we can't assume a globally unique IRI
-  			nodeId = resource.getIRIString().replace("_:", "");
-  		}
+  		String nodeId = resource.getIRIString().replace("_:", "");
   		return UNIQUE_BASE + ":" + nodeId;
   	}
 
