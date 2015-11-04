@@ -10,9 +10,8 @@ import org.junit.Test;
 import org.openrdf.model.BNode;
 import org.openrdf.model.Literal;
 import org.openrdf.model.Statement;
-import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.ValueFactoryImpl;
+import org.openrdf.model.impl.SimpleValueFactory;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
@@ -26,7 +25,7 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
 @SuppressWarnings({ "javadoc" })
 public class RioUtilsTestCase {
 
-    private static final ValueFactory VF = ValueFactoryImpl.getInstance();
+    private static final ValueFactory VF = SimpleValueFactory.getInstance();
     private RDFTriple testOwlApiTripleAllIRI;
     private RDFTriple testOwlApiTriplePlainLiteral;
     private RDFTriple testOwlApiTripleLangLiteral;
@@ -75,15 +74,15 @@ public class RioUtilsTestCase {
         testOwlApiTripleSubjectObjectBNode = new RDFTriple(
             testOwlApiSubjectBNode1, testOwlApiPredicateUri1,
             testOwlApiObjectBNode1);
-        URI testSesameSubjectUri1 = VF.createURI("urn:test:subject:uri:1");
-        URI testSesamePredicateUri1 = VF.createURI("urn:test:predicate:uri:1");
-        URI testSesameObjectUri1 = VF.createURI("urn:test:object:uri:1");
+        org.openrdf.model.IRI testSesameSubjectUri1 = VF.createIRI("urn:test:subject:uri:1");
+        org.openrdf.model.IRI testSesamePredicateUri1 = VF.createIRI("urn:test:predicate:uri:1");
+        org.openrdf.model.IRI testSesameObjectUri1 = VF.createIRI("urn:test:object:uri:1");
         Literal testSesameObjectPlainLiteral1 = VF.createLiteral(
             "Test literal");
         Literal testSesameObjectLangLiteral1 = VF.createLiteral("Test literal",
             "en");
         Literal testSesameObjectTypedLiteral1 = VF.createLiteral("Test literal",
-            VF.createURI("urn:test:datatype:1"));
+            VF.createIRI("urn:test:datatype:1"));
         BNode testSesameSubjectBNode1 = VF.createBNode("subjectBnode1");
         BNode testSesameObjectBNode1 = VF.createBNode("objectBnode1");
         testSesameTripleAllIRI = VF.createStatement(testSesameSubjectUri1,

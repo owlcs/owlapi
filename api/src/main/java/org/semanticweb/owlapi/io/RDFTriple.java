@@ -95,23 +95,17 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate), new RDFLiteral(object));
     }
 
-    /**
-     * @return the subject
-     */
+    @Override
     public RDFResource getSubject() {
         return subject;
     }
 
-    /**
-     * @return the predicate
-     */
+    @Override
     public RDFResourceIRI getPredicate() {
         return predicate;
     }
 
-    /**
-     * @return the object
-     */
+    @Override
     public RDFNode getObject() {
         return object;
     }

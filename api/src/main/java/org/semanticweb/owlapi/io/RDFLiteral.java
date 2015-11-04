@@ -83,31 +83,31 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
         if (obj == this) {
             return true;
         }
-        if (obj instanceof RDFLiteral) {            
-        RDFLiteral other = (RDFLiteral) obj;
-        if (!lexicalValue.equals(other.lexicalValue)) {
-            return false;
+        if (obj instanceof RDFLiteral) {
+            RDFLiteral other = (RDFLiteral) obj;
+            if (!lexicalValue.equals(other.lexicalValue)) {
+                return false;
+            }
+            if (!lang.equals(other.lang)) {
+                return false;
+            }
+            return datatype.equals(other.datatype);
         }
-        if (!lang.equals(other.lang)) {
-            return false;
-        }
-        return datatype.equals(other.datatype);
-    }
         if (obj instanceof Literal) {
-        	// Note: This also works on RDFLiteral
-        	// but is slightly more expensive as it must call the 
-        	// getter methods when accessing obj.
-        	// 
-        	// To ensure future compatibility, the Commons RDF getter 
-        	// methods are also called on this rather than using the fields.
-			Literal literal = (Literal) obj;
-        	if (! getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
-        		return false;
-        	}
-        	if (! getLanguageTag().equals(literal.getLanguageTag())) {
-        		return false;
-        	}
-        	return getDatatype().equals(literal.getDatatype());        	
+            // Note: This also works on RDFLiteral
+            // but is slightly more expensive as it must call the
+            // getter methods when accessing obj.
+            //
+            // To ensure future compatibility, the Commons RDF getter
+            // methods are also called on this rather than using the fields.
+            Literal literal = (Literal) obj;
+            if (!getLexicalForm().equals(((Literal) obj).getLexicalForm())) {
+                return false;
+            }
+            if (!getLanguageTag().equals(literal.getLanguageTag())) {
+                return false;
+            }
+            return getDatatype().equals(literal.getDatatype());
         }
         return false;
     }
@@ -149,9 +149,7 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
         return Optional.empty();
     }
 
-    /**
-     * @return the datatype for this literal
-     */
+    @Override
     public IRI getDatatype() {
         return datatype;
     }
@@ -195,10 +193,9 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
     @Override
     public String ntriplesString() {
         String escaped = '"' +
-  				EscapeUtils.escapeString(getLexicalValue()).
-  				replace("\n", "\\n").replace("\r", "\\r") + '"';
-  		if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) || 
-  			datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
+            EscapeUtils.escapeString(getLexicalValue()).replace("\n", "\\n").replace("\r", "\\r") + '"';
+        if (datatype.equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()) ||
+            datatype.equals(OWL2Datatype.XSD_STRING.getIRI())) {
             return escaped;
         } else if (hasLang()) {
             return escaped + "@" + getLang();

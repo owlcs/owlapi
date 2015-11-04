@@ -19,7 +19,6 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
@@ -211,7 +210,7 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
 
     @Override
     public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
-            Stream<OWLAnnotation> annotations) {
+        Stream<OWLAnnotation> annotations) {
         return new OWLAnnotationImpl(property, value, annotations);
     }
 }

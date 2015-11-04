@@ -14,8 +14,7 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 import org.openrdf.model.Statement;
-import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.ValueFactoryImpl;
+import org.openrdf.model.impl.SimpleValueFactory;
 import org.openrdf.model.vocabulary.OWL;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.rio.RDFFormat;
@@ -34,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings({ "javadoc", "null" })
 public class RioRendererTestCase {
 
-    private ValueFactory vf;
+    private SimpleValueFactory vf;
     private @Nonnull OWLOntology testOntologyEmpty;
     private @Nonnull OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
@@ -49,16 +48,16 @@ public class RioRendererTestCase {
 
     @Before
     public void setUp() throws Exception {
-        vf = new ValueFactoryImpl();
+        vf = SimpleValueFactory.getInstance();
         OWLOntologyManager testManager = OWLManager.createOWLOntologyManager();
         testManager.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
-                new RioTurtleStorerFactory());
+            new RioTurtleStorerFactory());
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
         testOntologyKoala = testManager.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
-        testOntologyEmptyStatement = vf.createStatement(vf.createURI("urn:test:ontology:uri:1"), RDF.TYPE,
-                OWL.ONTOLOGY);
+        testOntologyEmptyStatement = vf.createStatement(vf.createIRI("urn:test:ontology:uri:1"), RDF.TYPE,
+            OWL.ONTOLOGY);
         testRdfXmlStringWriter = new StringWriter();
         testRdfXmlRioWriter = Rio.createWriter(RDFFormat.RDFXML, testRdfXmlStringWriter);
         testTurtleStringWriter = new StringWriter();
@@ -154,9 +153,9 @@ public class RioRendererTestCase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-                result.length() > 24000);
+            result.length() > 24000);
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-                result.length() < 26000);
+            result.length() < 26000);
         RDFParser parser = Rio.createParser(RDFFormat.RDFXML, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -185,9 +184,9 @@ public class RioRendererTestCase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-                result.length() > 8250);
+            result.length() > 8250);
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-                result.length() < 9500);
+            result.length() < 9500);
         RDFParser parser = Rio.createParser(RDFFormat.TURTLE, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -212,9 +211,9 @@ public class RioRendererTestCase {
         // node identifiers, so we
         // only test a minimum length and a maximum length
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-                result.length() > 26200);
+            result.length() > 26200);
         assertTrue("result.length()=" + result.length() + " was not inside the expected bounds",
-                result.length() < 27500);
+            result.length() < 27500);
         RDFParser parser = Rio.createParser(RDFFormat.NTRIPLES, vf);
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(result), "");
@@ -231,19 +230,19 @@ public class RioRendererTestCase {
     public void testRioOWLRDFParser() throws Exception {
         RDFParser parser = new RioManchesterSyntaxParserFactory().getParser();
         String inputManSyntax = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
-                + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-                + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
-                + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
-                + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-                + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n" + "Datatype: xsd:decimal\n"
-                + "Datatype: xsd:int\n" + "Datatype: xsd:dateTime\n"
-                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n"
-                + "    Characteristics: \n" + "        Functional\n" + "    Range: \n" + "        xsd:int\n"
-                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n" + "    Range: \n"
-                + "        xsd:dateTime\n" + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
-                + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n" + "    Types: \n"
-                + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n" + "Rule: \n"
-                + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
+            + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+            + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
+            + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+            + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+            + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n" + "Datatype: xsd:decimal\n"
+            + "Datatype: xsd:int\n" + "Datatype: xsd:dateTime\n"
+            + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n"
+            + "    Characteristics: \n" + "        Functional\n" + "    Range: \n" + "        xsd:int\n"
+            + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n" + "    Range: \n"
+            + "        xsd:dateTime\n" + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
+            + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n" + "    Types: \n"
+            + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n" + "Rule: \n"
+            + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(inputManSyntax), "http://www.owl-ontologies.com/Ontology1307394066.owl");
         assertEquals(36, testHandlerStatementCollector.getStatements().size());

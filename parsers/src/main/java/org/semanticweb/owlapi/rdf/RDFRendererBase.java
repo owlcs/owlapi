@@ -67,7 +67,7 @@ public abstract class RDFRendererBase {
         OWL_ANNOTATION_PROPERTY, OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION).map(a -> a.getIRI()));
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
-    private final IndividualAppearance occurrences;
+    protected final IndividualAppearance occurrences;
 
     /**
      * @param ontology

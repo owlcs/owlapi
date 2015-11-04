@@ -15,18 +15,9 @@ package org.semanticweb.owlapi.api.test.literals;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -123,7 +114,7 @@ public class LiteralTestCase extends TestBase {
     @Test
     public void testBuiltInDatatypes() {
         OWL2Datatype dt = OWL2Datatype.getDatatype(
-        OWLRDFVocabulary.RDF_PLAIN_LITERAL);
+            OWLRDFVocabulary.RDF_PLAIN_LITERAL);
         assertNotNull("object should not be null", dt);
         dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL);
         assertNotNull("object should not be null", dt);

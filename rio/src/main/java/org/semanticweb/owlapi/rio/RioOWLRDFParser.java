@@ -47,7 +47,7 @@ import javax.inject.Inject;
 
 import org.openrdf.model.ValueFactory;
 import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.helpers.RDFParserBase;
+import org.openrdf.rio.helpers.AbstractRDFParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.*;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioOWLRDFParser extends RDFParserBase {
+public class RioOWLRDFParser extends AbstractRDFParser {
 
     private final OWLAPIRDFFormat owlFormat;
     private final Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<>();
@@ -104,7 +104,7 @@ public class RioOWLRDFParser extends RDFParserBase {
     public void parse(@Nullable InputStream in, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
         StreamDocumentSource source = new StreamDocumentSource(checkNotNull(in), IRI.create(checkNotNull(baseURI)),
-                nextFormat, getRDFFormat().getDefaultMIMEType());
+            nextFormat, getRDFFormat().getDefaultMIMEType());
         render(source);
     }
 
@@ -134,7 +134,7 @@ public class RioOWLRDFParser extends RDFParserBase {
     public void parse(@Nullable Reader reader, @Nullable String baseURI) {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
         ReaderDocumentSource source = new ReaderDocumentSource(checkNotNull(reader), IRI.create(checkNotNull(baseURI)),
-                nextFormat, getRDFFormat().getDefaultMIMEType());
+            nextFormat, getRDFFormat().getDefaultMIMEType());
         render(source);
     }
 }

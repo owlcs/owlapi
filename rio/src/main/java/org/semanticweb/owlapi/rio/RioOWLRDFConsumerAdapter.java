@@ -37,8 +37,6 @@ package org.semanticweb.owlapi.rio;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.util.Optional;
-
 import javax.annotation.Nullable;
 
 import org.openrdf.model.BNode;
@@ -76,7 +74,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
      *        loading configuration
      */
     public RioOWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker,
-            OWLOntologyLoaderConfiguration configuration) {
+        OWLOntologyLoaderConfiguration configuration) {
         super(ontology, checker, configuration);
     }
 
@@ -135,7 +133,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
             }
             LOGGER.trace("statement with literal value");
             statementWithLiteralValue(subjectString, st.getPredicate().stringValue(), objectString, literalLanguage,
-                    literalDatatype);
+                literalDatatype);
         }
     }
 

@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.ValueFactory;
-import org.openrdf.model.impl.ValueFactoryImpl;
+import org.openrdf.model.impl.SimpleValueFactory;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.rio.*;
 import org.openrdf.rio.helpers.BasicParserSettings;
@@ -96,14 +96,14 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     @Override
     public OWLDocumentFormat parse(final OWLOntologyDocumentSource documentSource, final OWLOntology ontology,
-            final OWLOntologyLoaderConfiguration configuration) {
+        final OWLOntologyLoaderConfiguration configuration) {
         try {
             RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(ontology, CHECKER, configuration);
             consumer.setOntologyFormat(owlFormatFactory.createFormat());
             String baseUri = "urn:default:baseUri:";
             // Override the default baseUri for non-anonymous ontologies
             if (!ontology.getOntologyID().isAnonymous()
-                    && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
+                && ontology.getOntologyID().getDefaultDocumentIRI().isPresent()) {
                 baseUri = ontology.getOntologyID().getDefaultDocumentIRI().get().toString();
             }
             RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
@@ -125,7 +125,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             // See sourceforge bug 3566820 for more information about this
             // branch
             if (e.getCause() != null && e.getCause().getCause() != null
-                    && e.getCause().getCause() instanceof UnloadableImportException) {
+                && e.getCause().getCause() instanceof UnloadableImportException) {
                 throw (UnloadableImportException) e.getCause().getCause();
             } else {
                 throw new OWLParserException(e);
@@ -164,8 +164,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      *         If there are malformed URLs.
      */
     protected void parseDocumentSource(final OWLOntologyDocumentSource source, final String baseUri,
-            final RDFHandler handler, OWLOntologyLoaderConfiguration config)
-                    throws OWLOntologyInputSourceException, IOException, RDFParseException, RDFHandlerException {
+        final RDFHandler handler, OWLOntologyLoaderConfiguration config)
+            throws OWLOntologyInputSourceException, IOException, RDFParseException, RDFHandlerException {
         final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
@@ -259,7 +259,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         private final RDFHandler consumer;
         private long owlParseStart;
         private final Set<Resource> typedLists = new HashSet<>();
-        private final ValueFactory vf = ValueFactoryImpl.getInstance();
+        private final ValueFactory vf = SimpleValueFactory.getInstance();
 
         RioParserRDFHandler(RDFHandler consumer) {
             this.consumer = consumer;
