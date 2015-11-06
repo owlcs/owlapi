@@ -2,6 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-distribution</artifactId>
+	<packaging>bundle</packaging>
 	<name>OWLAPI Distribution</name>
 
 	<parent>
@@ -71,6 +72,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-rdf-api</artifactId>
+			<version>0.1.0-incubating</version>
 		</dependency>
 		<dependency>
 			<groupId>org.tukaani</groupId>
@@ -157,6 +163,40 @@
 
 	<build>
 		<plugins>
+			<!-- Creates binary distribution. -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.5.3</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Implementation-Title>${project.name}</Implementation-Title>
+						<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						<Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
+						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Embed-Dependency>
+							groupId=${project.groupId};inline=true;scope=compile|runtime|provided
+						</Embed-Dependency>
+						<Embed-Directory>lib</Embed-Directory>
+						<Embed-Transitive>true</Embed-Transitive>
+						<_exportcontents>
+							!org.semanticweb.owlapi.test.*,
+							com.clarkparsia.*,
+							org.semanticweb.owlapi.*;-split-package:=merge-first,
+							org.semanticweb.owlapitools.*;-split-package:=merge-first,
+							uk.ac.manchester.*;-split-package:=merge-first,
+							org.obolibrary.*;-split-package:=merge-first
+						</_exportcontents>
+						<Import-Package>
+							!sun.misc,
+							!com.google.inject.internal.*;resolution:=optional,
+							*
+						</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -196,10 +236,8 @@
 									<exclude>com.google.inject.extensions:*</exclude>
 									<exclude>com.google.code.findbugs:*</exclude>
 									<exclude>org.slf4j:slf4j-api</exclude>
-									<exclude>org.apache.directory.studio:*</exclude>
 									<exclude>commons-io:*</exclude>
 									<exclude>org.tukaani:*</exclude>
-									<exclude>trove4j:*</exclude>
 									<exclude>net.sf.trove4j:*</exclude>
 								</excludes>
 							</artifactSet>
