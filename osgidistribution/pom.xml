@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>4.1.2</version>
+		<version>4.1.3-SNAPSHOT</version>
 	</parent>
 
 	<properties>
