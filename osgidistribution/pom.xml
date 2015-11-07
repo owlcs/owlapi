@@ -232,7 +232,8 @@
 							groupId=org.openrdf.sesame;scope=compile|runtime|provided;inline=false,
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
-							groupId=javax.inject;scope=compile|runtime|provided;inline=false
+							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
+							commons-rdf-api;scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<excludeDependencies>
 							groupId=commons-*;scope=compile|runtime|provided,
@@ -254,8 +255,6 @@
 						<Import-Package>
 							!sun.misc,
 							!com.google.inject.internal.*;resolution:=optional,
-							net.sf.ehcache.*;resolution:=optional,
-							net.spy.memcached.*;resolution:=optional,
 							*
 						</Import-Package>
 					</instructions>
