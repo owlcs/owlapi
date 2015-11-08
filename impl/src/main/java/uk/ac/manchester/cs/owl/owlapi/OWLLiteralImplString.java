@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
  */
-public class OWLLiteralImplString implements OWLLiteral {
+public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
 
     private final @Nonnull String literal;
 
@@ -39,9 +39,11 @@ public class OWLLiteralImplString implements OWLLiteral {
      */
     public OWLLiteralImplString(String literal) {
         this.literal = literal;
+        hashCode = getHashCode();
     }
 
-    private static int index() {
+    @Override
+    protected int index() {
         return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
     }
 
@@ -57,7 +59,18 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     @Override
     public int hashCode() {
-        return literal.hashCode();
+        return hashCode;
+    }
+
+    private final int getHashCode() {
+        int hash = 277;
+        hash = hash * 37 + getDatatype().hashCode();
+        hash *= 37;
+        hash += getLiteral().hashCode() * 65536;
+        if (hasLang()) {
+            hash = hash * 37 + getLang().hashCode();
+        }
+        return hash;
     }
 
     @Override
@@ -76,6 +89,7 @@ public class OWLLiteralImplString implements OWLLiteral {
             && getLang().equals(other.getLang());
     }
 
+    @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
         int diff = getLiteral().compareTo(other.getLiteral());
@@ -112,5 +126,11 @@ public class OWLLiteralImplString implements OWLLiteral {
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
     }
 }
