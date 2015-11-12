@@ -39,21 +39,22 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
     private final RDFOntologyHeaderStatus headerStatus;
     private final Set<RDFTriple> unparsedTriples;
     private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations;
-
+    private final Set<IRI> rdfsClassDeclarations;
     /**
      * @param headerStatus
      *        the header status
      * @param tripleCount
      *        the triple count
      * @param unparsedTriples
-     *        the set of triples not parsed
+ *        the set of triples not parsed
      * @param guessedDeclarations
-     *        guessed declarations map
+     * @param rdfsClassDeclarations
      */
     public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
-            int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples,
-            @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
+                             int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples,
+                             @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations, Set<IRI> rdfsClassDeclarations) {
         this.tripleCount = tripleCount;
+        this.rdfsClassDeclarations = rdfsClassDeclarations;
         this.headerStatus = checkNotNull(headerStatus,
                 "headerStatus cannot be null");
         this.unparsedTriples = checkNotNull(unparsedTriples,
@@ -88,5 +89,13 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
      */
     public Multimap<IRI, Class<?>> getGuessedDeclarations() {
         return Multimaps.unmodifiableMultimap(guessedDeclarations);
+    }
+
+    /**
+     *
+     * @return  the set of IRIs asserted to be of type rdfs:Class
+     */
+    public Set<IRI> getRdfsClassDeclarations() {
+        return rdfsClassDeclarations;
     }
 }

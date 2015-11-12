@@ -12,24 +12,28 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
-import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
-
+import com.google.common.base.Optional;
 import java.io.Serializable;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
+import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import org.semanticweb.owlapi.util.IndividualAppearance;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
+import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
-
-import com.google.common.base.Optional;
 
 /**
  * An abstract translator that can produce an RDF graph from an OWLOntology.
@@ -56,6 +60,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final OWLOntology ont;
     private final boolean useStrongTyping;
     protected final IndividualAppearance multipleOccurrences;
+    private final Set<IRI> declaredRDFSClasses;
 
     /**
      * @param manager
@@ -69,6 +74,14 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         boolean useStrongTyping, IndividualAppearance multiple) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
+        OWLDocumentFormat ontologyFormat = manager.getOntologyFormat(ont);
+        if (ontologyFormat != null &&
+                ontologyFormat.getOntologyLoaderMetaData() instanceof RDFParserMetaData) {
+            declaredRDFSClasses = ((RDFParserMetaData) ontologyFormat.getOntologyLoaderMetaData()).getRdfsClassDeclarations();
+        } else {
+            declaredRDFSClasses = Collections.emptySet();
+        }
+
         this.useStrongTyping = useStrongTyping;
         multipleOccurrences = multiple;
     }
@@ -77,6 +90,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     public void visit(@Nonnull OWLDeclarationAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(), axiom.getEntity().accept(
             OWLEntityTypeProvider.INSTANCE));
+        IRI iri = axiom.getEntity().getIRI();
+        if(declaredRDFSClasses.contains(iri)) {
+            addTriple(iri,RDF_TYPE.getIRI(),RDFS_CLASS.getIRI());
+        }
     }
 
     @Override

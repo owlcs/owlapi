@@ -2906,6 +2906,7 @@ public class TripleHandlers {
         @Override
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
             // TODO: Change to rdfs:Class? (See table 5 in the spec)
+            consumer.addRDFSClassDeclaration(subject);
             consumer.addClassExpression(subject, false);
             consumeTriple(subject, predicate, object);
             if (!isStrict()) {

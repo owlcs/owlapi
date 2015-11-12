@@ -167,6 +167,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     @Nonnull
     private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
     RemappingIndividualProvider anonProvider;
+    private Set<IRI> rdfsClassDeclarations = new HashSet<>();
 
     /**
      * Instantiates a new oWLRDF consumer.
@@ -1364,7 +1365,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         Set<RDFTriple> remainingTriples = handlerAccessor.mopUp();
         if (ontologyFormat != null) {
             RDFParserMetaData metaData = new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER, tripleLogger
-                .count(), remainingTriples, guessedDeclarations);
+                .count(), remainingTriples, guessedDeclarations, rdfsClassDeclarations);
             ontologyFormat.setOntologyLoaderMetaData(metaData);
         }
         // Do we need to change the ontology IRI?
@@ -2398,5 +2399,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
             }
             objects.add(con);
         }
+    }
+    void addRDFSClassDeclaration(IRI rdfsClass) {
+        rdfsClassDeclarations.add(rdfsClass);
     }
 }
