@@ -34,6 +34,10 @@ public abstract class AbstractRDFPrefixDocumentFormat extends
     private static final long serialVersionUID = 40000L;
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();
+    public AbstractRDFPrefixDocumentFormat() {
+        setOntologyLoaderMetaData(new RDFParserMetaData.NullRDFParserMetadata());
+    }
+
 
     @Override
     public RDFParserMetaData getOntologyLoaderMetaData() {

@@ -12,19 +12,17 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.io.Serializable;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.util.CollectionFactory;
-
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import javax.annotation.Nonnull;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.util.CollectionFactory;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -62,12 +60,26 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
         this.guessedDeclarations = checkNotNull(guessedDeclarations,
                 "guessedDeclarations cannot be null");
     }
-
     /**
-     * Gets a count of the triples process during loading.
-     * 
-     * @return The number of triples process during loading.
+     * @param headerStatus
+     *        the header status
+     * @param tripleCount
+     *        the triple count
+     * @param unparsedTriples
+     *        the set of triples not parsed
+     * @param guessedDeclarations
      */
+
+    public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
+                             int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples,
+                             @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
+        this(headerStatus, tripleCount,unparsedTriples, guessedDeclarations,new HashSet<IRI>());
+    }
+        /**
+         * Gets a count of the triples process during loading.
+         *
+         * @return The number of triples process during loading.
+         */
     public int getTripleCount() {
         return tripleCount;
     }
@@ -97,5 +109,13 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
      */
     public Set<IRI> getRdfsClassDeclarations() {
         return rdfsClassDeclarations;
+    }
+
+    public static class NullRDFParserMetadata extends RDFParserMetaData {
+        private static ArrayListMultimap<IRI,Class<?>> alm = ArrayListMultimap.create(0,0);
+        public NullRDFParserMetadata() {
+            super(RDFOntologyHeaderStatus.PARSED_ZERO_HEADERS, 0,
+                    Collections.<RDFTriple>emptySet(), alm,Collections.<IRI>emptySet());
+        }
     }
 }

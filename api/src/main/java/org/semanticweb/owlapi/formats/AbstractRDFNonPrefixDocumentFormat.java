@@ -33,6 +33,10 @@ public abstract class AbstractRDFNonPrefixDocumentFormat extends
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<>();
 
+    public AbstractRDFNonPrefixDocumentFormat() {
+     setOntologyLoaderMetaData(new RDFParserMetaData.NullRDFParserMetadata());
+    }
+
     @Override
     public RDFParserMetaData getOntologyLoaderMetaData() {
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();
