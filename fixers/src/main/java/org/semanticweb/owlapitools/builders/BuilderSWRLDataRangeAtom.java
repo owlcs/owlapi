@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Builder class for SWRLDataRangeAtom. */
 public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
@@ -57,6 +58,15 @@ public class BuilderSWRLDataRangeAtom extends BaseBuilder<SWRLDataRangeAtom, Bui
     public BuilderSWRLDataRangeAtom with(SWRLDArgument arg) {
         argument = arg;
         return this;
+    }
+
+    /**
+     * @param arg
+     *        predicate
+     * @return builder
+     */
+    public BuilderSWRLDataRangeAtom with(OWL2Datatype arg) {
+        return with(arg.getDatatype(df));
     }
 
     /**

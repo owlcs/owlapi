@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.providers.ClassProvider;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.VersionInfo;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -201,6 +202,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
+    public OWLDataComplementOf getOWLDataComplementOf(OWL2Datatype dataRange) {
+        return getOWLDataComplementOf(dataRange.getDatatype(this));
+    }
+
+    @Override
     public OWLDataIntersectionOf getOWLDataIntersectionOf(Collection<? extends OWLDataRange> dataRanges) {
         checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
         return new OWLDataIntersectionOfImpl(dataRanges);
@@ -250,6 +256,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
+    public OWLDataAllValuesFrom getOWLDataAllValuesFrom(OWLDataPropertyExpression property, OWL2Datatype dataRange) {
+        return getOWLDataAllValuesFrom(property, dataRange.getDatatype(this));
+    }
+
+    @Override
     public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
@@ -263,6 +274,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         checkNotNull(property, "property cannot be null");
         checkNotNegative(cardinality, "cardinality cannot be negative");
         return new OWLDataExactCardinalityImpl(property, cardinality, dataRange);
+    }
+
+    @Override
+    public OWLDataExactCardinality getOWLDataExactCardinality(int cardinality, OWLDataPropertyExpression property,
+        OWL2Datatype dataRange) {
+        return getOWLDataExactCardinality(cardinality, property, dataRange.getDatatype(this));
     }
 
     @Override
@@ -282,6 +299,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
+    public OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality, OWLDataPropertyExpression property,
+        OWL2Datatype dataRange) {
+        return getOWLDataMaxCardinality(cardinality, property, dataRange.getDatatype(this));
+    }
+
+    @Override
     public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property) {
         checkNotNegative(cardinality, "cardinality cannot be negative");
         checkNotNull(property, "property cannot be null");
@@ -298,10 +321,21 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
+    public OWLDataMinCardinality getOWLDataMinCardinality(int cardinality, OWLDataPropertyExpression property,
+        OWL2Datatype dataRange) {
+        return getOWLDataMinCardinality(cardinality, property, dataRange.getDatatype(this));
+    }
+
+    @Override
     public OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange) {
         checkNotNull(dataRange, "dataRange cannot be null");
         checkNotNull(property, "property cannot be null");
         return new OWLDataSomeValuesFromImpl(property, dataRange);
+    }
+
+    @Override
+    public OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWL2Datatype dataRange) {
+        return getOWLDataSomeValuesFrom(property, dataRange.getDatatype(this));
     }
 
     @Override
@@ -429,6 +463,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         checkNotNull(owlDataRange, "owlDataRange cannot be null");
         checkAnnotations(annotations);
         return new OWLDataPropertyRangeAxiomImpl(property, owlDataRange, annotations);
+    }
+
+    @Override
+    public OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(OWLDataPropertyExpression property,
+        OWL2Datatype owlDataRange, Collection<OWLAnnotation> annotations) {
+        return getOWLDataPropertyRangeAxiom(property, owlDataRange.getDatatype(this), annotations);
     }
 
     @Override
@@ -840,6 +880,11 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
+    public SWRLDataRangeAtom getSWRLDataRangeAtom(OWL2Datatype predicate, SWRLDArgument arg) {
+        return getSWRLDataRangeAtom(predicate.getDatatype(this), arg);
+    }
+
+    @Override
     public SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, SWRLIArgument arg0,
         SWRLIArgument arg1) {
         checkNotNull(property, "property cannot be null");
@@ -904,6 +949,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         checkNotNull(dataRange, "dataRange cannot be null");
         checkAnnotations(annotations);
         return new OWLDatatypeDefinitionAxiomImpl(datatype, dataRange, annotations);
+    }
+
+    @Override
+    public OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype, OWL2Datatype dataRange,
+        Collection<OWLAnnotation> annotations) {
+        return getOWLDatatypeDefinitionAxiom(datatype, dataRange.getDatatype(this), annotations);
     }
 
     @Override

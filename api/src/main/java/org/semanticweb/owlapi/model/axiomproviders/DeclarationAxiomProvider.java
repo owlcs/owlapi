@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Declaration provider interface. */
 public interface DeclarationAxiomProvider {
@@ -64,5 +65,28 @@ public interface DeclarationAxiomProvider {
      * @return a datatype definition axiom with annotations
      */
     OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype, OWLDataRange dataRange,
-            Collection<OWLAnnotation> annotations);
+        Collection<OWLAnnotation> annotations);
+
+    /**
+     * @param datatype
+     *        data type
+     * @param dataRange
+     *        data Range
+     * @return a datatype definition axiom
+     */
+    default OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype, OWL2Datatype dataRange) {
+        return getOWLDatatypeDefinitionAxiom(datatype, dataRange, Collections.emptySet());
+    }
+
+    /**
+     * @param datatype
+     *        data type
+     * @param dataRange
+     *        data Range
+     * @param annotations
+     *        A set of annotations.
+     * @return a datatype definition axiom with annotations
+     */
+    OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(OWLDatatype datatype, OWL2Datatype dataRange,
+        Collection<OWLAnnotation> annotations);
 }

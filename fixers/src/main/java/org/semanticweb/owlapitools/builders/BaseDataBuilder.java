@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Builder class for OWLDataAllValuesFrom.
@@ -40,6 +41,15 @@ public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPr
     @Inject
     public BaseDataBuilder(OWLDataFactory df) {
         super(df);
+    }
+
+    /**
+     * @param arg
+     *        range
+     * @return builder
+     */
+    public B withRange(OWL2Datatype arg) {
+        return withRange(arg.getDatatype(df));
     }
 
     /**

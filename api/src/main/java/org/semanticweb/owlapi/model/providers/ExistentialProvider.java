@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model.providers;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Existential provider interface. */
 public interface ExistentialProvider {
@@ -30,6 +31,18 @@ public interface ExistentialProvider {
     OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWLDataRange dataRange);
 
     /**
+     * Gets an OWLDataSomeValuesFrom restriction
+     * 
+     * @param property
+     *        The property that the restriction acts along.
+     * @param dataRange
+     *        The data range that is the filler.
+     * @return An OWLDataSomeValuesFrom restriction that acts along the
+     *         specified property and has the specified filler
+     */
+    OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(OWLDataPropertyExpression property, OWL2Datatype dataRange);
+
+    /**
      * Gets an OWLObjectSomeValuesFrom restriction
      * 
      * @param property
@@ -40,5 +53,5 @@ public interface ExistentialProvider {
      *         property with the specified filler
      */
     OWLObjectSomeValuesFrom getOWLObjectSomeValuesFrom(OWLObjectPropertyExpression property,
-            OWLClassExpression classExpression);
+        OWLClassExpression classExpression);
 }

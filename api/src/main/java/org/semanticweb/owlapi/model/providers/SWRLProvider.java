@@ -18,6 +18,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * An interface to a factory that can create SWRL objects.
@@ -51,7 +52,7 @@ public interface SWRLProvider {
      * @return An anonymous rule with the specified body and head
      */
     SWRLRule getSWRLRule(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head,
-            Collection<OWLAnnotation> annotations);
+        Collection<OWLAnnotation> annotations);
 
     /**
      * Gets a SWRL atom where the predicate is a class expression i.e. C(x)
@@ -81,6 +82,19 @@ public interface SWRLProvider {
     SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate, SWRLDArgument arg);
 
     /**
+     * Gets a SWRL atom where the predicate is a data range, i.e. D(x) where D
+     * is an OWL data range and x is either a literal or variable for a literal
+     * 
+     * @param predicate
+     *        The data range that represents the predicate of the atom
+     * @param arg
+     *        The argument (x)
+     * @return An atom with the specified data range predicate and the specified
+     *         argument
+     */
+    SWRLDataRangeAtom getSWRLDataRangeAtom(OWL2Datatype predicate, SWRLDArgument arg);
+
+    /**
      * Gets a SWRL object property atom, i.e. P(x, y) where P is an OWL object
      * property (expression) and x and y are are either individuals or variables
      * for individuals.
@@ -95,7 +109,7 @@ public interface SWRLProvider {
      *         specified arguments
      */
     SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, SWRLIArgument arg0,
-            SWRLIArgument arg1);
+        SWRLIArgument arg1);
 
     /**
      * Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
@@ -112,7 +126,7 @@ public interface SWRLProvider {
      *         specified arguments
      */
     SWRLDataPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property, SWRLIArgument arg0,
-            SWRLDArgument arg1);
+        SWRLDArgument arg1);
 
     /**
      * Creates a SWRL Built-In atom. Builtins have predicates that are

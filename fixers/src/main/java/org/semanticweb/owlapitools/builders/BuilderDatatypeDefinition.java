@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Builder class for OWLDatatypeDefinitionAxiom. */
 public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
@@ -48,6 +49,15 @@ public class BuilderDatatypeDefinition extends BaseBuilder<OWLDatatypeDefinition
     @Inject
     public BuilderDatatypeDefinition(OWLDataFactory df) {
         super(df);
+    }
+
+    /**
+     * @param arg
+     *        range
+     * @return builder
+     */
+    public BuilderDatatypeDefinition withType(OWL2Datatype arg) {
+        return withType(arg.getDatatype(df));
     }
 
     /**

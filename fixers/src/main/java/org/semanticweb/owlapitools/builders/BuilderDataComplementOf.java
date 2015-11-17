@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Builder class for OWLDataComplementOf. */
 public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
@@ -46,6 +47,15 @@ public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, Bu
     public BuilderDataComplementOf(OWLDataComplementOf expected, OWLDataFactory df) {
         this(df);
         withRange(expected.getDataRange());
+    }
+
+    /**
+     * @param arg
+     *        range
+     * @return builder
+     */
+    public BuilderDataComplementOf withRange(OWL2Datatype arg) {
+        return withRange(arg.getDatatype(df));
     }
 
     /**
