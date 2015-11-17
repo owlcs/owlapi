@@ -18,11 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.*;
 
 /**
  * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is
@@ -53,9 +49,11 @@ public class HiddenGCICount extends IntegerValuedMetric {
     @Override
     protected boolean isMetricInvalidated(@Nonnull List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLEquivalentClassesAxiom || chg
-                .getAxiom() instanceof OWLSubClassOfAxiom) {
-                return true;
+            if (chg.isAxiomChange()) {
+                OWLAxiom ax = chg.getAxiom();
+                if (ax instanceof OWLEquivalentClassesAxiom || ax instanceof OWLSubClassOfAxiom) {
+                    return true;
+                }
             }
         }
         return false;
