@@ -159,6 +159,26 @@
 			<version>0.5.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com.github.jsonld-java</groupId>
+			<artifactId>jsonld-java</artifactId>
+			<version>0.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-cache</artifactId>
+			<version>4.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.2.4</version>
+		</dependency>
+		<dependency>
 			<groupId>org.semarglproject</groupId>
 			<artifactId>semargl-sesame</artifactId>
 			<version>0.6.1</version>
@@ -221,10 +241,10 @@
 						<Embed-Dependency>
 							groupId=${project.groupId};inline=true;scope=compile|runtime|provided,
 							groupId=com.fasterxml.jackson.core;scope=compile|runtime|provided;inline=false,
-							jsonld-java;scope=compile|runtime|provided;inline=false,
+							jsonld-java*;scope=compile|runtime|provided;inline=false,
 							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
 							groupId=net.sf.trove4j;scope=compile|runtime|provided;inline=false,
-							groupId=org.apache.httpcomponent;scope=compile|runtime|provided;inline=false,
+							groupId=org.apache.httpcomponents;scope=compile|runtime|provided;inline=false,
 							groupId=org.openrdf.sesame;scope=compile|runtime|provided;inline=false,
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
