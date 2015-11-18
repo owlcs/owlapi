@@ -166,17 +166,27 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.2.5</version>
+			<version>4.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient-cache</artifactId>
-			<version>4.2.5</version>
+			<version>4.5.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
-			<version>4.2.4</version>
+			<version>4.4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.semarglproject</groupId>
@@ -248,10 +258,10 @@
 							groupId=org.openrdf.sesame;scope=compile|runtime|provided;inline=false,
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
+							groupId=commons-*;scope=compile|runtime|provided;inline=false,
 							groupId=javax.inject;scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<excludeDependencies>
-							groupId=commons-*;scope=compile|runtime|provided,
 							groupId=com.google.guava;scope=compile|runtime|provided,
 							groupId=com.google.inject*;scope=compile|runtime|provided,
 							groupId=org.slf4j*;scope=compile|runtime|provided
@@ -270,6 +280,9 @@
 						<Import-Package>
 							!sun.misc,
 							!com.google.inject.internal.*;resolution:=optional,
+							!javax.servlet,
+							!org.apache.avalon.framework.logger,
+							!org.apache.log*,
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
 							*
