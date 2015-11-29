@@ -54,7 +54,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
             return;
         }
         axioms.forEach(ax -> addChange(new RemoveAxiom(ont, ax)));
-        Stream<OWLClassExpression> superclasses = axioms.stream().map(ax -> ax.getSuperClass());
+        Stream<OWLClassExpression> superclasses = axioms.stream().map(OWLSubClassOfAxiom::getSuperClass);
         OWLObjectIntersectionOf intersection = df.getOWLObjectIntersectionOf(superclasses);
         addChange(new AddAxiom(ont, df.getOWLSubClassOfAxiom(cls, intersection)));
     }

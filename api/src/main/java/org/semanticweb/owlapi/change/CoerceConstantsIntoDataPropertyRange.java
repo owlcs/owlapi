@@ -13,11 +13,10 @@
 package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
@@ -43,19 +42,21 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
      */
     public CoerceConstantsIntoDataPropertyRange(OWLDataFactory dataFactory, Collection<OWLOntology> ontologies) {
         super(dataFactory);
-        Map<OWLDataPropertyExpression, OWLDatatype> map = new HashMap<>();
-        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
-            ont.axioms(AxiomType.DATA_PROPERTY_RANGE).filter(ax -> ax.getRange().isOWLDatatype())
-                .forEach(ax -> map.put(ax.getProperty(), ax.getRange().asOWLDatatype()));
-        }
+        checkNotNull(ontologies, "ontologies cannot be null");
+        Map<OWLDataPropertyExpression, OWLDatatype> map = ontologies.stream().flatMap(ont -> ont.axioms(
+            AxiomType.DATA_PROPERTY_RANGE))
+            .filter(ax -> ax.getRange().isOWLDatatype())
+            .collect(Collectors.toMap(ax -> ax.getProperty(), ax -> ax.getRange().asOWLDatatype()));
         OWLConstantReplacer replacer = new OWLConstantReplacer(dataFactory, map);
-        ontologies.forEach(o -> o.logicalAxioms().forEach(ax -> {
-            OWLAxiom dupAx = replacer.duplicateObject(ax);
-            if (!ax.equals(dupAx)) {
-                addChange(new RemoveAxiom(o, ax));
-                addChange(new AddAxiom(o, dupAx));
-            }
-        }));
+        ontologies.forEach(o -> o.logicalAxioms().forEach(ax -> duplicate(replacer, o, ax)));
+    }
+
+    protected void duplicate(OWLConstantReplacer replacer, OWLOntology o, OWLLogicalAxiom ax) {
+        OWLAxiom dupAx = replacer.duplicateObject(ax);
+        if (!ax.equals(dupAx)) {
+            addChange(new RemoveAxiom(o, ax));
+            addChange(new AddAxiom(o, dupAx));
+        }
     }
 
     /** The Class OWLConstantReplacer. */
@@ -75,7 +76,7 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
 
         private OWLDataOneOf process(OWLDataPropertyExpression prop, OWLDataOneOf oneOf) {
-            return df.getOWLDataOneOf(asSet(oneOf.values().map(c -> process(prop, c))));
+            return df.getOWLDataOneOf(oneOf.values().map(c -> process(prop, c)));
         }
 
         private OWLLiteral process(OWLDataPropertyExpression prop, OWLLiteral con) {
