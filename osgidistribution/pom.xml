@@ -163,6 +163,36 @@
 			<version>0.5.1</version>
 		</dependency>
 		<dependency>
+			<groupId>com.github.jsonld-java</groupId>
+			<artifactId>jsonld-java</artifactId>
+			<version>0.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient-cache</artifactId>
+			<version>4.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
 			<groupId>org.semarglproject</groupId>
 			<artifactId>semargl-sesame</artifactId>
 			<version>0.6.1</version>
@@ -225,10 +255,10 @@
 						<Embed-Dependency>
 							groupId=${project.groupId};inline=true;scope=compile|runtime|provided,
 							groupId=com.fasterxml.jackson.core;scope=compile|runtime|provided;inline=false,
-							jsonld-java;scope=compile|runtime|provided;inline=false,
+							jsonld-java*;scope=compile|runtime|provided;inline=false,
 							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
 							groupId=net.sf.trove4j;scope=compile|runtime|provided;inline=false,
-							groupId=org.apache.httpcomponent;scope=compile|runtime|provided;inline=false,
+							groupId=org.apache.httpcomponents;scope=compile|runtime|provided;inline=false,
 							groupId=org.openrdf.sesame;scope=compile|runtime|provided;inline=false,
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
@@ -255,6 +285,11 @@
 						<Import-Package>
 							!sun.misc,
 							!com.google.inject.internal.*;resolution:=optional,
+							!javax.servlet,
+							!org.apache.avalon.framework.logger,
+							!org.apache.log*,
+							net.sf.ehcache.*;resolution:=optional,
+							net.spy.memcached.*;resolution:=optional,
 							*
 						</Import-Package>
 					</instructions>
