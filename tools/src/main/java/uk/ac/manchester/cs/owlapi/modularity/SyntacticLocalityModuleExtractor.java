@@ -156,30 +156,10 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     private ModuleType moduleType;
     /** Represents the associated ontology. */
     private final OntologyAxiomSet ontologyAxiomSet;
-    @Nonnull /** The ontology. */
-    private final OWLOntology rootOntology;
+    private final IRI rootOntology;
     private final @Nonnull OWLOntology ontology;
     /** Represents the manager for the associated ontology. */
     private final OWLOntologyManager manager;
-
-    /**
-     * Creates the ontology.
-     * 
-     * @param man
-     *        the man
-     * @param ont
-     *        the ont
-     * @param axs
-     *        the axs
-     * @return the oWL ontology
-     */
-    private static OWLOntology createOntology(OWLOntologyManager man, OWLOntology ont, Stream<OWLAxiom> axs) {
-        try {
-            return man.createOntology(axs);
-        } catch (@SuppressWarnings("unused") OWLOntologyCreationException e) {
-            return ont;
-        }
-    }
 
     /**
      * Creates a new module extractor for a subset of a given ontology, its
@@ -187,21 +167,25 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * 
      * @param man
      *        the manager for the associated ontology
-     * @param ont
-     *        the associated ontology
+     * @param iri
+     *        IRI to exclude from logging
      * @param axs
      *        the subset of the ontology as a set of axioms
      * @param moduleType
      *        the type of module this extractor will construct
      */
-    public SyntacticLocalityModuleExtractor(OWLOntologyManager man, OWLOntology ont, Stream<OWLAxiom> axs,
+    public SyntacticLocalityModuleExtractor(OWLOntologyManager man, IRI iri, Stream<OWLAxiom> axs,
         ModuleType moduleType) {
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
-        rootOntology = checkNotNull(ont, "ont cannot be null");
+        rootOntology = iri;
         List<OWLAxiom> collect = asList(axs);
         ontologyAxiomSet = new OntologyAxiomSet(collect);
-        ontology = checkNotNull(createOntology(man, ont, collect.stream()));
+        try {
+            ontology = checkNotNull(man.createOntology(axs));
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     /**
@@ -216,7 +200,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the type of module this extractor will construct
      */
     public SyntacticLocalityModuleExtractor(OWLOntologyManager man, OWLOntology ont, ModuleType moduleType) {
-        this(man, ont, asAxiomSet(ont), moduleType);
+        this(man, ont.getOntologyID().getOntologyIRI().orElse(null), asAxiomSet(ont), moduleType);
     }
 
     private static Stream<OWLAxiom> asAxiomSet(OWLOntology ont) {
@@ -428,7 +412,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @return the string
      */
     String minusOntologyURI(String s) {
-        String uri = manager.getOntologyDocumentIRI(rootOntology) + "#";
+        String uri = rootOntology != null ? rootOntology + "#" : "";
         return s.replace(uri, "").replace("<", "").replace(">", "");
     }
 
