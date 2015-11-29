@@ -46,9 +46,17 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
      * @param values
      *        lierals
      */
-    public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
+    public OWLDataOneOfImpl(Stream<? extends OWLLiteral> values) {
         checkNotNull(values, "values cannot be null");
-        this.values = asList(values.stream().sorted());
+        this.values = asList(values.sorted());
+    }
+
+    /**
+     * @param values
+     *        lierals
+     */
+    public OWLDataOneOfImpl(Collection<? extends OWLLiteral> values) {
+        this(checkNotNull(values, "values cannot be null").stream());
     }
 
     /**

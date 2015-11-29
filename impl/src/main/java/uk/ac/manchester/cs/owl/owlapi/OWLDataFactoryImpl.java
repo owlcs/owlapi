@@ -190,8 +190,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
-    public OWLDataOneOf getOWLDataOneOf(Collection<? extends OWLLiteral> values) {
-        checkIterableNotNull(values, "values cannot be null", true);
+    public OWLDataOneOf getOWLDataOneOf(Stream<? extends OWLLiteral> values) {
         return new OWLDataOneOfImpl(values);
     }
 

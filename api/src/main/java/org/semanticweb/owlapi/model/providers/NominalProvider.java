@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** Nominal provider interface. */
 public interface NominalProvider {
@@ -35,7 +34,21 @@ public interface NominalProvider {
      *        The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values
      */
-    OWLDataOneOf getOWLDataOneOf(Collection<? extends OWLLiteral> values);
+    OWLDataOneOf getOWLDataOneOf(Stream<? extends OWLLiteral> values);
+
+    /**
+     * Gets an OWLDataOneOf <a href=
+     * "http://www.w3.org/TR/2008/WD-owl2-syntax-20081202/#Enumeration_of_Literals"
+     * >(see spec)</a>
+     * 
+     * @param values
+     *        The set of values that the data one of should contain.
+     * @return A data one of that enumerates the specified set of values
+     */
+    default OWLDataOneOf getOWLDataOneOf(Collection<? extends OWLLiteral> values) {
+        checkIterableNotNull(values, "values cannot be null or contain null or empty", false);
+        return getOWLDataOneOf(values.stream());
+    }
 
     /**
      * Gets an OWLDataOneOf <a href=
@@ -49,7 +62,7 @@ public interface NominalProvider {
      */
     default OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
         checkIterableNotNull(values, "values cannot be null", true);
-        return getOWLDataOneOf(CollectionFactory.createSet(values));
+        return getOWLDataOneOf(Stream.of(values));
     }
 
     /**
