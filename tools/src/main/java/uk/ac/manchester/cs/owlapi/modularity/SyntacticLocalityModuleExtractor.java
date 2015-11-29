@@ -182,7 +182,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         List<OWLAxiom> collect = asList(axs);
         ontologyAxiomSet = new OntologyAxiomSet(collect);
         try {
-            ontology = checkNotNull(man.createOntology(axs));
+            ontology = checkNotNull(man.createOntology(collect));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
