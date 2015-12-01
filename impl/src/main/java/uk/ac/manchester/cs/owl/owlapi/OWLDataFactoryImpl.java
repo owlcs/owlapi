@@ -206,8 +206,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
-    public OWLDataIntersectionOf getOWLDataIntersectionOf(Collection<? extends OWLDataRange> dataRanges) {
-        checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
+    public OWLDataIntersectionOf getOWLDataIntersectionOf(Stream<? extends OWLDataRange> dataRanges) {
         return new OWLDataIntersectionOfImpl(dataRanges);
     }
 

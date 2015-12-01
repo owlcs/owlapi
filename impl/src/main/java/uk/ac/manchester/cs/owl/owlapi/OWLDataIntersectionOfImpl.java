@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -41,6 +42,14 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
      *        operands
      */
     public OWLDataIntersectionOfImpl(Collection<? extends OWLDataRange> operands) {
+        super(operands);
+    }
+
+    /**
+     * @param operands
+     *        operands
+     */
+    public OWLDataIntersectionOfImpl(Stream<? extends OWLDataRange> operands) {
         super(operands);
     }
 

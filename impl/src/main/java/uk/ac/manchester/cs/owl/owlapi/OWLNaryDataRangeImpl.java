@@ -39,6 +39,11 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
         this.operands = asList(ops.stream().distinct().sorted());
     }
 
+    protected OWLNaryDataRangeImpl(Stream<? extends OWLDataRange> operands) {
+        Stream<? extends OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
+        this.operands = asList(ops.distinct().sorted());
+    }
+
     @Override
     public Stream<? extends OWLDataRange> operands() {
         return operands.stream();

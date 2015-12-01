@@ -33,7 +33,17 @@ public interface IntersectionProvider {
      *        data ranges for intersection. Cannot be null or contain nulls.
      * @return an OWLDataIntersectionOf on the specified dataranges
      */
-    OWLDataIntersectionOf getOWLDataIntersectionOf(Collection<? extends OWLDataRange> dataRanges);
+    default OWLDataIntersectionOf getOWLDataIntersectionOf(Collection<? extends OWLDataRange> dataRanges) {
+        checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
+        return getOWLDataIntersectionOf(dataRanges.stream());
+    }
+
+    /**
+     * @param dataRanges
+     *        data ranges for intersection. Cannot be null or contain nulls.
+     * @return an OWLDataIntersectionOf on the specified dataranges
+     */
+    OWLDataIntersectionOf getOWLDataIntersectionOf(Stream<? extends OWLDataRange> dataRanges);
 
     /**
      * @param dataRanges
