@@ -33,7 +33,17 @@ public interface UnionProvider {
      *        data ranges for union. Cannot be null or contain nulls.
      * @return an OWLDataUnionOf on the specified dataranges
      */
-    OWLDataUnionOf getOWLDataUnionOf(Collection<? extends OWLDataRange> dataRanges);
+    default OWLDataUnionOf getOWLDataUnionOf(Collection<? extends OWLDataRange> dataRanges) {
+        checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
+        return getOWLDataUnionOf(dataRanges.stream());
+    }
+
+    /**
+     * @param dataRanges
+     *        data ranges for union. Cannot be null or contain nulls.
+     * @return an OWLDataUnionOf on the specified dataranges
+     */
+    OWLDataUnionOf getOWLDataUnionOf(Stream<? extends OWLDataRange> dataRanges);
 
     /**
      * @param dataRanges

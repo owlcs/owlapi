@@ -211,8 +211,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
-    public OWLDataUnionOf getOWLDataUnionOf(Collection<? extends OWLDataRange> dataRanges) {
-        checkIterableNotNull(dataRanges, "dataRanges cannot be null", true);
+    public OWLDataUnionOf getOWLDataUnionOf(Stream<? extends OWLDataRange> dataRanges) {
         return new OWLDataUnionOfImpl(dataRanges);
     }
 
