@@ -74,6 +74,11 @@
 			<version>2.6.3</version>
 		</dependency>
 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-compatibility</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-rdf-api</artifactId>
 			<version>0.1.0-incubating</version>
@@ -229,6 +234,7 @@
 									<exclude>commons-codec:commons-codec:*</exclude>
 									<exclude>org.slf4j:*</exclude>
 									<exclude>org.semarglproject:*</exclude>
+									<exclude>com.github.ben-manes.caffeine:*</exclude>
 									<exclude>com.google.guava:*</exclude>
 									<exclude>com.google.inject:*</exclude>
 									<exclude>javax.inject:*</exclude>

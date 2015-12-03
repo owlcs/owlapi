@@ -22,7 +22,8 @@
 		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sesame.version>4.0.0</sesame.version>
-		<!-- remove this line for releases, if the release process fails because of missing javadoc jars -->
+		<!-- remove this line for releases, if the release process fails because 
+			of missing javadoc jars -->
 		<no-javadoc>true</no-javadoc>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
@@ -89,6 +90,11 @@
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.5</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>2.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -323,9 +329,7 @@
 						<exclude>**/*IntegrationTestCase.java</exclude>
 					</excludes>
 					<printSummary>false</printSummary>
-					<!-- <parallel>all</parallel>
-					<threadCount>1</threadCount>
-					<perCoreThreadCount>true</perCoreThreadCount> -->
+					<!-- <parallel>all</parallel> <threadCount>1</threadCount> <perCoreThreadCount>true</perCoreThreadCount> -->
 					<argLine>-Xmx2G -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>

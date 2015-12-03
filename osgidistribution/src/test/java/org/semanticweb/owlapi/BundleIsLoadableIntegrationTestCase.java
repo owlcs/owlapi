@@ -65,7 +65,7 @@ public class BundleIsLoadableIntegrationTestCase {
         assertNotNull("uri is null", uri);
         BundleContext context = framework.getBundleContext();
         assertNotNull("context is null", context);
-        List<String> bundles = Arrays.asList("javax-inject", "aopalliance",
+        List<String> bundles = Arrays.asList("javax-inject", "aopalliance","caffeine",
             "guava", "guice-multibindings", "guice-assistedinject", "guice-4",
             "aopalliance", "commons-io", "commons-codec", "slf4j-simple", "jcl-over-slf4j", "slf4j-api");
         for (String bundleName : bundles) {

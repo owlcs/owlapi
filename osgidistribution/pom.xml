@@ -235,6 +235,11 @@
 			<artifactId>org.apache.servicemix.bundles.aopalliance</artifactId>
 			<version>1.0_6</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>2.0.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -263,7 +268,8 @@
 							groupId=org.semarglproject;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
 							groupId=javax.inject;scope=compile|runtime|provided;inline=false,
-							commons-rdf-api;scope=compile|runtime|provided;inline=false
+							commons-rdf-api;scope=compile|runtime|provided;inline=false,
+							caffeine;scope=compile|runtime|provided;inline=false
 						</Embed-Dependency>
 						<excludeDependencies>
 							groupId=commons-*;scope=compile|runtime|provided,
@@ -290,6 +296,7 @@
 							!org.apache.log*,
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
+							com.github.benmanes.*;resolution:=optional,
 							*
 						</Import-Package>
 					</instructions>
@@ -328,6 +335,7 @@
 									<exclude>commons-codec:commons-codec:*</exclude>
 									<exclude>org.slf4j:*</exclude>
 									<exclude>org.semarglproject:*</exclude>
+									<exclude>com.github.ben-manes.caffeine:*</exclude>
 									<exclude>com.google.guava:*</exclude>
 									<exclude>com.google.inject:*</exclude>
 									<exclude>javax.inject:*</exclude>
