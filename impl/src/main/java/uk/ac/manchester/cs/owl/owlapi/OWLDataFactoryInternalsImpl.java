@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.lang.ref.WeakReference;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
@@ -27,9 +26,8 @@ import org.semanticweb.owlapi.util.WeakIndexCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
  * @author ignazio
@@ -91,18 +89,13 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         datatypesByURI = buildCache();
         individualsByURI = buildCache();
         annotationPropertiesByURI = buildCache();
-        CacheBuilder<Object, Object> annotationsCacheBuilder = CacheBuilder.newBuilder().maximumSize(512)
-                .expireAfterAccess(2, TimeUnit.MINUTES);
+        Caffeine<Object, Object> annotationsCacheBuilder = Caffeine.newBuilder()
+            .maximumSize(512)
+            .expireAfterAccess(2, TimeUnit.MINUTES);
         if (logger.isDebugEnabled()) {
             annotationsCacheBuilder.recordStats();
         }
-        annotationsCache = annotationsCacheBuilder.build(new CacheLoader<OWLAnnotation, OWLAnnotation>() {
-
-            @Override
-            public OWLAnnotation load(OWLAnnotation key) {
-                return key;
-            }
-        });
+        annotationsCache = annotationsCacheBuilder.build(key -> key);
     }
 
     @SuppressWarnings({ "unchecked" })
@@ -110,42 +103,42 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
         OWLCLASS {
 
             @Override
-            OWLClass build(IRI iri) {
+                OWLClass build(IRI iri) {
                 return new OWLClassImpl(iri);
             }
         },
         OWLOBJECTPROPERTY {
 
             @Override
-            OWLObjectProperty build(IRI iri) {
+                OWLObjectProperty build(IRI iri) {
                 return new OWLObjectPropertyImpl(iri);
             }
         },
         OWLDATAPROPERTY {
 
             @Override
-            OWLDataProperty build(IRI iri) {
+                OWLDataProperty build(IRI iri) {
                 return new OWLDataPropertyImpl(iri);
             }
         },
         OWLNAMEDINDIVIDUAL {
 
             @Override
-            OWLNamedIndividual build(IRI iri) {
+                OWLNamedIndividual build(IRI iri) {
                 return new OWLNamedIndividualImpl(iri);
             }
         },
         OWLDATATYPE {
 
             @Override
-            OWLDatatype build(IRI iri) {
+                OWLDatatype build(IRI iri) {
                 return new OWLDatatypeImpl(iri);
             }
         },
         OWLANNOTATIONPROPERTY {
 
             @Override
-            OWLAnnotationProperty build(IRI iri) {
+                OWLAnnotationProperty build(IRI iri) {
                 return new OWLAnnotationPropertyImpl(iri);
             }
         };
@@ -208,20 +201,15 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
 
     @Override
     public OWLAnnotation getOWLAnnotation(OWLAnnotationProperty property, OWLAnnotationValue value,
-            Stream<OWLAnnotation> annotations) {
+        Stream<OWLAnnotation> annotations) {
         OWLAnnotation key = new OWLAnnotationImpl(property, value, annotations);
-        try {
-            OWLAnnotation annotation = annotationsCache.get(key);
-            if (logger.isDebugEnabled()) {
-                int n = annotationsCount.incrementAndGet();
-                if (n % 1000 == 0) {
-                    logger.debug("{}: Annotations Cache stats: {}", n, annotationsCache.stats());
-                }
+        OWLAnnotation annotation = annotationsCache.get(key);
+        if (logger.isDebugEnabled()) {
+            int n = annotationsCount.incrementAndGet();
+            if (n % 1000 == 0) {
+                logger.debug("{}: Annotations Cache stats: {}", n, annotationsCache.stats());
             }
-            return annotation;
-        } catch (@SuppressWarnings("unused") ExecutionException e) {
-            // if any exception is raised, just return the input key
-            return key;
         }
+        return annotation;
     }
 }

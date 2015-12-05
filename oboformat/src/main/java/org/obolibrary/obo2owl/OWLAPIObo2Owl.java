@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
@@ -38,9 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Sets;
-import com.google.common.util.concurrent.UncheckedExecutionException;
 
 /** The Class OWLAPIObo2Owl. */
 public class OWLAPIObo2Owl {
@@ -72,15 +69,22 @@ public class OWLAPIObo2Owl {
     protected final @Nonnull Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
     private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet("gci_relation", "gci_filler", "cardinality",
         "minCardinality", "maxCardinality", "all_some", "all_only");
-    /** Cache for the id to IRI conversion. */
-    private final LoadingCache<String, IRI> idToIRICache = CacheBuilder.newBuilder().maximumSize(1024).build(
-        new CacheLoader<String, IRI>() {
+    /**
+     * Cache for the id to IRI conversion. This cannot be replaced with a
+     * Caffeine cache - the loading of keys is recursive, and a bug in
+     * ConcurrentHashMap implementation causes livelocks for this particular
+     * situation.
+     */
+    private final com.google.common.cache.LoadingCache<String, IRI> idToIRICache = CacheBuilder.newBuilder()
+        .maximumSize(1024)
+        .build(
+            new CacheLoader<String, IRI>() {
 
-            @Override
-            public IRI load(String key) {
-                return oboIdToIRI_load(key);
-            }
-        });
+                @Override
+                public IRI load(String key) {
+                    return oboIdToIRI_load(key);
+                }
+            });
 
     /**
      * Instantiates a new oWLAPI obo2 owl.
@@ -1552,15 +1556,7 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     public IRI oboIdToIRI(String id) {
-        try {
-            return idToIRICache.get(id);
-        } catch (ExecutionException | UncheckedExecutionException e) {
-            if (e.getCause() instanceof OWLParserException) {
-                throw (OWLParserException) e.getCause();
-            }
-            LOG.error("error executing obo id to IRI", e);
-            return oboIdToIRI_load(id);
-        }
+        return idToIRICache.getUnchecked(id);
     }
 
     /**

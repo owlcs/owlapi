@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -35,9 +34,8 @@ import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -50,41 +48,19 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     protected static final @Nonnull Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
     static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     protected int hashCode = 0;
-    protected static CacheLoader<OWLObjectImpl, Set<OWLEntity>> builder = new CacheLoader<OWLObjectImpl, Set<OWLEntity>>() {
-
-        @Override
-        public Set<OWLEntity> load(OWLObjectImpl key) {
-            return key.addSignatureEntitiesToSet(new HashSet<>());
-        }
-    };
-    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = CacheBuilder.newBuilder().weakKeys()
-        .softValues().build(builder);
-    protected static CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonbuilder = new CacheLoader<OWLObjectImpl, Set<OWLAnonymousIndividual>>() {
-
-        @Override
-        public Set<OWLAnonymousIndividual> load(OWLObjectImpl key) {
-            return key.addAnonymousIndividualsToSet(new HashSet<>());
-        }
-    };
-    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = CacheBuilder.newBuilder()
-        .weakKeys().softValues().build(anonbuilder);
+    protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder()
+        .weakKeys().softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
+    protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = Caffeine.newBuilder()
+        .weakKeys().softValues().build(key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
-        try {
-            return anonCaches.get(this).stream();
-        } catch (ExecutionException e) {
-            throw new OWLRuntimeException(e);
-        }
+        return anonCaches.get(this).stream();
     }
 
     @Override
     public Stream<OWLEntity> signature() {
-        try {
-            return signatures.get(this).stream();
-        } catch (ExecutionException e) {
-            throw new OWLRuntimeException(e);
-        }
+        return signatures.get(this).stream();
     }
 
     protected static List<OWLAnnotation> asAnnotations(Collection<OWLAnnotation> anns) {

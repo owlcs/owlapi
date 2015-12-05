@@ -19,9 +19,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.Weigher;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 
 /** implements the OBO Format 1.4 specification. */
 public class OBOFormatParser {
@@ -36,7 +35,7 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
     protected final MyStream stream;
-    private final com.google.common.cache.LoadingCache<String, String> stringCache;
+    private final LoadingCache<String, String> stringCache;
 
     /**
      *
@@ -51,20 +50,12 @@ public class OBOFormatParser {
      */
     protected OBOFormatParser(MyStream s) {
         stream = s;
-        Weigher<String, String> stringWeigher = (key, value) -> key.length();
-        CacheLoader<String, String> loader = new CacheLoader<String, String>() {
-
-            @Override
-            public String load(String key) {
-                return key;
-            }
-        };
+        Caffeine<String, String> builder = Caffeine.newBuilder()
+            .maximumWeight(8192 * 1024).weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
-            stringCache = CacheBuilder.newBuilder().recordStats().maximumWeight(8192 * 1024).weigher(stringWeigher)
-                .build(loader);
-        } else {
-            stringCache = CacheBuilder.newBuilder().maximumWeight(8192 * 1024).weigher(stringWeigher).build(loader);
+            builder.recordStats();
         }
+        stringCache = builder.build(key -> key);
     }
 
     protected static class MyStream {
@@ -1418,7 +1409,7 @@ public class OBOFormatParser {
             ret = sb.toString();
         }
         stream.advance(i);
-        return stringCache.getUnchecked(ret);
+        return stringCache.get(ret);
     }
 
     private static String mapDeprecatedTag(String tag) {
