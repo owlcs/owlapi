@@ -45,7 +45,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
      *        The ontology
      */
     public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntology ont) {
-        this(ont.getOWLOntologyManager().getOntologyFormat(ont));
+        this(ont.getFormat());
     }
 
     /**

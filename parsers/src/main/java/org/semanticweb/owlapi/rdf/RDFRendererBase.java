@@ -74,7 +74,7 @@ public abstract class RDFRendererBase {
      *        ontology
      */
     public RDFRendererBase(OWLOntology ontology) {
-        this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+        this(ontology, ontology.getFormat());
     }
 
     protected RDFRendererBase(OWLOntology ontology, OWLDocumentFormat format) {

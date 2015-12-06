@@ -64,7 +64,7 @@ public class ClosureAxiomsExample {
         System.out.println("Ontology Loaded...");
         System.out.println("Logical URI : " + documentIRI);
         System.out.println("Document IRI: " + ontology.getOntologyID());
-        System.out.println("Format      : " + manager.getOntologyFormat(ontology));
+        System.out.println("Format      : " + ontology.getFormat());
         ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
         OWLClass clazz = Class(classIRI);
         System.out.println("Class URI   : " + classIRI);

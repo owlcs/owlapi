@@ -44,7 +44,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
      *         renderer error
      */
     public static void render(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLRendererException {
+        throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
         checkNotNull(format, "format cannot be null");
@@ -89,7 +89,8 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     @Override
     public void render(OWLOntology ontology, PrintWriter writer) throws OWLRendererException {
-        render(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(writer, "writer cannot be null"),
-                ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+        checkNotNull(ontology, "ontology cannot be null");
+        checkNotNull(writer, "writer cannot be null");
+        render(ontology, writer, ontology.getFormat());
     }
 }

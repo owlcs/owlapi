@@ -146,7 +146,7 @@ public class Examples extends TestBase {
         // By default ontologies are saved in the format from which they were
         // loaded. In this case the ontology was loaded from rdf/xml. We
         // can get information about the format of an ontology from its manager
-        OWLDocumentFormat format = manager.getOntologyFormat(ontology);
+        OWLDocumentFormat format = ontology.getFormat();
         // We can save the ontology in a different format. Lets save the
         // ontology
         // in owl/xml format

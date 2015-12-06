@@ -28,7 +28,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     @Override
     protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology, writer);
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
@@ -46,7 +46,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
         LabelPrefixManager(OWLOntology ontology) {
             this.ontology = ontology;
-            OWLDocumentFormat ontologyFormat = ontology.getOWLOntologyManager().getOntologyFormat(ontology);
+            OWLDocumentFormat ontologyFormat = ontology.getFormat();
             if (ontologyFormat instanceof PrefixManager) {
                 delegate = (PrefixManager) ontologyFormat;
             } else {

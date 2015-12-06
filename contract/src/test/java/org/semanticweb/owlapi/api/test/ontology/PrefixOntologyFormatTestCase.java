@@ -44,8 +44,7 @@ public class PrefixOntologyFormatTestCase
         OWLDocumentFormat format)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology ont2 = super.roundTripOntology(ont, format);
-        OWLDocumentFormat ont2Format = ont2.getOWLOntologyManager()
-            .getOntologyFormat(ont2);
+        OWLDocumentFormat ont2Format = ont2.getFormat();
         if (format instanceof PrefixDocumentFormat
             && ont2Format instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
@@ -55,7 +54,7 @@ public class PrefixOntologyFormatTestCase
                 assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
                 assertEquals(prefixFormat.getPrefix(prefixName),
                     prefixFormat2.getPrefix(prefixName));
-            } );
+            });
         }
         return ont2;
     }

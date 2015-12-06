@@ -30,8 +30,7 @@ public class UndeclaredAnnotationTestCase extends TestBase {
             + "</rdf:RDF>";
         OWLOntology oo = loadOntologyFromString(input);
         @Nonnull
-        RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo
-            .getOWLOntologyManager().getOntologyFormat(oo);
+        RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo.getFormat();
         assertEquals("Should have no unparsed triples", 0, format
             .getOntologyLoaderMetaData().getUnparsedTriples().size());
         Set<OWLAnnotationAssertionAxiom> annotationAxioms = asSet(oo

@@ -47,8 +47,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
      *        writer
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w) {
-        this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w, "w cannot be null"),
-            verifyNotNull(ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
+        this(ontology, w, verifyNotNull(ontology.getFormat()));
     }
 
     /**
@@ -236,7 +235,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 } else if (!rdfLiteralNode.isPlainLiteral()) {
                     writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
                 }
-               	writer.writeTextContent(rdfLiteralNode.getLexicalValue());
+                writer.writeTextContent(rdfLiteralNode.getLexicalValue());
             }
             writer.writeEndElement();
         }

@@ -119,7 +119,7 @@ public final class SimpleHierarchyExample {
         System.out.println("Ontology Loaded...");
         System.out.println("Document IRI: " + documentIRI);
         System.out.println("Ontology : " + ontology.getOntologyID());
-        System.out.println("Format      : " + manager.getOntologyFormat(ontology));
+        System.out.println("Format      : " + ontology.getFormat());
         // / Create a new SimpleHierarchy object with the given reasoner.
         SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample((OWLReasonerFactory) Class.forName(
             reasonerFactoryClassName).newInstance(), ontology);

@@ -44,16 +44,16 @@ public class LiteralWithEscapesTestCase extends AbstractRoundTrippingTestCase {
     @Parameters
     public static List<String> getData() {
         return Arrays.asList(
-                // LiteralWithBackslash
-                "\\",
-                // LiteralWithDoubleQuote
-                "\"",
-                // LiteralWithLeftAngle
-                "<",
-                // LiteralWithNewLine
-                "\n",
-                // LiteralWithSingleQuote
-                "\'");
+            // LiteralWithBackslash
+            "\\",
+            // LiteralWithDoubleQuote
+            "\"",
+            // LiteralWithLeftAngle
+            "<",
+            // LiteralWithNewLine
+            "\n",
+            // LiteralWithSingleQuote
+            "\'");
     }
 
     @Override

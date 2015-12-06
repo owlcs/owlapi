@@ -163,7 +163,7 @@ public abstract class TestBase {
         // we iterate over objects in the same order for the same set of axioms!
         axioms1 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont1.axioms());
         axioms2 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont2.axioms());
-        OWLDocumentFormat ontologyFormat = ont2.getOWLOntologyManager().getOntologyFormat(ont2);
+        OWLDocumentFormat ontologyFormat = ont2.getFormat();
         applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
         if (ontologyFormat instanceof ManchesterSyntaxDocumentFormat) {
             // drop GCIs from the expected axioms, they won't be there
@@ -507,7 +507,7 @@ public abstract class TestBase {
     }
 
     protected StringDocumentTarget saveOntology(OWLOntology o) throws OWLOntologyStorageException {
-        return saveOntology(o, o.getOWLOntologyManager().getOntologyFormat(o));
+        return saveOntology(o, o.getFormat());
     }
 
     protected StringDocumentTarget saveOntology(OWLOntology o, OWLDocumentFormat format)

@@ -41,8 +41,7 @@ public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
     public void testAxioms() {
         OWLOntology ont = createOntology();
         assertEquals(0, ont.axioms(AxiomType.SUBCLASS_OF).count());
-        OWLDocumentFormat format = ont.getOWLOntologyManager()
-            .getOntologyFormat(ont);
+        OWLDocumentFormat format = ont.getFormat();
         assertTrue(format instanceof RDFXMLDocumentFormat);
         RDFXMLDocumentFormat rdfxmlFormat = (RDFXMLDocumentFormat) format;
         Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()

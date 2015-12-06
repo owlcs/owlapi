@@ -64,7 +64,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         // any undeclared entities?
         if (!declared.isEmpty()) {
             boolean addMissing = true;
-            OWLDocumentFormat format = ontology.getOWLOntologyManager().getOntologyFormat(ontology);
+            OWLDocumentFormat format = ontology.getFormat();
             addMissing = format.isAddMissingTypes();
             if (addMissing) {
                 Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(addMissing,

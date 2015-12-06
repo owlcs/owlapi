@@ -32,98 +32,53 @@ public class FileRoundTripTestCase extends AbstractFileRoundTrippingTestCase {
         super(f);
     }
 
-    @Parameters
+    @Parameters(name = "{0}")
     public static List<String> getData() {
         return Arrays.asList(
-        // AnnotatedPropertyAssertions
-        "AnnotatedPropertyAssertions.rdf",
-        // ComplexSubPropertyAxiom
-        "ComplexSubProperty.rdf",
-        // DataAllValuesFrom
-        "DataAllValuesFrom.rdf",
-        // DataCardinalityWithWhiteSpace
-        "cardinalitywithwhitespace.owl",
-        // DataComplementOf
-        "DataComplementOf.rdf",
-        // DataHasValue
-        "DataHasValue.rdf",
-        // DataIntersectionOf
-        "DataIntersectionOf.rdf",
-        // DataMaxCardinality
-        "DataMaxCardinality.rdf",
-        // DataMinCardinality
-        "DataMinCardinality.rdf",
-        // DataOneOf
-        "DataOneOf.rdf",
-        // DataSomeValuesFrom
-        "DataSomeValuesFrom.rdf",
-        // DataUnionOf
-        "DataUnionOf.rdf",
-        // DatatypeRestriction
-        "DatatypeRestriction.rdf",
-        // Declarations
-        "TestDeclarations.rdf",
-        // Deprecated
-        "Deprecated.rdf",
-        // DisjointClasses
-        "DisjointClasses.rdf",
-        // HasKey
-        "HasKey.rdf",
-        // InverseOf
-        "InverseOf.rdf",
-        // ObjectAllValuesFrom
-        "ObjectAllValuesFrom.rdf",
-        // ObjectCardinality
-        "ObjectCardinality.rdf",
-        // ObjectComplementOf
-        "ObjectComplementOf.rdf",
-        // ObjectHasSelf
-        "ObjectHasSelf.rdf",
-        // ObjectHasValue
-        "ObjectHasValue.rdf",
-        // ObjectIntersectionOf
-        "ObjectIntersectionOf.rdf",
-        // ObjectMaxCardinality
-        "ObjectMaxCardinality.rdf",
-        // ObjectMaxQualifiedCardinality
-        "ObjectMaxQualifiedCardinality.rdf",
-        // ObjectMinCardinality
-        "ObjectMinCardinality.rdf",
-        // ObjectMinQualifiedCardinality
-        "ObjectMinQualifiedCardinality.rdf",
-        // ObjectOneOf
-        "ObjectOneOf.rdf",
-        // ObjectQualifiedCardinality
-        "ObjectQualifiedCardinality.rdf",
-        // ObjectSomeValuesFrom
-        "ObjectSomeValuesFrom.rdf",
-        // ObjectUnionOfTestCase
-        "ObjectUnionOf.rdf",
-        // PrimerFunctionalSyntaxRoundTripping
-        "primer.functionalsyntax.txt",
-        // PrimerOWLXMLRoundTripping
-        "primer.owlxml.xml",
-        // PrimerRDFXMLRoundTripping
-        "primer.rdfxml.xml",
-        // RDFSClass
-        "RDFSClass.rdf",
-        // StructuralReasonerRecursion
-        "koala.owl",
-        // SubClassAxiom
-        "SubClassOf.rdf",
-        // TestParser06
-        "TestParser06.rdf",
-        // TestParser07
-        "TestParser07.rdf",
-        // TestParser10
-        "TestParser10.rdf",
-        // TurtleSharedBlankNode
-        "annotatedpropertychain.ttl.rdf",
-        // UntypedSubClassOf
-        "UntypedSubClassOf.rdf",
-        // SubClassOfUntypedOWLClass
-        "SubClassOfUntypedOWLClass.rdf",
-        // SubClassOfUntypedSomeValuesFrom
-        "SubClassOfUntypedSomeValuesFrom.rdf");
+            "AnnotatedPropertyAssertions.rdf",
+            "ComplexSubProperty.rdf",
+            "DataAllValuesFrom.rdf",
+            "cardinalitywithwhitespace.owl",
+            "DataComplementOf.rdf",
+            "DataHasValue.rdf",
+            "DataIntersectionOf.rdf",
+            "DataMaxCardinality.rdf",
+            "DataMinCardinality.rdf",
+            "DataOneOf.rdf",
+            "DataSomeValuesFrom.rdf",
+            "DataUnionOf.rdf",
+            "DatatypeRestriction.rdf",
+            "TestDeclarations.rdf",
+            "Deprecated.rdf",
+            "DisjointClasses.rdf",
+            "HasKey.rdf",
+            "InverseOf.rdf",
+            "ObjectAllValuesFrom.rdf",
+            "ObjectCardinality.rdf",
+            "ObjectComplementOf.rdf",
+            "ObjectHasSelf.rdf",
+            "ObjectHasValue.rdf",
+            "ObjectIntersectionOf.rdf",
+            "ObjectMaxCardinality.rdf",
+            "ObjectMaxQualifiedCardinality.rdf",
+            "ObjectMinCardinality.rdf",
+            "ObjectMinQualifiedCardinality.rdf",
+            "ObjectOneOf.rdf",
+            "ObjectQualifiedCardinality.rdf",
+            "ObjectSomeValuesFrom.rdf",
+            "ObjectUnionOf.rdf",
+            "primer.functionalsyntax.txt",
+            "primer.owlxml.xml",
+            "primer.rdfxml.xml",
+            "RDFSClass.rdf",
+            "koala.owl",
+            "SubClassOf.rdf",
+            "TestParser06.rdf",
+            "TestParser07.rdf",
+            "TestParser10.rdf",
+            "annotatedpropertychain.ttl.rdf",
+            "UntypedSubClassOf.rdf",
+            "SubClassOfUntypedOWLClass.rdf",
+            "SubClassOfUntypedSomeValuesFrom.rdf");
     }
 }

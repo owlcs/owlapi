@@ -1431,7 +1431,7 @@ public class TripleHandlers {
                 man.makeLoadImportRequest(id, consumer.getConfiguration());
                 OWLOntology io = man.getImportedOntology(id);
                 if (io != null) {
-                    OWLDocumentFormat importedOntologyFormat = man.getOntologyFormat(io);
+                    OWLDocumentFormat importedOntologyFormat = io.getFormat();
                     if (importedOntologyFormat instanceof AbstractRDFPrefixDocumentFormat && io.isAnonymous()) {
                         if (consumer.getConfiguration().getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
                             // We should have just included the triples rather

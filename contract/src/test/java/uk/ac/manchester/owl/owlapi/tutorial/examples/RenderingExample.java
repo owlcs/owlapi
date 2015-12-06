@@ -42,7 +42,7 @@ public class RenderingExample {
      *         OWLOntologyStorageException
      */
     public void render(String inputOntology, String outputOntology)
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         // A simple example of how to load and save an ontology
         /* Get an Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -54,7 +54,7 @@ public class RenderingExample {
         System.out.println("Ontology Loaded...");
         System.out.println("Document IRI: " + inputDocumentIRI);
         System.out.println("Logical IRI : " + ontology.getOntologyID());
-        System.out.println("Format      : " + manager.getOntologyFormat(ontology));
+        System.out.println("Format      : " + ontology.getFormat());
         /* Register the ontology storer with the manager */
         manager.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
         /* Save using a different format */

@@ -54,8 +54,7 @@ public class ChangeOntologyURITestCase extends TestBase {
             m.getOntologyDocumentIRI(ont));
         // Document IRI will still be the same (in this case the old ont URI)
         assertEquals(m.getOntologyDocumentIRI(ont), oldIRI);
-        assertNotNull("ontology format should not be null",
-            m.getOntologyFormat(ont));
+        assertNotNull("ontology format should not be null", ont.getFormat());
     }
 
     @Test
