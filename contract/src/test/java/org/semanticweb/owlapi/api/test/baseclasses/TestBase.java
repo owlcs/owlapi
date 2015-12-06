@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
@@ -493,14 +492,8 @@ public abstract class TestBase {
 
     protected OWLOntology loadOntologyFromString(StringDocumentTarget input, OWLDocumentFormat f)
         throws OWLOntologyCreationException {
-        try {
-            return OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input.toString(), "string:ontology", f, null));
-        } catch (UnparsableOntologyException e) {
-            System.out.println("TestBase.loadOntologyFromString() " + input);
-            e.printStackTrace(System.out);
-            throw e;
-        }
+        return OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
+            new StringDocumentSource(input.toString(), "string:ontology", f, null));
     }
 
     protected OWLOntology loadOntologyStrict(StringDocumentTarget o) throws OWLOntologyCreationException {
