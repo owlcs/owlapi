@@ -389,7 +389,7 @@ public abstract class RDFRendererBase {
                 a.getProperty().getIRI(), a.getValue());
             if (a.getValue() instanceof OWLAnonymousIndividual) {
                 OWLAnonymousIndividual i = (OWLAnonymousIndividual) a.getValue();
-                ontology.referencingAxioms(i).forEach(ax -> ax.accept(translator));
+                sortOptionally(ontology.referencingAxioms(i)).forEach(ax -> ax.accept(translator));
             }
         });
     }
@@ -438,7 +438,7 @@ public abstract class RDFRendererBase {
                 // As they will have subject and object inverted, we need to
                 // collect them here, otherwise the triple will not be included
                 // because the subject will not match
-                for (OWLAxiom ax : asList(ontology.referencingAxioms(individual))) {
+                for (OWLAxiom ax : sortOptionally(ontology.referencingAxioms(individual))) {
                     if (ax instanceof OWLObjectPropertyAssertionAxiom) {
                         OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
                         if (candidate.getProperty().isAnonymous() && candidate.getObject().equals(individual)) {

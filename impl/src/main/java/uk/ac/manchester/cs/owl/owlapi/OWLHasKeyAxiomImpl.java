@@ -12,8 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,11 +44,11 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
      *        annotations on the axiom
      */
     public OWLHasKeyAxiomImpl(OWLClassExpression expression,
-            Collection<? extends OWLPropertyExpression> propertyExpressions, Collection<OWLAnnotation> annotations) {
+        Collection<? extends OWLPropertyExpression> propertyExpressions, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
         checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
-        this.propertyExpressions = asList(propertyExpressions.stream().sorted());
+        this.propertyExpressions = sortOptionally(propertyExpressions.stream().distinct());
     }
 
     @Override
@@ -103,6 +104,6 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         }
         OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
         return expression.equals(other.getClassExpression())
-                && compareStreams(propertyExpressions(), other.propertyExpressions()) == 0;
+            && compareStreams(propertyExpressions(), other.propertyExpressions()) == 0;
     }
 }

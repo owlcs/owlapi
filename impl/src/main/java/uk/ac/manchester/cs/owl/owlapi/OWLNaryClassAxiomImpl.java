@@ -43,12 +43,11 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
      * @param annotations
      *        annotations
      */
-    @SuppressWarnings("unchecked")
     public OWLNaryClassAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(classExpressions, "classExpressions cannot be null");
-        this.classExpressions = (List<OWLClassExpression>) sortOptionally(classExpressions.stream().distinct());
+        this.classExpressions = sortOptionally(classExpressions.stream().distinct(), OWLClassExpression.class);
     }
 
     @Override

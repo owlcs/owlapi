@@ -15,7 +15,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -43,19 +47,26 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
      * @param annotations
      *        annotations
      */
-    @SuppressWarnings("unchecked")
     public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties, Collection<OWLAnnotation> annotations) {
+        this(checkNotNull(properties, "properties cannot be null").stream(), annotations);
+    }
+
+    /**
+     * @param properties
+     *        properties
+     * @param annotations
+     *        annotations
+     */
+    @SuppressWarnings("unchecked")
+    public OWLNaryPropertyAxiomImpl(Stream<? extends P> properties, Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(properties, "properties cannot be null");
-        this.properties = (List<P>) CollectionFactory.sortOptionally(properties.stream().distinct());
+        this.properties = (List<P>) CollectionFactory.sortOptionally(properties.distinct());
     }
 
     @SafeVarargs
     OWLNaryPropertyAxiomImpl(Collection<OWLAnnotation> annotations, P... properties) {
-        super(annotations);
-        checkNotNull(properties, "properties cannot be null");
-        Arrays.sort(properties);
-        this.properties = Arrays.asList(properties);
+        this(Stream.of(properties), annotations);
     }
 
     @Override

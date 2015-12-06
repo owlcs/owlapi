@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
  * @since 2.0.0
  */
 public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression>
-        implements OWLDisjointDataPropertiesAxiom {
+    implements OWLDisjointDataPropertiesAxiom {
 
     /**
      * @param properties
@@ -41,7 +41,7 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
      *        annotations
      */
     public OWLDisjointDataPropertiesAxiomImpl(Collection<? extends OWLDataPropertyExpression> properties,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -64,7 +64,7 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
                 result.add(new OWLDisjointDataPropertiesAxiomImpl(
-                        new HashSet<>(Arrays.asList(properties.get(i), properties.get(j))), NO_ANNOTATIONS));
+                    new HashSet<>(Arrays.asList(properties.get(i), properties.get(j))), NO_ANNOTATIONS));
             }
         }
         return result;

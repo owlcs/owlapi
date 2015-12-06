@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.model;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.createLinkedSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -987,8 +987,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                ont.axioms(ind).sorted().filter(ax -> root == null || !root.equals(ax)).forEach(ax -> ax.accept(this));
-                ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()).sorted().forEach(ax -> ax.accept(this));
+                sortOptionally(ont.axioms(ind)).stream().filter(ax -> root == null || !root.equals(ax)).forEach(ax -> ax
+                    .accept(this));
+                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())).forEach(ax -> ax.accept(
+                    this));
             }
             currentIndividuals.remove(ind);
         }
@@ -998,8 +1000,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                ont.axioms(ind).sorted().forEach(ax -> ax.accept(this));
-                ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()).sorted().forEach(ax -> ax.accept(this));
+                sortOptionally(ont.axioms(ind)).forEach(ax -> ax.accept(this));
+                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())).forEach(ax -> ax.accept(
+                    this));
             }
             currentIndividuals.remove(ind);
         }

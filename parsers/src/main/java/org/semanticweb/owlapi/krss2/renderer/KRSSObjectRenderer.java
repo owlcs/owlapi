@@ -16,17 +16,16 @@ import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -34,10 +33,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.Filters;
-import org.semanticweb.owlapi.util.CollectionFactory;
-
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
 
 /**
  * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
@@ -222,26 +217,6 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         this.writer = new PrintWriter(writer);
     }
 
-    protected static <T extends OWLObject> List<T> sort(Collection<T> objects) {
-        return CollectionFactory.sortOptionally(objects);
-    }
-
-    protected static <T extends OWLObject> List<T> sort(Iterable<T> objects) {
-        Collection<T> sortedDescriptions = new ArrayList<>();
-        Iterables.addAll(sortedDescriptions, objects);
-        return sort(sortedDescriptions);
-    }
-
-    protected static <T extends OWLObject> List<T> sort(Iterator<T> objects) {
-        Collection<T> sortedDescriptions = new ArrayList<>();
-        Iterators.addAll(sortedDescriptions, objects);
-        return sort(sortedDescriptions);
-    }
-
-    protected static <T extends OWLObject> List<T> sort(Stream<T> objects) {
-        return sort(asList(objects));
-    }
-
     protected void writeOpenBracket() {
         write(OPEN_BRACKET);
     }
@@ -313,15 +288,14 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    protected void flattenProperties(Iterable<OWLObjectPropertyExpression> properties,
-            @Nullable KRSSVocabulary junctor) {
-        List<OWLObjectPropertyExpression> props = sort(properties);
+    protected void flattenProperties(List<OWLObjectPropertyExpression> props,
+        @Nullable KRSSVocabulary junctor) {
         int size = props.size();
         if (size == 0) {
             return;
         }
         if (size == 1) {
-            write(properties.iterator().next());
+            write(props.iterator().next());
             return;
         }
         if (junctor != null) {
@@ -338,10 +312,6 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         if (junctor != null) {
             writeCloseBracket();
         }
-    }
-
-    protected void flatten(Stream<OWLClassExpression> description, KRSSVocabulary junctor) {
-        flatten(sort(description), junctor);
     }
 
     protected void flatten(List<OWLClassExpression> descs, KRSSVocabulary junctor) {
@@ -364,58 +334,36 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    protected void flatten(Iterator<OWLClassExpression> description, KRSSVocabulary junctor) {
-        List<OWLClassExpression> descs = sort(description);
-        int size = descs.size();
-        if (size == 0) {
-            return;
-        }
-        write(descs.get(0));
-        if (size == 1) {
-            return;
-        }
-        writeOpenBracket();
-        write(junctor);
-        int indent = getIndent();
-        for (int i = 1; i < size; i++) {
-            writeln();
-            writeIndent(indent);
-            write(descs.get(i));
-        }
-        writeCloseBracket();
-    }
-
     @Override
     public void visit(OWLOntology ontology) {
-        Set<OWLClass> classes = asSet(ontology.classesInSignature());
+        List<OWLClass> classes = asList(ontology.classesInSignature());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
-        for (OWLClass eachClass : sort(classes)) {
+        sortOptionally(classes);
+        for (OWLClass eachClass : classes) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Stream<OWLClassExpression> supclasses = sup(ontology.subClassAxiomsForSubClass(eachClass),
-                        OWLClassExpression.class);
-                flatten(supclasses, AND);
+                flatten(asList(sup(ontology.subClassAxiomsForSubClass(eachClass),
+                    OWLClassExpression.class)), AND);
                 writeCloseBracket();
                 writeln();
             } else {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Stream<OWLClassExpression> equivalentClasses = equivalent(ontology.equivalentClassesAxioms(eachClass));
-                flatten(equivalentClasses, AND);
+                flatten(asList(equivalent(ontology.equivalentClassesAxioms(eachClass))), AND);
                 writeCloseBracket();
                 writeln();
             }
         }
-        for (OWLObjectProperty property : sort(ontology.objectPropertiesInSignature())) {
+        for (OWLObjectProperty property : sortOptionally(ontology.objectPropertiesInSignature())) {
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> pStream = equivalent(
-                    ontology.equivalentObjectPropertiesAxioms(property));
+                ontology.equivalentObjectPropertiesAxioms(property));
             Collection<OWLObjectPropertyExpression> properties = asList(pStream);
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
@@ -431,8 +379,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(property);
                 writeSpace();
                 Iterator<OWLObjectPropertyExpression> i = sup(
-                        ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
-                        OWLObjectPropertyExpression.class).iterator();
+                    ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                    OWLObjectPropertyExpression.class).iterator();
                 if (i.hasNext()) {
                     write(i.next());
                 }
@@ -450,7 +398,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> classes = sort(axiom.classExpressions());
+        List<OWLClassExpression> classes = asList(axiom.classExpressions());
         int size = classes.size();
         if (size <= 1) {
             return;
@@ -564,7 +512,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLObjectIntersectionOf ce) {
         writeOpenBracket();
         write(AND);
-        List<? extends OWLClassExpression> operands = sort(ce.operands());
+        List<? extends OWLClassExpression> operands = asList(ce.operands());
         int size = operands.size();
         if (size > 0) {
             int indent = getIndent();
@@ -582,7 +530,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLObjectUnionOf ce) {
         writeOpenBracket();
         write(OR);
-        List<? extends OWLClassExpression> operands = sort(ce.operands());
+        List<? extends OWLClassExpression> operands = asList(ce.operands());
         int size = operands.size();
         if (size > 0) {
             int indent = getIndent();

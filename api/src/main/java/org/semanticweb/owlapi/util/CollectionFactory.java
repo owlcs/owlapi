@@ -77,6 +77,20 @@ public class CollectionFactory {
     }
 
     /**
+     * Sort the input collection; if the ordering is unstable and an error is
+     * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
+     * leave the collection unsorted. NOTE: use this method if ordering is
+     * desirable but not necessary.
+     * 
+     * @param toReturn
+     *        list to sort
+     * @return sorted input list
+     */
+    public static <T extends OWLObject> List<T> sortOptionally(List<? extends T> toReturn, Class<T> desiredType) {
+        return sortOptionallyComparables((List) toReturn);
+    }
+
+    /**
      * Sort a copy of the input collection; if the ordering is unstable and an
      * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
      * it and leave the collection unsorted. NOTE: use this method if ordering
@@ -125,6 +139,23 @@ public class CollectionFactory {
      */
     public static <T extends OWLObject> List<T> sortOptionally(Stream<T> toReturn) {
         return sortOptionally(asList(toReturn));
+    }
+
+    /**
+     * Sort a copy of the input collection; if the ordering is unstable and an
+     * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
+     * it and leave the collection unsorted. NOTE: use this method if ordering
+     * is desirable but not necessary.
+     * 
+     * @param toReturn
+     *        collection to sort
+     * @param <T>
+     *        list type
+     * @return sorted copy of the input, if no errors are raised. Copy of the
+     *         original otherwise.
+     */
+    public static <T extends OWLObject> List<T> sortOptionally(Stream<? extends T> toReturn, Class<T> desiredType) {
+        return sortOptionally(asList(toReturn), desiredType);
     }
 
     /**
