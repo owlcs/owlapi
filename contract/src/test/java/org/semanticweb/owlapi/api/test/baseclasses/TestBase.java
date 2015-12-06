@@ -41,6 +41,7 @@ import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
@@ -79,7 +80,7 @@ public abstract class TestBase {
         try {
             URL resource = getClass().getResource('/' + fileName);
             return OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
-                    new FileDocumentSource(new File(resource.toURI())), getConfiguration());
+                new FileDocumentSource(new File(resource.toURI())), getConfiguration());
         } catch (URISyntaxException | OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -172,7 +173,7 @@ public abstract class TestBase {
                 OWLAxiom next = it.next();
                 if (next instanceof OWLSubClassOfAxiom) {
                     if (((OWLSubClassOfAxiom) next).getSubClass().isAnonymous()
-                            && ((OWLSubClassOfAxiom) next).getSuperClass().isAnonymous()) {
+                        && ((OWLSubClassOfAxiom) next).getSuperClass().isAnonymous()) {
                         it.remove();
                     }
                 }
@@ -211,7 +212,7 @@ public abstract class TestBase {
                 if (fixed) {
                     if (logger.isTraceEnabled()) {
                         String x = getClass().getSimpleName() + " roundTripOntology() Failing to match axioms: \n" + sb
-                                + topOfStackTrace();
+                            + topOfStackTrace();
                         logger.trace(x);
                     }
                     fail(getClass().getSimpleName() + " roundTripOntology() Failing to match axioms: \n" + sb);
@@ -281,7 +282,7 @@ public abstract class TestBase {
     }
 
     private boolean removeIfContainsAll(Collection<OWLAxiom> axioms, Collection<? extends OWLAxiom> others,
-            OWLDocumentFormat destination) {
+        OWLDocumentFormat destination) {
         if (axioms.containsAll(others)) {
             axioms.removeAll(others);
             return true;
@@ -312,12 +313,12 @@ public abstract class TestBase {
             Optional<OWLLiteral> asLiteral = a.getValue().asLiteral();
             if (asLiteral.isPresent() && asLiteral.get().isRDFPlainLiteral()) {
                 OWLAnnotation replacement = df.getOWLAnnotation(a.getProperty(),
-                        df.getOWLLiteral(asLiteral.get().getLiteral(), stringType));
+                    df.getOWLLiteral(asLiteral.get().getLiteral(), stringType));
                 toReturn.add(replacement);
             } else {
                 toReturn.add(a);
             }
-        } );
+        });
         return toReturn;
     }
 
@@ -336,11 +337,11 @@ public abstract class TestBase {
         Set<String> rightOnlyStrings = new HashSet<>();
         for (OWLAxiom ax : leftOnly) {
             leftOnlyStrings
-                    .add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+", "blank"));
+                .add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+", "blank"));
         }
         for (OWLAxiom ax : rightOnly) {
             rightOnlyStrings
-                    .add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+", "blank"));
+                .add(ax.toString().replaceAll("_:anon-ind-[0-9]+", "blank").replaceAll("_:genid[0-9]+", "blank"));
         }
         return rightOnlyStrings.equals(leftOnlyStrings);
     }
@@ -396,7 +397,7 @@ public abstract class TestBase {
         try {
             URL url = getClass().getResource('/' + fileName);
             return m.loadOntologyFromOntologyDocument(new IRIDocumentSource(IRI.create(url), null, null),
-                    new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
+                new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
         } catch (OWLOntologyCreationException e) {
             fail(e.getMessage());
             throw new OWLRuntimeException(e);
@@ -424,7 +425,7 @@ public abstract class TestBase {
      *        The format to use when doing the round trip.
      */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLDocumentFormat format)
-            throws OWLOntologyStorageException, OWLOntologyCreationException {
+        throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLDocumentFormat fromFormat = ont.getFormat();
         if (fromFormat.isPrefixOWLOntologyFormat() && format.isPrefixOWLOntologyFormat()) {
@@ -441,8 +442,8 @@ public abstract class TestBase {
         ont.saveOntology(format, target);
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(target.toString(), "string:ontology", format, null),
-                new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
+            new StringDocumentSource(target.toString(), "string:ontology", format, null),
+            new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
         if (logger.isTraceEnabled()) {
             logger.trace("TestBase.roundTripOntology() ontology parsed");
             ont2.axioms().forEach(ax -> logger.trace(ax.toString()));
@@ -491,9 +492,15 @@ public abstract class TestBase {
     }
 
     protected OWLOntology loadOntologyFromString(StringDocumentTarget input, OWLDocumentFormat f)
-            throws OWLOntologyCreationException {
-        return OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
+        throws OWLOntologyCreationException {
+        try {
+            return OWLManager.createOWLOntologyManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input.toString(), "string:ontology", f, null));
+        } catch (UnparsableOntologyException e) {
+            System.out.println("TestBase.loadOntologyFromString() " + input);
+            e.printStackTrace(System.out);
+            throw e;
+        }
     }
 
     protected OWLOntology loadOntologyStrict(StringDocumentTarget o) throws OWLOntologyCreationException {
@@ -501,7 +508,7 @@ public abstract class TestBase {
     }
 
     protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o, OWLOntologyLoaderConfiguration c)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(o), c);
     }
@@ -511,19 +518,19 @@ public abstract class TestBase {
     }
 
     protected StringDocumentTarget saveOntology(OWLOntology o, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, format, t);
         return t;
     }
 
     protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat format)
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyFromString(saveOntology(o, format), format);
     }
 
     protected OWLOntology roundTrip(OWLOntology o, OWLDocumentFormat format, OWLOntologyLoaderConfiguration c)
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyWithConfig(saveOntology(o, format), c);
     }
 
