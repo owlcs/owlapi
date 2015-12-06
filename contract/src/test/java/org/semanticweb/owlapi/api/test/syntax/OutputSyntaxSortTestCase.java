@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -362,20 +363,21 @@ public class OutputSyntaxSortTestCase extends TestBase {
     public void shouldOutputAllInSameOrder() throws OWLOntologyStorageException, OWLOntologyCreationException {
         AnonymousIndividualProperties.setRemapAllAnonymousIndividualsIds(false);
         try {
-        List<OWLOntology> ontologies = new ArrayList<>();
-        List<String> set = new ArrayList<>();
-        for (String s : input) {
-            OWLOntology o = loadOntologyFromString(new StringDocumentSource(s, IRI.generateDocumentIRI(),
-                new FunctionalSyntaxDocumentFormat(), null));
-            set.add(saveOntology(o, format).toString());
-            ontologies.add(o);
-        }
-        for (int i = 0; i < ontologies.size() - 1; i++) {
-            equal(ontologies.get(i), ontologies.get(i + 1));
-        }
-        for (int i = 0; i < set.size() - 1; i++) {
-            assertEquals(set.get(i), set.get(i + 1));
-        }
+            List<OWLOntology> ontologies = new ArrayList<>();
+            List<String> set = new ArrayList<>();
+            for (String s : input) {
+                OWLOntology o = loadOntologyFromString(new StringDocumentSource(s, IRI.generateDocumentIRI(),
+                    new FunctionalSyntaxDocumentFormat(), null));
+                set.add(saveOntology(o, format).toString());
+                ontologies.add(o);
+            }
+            for (int i = 0; i < ontologies.size() - 1; i++) {
+                equal(ontologies.get(i), ontologies.get(i + 1));
+            }
+            for (int i = 0; i < set.size() - 1; i++) {
+                assertEquals(format.getKey() + " " + new ComparisonFailure("", set.get(i), set.get(i + 1)).getMessage(),
+                    set.get(i), set.get(i + 1));
+            }
         } finally {
             AnonymousIndividualProperties.resetToDefault();
         }
