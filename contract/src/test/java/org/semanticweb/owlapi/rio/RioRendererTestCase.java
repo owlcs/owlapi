@@ -22,16 +22,15 @@ import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
 import org.openrdf.rio.helpers.StatementCollector;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings({ "javadoc", "null" })
-public class RioRendererTestCase {
+public class RioRendererTestCase extends TestBase {
 
     private SimpleValueFactory vf;
     private @Nonnull OWLOntology testOntologyEmpty;
@@ -49,11 +48,10 @@ public class RioRendererTestCase {
     @Before
     public void setUp() throws Exception {
         vf = SimpleValueFactory.getInstance();
-        OWLOntologyManager testManager = OWLManager.createOWLOntologyManager();
-        testManager.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
+        m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
-        testOntologyEmpty = testManager.createOntology(testOntologyUri1);
-        testOntologyKoala = testManager.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
+        testOntologyEmpty = m.createOntology(testOntologyUri1);
+        testOntologyKoala = m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement = vf.createStatement(vf.createIRI("urn:test:ontology:uri:1"), RDF.TYPE,

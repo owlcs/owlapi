@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -35,10 +34,9 @@ public class MapperlessOntologyManagerTestCase extends TestBase {
 
     private static final @Nonnull IRI ONTOLOGY_IRI = IRI("http://test.com/ont");
 
-    private static OWLOntologyManager createManager() {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        manager.getIRIMappers().clear();
-        return manager;
+    private OWLOntologyManager createManager() {
+        m.getIRIMappers().clear();
+        return m;
     }
 
     @Test

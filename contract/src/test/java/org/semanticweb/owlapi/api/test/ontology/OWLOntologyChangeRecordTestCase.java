@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.*;
  * @since 3.2.0
  */
 @SuppressWarnings({ "javadoc" })
-public class OWLOntologyChangeRecordTestCase {
+public class OWLOntologyChangeRecordTestCase extends TestBase {
 
     private final @Nonnull OWLOntologyID mockOntologyID = new OWLOntologyID();
     private final @Nonnull OWLOntologyChangeData mockChangeData = mock(OWLOntologyChangeData.class);
@@ -58,19 +58,17 @@ public class OWLOntologyChangeRecordTestCase {
 
     @Test(expected = UnknownOWLOntologyException.class)
     public void testCreateOntologyChange() {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntologyChangeRecord changeRecord = new OWLOntologyChangeRecord(mockOntologyID, mockChangeData);
-        changeRecord.createOntologyChange(manager);
+        changeRecord.createOntologyChange(m);
     }
 
     @Test
     public void testCreateOntologyChangeEquals() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.createOntology();
+        OWLOntology ontology = m.createOntology();
         OWLOntologyID ontologyID = ontology.getOntologyID();
         AddAxiomData addAxiomData = new AddAxiomData(mockAxiom);
         OWLOntologyChangeRecord changeRecord = new OWLOntologyChangeRecord(ontologyID, addAxiomData);
-        OWLOntologyChange change = changeRecord.createOntologyChange(manager);
+        OWLOntologyChange change = changeRecord.createOntologyChange(m);
         assertNotNull(change);
         assertEquals(change.getOntology().getOntologyID(), ontologyID);
         assertEquals(mockAxiom, change.getAxiom());

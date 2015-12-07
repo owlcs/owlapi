@@ -121,7 +121,7 @@ public abstract class TestBase {
         m1 = setupManager();
     }
 
-    protected OWLOntologyManager setupManager() {
+    protected static OWLOntologyManager setupManager() {
         OWLOntologyManager manager = new OWLOntologyManagerImpl(df, new NoOpReadWriteLock());
         manager.getOntologyFactories().set(masterManager.getOntologyFactories());
         manager.getOntologyParsers().set(masterManager.getOntologyParsers());

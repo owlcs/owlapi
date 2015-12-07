@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -76,11 +75,10 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
 
     @Test
     public void testConvertGetLoadedOntology() throws Exception {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         String input = "Prefix(:=<http://www.example.org/#>)\nOntology(<http://example.org/>\nSubClassOf(:a :b) )";
-        StringDocumentSource source = new StringDocumentSource(input);
-        OWLOntology origOnt = manager.loadOntologyFromOntologyDocument(source);
+        OWLOntology origOnt = loadOntologyFromString(input);
         assertNotNull(origOnt);
+        OWLOntologyManager manager = origOnt.getOWLOntologyManager();
         assertEquals(1, manager.ontologies().count());
         assertFalse(origOnt.getOntologyID().getVersionIRI().isPresent());
         assertTrue(origOnt.getAxiomCount() > 0);

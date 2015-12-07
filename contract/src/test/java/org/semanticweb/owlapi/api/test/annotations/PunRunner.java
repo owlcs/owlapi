@@ -38,10 +38,13 @@ public class PunRunner extends org.junit.runner.Runner {
 
         OWLEntity[] entities;
         Class<? extends PrefixDocumentFormat> formatClass;
+        OWLOntologyManager manager;
 
-        public TestSetting(Class<? extends PrefixDocumentFormat> formatClass, OWLEntity... entities) {
+        public TestSetting(Class<? extends PrefixDocumentFormat> formatClass, OWLOntologyManager m,
+            OWLEntity... entities) {
             this.formatClass = formatClass;
             this.entities = entities;
+            manager = m;
         }
     }
 
@@ -57,7 +60,8 @@ public class PunRunner extends org.junit.runner.Runner {
 
     private void addAllTests() {
         DefaultPrefixManager pm = new DefaultPrefixManager("http://localhost#");
-        OWLDataFactory df = OWLManager.getOWLDataFactory();
+        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+        OWLDataFactory df = m.getOWLDataFactory();
         List<? extends OWLEntity> entities = Arrays.asList(df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
             df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm), df.getOWLObjectProperty("a", pm),
             df.getOWLNamedIndividual("a", pm));
@@ -78,14 +82,14 @@ public class PunRunner extends org.junit.runner.Runner {
                     }
                     String name = String.format("%sVs%sFor%s", e1.getEntityType(), e2.getEntityType(), formatClassName);
                     Description testDescription = Description.createTestDescription(testClass, name);
-                    testSettings.put(testDescription, new TestSetting(formatClass, e1, e2));
+                    testSettings.put(testDescription, new TestSetting(formatClass, m, e1, e2));
                     suiteDescription.addChild(testDescription);
                 }
             }
             String name = "multiPun for " + formatClass.getName();
             Description testDescription = Description.createTestDescription(testClass, name);
             suiteDescription.addChild(testDescription);
-            TestSetting setting = new TestSetting(formatClass, df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
+            TestSetting setting = new TestSetting(formatClass, m, df.getOWLClass("a", pm), df.getOWLDatatype("a", pm),
                 df.getOWLAnnotationProperty("a", pm), df.getOWLDataProperty("a", pm),
                 df.getOWLObjectProperty("a", pm), df.getOWLNamedIndividual("a", pm));
             testSettings.put(testDescription, setting);
@@ -108,7 +112,7 @@ public class PunRunner extends org.junit.runner.Runner {
             notifier.fireTestStarted(description);
             try {
                 TestSetting setting = entry.getValue();
-                runTestForAnnotationsOnPunnedEntitiesForFormat(setting.formatClass, setting.entities);
+                runTestForAnnotationsOnPunnedEntitiesForFormat(setting.formatClass, setting.manager, setting.entities);
             } catch (Throwable t) {
                 notifier.fireTestFailure(new Failure(description, t));
             } finally {
@@ -118,12 +122,14 @@ public class PunRunner extends org.junit.runner.Runner {
     }
 
     public void runTestForAnnotationsOnPunnedEntitiesForFormat(Class<? extends PrefixDocumentFormat> formatClass,
+        OWLOntologyManager m,
         OWLEntity... entities) throws OWLOntologyCreationException, OWLOntologyStorageException,
             IllegalAccessException, InstantiationException {
         OWLOntologyManager ontologyManager;
         OWLDataFactory df;
         synchronized (OWLManager.class) {
-            ontologyManager = OWLManager.createOWLOntologyManager();
+            ontologyManager = m;
+            ontologyManager.clearOntologies();
             df = ontologyManager.getOWLDataFactory();
         }
         OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(":ap",

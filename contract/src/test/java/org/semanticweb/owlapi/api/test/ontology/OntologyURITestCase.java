@@ -30,6 +30,17 @@ import org.semanticweb.owlapi.model.*;
 public class OntologyURITestCase extends TestBase {
 
     @Test
+    public void testNamedOntologyToString() throws OWLOntologyCreationException {
+        IRI ontIRI = IRI("http://owlapi.sourceforge.net/ont");
+        OWLOntology ont = m.createOntology(ontIRI);
+        String s = ont.toString();
+        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: "
+            + ont.getAxiomCount() + " Logical Axioms: "
+            + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
+        assertEquals(expected, s);
+    }
+
+    @Test
     public void testOntologyID() {
         IRI iriA = IRI("http://www.another.com/ont");
         IRI iriB = IRI("http://www.another.com/ont/version");

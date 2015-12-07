@@ -14,7 +14,6 @@ import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("javadoc")
@@ -30,8 +29,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
     @Test
     public void testIRTsConversion() throws Exception {
         IRI ontologyIRI = IRI.create("http://purl.obolibrary.org/obo/test.owl");
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.createOntology(ontologyIRI);
+        OWLOntology ontology = m.createOntology(ontologyIRI);
         convert(ontology);
         String ontId = OWLAPIOwl2Obo.getOntologyId(ontology);
         assertEquals("test", ontId);
@@ -87,7 +85,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         String altId = altIdClauses.iterator().next().getValue(String.class);
         assertEquals("TEST:0002", altId);
         // roundtrip back to OWL, check that comment is still there
-        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(m1);
         OWLOntology roundTripped = obo2owl.convert(oboDoc);
         // three for the alt-id plus one
         assertEquals(4, roundTripped.annotationAssertionAxioms(classB.getIRI()).count());
@@ -99,7 +97,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
 
     protected Optional<OWLLiteral> findComment(IRI i, OWLOntology roundTripped) {
         return roundTripped.annotationAssertionAxioms(i).filter(ax -> ax.getProperty().isComment())
-                .map(ax -> ax.getValue().asLiteral()).filter(l -> l.isPresent()).findAny().orElse(Optional.empty());
+            .map(ax -> ax.getValue().asLiteral()).filter(l -> l.isPresent()).findAny().orElse(Optional.empty());
     }
 
     @Test
@@ -130,7 +128,7 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         String altId = altIdClauses.iterator().next().getValue(String.class);
         assertEquals("TEST:0002", altId);
         // roundtrip back to OWL, check that comment is still there
-        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(m1);
         OWLOntology roundTripped = obo2owl.convert(oboDoc);
         // three for the alt-id plus one for the comment
         assertEquals(4, roundTripped.annotationAssertionAxioms(p2.getIRI()).count());
@@ -144,21 +142,21 @@ public class Owl2OboTestCase extends OboFormatTestBasics {
         OWLDataFactory f = o.getOWLOntologyManager().getOWLDataFactory();
         addAnnotation(obj, f.getRDFSLabel(), f.getOWLLiteral(label), o);
         OWLAnnotationProperty idProp = f
-                .getOWLAnnotationProperty(OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_ID.getTag()));
+            .getOWLAnnotationProperty(OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_ID.getTag()));
         addAnnotation(obj, idProp, f.getOWLLiteral(id), o);
     }
 
     private static void setAltId(OWLNamedObject obj, OWLOntology o) {
         OWLDataFactory f = o.getOWLOntologyManager().getOWLDataFactory();
         addAnnotation(obj, f.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0100001.getIRI()),
-                f.getOWLLiteral("TEST:0001"), o);
+            f.getOWLLiteral("TEST:0001"), o);
         addAnnotation(obj, f.getOWLAnnotationProperty(Obo2OWLConstants.IRI_IAO_0000231),
-                Obo2OWLConstants.IRI_IAO_0000227, o);
+            Obo2OWLConstants.IRI_IAO_0000227, o);
         addAnnotation(obj, f.getOWLDeprecated(), f.getOWLLiteral(true), o);
     }
 
     private static void addAnnotation(OWLNamedObject obj, OWLAnnotationProperty p, OWLAnnotationValue v,
-            OWLOntology ont) {
+        OWLOntology ont) {
         ont.add(df.getOWLAnnotationAssertionAxiom(obj.getIRI(), df.getOWLAnnotation(p, v)));
     }
 }

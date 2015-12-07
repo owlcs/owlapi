@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static org.junit.Assert.assertNull;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
@@ -21,6 +22,13 @@ import org.semanticweb.owlapi.model.*;
 
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase extends TestBase {
+
+    @Test
+    public void shouldNotFailOnAnonymousOntologySearch()
+        throws OWLOntologyCreationException {
+        m.createOntology(new OWLOntologyID());
+        assertNull(m.getOntology(new OWLOntologyID()));
+    }
 
     @Test
     public void testRoundTrip() throws Exception {
@@ -34,7 +42,8 @@ public class AnonymousRoundTripTestCase extends TestBase {
         OWLAnnotation annotation1 = df.getOWLAnnotation(p, h);
         OWLAnnotation annotation2 = df.getOWLAnnotation(df.getRDFSLabel(), Literal("Second", "en"));
         ontology.add(df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1), ClassAssertion(a, h),
-                ObjectPropertyAssertion(q, h, i), df.getOWLAnnotationAssertionAxiom(h, annotation2));
-        roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
+            ObjectPropertyAssertion(q, h, i), df.getOWLAnnotationAssertionAxiom(h, annotation2));
+        OWLOntology o = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
+        equal(ontology, o);
     }
 }

@@ -12,33 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
-
-import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.3
  */
 @SuppressWarnings("javadoc")
-public class OWLOntologyToStringTestCase {
-
-    @Test
-    public void testNamedOntologyToString() throws OWLOntologyCreationException {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        IRI ontIRI = IRI("http://owlapi.sourceforge.net/ont");
-        OWLOntology ont = man.createOntology(ontIRI);
-        String s = ont.toString();
-        String expected = "Ontology(" + ont.getOntologyID() + ") [Axioms: "
-                + ont.getAxiomCount() + " Logical Axioms: "
-                + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
-        assertEquals(expected, s);
-    }
-}
+public class OWLOntologyToStringTestCase {}

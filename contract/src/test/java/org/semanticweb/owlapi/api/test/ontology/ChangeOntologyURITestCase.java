@@ -17,8 +17,11 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 
 /**
@@ -59,10 +62,8 @@ public class ChangeOntologyURITestCase extends TestBase {
 
     @Test
     public void shouldCheckContents() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        manager.createOntology(IRI.create("http://www.test.com/123"));
-        OWLOntologyID anonymousId = OWLManager.createOWLOntologyManager()
-            .createOntology().getOntologyID();
-        manager.contains(anonymousId);
+        m.createOntology(IRI.create("http://www.test.com/123"));
+        OWLOntologyID anonymousId = m1.createOntology().getOntologyID();
+        m.contains(anonymousId);
     }
 }

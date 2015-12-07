@@ -52,14 +52,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 @SuppressWarnings("javadoc")
-public class OwlOntologyMultipleThreadsTest {
+public class OwlOntologyMultipleThreadsTest extends TestBase {
 
     private static class TestCallback implements Runnable {
 
@@ -524,11 +523,9 @@ public class OwlOntologyMultipleThreadsTest {
             + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/>\n"
             + "  </owl:FunctionalProperty>\n"
             + "  <Degree rdf:ID=\"MA\"/>\n" + "</rdf:RDF>";
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         OWLOntology o = null;
         try {
-            o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                koala));
+            o = loadOntologyFromString(koala);
             MultiThreadChecker checker = new MultiThreadChecker(10);
             checker.check(new TestCallback(o, m.createOntology()));
             String trace = checker.getTrace();

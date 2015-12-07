@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
-import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -15,9 +14,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
-import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.search.Searcher;
@@ -37,21 +35,16 @@ import org.semanticweb.owlapi.search.Searcher;
  * details.
  */
 @SuppressWarnings({ "javadoc", "null" })
-public class GuessRDFSPropertyTypeTestCase {
+public class GuessRDFSPropertyTypeTestCase extends TestBase {
 
-    private static final @Nonnull String CIDOC_FILE = "/cidoc_crm_v5.0.4_official_release.rdfs.xml";
+    private static final @Nonnull String CIDOC_FILE = "cidoc_crm_v5.0.4_official_release.rdfs.xml";
     private static final @Nonnull String CIDOC_PREFIX = "http://www.cidoc-crm.org/cidoc-crm/";
     private @Nonnull OWLOntology cidocOntology;
     private @Nonnull PrefixDocumentFormat prefixOWLOntologyFormat;
 
     @Before
-    public void setUp() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration().setStrict(false);
-        @SuppressWarnings("resource")
-        InputStream in = getClass().getResourceAsStream(CIDOC_FILE);
-        assertNotNull("can't find CIDOC_FILE", in);
-        cidocOntology = manager.loadOntologyFromOntologyDocument(new StreamDocumentSource(in), config);
+    public void setUp() {
+        cidocOntology = ontologyFromClasspathFile(CIDOC_FILE, config);
         assertNotNull(cidocOntology);
         OWLDocumentFormat format = cidocOntology.getFormat();
         assertNotNull(format);

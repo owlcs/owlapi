@@ -28,8 +28,6 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.*;
 
@@ -77,8 +75,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         // create minimal ontology
         OBODoc oboDocSource = parseOBOFile("roundtrip_cardinality.obo");
         // convert to OWL and retrieve def
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
-            OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(m1);
         OWLOntology owlOntology = bridge.convert(oboDocSource);
         OWLDataFactory factory = owlOntology.getOWLOntologyManager()
             .getOWLDataFactory();
@@ -176,10 +173,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         manager.saveOntology(owlOntology, new OWLXMLDocumentFormat(),
             documentTarget);
         String owlString = documentTarget.toString();
-        OWLOntologyDocumentSource documentSource = new StringDocumentSource(
-            owlString);
-        OWLOntology reloadedOwl = OWLManager.createOWLOntologyManager()
-            .loadOntologyFromOntologyDocument(documentSource);
+        OWLOntology reloadedOwl = loadOntologyFromString(owlString);
         assertEquals(owlOntology.getAxiomCount(), reloadedOwl.getAxiomCount());
     }
 

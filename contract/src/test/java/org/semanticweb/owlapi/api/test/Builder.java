@@ -29,22 +29,22 @@ public class Builder {
     private final @Nonnull Set<OWLClass> classes = Sets.newHashSet(df.getOWLClass(iri), ce);
     private final @Nonnull Set<OWLNamedIndividual> inds = Sets.newHashSet(i, df.getOWLNamedIndividual(iri));
     private final @Nonnull SWRLAtom v1 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl#v1"),
-            Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl#var3"), df.getSWRLVariable("urn:swrl#var4")));
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl#var3"), df.getSWRLVariable("urn:swrl#var4")));
     private final @Nonnull SWRLAtom v2 = df.getSWRLBuiltInAtom(IRI.create("urn:swrl#v2"),
-            Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl#var5"), df.getSWRLVariable("urn:swrl#var6")));
+        Arrays.asList((SWRLDArgument) df.getSWRLVariable("urn:swrl#var5"), df.getSWRLVariable("urn:swrl#var6")));
     private final @Nonnull Set<SWRLAtom> body = Sets.newHashSet(v1);
     private final @Nonnull Set<SWRLAtom> head = Sets.newHashSet(v2);
     private final @Nonnull SWRLDArgument var1 = df.getSWRLVariable("urn:swrl#var1");
     private final @Nonnull List<SWRLDArgument> var1list = Arrays.asList(var1);
     private final @Nonnull SWRLIArgument var2 = df.getSWRLVariable("urn:swrl#var2");
     private final @Nonnull LinkedHashSet<SWRLAtom> body2 = Sets.newLinkedHashSet(Arrays.asList(v1,
-            df.getSWRLClassAtom(ce, var2), df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
-            df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
-            df.getSWRLSameIndividualAtom(var2, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri))),
-            df.getSWRLBuiltInAtom(iri, var1list)));
+        df.getSWRLClassAtom(ce, var2), df.getSWRLDataRangeAtom(d, var1), df.getSWRLBuiltInAtom(iri, var1list),
+        df.getSWRLDifferentIndividualsAtom(var2, df.getSWRLIndividualArgument(i)),
+        df.getSWRLSameIndividualAtom(var2, df.getSWRLIndividualArgument(df.getOWLNamedIndividual(iri))),
+        df.getSWRLBuiltInAtom(iri, var1list)));
     private final @Nonnull LinkedHashSet<SWRLAtom> head2 = Sets
-            .newLinkedHashSet(Arrays.asList(v2, df.getSWRLDataPropertyAtom(dp, var2, df.getSWRLLiteralArgument(lit)),
-                    df.getSWRLObjectPropertyAtom(op, var2, var2)));
+        .newLinkedHashSet(Arrays.asList(v2, df.getSWRLDataPropertyAtom(dp, var2, df.getSWRLLiteralArgument(lit)),
+            df.getSWRLObjectPropertyAtom(op, var2, var2)));
     private final @Nonnull OWLOntologyManager m = getManager();
 
     // no parsers and storers injected
@@ -353,11 +353,11 @@ public class Builder {
 
     public List<OWLAxiom> all() {
         return Arrays.asList(ann(), asymm(), annDom(), annRange(), ass(), assAnd(), assOr(), dRangeAnd(), dRangeOr(),
-                assNot(), assNotAnon(), assSome(), assAll(), assHas(), assMin(), assMax(), assEq(), assHasSelf(),
-                assOneOf(), assDSome(), assDAll(), assDHas(), assDMin(), assDMax(), assDEq(), dOneOf(), dNot(),
-                dRangeRestrict(), assD(), assDPlain(), dDom(), dRange(), dDef(), decC(), decOp(), decDp(), decDt(),
-                decAp(), decI(), assDi(), dc(), dDp(), dOp(), du(), ec(), eDp(), eOp(), fdp(), fop(), ifp(), iop(),
-                irr(), ndp(), nop(), opa(), opaInv(), opaInvj(), oDom(), oRange(), chain(), ref(), same(), subAnn(),
-                subClass(), subData(), subObject(), rule(), symm(), trans(), hasKey(), bigRule());
+            assNot(), assNotAnon(), assSome(), assAll(), assHas(), assMin(), assMax(), assEq(), assHasSelf(),
+            assOneOf(), assDSome(), assDAll(), assDHas(), assDMin(), assDMax(), assDEq(), dOneOf(), dNot(),
+            dRangeRestrict(), assD(), assDPlain(), dDom(), dRange(), dDef(), decC(), decOp(), decDp(), decDt(),
+            decAp(), decI(), assDi(), dc(), dDp(), dOp(), du(), ec(), eDp(), eOp(), fdp(), fop(), ifp(), iop(),
+            irr(), ndp(), nop(), opa(), opaInv(), opaInvj(), oDom(), oRange(), chain(), ref(), same(), subAnn(),
+            subClass(), subData(), subObject(), rule(), symm(), trans(), hasKey(), bigRule());
     }
 }

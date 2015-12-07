@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -43,10 +42,9 @@ public class ManchesterImportTestCase extends TestBase {
     }
 
     private OWLOntologyManager getManager() {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
-        manager.getIRIMappers().add(mapper);
-        return manager;
+        m.getIRIMappers().add(mapper);
+        return m;
     }
 
     @Test

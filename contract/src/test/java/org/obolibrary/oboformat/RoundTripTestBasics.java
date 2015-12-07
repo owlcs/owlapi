@@ -12,7 +12,6 @@ import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.diff.Diff;
 import org.obolibrary.oboformat.diff.OBODocDiffer;
 import org.obolibrary.oboformat.model.OBODoc;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -38,13 +37,13 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
     }
 
     public boolean roundTripOWLFile(String fn, boolean isExpectRoundtrip)
-            throws IOException, OWLOntologyCreationException {
+        throws IOException, OWLOntologyCreationException {
         OWLOntology oo = parseOWLFile(fn);
         return roundTripOWLOOntology(oo, isExpectRoundtrip);
     }
 
     public boolean roundTripOWLOOntology(OWLOntology oo, boolean isExpectRoundtrip) throws IOException {
-        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m1);
         OBODoc obodoc = bridge.convert(oo);
         writeOBO(obodoc);
         obodoc.check();
@@ -55,7 +54,7 @@ public class RoundTripTestBasics extends OboFormatTestBasics {
     }
 
     private static boolean compareOWLOntologiesPartial(OWLOntology oo, OWLOntology oo2, boolean isExpectRoundtrip,
-            @Nullable Collection<OWLAxiom> untranslatableAxioms) {
+        @Nullable Collection<OWLAxiom> untranslatableAxioms) {
         if (isExpectRoundtrip) {
             int untranslatedSize = 0;
             if (untranslatableAxioms != null) {
