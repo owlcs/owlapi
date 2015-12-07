@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -39,6 +38,7 @@ public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
 
     @Test
     public void testAxioms() {
+        config = config.setStrict(true);
         OWLOntology ont = createOntology();
         assertEquals(0, ont.axioms(AxiomType.SUBCLASS_OF).count());
         OWLDocumentFormat format = ont.getFormat();
@@ -47,10 +47,5 @@ public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends
         Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()
             .getUnparsedTriples();
         assertEquals(1, triples.size());
-    }
-
-    @Override
-    protected OWLOntologyLoaderConfiguration getConfiguration() {
-        return super.getConfiguration().setStrict(true);
     }
 }

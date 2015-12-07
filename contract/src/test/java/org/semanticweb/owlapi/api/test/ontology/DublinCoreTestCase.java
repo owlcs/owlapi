@@ -30,10 +30,10 @@ public class DublinCoreTestCase extends TestBase {
 
     @Test
     public void testAnnotationProperties() {
-        OWLOntology ontology = loadOntology("dublincore.rdf");
+        OWLOntology ontology = ontologyFromClasspathFile("dublincore.rdf");
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
-            assertTrue(vocabulary.getIRI().toString(),ontology.containsAnnotationPropertyInSignature(
-                    vocabulary.getIRI(), EXCLUDED));
+            assertTrue(vocabulary.getIRI().toString(), ontology.containsAnnotationPropertyInSignature(
+                vocabulary.getIRI(), EXCLUDED));
         }
     }
 }
