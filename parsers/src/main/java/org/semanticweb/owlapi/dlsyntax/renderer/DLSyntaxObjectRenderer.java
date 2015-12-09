@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
 import static org.semanticweb.owlapi.dlsyntax.renderer.DLSyntax.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
@@ -85,10 +86,10 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     @Override
     public void visit(OWLOntology ontology) {
         checkNotNull(ontology, "ontology cannot be null");
-        ontology.logicalAxioms().sorted().forEach(ax -> {
+        sortOptionally(ontology.logicalAxioms()).forEach(ax -> {
             ax.accept(this);
             write("\n");
-        } );
+        });
     }
 
     protected void write(String s) {
@@ -181,7 +182,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     private void writePropertyAssertion(OWLPropertyAssertionAxiom<?, ?> ax) {
         checkNotNull(ax, "ax cannot be null");
         if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom
-                || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
+            || ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
             write(NOT);
         }
         ax.getProperty().accept(this);
@@ -566,7 +567,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     private <V extends OWLObject> void writeValueRestriction(OWLHasValueRestriction<V> restriction,
-            OWLPropertyExpression p) {
+        OWLPropertyExpression p) {
         write(EXISTS);
         writeSpace();
         p.accept(this);

@@ -14,7 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import java.util.Collection;
 import java.util.List;
@@ -42,7 +42,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
 
     protected OWLNaryDataRangeImpl(Stream<? extends OWLDataRange> operands) {
         Stream<? extends OWLDataRange> ops = checkNotNull(operands, "operands cannot be null");
-        this.operands = asList(ops.distinct().sorted());
+        this.operands = sortOptionally(ops.distinct());
     }
 
     @Override

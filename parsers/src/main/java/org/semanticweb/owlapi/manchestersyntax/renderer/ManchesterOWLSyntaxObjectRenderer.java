@@ -300,7 +300,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     @Override
     public void visit(OWLAnnotation node) {
-        writeAnnotations(node.annotations().sorted().iterator());
+        writeAnnotations(node.annotations().iterator());
         node.getProperty().accept(this);
         writeSpace();
         node.getValue().accept(this);
@@ -860,7 +860,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             write(node.getPredicate().toQuotedString());
         }
         write("(");
-        for (Iterator<SWRLDArgument> it = node.arguments().sorted().iterator(); it.hasNext();) {
+        for (Iterator<SWRLDArgument> it = node.arguments().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");

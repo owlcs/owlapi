@@ -186,12 +186,14 @@ class LiteralFoldingEqualityTester {
     private static boolean equal(Stream<?> sai, Stream<?> sbi) {
         Iterator<?> ai = sai.iterator();
         Iterator<?> bi = sbi.iterator();
-        while (ai.hasNext()) {
+        while (ai.hasNext() && bi.hasNext()) {
             if (!equals(ai.next(), bi.next())) {
                 return false;
             }
         }
-        return true;
+        // return false if one iterator still has elements and the other does
+        // not
+        return ai.hasNext() == bi.hasNext();
     }
 
     public static boolean equals(@Nullable Object a, @Nullable Object b) {

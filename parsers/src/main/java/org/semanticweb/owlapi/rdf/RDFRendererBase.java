@@ -296,7 +296,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() {
-        List<SWRLRule> ruleAxioms = asList(ontology.axioms(AxiomType.SWRL_RULE).sorted());
+        List<SWRLRule> ruleAxioms = sortOptionally(ontology.axioms(AxiomType.SWRL_RULE));
         createGraph(ruleAxioms.stream());
         if (!ruleAxioms.isEmpty()) {
             writeBanner(RULES_BANNER_TEXT);

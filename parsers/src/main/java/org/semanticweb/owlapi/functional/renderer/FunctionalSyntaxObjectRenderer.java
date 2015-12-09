@@ -185,7 +185,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             writeCloseBracket();
             writeReturn();
         });
-        ontology.annotations().sorted().forEach(a -> acceptAndReturn(a));
+        sortOptionally(ontology.annotations()).forEach(a -> acceptAndReturn(a));
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         List<OWLEntity> signature = sortOptionally(ontology.signature());
