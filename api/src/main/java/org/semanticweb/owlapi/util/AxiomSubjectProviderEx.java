@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.stream.Stream;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -58,13 +56,9 @@ public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
         return axiom.getProperty();
     }
 
-    private static OWLClassExpression selectClassExpression(Stream<OWLClassExpression> descs) {
-        return descs.sorted().findFirst().orElse(null);
-    }
-
     @Override
     public OWLObject visit(OWLDisjointClassesAxiom axiom) {
-        return selectClassExpression(axiom.classExpressions());
+        return axiom.classExpressions().findFirst().orElse(null);
     }
 
     @Override
@@ -164,7 +158,7 @@ public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
 
     @Override
     public OWLObject visit(OWLEquivalentClassesAxiom axiom) {
-        return selectClassExpression(axiom.classExpressions());
+        return axiom.classExpressions().findFirst().orElse(null);
     }
 
     @Override

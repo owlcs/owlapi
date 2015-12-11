@@ -137,13 +137,12 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     protected void render(Stream<? extends OWLObject> objects) {
-        Iterator<? extends OWLObject> it = objects.sorted().iterator();
-        if (it.hasNext()) {
-            while (it.hasNext()) {
-                it.next().accept(this);
+        Iterator<? extends OWLObject> it = objects.iterator();
+        while (it.hasNext()) {
+            it.next().accept(this);
+            if (it.hasNext()) {
                 sb.append(' ');
             }
-            sb.deleteCharAt(sb.length() - 1);
         }
     }
 
@@ -830,10 +829,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DLSafeRule(");
         writeAnnotations(rule);
         sb.append(" Body(");
-        render(rule.body());
+        render(rule.body().sorted());
         sb.append(')');
         sb.append(" Head(");
-        render(rule.head());
+        render(rule.head().sorted());
         sb.append(')');
         sb.append(" )");
     }
