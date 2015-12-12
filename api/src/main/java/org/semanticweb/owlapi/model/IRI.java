@@ -39,6 +39,11 @@ public class IRI
     implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm,
     org.apache.commons.rdf.api.IRI {
 
+    @Override
+    public boolean isIRI() {
+        return true;
+    }
+
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
@@ -421,7 +426,7 @@ public class IRI
         if (o == this || equals(o)) {
             return 0;
         }
-        if (!(o instanceof IRI)) {
+        if (!o.isIRI()) {
             return -1;
         }
         IRI other = (IRI) o;

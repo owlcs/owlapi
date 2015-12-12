@@ -163,7 +163,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         if (object instanceof OWLLiteral) {
             // TODO refactor this method to use the annotation value visitor
             return literalRenderer.visit((OWLLiteral) object);
-        } else if (object instanceof IRI) {
+        } else if (object.isIRI()) {
             return alternateIRIShortFormProvider.getShortForm((IRI) object);
         } else {
             return alternateShortFormProvider.getShortForm((OWLEntity) object);

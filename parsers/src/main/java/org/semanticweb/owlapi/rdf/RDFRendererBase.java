@@ -261,7 +261,7 @@ public abstract class RDFRendererBase {
     private void renderUntypedIRIAnnotationAssertions() {
         Collection<IRI> annotatedIRIs = new HashSet<>();
         ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
-            .filter(ax -> ax.getSubject() instanceof IRI)
+            .filter(ax -> ax.getSubject().isIRI())
             .forEach(ax -> addIfUntyped(ax.getSubject(), annotatedIRIs));
         if (!annotatedIRIs.isEmpty()) {
             writeBanner(ANNOTATED_IRIS_BANNER_TEXT);

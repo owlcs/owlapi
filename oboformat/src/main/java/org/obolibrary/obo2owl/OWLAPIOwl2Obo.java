@@ -378,7 +378,7 @@ public class OWLAPIOwl2Obo {
             OWLAnnotationValue v = ann.getValue();
             if (v instanceof OWLLiteral) {
                 viewRel = ((OWLLiteral) v).getLiteral();
-            } else if (v instanceof IRI) {
+            } else if (v.isIRI()) {
                 viewRel = getIdentifier((IRI) v);
             }
             break;
@@ -897,7 +897,7 @@ public class OWLAPIOwl2Obo {
             tag = OBOFormatConstants.getTag(tagString);
         }
         if (tag == null) {
-            if (annVal instanceof IRI && FrameType.TERM.equals(frame.getType()) && isMetadataTag(prop)) {
+            if (annVal.isIRI() && FrameType.TERM.equals(frame.getType()) && isMetadataTag(prop)) {
                 String propId = this.getIdentifier(prop);
                 if (propId != null) {
                     Clause clause = new Clause(OboFormatTag.TAG_RELATIONSHIP);
@@ -940,7 +940,7 @@ public class OWLAPIOwl2Obo {
                     if ("xref".equals(propId)) {
                         OWLAnnotationValue v = aan.getValue();
                         String xrefValue;
-                        if (v instanceof IRI) {
+                        if (v.isIRI()) {
                             xrefValue = v.toString();
                         } else {
                             xrefValue = ((OWLLiteral) v).getLiteral();
@@ -1021,7 +1021,7 @@ public class OWLAPIOwl2Obo {
             if (OboFormatTag.TAG_XREF.getTag().equals(propId)) {
                 OWLAnnotationValue v = aan.getValue();
                 String xrefValue;
-                if (v instanceof IRI) {
+                if (v.isIRI()) {
                     xrefValue = v.toString();
                 } else {
                     xrefValue = ((OWLLiteral) v).getLiteral();
@@ -1095,7 +1095,7 @@ public class OWLAPIOwl2Obo {
                 } else {
                     clause.addValue(dataTypeIri.toString());
                 }
-            } else if (annVal instanceof IRI) {
+            } else if (annVal.isIRI()) {
                 clause.addValue(getIdentifier((IRI) annVal));
             }
             frame.addClause(clause);
@@ -1120,7 +1120,7 @@ public class OWLAPIOwl2Obo {
         String value = annVal.toString();
         if (annVal instanceof OWLLiteral) {
             value = ((OWLLiteral) annVal).getLiteral();
-        } else if (annVal instanceof IRI) {
+        } else if (annVal.isIRI()) {
             value = getIdentifier((IRI) annVal);
         }
         if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(tag)) {
@@ -1168,7 +1168,7 @@ public class OWLAPIOwl2Obo {
         String value = qualifier.getValue().toString();
         if (qualifier.getValue() instanceof OWLLiteral) {
             value = ((OWLLiteral) qualifier.getValue()).getLiteral();
-        } else if (qualifier.getValue() instanceof IRI) {
+        } else if (qualifier.getValue().isIRI()) {
             value = getIdentifier((IRI) qualifier.getValue());
         }
         QualifierValue qv = new QualifierValue(prop, value);
@@ -1743,7 +1743,7 @@ public class OWLAPIOwl2Obo {
         if (obj instanceof OWLEntity) {
             return getIdentifier(((OWLEntity) obj).getIRI());
         }
-        if (obj instanceof IRI) {
+        if (obj.isIRI()) {
             return getIdentifier((IRI) obj);
         }
         return null;
@@ -1836,7 +1836,7 @@ public class OWLAPIOwl2Obo {
         IRI iriObj = null;
         if (obj instanceof OWLNamedObject) {
             iriObj = ((OWLNamedObject) obj).getIRI();
-        } else if (obj instanceof IRI) {
+        } else if (obj.isIRI()) {
             iriObj = (IRI) obj;
         }
         if (iriObj == null) {

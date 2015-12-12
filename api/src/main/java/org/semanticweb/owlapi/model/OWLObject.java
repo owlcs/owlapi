@@ -24,8 +24,8 @@ import java.util.stream.Stream;
  * @since 2.0.0
  */
 public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature, HasContainsEntityInSignature,
-        HasAnonymousIndividuals, HasClassesInSignature, HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
-        HasIndividualsInSignature, HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
+    HasAnonymousIndividuals, HasClassesInSignature, HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
+    HasIndividualsInSignature, HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
 
     /**
      * Gets all of the nested (includes top level) class expressions that are
@@ -92,6 +92,13 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
      *         entities.
      */
     default boolean isBottomEntity() {
+        return false;
+    }
+
+    /**
+     * @return true if this object is an IRI
+     */
+    default boolean isIRI() {
         return false;
     }
 }

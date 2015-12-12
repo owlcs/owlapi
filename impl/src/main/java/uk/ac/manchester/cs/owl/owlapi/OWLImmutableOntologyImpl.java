@@ -499,7 +499,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         } else if (owlEntity instanceof OWLAnonymousIndividual) {
             return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get().values(
                 (OWLAnonymousIndividual) owlEntity, OWLAxiom.class);
-        } else if (owlEntity instanceof IRI) {
+        } else if (owlEntity.isIRI()) {
             Set<OWLAxiom> axioms = new HashSet<>();
             String iriString = owlEntity.toString();
             // axioms referring entities with this IRI, data property assertions

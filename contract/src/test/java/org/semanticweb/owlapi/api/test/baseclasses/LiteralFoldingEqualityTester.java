@@ -348,7 +348,7 @@ class LiteralFoldingEqualityTester {
         if (a == null || b == null) {
             return false;
         }
-        if (a instanceof IRI && b instanceof IRI) {
+        if (a.isIRI() && b.isIRI()) {
             return equals((IRI) a, (IRI) b);
         } else if (a instanceof OWLAnonymousIndividual && b instanceof OWLAnonymousIndividual) {
             return a.equals(b);

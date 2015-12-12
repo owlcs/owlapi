@@ -2558,18 +2558,18 @@ public class TripleHandlers {
         public void handleTriple(IRI s, IRI p, IRI o) {
             IRI source = source(s);
             IRI property = property(s);
-            Object target = target(s);
+            OWLObject target = target(s);
             Set<OWLAnnotation> annos = consumer.translateAnnotations(s);
             if (target instanceof OWLLiteral && (!isStrict() || isDPLax(property))) {
                 translateNegativeDataPropertyAssertion(s, p, o, source, property, (OWLLiteral) target, annos);
-            } else if (target instanceof IRI && (!isStrict() || isOpLax(property))) {
+            } else if (target.isIRI() && (!isStrict() || isOpLax(property))) {
                 translateNegativeObjectPropertyAssertion(s, p, o, source, property, (IRI) target, annos);
             }
             // TODO LOG ERROR
         }
 
-        Object target(IRI s) {
-            Object target = getRO(s, OWL_TARGET_INDIVIDUAL);
+        OWLObject target(IRI s) {
+            OWLObject target = getRO(s, OWL_TARGET_INDIVIDUAL);
             if (target == null) {
                 target = consumer.getLiteralObject(s, OWL_TARGET_VALUE.getIRI(), true);
             }

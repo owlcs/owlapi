@@ -909,7 +909,7 @@ class XRefTagHandler extends AbstractTagValueHandler {
         OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(xrefAnnotation.getProperty(),
             subject, xrefAnnotation.getValue());
         applyChange(new AddAxiom(getOntology(), ax));
-        if (getConsumer().isTypedef() && xrefAnnotation.getValue() instanceof IRI) {
+        if (getConsumer().isTypedef() && xrefAnnotation.getValue().isIRI()) {
             IRI xrefIRI = (IRI) xrefAnnotation.getValue();
             String typedefId = getConsumer().getCurrentId();
             getConsumer().addSymbolicIdMapping(typedefId, xrefIRI);

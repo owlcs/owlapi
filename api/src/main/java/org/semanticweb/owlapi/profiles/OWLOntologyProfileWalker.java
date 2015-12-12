@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
@@ -52,7 +51,7 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
             @Override
             public void visit(OWLAnnotationAssertionAxiom axiom) {
                 process(axiom);
-                if (axiom.getSubject() instanceof IRI) {
+                if (axiom.getSubject().isIRI()) {
                     // do not visit anonymous nodes from annotations
                     axiom.getSubject().accept(this);
                 }
@@ -64,7 +63,7 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
                 process(node);
                 node.getProperty().accept(this);
                 // only visit IRIs
-                if (node.getValue() instanceof IRI) {
+                if (node.getValue().isIRI()) {
                     node.getValue().accept(this);
                 }
             }

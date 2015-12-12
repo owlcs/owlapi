@@ -273,7 +273,7 @@ public class ManchesterSyntaxTool {
             for (OWLOntology o : ontologies) {
                 Optional<OWLAnnotationAssertionAxiom> anyMatch = o.axioms(AxiomType.ANNOTATION_ASSERTION).filter(
                     aa -> isMatchingLabel(label, aa.getValue(), aa.getProperty())
-                        && aa.getSubject() instanceof IRI).findAny();
+                        && aa.getSubject().isIRI()).findAny();
                 if (anyMatch.isPresent()) {
                     return (IRI) anyMatch.get().getSubject();
                 }
