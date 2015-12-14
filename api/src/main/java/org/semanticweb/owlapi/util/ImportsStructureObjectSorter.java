@@ -74,7 +74,7 @@ public class ImportsStructureObjectSorter<O> {
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<>();
         Set<O> processed = new HashSet<>();
         imports.forEach(
-                ont -> ontology2EntityMap.put(ont, asSet(objectSelector.objects(ont).filter(o -> processed.add(o)))));
+            ont -> ontology2EntityMap.put(ont, asSet(objectSelector.objects(ont).filter(o -> processed.add(o)))));
         return ontology2EntityMap;
     }
 
@@ -83,16 +83,6 @@ public class ImportsStructureObjectSorter<O> {
      *        type of selected objects
      */
     public interface ObjectSelector<O> {
-
-        /**
-         * @param ontology
-         *        the ontology to explore
-         * @return set of objects selected
-         */
-        @Deprecated
-        default Set<O> getObjects(OWLOntology ontology) {
-            return asSet(objects(ontology));
-        }
 
         /**
          * @param ontology

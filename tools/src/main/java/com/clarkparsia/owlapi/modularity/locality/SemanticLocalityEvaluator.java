@@ -45,7 +45,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         df = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         try {
             reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
-                    .createNonBufferingReasoner(man.createOntology());
+                .createNonBufferingReasoner(man.createOntology());
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
         }
@@ -160,7 +160,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          */
         public Set<OWLClassExpression> replaceBottom(Stream<? extends OWLClassExpression> exps) {
             checkNotNull(exps, "exps cannot be null");
-            return asSet(exps.map(ce -> replaceBottom(ce)));
+            return asSet(exps.map(this::replaceBottom));
         }
 
         /**
@@ -332,7 +332,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
         LOGGER.info("Replacing axiom by Bottom");
         OWLAxiom newAxiom = bottomReplacer.replaceBottom(checkNotNull(axiom, "axiom cannot be null"),
-                checkNotNull(signature, "signature cannot be null"));
+            checkNotNull(signature, "signature cannot be null"));
         return axiomVisitor.isLocal(newAxiom);
     }
 }

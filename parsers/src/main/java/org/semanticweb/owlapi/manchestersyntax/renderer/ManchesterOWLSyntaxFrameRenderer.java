@@ -211,8 +211,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writePrefixMap();
         writeNewLine();
         writeOntologyHeader();
-        o.annotationPropertiesInSignature().sorted(ooc).forEach(p -> write(p));
-        o.datatypesInSignature().sorted(ooc).forEach(p -> write(p));
+        o.annotationPropertiesInSignature().sorted(ooc).forEach(this::write);
+        o.datatypesInSignature().sorted(ooc).forEach(this::write);
         o.objectPropertiesInSignature().sorted(ooc).forEach(prop -> {
             write(prop);
             OWLObjectPropertyExpression invProp = prop.getInverseProperty();
@@ -220,10 +220,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                 write(invProp);
             }
         });
-        o.dataPropertiesInSignature().sorted(ooc).forEach(p -> write(p));
-        o.classesInSignature().sorted(ooc).forEach(p -> write(p));
-        o.individualsInSignature().sorted(ooc).forEach(p -> write(p));
-        o.referencedAnonymousIndividuals().sorted(ooc).forEach(p -> write(p));
+        o.dataPropertiesInSignature().sorted(ooc).forEach(this::write);
+        o.classesInSignature().sorted(ooc).forEach(this::write);
+        o.individualsInSignature().sorted(ooc).forEach(this::write);
+        o.referencedAnonymousIndividuals().sorted(ooc).forEach(this::write);
         // Nary disjoint classes axioms
         event = new RendererEvent(this, o);
         o.axioms(AxiomType.DISJOINT_CLASSES).sorted(ooc).forEach(ax -> writeMoreThanTwo(ax, ax.classExpressions(),
@@ -282,7 +282,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         fireFrameRenderingStarted(ONTOLOGY.toString());
         writeNewLine();
-        o.importsDeclarations().sorted().forEach(decl -> writeImports(decl));
+        o.importsDeclarations().sorted().forEach(this::writeImports);
         writeNewLine();
         writeSection(ANNOTATIONS, o.annotations().iterator(), ",", true);
         fireFrameRenderingFinished(ONTOLOGY.toString());
@@ -387,7 +387,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return Collections.emptySet();
     }
 
-    private final Predicate<OWLAxiom> display = ax -> isDisplayed(ax);
+    private final Predicate<OWLAxiom> display = this::isDisplayed;
     private final Predicate<OWLAxiom> props = ax -> ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
 
     protected <T extends OWLAxiom> Stream<T> filtersort(Stream<T> s) {
@@ -480,7 +480,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             Set<OWLAxiom> rules = new HashSet<>();
             filtersort(o.axioms(AxiomType.SWRL_RULE))
                 .forEach(rule -> {
-                    for (SWRLAtom atom : rule.head().collect(toList())) {
+                    for (SWRLAtom atom : asList(rule.head())) {
                         if (atom.getPredicate().equals(cls)) {
                             writeSection(RULE, rules.iterator(), ", ", true);
                             break;

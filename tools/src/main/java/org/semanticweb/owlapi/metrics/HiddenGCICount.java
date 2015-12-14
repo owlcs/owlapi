@@ -49,7 +49,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return changes.stream()
             .filter(OWLOntologyChange::isAxiomChange)
-            .map(c -> c.getAxiom())
+            .map(OWLOntologyChange::getAxiom)
             .anyMatch(equivalentOrSubclass);
     }
 
@@ -60,7 +60,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
 
     @Override
     protected Integer recomputeMetric() {
-        return (int) getOntologies().flatMap(o -> o.classesInSignature()).distinct()
+        return (int) getOntologies().flatMap(OWLOntology::classesInSignature).distinct()
             .filter(hasEquivalent)
             .filter(isSubclass).count();
     }

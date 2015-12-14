@@ -250,14 +250,14 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable {
         ANNOTATION_PROPERTY_DOMAIN, ANNOTATION_PROPERTY_RANGE, HAS_KEY);
     /** Axiom types. */
     public static final @Nonnull Set<AxiomType<?>> LOGICAL_AXIOM_TYPES = asSet(AXIOM_TYPES.stream().filter(
-        a -> a.isLogical));
+        AxiomType::isLogical));
     /** Logical axioms and declarations */
     public static final @Nonnull Set<AxiomType<? extends OWLAxiom>> LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES = asSet(Stream
-        .concat(AXIOM_TYPES.stream().filter(a -> a.isLogical), Stream.of(DECLARATION)));
-    private static final Map<String, AxiomType<? extends OWLAxiom>> NAME_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES, t -> t
-        .getName());
+        .concat(LOGICAL_AXIOM_TYPES.stream(), Stream.of(DECLARATION)));
+    private static final Map<String, AxiomType<? extends OWLAxiom>> NAME_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES,
+        AxiomType::getName);
     private static final Map<Class<?>, AxiomType<? extends OWLAxiom>> CLASS_TYPE_MAP = Maps.uniqueIndex(AXIOM_TYPES,
-        t -> t.getActualClass());
+        AxiomType::getActualClass);
 
     /**
      * @param t

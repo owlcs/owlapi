@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -123,12 +124,13 @@ public class NamedConjunctChecker {
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
-            ce.operands().forEach(op -> {
-                op.accept(this);
+            Iterator<? extends OWLClassExpression> it = ce.operands().iterator();
+            while (it.hasNext()) {
+                it.next().accept(this);
                 if (found && !collect) {
                     return;
                 }
-            } );
+            }
         }
     }
 }

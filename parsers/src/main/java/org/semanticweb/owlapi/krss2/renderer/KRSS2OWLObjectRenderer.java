@@ -155,12 +155,12 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 write(eachClass);
                 writeSpace();
                 Stream<OWLClassExpression> superClasses = sup(
-                        ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED), OWLClassExpression.class);
+                    ontology.axioms(Filters.subClassWithSub, eachClass, INCLUDED), OWLClassExpression.class);
                 flatten(superClasses.iterator());
                 writeCloseBracket(); // ==> end definition of primitive-concept
                 writeln();
                 Collection<OWLClassExpression> classes = asList(
-                        equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
+                    equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -175,7 +175,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_CONCEPT);
                 write(eachClass);
                 Collection<OWLClassExpression> classes = asList(
-                        equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
+                    equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class));
                 if (classes.isEmpty()) {
                     // ?
                     writeCloseBracket();
@@ -229,8 +229,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 flatten(i);
             }
             Stream<OWLObjectPropertyExpression> superProperties = sup(
-                    ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
-                    OWLObjectPropertyExpression.class);
+                ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                OWLObjectPropertyExpression.class);
             Iterator<OWLObjectPropertyExpression> it = superProperties.iterator();
             if (it.hasNext()) {
                 writeAttribute(PARENTS_ATTR);
@@ -261,7 +261,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         writeOpenBracket();
-        axiom.classExpressions().forEach(desc -> write(desc));
+        axiom.classExpressions().forEach(this::write);
         writeCloseBracket();
     }
 
@@ -291,7 +291,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLObjectIntersectionOf ce) {
         writeOpenBracket();
         write(AND);
-        ce.operands().forEach(des -> write(des));
+        ce.operands().forEach(this::write);
         writeCloseBracket();
     }
 
@@ -299,7 +299,7 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLObjectUnionOf ce) {
         writeOpenBracket();
         write(OR);
-        ce.operands().forEach(des -> write(des));
+        ce.operands().forEach(this::write);
         writeCloseBracket();
     }
 

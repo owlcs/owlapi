@@ -985,10 +985,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                sortOptionally(ont.axioms(ind)).stream().filter(ax -> root == null || !root.equals(ax)).forEach(ax -> ax
-                    .accept(this));
-                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())).forEach(ax -> ax.accept(
-                    this));
+                sortOptionally(ont.axioms(ind)).stream().filter(ax -> root == null || !root.equals(ax))
+                    .forEach(ax -> ax.accept(this));
+                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
+                    .forEach(ax -> ax.accept(this));
             }
             currentIndividuals.remove(ind);
         }
@@ -999,8 +999,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
                 sortOptionally(ont.axioms(ind)).forEach(ax -> ax.accept(this));
-                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual())).forEach(ax -> ax.accept(
-                    this));
+                sortOptionally(ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()))
+                    .forEach(ax -> ax.accept(this));
             }
             currentIndividuals.remove(ind);
         }

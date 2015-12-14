@@ -21,7 +21,7 @@ class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
 
     @Override
     public Set<C> doDefault(Object object) {
-        return asSet(((HasAnnotations) object).annotations().map(a -> get(a)));
+        return asSet(((HasAnnotations) object).annotations().map(this::get));
     }
 
     private C get(OWLAnnotation a) {

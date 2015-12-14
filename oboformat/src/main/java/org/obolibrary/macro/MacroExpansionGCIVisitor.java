@@ -74,11 +74,11 @@ public class MacroExpansionGCIVisitor {
 
         public MacroExpansions() {
             visitor = new GCIVisitor(inputOntology, newAxioms);
-            inputOntology.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> visitor.visit(axiom));
-            inputOntology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(axiom -> visitor.visit(axiom));
-            inputOntology.axioms(AxiomType.CLASS_ASSERTION).forEach(axiom -> visitor.visit(axiom));
-             inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).forEach(axiom -> expand(axiom)); 
-             //.forEach(ax-> System.out.println("not removing" + ax)) ;
+            inputOntology.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> axiom.accept(visitor));
+            inputOntology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(axiom -> axiom.accept(visitor));
+            inputOntology.axioms(AxiomType.CLASS_ASSERTION).forEach(axiom -> axiom.accept(visitor));
+            inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).forEach(this::expand);
+            // .forEach(ax-> System.out.println("not removing" + ax)) ;
         }
 
         // private void replaceIfDifferent(OWLAxiom ax, OWLAxiom exAx) {

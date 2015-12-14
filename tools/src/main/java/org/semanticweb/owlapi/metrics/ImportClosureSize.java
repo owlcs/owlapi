@@ -41,7 +41,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
-        return changes.stream().anyMatch(c -> c.isImportChange());
+        return changes.stream().anyMatch(OWLOntologyChange::isImportChange);
     }
 
     @Override

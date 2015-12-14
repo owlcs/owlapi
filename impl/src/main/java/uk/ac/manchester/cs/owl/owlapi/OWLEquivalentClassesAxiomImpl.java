@@ -37,7 +37,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
      *        annotations
      */
     public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
@@ -79,25 +79,28 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         return result;
     }
 
+    private boolean named(OWLClassExpression d) {
+        return !d.isAnonymous() && !d.isOWLNothing() && !d.isOWLThing();
+    }
+
     @Override
     public boolean containsNamedEquivalentClass() {
-        return classExpressions().anyMatch(desc -> !desc.isAnonymous() && !desc.isOWLNothing() && !desc.isOWLThing());
+        return classExpressions().anyMatch(this::named);
     }
 
     @Override
     public boolean containsOWLNothing() {
-        return classExpressions().anyMatch(d -> d.isOWLNothing());
+        return classExpressions().anyMatch(OWLClassExpression::isOWLNothing);
     }
 
     @Override
     public boolean containsOWLThing() {
-        return classExpressions().anyMatch(d -> d.isOWLThing());
+        return classExpressions().anyMatch(OWLClassExpression::isOWLThing);
     }
 
     @Override
     public Stream<OWLClass> namedClasses() {
-        return classExpressions().filter(desc -> !desc.isAnonymous() && !desc.isOWLNothing() && !desc.isOWLThing())
-                .map(desc -> desc.asOWLClass());
+        return classExpressions().filter(this::named).map(OWLClassExpression::asOWLClass);
     }
 
     @Override
@@ -107,7 +110,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
             for (int j = 0; j < classExpressions.size(); j++) {
                 if (i != j) {
                     result.add(new OWLSubClassOfAxiomImpl(classExpressions.get(i), classExpressions.get(j),
-                            NO_ANNOTATIONS));
+                        NO_ANNOTATIONS));
                 }
             }
         }

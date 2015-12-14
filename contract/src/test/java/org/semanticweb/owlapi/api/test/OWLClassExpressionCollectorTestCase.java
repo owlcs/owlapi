@@ -147,7 +147,7 @@ public class OWLClassExpressionCollectorTestCase {
     public void testAssertion() {
         OWLClassExpressionCollector testsubject = new OWLClassExpressionCollector();
         Set<OWLClassExpression> components = object.accept(testsubject);
-        Set<String> strings = asSet(components.stream().map(c -> c.toString()));
+        Set<String> strings = asSet(components.stream().map(Object::toString));
         assertEquals(expected, strings);
     }
 }

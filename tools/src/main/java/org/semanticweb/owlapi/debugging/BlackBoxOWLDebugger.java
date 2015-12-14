@@ -68,7 +68,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      *        factory to use
      */
     public BlackBoxOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology,
-            OWLReasonerFactory reasonerFactory) {
+        OWLReasonerFactory reasonerFactory) {
         super(owlOntologyManager, ontology);
         this.reasonerFactory = checkNotNull(reasonerFactory, "reasonerFactory cannot be null");
     }
@@ -305,7 +305,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         // Simply remove axioms one at a time. If the class
         // being debugged turns satisfiable then we know we have
         // an SOS axoiom.
-        new ArrayList<>(debuggingAxioms).forEach(ax -> removeAndTest(ax));
+        new ArrayList<>(debuggingAxioms).forEach(this::removeAndTest);
     }
 
     protected void removeAndTest(OWLAxiom ax) {

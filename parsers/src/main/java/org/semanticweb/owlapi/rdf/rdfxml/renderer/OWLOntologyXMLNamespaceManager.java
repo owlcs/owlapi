@@ -77,8 +77,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             namespaceUtil.setPrefix(Namespaces.SWRL.toString(), "swrl");
             namespaceUtil.setPrefix(Namespaces.SWRLB.toString(), "swrlb");
         }
-        getEntitiesThatRequireNamespaces().forEach(e -> processEntity(e));
-        namespaceUtil.getNamespace2PrefixMap().forEach((k, v) -> setOWL2Prefix(k, v));
+        getEntitiesThatRequireNamespaces().forEach(this::processEntity);
+        namespaceUtil.getNamespace2PrefixMap().forEach(this::setOWL2Prefix);
     }
 
     protected void setOWL2Prefix(String k, String v) {

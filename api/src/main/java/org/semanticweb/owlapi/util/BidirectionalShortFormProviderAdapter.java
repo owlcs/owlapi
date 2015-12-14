@@ -36,7 +36,6 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
     private final @Nonnull ShortFormProvider shortFormProvider;
     protected Collection<OWLOntology> ontologies;
     private OWLOntologyManager man;
-    private final @Nonnull OWLOntologyChangeListener changeListener = changes -> handleChanges(changes);
 
     /**
      * @param shortFormProvider
@@ -62,7 +61,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
         ShortFormProvider shortFormProvider) {
         this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
-        rebuild(ontologies.stream().flatMap(o -> o.signature()));
+        rebuild(ontologies.stream().flatMap(OWLOntology::signature));
     }
 
     /**
@@ -88,7 +87,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
         ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
         this.man = checkNotNull(man, "man cannot be null");
-        this.man.addOntologyChangeListener(changeListener);
+        this.man.addOntologyChangeListener(this::handleChanges);
     }
 
     @Override
@@ -99,7 +98,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
     @Override
     public void dispose() {
         if (man != null) {
-            man.removeOntologyChangeListener(changeListener);
+            man.removeOntologyChangeListener(this::handleChanges);
         }
     }
 

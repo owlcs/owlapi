@@ -26,8 +26,8 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @since 4.0.0
  */
 public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSignature, HasObjectPropertiesInSignature,
-        HasDataPropertiesInSignature, HasDatatypesInSignature, HasIndividualsInSignature, HasContainsEntityInSignature,
-        HasImportsClosure {
+    HasDataPropertiesInSignature, HasDatatypesInSignature, HasIndividualsInSignature, HasContainsEntityInSignature,
+    HasImportsClosure {
 
     /**
      * Gets the classes in the signature and optionally the imports closure.
@@ -51,7 +51,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         import closure. The set that is returned is a copy of the data.
      */
     default Stream<OWLClass> classesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.classesInSignature());
+        return imports.stream(this).flatMap(OWLOntology::classesInSignature);
     }
 
     /**
@@ -80,7 +80,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         of the data.
      */
     default Stream<OWLObjectProperty> objectPropertiesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.objectPropertiesInSignature());
+        return imports.stream(this).flatMap(OWLOntology::objectPropertiesInSignature);
     }
 
     /**
@@ -109,7 +109,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         data.
      */
     default Stream<OWLDataProperty> dataPropertiesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.dataPropertiesInSignature());
+        return imports.stream(this).flatMap(OWLOntology::dataPropertiesInSignature);
     }
 
     /**
@@ -136,7 +136,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         import closure. The set that is returned is a copy of the data.
      */
     default Stream<OWLNamedIndividual> individualsInSignature(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.individualsInSignature());
+        return imports.stream(this).flatMap(OWLOntology::individualsInSignature);
     }
 
     /**
@@ -161,7 +161,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @return The set of referenced anonymous individuals
      */
     default Stream<OWLAnonymousIndividual> referencedAnonymousIndividuals(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.referencedAnonymousIndividuals());
+        return imports.stream(this).flatMap(OWLOntology::referencedAnonymousIndividuals);
     }
 
     /**
@@ -205,7 +205,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         is a copy of the data.
      */
     default Stream<OWLDatatype> datatypesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.datatypesInSignature());
+        return imports.stream(this).flatMap(OWLOntology::datatypesInSignature);
     }
 
     /**
@@ -234,7 +234,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *         of the data.
      */
     default Stream<OWLAnnotationProperty> annotationPropertiesInSignature(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.annotationPropertiesInSignature());
+        return imports.stream(this).flatMap(OWLOntology::annotationPropertiesInSignature);
     }
 
     /**
@@ -365,8 +365,8 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      */
     default boolean containsEntityInSignature(IRI entityIRI) {
         return containsClassInSignature(entityIRI) || containsObjectPropertyInSignature(entityIRI)
-                || containsDataPropertyInSignature(entityIRI) || containsIndividualInSignature(entityIRI)
-                || containsDatatypeInSignature(entityIRI) || containsAnnotationPropertyInSignature(entityIRI);
+            || containsDataPropertyInSignature(entityIRI) || containsIndividualInSignature(entityIRI)
+            || containsDatatypeInSignature(entityIRI) || containsAnnotationPropertyInSignature(entityIRI);
     }
 
     // Access by IRI

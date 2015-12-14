@@ -442,7 +442,7 @@ public class Examples extends TestBase {
         // The ontology will now contain references to class A and class B -
         // that is, class A and class B are contained within the SIGNATURE of
         // the ontology let's print them out
-        ontology.classesInSignature().forEach(x -> x.toString());
+        ontology.classesInSignature().forEach(Object::toString);
         // do anything that's necessary, e.g., print them out
         // System.out.println("Referenced class: " + cls);
         // We should also find that B is an ASSERTED superclass of A

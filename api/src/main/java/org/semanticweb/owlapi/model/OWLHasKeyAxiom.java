@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
 
     @Override
-    OWLHasKeyAxiom getAxiomWithoutAnnotations();
+        OWLHasKeyAxiom getAxiomWithoutAnnotations();
 
     /**
      * Gets the class expression, instances of which, this axiom acts as the key
@@ -81,8 +81,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      *         this axiom
      */
     default Stream<? extends OWLObjectPropertyExpression> objectPropertyExpressions() {
-        return propertyExpressions().filter(p -> p.isObjectPropertyExpression())
-                .map(p -> p.asObjectPropertyExpression());
+        return propertyExpressions().filter(OWLPropertyExpression::isObjectPropertyExpression)
+            .map(OWLPropertyExpression::asObjectPropertyExpression);
     }
 
     /**
@@ -111,7 +111,8 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      *         this axiom
      */
     default Stream<? extends OWLDataPropertyExpression> dataPropertyExpressions() {
-        return propertyExpressions().filter(p -> p.isDataPropertyExpression()).map(p -> p.asDataPropertyExpression());
+        return propertyExpressions().filter(OWLPropertyExpression::isDataPropertyExpression)
+            .map(OWLPropertyExpression::asDataPropertyExpression);
     }
 
     @Override

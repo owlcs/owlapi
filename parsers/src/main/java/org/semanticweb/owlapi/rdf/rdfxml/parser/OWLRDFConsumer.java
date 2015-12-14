@@ -426,7 +426,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         if (iri != null) {
             return iri;
         }
-        return IRIMap.computeIfAbsent(s, i -> IRI.create(i));
+        return IRIMap.computeIfAbsent(s, IRI::create);
     }
 
     /** Imports closure changed. */
@@ -1392,7 +1392,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
             return df.getOWLLiteral(literal, lang);
         } else if (datatype != null) {
             return df.getOWLLiteral(literal,
-                    df.getOWLDatatype(datatype));
+                df.getOWLDatatype(datatype));
         } else {
             return df.getOWLLiteral(literal);
         }
@@ -1554,7 +1554,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         Set<OWLAnnotation> anns = createLinkedSet();
         getAnnotatedSourceAnnotationMainNodes(n).forEach(node -> anns.addAll(translateAnnotations(node)));
         Set<OWLAnnotation> nodeAnns = createLinkedSet();
-        getPredicatesBySubject(n).stream().filter(p -> isAnnotationProperty(p)).forEach(p -> {
+        getPredicatesBySubject(n).stream().filter(this::isAnnotationProperty).forEach(p -> {
             OWLAnnotationProperty ap = df.getOWLAnnotationProperty(p);
             IRI resVal = getResourceObject(n, p, true);
             while (resVal != null) {

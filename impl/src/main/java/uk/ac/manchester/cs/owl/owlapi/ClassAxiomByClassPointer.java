@@ -32,7 +32,7 @@ public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom
      *        internals
      */
     public ClassAxiomByClassPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
-            Internals i) {
+        Internals i) {
         super(t, v, initialized, i);
     }
 
@@ -43,17 +43,10 @@ public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom
         }
         super.init();
         // special case: this map needs other maps to be initialized first
-        MapPointer<OWLClass, OWLEquivalentClassesAxiom> equivalent = i
-                .get(OWLClass.class, OWLEquivalentClassesAxiom.class).get();
-        equivalent.forEach((c, ax) -> put(c, ax));
-        MapPointer<OWLClass, OWLSubClassOfAxiom> lhs = i.get(OWLClass.class, OWLSubClassOfAxiom.class).get();
-        lhs.forEach((c, ax) -> put(c, ax));
-        MapPointer<OWLClass, OWLDisjointClassesAxiom> disjoints = i.get(OWLClass.class, OWLDisjointClassesAxiom.class)
-                .get();
-        disjoints.forEach((c, ax) -> put(c, ax));
-        MapPointer<OWLClass, OWLDisjointUnionAxiom> disjointUnion = i.get(OWLClass.class, OWLDisjointUnionAxiom.class)
-                .get();
-        disjointUnion.forEach((c, ax) -> put(c, ax));
+        i.get(OWLClass.class, OWLEquivalentClassesAxiom.class).get().forEach(this::put);
+        i.get(OWLClass.class, OWLSubClassOfAxiom.class).get().forEach(this::put);
+        i.get(OWLClass.class, OWLDisjointClassesAxiom.class).get().forEach(this::put);
+        i.get(OWLClass.class, OWLDisjointUnionAxiom.class).get().forEach(this::put);
         return this;
     }
 }

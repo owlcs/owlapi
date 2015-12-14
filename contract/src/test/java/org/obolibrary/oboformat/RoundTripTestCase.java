@@ -9,6 +9,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -59,12 +60,12 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         assertTrue(ont.annotationAssertionAxioms(iri)
             .filter(ax -> ax.getProperty().getIRI()
                 .equals(Obo2OWLConstants.IRI_IAO_0000231))
-            .map(ax -> ax.getValue().asIRI()).filter(p -> p.isPresent())
+            .map(ax -> ax.getValue().asIRI()).filter(Optional::isPresent)
             .anyMatch(p -> Obo2OWLConstants.IRI_IAO_0000227.equals(p.get())));
         String altId = ont.annotationAssertionAxioms(iri)
             .filter(ax -> ax.getProperty().getIRI()
                 .equals(Obo2OWLVocabulary.IRI_IAO_0100001.getIRI()))
-            .map(ax -> ax.getValue().asIRI()).filter(p -> p.isPresent())
+            .map(ax -> ax.getValue().asIRI()).filter(Optional::isPresent)
             .map(p -> OWLAPIOwl2Obo.getIdentifier(p.get())).findAny()
             .orElse(null);
         assertEquals(replacedBy, altId);
@@ -245,7 +246,7 @@ public class RoundTripTestCase extends RoundTripTestBasics {
                 OWLClass subClass = (OWLClass) subClassCE;
                 if (superClass.getIRI().equals(t1)
                     && subClass.getIRI().equals(t3)) {
-                    axiom.annotations(infIRI).map(a -> a.getValue())
+                    axiom.annotations(infIRI).map(OWLAnnotation::getValue)
                         .forEach(v -> {
                         if (v instanceof OWLLiteral) {
                             assertEquals("true",

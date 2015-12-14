@@ -176,8 +176,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         THashMap<IRI, Integer> predicates = new THashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
         ORDERED_URIS.forEach(iri -> predicates.put(iri, nextId.getAndIncrement()));
-        Stream.of(OWLRDFVocabulary.values()).filter(iri -> !predicates.containsKey(iri.getIRI()))
-            .forEach(iri -> predicates.put(iri.getIRI(), nextId.getAndIncrement()));
+        Stream.of(OWLRDFVocabulary.values())
+            .forEach(iri -> predicates.computeIfAbsent(iri.getIRI(), (i) -> nextId.getAndIncrement()));
         return predicates;
     }
 

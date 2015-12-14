@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.reasoner.impl;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,20 +47,18 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     private final @Nonnull Set<OWLAxiom> reasonerAxioms;
     private final long timeOut;
     private final @Nonnull OWLReasonerConfiguration configuration;
-    private final @Nonnull OWLOntologyChangeListener ontologyChangeListener = changes -> handleRawOntologyChanges(
-            changes);
 
     protected OWLReasonerBase(OWLOntology rootOntology, OWLReasonerConfiguration configuration,
-            BufferingMode bufferingMode) {
+        BufferingMode bufferingMode) {
         this.rootOntology = checkNotNull(rootOntology, "rootOntology cannot be null");
         this.bufferingMode = checkNotNull(bufferingMode, "bufferingMode cannot be null");
         this.configuration = checkNotNull(configuration, "configuration cannot be null");
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
-        manager.addOntologyChangeListener(ontologyChangeListener);
-        reasonerAxioms = new HashSet<>();
-        rootOntology.importsClosure().flatMap(o -> Stream.concat(o.logicalAxioms(), o.axioms(AxiomType.DECLARATION)))
-                .forEach(ax -> reasonerAxioms.add(ax.getAxiomWithoutAnnotations()));
+        manager.addOntologyChangeListener(this::handleRawOntologyChanges);
+        reasonerAxioms = asSet(rootOntology.importsClosure()
+            .flatMap(o -> Stream.concat(o.logicalAxioms(), o.axioms(AxiomType.DECLARATION)))
+            .map(OWLAxiom::getAxiomWithoutAnnotations));
     }
 
     /**
@@ -152,9 +151,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
             return;
         }
         rootOntology.importsClosure().flatMap(o -> o.logicalAxioms())
-                .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(ax -> added.add(ax));
+            .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(ax -> added.add(ax));
         rootOntology.importsClosure().flatMap(o -> o.axioms(AxiomType.DECLARATION))
-                .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(ax -> added.add(ax));
+            .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(ax -> added.add(ax));
         for (OWLAxiom ax : reasonerAxioms) {
             if (!rootOntology.containsAxiom(ax, Imports.INCLUDED, AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS)) {
                 removed.add(ax);
@@ -189,7 +188,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 
     @Override
     public void dispose() {
-        manager.removeOntologyChangeListener(ontologyChangeListener);
+        manager.removeOntologyChangeListener(this::handleRawOntologyChanges);
     }
 
     @Override

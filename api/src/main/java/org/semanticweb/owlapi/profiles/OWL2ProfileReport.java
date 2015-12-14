@@ -39,7 +39,7 @@ public class OWL2ProfileReport extends OWLProfileReport {
      *        the collection of simple roles
      */
     public OWL2ProfileReport(OWLProfile profile, Set<OWLProfileViolation> disallowedConstructs,
-            Set<OWLObjectPropertyExpression> nonSimpleRoles, Set<OWLObjectPropertyExpression> simpleRoles) {
+        Set<OWLObjectPropertyExpression> nonSimpleRoles, Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);
         this.nonSimpleRoles = new TreeSet<>(nonSimpleRoles);
         this.simpleRoles = new TreeSet<>(simpleRoles);
@@ -63,9 +63,13 @@ public class OWL2ProfileReport extends OWLProfileReport {
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
         sb.append("\n[Simple properties]\n");
-        simpleRoles.forEach(p -> sb.append('\t').append(p).append('\n'));
+        simpleRoles.forEach(p -> wrap(sb, p));
         sb.append("\n[Non-simple properties]\n");
-        nonSimpleRoles.forEach(p -> sb.append('\t').append(p).append('\n'));
+        nonSimpleRoles.forEach(p -> wrap(sb, p));
         return sb.toString();
+    }
+
+    private static void wrap(StringBuilder sb, OWLObjectPropertyExpression p) {
+        sb.append('\t').append(p).append('\n');
     }
 }

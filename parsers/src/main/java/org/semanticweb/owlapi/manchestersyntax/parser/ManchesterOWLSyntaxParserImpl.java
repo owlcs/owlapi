@@ -1954,7 +1954,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                     ont.getOWLOntologyManager().makeLoadImportRequest(decl, getOntologyLoaderConfiguration());
                     OWLOntology imported = ont.getOWLOntologyManager().getImportedOntology(decl);
                     if (imported != null) {
-                        imported.axioms(AxiomType.DECLARATION).forEach(d -> processDeclaredEntities(d));
+                        imported.axioms(AxiomType.DECLARATION).forEach(this::processDeclaredEntities);
                     }
                 }
                 for (OWLAnnotation anno : header.getAnnotations()) {
@@ -1993,7 +1993,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 imports.add(new AddImport(ont, decl));
                 OWLOntology imported = ont.getOWLOntologyManager().getImportedOntology(decl);
                 if (imported != null) {
-                    imported.axioms(AxiomType.DECLARATION).forEach(d -> processDeclaredEntities(d));
+                    imported.axioms(AxiomType.DECLARATION).forEach(this::processDeclaredEntities);
                 }
             } else if (PREFIX.matches(section)) {
                 parsePrefixDeclaration().forEach((k, v) -> pm.setPrefix(k, v.toString()));

@@ -80,38 +80,37 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
 
     @Override
     public Stream<OWLClass> classesInSignature() {
-        return signature().filter(e -> e.isOWLClass()).map(e -> e.asOWLClass());
+        return signature().filter(OWLEntity::isOWLClass).map(OWLEntity::asOWLClass);
     }
 
     @Override
     public Stream<OWLDataProperty> dataPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLDataProperty()).map(e -> e.asOWLDataProperty());
+        return signature().filter(OWLEntity::isOWLDataProperty).map(OWLEntity::asOWLDataProperty);
     }
 
     @Override
     public Stream<OWLObjectProperty> objectPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLObjectProperty()).map(e -> e.asOWLObjectProperty());
+        return signature().filter(OWLEntity::isOWLObjectProperty).map(OWLEntity::asOWLObjectProperty);
     }
 
     @Override
     public Stream<OWLNamedIndividual> individualsInSignature() {
-        return signature().filter(e -> e.isOWLNamedIndividual()).map(e -> e.asOWLNamedIndividual());
+        return signature().filter(OWLEntity::isOWLNamedIndividual).map(OWLEntity::asOWLNamedIndividual);
     }
 
     @Override
     public Stream<OWLDatatype> datatypesInSignature() {
-        return signature().filter(e -> e.isOWLDatatype()).map(e -> e.asOWLDatatype());
+        return signature().filter(OWLEntity::isOWLDatatype).map(OWLEntity::asOWLDatatype);
     }
 
     @Override
     public Stream<OWLAnnotationProperty> annotationPropertiesInSignature() {
-        return signature().filter(e -> e.isOWLAnnotationProperty()).map(e -> e.asOWLAnnotationProperty());
+        return signature().filter(OWLEntity::isOWLAnnotationProperty).map(OWLEntity::asOWLAnnotationProperty);
     }
 
     @Override
     public Stream<OWLClassExpression> nestedClassExpressions() {
-        OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
-        return accept(collector).stream();
+        return accept(new OWLClassExpressionCollector()).stream();
     }
 
     @Override

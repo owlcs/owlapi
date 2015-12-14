@@ -40,7 +40,7 @@ public class MutableTree<N> implements Tree<N> {
         this.userObject = userObject;
         children = new ArrayList<>();
         child2EdgeMap = new HashMap<>();
-        toStringRenderer = object -> object.toString();
+        toStringRenderer = Object::toString;
     }
 
     @Override
@@ -256,6 +256,6 @@ public class MutableTree<N> implements Tree<N> {
 
     private int getMaxDepth(Tree<N> tree) {
         int maxChildDepth = tree.getPathToRoot().size();
-        return tree.getChildren().stream().mapToInt(c -> getMaxDepth(c)).max().orElse(maxChildDepth);
+        return tree.getChildren().stream().mapToInt(this::getMaxDepth).max().orElse(maxChildDepth);
     }
 }

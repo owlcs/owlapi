@@ -77,7 +77,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
 
     @Override
     public boolean containsAnonymousIndividuals() {
-        return individuals().anyMatch(i -> i.isAnonymous());
+        return individuals().anyMatch(OWLIndividual::isAnonymous);
     }
 
     @Override

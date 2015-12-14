@@ -72,8 +72,8 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     }
 
     private void generateChanges() {
-        Stream<OWLNamedIndividual> inds = ontologies().flatMap(o -> o.individualsInSignature());
-        getPunnedIndividuals(inds).forEach(ind -> convertToAnnotations(ind));
+        Stream<OWLNamedIndividual> inds = ontologies().flatMap(OWLOntology::individualsInSignature);
+        getPunnedIndividuals(inds).forEach(this::convertToAnnotations);
     }
 
     private void remove(Stream<? extends OWLAxiom> c, OWLOntology o) {

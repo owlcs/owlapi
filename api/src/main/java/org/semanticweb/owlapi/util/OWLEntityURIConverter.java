@@ -70,10 +70,10 @@ public class OWLEntityURIConverter {
         processedEntities = new HashSet<>();
         List<OWLOntologyChange> changes = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
-            ont.classesInSignature().filter(c -> !c.isOWLThing() && !c.isOWLNothing()).forEach(c -> processEntity(c));
-            ont.objectPropertiesInSignature().forEach(p -> processEntity(p));
-            ont.dataPropertiesInSignature().forEach(p -> processEntity(p));
-            ont.individualsInSignature().forEach(i -> processEntity(i));
+            ont.classesInSignature().filter(c -> !c.isOWLThing() && !c.isOWLNothing()).forEach(this::processEntity);
+            ont.objectPropertiesInSignature().forEach(this::processEntity);
+            ont.dataPropertiesInSignature().forEach(this::processEntity);
+            ont.individualsInSignature().forEach(this::processEntity);
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap, manager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {

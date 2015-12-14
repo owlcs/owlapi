@@ -39,8 +39,7 @@ public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
     /** The Class FramesComparator. */
-    private static final Comparator<Frame> framesComparator = (o1, o2) -> checkNotNull(o1.getId()).compareTo(o2
-        .getId());
+    private static final Comparator<Frame> framesComparator = Comparator.comparing(Frame::getId);
     private static final @Nonnull Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
     private static final @Nonnull Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
     /**
@@ -234,9 +233,7 @@ public class OBOFormatWriter {
     }
 
     private static List<String> duplicateTags(Set<String> src) {
-        List<String> tags = new ArrayList<>(src.size());
-        src.forEach(tag -> tags.add(tag));
-        return tags;
+        return new ArrayList<>(src);
     }
 
     /**
@@ -692,11 +689,16 @@ public class OBOFormatWriter {
     /** The Enum EscapeMode. */
     private enum EscapeMode {
         /** all except xref and xrefList. */
-        most, /** simple + parenthesis. */
-        parenthesis, /** simple + quotes. */
-        quotes, /** simple + comma + colon. */
-        xref, /** xref + closing brackets. */
-        xrefList, /** newline and backslash. */
+        most,
+        /** simple + parenthesis. */
+        parenthesis,
+        /** simple + quotes. */
+        quotes,
+        /** simple + comma + colon. */
+        xref,
+        /** xref + closing brackets. */
+        xrefList,
+        /** newline and backslash. */
         simple
     }
 
@@ -995,7 +997,7 @@ public class OBOFormatWriter {
          * @return name or null
          */
         @Nullable
-        String getName(String id);
+            String getName(String id);
 
         /**
          * Retrieve the default OBO namespace.
@@ -1003,7 +1005,7 @@ public class OBOFormatWriter {
          * @return default OBO namespace or null
          */
         @Nullable
-        String getDefaultOboNamespace();
+            String getDefaultOboNamespace();
     }
 
     /**

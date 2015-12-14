@@ -107,19 +107,18 @@ public class MacroExpansionVisitor {
 
         public MacroExpansions() {
             inputOntology.axioms(AxiomType.SUBCLASS_OF).forEach(axiom -> {
-                OWLAxiom newAxiom = visitor.visit(axiom);
+                OWLAxiom newAxiom = axiom.accept(visitor);
                 replaceIfDifferent(axiom, newAxiom);
             });
             inputOntology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(axiom -> {
-                OWLAxiom newAxiom = visitor.visit(axiom);
+                OWLAxiom newAxiom = axiom.accept(visitor);
                 replaceIfDifferent(axiom, newAxiom);
             });
             inputOntology.axioms(AxiomType.CLASS_ASSERTION).forEach(axiom -> {
-                OWLAxiom newAxiom = visitor.visit(axiom);
+                OWLAxiom newAxiom = axiom.accept(visitor);
                 replaceIfDifferent(axiom, newAxiom);
             });
-            inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).filter(axiom -> expand(axiom)).forEach(
-                axiom -> rmAxioms.add(axiom));
+            add(rmAxioms, inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).filter(this::expand));
         }
 
         private void replaceIfDifferent(OWLAxiom ax, OWLAxiom exAx) {

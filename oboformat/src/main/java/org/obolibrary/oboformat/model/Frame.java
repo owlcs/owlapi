@@ -349,7 +349,7 @@ public class Frame {
         if (!extFrame.getType().equals(getType())) {
             throw new FrameMergeException("frame types do not match");
         }
-        extFrame.getClauses().forEach(c -> addClause(c));
+        extFrame.getClauses().forEach(this::addClause);
         // note we do not perform a document structure check at this point
     }
 

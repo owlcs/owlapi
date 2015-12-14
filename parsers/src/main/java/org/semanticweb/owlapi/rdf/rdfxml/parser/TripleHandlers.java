@@ -132,12 +132,12 @@ public class TripleHandlers {
         }
 
         public void consumeNonReservedPredicateTriples() {
-            consumer.iterateResources((s, p, o) -> apply(s, p, o));
-            consumer.iterateLiterals((s, p, o) -> apply(s, p, o));
+            consumer.iterateResources(this::apply);
+            consumer.iterateLiterals(this::apply);
         }
 
         public void consumeAnnotatedAxioms() {
-            consumer.iterateResources((s, p, o) -> applyAnns(s, p, o));
+            consumer.iterateResources(this::applyAnns);
         }
 
         /**
@@ -283,8 +283,8 @@ public class TripleHandlers {
             consumeNonReservedPredicateTriples();
             // Now axiom annotations
             consumeAnnotatedAxioms();
-            consumer.iterateResources((s, p, o) -> handle(s, p, o));
-            consumer.iterateLiterals((s, p, o) -> handle(s, p, o));
+            consumer.iterateResources(this::handle);
+            consumer.iterateLiterals(this::handle);
             // Inverse property axioms
             inverseOf.setAxiomParsingMode(true);
             consumer.iterateResources((s, p, o) -> {
@@ -502,8 +502,8 @@ public class TripleHandlers {
     static class AbstractTripleHandler {
 
         protected final @Nonnull OWLRDFConsumer consumer;
-        private final @Nonnull TypeMatcher ceMatcher = node -> isClassExpressionStrict(node);
-        private final @Nonnull TypeMatcher drMatcher = node -> isDataRangeStrict(node);
+        private final @Nonnull TypeMatcher ceMatcher = this::isClassExpressionStrict;
+        private final @Nonnull TypeMatcher drMatcher = this::isDataRangeStrict;
         private final @Nonnull TypeMatcher indMatcher = node -> true;
         protected final OWLDataFactory df;
 
@@ -1444,7 +1444,7 @@ public class TripleHandlers {
                             man.applyChange(new RemoveImport(consumer.getOntology(), id));
                             io.importsDeclarations().forEach(d -> addImport(man, d));
                             io.annotations().forEach(ann -> addOntAnn(man, ann));
-                            io.axioms().forEach(ax -> add(ax));
+                            io.axioms().forEach(this::add);
                             man.removeOntology(io);
                         }
                     }

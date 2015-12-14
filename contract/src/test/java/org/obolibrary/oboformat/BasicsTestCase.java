@@ -59,7 +59,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         Collection<String> remarks = headerFrame.getTagValues(OboFormatTag.TAG_REMARK, String.class);
         OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(m1);
         OWLOntology owlOntology = obo2Owl.convert(obo);
-        Set<String> comments = asSet(owlOntology.annotations(df.getRDFSComment()).map(a -> a.getValue())
+        Set<String> comments = asSet(owlOntology.annotations(df.getRDFSComment()).map(OWLAnnotation::getValue)
             .filter(a -> a instanceof OWLLiteral).map(a -> ((OWLLiteral) a).getLiteral()));
         // check that all remarks have been translated to rdfs:comment
         assertEquals(remarks.size(), comments.size());

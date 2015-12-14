@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Represents
@@ -95,6 +96,20 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *         example, calling this method on (A and B) and C will return the
      *         set {A, B, C}
      */
+    default Stream<OWLClassExpression> conjunctSet() {
+        return asConjunctSet().stream();
+    }
+
+    /**
+     * Interprets this expression as a conjunction and returns the conjuncts.
+     * This method does not normalise the expression (full CNF is not computed).
+     * 
+     * @return The conjucts of this expression if it is a conjunction (object
+     *         intersection of), or otherwise a singleton set containing this
+     *         expression. Note that nested conjunctions will be flattened, for
+     *         example, calling this method on (A and B) and C will return the
+     *         set {A, B, C}
+     */
     Set<OWLClassExpression> asConjunctSet();
 
     /**
@@ -109,6 +124,20 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *         that contains {@code ce}, otherwise {@code false}.
      */
     boolean containsConjunct(OWLClassExpression ce);
+
+    /**
+     * Interprets this expression as a disjunction and returns the disjuncts.
+     * This method does not normalise the expression (full DNF is not computed).
+     * 
+     * @return The disjuncts of this expression if it is a disjunction (object
+     *         union of), or otherwise a singleton set containing this
+     *         expression. Note that nested disjunctions will be flattened, for
+     *         example, calling this method on (A or B) or C will return the set
+     *         {A, B, C}
+     */
+    default Stream<OWLClassExpression> disjunctSet() {
+        return asDisjunctSet().stream();
+    }
 
     /**
      * Interprets this expression as a disjunction and returns the disjuncts.

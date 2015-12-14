@@ -78,15 +78,15 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      *         if any creation exception arises
      */
     public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager, @Nullable IRI ontologyIRI)
-            throws OWLOntologyCreationException {
+        throws OWLOntologyCreationException {
         OWLOntology ontology;
         if (ontologyIRI != null) {
             ontology = ontologyManager.createOntology(ontologyIRI);
         } else {
             ontology = ontologyManager.createOntology();
         }
-        setProvider.ontologies().flatMap(ont -> getAxioms(ont)).filter(ax -> axiomFilter.passes(ax))
-                .forEach(ax -> ontology.add(ax));
+        setProvider.ontologies().flatMap(this::getAxioms).filter(axiomFilter::passes)
+            .forEach(ax -> ontology.add(ax));
         return ontology;
     }
 

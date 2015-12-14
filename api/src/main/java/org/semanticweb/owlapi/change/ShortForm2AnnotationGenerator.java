@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.function.Function;
-
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
@@ -46,12 +44,12 @@ public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChan
      *        language
      */
     public ShortForm2AnnotationGenerator(OWLDataFactory df, OWLOntologyManager ontologyManager, OWLOntology ontology,
-            ShortFormProvider shortFormProvider, IRI annotationIRI, @Nullable String languageTag) {
+        ShortFormProvider shortFormProvider, IRI annotationIRI, @Nullable String languageTag) {
         super(df);
         generateChanges(checkNotNull(ontologyManager, "ontologyManager cannot be null"),
-                checkNotNull(ontology, "ontology cannot be null"),
-                checkNotNull(shortFormProvider, "shortFormProvider cannot be null"),
-                checkNotNull(annotationIRI, "annotationIRI cannot be null"), languageTag);
+            checkNotNull(ontology, "ontology cannot be null"),
+            checkNotNull(shortFormProvider, "shortFormProvider cannot be null"),
+            checkNotNull(annotationIRI, "annotationIRI cannot be null"), languageTag);
     }
 
     /**
@@ -69,24 +67,26 @@ public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChan
      *        iri for annotation property
      */
     public ShortForm2AnnotationGenerator(OWLDataFactory df, OWLOntologyManager ontologyManager, OWLOntology ontology,
-            ShortFormProvider shortFormProvider, IRI annotationIRI) {
+        ShortFormProvider shortFormProvider, IRI annotationIRI) {
         this(df, ontologyManager, ontology, shortFormProvider, annotationIRI, null);
     }
 
     private static void generateChanges(OWLOntologyManager ontologyManager, OWLOntology o, ShortFormProvider provider,
-            IRI annotationIRI, @Nullable String lang) {
+        IRI annotationIRI, @Nullable String lang) {
         OWLDataFactory df = ontologyManager.getOWLDataFactory();
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(annotationIRI);
-        Function<OWLEntity, OWLLiteral> action = (e) -> {
-            if (lang != null) {
-                return df.getOWLLiteral(provider.getShortForm(e), lang);
-            }
-            return df.getOWLLiteral(provider.getShortForm(e));
-        };
         new ImportsStructureEntitySorter(o).getObjects().forEach((ont, ent) -> ent.forEach(e -> {
             if (o.containsEntityInSignature(e)) {
-                ont.add(df.getOWLAnnotationAssertionAxiom(ap, e.getIRI(), action.apply(e)));
+                ont.add(df.getOWLAnnotationAssertionAxiom(ap, e.getIRI(), action(e, lang, provider, df)));
             }
-        } ));
+        }));
     }
+
+    private static OWLLiteral action(OWLEntity e, @Nullable String lang, ShortFormProvider provider,
+        OWLDataFactory df) {
+        if (lang != null) {
+            return df.getOWLLiteral(provider.getShortForm(e), lang);
+        }
+        return df.getOWLLiteral(provider.getShortForm(e));
+    };
 }

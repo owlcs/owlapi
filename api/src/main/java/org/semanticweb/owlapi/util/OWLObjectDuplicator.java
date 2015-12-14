@@ -124,7 +124,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
 
     private List<OWLAnnotation> anns(OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
-        return asList(axiom.annotations().map(a -> get(a)));
+        return asList(axiom.annotations().map(this::get));
     }
 
     @Override
@@ -255,7 +255,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
 
     @Override
     public OWLSubPropertyChainOfAxiom visit(OWLSubPropertyChainOfAxiom axiom) {
-        List<OWLObjectPropertyExpression> chain = asList(axiom.getPropertyChain().stream().map(p -> get(p)));
+        List<OWLObjectPropertyExpression> chain = asList(axiom.getPropertyChain().stream().map(this::get));
         return df.getOWLSubPropertyChainOfAxiom(chain, get(axiom.getSuperProperty()), anns(axiom));
     }
 
@@ -582,7 +582,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
      * @return The set of duplicated objects
      */
     protected <O extends OWLObject> List<O> list(Stream<O> objects) {
-        return asList(objects.map(o -> get(o)));
+        return asList(objects.map(this::get));
     }
 
     @SuppressWarnings("unchecked")

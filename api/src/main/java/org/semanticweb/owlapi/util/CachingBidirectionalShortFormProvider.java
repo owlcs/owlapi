@@ -68,7 +68,7 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     protected void rebuild(Stream<OWLEntity> entities) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
-        entities.forEach(e -> add(e));
+        entities.forEach(this::add);
     }
 
     /**

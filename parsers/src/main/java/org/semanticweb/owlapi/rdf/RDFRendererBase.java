@@ -407,7 +407,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLClass cls) {
-                add(axioms, ontology.axioms(cls).filter(ax -> threewayDisjoint(ax)));
+                add(axioms, ontology.axioms(cls).filter(this::threewayDisjoint));
                 add(axioms, ontology.axioms(AxiomType.HAS_KEY).filter(ax -> ax.getClassExpression().equals(cls)));
             }
 
@@ -541,7 +541,7 @@ public abstract class RDFRendererBase {
 
     /** Render anonymous roots. */
     public void renderAnonRoots() {
-        graph.getRootAnonymousNodes().stream().sorted().forEach(node -> render(node));
+        graph.getRootAnonymousNodes().stream().sorted().forEach(this::render);
     }
 
     /**
@@ -559,7 +559,7 @@ public abstract class RDFRendererBase {
                 && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
                 List<RDFNode> items = new ArrayList<>();
                 toJavaList(node, items);
-                return items.stream().noneMatch(n -> n.isLiteral());
+                return items.stream().noneMatch(RDFNode::isLiteral);
             }
         }
         return false;

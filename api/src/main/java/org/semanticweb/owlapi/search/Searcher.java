@@ -29,6 +29,15 @@ public final class Searcher {
 
     private Searcher() {}
 
+    private static boolean filter(@Nullable OWLPropertyExpression p, HasProperty<?> ax) {
+        return p == null || ax.getProperty().equals(p);
+    }
+
+    private static <T extends OWLPropertyAssertionObject> Stream<T> filterValues(
+        Stream<? extends OWLPropertyAssertionAxiom<?, T>> stream, @Nullable OWLPropertyExpression p) {
+        return stream.filter(ax -> filter(p, ax)).map(HasObject::getObject).distinct();
+    }
+
     /**
      * Retrieve literals from a collection of assertions.
      * 
@@ -40,7 +49,7 @@ public final class Searcher {
      */
     public static Stream<OWLLiteral> values(Stream<OWLDataPropertyAssertionAxiom> axioms,
         @Nullable OWLDataPropertyExpression p) {
-        return axioms.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getObject()).distinct();
+        return filterValues(axioms, p);
     }
 
     /**
@@ -54,7 +63,7 @@ public final class Searcher {
      */
     public static Stream<OWLIndividual> values(Stream<OWLObjectPropertyAssertionAxiom> axioms,
         @Nullable OWLObjectPropertyExpression p) {
-        return axioms.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getObject());
+        return filterValues(axioms, p);
     }
 
     /**
@@ -68,7 +77,7 @@ public final class Searcher {
      */
     public static Stream<OWLLiteral> negValues(Stream<OWLNegativeDataPropertyAssertionAxiom> axioms,
         @Nullable OWLDataPropertyExpression p) {
-        return axioms.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getObject());
+        return filterValues(axioms, p);
     }
 
     /**
@@ -82,7 +91,7 @@ public final class Searcher {
      */
     public static Stream<OWLIndividual> negValues(Stream<OWLNegativeObjectPropertyAssertionAxiom> axioms,
         @Nullable OWLObjectPropertyExpression p) {
-        return axioms.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getObject());
+        return filterValues(axioms, p);
     }
 
     /**
@@ -93,7 +102,7 @@ public final class Searcher {
      * @return classes
      */
     public static Stream<OWLClassExpression> types(Stream<OWLClassAssertionAxiom> axioms) {
-        return axioms.map(ax -> ax.getClassExpression());
+        return axioms.map(OWLClassAssertionAxiom::getClassExpression);
     }
 
     /**
@@ -104,7 +113,7 @@ public final class Searcher {
      * @return individuals
      */
     public static Stream<OWLIndividual> instances(Stream<OWLClassAssertionAxiom> axioms) {
-        return axioms.map(ax -> ax.getIndividual());
+        return axioms.map(OWLClassAssertionAxiom::getIndividual);
     }
 
     /**
@@ -152,7 +161,7 @@ public final class Searcher {
      */
     public static Stream<OWLAnnotationValue> values(Stream<OWLAnnotation> annotations,
         @Nullable OWLAnnotationProperty p) {
-        return annotations.filter(ax -> p == null || ax.getProperty().equals(p)).map(ax -> ax.getValue());
+        return annotations.filter(ax -> filter(p, ax)).map(ax -> ax.getValue());
     }
 
     /**
@@ -209,7 +218,7 @@ public final class Searcher {
      * @return annotations
      */
     public static Stream<OWLAnnotation> annotationObjects(Stream<OWLAnnotationAssertionAxiom> axioms) {
-        return axioms.map(ax -> ax.getAnnotation()).distinct();
+        return axioms.map(OWLAnnotationAssertionAxiom::getAnnotation).distinct();
     }
 
     /**
@@ -644,7 +653,7 @@ public final class Searcher {
      * @return collection of IRIs for the ontologies.
      */
     public static Stream<IRI> ontologiesIRIs(Stream<OWLOntology> ontologies) {
-        return ontologyIRIs(ontologies.map(o -> o.getOntologyID()));
+        return ontologyIRIs(ontologies.map(OWLOntology::getOntologyID));
     }
 
     /**

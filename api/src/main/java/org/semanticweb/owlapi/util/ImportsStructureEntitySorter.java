@@ -27,9 +27,6 @@ public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<O
      *        the ontology
      */
     public ImportsStructureEntitySorter(OWLOntology ontology) {
-        super(ontology, referencedEntitySelector);
+        super(ontology, OWLOntology::signature);
     }
-
-    /** Selector of referenced entities. */
-    public static ObjectSelector<OWLEntity> referencedEntitySelector = o -> o.signature();
 }

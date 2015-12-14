@@ -468,7 +468,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
     }
 
     private void checkOccurrence(Stream<OWLAnnotation> c) {
-        c.forEach(a -> a.getValue().asAnonymousIndividual().ifPresent(t -> checkAppearance(t)));
+        c.forEach(a -> a.getValue().asAnonymousIndividual().ifPresent(this::checkAppearance));
     }
 
     protected void checkAppearance(OWLAnonymousIndividual a) {

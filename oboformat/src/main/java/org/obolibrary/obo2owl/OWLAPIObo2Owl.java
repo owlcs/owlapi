@@ -350,9 +350,9 @@ public class OWLAPIObo2Owl {
             // TODO - warn
         }
         trHeaderFrame(hf);
-        obodoc.getTypedefFrames().forEach(f -> trTypedefToAnnotationProperty(f));
-        obodoc.getTypedefFrames().forEach(f -> trTypedefFrame(f));
-        obodoc.getTermFrames().forEach(f -> trTermFrame(f));
+        obodoc.getTypedefFrames().forEach(this::trTypedefToAnnotationProperty);
+        obodoc.getTypedefFrames().forEach(this::trTypedefFrame);
+        obodoc.getTermFrames().forEach(this::trTermFrame);
         // TODO - individuals
         for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
             String path = getURI(cl.getValue().toString());

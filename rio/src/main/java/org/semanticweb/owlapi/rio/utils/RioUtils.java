@@ -133,7 +133,7 @@ public final class RioUtils {
         if (contexts == null || contexts.length == 0) {
             return Collections.singletonList(vf.createStatement(subject, predicate, object));
         } else {
-            return asList(Stream.of(contexts).map((x) -> vf.createStatement(subject, predicate, object, x)));
+            return asList(Stream.of(contexts).map(x -> vf.createStatement(subject, predicate, object, x)));
         }
     }
 

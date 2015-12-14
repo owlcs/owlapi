@@ -60,14 +60,9 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  */
 @SuppressWarnings("all")
 enum OBOIdType {
-    /**
-     * Any string with an http: or https: prefix.
-     */
-    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), (ontologyID, idSpaceManager, id) -> IRI.create(
-            id)), /**
-                   * Any unprefixed ID. Does not contain a colon character. The
-                   * spec implies the empty string matches this ID.
-                   */
+    /** Any string with an http: or https: prefix. */
+    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), (ontologyID, idSpaceManager, id) -> IRI.create(id)), 
+    /** Any unprefixed ID. Does not contain a colon character. The spec implies the empty string matches this ID. */
     UNPREFIXED_ID(Pattern.compile("[^\\s:]*"), (ontologyID, idSpaceManager, id) -> {
         StringBuilder sb = new StringBuilder();
         if (!ontologyID.isAnonymous()) {
@@ -78,11 +73,8 @@ enum OBOIdType {
         sb.append("#");
         sb.append(id);
         return IRI.create(sb.toString());
-    } ), /**
-          * Must contain a colon character in the ID. The idspace must only
-          * consist of Alpha-Chars and possibly an underscore. The local id must
-          * only consist of digits (possibly none).
-          */
+    } ), 
+    /** Must contain a colon character in the ID. The idspace must only consist of Alpha-Chars and possibly an underscore. The local id must only consist of digits (possibly none). */
     CANONICAL_PREFIXED_ID(Pattern.compile("([A-Za-z][A-Za-z_]*):([0-9]*)"), new OBOIIdTranslator() {
 
         @Override
@@ -99,10 +91,8 @@ enum OBOIdType {
             sb.append(localid);
             return IRI.create(sb.toString());
         }
-    }), /**
-         * Must contain a colon character somewhere in the ID. Any kind of
-         * prefix plus a local Id. The prefix doesn't contain a colon character.
-         */
+    }), 
+    /** Must contain a colon character somewhere in the ID. Any kind of prefix plus a local Id. The prefix doesn't contain a colon character. */
     NON_CANONICAL_PREFIXED_ID(Pattern.compile("([^\\s:]*):([^\\s]*)"), new OBOIIdTranslator() {
 
         @Override

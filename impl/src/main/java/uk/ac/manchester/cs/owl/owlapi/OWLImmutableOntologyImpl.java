@@ -374,7 +374,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Stream<IRI> directImportsDocuments() {
-        return ints.getImportsDeclarations().map(i -> i.getIRI());
+        return ints.getImportsDeclarations().map(OWLImportsDeclaration::getIRI);
     }
 
     @Override

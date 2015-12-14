@@ -185,7 +185,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             writeCloseBracket();
             writeReturn();
         });
-        sortOptionally(ontology.annotations()).forEach(a -> acceptAndReturn(a));
+        sortOptionally(ontology.annotations()).forEach(this::acceptAndReturn);
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         List<OWLEntity> signature = sortOptionally(ontology.signature());
@@ -204,7 +204,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             writtenAxioms);
         signature.forEach(e -> writeAxioms(e, writtenAxioms));
         sortOptionally(ontology.axioms().filter(ax -> !writtenAxioms.contains(ax)))
-            .forEach(ax -> acceptAndReturn(ax));
+            .forEach(this::acceptAndReturn);
         writeCloseBracket();
         flush();
     }
@@ -282,7 +282,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity) + ")");
         writeReturn();
         sortOptionally(annotationAssertionAxioms).stream().filter(ax -> alreadyWrittenAxioms.add(ax))
-            .forEach(ax -> acceptAndReturn(ax));
+            .forEach(this::acceptAndReturn);
         List<? extends OWLAxiom> axs = axiomsForEntity;
         for (OWLAxiom ax : axs) {
             if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
@@ -431,7 +431,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      */
     protected void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
         sortOptionally(ont.annotationAssertionAxioms(entity.getIRI()).filter(ax -> alreadyWrittenAxioms.add(ax)))
-            .forEach(ax -> acceptAndReturn(ax));
+            .forEach(this::acceptAndReturn);
     }
 
     /**
@@ -479,7 +479,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     protected void writeAnnotations(OWLAxiom ax) {
-        ax.annotations().forEach(a -> acceptAndSpace(a));
+        ax.annotations().forEach(this::acceptAndSpace);
     }
 
     protected void writeAxiomStart(OWLXMLVocabulary v, OWLAxiom axiom) {
@@ -943,7 +943,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         write(DATATYPE_RESTRICTION);
         writeOpenBracket();
         node.getDatatype().accept(this);
-        node.facetRestrictions().forEach(r -> spaceAndAccept(r));
+        node.facetRestrictions().forEach(this::spaceAndAccept);
         writeCloseBracket();
     }
 
@@ -1091,7 +1091,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLAnnotation node) {
         write(ANNOTATION);
         writeOpenBracket();
-        node.annotations().forEach(a -> acceptAndSpace(a));
+        node.annotations().forEach(this::acceptAndSpace);
         acceptAndSpace(node.getProperty());
         node.getValue().accept(this);
         writeCloseBracket();

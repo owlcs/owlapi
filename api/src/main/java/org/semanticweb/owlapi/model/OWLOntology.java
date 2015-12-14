@@ -403,7 +403,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @see #individualsInSignature()
      */
     default Stream<OWLEntity> signature(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.signature());
+        return imports.stream(this).flatMap(OWLOntology::signature);
     }
 
     /**

@@ -47,7 +47,7 @@ public interface OWLAxiomCollection
      *         the import closure.
      */
     default Stream<OWLAxiom> axioms(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.axioms());
+        return imports.stream(this).flatMap(OWLOntology::axioms);
     }
 
     /**
@@ -88,7 +88,7 @@ public interface OWLAxiomCollection
      *         optionally including the imports closure.
      */
     default Stream<OWLLogicalAxiom> logicalAxioms(Imports imports) {
-        return imports.stream(this).flatMap(o -> o.logicalAxioms());
+        return imports.stream(this).flatMap(OWLOntology::logicalAxioms);
     }
 
     /**

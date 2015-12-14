@@ -138,7 +138,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
 
     @Override
     public void copyPrefixesFrom(Map<String, String> from) {
-        from.forEach((k, v) -> setPrefix(k, v));
+        from.forEach(this::setPrefix);
     }
 
     @Override

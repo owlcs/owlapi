@@ -627,7 +627,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     public void visit(OWLObjectOneOf ce) {
         writeOpenBracket();
         write(ONE_OF);
-        ce.individuals().forEach(i -> write(i));
+        ce.individuals().forEach(this::write);
         writeCloseBracket();
     }
 

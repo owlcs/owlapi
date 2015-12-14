@@ -86,7 +86,7 @@ public class JustificationMap {
             Set<OWLAxiom> axs = getAxiomsByLHS(e);
             result.addAll(axs);
             usedAxioms.addAll(axs);
-        } );
+        });
         rootAxioms.addAll(result);
         buildChildren(result);
     }
@@ -98,7 +98,7 @@ public class JustificationMap {
             children.forEach(a -> map.put(a, ax));
             axiomChildren.add(children);
         }
-        axiomChildren.forEach(c -> buildChildren(c));
+        axiomChildren.forEach(this::buildChildren);
     }
 
     /**
@@ -114,7 +114,7 @@ public class JustificationMap {
         parentAxiom.accept(extractor);
         Set<OWLAxiom> result = new HashSet<>();
         extractor.getRHS().stream().flatMap(o -> o.signature()).flatMap(e -> getAxiomsByLHS(e).stream())
-                .filter(ax -> usedAxioms.add(ax)).forEach(ax -> result.add(ax));
+            .filter(ax -> usedAxioms.add(ax)).forEach(ax -> result.add(ax));
         return result;
     }
 

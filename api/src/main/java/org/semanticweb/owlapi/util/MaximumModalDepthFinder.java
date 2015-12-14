@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
@@ -30,6 +32,10 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
         return 0;
     }
 
+    int counter(Stream<? extends OWLObject> stream) {
+        return stream.mapToInt(o -> o.accept(this).intValue()).max().orElse(0);
+    }
+
     @Override
     public Integer visit(OWLSubClassOfAxiom axiom) {
         int subClassModalDepth = axiom.getSubClass().accept(this).intValue();
@@ -39,17 +45,17 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLOntology ontology) {
-        return ontology.logicalAxioms().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return counter(ontology.logicalAxioms());
     }
 
     @Override
     public Integer visit(OWLObjectIntersectionOf ce) {
-        return ce.operands().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return counter(ce.operands());
     }
 
     @Override
     public Integer visit(OWLObjectUnionOf ce) {
-        return ce.operands().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return counter(ce.operands());
     }
 
     @Override
@@ -69,7 +75,7 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLDisjointClassesAxiom axiom) {
-        return axiom.classExpressions().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return counter(axiom.classExpressions());
     }
 
     @Override
@@ -139,6 +145,6 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Override
     public Integer visit(OWLEquivalentClassesAxiom axiom) {
-        return axiom.classExpressions().mapToInt(ax -> ax.accept(this).intValue()).max().orElse(0);
+        return counter(axiom.classExpressions());
     }
 }

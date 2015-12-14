@@ -40,14 +40,14 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      */
     public DefinitionTracker(OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        ontology.importsClosure().flatMap(o -> o.axioms()).forEach(ax -> addAxiom(ax));
+        ontology.importsClosure().flatMap(OWLOntology::axioms).forEach(this::addAxiom);
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
     }
 
     private void addAxiom(OWLAxiom axiom) {
         if (axioms.add(axiom)) {
             axiom.signature()
-                    .forEach(e -> referenceCounts.computeIfAbsent(e, x -> new AtomicInteger(0)).incrementAndGet());
+                .forEach(e -> referenceCounts.computeIfAbsent(e, x -> new AtomicInteger(0)).incrementAndGet());
         }
     }
 
@@ -58,7 +58,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
                 if (count != null && count.decrementAndGet() == 0) {
                     referenceCounts.remove(e);
                 }
-            } );
+            });
         }
     }
 

@@ -219,7 +219,7 @@ public class Internals implements Serializable {
             INDIVIDUALSUBNAMED);
         differentIndividualsAxiomsByIndividual = buildLazy(DIFFERENT_INDIVIDUALS, ICOLLECTIONS);
         sameIndividualsAxiomsByIndividual = buildLazy(SAME_INDIVIDUAL, ICOLLECTIONS);
-        axiomsForSerialization.forEach(ax -> addAxiom(ax));
+        axiomsForSerialization.forEach(this::addAxiom);
         axiomsForSerialization = null;
     }
 
@@ -848,8 +848,9 @@ public class Internals implements Serializable {
      * @return logical axioms
      */
     public Stream<OWLLogicalAxiom> getLogicalAxioms() {
-        return LOGICAL_AXIOM_TYPES.stream().map(type -> axiomsByType.values(type, OWLLogicalAxiom.class)).flatMap(
-            x -> x);
+        return LOGICAL_AXIOM_TYPES.stream()
+            .map(type -> axiomsByType.values(type, OWLLogicalAxiom.class))
+            .flatMap(x -> x);
     }
 
     /**

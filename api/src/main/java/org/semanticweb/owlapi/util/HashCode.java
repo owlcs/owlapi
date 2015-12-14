@@ -46,7 +46,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
     private static int hash(Stream<?> s) {
-        return s.mapToInt(a -> a.hashCode()).sum();
+        return s.mapToInt(Object::hashCode).sum();
     }
 
     @Override

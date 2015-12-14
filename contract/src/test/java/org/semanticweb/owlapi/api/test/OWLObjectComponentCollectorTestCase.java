@@ -272,7 +272,7 @@ public class OWLObjectComponentCollectorTestCase {
     public void testAssertion() {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
         Set<OWLObject> components = testsubject.getComponents(object);
-        Set<String> strings = asSet(components.stream().map(c -> c.toString()));
+        Set<String> strings = asSet(components.stream().map(Object::toString));
         assertEquals(expected, strings);
     }
 }

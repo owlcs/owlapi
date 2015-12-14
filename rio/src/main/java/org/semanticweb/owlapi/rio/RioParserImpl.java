@@ -112,7 +112,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 Map<String, String> namespaces = tripleSource.getNamespaces();
                 Iterator<Statement> statementsIterator = tripleSource.getStatementIterator();
                 handler.startRDF();
-                namespaces.forEach((k, v) -> handler.handleNamespace(k, v));
+                namespaces.forEach(handler::handleNamespace);
                 while (statementsIterator.hasNext()) {
                     handler.handleStatement(statementsIterator.next());
                 }

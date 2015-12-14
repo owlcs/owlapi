@@ -112,7 +112,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        a set then duplicate {@code Node}s will be filtered out.
      */
     public void addAllNodes(Collection<Node<E>> nodeset) {
-        nodeset.forEach(node -> addNode(node));
+        nodeset.forEach(this::addNode);
     }
 
     /**
@@ -123,7 +123,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        a set then duplicate {@code Node}s will be filtered out.
      */
     public void addAllNodes(Stream<Node<E>> nodeset) {
-        nodeset.forEach(node -> addNode(node));
+        nodeset.forEach(this::addNode);
     }
 
     /**
@@ -154,7 +154,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     @Override
     public Stream<E> entities() {
-        return nodes().flatMap(n -> n.entities());
+        return nodes().flatMap(Node::entities);
     }
 
     @Override

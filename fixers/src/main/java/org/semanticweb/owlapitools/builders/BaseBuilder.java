@@ -13,6 +13,7 @@
 package org.semanticweb.owlapitools.builders;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -79,7 +80,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
      */
     @SuppressWarnings("unchecked")
     public B withAnnotations(Stream<OWLAnnotation> arg) {
-        arg.forEach(a -> annotations.add(a));
+        add(annotations, arg);
         return (B) this;
     }
 
@@ -95,11 +96,10 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         // create and apply the new change
         AddAxiom change = new AddAxiom(o, (OWLAxiom) object);
         o.applyChange(change);
-        List<OWLOntologyChange> changes = new ArrayList<>();
         // check conformity to the profile
         OWLProfileReport report = Profiles.OWL2_DL.checkOntology(o);
         // collect all changes to fix the ontology
-        report.getViolations().forEach(v -> changes.addAll(v.repair()));
+        List<OWLOntologyChange> changes = asList(report.getViolations().stream().flatMap(v -> v.repair().stream()));
         // fix the ontology
         o.getOWLOntologyManager().applyChanges(changes);
         // return all applied changes for reference

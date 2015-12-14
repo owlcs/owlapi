@@ -492,7 +492,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private Stream<V> values() {
-        return map.values().stream().flatMap(s -> s.stream());
+        return map.values().stream().flatMap(Collection::stream);
     }
 
     private Stream<V> get(K k) {
