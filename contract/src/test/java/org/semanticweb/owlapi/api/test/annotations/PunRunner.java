@@ -31,7 +31,6 @@ public class PunRunner extends org.junit.runner.Runner {
 
     public PunRunner(Class<?> testClass) {
         this.testClass = testClass;
-        System.err.println("PunRunner started");
     }
 
     class TestSetting {

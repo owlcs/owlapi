@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.io.*;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
-import org.semanticweb.owlapi.util.AlwaysOutputId;
+import org.semanticweb.owlapi.util.AxiomAppearance;
 import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 import org.semanticweb.owlapi.util.IndividualAppearance;
 import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
@@ -69,6 +69,7 @@ public abstract class RDFRendererBase {
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
     protected final IndividualAppearance occurrences;
+    protected final AxiomAppearance axiomOccurrences;
 
     /**
      * @param ontology
@@ -83,11 +84,14 @@ public abstract class RDFRendererBase {
         df = this.ontology.getOWLOntologyManager().getOWLDataFactory();
         this.format = format;
         if (AnonymousIndividualProperties.shouldSaveIdsForAllAnonymousIndividuals()) {
-            occurrences = new AlwaysOutputId();
+            occurrences = x -> true;
+            axiomOccurrences = x -> true;
         } else {
             OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
             occurrences = visitor;
             ontology.accept(visitor);
+            axiomOccurrences = x -> x.annotations().count() > 1
+                || x.annotations().anyMatch(a -> a.annotations().count() > 0);
         }
     }
 
@@ -520,6 +524,9 @@ public abstract class RDFRendererBase {
                 OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
                 needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
                 key = anonymousIndividual.getID().getID();
+            } else if (key instanceof OWLAxiom) {
+                isIndividual = true;
+                needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
             }
             return getBlankNodeFor(key, isIndividual, needId);
         }

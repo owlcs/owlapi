@@ -1551,24 +1551,42 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         // Are we the subject of an annotation? If so, we need to ensure that
         // the annotations annotate us. This
         // will only happen if we are an annotation!
-        Set<OWLAnnotation> anns = createLinkedSet();
-        getAnnotatedSourceAnnotationMainNodes(n).forEach(node -> anns.addAll(translateAnnotations(node)));
+        Map<IRI, Collection<OWLAnnotation>> anns = createMap();
+        getAnnotatedSourceAnnotationMainNodes(n).forEach(node -> anns.put(node, translateAnnotations(node)));
         Set<OWLAnnotation> nodeAnns = createLinkedSet();
-        getPredicatesBySubject(n).stream().filter(this::isAnnotationProperty).forEach(p -> {
-            OWLAnnotationProperty ap = df.getOWLAnnotationProperty(p);
-            IRI resVal = getResourceObject(n, p, true);
-            while (resVal != null) {
-                OWLAnnotationValue val = getAnnotationValue(resVal);
-                nodeAnns.add(df.getOWLAnnotation(ap, val, anns));
-                resVal = getResourceObject(n, p, true);
-            }
-            OWLLiteral litVal = getLiteralObject(n, p, true);
-            while (litVal != null) {
-                nodeAnns.add(df.getOWLAnnotation(ap, litVal, anns));
-                litVal = getLiteralObject(n, p, true);
-            }
-        });
+        getPredicatesBySubject(n).stream()
+            .filter(this::isAnnotationProperty)
+            .forEach(p -> mapAnnotation(n, anns, nodeAnns, p));
         return nodeAnns;
+    }
+
+    protected void mapAnnotation(IRI n, Map<IRI, Collection<OWLAnnotation>> anns, Set<OWLAnnotation> nodeAnns, IRI p) {
+        OWLAnnotationProperty ap = df.getOWLAnnotationProperty(p);
+        IRI resVal = getResourceObject(n, p, true);
+        while (resVal != null) {
+            IRI annotation = getSubjectForAnnotatedPropertyAndObject(n, p, resVal);
+            OWLAnnotationValue val = getAnnotationValue(resVal);
+            nodeAnns.add(df.getOWLAnnotation(ap, val, anns.getOrDefault(annotation, Collections.emptyList())));
+            resVal = getResourceObject(n, p, true);
+        }
+        OWLLiteral litVal = getLiteralObject(n, p, true);
+        while (litVal != null) {
+            IRI annotation = getSubjectForAnnotatedPropertyAndObject(n, p, litVal);
+            nodeAnns.add(df.getOWLAnnotation(ap, litVal, anns.getOrDefault(annotation, Collections.emptyList())));
+            litVal = getLiteralObject(n, p, true);
+        }
+    }
+
+    private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, OWLLiteral v) {
+        return getAnnotatedSourceAnnotationMainNodes(n).stream()
+            .filter(i -> p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
+                && v.equals(getLiteralObject(i, OWL_ANNOTATED_TARGET, false))).findAny().orElse(null);
+    }
+
+    private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, IRI v) {
+        return getAnnotatedSourceAnnotationMainNodes(n).stream()
+            .filter(i -> p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
+                && v.equals(getResourceObject(i, OWL_ANNOTATED_TARGET, false))).findAny().orElse(null);
     }
 
     private OWLAnnotationValue getAnnotationValue(IRI resVal) {

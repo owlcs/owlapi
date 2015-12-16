@@ -84,11 +84,11 @@ abstract class AbstractState {
             String localName = atts.getLocalName(i);
             String value = atts.getValue(i);
             if (!XMLNS.equals(nsIRI) && !XMLLANG.equals(localName)
-                    && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName) || ATTR_NODE_ID.equals(localName)
-                            || ATTR_ABOUT.equals(localName) || ELT_TYPE.equals(localName)
-                            || ATTR_RESOURCE.equals(localName) || ATTR_PARSE_TYPE.equals(localName)
-                            || ATTR_ABOUT_EACH.equals(localName) || ATTR_ABOUT_EACH_PREFIX.equals(localName)
-                            || ATTR_BAG_ID.equals(localName)))) {
+                && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName) || ATTR_NODE_ID.equals(localName)
+                    || ATTR_ABOUT.equals(localName) || ELT_TYPE.equals(localName)
+                    || ATTR_RESOURCE.equals(localName) || ATTR_PARSE_TYPE.equals(localName)
+                    || ATTR_ABOUT_EACH.equals(localName) || ATTR_ABOUT_EACH_PREFIX.equals(localName)
+                    || ATTR_BAG_ID.equals(localName)))) {
                 String reificationID = reificationManager.getReificationID(null, parser);
                 parser.statementWithLiteralValue(subjectIRI, nsIRI + localName, value, null, reificationID);
             } else if (RDFNS.equals(nsIRI) && ELT_TYPE.equals(localName)) {
@@ -180,7 +180,7 @@ class StartRDF extends AbstractState implements State {
         String value = atts.getValue(XMLNS, "base");
         if (value == null) {
             LOGGER.info("Notice: root element does not have an xml:base. Relative IRIs will be resolved against {}",
-                    parser.getBaseIRI());
+                parser.getBaseIRI());
         }
         // the logical IRI is the current IRI that we have as the base IRI
         // at this point
@@ -265,7 +265,7 @@ class NodeElement extends AbstractState implements State {
      * @return reification id
      */
     protected @Nullable String getReificationID(Attributes atts) {
-        String rdfID = atts.getValue(RDFNS, ATTR_ID);
+        String rdfID = getAttrId(atts);
         if (rdfID != null) {
             rdfID = parser.resolveIRI('#' + rdfID);
         }
@@ -298,7 +298,7 @@ class NodeElement extends AbstractState implements State {
         reificationManager = getReificationManager(atts);
         if (!isRDFNS || !ELT_DESCRIPTION.equals(localName)) {
             parser.statementWithResourceValue(subjectIRI(), RDF_TYPE, namespaceIRI + localName,
-                    reificationManager.getReificationID(null, parser));
+                reificationManager.getReificationID(null, parser));
         }
         // Checks if attribute list contains some of the unsupported attributes.
         parser.verify(atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1, ABOUT_EACH_UNSUPPORTED);
@@ -318,16 +318,16 @@ class NodeElement extends AbstractState implements State {
     String getIDNodeIDAboutResourceIRI(Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
         String result = null;
-        String value = atts.getValue(RDFNS, ATTR_ID);
+        String value = getAttrId(atts);
         if (value != null) {
             result = parser.resolveIRI('#' + value);
         }
-        value = atts.getValue(RDFNS, ATTR_ABOUT);
+        value = getAttrAbout(atts);
         if (value != null) {
             parser.verify(result != null, NO_RDF_ID_AND_ABOUT);
             result = parser.resolveIRI(value);
         }
-        value = atts.getValue(RDFNS, ATTR_NODE_ID);
+        value = getNodeId(atts);
         if (value != null) {
             parser.verify(result != null, NO_RDF_NODE_ID_ID_ABOUT);
             result = NodeID.getIRIFromNodeID(value);
@@ -336,6 +336,18 @@ class NodeElement extends AbstractState implements State {
             result = NodeID.nextAnonymousIRI();
         }
         return result;
+    }
+
+    protected @Nullable String getNodeId(Attributes atts) {
+        return atts.getValue(RDFNS, ATTR_NODE_ID);
+    }
+
+    protected @Nullable String getAttrAbout(Attributes atts) {
+        return atts.getValue(RDFNS, ATTR_ABOUT);
+    }
+
+    protected @Nullable String getAttrId(Attributes atts) {
+        return atts.getValue(RDFNS, ATTR_ID);
     }
 
     @Override
@@ -407,7 +419,7 @@ class ParseTypeCollectionElement extends AbstractState implements State {
             String newListCellIRI = listCell(collectionNode.subjectIRI());
             if (lastCellIRI == null) {
                 parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), newListCellIRI,
-                        reificationID);
+                    reificationID);
             } else {
                 parser.statementWithResourceValue(lastCell(), RDF_REST, newListCellIRI, null);
             }
@@ -481,10 +493,10 @@ class ResourceOrLiteralElement extends AbstractState implements State {
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (innerNode != null) {
             parser.statementWithResourceValue(nodeElement.subjectIRI(), propertyIRI(), innerNode.subjectIRI(),
-                    reificationID);
+                reificationID);
         } else {
             parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(), verifyNotNull(text.toString()),
-                    datatype, reificationID);
+                datatype, reificationID);
         }
         parser.popState();
     }
@@ -543,7 +555,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (depth == 1) {
             parser.statementWithLiteralValue(nodeElement.subjectIRI(), propertyIRI(),
-                    verifyNotNull(m_content.toString()), RDF_XMLLITERAL, reificationID);
+                verifyNotNull(m_content.toString()), RDF_XMLLITERAL, reificationID);
             parser.popState();
         } else {
             m_content.append("</");
@@ -578,7 +590,7 @@ class ParseTypeResourceElement extends AbstractState implements State {
         NodeElement anonymousNodeElement = new NodeElement(parser);
         anonymousNodeElement.startDummyElement(atts);
         parser.statementWithResourceValue(nodeElement.subjectIRI(), verifyNotNull(mpIRI),
-                anonymousNodeElement.subjectIRI(), reificationID);
+            anonymousNodeElement.subjectIRI(), reificationID);
         parser.pushState(new PropertyElementList(anonymousNodeElement, parser));
     }
 
