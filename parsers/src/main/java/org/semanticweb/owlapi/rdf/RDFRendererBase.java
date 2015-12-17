@@ -90,8 +90,7 @@ public abstract class RDFRendererBase {
             OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
             occurrences = visitor;
             ontology.accept(visitor);
-            axiomOccurrences = x -> x.annotations().count() > 1
-                || x.annotations().anyMatch(a -> a.annotations().count() > 0);
+            axiomOccurrences = x -> x.annotations().anyMatch(a -> a.annotations().count() > 0);
         }
     }
 
