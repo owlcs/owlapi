@@ -1526,7 +1526,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
      *         params)
      */
     @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype, @Nullable String lang) {
+        OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype, @Nullable String lang) {
         if (datatype != null) {
             return dataFactory.getOWLLiteral(literal, dataFactory.getOWLDatatype(datatype));
         } else {
@@ -1696,11 +1696,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         // Are we the subject of an annotation? If so, we need to ensure that
         // the annotations annotate us. This
         // will only happen if we are an annotation!
-        Set<OWLAnnotation> annosOnMainNodeAnnotations = new HashSet<>();
+        Map<IRI, Set<OWLAnnotation>> anns = new HashMap<>();
         Set<IRI> annotationMainNodes = getAnnotatedSourceAnnotationMainNodes(mainNode);
         if (!annotationMainNodes.isEmpty()) {
             for (IRI annotationMainNode : annotationMainNodes) {
-                annosOnMainNodeAnnotations.addAll(translateAnnotations(annotationMainNode));
+                anns.put(annotationMainNode, translateAnnotations(annotationMainNode));
             }
         }
         Set<OWLAnnotation> mainNodeAnnotations = new HashSet<>();
@@ -1708,27 +1708,58 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
         for (IRI predicate : predicates) {
             assert predicate != null;
             if (isAnnotationProperty(predicate)) {
-                IRI resVal = getResourceObject(mainNode, predicate, true);
-                while (resVal != null) {
-                    OWLAnnotationProperty prop = dataFactory.getOWLAnnotationProperty(predicate);
-                    OWLAnnotationValue val;
-                    if (isAnonymousNode(resVal)) {
-                        val = dataFactory.getOWLAnonymousIndividual(resVal.toString());
-                    } else {
-                        val = resVal;
-                    }
-                    mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, val, annosOnMainNodeAnnotations));
-                    resVal = getResourceObject(mainNode, predicate, true);
-                }
-                OWLLiteral litVal = getLiteralObject(mainNode, predicate, true);
-                while (litVal != null) {
-                    OWLAnnotationProperty prop = dataFactory.getOWLAnnotationProperty(predicate);
-                    mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, litVal, annosOnMainNodeAnnotations));
-                    litVal = getLiteralObject(mainNode, predicate, true);
-                }
+                mapAnnotation(mainNode, anns, mainNodeAnnotations, predicate);
             }
         }
         return mainNodeAnnotations;
+    }
+
+    protected void mapAnnotation(IRI mainNode, Map<IRI, Set<OWLAnnotation>> anns,
+        Set<OWLAnnotation> mainNodeAnnotations, IRI predicate) {
+        IRI resVal = getResourceObject(mainNode, predicate, true);
+        while (resVal != null) {
+            OWLAnnotationProperty prop = dataFactory.getOWLAnnotationProperty(predicate);
+            OWLAnnotationValue val;
+            if (isAnonymousNode(resVal)) {
+                val = dataFactory.getOWLAnonymousIndividual(resVal.toString());
+            } else {
+                val = resVal;
+            }
+            IRI annotation = getSubjectForAnnotatedPropertyAndObject(mainNode, predicate, resVal);
+            Set<OWLAnnotation> c = anns.get(annotation);
+            mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, val, c != null ? c
+                : Collections.<OWLAnnotation> emptySet()));
+            resVal = getResourceObject(mainNode, predicate, true);
+        }
+        OWLLiteral litVal = getLiteralObject(mainNode, predicate, true);
+        while (litVal != null) {
+            OWLAnnotationProperty prop = dataFactory.getOWLAnnotationProperty(predicate);
+            IRI annotation = getSubjectForAnnotatedPropertyAndObject(mainNode, predicate, litVal);
+            Set<OWLAnnotation> c = anns.get(annotation);
+            mainNodeAnnotations.add(dataFactory.getOWLAnnotation(prop, litVal, c != null ? c
+                : Collections.<OWLAnnotation> emptySet()));
+            litVal = getLiteralObject(mainNode, predicate, true);
+        }
+    }
+
+    private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, OWLLiteral v) {
+        for (IRI i : getAnnotatedSourceAnnotationMainNodes(n)) {
+            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
+                && v.equals(getLiteralObject(i, OWL_ANNOTATED_TARGET, false))) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, IRI v) {
+        for (IRI i : getAnnotatedSourceAnnotationMainNodes(n)) {
+            if (p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
+                && v.equals(getResourceObject(i, OWL_ANNOTATED_TARGET, false))) {
+                return i;
+            }
+        }
+        return null;
     }
 
     @Nonnull

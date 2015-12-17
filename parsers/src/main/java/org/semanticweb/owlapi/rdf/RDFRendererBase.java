@@ -68,7 +68,8 @@ public abstract class RDFRendererBase {
     protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
-    private final IndividualAppearance occurrences;
+    protected final IndividualAppearance occurrences;
+    protected final AxiomAppearance axiomOccurrences;
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
@@ -91,10 +92,12 @@ public abstract class RDFRendererBase {
         this.format = format;
         if (AnonymousIndividualProperties.shouldSaveIdsForAllAnonymousIndividuals()) {
             occurrences = new AlwaysOutputId();
+            axiomOccurrences = new AlwaysOutputId();
         } else {
             OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
             occurrences = visitor;
             ontology.accept(visitor);
+            axiomOccurrences = new OWLAxiomsWithNestedAnnotations();
         }
     }
 
@@ -601,6 +604,9 @@ public abstract class RDFRendererBase {
                 OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) key;
                 needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
                 key = anonymousIndividual.getID().getID();
+            } else if (key instanceof OWLAxiom) {
+                isIndividual = true;
+                needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
             }
             return getBlankNodeFor(key, isIndividual, needId);
         }
