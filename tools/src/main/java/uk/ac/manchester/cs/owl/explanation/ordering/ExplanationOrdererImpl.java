@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -121,7 +122,10 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         return getRHSEntities(ax).stream().sorted(PROPERTIESFIRST);
     }
 
-    private void insertChildren(OWLEntity entity, ExplanationTree tree) {
+    private void insertChildren(@Nullable OWLEntity entity, ExplanationTree tree) {
+        if (entity == null) {
+            return;
+        }
         Set<OWLAxiom> currentPath = new HashSet<>(tree.getUserObjectPathToRoot());
         getAxioms(entity).filter(ax -> !passTypes.contains(ax.getAxiomType())).forEach(ax -> {
             Set<OWLAxiom> mapped = getIndexedSet(entity, mappedAxioms, true);
@@ -304,9 +308,10 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
          *        the axiom
          * @return the source
          */
+        @Nullable
         public OWLEntity getSource(OWLAxiom axiom) {
             axiom.accept(this);
-            return verifyNotNull(source);
+            return source;
         }
 
         /**
