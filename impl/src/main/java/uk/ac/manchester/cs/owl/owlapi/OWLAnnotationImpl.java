@@ -42,20 +42,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
-import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 19-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 19-Dec-2006
  */
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
@@ -73,13 +65,13 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
      *        annotations on the axiom
      */
     public OWLAnnotationImpl(OWLAnnotationProperty property,
-            OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
+        OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
         super();
         this.property = property;
         this.value = value;
         this.annotations = CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(
-                        annotations));
+            .getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(
+                annotations));
     }
 
     @Override
@@ -99,7 +91,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     @Override
     public OWLAnnotation getAnnotatedAnnotation(
-            Set<OWLAnnotation> annotationsToAdd) {
+        Set<OWLAnnotation> annotationsToAdd) {
         if (annotationsToAdd.isEmpty()) {
             return this;
         }
@@ -134,8 +126,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     @Override
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral
-                && ((OWLLiteral) value).isBoolean()
-                && ((OWLLiteral) value).parseBoolean();
+            && ((OWLLiteral) value).isBoolean()
+            && ((OWLLiteral) value).parseBoolean();
     }
 
     @Override
@@ -143,8 +135,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         if (super.equals(obj) && obj instanceof OWLAnnotation) {
             OWLAnnotation other = (OWLAnnotation) obj;
             return other.getProperty().equals(property)
-                    && other.getValue().equals(value)
-                    && other.getAnnotations().equals(annotations);
+                && other.getValue().equals(value)
+                && other.getAnnotations().equals(annotations);
         }
         return false;
     }
@@ -155,9 +147,12 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
             return diff;
-        } else {
-            return getValue().compareTo(other.getValue());
         }
+        diff = getValue().compareTo(other.getValue());
+        if (diff != 0) {
+            return diff;
+        }
+        return compareSets(annotations, other.getAnnotations());
     }
 
     @Override

@@ -53,10 +53,7 @@ import org.coode.owlapi.rdf.model.RDFTriple;
 import org.semanticweb.owlapi.io.AnonymousIndividualProperties;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.AxiomSubjectProvider;
-import org.semanticweb.owlapi.util.IndividualAppearance;
-import org.semanticweb.owlapi.util.OWLAnonymousIndividualsWithMultipleOccurrences;
-import org.semanticweb.owlapi.util.SWRLVariableExtractor;
+import org.semanticweb.owlapi.util.*;
 
 import gnu.trove.map.custom_hash.TObjectIntCustomHashMap;
 import gnu.trove.strategy.IdentityHashingStrategy;
@@ -83,6 +80,7 @@ public abstract class RDFRendererBase {
     protected Set<IRI> prettyPrintedTypes;
     private OWLOntologyFormat format;
     private final IndividualAppearance occurrences;
+    protected final AxiomAppearance axiomOccurrences;
 
     /**
      * @param ontology
@@ -117,17 +115,13 @@ public abstract class RDFRendererBase {
         this.ontology = ontology;
         this.format = format;
         if (AnonymousIndividualProperties.shouldSaveIdsForAllAnonymousIndividuals()) {
-            occurrences = new IndividualAppearance() {
-
-                @Override
-                public boolean appearsMultipleTimes(OWLAnonymousIndividual i) {
-                    return true;
-                }
-            };
+            occurrences = new AlwaysOutputId();
+            axiomOccurrences = new AlwaysOutputId();
         } else {
             OWLAnonymousIndividualsWithMultipleOccurrences visitor = new OWLAnonymousIndividualsWithMultipleOccurrences();
             occurrences = visitor;
             ontology.accept(visitor);
+            axiomOccurrences = new OWLAxiomsWithNestedAnnotations();
         }
     }
 
@@ -736,9 +730,14 @@ public abstract class RDFRendererBase {
         protected RDFResourceNode getAnonymousNode(Object _key) {
             boolean anoIndividualDetected = _key instanceof OWLAnonymousIndividual;
             Object key = _key;
+            boolean needId=false;
             if (anoIndividualDetected) {
                 OWLAnonymousIndividual anonymousIndividual = (OWLAnonymousIndividual) _key;
+                needId = occurrences.appearsMultipleTimes((OWLAnonymousIndividual) _key);
                 key = anonymousIndividual.getID().getID();
+            } else if (key instanceof OWLAxiom) {
+                anoIndividualDetected = true;
+                needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
             }
             int id = blankNodeMap.get(key);
             if (id == 0) {
@@ -746,9 +745,9 @@ public abstract class RDFRendererBase {
                 blankNodeMap.put(key, id);
             }
             if (anoIndividualDetected) {
-                return new RDFResourceNode(id, true, occurrences.appearsMultipleTimes((OWLAnonymousIndividual) _key));
+                return new RDFResourceNode(id, true, needId);
             } else {
-                return new RDFResourceNode(id, false, false);
+                return new RDFResourceNode(id, false, needId);
             }
         }
     }
