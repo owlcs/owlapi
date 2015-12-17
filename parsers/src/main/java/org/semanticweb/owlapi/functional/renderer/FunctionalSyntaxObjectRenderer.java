@@ -866,6 +866,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
+        if (ce.operands().count() == 1) {
+            ce.operands().forEach(x -> x.accept(this));
+            return;
+        }
         write(OBJECT_INTERSECTION_OF);
         writeOpenBracket();
         write(ce.operands());
@@ -902,6 +906,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
+        if (ce.operands().count() == 1) {
+            ce.operands().forEach(x -> x.accept(this));
+            return;
+        }
         write(OBJECT_UNION_OF);
         writeOpenBracket();
         write(ce.operands());
@@ -1051,6 +1059,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
+        if (node.operands().count() == 1) {
+            node.operands().forEach(x -> x.accept(this));
+            return;
+        }
         write(DATA_INTERSECTION_OF);
         writeOpenBracket();
         write(node.operands());
@@ -1059,6 +1071,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataUnionOf node) {
+        if (node.operands().count() == 1) {
+            node.operands().forEach(x -> x.accept(this));
+            return;
+        }
         write(DATA_UNION_OF);
         writeOpenBracket();
         write(node.operands());
