@@ -957,6 +957,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLObjectIntersectionOf ce) {
+        if (ce.getOperands().size() == 1) {
+            ce.getOperands().iterator().next().accept(this);
+            return;
+        }
         write(OBJECT_INTERSECTION_OF);
         writeOpenBracket();
         Set<OWLClassExpression> operands = ce.getOperands();
@@ -997,6 +1001,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLObjectUnionOf ce) {
+        if (ce.getOperands().size() == 1) {
+            ce.getOperands().iterator().next().accept(this);
+            return;
+        }
         write(OBJECT_UNION_OF);
         writeOpenBracket();
         Set<OWLClassExpression> operands = ce.getOperands();
@@ -1175,6 +1183,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDataIntersectionOf node) {
+        if (node.getOperands().size() == 1) {
+            node.getOperands().iterator().next().accept(this);
+            return;
+        }
         write(DATA_INTERSECTION_OF);
         writeOpenBracket();
         Set<OWLDataRange> operands = node.getOperands();
@@ -1185,6 +1197,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(@Nonnull OWLDataUnionOf node) {
+        if (node.getOperands().size() == 1) {
+            node.getOperands().iterator().next().accept(this);
+            return;
+        }
         write(DATA_UNION_OF);
         writeOpenBracket();
         Set<OWLDataRange> operands = node.getOperands();
