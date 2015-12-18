@@ -2627,8 +2627,13 @@ public class OWLRDFConsumer implements RDFConsumer, OWLAnonymousIndividualByIdPr
      * @return the error entity
      */
     private <E extends OWLEntity> E getErrorEntity(EntityType<E> entityType) {
-        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#", "Error"
-            + errorCounter.incrementAndGet());
+        IRI iri = IRI.create("http://org.semanticweb.owlapi/error#", "Error" + errorCounter.incrementAndGet());
+        logger.log(Level.SEVERE, "Entity not properly recognized, missing triples in input? " + iri + " for type "
+            + entityType);
+        if (configuration.isStrict()) {
+            throw new OWLParserException("Entity not properly recognized, missing triples in input? " + iri
+                + " for type " + entityType);
+        }
         return dataFactory.getOWLEntity(entityType, iri);
     }
 
