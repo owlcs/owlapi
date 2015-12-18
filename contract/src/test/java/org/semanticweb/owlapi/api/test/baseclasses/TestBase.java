@@ -488,7 +488,12 @@ public abstract class TestBase {
 
     protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o, OWLOntologyLoaderConfiguration c)
         throws OWLOntologyCreationException {
-        return setupManager().loadOntologyFromOntologyDocument(new StringDocumentSource(o), c);
+        return loadOntologyWithConfig(new StringDocumentSource(o), c);
+    }
+
+    protected OWLOntology loadOntologyWithConfig(StringDocumentSource o, OWLOntologyLoaderConfiguration c)
+        throws OWLOntologyCreationException {
+        return setupManager().loadOntologyFromOntologyDocument(o, c);
     }
 
     protected StringDocumentTarget saveOntology(OWLOntology o) throws OWLOntologyStorageException {

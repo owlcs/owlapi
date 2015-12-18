@@ -11,6 +11,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -90,5 +91,23 @@ public class UndeclaredAnnotationTestCase extends TestBase {
         assertEquals(3, countPreds.intValue());
         assertEquals(2, countLabels.intValue());
         assertEquals(3, countBNodeAnnotations.intValue());
+    }
+
+    @Test
+    public void shouldThrowAnExceptionOnError1AndStrictParsing() throws OWLOntologyCreationException {
+        String input = " @prefix : <http://www.example.com#> .\n" +
+            " @prefix owl: <http://www.w3.org/2002/07/owl#> .\n" +
+            " @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n" +
+            " @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" +
+            " @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+            + "<urn:test:testonotlogy> a owl:Ontology ." +
+            " :subject rdf:type owl:Class ;\n" +
+            "   rdfs:subClassOf [ rdf:type owl:Restriction ;\n" +
+            "                owl:onProperty :unknownproperty;\n" +
+            "                owl:minCardinality \"0\"^^xsd:nonNegativeInteger\n" +
+            "   ] .";
+        OWLOntology o = loadOntologyWithConfig(new StringDocumentSource(input), new OWLOntologyLoaderConfiguration()
+            .setStrict(true));
+        assertEquals(0, o.getLogicalAxiomCount());
     }
 }
