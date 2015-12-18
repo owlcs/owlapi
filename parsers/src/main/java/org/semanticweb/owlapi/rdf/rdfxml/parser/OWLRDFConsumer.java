@@ -1768,6 +1768,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, OWLAno
     @Nonnull
     private <E extends OWLEntity> E getErrorEntity(@Nonnull EntityType<E> entityType) {
         IRI iri = IRI.create("http://org.semanticweb.owlapi/error#", "Error" + ERRORCOUNTER.incrementAndGet());
+        LOGGER.error("Entity not properly recognized, missing triples in input? {} for type {}", iri, entityType);
+        if (configuration.isStrict()) {
+            throw new OWLParserException("Entity not properly recognized, missing triples in input? " + iri
+                + " for type " + entityType);
+        }
         return dataFactory.getOWLEntity(entityType, iri);
     }
 
