@@ -66,7 +66,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public GZipFileDocumentSource(File stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         file = stream;
     }
@@ -74,7 +74,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return optional(DocumentSources.wrap(new GZIPInputStream(new FileInputStream(file))));
+            return optional(new GZIPInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             LOGGER.error("File cannot be found or opened", e);
             failedOnStreams.set(true);

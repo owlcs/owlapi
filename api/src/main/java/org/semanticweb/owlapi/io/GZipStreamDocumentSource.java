@@ -66,7 +66,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public GZipStreamDocumentSource(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(stream);
     }
@@ -95,7 +95,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
             return emptyOptional();
         }
         try {
-            return optional(DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(buffer))));
+            return optional(new GZIPInputStream(new ByteArrayInputStream(buffer)));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);

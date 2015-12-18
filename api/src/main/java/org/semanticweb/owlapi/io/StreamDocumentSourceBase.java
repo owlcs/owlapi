@@ -58,7 +58,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      *        mime type
      */
     public StreamDocumentSourceBase(InputStream stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
         streamAvailable = true;
@@ -78,7 +78,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      *        mime type
      */
     public StreamDocumentSourceBase(Reader stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
@@ -104,7 +104,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      *        mime type
      */
     protected StreamDocumentSourceBase(InputStream stream, String prefix, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nullable String mime) {
         super(prefix, format, mime);
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
         streamAvailable = true;
@@ -124,7 +124,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      *        mime type
      */
     protected StreamDocumentSourceBase(Reader stream, String prefix, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nullable String mime) {
         super(prefix, format, mime);
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
@@ -194,7 +194,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
             return emptyOptional();
         }
         try {
-            return optional(DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(byteBuffer))));
+            return optional(new GZIPInputStream(new ByteArrayInputStream(byteBuffer)));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);
@@ -209,7 +209,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
         }
         try {
             return optional(new InputStreamReader(
-                    DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(byteBuffer))), encoding));
+                DocumentSources.wrap(new GZIPInputStream(new ByteArrayInputStream(byteBuffer))), encoding));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
             failedOnStreams.set(true);

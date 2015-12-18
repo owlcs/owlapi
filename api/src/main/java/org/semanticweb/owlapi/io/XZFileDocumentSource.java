@@ -67,7 +67,7 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public XZFileDocumentSource(File stream, IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nullable String mime) {
         super(documentIRI, format, mime);
         file = stream;
     }
@@ -75,8 +75,7 @@ public class XZFileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return optional(
-                    DocumentSources.wrap(new XZInputStream(new BufferedInputStream(new FileInputStream(file)))));
+            return optional(new XZInputStream(new BufferedInputStream(new FileInputStream(file))));
         } catch (IOException e) {
             LOGGER.error("File cannot be found or opened", e);
             failedOnStreams.set(true);

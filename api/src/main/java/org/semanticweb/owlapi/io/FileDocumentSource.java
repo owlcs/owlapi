@@ -83,7 +83,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return optional(DocumentSources.wrap(new FileInputStream(file)));
+            return optional(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             LOGGER.error("File cannot be found", e);
             failedOnStreams.set(true);

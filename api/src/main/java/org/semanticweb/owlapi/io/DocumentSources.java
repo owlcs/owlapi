@@ -70,7 +70,7 @@ public class DocumentSources {
         if (reader.isPresent()) {
             return new BufferedReader(reader.get());
         }
-        return new BufferedReader(new InputStreamReader(wrapInput(source, configuration), encoding));
+        return new BufferedReader(new InputStreamReader(wrap(wrapInput(source, configuration)), encoding));
     }
 
     /**
@@ -201,9 +201,7 @@ public class DocumentSources {
                     }
                     nextEntry = zis.getNextEntry();
                 }
-                is = wrap(zis);
-            } else {
-                is = wrap(is);
+                is = zis;
             }
             return optional(is);
         } catch (IOException e) {
@@ -246,7 +244,7 @@ public class DocumentSources {
             }
             if ("deflate".equals(contentEncoding)) {
                 LOGGER.info("URL connection input stream is compressed using deflate");
-                return wrap(new InflaterInputStream(in, new Inflater(true)));
+                return new InflaterInputStream(in, new Inflater(true));
             }
         }
         String fileName = getFileNameFromContentDisposition(conn);
