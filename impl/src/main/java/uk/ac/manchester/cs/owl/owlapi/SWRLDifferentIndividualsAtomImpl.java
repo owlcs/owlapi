@@ -13,13 +13,13 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -27,11 +27,11 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
-        implements SWRLDifferentIndividualsAtom {
+    implements SWRLDifferentIndividualsAtom {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 10;
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 10;
     }
 
     /**
@@ -44,7 +44,7 @@ public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIAr
      */
     public SWRLDifferentIndividualsAtomImpl(OWLObjectProperty property, SWRLIArgument arg0, SWRLIArgument arg1) {
         super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0, "arg0 cannot be null"),
-                checkNotNull(arg1, "arg1 cannot be null"));
+            checkNotNull(arg1, "arg1 cannot be null"));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIAr
             return false;
         }
         SWRLDifferentIndividualsAtom other = (SWRLDifferentIndividualsAtom) obj;
-        return other.getAllArguments().equals(getAllArguments());
+        return compareStreams(other.allArguments(), allArguments()) == 0;
     }
 }

@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -39,8 +38,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     private final List<? extends OWLLiteral> values;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 3;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 3;
     }
 
     /**

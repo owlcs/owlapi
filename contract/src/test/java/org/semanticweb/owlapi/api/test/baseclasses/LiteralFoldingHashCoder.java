@@ -514,7 +514,7 @@ class LiteralFoldingHashCoder implements OWLObjectVisitor, SWRLObjectVisitor {
     @Override
     public void visit(SWRLBuiltInAtom node) {
         addValueToHash(659);
-        visitStream(node.getAllArguments());
+        visitStream(node.allArguments());
         node.getPredicate().accept(this);
     }
 

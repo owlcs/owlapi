@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
@@ -44,9 +43,25 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  */
 public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
 
+    //@formatter:off
+    /** ENTITY_TYPE_INDEX_BASE.           */ protected static final int ENTITY_TYPE_INDEX_BASE              = 1000;
+    /** IRI.                              */ protected static final int IRI                                 = 0;
+    /** ONTOLOGY.                         */ protected static final int ONTOLOGY                            = 1;
+    /** OWL_CLASS.                        */ protected static final int OWL_CLASS                           = 1001;
+    /** OBJECT_PROPERTY.                  */ protected static final int OBJECT_PROPERTY                     = 1002;
+    /** OBJECT_PROPERTY_INVERSE.          */ protected static final int OBJECT_PROPERTY_INVERSE             = 1003;
+    /** DATA_PROPERTY.                    */ protected static final int DATA_PROPERTY                       = 1004;
+    /** INDIVIDUAL.                       */ protected static final int INDIVIDUAL                          = 1005;
+    /** ANNOTATION_PROPERTY.              */ protected static final int ANNOTATION_PROPERTY                 = 1006;
+    /** ANON_INDIVIDUAL.                  */ protected static final int ANON_INDIVIDUAL                     = 1007;
+    /** AXIOM_TYPE_INDEX_BASE.            */ protected static final int AXIOM_TYPE_INDEX_BASE               = 2000;
+    /** DATA_TYPE_INDEX_BASE.             */ protected static final int DATA_TYPE_INDEX_BASE                = 4000;
+    /** ANNOTATION_TYPE_INDEX_BASE.       */ protected static final int ANNOTATION_TYPE_INDEX_BASE          = 5000;
+    /** RULE_OBJECT_TYPE_INDEX_BASE.      */ protected static final int RULE_OBJECT_TYPE_INDEX_BASE         = 6000;
+    /** CLASS_EXPRESSION_TYPE_INDEX_BASE. */ protected static final int CLASS_EXPRESSION_TYPE_INDEX_BASE    = 3000;
+    //@formatter:on
     /** a convenience reference for an empty annotation set, saves on typing. */
     protected static final @Nonnull Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
-    static final OWLObjectTypeIndexProvider OWLOBJECT_TYPEINDEX_PROVIDER = new OWLObjectTypeIndexProvider();
     protected int hashCode = 0;
     protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder()
         .weakKeys().softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
@@ -130,14 +145,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     public int compareTo(@Nullable OWLObject o) {
         checkNotNull(o);
         assert o != null;
-        int thisTypeIndex = index();
-        int otherTypeIndex = 0;
-        if (o instanceof OWLObjectImpl) {
-            otherTypeIndex = ((OWLObjectImpl) o).index();
-        } else {
-            otherTypeIndex = OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
-        }
-        int diff = thisTypeIndex - otherTypeIndex;
+        int diff = typeIndex() - o.typeIndex();
         if (diff != 0) {
             return diff;
         }
@@ -171,8 +179,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         // lists are identical
         return 0;
     }
-
-    protected abstract int index();
 
     protected abstract int compareObjectOfSameType(OWLObject object);
 

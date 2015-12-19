@@ -20,7 +20,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -32,8 +31,8 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
     private final @Nonnull OWLIndividual individual;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 7;
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 7;
     }
 
     /**

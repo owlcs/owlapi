@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -26,11 +25,11 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument>
-        implements SWRLDataPropertyAtom {
+    implements SWRLDataPropertyAtom {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 4;
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 4;
     }
 
     /**
@@ -60,6 +59,6 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
         }
         SWRLDataPropertyAtom other = (SWRLDataPropertyAtom) obj;
         return other.getPredicate().equals(getPredicate()) && other.getFirstArgument().equals(getFirstArgument())
-                && other.getSecondArgument().equals(getSecondArgument());
+            && other.getSecondArgument().equals(getSecondArgument());
     }
 }

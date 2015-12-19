@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * An OWLLiteral with xsd:string datatype and no language tag.
@@ -43,8 +42,8 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 8;
     }
 
     @Override
@@ -107,20 +106,12 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
     public int compareTo(@Nullable OWLObject o) {
         checkNotNull(o);
         assert o != null;
-        int thisTypeIndex = index();
-        int otherTypeIndex = 0;
-        if (o instanceof OWLObjectImpl) {
-            otherTypeIndex = ((OWLObjectImpl) o).index();
-        } else {
-            otherTypeIndex = OWLObjectImpl.OWLOBJECT_TYPEINDEX_PROVIDER.getTypeIndex(o);
-        }
-        int diff = thisTypeIndex - otherTypeIndex;
-        if (diff == 0) {
-            // Objects are the same type
-            return compareObjectOfSameType(o);
-        } else {
+        int diff = typeIndex() - o.typeIndex();
+        if (diff != 0) {
             return diff;
         }
+        // Objects are the same type
+        return compareObjectOfSameType(o);
     }
 
     @Override

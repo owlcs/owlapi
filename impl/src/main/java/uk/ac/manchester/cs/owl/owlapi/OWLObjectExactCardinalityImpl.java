@@ -20,7 +20,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -31,8 +30,8 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
     implements OWLObjectExactCardinality {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.CLASS_EXPRESSION_TYPE_INDEX_BASE + 9;
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 9;
     }
 
     /**

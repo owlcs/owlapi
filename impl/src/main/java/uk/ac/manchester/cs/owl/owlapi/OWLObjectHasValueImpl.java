@@ -18,20 +18,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual>implements OWLObjectHasValue {
+public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual> implements OWLObjectHasValue {
 
     private final @Nonnull OWLObjectPropertyExpression property;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.CLASS_EXPRESSION_TYPE_INDEX_BASE + 7;
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 7;
     }
 
     /**

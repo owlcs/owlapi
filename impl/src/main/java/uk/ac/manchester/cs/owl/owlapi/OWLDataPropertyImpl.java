@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -35,8 +34,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements OW
     private final boolean builtin;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_PROPERTY;
+    public int typeIndex() {
+        return DATA_PROPERTY;
     }
 
     /**
@@ -46,7 +45,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements OW
     public OWLDataPropertyImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
-                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+            || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     @Override

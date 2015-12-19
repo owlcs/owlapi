@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -33,8 +32,8 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements OWLObjec
     private final @Nonnull OWLObjectPropertyExpression property;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.CLASS_EXPRESSION_TYPE_INDEX_BASE + 11;
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 11;
     }
 
     /**

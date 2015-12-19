@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -37,8 +36,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     private final @Nonnull String language;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 8;
     }
 
     /**
@@ -63,7 +62,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from RDF_LANG_STRING or RDF_PLAIN_LITERAL
                 throw new OWLRuntimeException(
-                        "Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
+                    "Error: cannot build a literal with type: " + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
             this.datatype = RDF_LANG_STRING;
@@ -209,10 +208,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         OWLLiteral other = (OWLLiteral) obj;
         if (other instanceof OWLLiteralImplNoCompression) {
             return literal.equals(((OWLLiteralImplNoCompression) other).literal) && datatype.equals(other.getDatatype())
-                    && language.equals(other.getLang());
+                && language.equals(other.getLang());
         }
         return literal.equals(other.getLiteral()) && datatype.equals(other.getDatatype())
-                && language.equals(other.getLang());
+            && language.equals(other.getLang());
     }
 
     @Override

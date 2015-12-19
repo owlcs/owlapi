@@ -17,7 +17,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -25,11 +24,11 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
-        implements SWRLObjectPropertyAtom {
+    implements SWRLObjectPropertyAtom {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 3;
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 3;
     }
 
     /**
@@ -57,7 +56,7 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
         } else if (prop.isAnonymous()) {
             // Flip
             return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty().getSimplified(), getSecondArgument(),
-                    getFirstArgument());
+                getFirstArgument());
         } else {
             // No need to flip
             return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(), getSecondArgument());
@@ -74,6 +73,6 @@ public class SWRLObjectPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
         }
         SWRLObjectPropertyAtom other = (SWRLObjectPropertyAtom) obj;
         return other.getPredicate().equals(getPredicate()) && other.getFirstArgument().equals(getFirstArgument())
-                && other.getSecondArgument().equals(getSecondArgument());
+            && other.getSecondArgument().equals(getSecondArgument());
     }
 }

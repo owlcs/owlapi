@@ -462,7 +462,7 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
 
     @Override
     default public void visit(SWRLBuiltInAtom node) {
-        node.getAllArguments().forEach(a -> a.accept(this));
+        node.allArguments().forEach(a -> a.accept(this));
     }
 
     @Override

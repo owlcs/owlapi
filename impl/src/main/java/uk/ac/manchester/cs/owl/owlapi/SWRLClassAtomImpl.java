@@ -18,18 +18,17 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>implements SWRLClassAtom {
+public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implements SWRLClassAtom {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 1;
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 1;
     }
 
     /**

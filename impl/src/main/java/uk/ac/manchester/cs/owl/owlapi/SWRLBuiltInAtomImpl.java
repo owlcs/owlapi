@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
 /**
@@ -39,8 +38,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     private final @Nonnull List<SWRLDArgument> args;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 5;
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 5;
     }
 
     /**

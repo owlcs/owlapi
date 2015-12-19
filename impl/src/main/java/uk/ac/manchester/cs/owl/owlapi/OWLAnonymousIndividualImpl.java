@@ -22,7 +22,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -34,8 +33,8 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     private final @Nonnull NodeID nodeId;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.ANON_INDIVIDUAL;
+    public int typeIndex() {
+        return ANON_INDIVIDUAL;
     }
 
     /**

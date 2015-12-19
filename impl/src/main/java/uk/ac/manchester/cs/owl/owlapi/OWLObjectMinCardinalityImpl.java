@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -26,11 +25,11 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
  * @since 2.0.0
  */
 public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
-        implements OWLObjectMinCardinality {
+    implements OWLObjectMinCardinality {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.CLASS_EXPRESSION_TYPE_INDEX_BASE + 8;
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 8;
     }
 
     /**
@@ -42,7 +41,7 @@ public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestriction
      *        filler
      */
     public OWLObjectMinCardinalityImpl(OWLObjectPropertyExpression property, int cardinality,
-            OWLClassExpression filler) {
+        OWLClassExpression filler) {
         super(property, cardinality, filler);
     }
 

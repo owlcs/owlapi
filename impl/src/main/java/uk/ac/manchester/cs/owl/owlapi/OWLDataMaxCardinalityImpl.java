@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -28,8 +27,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataMaxCardinality {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.CLASS_EXPRESSION_TYPE_INDEX_BASE + 17;
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 17;
     }
 
     /**

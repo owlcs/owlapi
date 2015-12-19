@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -34,8 +33,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     private final @Nonnull IRI iri;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.ANNOTATION_PROPERTY;
+    public int typeIndex() {
+        return ANNOTATION_PROPERTY;
     }
 
     /**

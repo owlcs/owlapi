@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -36,8 +35,8 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
     private final @Nonnull List<OWLAnnotation> anns;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.ANNOTATION_TYPE_INDEX_BASE + 1;
+    public int typeIndex() {
+        return ANNOTATION_TYPE_INDEX_BASE + 1;
     }
 
     /**

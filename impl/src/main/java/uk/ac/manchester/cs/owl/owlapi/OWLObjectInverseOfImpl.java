@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -29,8 +28,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectInverseOf {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.OBJECT_PROPERTY_INVERSE;
+    public int typeIndex() {
+        return OBJECT_PROPERTY_INVERSE;
     }
 
     private final @Nonnull OWLObjectProperty inverseProperty;

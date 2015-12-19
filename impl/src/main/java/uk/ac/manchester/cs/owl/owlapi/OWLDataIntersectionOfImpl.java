@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -33,8 +32,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements OWLDataIntersectionOf {
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 4;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 4;
     }
 
     /**

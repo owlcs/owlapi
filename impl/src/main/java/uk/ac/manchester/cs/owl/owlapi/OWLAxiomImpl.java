@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.NNF;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -37,8 +36,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom, Co
     protected final @Nonnull List<OWLAnnotation> annotations;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.AXIOM_TYPE_INDEX_BASE + getAxiomType().getIndex();
+    public int typeIndex() {
+        return AXIOM_TYPE_INDEX_BASE + getAxiomType().getIndex();
     }
 
     /**

@@ -22,7 +22,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.HashCode;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -48,6 +47,11 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     private final @Nonnull OWL2Datatype owl2Datatype;
+
+    @Override
+    public int typeIndex() {
+        return OWLObjectImpl.DATA_TYPE_INDEX_BASE + 1;
+    }
 
     @Override
     public OWL2Datatype getBuiltInDatatype() {
@@ -163,12 +167,14 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public int compareTo(@Nullable OWLObject o) {
+        if (o == null) {
+            throw new NullPointerException("o cannot be null in a compareTo call.");
+        }
         if (o instanceof OWLDatatype) {
             OWLDatatype other = (OWLDatatype) o;
             return getIRI().compareTo(other.getIRI());
         }
-        OWLObjectTypeIndexProvider provider = new OWLObjectTypeIndexProvider();
-        return provider.getTypeIndex(checkNotNull(o));
+        return o.typeIndex();
     }
 
     @Override

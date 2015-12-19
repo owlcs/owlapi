@@ -18,7 +18,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * An OWLLiteral whose datatype is RDF_LANG_STRING or XSD_STRING
@@ -42,17 +41,17 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
         this.literal = literal;
         if (lang == null || lang.isEmpty()) {
             this.lang = "";
-            this.datatype = InternalizedEntities.XSDSTRING;
+            datatype = InternalizedEntities.XSDSTRING;
         } else {
             this.lang = lang.trim();
-            this.datatype = InternalizedEntities.LANGSTRING;
+            datatype = InternalizedEntities.LANGSTRING;
         }
         hashCode = getHashCode();
     }
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 8;
     }
 
     @Override
@@ -85,7 +84,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public OWLDatatype getDatatype() {
-        return this.datatype;
+        return datatype;
     }
 
     @Override
@@ -137,7 +136,6 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
             return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
                 && lang.equals(other.getLang());
         }
-
         return false;
     }
 
@@ -149,7 +147,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
             return diff;
         }
         diff = lang.compareToIgnoreCase(other.getLang());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return getDatatype().compareTo(other.getDatatype());

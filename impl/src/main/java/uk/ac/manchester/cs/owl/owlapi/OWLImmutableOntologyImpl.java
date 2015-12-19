@@ -35,7 +35,6 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -50,8 +49,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     protected @Nonnull OWLOntologyID ontologyID;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.ONTOLOGY;
+    public int typeIndex() {
+        return ONTOLOGY;
     }
 
     /**

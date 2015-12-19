@@ -20,7 +20,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -32,8 +31,8 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     private final @Nonnull IRI iri;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 6;
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 6;
     }
 
     protected SWRLVariableImpl(IRI iri) {

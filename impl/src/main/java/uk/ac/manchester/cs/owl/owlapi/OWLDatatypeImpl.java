@@ -18,7 +18,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -34,8 +33,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     private final boolean builtin;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 1;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 1;
     }
 
     /**
@@ -92,7 +91,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public OWL2Datatype getBuiltInDatatype() {
         if (!builtin) {
             throw new OWLRuntimeException(iri
-                    + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
+                + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
         }
         return OWL2Datatype.getDatatype(iri);
     }

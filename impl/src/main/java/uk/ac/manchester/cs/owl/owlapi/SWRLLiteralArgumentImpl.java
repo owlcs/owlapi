@@ -20,7 +20,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -32,8 +31,8 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     private final @Nonnull OWLLiteral literal;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 8;
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 8;
     }
 
     /**

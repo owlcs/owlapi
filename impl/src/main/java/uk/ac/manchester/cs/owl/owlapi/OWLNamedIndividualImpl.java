@@ -18,7 +18,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -30,8 +29,8 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     private final @Nonnull IRI iri;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.INDIVIDUAL;
+    public int typeIndex() {
+        return INDIVIDUAL;
     }
 
     /**

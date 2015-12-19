@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -33,8 +32,8 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     private final @Nonnull OWLDataRange dataRange;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 2;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 2;
     }
 
     /**

@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -39,8 +38,8 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLA
     private final @Nonnull OWLAnnotationValue value;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.ANNOTATION_TYPE_INDEX_BASE + 1;
+    public int typeIndex() {
+        return ANNOTATION_TYPE_INDEX_BASE + 1;
     }
 
     /**
@@ -80,7 +79,7 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLA
     @Override
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value).isBoolean()
-                && ((OWLLiteral) value).parseBoolean();
+            && ((OWLLiteral) value).parseBoolean();
     }
 
     @Override
@@ -96,7 +95,7 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLA
         }
         OWLAnnotation other = (OWLAnnotation) obj;
         return other.getProperty().equals(property) && other.getValue().equals(value)
-                && equalStreams(other.annotations(), annotations());
+            && equalStreams(other.annotations(), annotations());
     }
 
     @Override

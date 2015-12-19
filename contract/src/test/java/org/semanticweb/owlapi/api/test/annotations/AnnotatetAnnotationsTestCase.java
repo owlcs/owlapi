@@ -18,8 +18,7 @@ import com.google.common.collect.Sets;
 public class AnnotatetAnnotationsTestCase extends TestBase {
 
     @Test
-    public void shouldRoundtripMultipleNestedAnnotationsdebug() throws OWLOntologyCreationException,
-        OWLOntologyStorageException {
+    public void shouldRoundtripMultipleNestedAnnotationsdebug() throws OWLOntologyCreationException {
         String ns = "urn:n:a#";
         Set<OWLAxiom> axioms = Sets.newHashSet(df.getOWLObjectPropertyAssertionAxiom(df.getOWLObjectProperty(ns, "r"),
             df.getOWLNamedIndividual(ns, "a"), df.getOWLNamedIndividual(ns, "b"), Arrays.asList(

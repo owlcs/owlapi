@@ -40,6 +40,11 @@ public class IRI
     org.apache.commons.rdf.api.IRI {
 
     @Override
+    public int typeIndex() {
+        return 0;
+    }
+
+    @Override
     public boolean isIRI() {
         return true;
     }

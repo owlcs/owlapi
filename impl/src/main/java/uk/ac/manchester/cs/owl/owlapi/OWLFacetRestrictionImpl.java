@@ -20,7 +20,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
@@ -34,8 +33,8 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     private final @Nonnull OWLLiteral facetValue;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 7;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 7;
     }
 
     /**

@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -36,8 +35,8 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     private final boolean builtin;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.OBJECT_PROPERTY;
+    public int typeIndex() {
+        return OBJECT_PROPERTY;
     }
 
     /**

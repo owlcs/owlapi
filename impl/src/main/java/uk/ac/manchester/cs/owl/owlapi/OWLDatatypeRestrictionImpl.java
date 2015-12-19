@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -41,8 +40,8 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     private final @Nonnull List<OWLFacetRestriction> facetRestrictions;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 6;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 6;
     }
 
     /**

@@ -17,7 +17,6 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -29,8 +28,8 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
     private final double literal;
 
     @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 8;
     }
 
     /**
@@ -85,7 +84,7 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
             }
             if (obj instanceof OWLLiteral) {
                 return getDatatype().equals(((OWLLiteral) obj).getDatatype())
-                        && getLiteral().equals(((OWLLiteral) obj).getLiteral());
+                    && getLiteral().equals(((OWLLiteral) obj).getLiteral());
             }
         }
         return false;

@@ -74,6 +74,11 @@ public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToS
     }
 
     @Override
+    public int typeIndex() {
+        return delegate.typeIndex();
+    }
+
+    @Override
     public void trimToSize() {
         writeLock.lock();
         try {
