@@ -27,25 +27,23 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
 
     private final double literal;
 
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 8;
-    }
-
     /**
      * @param literal
      *        literal value
      */
     public OWLLiteralImplDouble(double literal) {
         this.literal = literal;
-        hashcode = getHashCode();
+        hashCode = getHashCode();
     }
 
-    private final int hashcode;
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 8;
+    }
 
     @Override
     public int hashCode() {
-        return hashcode;
+        return hashCode;
     }
 
     private int getHashCode() {
@@ -80,7 +78,7 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
         if (super.equals(obj)) {
             if (obj instanceof OWLLiteralImplDouble) {
                 OWLLiteralImplDouble other = (OWLLiteralImplDouble) obj;
-                return literal == other.literal;
+                return Double.compare(literal, other.literal) == 0;
             }
             if (obj instanceof OWLLiteral) {
                 return getDatatype().equals(((OWLLiteral) obj).getDatatype())

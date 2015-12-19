@@ -45,7 +45,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,6 +52,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Author: Matthew Horridge<br>
@@ -63,7 +64,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 class OBOConsumer implements OBOParserHandler {
 
-    private static final Logger LOGGER = Logger.getLogger(OBOConsumer.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(OBOConsumer.class.getName());
     private static final String IMPORT_TAG_NAME = "import";
     private final @Nonnull OWLOntologyLoaderConfiguration configuration;
     private final OWLOntologyManager owlOntologyManager;
@@ -337,7 +338,7 @@ class OBOConsumer implements OBOParserHandler {
 
     private void createEquivalentClass(OWLClassExpression classExpression) {
         OWLAxiom ax = getDataFactory()
-                .getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(), classExpression));
+            .getOWLEquivalentClassesAxiom(CollectionFactory.createSet(getCurrentClass(), classExpression));
         getOWLOntologyManager().applyChange(new AddAxiom(ontology, ax));
     }
 
@@ -372,12 +373,12 @@ class OBOConsumer implements OBOParserHandler {
                     OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(subject, anno);
                     owlOntologyManager.addAxiom(ontology, ax);
                     OWLDeclarationAxiom annotationPropertyDeclaration = getDataFactory()
-                            .getOWLDeclarationAxiom(property);
+                        .getOWLDeclarationAxiom(property);
                     owlOntologyManager.addAxiom(ontology, annotationPropertyDeclaration);
                 }
             }
         } catch (UnloadableImportException e) {
-            LOGGER.severe(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

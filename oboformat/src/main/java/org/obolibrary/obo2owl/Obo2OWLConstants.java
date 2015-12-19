@@ -34,11 +34,9 @@ public class Obo2OWLConstants {
      *        date to format
      * @return formatted string
      */
-    public static synchronized String format(Date d) {
-        return FORMATTER.format(d);
+    public static String format(Date d) {
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").format(d);
     }
-
-    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     /** OBO to OWL vocabulary. */
     public enum Obo2OWLVocabulary implements HasIRI {
@@ -136,7 +134,7 @@ public class Obo2OWLConstants {
     }
 
     private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = Maps
-            .uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()), v -> v.mappedTag);
+        .uniqueIndex(Arrays.asList(Obo2OWLVocabulary.values()), v -> v.mappedTag);
 
     /**
      * @param tag

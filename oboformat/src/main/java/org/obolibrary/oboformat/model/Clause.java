@@ -445,26 +445,8 @@ public class Clause {
             // special case for comparing booleans
             // this is a bit of a hack - ideally owl2obo would use the correct
             // types
-            try {
-                Object v1 = getValue();
-                Object v2 = other.getValue();
-                if (v1 != v2) {
-                    if (!v1.equals(v2)) {
-                        if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
-                            // special case - OK
-                        } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
-                            // special case - OK
-                        } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
-                            // special case - OK
-                        } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
-                            // special case - OK
-                        } else {
-                            return false;
-                        }
-                    }
-                }
-            } catch (@SuppressWarnings("unused") FrameStructureException e) {
-                // this cannot happen as it's already been tested
+            if (!compareValues(other)) {
+                return false;
             }
         } else {
             if (!getValues().equals(other.getValues())) {
@@ -481,5 +463,31 @@ public class Clause {
          * false; } }
          */
         return collectionsEquals(qualifierValues, other.getQualifierValues());
+    }
+
+    protected boolean compareValues(Clause other) {
+        try {
+            Object v1 = getValue();
+            Object v2 = other.getValue();
+            if (v1 != v2) {
+                if (!v1.equals(v2)) {
+                    if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
+                        // special case - OK
+                    } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
+                        // special case - OK
+                    } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
+                        // special case - OK
+                    } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
+                        // special case - OK
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        } catch (FrameStructureException e) {
+            // this cannot happen as it's already been tested
+            LOGGER.debug(e.getMessage(), e);
+        }
+        return true;
     }
 }

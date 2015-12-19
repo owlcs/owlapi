@@ -140,7 +140,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         while (it.hasNext()) {
             OWLObject desc = it.next();
             if (!first) {
-                if (true && isUseWrapping()) {
+                if (isUseWrapping()) {
                     writeNewLine();
                 }
                 write(" ", AND, " ");

@@ -32,6 +32,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -50,6 +52,7 @@ import com.google.common.base.Splitter;
 @HasPriority(1)
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AutoIRIMapper.class);
     private final Set<String> fileExtensions = new HashSet<>();
     private boolean mapped;
     private final boolean recursive;
@@ -187,7 +190,6 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             Reader reader = new InputStreamReader(input, "UTF-8");
             BufferedReader br = new BufferedReader(reader)) {
             String line = "";
-            IRI ontologyIRI = null;
             Matcher m = pattern.matcher(line);
             int n = 0;
             while ((line = br.readLine()) != null && n++ < 100) {
@@ -195,13 +197,13 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                 if (m.matches()) {
                     String group = m.group(1);
                     assert group != null;
-                    ontologyIRI = IRI.create(group);
-                    addMapping(ontologyIRI, file);
+                    addMapping(IRI.create(group), file);
                     break;
                 }
             }
-        } catch (@SuppressWarnings("unused") IOException e) {
+        } catch (IOException e) {
             // if we can't parse a file, then we can't map it
+            LOGGER.debug("Exception reading file", e);
         }
     }
 
@@ -211,8 +213,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
             InputStream is = DocumentSources.wrap(delegate);) {
             currentFile = file;
             SAXParsers.initParserWithOWLAPIStandards(null).parse(is, this);
-        } catch (@SuppressWarnings("unused") Exception e) {
+        } catch (SAXException | IOException e) {
             // if we can't parse a file, then we can't map it
+            LOGGER.debug("Exception reading file", e);
         }
     }
 
@@ -228,8 +231,9 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
                 }
                 line = br.readLine();
             }
-        } catch (@SuppressWarnings("unused") IOException e) {
+        } catch (IOException e) {
             // if we can't parse a file, then we can't map it
+            LOGGER.debug("Exception reading file", e);
         }
     }
 
@@ -302,7 +306,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
          *         found.
          */
         @Nullable
-        IRI handle(Attributes attributes);
+            IRI handle(Attributes attributes);
     }
 
     /**
