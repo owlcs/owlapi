@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 
@@ -69,7 +69,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testInvalidUTF8roundTrip() {
+    public void testInvalidUTF8roundTrip() throws OWLOntologyCreationException {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
@@ -82,13 +82,8 @@ public class Utf8TestCase extends TestBase {
             + "<owl:Ontology rdf:about=\"#\" />\n" + (char) 0240
             + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n" + "</rdf:RDF>";
         ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(Charset.forName("ISO-8859-1")));
-        try {
-            m.loadOntologyFromOntologyDocument(in);
-            fail("parsing should have failed, invalid input");
-        } catch (Exception ex) {
-            // expected to fail, but actual exception depends on the parsers in
-            // the classpath
-        }
+        OWLOntology o = m.loadOntologyFromOntologyDocument(in);
+        assertEquals("RDF/XML", m.getOntologyFormat(o).getKey());
     }
 
     @Test

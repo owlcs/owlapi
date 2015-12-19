@@ -146,9 +146,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 }
                 nextEntry = zis.getNextEntry();
             }
-            is = OWLOntologyDocumentSourceBase.wrap(zis);
-        } else {
-            is = OWLOntologyDocumentSourceBase.wrap(is);
+            is = zis;
         }
         return is;
     }

@@ -12,14 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.zip.GZIPInputStream;
 
 import javax.annotation.Nonnull;
@@ -66,8 +59,8 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public GZipFileDocumentSource(@Nonnull File stream,
-            @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+        @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
+        @Nullable String mime) {
         super(format, mime);
         this.documentIRI = documentIRI;
         file = stream;
@@ -82,11 +75,11 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public InputStream getInputStream() {
         try {
-            return wrap(new GZIPInputStream(new FileInputStream(file)));
+            return new GZIPInputStream(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             throw new OWLOntologyInputSourceException(
-                    "File not found - check that the file is available before calling this method.",
-                    e);
+                "File not found - check that the file is available before calling this method.",
+                e);
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
         }
@@ -100,7 +93,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Reader getReader() {
         try {
-            return new InputStreamReader(getInputStream(), "UTF-8");
+            return new InputStreamReader(wrap(getInputStream()), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             // will never happen though - UTF-8 is always supported
             throw new OWLOntologyInputSourceException(e);

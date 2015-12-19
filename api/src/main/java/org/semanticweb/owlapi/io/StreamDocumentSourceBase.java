@@ -14,13 +14,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
+import java.io.*;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -40,14 +34,14 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *        Both issues could be addressed with a local file copy.
  */
 public abstract class StreamDocumentSourceBase extends
-        OWLOntologyDocumentSourceBase {
+    OWLOntologyDocumentSourceBase {
 
     @Nonnull
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     private String encoding = "UTF-8";
     @Nullable
-    private Boolean streamAvailable = null;
+    private Boolean readerAvailable = null;
 
     /**
      * Constructs an input source which will read an ontology from a
@@ -63,12 +57,12 @@ public abstract class StreamDocumentSourceBase extends
      *        mime type
      */
     public StreamDocumentSourceBase(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
+        @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
         super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
-                "document iri cannot be null");
+            "document iri cannot be null");
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
-        streamAvailable = true;
+        readerAvailable = format == null || format.isTextual();
     }
 
     /**
@@ -85,10 +79,10 @@ public abstract class StreamDocumentSourceBase extends
      *        mime type
      */
     public StreamDocumentSourceBase(@Nonnull Reader stream,
-            @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
+        @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
         super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
-                "document iri cannot be null");
+            "document iri cannot be null");
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
@@ -96,7 +90,7 @@ public abstract class StreamDocumentSourceBase extends
             encoding = ((InputStreamReader) stream).getEncoding();
         }
         readIntoBuffer(stream);
-        streamAvailable = false;
+        readerAvailable = format == null || format.isTextual();
     }
 
     /**
@@ -158,18 +152,18 @@ public abstract class StreamDocumentSourceBase extends
 
     @Override
     public boolean isInputStreamAvailable() {
-        return Boolean.TRUE.equals(streamAvailable);
+        return Boolean.FALSE.equals(readerAvailable);
     }
 
     @Override
     public InputStream getInputStream() {
         if (!isInputStreamAvailable()) {
             throw new OWLOntologyInputSourceException(
-                    "InputStream not available. Check with OWLOntologyDocumentSource.isInputStreamAvailable()");
+                "InputStream not available. Check with OWLOntologyDocumentSource.isInputStreamAvailable()");
         }
         try {
-            return wrap(new GZIPInputStream(
-                    new ByteArrayInputStream(byteBuffer)));
+            return new GZIPInputStream(
+                new ByteArrayInputStream(byteBuffer));
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
         }
@@ -179,11 +173,11 @@ public abstract class StreamDocumentSourceBase extends
     public Reader getReader() {
         if (!isReaderAvailable()) {
             throw new OWLOntologyInputSourceException(
-                    "Reader not available.  Check with OWLOntologyDocumentSource.isReaderAvailable()");
+                "Reader not available.  Check with OWLOntologyDocumentSource.isReaderAvailable()");
         }
         try {
             return new InputStreamReader(wrap(new GZIPInputStream(
-                    new ByteArrayInputStream(byteBuffer))), encoding);
+                new ByteArrayInputStream(byteBuffer))), encoding);
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
         }
@@ -191,6 +185,6 @@ public abstract class StreamDocumentSourceBase extends
 
     @Override
     public boolean isReaderAvailable() {
-        return Boolean.FALSE.equals(streamAvailable);
+        return Boolean.TRUE.equals(readerAvailable);
     }
 }

@@ -14,14 +14,7 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 
 import javax.annotation.Nonnull;
 
@@ -76,7 +69,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public FileDocumentSource(@Nonnull File file, OWLDocumentFormat format,
-            String mime) {
+        String mime) {
         super(format, mime);
         this.file = checkNotNull(file, "file cannot be null");
     }
@@ -95,7 +88,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public InputStream getInputStream() {
         try {
-            return wrap(new FileInputStream(file));
+            return new FileInputStream(file);
         } catch (FileNotFoundException e) {
             throw new OWLOntologyInputSourceException(e);
         }
@@ -109,8 +102,8 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Reader getReader() {
         try {
-            return new BufferedReader(new InputStreamReader(getInputStream(),
-                    "UTF-8"));
+            return new BufferedReader(new InputStreamReader(wrap(getInputStream()),
+                "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             // it cannot not support UTF-8
             throw new OWLOntologyInputSourceException(e);
