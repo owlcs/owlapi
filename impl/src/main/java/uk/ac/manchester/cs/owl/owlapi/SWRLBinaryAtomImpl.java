@@ -14,9 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -35,7 +33,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  *        atom type
  */
 public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtomImpl
-        implements SWRLBinaryAtom<A, B> {
+    implements SWRLBinaryAtom<A, B> {
 
     private final @Nonnull A arg0;
     private final @Nonnull B arg1;
@@ -47,11 +45,8 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     }
 
     @Override
-    public Collection<SWRLArgument> getAllArguments() {
-        List<SWRLArgument> objs = new ArrayList<>();
-        objs.add(arg0);
-        objs.add(arg1);
-        return objs;
+    public Stream<SWRLArgument> allArguments() {
+        return Stream.of(arg0, arg1);
     }
 
     @Override

@@ -49,595 +49,489 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
         return s.mapToInt(Object::hashCode).sum();
     }
 
+    private static int hash(int start, int value1) {
+        return start * MULT + value1;
+    }
+
+    private static int hash(int start, int value1, int value2) {
+        return (start * MULT + value1) * MULT + value2;
+    }
+
+    private static int hash(int start, int value1, int value2, int value3) {
+        return ((start * MULT + value1) * MULT + value2) * MULT + value3;
+    }
+
+    private static int hash(int start, int value1, int value2, int value3, int value4) {
+        return (((start * MULT + value1) * MULT + value2) * MULT + value3) * MULT + value4;
+    }
+
+    private static int hash(int start, Stream<?> s) {
+        return hash(start, hash(s));
+    }
+
+    private static int hash(int start, Object o1, Stream<?> s) {
+        return hash(start, o1.hashCode(), hash(s));
+    }
+
+    private static int hash(int start, Object o1) {
+        return hash(start, o1.hashCode());
+    }
+
+    private static int hash(int start, Object o1, Object o2) {
+        return hash(start, o1.hashCode(), o2.hashCode());
+    }
+
+    private static int hash(int start, Stream<?> s, Object o1) {
+        return hash(start, hash(s), o1.hashCode());
+    }
+
+    private static int hash(int start, Object o1, Object o2, Object o3) {
+        return hash(start, o1.hashCode(), o2.hashCode(), o3.hashCode());
+    }
+
+    private static int hash(int start, Object o1, int v2, Object o3) {
+        return hash(start, o1.hashCode(), v2, o3.hashCode());
+    }
+
+    private static int hash(int start, int value, Object o1, Stream<?> s) {
+        return hash(start, value, o1.hashCode(), hash(s));
+    }
+
+    private static int hash(int start, int value, Stream<?> s) {
+        return hash(start, value, hash(s));
+    }
+
+    private static int hash(int start, Stream<?> s1, Stream<?> s2) {
+        return hash(start, hash(s1), hash(s2));
+    }
+
+    private static int hash(int start, Object o1, Object o2, Stream<?> s) {
+        return hash(start, o1.hashCode(), o2.hashCode(), hash(s));
+    }
+
+    private static int hash(int start, Object o1, Stream<?> s1, Stream<?> s2) {
+        return hash(start, o1.hashCode(), hash(s1), hash(s2));
+    }
+
+    private static int hash(int start, OWLObject o1, OWLObject o2, OWLObject o3, Stream<?> s) {
+        return hash(start, o1.hashCode(), o2.hashCode(), o3.hashCode(), hash(s));
+    }
+
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        hashCode = 3;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(3, axiom.getProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-        hashCode = 7;
-        hashCode = hashCode * MULT + axiom.getIndividual().hashCode();
-        hashCode = hashCode * MULT + axiom.getClassExpression().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(7, axiom.getIndividual(), axiom.getClassExpression(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
-        hashCode = 11;
-        hashCode = hashCode * MULT + axiom.getSubject().hashCode();
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getObject().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(11, axiom.getSubject(), axiom.getProperty(), axiom.getObject(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-        hashCode = 13;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getDomain().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(13, axiom.getProperty(), axiom.getDomain(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-        hashCode = 17;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getRange().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(17, axiom.getProperty(), axiom.getRange(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        hashCode = 19;
-        hashCode = hashCode * MULT + axiom.getSubProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getSuperProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(19, axiom.getSubProperty(), axiom.getSuperProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        hashCode = 23;
-        hashCode = hashCode * MULT + axiom.getEntity().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(23, axiom.getEntity(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        hashCode = 29;
-        hashCode = hashCode * MULT + hash(axiom.individuals());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(29, axiom.individuals(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        hashCode = 31;
-        hashCode = hashCode * MULT + hash(axiom.classExpressions());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(31, axiom.classExpressions(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        hashCode = 37;
-        hashCode = hashCode * MULT + hash(axiom.properties());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(37, axiom.properties(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        hashCode = 41;
-        hashCode = hashCode * MULT + hash(axiom.properties());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(41, axiom.properties(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        hashCode = 43;
-        hashCode = hashCode * MULT + axiom.getOWLClass().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.classExpressions());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(43, axiom.getOWLClass(), axiom.classExpressions(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        hashCode = 47;
-        hashCode = hashCode * MULT + axiom.getSubject().hashCode();
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getValue().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(47, axiom.getSubject(), axiom.getProperty(), axiom.getValue(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-        hashCode = 53;
-        hashCode = hashCode * MULT + hash(axiom.classExpressions());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(53, axiom.classExpressions(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        hashCode = 59;
-        hashCode = hashCode * MULT + hash(axiom.properties());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(59, axiom.properties(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        hashCode = 61;
-        hashCode = hashCode * MULT + hash(axiom.properties());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(61, axiom.properties(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        hashCode = 67;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(67, axiom.getProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        hashCode = 71;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(71, axiom.getProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        hashCode = 79;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(79, axiom.getProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        hashCode = 83;
-        hashCode = hashCode * MULT + axiom.getFirstProperty().hashCode() + axiom.getSecondProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(83, axiom.getFirstProperty().hashCode() + axiom.getSecondProperty().hashCode(), axiom
+            .annotations());
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        hashCode = 89;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(89, axiom.getProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        hashCode = 97;
-        hashCode = hashCode * MULT + axiom.getSubject().hashCode();
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getObject().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(97, axiom.getSubject(), axiom.getProperty(), axiom.getObject(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        hashCode = 101;
-        hashCode = hashCode * MULT + axiom.getSubject().hashCode();
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getObject().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(101, axiom.getSubject(), axiom.getProperty(), axiom.getObject(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-        hashCode = 103;
-        hashCode = hashCode * MULT + axiom.getSubject().hashCode();
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getObject().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(103, axiom.getSubject(), axiom.getProperty(), axiom.getObject(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        hashCode = 107;
-        hashCode = hashCode * MULT + axiom.getPropertyChain().hashCode();
-        hashCode = hashCode * MULT + axiom.getSuperProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(107, axiom.getPropertyChain().hashCode(), axiom.getSuperProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        hashCode = 109;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getDomain().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(109, axiom.getProperty(), axiom.getDomain(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-        hashCode = 113;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getRange().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(113, axiom.getProperty(), axiom.getRange(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        hashCode = 127;
-        hashCode = hashCode * MULT + axiom.getSubProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getSuperProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(127, axiom.getSubProperty(), axiom.getSuperProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        hashCode = 131;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(131, axiom.getProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        hashCode = 137;
-        hashCode = hashCode * MULT + hash(axiom.individuals());
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(137, axiom.individuals(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        hashCode = 139;
-        hashCode = hashCode * MULT + axiom.getSubClass().hashCode();
-        hashCode = hashCode * MULT + axiom.getSuperClass().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(139, axiom.getSubClass(), axiom.getSuperClass(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        hashCode = 149;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(149, axiom.getProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        hashCode = 151;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.annotations());
+        hashCode = hash(151, axiom.getProperty(), axiom.annotations());
     }
 
     @Override
     public void visit(OWLClass ce) {
-        hashCode = 157;
-        hashCode = hashCode * MULT + ce.getIRI().hashCode();
+        hashCode = hash(157, ce.getIRI());
     }
 
     @Override
     public void visit(OWLDataAllValuesFrom ce) {
-        hashCode = 163;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(163, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLDataExactCardinality ce) {
-        hashCode = 167;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getCardinality();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(167, ce.getProperty(), ce.getCardinality(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLDataMaxCardinality ce) {
-        hashCode = 173;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getCardinality();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(173, ce.getProperty(), ce.getCardinality(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLDataMinCardinality ce) {
-        hashCode = 179;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getCardinality();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(179, ce.getProperty(), ce.getCardinality(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLDataSomeValuesFrom ce) {
-        hashCode = 181;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(181, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLDataHasValue ce) {
-        hashCode = 191;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(191, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectAllValuesFrom ce) {
-        hashCode = 193;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(193, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectComplementOf ce) {
-        hashCode = 197;
-        hashCode = hashCode * MULT + ce.getOperand().hashCode();
+        hashCode = hash(197, ce.getOperand());
     }
 
     @Override
     public void visit(OWLObjectExactCardinality ce) {
-        hashCode = 199;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getCardinality();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(199, ce.getProperty(), ce.getCardinality(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectIntersectionOf ce) {
-        hashCode = 211;
-        hashCode = hashCode * MULT + hash(ce.operands());
+        hashCode = hash(211, ce.operands());
     }
 
     @Override
     public void visit(OWLObjectMaxCardinality ce) {
-        hashCode = 223;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getCardinality();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(223, ce.getProperty(), ce.getCardinality(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectMinCardinality ce) {
-        hashCode = 227;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getCardinality();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(227, ce.getProperty(), ce.getCardinality(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectOneOf ce) {
-        hashCode = 229;
-        hashCode = hashCode * MULT + hash(ce.individuals());
+        hashCode = hash(229, ce.individuals());
     }
 
     @Override
     public void visit(OWLObjectHasSelf ce) {
-        hashCode = 233;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hash(233, ce.getProperty());
     }
 
     @Override
     public void visit(OWLObjectSomeValuesFrom ce) {
-        hashCode = 239;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(239, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLObjectUnionOf ce) {
-        hashCode = 241;
-        hashCode = hashCode * MULT + hash(ce.operands());
+        hashCode = hash(241, ce.operands());
     }
 
     @Override
     public void visit(OWLObjectHasValue ce) {
-        hashCode = 251;
-        hashCode = hashCode * MULT + ce.getProperty().hashCode();
-        hashCode = hashCode * MULT + ce.getFiller().hashCode();
+        hashCode = hash(251, ce.getProperty(), ce.getFiller());
     }
 
     @Override
     public void visit(OWLDataComplementOf node) {
-        hashCode = 257;
-        hashCode = hashCode * MULT + node.getDataRange().hashCode();
+        hashCode = hash(257, node.getDataRange());
     }
 
     @Override
     public void visit(OWLDataOneOf node) {
-        hashCode = 263;
-        hashCode = hashCode * MULT + hash(node.values());
+        hashCode = hash(263, node.values());
     }
 
     @Override
     public void visit(OWLDatatype node) {
-        hashCode = 269;
-        hashCode = hashCode * MULT + node.getIRI().hashCode();
+        hashCode = hash(269, node.getIRI());
     }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
-        hashCode = 271;
-        hashCode = hashCode * MULT + node.getDatatype().hashCode();
-        hashCode = hashCode * MULT + hash(node.facetRestrictions());
+        hashCode = hash(271, node.getDatatype(), node.facetRestrictions());
     }
 
     @Override
     public void visit(OWLFacetRestriction node) {
-        hashCode = 563;
-        hashCode = hashCode * MULT + node.getFacet().hashCode();
-        hashCode = hashCode * MULT + node.getFacetValue().hashCode();
+        hashCode = hash(563, node.getFacet(), node.getFacetValue());
     }
 
     @Override
     public void visit(OWLLiteral node) {
         hashCode = node.hashCode();
         // hashCode = 277;
-        // hashCode = hashCode * MULT + node.getDatatype().hashCode();
-        // hashCode = hashCode * MULT + node.getLiteral().hashCode();
-        // if(node.hasLang()) {
-        // hashCode = hashCode * MULT + node.getLang().hashCode();
-        // }
+        // rely on the OWLLiteral hashcode here
     }
 
     @Override
     public void visit(OWLDataProperty property) {
-        hashCode = 283;
-        hashCode = hashCode * MULT + property.getIRI().hashCode();
+        hashCode = hash(283, property.getIRI());
     }
 
     @Override
     public void visit(OWLObjectProperty property) {
-        hashCode = 293;
-        hashCode = hashCode * MULT + property.getIRI().hashCode();
+        hashCode = hash(293, property.getIRI());
     }
 
     @Override
     public void visit(OWLObjectInverseOf property) {
-        hashCode = 307;
-        hashCode = hashCode * MULT + property.getInverse().hashCode();
+        hashCode = hash(307, property.getInverse());
     }
 
     @Override
     public void visit(OWLNamedIndividual individual) {
-        hashCode = 311;
-        hashCode = hashCode * MULT + individual.getIRI().hashCode();
+        hashCode = hash(311, individual.getIRI());
     }
 
     @Override
     public void visit(SWRLRule rule) {
-        hashCode = 631;
-        hashCode = hashCode * MULT + hash(rule.body());
-        hashCode = hashCode * MULT + hash(rule.head());
+        hashCode = hash(631, rule.body(), rule.head());
     }
 
     @Override
     public void visit(SWRLClassAtom node) {
-        hashCode = 641;
-        hashCode = hashCode * MULT + node.getArgument().hashCode();
-        hashCode = hashCode * MULT + node.getPredicate().hashCode();
+        hashCode = hash(641, node.getArgument(), node.getPredicate());
     }
 
     @Override
     public void visit(SWRLDataRangeAtom node) {
-        hashCode = 643;
-        hashCode = hashCode * MULT + node.getArgument().hashCode();
-        hashCode = hashCode * MULT + node.getPredicate().hashCode();
+        hashCode = hash(643, node.getArgument(), node.getPredicate());
     }
 
     @Override
     public void visit(SWRLObjectPropertyAtom node) {
-        hashCode = 647;
-        hashCode = hashCode * MULT + node.getFirstArgument().hashCode();
-        hashCode = hashCode * MULT + node.getSecondArgument().hashCode();
-        hashCode = hashCode * MULT + node.getPredicate().hashCode();
+        hashCode = hash(647, node.getFirstArgument(), node.getSecondArgument(), node.getPredicate());
     }
 
     @Override
     public void visit(SWRLDataPropertyAtom node) {
-        hashCode = 653;
-        hashCode = hashCode * MULT + node.getFirstArgument().hashCode();
-        hashCode = hashCode * MULT + node.getSecondArgument().hashCode();
-        hashCode = hashCode * MULT + node.getPredicate().hashCode();
+        hashCode = hash(653, node.getFirstArgument(), node.getSecondArgument(), node.getPredicate());
     }
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        hashCode = 659;
-        hashCode = hashCode * MULT + node.getAllArguments().hashCode();
-        hashCode = hashCode * MULT + node.getPredicate().hashCode();
+        hashCode = hash(659, node.arguments(), node.getPredicate());
     }
 
     @Override
     public void visit(SWRLVariable node) {
-        hashCode = 661;
-        hashCode = hashCode * MULT + node.getIRI().hashCode();
+        hashCode = hash(661, node.getIRI());
     }
 
     @Override
     public void visit(SWRLIndividualArgument node) {
-        hashCode = 677;
-        hashCode = hashCode * MULT + node.getIndividual().hashCode();
+        hashCode = hash(677, node.getIndividual());
     }
 
     @Override
     public void visit(SWRLLiteralArgument node) {
-        hashCode = 683;
-        hashCode = hashCode * MULT + node.getLiteral().hashCode();
+        hashCode = hash(683, node.getLiteral());
     }
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
-        hashCode = 797;
-        hashCode = hashCode * MULT + node.getFirstArgument().hashCode();
-        hashCode = hashCode * MULT + node.getSecondArgument().hashCode();
+        hashCode = hash(797, node.getFirstArgument(), node.getSecondArgument());
     }
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {
-        hashCode = 811;
-        hashCode = hashCode * MULT + node.getFirstArgument().hashCode();
-        hashCode = hashCode * MULT + node.getSecondArgument().hashCode();
+        hashCode = hash(811, node.getFirstArgument(), node.getSecondArgument());
     }
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
-        hashCode = 821;
-        hashCode = hashCode * MULT + axiom.getClassExpression().hashCode();
-        hashCode = hashCode * MULT + hash(axiom.propertyExpressions());
+        hashCode = hash(821, axiom.getClassExpression(), axiom.propertyExpressions());
     }
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        hashCode = 823;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getDomain().hashCode();
+        hashCode = hash(823, axiom.getProperty(), axiom.getDomain());
     }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        hashCode = 827;
-        hashCode = hashCode * MULT + axiom.getProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getRange().hashCode();
+        hashCode = hash(827, axiom.getProperty(), axiom.getRange());
     }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        hashCode = 829;
-        hashCode = hashCode * MULT + axiom.getSubProperty().hashCode();
-        hashCode = hashCode * MULT + axiom.getSuperProperty().hashCode();
+        hashCode = hash(829, axiom.getSubProperty(), axiom.getSuperProperty());
     }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        hashCode = 839;
-        hashCode = hashCode * MULT + hash(node.operands());
+        hashCode = hash(839, node.operands());
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        hashCode = 853;
-        hashCode = hashCode * MULT + hash(node.operands());
+        hashCode = hash(853, node.operands());
     }
 
     @Override
     public void visit(OWLAnnotationProperty property) {
-        hashCode = 857;
-        hashCode = hashCode * MULT + property.getIRI().hashCode();
+        hashCode = hash(857, property.getIRI());
     }
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-        hashCode = 859;
-        hashCode = hashCode * MULT + individual.getID().hashCode();
+        hashCode = hash(859, individual.getID());
     }
 
     @Override
     public void visit(IRI iri) {
-        hashCode = 863;
-        hashCode = hashCode * MULT + iri.toURI().hashCode();
+        hashCode = hash(863, iri);
     }
 
     @Override
     public void visit(OWLAnnotation node) {
-        hashCode = 877;
-        hashCode = hashCode * MULT + node.getProperty().hashCode();
-        hashCode = hashCode * MULT + node.getValue().hashCode();
+        hashCode = hash(877, node.getProperty(), node.getValue());
     }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        hashCode = 897;
-        hashCode = hashCode * MULT + axiom.getDatatype().hashCode();
-        hashCode = hashCode * MULT + axiom.getDataRange().hashCode();
+        hashCode = hash(897, axiom.getDatatype(), axiom.getDataRange());
     }
 }

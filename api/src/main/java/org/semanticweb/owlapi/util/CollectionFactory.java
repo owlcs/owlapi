@@ -84,9 +84,12 @@ public class CollectionFactory {
      * 
      * @param toReturn
      *        list to sort
+     * @param desiredType
+     *        witness for return type
      * @return sorted input list
      */
-    public static <T extends OWLObject> List<T> sortOptionally(List<? extends T> toReturn, Class<T> desiredType) {
+    public static <T extends OWLObject> List<T> sortOptionally(List<? extends T> toReturn,
+        @SuppressWarnings("unused") Class<T> desiredType) {
         return sortOptionallyComparables((List) toReturn);
     }
 
@@ -151,6 +154,8 @@ public class CollectionFactory {
      *        collection to sort
      * @param <T>
      *        list type
+     * @param desiredType
+     *        witness for return type
      * @return sorted copy of the input, if no errors are raised. Copy of the
      *         original otherwise.
      */

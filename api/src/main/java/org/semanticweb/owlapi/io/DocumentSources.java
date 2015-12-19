@@ -229,7 +229,6 @@ public class DocumentSources {
         return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName()).matches();
     }
 
-    @SuppressWarnings("resource")
     private static InputStream getInputStreamFromContentEncoding(URLConnection conn, @Nullable String contentEncoding)
         throws IOException {
         InputStream in = conn.getInputStream();

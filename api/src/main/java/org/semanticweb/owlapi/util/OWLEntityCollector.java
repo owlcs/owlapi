@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.*;
  * @since 2.0.0
  */
 public class OWLEntityCollector
-        implements OWLObjectVisitorEx<Collection<OWLEntity>>, SWRLObjectVisitorEx<Collection<OWLEntity>> {
+    implements OWLObjectVisitorEx<Collection<OWLEntity>>, SWRLObjectVisitorEx<Collection<OWLEntity>> {
 
     private final @Nonnull Collection<OWLEntity> objects;
 
@@ -609,7 +609,7 @@ public class OWLEntityCollector
 
     @Override
     public Collection<OWLEntity> visit(SWRLBuiltInAtom node) {
-        node.getAllArguments().forEach(o -> o.accept(this));
+        node.allArguments().forEach(o -> o.accept(this));
         return objects;
     }
 

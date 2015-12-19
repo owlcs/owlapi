@@ -550,9 +550,7 @@ public class OWLAnonymousIndividualsWithMultipleOccurrences implements OWLObject
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        for (SWRLArgument obj : node.getAllArguments()) {
-            obj.accept(this);
-        }
+        node.allArguments().forEach(obj -> obj.accept(this));
     }
 
     @Override

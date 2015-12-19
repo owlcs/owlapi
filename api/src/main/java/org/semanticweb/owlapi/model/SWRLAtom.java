@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
+
 import java.util.Collection;
+import java.util.stream.Stream;
 
 /**
  * Represents an atom in a rule. Atoms can either be in the head (concequent) or
@@ -37,5 +40,15 @@ public interface SWRLAtom extends SWRLObject {
      * 
      * @return The collection of arguments in this atom
      */
-    Collection<SWRLArgument> getAllArguments();
+    @Deprecated
+    default Collection<SWRLArgument> getAllArguments() {
+        return asList(allArguments());
+    }
+
+    /**
+     * Gets all of the arguments in this atom.
+     * 
+     * @return The collection of arguments in this atom
+     */
+    public Stream<SWRLArgument> allArguments();
 }

@@ -88,5 +88,5 @@ public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChan
             return df.getOWLLiteral(provider.getShortForm(e), lang);
         }
         return df.getOWLLiteral(provider.getShortForm(e));
-    };
+    }
 }

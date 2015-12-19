@@ -25,19 +25,14 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  *         Management Group
  */
 public enum DataRangeType implements Serializable,HasShortForm,HasPrefixedName,HasIRI {
-    /** Represents {@link org.semanticweb.owlapi.model.OWLDatatype}. */
-    DATATYPE("Datatype"), /** Represents {@link OWLDataOneOf}. */
-    DATA_ONE_OF("DataOneOf"), /** Represents {@link OWLDatatypeRestriction}. */
-    DATATYPE_RESTRICTION(
-            "DatatypeRestriction"), /**
-                                     * Represents {@link OWLDataComplementOf}.
-                                     */
-    DATA_COMPLEMENT_OF(
-            "DataComplementOf"), /** Represents {@link OWLDataUnionOf}. */
-    DATA_UNION_OF(
-            "DataUnionOf"), /** Represents {@link OWLDataIntersectionOf}. */
-    DATA_INTERSECTION_OF("DataIntersectionOf");
-
+    //@formatter:off
+    /** Represents {@link OWLDatatype}.             */ DATATYPE             ("Datatype"             ),
+    /** Represents {@link OWLDataOneOf}.            */ DATA_ONE_OF          ("DataOneOf"            ),
+    /** Represents {@link OWLDatatypeRestriction}.  */ DATATYPE_RESTRICTION ("DatatypeRestriction"  ),
+    /** Represents {@link OWLDataComplementOf}.     */ DATA_COMPLEMENT_OF   ("DataComplementOf"     ),
+    /** Represents {@link OWLDataUnionOf}.          */ DATA_UNION_OF        ("DataUnionOf"          ),
+    /** Represents {@link OWLDataIntersectionOf}.   */ DATA_INTERSECTION_OF ("DataIntersectionOf"   );
+    //@formatter:on
     private final @Nonnull String name;
     private final @Nonnull String prefixedName;
     private final @Nonnull IRI iri;
