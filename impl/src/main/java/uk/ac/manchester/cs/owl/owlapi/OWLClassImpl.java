@@ -30,12 +30,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Serializable {
 
-    @Override
-    public int typeIndex() {
-        return OWL_CLASS;
-    }
-
-    private final @Nonnull IRI iri;
+    @Nonnull private final IRI iri;
     private final boolean isThing;
     private final boolean isNothing;
 
@@ -47,6 +42,11 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Se
         this.iri = checkNotNull(iri, "iri cannot be null");
         isThing = getIRI().isThing();
         isNothing = getIRI().isNothing();
+    }
+
+    @Override
+    public int typeIndex() {
+        return OWL_CLASS;
     }
 
     @Override

@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLAxiomChange;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * A convenience class which is an ontology change listener which collects the
@@ -35,14 +34,13 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @since 2.0.0
  */
 public abstract class OWLEntityCollectingOntologyChangeListener implements
-        OWLOntologyChangeListener {
+    OWLOntologyChangeListener {
 
     private final Set<OWLEntity> entities = new HashSet<>();
 
     @Override
     public void ontologiesChanged(
-            @Nonnull List<? extends OWLOntologyChange> changes)
-            throws OWLRuntimeException {
+        @Nonnull List<? extends OWLOntologyChange> changes) {
         entities.clear();
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {
@@ -54,11 +52,8 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
 
     /**
      * Called when a set of changes have been applied.
-     * 
-     * @throws OWLRuntimeException
-     *         if there is any exception
      */
-    public abstract void ontologiesChanged() throws OWLRuntimeException;
+    public abstract void ontologiesChanged();
 
     /** @return the entities which were referenced in the last change set. */
     public Set<OWLEntity> getEntities() {

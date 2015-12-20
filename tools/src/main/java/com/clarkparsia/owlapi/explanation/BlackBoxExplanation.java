@@ -13,7 +13,7 @@
 package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.*;
@@ -35,15 +35,15 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     /** The debugging ontology. */
     private OWLOntology debuggingOntology;
     /** The debugging axioms. */
-    protected final @Nonnull Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
+    @Nonnull protected Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
     /** The objects expanded with defining axioms. */
-    private final @Nonnull Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<>();
+    @Nonnull private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<>();
     /** The objects expanded with referencing axioms. */
-    private final @Nonnull Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<>();
+    @Nonnull private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<>();
     /** The expanded with defining axioms. */
-    private final @Nonnull Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<>();
+    @Nonnull private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<>();
     /** The expanded with referencing axioms. */
-    private final @Nonnull Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<>();
+    @Nonnull private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<>();
     /** default expansion limit. */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     /** The initial expansion limit. */
@@ -197,7 +197,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             if (!referenceFound) {
                 expansionAxioms.add(man.getOWLDataFactory().getOWLDeclarationAxiom(obj));
             }
-        } );
+        });
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }
@@ -395,15 +395,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
     private void removeDeclarations() {
-        OWLAxiomVisitor declarationRemover = new OWLAxiomVisitor() {
-
-            @Override
-            public void visit(OWLDeclarationAxiom axiom) {
-                checkNotNull(axiom, "axiom cannot be null");
-                debuggingAxioms.remove(axiom);
-            }
-        };
-        new ArrayList<>(debuggingAxioms).forEach(ax -> ax.accept(declarationRemover));
+        debuggingAxioms = asSet(debuggingAxioms.stream().filter(ax -> !(ax instanceof OWLDeclarationAxiom)));
     }
 
     @Override

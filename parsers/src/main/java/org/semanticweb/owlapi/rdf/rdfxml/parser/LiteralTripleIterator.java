@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
+@FunctionalInterface
 interface LiteralTripleIterator {
 
     /**

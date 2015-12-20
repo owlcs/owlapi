@@ -35,8 +35,8 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  */
 public class ManchesterOWLSyntaxClassFrameParser implements OWLExpressionParser<Set<OntologyAxiomPair>> {
 
-    private final @Nonnull OWLDataFactory dataFactory;
-    private @Nonnull OWLEntityChecker checker;
+    @Nonnull private final OWLDataFactory dataFactory;
+    @Nonnull private OWLEntityChecker checker;
 
     /**
      * @param dataFactory

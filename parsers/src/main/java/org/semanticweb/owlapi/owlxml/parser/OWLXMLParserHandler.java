@@ -16,14 +16,9 @@ import static org.semanticweb.owlapi.owlxml.parser.PARSER_OWLXMLVocabulary.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,7 +29,6 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -51,11 +45,11 @@ class OWLXMLParserHandler extends DefaultHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLXMLParserHandler.class);
     private final OWLOntologyManager owlOntologyManager;
     private final @Nonnull OWLOntology ontology;
-    private final List<OWLElementHandler<?>> handlerStack;
+    private final List<OWLElementHandler<?>> handlerStack = new ArrayList<>();
     private final @Nonnull Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     private final @Nonnull Map<String, String> prefixName2PrefixMap = new HashMap<>();
     private Locator locator;
-    private final Stack<URI> bases;
+    private final Deque<URI> bases = new LinkedList<>();
     private final @Nonnull OWLOntologyLoaderConfiguration configuration;
 
     /**
@@ -115,12 +109,10 @@ class OWLXMLParserHandler extends DefaultHandler {
      *        load configuration
      */
     public OWLXMLParserHandler(OWLOntology ontology, @Nullable OWLElementHandler<?> topHandler,
-            OWLOntologyLoaderConfiguration configuration) {
+        OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
-        bases = new Stack<>();
         this.configuration = configuration;
-        handlerStack = new ArrayList<>();
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
@@ -352,7 +344,7 @@ class OWLXMLParserHandler extends DefaultHandler {
 
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
-            @Nullable Attributes attributes) {
+        @Nullable Attributes attributes) {
         if (localName == null || attributes == null) {
             // this should never happen, but DefaultHandler does not specify
             // these parameters as Nonnull
@@ -419,12 +411,6 @@ class OWLXMLParserHandler extends DefaultHandler {
     @Override
     public void startPrefixMapping(@Nullable String prefix, @Nullable String uri) {
         prefixName2PrefixMap.put(prefix, uri);
-    }
-
-    @Override
-    public InputSource resolveEntity(@Nullable String publicId, @Nullable String systemId)
-            throws IOException, SAXException {
-        return super.resolveEntity(publicId, systemId);
     }
 
     /**

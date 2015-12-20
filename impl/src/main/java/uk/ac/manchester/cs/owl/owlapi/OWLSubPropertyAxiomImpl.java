@@ -33,10 +33,10 @@ import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
  *        property type
  */
 public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
-        implements OWLSubPropertyAxiom<P> {
+    implements OWLSubPropertyAxiom<P> {
 
-    private final @Nonnull P subProperty;
-    private final @Nonnull P superProperty;
+    @Nonnull private final P subProperty;
+    @Nonnull private final P superProperty;
 
     /**
      * @param subProperty

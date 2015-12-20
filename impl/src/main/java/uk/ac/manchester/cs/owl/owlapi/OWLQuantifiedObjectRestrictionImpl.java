@@ -25,9 +25,9 @@ import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 
 /** Quantified object restriction. */
 public abstract class OWLQuantifiedObjectRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLClassExpression>
-        implements OWLObjectRestriction {
+    implements OWLObjectRestriction {
 
-    private final @Nonnull OWLObjectPropertyExpression property;
+    @Nonnull private final OWLObjectPropertyExpression property;
 
     /**
      * @param property

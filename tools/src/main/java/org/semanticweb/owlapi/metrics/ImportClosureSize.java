@@ -45,9 +45,6 @@ public class ImportClosureSize extends IntegerValuedMetric {
     }
 
     @Override
-    protected void disposeMetric() {}
-
-    @Override
     public String getName() {
         return "Imports closure size";
     }

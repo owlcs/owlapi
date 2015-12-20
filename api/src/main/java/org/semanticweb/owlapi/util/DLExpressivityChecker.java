@@ -35,19 +35,19 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private final List<OWLOntology> ontologies;
 
     /**
-     * @return ordered constructs
-     */
-    public List<Construct> getConstructs() {
-        return getOrderedConstructs();
-    }
-
-    /**
      * @param ontologies
      *        ontologies
      */
     public DLExpressivityChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = new ArrayList<>(ontologies);
         constructs = new HashSet<>();
+    }
+
+    /**
+     * @return ordered constructs
+     */
+    public List<Construct> getConstructs() {
+        return getOrderedConstructs();
     }
 
     /**
@@ -504,12 +504,12 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
         /** S. */        S("S"),
         /** EL. */       EL("EL"),
         /** EL++. */     ELPLUSPLUS("EL++");
+        private final String s;
+
         //@formatter:on
         Construct(String s) {
             this.s = s;
         }
-
-        private final String s;
 
         @Override
         public String toString() {

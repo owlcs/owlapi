@@ -26,8 +26,8 @@ import org.slf4j.LoggerFactory;
 public class SatisfiabilityConverter {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SatisfiabilityConverter.class);
-    private final @Nonnull AxiomConverter converter;
-    protected final @Nonnull OWLDataFactory factory;
+    @Nonnull private final AxiomConverter converter;
+    @Nonnull protected final OWLDataFactory factory;
 
     /**
      * Instantiates a new satisfiability converter.

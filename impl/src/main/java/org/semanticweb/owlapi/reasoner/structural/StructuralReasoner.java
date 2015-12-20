@@ -44,12 +44,12 @@ import org.semanticweb.owlapi.util.Version;
  */
 public class StructuralReasoner extends OWLReasonerBase {
 
-    private final @Nonnull ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
-    private final @Nonnull ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
-    private final @Nonnull DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
-    private static final @Nonnull Version VERSION = new Version(1, 0, 0, 0);
+    @Nonnull private final ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
+    @Nonnull private final ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
+    @Nonnull private final DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
+    @Nonnull private static final Version VERSION = new Version(1, 0, 0, 0);
     private boolean interrupted = false;
-    protected final @Nonnull ReasonerProgressMonitor pm;
+    @Nonnull protected final ReasonerProgressMonitor pm;
     private boolean prepared = false;
 
     /**
@@ -302,10 +302,8 @@ public class StructuralReasoner extends OWLReasonerBase {
             }
         };
         getRootOntology().importsClosure().flatMap(o -> o.objectPropertyDomainAxioms(pe)).forEach(domains);
-        getRootOntology().importsClosure().forEach(o -> {
-            getInverseObjectProperties(pe).entities()
-                .forEach(invPe -> o.objectPropertyRangeAxioms(invPe).forEach(inverseRanges));
-        });
+        getRootOntology().importsClosure().forEach(o -> getInverseObjectProperties(pe).entities()
+            .forEach(invPe -> o.objectPropertyRangeAxioms(invPe).forEach(inverseRanges)));
         return result;
     }
 
@@ -320,7 +318,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                     result.addAllNodes(getSuperClasses(axiom.getRange(), false).nodes());
                 }
             });
-            getInverseObjectProperties(pe).entities().flatMap(e -> ontology.objectPropertyDomainAxioms(e))
+            getInverseObjectProperties(pe).entities().flatMap(ontology::objectPropertyDomainAxioms)
                 .forEach(axiom -> {
                 result.addNode(getEquivalentClasses(axiom.getDomain()));
                 if (!direct) {
@@ -484,7 +482,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         while (!stack.isEmpty()) {
             OWLNamedIndividual currentInd = stack.remove(0);
             Stream<OWLSameIndividualAxiom> axioms = getRootOntology().importsClosure()
-                .flatMap(o -> o.sameIndividualAxioms(currentInd)).filter(ax -> processed.add(ax));
+                .flatMap(o -> o.sameIndividualAxioms(currentInd)).filter(processed::add);
             axioms.forEach(ax -> ax.individuals().filter(i -> i.isNamed())
                 .filter(i -> inds.add(i.asOWLNamedIndividual())).forEach(i -> stack.add(i.asOWLNamedIndividual())));
         }
@@ -504,7 +502,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         while (!stack.isEmpty()) {
             OWLNamedIndividual currentInd = stack.remove(0);
             Stream<OWLDifferentIndividualsAxiom> axioms = Imports.INCLUDED.stream(getRootOntology())
-                .flatMap(o -> o.differentIndividualAxioms(currentInd)).filter(ax -> processed.add(ax));
+                .flatMap(o -> o.differentIndividualAxioms(currentInd)).filter(processed::add);
             axioms.forEach(ax -> ax.individuals().filter(i -> i.isOWLNamedIndividual())
                 .map(i -> i.asOWLNamedIndividual()).forEach(i -> {
                     if (inds.add(i)) {
@@ -593,13 +591,13 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         private final RawHierarchyProvider<T> rawParentChildProvider;
         /** The entity that always appears in the top node in the hierarchy. */
-        protected @Nonnull T topEntity;
+        @Nonnull protected T topEntity;
         /**
          * The entity that always appears as the bottom node in the hierarchy.
          */
-        protected @Nonnull T bottomEntity;
-        private final @Nonnull Set<T> directChildrenOfTopNode = new HashSet<>();
-        private final @Nonnull Set<T> directParentsOfBottomNode = new HashSet<>();
+        @Nonnull protected T bottomEntity;
+        @Nonnull private final Set<T> directChildrenOfTopNode = new HashSet<>();
+        @Nonnull private final Set<T> directParentsOfBottomNode = new HashSet<>();
         private final NodeCache<T> nodeCache;
         private final String name;
         private int classificationSize;
@@ -675,7 +673,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             for (T entity : signature) {
                 if (!processed.contains(entity)) {
                     pm.reasonerTaskProgressChanged(processed.size(), signature.size());
-                    tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(),
+                    tarjan(entity, 0, new LinkedList<T>(), new HashMap<T, Integer>(), new HashMap<T, Integer>(),
                         cyclesResult, processed, new HashSet<T>(), cache, equivTopOrChildrenOfTop,
                         equivBottomOrParentsOfBottom);
                     throwExceptionIfInterrupted();
@@ -686,9 +684,9 @@ public class StructuralReasoner extends OWLReasonerBase {
                 nodeCache.addNode(cycle);
             }
             directChildrenOfTopNode.addAll(equivTopOrChildrenOfTop);
-            nodeCache.getTopNode().entities().forEach(e -> directChildrenOfTopNode.remove(e));
+            nodeCache.getTopNode().entities().forEach(directChildrenOfTopNode::remove);
             directParentsOfBottomNode.addAll(equivBottomOrParentsOfBottom);
-            nodeCache.getBottomNode().entities().forEach(e -> directParentsOfBottomNode.remove(e));
+            nodeCache.getBottomNode().entities().forEach(directParentsOfBottomNode::remove);
             // Now check that each found cycle has a proper parent an child
             for (Set<T> node : cyclesResult) {
                 if (!node.contains(topEntity) && !node.contains(bottomEntity)) {
@@ -696,7 +694,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                     for (T element : node) {
                         Collection<T> parents = rawParentChildProvider.getParents(element);
                         parents.removeAll(node);
-                        nodeCache.getTopNode().entities().forEach(e -> parents.remove(e));
+                        nodeCache.getTopNode().entities().forEach(parents::remove);
                         if (!parents.isEmpty()) {
                             childOfTop = false;
                             break;
@@ -709,7 +707,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                     for (T element : node) {
                         Collection<T> children = rawParentChildProvider.getChildren(element);
                         children.removeAll(node);
-                        nodeCache.getBottomNode().entities().forEach(e -> children.remove(e));
+                        nodeCache.getBottomNode().entities().forEach(children::remove);
                         if (!children.isEmpty()) {
                             parentOfBottom = false;
                             break;
@@ -768,7 +766,7 @@ public class StructuralReasoner extends OWLReasonerBase {
          *        A set of entities that have a raw parent that is the bottom
          *        entity
          */
-        public void tarjan(T entity, int inputIndex, Stack<T> stack, Map<T, Integer> indexMap,
+        public void tarjan(T entity, int inputIndex, Deque<T> stack, Map<T, Integer> indexMap,
             Map<T, Integer> lowlinkMap, Set<Set<T>> result, Set<T> processed, Set<T> stackEntities,
             @Nullable Map<T, Collection<T>> cache, Set<T> childrenOfTop, Set<T> parentsOfBottom) {
             int index = inputIndex;
@@ -844,7 +842,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                     ns.addNode(nodeCache.getBottomNode());
                 }
             }
-            node.entities().forEach(e -> directChildren.remove(e));
+            node.entities().forEach(directChildren::remove);
             if (node.isTopNode()) {
                 // Special treatment
                 directChildren.addAll(directChildrenOfTopNode);
@@ -872,7 +870,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                     ns.addNode(nodeCache.getTopNode());
                 }
             }
-            node.entities().forEach(e -> directParents.remove(e));
+            node.entities().forEach(directParents::remove);
             if (node.isBottomNode()) {
                 // Special treatment
                 directParents.addAll(directParentsOfBottomNode);
@@ -895,10 +893,10 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private static class NodeCache<T extends OWLObject> {
 
-        private final @Nonnull AbstractHierarchyInfo<T> hierarchyInfo;
+        @Nonnull private final AbstractHierarchyInfo<T> hierarchyInfo;
         private Node<T> topNode;
         private Node<T> bottomNode;
-        private final @Nonnull Map<T, Node<T>> map = new HashMap<>();
+        @Nonnull private final Map<T, Node<T>> map = new HashMap<>();
 
         protected NodeCache(AbstractHierarchyInfo<T> hierarchyInfo) {
             this.hierarchyInfo = hierarchyInfo;
@@ -973,7 +971,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         public void removeNode(T containing) {
             Node<T> node = map.remove(containing);
             if (node != null) {
-                node.entities().forEach(e -> map.remove(e));
+                node.entities().forEach(map::remove);
             }
         }
     }

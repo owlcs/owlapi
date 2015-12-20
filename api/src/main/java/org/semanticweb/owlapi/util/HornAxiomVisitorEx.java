@@ -19,15 +19,15 @@ import org.semanticweb.owlapi.model.*;
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
 public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
-    private final @Nonnull PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
-    private final @Nonnull NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
+    @Nonnull private final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
+    @Nonnull private final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
 
-    protected boolean checkNegative(OWLClassExpression c) {
-        return c.accept(negative).booleanValue();
+    protected Boolean checkNegative(OWLClassExpression c) {
+        return Boolean.valueOf(c.accept(negative).booleanValue());
     }
 
-    protected boolean checkPositive(OWLClassExpression c) {
-        return c.accept(positive).booleanValue();
+    protected Boolean checkPositive(OWLClassExpression c) {
+        return Boolean.valueOf(c.accept(positive).booleanValue());
     }
 
     @Override
@@ -87,14 +87,14 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLDisjointUnionAxiom axiom) {
-        if (neitherPositiveNorNegative(axiom.getOWLClass())) {
-            return false;
+        if (neitherPositiveNorNegative(axiom.getOWLClass()).booleanValue()) {
+            return Boolean.FALSE;
         }
-        return Boolean.valueOf(!axiom.classExpressions().anyMatch(c -> neitherPositiveNorNegative(c)));
+        return Boolean.valueOf(!axiom.classExpressions().anyMatch(this::neitherPositiveNorNegative));
     }
 
-    protected boolean neitherPositiveNorNegative(OWLClassExpression c1) {
-        return !checkPositive(c1) || !checkNegative(c1);
+    protected Boolean neitherPositiveNorNegative(OWLClassExpression c1) {
+        return Boolean.valueOf(!checkPositive(c1).booleanValue() || !checkNegative(c1).booleanValue());
     }
 
     @Override
@@ -114,7 +114,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
-        return !axiom.classExpressions().anyMatch(c -> neitherPositiveNorNegative(c));
+        return Boolean.valueOf(!axiom.classExpressions().anyMatch(this::neitherPositiveNorNegative));
     }
 
     @Override
@@ -174,7 +174,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
         @Override
         public Boolean visit(OWLObjectExactCardinality ce) {
             return ce.getCardinality() <= 1 && ce.getFiller().accept(this).booleanValue()
-                    && checkNegative(ce.getFiller());
+                && checkNegative(ce.getFiller());
         }
 
         @Override

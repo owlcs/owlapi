@@ -19,6 +19,7 @@ package org.semanticweb.owlapi.model;
  * @param <T>
  *        subject type
  */
+@FunctionalInterface
 public interface HasSubject<T extends OWLObject> {
 
     /**

@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  *         Informatics Group
  * @since 2.1.0
  */
+@FunctionalInterface
 public interface OWLCompositeOntologyChange extends Serializable {
 
     /**

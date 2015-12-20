@@ -32,9 +32,9 @@ import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
  *        property type
  */
 public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
-        implements OWLUnaryPropertyAxiom<P> {
+    implements OWLUnaryPropertyAxiom<P> {
 
-    private final @Nonnull P property;
+    @Nonnull private final P property;
 
     /**
      * @param property

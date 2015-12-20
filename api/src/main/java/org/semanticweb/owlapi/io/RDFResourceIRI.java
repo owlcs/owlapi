@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
 /** IRI node implementation. */
 public class RDFResourceIRI extends RDFResource implements org.apache.commons.rdf.api.IRI {
 
-    private final @Nonnull IRI resource;
+    @Nonnull private final IRI resource;
 
     /**
      * @param resource

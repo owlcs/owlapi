@@ -42,6 +42,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * Gets the set of property expressions that form the key.
      * 
      * @return The set of property expression that form the key
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<? extends OWLPropertyExpression> getPropertyExpressions() {
@@ -64,6 +65,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * 
      * @return The set of object property expressions in the key described by
      *         this axiom
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<? extends OWLObjectPropertyExpression> getObjectPropertyExpressions() {
@@ -94,6 +96,7 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      * 
      * @return The set of object property expressions in the key described by
      *         this axiom
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<? extends OWLDataPropertyExpression> getDataPropertyExpressions() {

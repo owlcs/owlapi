@@ -39,6 +39,7 @@ public interface SWRLAtom extends SWRLObject {
      * Gets all of the arguments in this atom.
      * 
      * @return The collection of arguments in this atom
+     * @deprecated use the stream method
      */
     @Deprecated
     default Collection<SWRLArgument> getAllArguments() {

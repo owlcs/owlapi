@@ -40,6 +40,8 @@ public class CollectionFactory {
     private static final Logger LOGGER = LoggerFactory.getLogger(CollectionFactory.class.getName());
     private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(8);
 
+    private CollectionFactory() {}
+
     /**
      * Sort the input collection; if the ordering is unstable and an error is
      * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
@@ -590,7 +592,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public <Type> Type[] toArray(@Nullable Type[] a) {
+        public <Q> Q[] toArray(@Nullable Q[] a) {
             return delegate.toArray(a);
         }
     }

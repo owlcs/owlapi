@@ -61,11 +61,11 @@ public class ConvertEquivalentClassesToSuperClasses extends AbstractCompositeOnt
         }
     };
     /** The target ontology. */
-    private final @Nonnull OWLOntology targetOntology;
+    @Nonnull private final OWLOntology targetOntology;
     /** The OWL class. */
-    private final @Nonnull OWLClass cls;
+    @Nonnull private final OWLClass cls;
     /** The ontologies. */
-    private final @Nonnull Collection<OWLOntology> ontologies;
+    @Nonnull private final Collection<OWLOntology> ontologies;
     /** true if intersections should be split. */
     private final boolean splitIntersections;
 

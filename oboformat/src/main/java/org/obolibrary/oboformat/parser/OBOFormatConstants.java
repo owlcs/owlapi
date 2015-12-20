@@ -84,16 +84,26 @@ public class OBOFormatConstants {
         //@formatter:on
         // these are keywords, not tags, but we keep them here for convenience
         /** Scope. */
-        TAG_SCOPE("scope"), /** Implicit, in synonymtypedef. */
+        TAG_SCOPE("scope"),
+        /** Implicit, in synonymtypedef. */
         TAG_HAS_SYNONYM_TYPE("has_synonym_type"),
         /** implicit, in synonym. */
         /** Broad. */
-        TAG_BROAD("BROAD"), /** Narrow. */
-        TAG_NARROW("NARROW"), /** Exact. */
-        TAG_EXACT("EXACT"), /** Related. */
+        TAG_BROAD("BROAD"),
+        /** Narrow. */
+        TAG_NARROW("NARROW"),
+        /** Exact. */
+        TAG_EXACT("EXACT"),
+        /** Related. */
         TAG_RELATED("RELATED");
 
-        private final @Nonnull String tag;
+        @Nonnull private final String tag;
+        /** Term frames. */
+        public static final EnumSet<OboFormatTag> TERM_FRAMES = EnumSet.of(TAG_INTERSECTION_OF, TAG_UNION_OF,
+            TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM, TAG_RELATIONSHIP, TAG_IS_A);
+        /** Typedef frames. */
+        public static final EnumSet<OboFormatTag> TYPEDEF_FRAMES = EnumSet.of(TAG_INTERSECTION_OF, TAG_UNION_OF,
+            TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM, TAG_INVERSE_OF, TAG_TRANSITIVE_OVER, TAG_DISJOINT_OVER, TAG_IS_A);
 
         OboFormatTag(String tag) {
             this.tag = tag;
@@ -110,26 +120,20 @@ public class OBOFormatConstants {
         public String toString() {
             return tag;
         }
-
-        /** Term frames. */
-        public static EnumSet<OboFormatTag> TERM_FRAMES = EnumSet.of(TAG_INTERSECTION_OF, TAG_UNION_OF,
-                TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM, TAG_RELATIONSHIP, TAG_IS_A);
-        /** Typedef frames. */
-        public static EnumSet<OboFormatTag> TYPEDEF_FRAMES = EnumSet.of(TAG_INTERSECTION_OF, TAG_UNION_OF,
-                TAG_EQUIVALENT_TO, TAG_DISJOINT_FROM, TAG_INVERSE_OF, TAG_TRANSITIVE_OVER, TAG_DISJOINT_OVER, TAG_IS_A);
     }
 
     private static final Map<String, OboFormatTag> TAGSTABLE = Maps.uniqueIndex(Arrays.asList(OboFormatTag.values()),
-            v -> v.getTag());
+        OboFormatTag::getTag);
     /** tags */
-    public static final @Nonnull Set<String> TAGS = TAGSTABLE.keySet();
+    @Nonnull public static final Set<String> TAGS = TAGSTABLE.keySet();
 
     /**
      * @param tag
      *        tag
      * @return oboformat tag
      */
-    public static @Nullable OboFormatTag getTag(String tag) {
+    @Nullable
+    public static OboFormatTag getTag(String tag) {
         return TAGSTABLE.get(tag);
     }
 

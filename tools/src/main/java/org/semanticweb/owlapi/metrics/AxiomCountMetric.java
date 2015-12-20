@@ -39,7 +39,7 @@ public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
      * 
      * @return the set of axioms
      */
-    public Set<? extends OWLAxiom> getAxioms() {
+    public Set<OWLAxiom> getAxioms() {
         return getObjects();
     }
 }

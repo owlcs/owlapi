@@ -33,9 +33,9 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  */
 public class ManchesterOWLSyntaxOntologyHeader {
 
-    private final @Nonnull OWLOntologyID ontologyID;
-    private final @Nonnull Collection<OWLAnnotation> annotations;
-    private final @Nonnull Collection<OWLImportsDeclaration> importsDeclarations;
+    @Nonnull private final OWLOntologyID ontologyID;
+    @Nonnull private final Collection<OWLAnnotation> annotations;
+    @Nonnull private final Collection<OWLImportsDeclaration> importsDeclarations;
 
     /**
      * @param ontologyIRI
@@ -48,7 +48,7 @@ public class ManchesterOWLSyntaxOntologyHeader {
      *        the imports declarations
      */
     public ManchesterOWLSyntaxOntologyHeader(@Nullable IRI ontologyIRI, @Nullable IRI versionIRI,
-            Set<OWLAnnotation> annotations, Set<OWLImportsDeclaration> importsDeclarations) {
+        Set<OWLAnnotation> annotations, Set<OWLImportsDeclaration> importsDeclarations) {
         ontologyID = new OWLOntologyID(optional(ontologyIRI), optional(versionIRI));
         this.annotations = new ArrayList<>(annotations);
         this.importsDeclarations = new ArrayList<>(importsDeclarations);

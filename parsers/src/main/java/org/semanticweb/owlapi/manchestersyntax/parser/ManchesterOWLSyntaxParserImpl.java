@@ -60,27 +60,36 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     // this parser by hand. The error messages that this parser generates
     // are specific to the Manchester OWL Syntax and are such that it should
     // be easy to use this parser in tools such as editors.
-    private @Nonnull Provider<OWLOntologyLoaderConfiguration> configProvider;
-    private @Nonnull Optional<OWLOntologyLoaderConfiguration> config = emptyOptional();
+    @Nonnull private Provider<OWLOntologyLoaderConfiguration> configProvider;
+    @Nonnull private Optional<OWLOntologyLoaderConfiguration> config = emptyOptional();
     protected OWLDataFactory df;
     private List<Token> tokens;
     private int tokenIndex;
     private OWLEntityChecker owlEntityChecker;
     private OWLOntologyChecker owlOntologyChecker = name -> null;
-    protected final @Nonnull Set<String> classNames = new HashSet<>();
-    protected final @Nonnull Set<String> objectPropertyNames = new HashSet<>();
-    protected final @Nonnull Set<String> dataPropertyNames = new HashSet<>();
-    protected final @Nonnull Set<String> individualNames = new HashSet<>();
-    protected final @Nonnull Set<String> dataTypeNames = new HashSet<>();
-    protected final @Nonnull Set<String> annotationPropertyNames = new HashSet<>();
-    private final @Nonnull Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
-    protected @Nonnull DefaultPrefixManager pm = new DefaultPrefixManager();
-    protected final @Nonnull Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new EnumMap<>(
+        ManchesterOWLSyntax.class);
+    @Nonnull protected final Set<String> classNames = new HashSet<>();
+    @Nonnull protected final Set<String> objectPropertyNames = new HashSet<>();
+    @Nonnull protected final Set<String> dataPropertyNames = new HashSet<>();
+    @Nonnull protected final Set<String> individualNames = new HashSet<>();
+    @Nonnull protected final Set<String> dataTypeNames = new HashSet<>();
+    @Nonnull protected final Set<String> annotationPropertyNames = new HashSet<>();
+    @Nonnull private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
+    @Nonnull protected DefaultPrefixManager pm = new DefaultPrefixManager();
+    @Nonnull protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private OWLOntology defaultOntology;
     private final boolean allowEmptyFrameSections = false;
     private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(
         ManchesterOWLSyntax.class);
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new EnumMap<>(
+        ManchesterOWLSyntax.class);
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new EnumMap<>(
+        ManchesterOWLSyntax.class);
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new EnumMap<>(
+        ManchesterOWLSyntax.class);
     protected RemappingIndividualProvider anonProvider;
+    private final Map<String, IRI> nameIRIMap = new HashMap<>();
 
     /**
      * @param configurationProvider
@@ -155,9 +164,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return new ManchesterOWLSyntaxTokenizer(s);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new EnumMap<>(
-        ManchesterOWLSyntax.class);
-
     private void initialiseClassFrameSections() {
         initialiseSection(new EntityAnnotationsListItemParser<OWLClass>(), classFrameSections);
         initialiseSection(new ClassSubClassOfListItemParser(), classFrameSections);
@@ -170,9 +176,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         initialiseSection(new ClassDisjointClassesListItemParser(), classFrameSections);
         initialiseSection(new ClassIndividualsListItemParser(), classFrameSections);
     }
-
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new EnumMap<>(
-        ManchesterOWLSyntax.class);
 
     private void initialiseObjectPropertyFrameSections() {
         initialiseSection(new EntityAnnotationsListItemParser<OWLObjectProperty>(), objectPropertyFrameSections);
@@ -198,9 +201,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         initialiseSection(new EntityAnnotationsListItemParser<OWLDataProperty>(), dataPropertyFrameSections);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new EnumMap<>(
-        ManchesterOWLSyntax.class);
-
     private void initialiseAnnotationPropertyFrameSections() {
         initialiseSection(new AnnotationPropertySubPropertyOfListItemParser(), annotationPropertyFrameSections);
         initialiseSection(new AnnotationPropertyDomainListItemParser(), annotationPropertyFrameSections);
@@ -208,9 +208,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         initialiseSection(new EntityAnnotationsListItemParser<OWLAnnotationProperty>(),
             annotationPropertyFrameSections);
     }
-
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new EnumMap<>(
-        ManchesterOWLSyntax.class);
 
     private void initialiseIndividualFrameSections() {
         initialiseSection(new IndividualAnnotationItemParser(), individualFrameSections);
@@ -235,7 +232,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return classNames.contains(name) || owlEntityChecker != null && owlEntityChecker.getOWLClass(name) != null;
     }
 
-    private @Nullable OWLOntology getOntology(@Nullable String name) {
+    @Nullable
+    private OWLOntology getOntology(@Nullable String name) {
         return owlOntologyChecker.getOntology(name);
     }
 
@@ -606,7 +604,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         throw new ExceptionBuilder().withKeyword(SOME, ONLY, VALUE, MIN, EXACTLY, MAX).build();
     }
 
-    private @Nullable OWLFacet parseFacet() {
+    @Nullable
+    private OWLFacet parseFacet() {
         String facet = consumeToken();
         if (MIN_INCLUSIVE_FACET.matches(facet, peekToken())) {
             consumeToken();
@@ -2219,7 +2218,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     class DefaultEntityChecker implements OWLEntityChecker {
 
         @Override
-        public @Nullable OWLClass getOWLClass(String name) {
+        @Nullable
+        public OWLClass getOWLClass(String name) {
             if (name.equals("Thing") || name.equals("owl:Thing")) {
                 return df.getOWLThing();
             } else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
@@ -2231,7 +2231,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public @Nullable OWLObjectProperty getOWLObjectProperty(String name) {
+        @Nullable
+        public OWLObjectProperty getOWLObjectProperty(String name) {
             if (objectPropertyNames.contains(name)) {
                 return df.getOWLObjectProperty(getIRI(name));
             }
@@ -2239,7 +2240,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public @Nullable OWLDataProperty getOWLDataProperty(String name) {
+        @Nullable
+        public OWLDataProperty getOWLDataProperty(String name) {
             if (dataPropertyNames.contains(name)) {
                 return df.getOWLDataProperty(getIRI(name));
             }
@@ -2247,7 +2249,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public @Nullable OWLNamedIndividual getOWLIndividual(String name) {
+        @Nullable
+        public OWLNamedIndividual getOWLIndividual(String name) {
             if (individualNames.contains(name)) {
                 return df.getOWLNamedIndividual(getIRI(name));
             }
@@ -2255,7 +2258,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public @Nullable OWLDatatype getOWLDatatype(String name) {
+        @Nullable
+        public OWLDatatype getOWLDatatype(String name) {
             if (dataTypeNames.contains(name)) {
                 return df.getOWLDatatype(getIRI(name));
             }
@@ -2263,15 +2267,14 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
 
         @Override
-        public @Nullable OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        @Nullable
+        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             if (annotationPropertyNames.contains(name)) {
                 return df.getOWLAnnotationProperty(getIRI(name));
             }
             return null;
         }
     }
-
-    private final Map<String, IRI> nameIRIMap = new HashMap<>();
 
     protected IRI getIRI(String inputName) {
         String name = inputName;

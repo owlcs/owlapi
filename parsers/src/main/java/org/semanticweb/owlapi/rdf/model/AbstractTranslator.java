@@ -54,9 +54,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private final OWLOntologyManager manager;
     private final OWLOntology ont;
     private final boolean useStrongTyping;
-    private final @Nonnull Set<OWLIndividual> currentIndividuals = createLinkedSet();
+    @Nonnull private final Set<OWLIndividual> currentIndividuals = createLinkedSet();
     /** Maps Objects to nodes. */
-    private final @Nonnull Map<OWLObject, N> nodeMap = new HashMap<>();
+    @Nonnull private final Map<OWLObject, N> nodeMap = new HashMap<>();
     protected final IndividualAppearance multipleOccurrences;
 
     /**
@@ -79,8 +79,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(), axiom.getEntity().accept(
-            owlEntityTypeProvider));
+        addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(), axiom.getEntity().getEntityType().getIRI());
     }
 
     @Override
@@ -1032,40 +1031,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!OWLDocumentFormatImpl.isMissingType(entity, ont)) {
             return;
         }
-        addTriple(entity, RDF_TYPE.getIRI(), entity.accept(owlEntityTypeProvider));
+        addTriple(entity, RDF_TYPE.getIRI(), entity.getEntityType().getIRI());
     }
-
-    /** Visits entities and returns their RDF type. */
-    private static final OWLEntityVisitorEx<IRI> owlEntityTypeProvider = new OWLEntityVisitorEx<IRI>() {
-
-        @Override
-        public IRI visit(OWLClass cls) {
-            return OWL_CLASS.getIRI();
-        }
-
-        @Override
-        public IRI visit(OWLObjectProperty property) {
-            return OWL_OBJECT_PROPERTY.getIRI();
-        }
-
-        @Override
-        public IRI visit(OWLDataProperty property) {
-            return OWL_DATA_PROPERTY.getIRI();
-        }
-
-        @Override
-        public IRI visit(OWLNamedIndividual individual) {
-            return OWL_NAMED_INDIVIDUAL.getIRI();
-        }
-
-        @Override
-        public IRI visit(OWLDatatype datatype) {
-            return RDFS_DATATYPE.getIRI();
-        }
-
-        @Override
-        public IRI visit(OWLAnnotationProperty property) {
-            return OWL_ANNOTATION_PROPERTY.getIRI();
-        }
-    };
 }

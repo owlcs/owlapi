@@ -42,8 +42,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class ImportsStructureObjectSorter<O> {
 
-    private final @Nonnull OWLOntology ontology;
-    private final @Nonnull ObjectSelector<O> objectSelector;
+    @Nonnull private final OWLOntology ontology;
+    @Nonnull private final ObjectSelector<O> objectSelector;
 
     /**
      * Creates a sorter for the specified ontology, whose imports closure is
@@ -73,8 +73,7 @@ public class ImportsStructureObjectSorter<O> {
         Collections.reverse(imports);
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<>();
         Set<O> processed = new HashSet<>();
-        imports.forEach(
-            ont -> ontology2EntityMap.put(ont, asSet(objectSelector.objects(ont).filter(o -> processed.add(o)))));
+        imports.forEach(ont -> ontology2EntityMap.put(ont, asSet(objectSelector.objects(ont).filter(processed::add))));
         return ontology2EntityMap;
     }
 
@@ -82,6 +81,7 @@ public class ImportsStructureObjectSorter<O> {
      * @param <O>
      *        type of selected objects
      */
+    @FunctionalInterface
     public interface ObjectSelector<O> {
 
         /**

@@ -37,8 +37,8 @@ import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HSTExplanationGenerator.class);
-    private final @Nonnull TransactionAwareSingleExpGen singleExplanationGenerator;
-    private @Nonnull ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
+    @Nonnull private final TransactionAwareSingleExpGen singleExplanationGenerator;
+    @Nonnull private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
     /**
      * Instantiates a new hST explanation generator.
@@ -48,7 +48,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      */
     public HSTExplanationGenerator(TransactionAwareSingleExpGen singleExplanationGenerator) {
         this.singleExplanationGenerator = checkNotNull(singleExplanationGenerator,
-                "singleExplanationGenerator cannot be null");
+            "singleExplanationGenerator cannot be null");
     }
 
     @Override
@@ -212,7 +212,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *         the oWL exception
      */
     private void constructHittingSetTree(OWLClassExpression unsatClass, Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
-            Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
+        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {
         LOGGER.info("MUPS {}: {}", allMups.size(), mups);
         if (progressMonitor.isCancelled()) {
             return;
@@ -231,7 +231,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 return;
             }
             LOGGER.info("Removing axiom: {} {} more removed: {}", axiom, currentPathContents.size(),
-                    currentPathContents);
+                currentPathContents);
             // Removal may have dereferenced some entities, if so declarations
             // are added
             List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<>();
@@ -240,7 +240,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             boolean earlyTermination = checkEarlyTermination(satPaths, currentPathContents);
             if (!earlyTermination) {
                 orderedMups = recurse(unsatClass, allMups, satPaths, currentPathContents, maxExplanations, orderedMups,
-                        axiom);
+                    axiom);
             }
             backtrack(currentPathContents, axiom, temporaryDeclarations, ontologies);
         }
@@ -291,8 +291,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *         the oWL exception
      */
     private List<OWLAxiom> recurse(OWLClassExpression unsatClass, Set<Set<OWLAxiom>> allMups,
-            Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations,
-            List<OWLAxiom> orderedMups, OWLAxiom axiom) throws OWLException {
+        Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents, int maxExplanations,
+        List<OWLAxiom> orderedMups, OWLAxiom axiom) throws OWLException {
         Set<OWLAxiom> newMUPS = getNewMUPS(unsatClass, allMups, currentPathContents);
         // Generate a new node - i.e. a new justification set
         if (newMUPS.contains(axiom)) {
@@ -319,7 +319,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     }
 
     private void backtrack(Set<OWLAxiom> currentPathContents, OWLAxiom axiom,
-            List<OWLDeclarationAxiom> temporaryDeclarations, Set<OWLOntology> ontologies) {
+        List<OWLDeclarationAxiom> temporaryDeclarations, Set<OWLOntology> ontologies) {
         // Back track - go one level up the tree and run for the next axiom
         currentPathContents.remove(axiom);
         LOGGER.info("Restoring axiom: {}", axiom);
@@ -343,7 +343,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @return the new mups
      */
     private Set<OWLAxiom> getNewMUPS(OWLClassExpression unsatClass, Set<Set<OWLAxiom>> allMups,
-            Set<OWLAxiom> currentPathContents) {
+        Set<OWLAxiom> currentPathContents) {
         Set<OWLAxiom> newMUPS = null;
         for (Set<OWLAxiom> foundMUPS : allMups) {
             Set<OWLAxiom> foundMUPSCopy = new HashSet<>(foundMUPS);
@@ -369,11 +369,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @return the sets the
      */
     private Set<OWLOntology> removeAxiomAndAddDeclarations(OWLAxiom axiom,
-            List<OWLDeclarationAxiom> temporaryDeclarations) {
+        List<OWLDeclarationAxiom> temporaryDeclarations) {
         // Remove the current axiom from all the ontologies it is included
         // in
         Set<OWLOntology> ontologies = OntologyUtils.removeAxiom(axiom,
-                getReasoner().getRootOntology().importsClosure());
+            getReasoner().getRootOntology().importsClosure());
         collectTemporaryDeclarations(axiom, temporaryDeclarations);
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
             OntologyUtils.addAxiom(decl, getReasoner().getRootOntology().importsClosure());

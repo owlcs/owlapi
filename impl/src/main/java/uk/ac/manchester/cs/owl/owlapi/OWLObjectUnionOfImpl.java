@@ -30,17 +30,17 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  */
 public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectUnionOf {
 
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 2;
-    }
-
     /**
      * @param operands
      *        operands
      */
     public OWLObjectUnionOfImpl(Stream<? extends OWLClassExpression> operands) {
         super(operands);
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 2;
     }
 
     @Override

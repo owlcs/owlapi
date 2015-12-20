@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
 
-    protected final @Nonnull List<OWLClassExpression> classExpressions;
+    @Nonnull protected final List<OWLClassExpression> classExpressions;
 
     /**
      * @param classExpressions

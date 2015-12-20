@@ -40,7 +40,7 @@ public class LogicalAxiomCount extends AxiomCountMetric {
     }
 
     @Override
-    protected Stream<? extends OWLAxiom> getObjects(OWLOntology ont) {
-        return ont.logicalAxioms();
+    protected Stream<OWLAxiom> getObjects(OWLOntology ont) {
+        return ont.logicalAxioms().map(x -> x);
     }
 }

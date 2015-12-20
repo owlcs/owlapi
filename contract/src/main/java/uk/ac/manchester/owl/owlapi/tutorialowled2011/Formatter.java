@@ -46,8 +46,8 @@ public final class Formatter {
                     System.out.println("\\codecomment{" + line.trim() + "}\\\\");
                 } else {
                     // regular code
-                    for (String s : specials.keySet()) {
-                        line = line.replace(s, specials.get(s));
+                    for (Map.Entry<String, String> e : specials.entrySet()) {
+                        line = line.replace(e.getKey(), e.getValue());
                     }
                     for (String s : keywords) {
                         line = line.replace(s, "\\codekeyword{" + s + '}');

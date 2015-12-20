@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
 
-    private final @Nonnull OWLOntology o;
+    @Nonnull private final OWLOntology o;
 
     /**
      * Constructs an {@code OWLOntologySingletonSetProvider} which provides a

@@ -46,7 +46,22 @@ import org.semanticweb.owlapi.model.*;
  */
 public class SimpleRootClassChecker implements RootClassChecker {
 
-    private final @Nonnull Collection<OWLOntology> ontologies;
+    @Nonnull private final Collection<OWLOntology> ontologies;
+
+    // Rules for determining if a class is a direct subclass of Thing
+    // 1) It isn't referenced by ANY subclass axiom or equivalent class axioms
+    // 2) It is reference only by subclass axioms, but doesn't appear on the LHS
+    // of these axioms
+    // 3) It is on the LHS of a subclass axiom where the RHS is Thing
+    // 4) It is referenced only by equivalent class axioms, where all other
+    // operands in these axioms are named
+    // 5) It is not referenced by subclass axioms and is not referenced by any
+    // equivalent class axiom where there is
+    // at least one operand in the equivalent class axiom which is an
+    // intersection containing a named operand i.e.
+    // EquivalentClasses(A (B and hasP some C)) would not be a subclass of Thing
+    @Nonnull private final RootClassCheckerHelper checker = new RootClassCheckerHelper();
+    @Nonnull private final NamedSuperChecker superChecker = new NamedSuperChecker();
 
     /**
      * Creates a root class checker, which examines axioms contained in
@@ -61,21 +76,6 @@ public class SimpleRootClassChecker implements RootClassChecker {
     public SimpleRootClassChecker(Collection<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
-
-    // Rules for determining if a class is a direct subclass of Thing
-    // 1) It isn't referenced by ANY subclass axiom or equivalent class axioms
-    // 2) It is reference only by subclass axioms, but doesn't appear on the LHS
-    // of these axioms
-    // 3) It is on the LHS of a subclass axiom where the RHS is Thing
-    // 4) It is referenced only by equivalent class axioms, where all other
-    // operands in these axioms are named
-    // 5) It is not referenced by subclass axioms and is not referenced by any
-    // equivalent class axiom where there is
-    // at least one operand in the equivalent class axiom which is an
-    // intersection containing a named operand i.e.
-    // EquivalentClasses(A (B and hasP some C)) would not be a subclass of Thing
-    private final @Nonnull RootClassCheckerHelper checker = new RootClassCheckerHelper();
-    private final @Nonnull NamedSuperChecker superChecker = new NamedSuperChecker();
 
     @Override
     public boolean isRootClass(OWLClass cls) {

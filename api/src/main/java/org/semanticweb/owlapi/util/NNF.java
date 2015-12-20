@@ -32,13 +32,6 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
     protected final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor;
 
     /**
-     * @return class visitor
-     */
-    public OWLClassExpressionVisitorEx<OWLClassExpression> getClassVisitor() {
-        return classVisitor;
-    }
-
-    /**
      * @param datafactory
      *        datafactory to use
      */
@@ -334,6 +327,13 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
                 return nnf;
             }
         };
+    }
+
+    /**
+     * @return class visitor
+     */
+    public OWLClassExpressionVisitorEx<OWLClassExpression> getClassVisitor() {
+        return classVisitor;
     }
 
     /** reset the negation. */

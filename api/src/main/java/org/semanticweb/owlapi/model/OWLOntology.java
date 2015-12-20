@@ -169,6 +169,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @throws UnknownOWLOntologyException
      *         if this ontology is no longer managed by its manager because it
      *         was removed from the manager.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntology> getImports() {
@@ -206,6 +207,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         ontology. The set that is returned is a copy - it will not be
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLImportsDeclaration> getImportsDeclarations() {
@@ -246,6 +248,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getTBoxAxioms(Imports includeImportsClosure) {
@@ -275,6 +278,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getABoxAxioms(Imports includeImportsClosure) {
@@ -304,6 +308,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getRBoxAxioms(Imports includeImportsClosure) {
@@ -337,6 +342,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      *         - it will not be updated if the ontology changes. It is therefore
      *         safe to apply changes to this ontology while iterating over this
      *         set.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClassAxiom> getGeneralClassAxioms() {
@@ -378,6 +384,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
      * @see #getObjectPropertiesInSignature()
      * @see #getDataPropertiesInSignature()
      * @see #getIndividualsInSignature()
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLEntity> getSignature(Imports imports) {

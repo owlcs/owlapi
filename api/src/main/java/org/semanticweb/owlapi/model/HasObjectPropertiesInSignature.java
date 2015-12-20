@@ -36,6 +36,7 @@ public interface HasObjectPropertiesInSignature {
      *         of this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLObjectProperty> getObjectPropertiesInSignature() {

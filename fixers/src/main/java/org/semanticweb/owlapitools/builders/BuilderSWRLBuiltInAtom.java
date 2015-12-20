@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 /** Builder class for SWRLBuiltInAtom. */
 public class BuilderSWRLBuiltInAtom extends BaseBuilder<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
 
-    private @Nullable IRI iri = null;
-    private final @Nonnull List<SWRLDArgument> args = new ArrayList<>();
+    @Nullable private IRI iri = null;
+    @Nonnull private final List<SWRLDArgument> args = new ArrayList<>();
 
     /**
      * Builder initialized from an existing object.

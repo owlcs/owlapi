@@ -39,7 +39,7 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
     @Override
     public Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner) {
         Set<A> result = new HashSet<>();
-        reasoner.getRootOntology().importsClosure().flatMap(o -> getEntities(o)).distinct()
+        reasoner.getRootOntology().importsClosure().flatMap(this::getEntities).distinct()
             .forEach(e -> addAxioms(e, reasoner, df, result));
         return result;
     }
@@ -70,7 +70,7 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
     protected abstract Stream<E> getEntities(OWLOntology ont);
 
     protected Stream<E> getAllEntities(OWLReasoner reasoner) {
-        return reasoner.getRootOntology().importsClosure().flatMap(o -> getEntities(o)).distinct();
+        return reasoner.getRootOntology().importsClosure().flatMap(this::getEntities).distinct();
     }
 
     @Override

@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 public class MacroExpansionGCIVisitor {
 
     protected static final Logger LOG = LoggerFactory.getLogger(MacroExpansionGCIVisitor.class);
-    protected final @Nonnull OWLOntology inputOntology;
-    protected final @Nonnull OWLOntology outputOntology;
+    @Nonnull protected final OWLOntology inputOntology;
+    @Nonnull protected final OWLOntology outputOntology;
     protected final AbstractDataVisitorEx dataVisitor;
     protected boolean preserveAnnotationsWhenExpanding = false;
     protected final boolean shouldAddExpansionMarker;
@@ -136,7 +136,8 @@ public class MacroExpansionGCIVisitor {
             classVisitor = new AbstractMacroExpansionVisitor.AbstractClassExpressionVisitorEx() {
 
                 @Override
-                protected @Nullable OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
+                @Nullable
+                protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
                     OWLObjectPropertyExpression p) {
                     OWLClassExpression gciRHS = expandObject(filler, p);
                     if (gciRHS != null) {
@@ -149,7 +150,8 @@ public class MacroExpansionGCIVisitor {
                 }
 
                 @Override
-                protected @Nullable OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
+                @Nullable
+                protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
                     OWLObjectPropertyExpression p) {
                     OWLClassExpression gciRHS = expandObject(filler, p);
                     if (gciRHS != null) {

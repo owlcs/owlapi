@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
 
-    private final @Nonnull List<OWLPropertyExpression> properties;
+    @Nonnull private final List<OWLPropertyExpression> properties;
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
     private final OWLOntologySetProvider ontologySetProvider;
     private final ShortFormProvider alternateShortFormProvider;
@@ -55,8 +55,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *        the ontology container
      */
     public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties,
-            Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-            OWLOntologySetProvider ontologySetProvider) {
+        Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
+        OWLOntologySetProvider ontologySetProvider) {
         this(properties, preferredLanguageMap, ontologySetProvider, new SimpleShortFormProvider());
     }
 
@@ -86,13 +86,13 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      *        providing the short form of the individual.
      */
     public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties,
-            Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-            OWLOntologySetProvider ontologySetProvider, ShortFormProvider alternateShortFormProvider) {
+        Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
+        OWLOntologySetProvider ontologySetProvider, ShortFormProvider alternateShortFormProvider) {
         this.properties = checkNotNull(properties, "properties cannot be null");
         this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
         this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
         this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider,
-                "alternateShortFormProvider cannot be null");
+            "alternateShortFormProvider cannot be null");
     }
 
     @Override

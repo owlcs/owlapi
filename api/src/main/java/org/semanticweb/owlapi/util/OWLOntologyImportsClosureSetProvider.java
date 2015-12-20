@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
 
-    private final @Nonnull OWLOntologyManager manager;
-    private final @Nonnull OWLOntology rootOntology;
+    @Nonnull private final OWLOntologyManager manager;
+    @Nonnull private final OWLOntology rootOntology;
 
     /**
      * Constructs an {@code OWLOntologySetProvider} which provides a set

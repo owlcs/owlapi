@@ -34,9 +34,9 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  *        property type
  */
 public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends OWLUnaryPropertyAxiomImpl<P>
-        implements OWLPropertyDomainAxiom<P> {
+    implements OWLPropertyDomainAxiom<P> {
 
-    private final @Nonnull OWLClassExpression domain;
+    @Nonnull private final OWLClassExpression domain;
 
     /**
      * @param property

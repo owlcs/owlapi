@@ -26,14 +26,14 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
     }
 
     @Override
-    default public void visit(OWLSubClassOfAxiom axiom) {
+    default void visit(OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    default void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -41,45 +41,45 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
     }
 
     @Override
-    default public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    default void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    default void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDisjointClassesAxiom axiom) {
+    default void visit(OWLDisjointClassesAxiom axiom) {
         axiom.classExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDataPropertyDomainAxiom axiom) {
+    default void visit(OWLDataPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLObjectPropertyDomainAxiom axiom) {
+    default void visit(OWLObjectPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    default void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         axiom.properties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    default void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -87,32 +87,32 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
     }
 
     @Override
-    default public void visit(OWLDifferentIndividualsAxiom axiom) {
+    default void visit(OWLDifferentIndividualsAxiom axiom) {
         axiom.individuals().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+    default void visit(OWLDisjointDataPropertiesAxiom axiom) {
         axiom.properties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    default void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         axiom.properties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLObjectPropertyRangeAxiom axiom) {
+    default void visit(OWLObjectPropertyRangeAxiom axiom) {
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+    default void visit(OWLObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -120,71 +120,71 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
     }
 
     @Override
-    default public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    default void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+    default void visit(OWLSubObjectPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDisjointUnionAxiom axiom) {
+    default void visit(OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
         axiom.classExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDeclarationAxiom axiom) {
+    default void visit(OWLDeclarationAxiom axiom) {
         axiom.getEntity().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    default void visit(OWLSymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDataPropertyRangeAxiom axiom) {
+    default void visit(OWLDataPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+    default void visit(OWLFunctionalDataPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    default void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         axiom.properties().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLClassAssertionAxiom axiom) {
+    default void visit(OWLClassAssertionAxiom axiom) {
         axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLEquivalentClassesAxiom axiom) {
+    default void visit(OWLEquivalentClassesAxiom axiom) {
         axiom.classExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDataPropertyAssertionAxiom axiom) {
+    default void visit(OWLDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -192,52 +192,52 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
     }
 
     @Override
-    default public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    default void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    default void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLSubDataPropertyOfAxiom axiom) {
+    default void visit(OWLSubDataPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    default void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLSameIndividualAxiom axiom) {
+    default void visit(OWLSameIndividualAxiom axiom) {
         axiom.individuals().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLSubPropertyChainOfAxiom axiom) {
+    default void visit(OWLSubPropertyChainOfAxiom axiom) {
         axiom.getPropertyChain().forEach(a -> a.accept(this));
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+    default void visit(OWLInverseObjectPropertiesAxiom axiom) {
         axiom.getFirstProperty().accept(this);
         axiom.getSecondProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLHasKeyAxiom axiom) {
+    default void visit(OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
         axiom.propertyExpressions().forEach(a -> a.accept(this));
         processAxiomAnnotations(axiom);
@@ -245,155 +245,155 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
 
     // OWLClassExpressionVisitor
     @Override
-    default public void visit(OWLObjectIntersectionOf ce) {
+    default void visit(OWLObjectIntersectionOf ce) {
         ce.operands().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(OWLObjectUnionOf ce) {
+    default void visit(OWLObjectUnionOf ce) {
         ce.operands().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(OWLObjectComplementOf ce) {
+    default void visit(OWLObjectComplementOf ce) {
         ce.getOperand().accept(this);
     }
 
     @Override
-    default public void visit(OWLObjectSomeValuesFrom ce) {
+    default void visit(OWLObjectSomeValuesFrom ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLObjectAllValuesFrom ce) {
+    default void visit(OWLObjectAllValuesFrom ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLObjectHasValue ce) {
+    default void visit(OWLObjectHasValue ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLObjectMinCardinality ce) {
+    default void visit(OWLObjectMinCardinality ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLObjectExactCardinality ce) {
+    default void visit(OWLObjectExactCardinality ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLObjectMaxCardinality ce) {
+    default void visit(OWLObjectMaxCardinality ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLObjectHasSelf ce) {
+    default void visit(OWLObjectHasSelf ce) {
         ce.getProperty().accept(this);
     }
 
     @Override
-    default public void visit(OWLObjectOneOf ce) {
+    default void visit(OWLObjectOneOf ce) {
         ce.individuals().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(OWLDataSomeValuesFrom ce) {
+    default void visit(OWLDataSomeValuesFrom ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLDataAllValuesFrom ce) {
+    default void visit(OWLDataAllValuesFrom ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLDataHasValue ce) {
+    default void visit(OWLDataHasValue ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLDataMinCardinality ce) {
+    default void visit(OWLDataMinCardinality ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLDataExactCardinality ce) {
+    default void visit(OWLDataExactCardinality ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     @Override
-    default public void visit(OWLDataMaxCardinality ce) {
+    default void visit(OWLDataMaxCardinality ce) {
         ce.getProperty().accept(this);
         ce.getFiller().accept(this);
     }
 
     // Data visitor
     @Override
-    default public void visit(OWLDataComplementOf node) {
+    default void visit(OWLDataComplementOf node) {
         node.getDataRange().accept(this);
     }
 
     @Override
-    default public void visit(OWLDataOneOf node) {
+    default void visit(OWLDataOneOf node) {
         node.values().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(OWLDataIntersectionOf node) {
+    default void visit(OWLDataIntersectionOf node) {
         node.operands().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(OWLDataUnionOf node) {
+    default void visit(OWLDataUnionOf node) {
         node.operands().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(OWLDatatypeRestriction node) {
+    default void visit(OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
         node.facetRestrictions().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(OWLFacetRestriction node) {
+    default void visit(OWLFacetRestriction node) {
         node.getFacetValue().accept(this);
     }
 
     @Override
-    default public void visit(OWLLiteral node) {
+    default void visit(OWLLiteral node) {
         node.getDatatype().accept(this);
     }
 
     // Property expression visitor
     @Override
-    default public void visit(OWLObjectInverseOf property) {
+    default void visit(OWLObjectInverseOf property) {
         property.getInverse().accept(this);
     }
 
     // Entity visitor
     @Override
-    default public void visit(OWLAnnotation node) {
+    default void visit(OWLAnnotation node) {
         node.getProperty().accept(this);
         node.getValue().accept(this);
         node.annotations().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(OWLAnnotationAssertionAxiom axiom) {
+    default void visit(OWLAnnotationAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getValue().accept(this);
@@ -401,26 +401,26 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
     }
 
     @Override
-    default public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    default void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    default void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    default void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
     }
 
     @Override
-    default public void visit(OWLDatatypeDefinitionAxiom axiom) {
+    default void visit(OWLDatatypeDefinitionAxiom axiom) {
         axiom.getDatatype().accept(this);
         axiom.getDataRange().accept(this);
         processAxiomAnnotations(axiom);
@@ -428,61 +428,61 @@ public interface AbstractEntityRegistrationManager extends OWLObjectVisitor, SWR
 
     // SWRL Object Visitor
     @Override
-    default public void visit(SWRLRule rule) {
+    default void visit(SWRLRule rule) {
         rule.body().forEach(a -> a.accept(this));
         rule.head().forEach(a -> a.accept(this));
         processAxiomAnnotations(rule);
     }
 
     @Override
-    default public void visit(SWRLClassAtom node) {
+    default void visit(SWRLClassAtom node) {
         node.getArgument().accept(this);
         node.getPredicate().accept(this);
     }
 
     @Override
-    default public void visit(SWRLDataRangeAtom node) {
+    default void visit(SWRLDataRangeAtom node) {
         node.getArgument().accept(this);
         node.getPredicate().accept(this);
     }
 
     @Override
-    default public void visit(SWRLObjectPropertyAtom node) {
+    default void visit(SWRLObjectPropertyAtom node) {
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
     @Override
-    default public void visit(SWRLDataPropertyAtom node) {
+    default void visit(SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
     @Override
-    default public void visit(SWRLBuiltInAtom node) {
+    default void visit(SWRLBuiltInAtom node) {
         node.allArguments().forEach(a -> a.accept(this));
     }
 
     @Override
-    default public void visit(SWRLIndividualArgument node) {
+    default void visit(SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
     }
 
     @Override
-    default public void visit(SWRLLiteralArgument node) {
+    default void visit(SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
     }
 
     @Override
-    default public void visit(SWRLDifferentIndividualsAtom node) {
+    default void visit(SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
     @Override
-    default public void visit(SWRLSameIndividualAtom node) {
+    default void visit(SWRLSameIndividualAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }

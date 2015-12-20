@@ -24,10 +24,10 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 
 /** Builder class for SWRLDataPropertyAtom. */
 public class BuilderSWRLDataPropertyAtom
-        extends BaseDataPropertyBuilder<SWRLDataPropertyAtom, BuilderSWRLDataPropertyAtom> {
+    extends BaseDataPropertyBuilder<SWRLDataPropertyAtom, BuilderSWRLDataPropertyAtom> {
 
-    private @Nullable SWRLDArgument arg1;
-    private @Nullable SWRLIArgument arg0;
+    @Nullable private SWRLDArgument arg1;
+    @Nullable private SWRLIArgument arg0;
 
     /**
      * Builder initialized from an existing object.

@@ -62,7 +62,7 @@ public class OWL2ELProfile implements OWLProfile {
     protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor {
 
         private OWLObjectPropertyManager propertyManager;
-        private final @Nonnull Set<OWLProfileViolation> profileViolations = new HashSet<>();
+        @Nonnull private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         public OWL2ELProfileObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -145,7 +145,7 @@ public class OWL2ELProfile implements OWLProfile {
         public void visit(OWLObjectOneOf ce) {
             if (ce.individuals().count() != 1) {
                 profileViolations
-                        .add(new UseOfObjectOneOfWithMultipleIndividuals(getCurrentOntology(), getCurrentAxiom(), ce));
+                    .add(new UseOfObjectOneOfWithMultipleIndividuals(getCurrentOntology(), getCurrentAxiom(), ce));
             }
         }
 
@@ -163,7 +163,7 @@ public class OWL2ELProfile implements OWLProfile {
         public void visit(OWLDataOneOf node) {
             if (node.values().count() != 1) {
                 profileViolations
-                        .add(new UseOfDataOneOfWithMultipleLiterals(getCurrentOntology(), getCurrentAxiom(), node));
+                    .add(new UseOfDataOneOfWithMultipleLiterals(getCurrentOntology(), getCurrentAxiom(), node));
             }
         }
 
@@ -248,16 +248,16 @@ public class OWL2ELProfile implements OWLProfile {
                         boolean rngPresent = rangePresent(imposedRange, lastProperty);
                         if (!rngPresent) {
                             profileViolations
-                                    .add(new LastPropertyInChainNotInImposedRange(getCurrentOntology(), axiom, rngAx));
+                                .add(new LastPropertyInChainNotInImposedRange(getCurrentOntology(), axiom, rngAx));
                         }
                     }
                 }
-            } );
+            });
         }
 
         protected boolean rangePresent(OWLClassExpression imposedRange, OWLObjectPropertyExpression lastProperty) {
             return getCurrentOntology().importsClosure().flatMap(o -> o.objectPropertyRangeAxioms(lastProperty))
-                    .anyMatch(l -> l.getRange().equals(imposedRange));
+                .anyMatch(l -> l.getRange().equals(imposedRange));
         }
 
         @Override

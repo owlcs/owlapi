@@ -35,12 +35,7 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
  */
 public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectOneOf {
 
-    private final @Nonnull List<? extends OWLIndividual> values;
-
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 4;
-    }
+    @Nonnull private final List<? extends OWLIndividual> values;
 
     /**
      * @param values
@@ -65,6 +60,11 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
      */
     public OWLObjectOneOfImpl(OWLIndividual value) {
         this(Stream.of(value));
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 4;
     }
 
     @Override

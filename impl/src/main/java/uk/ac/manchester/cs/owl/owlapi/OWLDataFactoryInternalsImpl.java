@@ -48,24 +48,18 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
                 }
             }
             // need to add the new key and return it
-            @SuppressWarnings("unchecked")
-            V value = (V) v.build(s);
+            @SuppressWarnings("unchecked") V value = (V) v.build(s);
             prefixCache.put(s, new WeakReference<>(value));
             return value;
         }
     }
 
-    private final @Nonnull BuildableWeakIndexCache<OWLClass> classesByURI;
-    private final @Nonnull BuildableWeakIndexCache<OWLObjectProperty> objectPropertiesByURI;
-    private final @Nonnull BuildableWeakIndexCache<OWLDataProperty> dataPropertiesByURI;
-    private final @Nonnull BuildableWeakIndexCache<OWLDatatype> datatypesByURI;
-    private final @Nonnull BuildableWeakIndexCache<OWLNamedIndividual> individualsByURI;
-    private final @Nonnull BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
-
-    protected final <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
-        return new BuildableWeakIndexCache<>();
-    }
-
+    @Nonnull private final BuildableWeakIndexCache<OWLClass> classesByURI;
+    @Nonnull private final BuildableWeakIndexCache<OWLObjectProperty> objectPropertiesByURI;
+    @Nonnull private final BuildableWeakIndexCache<OWLDataProperty> dataPropertiesByURI;
+    @Nonnull private final BuildableWeakIndexCache<OWLDatatype> datatypesByURI;
+    @Nonnull private final BuildableWeakIndexCache<OWLNamedIndividual> individualsByURI;
+    @Nonnull private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
     /**
      * Annotations Cache uses a loading cache as a size limited Interner; the
      * value of the loader is simply the key. As with an interner, each access
@@ -74,7 +68,7 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
      * reused extremely frequently. for ontologies in the OBO family, a few
      * annotations will be reused extremely frequently.
      */
-    private transient final LoadingCache<OWLAnnotation, OWLAnnotation> annotationsCache;
+    private final transient LoadingCache<OWLAnnotation, OWLAnnotation> annotationsCache;
 
     /**
      * @param useCompression
@@ -96,6 +90,10 @@ public class OWLDataFactoryInternalsImpl extends OWLDataFactoryInternalsImplNoCa
             annotationsCacheBuilder.recordStats();
         }
         annotationsCache = annotationsCacheBuilder.build(key -> key);
+    }
+
+    protected final <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
+        return new BuildableWeakIndexCache<>();
     }
 
     @SuppressWarnings({ "unchecked" })

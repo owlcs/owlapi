@@ -34,13 +34,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLAnnotation {
 
-    private final @Nonnull OWLAnnotationProperty property;
-    private final @Nonnull OWLAnnotationValue value;
-
-    @Override
-    public int typeIndex() {
-        return ANNOTATION_TYPE_INDEX_BASE + 1;
-    }
+    @Nonnull private final OWLAnnotationProperty property;
+    @Nonnull private final OWLAnnotationValue value;
 
     /**
      * @param property
@@ -51,6 +46,11 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLA
     public OWLAnnotationImplNotAnnotated(OWLAnnotationProperty property, OWLAnnotationValue value) {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return ANNOTATION_TYPE_INDEX_BASE + 1;
     }
 
     @Override

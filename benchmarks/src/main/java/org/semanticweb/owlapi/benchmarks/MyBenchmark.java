@@ -44,17 +44,17 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl;
 @State(Scope.Thread)
 public class MyBenchmark {
 
-    private static File uncompressedTaxonFile;
+    private File uncompressedTaxonFile;
 
     @Setup(Level.Trial)
     public void setUp() throws IOException {
         uncompressedTaxonFile = File.createTempFile("taxons", "ofn");
         InputStream resourceAsStream = getClass().getResourceAsStream(
-        "/ncbitaxon.rdf.ofn.gz");
+            "/ncbitaxon.rdf.ofn.gz");
         try (GZIPInputStream in = new GZIPInputStream(resourceAsStream);
-        FileOutputStream out = new FileOutputStream(uncompressedTaxonFile)) {
+            FileOutputStream out = new FileOutputStream(uncompressedTaxonFile)) {
             int n;
-            byte buf[] = new byte[8192];
+            byte[] buf = new byte[8192];
             while ((n = in.read(buf)) >= 0) {
                 out.write(buf, 0, n);
             }
@@ -72,11 +72,11 @@ public class MyBenchmark {
     public void testLoadTaxonFSS() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntologyDocumentSource ds = new FileDocumentSource(
-        uncompressedTaxonFile);
+            uncompressedTaxonFile);
         OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration()
-        .setStrict(false);
+            .setStrict(false);
         OWLOntologyImpl ontology = (OWLOntologyImpl) manager
-        .loadOntologyFromOntologyDocument(ds, config);
+            .loadOntologyFromOntologyDocument(ds, config);
         manager.removeOntology(ontology);
     }
 }

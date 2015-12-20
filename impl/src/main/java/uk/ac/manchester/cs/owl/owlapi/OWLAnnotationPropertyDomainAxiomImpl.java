@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyDomainAxiom {
 
-    private final @Nonnull OWLAnnotationProperty property;
-    private final @Nonnull IRI domain;
+    @Nonnull private final OWLAnnotationProperty property;
+    @Nonnull private final IRI domain;
 
     /**
      * @param property
@@ -41,7 +41,7 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
      *        annotations on the axiom
      */
     public OWLAnnotationPropertyDomainAxiomImpl(OWLAnnotationProperty property, IRI domain,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
         this.property = checkNotNull(property, "property cannot be null");

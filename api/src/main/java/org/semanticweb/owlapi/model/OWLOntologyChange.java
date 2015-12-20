@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
  */
 public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
-    private final @Nonnull OWLOntology ont;
+    @Nonnull private final OWLOntology ont;
 
     /**
      * @param ont
@@ -81,7 +81,7 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
      */
     public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException(
-                "This is an " + getClass().getSimpleName() + ", not an axiom change: " + this);
+            "This is an " + getClass().getSimpleName() + ", not an axiom change: " + this);
     }
 
     /**

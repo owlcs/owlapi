@@ -77,7 +77,8 @@ public final class RioUtils {
      *        The OWLAPI {@link RDFTriple} to convert.
      * @return An OpenRDF {@link Statement} representing the given RDFTriple.
      */
-    public static @Nullable Statement tripleAsStatement(final RDFTriple triple) {
+    @Nullable
+    public static Statement tripleAsStatement(final RDFTriple triple) {
         return tripleAsStatements(triple).stream().findFirst().orElse(null);
     }
 

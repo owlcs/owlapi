@@ -30,12 +30,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnotationProperty {
 
-    private final @Nonnull IRI iri;
-
-    @Override
-    public int typeIndex() {
-        return ANNOTATION_PROPERTY;
-    }
+    @Nonnull private final IRI iri;
 
     /**
      * @param i
@@ -43,6 +38,11 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
      */
     public OWLAnnotationPropertyImpl(IRI i) {
         iri = checkNotNull(i, "i cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return ANNOTATION_PROPERTY;
     }
 
     @Override

@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @since 4.0.0
  */
 public interface OWLAxiomCollectionBooleanArgs
-        extends HasAxioms, HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, OWLAxiomCollection {
+    extends HasAxioms, HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, OWLAxiomCollection {
 
     /**
      * @param b
@@ -45,6 +45,7 @@ public interface OWLAxiomCollectionBooleanArgs
      *        if true, include imports closure.
      * @return The number of axioms in this ontology, and optionally in the
      *         imports closure.
+     * @deprecated use the stream method
      */
     @Deprecated
     default int getAxiomCount(boolean includeImportsClosure) {
@@ -60,6 +61,7 @@ public interface OWLAxiomCollectionBooleanArgs
      * @return A set of axioms which are of type {@code OWLLogicalAxiom},
      *         optionally including the imports closure. The set that is
      *         returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLLogicalAxiom> getLogicalAxioms(boolean includeImportsClosure) {
@@ -74,6 +76,7 @@ public interface OWLAxiomCollectionBooleanArgs
      *        if true, include imports closure.
      * @return The number of axioms in this collection, optionally including the
      *         imports closure.
+     * @deprecated use the stream method
      */
     @Deprecated
     default int getLogicalAxiomCount(boolean includeImportsClosure) {
@@ -90,6 +93,7 @@ public interface OWLAxiomCollectionBooleanArgs
      * @return all axioms of the specified type. The set is a copy of the data.
      * @param <T>
      *        axiom type
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, boolean includeImportsClosure) {
@@ -107,6 +111,7 @@ public interface OWLAxiomCollectionBooleanArgs
      * @param <T>
      *        axiom type
      * @return The number of the specified types of axioms in this collection
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType, boolean includeImportsClosure) {
@@ -122,11 +127,12 @@ public interface OWLAxiomCollectionBooleanArgs
      * @param includeImportsClosure
      *        if INCLUDED, include imports closure.
      * @return {@code true} if the ontology contains the specified axiom.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure) {
         return containsAxiom(axiom, Imports.fromBoolean(includeImportsClosure),
-                AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
+            AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
     }
 
     /**
@@ -143,11 +149,12 @@ public interface OWLAxiomCollectionBooleanArgs
      * @param includeImportsClosure
      *        if true, include imports closure.
      * @return {@code true} if the ontology contains the specified axiom.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
         return containsAxiom(axiom, Imports.fromBoolean(includeImportsClosure),
-                AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
+            AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
     }
 
     /**
@@ -166,6 +173,7 @@ public interface OWLAxiomCollectionBooleanArgs
      *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to
      *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
      *         will be contained in the set.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure) {
@@ -186,6 +194,7 @@ public interface OWLAxiomCollectionBooleanArgs
      * @param includeImportsClosure
      *        if INCLUDED, include imports closure.
      * @return All axioms referencing the entity. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity, boolean includeImportsClosure) {

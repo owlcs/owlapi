@@ -172,7 +172,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @since 3.0
      */
     default boolean isOfType(Stream<AxiomType<?>> types) {
-        return types.anyMatch((x) -> getAxiomType().equals(x));
+        return types.anyMatch(getAxiomType()::equals);
     }
 
     /**

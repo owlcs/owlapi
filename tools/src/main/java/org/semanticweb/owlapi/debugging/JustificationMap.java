@@ -12,13 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.debugging;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
-import java.io.Serializable;
-import java.util.*;
-
-import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
@@ -36,8 +38,8 @@ public class JustificationMap {
     private final Set<OWLAxiom> axioms;
     private final Set<OWLAxiom> rootAxioms = new HashSet<>();
     private final Set<OWLAxiom> usedAxioms = new HashSet<>();
-    private final Multimap<OWLAxiom, OWLAxiom> map = MultimapBuilder.hashKeys().arrayListValues().build();
-    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = MultimapBuilder.hashKeys().arrayListValues().build();
+    private final Multimap<OWLAxiom, OWLAxiom> map = MultimapBuilder.hashKeys().linkedHashSetValues().build();
+    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = MultimapBuilder.hashKeys().linkedHashSetValues().build();
     private final OWLClassExpression desc;
 
     /**
@@ -66,27 +68,14 @@ public class JustificationMap {
         buildChildren(desc);
     }
 
-    /**
-     * Gets the axioms by lhs.
-     * 
-     * @param lhs
-     *        the lhs
-     * @return the axioms by lhs
-     */
-    private Set<OWLAxiom> getAxiomsByLHS(OWLEntity lhs) {
-        Set<OWLAxiom> ts = new TreeSet<>(new OWLAxiomComparator());
-        ts.addAll(axiomsByLHS.get(lhs));
-        return ts;
+    protected Stream<OWLAxiom> getAxiomsByLHS(OWLEntity lhs) {
+        return axiomsByLHS.get(lhs).stream();
     }
 
     private void buildChildren(OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
-        Set<OWLAxiom> result = new HashSet<>();
-        seed.signature().forEach(e -> {
-            Set<OWLAxiom> axs = getAxiomsByLHS(e);
-            result.addAll(axs);
-            usedAxioms.addAll(axs);
-        });
+        Set<OWLAxiom> result = asSet(seed.signature().flatMap(this::getAxiomsByLHS));
+        usedAxioms.addAll(result);
         rootAxioms.addAll(result);
         buildChildren(result);
     }
@@ -101,21 +90,13 @@ public class JustificationMap {
         axiomChildren.forEach(this::buildChildren);
     }
 
-    /**
-     * Builds the.
-     * 
-     * @param parentAxiom
-     *        the parent axiom
-     * @return the sets the
-     */
     private Set<OWLAxiom> build(OWLAxiom parentAxiom) {
         usedAxioms.add(parentAxiom);
         OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
         parentAxiom.accept(extractor);
-        Set<OWLAxiom> result = new HashSet<>();
-        extractor.getRHS().stream().flatMap(o -> o.signature()).flatMap(e -> getAxiomsByLHS(e).stream())
-            .filter(ax -> usedAxioms.add(ax)).forEach(ax -> result.add(ax));
-        return result;
+        return asSet(
+            extractor.getRHS().stream().flatMap(o -> o.signature()).flatMap(this::getAxiomsByLHS)
+                .filter(usedAxioms::add));
     }
 
     /**
@@ -144,6 +125,9 @@ public class JustificationMap {
         private final Set<OWLObject> rhs = new HashSet<>();
         private final Set<OWLObject> lhs = new HashSet<>();
 
+        /** Instantiates a new oWL axiom part extractor. */
+        OWLAxiomPartExtractor() {}
+
         /**
          * Gets the rhs.
          * 
@@ -161,9 +145,6 @@ public class JustificationMap {
         public Set<OWLObject> getLHS() {
             return lhs;
         }
-
-        /** Instantiates a new oWL axiom part extractor. */
-        OWLAxiomPartExtractor() {}
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
@@ -345,48 +326,6 @@ public class JustificationMap {
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
             add(axiom.properties(), rhs);
             add(axiom.properties(), lhs);
-        }
-
-        @Override
-        public void visit(SWRLRule rule) {}
-    }
-
-    /** The Class OWLAxiomComparator. */
-    private static class OWLAxiomComparator implements OWLAxiomVisitor, Comparator<OWLAxiom>, Serializable {
-
-        private int result;
-
-        /** Instantiates a new oWL axiom comparator. */
-        OWLAxiomComparator() {}
-
-        @Override
-        public void visit(OWLSubClassOfAxiom axiom) {
-            result = 0;
-        }
-
-        @Override
-        public void visit(OWLEquivalentClassesAxiom axiom) {
-            result = 1;
-        }
-
-        @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
-            result = 2;
-        }
-
-        @Override
-        public int compare(@Nullable OWLAxiom o1, @Nullable OWLAxiom o2) {
-            result = 0;
-            verifyNotNull(o1).accept(this);
-            int result1 = result;
-            verifyNotNull(o2).accept(this);
-            int result2 = result;
-            int diff = result2 - result1;
-            if (diff != 0) {
-                return diff;
-            } else {
-                return -1;
-            }
         }
     }
 }

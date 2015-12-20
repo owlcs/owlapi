@@ -29,13 +29,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
 
-    private final @Nonnull OWLFacet facet;
-    private final @Nonnull OWLLiteral facetValue;
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 7;
-    }
+    @Nonnull private final OWLFacet facet;
+    @Nonnull private final OWLLiteral facetValue;
 
     /**
      * @param facet
@@ -46,6 +41,11 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     public OWLFacetRestrictionImpl(OWLFacet facet, OWLLiteral facetValue) {
         this.facet = checkNotNull(facet, "facet cannot be null");
         this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 7;
     }
 
     @Override

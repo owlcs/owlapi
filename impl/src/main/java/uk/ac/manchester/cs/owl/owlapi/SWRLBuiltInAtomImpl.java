@@ -35,12 +35,7 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
 
-    private final @Nonnull List<SWRLDArgument> args;
-
-    @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 5;
-    }
+    @Nonnull private final List<SWRLDArgument> args;
 
     /**
      * @param predicate
@@ -51,6 +46,11 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
         super(predicate);
         this.args = new ArrayList<>(checkNotNull(args, "args cannot be null"));
+    }
+
+    @Override
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 5;
     }
 
     @Override

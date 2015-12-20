@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  */
 public abstract class AbstractRioParserFactory extends OWLParserFactoryImpl {
 
-    private final @Nonnull RioRDFDocumentFormatFactory rioFormat;
+    @Nonnull private final RioRDFDocumentFormatFactory rioFormat;
 
     protected AbstractRioParserFactory(RioRDFDocumentFormatFactory rioFormat) {
         super(rioFormat);

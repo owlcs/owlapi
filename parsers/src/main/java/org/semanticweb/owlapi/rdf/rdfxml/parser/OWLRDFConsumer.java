@@ -68,9 +68,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLRDFConsumer.class);
-    final @Nonnull TripleLogger tripleLogger;
+    @Nonnull final TripleLogger tripleLogger;
     /** The configuration. */
-    private final @Nonnull OWLOntologyLoaderConfiguration configuration;
+    @Nonnull private final OWLOntologyLoaderConfiguration configuration;
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
@@ -115,7 +115,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     /** The annotated anon source2 annotation map. */
     private final Map<IRI, Set<IRI>> annotatedAnonSource2AnnotationMap = createMap();
     /** The ontology that the RDF will be parsed into. */
-    private final @Nonnull OWLOntology ontology;
+    @Nonnull private final OWLOntology ontology;
     /** The ontology format. */
     private RDFDocumentFormat ontologyFormat;
     /** The data factory. */
@@ -157,7 +157,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     final HandlerAccessor handlerAccessor;
     final TranslatorAccessor translatorAccessor;
     private final AnonymousNodeChecker nodeCheckerDelegate;
-    private final @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
+    @Nonnull private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap.create();
     /** The translated properties. */
     private final Map<IRI, OWLObjectPropertyExpression> translatedProperties = createMap();
     // Resource triples
@@ -175,8 +175,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
     // consumer, so the cache size itself is much smaller than the total memory
     // footprint
     private final Map<String, IRI> IRIMap = createMap();
-    private static final @Nonnull AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
-    private final static Set<IRI> entityTypes = Sets.newHashSet(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
+    @Nonnull private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
+    private static final Set<IRI> entityTypes = Sets.newHashSet(OWL_CLASS.getIRI(), OWL_OBJECT_PROPERTY.getIRI(),
         OWL_DATA_PROPERTY.getIRI(), OWL_ANNOTATION_PROPERTY.getIRI(), RDFS_DATATYPE.getIRI(), OWL_NAMED_INDIVIDUAL
             .getIRI());
     RemappingIndividualProvider anonProvider;
@@ -212,7 +212,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         this.configuration = configuration;
         handlerAccessor = new HandlerAccessor(this);
         translatorAccessor = new TranslatorAccessor(this);
-        BUILT_IN_AP_IRIS.forEach(i -> annPropertyIRIs.add(i));
+        BUILT_IN_AP_IRIS.forEach(annPropertyIRIs::add);
         dataRangeIRIs.add(RDFS_LITERAL.getIRI());
         Stream.of(OWL2Datatype.values()).forEach(v -> dataRangeIRIs.add(v.getIRI()));
         if (!configuration.isStrict()) {
@@ -1198,18 +1198,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         if (LOGGER.isInfoEnabled() && singleValuedResTriplesByPredicate.size() + singleValuedLitTriplesByPredicate
             .size() + resTriplesBySubject.size() + litTriplesBySubject.size() > 0) {
             LOGGER.info("dumping remaining triples");
-            singleValuedResTriplesByPredicate.forEach((p, map) -> {
-                map.forEach((s, o) -> printTriple(s, p, o));
-            });
-            singleValuedLitTriplesByPredicate.forEach((p, map) -> {
-                map.forEach((s, o) -> printTriple(s, p, o));
-            });
-            resTriplesBySubject.forEach((p, map) -> {
-                map.forEach((s, o) -> o.forEach(x -> printTriple(s, p, x)));
-            });
-            litTriplesBySubject.forEach((p, map) -> {
-                map.forEach((s, o) -> o.forEach(x -> printTriple(s, p, x)));
-            });
+            singleValuedResTriplesByPredicate.forEach((p, map) -> map.forEach((s, o) -> printTriple(s, p, o)));
+            singleValuedLitTriplesByPredicate.forEach((p, map) -> map.forEach((s, o) -> printTriple(s, p, o)));
+            resTriplesBySubject.forEach((p, map) -> map.forEach((s, o) -> o.forEach(x -> printTriple(s, p, x))));
+            litTriplesBySubject.forEach((p, map) -> map.forEach((s, o) -> o.forEach(x -> printTriple(s, p, x))));
             LOGGER.info("done dumping remaining triples");
         }
     }
@@ -1577,13 +1569,15 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
         }
     }
 
-    private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, OWLLiteral v) {
+    @Nullable
+    private IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, OWLLiteral v) {
         return getAnnotatedSourceAnnotationMainNodes(n).stream()
             .filter(i -> p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
                 && v.equals(getLiteralObject(i, OWL_ANNOTATED_TARGET, false))).findAny().orElse(null);
     }
 
-    private @Nullable IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, IRI v) {
+    @Nullable
+    private IRI getSubjectForAnnotatedPropertyAndObject(IRI n, IRI p, IRI v) {
         return getAnnotatedSourceAnnotationMainNodes(n).stream()
             .filter(i -> p.equals(getResourceObject(i, OWL_ANNOTATED_PROPERTY, false))
                 && v.equals(getResourceObject(i, OWL_ANNOTATED_TARGET, false))).findAny().orElse(null);
@@ -1687,7 +1681,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the consume
      * @return the resource object
      */
-    protected @Nullable IRI getResourceObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
+    @Nullable
+    protected IRI getResourceObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
         return getResourceObject(subject, predicate.getIRI(), consume);
     }
 
@@ -1702,7 +1697,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the consume
      * @return the resource object
      */
-    protected @Nullable IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
+    @Nullable
+    protected IRI getResourceObject(IRI subject, IRI predicate, boolean consume) {
         Map<IRI, IRI> subjPredMap = singleValuedResTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
             IRI obj = subjPredMap.get(subject);
@@ -1770,7 +1766,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the consume
      * @return the literal object
      */
-    protected @Nullable OWLLiteral getLiteralObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
+    @Nullable
+    protected OWLLiteral getLiteralObject(IRI subject, OWLRDFVocabulary predicate, boolean consume) {
         return getLiteralObject(subject, predicate.getIRI(), consume);
     }
 
@@ -1785,7 +1782,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the consume
      * @return the literal object
      */
-    protected @Nullable OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
+    @Nullable
+    protected OWLLiteral getLiteralObject(IRI subject, IRI predicate, boolean consume) {
         Map<IRI, OWLLiteral> subjPredMap = singleValuedLitTriplesByPredicate.get(predicate);
         if (subjPredMap != null) {
             OWLLiteral obj = subjPredMap.get(subject);
@@ -1995,7 +1993,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the consume
      * @return the first resource
      */
-    protected @Nullable IRI getFirstResource(IRI subject, boolean consume) {
+    @Nullable
+    protected IRI getFirstResource(IRI subject, boolean consume) {
         if (consume) {
             return listFirstResourceTripleMap.remove(subject);
         }
@@ -2009,7 +2008,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the subject
      * @return the first literal
      */
-    protected @Nullable OWLLiteral getFirstLiteral(IRI subject) {
+    @Nullable
+    protected OWLLiteral getFirstLiteral(IRI subject) {
         return listFirstLiteralTripleMap.get(subject);
     }
 
@@ -2022,7 +2022,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *        the consume
      * @return the rest
      */
-    protected @Nullable IRI getRest(IRI subject, boolean consume) {
+    @Nullable
+    protected IRI getRest(IRI subject, boolean consume) {
         if (consume) {
             return listRestTripleMap.remove(subject);
         }
@@ -2135,7 +2136,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
             // blank nodes do not need to be remapped in this method
             return i;
         }
-        IRI computeIfAbsent = remappedIRIs.computeIfAbsent(i, (x) -> IRI.create(NodeID.nextAnonymousIRI()));
+        IRI computeIfAbsent = remappedIRIs.computeIfAbsent(i, x -> IRI.create(NodeID.nextAnonymousIRI()));
         remappedIRIStrings.put(i.toString(), computeIfAbsent);
         return computeIfAbsent;
     }

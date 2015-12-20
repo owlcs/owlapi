@@ -22,6 +22,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
  */
 public class OBODocDiffer {
 
+    private OBODocDiffer() {}
+
     /**
      * @param doc1
      *        doc1
@@ -40,7 +42,7 @@ public class OBODocDiffer {
 
     // FRAME LISTS
     private static List<Diff> getDiffsAsym(String ftype, Collection<Frame> fl1, Collection<Frame> fl2, int n,
-            boolean isCheckFrame) {
+        boolean isCheckFrame) {
         List<Diff> diffs = new ArrayList<>();
         Map<String, Frame> fm2 = new HashMap<>();
         fl2.forEach(f -> fm2.put(f.getId(), f));

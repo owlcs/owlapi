@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
 
-    private final @Nonnull OWLAnnotationProperty property;
-    protected final @Nonnull IRI range;
+    @Nonnull private final OWLAnnotationProperty property;
+    @Nonnull protected final IRI range;
 
     /**
      * @param property
@@ -41,7 +41,7 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
      *        annotations on the axiom
      */
     public OWLAnnotationPropertyRangeAxiomImpl(OWLAnnotationProperty property, IRI range,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
         this.range = checkNotNull(range, "range cannot be null");

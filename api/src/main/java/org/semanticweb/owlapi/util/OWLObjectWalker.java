@@ -36,14 +36,14 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     protected OWLOntology ontology;
     private final Collection<O> objects;
-    protected @Nullable OWLObjectVisitor visitor;
-    private @Nullable OWLObjectVisitorEx<?> visitorEx;
+    @Nullable protected OWLObjectVisitor visitor;
+    @Nullable private OWLObjectVisitorEx<?> visitorEx;
     protected final boolean visitDuplicates;
     protected OWLAxiom ax;
     protected OWLAnnotation annotation;
     private final List<OWLClassExpression> classExpressionPath = new ArrayList<>();
     private final List<OWLDataRange> dataRangePath = new ArrayList<>();
-    private @Nonnull StructureWalker<O> walker;
+    @Nonnull private StructureWalker<O> walker;
 
     /**
      * @param objects
@@ -81,24 +81,6 @@ public class OWLObjectWalker<O extends OWLObject> {
         this(objects, walkDuplicates, AnnotationWalkingControl.WALK_ONTOLOGY_ANNOTATIONS_ONLY);
     }
 
-    protected @Nullable Object passToVisitor(OWLObject o) {
-        if (visitor != null) {
-            o.accept(visitor);
-            return null;
-        }
-        return o.accept(verifyNotNull(visitorEx));
-    }
-
-    protected void setVisitor(OWLObjectVisitorEx<?> visitor) {
-        visitorEx = visitor;
-        this.visitor = null;
-    }
-
-    protected void setVisitor(OWLObjectVisitor visitor) {
-        this.visitor = visitor;
-        visitorEx = null;
-    }
-
     /**
      * @param walkDuplicates
      *        true if duplicates should be visited
@@ -123,6 +105,25 @@ public class OWLObjectWalker<O extends OWLObject> {
      */
     public OWLObjectWalker(Collection<O> objects, boolean visitDuplicates, AnnotationWalkingControl walkFlag) {
         this(objects.stream(), visitDuplicates, walkFlag);
+    }
+
+    @Nullable
+    protected Object passToVisitor(OWLObject o) {
+        if (visitor != null) {
+            o.accept(visitor);
+            return null;
+        }
+        return o.accept(verifyNotNull(visitorEx));
+    }
+
+    protected void setVisitor(OWLObjectVisitorEx<?> visitor) {
+        visitorEx = visitor;
+        this.visitor = null;
+    }
+
+    protected void setVisitor(OWLObjectVisitor visitor) {
+        this.visitor = visitor;
+        visitorEx = null;
     }
 
     /**
@@ -156,7 +157,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @return The last ontology to be visited
      */
-    public @Nullable OWLOntology getOntology() {
+    @Nullable
+    public OWLOntology getOntology() {
         return ontology;
     }
 

@@ -39,8 +39,8 @@ import org.semanticweb.owlapi.profiles.Profiles;
  */
 public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> {
 
-    protected final @Nonnull OWLDataFactory df;
-    protected final @Nonnull List<OWLAnnotation> annotations = new ArrayList<>();
+    @Nonnull protected final OWLDataFactory df;
+    @Nonnull protected final List<OWLAnnotation> annotations = new ArrayList<>();
 
     /**
      * @param df

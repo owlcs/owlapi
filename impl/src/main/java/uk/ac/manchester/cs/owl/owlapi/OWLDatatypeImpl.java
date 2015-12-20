@@ -28,14 +28,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
-    private final @Nonnull IRI iri;
+    @Nonnull private final IRI iri;
     private final boolean top;
     private final boolean builtin;
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 1;
-    }
 
     /**
      * @param iri
@@ -45,6 +40,11 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         this.iri = checkNotNull(iri, "iri cannot be null");
         top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
         builtin = top || OWL2Datatype.isBuiltIn(iri) || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+    }
+
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 1;
     }
 
     @Override

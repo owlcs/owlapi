@@ -25,6 +25,7 @@ import java.util.stream.Stream;
  *         Research Group
  * @since 3.4.6
  */
+@FunctionalInterface
 public interface HasAxiomsByType {
 
     /**
@@ -38,6 +39,7 @@ public interface HasAxiomsByType {
      *         set that is returned is a copy of the axioms in this object.
      *         Modifications to the returned set will not be reflected in this
      *         object.
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {

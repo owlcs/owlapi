@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** A locality evaluator. */
+@FunctionalInterface
 public interface LocalityEvaluator {
 
     /**

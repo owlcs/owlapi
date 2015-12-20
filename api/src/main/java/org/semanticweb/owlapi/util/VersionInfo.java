@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
  */
 public class VersionInfo {
 
-    private static final @Nonnull VersionInfo INSTANCE = new VersionInfo();
-    private final @Nonnull String version;
+    @Nonnull private static final VersionInfo INSTANCE = new VersionInfo();
+    @Nonnull private final String version;
 
     protected VersionInfo() {
         String v = VersionInfo.class.getPackage().getImplementationVersion();

@@ -59,7 +59,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      *        the ont
      * @return the objects
      */
-    protected abstract Stream<? extends E> getObjects(OWLOntology ont);
+    protected abstract Stream<E> getObjects(OWLOntology ont);
 
     @Override
     public Integer recomputeMetric() {
@@ -71,7 +71,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      * 
      * @return the objects
      */
-    protected Set<? extends E> getObjects() {
+    protected Set<E> getObjects() {
         return asSet(getOntologies().flatMap(this::getObjects));
     }
 
@@ -79,7 +79,4 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return true;
     }
-
-    @Override
-    protected void disposeMetric() {}
 }

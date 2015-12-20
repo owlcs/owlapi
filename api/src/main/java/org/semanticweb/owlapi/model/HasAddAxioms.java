@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  *         Research Group
  * @since 3.5
  */
+@FunctionalInterface
 public interface HasAddAxioms {
 
     /**

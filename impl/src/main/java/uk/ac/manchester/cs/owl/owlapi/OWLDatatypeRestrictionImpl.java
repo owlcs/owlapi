@@ -36,13 +36,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLDatatypeRestriction {
 
-    private final @Nonnull OWLDatatype datatype;
-    private final @Nonnull List<OWLFacetRestriction> facetRestrictions;
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 6;
-    }
+    @Nonnull private final OWLDatatype datatype;
+    @Nonnull private final List<OWLFacetRestriction> facetRestrictions;
 
     /**
      * @param datatype
@@ -54,6 +49,11 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         Collection<OWLFacetRestriction> facets = checkNotNull(facetRestrictions, "facetRestrictions cannot be null");
         this.facetRestrictions = sortOptionally(facets.stream().distinct());
+    }
+
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 6;
     }
 
     @Override

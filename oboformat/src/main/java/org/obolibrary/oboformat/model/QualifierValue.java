@@ -6,8 +6,8 @@ import javax.annotation.Nullable;
 /** Qualifier value. */
 public class QualifierValue implements Comparable<QualifierValue> {
 
-    protected @Nonnull String qualifier;
-    protected @Nonnull String value;
+    @Nonnull protected String qualifier;
+    @Nonnull protected String value;
 
     /**
      * @param q

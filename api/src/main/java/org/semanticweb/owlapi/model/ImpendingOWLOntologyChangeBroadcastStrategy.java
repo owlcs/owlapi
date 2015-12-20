@@ -20,6 +20,7 @@ import java.util.List;
  *         Informatics Group
  * @since 3.1.0
  */
+@FunctionalInterface
 public interface ImpendingOWLOntologyChangeBroadcastStrategy extends Serializable {
 
     /**

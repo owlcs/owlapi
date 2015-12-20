@@ -34,6 +34,7 @@ public interface OWLAxiomCollection
      *        if INCLUDED, include imports closure.
      * @return All of the axioms in this collection, and optionally in the
      *         import closure. The set that is returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getAxioms(Imports includeImportsClosure) {
@@ -72,6 +73,7 @@ public interface OWLAxiomCollection
      * @return A set of axioms which are of type {@code OWLLogicalAxiom},
      *         optionally including the imports closure. The set that is
      *         returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLLogicalAxiom> getLogicalAxioms(Imports includeImportsClosure) {
@@ -119,6 +121,7 @@ public interface OWLAxiomCollection
      * @return all axioms of the specified type. The set is a copy of the data.
      * @param <T>
      *        axiom type
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType, Imports includeImportsClosure) {
@@ -208,6 +211,7 @@ public interface OWLAxiomCollection
      *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to
      *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
      *         will be contained in the set.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
@@ -230,6 +234,7 @@ public interface OWLAxiomCollection
      *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to
      *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
      *         will be contained in the set.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom, Imports includeImportsClosure) {
@@ -284,6 +289,7 @@ public interface OWLAxiomCollection
      *        The entity that should be directly referred to by all axioms in
      *        the results set.
      * @return All axioms referencing the entity. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity) {
@@ -319,6 +325,7 @@ public interface OWLAxiomCollection
      * @param includeImportsClosure
      *        if INCLUDED, include imports closure.
      * @return All axioms referencing the entity. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity, Imports includeImportsClosure) {
@@ -362,6 +369,7 @@ public interface OWLAxiomCollection
      *         class that is equivalent to the disjoint union</li>
      *         </ul>
      *         The returned set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClassAxiom> getAxioms(OWLClass cls) {
@@ -408,6 +416,7 @@ public interface OWLAxiomCollection
      *         class that is equivalent to the disjoint union</li>
      *         </ul>
      *         The returned set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClassAxiom> getAxioms(OWLClass cls, Imports includeImportsClosure) {
@@ -465,6 +474,7 @@ public interface OWLAxiomCollection
      *         </li>
      *         </ul>
      *         The set that is returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property) {
@@ -530,6 +540,7 @@ public interface OWLAxiomCollection
      *         </li>
      *         </ul>
      *         The set that is returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLObjectPropertyAxiom> getAxioms(OWLObjectPropertyExpression property, Imports includeImportsClosure) {
@@ -591,6 +602,7 @@ public interface OWLAxiomCollection
      *         property</li>
      *         </ul>
      *         The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property) {
@@ -646,6 +658,7 @@ public interface OWLAxiomCollection
      *         property</li>
      *         </ul>
      *         The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property, Imports includeImportsClosure) {
@@ -703,6 +716,7 @@ public interface OWLAxiomCollection
      *         specified individual</li>
      *         </ul>
      *         The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual) {
@@ -760,6 +774,7 @@ public interface OWLAxiomCollection
      *         specified individual</li>
      *         </ul>
      *         The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual, Imports includeImportsClosure) {
@@ -811,6 +826,7 @@ public interface OWLAxiomCollection
      *         specified property</li>
      *         </ul>
      *         The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property) {
@@ -859,6 +875,7 @@ public interface OWLAxiomCollection
      *         specified property</li>
      *         </ul>
      *         The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property, Imports includeImportsClosure) {
@@ -894,6 +911,7 @@ public interface OWLAxiomCollection
      *        The datatype
      * @return The set of datatype definition axioms for the specified datatype.
      *         The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
@@ -918,6 +936,7 @@ public interface OWLAxiomCollection
      *        if INCLUDED, include imports closure.
      * @return The set of datatype definition axioms for the specified datatype.
      *         The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype, Imports includeImportsClosure) {

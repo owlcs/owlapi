@@ -29,9 +29,9 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWLAnnotationAssertionAxiom {
 
-    private final @Nonnull OWLAnnotationSubject subject;
-    private final @Nonnull OWLAnnotationProperty property;
-    private final @Nonnull OWLAnnotationValue value;
+    @Nonnull private final OWLAnnotationSubject subject;
+    @Nonnull private final OWLAnnotationProperty property;
+    @Nonnull private final OWLAnnotationValue value;
 
     /**
      * @param subject
@@ -44,7 +44,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
      *        annotations on the axiom
      */
     public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject, OWLAnnotationProperty property,
-            OWLAnnotationValue value, Collection<OWLAnnotation> annotations) {
+        OWLAnnotationValue value, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
@@ -131,6 +131,6 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         }
         OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
         return subject.equals(other.getSubject()) && property.equals(other.getProperty())
-                && value.equals(other.getValue());
+            && value.equals(other.getValue());
     }
 }

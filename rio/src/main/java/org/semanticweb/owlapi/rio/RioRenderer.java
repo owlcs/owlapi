@@ -69,8 +69,8 @@ public class RioRenderer extends RDFRendererBase {
     private static final Logger LOGGER = LoggerFactory.getLogger(RioRenderer.class);
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
-    private final @Nonnull Set<RDFResource> pendingNodes = new LinkedHashSet<>();
-    private final @Nonnull Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
+    @Nonnull private final Set<RDFResource> pendingNodes = new LinkedHashSet<>();
+    @Nonnull private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
     private Map<RDFTriple, RDFResourceBlankNode> triplesWithRemappedNodes;
 

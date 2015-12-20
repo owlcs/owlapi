@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectHasValue;
 /** Builder class for OWLObjectHasValue. */
 public class BuilderObjectHasValue extends BaseObjectPropertyBuilder<OWLObjectHasValue, BuilderObjectHasValue> {
 
-    private @Nullable OWLIndividual value = null;
+    @Nullable private OWLIndividual value = null;
 
     /**
      * Builder initialized from an existing object.

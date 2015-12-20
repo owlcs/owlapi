@@ -29,10 +29,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @since 2.0.0
  */
 public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
-        implements OWLInverseObjectPropertiesAxiom {
+    implements OWLInverseObjectPropertiesAxiom {
 
-    private final @Nonnull OWLObjectPropertyExpression first;
-    private final @Nonnull OWLObjectPropertyExpression second;
+    @Nonnull private final OWLObjectPropertyExpression first;
+    @Nonnull private final OWLObjectPropertyExpression second;
 
     /**
      * @param first
@@ -43,9 +43,9 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
      *        annotations
      */
     public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first, OWLObjectPropertyExpression second,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(new TreeSet<>(Arrays.asList(checkNotNull(first, "first cannot be null"),
-                checkNotNull(second, "second cannot be null"))), annotations);
+            checkNotNull(second, "second cannot be null"))), annotations);
         this.first = first;
         this.second = second;
     }
@@ -103,9 +103,9 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second.getInverseProperty().getSimplified(),
-                NO_ANNOTATIONS));
+            NO_ANNOTATIONS));
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first.getInverseProperty().getSimplified(),
-                NO_ANNOTATIONS));
+            NO_ANNOTATIONS));
         return axs;
     }
 

@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B> extends BaseBuilder<T, B> {
 
-    private @Nullable OWLAnnotationProperty property = null;
+    @Nullable private OWLAnnotationProperty property = null;
 
     /**
      * @param df

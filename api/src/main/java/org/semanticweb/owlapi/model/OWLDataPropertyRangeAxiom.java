@@ -21,10 +21,10 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLDataPropertyRangeAxiom
-        extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>, OWLDataPropertyAxiom {
+    extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>, OWLDataPropertyAxiom {
 
     @Override
-    OWLDataPropertyRangeAxiom getAxiomWithoutAnnotations();
+        OWLDataPropertyRangeAxiom getAxiomWithoutAnnotations();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

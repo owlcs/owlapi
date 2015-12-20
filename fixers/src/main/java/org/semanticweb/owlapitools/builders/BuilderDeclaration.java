@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /** Builder class for OWLDeclarationAxiom. */
 public class BuilderDeclaration extends BaseBuilder<OWLDeclarationAxiom, BuilderDeclaration> {
 
-    private @Nullable OWLEntity entity = null;
+    @Nullable private OWLEntity entity = null;
 
     /**
      * Builder initialized from an existing object.

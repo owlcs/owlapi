@@ -37,11 +37,6 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     private final List<? extends OWLLiteral> values;
 
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 3;
-    }
-
     /**
      * @param values
      *        lierals
@@ -66,6 +61,11 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     public OWLDataOneOfImpl(OWLLiteral value) {
         checkNotNull(value, "value cannot be null");
         values = Collections.singletonList(value);
+    }
+
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 3;
     }
 
     @Override

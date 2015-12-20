@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
+@FunctionalInterface
 public interface OWLOntologyImplementationFactory extends Serializable {
 
     /**

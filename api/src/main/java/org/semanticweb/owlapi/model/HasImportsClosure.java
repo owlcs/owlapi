@@ -24,6 +24,7 @@ import java.util.stream.Stream;
  *         Research Group
  * @since 3.5.0
  */
+@FunctionalInterface
 public interface HasImportsClosure {
 
     /**
@@ -39,6 +40,7 @@ public interface HasImportsClosure {
      * @throws UnknownOWLOntologyException
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntology> getImportsClosure() {

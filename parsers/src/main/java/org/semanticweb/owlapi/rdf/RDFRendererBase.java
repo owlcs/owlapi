@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf;
 
+import static org.semanticweb.owlapi.model.AxiomType.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
@@ -49,27 +50,30 @@ import gnu.trove.strategy.IdentityHashingStrategy;
  */
 public abstract class RDFRendererBase {
 
-    private static final @Nonnull String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
-    private static final @Nonnull String DATATYPES_BANNER_TEXT = "Datatypes";
-    private static final @Nonnull String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
-    private static final @Nonnull String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
-    private static final @Nonnull String CLASSES_BANNER_TEXT = "Classes";
-    private static final @Nonnull String INDIVIDUALS_BANNER_TEXT = "Individuals";
-    private static final @Nonnull String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
+    @Nonnull private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
+    @Nonnull private static final String DATATYPES_BANNER_TEXT = "Datatypes";
+    @Nonnull private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
+    @Nonnull private static final String DATA_PROPERTIES_BANNER_TEXT = "Data properties";
+    @Nonnull private static final String CLASSES_BANNER_TEXT = "Classes";
+    @Nonnull private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
+    @Nonnull private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
     /** General axioms. */
-    private static final @Nonnull String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
+    @Nonnull private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
     /** Rules banner. */
-    private static final @Nonnull String RULES_BANNER_TEXT = "Rules";
-    protected final @Nonnull OWLOntology ontology;
+    @Nonnull private static final String RULES_BANNER_TEXT = "Rules";
+    @Nonnull protected final OWLOntology ontology;
     protected final OWLDataFactory df;
     protected RDFGraph graph;
-    protected final @Nonnull Set<IRI> prettyPrintedTypes = asSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
+    @Nonnull protected final Set<IRI> prettyPrintedTypes = asSet(Stream.of(OWL_CLASS, OWL_OBJECT_PROPERTY,
         OWL_DATA_PROPERTY, OWL_ANNOTATION_PROPERTY, OWL_RESTRICTION, OWL_THING, OWL_NOTHING, OWL_ONTOLOGY,
         OWL_ANNOTATION_PROPERTY, OWL_NAMED_INDIVIDUAL, RDFS_DATATYPE, OWL_AXIOM, OWL_ANNOTATION).map(a -> a.getIRI()));
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
     protected final IndividualAppearance occurrences;
     protected final AxiomAppearance axiomOccurrences;
+    private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
+    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
+        new IdentityHashingStrategy<>());
 
     /**
      * @param ontology
@@ -263,7 +267,7 @@ public abstract class RDFRendererBase {
 
     private void renderUntypedIRIAnnotationAssertions() {
         Collection<IRI> annotatedIRIs = new HashSet<>();
-        ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
+        ontology.axioms(ANNOTATION_ASSERTION)
             .filter(ax -> ax.getSubject().isIRI())
             .forEach(ax -> addIfUntyped(ax.getSubject(), annotatedIRIs));
         if (!annotatedIRIs.isEmpty()) {
@@ -303,7 +307,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() {
-        List<SWRLRule> ruleAxioms = sortOptionally(ontology.axioms(AxiomType.SWRL_RULE));
+        List<SWRLRule> ruleAxioms = sortOptionally(ontology.axioms(SWRL_RULE));
         createGraph(ruleAxioms.stream());
         if (!ruleAxioms.isEmpty()) {
             writeBanner(RULES_BANNER_TEXT);
@@ -345,16 +349,11 @@ public abstract class RDFRendererBase {
     private List<OWLAxiom> getGeneralAxioms() {
         List<OWLAxiom> generalAxioms = new ArrayList<>();
         add(generalAxioms, ontology.generalClassAxioms());
-        add(generalAxioms, ontology.axioms(AxiomType.DIFFERENT_INDIVIDUALS));
-        ontology.axioms(AxiomType.DISJOINT_CLASSES)
-            .filter(ax -> ax.classExpressions().count() > 2)
-            .forEach(ax -> generalAxioms.add(ax));
-        ontology.axioms(AxiomType.DISJOINT_OBJECT_PROPERTIES).filter(ax -> ax.properties().count() > 2).forEach(
-            ax -> generalAxioms.add(ax));
-        ontology.axioms(AxiomType.DISJOINT_DATA_PROPERTIES).filter(ax -> ax.properties().count() > 2).forEach(
-            ax -> generalAxioms.add(ax));
-        ontology.axioms(AxiomType.HAS_KEY).filter(ax -> ax.getClassExpression().isAnonymous()).forEach(
-            ax -> generalAxioms.add(ax));
+        add(generalAxioms, ontology.axioms(DIFFERENT_INDIVIDUALS));
+        add(generalAxioms, ontology.axioms(DISJOINT_CLASSES).filter(ax -> ax.classExpressions().count() > 2));
+        add(generalAxioms, ontology.axioms(DISJOINT_OBJECT_PROPERTIES).filter(ax -> ax.properties().count() > 2));
+        add(generalAxioms, ontology.axioms(DISJOINT_DATA_PROPERTIES).filter(ax -> ax.properties().count() > 2));
+        add(generalAxioms, ontology.axioms(HAS_KEY).filter(ax -> ax.getClassExpression().isAnonymous()));
         return sortOptionally(generalAxioms);
     }
 
@@ -411,7 +410,7 @@ public abstract class RDFRendererBase {
             @Override
             public void visit(OWLClass cls) {
                 add(axioms, ontology.axioms(cls).filter(this::threewayDisjoint));
-                add(axioms, ontology.axioms(AxiomType.HAS_KEY).filter(ax -> ax.getClassExpression().equals(cls)));
+                add(axioms, ontology.axioms(HAS_KEY).filter(ax -> ax.getClassExpression().equals(cls)));
             }
 
             @Override
@@ -441,9 +440,8 @@ public abstract class RDFRendererBase {
             @Override
             public void visit(OWLObjectProperty property) {
                 add(axioms, ontology.axioms(property).filter(this::threewayDisjointObject));
-                ontology.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF)
-                    .filter(ax -> ax.getSuperProperty().equals(property))
-                    .forEach(ax -> axioms.add(ax));
+                add(axioms, ontology.axioms(SUB_PROPERTY_CHAIN_OF)
+                    .filter(ax -> ax.getSuperProperty().equals(property)));
                 OWLObjectInverseOf inverse = df.getOWLObjectInverseOf(property);
                 add(axioms, ontology.axioms(inverse));
             }
@@ -494,10 +492,6 @@ public abstract class RDFRendererBase {
     protected boolean shouldInsertDeclarations() {
         return format == null || format.isAddMissingTypes();
     }
-
-    private AtomicInteger nextBlankNodeId = new AtomicInteger(1);
-    private TObjectIntCustomHashMap<Object> blankNodeMap = new TObjectIntCustomHashMap<>(
-        new IdentityHashingStrategy<>());
 
     protected RDFResourceBlankNode getBlankNodeFor(Object key, boolean isIndividual, boolean needId) {
         int id = blankNodeMap.get(key);

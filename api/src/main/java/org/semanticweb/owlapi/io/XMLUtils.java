@@ -53,13 +53,13 @@ public final class XMLUtils {
      */
     public static boolean isXMLNameStartCharacter(int codePoint) {
         return codePoint == ':' || codePoint >= 'A' && codePoint <= 'Z' || codePoint == '_'
-                || codePoint >= 'a' && codePoint <= 'z' || codePoint >= 0xC0 && codePoint <= 0xD6
-                || codePoint >= 0xD8 && codePoint <= 0xF6 || codePoint >= 0xF8 && codePoint <= 0x2FF
-                || codePoint >= 0x370 && codePoint <= 0x37D || codePoint >= 0x37F && codePoint <= 0x1FFF
-                || codePoint >= 0x200C && codePoint <= 0x200D || codePoint >= 0x2070 && codePoint <= 0x218F
-                || codePoint >= 0x2C00 && codePoint <= 0x2FEF || codePoint >= 0x3001 && codePoint <= 0xD7FF
-                || codePoint >= 0xF900 && codePoint <= 0xFDCF || codePoint >= 0xFDF0 && codePoint <= 0xFFFD
-                || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
+            || codePoint >= 'a' && codePoint <= 'z' || codePoint >= 0xC0 && codePoint <= 0xD6
+            || codePoint >= 0xD8 && codePoint <= 0xF6 || codePoint >= 0xF8 && codePoint <= 0x2FF
+            || codePoint >= 0x370 && codePoint <= 0x37D || codePoint >= 0x37F && codePoint <= 0x1FFF
+            || codePoint >= 0x200C && codePoint <= 0x200D || codePoint >= 0x2070 && codePoint <= 0x218F
+            || codePoint >= 0x2C00 && codePoint <= 0x2FEF || codePoint >= 0x3001 && codePoint <= 0xD7FF
+            || codePoint >= 0xF900 && codePoint <= 0xFDCF || codePoint >= 0xFDF0 && codePoint <= 0xFFFD
+            || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
     }
 
     /**
@@ -74,8 +74,8 @@ public final class XMLUtils {
      */
     public static boolean isXMLNameChar(int codePoint) {
         return isXMLNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.'
-                || codePoint >= '0' && codePoint <= '9' || codePoint == 0xB7
-                || codePoint >= 0x0300 && codePoint <= 0x036F || codePoint >= 0x203F && codePoint <= 0x2040;
+            || codePoint >= '0' && codePoint <= '9' || codePoint == 0xB7
+            || codePoint >= 0x0300 && codePoint <= 0x036F || codePoint >= 0x203F && codePoint <= 0x2040;
     }
 
     /**
@@ -231,7 +231,8 @@ public final class XMLUtils {
      *         {@code s} that is an NCName, or {@code null} if the character
      *         sequence {@code s} does not have a suffix that is an NCName.
      */
-    public static @Nullable String getNCNameSuffix(CharSequence s) {
+    @Nullable
+    public static String getNCNameSuffix(CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return null;
         }

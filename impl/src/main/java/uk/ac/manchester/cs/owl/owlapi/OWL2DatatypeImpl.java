@@ -33,6 +33,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWL2DatatypeImpl implements OWLDatatype {
 
+    @Nonnull private final OWL2Datatype owl2Datatype;
+
     /**
      * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
      * specified {@link OWL2Datatype}.
@@ -45,8 +47,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     public OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
     }
-
-    private final @Nonnull OWL2Datatype owl2Datatype;
 
     @Override
     public int typeIndex() {

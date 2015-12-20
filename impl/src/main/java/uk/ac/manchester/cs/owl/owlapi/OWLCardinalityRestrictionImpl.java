@@ -28,10 +28,10 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  *        filler type
  */
 public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends OWLRestrictionImpl
-        implements OWLCardinalityRestriction<F> {
+    implements OWLCardinalityRestriction<F> {
 
     private final int cardinality;
-    private final @Nonnull F filler;
+    @Nonnull private final F filler;
 
     protected OWLCardinalityRestrictionImpl(int cardinality, F filler) {
         this.cardinality = cardinality;

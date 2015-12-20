@@ -45,7 +45,7 @@ import org.xml.sax.helpers.LocatorImpl;
 public class RDFParser extends DefaultHandler implements IRIProvider {
 
     private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
-    protected static final @Nonnull Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
+    @Nonnull protected static final Locator NULLDOCUMENTLOCATOR = new LocatorImpl();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
     protected final Map<String, IRI> uriCache = new HashMap<>();
     /** Registered error handler. */
@@ -68,7 +68,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** IRI of the document being parsed. */
     protected IRI baseIRI;
     /** The stack of languages. */
-    protected final @Nonnull LinkedList<String> languages = new LinkedList<>();
+    @Nonnull protected final LinkedList<String> languages = new LinkedList<>();
     /** The current language. */
     protected String language;
     /** Consumer receiving notifications about parsing events. */
@@ -110,7 +110,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         try {
             if (systemID == null) {
                 throw new SAXException(
-                        "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
+                    "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             }
             baseIRI = IRI.create(new URI(source.getSystemId()));
             consumer = inputConsumer;
@@ -124,14 +124,14 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
                 @Override
                 public void externalEntityDecl(@Nullable String name, @Nullable String publicId,
-                        @Nullable String systemId) {}
+                    @Nullable String systemId) {}
 
                 @Override
                 public void elementDecl(@Nullable String name, @Nullable String model) {}
 
                 @Override
                 public void attributeDecl(@Nullable String eName, @Nullable String aName, @Nullable String type,
-                        @Nullable String mode, @Nullable String value) {}
+                    @Nullable String mode, @Nullable String value) {}
             };
             SAXParsers.initParserWithOWLAPIStandards(handler).parse(source, this);
             inputConsumer.endModel();
@@ -187,7 +187,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     @Override
     public void startElement(@Nullable String uri, @Nullable String localName, @Nullable String qName,
-            @Nullable Attributes attributes) throws SAXException {
+        @Nullable Attributes attributes) throws SAXException {
         if (localName == null || attributes == null || uri == null || qName == null) {
             // this should never happen, but DefaultHandler does not specify
             // these parameters as Nonnull
@@ -200,7 +200,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     @Override
     public void endElement(@Nullable String uri, @Nullable String localName, @Nullable String qName)
-            throws SAXException {
+        throws SAXException {
         state.endElement(checkNotNull(uri), checkNotNull(localName), checkNotNull(qName));
         baseIRI = baseIRIs.remove(0);
         language = languages.remove(0);
@@ -283,7 +283,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, String.format(WRONGRESOLVE, value, getBaseIRI(), e.getMessage()),
-                        getDocumentLocator());
+                    getDocumentLocator());
             }
         }
     }
@@ -338,7 +338,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 return u;
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, String.format(WRONGRESOLVE, uri, getBaseIRI(), e.getMessage()),
-                        getDocumentLocator());
+                    getDocumentLocator());
             }
         }
     }
@@ -357,7 +357,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *        the reified statement
      */
     public void statementWithResourceValue(String subject, String predicate, String object,
-            @Nullable String reificationID) {
+        @Nullable String reificationID) {
         String remappedSubject = consumer.remapOnlyIfRemapped(subject);
         consumer.statementWithResourceValue(remappedSubject, predicate, object);
         if (reificationID != null) {
@@ -384,7 +384,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *        the reified statement
      */
     public void statementWithLiteralValue(String subject, String predicate, String object, @Nullable String dataType,
-            @Nullable String reificationID) {
+        @Nullable String reificationID) {
         consumer.statementWithLiteralValue(subject, predicate, object, language, dataType);
         if (reificationID != null) {
             consumer.statementWithResourceValue(reificationID, RDF_TYPE, RDF_STATEMENT);

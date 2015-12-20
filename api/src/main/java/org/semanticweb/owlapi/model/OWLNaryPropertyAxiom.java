@@ -29,6 +29,7 @@ public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends O
 
     /**
      * @return all of the properties that appear in this axiom
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<P> getProperties() {

@@ -48,6 +48,12 @@ public class TurtleRenderer extends RDFRendererBase {
     private final String base;
     private final OWLDocumentFormat format;
 
+    int bufferLength = 0;
+    int lastNewLineIndex = 0;
+    @Nonnull protected final Stack<Integer> tabs = new Stack<>();
+
+    int level = 0;
+
     /**
      * @param ontology
      *        ontology
@@ -88,10 +94,6 @@ public class TurtleRenderer extends RDFRendererBase {
             writeNewLine();
         });
     }
-
-    int bufferLength = 0;
-    int lastNewLineIndex = 0;
-    protected @Nonnull final Stack<Integer> tabs = new Stack<>();
 
     protected void pushTab() {
         tabs.push(getIndent());
@@ -202,8 +204,8 @@ public class TurtleRenderer extends RDFRendererBase {
                     write("@");
                     write(node.getLang());
                 } else {
-	                write("^^");
-	                write(node.getDatatype());
+                    write("^^");
+                    write(node.getDatatype());
                 }
             }
         } else {
@@ -345,8 +347,6 @@ public class TurtleRenderer extends RDFRendererBase {
         writeNewLine();
         writeNewLine();
     }
-
-    int level = 0;
 
     @Override
     public void render(RDFResource node) {

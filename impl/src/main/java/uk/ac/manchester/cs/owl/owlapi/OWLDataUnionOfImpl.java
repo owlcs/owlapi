@@ -31,11 +31,6 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
 
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 5;
-    }
-
     /**
      * @param operands
      *        operands
@@ -50,6 +45,11 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
      */
     public OWLDataUnionOfImpl(Stream<? extends OWLDataRange> operands) {
         super(operands);
+    }
+
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 5;
     }
 
     @Override

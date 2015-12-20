@@ -23,9 +23,9 @@ import javax.annotation.Nonnull;
  */
 public class SimpleConfiguration implements OWLReasonerConfiguration {
 
-    private @Nonnull ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
-    private @Nonnull FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
-    private @Nonnull IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
+    @Nonnull private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
+    @Nonnull private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
+    @Nonnull private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
     private long timeOut = Long.MAX_VALUE;
 
     /** Default constructor. */
@@ -61,7 +61,7 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
      *        the policy for individual nodes
      */
     public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, FreshEntityPolicy freshEntityPolicy,
-            long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
+        long timeOut, IndividualNodeSetPolicy individualNodeSetPolicy) {
         this.progressMonitor = progressMonitor;
         this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;

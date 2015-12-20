@@ -23,6 +23,8 @@ import java.io.PrintWriter;
  */
 public class XMLWriterFactory {
 
+    private XMLWriterFactory() {}
+
     /**
      * Creates an XMLWriter.
      * 
@@ -35,7 +37,7 @@ public class XMLWriterFactory {
      * @return xml writer
      */
     public static XMLWriter createXMLWriter(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
-            String xmlBase) {
+        String xmlBase) {
         return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase, XMLWriterPreferences.getInstance().copy());
     }
 }

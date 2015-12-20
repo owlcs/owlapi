@@ -40,7 +40,7 @@ public class GCICount extends AxiomCountMetric {
     }
 
     @Override
-    protected Stream<? extends OWLAxiom> getObjects(OWLOntology ont) {
-        return ont.generalClassAxioms();
+    protected Stream<OWLAxiom> getObjects(OWLOntology ont) {
+        return ont.generalClassAxioms().map(x -> x);
     }
 }

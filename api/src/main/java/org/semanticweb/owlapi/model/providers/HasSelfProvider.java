@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 /**
  * Object hasself provider.
  */
+@FunctionalInterface
 public interface HasSelfProvider {
 
     /**

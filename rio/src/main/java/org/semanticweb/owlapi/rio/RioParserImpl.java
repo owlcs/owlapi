@@ -79,7 +79,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();
     protected static final Logger LOGGER = LoggerFactory.getLogger(RioParserImpl.class);
-    private final @Nonnull RioRDFDocumentFormatFactory owlFormatFactory;
+    @Nonnull private final RioRDFDocumentFormatFactory owlFormatFactory;
 
     /**
      * @param nextFormat
@@ -165,7 +165,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      */
     protected void parseDocumentSource(final OWLOntologyDocumentSource source, final String baseUri,
         final RDFHandler handler, OWLOntologyLoaderConfiguration config)
-            throws OWLOntologyInputSourceException, IOException, RDFParseException, RDFHandlerException {
+            throws OWLOntologyInputSourceException, IOException {
         final RDFParser createParser = Rio.createParser(owlFormatFactory.getRioFormat());
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
         createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
@@ -185,7 +185,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             try {
                 createParser.parse(DocumentSources.wrapInput(source, config), baseUri);
             } catch (OWLOntologyInputSourceException e) {
-                throw new OWLParserException(e.getMessage());
+                throw new OWLParserException(e.getMessage(), e);
             }
         } finally {
             if (LOGGER.isDebugEnabled()) {

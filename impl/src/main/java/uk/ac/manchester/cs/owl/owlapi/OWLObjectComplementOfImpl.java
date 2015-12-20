@@ -29,12 +29,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
  */
 public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectComplementOf {
 
-    private final @Nonnull OWLClassExpression operand;
-
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 3;
-    }
+    @Nonnull private final OWLClassExpression operand;
 
     /**
      * @param operand
@@ -42,6 +37,11 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
      */
     public OWLObjectComplementOfImpl(OWLClassExpression operand) {
         this.operand = checkNotNull(operand, "operand cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 3;
     }
 
     @Override

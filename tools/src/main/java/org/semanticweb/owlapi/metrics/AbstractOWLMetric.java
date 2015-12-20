@@ -137,7 +137,9 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements OWLMe
     protected abstract boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes);
 
     /** Dispose metric. */
-    protected abstract void disposeMetric();
+    protected void disposeMetric() {
+        // nothing to dispose of
+    }
 
     @Override
     public String toString() {

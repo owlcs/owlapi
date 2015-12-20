@@ -42,23 +42,23 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImplNoCache;
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     private static final OWLDataFactory DF = new OWLDataFactoryImpl(new OWLDataFactoryInternalsImplNoCache(false));
-    protected static final @Nonnull OWLClass TOP_CLASS = DF.getOWLThing();
-    protected static final @Nonnull OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
-    protected static final @Nonnull OWLClass BOTTOM_CLASS = DF.getOWLNothing();
-    protected static final @Nonnull OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
-    protected static final @Nonnull OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
-    protected static final @Nonnull OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
-    protected static final @Nonnull OWLDataProperty BOTTOM_DATA_PROPERTY = DF.getOWLBottomDataProperty();
-    protected static final @Nonnull OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(
-            BOTTOM_DATA_PROPERTY);
-    protected static final @Nonnull OWLDatatype TOP_DATATYPE = DF.getTopDatatype();
-    protected static final @Nonnull OWLObjectProperty TOP_OBJECT_PROPERTY = DF.getOWLTopObjectProperty();
-    protected static final @Nonnull OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(
-            TOP_OBJECT_PROPERTY);
-    protected static final @Nonnull OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF.getOWLBottomObjectProperty();
-    protected static final @Nonnull OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
-            BOTTOM_OBJECT_PROPERTY);
-    private final @Nonnull Set<E> entities = new HashSet<>(4);
+    @Nonnull protected static final OWLClass TOP_CLASS = DF.getOWLThing();
+    @Nonnull protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
+    @Nonnull protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
+    @Nonnull protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
+    @Nonnull protected static final OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
+    @Nonnull protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(TOP_DATA_PROPERTY);
+    @Nonnull protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF.getOWLBottomDataProperty();
+    @Nonnull protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(
+        BOTTOM_DATA_PROPERTY);
+    @Nonnull protected static final OWLDatatype TOP_DATATYPE = DF.getTopDatatype();
+    @Nonnull protected static final OWLObjectProperty TOP_OBJECT_PROPERTY = DF.getOWLTopObjectProperty();
+    @Nonnull protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(
+        TOP_OBJECT_PROPERTY);
+    @Nonnull protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF.getOWLBottomObjectProperty();
+    @Nonnull protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
+        BOTTOM_OBJECT_PROPERTY);
+    @Nonnull private final Set<E> entities = new HashSet<>(4);
 
     /**
      * @param entity
@@ -190,8 +190,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         if (!(obj instanceof Node)) {
             return false;
         }
-        @SuppressWarnings("unchecked")
-        Node<E> other = (Node<E>) obj;
+        @SuppressWarnings("unchecked") Node<E> other = (Node<E>) obj;
         return entities.equals(asSet(other.entities()));
     }
 

@@ -20,6 +20,7 @@ import java.util.List;
  *         Informatics Group
  * @since 2.0.0
  */
+@FunctionalInterface
 public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
 
     /**
@@ -33,5 +34,5 @@ public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
      *         for any exception raised
      */
     void broadcastChanges(OWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes)
-            throws OWLException;
+        throws OWLException;
 }

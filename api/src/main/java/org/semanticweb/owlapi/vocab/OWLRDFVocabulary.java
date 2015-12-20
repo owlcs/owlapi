@@ -163,10 +163,21 @@ public enum OWLRDFVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
     /** Deprecated vocabulary: here for backwards compatibility http://www.w3.org/2002/07/owl#propertyChain.                    */      OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain");
     
     //@formatter:on
-    final @Nonnull IRI iri;
-    final @Nonnull Namespaces namespace;
-    final @Nonnull String shortName;
-    private final @Nonnull String prefixedName;
+    @Nonnull final IRI iri;
+    @Nonnull final Namespaces namespace;
+    @Nonnull final String shortName;
+    @Nonnull private final String prefixedName;
+
+    /** Set of all IRIs for this enum values. */
+    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = asSet(Stream.of(values()).map(i -> i.getIRI()));
+
+    /**
+     * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
+     * seeAlso , isDefinedBy , incompatibleWith , deprecated.
+     */
+    public static final Set<IRI> BUILT_IN_AP_IRIS = asSet(
+        Stream.of(RDFS_LABEL, RDFS_COMMENT, OWL_VERSION_INFO, OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION,
+            RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED).map(i -> i.getIRI()));
 
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
         this.namespace = namespace;
@@ -196,16 +207,6 @@ public enum OWLRDFVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
     public String getShortForm() {
         return shortName;
     }
-
-    /** Set of all IRIs for this enum values. */
-    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = asSet(Stream.of(values()).map(i -> i.getIRI()));
-    /**
-     * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
-     * seeAlso , isDefinedBy , incompatibleWith , deprecated.
-     */
-    public static final Set<IRI> BUILT_IN_AP_IRIS = asSet(
-            Stream.of(RDFS_LABEL, RDFS_COMMENT, OWL_VERSION_INFO, OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION,
-                    RDFS_SEE_ALSO, RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED).map(i -> i.getIRI()));
 
     @Override
     public String toString() {

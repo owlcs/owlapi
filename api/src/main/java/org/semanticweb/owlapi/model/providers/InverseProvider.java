@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 /**
  * Inverse object provider.
  */
+@FunctionalInterface
 public interface InverseProvider {
 
     /**
@@ -27,5 +28,5 @@ public interface InverseProvider {
      *        The property of which the inverse will be returned
      * @return The inverse of the specified object property
      */
-        OWLObjectInverseOf getOWLObjectInverseOf(OWLObjectProperty property);
+    OWLObjectInverseOf getOWLObjectInverseOf(OWLObjectProperty property);
 }

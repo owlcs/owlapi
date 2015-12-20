@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  *         Informatics Group
  * @since 2.2.0
  */
+@FunctionalInterface
 public interface ExplanationOrderer {
 
     /**

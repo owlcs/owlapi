@@ -82,8 +82,8 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
 
     private class FillerCollector implements OWLClassExpressionVisitor {
 
-        final @Nonnull List<OWLClassExpression> fillers = new ArrayList<>();
-        final @Nonnull OWLObjectPropertyExpression property;
+        @Nonnull final List<OWLClassExpression> fillers = new ArrayList<>();
+        @Nonnull final OWLObjectPropertyExpression property;
 
         /**
          * @param p

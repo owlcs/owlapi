@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.NodeID;
 /** Anonymous node implementation. */
 public class RDFResourceBlankNode extends RDFResource implements org.apache.commons.rdf.api.BlankNode {
 
-    private final @Nonnull IRI resource;
+    @Nonnull private final IRI resource;
     private final boolean isIndividual;
     private final boolean forceIdOutput;
     /**

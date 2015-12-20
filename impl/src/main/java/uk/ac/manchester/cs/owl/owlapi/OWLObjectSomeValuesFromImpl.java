@@ -26,11 +26,6 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
  */
 public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedObjectRestrictionImpl implements OWLObjectSomeValuesFrom {
 
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 5;
-    }
-
     /**
      * @param property
      *        property
@@ -39,6 +34,11 @@ public class OWLObjectSomeValuesFromImpl extends OWLQuantifiedObjectRestrictionI
      */
     public OWLObjectSomeValuesFromImpl(OWLObjectPropertyExpression property, OWLClassExpression filler) {
         super(property, filler);
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 5;
     }
 
     @Override

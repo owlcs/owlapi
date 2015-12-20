@@ -180,9 +180,6 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
         return consumer.getIRIFromOBOId(id);
     }
 
-    // public IRI getIRIFromSymbolicId(String symbolicId) {
-    // return consumer.getIRIFromSymbolicId(symbolicId);
-    // }
     /**
      * Gets an {@link OWLAnnotation} for a tag value pair.
      * 
@@ -236,8 +233,7 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
             return getDataFactory().getOWLClass(getIRIFromOBOId(strings[0]));
         }
         String id0 = strings[0];
-        String id1 = null;
-        id1 = strings[1];
+        String id1 = strings[1];
         IRI propertyIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(id0);
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propertyIRI);
         OWLClass filler = getDataFactory().getOWLClass(getIRIFromOBOId(id1));

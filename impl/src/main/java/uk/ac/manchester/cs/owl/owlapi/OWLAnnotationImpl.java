@@ -32,12 +32,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationValue;
  */
 public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
 
-    private final @Nonnull List<OWLAnnotation> anns;
-
-    @Override
-    public int typeIndex() {
-        return ANNOTATION_TYPE_INDEX_BASE + 1;
-    }
+    @Nonnull private final List<OWLAnnotation> anns;
 
     /**
      * @param property
@@ -52,6 +47,11 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
         super(property, value);
         checkNotNull(annotations, "annotations cannot be null");
         anns = sortOptionally(annotations.distinct());
+    }
+
+    @Override
+    public int typeIndex() {
+        return ANNOTATION_TYPE_INDEX_BASE + 1;
     }
 
     @Override

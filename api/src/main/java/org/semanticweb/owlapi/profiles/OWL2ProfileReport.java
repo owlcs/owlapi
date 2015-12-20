@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class OWL2ProfileReport extends OWLProfileReport {
 
-    private final @Nonnull Set<OWLObjectPropertyExpression> nonSimpleRoles;
+    @Nonnull private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
     private final Set<OWLObjectPropertyExpression> simpleRoles;
 
     /**

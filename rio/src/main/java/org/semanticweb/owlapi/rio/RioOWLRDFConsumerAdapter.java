@@ -98,7 +98,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
     }
 
     @Override
-    public void handleStatement(final @Nullable Statement st) {
+    public void handleStatement(@Nullable final Statement st) {
         checkNotNull(st);
         assert st != null;
         String subjectString;

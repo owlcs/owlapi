@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
  */
 public class ShortFormEntityChecker implements OWLEntityChecker {
 
-    private final @Nonnull BidirectionalShortFormProvider shortFormProvider;
+    @Nonnull private final BidirectionalShortFormProvider shortFormProvider;
 
     /**
      * Creates a short form entity checker, which uses the specified
@@ -49,36 +49,43 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
     @Override
-    public @Nullable OWLClass getOWLClass(String name) {
+    @Nullable
+    public OWLClass getOWLClass(String name) {
         return find(name, OWLEntity::isOWLClass, OWLEntity::asOWLClass);
     }
 
     @Override
-    public @Nullable OWLDataProperty getOWLDataProperty(String name) {
+    @Nullable
+    public OWLDataProperty getOWLDataProperty(String name) {
         return find(name, OWLEntity::isOWLDataProperty, OWLEntity::asOWLDataProperty);
     }
 
     @Override
-    public @Nullable OWLDatatype getOWLDatatype(String name) {
+    @Nullable
+    public OWLDatatype getOWLDatatype(String name) {
         return find(name, OWLEntity::isOWLDatatype, OWLEntity::asOWLDatatype);
     }
 
     @Override
-    public @Nullable OWLNamedIndividual getOWLIndividual(String name) {
+    @Nullable
+    public OWLNamedIndividual getOWLIndividual(String name) {
         return find(name, OWLEntity::isOWLNamedIndividual, OWLEntity::asOWLNamedIndividual);
     }
 
     @Override
-    public @Nullable OWLObjectProperty getOWLObjectProperty(String name) {
+    @Nullable
+    public OWLObjectProperty getOWLObjectProperty(String name) {
         return find(name, OWLEntity::isOWLObjectProperty, OWLEntity::asOWLObjectProperty);
     }
 
     @Override
-    public @Nullable OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+    @Nullable
+    public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
         return find(name, OWLEntity::isOWLAnnotationProperty, OWLEntity::asOWLAnnotationProperty);
     }
 
-    protected @Nullable <T extends OWLEntity> T find(String name, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
+    @Nullable
+    protected <T extends OWLEntity> T find(String name, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
         checkNotNull(name, "name cannot be null");
         Optional<OWLEntity> findFirst = shortFormProvider.entities(name).filter(p).findFirst();
         if (findFirst.isPresent()) {

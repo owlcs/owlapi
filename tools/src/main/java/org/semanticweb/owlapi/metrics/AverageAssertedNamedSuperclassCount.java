@@ -54,12 +54,11 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         Set<OWLClass> processedClasses = new HashSet<>();
         for (OWLOntology ont : asList(getOntologies())) {
             for (OWLClass cls : asList(ont.classesInSignature())) {
-                if (!processedClasses.contains(cls)) {
+                if (processedClasses.add(cls)) {
                     count++;
                     int prevTotal = total;
-                    processedClasses.add(cls);
                     for (OWLClassExpression desc : asList(
-                            sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class))) {
+                        sup(ont.subClassAxiomsForSubClass(cls), OWLClassExpression.class))) {
                         if (!desc.isAnonymous()) {
                             total++;
                         }
@@ -82,7 +81,4 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         }
         return false;
     }
-
-    @Override
-    protected void disposeMetric() {}
 }

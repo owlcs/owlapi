@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 public class Clause {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Clause.class);
-    protected @Nullable String tag;
-    protected @Nonnull List<Object> values = new ArrayList<>();
-    protected @Nonnull Collection<Xref> xrefs = new ArrayList<>();
-    protected @Nonnull Collection<QualifierValue> qualifierValues = new ArrayList<>();
+    @Nullable protected String tag;
+    @Nonnull protected List<Object> values = new ArrayList<>();
+    @Nonnull protected Collection<Xref> xrefs = new ArrayList<>();
+    @Nonnull protected Collection<QualifierValue> qualifierValues = new ArrayList<>();
 
     /**
      * @param tag
@@ -59,6 +59,15 @@ public class Clause {
     }
 
     /**
+     * Default constructor.
+     * 
+     * @deprecated use Clause(String). Using this constructor makes the hashcode
+     *             variable.
+     */
+    @Deprecated
+    public Clause() {}
+
+    /**
      * @param value
      *        value to set
      * @return modified clause
@@ -67,15 +76,6 @@ public class Clause {
         setValue(value);
         return this;
     }
-
-    /**
-     * Default constructor.
-     * 
-     * @deprecated use Clause(String). Using this constructor makes the hashcode
-     *             variable.
-     */
-    @Deprecated
-    public Clause() {}
 
     /**
      * freezing a clause signals that the clause has become quiescent, and that
@@ -144,7 +144,8 @@ public class Clause {
     /**
      * @return tag
      */
-    public @Nullable String getTag() {
+    @Nullable
+    public String getTag() {
         return tag;
     }
 
@@ -217,7 +218,7 @@ public class Clause {
      * @throws FrameStructureException
      *         if there is no value
      */
-    public Object getValue() throws FrameStructureException {
+    public Object getValue() {
         Object value = null;
         if (!values.isEmpty()) {
             value = values.get(0);
@@ -247,7 +248,7 @@ public class Clause {
      * @throws FrameStructureException
      *         if there is no value
      */
-    public Object getValue2() throws FrameStructureException {
+    public Object getValue2() {
         Object value = null;
         if (values.size() > 1) {
             value = values.get(1);
@@ -456,12 +457,18 @@ public class Clause {
         if (!collectionsEquals(xrefs, other.getXrefs())) {
             return false;
         }
-        /*
-         * if (xrefs != null) { if (other.getXrefs() == null) return false; if
-         * (!xrefs.equals(other.getXrefs())) return false; } else { if
-         * (other.getXrefs() != null && other.getXrefs().size() > 0) { return
-         * false; } }
-         */
+        // if (xrefs != null) {
+        // if (other.getXrefs() == null) {
+        // return false;
+        // }
+        // if (!xrefs.equals(other.getXrefs())) {
+        // return false;
+        // }
+        // } else {
+        // if (other.getXrefs() != null && other.getXrefs().size() > 0) {
+        // return false;
+        // }
+        // }
         return collectionsEquals(qualifierValues, other.getQualifierValues());
     }
 
@@ -469,19 +476,17 @@ public class Clause {
         try {
             Object v1 = getValue();
             Object v2 = other.getValue();
-            if (v1 != v2) {
-                if (!v1.equals(v2)) {
-                    if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
-                        // special case - OK
-                    } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
-                        // special case - OK
-                    } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
-                        // special case - OK
-                    } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
-                        // special case - OK
-                    } else {
-                        return false;
-                    }
+            if (v1 != v2 && !v1.equals(v2)) {
+                if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
+                    // special case - OK
+                } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
+                    // special case - OK
+                } else if (Boolean.FALSE.equals(v1) && "false".equals(v2)) {
+                    // special case - OK
+                } else if (Boolean.FALSE.equals(v2) && "false".equals(v1)) {
+                    // special case - OK
+                } else {
+                    return false;
                 }
             }
         } catch (FrameStructureException e) {

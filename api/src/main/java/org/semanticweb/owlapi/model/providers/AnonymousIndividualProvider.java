@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
  *         Research Group
  * @since 5.0.0
  */
+@FunctionalInterface
 public interface AnonymousIndividualProvider extends Serializable {
 
     /**

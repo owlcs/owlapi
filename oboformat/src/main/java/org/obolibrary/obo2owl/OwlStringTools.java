@@ -24,6 +24,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OwlStringTools {
 
+    private OwlStringTools() {}
+
     /**
      * Exception indicating an un-recoverable error during the handling of axiom
      * strings.
@@ -48,12 +50,9 @@ public class OwlStringTools {
      * @param translationManager
      *        translationManager
      * @return string or null
-     * @throws OwlStringException
-     *         OwlStringException
      * @see #translate(String, OWLOntologyManager)
      */
-    public static String translate(Set<OWLAxiom> axioms, OWLOntologyManager translationManager)
-            throws OwlStringException {
+    public static String translate(Set<OWLAxiom> axioms, OWLOntologyManager translationManager) {
         if (axioms.isEmpty()) {
             return "";
         }

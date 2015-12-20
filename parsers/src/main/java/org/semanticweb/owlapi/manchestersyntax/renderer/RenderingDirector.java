@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Management Group
  * @since 3.1.0
  */
+@FunctionalInterface
 public interface RenderingDirector {
 
     /**
@@ -30,5 +31,5 @@ public interface RenderingDirector {
      * @return false
      */
     boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword,
-            OWLOntology... ontologies);
+        OWLOntology... ontologies);
 }

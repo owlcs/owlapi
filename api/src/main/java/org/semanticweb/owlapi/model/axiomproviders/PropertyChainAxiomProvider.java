@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 /**
  * Annotation, datatype and object property range provider.
  */
+@FunctionalInterface
 public interface PropertyChainAxiomProvider {
 
     /**
@@ -33,7 +34,7 @@ public interface PropertyChainAxiomProvider {
      * @return a subproperty chain axiom
      */
     default OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(List<? extends OWLObjectPropertyExpression> chain,
-            OWLObjectPropertyExpression superProperty) {
+        OWLObjectPropertyExpression superProperty) {
         return getOWLSubPropertyChainOfAxiom(chain, superProperty, Collections.emptySet());
     }
 
@@ -47,5 +48,5 @@ public interface PropertyChainAxiomProvider {
      * @return a subproperty chain axiom
      */
     OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(List<? extends OWLObjectPropertyExpression> chain,
-            OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations);
+        OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations);
 }

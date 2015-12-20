@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
  */
 public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private final @Nonnull Optional<Writer> writer;
+    @Nonnull private final Optional<Writer> writer;
 
     /**
      * @param writer

@@ -16,6 +16,11 @@ class CustomTokenizer implements TokenManager {
     private boolean eofSeen = false;
     private final StringBuilder buf = new StringBuilder();
 
+    private int lineNo = 1;
+    private int colNo = 0;
+    private int startLine = -1;
+    private int startCol = -1;
+
     public CustomTokenizer(Reader reader) {
         in = reader;
     }
@@ -63,7 +68,9 @@ class CustomTokenizer implements TokenManager {
     }
 
     private void skipComment() throws IOException {
-        for (char c = readChar(); c != '\n'; c = readChar()) {}
+        for (char c = readChar(); c != '\n'; c = readChar()) {
+            // skip until end of line
+        }
     }
 
     private Token readStringLiteralToken() throws IOException {
@@ -381,11 +388,6 @@ class CustomTokenizer implements TokenManager {
             }
         }
     }
-
-    private int lineNo = 1;
-    private int colNo = 0;
-    private int startLine = -1;
-    private int startCol = -1;
 
     private Token makeToken(int kind, String image) {
         Token result = new Token(kind, image);

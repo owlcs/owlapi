@@ -61,7 +61,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     /** CLASS_EXPRESSION_TYPE_INDEX_BASE. */ protected static final int CLASS_EXPRESSION_TYPE_INDEX_BASE    = 3000;
     //@formatter:on
     /** a convenience reference for an empty annotation set, saves on typing. */
-    protected static final @Nonnull Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
+    @Nonnull protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
     protected int hashCode = 0;
     protected static LoadingCache<OWLObjectImpl, Set<OWLEntity>> signatures = Caffeine.newBuilder()
         .weakKeys().softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));

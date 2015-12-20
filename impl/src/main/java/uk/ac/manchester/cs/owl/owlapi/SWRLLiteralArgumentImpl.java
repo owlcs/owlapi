@@ -28,12 +28,7 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
  */
 public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLiteralArgument {
 
-    private final @Nonnull OWLLiteral literal;
-
-    @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 8;
-    }
+    @Nonnull private final OWLLiteral literal;
 
     /**
      * @param literal
@@ -41,6 +36,11 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
      */
     public SWRLLiteralArgumentImpl(OWLLiteral literal) {
         this.literal = checkNotNull(literal, "literal cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 8;
     }
 
     @Override

@@ -26,12 +26,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLNamedIndividual {
 
-    private final @Nonnull IRI iri;
-
-    @Override
-    public int typeIndex() {
-        return INDIVIDUAL;
-    }
+    @Nonnull private final IRI iri;
 
     /**
      * @param iri
@@ -39,6 +34,11 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
      */
     public OWLNamedIndividualImpl(IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return INDIVIDUAL;
     }
 
     @Override

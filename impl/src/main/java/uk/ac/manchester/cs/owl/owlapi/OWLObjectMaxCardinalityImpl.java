@@ -27,11 +27,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class OWLObjectMaxCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
     implements OWLObjectMaxCardinality {
 
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 10;
-    }
-
     /**
      * @param property
      *        property
@@ -43,6 +38,11 @@ public class OWLObjectMaxCardinalityImpl extends OWLObjectCardinalityRestriction
     public OWLObjectMaxCardinalityImpl(OWLObjectPropertyExpression property, int cardinality,
         OWLClassExpression filler) {
         super(property, cardinality, filler);
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 10;
     }
 
     @Override

@@ -40,7 +40,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOntologyChange {
 
-    private final @Nonnull Collection<OWLOntology> ontologies;
+    @Nonnull private final Collection<OWLOntology> ontologies;
 
     /**
      * Instantiates a new convert property assertions to annotations.
@@ -95,14 +95,20 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
     }
 
     private void convertToAnnotations(OWLNamedIndividual ind) {
-        ontologies.forEach(ont -> {
-            ont.dataPropertyAssertionAxioms(ind).filter(ax -> !ax.getProperty().isAnonymous()).forEach(ax -> {
-                addChange(new RemoveAxiom(ont, ax));
-                addChange(new AddAxiom(ont, convertToAnnotation(ind, ax)));
-                remove(ax.getProperty().asOWLDataProperty());
-            });
-        });
+        ontologies.forEach(ont -> addAnnotations(ind, ont));
         remove(ind);
+    }
+
+    protected void addAnnotations(OWLNamedIndividual ind, OWLOntology ont) {
+        ont.dataPropertyAssertionAxioms(ind)
+            .filter(ax -> !ax.getProperty().isAnonymous())
+            .forEach(ax -> addAnnotation(ind, ont, ax));
+    }
+
+    protected void addAnnotation(OWLNamedIndividual ind, OWLOntology ont, OWLDataPropertyAssertionAxiom ax) {
+        addChange(new RemoveAxiom(ont, ax));
+        addChange(new AddAxiom(ont, convertToAnnotation(ind, ax)));
+        remove(ax.getProperty().asOWLDataProperty());
     }
 
     private OWLAnnotationAssertionAxiom convertToAnnotation(OWLNamedIndividual ind, OWLDataPropertyAssertionAxiom ax) {

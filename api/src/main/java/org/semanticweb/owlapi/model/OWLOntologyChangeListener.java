@@ -19,6 +19,7 @@ import java.util.List;
  *         Informatics Group
  * @since 2.0.0
  */
+@FunctionalInterface
 public interface OWLOntologyChangeListener {
 
     /**
@@ -28,8 +29,6 @@ public interface OWLOntologyChangeListener {
      * @param changes
      *        A list of changes that have occurred. Each change may be examined
      *        to determine which ontology it was applied to.
-     * @throws OWLRuntimeException
-     *         exception
      */
-    void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLRuntimeException;
+    void ontologiesChanged(List<? extends OWLOntologyChange> changes);
 }

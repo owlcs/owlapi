@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
 
     /** Interface for a tableaux node. */
+    @FunctionalInterface
     interface RootNode {
 
         /**

@@ -26,11 +26,6 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  */
 public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl implements OWLDataAllValuesFrom {
 
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 13;
-    }
-
     /**
      * @param property
      *        property
@@ -39,6 +34,11 @@ public class OWLDataAllValuesFromImpl extends OWLQuantifiedDataRestrictionImpl i
      */
     public OWLDataAllValuesFromImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
         super(property, filler);
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 13;
     }
 
     @Override

@@ -80,7 +80,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         Stream<AxiomType<? extends OWLAxiom>> skipDeclarations = AxiomType.AXIOM_TYPES.stream().filter(t -> !t.equals(
             AxiomType.DECLARATION));
         Stream<? extends OWLAxiom> axioms = skipDeclarations.flatMap(t -> ontology.axioms(t));
-        render(CollectionFactory.sortOptionally(axioms));
+        render(CollectionFactory.sortOptionally(axioms).stream());
     }
 
     @Override
@@ -309,7 +309,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(SUB_OBJECT_PROPERTY_OF);
         writeAnnotations(axiom);
         writer.writeStartElement(OBJECT_PROPERTY_CHAIN);
-        render(axiom.getPropertyChain());
+        render(axiom.getPropertyChain().stream());
         writer.writeEndElement();
         axiom.getSuperProperty().accept(this);
         writer.writeEndElement();
@@ -742,7 +742,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(SWRLBuiltInAtom node) {
         writer.writeStartElement(BUILT_IN_ATOM);
         writer.writeIRIAttribute(node.getPredicate());
-        render(node.getArguments());
+        render(node.arguments());
         writer.writeEndElement();
     }
 
@@ -777,11 +777,6 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
         writer.writeEndElement();
-    }
-
-    @Deprecated
-    private void render(Collection<? extends OWLObject> objects) {
-        objects.forEach(a -> a.accept(this));
     }
 
     private void render(Stream<? extends OWLObject> objects) {

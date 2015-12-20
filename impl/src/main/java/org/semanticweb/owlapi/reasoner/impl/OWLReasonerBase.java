@@ -40,13 +40,13 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
  */
 public abstract class OWLReasonerBase implements OWLReasoner {
 
-    private final @Nonnull OWLOntologyManager manager;
-    private final @Nonnull OWLOntology rootOntology;
-    private final @Nonnull BufferingMode bufferingMode;
+    @Nonnull private final OWLOntologyManager manager;
+    @Nonnull private final OWLOntology rootOntology;
+    @Nonnull private final BufferingMode bufferingMode;
     private final List<OWLOntologyChange> rawChanges = new ArrayList<>();
-    private final @Nonnull Set<OWLAxiom> reasonerAxioms;
+    @Nonnull private final Set<OWLAxiom> reasonerAxioms;
     private final long timeOut;
-    private final @Nonnull OWLReasonerConfiguration configuration;
+    @Nonnull private final OWLReasonerConfiguration configuration;
 
     protected OWLReasonerBase(OWLOntology rootOntology, OWLReasonerConfiguration configuration,
         BufferingMode bufferingMode) {
@@ -151,9 +151,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
             return;
         }
         rootOntology.importsClosure().flatMap(o -> o.logicalAxioms())
-            .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(ax -> added.add(ax));
+            .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(added::add);
         rootOntology.importsClosure().flatMap(o -> o.axioms(AxiomType.DECLARATION))
-            .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(ax -> added.add(ax));
+            .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations())).forEach(added::add);
         for (OWLAxiom ax : reasonerAxioms) {
             if (!rootOntology.containsAxiom(ax, Imports.INCLUDED, AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS)) {
                 removed.add(ax);

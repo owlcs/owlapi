@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  */
 public class SetOntologyIDData extends OWLOntologyChangeData {
 
-    private final @Nonnull OWLOntologyID newId;
+    @Nonnull private final OWLOntologyID newId;
 
     /**
      * Constructs a {@code SetOntologyIDData} object that describes an

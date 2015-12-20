@@ -16,7 +16,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyImplementationFactory;
  */
 public class NonConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
-    private transient final OWLOntologyImplementationFactory implementationFactory;
+    private final transient OWLOntologyImplementationFactory implementationFactory;
 
     /**
      * @param implementationFactory

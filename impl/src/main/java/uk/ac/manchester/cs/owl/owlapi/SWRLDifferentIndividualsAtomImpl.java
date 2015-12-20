@@ -29,11 +29,6 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument>
     implements SWRLDifferentIndividualsAtom {
 
-    @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 10;
-    }
-
     /**
      * @param property
      *        property
@@ -45,6 +40,11 @@ public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIAr
     public SWRLDifferentIndividualsAtomImpl(OWLObjectProperty property, SWRLIArgument arg0, SWRLIArgument arg1) {
         super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0, "arg0 cannot be null"),
             checkNotNull(arg1, "arg1 cannot be null"));
+    }
+
+    @Override
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 10;
     }
 
     @Override

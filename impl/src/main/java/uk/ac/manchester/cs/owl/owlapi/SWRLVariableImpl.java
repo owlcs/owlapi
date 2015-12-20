@@ -28,15 +28,15 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
-    private final @Nonnull IRI iri;
+    @Nonnull private final IRI iri;
+
+    protected SWRLVariableImpl(IRI iri) {
+        this.iri = checkNotNull(iri, "iri cannot be null");
+    }
 
     @Override
     public int typeIndex() {
         return RULE_OBJECT_TYPE_INDEX_BASE + 6;
-    }
-
-    protected SWRLVariableImpl(IRI iri) {
-        this.iri = checkNotNull(iri, "iri cannot be null");
     }
 
     @Override

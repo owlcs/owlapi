@@ -17,6 +17,7 @@ package uk.ac.manchester.cs.owl.owlapi;
  * @param <T>
  *        collection type
  */
+@FunctionalInterface
 public interface CollectionContainer<T> {
 
     /**

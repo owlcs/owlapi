@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 public class OWLProfileReport {
 
     private final OWLProfile profile;
-    private final @Nonnull List<OWLProfileViolation> violations;
+    @Nonnull private final List<OWLProfileViolation> violations;
 
     /**
      * @param profile

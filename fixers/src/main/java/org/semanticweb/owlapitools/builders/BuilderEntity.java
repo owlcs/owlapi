@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /** Builder class for OWLEntity. */
 public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
 
-    private @Nullable EntityType<?> entityType = null;
+    @Nullable private EntityType<?> entityType = null;
 
     /**
      * @param df

@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalShortFormProvider {
 
-    private final @Nonnull ShortFormProvider shortFormProvider;
+    @Nonnull private final ShortFormProvider shortFormProvider;
     protected Collection<OWLOntology> ontologies;
     private OWLOntologyManager man;
 
@@ -110,12 +110,16 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
 
                     @Override
                     public void visit(AddAxiom change) {
-                        change.signature().filter(e -> processed.add(e)).forEach(e -> add(e));
+                        change.signature().filter(processed::add)
+                            .forEach(BidirectionalShortFormProviderAdapter.this::add);
                     }
 
                     @Override
                     public void visit(RemoveAxiom change) {
-                        change.signature().filter(e -> processed.add(e) && !stillReferenced(e)).forEach(e -> remove(e));
+                        change.signature()
+                            .filter(processed::add)
+                            .filter(BidirectionalShortFormProviderAdapter.this::noLongerReferenced)
+                            .forEach(BidirectionalShortFormProviderAdapter.this::remove);
                     }
                 };
                 chg.accept(v);
@@ -123,7 +127,7 @@ public class BidirectionalShortFormProviderAdapter extends CachingBidirectionalS
         }
     }
 
-    protected boolean stillReferenced(OWLEntity ent) {
-        return ontologies.stream().anyMatch(ont -> ont.containsEntityInSignature(ent));
+    protected boolean noLongerReferenced(OWLEntity ent) {
+        return ontologies.stream().noneMatch(ont -> ont.containsEntityInSignature(ent));
     }
 }

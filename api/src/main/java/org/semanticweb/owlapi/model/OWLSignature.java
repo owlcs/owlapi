@@ -36,6 +36,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *        if INCLUDED, include imports closure.
      * @return the set of classes in the signature, optionally including the
      *         import closure. The set that is returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClass> getClassesInSignature(Imports imports) {
@@ -63,6 +64,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @return the set of object properties in the signature, optionally
      *         including the import closure. The set that is returned is a copy
      *         of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLObjectProperty> getObjectPropertiesInSignature(Imports includeImportsClosure) {
@@ -92,6 +94,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @return the set of data properties in the signature, optionally including
      *         the import closure. The set that is returned is a copy of the
      *         data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDataProperty> getDataPropertiesInSignature(Imports includeImportsClosure) {
@@ -120,6 +123,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *        if INCLUDED, include imports closure.
      * @return the set of individuals in the signature, optionally including the
      *         import closure. The set that is returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLNamedIndividual> getIndividualsInSignature(Imports includeImportsClosure) {
@@ -146,6 +150,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @param includeImportsClosure
      *        if INCLUDED, include imports closure.
      * @return The set of referenced anonymous individuals
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(Imports includeImportsClosure) {
@@ -168,6 +173,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * Gets the referenced anonymous individuals.
      * 
      * @return The set of referenced anonymous individuals
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
@@ -189,6 +195,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @return the set of datatypes in the signature of this ontology,
      *         optionally including the import closure. The set that is returned
      *         is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDatatype> getDatatypesInSignature(Imports includeImportsClosure) {
@@ -217,6 +224,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      * @return the set of annotation properties in the signature, optionally
      *         including the import closure. The set that is returned is a copy
      *         of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(Imports includeImportsClosure) {
@@ -434,6 +442,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature, HasClassesInSig
      *        if INCLUDED, include imports closure.
      * @return the set of entities with the specified IRI, optionally including
      *         the ones in the import closure.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLEntity> getEntitiesInSignature(IRI iri, Imports includeImportsClosure) {

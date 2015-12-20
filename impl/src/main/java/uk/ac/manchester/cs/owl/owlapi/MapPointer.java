@@ -49,12 +49,14 @@ import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
  */
 public class MapPointer<K, V extends OWLAxiom> {
 
+    private static final AtomicLong totalInUse = new AtomicLong(0);
+    private static final AtomicLong totalAllocated = new AtomicLong(0);
     private static final float DEFAULT_LOAD_FACTOR = 0.75F;
     private static final int DEFAULT_INITIAL_CAPACITY = 5;
-    private final @Nullable AxiomType<?> type;
-    private final @Nullable OWLAxiomVisitorEx<?> visitor;
+    @Nullable private final AxiomType<?> type;
+    @Nullable private final OWLAxiomVisitorEx<?> visitor;
     private boolean initialized;
-    protected final @Nonnull Internals i;
+    @Nonnull protected final Internals i;
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
     private final THashMap<K, Collection<V>> map = new THashMap<>(17, 0.75F);
@@ -281,7 +283,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             Collection<V> collection = map.get(at);
             if (collection != null) {
-                collection.stream().filter(x -> filter.pass(x, key)).forEach(x -> toReturn.add(x));
+                collection.stream().filter(x -> filter.pass(x, key)).forEach(toReturn::add);
             }
         }
         return toReturn;
@@ -503,9 +505,6 @@ public class MapPointer<K, V extends OWLAxiom> {
         return t.stream();
     }
 
-    private static final AtomicLong totalInUse = new AtomicLong(0);
-    private static final AtomicLong totalAllocated = new AtomicLong(0);
-
     /**
      * Trims the capacity of the map entries . An application can use this
      * operation to minimize the storage of the map pointer instance.
@@ -538,16 +537,16 @@ public class MapPointer<K, V extends OWLAxiom> {
         }
     }
 
-    synchronized static void resetCounts() {
+    static synchronized void resetCounts() {
         totalAllocated.set(0);
         totalInUse.set(0);
     }
 
-    synchronized static long getTotalInUse() {
+    static synchronized long getTotalInUse() {
         return totalInUse.get();
     }
 
-    synchronized static long getTotalAllocated() {
+    static synchronized long getTotalAllocated() {
         return totalAllocated.get();
     }
 }

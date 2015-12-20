@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public abstract class AxiomChangeData extends OWLOntologyChangeData {
 
-    private final @Nonnull OWLAxiom axiom;
+    @Nonnull private final OWLAxiom axiom;
 
     /**
      * Constructs an {@code AxiomChangeData} object that describes a change

@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  *         Research Group
  * @since 3.5
  */
+@FunctionalInterface
 public interface HasRemoveAxiom {
 
     /**
@@ -36,5 +37,5 @@ public interface HasRemoveAxiom {
      * @deprecated use {@link OWLOntology#removeAxiom(OWLAxiom)}
      */
     @Deprecated
-    ChangeApplied removeAxiom(OWLOntology ont, OWLAxiom axiom);
+        ChangeApplied removeAxiom(OWLOntology ont, OWLAxiom axiom);
 }

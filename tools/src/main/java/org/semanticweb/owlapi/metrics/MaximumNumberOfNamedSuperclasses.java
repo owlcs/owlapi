@@ -51,13 +51,13 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     public Integer recomputeMetric() {
         AtomicLong count = new AtomicLong();
         Set<OWLClass> processedClasses = new HashSet<>();
-        getOntologies().forEach(o -> o.classesInSignature().filter(c -> processedClasses.add(c)).forEach(cls -> {
+        getOntologies().forEach(o -> o.classesInSignature().filter(processedClasses::add).forEach(cls -> {
             long curCount = equivalent(o.equivalentClassesAxioms(cls), OWLClassExpression.class)
-                    .filter(d -> !d.isAnonymous()).count();
+                .filter(d -> !d.isAnonymous()).count();
             if (curCount > count.get()) {
                 count.set(curCount);
             }
-        } ));
+        }));
         return count.intValue();
     }
 
@@ -70,7 +70,4 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
         }
         return false;
     }
-
-    @Override
-    protected void disposeMetric() {}
 }

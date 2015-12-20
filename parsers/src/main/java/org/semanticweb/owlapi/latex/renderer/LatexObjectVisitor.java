@@ -863,10 +863,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
-        for (SWRLArgument a : node.getAllArguments()) {
+        node.allArguments().forEach(a -> {
             writeSpace();
             a.accept(this);
-        }
+        });
     }
 
     @Override
@@ -876,10 +876,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {
-        for (SWRLArgument a : node.getAllArguments()) {
+        node.allArguments().forEach(a -> {
             writeSpace();
             a.accept(this);
-        }
+        });
     }
 
     @Override

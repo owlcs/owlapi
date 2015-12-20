@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
 
-    private final @Nonnull String literal;
+    @Nonnull private final String literal;
 
     /**
      * @param literal
@@ -117,11 +117,5 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
         return false;
-    }
-
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return super.toString();
     }
 }

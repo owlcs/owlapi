@@ -27,11 +27,6 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument>
     implements SWRLDataPropertyAtom {
 
-    @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 4;
-    }
-
     /**
      * @param predicate
      *        predicate
@@ -42,6 +37,11 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
      */
     public SWRLDataPropertyAtomImpl(OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
         super(predicate, arg0, arg1);
+    }
+
+    @Override
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 4;
     }
 
     @Override

@@ -30,9 +30,9 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl
-        implements OWLObjectPropertyCharacteristicAxiom {
+    implements OWLObjectPropertyCharacteristicAxiom {
 
-    private final @Nonnull OWLObjectPropertyExpression property;
+    @Nonnull private final OWLObjectPropertyExpression property;
 
     /**
      * @param property
@@ -41,7 +41,7 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLProper
      *        annotations
      */
     public OWLObjectPropertyCharacteristicAxiomImpl(OWLObjectPropertyExpression property,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
     }

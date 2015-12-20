@@ -1371,7 +1371,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectUnionOf ce) {
-            isTopEquivalent = ce.operands().anyMatch(c -> isTopEquivalent(c));
+            isTopEquivalent = ce.operands().anyMatch(this::isTopEquivalent);
         }
 
         @Override

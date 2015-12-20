@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.SWRLUnaryAtom;
  */
 public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
-    private final @Nonnull A arg;
+    @Nonnull private final A arg;
 
     /**
      * @param predicate

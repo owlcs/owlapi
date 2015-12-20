@@ -86,6 +86,9 @@ class OBOConsumer implements OBOParserHandler {
     private final IDSpaceManager idSpaceManager = new IDSpaceManager();
     private String ontologyTagValue = "";
     private String dataVersionTagValue = "";
+    private static final Pattern XREF_PATTERN = Pattern.compile("([^\"]*)\\s*(\"((\\\"|[^\"])*)\")?");
+    private static final int XREF_ID_GROUP = 1;
+    private static final int XREF_QUOTED_STRING_GROUP = 3;
 
     public OBOConsumer(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration, IRI baseIRI) {
         this.configuration = configuration;
@@ -483,10 +486,6 @@ class OBOConsumer implements OBOParserHandler {
         uriCache.put(trimmed, freshIRI);
         return freshIRI;
     }
-
-    private static final Pattern XREF_PATTERN = Pattern.compile("([^\"]*)\\s*(\"((\\\"|[^\"])*)\")?");
-    private static final int XREF_ID_GROUP = 1;
-    private static final int XREF_QUOTED_STRING_GROUP = 3;
 
     public OWLAnnotation parseXRef(String xref) {
         Matcher matcher = XREF_PATTERN.matcher(xref);

@@ -56,6 +56,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private int expansionLimit = initialExpansionLimit;
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     private int fastPruningWindowSize = 0;
+    // Creation of debugging ontology and satisfiability testing
+    private int satTestCount = 0;
 
     /**
      * Instantiates a new black box owl debugger.
@@ -122,7 +124,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         reset();
         currentClass = setupDebuggingClass(cls);
         generateSOSAxioms();
-        temporaryAxioms.forEach(ax -> getOWLOntology().remove(ax));
+        getOWLOntology().remove(temporaryAxioms);
         debuggingAxioms.removeAll(temporaryAxioms);
         return new HashSet<>(debuggingAxioms);
     }
@@ -315,9 +317,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             debuggingAxioms.add(ax);
         }
     }
-
-    // Creation of debugging ontology and satisfiability testing
-    private int satTestCount = 0;
 
     protected OWLOntology getDebuggingOntology() {
         return verifyNotNull(debuggingOntology);

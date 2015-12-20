@@ -27,9 +27,9 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
-    private final @Nonnull String literal;
-    private final @Nonnull OWLDatatype datatype;
-    private final @Nonnull String lang;
+    @Nonnull private final String literal;
+    @Nonnull private final OWLDatatype datatype;
+    @Nonnull private final String lang;
 
     /**
      * @param literal

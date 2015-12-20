@@ -37,26 +37,12 @@ import javax.annotation.Nullable;
  */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, IsAnonymous {
 
-    private static final @Nonnull AtomicInteger COUNTER = new AtomicInteger();
-    private static final @Nonnull String ANON_PREFIX = "Anonymous-";
-    private transient @Nonnull Optional<String> internalID = emptyOptional();
-    private transient @Nonnull Optional<IRI> ontologyIRI;
-    private transient @Nonnull Optional<IRI> versionIRI;
+    @Nonnull private static final AtomicInteger COUNTER = new AtomicInteger();
+    @Nonnull private static final String ANON_PREFIX = "Anonymous-";
+    @Nonnull private transient Optional<String> internalID = emptyOptional();
+    @Nonnull private transient Optional<IRI> ontologyIRI;
+    @Nonnull private transient Optional<IRI> versionIRI;
     private int hashCode;
-
-    private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
-        stream.defaultReadObject();
-        ontologyIRI = optional((IRI) stream.readObject());
-        versionIRI = optional((IRI) stream.readObject());
-        internalID = optional((String) stream.readObject());
-    }
-
-    private void writeObject(ObjectOutputStream stream) throws IOException {
-        stream.defaultWriteObject();
-        stream.writeObject(ontologyIRI.orElse(null));
-        stream.writeObject(versionIRI.orElse(null));
-        stream.writeObject(internalID.orElse(null));
-    }
 
     /**
      * Constructs an ontology identifier specifiying the ontology IRI and
@@ -80,6 +66,56 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      */
     public OWLOntologyID(IRI iri, IRI versionIRI) {
         this(opt(iri), opt(versionIRI));
+    }
+
+    /**
+     * Constructs an ontology identifier specifiying the ontology IRI and
+     * version IRI.
+     * 
+     * @param iri
+     *        The ontology IRI (may be absent)
+     * @param version
+     *        The version IRI (must be absent if the ontologyIRI is absent)
+     */
+    public OWLOntologyID(Optional<IRI> iri, Optional<IRI> version) {
+        ontologyIRI = opt(iri);
+        hashCode = 17;
+        if (ontologyIRI.isPresent()) {
+            hashCode += 37 * ontologyIRI.hashCode();
+        } else {
+            internalID = optional(ANON_PREFIX + COUNTER.getAndIncrement());
+            hashCode += 37 * internalID.hashCode();
+        }
+        versionIRI = opt(version);
+        if (versionIRI.isPresent()) {
+            if (!ontologyIRI.isPresent()) {
+                throw new IllegalArgumentException(
+                    "If the ontology IRI is null then it is not possible to specify a version IRI");
+            }
+            hashCode += 37 * versionIRI.hashCode();
+        }
+    }
+
+    /**
+     * Constructs an ontology identifier specifying that the ontology IRI (and
+     * hence the version IRI) is not present.
+     */
+    public OWLOntologyID() {
+        this(emptyOptional(IRI.class), emptyOptional(IRI.class));
+    }
+
+    private void readObject(ObjectInputStream stream) throws ClassNotFoundException, IOException {
+        stream.defaultReadObject();
+        ontologyIRI = optional((IRI) stream.readObject());
+        versionIRI = optional((IRI) stream.readObject());
+        internalID = optional((String) stream.readObject());
+    }
+
+    private void writeObject(ObjectOutputStream stream) throws IOException {
+        stream.defaultWriteObject();
+        stream.writeObject(ontologyIRI.orElse(null));
+        stream.writeObject(versionIRI.orElse(null));
+        stream.writeObject(internalID.orElse(null));
     }
 
     private static Optional<IRI> opt(IRI i) {
@@ -150,42 +186,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
     }
 
     /**
-     * Constructs an ontology identifier specifiying the ontology IRI and
-     * version IRI.
-     * 
-     * @param iri
-     *        The ontology IRI (may be absent)
-     * @param version
-     *        The version IRI (must be absent if the ontologyIRI is absent)
-     */
-    public OWLOntologyID(Optional<IRI> iri, Optional<IRI> version) {
-        ontologyIRI = opt(iri);
-        hashCode = 17;
-        if (ontologyIRI.isPresent()) {
-            hashCode += 37 * ontologyIRI.hashCode();
-        } else {
-            internalID = optional(ANON_PREFIX + COUNTER.getAndIncrement());
-            hashCode += 37 * internalID.hashCode();
-        }
-        versionIRI = opt(version);
-        if (versionIRI.isPresent()) {
-            if (!ontologyIRI.isPresent()) {
-                throw new IllegalArgumentException(
-                        "If the ontology IRI is null then it is not possible to specify a version IRI");
-            }
-            hashCode += 37 * versionIRI.hashCode();
-        }
-    }
-
-    /**
-     * Constructs an ontology identifier specifying that the ontology IRI (and
-     * hence the version IRI) is not present.
-     */
-    public OWLOntologyID() {
-        this(emptyOptional(IRI.class), emptyOptional(IRI.class));
-    }
-
-    /**
      * Determines if this is a valid OWL 2 DL ontology ID. To be a valid OWL 2
      * DL ID, the ontology IRI and version IRI must not be reserved vocabulary.
      * 
@@ -195,7 +195,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable, I
      */
     public boolean isOWL2DLOntologyID() {
         return !ontologyIRI.isPresent() || !ontologyIRI.get().isReservedVocabulary()
-                && (!versionIRI.isPresent() || !versionIRI.get().isReservedVocabulary());
+            && (!versionIRI.isPresent() || !versionIRI.get().isReservedVocabulary());
     }
 
     @Override

@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
@@ -126,14 +125,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         reset();
         object.accept(this);
         return sb.toString();
-    }
-
-    @Deprecated
-    protected void render(Collection<? extends OWLObject> objects) {
-        if (objects.isEmpty()) {
-            return;
-        }
-        render(objects.stream());
     }
 
     protected void render(Stream<? extends OWLObject> objects) {

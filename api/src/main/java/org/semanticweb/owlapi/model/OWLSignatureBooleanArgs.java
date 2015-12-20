@@ -33,6 +33,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return the set of classes in the signature, optionally including the
      *         import closure. The set that is returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClass> getClassesInSignature(boolean includeImportsClosure) {
@@ -48,6 +49,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @return the set of object properties in the signature, optionally
      *         including the import closure. The set that is returned is a copy
      *         of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLObjectProperty> getObjectPropertiesInSignature(boolean includeImportsClosure) {
@@ -63,6 +65,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @return the set of data properties in the signature, optionally including
      *         the import closure. The set that is returned is a copy of the
      *         data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure) {
@@ -77,6 +80,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return the set of individuals in the signature, optionally including the
      *         import closure. The set that is returned is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure) {
@@ -90,6 +94,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @param includeImportsClosure
      *        if true, include imports closure.
      * @return The set of referenced anonymous individuals
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(boolean includeImportsClosure) {
@@ -104,6 +109,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @return the set of datatypes in the signature of this ontology,
      *         optionally including the import closure. The set that is returned
      *         is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure) {
@@ -119,6 +125,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @return the set of annotation properties in the signature, optionally
      *         including the import closure. The set that is returned is a copy
      *         of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(boolean includeImportsClosure) {
@@ -134,6 +141,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return {@code true} if the signature or the import closure contains a
      *         reference to the specified entity.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsEntityInSignature(OWLEntity owlEntity, boolean includeImportsClosure) {
@@ -149,6 +157,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return true if the signature or the import closure contains an entity
      *         with the specified IRI.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure) {
@@ -166,6 +175,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return true if the signature or the import closure contains an entity
      *         with the specified IRI.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure) {
@@ -182,6 +192,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return true if the signature or the import closure contains an object
      *         property with the specified IRI.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI, boolean includeImportsClosure) {
@@ -198,6 +209,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return true if the signature or the import closure contains a data
      *         property with the specified IRI.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI, boolean includeImportsClosure) {
@@ -214,11 +226,12 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return true if the signature or the import closure contains an
      *         annotation property with the specified IRI.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI, boolean includeImportsClosure) {
         return containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI,
-                Imports.fromBoolean(includeImportsClosure));
+            Imports.fromBoolean(includeImportsClosure));
     }
 
     /**
@@ -231,6 +244,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return true if the signature or the import closure contains a datatype
      *         with the specified IRI.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsDatatypeInSignature(IRI owlDatatypeIRI, boolean includeImportsClosure) {
@@ -247,6 +261,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return true if the signature or the import closure contains an
      *         individual with the specified IRI.
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsIndividualInSignature(IRI owlIndividualIRI, boolean includeImportsClosure) {
@@ -262,6 +277,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      *        if true, include imports closure.
      * @return the set of entities with the specified IRI, optionally including
      *         the ones in the import closure.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure) {
@@ -274,6 +290,7 @@ public interface OWLSignatureBooleanArgs extends OWLSignature {
      * @param includeImportsClosure
      *        if true, include imports closure.
      * @return true if entity is referenced
+     * @deprecated use the stream method
      */
     @Deprecated
     default boolean containsReference(OWLEntity entity, boolean includeImportsClosure) {

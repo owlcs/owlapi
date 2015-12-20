@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
-    private static final @Nonnull Integer _1 = 1;
+    @Nonnull private static final Integer _1 = 1;
 
     @Override
     public Integer doDefault(Object o) {

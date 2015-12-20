@@ -32,16 +32,6 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  */
 public class UseOfUndeclaredClass extends OWLProfileViolation implements UndeclaredEntityViolation {
 
-    @Override
-    public OWLEntity getEntity() {
-        return getExpression();
-    }
-
-    @Override
-    public OWLClass getExpression() {
-        return (OWLClass) super.getExpression();
-    }
-
     /**
      * @param ontology
      *        ontology
@@ -52,6 +42,16 @@ public class UseOfUndeclaredClass extends OWLProfileViolation implements Undecla
      */
     public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
         super(ontology, axiom, checkNotNull(cls));
+    }
+
+    @Override
+    public OWLEntity getEntity() {
+        return getExpression();
+    }
+
+    @Override
+    public OWLClass getExpression() {
+        return (OWLClass) super.getExpression();
     }
 
     @Override

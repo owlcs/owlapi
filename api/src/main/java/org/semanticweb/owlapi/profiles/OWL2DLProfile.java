@@ -82,7 +82,7 @@ public class OWL2DLProfile implements OWLProfile {
     private static class OWL2DLProfileObjectVisitor extends OWLOntologyWalkerVisitor {
 
         private OWLObjectPropertyManager objectPropertyManager = null;
-        private final @Nonnull Set<OWLProfileViolation> profileViolations = new HashSet<>();
+        @Nonnull private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         OWL2DLProfileObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -257,9 +257,6 @@ public class OWL2DLProfile implements OWLProfile {
                     }
                 }
                 // We also have to declare datatypes that are not built in
-                // bug?
-                // if (!datatype.isTopDatatype() && datatype.isBuiltIn()
-                // && getCurrentOntology().isDeclared(datatype, true)) {
                 if (!node.isTopDatatype() && !node.isBuiltIn() && !getCurrentOntology().isDeclared(node, INCLUDED)) {
                     profileViolations.add(new UseOfUndeclaredDatatype(getCurrentOntology(), getCurrentAxiom(), node));
                 }
@@ -290,7 +287,7 @@ public class OWL2DLProfile implements OWLProfile {
                 axioms.add(ax);
                 getDatatypesInSignature(datatypes, ax.getDataRange(), axioms);
             };
-            obj.datatypesInSignature().filter(dt -> datatypes.add(dt))
+            obj.datatypesInSignature().filter(datatypes::add)
                 .forEach(dt -> datatypeDefinitions(dt).forEach(addAndRecurse));
         }
 
@@ -300,11 +297,11 @@ public class OWL2DLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLObjectProperty property) {
-            if (!property.isOWLTopObjectProperty() && !property.isOWLBottomObjectProperty()) {
-                if (property.getIRI().isReservedVocabulary()) {
-                    profileViolations.add(new UseOfReservedVocabularyForObjectPropertyIRI(getCurrentOntology(),
-                        getCurrentAxiom(), property));
-                }
+            if (!property.isOWLTopObjectProperty()
+                && !property.isOWLBottomObjectProperty()
+                && property.getIRI().isReservedVocabulary()) {
+                profileViolations.add(new UseOfReservedVocabularyForObjectPropertyIRI(getCurrentOntology(),
+                    getCurrentAxiom(), property));
             }
             if (!property.isBuiltIn() && !getCurrentOntology().isDeclared(property, INCLUDED)) {
                 profileViolations

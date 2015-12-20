@@ -94,9 +94,8 @@ public class SmallSet<T> extends AbstractSet<T> {
             return true;
         } else if (element3 != null && oHash == element3.hashCode() && o.equals(element3)) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -113,29 +112,29 @@ public class SmallSet<T> extends AbstractSet<T> {
             @Override
             public boolean hasNext() {
                 switch (cp) {
-                case 1:
-                    if (element1 != null) {
-                        return true;
-                    } else {
-                        cp++;
-                    }
-                    //$FALL-THROUGH$
-                case 2:
-                    if (element2 != null) {
-                        return true;
-                    } else {
-                        cp++;
-                    }
-                    //$FALL-THROUGH$
-                case 3:
-                    if (element3 != null) {
-                        return true;
-                    } else {
-                        cp++;
-                    }
-                    //$FALL-THROUGH$
-                default:
-                    return false;
+                    case 1:
+                        if (element1 != null) {
+                            return true;
+                        } else {
+                            cp++;
+                        }
+                        //$FALL-THROUGH$
+                    case 2:
+                        if (element2 != null) {
+                            return true;
+                        } else {
+                            cp++;
+                        }
+                        //$FALL-THROUGH$
+                    case 3:
+                        if (element3 != null) {
+                            return true;
+                        } else {
+                            cp++;
+                        }
+                        //$FALL-THROUGH$
+                    default:
+                        return false;
                 }
             }
 
@@ -145,14 +144,14 @@ public class SmallSet<T> extends AbstractSet<T> {
                     throw new NoSuchElementException("No Next Element");
                 }
                 switch (cp++) {
-                case 1:
-                    return element1;
-                case 2:
-                    return element2;
-                case 3:
-                    return element3;
-                default:
-                    throw new IllegalStateException("Iterator pointing past end of virtual array");
+                    case 1:
+                        return element1;
+                    case 2:
+                        return element2;
+                    case 3:
+                        return element3;
+                    default:
+                        throw new IllegalStateException("Iterator pointing past end of virtual array");
                 }
             }
         };

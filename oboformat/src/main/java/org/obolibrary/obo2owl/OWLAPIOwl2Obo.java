@@ -38,7 +38,7 @@ import com.google.common.collect.Sets;
  */
 public class OWLAPIOwl2Obo {
 
-    private static final @Nonnull String TOP_BOTTOM_NONTRANSLATEABLE = "Assertions using owl:Thing or owl:Nothing are not translateable OBO";
+    @Nonnull private static final String TOP_BOTTOM_NONTRANSLATEABLE = "Assertions using owl:Thing or owl:Nothing are not translateable OBO";
     /**
      * The log.
      */
@@ -54,7 +54,7 @@ public class OWLAPIOwl2Obo {
     /**
      * The manager.
      */
-    protected @Nonnull OWLOntologyManager manager;
+    @Nonnull protected OWLOntologyManager manager;
     /**
      * The owl ontology.
      */
@@ -78,7 +78,7 @@ public class OWLAPIOwl2Obo {
     /**
      * The annotation property map.
      */
-    public static final @Nonnull Map<String, String> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
+    @Nonnull public static final Map<String, String> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
     /**
      * The ap to declare.
      */
@@ -99,15 +99,6 @@ public class OWLAPIOwl2Obo {
     private boolean muteUntranslatableAxioms = false;
     private final OWLDataFactory df;
 
-    protected final void init() {
-        idSpaceMap = new HashMap<>();
-        // legacy:
-        idSpaceMap.put("http://www.obofoundry.org/ro/ro.owl#", "OBO_REL");
-        untranslatableAxioms = new HashSet<>();
-        fac = manager.getOWLDataFactory();
-        apToDeclare = new HashSet<>();
-    }
-
     /**
      * Instantiates a new oWLAPI owl2 obo.
      * 
@@ -118,6 +109,15 @@ public class OWLAPIOwl2Obo {
         manager = translationManager;
         df = manager.getOWLDataFactory();
         init();
+    }
+
+    protected final void init() {
+        idSpaceMap = new HashMap<>();
+        // legacy:
+        idSpaceMap.put("http://www.obofoundry.org/ro/ro.owl#", "OBO_REL");
+        untranslatableAxioms = new HashSet<>();
+        fac = manager.getOWLDataFactory();
+        apToDeclare = new HashSet<>();
     }
 
     /**
@@ -1222,7 +1222,8 @@ public class OWLAPIOwl2Obo {
      *        the ontology
      * @return the data version
      */
-    public static @Nullable String getDataVersion(OWLOntology ontology) {
+    @Nullable
+    public static String getDataVersion(OWLOntology ontology) {
         String oid = getOntologyId(ontology);
         Optional<IRI> v = ontology.getOntologyID().getVersionIRI();
         if (v.isPresent()) {
@@ -1439,7 +1440,7 @@ public class OWLAPIOwl2Obo {
         }
         // Only add clauses if the *entire* equivalence axiom can be translated
         if (!isUntranslateable) {
-            equivalenceAxiomClauses.forEach(c -> f.addClause(c));
+            equivalenceAxiomClauses.forEach(f::addClause);
         }
     }
 
@@ -1629,7 +1630,8 @@ public class OWLAPIOwl2Obo {
      *        the obj
      * @return the identifier
      */
-    public @Nullable String getIdentifier(OWLObject obj) {
+    @Nullable
+    public String getIdentifier(OWLObject obj) {
         try {
             return getIdentifierFromObject(obj, getOWLOntology());
         } catch (UntranslatableAxiomException e) {
@@ -1722,7 +1724,8 @@ public class OWLAPIOwl2Obo {
      *         the untranslatable axiom exception
      *         {@link UntranslatableAxiomException} is thrown.
      */
-    public static @Nullable String getIdentifierFromObject(OWLObject obj, OWLOntology ont)
+    @Nullable
+    public static String getIdentifierFromObject(OWLObject obj, OWLOntology ont)
         throws UntranslatableAxiomException {
         if (obj instanceof OWLObjectProperty || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
@@ -1809,7 +1812,7 @@ public class OWLAPIOwl2Obo {
             }
         }
         if (s.length > 2 && !id.contains("#") && s[s.length - 1].replaceAll("[0-9]", "").isEmpty()) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < s.length; i++) {
                 if (i > 0) {
                     if (i == s.length - 1) {
@@ -1832,7 +1835,8 @@ public class OWLAPIOwl2Obo {
      *        the obj
      * @return the string
      */
-    public static @Nullable String owlObjectToTag(OWLObject obj) {
+    @Nullable
+    public static String owlObjectToTag(OWLObject obj) {
         IRI iriObj = null;
         if (obj instanceof OWLNamedObject) {
             iriObj = ((OWLNamedObject) obj).getIRI();
@@ -2106,7 +2110,7 @@ public class OWLAPIOwl2Obo {
                     return;
                 }
                 clauses = normalizeRelationshipClauses(clauses);
-                clauses.forEach(c -> f.addClause(c));
+                clauses.forEach(f::addClause);
             } else {
                 error(ax, true);
                 return;
@@ -2276,7 +2280,8 @@ public class OWLAPIOwl2Obo {
      *        the list
      * @return the qualifier value
      */
-    static @Nullable QualifierValue findMatchingQualifierValue(QualifierValue query, Collection<QualifierValue> list) {
+    @Nullable
+    static QualifierValue findMatchingQualifierValue(QualifierValue query, Collection<QualifierValue> list) {
         String queryQualifier = query.getQualifier();
         for (QualifierValue qv : list) {
             if (queryQualifier.equals(qv.getQualifier())) {

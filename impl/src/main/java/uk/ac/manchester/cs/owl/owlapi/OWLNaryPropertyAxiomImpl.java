@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
     implements OWLNaryPropertyAxiom<P> {
 
-    protected final @Nonnull List<P> properties;
+    @Nonnull protected final List<P> properties;
 
     /**
      * @param properties

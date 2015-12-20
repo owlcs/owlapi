@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
 
     private final OWLOntologyBuilder builder;
-    private final @Nonnull ReadWriteLock readWriteLock;
+    @Nonnull private final ReadWriteLock readWriteLock;
 
     /**
      * @param builder
@@ -28,7 +28,7 @@ public class ConcurrentOWLOntologyBuilder implements OWLOntologyBuilder {
      */
     @Inject
     public ConcurrentOWLOntologyBuilder(@NonConcurrentDelegate OWLOntologyBuilder builder,
-            ReadWriteLock readWriteLock) {
+        ReadWriteLock readWriteLock) {
         this.builder = verifyNotNull(builder);
         this.readWriteLock = verifyNotNull(readWriteLock);
     }

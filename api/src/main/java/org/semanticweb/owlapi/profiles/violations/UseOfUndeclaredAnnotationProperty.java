@@ -30,16 +30,6 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  */
 public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements UndeclaredEntityViolation {
 
-    @Override
-    public OWLAnnotationProperty getExpression() {
-        return (OWLAnnotationProperty) super.getExpression();
-    }
-
-    @Override
-    public OWLEntity getEntity() {
-        return getExpression();
-    }
-
     private final OWLAnnotation annotation;
 
     /**
@@ -53,9 +43,19 @@ public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation imple
      *        prop
      */
     public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom, @Nullable OWLAnnotation annotation,
-            OWLAnnotationProperty prop) {
+        OWLAnnotationProperty prop) {
         super(ontology, axiom, checkNotNull(prop));
         this.annotation = annotation;
+    }
+
+    @Override
+    public OWLAnnotationProperty getExpression() {
+        return (OWLAnnotationProperty) super.getExpression();
+    }
+
+    @Override
+    public OWLEntity getEntity() {
+        return getExpression();
     }
 
     @Override

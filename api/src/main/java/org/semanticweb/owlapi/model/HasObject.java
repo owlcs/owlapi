@@ -21,6 +21,7 @@ package org.semanticweb.owlapi.model;
  *        object type
  * @since 3.5.0
  */
+@FunctionalInterface
 public interface HasObject<O> {
 
     /**

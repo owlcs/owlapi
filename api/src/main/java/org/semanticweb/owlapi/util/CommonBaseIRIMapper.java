@@ -65,7 +65,8 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
     }
 
     @Override
-    public @Nullable IRI getDocumentIRI(IRI ontologyIRI) {
+    @Nullable
+    public IRI getDocumentIRI(IRI ontologyIRI) {
         checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
         return iriMap.get(ontologyIRI);
     }

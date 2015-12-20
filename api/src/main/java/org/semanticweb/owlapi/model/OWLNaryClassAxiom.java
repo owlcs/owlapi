@@ -24,12 +24,13 @@ import java.util.stream.Stream;
  * @since 2.0.0
  */
 public interface OWLNaryClassAxiom
-        extends OWLClassAxiom, OWLNaryAxiom<OWLClassExpression>, OWLSubClassOfAxiomSetShortCut {
+    extends OWLClassAxiom, OWLNaryAxiom<OWLClassExpression>, OWLSubClassOfAxiomSetShortCut {
 
     /**
      * Gets all of the top level class expressions that appear in this axiom.
      * 
      * @return A {@code Set} of class expressions that appear in the axiom.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClassExpression> getClassExpressions() {
@@ -48,6 +49,7 @@ public interface OWLNaryClassAxiom
      * {@link #getClassExpressions()} method as a list of class expressions.
      * 
      * @return A list of the class expressions in this axiom.
+     * @deprecated use the stream method
      */
     @Deprecated
     default List<OWLClassExpression> getClassExpressionsAsList() {

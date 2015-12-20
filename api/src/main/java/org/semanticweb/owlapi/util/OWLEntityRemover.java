@@ -40,7 +40,7 @@ import org.semanticweb.owlapi.model.*;
 public class OWLEntityRemover implements OWLEntityVisitor {
 
     private final List<RemoveAxiom> changes = new ArrayList<>();
-    private final @Nonnull Collection<OWLOntology> ontologies;
+    @Nonnull private final Collection<OWLOntology> ontologies;
 
     /**
      * Creates an entity remover, which will remove entities (axioms referring

@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 /** Builder class for OWLDataHasValue. */
 public class BuilderDataHasValue extends BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue> {
 
-    private @Nullable OWLLiteral literal = null;
+    @Nullable private OWLLiteral literal = null;
 
     /**
      * @param df

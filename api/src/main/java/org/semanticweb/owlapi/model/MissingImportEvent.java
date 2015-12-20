@@ -29,8 +29,8 @@ import javax.annotation.Nonnull;
  */
 public class MissingImportEvent {
 
-    private final @Nonnull IRI ontologyIRI;
-    private final @Nonnull OWLOntologyCreationException creationException;
+    @Nonnull private final IRI ontologyIRI;
+    @Nonnull private final OWLOntologyCreationException creationException;
 
     /**
      * @param ontologyIRI

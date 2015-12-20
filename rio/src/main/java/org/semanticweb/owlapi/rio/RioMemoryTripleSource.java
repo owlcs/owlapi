@@ -68,8 +68,8 @@ import info.aduna.iteration.CloseableIteration;
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
     private final Map<String, String> namespaces = new LinkedHashMap<>();
-    private final @Nonnull Iterator<Statement> statementIterator;
-    private final @Nonnull IRI documentIRI;
+    @Nonnull private final Iterator<Statement> statementIterator;
+    @Nonnull private final IRI documentIRI;
 
     /**
      * Creates a RioMemoryTripleSource using an {@link Iterable} of
@@ -193,7 +193,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        by this source.
      */
     public RioMemoryTripleSource(final CloseableIteration<Statement, ? extends OpenRDFException> statements,
-            final Map<String, String> namespaces) {
+        final Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
     }

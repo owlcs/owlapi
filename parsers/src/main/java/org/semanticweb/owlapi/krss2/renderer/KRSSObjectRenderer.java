@@ -198,11 +198,11 @@ import org.semanticweb.owlapi.search.Filters;
  */
 public class KRSSObjectRenderer implements OWLObjectVisitor {
 
-    private static final @Nonnull String OPEN_BRACKET = "(";
-    private static final @Nonnull String CLOSE_BRACKET = ")";
-    private static final @Nonnull String NEWLINE = "\n";
-    protected final @Nonnull OWLOntology ont;
-    protected final @Nonnull Writer writer;
+    @Nonnull private static final String OPEN_BRACKET = "(";
+    @Nonnull private static final String CLOSE_BRACKET = ")";
+    @Nonnull private static final String NEWLINE = "\n";
+    @Nonnull protected final OWLOntology ont;
+    @Nonnull protected final Writer writer;
     private int pos = 0;
     private int lastNewLinePos = 0;
 

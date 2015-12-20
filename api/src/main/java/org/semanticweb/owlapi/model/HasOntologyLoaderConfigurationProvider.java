@@ -20,6 +20,7 @@ import javax.inject.Provider;
  * 
  * @since 4.0.0
  */
+@FunctionalInterface
 public interface HasOntologyLoaderConfigurationProvider {
 
     /**

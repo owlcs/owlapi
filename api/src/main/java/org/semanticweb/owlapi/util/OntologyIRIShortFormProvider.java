@@ -101,7 +101,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         return shortForm;
     }
 
-    private static @Nullable String getWellKnownShortForm(IRI iri) {
+    @Nullable
+    private static String getWellKnownShortForm(IRI iri) {
         String wellKnownShortForm = WELL_KNOWN_SHORTFORMS.get(iri);
         if (wellKnownShortForm != null) {
             return wellKnownShortForm;

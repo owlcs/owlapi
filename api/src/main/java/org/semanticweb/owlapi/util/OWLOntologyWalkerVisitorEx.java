@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
 
-    private final @Nonnull OWLOntologyWalker walker;
+    @Nonnull private final OWLOntologyWalker walker;
 
     /**
      * @param walker
@@ -56,7 +56,7 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
         OWLOntology ontology = walker.getOntology();
         if (ontology == null) {
             throw new OWLRuntimeException(
-                    "No current ontology; is the walker being used outside of an ontology visit?");
+                "No current ontology; is the walker being used outside of an ontology visit?");
         }
         return ontology;
     }
@@ -64,7 +64,8 @@ public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
     /**
      * @return annotation
      */
-    public @Nullable OWLAnnotation getCurrentAnnotation() {
+    @Nullable
+    public OWLAnnotation getCurrentAnnotation() {
         return walker.getAnnotation();
     }
 }

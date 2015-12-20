@@ -20,6 +20,7 @@ package org.semanticweb.owlapi.model;
  *         Research Group
  * @since 3.5.0
  */
+@FunctionalInterface
 public interface HasShortForm {
 
     /**

@@ -35,8 +35,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
  */
 public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainOfAxiom {
 
-    private final @Nonnull List<OWLObjectPropertyExpression> propertyChain;
-    private final @Nonnull OWLObjectPropertyExpression superProperty;
+    @Nonnull private final List<OWLObjectPropertyExpression> propertyChain;
+    @Nonnull private final OWLObjectPropertyExpression superProperty;
 
     /**
      * @param propertyChain
@@ -47,7 +47,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
      *        annotations
      */
     public OWLSubPropertyChainAxiomImpl(List<? extends OWLObjectPropertyExpression> propertyChain,
-            OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
+        OWLObjectPropertyExpression superProperty, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.propertyChain = new ArrayList<>(checkNotNull(propertyChain, "propertyChain cannot be null"));
         this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");

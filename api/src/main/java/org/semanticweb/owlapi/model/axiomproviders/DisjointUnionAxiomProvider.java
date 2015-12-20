@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 /**
  * Disjoint union provider.
  */
+@FunctionalInterface
 public interface DisjointUnionAxiomProvider {
 
     /**
@@ -33,7 +34,7 @@ public interface DisjointUnionAxiomProvider {
      * @return a disjoint union axiom
      */
     default OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-            Collection<? extends OWLClassExpression> classExpressions) {
+        Collection<? extends OWLClassExpression> classExpressions) {
         return getOWLDisjointUnionAxiom(owlClass, classExpressions, Collections.emptySet());
     }
 
@@ -47,5 +48,5 @@ public interface DisjointUnionAxiomProvider {
      * @return a disjoint union axiom with annotations
      */
     OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
-            Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations);
+        Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> annotations);
 }

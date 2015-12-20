@@ -43,7 +43,7 @@ import com.google.common.io.Closeables;
 public class XZFileDocumentTarget implements OWLOntologyDocumentTarget, AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XZFileDocumentTarget.class);
-    private final @Nonnull File out;
+    @Nonnull private final File out;
     private final FilterOptions[] filterOptions;
     private OutputStream outputStream;
 

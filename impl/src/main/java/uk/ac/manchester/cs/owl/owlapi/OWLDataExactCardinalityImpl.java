@@ -29,11 +29,6 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  */
 public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataExactCardinality {
 
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 16;
-    }
-
     /**
      * @param property
      *        property
@@ -44,6 +39,11 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
      */
     public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 16;
     }
 
     @Override

@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
 
-    private @Nonnull ManchesterOWLSyntaxObjectRenderer ren;
-    private final @Nonnull WriterDelegate writerDelegate;
+    @Nonnull private ManchesterOWLSyntaxObjectRenderer ren;
+    @Nonnull private final WriterDelegate writerDelegate;
 
     /** Default constructor. */
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {

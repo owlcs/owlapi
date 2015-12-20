@@ -21,6 +21,7 @@ package org.semanticweb.owlapi.model;
  *        range type
  * @since 3.5.0
  */
+@FunctionalInterface
 public interface HasRange<R extends OWLObject> {
 
     /**

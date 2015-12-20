@@ -47,5 +47,7 @@ public enum AnnotationWalkingControl {
      *        object containing annotations
      */
     @SuppressWarnings("unused")
-    public <T extends OWLObject> void walk(StructureWalker<T> walker, OWLObject o) {}
+    public <T extends OWLObject> void walk(StructureWalker<T> walker, OWLObject o) {
+        // default implementation
+    }
 }

@@ -4,6 +4,7 @@ package org.semanticweb.owlapi.model;
  * Interface for types with an index; this is used to group objects by type when
  * sorting.
  */
+@FunctionalInterface
 public interface HasIndex {
 
     /**

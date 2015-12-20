@@ -22,6 +22,7 @@ package org.semanticweb.owlapi.model;
  *        <P>
  *        property type
  */
+@FunctionalInterface
 public interface HasProperty<P extends OWLObject> {
 
     /**

@@ -32,8 +32,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
 
-    private final @Nonnull OWLClassExpression expression;
-    private final @Nonnull List<? extends OWLPropertyExpression> propertyExpressions;
+    @Nonnull private final OWLClassExpression expression;
+    @Nonnull private final List<? extends OWLPropertyExpression> propertyExpressions;
 
     /**
      * @param expression

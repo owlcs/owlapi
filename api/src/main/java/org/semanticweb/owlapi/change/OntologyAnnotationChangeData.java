@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  */
 public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData {
 
-    private final @Nonnull OWLAnnotation annotation;
+    @Nonnull private final OWLAnnotation annotation;
 
     /**
      * Constructs an {@code OntologyAnnotationChangeData} object that describes

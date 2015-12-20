@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.0.0
  */
+@FunctionalInterface
 public interface OWLRenderer {
 
     /**

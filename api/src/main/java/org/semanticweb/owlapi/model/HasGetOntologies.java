@@ -22,10 +22,12 @@ import java.util.stream.Stream;
  *         Research Group
  * @since 3.5
  */
+@FunctionalInterface
 public interface HasGetOntologies {
 
     /**
      * @return The set of ontologies contained within this object
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntology> getOntologies() {

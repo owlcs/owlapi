@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClassExpressionImpl
     implements OWLNaryBooleanClassExpression {
 
-    private final @Nonnull List<? extends OWLClassExpression> operands;
+    @Nonnull private final List<? extends OWLClassExpression> operands;
 
     /**
      * @param operands

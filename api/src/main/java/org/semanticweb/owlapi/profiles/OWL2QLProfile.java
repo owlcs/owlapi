@@ -32,6 +32,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWL2QLProfile implements OWLProfile {
 
     protected static final Set<IRI> ALLOWED_DATATYPES = asSet(OWL2Datatype.EL_DATATYPES.stream().map(i -> i.getIRI()));
+    @Nonnull private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
+    @Nonnull private final OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
 
     /**
      * Gets the name of the profile.
@@ -72,7 +74,7 @@ public class OWL2QLProfile implements OWLProfile {
 
     private class OWL2QLObjectVisitor extends OWLOntologyWalkerVisitor {
 
-        private final @Nonnull Set<OWLProfileViolation> violations = new HashSet<>();
+        @Nonnull private final Set<OWLProfileViolation> violations = new HashSet<>();
 
         OWL2QLObjectVisitor(OWLOntologyWalker walker) {
             super(walker);
@@ -246,8 +248,6 @@ public class OWL2QLProfile implements OWLProfile {
         }
     }
 
-    private final @Nonnull OWL2QLSubClassExpressionChecker subClassExpressionChecker = new OWL2QLSubClassExpressionChecker();
-
     protected boolean isOWL2QLSubClassExpression(OWLClassExpression ce) {
         return ce.accept(subClassExpressionChecker).booleanValue();
     }
@@ -286,8 +286,6 @@ public class OWL2QLProfile implements OWLProfile {
             return Boolean.TRUE;
         }
     }
-
-    private final @Nonnull OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
 
     /**
      * @param ce

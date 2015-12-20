@@ -25,8 +25,8 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 /** Builder class for OWLClassAssertionAxiom. */
 public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
 
-    private @Nullable OWLIndividual i = null;
-    private @Nullable OWLClassExpression ce = null;
+    @Nullable private OWLIndividual i = null;
+    @Nullable private OWLClassExpression ce = null;
 
     /**
      * @param df
@@ -48,7 +48,7 @@ public class BuilderClassAssertion extends BaseBuilder<OWLClassAssertionAxiom, B
     public BuilderClassAssertion(OWLClassAssertionAxiom expected, OWLDataFactory df) {
         this(df);
         withClass(expected.getClassExpression()).withIndividual(expected.getIndividual())
-                .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

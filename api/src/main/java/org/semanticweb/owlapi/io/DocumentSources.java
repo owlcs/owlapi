@@ -43,8 +43,10 @@ public class DocumentSources {
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern.compile(".*filename=\"([^\\s;]*)\".*");
     private static final int CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP = 1;
     private static final Pattern ZIP_ENTRY_ONTOLOGY_NAME_PATTERN = Pattern.compile(".*owl|rdf|xml|mos");
-    private static final String acceptableContentEncoding = "xz,gzip,deflate";
-    private static final @Nonnull String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
+    private static final String ACCEPTABLE_CONTENT_ENCODING = "xz,gzip,deflate";
+    @Nonnull private static final String REQUESTTYPES = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
+
+    private DocumentSources() {}
 
     /**
      * Select the available input source and, if it is not already a Reader,
@@ -111,10 +113,8 @@ public class DocumentSources {
     public static InputStream wrapInput(OWLOntologyDocumentSource source, OWLOntologyLoaderConfiguration configuration)
         throws OWLOntologyInputSourceException {
         Optional<InputStream> input = source.getInputStream();
-        if (!input.isPresent()) {
-            if (!source.hasAlredyFailedOnIRIResolution()) {
-                input = getInputStream(source.getDocumentIRI(), configuration);
-            }
+        if (!input.isPresent() && !source.hasAlredyFailedOnIRIResolution()) {
+            input = getInputStream(source.getDocumentIRI(), configuration);
         }
         if (input.isPresent()) {
             return new BufferedInputStream(input.get());
@@ -145,68 +145,95 @@ public class DocumentSources {
             URLConnection conn = originalURL.openConnection();
             conn.addRequestProperty("Accept", REQUESTTYPES);
             if (config.isAcceptingHTTPCompression()) {
-                conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
+                conn.setRequestProperty("Accept-Encoding", ACCEPTABLE_CONTENT_ENCODING);
             }
             int connectionTimeout = config.getConnectionTimeout();
             conn.setConnectTimeout(connectionTimeout);
-            if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
-                // follow redirects to HTTPS
-                HttpURLConnection con = (HttpURLConnection) conn;
-                con.connect();
-                int responseCode = con.getResponseCode();
-                // redirect
-                if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
-                    || responseCode == HttpURLConnection.HTTP_MOVED_PERM
-                    || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
-                    String location = con.getHeaderField("Location");
-                    URL newURL = new URL(location);
-                    String newProtocol = newURL.getProtocol();
-                    if (!originalProtocol.equals(newProtocol)) {
-                        // then different protocols: redirect won't follow
-                        // automatically
-                        conn = newURL.openConnection();
-                        conn.addRequestProperty("Accept", REQUESTTYPES);
-                        if (config.isAcceptingHTTPCompression()) {
-                            conn.setRequestProperty("Accept-Encoding", acceptableContentEncoding);
-                        }
-                        conn.setConnectTimeout(connectionTimeout);
-                    }
-                }
-            }
+            conn = connect(config, originalProtocol, conn, connectionTimeout);
             String contentEncoding = conn.getContentEncoding();
-            InputStream is = null;
-            int count = 0;
-            while (count < config.getRetriesToAttempt() && is == null) {
-                try {
-                    is = getInputStreamFromContentEncoding(conn, contentEncoding);
-                } catch (SocketTimeoutException e) {
-                    count++;
-                    if (count == 5) {
-                        throw new OWLOntologyInputSourceException("cannot connect to " + documentIRI
-                            + "; retry limit exhausted", e);
-                    }
-                    conn.setConnectTimeout(connectionTimeout + connectionTimeout * count);
-                }
-            }
+            InputStream is = connectWithFiveRetries(documentIRI, config, conn, connectionTimeout, contentEncoding);
             if (is == null) {
                 return emptyOptional();
             }
-            if (isZipName(documentIRI, conn)) {
-                ZipInputStream zis = new ZipInputStream(is);
-                ZipEntry entry = null;
-                ZipEntry nextEntry = zis.getNextEntry();
-                while (entry != null && nextEntry != null) {
-                    if (couldBeOntology(nextEntry)) {
-                        entry = nextEntry;
-                    }
-                    nextEntry = zis.getNextEntry();
-                }
-                is = zis;
-            }
+            is = handleZips(documentIRI, conn, is);
             return optional(is);
         } catch (IOException e) {
             throw new OWLOntologyInputSourceException(e);
         }
+    }
+
+    protected static URLConnection connect(OWLOntologyLoaderConfiguration config, String originalProtocol,
+        URLConnection conn, int connectionTimeout) throws IOException {
+        if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
+            // follow redirects to HTTPS
+            HttpURLConnection con = (HttpURLConnection) conn;
+            con.connect();
+            int responseCode = con.getResponseCode();
+            // redirect
+            if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+                || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+                || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+                String location = con.getHeaderField("Location");
+                URL newURL = new URL(location);
+                String newProtocol = newURL.getProtocol();
+                if (!originalProtocol.equals(newProtocol)) {
+                    // then different protocols: redirect won't follow
+                    // automatically
+                    return rebuildConnection(config, connectionTimeout, newURL);
+                }
+            }
+        }
+        return conn;
+    }
+
+    protected static URLConnection rebuildConnection(OWLOntologyLoaderConfiguration config, int connectionTimeout,
+        URL newURL) throws IOException {
+        URLConnection conn;
+        conn = newURL.openConnection();
+        conn.addRequestProperty("Accept", REQUESTTYPES);
+        if (config.isAcceptingHTTPCompression()) {
+            conn.setRequestProperty("Accept-Encoding", ACCEPTABLE_CONTENT_ENCODING);
+        }
+        conn.setConnectTimeout(connectionTimeout);
+        return conn;
+    }
+
+    protected static InputStream handleZips(IRI documentIRI, URLConnection conn, InputStream is) throws IOException {
+        if (!isZipName(documentIRI, conn)) {
+            return is;
+        }
+        ZipInputStream zis = new ZipInputStream(is);
+        ZipEntry entry = null;
+        ZipEntry nextEntry = zis.getNextEntry();
+        // XXX is this a bug?
+        while (entry != null && nextEntry != null) {
+            if (couldBeOntology(nextEntry)) {
+                entry = nextEntry;
+            }
+            nextEntry = zis.getNextEntry();
+        }
+        return zis;
+    }
+
+    @Nullable
+    protected static InputStream connectWithFiveRetries(IRI documentIRI, OWLOntologyLoaderConfiguration config,
+        URLConnection conn, int connectionTimeout, String contentEncoding) throws IOException,
+            OWLOntologyInputSourceException {
+        InputStream is = null;
+        int count = 0;
+        while (count < config.getRetriesToAttempt() && is == null) {
+            try {
+                is = getInputStreamFromContentEncoding(conn, contentEncoding);
+            } catch (SocketTimeoutException e) {
+                count++;
+                if (count == 5) {
+                    throw new OWLOntologyInputSourceException("cannot connect to " + documentIRI
+                        + "; retry limit exhausted", e);
+                }
+                conn.setConnectTimeout(connectionTimeout + connectionTimeout * count);
+            }
+        }
+        return is;
     }
 
     /**
@@ -233,17 +260,9 @@ public class DocumentSources {
         throws IOException {
         InputStream in = conn.getInputStream();
         if (contentEncoding != null) {
-            if ("xz".equals(contentEncoding)) {
-                LOGGER.info("URL connection input stream is compressed using xz");
-                return new BufferedInputStream(new XZInputStream(in));
-            }
-            if ("gzip".equals(contentEncoding)) {
-                LOGGER.info("URL connection input stream is compressed using gzip");
-                return new BufferedInputStream(new GZIPInputStream(in));
-            }
-            if ("deflate".equals(contentEncoding)) {
-                LOGGER.info("URL connection input stream is compressed using deflate");
-                return new InflaterInputStream(in, new Inflater(true));
+            InputStream toReturn = handleKnownContentEncodings(contentEncoding, in);
+            if (toReturn != null) {
+                return toReturn;
             }
         }
         String fileName = getFileNameFromContentDisposition(conn);
@@ -263,6 +282,24 @@ public class DocumentSources {
         return wrap(in);
     }
 
+    @Nullable
+    protected static InputStream handleKnownContentEncodings(String contentEncoding, InputStream in)
+        throws IOException {
+        if ("xz".equals(contentEncoding)) {
+            LOGGER.info("URL connection input stream is compressed using xz");
+            return new BufferedInputStream(new XZInputStream(in));
+        }
+        if ("gzip".equals(contentEncoding)) {
+            LOGGER.info("URL connection input stream is compressed using gzip");
+            return new BufferedInputStream(new GZIPInputStream(in));
+        }
+        if ("deflate".equals(contentEncoding)) {
+            LOGGER.info("URL connection input stream is compressed using deflate");
+            return new InflaterInputStream(in, new Inflater(true));
+        }
+        return null;
+    }
+
     private static boolean isZipName(IRI documentIRI, URLConnection connection) {
         if (isZipFileName(documentIRI.toString())) {
             return true;
@@ -272,7 +309,8 @@ public class DocumentSources {
         }
     }
 
-    private static @Nullable String getFileNameFromContentDisposition(URLConnection connection) {
+    @Nullable
+    private static String getFileNameFromContentDisposition(URLConnection connection) {
         String contentDispositionHeaderValue = connection.getHeaderField(CONTENT_DISPOSITION_HEADER);
         if (contentDispositionHeaderValue != null) {
             Matcher matcher = CONTENT_DISPOSITION_FILE_NAME_PATTERN.matcher(contentDispositionHeaderValue);

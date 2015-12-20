@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  */
 public abstract class ImportChangeData extends OWLOntologyChangeData {
 
-    private final @Nonnull OWLImportsDeclaration declaration;
+    @Nonnull private final OWLImportsDeclaration declaration;
 
     /**
      * Constructs an {@code ImportChangeData} object that describes an

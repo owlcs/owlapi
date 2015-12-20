@@ -27,10 +27,7 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 
     private final float literal;
 
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 8;
-    }
+    private final int hashcode;
 
     /**
      * @param literal
@@ -41,7 +38,10 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         hashcode = getHashCode();
     }
 
-    private final int hashcode;
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 8;
+    }
 
     @Override
     public int hashCode() {
@@ -85,7 +85,7 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         }
         if (obj instanceof OWLLiteralImplFloat) {
             OWLLiteralImplFloat other = (OWLLiteralImplFloat) obj;
-            return literal == other.literal;
+            return Float.compare(literal, other.literal) == 0;
         }
         if (!(obj instanceof OWLLiteral)) {
             return false;

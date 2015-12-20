@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.search.Filters;
  */
 public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements OWLAxiomIndex, HasTrimToSize {
 
-    protected final @Nonnull Internals ints = new Internals();
+    @Nonnull protected final Internals ints = new Internals();
 
     @Override
     public void trimToSize() {
@@ -24,24 +24,24 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements OWLAxio
     public Stream<OWLDatatypeDefinitionAxiom> datatypeDefinitions(OWLDatatype datatype) {
         // XXX stream better?
         return ints.filterAxioms(Filters.datatypeDefFilter, datatype).stream()
-                .map(ax -> (OWLDatatypeDefinitionAxiom) ax);
+            .map(ax -> (OWLDatatypeDefinitionAxiom) ax);
     }
 
     @Override
     public Stream<OWLSubAnnotationPropertyOfAxiom> subAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
         return ints.filterAxioms(Filters.subAnnotationWithSub, subProperty).stream()
-                .map(ax -> (OWLSubAnnotationPropertyOfAxiom) ax);
+            .map(ax -> (OWLSubAnnotationPropertyOfAxiom) ax);
     }
 
     @Override
     public Stream<OWLAnnotationPropertyDomainAxiom> annotationPropertyDomainAxioms(OWLAnnotationProperty property) {
         return ints.filterAxioms(Filters.apDomainFilter, property).stream()
-                .map(ax -> (OWLAnnotationPropertyDomainAxiom) ax);
+            .map(ax -> (OWLAnnotationPropertyDomainAxiom) ax);
     }
 
     @Override
     public Stream<OWLAnnotationPropertyRangeAxiom> annotationPropertyRangeAxioms(OWLAnnotationProperty property) {
         return ints.filterAxioms(Filters.apRangeFilter, property).stream()
-                .map(ax -> (OWLAnnotationPropertyRangeAxiom) ax);
+            .map(ax -> (OWLAnnotationPropertyRangeAxiom) ax);
     }
 }

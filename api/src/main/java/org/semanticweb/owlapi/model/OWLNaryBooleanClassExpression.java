@@ -27,6 +27,7 @@ public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression
 
     /**
      * @return the class expressions
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<? extends OWLClassExpression> getOperands() {

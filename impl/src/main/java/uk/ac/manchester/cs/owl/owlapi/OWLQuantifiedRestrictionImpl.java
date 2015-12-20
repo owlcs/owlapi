@@ -28,9 +28,9 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
  *        range type
  */
 public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> extends OWLRestrictionImpl
-        implements OWLQuantifiedRestriction<F> {
+    implements OWLQuantifiedRestriction<F> {
 
-    private final @Nonnull F filler;
+    @Nonnull private final F filler;
 
     /**
      * @param filler

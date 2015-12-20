@@ -11,6 +11,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 /** A few util methods for common stream operations. */
 public class OWLAPIStreamUtils {
 
+    private OWLAPIStreamUtils() {}
+
     /**
      * @param s
      *        stream to turn to set. The stream is consumed by this operation.

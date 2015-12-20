@@ -31,20 +31,41 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     static final Logger LOG = LoggerFactory.getLogger(AbstractMacroExpansionVisitor.class);
     static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
     final OWLDataFactory df;
-    final @Nonnull Map<IRI, String> expandAssertionToMap;
-    protected final @Nonnull Map<IRI, String> expandExpressionMap;
-    protected @Nonnull OWLDataVisitorEx<OWLDataRange> rangeVisitor;
-    protected @Nonnull OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
+    @Nonnull final Map<IRI, String> expandAssertionToMap;
+    @Nonnull protected final Map<IRI, String> expandExpressionMap;
+    @Nonnull protected OWLDataVisitorEx<OWLDataRange> rangeVisitor;
+    @Nonnull protected OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
+    protected final OWLAnnotationProperty OIO_ISEXPANSION;
+    protected final OWLAnnotation expansionMarkerAnnotation;
+    private boolean shouldAddExpansionMarker = false;
 
-    /**
-     * @return value for OIO isexpansion
-     */
-    public OWLAnnotationProperty getOIO_ISEXPANSION() {
-        return OIO_ISEXPANSION;
+    protected AbstractMacroExpansionVisitor(OWLOntology ontology, boolean shouldAddExpansionMarker) {
+        this(ontology);
+        this.shouldAddExpansionMarker = shouldAddExpansionMarker;
     }
 
-    final protected OWLAnnotationProperty OIO_ISEXPANSION;
+    protected AbstractMacroExpansionVisitor(OWLOntology o) {
+        df = o.getOWLOntologyManager().getOWLDataFactory();
+        expandExpressionMap = new HashMap<>();
+        expandAssertionToMap = new HashMap<>();
+        OWLAnnotationProperty ap424 = df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI());
+        o.objectPropertiesInSignature().forEach(
+            p -> getAnnotationObjects(p, o.importsClosure(), ap424)
+                .forEach(a -> mapToExpand(p, a)));
+        o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
+        OIO_ISEXPANSION = df.getOWLAnnotationProperty(IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
+        expansionMarkerAnnotation = df.getOWLAnnotation(OIO_ISEXPANSION, df.getOWLLiteral(true));
+    }
+
+    protected void mapToExpand(OWLObjectProperty p, OWLAnnotation a) {
+        OWLAnnotationValue v = a.getValue();
+        if (v instanceof OWLLiteral) {
+            String str = ((OWLLiteral) v).getLiteral();
+            LOG.info("mapping {} to {}", p.getIRI(), str);
+            expandExpressionMap.put(p.getIRI(), str);
+        }
+    }
 
     /**
      * @return value for expansion annotation
@@ -53,17 +74,16 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         return expansionMarkerAnnotation;
     }
 
-    final protected OWLAnnotation expansionMarkerAnnotation;
-    private boolean shouldAddExpansionMarker = false;
-
     @Override
     public OWLAxiom doDefault(Object o) {
         return (OWLAxiom) o;
     }
 
-    protected AbstractMacroExpansionVisitor(OWLOntology ontology, boolean shouldAddExpansionMarker) {
-        this(ontology);
-        this.shouldAddExpansionMarker = shouldAddExpansionMarker;
+    /**
+     * @return value for OIO isexpansion
+     */
+    public OWLAnnotationProperty getOIO_ISEXPANSION() {
+        return OIO_ISEXPANSION;
     }
 
     /**
@@ -102,7 +122,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             return result;
         }
 
-        protected abstract @Nullable OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
+        @Nullable
+        protected abstract OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
             OWLObjectPropertyExpression p);
 
         @Override
@@ -119,7 +140,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             return result;
         }
 
-        protected abstract @Nullable OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
+        @Nullable
+        protected abstract OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
             OWLObjectPropertyExpression p);
 
         @Override
@@ -211,26 +233,6 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         return manchesterSyntaxTool;
     }
 
-    protected AbstractMacroExpansionVisitor(OWLOntology o) {
-        df = o.getOWLOntologyManager().getOWLDataFactory();
-        expandExpressionMap = new HashMap<>();
-        expandAssertionToMap = new HashMap<>();
-        OWLAnnotationProperty ap424 = df.getOWLAnnotationProperty(IRI_IAO_0000424.getIRI());
-        o.objectPropertiesInSignature().forEach(p -> {
-            getAnnotationObjects(p, o.importsClosure(), ap424).forEach(a -> {
-                OWLAnnotationValue v = a.getValue();
-                if (v instanceof OWLLiteral) {
-                    String str = ((OWLLiteral) v).getLiteral();
-                    LOG.info("mapping {} to {}", p.getIRI(), str);
-                    expandExpressionMap.put(p.getIRI(), str);
-                }
-            });
-        });
-        o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
-        OIO_ISEXPANSION = df.getOWLAnnotationProperty(IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
-        expansionMarkerAnnotation = df.getOWLAnnotation(OIO_ISEXPANSION, df.getOWLLiteral(true));
-    }
-
     protected void expandAssertions(OWLOntology o, OWLAnnotationProperty p) {
         OWLAnnotationProperty ap425 = df.getOWLAnnotationProperty(IRI_IAO_0000425.getIRI());
         getAnnotationObjects(p, o.importsClosure(), ap425).map(a -> a.getValue().asLiteral()).filter(v -> v.isPresent())
@@ -241,7 +243,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             });
     }
 
-    protected @Nullable OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
+    @Nullable
+    protected OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
         OWLClassExpression result = null;
         IRI iri = ((OWLObjectProperty) p).getIRI();
         IRI templateVal = null;
@@ -259,7 +262,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         return result;
     }
 
-    protected @Nullable OWLClassExpression resultFromVal(IRI iri, IRI templateVal) {
+    @Nullable
+    protected OWLClassExpression resultFromVal(IRI iri, IRI templateVal) {
         String tStr = expandExpressionMap.get(iri);
         String exStr = tStr.replace("?Y", manchesterSyntaxTool.getId(templateVal));
         try {
@@ -270,7 +274,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         }
     }
 
-    protected @Nullable IRI valFromOneOf(Object filler) {
+    @Nullable
+    protected IRI valFromOneOf(Object filler) {
         Set<OWLIndividual> inds = asSet(((OWLObjectOneOf) filler).individuals(), OWLIndividual.class);
         if (inds.size() == 1) {
             OWLIndividual ind = inds.iterator().next();

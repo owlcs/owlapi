@@ -49,7 +49,7 @@ public class OBOFormatRenderer implements OWLRenderer {
      *         OWLOntologyStorageException
      */
     public static void render(OWLOntology ontology, Writer writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+        throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
             final OBODoc result = translator.convert(ontology);
@@ -64,7 +64,8 @@ public class OBOFormatRenderer implements OWLRenderer {
                 nameProvider = new NameProvider() {
 
                     @Override
-                    public @Nullable String getName(String id) {
+                    @Nullable
+                    public String getName(String id) {
                         String name = primary.getName(id);
                         if (name != null) {
                             return name;
@@ -73,7 +74,8 @@ public class OBOFormatRenderer implements OWLRenderer {
                     }
 
                     @Override
-                    public @Nullable String getDefaultOboNamespace() {
+                    @Nullable
+                    public String getDefaultOboNamespace() {
                         return primary.getDefaultOboNamespace();
                     }
                 };
@@ -82,7 +84,7 @@ public class OBOFormatRenderer implements OWLRenderer {
             }
             OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
             oboFormatWriter
-                    .setCheckStructure((Boolean) format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE));
+                .setCheckStructure((Boolean) format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE));
             oboFormatWriter.write(result, new PrintWriter(new BufferedWriter(writer)), nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);

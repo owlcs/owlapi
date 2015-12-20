@@ -24,10 +24,10 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** Builder class for OWLDataPropertyAssertionAxiom. */
 public class BuilderDataPropertyAssertion
-        extends BaseDataPropertyBuilder<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
+    extends BaseDataPropertyBuilder<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
 
-    private @Nullable OWLIndividual subject = null;
-    private @Nullable OWLLiteral object = null;
+    @Nullable private OWLIndividual subject = null;
+    @Nullable private OWLLiteral object = null;
 
     /**
      * @param df
@@ -49,7 +49,7 @@ public class BuilderDataPropertyAssertion
     public BuilderDataPropertyAssertion(OWLDataPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withSubject(expected.getSubject()).withValue(expected.getObject())
-                .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

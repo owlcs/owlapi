@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
  *         Research Group
  * @since 3.5
  */
+@FunctionalInterface
 public interface HasGetOntologyById {
 
     /**
@@ -30,5 +31,5 @@ public interface HasGetOntologyById {
      *         no ontology with the specified Id.
      */
     @Nullable
-    OWLOntology getOntology(OWLOntologyID ontologyID);
+        OWLOntology getOntology(OWLOntologyID ontologyID);
 }

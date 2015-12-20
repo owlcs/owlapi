@@ -32,9 +32,26 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
 
-    private final @Nonnull OWLDataFactory df;
-    private final @Nonnull Map<OWLEntity, IRI> replacementMap;
+    @Nonnull private final OWLDataFactory df;
+    @Nonnull private final Map<OWLEntity, IRI> replacementMap;
     protected RemappingIndividualProvider anonProvider;
+
+    /**
+     * Creates an object duplicator that duplicates objects using the specified
+     * data factory and uri replacement map.
+     * 
+     * @param dataFactory
+     *        The data factory to be used for the duplication.
+     * @param entityIRIReplacementMap
+     *        The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be
+     *        used to "rename" entities.
+     */
+    public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, OWLDataFactory dataFactory) {
+        df = checkNotNull(dataFactory, "dataFactory cannot be null");
+        anonProvider = new RemappingIndividualProvider(df);
+        replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
+    }
 
     /**
      * Creates an object duplicator that duplicates objects using the specified
@@ -73,23 +90,6 @@ public class OWLObjectDuplicator implements OWLObjectVisitorEx<OWLObject> {
             map.put(df.getOWLAnnotationProperty(k), v);
         });
         return map;
-    }
-
-    /**
-     * Creates an object duplicator that duplicates objects using the specified
-     * data factory and uri replacement map.
-     * 
-     * @param dataFactory
-     *        The data factory to be used for the duplication.
-     * @param entityIRIReplacementMap
-     *        The map to use for the replacement of URIs. Any uris the appear in
-     *        the map will be replaced as objects are duplicated. This can be
-     *        used to "rename" entities.
-     */
-    public OWLObjectDuplicator(Map<OWLEntity, IRI> entityIRIReplacementMap, OWLDataFactory dataFactory) {
-        df = checkNotNull(dataFactory, "dataFactory cannot be null");
-        anonProvider = new RemappingIndividualProvider(df);
-        replacementMap = new HashMap<>(checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
 
     /**

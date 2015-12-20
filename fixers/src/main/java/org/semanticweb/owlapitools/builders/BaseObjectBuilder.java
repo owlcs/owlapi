@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public abstract class BaseObjectBuilder<T extends OWLObject, B> extends BaseObjectPropertyBuilder<T, B> {
 
-    private @Nullable OWLClassExpression range = null;
+    @Nullable private OWLClassExpression range = null;
 
     /**
      * @param df

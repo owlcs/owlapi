@@ -28,23 +28,21 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @since 2.1.0
  */
 public class InferredPropertyAssertionGenerator
-        extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom<?, ?>> {
+    extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom<?, ?>> {
 
     @Override
     protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLPropertyAssertionAxiom<?, ?>> result) {
+        Set<OWLPropertyAssertionAxiom<?, ?>> result) {
         checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
-        reasoner.getRootOntology().objectPropertiesInSignature(INCLUDED).forEach(p -> {
-            reasoner.getObjectPropertyValues(entity, p).entities()
-                    .forEach(i -> result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(p, entity, i)));
-        } );
-        reasoner.getRootOntology().dataPropertiesInSignature(INCLUDED).forEach(p -> {
-            reasoner.getDataPropertyValues(entity, p)
-                    .forEach(v -> result.add(dataFactory.getOWLDataPropertyAssertionAxiom(p, entity, v)));
-        } );
+        reasoner.getRootOntology().objectPropertiesInSignature(INCLUDED)
+            .forEach(p -> reasoner.getObjectPropertyValues(entity, p).entities()
+                .forEach(i -> result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(p, entity, i))));
+        reasoner.getRootOntology().dataPropertiesInSignature(INCLUDED)
+            .forEach(p -> reasoner.getDataPropertyValues(entity, p)
+                .forEach(v -> result.add(dataFactory.getOWLDataPropertyAssertionAxiom(p, entity, v))));
     }
 
     @Override

@@ -33,9 +33,9 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, IRIShortFormProvider {
 
-    private @Nonnull Map<String, String> prefix2NamespaceMap;
-    private final @Nonnull Map<String, String> reverseprefix2NamespaceMap = new HashMap<>();
-    private @Nonnull StringComparator comparator;
+    @Nonnull private Map<String, String> prefix2NamespaceMap;
+    @Nonnull private final Map<String, String> reverseprefix2NamespaceMap = new HashMap<>();
+    @Nonnull private StringComparator comparator;
 
     /**
      * @param defaultPrefix
@@ -113,7 +113,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     }
 
     @Override
-    public @Nullable String getPrefixIRI(IRI iri) {
+    @Nullable
+    public String getPrefixIRI(IRI iri) {
         String prefix = reverseprefix2NamespaceMap.get(iri.getNamespace());
         if (prefix == null) {
             return null;
@@ -122,7 +123,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     }
 
     @Override
-    public @Nullable String getDefaultPrefix() {
+    @Nullable
+    public String getDefaultPrefix() {
         return prefix2NamespaceMap.get(":");
     }
 
@@ -169,7 +171,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider, I
     }
 
     @Override
-    public @Nullable String getPrefix(String prefixName) {
+    @Nullable
+    public String getPrefix(String prefixName) {
         return prefix2NamespaceMap.get(prefixName);
     }
 

@@ -22,6 +22,7 @@ import java.util.Set;
  *         Management Group
  * @since 3.0.0
  */
+@FunctionalInterface
 public interface OWLSubClassOfAxiomSetShortCut {
 
     /**

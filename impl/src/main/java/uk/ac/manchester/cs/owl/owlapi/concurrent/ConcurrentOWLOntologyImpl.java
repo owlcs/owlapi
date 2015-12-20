@@ -49,9 +49,9 @@ import uk.ac.manchester.cs.owl.owlapi.HasTrimToSize;
 @SuppressWarnings({ "deprecation" })
 public class ConcurrentOWLOntologyImpl implements OWLMutableOntology, HasTrimToSize {
 
-    private final @Nonnull OWLOntology delegate;
-    private final @Nonnull Lock readLock;
-    private final @Nonnull Lock writeLock;
+    @Nonnull private final OWLOntology delegate;
+    @Nonnull private final Lock readLock;
+    @Nonnull private final Lock writeLock;
 
     /**
      * Constructs a ConcurrentOWLOntology that provides concurrent access to a

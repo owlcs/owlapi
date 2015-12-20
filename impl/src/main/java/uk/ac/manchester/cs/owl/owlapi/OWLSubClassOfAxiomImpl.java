@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubClassOfAxiom {
 
-    private final @Nonnull OWLClassExpression subClass;
-    private final @Nonnull OWLClassExpression superClass;
+    @Nonnull private final OWLClassExpression subClass;
+    @Nonnull private final OWLClassExpression superClass;
 
     /**
      * @param subClass
@@ -45,7 +45,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
      *        annotations
      */
     public OWLSubClassOfAxiomImpl(OWLClassExpression subClass, OWLClassExpression superClass,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subClass = checkNotNull(subClass, "subClass cannot be null");
         this.superClass = checkNotNull(superClass, "superClass cannot be null");

@@ -61,13 +61,13 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         /** The result. */
         final Set<OWLClassExpression> result = new HashSet<>();
 
+        /** Instantiates a new conjunct splitter. */
+        ConjunctSplitter() {}
+
         @Override
         public void doDefault(Object object) {
             result.add((OWLClassExpression) object);
         }
-
-        /** Instantiates a new conjunct splitter. */
-        ConjunctSplitter() {}
 
         @Override
         public void visit(OWLObjectIntersectionOf ce) {

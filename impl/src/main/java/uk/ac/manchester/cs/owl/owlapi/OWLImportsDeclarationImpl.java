@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  */
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
 
-    private final @Nonnull IRI iri;
+    @Nonnull private final IRI iri;
 
     /**
      * @param iri

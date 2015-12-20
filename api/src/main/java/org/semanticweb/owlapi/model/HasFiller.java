@@ -21,6 +21,7 @@ package org.semanticweb.owlapi.model;
  * @param <T>
  *        filler type
  */
+@FunctionalInterface
 public interface HasFiller<T extends OWLObject> {
 
     /**

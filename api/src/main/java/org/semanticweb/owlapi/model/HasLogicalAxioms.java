@@ -24,6 +24,7 @@ import java.util.stream.Stream;
  *         Research Group
  * @since 3.4.6
  */
+@FunctionalInterface
 public interface HasLogicalAxioms {
 
     /**
@@ -31,6 +32,7 @@ public interface HasLogicalAxioms {
      * 
      * @return A set of {@link OWLLogicalAxiom}s that are contained within this
      *         object. Changes are not reflected back.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLLogicalAxiom> getLogicalAxioms() {

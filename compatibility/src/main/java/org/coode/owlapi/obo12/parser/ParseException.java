@@ -7,9 +7,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 class ParseException extends OWLRuntimeException {
 
     public ParseException(Token currentTokenVal,
-            int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
+        int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
         super(initialise(currentTokenVal, expectedTokenSequencesVal,
-                tokenImageVal));
+            tokenImageVal));
         currentToken = currentTokenVal;
         expectedTokenSequences = expectedTokenSequencesVal;
         tokenImage = tokenImageVal;
@@ -23,12 +23,12 @@ class ParseException extends OWLRuntimeException {
         super(message);
     }
 
-    public Token currentToken;
-    public int[][] expectedTokenSequences;
-    public String[] tokenImage;
+    protected Token currentToken;
+    protected int[][] expectedTokenSequences;
+    protected String[] tokenImage;
 
     private static String initialise(Token currentToken,
-            int[][] expectedTokenSequences, String[] tokenImage) {
+        int[][] expectedTokenSequences, String[] tokenImage) {
         String eol = System.getProperty("line.separator", "\n");
         StringBuffer expected = new StringBuffer();
         int maxSize = 0;
@@ -38,7 +38,7 @@ class ParseException extends OWLRuntimeException {
             }
             for (int j = 0; j < expectedTokenSequences[i].length; j++) {
                 expected.append(tokenImage[expectedTokenSequences[i][j]])
-                        .append(' ');
+                    .append(' ');
             }
             if (expectedTokenSequences[i][expectedTokenSequences[i].length - 1] != 0) {
                 expected.append("...");
@@ -62,7 +62,7 @@ class ParseException extends OWLRuntimeException {
             tok = tok.next;
         }
         retval += "\" at line " + currentToken.next.beginLine + ", column "
-                + currentToken.next.beginColumn;
+            + currentToken.next.beginColumn;
         retval += "." + eol;
         if (expectedTokenSequences.length == 1) {
             retval += "Was expecting:" + eol + "    ";
@@ -110,7 +110,7 @@ class ParseException extends OWLRuntimeException {
                     if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
                         String s = "0000" + Integer.toString(ch, 16);
                         retval.append("\\u"
-                                + s.substring(s.length() - 4, s.length()));
+                            + s.substring(s.length() - 4, s.length()));
                     } else {
                         retval.append(ch);
                     }

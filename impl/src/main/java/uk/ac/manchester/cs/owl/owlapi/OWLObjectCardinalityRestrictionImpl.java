@@ -28,12 +28,12 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLClassExpression>
-        implements OWLObjectCardinalityRestriction {
+    implements OWLObjectCardinalityRestriction {
 
-    private final @Nonnull OWLObjectPropertyExpression property;
+    @Nonnull private final OWLObjectPropertyExpression property;
 
     protected OWLObjectCardinalityRestrictionImpl(OWLObjectPropertyExpression property, int cardinality,
-            OWLClassExpression filler) {
+        OWLClassExpression filler) {
         super(cardinality, filler);
         this.property = checkNotNull(property, "property cannot be null");
     }

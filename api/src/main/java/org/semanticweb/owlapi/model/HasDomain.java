@@ -21,6 +21,7 @@ package org.semanticweb.owlapi.model;
  *        domain type
  * @since 3.5.0
  */
+@FunctionalInterface
 public interface HasDomain<D extends OWLObject> {
 
     /**

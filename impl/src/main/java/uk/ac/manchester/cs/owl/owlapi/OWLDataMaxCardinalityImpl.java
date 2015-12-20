@@ -26,11 +26,6 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  */
 public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataMaxCardinality {
 
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 17;
-    }
-
     /**
      * @param property
      *        property
@@ -41,6 +36,11 @@ public class OWLDataMaxCardinalityImpl extends OWLDataCardinalityRestrictionImpl
      */
     public OWLDataMaxCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 17;
     }
 
     @Override

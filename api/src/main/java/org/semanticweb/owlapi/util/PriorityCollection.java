@@ -26,7 +26,7 @@ import com.google.common.collect.Iterators;
  */
 public class PriorityCollection<T extends Serializable> implements Iterable<T>, Serializable {
 
-    private final @Nonnull List<T> delegate = Collections.synchronizedList(new ArrayList<T>());
+    @Nonnull private final List<T> delegate = Collections.synchronizedList(new ArrayList<T>());
     private final PriorityCollectionSorting configurationHolder;
 
     /**

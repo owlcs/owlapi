@@ -45,9 +45,6 @@ public class AxiomCount extends IntegerValuedMetric {
     }
 
     @Override
-    protected void disposeMetric() {}
-
-    @Override
     public String getName() {
         return "Axiom";
     }

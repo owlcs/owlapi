@@ -28,12 +28,7 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
  */
 public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLIndividualArgument {
 
-    private final @Nonnull OWLIndividual individual;
-
-    @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 7;
-    }
+    @Nonnull private final OWLIndividual individual;
 
     /**
      * @param individual
@@ -41,6 +36,11 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
      */
     public SWRLIndividualArgumentImpl(OWLIndividual individual) {
         this.individual = checkNotNull(individual, "individual cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 7;
     }
 
     @Override

@@ -21,6 +21,7 @@ package org.semanticweb.owlapi.model;
  *         </p>
  * @since 3.5
  */
+@FunctionalInterface
 public interface HasPrefixedName {
 
     /**

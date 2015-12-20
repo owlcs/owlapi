@@ -26,12 +26,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> implements OWLDataHasValue {
 
-    private final @Nonnull OWLDataPropertyExpression property;
-
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 14;
-    }
+    @Nonnull private final OWLDataPropertyExpression property;
 
     /**
      * @param property
@@ -42,6 +37,11 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> imp
     public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
         super(value);
         this.property = checkNotNull(property, "property cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 14;
     }
 
     @Override

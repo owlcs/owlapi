@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  *         Informatics Group
  * @since 2.0.0
  */
+@FunctionalInterface
 public interface OWLEntitySetProvider<E extends OWLEntity> {
 
     /**

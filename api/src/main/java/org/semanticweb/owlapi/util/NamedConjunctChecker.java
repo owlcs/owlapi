@@ -36,11 +36,11 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  */
 public class NamedConjunctChecker {
 
-    protected @Nullable OWLClass conjunct;
+    @Nullable protected OWLClass conjunct;
     boolean found;
     boolean collect;
-    final @Nonnull Set<OWLClass> conjuncts = new HashSet<>();
-    private final @Nonnull NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
+    @Nonnull final Set<OWLClass> conjuncts = new HashSet<>();
+    @Nonnull private final NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
 
     /**
      * @return true ifa named class is a conjunct in a given class expression.

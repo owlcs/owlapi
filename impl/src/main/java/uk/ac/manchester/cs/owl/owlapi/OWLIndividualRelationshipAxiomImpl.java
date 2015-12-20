@@ -32,11 +32,11 @@ import org.semanticweb.owlapi.model.*;
  * @since 2.0.0
  */
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
-        extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
+    extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
-    private final @Nonnull OWLIndividual subject;
-    private final @Nonnull P property;
-    private final @Nonnull O o;
+    @Nonnull private final OWLIndividual subject;
+    @Nonnull private final P property;
+    @Nonnull private final O o;
 
     /**
      * @param subject
@@ -49,7 +49,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
      *        the annotations
      */
     public OWLIndividualRelationshipAxiomImpl(OWLIndividual subject, P property, O object,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
@@ -84,7 +84,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         }
         OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) obj;
         return other.getSubject().equals(subject) && other.getProperty().equals(property)
-                && other.getObject().equals(o);
+            && other.getObject().equals(o);
     }
 
     @Override

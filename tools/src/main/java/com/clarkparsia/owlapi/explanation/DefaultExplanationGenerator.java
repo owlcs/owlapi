@@ -36,8 +36,8 @@ import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
  */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
 
-    private final @Nonnull OWLDataFactory dataFactory;
-    private final @Nonnull MultipleExplanationGenerator gen;
+    @Nonnull private final OWLDataFactory dataFactory;
+    @Nonnull private final MultipleExplanationGenerator gen;
 
     /**
      * Instantiates a new default explanation generator.
@@ -52,10 +52,10 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      *        progress monitor
      */
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
-            ExplanationProgressMonitor progressMonitor) {
+        ExplanationProgressMonitor progressMonitor) {
         this(man, reasonerFactory, ontology,
-                checkNotNull(reasonerFactory, "reasonerFactory cannot be null").createNonBufferingReasoner(ontology),
-                progressMonitor);
+            checkNotNull(reasonerFactory, "reasonerFactory cannot be null").createNonBufferingReasoner(ontology),
+            progressMonitor);
     }
 
     /**
@@ -73,11 +73,11 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
      *        progress monitor
      */
     public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
-            OWLReasoner reasoner, @Nullable ExplanationProgressMonitor progressMonitor) {
+        OWLReasoner reasoner, @Nullable ExplanationProgressMonitor progressMonitor) {
         dataFactory = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         BlackBoxExplanation singleGen = new BlackBoxExplanation(checkNotNull(ontology, "ontology cannot be null"),
-                checkNotNull(reasonerFactory, "reasonerFactory cannot be null"),
-                checkNotNull(reasoner, "reasoner cannot be null"));
+            checkNotNull(reasonerFactory, "reasonerFactory cannot be null"),
+            checkNotNull(reasoner, "reasoner cannot be null"));
         gen = new HSTExplanationGenerator(singleGen);
         if (progressMonitor != null) {
             gen.setProgressMonitor(progressMonitor);

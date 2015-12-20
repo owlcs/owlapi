@@ -17,6 +17,7 @@ package org.semanticweb.owlapi.model;
  *         Research Group
  * @since 3.4.6
  */
+@FunctionalInterface
 public interface HasIRI {
 
     /**

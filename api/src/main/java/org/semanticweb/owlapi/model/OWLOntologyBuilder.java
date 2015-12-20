@@ -23,6 +23,7 @@ import java.io.Serializable;
  * @author Ignazio
  * @since 4.0.0
  */
+@FunctionalInterface
 public interface OWLOntologyBuilder extends Serializable {
 
     /**

@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.util.IndividualAppearance;
  */
 public class RDFTranslator extends AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
-    private @Nonnull RDFGraph graph = new RDFGraph();
+    @Nonnull private RDFGraph graph = new RDFGraph();
 
     /**
      * @param manager

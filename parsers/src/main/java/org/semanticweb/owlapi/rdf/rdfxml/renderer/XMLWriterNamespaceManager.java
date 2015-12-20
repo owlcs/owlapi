@@ -31,10 +31,10 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class XMLWriterNamespaceManager {
 
-    private final @Nonnull Map<String, String> prefixNamespaceMap = new HashMap<>();
-    private final @Nonnull Map<String, String> namespacePrefixMap = new HashMap<>();
-    private final @Nonnull Map<String, String> wellknownNamespaces = new HashMap<>();
-    private @Nonnull String defaultNamespace;
+    @Nonnull private final Map<String, String> prefixNamespaceMap = new HashMap<>();
+    @Nonnull private final Map<String, String> namespacePrefixMap = new HashMap<>();
+    @Nonnull private final Map<String, String> wellknownNamespaces = new HashMap<>();
+    @Nonnull private String defaultNamespace;
 
     /**
      * @param defaultNamespace
@@ -52,7 +52,7 @@ public class XMLWriterNamespaceManager {
      */
     public void addWellKnownNamespace(String prefix, String namespace) {
         wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"),
-                checkNotNull(namespace, "namespace cannot be null"));
+            checkNotNull(namespace, "namespace cannot be null"));
     }
 
     /**
@@ -73,7 +73,8 @@ public class XMLWriterNamespaceManager {
      *        namespace
      * @return prefix for namespace, or null
      */
-    public @Nullable String getPrefixForNamespace(String namespace) {
+    @Nullable
+    public String getPrefixForNamespace(String namespace) {
         return namespacePrefixMap.get(checkNotNull(namespace, "namespace cannot be null"));
     }
 
@@ -90,7 +91,8 @@ public class XMLWriterNamespaceManager {
      *        prefix
      * @return namespace for prefix or null
      */
-    public @Nullable String getNamespaceForPrefix(String prefix) {
+    @Nullable
+    public String getNamespaceForPrefix(String prefix) {
         return prefixNamespaceMap.get(checkNotNull(prefix, "prefix cannot be null"));
     }
 
@@ -102,7 +104,8 @@ public class XMLWriterNamespaceManager {
      * @return The QName representation or the input name if a QName could not
      *         be generated.
      */
-    public @Nullable String getQName(String name) {
+    @Nullable
+    public String getQName(String name) {
         checkNotNull(name, "name cannot be null");
         if (name.startsWith(defaultNamespace)) {
             return name.substring(defaultNamespace.length(), name.length());

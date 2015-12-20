@@ -3,6 +3,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 /**
  * Created by ses on 10/10/14.
  */
+@FunctionalInterface
 public interface HasTrimToSize {
 
     /**

@@ -66,7 +66,7 @@ public class OWL2Profile implements OWLProfile {
 
     private static class OWL2ProfileObjectWalker extends OWLOntologyWalkerVisitor {
 
-        private final @Nonnull Set<OWLProfileViolation> profileViolations = new HashSet<>();
+        @Nonnull private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         OWL2ProfileObjectWalker(OWLOntologyWalker walker) {
             super(walker);
@@ -119,17 +119,17 @@ public class OWL2Profile implements OWLProfile {
             // axiom
             OWLDatatype datatype = node.getDatatype();
             getCurrentOntology().importsClosure().flatMap(o -> o.axioms(AxiomType.DATATYPE_DEFINITION))
-                    .filter(ax -> datatype.equals(ax.getDatatype()))
-                    .forEach(ax -> profileViolations.add(new UseOfDefinedDatatypeInDatatypeRestriction(
-                            getCurrentOntology(), getCurrentAxiom(), node)));
+                .filter(ax -> datatype.equals(ax.getDatatype()))
+                .forEach(ax -> profileViolations.add(new UseOfDefinedDatatypeInDatatypeRestriction(
+                    getCurrentOntology(), getCurrentAxiom(), node)));
             // All facets must be allowed for the restricted datatype
             node.facetRestrictions().forEach(r -> {
                 OWL2Datatype dt = datatype.getBuiltInDatatype();
                 if (!dt.getFacets().contains(r.getFacet())) {
                     profileViolations.add(new UseOfIllegalFacetRestriction(getCurrentOntology(), getCurrentAxiom(),
-                            node, r.getFacet()));
+                        node, r.getFacet()));
                 }
-            } );
+            });
         }
 
         @Override

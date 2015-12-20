@@ -17,22 +17,23 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class OBODoc {
 
     /** The header frame. */
-    protected @Nullable Frame headerFrame;
+    @Nullable protected Frame headerFrame;
     /** The term frame map. */
-    protected final @Nonnull Map<String, Frame> termFrameMap = new HashMap<>();
+    @Nonnull protected final Map<String, Frame> termFrameMap = new HashMap<>();
     /** The typedef frame map. */
-    protected final @Nonnull Map<String, Frame> typedefFrameMap = new HashMap<>();
+    @Nonnull protected final Map<String, Frame> typedefFrameMap = new HashMap<>();
     /** The instance frame map. */
-    protected final @Nonnull Map<String, Frame> instanceFrameMap = new HashMap<>();
+    @Nonnull protected final Map<String, Frame> instanceFrameMap = new HashMap<>();
     /** The annotation frames. */
-    protected final @Nonnull Collection<Frame> annotationFrames = new LinkedList<>();
+    @Nonnull protected final Collection<Frame> annotationFrames = new LinkedList<>();
     /** The imported obo docs. */
     protected Collection<OBODoc> importedOBODocs = new LinkedList<>();
 
     /**
      * @return the header frame
      */
-    public @Nullable Frame getHeaderFrame() {
+    @Nullable
+    public Frame getHeaderFrame() {
         return headerFrame;
     }
 
@@ -66,10 +67,9 @@ public class OBODoc {
     }
 
     /**
-     * Freezing an OBODoc signals that the document has become quiescent, and that the system may optimize data
-     * structures for performance or space.
+     * Freezing an OBODoc signals that the document has become quiescent, and
+     * that the system may optimize data structures for performance or space.
      */
-
     public void freezeFrames() {
         headerFrame.freeze();
         freezeFrameMap(termFrameMap);
@@ -78,7 +78,6 @@ public class OBODoc {
         for (Frame frame : annotationFrames) {
             frame.freeze();
         }
-
     }
 
     private static void freezeFrameMap(Map<String, Frame> frameMap) {
@@ -92,7 +91,8 @@ public class OBODoc {
      *        the id
      * @return the term frame
      */
-    public @Nullable Frame getTermFrame(String id) {
+    @Nullable
+    public Frame getTermFrame(String id) {
         return getTermFrame(id, false);
     }
 
@@ -103,7 +103,8 @@ public class OBODoc {
      *        the follow import
      * @return the term frame
      */
-    public @Nullable Frame getTermFrame(String id, boolean followImport) {
+    @Nullable
+    public Frame getTermFrame(String id, boolean followImport) {
         if (!followImport) {
             return termFrameMap.get(id);
         }
@@ -120,7 +121,8 @@ public class OBODoc {
      *        the visited docs
      * @return the frame
      */
-    private @Nullable Frame getTermFrame(String id, Set<String> visitedDocs) {
+    @Nullable
+    private Frame getTermFrame(String id, Set<String> visitedDocs) {
         Frame f = termFrameMap.get(id);
         if (f != null) {
             return f;
@@ -143,7 +145,8 @@ public class OBODoc {
      *        the id
      * @return the typedef frame
      */
-    public @Nullable Frame getTypedefFrame(String id) {
+    @Nullable
+    public Frame getTypedefFrame(String id) {
         return getTypedefFrame(id, false);
     }
 
@@ -154,7 +157,8 @@ public class OBODoc {
      *        the follow imports
      * @return the typedef frame
      */
-    public @Nullable Frame getTypedefFrame(String id, boolean followImports) {
+    @Nullable
+    public Frame getTypedefFrame(String id, boolean followImports) {
         if (!followImports) {
             return typedefFrameMap.get(id);
         }
@@ -171,7 +175,8 @@ public class OBODoc {
      *        the visited docs
      * @return the frame
      */
-    private @Nullable Frame getTypedefFrame(String id, Set<String> visitedDocs) {
+    @Nullable
+    private Frame getTypedefFrame(String id, Set<String> visitedDocs) {
         Frame f = typedefFrameMap.get(id);
         if (f != null) {
             return f;
@@ -302,7 +307,8 @@ public class OBODoc {
      *        prefix
      * @return IRI prefix as string
      */
-    public static @Nullable String getIDSpace(String prefix) {
+    @Nullable
+    public static String getIDSpace(String prefix) {
         // built-in
         if (prefix.equals("RO")) {
             return "http://purl.obolibrary.org/obo/RO_";
@@ -362,11 +368,9 @@ public class OBODoc {
      * Check this document for violations, i.e. cardinality constraint
      * violations.
      * 
-     * @throws FrameStructureException
-     *         the frame structure exception
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */
-    public void check() throws FrameStructureException {
+    public void check() {
         verifyNotNull(headerFrame).check();
         for (Frame f : getTermFrames()) {
             f.check();

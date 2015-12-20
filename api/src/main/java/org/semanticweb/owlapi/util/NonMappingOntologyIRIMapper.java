@@ -35,7 +35,8 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper, Serializable {
 
     @Override
-    public @Nullable IRI getDocumentIRI(IRI ontologyIRI) {
+    @Nullable
+    public IRI getDocumentIRI(IRI ontologyIRI) {
         return ontologyIRI;
     }
 }

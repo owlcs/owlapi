@@ -37,6 +37,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;
 
+    @Nonnull protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
+
     /**
      * @param body
      *        rule body
@@ -53,6 +55,16 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         containsAnonymousClassExpressions = hasAnon();
     }
 
+    /**
+     * @param body
+     *        rule body
+     * @param head
+     *        rule head
+     */
+    public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head) {
+        this(body, head, NO_ANNOTATIONS);
+    }
+
     @Override
     public SWRLRule getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -64,16 +76,6 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     @Override
     public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new SWRLRuleImpl(body, head, mergeAnnos(anns));
-    }
-
-    /**
-     * @param body
-     *        rule body
-     * @param head
-     *        rule head
-     */
-    public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head) {
-        this(body, head, NO_ANNOTATIONS);
     }
 
     @Override
@@ -140,8 +142,6 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         }
         return diff;
     }
-
-    protected static final @Nonnull AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
 

@@ -46,7 +46,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private class SectionMap<O, V extends OWLAxiom> {
 
-        private final @Nonnull Map<O, Collection<V>> object2Axioms = new LinkedHashMap<>();
+        @Nonnull private final Map<O, Collection<V>> object2Axioms = new LinkedHashMap<>();
 
         SectionMap() {}
 
@@ -84,12 +84,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     private final OWLOntology o;
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
-    private final @Nonnull Set<AxiomType<?>> filteredAxiomTypes = Sets.newHashSet(AxiomType.SWRL_RULE);
+    @Nonnull private final Set<AxiomType<?>> filteredAxiomTypes = Sets.newHashSet(AxiomType.SWRL_RULE);
     private boolean renderExtensions = false;
-    private final @Nonnull List<RendererListener> listeners = new ArrayList<>();
+    @Nonnull private final List<RendererListener> listeners = new ArrayList<>();
     private OWLAxiomFilter axiomFilter = axiom -> true;
     private RenderingDirector renderingDirector = new DefaultRenderingDirector();
-    protected final @Nonnull OWLObjectComparator ooc;
+    @Nonnull protected final OWLObjectComparator ooc;
+    private final Predicate<OWLAxiom> props = ax -> ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
+    /** The event. */
+    private RendererEvent event;
 
     /**
      * Instantiates a new manchester owl syntax frame renderer.
@@ -387,15 +390,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return Collections.emptySet();
     }
 
-    private final Predicate<OWLAxiom> display = this::isDisplayed;
-    private final Predicate<OWLAxiom> props = ax -> ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
-
     protected <T extends OWLAxiom> Stream<T> filtersort(Stream<T> s) {
-        return s.filter(display).sorted(ooc);
+        return s.filter(this::isDisplayed).sorted(ooc);
     }
 
     protected <T extends OWLAxiom> Stream<T> filtersort(Stream<T> s, Predicate<OWLAxiom> extra) {
-        return s.filter(display.and(extra)).sorted(ooc);
+        return s.filter(this::isDisplayed).filter(extra).sorted(ooc);
     }
 
     /**
@@ -821,7 +821,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         axioms.addAll(writeEntityStart(DATATYPE, datatype));
         if (!isFiltered(AxiomType.DATATYPE_DEFINITION)) {
             Collection<OWLDataRange> dataRanges = sortedCollection();
-            o.datatypeDefinitions(datatype).filter(display).forEach(ax -> {
+            o.datatypeDefinitions(datatype).filter(this::isDisplayed).forEach(ax -> {
                 axioms.add(ax);
                 dataRanges.add(ax.getDataRange());
             });
@@ -855,18 +855,19 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         axioms.addAll(writeEntityStart(ANNOTATION_PROPERTY, property));
         if (!isFiltered(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
             Collection<OWLAnnotationProperty> properties = sortedCollection();
-            o.subAnnotationPropertyOfAxioms(property).filter(display)
+            o.subAnnotationPropertyOfAxioms(property).filter(this::isDisplayed)
                 .forEach(ax -> properties.add(ax.getSuperProperty()));
             writeSection(SUB_PROPERTY_OF, properties.iterator(), ",", true);
         }
         if (!isFiltered(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
             Collection<IRI> iris = sortedCollection();
-            o.annotationPropertyDomainAxioms(property).filter(display).forEach(ax -> iris.add(ax.getDomain()));
+            o.annotationPropertyDomainAxioms(property).filter(this::isDisplayed).forEach(ax -> iris.add(ax
+                .getDomain()));
             writeSection(DOMAIN, iris.iterator(), ",", true);
         }
         if (!isFiltered(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
             Collection<IRI> iris = sortedCollection();
-            o.annotationPropertyRangeAxioms(property).filter(display).forEach(ax -> iris.add(ax.getRange()));
+            o.annotationPropertyRangeAxioms(property).filter(this::isDisplayed).forEach(ax -> iris.add(ax.getRange()));
             writeSection(RANGE, iris.iterator(), ",", true);
         }
         writeEntitySectionEnd(ANNOTATION_PROPERTY.toString());
@@ -1108,9 +1109,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
         write("]");
     }
-
-    /** The event. */
-    private RendererEvent event;
 
     /**
      * Fire frame rendering prepared.

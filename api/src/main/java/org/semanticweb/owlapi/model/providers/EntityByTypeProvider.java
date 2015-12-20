@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  *         Research Group
  * @since 3.4.6
  */
+@FunctionalInterface
 public interface EntityByTypeProvider {
 
     /**

@@ -56,8 +56,8 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  */
 public class OWLOntologyChangeRecord implements Serializable {
 
-    private final @Nonnull OWLOntologyID ontologyID;
-    private final @Nonnull OWLOntologyChangeData data;
+    @Nonnull private final OWLOntologyID ontologyID;
+    @Nonnull private final OWLOntologyChangeData data;
 
     /**
      * Constructs an {@code OWLOntologyChangeRecord} object which holds

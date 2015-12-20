@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
 
-    private final @Nonnull OWLDatatype datatype;
-    private final @Nonnull OWLDataRange dataRange;
+    @Nonnull private final OWLDatatype datatype;
+    @Nonnull private final OWLDataRange dataRange;
 
     /**
      * @param datatype
@@ -41,7 +41,7 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
      *        annotations on the axiom
      */
     public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");

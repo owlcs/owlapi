@@ -51,7 +51,7 @@ public class InferredOntologyGenerator {
      *        the axiom generators to use
      */
     public InferredOntologyGenerator(OWLReasoner reasoner,
-            List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
+        List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
         this.reasoner = checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(axiomGenerators, "axiomGenerators cannot be null");
         this.axiomGenerators = new ArrayList<>(axiomGenerators);
@@ -67,13 +67,13 @@ public class InferredOntologyGenerator {
 
     private static List<InferredAxiomGenerator<? extends OWLAxiom>> generators() {
         return CollectionFactory.<InferredAxiomGenerator<? extends OWLAxiom>> list(
-                new InferredClassAssertionAxiomGenerator(), new InferredDataPropertyCharacteristicAxiomGenerator(),
-                new InferredEquivalentClassAxiomGenerator(), new InferredEquivalentDataPropertiesAxiomGenerator(),
-                new InferredEquivalentObjectPropertyAxiomGenerator(),
-                new InferredInverseObjectPropertiesAxiomGenerator(),
-                new InferredObjectPropertyCharacteristicAxiomGenerator(), new InferredPropertyAssertionGenerator(),
-                new InferredSubClassAxiomGenerator(), new InferredSubDataPropertyAxiomGenerator(),
-                new InferredSubObjectPropertyAxiomGenerator());
+            new InferredClassAssertionAxiomGenerator(), new InferredDataPropertyCharacteristicAxiomGenerator(),
+            new InferredEquivalentClassAxiomGenerator(), new InferredEquivalentDataPropertiesAxiomGenerator(),
+            new InferredEquivalentObjectPropertyAxiomGenerator(),
+            new InferredInverseObjectPropertiesAxiomGenerator(),
+            new InferredObjectPropertyCharacteristicAxiomGenerator(), new InferredPropertyAssertionGenerator(),
+            new InferredSubClassAxiomGenerator(), new InferredSubDataPropertyAxiomGenerator(),
+            new InferredSubObjectPropertyAxiomGenerator());
     }
 
     /**
@@ -122,15 +122,15 @@ public class InferredOntologyGenerator {
     public void fillOntology(OWLDataFactory df, OWLOntology ontology) {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
-        axiomGenerators.stream().flatMap(g -> generate(df, g)).forEach(ax -> ontology.add(ax));
+        axiomGenerators.stream().flatMap(g -> generate(df, g)).forEach(ontology::add);
     }
 
-    protected Stream<? extends OWLAxiom> generate(OWLDataFactory df, InferredAxiomGenerator<? extends OWLAxiom> g) {
+    protected Stream<OWLAxiom> generate(OWLDataFactory df, InferredAxiomGenerator<? extends OWLAxiom> g) {
         try {
-            return g.createAxioms(df, reasoner).stream();
+            return g.createAxioms(df, reasoner).stream().map(x -> x);
         } catch (Exception e) {
             logger.warn("Error generating {} axioms using {}, version {}", g.getLabel(), reasoner.getReasonerName(),
-                    reasoner.getReasonerVersion(), e);
+                reasoner.getReasonerVersion(), e);
             return empty();
         }
     }

@@ -55,7 +55,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         OWLOntology o = ontology;
         try {
             ontology = man.createOntology(IRI.getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"),
-                    o.importsClosure(), true);
+                o.importsClosure(), true);
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -110,7 +110,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      *         if there is any problem
      */
     public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
-            Set<OWLAxiom> currentPathContents) throws OWLException {
+        Set<OWLAxiom> currentPathContents) throws OWLException {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
@@ -128,7 +128,6 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             }
             if (!earlyTermination) {
                 // Generate a new node - i.e. a new justification set
-                // generateSOSAxioms();
                 Set<OWLAxiom> newMUPS = getSOSForInconsistentClass(getCurrentClass());
                 if (!newMUPS.isEmpty()) {
                     // We have a new justification set, and a new node

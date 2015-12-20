@@ -29,12 +29,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements OWLObjectHasSelf {
 
-    private final @Nonnull OWLObjectPropertyExpression property;
-
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 11;
-    }
+    @Nonnull private final OWLObjectPropertyExpression property;
 
     /**
      * @param property
@@ -42,6 +37,11 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements OWLObjec
      */
     public OWLObjectHasSelfImpl(OWLObjectPropertyExpression property) {
         this.property = checkNotNull(property, "property cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 11;
     }
 
     @Override

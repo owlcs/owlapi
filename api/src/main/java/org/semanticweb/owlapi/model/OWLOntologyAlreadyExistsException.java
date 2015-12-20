@@ -26,7 +26,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
 
     private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
     private final OWLOntologyID ontologyID;
-    private final @Nullable IRI documentIRI;
+    @Nullable private final IRI documentIRI;
 
     /**
      * Constructs an {@code OWLOntologyAlreadyExistsException} to describe the
@@ -56,7 +56,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      */
     public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI) {
         super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString()
-                + ')');
+            + ')');
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }
@@ -93,7 +93,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      */
     public OWLOntologyAlreadyExistsException(OWLOntologyID ontologyID, IRI documentIRI, Throwable t) {
         super(ONTOLOGY_ALREADY_EXISTS + ontologyID + " (New ontology loaded from " + documentIRI.toQuotedString() + ')',
-                t);
+            t);
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }
@@ -114,7 +114,8 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      *         the ontology was created without loading it from an ontology
      *         document then the return value will be {@code null}.
      */
-    public @Nullable IRI getDocumentIRI() {
+    @Nullable
+    public IRI getDocumentIRI() {
         return documentIRI;
     }
 }

@@ -19,9 +19,9 @@ import org.slf4j.LoggerFactory;
 public class MacroExpansionVisitor {
 
     protected static final Logger LOG = LoggerFactory.getLogger(MacroExpansionVisitor.class);
-    protected final @Nonnull OWLOntology inputOntology;
-    protected final @Nonnull OWLOntologyManager manager;
-    protected final @Nonnull Visitor visitor;
+    @Nonnull protected final OWLOntology inputOntology;
+    @Nonnull protected final OWLOntologyManager manager;
+    @Nonnull protected final Visitor visitor;
     protected final AbstractDataVisitorEx dataVisitor;
     protected boolean shouldTransferAnnotations = false;
     protected final boolean shouldAddExpansionMarker;
@@ -208,13 +208,15 @@ public class MacroExpansionVisitor {
             classVisitor = new AbstractMacroExpansionVisitor.AbstractClassExpressionVisitorEx() {
 
                 @Override
-                protected @Nullable OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
+                @Nullable
+                protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
                     OWLObjectPropertyExpression p) {
                     return expandObject(filler, p);
                 }
 
                 @Override
-                protected @Nullable OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
+                @Nullable
+                protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
                     OWLObjectPropertyExpression p) {
                     OWLClassExpression result = expandObject(filler, p);
                     if (result != null) {

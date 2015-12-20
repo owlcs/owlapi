@@ -41,8 +41,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     static class LabelPrefixManager implements PrefixManager {
 
-        private final @Nonnull OWLOntology ontology;
-        private final @Nonnull PrefixManager delegate;
+        @Nonnull private final OWLOntology ontology;
+        @Nonnull private final PrefixManager delegate;
 
         LabelPrefixManager(OWLOntology ontology) {
             this.ontology = ontology;
@@ -55,7 +55,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
-        public @Nullable String getPrefixIRI(IRI iri) {
+        @Nullable
+        public String getPrefixIRI(IRI iri) {
             for (OWLAnnotationAssertionAxiom annotation : asList(ontology.annotationAssertionAxioms(iri))) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
@@ -68,7 +69,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
-        public @Nullable String getDefaultPrefix() {
+        @Nullable
+        public String getDefaultPrefix() {
             return delegate.getDefaultPrefix();
         }
 
@@ -78,7 +80,8 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         }
 
         @Override
-        public @Nullable String getPrefix(String prefixName) {
+        @Nullable
+        public String getPrefix(String prefixName) {
             return delegate.getPrefix(prefixName);
         }
 

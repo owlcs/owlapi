@@ -107,7 +107,8 @@ public abstract class CachingBidirectionalShortFormProvider implements Bidirecti
     }
 
     @Override
-    public @Nullable OWLEntity getEntity(String shortForm) {
+    @Nullable
+    public OWLEntity getEntity(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null && !entities.isEmpty()) {
             return entities.iterator().next();

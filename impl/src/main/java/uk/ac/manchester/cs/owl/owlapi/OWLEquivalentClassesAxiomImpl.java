@@ -79,13 +79,13 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
         return result;
     }
 
-    private boolean named(OWLClassExpression d) {
+    private static boolean named(OWLClassExpression d) {
         return !d.isAnonymous() && !d.isOWLNothing() && !d.isOWLThing();
     }
 
     @Override
     public boolean containsNamedEquivalentClass() {
-        return classExpressions().anyMatch(this::named);
+        return classExpressions().anyMatch(OWLEquivalentClassesAxiomImpl::named);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl impleme
 
     @Override
     public Stream<OWLClass> namedClasses() {
-        return classExpressions().filter(this::named).map(OWLClassExpression::asOWLClass);
+        return classExpressions().filter(OWLEquivalentClassesAxiomImpl::named).map(OWLClassExpression::asOWLClass);
     }
 
     @Override

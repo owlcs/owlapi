@@ -27,10 +27,7 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     private final boolean literal;
 
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 8;
-    }
+    private final int hashcode;
 
     /**
      * @param literal
@@ -41,7 +38,10 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
         hashcode = getHashCode();
     }
 
-    private final int hashcode;
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 8;
+    }
 
     @Override
     public int hashCode() {

@@ -38,9 +38,35 @@ import gnu.trove.map.hash.THashMap;
  */
 public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
 
-    private final @Nonnull RDFResource subject;
-    private final @Nonnull RDFResourceIRI predicate;
-    private final @Nonnull RDFNode object;
+    @Nonnull private final RDFResource subject;
+    @Nonnull private final RDFResourceIRI predicate;
+    @Nonnull private final RDFNode object;
+//@formatter:off
+    private static final List<IRI> ORDERED_URIS = Arrays.asList(
+        RDF_TYPE.getIRI(),
+        RDFS_LABEL.getIRI(),
+        OWL_DEPRECATED.getIRI(),
+        RDFS_COMMENT.getIRI(),
+        RDFS_IS_DEFINED_BY.getIRI(),
+        RDF_FIRST.getIRI(),
+        RDF_REST.getIRI(),
+        OWL_EQUIVALENT_CLASS.getIRI(),
+        OWL_EQUIVALENT_PROPERTY.getIRI(),
+        RDFS_SUBCLASS_OF.getIRI(),
+        RDFS_SUB_PROPERTY_OF.getIRI(),
+        RDFS_DOMAIN.getIRI(),
+        RDFS_RANGE.getIRI(),
+        OWL_DISJOINT_WITH.getIRI(),
+        OWL_ON_PROPERTY.getIRI(),
+        OWL_DATA_RANGE.getIRI(),
+        OWL_ON_CLASS.getIRI(),
+        
+        OWL_ANNOTATED_SOURCE.getIRI(),
+        OWL_ANNOTATED_PROPERTY.getIRI(),
+        OWL_ANNOTATED_TARGET.getIRI()
+        );
+    //@formatter:on
+    static final THashMap<IRI, Integer> specialPredicateRanks = initMap();
 
     /**
      * @param subject
@@ -74,13 +100,6 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
             new RDFResourceIRI(predicate), getResource(object, objectAnon));
     }
 
-    private static RDFResource getResource(IRI iri, boolean anon) {
-        if (anon) {
-            return new RDFResourceBlankNode(iri, true, true);
-        }
-        return new RDFResourceIRI(iri);
-    }
-
     /**
      * @param subject
      *        the subject
@@ -93,6 +112,13 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
      */
     public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, OWLLiteral object) {
         this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate), new RDFLiteral(object));
+    }
+
+    private static RDFResource getResource(IRI iri, boolean anon) {
+        if (anon) {
+            return new RDFResourceBlankNode(iri, true, true);
+        }
+        return new RDFResourceIRI(iri);
     }
 
     @Override
@@ -145,39 +171,12 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, org.apach
         return String.format("%s %s %s.", subject, predicate, object);
     }
 
-//@formatter:off
-    private static final List<IRI> ORDERED_URIS = Arrays.asList(
-            RDF_TYPE.getIRI(),
-            RDFS_LABEL.getIRI(),
-            OWL_DEPRECATED.getIRI(),
-            RDFS_COMMENT.getIRI(),
-            RDFS_IS_DEFINED_BY.getIRI(),
-            RDF_FIRST.getIRI(),
-            RDF_REST.getIRI(),
-            OWL_EQUIVALENT_CLASS.getIRI(),
-            OWL_EQUIVALENT_PROPERTY.getIRI(),
-            RDFS_SUBCLASS_OF.getIRI(),
-            RDFS_SUB_PROPERTY_OF.getIRI(),
-            RDFS_DOMAIN.getIRI(),
-            RDFS_RANGE.getIRI(),
-            OWL_DISJOINT_WITH.getIRI(),
-            OWL_ON_PROPERTY.getIRI(),
-            OWL_DATA_RANGE.getIRI(),
-            OWL_ON_CLASS.getIRI(),
-
-            OWL_ANNOTATED_SOURCE.getIRI(),
-            OWL_ANNOTATED_PROPERTY.getIRI(),
-            OWL_ANNOTATED_TARGET.getIRI()
-    );
-  //@formatter:on
-    static final THashMap<IRI, Integer> specialPredicateRanks = initMap();
-
     static THashMap<IRI, Integer> initMap() {
         THashMap<IRI, Integer> predicates = new THashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
         ORDERED_URIS.forEach(iri -> predicates.put(iri, nextId.getAndIncrement()));
         Stream.of(OWLRDFVocabulary.values())
-            .forEach(iri -> predicates.computeIfAbsent(iri.getIRI(), (i) -> nextId.getAndIncrement()));
+            .forEach(iri -> predicates.computeIfAbsent(iri.getIRI(), i -> nextId.getAndIncrement()));
         return predicates;
     }
 

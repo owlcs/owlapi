@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class AnnotationChange extends OWLOntologyChange {
 
-    private final @Nonnull OWLAnnotation annotation;
+    @Nonnull private final OWLAnnotation annotation;
 
     /**
      * @param ont

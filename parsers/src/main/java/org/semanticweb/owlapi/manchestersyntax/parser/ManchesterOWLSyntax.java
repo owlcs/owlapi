@@ -122,7 +122,7 @@ public enum ManchesterOWLSyntax {
     private final String keyword;
 
     ManchesterOWLSyntax(String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword,
-            boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword, String keyword) {
+        boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword, String keyword) {
         this.rendering = rendering;
         this.frameKeyword = frameKeyword;
         this.sectionKeyword = sectionKeyword;
@@ -133,9 +133,9 @@ public enum ManchesterOWLSyntax {
     }
 
     ManchesterOWLSyntax(String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword,
-            boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword) {
+        boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword) {
         this(rendering, frameKeyword, sectionKeyword, axiomKeyword, classExpressionQuantifierKeyword,
-                classExpressionConnectiveKeyword, rendering + ':');
+            classExpressionConnectiveKeyword, rendering + ':');
     }
 
     /**
@@ -221,7 +221,8 @@ public enum ManchesterOWLSyntax {
      *        rendering
      * @return manchester owl syntax object
      */
-    public static @Nullable ManchesterOWLSyntax parse(String rendering) {
+    @Nullable
+    public static ManchesterOWLSyntax parse(String rendering) {
         for (ManchesterOWLSyntax m : values()) {
             if (m.matches(rendering)) {
                 return m;

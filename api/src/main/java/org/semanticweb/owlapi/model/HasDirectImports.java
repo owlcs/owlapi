@@ -36,6 +36,7 @@ public interface HasDirectImports {
      * @throws UnknownOWLOntologyException
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<IRI> getDirectImportsDocuments() {
@@ -71,6 +72,7 @@ public interface HasDirectImports {
      * @throws UnknownOWLOntologyException
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntology> getDirectImports() {

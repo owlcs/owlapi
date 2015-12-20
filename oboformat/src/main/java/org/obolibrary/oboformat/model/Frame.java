@@ -91,7 +91,8 @@ public class Frame {
     /**
      * @return the id
      */
-    public @Nullable String getId() {
+    @Nullable
+    public String getId() {
         return id;
     }
 
@@ -142,7 +143,8 @@ public class Frame {
      *        the tag
      * @return null if no value set, otherwise first value
      */
-    public @Nullable Clause getClause(@Nullable String tag) {
+    @Nullable
+    public Clause getClause(@Nullable String tag) {
         if (tag == null) {
             return null;
         }
@@ -160,7 +162,8 @@ public class Frame {
      *        the tag
      * @return the clause for tag
      */
-    public @Nullable Clause getClause(OboFormatTag tag) {
+    @Nullable
+    public Clause getClause(OboFormatTag tag) {
         return getClause(tag.getTag());
     }
 
@@ -187,7 +190,7 @@ public class Frame {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer("Frame(");
+        StringBuilder sb = new StringBuilder("Frame(");
         sb.append(id);
         sb.append(' ');
         clauses.forEach(cl -> sb.append(cl).append(' '));
@@ -200,7 +203,8 @@ public class Frame {
      *        the tag
      * @return the tag value for tag
      */
-    public @Nullable Object getTagValue(String tag) {
+    @Nullable
+    public Object getTagValue(String tag) {
         Clause clause = getClause(tag);
         if (clause == null) {
             return null;
@@ -213,7 +217,8 @@ public class Frame {
      *        the tag
      * @return the tag value for tag
      */
-    public @Nullable Object getTagValue(OboFormatTag tag) {
+    @Nullable
+    public Object getTagValue(OboFormatTag tag) {
         return getTagValue(tag.getTag());
     }
 
@@ -226,7 +231,8 @@ public class Frame {
      *        the cls
      * @return the tag value for tag and class
      */
-    public @Nullable <T> T getTagValue(String tag, Class<T> cls) {
+    @Nullable
+    public <T> T getTagValue(String tag, Class<T> cls) {
         Clause clause = getClause(tag);
         if (clause == null) {
             return null;
@@ -247,7 +253,8 @@ public class Frame {
      *        the cls
      * @return the tag value for tag and class
      */
-    public @Nullable <T> T getTagValue(OboFormatTag tag, Class<T> cls) {
+    @Nullable
+    public <T> T getTagValue(OboFormatTag tag, Class<T> cls) {
         return getTagValue(tag.getTag(), cls);
     }
 
@@ -360,7 +367,7 @@ public class Frame {
      *         the frame structure exception
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */
-    public void check() throws FrameStructureException {
+    public void check() {
         if (FrameType.HEADER.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
                 OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
@@ -400,7 +407,7 @@ public class Frame {
      * @throws FrameStructureException
      *         frame structure exception
      */
-    private void checkMaxOneCardinality(OboFormatTag... tags) throws FrameStructureException {
+    private void checkMaxOneCardinality(OboFormatTag... tags) {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
                 throw new FrameStructureException(this, "multiple " + tag.getTag() + " tags not allowed.");

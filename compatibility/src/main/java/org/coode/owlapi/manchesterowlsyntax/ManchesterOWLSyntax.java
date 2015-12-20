@@ -25,10 +25,6 @@ import javax.annotation.Nullable;
 @Deprecated
 public enum ManchesterOWLSyntax {
     //@formatter:off
-    
-//    public static final String VALUE_PARTITION = "ValuePartition:";
-//    public static final String INSTANCES = "Instances:";
-    
     /** VALUE_PARTITION             */   VALUE_PARTITION             (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.VALUE_PARTITION             ),
     /** DASH                        */   DASH                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.DASH                        ),
     /** OPEN                        */   OPEN                        (org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.OPEN                        ),

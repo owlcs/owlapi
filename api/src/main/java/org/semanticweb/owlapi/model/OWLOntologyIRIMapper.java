@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
  *         Informatics Group
  * @since 2.0.0
  */
+@FunctionalInterface
 public interface OWLOntologyIRIMapper extends Serializable {
 
     /**
@@ -36,5 +37,5 @@ public interface OWLOntologyIRIMapper extends Serializable {
      *         doesn't have mapping for the specified ontology IRI.
      */
     @Nullable
-    IRI getDocumentIRI(IRI ontologyIRI);
+        IRI getDocumentIRI(IRI ontologyIRI);
 }

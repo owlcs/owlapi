@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 /** Builder class for OWLObjectComplementOf. */
 public class BuilderComplementOf extends BaseBuilder<OWLObjectComplementOf, BuilderComplementOf> {
 
-    private @Nullable OWLClassExpression c = null;
+    @Nullable private OWLClassExpression c = null;
 
     /**
      * @param df

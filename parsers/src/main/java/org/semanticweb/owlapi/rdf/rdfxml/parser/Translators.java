@@ -68,6 +68,7 @@ public class Translators {
         /** The face restriction list translator. */
         private final OptimisedListTranslator<OWLFacetRestriction> faceRestrictionListTranslator;
         private final OWLRDFConsumer consumer;
+        private final Map<IRI, OWLClassExpression> translatedClassExpression = new HashMap<>();
 
         TranslatorAccessor(OWLRDFConsumer r) {
             consumer = r;
@@ -131,7 +132,8 @@ public class Translators {
             swrlRules.forEach(translator::translateRule);
         }
 
-        public @Nullable OWLClassExpression getClassExpressionIfTranslated(IRI mainNode) {
+        @Nullable
+        public OWLClassExpression getClassExpressionIfTranslated(IRI mainNode) {
             return translatedClassExpression.get(mainNode);
         }
 
@@ -162,8 +164,6 @@ public class Translators {
         protected Set<OWLFacetRestriction> translateToFacetRestrictionSet(IRI mainNode) {
             return faceRestrictionListTranslator.translateToSet(mainNode);
         }
-
-        private final Map<IRI, OWLClassExpression> translatedClassExpression = new HashMap<>();
 
         protected OWLClassExpression translateClassExpression(IRI mainNode) {
             OWLClassExpression ce = translatedClassExpression.get(mainNode);
@@ -377,6 +377,7 @@ public class Translators {
             }
         }
 
+        @FunctionalInterface
         private interface TypeMatcher {
 
             boolean isTypeStrict(IRI node);
@@ -424,13 +425,15 @@ public class Translators {
         }
 
         @Override
-        public @Nullable OWLClassExpression translate(IRI firstObject) {
+        @Nullable
+        public OWLClassExpression translate(IRI firstObject) {
             consumer.addClassExpression(firstObject, false);
             return accessor.translateClassExpression(firstObject);
         }
 
         @Override
-        public @Nullable OWLClassExpression translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLClassExpression translate(OWLLiteral firstObject) {
             return consumer.getDataFactory().getOWLThing();
         }
     }
@@ -715,13 +718,15 @@ public class Translators {
         }
 
         @Override
-        public @Nullable OWLDataPropertyExpression translate(IRI firstObject) {
+        @Nullable
+        public OWLDataPropertyExpression translate(IRI firstObject) {
             consumer.addDataProperty(firstObject, false);
             return consumer.getOWLDataProperty(firstObject);
         }
 
         @Override
-        public @Nullable OWLDataPropertyExpression translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLDataPropertyExpression translate(OWLLiteral firstObject) {
             return null;
         }
     }
@@ -766,12 +771,14 @@ public class Translators {
         }
 
         @Override
-        public @Nullable OWLDataRange translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLDataRange translate(OWLLiteral firstObject) {
             return null;
         }
 
         @Override
-        public @Nullable OWLDataRange translate(IRI firstObject) {
+        @Nullable
+        public OWLDataRange translate(IRI firstObject) {
             return consumer.translateDataRange(firstObject);
         }
     }
@@ -816,12 +823,14 @@ public class Translators {
         }
 
         @Override
-        public @Nullable OWLPropertyExpression translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLPropertyExpression translate(OWLLiteral firstObject) {
             return null;
         }
 
         @Override
-        public @Nullable OWLPropertyExpression translate(IRI firstObject) {
+        @Nullable
+        public OWLPropertyExpression translate(IRI firstObject) {
             if (consumer.isObjectPropertyOnly(firstObject)) {
                 return consumer.getDataFactory().getOWLObjectProperty(firstObject);
             }
@@ -872,12 +881,14 @@ public class Translators {
         }
 
         @Override
-        public @Nullable OWLIndividual translate(IRI firstObject) {
+        @Nullable
+        public OWLIndividual translate(IRI firstObject) {
             return consumer.translateIndividual(firstObject);
         }
 
         @Override
-        public @Nullable OWLIndividual translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLIndividual translate(OWLLiteral firstObject) {
             LOGGER.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
             return null;
         }
@@ -954,12 +965,14 @@ public class Translators {
         }
 
         @Override
-        public @Nullable OWLFacetRestriction translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLFacetRestriction translate(OWLLiteral firstObject) {
             return null;
         }
 
         @Override
-        public @Nullable OWLFacetRestriction translate(IRI firstObject) {
+        @Nullable
+        public OWLFacetRestriction translate(IRI firstObject) {
             for (OWLFacet facet : OWLFacet.values()) {
                 OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getIRI(), true);
                 if (lit != null) {
@@ -980,12 +993,14 @@ public class Translators {
         }
 
         @Override
-        public @Nullable OWLObjectPropertyExpression translate(IRI firstObject) {
+        @Nullable
+        public OWLObjectPropertyExpression translate(IRI firstObject) {
             return consumer.translateObjectPropertyExpression(firstObject);
         }
 
         @Override
-        public @Nullable OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
             LOGGER.info(
                 "Cannot translate list item as an object property, because rdf:first triple is a literal triple");
             return null;
@@ -1105,7 +1120,7 @@ public class Translators {
 
         private static boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
             return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI())
-                && literal.getLiteral().toLowerCase(Locale.ENGLISH).equals("true");
+                && Boolean.parseBoolean(literal.getLiteral());
         }
 
         @Override
@@ -1381,13 +1396,15 @@ public class Translators {
          * @return The translated item.
          */
         @Override
-        public @Nullable OWLObjectPropertyExpression translate(IRI firstObject) {
+        @Nullable
+        public OWLObjectPropertyExpression translate(IRI firstObject) {
             consumer.addObjectProperty(firstObject, false);
             return consumer.translateObjectPropertyExpression(firstObject);
         }
 
         @Override
-        public @Nullable OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
             LOGGER.info(
                 "Cannot translate list item as an object property, because rdf:first triple is a literal triple");
             return null;
@@ -1510,7 +1527,8 @@ public class Translators {
         }
 
         @Override
-        public @Nullable SWRLAtom translate(IRI firstObject) {
+        @Nullable
+        public SWRLAtom translate(IRI firstObject) {
             if (consumer.isSWRLBuiltInAtom(firstObject)) {
                 return builtin(firstObject);
             } else if (consumer.isSWRLClassAtom(firstObject)) {
@@ -1599,7 +1617,8 @@ public class Translators {
         }
 
         @Override
-        public @Nullable SWRLAtom translate(OWLLiteral firstObject) {
+        @Nullable
+        public SWRLAtom translate(OWLLiteral firstObject) {
             throw new OWLRuntimeException("Unexpected literal in atom list: " + firstObject);
         }
 
@@ -1640,12 +1659,14 @@ public class Translators {
             SWRLAtomDObjectListItemTranslator() {}
 
             @Override
-            public @Nullable SWRLDArgument translate(IRI firstObject) {
+            @Nullable
+            public SWRLDArgument translate(IRI firstObject) {
                 return dataFactory.getSWRLVariable(firstObject);
             }
 
             @Override
-            public @Nullable SWRLDArgument translate(OWLLiteral firstObject) {
+            @Nullable
+            public SWRLDArgument translate(OWLLiteral firstObject) {
                 return dataFactory.getSWRLLiteralArgument(firstObject);
             }
         }
@@ -1703,13 +1724,15 @@ public class Translators {
     static class TypedConstantListItemTranslator implements ListItemTranslator<OWLLiteral> {
 
         @Override
-        public @Nullable OWLLiteral translate(IRI firstObject) {
+        @Nullable
+        public OWLLiteral translate(IRI firstObject) {
             LOGGER.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
             return null;
         }
 
         @Override
-        public @Nullable OWLLiteral translate(OWLLiteral firstObject) {
+        @Nullable
+        public OWLLiteral translate(OWLLiteral firstObject) {
             return firstObject;
         }
     }

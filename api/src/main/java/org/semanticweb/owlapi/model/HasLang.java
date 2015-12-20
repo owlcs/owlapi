@@ -16,6 +16,7 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group Date: 18/02/2014
  */
+@FunctionalInterface
 public interface HasLang {
 
     /**

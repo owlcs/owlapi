@@ -12,6 +12,8 @@ public class AnonymousIndividualProperties {
     private static AtomicBoolean saveIds = new AtomicBoolean(false);
     private static AtomicBoolean remapIds = new AtomicBoolean(true);
 
+    private AnonymousIndividualProperties() {}
+
     /** Ensure the config is back to default values. */
     public static void resetToDefault() {
         saveIds.set(false);

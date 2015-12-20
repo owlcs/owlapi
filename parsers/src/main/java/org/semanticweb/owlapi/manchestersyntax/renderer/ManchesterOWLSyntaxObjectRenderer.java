@@ -33,6 +33,9 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implements OWLObjectVisitor {
 
+    private boolean wrapSave;
+    private boolean tabSave;
+
     /**
      * @param writer
      *        writer
@@ -404,12 +407,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         property.getInverse().accept(this);
         write(")");
     }
-
     // Annotation stuff
     // Stand alone axiom representation
     // We render each axiom as a one line frame
-    private boolean wrapSave;
-    private boolean tabSave;
 
     private void setAxiomWriting() {
         wrapSave = isUseWrapping();
@@ -921,7 +921,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         write(ANNOTATIONS.toString());
         write(": ");
         pushTab(getIndent());
-        for (; annoIt.hasNext();) {
+        while (annoIt.hasNext()) {
             OWLAnnotation anno = annoIt.next();
             anno.accept(this);
             if (annoIt.hasNext()) {

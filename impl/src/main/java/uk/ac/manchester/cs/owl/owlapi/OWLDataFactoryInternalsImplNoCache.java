@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals, Serializable {
 
-    private @Nullable OWLLiteral negativeFloatZero;
+    @Nullable private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
     /**
@@ -125,65 +125,80 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
 
     @Override
     public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
-        OWLLiteral literal = null;
         if (datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
             int sep = lexicalValue.lastIndexOf('@');
             if (sep != -1) {
                 String lex = lexicalValue.substring(0, sep);
                 String lang = lexicalValue.substring(sep + 1);
-                literal = getBasicLiteral(lex, lang, LANGSTRING);
+                return verifyNotNull(getBasicLiteral(lex, lang, LANGSTRING));
             } else {
-                literal = getBasicLiteral(lexicalValue, XSDSTRING);
+                return verifyNotNull(getBasicLiteral(lexicalValue, XSDSTRING));
             }
+        }
+        // check the special cases
+        return verifyNotNull(parseSpecialCases(lexicalValue, datatype));
+    }
+
+    protected OWLLiteral parseSpecialCases(String lexicalValue, OWLDatatype datatype) {
+        OWLLiteral literal;
+        try {
+            if (datatype.isString()) {
+                literal = getOWLLiteral(lexicalValue);
+            } else if (datatype.isBoolean()) {
+                literal = getOWLLiteral(isBooleanTrueValue(lexicalValue.trim()));
+            } else if (datatype.isFloat()) {
+                literal = parseFloat(lexicalValue, datatype);
+            } else if (datatype.isDouble()) {
+                literal = getOWLLiteral(Double.parseDouble(lexicalValue));
+            } else if (datatype.isInteger()) {
+                literal = parseInteger(lexicalValue, datatype);
+            } else {
+                literal = getBasicLiteral(lexicalValue, datatype);
+            }
+        } catch (@SuppressWarnings("unused") NumberFormatException e) {
+            // some literal is malformed, i.e., wrong format
+            literal = getBasicLiteral(lexicalValue, datatype);
+        }
+        return literal;
+    }
+
+    protected OWLLiteral parseInteger(String lexicalValue, OWLDatatype datatype) {
+        OWLLiteral literal;
+        // again, some W3C tests require padding zeroes to make
+        // literals different
+        if (lexicalValue.trim().charAt(0) == '0') {
+            literal = getBasicLiteral(lexicalValue, XSDINTEGER);
         } else {
-            // check the special cases
             try {
-                if (datatype.isString()) {
-                    literal = getOWLLiteral(lexicalValue);
-                } else if (datatype.isBoolean()) {
-                    literal = getOWLLiteral(isBooleanTrueValue(lexicalValue.trim()));
-                } else if (datatype.isFloat()) {
-                    if (lexicalValue.trim().equals("-0.0")) {
-                        // according to some W3C test, this needs to be
-                        // different from 0.0; Java floats disagree
-                        if (negativeFloatZero == null) {
-                            negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
-                        }
-                        literal = negativeFloatZero;
-                    } else {
-                        try {
-                            float f = Float.parseFloat(lexicalValue);
-                            literal = getOWLLiteral(f);
-                        } catch (@SuppressWarnings("unused") NumberFormatException e) {
-                            literal = getBasicLiteral(lexicalValue, datatype);
-                        }
-                    }
-                } else if (datatype.isDouble()) {
-                    literal = getOWLLiteral(Double.parseDouble(lexicalValue));
-                } else if (datatype.isInteger()) {
-                    // again, some W3C tests require padding zeroes to make
-                    // literals different
-                    if (lexicalValue.trim().charAt(0) == '0') {
-                        literal = getBasicLiteral(lexicalValue, XSDINTEGER);
-                    } else {
-                        try {
-                            // this is fine for values that can be parsed as
-                            // ints - not all values are
-                            literal = getOWLLiteral(Integer.parseInt(lexicalValue));
-                        } catch (@SuppressWarnings("unused") NumberFormatException ex) {
-                            // try as a big decimal
-                            literal = getBasicLiteral(lexicalValue, datatype);
-                        }
-                    }
-                } else {
-                    literal = getBasicLiteral(lexicalValue, datatype);
-                }
-            } catch (@SuppressWarnings("unused") NumberFormatException e) {
-                // some literal is malformed, i.e., wrong format
+                // this is fine for values that can be parsed as
+                // ints - not all values are
+                literal = getOWLLiteral(Integer.parseInt(lexicalValue));
+            } catch (@SuppressWarnings("unused") NumberFormatException ex) {
+                // try as a big decimal
                 literal = getBasicLiteral(lexicalValue, datatype);
             }
         }
-        return verifyNotNull(literal);
+        return literal;
+    }
+
+    protected OWLLiteral parseFloat(String lexicalValue, OWLDatatype datatype) {
+        OWLLiteral literal;
+        if (lexicalValue.trim().equals("-0.0")) {
+            // according to some W3C test, this needs to be
+            // different from 0.0; Java floats disagree
+            if (negativeFloatZero == null) {
+                negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
+            }
+            literal = negativeFloatZero;
+        } else {
+            try {
+                float f = Float.parseFloat(lexicalValue);
+                literal = getOWLLiteral(f);
+            } catch (@SuppressWarnings("unused") NumberFormatException e) {
+                literal = getBasicLiteral(lexicalValue, datatype);
+            }
+        }
+        return literal;
     }
 
     protected OWLLiteral getBasicLiteral(String lexicalValue, OWLDatatype datatype) {

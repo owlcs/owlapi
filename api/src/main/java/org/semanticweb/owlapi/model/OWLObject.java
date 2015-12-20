@@ -34,6 +34,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
      * 
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s
      *         that represent the nested class expressions used in this object.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClassExpression> getNestedClassExpressions() {

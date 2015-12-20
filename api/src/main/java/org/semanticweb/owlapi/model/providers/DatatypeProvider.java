@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.PrefixManager;
  *         Research Group
  * @since 5.0.0
  */
+@FunctionalInterface
 public interface DatatypeProvider extends Serializable {
 
     /**

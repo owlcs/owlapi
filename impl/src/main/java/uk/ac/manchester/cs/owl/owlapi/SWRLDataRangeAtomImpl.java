@@ -26,11 +26,6 @@ import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
  */
 public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> implements SWRLDataRangeAtom {
 
-    @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 2;
-    }
-
     /**
      * @param predicate
      *        predicate
@@ -39,6 +34,11 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> impl
      */
     public SWRLDataRangeAtomImpl(OWLDataRange predicate, SWRLDArgument arg) {
         super(predicate, arg);
+    }
+
+    @Override
+    public int typeIndex() {
+        return RULE_OBJECT_TYPE_INDEX_BASE + 2;
     }
 
     @Override

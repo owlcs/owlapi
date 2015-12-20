@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
  */
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
 
-    private final @Nonnull Optional<Writer> writer = optional(new StringWriter());
+    @Nonnull private final Optional<Writer> writer = optional(new StringWriter());
 
     @Override
     public String toString() {

@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  */
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
-    private @Nonnull DefaultPrefixManager defaultPrefixManager;
+    @Nonnull private DefaultPrefixManager defaultPrefixManager;
     private PrefixManager prefixManager;
     protected final OWLOntology ont;
     private final Writer writer;
@@ -281,22 +281,22 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         List<OWLAnnotationAssertionAxiom> annotationAssertionAxioms, Set<OWLAxiom> alreadyWrittenAxioms) {
         writeln("# " + entityTypeName + ": " + getIRIString(entity) + " (" + getEntityLabel(entity) + ")");
         writeReturn();
-        sortOptionally(annotationAssertionAxioms).stream().filter(ax -> alreadyWrittenAxioms.add(ax))
-            .forEach(this::acceptAndReturn);
-        List<? extends OWLAxiom> axs = axiomsForEntity;
-        for (OWLAxiom ax : axs) {
-            if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
-                continue;
-            }
-            if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
-                && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2) {
-                continue;
-            }
-            ax.accept(this);
-            alreadyWrittenAxioms.add(ax);
-            writeReturn();
-        }
+        annotationAssertionAxioms.stream()
+            .filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
+        axiomsForEntity.stream().filter(this::shouldWrite)
+            .filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
         writeReturn();
+    }
+
+    private boolean shouldWrite(OWLAxiom ax) {
+        if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
+            return false;
+        }
+        if (ax.getAxiomType().equals(AxiomType.DISJOINT_CLASSES)
+            && ((OWLDisjointClassesAxiom) ax).classExpressions().count() > 2) {
+            return false;
+        }
+        return true;
     }
 
     private Stream<? extends OWLAxiom> getUnsortedAxiomsForEntity(OWLEntity entity) {
@@ -383,11 +383,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private void writeDeclarations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms, Collection<IRI> illegals) {
         Collection<OWLDeclarationAxiom> axioms = sortOptionally(ont.declarationAxioms(entity));
-        for (OWLDeclarationAxiom ax : axioms) {
-            if (alreadyWrittenAxioms.add(ax)) {
-                acceptAndReturn(ax);
-            }
-        }
+        axioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
         // if multiple illegal declarations already exist, they have already
         // been outputted
         // the renderer cannot take responsibility for removing them
@@ -430,7 +426,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      *        axioms
      */
     protected void writeAnnotations(OWLEntity entity, Set<OWLAxiom> alreadyWrittenAxioms) {
-        sortOptionally(ont.annotationAssertionAxioms(entity.getIRI()).filter(ax -> alreadyWrittenAxioms.add(ax)))
+        sortOptionally(ont.annotationAssertionAxioms(entity.getIRI()).filter(alreadyWrittenAxioms::add))
             .forEach(this::acceptAndReturn);
     }
 

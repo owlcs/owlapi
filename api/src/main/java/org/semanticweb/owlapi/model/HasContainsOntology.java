@@ -17,6 +17,7 @@ package org.semanticweb.owlapi.model;
  *         Research Group
  * @since 3.5
  */
+@FunctionalInterface
 public interface HasContainsOntology {
 
     /**

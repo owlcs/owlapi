@@ -43,11 +43,11 @@ import com.google.common.collect.Lists;
  */
 public class XMLWriterImpl implements XMLWriter {
 
-    private final @Nonnull Stack<XMLElement> elementStack;
-    protected final @Nonnull PrintWriter writer;
+    @Nonnull private final Deque<XMLElement> elementStack = new LinkedList<>();
+    @Nonnull protected final PrintWriter writer;
     private String encoding = "";
-    private final @Nonnull String xmlBase;
-    private final @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    @Nonnull private final String xmlBase;
+    @Nonnull private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
@@ -71,7 +71,6 @@ public class XMLWriterImpl implements XMLWriter {
             "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
         xmlPreferences = checkNotNull(preferences, "preferences cannot be null");
-        elementStack = new Stack<>();
         setupEntities();
     }
 
@@ -261,9 +260,9 @@ public class XMLWriterImpl implements XMLWriter {
     /** XML element. */
     public class XMLElement {
 
-        private final @Nullable String name;
+        @Nullable private final String name;
         private final Map<String, String> attributes = new LinkedHashMap<>();
-        protected @Nullable String textContent = null;
+        @Nullable protected String textContent = null;
         private boolean startWritten = false;
         private int indentation;
         private boolean wrapAttributes = false;

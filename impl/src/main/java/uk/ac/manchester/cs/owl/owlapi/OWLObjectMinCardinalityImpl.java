@@ -27,11 +27,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
     implements OWLObjectMinCardinality {
 
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 8;
-    }
-
     /**
      * @param property
      *        property
@@ -43,6 +38,11 @@ public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestriction
     public OWLObjectMinCardinalityImpl(OWLObjectPropertyExpression property, int cardinality,
         OWLClassExpression filler) {
         super(property, cardinality, filler);
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 8;
     }
 
     @Override

@@ -23,10 +23,10 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
 /** Builder class for OWLNegativeObjectPropertyAssertionAxiom. */
 public class BuilderNegativeObjectPropertyAssertion extends
-        BaseObjectPropertyBuilder<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
+    BaseObjectPropertyBuilder<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
 
-    private @Nullable OWLIndividual subject = null;
-    private @Nullable OWLIndividual value = null;
+    @Nullable private OWLIndividual subject = null;
+    @Nullable private OWLIndividual value = null;
 
     /**
      * Builder initialized from an existing object.
@@ -39,7 +39,7 @@ public class BuilderNegativeObjectPropertyAssertion extends
     public BuilderNegativeObjectPropertyAssertion(OWLNegativeObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
         withSubject(expected.getSubject()).withProperty(expected.getProperty()).withValue(expected.getObject())
-                .withAnnotations(expected.annotations());
+            .withAnnotations(expected.annotations());
     }
 
     /**

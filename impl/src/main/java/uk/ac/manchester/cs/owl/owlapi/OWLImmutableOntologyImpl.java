@@ -44,14 +44,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology, Serializable {
 
-    protected @Nonnull OWLOntologyManager manager;
-    protected @Nonnull OWLDataFactory df;
-    protected @Nonnull OWLOntologyID ontologyID;
-
-    @Override
-    public int typeIndex() {
-        return ONTOLOGY;
-    }
+    @Nonnull protected OWLOntologyManager manager;
+    @Nonnull protected OWLDataFactory df;
+    @Nonnull protected OWLOntologyID ontologyID;
+    private final OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
     /**
      * @param manager
@@ -63,6 +59,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
         df = manager.getOWLDataFactory();
+    }
+
+    @Override
+    public int typeIndex() {
+        return ONTOLOGY;
     }
 
     @Override
@@ -193,9 +194,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom) {
-        @SuppressWarnings("unchecked")
-        Stream<OWLAxiom> filter = (Stream<OWLAxiom>) axioms(axiom.getAxiomType()).filter(ax -> ax
-            .equalsIgnoreAnnotations(axiom));
+        @SuppressWarnings("unchecked") Stream<OWLAxiom> filter = (Stream<OWLAxiom>) axioms(axiom.getAxiomType()).filter(
+            ax -> ax
+                .equalsIgnoreAnnotations(axiom));
         if (containsAxiom(axiom)) {
             filter = Stream.concat(filter, Stream.of(axiom));
         }
@@ -317,8 +318,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         return entityReferenceChecker.containsReference(owlEntity);
     }
 
-    private final OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
-
     @Override
     public Stream<OWLEntity> signature() {
         return Stream.of(classesInSignature(), objectPropertiesInSignature(), dataPropertiesInSignature(),
@@ -411,9 +410,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {
 
-        OWLEntityReferenceChecker() {}
-
         private boolean ref;
+
+        OWLEntityReferenceChecker() {}
 
         public boolean containsReference(OWLEntity entity) {
             ref = false;
@@ -507,7 +506,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             axioms(AxiomType.DATA_PROPERTY_ASSERTION)
                 .filter(ax -> OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype()))
                 .filter(ax -> ax.getObject().getLiteral().equals(iriString))
-                .forEach(ax -> axioms.add(ax));
+                .forEach(axioms::add);
             axioms(AxiomType.ANNOTATION_ASSERTION).forEach(ax -> {
                 if (ax.getSubject().equals(owlEntity)) {
                     axioms.add(ax);
@@ -526,10 +525,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             axioms(AxiomType.DATA_PROPERTY_ASSERTION)
                 .filter(ax -> OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype()))
                 .filter(ax -> ax.getObject().equals(owlEntity))
-                .forEach(ax -> axioms.add(ax));
+                .forEach(axioms::add);
             axioms(AxiomType.ANNOTATION_ASSERTION)
                 .filter(ax -> owlEntity.equals(ax.getValue().asLiteral().orElse(null)))
-                .forEach(ax -> axioms.add(ax));
+                .forEach(axioms::add);
             return axioms.stream();
         }
         return empty();

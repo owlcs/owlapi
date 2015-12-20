@@ -31,9 +31,9 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 public abstract class AbstractCompositeOntologyChange implements OWLCompositeOntologyChange {
 
     /** The data factory. */
-    protected final @Nonnull OWLDataFactory df;
+    @Nonnull protected final OWLDataFactory df;
     /** The changes. */
-    private final @Nonnull List<OWLOntologyChange> changes = new ArrayList<>();
+    @Nonnull private final List<OWLOntologyChange> changes = new ArrayList<>();
 
     /**
      * Instantiates a new abstract composite ontology change.

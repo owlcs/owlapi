@@ -34,6 +34,7 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
      * 
      * @return The individiauls that are the values of this {@code ObjectOneOf}
      *         class expression.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<? extends OWLIndividual> getIndividuals() {

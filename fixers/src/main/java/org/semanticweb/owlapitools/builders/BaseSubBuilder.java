@@ -32,8 +32,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 
-    private @Nullable I sub = null;
-    private @Nullable I sup = null;
+    @Nullable private I sub = null;
+    @Nullable private I sup = null;
 
     /**
      * @param df

@@ -33,12 +33,7 @@ import org.semanticweb.owlapi.util.NNF;
  */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom, CollectionContainer<OWLAnnotation> {
 
-    protected final @Nonnull List<OWLAnnotation> annotations;
-
-    @Override
-    public int typeIndex() {
-        return AXIOM_TYPE_INDEX_BASE + getAxiomType().getIndex();
-    }
+    @Nonnull protected final List<OWLAnnotation> annotations;
 
     /**
      * @param annotations
@@ -47,6 +42,11 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom, Co
     public OWLAxiomImpl(Collection<OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         this.annotations = asAnnotations(annotations);
+    }
+
+    @Override
+    public int typeIndex() {
+        return AXIOM_TYPE_INDEX_BASE + getAxiomType().getIndex();
     }
 
     @Override
@@ -61,7 +61,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom, Co
 
     @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
-        annotations.forEach(a -> t.visitItem(a));
+        annotations.forEach(t::visitItem);
     }
 
     /**

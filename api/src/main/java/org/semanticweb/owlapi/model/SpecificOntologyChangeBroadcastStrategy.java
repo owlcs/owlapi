@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
  */
 public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
 
-    private final @Nonnull OWLOntology ontology;
+    @Nonnull private final OWLOntology ontology;
 
     /**
      * Constructs a change broadcast strategy which only causes changes that
@@ -47,7 +47,7 @@ public class SpecificOntologyChangeBroadcastStrategy implements OWLOntologyChang
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
         List<OWLOntologyChange> broadcastChanges = asList(
-                changes.stream().filter(c -> c.getOntology().equals(ontology)), OWLOntologyChange.class);
+            changes.stream().filter(c -> c.getOntology().equals(ontology)), OWLOntologyChange.class);
         listener.ontologiesChanged(broadcastChanges);
     }
 }

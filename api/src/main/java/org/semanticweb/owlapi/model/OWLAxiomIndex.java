@@ -53,6 +53,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        parameter is ignored.
      * @return set of axioms satisfying the conditions. The set is a copy of the
      *         data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity, Imports includeImports,
@@ -104,6 +105,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        parameter is ignored.
      * @return set of axioms satisfying the conditions. The set is a copy of the
      *         data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity, Navigation forSubPosition) {
@@ -149,6 +151,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return a collection of axioms matching the request. The axioms are
      *         collected from a set, therefore the collection contains no
      *         duplicates. It is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Collection<T> filterAxioms(OWLAxiomSearchFilter filter, Object key,
@@ -189,6 +192,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @return a collection of axioms matching the request. The axioms are
      *         collected from a set, therefore the collection contains no
      *         duplicates. It is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Collection<T> filterAxioms(OWLAxiomSearchFilter filter, Object key) {
@@ -261,6 +265,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        parameter is ignored.
      * @return set of axioms satisfying the conditions. The set is a copy of the
      *         data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, Class<? extends OWLObject> explicitClass,
@@ -316,6 +321,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        parameter is ignored.
      * @return set of axioms satisfying the conditions. The set is a copy of the
      *         data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, Class<? extends OWLObject> explicitClass,
@@ -360,6 +366,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param subProperty
      *        The sub-property of the axioms to be retrieved.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
@@ -383,6 +390,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that the axiom specifies a domain for.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(OWLAnnotationProperty property) {
@@ -406,6 +414,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that the axiom specifies a range for.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(OWLAnnotationProperty property) {
@@ -431,6 +440,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param subject
      *        The entity that is the subject of the set of returned axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity subject) {
@@ -454,6 +464,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param entity
      *        The entity whose annotations are to be retrieved.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLAnnotationSubject entity) {
@@ -468,6 +479,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param imports
      *        imports included or excluded
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLAnnotationSubject entity,
@@ -509,6 +521,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The class that is equal to the left hand side of the axiom
      *        (subclass).
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSubClassOfAxiom> getSubClassAxiomsForSubClass(OWLClass cls) {
@@ -535,6 +548,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param cls
      *        The class
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(OWLClass cls) {
@@ -560,6 +574,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param cls
      *        The class to search
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(OWLClass cls) {
@@ -585,6 +600,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param cls
      *        The class to search
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLClass cls) {
@@ -612,6 +628,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param owlClass
      *        The class that indexes the axioms to be retrieved.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLClass owlClass) {
@@ -638,6 +655,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param cls
      *        The subject of the has key axioms
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLHasKeyAxiom> getHasKeyAxioms(OWLClass cls) {
@@ -664,6 +682,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the sub property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
@@ -694,6 +713,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the super-property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
@@ -724,6 +744,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(OWLObjectPropertyExpression property) {
@@ -752,6 +773,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLObjectPropertyRangeAxiom> getObjectPropertyRangeAxioms(OWLObjectPropertyExpression property) {
@@ -781,6 +803,8 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(OWLObjectPropertyExpression property) {
@@ -811,6 +835,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property that the retrieved axioms make equivalent to some
      *        other property expressions.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
@@ -843,6 +868,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property that the retrieved axioms makes disjoint to some
      *        other property expressions.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
@@ -873,6 +899,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that is made functional by the axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLFunctionalObjectPropertyAxiom> getFunctionalObjectPropertyAxioms(
@@ -901,6 +928,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that is made inverse functional by the axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLInverseFunctionalObjectPropertyAxiom> getInverseFunctionalObjectPropertyAxioms(
@@ -929,6 +957,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that is made symmetric by the axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSymmetricObjectPropertyAxiom> getSymmetricObjectPropertyAxioms(
@@ -957,6 +986,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that is made asymmetric by the axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLAsymmetricObjectPropertyAxiom> getAsymmetricObjectPropertyAxioms(
@@ -985,6 +1015,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that is made reflexive by the axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLReflexiveObjectPropertyAxiom> getReflexiveObjectPropertyAxioms(
@@ -1013,6 +1044,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that is made irreflexive by the axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLIrreflexiveObjectPropertyAxiom> getIrreflexiveObjectPropertyAxioms(
@@ -1041,6 +1073,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that is made transitive by the axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
@@ -1071,6 +1104,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the sub property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSubProperty(OWLDataProperty subProperty) {
@@ -1099,6 +1133,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the super-property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
@@ -1129,6 +1164,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty property) {
@@ -1157,6 +1193,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property which is equal to the property of the retrieved
      *        axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty property) {
@@ -1214,6 +1251,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The property that the retrieved axioms makes disjoint to some
      *        other property expressions.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(OWLDataProperty property) {
@@ -1241,6 +1279,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param property
      *        The property that is made functional by the axioms.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(OWLDataPropertyExpression property) {
@@ -1270,6 +1309,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The individual that the returned axioms make an instance of some
      *        class expression.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLIndividual individual) {
@@ -1299,6 +1339,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The class expression that the returned axioms make a type for some
      *        individual.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression ce) {
@@ -1327,6 +1368,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param individual
      *        The individual that the returned axioms have as a subject.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(OWLIndividual individual) {
@@ -1354,6 +1396,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param individual
      *        The individual that the returned axioms have as a subject.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(OWLIndividual individual) {
@@ -1382,6 +1425,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param individual
      *        The individual that the returned axioms have as a subject.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLNegativeObjectPropertyAssertionAxiom> getNegativeObjectPropertyAssertionAxioms(
@@ -1412,6 +1456,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param individual
      *        The individual that the returned axioms have as a subject.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
@@ -1442,6 +1487,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The individual that the returned axioms make the same as some
      *        other individual.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual) {
@@ -1470,6 +1516,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      *        The individual that the returned axioms make the different as some
      *        other individual.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(OWLIndividual individual) {
@@ -1497,6 +1544,7 @@ public interface OWLAxiomIndex extends HasImportsClosure {
      * @param datatype
      *        The datatype for which the returned axioms provide a definition.
      * @return the axioms matching the search. The set is a copy of the data.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype) {

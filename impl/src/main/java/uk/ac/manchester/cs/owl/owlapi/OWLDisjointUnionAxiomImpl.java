@@ -34,8 +34,8 @@ import com.google.common.collect.Sets;
  */
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLDisjointUnionAxiom {
 
-    private final @Nonnull OWLClass owlClass;
-    private final @Nonnull List<? extends OWLClassExpression> classExpressions;
+    @Nonnull private final OWLClass owlClass;
+    @Nonnull private final List<? extends OWLClassExpression> classExpressions;
 
     /**
      * @param owlClass

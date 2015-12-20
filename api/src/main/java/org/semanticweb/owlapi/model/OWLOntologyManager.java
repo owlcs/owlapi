@@ -58,6 +58,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *        The axioms
      * @return The set of ontologies such that for each ontology, O the
      *         specified axiom is contained in O.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntology> getOntologies(OWLAxiom axiom) {
@@ -131,7 +132,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         is managed by this manager, otherwise {@code false}.
      */
     @Override
-    boolean contains(OWLOntologyID id);
+        boolean contains(OWLOntologyID id);
 
     /**
      * Determines if there is an ontology with the specified version IRI, that
@@ -153,6 +154,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *        The version IRI to match against all of the known ontologies.
      * @return A set of OWLOntologyIDs where the version matches the given
      *         version or the empty set if none match.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI) {
@@ -181,7 +183,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         specified IRI and no version IRI.
      */
     @Nullable
-    OWLOntology getOntology(IRI ontologyIRI);
+        OWLOntology getOntology(IRI ontologyIRI);
 
     /**
      * Gets a previously loaded/created ontology that has the specified ontology
@@ -195,7 +197,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      */
     @Nullable
     @Override
-    OWLOntology getOntology(OWLOntologyID ontologyID);
+        OWLOntology getOntology(OWLOntologyID ontologyID);
 
     /**
      * Given an imports declaration, obtains the ontology that this import has
@@ -209,7 +211,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         removed from this manager
      */
     @Nullable
-    OWLOntology getImportedOntology(OWLImportsDeclaration declaration);
+        OWLOntology getImportedOntology(OWLImportsDeclaration declaration);
 
     /**
      * Gets the set of <em>loaded</em> ontologies that the specified ontology is
@@ -222,6 +224,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         is related to via the directlyImports relation. If the ontology
      *         is not managed by this manager then the empty set will be
      *         returned.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntology> getDirectImports(OWLOntology ontology) {
@@ -254,6 +257,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         then it will not be contained in the returned set of ontologies.
      *         If the ontology is not managed by this manager then the empty set
      *         will be returned.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntology> getImports(OWLOntology ontology) {
@@ -288,6 +292,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      *         loaded, then it will not be contained in the returned set of
      *         ontologies. If the ontology is not managed by this manager then
      *         the empty set will be returned.
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLOntology> getImportsClosure(OWLOntology ontology) {
@@ -1095,7 +1100,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getIRIMappers().add() instead
      */
     @Deprecated
-    void addIRIMapper(OWLOntologyIRIMapper mapper);
+        void addIRIMapper(OWLOntologyIRIMapper mapper);
 
     /**
      * Remove an IRI mapper from the manager
@@ -1105,7 +1110,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getIRIMappers().remove() instead
      */
     @Deprecated
-    void removeIRIMapper(OWLOntologyIRIMapper mapper);
+        void removeIRIMapper(OWLOntologyIRIMapper mapper);
 
     /**
      * Clear the manager mappers
@@ -1113,7 +1118,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getIRIMappers().clear() instead
      */
     @Deprecated
-    void clearIRIMappers();
+        void clearIRIMappers();
 
     /**
      * Add astorer to the manager
@@ -1123,7 +1128,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getOntologyStorers().add() instead
      */
     @Deprecated
-    void addOntologyStorer(OWLStorerFactory storer);
+        void addOntologyStorer(OWLStorerFactory storer);
 
     /**
      * Remove a storer from the manager
@@ -1133,7 +1138,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getOntologyStorers().remove() instead
      */
     @Deprecated
-    void removeOntologyStorer(OWLStorerFactory storer);
+        void removeOntologyStorer(OWLStorerFactory storer);
 
     /**
      * Clear the manager storers
@@ -1141,7 +1146,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFacto
      * @deprecated use getOntologyStorers().clear() instead
      */
     @Deprecated
-    void clearOntologyStorers();
+        void clearOntologyStorers();
 
     /**
      * Set the collection of IRI mappers. It is used by Guice injection, but can

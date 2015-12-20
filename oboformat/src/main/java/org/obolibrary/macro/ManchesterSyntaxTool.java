@@ -35,10 +35,10 @@ import org.slf4j.LoggerFactory;
 public class ManchesterSyntaxTool {
 
     private static final Logger LOG = LoggerFactory.getLogger(ManchesterSyntaxTool.class);
-    protected final @Nonnull IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
-    private final @Nonnull OWLDataFactory dataFactory;
-    private final @Nonnull AdvancedEntityChecker entityChecker;
-    private final @Nonnull ShortFormProvider shortFormProvider = new ShortFormProvider() {
+    @Nonnull protected final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
+    @Nonnull private final OWLDataFactory dataFactory;
+    @Nonnull private final AdvancedEntityChecker entityChecker;
+    @Nonnull private final ShortFormProvider shortFormProvider = new ShortFormProvider() {
 
         @Override
         public void dispose() {
@@ -186,7 +186,8 @@ public class ManchesterSyntaxTool {
         }
 
         @Override
-        public @Nullable OWLClass getOWLClass(String name) {
+        @Nullable
+        public OWLClass getOWLClass(String name) {
             OWLClass owlClass = defaultInstance.getOWLClass(name);
             if (owlClass == null) {
                 IRI iri = getIRI(name);
@@ -198,7 +199,8 @@ public class ManchesterSyntaxTool {
         }
 
         @Override
-        public @Nullable OWLObjectProperty getOWLObjectProperty(String name) {
+        @Nullable
+        public OWLObjectProperty getOWLObjectProperty(String name) {
             OWLObjectProperty owlObjectProperty = defaultInstance.getOWLObjectProperty(name);
             if (owlObjectProperty == null) {
                 IRI iri = getIRI(name);
@@ -210,12 +212,14 @@ public class ManchesterSyntaxTool {
         }
 
         @Override
-        public @Nullable OWLDataProperty getOWLDataProperty(String name) {
+        @Nullable
+        public OWLDataProperty getOWLDataProperty(String name) {
             return defaultInstance.getOWLDataProperty(name);
         }
 
         @Override
-        public @Nullable OWLNamedIndividual getOWLIndividual(String name) {
+        @Nullable
+        public OWLNamedIndividual getOWLIndividual(String name) {
             OWLNamedIndividual owlIndividual = defaultInstance.getOWLIndividual(name);
             if (owlIndividual == null) {
                 IRI iri = getIRI(name);
@@ -227,16 +231,19 @@ public class ManchesterSyntaxTool {
         }
 
         @Override
-        public @Nullable OWLDatatype getOWLDatatype(String name) {
+        @Nullable
+        public OWLDatatype getOWLDatatype(String name) {
             return defaultInstance.getOWLDatatype(name);
         }
 
         @Override
-        public @Nullable OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        @Nullable
+        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             return defaultInstance.getOWLAnnotationProperty(name);
         }
 
-        protected @Nullable IRI getIRI(String name) {
+        @Nullable
+        protected IRI getIRI(String name) {
             if (isQuoted(name)) {
                 // anything in '....' quotes is a label
                 return getIRIByLabel(name.substring(1, name.length() - 1));
@@ -256,7 +263,8 @@ public class ManchesterSyntaxTool {
             return false;
         }
 
-        protected @Nullable IRI getIRIByIdentifier(String id) {
+        @Nullable
+        protected IRI getIRIByIdentifier(String id) {
             OWLAPIObo2Owl b = new OWLAPIObo2Owl(manager);
             b.setObodoc(new OBODoc());
             return b.oboIdToIRI(id);
@@ -269,7 +277,8 @@ public class ManchesterSyntaxTool {
          *        label
          * @return {@link IRI} or null
          */
-        protected @Nullable IRI getIRIByLabel(String label) {
+        @Nullable
+        protected IRI getIRIByLabel(String label) {
             for (OWLOntology o : ontologies) {
                 Optional<OWLAnnotationAssertionAxiom> anyMatch = o.axioms(AxiomType.ANNOTATION_ASSERTION).filter(
                     aa -> isMatchingLabel(label, aa.getValue(), aa.getProperty())
@@ -303,7 +312,8 @@ public class ManchesterSyntaxTool {
          *        iri
          * @return {@link OWLClass} or null
          */
-        protected @Nullable OWLClass getOWLClass(IRI iri) {
+        @Nullable
+        protected OWLClass getOWLClass(IRI iri) {
             for (OWLOntology o : ontologies) {
                 OWLClass c = o.getOWLOntologyManager().getOWLDataFactory().getOWLClass(iri);
                 if (!asList(o.declarationAxioms(c)).isEmpty()) {
@@ -324,7 +334,8 @@ public class ManchesterSyntaxTool {
          *        iri
          * @return {@link OWLNamedIndividual} or null
          */
-        protected @Nullable OWLNamedIndividual getOWLIndividual(IRI iri) {
+        @Nullable
+        protected OWLNamedIndividual getOWLIndividual(IRI iri) {
             for (OWLOntology o : ontologies) {
                 OWLNamedIndividual c = o.getOWLOntologyManager().getOWLDataFactory().getOWLNamedIndividual(iri);
                 for (OWLDeclarationAxiom da : asSet(o.declarationAxioms(c))) {
@@ -344,7 +355,8 @@ public class ManchesterSyntaxTool {
          *        iri
          * @return {@link OWLObjectProperty} or null
          */
-        protected @Nullable OWLObjectProperty getOWLObjectProperty(IRI iri) {
+        @Nullable
+        protected OWLObjectProperty getOWLObjectProperty(IRI iri) {
             for (OWLOntology o : ontologies) {
                 OWLObjectProperty p = o.getOWLOntologyManager().getOWLDataFactory().getOWLObjectProperty(iri);
                 if (!asList(o.declarationAxioms(p)).isEmpty()) {

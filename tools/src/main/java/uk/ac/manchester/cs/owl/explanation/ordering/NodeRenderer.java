@@ -19,6 +19,7 @@ package uk.ac.manchester.cs.owl.explanation.ordering;
  * @param <N>
  *        type of nodes to render
  */
+@FunctionalInterface
 public interface NodeRenderer<N> {
 
     /**

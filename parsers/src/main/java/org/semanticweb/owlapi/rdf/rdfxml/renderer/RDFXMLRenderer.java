@@ -35,9 +35,9 @@ import org.semanticweb.owlapi.util.VersionInfo;
 public class RDFXMLRenderer extends RDFRendererBase {
 
     private final RDFXMLWriter writer;
-    private final @Nonnull Set<RDFResource> pending = new HashSet<>();
-    private final @Nonnull RDFXMLNamespaceManager qnameManager;
-    private final @Nonnull OWLDocumentFormat format;
+    @Nonnull private final Set<RDFResource> pending = new HashSet<>();
+    @Nonnull private final RDFXMLNamespaceManager qnameManager;
+    @Nonnull private final OWLDocumentFormat format;
     private final ShortFormProvider labelMaker;
 
     /**

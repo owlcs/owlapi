@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -26,12 +25,6 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
 public class OBOFormatParser {
 
     static final Logger LOG = LoggerFactory.getLogger(OBOFormatParser.class);
-
-    // TODO use this to validate date strings for OboFormatTag.TAG_CREATION_DATE
-    protected static SimpleDateFormat getISODateFormat() {
-        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-    }
-
     private boolean followImport;
     private Object location;
     protected final MyStream stream;
@@ -51,7 +44,7 @@ public class OBOFormatParser {
     protected OBOFormatParser(MyStream s) {
         stream = s;
         Caffeine<String, String> builder = Caffeine.newBuilder()
-            .maximumWeight(8192 * 1024).weigher((String key, String value) -> key.length());
+            .maximumWeight(8388608).weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
             builder.recordStats();
         }
@@ -437,7 +430,8 @@ public class OBOFormatParser {
         return danglingReferences;
     }
 
-    private @Nullable String checkRelation(String relId, String tag, @Nullable String frameId, OBODoc doc) {
+    @Nullable
+    private String checkRelation(String relId, String tag, @Nullable String frameId, OBODoc doc) {
         if (doc.getTypedefFrame(relId, followImport) == null) {
             return "The relation '" + relId + "' reference in" + " the tag '" + tag + " ' in the frame of id '"
                 + frameId + "' is not declared";
@@ -445,7 +439,8 @@ public class OBOFormatParser {
         return null;
     }
 
-    private @Nullable String checkClassReference(String classId, String tag, @Nullable String frameId, OBODoc doc) {
+    @Nullable
+    private String checkClassReference(String classId, String tag, @Nullable String frameId, OBODoc doc) {
         if (doc.getTermFrame(classId, followImport) == null) {
             return "The class '" + classId + "' reference in" + " the tag '" + tag + " ' in the frame of id '" + frameId
                 + "'is not declared";

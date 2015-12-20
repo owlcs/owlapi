@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
 
-    private final @Nonnull OWLEntity entity;
+    @Nonnull private final OWLEntity entity;
 
     /**
      * @param entity

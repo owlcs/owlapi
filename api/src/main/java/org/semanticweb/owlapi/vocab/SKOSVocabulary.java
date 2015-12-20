@@ -80,20 +80,20 @@ public enum SKOSVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
 //@formatter:on
     /** All IRIs. */
     public static final Set<IRI> ALL_IRIS = asSet(stream().map(v -> v.getIRI()));
-    private final @Nonnull String localName;
-    private final @Nonnull IRI iri;
-    private final @Nonnull EntityType<?> entityType;
-    private final @Nonnull String prefixedName;
-
-    private static Stream<SKOSVocabulary> stream() {
-        return Stream.of(values());
-    }
+    @Nonnull private final String localName;
+    @Nonnull private final IRI iri;
+    @Nonnull private final EntityType<?> entityType;
+    @Nonnull private final String prefixedName;
 
     SKOSVocabulary(String localname, EntityType<?> entityType) {
         localName = localname;
         prefixedName = Namespaces.SKOS.getPrefixName() + ':' + localname;
         this.entityType = entityType;
         iri = IRI.create(Namespaces.SKOS.toString(), localname);
+    }
+
+    private static Stream<SKOSVocabulary> stream() {
+        return Stream.of(values());
     }
 
     /**
@@ -122,7 +122,7 @@ public enum SKOSVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
      */
     public static Set<OWLAnnotationProperty> getAnnotationProperties(AnnotationPropertyProvider dataFactory) {
         return asSet(stream().filter(v -> v.entityType.equals(ANNOTATION_PROPERTY))
-                .map(v -> dataFactory.getOWLAnnotationProperty(v.iri)));
+            .map(v -> dataFactory.getOWLAnnotationProperty(v.iri)));
     }
 
     /**
@@ -132,7 +132,7 @@ public enum SKOSVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
      */
     public static Set<OWLObjectProperty> getObjectProperties(OWLDataFactory dataFactory) {
         return asSet(stream().filter(v -> v.entityType.equals(OBJECT_PROPERTY))
-                .map(v -> dataFactory.getOWLObjectProperty(v.iri)));
+            .map(v -> dataFactory.getOWLObjectProperty(v.iri)));
     }
 
     /**
@@ -142,7 +142,7 @@ public enum SKOSVocabulary implements HasShortForm,HasIRI,HasPrefixedName {
      */
     public static Set<OWLDataProperty> getDataProperties(OWLDataFactory dataFactory) {
         return asSet(stream().filter(v -> v.entityType.equals(DATA_PROPERTY))
-                .map(v -> dataFactory.getOWLDataProperty(v.iri)));
+            .map(v -> dataFactory.getOWLDataProperty(v.iri)));
     }
 
     /**

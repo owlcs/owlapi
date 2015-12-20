@@ -62,7 +62,8 @@ public class WeakIndexCache<K, V> implements Serializable {
      *        the key
      * @return the value
      */
-    public @Nullable V get(K k) {
+    @Nullable
+    public V get(K k) {
         WeakReference<V> w = prefixCache.get(k);
         if (w != null) {
             return w.get();

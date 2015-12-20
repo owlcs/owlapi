@@ -39,6 +39,7 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
      * Gets the facet restrictions on this data range.
      * 
      * @return A {@code Set} of facet restrictions that apply to this data range
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLFacetRestriction> getFacetRestrictions() {

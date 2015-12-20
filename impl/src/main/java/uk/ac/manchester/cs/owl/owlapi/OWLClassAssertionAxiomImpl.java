@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements OWLClassAssertionAxiom {
 
-    private final @Nonnull OWLIndividual individual;
-    private final @Nonnull OWLClassExpression classExpression;
+    @Nonnull private final OWLIndividual individual;
+    @Nonnull private final OWLClassExpression classExpression;
 
     /**
      * @param individual

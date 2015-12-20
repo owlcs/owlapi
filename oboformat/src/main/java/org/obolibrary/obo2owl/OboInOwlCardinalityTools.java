@@ -22,6 +22,42 @@ public final class OboInOwlCardinalityTools {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(OboInOwlCardinalityTools.class);
 
+    /** Default handler. */
+    public static final AnnotationCardinalityConfictHandler DEFAULT_HANDLER = new AnnotationCardinalityConfictHandler() {
+    
+        @Override
+        public List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity, OWLAnnotationProperty property,
+            Collection<OWLAnnotationAssertionAxiom> axioms) {
+            if (axioms.size() > 1) {
+                String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
+                if (tag == null) {
+                    tag = property.getIRI().toString();
+                }
+                // take the first one in the collection
+                // (may be random)
+                LOGGER.info("Fixing multiple {} tags for entity: {}", tag, entity.getIRI());
+                return listOfFirst(axioms);
+            }
+            throw new AnnotationCardinalityException("Could not resolve conflict for property: " + property);
+        }
+    
+        @Override
+        public List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
+            Collection<OWLAnnotation> ontologyAnnotations) {
+            if (ontologyAnnotations.size() > 1) {
+                String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
+                if (tag == null) {
+                    tag = property.getIRI().toString();
+                }
+                // take the first one in the collection
+                // (may be random)
+                LOGGER.info("Fixing multiple ontolgy annotations with, tag: {}", tag);
+                return listOfFirst(ontologyAnnotations);
+            }
+            throw new AnnotationCardinalityException("Could not resolve conflict for property: " + property);
+        }
+    };
+
     private OboInOwlCardinalityTools() {}
 
     /**
@@ -56,11 +92,9 @@ public final class OboInOwlCardinalityTools {
          * @param ontologyAnnotations
          *        ontologyAnnotations
          * @return list of resolved annotations
-         * @throws AnnotationCardinalityException
-         *         AnnotationCardinalityException
          */
         List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
-            Collection<OWLAnnotation> ontologyAnnotations) throws AnnotationCardinalityException;
+            Collection<OWLAnnotation> ontologyAnnotations);
     }
 
     /**
@@ -139,8 +173,7 @@ public final class OboInOwlCardinalityTools {
      * @see Frame#check() for implementation in OBO
      */
     public static void checkAnnotationCardinality(OWLOntology ontology,
-        @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler)
-            throws AnnotationCardinalityException {
+        @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler) {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         Set<OWLAnnotationProperty> headerProperties = getProperties(factory, TAG_ONTOLOGY, TAG_FORMAT_VERSION, TAG_DATE,
@@ -165,7 +198,7 @@ public final class OboInOwlCardinalityTools {
 
     private static void checkOntologyAnnotations(Set<OWLAnnotationProperty> properties, OWLOntology ontology,
         @Nullable AnnotationCardinalityReporter reporter, @Nullable AnnotationCardinalityConfictHandler handler,
-        OWLOntologyManager manager) throws AnnotationCardinalityException {
+        OWLOntologyManager manager) {
         Set<OWLAnnotation> annotations = asSet(ontology.annotations());
         Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<>();
         for (OWLAnnotation annotation : annotations) {
@@ -250,7 +283,7 @@ public final class OboInOwlCardinalityTools {
      *         handler
      * @see #DEFAULT_HANDLER
      */
-    public static void checkAnnotationCardinality(OWLOntology ontology) throws AnnotationCardinalityException {
+    public static void checkAnnotationCardinality(OWLOntology ontology) {
         checkAnnotationCardinality(ontology, null, DEFAULT_HANDLER);
     }
 
@@ -271,42 +304,6 @@ public final class OboInOwlCardinalityTools {
             LOGGER.error("Cardinality exception during report: This isn't supposed to happen.", e);
         }
     }
-
-    /** Default handler. */
-    public static final AnnotationCardinalityConfictHandler DEFAULT_HANDLER = new AnnotationCardinalityConfictHandler() {
-
-        @Override
-        public List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity, OWLAnnotationProperty property,
-            Collection<OWLAnnotationAssertionAxiom> axioms) {
-            if (axioms.size() > 1) {
-                String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
-                if (tag == null) {
-                    tag = property.getIRI().toString();
-                }
-                // take the first one in the collection
-                // (may be random)
-                LOGGER.info("Fixing multiple {} tags for entity: {}", tag, entity.getIRI());
-                return listOfFirst(axioms);
-            }
-            throw new AnnotationCardinalityException("Could not resolve conflict for property: " + property);
-        }
-
-        @Override
-        public List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
-            Collection<OWLAnnotation> ontologyAnnotations) throws AnnotationCardinalityException {
-            if (ontologyAnnotations.size() > 1) {
-                String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
-                if (tag == null) {
-                    tag = property.getIRI().toString();
-                }
-                // take the first one in the collection
-                // (may be random)
-                LOGGER.info("Fixing multiple ontolgy annotations with, tag: {}", tag);
-                return listOfFirst(ontologyAnnotations);
-            }
-            throw new AnnotationCardinalityException("Could not resolve conflict for property: " + property);
-        }
-    };
 
     static <T> List<T> listOfFirst(Collection<T> t) {
         return Collections.singletonList(t.iterator().next());

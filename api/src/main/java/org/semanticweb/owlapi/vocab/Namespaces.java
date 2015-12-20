@@ -87,11 +87,13 @@ public enum Namespaces {
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
-    private final @Nonnull String prefix;
-    private final @Nonnull String ns;
+    @Nonnull private final String prefix;
+    @Nonnull private final String ns;
     final Status status;
     final BuiltIn builtIn;
     final String hashless;
+    /** Ignored imports. */
+    public static final EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
 
     Namespaces(String prefix, String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
@@ -153,9 +155,6 @@ public enum Namespaces {
         return ns;
     }
 
-    /** Ignored imports. */
-    public static final EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
-
     /**
      * @param i
      *        the iri to check
@@ -203,14 +202,16 @@ public enum Namespaces {
      */
     public enum BuiltIn {
         /** built in flag. */
-        BUILT_IN, /** not built in flag. */
+        BUILT_IN,
+        /** not built in flag. */
         NOT_BUILT_IN
     }
 
     /** Indicates whether a prefix is a legacy prefix or not. */
     public enum Status {
         /** legacy flag. */
-        LEGACY, /** in use flag. */
+        LEGACY,
+        /** in use flag. */
         IN_USE
     }
 }

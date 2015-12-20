@@ -47,7 +47,8 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
      * 
      * @return the class expression
      */
-    public @Nullable OWLClassExpression getDebuggerClassExpression() {
+    @Nullable
+    public OWLClassExpression getDebuggerClassExpression() {
         return desc;
     }
 
@@ -61,7 +62,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
         OWLClassExpression sub = dataFactory.getOWLDataSomeValuesFrom(axiom.getProperty(),
-                dataFactory.getTopDatatype());
+            dataFactory.getTopDatatype());
         OWLAxiom ax = dataFactory.getOWLSubClassOfAxiom(sub, axiom.getDomain());
         ax.accept(this);
     }
@@ -115,7 +116,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
         OWLClassExpression notD = dataFactory.getOWLObjectComplementOf(descD);
         OWLObjectIntersectionOf left = dataFactory.getOWLObjectIntersectionOf(CollectionFactory.createSet(descC, notD));
         OWLObjectIntersectionOf right = dataFactory
-                .getOWLObjectIntersectionOf(CollectionFactory.createSet(notC, descD));
+            .getOWLObjectIntersectionOf(CollectionFactory.createSet(notC, descD));
         desc = dataFactory.getOWLObjectUnionOf(CollectionFactory.createSet(left, right));
     }
 }

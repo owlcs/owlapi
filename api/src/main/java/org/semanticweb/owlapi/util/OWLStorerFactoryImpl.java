@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
  */
 public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {
 
-    private final @Nonnull OWLDocumentFormatFactory format;
+    @Nonnull private final OWLDocumentFormatFactory format;
 
     protected OWLStorerFactoryImpl(OWLDocumentFormatFactory format) {
         this.format = format;

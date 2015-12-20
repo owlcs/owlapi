@@ -63,7 +63,8 @@ public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatF
     }
 
     @Override
-    public @Nullable String getDefaultMIMEType() {
+    @Nullable
+    public String getDefaultMIMEType() {
         if (mimeTypes.isEmpty()) {
             return null;
         } else {
@@ -83,8 +84,9 @@ public abstract class OWLDocumentFormatFactoryImpl implements OWLDocumentFormatF
     @Override
     public boolean handlesMimeType(String mimeType) {
         String type = mimeType;
-        if (mimeType.indexOf(';') > 0) {
-            type = mimeType.substring(0, mimeType.indexOf(';'));
+        int semiColon = mimeType.indexOf(';');
+        if (semiColon > -1) {
+            type = mimeType.substring(0, semiColon);
         }
         for (String nextMimeType : getMIMETypes()) {
             if (mimeType.equalsIgnoreCase(nextMimeType)) {

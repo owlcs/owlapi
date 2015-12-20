@@ -24,9 +24,9 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 
 /** Builder class for OWLDatatypeRestriction. */
 public class BuilderDatatypeRestriction
-        extends BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
+    extends BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
 
-    private @Nullable OWLDatatype type = null;
+    @Nullable private OWLDatatype type = null;
 
     /**
      * Builder initialized from an existing object.

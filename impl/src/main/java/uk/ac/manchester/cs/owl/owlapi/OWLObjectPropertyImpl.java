@@ -31,13 +31,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectProperty {
 
-    private final @Nonnull IRI iri;
+    @Nonnull private final IRI iri;
     private final boolean builtin;
-
-    @Override
-    public int typeIndex() {
-        return OBJECT_PROPERTY;
-    }
 
     /**
      * @param iri
@@ -47,6 +42,11 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI())
             || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+    }
+
+    @Override
+    public int typeIndex() {
+        return OBJECT_PROPERTY;
     }
 
     @Override

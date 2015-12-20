@@ -68,27 +68,42 @@ public final class SAXParsers {
     public static SAXParser initParserWithOWLAPIStandards(@Nullable DeclHandler handler) {
         try {
             SAXParser parser = initFactory().newSAXParser();
-            try {
-                parser.setProperty(ORACLE_EXPANSION_LIMIT, "100000000");
-            } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
-                LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), e.getMessage());
-                try {
-                    parser.setProperty(EXPANSION_LIMIT, "100000000");
-                } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
-                    LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), ex.getMessage());
-                }
+            if (!addOracleExpansionLimit(parser)) {
+                addExpansionLimit(parser);
             }
-            if (handler != null) {
-                try {
-                    parser.setProperty(DECLARATION_HANDLER, handler);
-                } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
-                    LOGGER.warn(DECLARATION_HANDLER + ERROR_TEMPLATE + " Entity declarations will not be roundtripped.",
-                            parser.getClass().getName(), e.getMessage());
-                }
-            }
+            addHandler(handler, parser);
             return parser;
         } catch (ParserConfigurationException | SAXException e) {
             throw new OWLRuntimeException(e);
+        }
+    }
+
+    protected static void addExpansionLimit(SAXParser parser) {
+        try {
+            parser.setProperty(EXPANSION_LIMIT, "100000000");
+        } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
+            LOGGER.warn(EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), ex.getMessage());
+        }
+    }
+
+    protected static boolean addOracleExpansionLimit(SAXParser parser) {
+        try {
+            parser.setProperty(ORACLE_EXPANSION_LIMIT, "100000000");
+            return true;
+        } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
+            LOGGER.warn(ORACLE_EXPANSION_LIMIT + ERROR_TEMPLATE, parser.getClass().getName(), e.getMessage());
+            return false;
+        }
+    }
+
+    protected static void addHandler(@Nullable DeclHandler handler, SAXParser parser) {
+        if (handler != null) {
+            try {
+                parser.setProperty(DECLARATION_HANDLER, handler);
+            } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
+                LOGGER.warn(DECLARATION_HANDLER + ERROR_TEMPLATE + " Entity declarations will not be roundtripped.",
+                    parser.getClass().getName(), e.getMessage());
+            }
         }
     }
 }

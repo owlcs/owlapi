@@ -26,6 +26,7 @@ public interface OWLNaryDataRange extends OWLDataRange {
 
     /**
      * @return the data ranges
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<? extends OWLDataRange> getOperands() {

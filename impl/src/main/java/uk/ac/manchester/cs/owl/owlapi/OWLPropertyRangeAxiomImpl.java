@@ -36,9 +36,9 @@ import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
  *        range type
  */
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression, R extends OWLPropertyRange>
-        extends OWLUnaryPropertyAxiomImpl<P>implements OWLPropertyRangeAxiom<P, R> {
+    extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
 
-    private final @Nonnull R range;
+    @Nonnull private final R range;
 
     /**
      * @param property

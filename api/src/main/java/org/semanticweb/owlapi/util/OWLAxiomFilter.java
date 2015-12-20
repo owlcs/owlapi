@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
+@FunctionalInterface
 public interface OWLAxiomFilter {
 
     /**

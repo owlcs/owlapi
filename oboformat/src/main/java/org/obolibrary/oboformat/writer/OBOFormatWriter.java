@@ -38,29 +38,35 @@ import org.slf4j.LoggerFactory;
 public class OBOFormatWriter {
 
     private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
-    /** The Class FramesComparator. */
+    @Nonnull private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
+    @Nonnull private static final Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
     private static final Comparator<Frame> framesComparator = Comparator.comparing(Frame::getId);
-    private static final @Nonnull Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
-    private static final @Nonnull Map<String, Integer> TYPEDEFTAGSPRIORITIES = buildTypeDefTagsPriorities();
+    private static final Map<String, Integer> HEADERTAGSPRIORITIES = buildHeaderTagsPriorities();
+    private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
+    private static final Comparator<String> headerTagsComparator = Comparator.comparing(
+        OBOFormatWriter::getHeaderPriority);
     /**
      * This comparator sorts clauses with the same tag in the specified write
      * order.
      */
     private static final Comparator<Clause> clauseComparator = (o1, o2) -> compare(o1, o2);
-    /** The Class TermsTagsComparator. */
-    private static Comparator<String> termsTagsComparator = (o1, o2) -> {
-        Integer i1 = TAGSPRIORITIES.get(o1);
-        Integer i2 = TAGSPRIORITIES.get(o2);
-        if (i1 == null) {
-            i1 = 10000;
-        }
-        if (i2 == null) {
-            i2 = 10000;
-        }
-        return i1.compareTo(i2);
-    };
-    private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
+    private static Comparator<String> termsTagsComparator = Comparator.comparing(OBOFormatWriter::getPriority);
+    private static Comparator<String> typeDefTagsComparator = Comparator.comparing(OBOFormatWriter::getTypedefPriority);
+    private static Comparator<Clause> clauseListComparator = Comparator.comparing(Clause::getTag, termsTagsComparator)
+        .thenComparing(clauseComparator);
     private boolean isCheckStructure = true;
+
+    private static Integer getHeaderPriority(String s) {
+        return HEADERTAGSPRIORITIES.getOrDefault(s, Integer.valueOf(10000));
+    }
+
+    private static Integer getPriority(String s) {
+        return TAGSPRIORITIES.getOrDefault(s, Integer.valueOf(10000));
+    }
+
+    private static Integer getTypedefPriority(String s) {
+        return TYPEDEFTAGSPRIORITIES.getOrDefault(s, Integer.valueOf(10000));
+    }
 
     /**
      * @return true, if is check structure
@@ -746,20 +752,6 @@ public class OBOFormatWriter {
         return in;
     }
 
-    private static final Map<String, Integer> HEADERTAGSPRIORITIES = buildHeaderTagsPriorities();
-    /** The Class HeaderTagsComparator. */
-    private static Comparator<String> headerTagsComparator = (o1, o2) -> {
-        Integer i1 = HEADERTAGSPRIORITIES.get(o1);
-        Integer i2 = HEADERTAGSPRIORITIES.get(o2);
-        if (i1 == null) {
-            i1 = 10000;
-        }
-        if (i2 == null) {
-            i2 = 10000;
-        }
-        return i1.compareTo(i2);
-    };
-
     private static Map<String, Integer> buildHeaderTagsPriorities() {
         Map<String, Integer> table = new HashMap<>();
         table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
@@ -861,17 +853,6 @@ public class OBOFormatWriter {
         return table;
     }
 
-    /** The Class ClauseListComparator. */
-    private static Comparator<Clause> clauseListComparator = (o1, o2) -> {
-        String t1 = o1.getTag();
-        String t2 = o2.getTag();
-        int compare = termsTagsComparator.compare(t1, t2);
-        if (compare == 0) {
-            compare = compare(o1, o2);
-        }
-        return compare;
-    };
-
     /**
      * Sort a list of term frame clauses according to in the OBO format
      * specified tag and value order.
@@ -882,19 +863,6 @@ public class OBOFormatWriter {
     public static void sortTermClauses(List<Clause> clauses) {
         Collections.sort(clauses, clauseListComparator);
     }
-
-    /** The Class TypeDefTagsComparator. */
-    private static Comparator<String> typeDefTagsComparator = (o1, o2) -> {
-        Integer i1 = TYPEDEFTAGSPRIORITIES.get(o1);
-        Integer i2 = TYPEDEFTAGSPRIORITIES.get(o2);
-        if (i1 == null) {
-            i1 = 10000;
-        }
-        if (i2 == null) {
-            i2 = 10000;
-        }
-        return i1.compareTo(i2);
-    };
 
     private static int compare(Clause o1, Clause o2) {
         // special case for intersections
@@ -1014,8 +982,8 @@ public class OBOFormatWriter {
      */
     public static class OBODocNameProvider implements NameProvider {
 
-        private final @Nonnull OBODoc oboDoc;
-        private final @Nullable String defaultOboNamespace;
+        @Nonnull private final OBODoc oboDoc;
+        @Nullable private final String defaultOboNamespace;
 
         /**
          * Instantiates a new OBO doc name provider.
@@ -1034,7 +1002,8 @@ public class OBOFormatWriter {
         }
 
         @Override
-        public @Nullable String getName(String id) {
+        @Nullable
+        public String getName(String id) {
             String name = null;
             Frame frame = oboDoc.getTermFrame(id);
             if (frame == null) {
@@ -1050,7 +1019,8 @@ public class OBOFormatWriter {
         }
 
         @Override
-        public @Nullable String getDefaultOboNamespace() {
+        @Nullable
+        public String getDefaultOboNamespace() {
             return defaultOboNamespace;
         }
     }
@@ -1063,8 +1033,8 @@ public class OBOFormatWriter {
      */
     public static class OWLOntologyNameProvider implements NameProvider {
 
-        private final @Nonnull OWLOntology ont;
-        private final @Nullable String defaultOboNamespace;
+        @Nonnull private final OWLOntology ont;
+        @Nullable private final String defaultOboNamespace;
 
         /**
          * @param ont
@@ -1078,7 +1048,8 @@ public class OBOFormatWriter {
         }
 
         @Override
-        public @Nullable String getName(String id) {
+        @Nullable
+        public String getName(String id) {
             // convert OBO id to IRI
             OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(ont.getOWLOntologyManager());
             IRI iri = obo2owl.oboIdToIRI(id);
@@ -1097,7 +1068,8 @@ public class OBOFormatWriter {
         }
 
         @Override
-        public @Nullable String getDefaultOboNamespace() {
+        @Nullable
+        public String getDefaultOboNamespace() {
             return defaultOboNamespace;
         }
     }

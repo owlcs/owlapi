@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * An interface for checking if an axiom appears as annotated source multiple
  * times. This requires an id to be emitted.
  */
+@FunctionalInterface
 public interface AxiomAppearance {
 
     /**

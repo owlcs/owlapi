@@ -39,12 +39,12 @@ import org.semanticweb.owlapi.model.*;
  */
 public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
-    private final @Nonnull OWLOntologySetProvider ontologySetProvider;
-    private final @Nonnull ShortFormProvider alternateShortFormProvider;
-    private final @Nonnull IRIShortFormProvider alternateIRIShortFormProvider;
-    private final @Nonnull List<OWLAnnotationProperty> annotationProperties;
-    private final @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap;
-    private @Nonnull StringAnnotationVisitor literalRenderer = new StringAnnotationVisitor();
+    @Nonnull private final OWLOntologySetProvider ontologySetProvider;
+    @Nonnull private final ShortFormProvider alternateShortFormProvider;
+    @Nonnull private final IRIShortFormProvider alternateIRIShortFormProvider;
+    @Nonnull private final List<OWLAnnotationProperty> annotationProperties;
+    @Nonnull private final Map<OWLAnnotationProperty, List<String>> preferredLanguageMap;
+    @Nonnull private StringAnnotationVisitor literalRenderer = new StringAnnotationVisitor();
 
     /**
      * Constructs an annotation value short form provider. Using
@@ -185,13 +185,15 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+        // nothing to dispose of
+    }
 
     private static class AnnotationLanguageFilter implements OWLObjectVisitor {
 
         private final OWLAnnotationProperty prop;
         private final List<String> preferredLanguages;
-        protected @Nullable OWLObject candidateValue = null;
+        @Nullable protected OWLObject candidateValue = null;
         int lastLangMatchIndex = Integer.MAX_VALUE;
 
         AnnotationLanguageFilter(OWLAnnotationProperty prop, List<String> preferredLanguages) {
@@ -199,7 +201,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             this.preferredLanguages = preferredLanguages;
         }
 
-        public @Nullable OWLObject getMatch() {
+        @Nullable
+        public OWLObject getMatch() {
             return candidateValue;
         }
 

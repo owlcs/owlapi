@@ -45,7 +45,8 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      */
     public enum MissingOntologyHeaderStrategy {
         /** Include triples. */
-        INCLUDE_GRAPH, /** Keep import structure. */
+        INCLUDE_GRAPH,
+        /** Keep import structure. */
         IMPORT_GRAPH
     }
 
@@ -56,13 +57,13 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     /** True if redirects should be followed across protocols. */
     private boolean followRedirects = true;
     /** Set of imports to ignore. */
-    private final @Nonnull Set<IRI> ignoredImports = new HashSet<>();
+    @Nonnull private final Set<IRI> ignoredImports = new HashSet<>();
     /** True if annotations should be loaded, false if skipped. */
     private boolean loadAnnotations = true;
     /** Missing imports handling strategy. */
-    private @Nonnull MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
+    @Nonnull private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
     /** Default missing ontology strategy. */
-    private @Nonnull MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
+    @Nonnull private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
     /** Flag to enable stack traces on parsing exceptions. */
     private boolean reportStackTraces = true;
     /**
@@ -363,7 +364,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @since 3.3
      */
     public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(
-            MissingImportHandlingStrategy missingImportHandlingStrategy) {
+        MissingImportHandlingStrategy missingImportHandlingStrategy) {
         // do not make copies if setting the same value
         if (this.missingImportHandlingStrategy == missingImportHandlingStrategy) {
             return this;
@@ -379,7 +380,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
      * @return a copy of this configuration object with a different strategy
      */
     public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(
-            MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
+        MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
         // do not make copies if setting the same value
         if (missingOntologyHeaderStrategy == this.missingOntologyHeaderStrategy) {
             return this;

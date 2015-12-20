@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
  */
 public final class XMLWriterPreferences {
 
-    private static final @Nonnull XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
+    @Nonnull private static final XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
     private AtomicBoolean useNamespaceEntities = new AtomicBoolean(false);
     private AtomicBoolean indenting = new AtomicBoolean(true);
     private AtomicBoolean labelsAsBanner = new AtomicBoolean(false);

@@ -31,11 +31,6 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements OWLDataIntersectionOf {
 
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 4;
-    }
-
     /**
      * @param operands
      *        operands
@@ -50,6 +45,11 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
      */
     public OWLDataIntersectionOfImpl(Stream<? extends OWLDataRange> operands) {
         super(operands);
+    }
+
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 4;
     }
 
     @Override

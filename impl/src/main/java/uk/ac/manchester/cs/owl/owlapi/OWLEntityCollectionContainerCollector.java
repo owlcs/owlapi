@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.model.*;
 public class OWLEntityCollectionContainerCollector implements AbstractEntityRegistrationManager {
 
     private Collection<OWLEntity> objects;
-    private final @Nullable Collection<OWLAnonymousIndividual> anonymousIndividuals;
+    @Nullable private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
     private boolean collectObjectProperties = true;
     private boolean collectDataProperties = true;
@@ -51,7 +51,7 @@ public class OWLEntityCollectionContainerCollector implements AbstractEntityRegi
      *        the set that will contain the anon individuals
      */
     public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn,
-            Collection<OWLAnonymousIndividual> anonsToReturn) {
+        Collection<OWLAnonymousIndividual> anonsToReturn) {
         objects = toReturn;
         anonymousIndividuals = anonsToReturn;
     }

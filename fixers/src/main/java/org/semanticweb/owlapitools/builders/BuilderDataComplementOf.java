@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /** Builder class for OWLDataComplementOf. */
 public class BuilderDataComplementOf extends BaseBuilder<OWLDataComplementOf, BuilderDataComplementOf> {
 
-    private @Nullable OWLDataRange dataRange = null;
+    @Nullable private OWLDataRange dataRange = null;
 
     /**
      * @param df

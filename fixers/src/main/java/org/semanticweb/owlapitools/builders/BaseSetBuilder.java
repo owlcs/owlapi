@@ -38,7 +38,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuilder<T, B> {
 
-    protected final @Nonnull Set<I> items = new HashSet<>();
+    @Nonnull protected final Set<I> items = new HashSet<>();
 
     /**
      * @param df

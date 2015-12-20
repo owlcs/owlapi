@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Management Group
  * @since 3.0.0
  */
+@FunctionalInterface
 public interface OWLOntologyChecker {
 
     /**
@@ -29,5 +30,5 @@ public interface OWLOntologyChecker {
      * @return the ontology
      */
     @Nullable
-    OWLOntology getOntology(@Nullable String name);
+        OWLOntology getOntology(@Nullable String name);
 }

@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.*;
 public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChangeVisitor {
 
     protected boolean add;
-    protected @Nullable OWLOntology ontology;
+    @Nullable protected OWLOntology ontology;
 
     /**
      * @param changes
@@ -101,7 +101,8 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor, OWLOntologyChan
      *         visit cycle. When called from within a {@code visit} method, the
      *         return value is guarenteed not to be {@code null}.
      */
-    protected @Nullable OWLOntology getOntology() {
+    @Nullable
+    protected OWLOntology getOntology() {
         return ontology;
     }
 

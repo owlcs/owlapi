@@ -26,82 +26,29 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * @since 2.2.0
  */
 public enum ClassExpressionType implements Serializable,HasShortForm,HasPrefixedName,HasIRI {
-    /** Represents {@link OWLClass}. */
-    OWL_CLASS("Class"), /** Represents {@link OWLObjectSomeValuesFrom}. */
-    OBJECT_SOME_VALUES_FROM(
-            "ObjectSomeValuesFrom"), /**
-                                      * Represents
-                                      * {@link OWLObjectAllValuesFrom}.
-                                      */
-    OBJECT_ALL_VALUES_FROM(
-            "ObjectAllValuesFrom"), /**
-                                     * Represents
-                                     * {@link OWLObjectMinCardinality}.
-                                     */
-    OBJECT_MIN_CARDINALITY(
-            "ObjectMinCardinality"), /**
-                                      * Represents
-                                      * {@link OWLObjectMaxCardinality}.
-                                      */
-    OBJECT_MAX_CARDINALITY(
-            "ObjectMaxCardinality"), /**
-                                      * Represents
-                                      * {@link OWLObjectExactCardinality}.
-                                      */
-    OBJECT_EXACT_CARDINALITY(
-            "ObjectExactCardinality"), /**
-                                        * Represents {@link OWLObjectHasValue}.
-                                        */
-    OBJECT_HAS_VALUE("ObjectHasValue"), /**
-                                         * Represents
-                                         * {@link org.semanticweb.owlapi.model.OWLObjectHasSelf}
-                                         * .
-                                         */
-    OBJECT_HAS_SELF(
-            "ObjectHasSelf"), /** Represents {@link OWLDataSomeValuesFrom}. */
-    DATA_SOME_VALUES_FROM(
-            "DataSomeValuesFrom"), /**
-                                    * Represents {@link OWLDataAllValuesFrom}.
-                                    */
-    DATA_ALL_VALUES_FROM(
-            "DataAllValuesFrom"), /**
-                                   * Represents {@link OWLDataMinCardinality}.
-                                   */
-    DATA_MIN_CARDINALITY(
-            "DataMinCardinality"), /**
-                                    * Represents {@link OWLDataMaxCardinality}.
-                                    */
-    DATA_MAX_CARDINALITY(
-            "DataMaxCardinality"), /**
-                                    * Represents {@link OWLDataExactCardinality}
-                                    * .
-                                    */
-    DATA_EXACT_CARDINALITY(
-            "DataExactCardinality"), /** Represents {@link OWLDataHasValue}. */
-    DATA_HAS_VALUE("DataHasValue"), /**
-                                     * Represents
-                                     * {@link org.semanticweb.owlapi.model.OWLObjectIntersectionOf}
-                                     * .
-                                     */
-    OBJECT_INTERSECTION_OF("ObjectIntersectionOf"), /**
-                                                     * Represents
-                                                     * {@link org.semanticweb.owlapi.model.OWLObjectUnionOf}
-                                                     * .
-                                                     */
-    OBJECT_UNION_OF("ObjectUnionOf"), /**
-                                       * Represents
-                                       * {@link org.semanticweb.owlapi.model.OWLObjectComplementOf}
-                                       * .
-                                       */
-    OBJECT_COMPLEMENT_OF(
-            "ObjectComplementOf"), /**
-                                    * Represents {@link OWLObjectComplementOf}.
-                                    */
-    OBJECT_ONE_OF("ObjectOneOf");
-
-    private final @Nonnull String name;
-    private final @Nonnull String prefixedName;
-    private final @Nonnull IRI iri;
+    //@formatter:off
+    /** Represents {@link OWLClass}.                    */  OWL_CLASS               ("Class"), 
+    /** Represents {@link OWLObjectSomeValuesFrom}.     */  OBJECT_SOME_VALUES_FROM ("ObjectSomeValuesFrom" ),
+    /** Represents {@link OWLObjectAllValuesFrom}.      */  OBJECT_ALL_VALUES_FROM  ("ObjectAllValuesFrom"  ),
+    /** Represents {@link OWLObjectMinCardinality}.     */  OBJECT_MIN_CARDINALITY  ("ObjectMinCardinality" ),
+    /** Represents {@link OWLObjectMaxCardinality}.     */  OBJECT_MAX_CARDINALITY  ("ObjectMaxCardinality" ),
+    /** Represents {@link OWLObjectExactCardinality}.   */  OBJECT_EXACT_CARDINALITY("ObjectExactCardinality"),
+    /** Represents {@link OWLObjectHasValue}.           */  OBJECT_HAS_VALUE        ("ObjectHasValue"       ),
+    /** Represents {@link OWLObjectHasSelf}.            */  OBJECT_HAS_SELF         ("ObjectHasSelf"        ),
+    /** Represents {@link OWLDataSomeValuesFrom}.       */  DATA_SOME_VALUES_FROM   ("DataSomeValuesFrom"   ),
+    /** Represents {@link OWLDataAllValuesFrom}.        */  DATA_ALL_VALUES_FROM    ("DataAllValuesFrom"    ),
+    /** Represents {@link OWLDataMinCardinality}.       */  DATA_MIN_CARDINALITY    ("DataMinCardinality"   ),
+    /** Represents {@link OWLDataMaxCardinality}.       */  DATA_MAX_CARDINALITY    ("DataMaxCardinality"   ),
+    /** Represents {@link OWLDataExactCardinality}.     */  DATA_EXACT_CARDINALITY  ("DataExactCardinality" ),
+    /** Represents {@link OWLDataHasValue}.             */  DATA_HAS_VALUE          ("DataHasValue"         ),
+    /** Represents {@link OWLObjectIntersectionOf}.     */  OBJECT_INTERSECTION_OF  ("ObjectIntersectionOf" ),
+    /** Represents {@link OWLObjectUnionOf}.            */  OBJECT_UNION_OF         ("ObjectUnionOf"        ),
+    /** Represents {@link OWLObjectComplementOf}.       */  OBJECT_COMPLEMENT_OF    ("ObjectComplementOf"   ),
+    /** Represents {@link OWLObjectComplementOf}.       */  OBJECT_ONE_OF           ("ObjectOneOf"          );
+    //@formatter:on
+    @Nonnull private final String name;
+    @Nonnull private final String prefixedName;
+    @Nonnull private final IRI iri;
 
     ClassExpressionType(String name) {
         this.name = name;

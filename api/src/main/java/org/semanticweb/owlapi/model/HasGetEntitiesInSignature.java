@@ -22,12 +22,14 @@ import java.util.stream.Stream;
  *         Research Group
  * @since 3.5.0
  */
+@FunctionalInterface
 public interface HasGetEntitiesInSignature {
 
     /**
      * @param entityIRI
      *        IRI for all entities to retrieve
      * @return entities with IRI equal to entityIRI
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLEntity> getEntitiesInSignature(IRI entityIRI) {

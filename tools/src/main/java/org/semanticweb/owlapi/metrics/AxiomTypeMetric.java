@@ -46,8 +46,8 @@ public class AxiomTypeMetric extends AxiomCountMetric {
     }
 
     @Override
-    protected Stream<? extends OWLAxiom> getObjects(OWLOntology ont) {
-        return ont.axioms(axiomType);
+    protected Stream<OWLAxiom> getObjects(OWLOntology ont) {
+        return ont.axioms(axiomType).map(x -> x);
     }
 
     /**

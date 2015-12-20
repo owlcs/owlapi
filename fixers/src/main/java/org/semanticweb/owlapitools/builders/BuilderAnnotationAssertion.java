@@ -24,9 +24,9 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLAnnotationAssertionAxiom. */
 public class BuilderAnnotationAssertion
-        extends BaseAnnotationPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
+    extends BaseAnnotationPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
 
-    private @Nullable OWLAnnotationSubject subject = null;
+    @Nullable private OWLAnnotationSubject subject = null;
     private OWLAnnotationValue value;
 
     /**
@@ -49,7 +49,7 @@ public class BuilderAnnotationAssertion
     public BuilderAnnotationAssertion(OWLAnnotationAssertionAxiom expected, OWLDataFactory df) {
         this(df);
         withAnnotations(expected.annotations()).withSubject(expected.getSubject()).withProperty(expected.getProperty())
-                .withValue(expected.getValue());
+            .withValue(expected.getValue());
     }
 
     /**

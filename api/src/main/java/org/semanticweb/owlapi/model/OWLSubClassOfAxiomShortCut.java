@@ -20,6 +20,7 @@ package org.semanticweb.owlapi.model;
  *         Management Group
  * @since 3.0.0
  */
+@FunctionalInterface
 public interface OWLSubClassOfAxiomShortCut {
 
     /**

@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPropertyBuilder<T, B> {
 
-    private @Nullable OWLDataRange dataRange = null;
+    @Nullable private OWLDataRange dataRange = null;
 
     /**
      * @param df

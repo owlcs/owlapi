@@ -30,11 +30,6 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  */
 public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionImpl implements OWLObjectIntersectionOf {
 
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 1;
-    }
-
     /**
      * @param operands
      *        operands
@@ -49,6 +44,11 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
      */
     public OWLObjectIntersectionOfImpl(OWLClassExpression... operands) {
         super(Stream.of(operands));
+    }
+
+    @Override
+    public int typeIndex() {
+        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 1;
     }
 
     @Override

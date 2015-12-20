@@ -34,7 +34,8 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
     private final Map<IRI, IRI> iriMap = new TreeMap<>();
 
     @Override
-    public @Nullable IRI getDocumentIRI(IRI ontologyIRI) {
+    @Nullable
+    public IRI getDocumentIRI(IRI ontologyIRI) {
         IRI iri = iriMap.get(ontologyIRI);
         if (iri != null) {
             return iri;
@@ -51,6 +52,6 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
      */
     public void addMapping(IRI ontologyIRI, IRI documentIRI) {
         iriMap.put(checkNotNull(ontologyIRI, "ontologyIRI cannot be null"),
-                checkNotNull(documentIRI, "documentIRI cannot be null"));
+            checkNotNull(documentIRI, "documentIRI cannot be null"));
     }
 }

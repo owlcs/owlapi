@@ -24,6 +24,7 @@ import java.io.Serializable;
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
  */
+@FunctionalInterface
 public interface MissingImportListener extends Serializable {
 
     /**

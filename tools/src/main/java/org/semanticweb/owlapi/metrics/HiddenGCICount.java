@@ -32,6 +32,11 @@ import org.semanticweb.owlapi.model.*;
  */
 public class HiddenGCICount extends IntegerValuedMetric {
 
+    Predicate<OWLAxiom> equivalentOrSubclass = ax -> ax instanceof OWLEquivalentClassesAxiom
+    || ax instanceof OWLSubClassOfAxiom;
+    Predicate<OWLClass> hasEquivalent = c -> getEquivalentClasses(c, getOntologies()).count() > 0;
+    Predicate<OWLClass> isSubclass = c -> getSubClasses(c, getOntologies()).count() > 0;
+
     /**
      * Instantiates a new hidden gci count.
      * 
@@ -43,20 +48,12 @@ public class HiddenGCICount extends IntegerValuedMetric {
     }
 
     @Override
-    protected void disposeMetric() {}
-
-    @Override
     protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
         return changes.stream()
             .filter(OWLOntologyChange::isAxiomChange)
             .map(OWLOntologyChange::getAxiom)
             .anyMatch(equivalentOrSubclass);
     }
-
-    Predicate<OWLAxiom> equivalentOrSubclass = ax -> ax instanceof OWLEquivalentClassesAxiom
-        || ax instanceof OWLSubClassOfAxiom;
-    Predicate<OWLClass> hasEquivalent = c -> getEquivalentClasses(c, getOntologies()).count() > 0;
-    Predicate<OWLClass> isSubclass = c -> getSubClasses(c, getOntologies()).count() > 0;
 
     @Override
     protected Integer recomputeMetric() {

@@ -239,6 +239,56 @@ public enum OBOVocabulary implements HasIRI {
         }
     };
 
+    private static final List<OBOVocabulary> headerTags = Arrays.asList(FORMAT_VERSION, DATA_VERSION, DATE, SAVED_BY,
+        AUTO_GENERATED_BY, SUBSETDEF, IMPORT, SYNONYM_TYPE_DEF, ID_SPACE, DEFAULT_RELATIONSHIP_ID_PREFIX,
+        ID_MAPPING, REMARK);
+    private static final List<OBOVocabulary> termStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF, COMMENT,
+        SUBSET, SYNONYM, XREF, IS_A, INTERSECTION_OF, UNION_OF, DISJOINT_FROM, RELATIONSHIP, IS_OBSOLETE,
+        REPLACED_BY, CONSIDER);
+    private static final List<OBOVocabulary> typeDefStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
+        COMMENT, SUBSET, SYNONYM, XREF, DOMAIN, RANGE, IS_ASYMMETRIC, IS_CYCLIC, IS_REFLEXIVE, IS_SYMMETRIC,
+        IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER, RELATIONSHIP, IS_METADATA_TAG, IS_OBSOLETE, REPLACED_BY,
+        CONSIDER);
+    private static final List<OBOVocabulary> instanceStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
+        COMMENT, SYNONYM, XREF, INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY, CONSIDER);
+
+    private final @Nonnull String name;
+    private final @Nonnull IRI iri;
+
+    OBOVocabulary(String name) {
+        this.name = name;
+        iri = IRI.create(OBOPrefix.OBO.getPrefix() + name);
+    }
+
+    OBOVocabulary(String name, OBOPrefix prefix) {
+        this.name = name;
+        iri = IRI.create(prefix.getPrefix() + name);
+    }
+
+    OBOVocabulary(String name, OBOPrefix prefix, String localName) {
+        this.name = name;
+        iri = IRI.create(prefix.getPrefix() + localName);
+    }
+
+    OBOVocabulary(String name, IRI iri) {
+        this.name = name;
+        this.iri = iri;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return iri;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
     /**
      * Converts OBO Ids to IRIs. The conversion is defined at
      * <a href="http://www.obofoundry.org/id-policy.shtml" >http://www.
@@ -310,56 +360,6 @@ public enum OBOVocabulary implements HasIRI {
 
     public static boolean isOBOIRI(IRI oboIRI) {
         return OBO_ID_PATTERN.matcher(oboIRI.toString()).matches();
-    }
-
-    private static final List<OBOVocabulary> headerTags = Arrays.asList(FORMAT_VERSION, DATA_VERSION, DATE, SAVED_BY,
-        AUTO_GENERATED_BY, SUBSETDEF, IMPORT, SYNONYM_TYPE_DEF, ID_SPACE, DEFAULT_RELATIONSHIP_ID_PREFIX,
-        ID_MAPPING, REMARK);
-    private static final List<OBOVocabulary> termStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF, COMMENT,
-        SUBSET, SYNONYM, XREF, IS_A, INTERSECTION_OF, UNION_OF, DISJOINT_FROM, RELATIONSHIP, IS_OBSOLETE,
-        REPLACED_BY, CONSIDER);
-    private static final List<OBOVocabulary> typeDefStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
-        COMMENT, SUBSET, SYNONYM, XREF, DOMAIN, RANGE, IS_ASYMMETRIC, IS_CYCLIC, IS_REFLEXIVE, IS_SYMMETRIC,
-        IS_TRANSITIVE, IS_A, INVERSE, TRANSITIVE_OVER, RELATIONSHIP, IS_METADATA_TAG, IS_OBSOLETE, REPLACED_BY,
-        CONSIDER);
-    private static final List<OBOVocabulary> instanceStanzaTags = Arrays.asList(ID, NAME, NAMESPACE, ALT_ID, DEF,
-        COMMENT, SYNONYM, XREF, INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY, CONSIDER);
-
-    OBOVocabulary(String name) {
-        this.name = name;
-        iri = IRI.create(OBOPrefix.OBO.getPrefix() + name);
-    }
-
-    OBOVocabulary(String name, OBOPrefix prefix) {
-        this.name = name;
-        iri = IRI.create(prefix.getPrefix() + name);
-    }
-
-    OBOVocabulary(String name, OBOPrefix prefix, String localName) {
-        this.name = name;
-        iri = IRI.create(prefix.getPrefix() + localName);
-    }
-
-    OBOVocabulary(String name, IRI iri) {
-        this.name = name;
-        this.iri = iri;
-    }
-
-    private final @Nonnull String name;
-    private final @Nonnull IRI iri;
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public IRI getIRI() {
-        return iri;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 
     public static List<OBOVocabulary> getHeaderTags() {

@@ -27,12 +27,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  */
 public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectInverseOf {
 
-    @Override
-    public int typeIndex() {
-        return OBJECT_PROPERTY_INVERSE;
-    }
-
-    private final @Nonnull OWLObjectProperty inverseProperty;
+    @Nonnull private final OWLObjectProperty inverseProperty;
 
     /**
      * @param inverseProperty
@@ -40,6 +35,11 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
      */
     public OWLObjectInverseOfImpl(OWLObjectProperty inverseProperty) {
         this.inverseProperty = inverseProperty;
+    }
+
+    @Override
+    public int typeIndex() {
+        return OBJECT_PROPERTY_INVERSE;
     }
 
     @Override

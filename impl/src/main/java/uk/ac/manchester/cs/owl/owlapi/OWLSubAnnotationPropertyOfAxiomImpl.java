@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
  */
 public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements OWLSubAnnotationPropertyOfAxiom {
 
-    private final @Nonnull OWLAnnotationProperty subProperty;
-    private final @Nonnull OWLAnnotationProperty superProperty;
+    @Nonnull private final OWLAnnotationProperty subProperty;
+    @Nonnull private final OWLAnnotationProperty superProperty;
 
     /**
      * @param subProperty
@@ -45,7 +45,7 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
      *        annotations on the axiom
      */
     public OWLSubAnnotationPropertyOfAxiomImpl(OWLAnnotationProperty subProperty, OWLAnnotationProperty superProperty,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
         this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");

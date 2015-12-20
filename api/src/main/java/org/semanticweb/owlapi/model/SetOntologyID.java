@@ -26,8 +26,8 @@ import org.semanticweb.owlapi.change.SetOntologyIDData;
  */
 public class SetOntologyID extends OWLOntologyChange {
 
-    private final @Nonnull OWLOntologyID ontologyID;
-    private final @Nonnull OWLOntologyID newOntologyID;
+    @Nonnull private final OWLOntologyID ontologyID;
+    @Nonnull private final OWLOntologyID newOntologyID;
 
     /**
      * Creates a set ontology id change, which will set the ontology id to the
@@ -119,7 +119,6 @@ public class SetOntologyID extends OWLOntologyChange {
 
     @Override
     public OWLOntologyChange reverseChange() {
-        SetOntologyID setOntologyID = new SetOntologyID(getOntology(), newOntologyID, getOntology().getOntologyID());
-        return setOntologyID;
+        return new SetOntologyID(getOntology(), newOntologyID, getOntology().getOntologyID());
     }
 }

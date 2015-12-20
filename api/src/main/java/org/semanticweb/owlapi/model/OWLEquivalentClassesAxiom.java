@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
 
     @Override
-    OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
+        OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
 
     /**
      * Determines if this equivalent classes axiom contains at least one named
@@ -49,6 +49,7 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
      * @return A set of classes that represents the named classes that are
      *         specified to be equivalent to some other class (expression),
      *         excluding the built in classes owl:Thing and owl:Nothing
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLClass> getNamedClasses() {
@@ -84,10 +85,10 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     boolean containsOWLThing();
 
     @Override
-    Set<OWLEquivalentClassesAxiom> asPairwiseAxioms();
+        Set<OWLEquivalentClassesAxiom> asPairwiseAxioms();
 
     @Override
-    Set<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
+        Set<OWLEquivalentClassesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

@@ -53,20 +53,10 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
  * @since 4.0.0
  */
 public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
-        implements MIMETypeAware, RioRDFDocumentFormat {
+    implements MIMETypeAware, RioRDFDocumentFormat {
 
     private transient RDFFormat format;
     private final String formatName;
-
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
-            if (f.getName().equals(formatName)) {
-                format = f;
-                return;
-            }
-        }
-    }
 
     /**
      * Constructor for super-classes to specify which {@link RDFFormat} they
@@ -78,6 +68,16 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
     public RioRDFPrefixDocumentFormat(RDFFormat format) {
         this.format = format;
         formatName = this.format.getName();
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
+            if (f.getName().equals(formatName)) {
+                format = f;
+                return;
+            }
+        }
     }
 
     @Override
@@ -93,7 +93,8 @@ public class RioRDFPrefixDocumentFormat extends AbstractRDFPrefixDocumentFormat
     }
 
     @Override
-    public @Nullable String getDefaultMIMEType() {
+    @Nullable
+    public String getDefaultMIMEType() {
         return format.getDefaultMIMEType();
     }
 

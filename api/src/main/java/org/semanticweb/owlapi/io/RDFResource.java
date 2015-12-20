@@ -60,11 +60,9 @@ public abstract class RDFResource extends RDFNode implements org.apache.commons.
         }
         return diff;
     }
-    
-	@Override
-	public String ntriplesString() {
-		return getResource().ntriplesString();
-	}
 
-
+    @Override
+    public String ntriplesString() {
+        return getResource().ntriplesString();
+    }
 }

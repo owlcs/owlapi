@@ -39,7 +39,7 @@ public class XZStreamDocumentTarget implements OWLOntologyDocumentTarget, AutoCl
     private static final Logger LOGGER = LoggerFactory.getLogger(XZStreamDocumentTarget.class);
     private final OutputStream outputStream;
     private XZOutputStream xzOutputStream;
-    private FilterOptions filterOptions[];
+    private FilterOptions[] filterOptions;
 
     /**
      * @param os

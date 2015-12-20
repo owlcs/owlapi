@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
-    protected final @Nonnull SimpleShortFormProvider sfp = new SimpleShortFormProvider();
+    @Nonnull protected final SimpleShortFormProvider sfp = new SimpleShortFormProvider();
 
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {

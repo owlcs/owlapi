@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GZipFileDocumentSource.class);
-    private final @Nonnull File file;
+    @Nonnull private final File file;
 
     /**
      * Constructs an input source which will read an ontology from a

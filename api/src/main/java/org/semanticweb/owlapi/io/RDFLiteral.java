@@ -32,9 +32,9 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Literal {
 
-    private final @Nonnull String lexicalValue;
-    private final @Nonnull String lang;
-    private final @Nonnull IRI datatype;
+    @Nonnull private final String lexicalValue;
+    @Nonnull private final String lang;
+    @Nonnull private final IRI datatype;
     private int hashCode;
 
     /**

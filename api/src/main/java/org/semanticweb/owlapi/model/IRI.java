@@ -39,6 +39,34 @@ public class IRI
     implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm,
     org.apache.commons.rdf.api.IRI {
 
+    private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
+    // Impl - All constructors are private - factory methods are used for
+    // public creation
+    @Nonnull private final String remainder;
+    @Nonnull private final String namespace;
+
+    /**
+     * Constructs an IRI which is built from the concatenation of the specified
+     * prefix and suffix.
+     * 
+     * @param prefix
+     *        The prefix.
+     * @param suffix
+     *        The suffix.
+     */
+    protected IRI(String prefix, @Nullable String suffix) {
+        namespace = prefix.intern();
+        remainder = suffix == null ? "" : suffix;
+    }
+
+    protected IRI(String s) {
+        this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
+    }
+
+    protected IRI(URI uri) {
+        this(checkNotNull(uri, "uri cannot be null").toString());
+    }
+
     @Override
     public int typeIndex() {
         return 0;
@@ -72,17 +100,22 @@ public class IRI
         }
         for (int i = 0; i < colonIndex; i++) {
             char ch = namespace.charAt(i);
-            if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-') {
+            if (disallowed(ch)) {
                 return false;
             }
         }
         return true;
     }
 
+    protected boolean disallowed(char ch) {
+        return !Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.' && ch != '+' && ch != '-';
+    }
+
     /**
      * @return the IRI scheme, e.g., http, urn
      */
-    public @Nullable String getScheme() {
+    @Nullable
+    public String getScheme() {
         int colonIndex = namespace.indexOf(':');
         if (colonIndex == -1) {
             return null;
@@ -309,26 +342,6 @@ public class IRI
         return IRI.create(prefix + COUNTER.incrementAndGet());
     }
 
-    private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
-    // Impl - All constructors are private - factory methods are used for
-    // public creation
-    private final @Nonnull String remainder;
-    private final @Nonnull String namespace;
-
-    /**
-     * Constructs an IRI which is built from the concatenation of the specified
-     * prefix and suffix.
-     * 
-     * @param prefix
-     *        The prefix.
-     * @param suffix
-     *        The suffix.
-     */
-    protected IRI(String prefix, @Nullable String suffix) {
-        namespace = prefix.intern();
-        remainder = suffix == null ? "" : suffix;
-    }
-
     /**
      * @param suffix
      *        suffix to turn to optional. Empty string is the same as null
@@ -341,14 +354,6 @@ public class IRI
             return emptyOptional();
         }
         return optional(suffix);
-    }
-
-    protected IRI(String s) {
-        this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
-    }
-
-    protected IRI(URI uri) {
-        this(checkNotNull(uri, "uri cannot be null").toString());
     }
 
     @Override

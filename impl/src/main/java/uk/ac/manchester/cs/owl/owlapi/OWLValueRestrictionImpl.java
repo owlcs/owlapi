@@ -28,9 +28,9 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @since 2.0.0
  */
 public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends OWLRestrictionImpl
-        implements OWLHasValueRestriction<V> {
+    implements OWLHasValueRestriction<V> {
 
-    protected final @Nonnull V value;
+    @Nonnull protected final V value;
 
     protected OWLValueRestrictionImpl(V value) {
         this.value = checkNotNull(value, "value cannot be null");

@@ -24,10 +24,11 @@ import java.util.stream.Stream;
  * @since 2.0.0
  */
 public interface OWLNaryIndividualAxiom
-        extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut {
+    extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut {
 
     /**
      * @return the individuals
+     * @deprecated use the stream method
      */
     @Deprecated
     default Set<OWLIndividual> getIndividuals() {

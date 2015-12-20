@@ -90,7 +90,8 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     @Override
-    public @Nullable Object getEdge(Tree<N> child) {
+    @Nullable
+    public Object getEdge(Tree<N> child) {
         return child2EdgeMap.get(child);
     }
 

@@ -30,12 +30,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
 
-    private final @Nonnull NodeID nodeId;
-
-    @Override
-    public int typeIndex() {
-        return ANON_INDIVIDUAL;
-    }
+    @Nonnull private final NodeID nodeId;
 
     /**
      * @param nodeID
@@ -43,6 +38,11 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
      */
     public OWLAnonymousIndividualImpl(NodeID nodeID) {
         nodeId = checkNotNull(nodeID, "nodeID cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return ANON_INDIVIDUAL;
     }
 
     @Override

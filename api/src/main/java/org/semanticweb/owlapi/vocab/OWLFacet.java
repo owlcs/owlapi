@@ -51,21 +51,20 @@ public enum OWLFacet implements HasShortForm,HasIRI,HasPrefixedName {
 //@formatter:on
     /** All facet iris. */
     public static final Set<IRI> FACET_IRIS = asSet(stream().map(v -> v.iri));
-
-    private static Stream<OWLFacet> stream() {
-        return Stream.of(values());
-    }
-
-    private final @Nonnull IRI iri;
-    private final @Nonnull String shortForm;
-    private final @Nonnull String symbolicForm;
-    private final @Nonnull String prefixedName;
+    @Nonnull private final IRI iri;
+    @Nonnull private final String shortForm;
+    @Nonnull private final String symbolicForm;
+    @Nonnull private final String prefixedName;
 
     OWLFacet(Namespaces ns, String shortForm, String symbolicForm) {
         iri = IRI.create(ns.toString(), shortForm);
         this.shortForm = shortForm;
         this.symbolicForm = symbolicForm;
         prefixedName = ns.getPrefixName() + ':' + shortForm;
+    }
+
+    private static Stream<OWLFacet> stream() {
+        return Stream.of(values());
     }
 
     @Override
@@ -105,7 +104,7 @@ public enum OWLFacet implements HasShortForm,HasIRI,HasPrefixedName {
     public static OWLFacet getFacet(IRI iri) {
         checkNotNull(iri, "iri cannot be null");
         return stream().filter(v -> v.iri.equals(iri)).findAny()
-                .orElseThrow(() -> new IllegalArgumentException("Unknown facet: " + iri));
+            .orElseThrow(() -> new IllegalArgumentException("Unknown facet: " + iri));
     }
 
     /**
@@ -116,7 +115,8 @@ public enum OWLFacet implements HasShortForm,HasIRI,HasPrefixedName {
      * @return The facet or {@code null} if not facet by the specified name
      *         exists.
      */
-    public static @Nullable OWLFacet getFacetByShortName(String shortName) {
+    @Nullable
+    public static OWLFacet getFacetByShortName(String shortName) {
         checkNotNull(shortName);
         return stream().filter(v -> v.getShortForm().equals(shortName)).findAny().orElse(null);
     }
@@ -126,7 +126,8 @@ public enum OWLFacet implements HasShortForm,HasIRI,HasPrefixedName {
      *        symbolic name for facet
      * @return facet for name
      */
-    public static @Nullable OWLFacet getFacetBySymbolicName(String symbolicName) {
+    @Nullable
+    public static OWLFacet getFacetBySymbolicName(String symbolicName) {
         return stream().filter(v -> v.getSymbolicForm().equals(symbolicName)).findAny().orElse(null);
     }
 

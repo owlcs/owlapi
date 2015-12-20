@@ -35,6 +35,8 @@ import com.google.common.collect.Multimap;
  */
 public class EntitySearcher {
 
+    private EntitySearcher() {}
+
     /**
      * Gets the annotations for this entity. These are deemed to be annotations
      * in annotation assertion axioms that have a subject that is an IRI that is

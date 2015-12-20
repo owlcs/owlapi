@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  *         Management Group
  * @since 3.0.0
  */
+@FunctionalInterface
 public interface SWRLVariableShortFormProvider {
 
     /**

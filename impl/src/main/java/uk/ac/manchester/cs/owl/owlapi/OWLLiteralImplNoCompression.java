@@ -28,17 +28,12 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
 
-    private static final @Nonnull OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
-    private static final @Nonnull OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
-    private static final @Nonnull OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
-    private final @Nonnull String literal;
-    private final @Nonnull OWLDatatype datatype;
-    private final @Nonnull String language;
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 8;
-    }
+    @Nonnull private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL);
+    @Nonnull private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(OWL2Datatype.RDF_LANG_STRING);
+    @Nonnull private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
+    @Nonnull private final String literal;
+    @Nonnull private final OWLDatatype datatype;
+    @Nonnull private final String language;
 
     /**
      * @param literal
@@ -68,6 +63,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
             this.datatype = RDF_LANG_STRING;
         }
         hashCode = getHashCode();
+    }
+
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 8;
     }
 
     @Override

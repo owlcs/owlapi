@@ -32,13 +32,13 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  */
 public class OWLObjectPropertyManager {
 
-    private final @Nonnull OWLDataFactory df;
-    private final @Nonnull OWLOntology ontology;
-    private final @Nonnull Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<>();
-    private final @Nonnull Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<>();
-    private final @Nonnull Set<OWLObjectPropertyExpression> compositeProperties = new HashSet<>();
-    private final @Nonnull Set<OWLObjectPropertyExpression> nonSimpleProperties = new HashSet<>();
-    private final @Nonnull Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering = new HashMap<>();
+    @Nonnull private final OWLDataFactory df;
+    @Nonnull private final OWLOntology ontology;
+    @Nonnull private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<>();
+    @Nonnull private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<>();
+    @Nonnull private final Set<OWLObjectPropertyExpression> compositeProperties = new HashSet<>();
+    @Nonnull private final Set<OWLObjectPropertyExpression> nonSimpleProperties = new HashSet<>();
+    @Nonnull private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering = new HashMap<>();
     private boolean compositeDirty;
     private boolean hierarchyDirty;
     private boolean reflexiveTransitiveClosureDirty;
@@ -323,7 +323,7 @@ public class OWLObjectPropertyManager {
         Stream<OWLObjectPropertyExpression> properties = ontologies.flatMap(OWLOntology::objectPropertiesInSignature);
         properties.forEach(p -> {
             if (!processed.contains(p)) {
-                tarjan(ontologies, p, 0, new Stack<OWLObjectPropertyExpression>(),
+                tarjan(ontologies, p, 0, new LinkedList<OWLObjectPropertyExpression>(),
                     new HashMap<OWLObjectPropertyExpression, Integer>(),
                     new HashMap<OWLObjectPropertyExpression, Integer>(), result, processed,
                     new HashSet<OWLObjectPropertyExpression>());
@@ -371,7 +371,7 @@ public class OWLObjectPropertyManager {
      *        stack entities
      */
     public static void tarjan(Stream<OWLOntology> ontologies, OWLObjectPropertyExpression prop, int index,
-        Stack<OWLObjectPropertyExpression> stack, Map<OWLObjectPropertyExpression, Integer> indexMap,
+        Deque<OWLObjectPropertyExpression> stack, Map<OWLObjectPropertyExpression, Integer> indexMap,
         Map<OWLObjectPropertyExpression, Integer> lowlinkMap, Set<Set<OWLObjectPropertyExpression>> result,
         Set<OWLObjectPropertyExpression> processed, Set<OWLObjectPropertyExpression> stackProps) {
         checkNotNull(ontologies, "ontologies cannot be null");
@@ -408,7 +408,7 @@ public class OWLObjectPropertyManager {
     }
 
     protected static void callTarjanAndPut(Stream<OWLOntology> ontologies, OWLObjectPropertyExpression prop, int index,
-        Stack<OWLObjectPropertyExpression> stack, Map<OWLObjectPropertyExpression, Integer> indexMap,
+        Deque<OWLObjectPropertyExpression> stack, Map<OWLObjectPropertyExpression, Integer> indexMap,
         Map<OWLObjectPropertyExpression, Integer> lowlinkMap, Set<Set<OWLObjectPropertyExpression>> result,
         Set<OWLObjectPropertyExpression> processed, Set<OWLObjectPropertyExpression> stackProps,
         OWLObjectPropertyExpression supProp) {

@@ -29,12 +29,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataComplementOf {
 
-    private final @Nonnull OWLDataRange dataRange;
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 2;
-    }
+    @Nonnull private final OWLDataRange dataRange;
 
     /**
      * @param dataRange
@@ -42,6 +37,11 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
      */
     public OWLDataComplementOfImpl(OWLDataRange dataRange) {
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
+    }
+
+    @Override
+    public int typeIndex() {
+        return DATA_TYPE_INDEX_BASE + 2;
     }
 
     @Override

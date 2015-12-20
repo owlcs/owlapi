@@ -34,74 +34,36 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @param <E>
  *        entity type
  */
-public abstract class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
+public class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
 
-    /** Class entity. */
-    public static final @Nonnull EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", "Class", "Classes",
-            OWL_CLASS) {
+    private static interface Builder<T> {
 
-        @Override
-        public OWLClass buildEntity(IRI i, EntityProvider df) {
-            return df.getOWLClass(i);
-        }
-    };
-    /** Object property entity. */
-    public static final @Nonnull EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
-            "ObjectProperty", "Object property", "Object properties", OWL_OBJECT_PROPERTY) {
+        T buildEntity(IRI i, EntityProvider p);
+    }
 
-        @Override
-        public OWLObjectProperty buildEntity(IRI i, EntityProvider df) {
-            return df.getOWLObjectProperty(i);
-        }
-    };
-    /** Data property entity. */
-    public static final @Nonnull EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>(
-            "DataProperty", "Data property", "Data properties", OWL_DATA_PROPERTY) {
+//@formatter:off
+    /** Class entity.               */ @Nonnull public static final EntityType<OWLClass>              CLASS               = new EntityType<>("Class",               "Class",               "Classes",               OWL_CLASS,              (i, p) -> p.getOWLClass(i));
+    /** Object property entity.     */ @Nonnull public static final EntityType<OWLObjectProperty>     OBJECT_PROPERTY     = new EntityType<>("ObjectProperty",      "Object property",     "Object properties",     OWL_OBJECT_PROPERTY,    (i, p) -> p.getOWLObjectProperty(i));
+    /** Data property entity.       */ @Nonnull public static final EntityType<OWLDataProperty>       DATA_PROPERTY       = new EntityType<>("DataProperty",        "Data property",       "Data properties",       OWL_DATA_PROPERTY,      (i, p) -> p.getOWLDataProperty(i));
+    /** Annotation property entity. */ @Nonnull public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<>("AnnotationProperty",  "Annotation property", "Annotation properties", OWL_ANNOTATION_PROPERTY,(i, p) -> p.getOWLAnnotationProperty(i));
+    /** Named individual entity.    */ @Nonnull public static final EntityType<OWLNamedIndividual>    NAMED_INDIVIDUAL    = new EntityType<>("NamedIndividual",     "Named individual",    "Named individuals",     OWL_NAMED_INDIVIDUAL,   (i, p) -> p.getOWLNamedIndividual(i));
+    /** Datatype entity.            */ @Nonnull public static final EntityType<OWLDatatype>           DATATYPE            = new EntityType<>("Datatype",            "Datatype",            "Datatypes",             RDFS_DATATYPE,          (i, p) -> p.getOWLDatatype(i));
+//@formatter:on
+    private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>> unmodifiableList(Arrays.asList(CLASS,
+        OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
+    @Nonnull private final String name;
+    @Nonnull private final OWLRDFVocabulary vocabulary;
+    @Nonnull private final String printName;
+    @Nonnull private final String pluralPrintName;
+    @Nonnull private final Builder<E> builder;
 
-        @Override
-        public OWLDataProperty buildEntity(IRI i, EntityProvider df) {
-            return df.getOWLDataProperty(i);
-        }
-    };
-    /** Annotation property entity. */
-    public static final @Nonnull EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
-            "AnnotationProperty", "Annotation property", "Annotation properties", OWL_ANNOTATION_PROPERTY) {
-
-        @Override
-        public OWLAnnotationProperty buildEntity(IRI i, EntityProvider df) {
-            return df.getOWLAnnotationProperty(i);
-        }
-    };
-    /** Named individual entity. */
-    public static final @Nonnull EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
-            "NamedIndividual", "Named individual", "Named individuals", OWL_NAMED_INDIVIDUAL) {
-
-        @Override
-        public OWLNamedIndividual buildEntity(IRI i, EntityProvider df) {
-            return df.getOWLNamedIndividual(i);
-        }
-    };
-    /** Datatype entity. */
-    public static final @Nonnull EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>("Datatype", "Datatype",
-            "Datatypes", RDFS_DATATYPE) {
-
-        @Override
-        public OWLDatatype buildEntity(IRI i, EntityProvider df) {
-            return df.getOWLDatatype(i);
-        }
-    };
-    private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>> unmodifiableList(
-            Arrays.asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
-    private final @Nonnull String name;
-    private final @Nonnull OWLRDFVocabulary vocabulary;
-    private final @Nonnull String printName;
-    private final @Nonnull String pluralPrintName;
-
-    protected EntityType(String name, String print, String pluralPrint, OWLRDFVocabulary vocabulary) {
+    protected EntityType(String name, String print, String pluralPrint, OWLRDFVocabulary vocabulary,
+        Builder<E> builder) {
         this.name = name;
         this.vocabulary = vocabulary;
         printName = print;
         pluralPrintName = pluralPrint;
+        this.builder = builder;
     }
 
     /**
@@ -179,5 +141,7 @@ public abstract class EntityType<E extends OWLEntity> implements Serializable, H
      *        data factory
      * @return entity
      */
-    public abstract E buildEntity(IRI i, EntityProvider df);
+    public E buildEntity(IRI i, EntityProvider df) {
+        return builder.buildEntity(i, df);
+    }
 }

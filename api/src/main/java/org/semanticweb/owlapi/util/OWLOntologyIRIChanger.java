@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLOntologyIRIChanger {
 
-    private final @Nonnull OWLOntologyManager owlOntologyManager;
+    @Nonnull private final OWLOntologyManager owlOntologyManager;
 
     /**
      * @param owlOntologyManager
@@ -55,15 +55,15 @@ public class OWLOntologyIRIChanger {
     public List<OWLOntologyChange> getChanges(OWLOntology ontology, IRI newIRI) {
         List<OWLOntologyChange> changes = new ArrayList<>();
         changes.add(new SetOntologyID(ontology,
-                new OWLOntologyID(optional(newIRI), ontology.getOntologyID().getVersionIRI())));
+            new OWLOntologyID(optional(newIRI), ontology.getOntologyID().getVersionIRI())));
         OWLImportsDeclaration owlImport = owlOntologyManager.getOWLDataFactory().getOWLImportsDeclaration(newIRI);
         IRI ontIRI = ontology.getOntologyID().getOntologyIRI().get();
-        owlOntologyManager.ontologies().forEach(ont -> {
-            ont.importsDeclarations().filter(decl -> decl.getIRI().equals(ontIRI)).forEach(decl -> {
+        owlOntologyManager.ontologies().forEach(ont -> ont.importsDeclarations()
+            .filter(decl -> decl.getIRI().equals(ontIRI))
+            .forEach(decl -> {
                 changes.add(new RemoveImport(ont, decl));
                 changes.add(new AddImport(ont, owlImport));
-            } );
-        } );
+            }));
         return changes;
     }
 }

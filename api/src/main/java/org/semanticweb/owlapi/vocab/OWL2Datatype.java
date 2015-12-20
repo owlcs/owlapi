@@ -77,21 +77,48 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /** XSD_DATE_TIME. */            XSD_DATE_TIME            (DATE_TIME,            Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
     /** XSD_DATE_TIME_STAMP. */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
-    private static final @Nonnull Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(v -> v.iri));
+    @Nonnull private static final Set<IRI> ALL_IRIS = asSet(Stream.of(values()).map(v -> v.iri));
     /**
      * Datatypes allowed in the EL and QL profiles.
      */
     public static final List<OWL2Datatype> EL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
-            RDFS_LITERAL, OWL_RATIONAL, OWL_REAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_STRING,
-            XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_HEX_BINARY, XSD_BASE_64_BINARY,
-            XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+        RDFS_LITERAL, OWL_RATIONAL, OWL_REAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_STRING,
+        XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_HEX_BINARY, XSD_BASE_64_BINARY,
+        XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
     /** Datatypes supported in the RL profile. */
     public static final List<OWL2Datatype> RL_DATATYPES = Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL,
-            RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_NON_POSITIVE_INTEGER,
-            XSD_POSITIVE_INTEGER, XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE, XSD_UNSIGNED_LONG,
-            XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_LANGUAGE,
-            XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY, XSD_BASE_64_BINARY, XSD_ANY_URI,
-            XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+        RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_NON_POSITIVE_INTEGER,
+        XSD_POSITIVE_INTEGER, XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE, XSD_UNSIGNED_LONG,
+        XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN, XSD_LANGUAGE,
+        XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY, XSD_BASE_64_BINARY, XSD_ANY_URI,
+        XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+    @Nonnull private final String shortForm;
+    @Nonnull private final IRI iri;
+    @Nonnull private final Category category;
+    private final boolean finite;
+    @Nonnull private final Pattern pattern;
+    @Nonnull private final String regExpression;
+    @Nonnull private final String prefixedName;
+
+    OWL2Datatype(Namespaces namespace, String shortForm, Category category, boolean finite, String regEx) {
+        iri = IRI.create(namespace.toString(), shortForm);
+        this.shortForm = shortForm;
+        prefixedName = namespace.getPrefixName() + ':' + shortForm;
+        this.category = category;
+        this.finite = finite;
+        regExpression = regEx;
+        pattern = Pattern.compile(regEx, Pattern.DOTALL);
+    }
+
+    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite, String regEx) {
+        iri = xsd.getIRI();
+        shortForm = xsd.getShortForm();
+        prefixedName = xsd.getPrefixedName();
+        this.category = category;
+        this.finite = finite;
+        regExpression = regEx;
+        pattern = Pattern.compile(regEx, Pattern.DOTALL);
+    }
 
     /**
      * Gets all of the built in datatype IRIs.
@@ -150,7 +177,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
             throw new OWLRuntimeException(datatype + " is not a built in datatype!");
         }
         return Stream.of(values()).filter(v -> v.iri.equals(datatype)).findAny()
-                .orElseThrow(() -> new OWLRuntimeException(datatype + " is not a built in datatype!"));
+            .orElseThrow(() -> new OWLRuntimeException(datatype + " is not a built in datatype!"));
     }
 
     /**
@@ -165,34 +192,6 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
      */
     public static OWL2Datatype getDatatype(HasIRI datatype) {
         return getDatatype(datatype.getIRI());
-    }
-
-    private final @Nonnull String shortForm;
-    private final @Nonnull IRI iri;
-    private final @Nonnull Category category;
-    private final boolean finite;
-    private final @Nonnull Pattern pattern;
-    private final @Nonnull String regExpression;
-    private final @Nonnull String prefixedName;
-
-    OWL2Datatype(Namespaces namespace, String shortForm, Category category, boolean finite, String regEx) {
-        iri = IRI.create(namespace.toString(), shortForm);
-        this.shortForm = shortForm;
-        prefixedName = namespace.getPrefixName() + ':' + shortForm;
-        this.category = category;
-        this.finite = finite;
-        regExpression = regEx;
-        pattern = Pattern.compile(regEx, Pattern.DOTALL);
-    }
-
-    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite, String regEx) {
-        iri = xsd.getIRI();
-        shortForm = xsd.getShortForm();
-        prefixedName = xsd.getPrefixedName();
-        this.category = category;
-        this.finite = finite;
-        regExpression = regEx;
-        pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
     @Override

@@ -50,13 +50,24 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
  * @since 4.0.0
  */
 public abstract class AbstractRioRDFDocumentFormatFactory extends
-        OWLDocumentFormatFactoryImpl implements RioRDFDocumentFormatFactory {
+    OWLDocumentFormatFactoryImpl implements RioRDFDocumentFormatFactory {
 
     private transient RDFFormat rioFormat;
     private final String formatName;
 
+    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
+        this(rioFormat, true);
+    }
+
+    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat,
+        boolean isTextual) {
+        super(rioFormat.getMIMETypes(), isTextual, rioFormat.getName());
+        this.rioFormat = rioFormat;
+        formatName = this.rioFormat.getName();
+    }
+
     private void readObject(ObjectInputStream in) throws IOException,
-            ClassNotFoundException {
+        ClassNotFoundException {
         in.defaultReadObject();
         for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
             if (f.getName().equals(formatName)) {
@@ -64,17 +75,6 @@ public abstract class AbstractRioRDFDocumentFormatFactory extends
                 return;
             }
         }
-    }
-
-    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
-        this(rioFormat, true);
-    }
-
-    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat,
-            boolean isTextual) {
-        super(rioFormat.getMIMETypes(), isTextual, rioFormat.getName());
-        this.rioFormat = rioFormat;
-        formatName = this.rioFormat.getName();
     }
 
     @Override
