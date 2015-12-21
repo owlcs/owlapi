@@ -27,13 +27,18 @@ import java.util.stream.Stream;
  */
 public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OWLAnnotationProperty> {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(getProperty(), getValue(), annotations());
+    }
+
     /**
      * Gets the property that this annotation acts along.
      * 
      * @return The annotation property
      */
     @Override
-    OWLAnnotationProperty getProperty();
+        OWLAnnotationProperty getProperty();
 
     /**
      * Gets the annotation value. The type of value will depend upon the type of

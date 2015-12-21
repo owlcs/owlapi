@@ -26,6 +26,11 @@ import java.util.stream.Stream;
 public interface OWLNaryIndividualAxiom
     extends OWLIndividualAxiom, OWLNaryAxiom<OWLIndividual>, OWLSubClassOfAxiomSetShortCut {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(individuals(), annotations());
+    }
+
     /**
      * @return the individuals
      * @deprecated use the stream method

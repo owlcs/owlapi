@@ -1,6 +1,5 @@
 package org.obolibrary.macro;
 
-import static java.util.stream.Collectors.toSet;
 import static org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary.*;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
@@ -307,7 +306,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
      * @return new set of annotations
      */
     public Set<OWLAnnotation> getAnnotationsWithOptionalExpansionMarker(OWLAxiom axiom) {
-        Set<OWLAnnotation> annotations = axiom.annotations().collect(toSet());
+        Set<OWLAnnotation> annotations = asSet(axiom.annotations());
         if (shouldAddExpansionMarker) {
             annotations.add(expansionMarkerAnnotation);
         }

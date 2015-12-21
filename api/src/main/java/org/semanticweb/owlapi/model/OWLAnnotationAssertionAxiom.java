@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.stream.Stream;
+
 /**
  * Represents
  * <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Assertion" >
@@ -22,7 +24,12 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLAnnotationAssertionAxiom
-        extends OWLAnnotationAxiom, HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
+    extends OWLAnnotationAxiom, HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
+
+    @Override
+    default Stream<?> components() {
+        return Stream.of(getSubject(), getProperty(), getValue(), annotations());
+    }
 
     /**
      * Gets the annotation value. This is either an
@@ -57,7 +64,7 @@ public interface OWLAnnotationAssertionAxiom
     boolean isDeprecatedIRIAssertion();
 
     @Override
-    OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
+        OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

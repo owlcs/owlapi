@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Represents a
@@ -29,7 +30,12 @@ import java.util.List;
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
 
     @Override
-    OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
+        OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default Stream<?> components() {
+        return Stream.of(getPropertyChain(), getSuperProperty(), annotations());
+    }
 
     /**
      * Gets the chain of properties that represents the subproperty in this

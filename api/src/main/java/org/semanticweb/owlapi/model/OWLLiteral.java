@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -40,7 +41,12 @@ import javax.annotation.Nullable;
  * @since 2.0.0
  */
 public interface OWLLiteral
-        extends OWLObject, OWLAnnotationObject, OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
+    extends OWLObject, OWLAnnotationObject, OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
+
+    @Override
+    default Stream<?> components() {
+        return Stream.of(this);
+    }
 
     /**
      * Determines if the datatype of this literal is {@code rdf:PlainLiteral}.

@@ -12,17 +12,26 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.stream.Stream;
+
 /**
- * Represents <a
- * href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
+ * Represents
+ * <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
  * ObjectPropertyDomain</a> axioms in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <P>
+ * @param
+ *        <P>
  *        property expression
  */
 public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
-        extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut,
-        HasDomain<OWLClassExpression> {}
+    extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut,
+    HasDomain<OWLClassExpression> {
+
+    @Override
+    default Stream<?> components() {
+        return Stream.of(getProperty(), getDomain(), annotations());
+    }
+}

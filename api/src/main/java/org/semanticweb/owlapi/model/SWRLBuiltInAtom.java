@@ -25,7 +25,12 @@ import java.util.stream.Stream;
 public interface SWRLBuiltInAtom extends SWRLAtom {
 
     @Override
-    IRI getPredicate();
+    default Stream<?> components() {
+        return Stream.of(arguments(), getPredicate());
+    }
+
+    @Override
+        IRI getPredicate();
 
     /**
      * @return list of arguments

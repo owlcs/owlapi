@@ -27,6 +27,11 @@ import java.util.stream.Stream;
  */
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends OWLPropertyAxiom, OWLNaryAxiom<P> {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(properties(), annotations());
+    }
+
     /**
      * @return all of the properties that appear in this axiom
      * @deprecated use the stream method

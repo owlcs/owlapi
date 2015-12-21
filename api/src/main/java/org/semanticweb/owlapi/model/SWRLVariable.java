@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
+import java.util.stream.Stream;
 
 /**
  * Represents a variable that can appear in an atom. Variable can either be
@@ -23,6 +24,11 @@ import java.io.Serializable;
  * @since 2.0.0
  */
 public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI, Serializable {
+
+    @Override
+    default Stream<?> components() {
+        return Stream.of(getIRI());
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

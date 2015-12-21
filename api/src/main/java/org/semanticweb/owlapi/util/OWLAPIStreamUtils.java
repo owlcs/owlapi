@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
+import org.semanticweb.owlapi.model.HasComponents;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** A few util methods for common stream operations. */
@@ -225,5 +226,55 @@ public class OWLAPIStreamUtils {
      */
     public static <T> Stream<T> empty() {
         return Stream.empty();
+    }
+
+    /**
+     * @param root
+     *        the root for the invisit
+     * @return recursive invisit of all components included in the root
+     *         component; includes the root and all intermediate nodes.
+     *         Annotations and other groups of elements will be represented as
+     *         streams or collections, same as if the accessor method on the
+     *         object was used.
+     */
+    public static Stream<?> allComponents(HasComponents root) {
+        List<Stream<?>> streams = new ArrayList<>();
+        streams.add(Stream.of(root));
+        root.components().forEach(o -> {
+            if (o != root) {
+                if (o instanceof HasComponents) {
+                    streams.add(allComponents((HasComponents) o));
+                } else {
+                    streams.add(Stream.of(o));
+                }
+            }
+        });
+        return streams.stream().flatMap(x -> x);
+    }
+
+    /**
+     * @param root
+     *        the root for the invisit
+     * @return recursive invisit of all components included in the root
+     *         component; includes the root and all intermediate nodes. Streams
+     *         will be flattened.
+     */
+    public static Stream<?> flatComponents(HasComponents root) {
+        List<Stream<?>> streams = new ArrayList<>();
+        streams.add(Stream.of(root));
+        root.components().filter(o -> o != root).forEach(o -> flatIteration(streams, o));
+        return streams.stream().flatMap(x -> x);
+    }
+
+    protected static void flatIteration(List<Stream<?>> streams, Object o) {
+        if (o instanceof Stream) {
+            ((Stream<?>) o).forEach(o1 -> flatIteration(streams, o1));
+        } else if (o instanceof Collection) {
+            ((Collection<?>) o).forEach(o1 -> flatIteration(streams, o1));
+        } else if (o instanceof HasComponents) {
+            streams.add(flatComponents((HasComponents) o));
+        } else {
+            streams.add(Stream.of(o));
+        }
     }
 }

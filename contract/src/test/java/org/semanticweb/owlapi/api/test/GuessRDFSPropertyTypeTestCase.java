@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.api.test;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
@@ -130,7 +129,7 @@ public class GuessRDFSPropertyTypeTestCase extends TestBase {
         assertEquals("domain should be E5_Event", prefixOWLOntologyFormat.getIRI(expectedDomain), domainIRI);
         Stream<OWLObjectPropertyExpression> supStream = Searcher
             .sup(cidocOntology.axioms(Filters.subDataPropertyWithSub, p11property, INCLUDED));
-        Collection<OWLObjectPropertyExpression> superProperties = supStream.collect(toSet());
+        Collection<OWLObjectPropertyExpression> superProperties = asSet(supStream);
         // Set<OWLPropertyExpression> superProperties =
         // p11_property.getSuperProperties(cidocOntology);
         assertEquals("should have 1 super Property", 1, superProperties.size());

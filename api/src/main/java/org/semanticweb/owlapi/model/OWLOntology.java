@@ -49,6 +49,11 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     HasApplyChange, HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms, HasDirectRemoveAxiom, HasDirectRemoveAxioms,
     HasApplyDirectChange, IsAnonymous {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(getOntologyID());
+    }
+
     // Default implementation of these mutating methods is to do nothing.
     // Adding them to this interface allows access without casting, since
     // OWLOntology is the de facto standard used in the code and

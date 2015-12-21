@@ -26,6 +26,11 @@ import java.util.stream.Stream;
 public interface OWLNaryClassAxiom
     extends OWLClassAxiom, OWLNaryAxiom<OWLClassExpression>, OWLSubClassOfAxiomSetShortCut {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(classExpressions(), annotations());
+    }
+
     /**
      * Gets all of the top level class expressions that appear in this axiom.
      * 

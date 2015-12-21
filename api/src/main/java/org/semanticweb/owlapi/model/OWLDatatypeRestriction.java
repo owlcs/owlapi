@@ -28,6 +28,11 @@ import java.util.stream.Stream;
  */
 public interface OWLDatatypeRestriction extends OWLDataRange {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(getDatatype(), facetRestrictions());
+    }
+
     /**
      * Gets the data range that this data range restricts.
      * 

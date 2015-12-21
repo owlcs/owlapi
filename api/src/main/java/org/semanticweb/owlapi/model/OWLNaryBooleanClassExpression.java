@@ -25,6 +25,11 @@ import java.util.stream.Stream;
  */
 public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(operands());
+    }
+
     /**
      * @return the class expressions
      * @deprecated use the stream method

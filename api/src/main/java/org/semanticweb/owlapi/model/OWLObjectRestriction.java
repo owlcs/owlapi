@@ -32,7 +32,7 @@ public interface OWLObjectRestriction extends OWLRestriction, HasProperty<OWLObj
      * @return The property
      */
     @Override
-    OWLObjectPropertyExpression getProperty();
+        OWLObjectPropertyExpression getProperty();
 
     @Override
     default boolean isObjectRestriction() {

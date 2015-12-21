@@ -27,6 +27,11 @@ import java.util.stream.Stream;
  */
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(body(), head(), annotations());
+    }
+
     /**
      * Gets the atoms in the body of the rule.
      * 
@@ -125,7 +130,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     Stream<OWLClassExpression> classAtomPredicates();
 
     @Override
-    SWRLRule getAxiomWithoutAnnotations();
+        SWRLRule getAxiomWithoutAnnotations();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

@@ -24,6 +24,11 @@ import java.util.stream.Stream;
  */
 public interface OWLNaryDataRange extends OWLDataRange {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(operands());
+    }
+
     /**
      * @return the data ranges
      * @deprecated use the stream method

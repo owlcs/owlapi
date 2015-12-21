@@ -28,6 +28,11 @@ import java.util.stream.Stream;
  */
 public interface OWLDataOneOf extends OWLDataRange {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(values());
+    }
+
     /**
      * Gets the values ({@link OWLLiteral}s) that this data range consists of.
      * 

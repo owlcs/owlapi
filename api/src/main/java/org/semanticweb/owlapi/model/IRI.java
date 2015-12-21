@@ -20,6 +20,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -503,5 +504,10 @@ public class IRI
             return namespace;
         }
         return namespace + remainder;
+    }
+
+    @Override
+    public Stream<?> components() {
+        return Stream.of(this);
     }
 }

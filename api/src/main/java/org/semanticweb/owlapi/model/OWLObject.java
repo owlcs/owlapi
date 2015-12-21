@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  */
 public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature, HasContainsEntityInSignature,
     HasAnonymousIndividuals, HasClassesInSignature, HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
-    HasIndividualsInSignature, HasDatatypesInSignature, HasAnnotationPropertiesInSignature, HasIndex {
+    HasIndividualsInSignature, HasDatatypesInSignature, HasAnnotationPropertiesInSignature, HasIndex, HasComponents {
 
     /**
      * Gets all of the nested (includes top level) class expressions that are

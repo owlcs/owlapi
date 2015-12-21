@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.annotations;
 
-import static java.util.stream.Collectors.toSet;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
@@ -71,15 +70,15 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         }
         OWLOntologyLoaderConfiguration withAnnosConfig = new OWLOntologyLoaderConfiguration();
         OWLOntology reloadedWithAnnoAxioms = reload(ontology, format, withAnnosConfig);
-        Set<OWLAxiom> axioms2 = reloadedWithAnnoAxioms.axioms().collect(toSet());
+        Set<OWLAxiom> axioms2 = asSet(reloadedWithAnnoAxioms.axioms());
         assertEquals(axioms, axioms2);
         OWLOntologyLoaderConfiguration withoutAnnosConfig = new OWLOntologyLoaderConfiguration()
             .setLoadAnnotationAxioms(false);
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format, withoutAnnosConfig);
-        assertFalse(axioms.equals(reloadedWithoutAnnoAxioms.axioms().collect(toSet())));
+        assertFalse(axioms.equals(asSet(reloadedWithoutAnnoAxioms.axioms())));
         Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<>(axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
-        assertEquals(axiomsMinusAnnotationAxioms, reloadedWithoutAnnoAxioms.axioms().collect(toSet()));
+        assertEquals(axiomsMinusAnnotationAxioms, asSet(reloadedWithoutAnnoAxioms.axioms()));
     }
 
     private OWLOntology reload(OWLOntology ontology, OWLDocumentFormat format,

@@ -28,6 +28,11 @@ import java.util.stream.Stream;
  */
 public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
 
+    @Override
+    default Stream<?> components() {
+        return Stream.of(individuals());
+    }
+
     /**
      * Gets the individuals that are in the oneOf. These individuals represent
      * the exact instances (extension) of this class expression.
