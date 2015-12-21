@@ -277,7 +277,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param axiom
      *        the axiom to set
      */
-    public void setAxiom(OWLAxiom axiom) {
+    public void setAxiom(@Nullable OWLAxiom axiom) {
         ax = axiom;
     }
 
