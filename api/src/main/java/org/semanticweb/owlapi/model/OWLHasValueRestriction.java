@@ -28,6 +28,11 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestrict
         return Stream.of(getProperty(), getFiller());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * @deprecated use getFiller instead
      * @return the value

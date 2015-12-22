@@ -28,4 +28,9 @@ public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends
     default Stream<?> components() {
         return Stream.of(getProperty(), getFiller());
     }
+
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
 }

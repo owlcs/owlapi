@@ -31,6 +31,11 @@ public interface OWLAnnotationAssertionAxiom
         return Stream.of(getSubject(), getProperty(), getValue(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getSubject(), getProperty(), getValue());
+    }
+
     /**
      * Gets the annotation value. This is either an
      * {@link org.semanticweb.owlapi.model.IRI}, an

@@ -12,4 +12,11 @@ public interface HasComponents {
 
     /** @return components as a stream */
     Stream<?> components();
+
+    /**
+     * @return components as a stream; for objects that can have annotations on
+     *         them, annotation streams appear first. This is useful in
+     *         renderers.
+     */
+    Stream<?> componentsAnnotationsFirst();
 }

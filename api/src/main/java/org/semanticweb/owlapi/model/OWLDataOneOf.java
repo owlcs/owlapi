@@ -33,6 +33,11 @@ public interface OWLDataOneOf extends OWLDataRange {
         return Stream.of(values());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * Gets the values ({@link OWLLiteral}s) that this data range consists of.
      * 

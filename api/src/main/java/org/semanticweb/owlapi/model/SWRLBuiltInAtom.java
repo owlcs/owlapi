@@ -30,6 +30,11 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     }
 
     @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
+    @Override
         IRI getPredicate();
 
     /**

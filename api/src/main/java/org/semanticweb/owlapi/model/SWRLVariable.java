@@ -31,6 +31,11 @@ public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI, Seri
     }
 
     @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

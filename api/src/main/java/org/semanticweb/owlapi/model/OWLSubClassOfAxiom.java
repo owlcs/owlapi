@@ -33,6 +33,11 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
         return Stream.of(getSubClass(), getSuperClass(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getSubClass(), getSuperClass());
+    }
+
     /**
      * Gets the subclass in this axiom.
      * 

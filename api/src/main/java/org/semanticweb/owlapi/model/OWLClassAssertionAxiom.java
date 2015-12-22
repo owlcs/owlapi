@@ -31,6 +31,11 @@ public interface OWLClassAssertionAxiom extends OWLIndividualAxiom, OWLSubClassO
     }
 
     @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getIndividual(), getClassExpression());
+    }
+
+    @Override
         OWLClassAssertionAxiom getAxiomWithoutAnnotations();
 
     /**

@@ -26,6 +26,11 @@ public interface SWRLLiteralArgument extends SWRLDArgument {
         return Stream.of(getLiteral());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * Gets the literal for this argument.
      * 

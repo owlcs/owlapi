@@ -37,6 +37,11 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
         return Stream.of(getPropertyChain(), getSuperProperty(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getPropertyChain(), getSuperProperty());
+    }
+
     /**
      * Gets the chain of properties that represents the subproperty in this
      * axiom.

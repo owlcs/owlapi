@@ -30,6 +30,11 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
         return Stream.of(getDatatype(), getDataRange(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getDatatype(), getDataRange());
+    }
+
     /**
      * Gets the {@link OWLDatatype} that is assigned a definition.
      * 

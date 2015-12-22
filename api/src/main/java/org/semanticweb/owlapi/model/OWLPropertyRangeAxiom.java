@@ -35,4 +35,9 @@ public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extend
     default Stream<?> components() {
         return Stream.of(getProperty(), getRange(), annotations());
     }
+
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getProperty(), getRange());
+    }
 }

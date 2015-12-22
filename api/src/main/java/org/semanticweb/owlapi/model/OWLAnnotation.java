@@ -32,6 +32,11 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OW
         return Stream.of(getProperty(), getValue(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getProperty(), getValue());
+    }
+
     /**
      * Gets the property that this annotation acts along.
      * 

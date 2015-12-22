@@ -30,6 +30,11 @@ public interface OWLDataComplementOf extends OWLDataRange {
         return Stream.of(getDataRange());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * Gets the data range which this data range is a complement of.
      * 

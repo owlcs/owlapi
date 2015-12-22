@@ -27,6 +27,11 @@ public interface SWRLClassAtom extends SWRLUnaryAtom<SWRLIArgument> {
     }
 
     @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
+    @Override
         OWLClassExpression getPredicate();
 
     @Override

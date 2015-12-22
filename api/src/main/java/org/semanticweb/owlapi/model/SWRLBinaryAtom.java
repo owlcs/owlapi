@@ -32,6 +32,11 @@ public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> 
         return Stream.of(getFirstArgument(), getSecondArgument(), getPredicate());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * Gets the first argument.
      * 

@@ -35,6 +35,11 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
         return Stream.of(getInverse());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * Gets the property expression that this is the inverse of.
      * 

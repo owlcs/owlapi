@@ -35,6 +35,11 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
     }
 
     @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getProperty(), getDomain());
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

@@ -34,4 +34,9 @@ public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
     default Stream<?> components() {
         return Stream.of(getProperty(), getDomain(), annotations());
     }
+
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getProperty(), getDomain());
+    }
 }

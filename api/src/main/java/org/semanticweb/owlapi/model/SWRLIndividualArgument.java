@@ -26,6 +26,11 @@ public interface SWRLIndividualArgument extends SWRLIArgument {
         return Stream.of(getIndividual());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * @return the wrapped individual
      */

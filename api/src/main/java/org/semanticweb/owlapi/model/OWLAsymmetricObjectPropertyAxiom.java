@@ -31,6 +31,11 @@ public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyChara
     }
 
     @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getProperty());
+    }
+
+    @Override
         OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override

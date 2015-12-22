@@ -31,6 +31,11 @@ public interface OWLNaryClassAxiom
         return Stream.of(classExpressions(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), classExpressions());
+    }
+
     /**
      * Gets all of the top level class expressions that appear in this axiom.
      * 

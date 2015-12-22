@@ -29,4 +29,9 @@ public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends
     default Stream<?> components() {
         return Stream.of(getProperty(), annotations());
     }
+
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getProperty());
+    }
 }

@@ -26,7 +26,12 @@ public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
 
     @Override
     default Stream<?> components() {
-        return Stream.of(getProperty(), getCardinality(), getFiller());
+        return Stream.of(getProperty(), Integer.valueOf(getCardinality()), getFiller());
+    }
+
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
     }
 
     /**

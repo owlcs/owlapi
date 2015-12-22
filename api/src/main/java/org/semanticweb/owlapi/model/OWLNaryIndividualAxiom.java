@@ -31,6 +31,11 @@ public interface OWLNaryIndividualAxiom
         return Stream.of(individuals(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), individuals());
+    }
+
     /**
      * @return the individuals
      * @deprecated use the stream method

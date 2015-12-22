@@ -27,6 +27,11 @@ public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
     }
 
     @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
+    @Override
         OWLDataRange getPredicate();
 
     @Override

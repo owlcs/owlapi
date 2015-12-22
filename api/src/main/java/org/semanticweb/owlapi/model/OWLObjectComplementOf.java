@@ -30,6 +30,11 @@ public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
         return Stream.of(getOperand());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * @return the wrapped expression
      */

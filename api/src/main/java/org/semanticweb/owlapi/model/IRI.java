@@ -510,4 +510,9 @@ public class IRI
     public Stream<?> components() {
         return Stream.of(this);
     }
+
+    @Override
+    public Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
 }

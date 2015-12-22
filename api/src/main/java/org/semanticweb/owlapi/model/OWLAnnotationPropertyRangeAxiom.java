@@ -37,6 +37,11 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
     }
 
     @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getProperty(), getRange());
+    }
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

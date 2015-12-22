@@ -32,6 +32,11 @@ public interface OWLFacetRestriction extends OWLObject {
         return Stream.of(getFacet(), getFacetValue());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * Gets the retricted facet.
      * 

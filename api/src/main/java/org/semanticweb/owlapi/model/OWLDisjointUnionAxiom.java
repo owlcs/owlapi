@@ -36,6 +36,11 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
         return Stream.of(getOWLClass(), classExpressions(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getOWLClass(), classExpressions());
+    }
+
     /**
      * Gets the class which is equivalent to the disjoint union.
      * 

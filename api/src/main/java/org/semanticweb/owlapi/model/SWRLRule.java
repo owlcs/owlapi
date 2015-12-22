@@ -32,6 +32,11 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
         return Stream.of(body(), head(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), body(), head());
+    }
+
     /**
      * Gets the atoms in the body of the rule.
      * 

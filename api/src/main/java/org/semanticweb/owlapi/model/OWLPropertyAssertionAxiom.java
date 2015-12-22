@@ -37,6 +37,11 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O ex
         return Stream.of(getSubject(), getProperty(), getObject(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getSubject(), getProperty(), getObject());
+    }
+
     /**
      * Gets the individual that is the subject of this assertion.
      * 

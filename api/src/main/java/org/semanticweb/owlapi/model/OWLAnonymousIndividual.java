@@ -30,6 +30,11 @@ public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValu
         return Stream.of(getID());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * Gets the ID of this individual.
      * 

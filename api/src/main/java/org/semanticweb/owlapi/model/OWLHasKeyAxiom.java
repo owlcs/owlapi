@@ -35,6 +35,11 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
         return Stream.of(getClassExpression(), propertyExpressions(), annotations());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return Stream.of(annotations(), getClassExpression(), propertyExpressions());
+    }
+
     /**
      * Gets the class expression, instances of which, this axiom acts as the key
      * for.

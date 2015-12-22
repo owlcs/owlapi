@@ -33,6 +33,11 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
         return Stream.of(getDatatype(), facetRestrictions());
     }
 
+    @Override
+    default Stream<?> componentsAnnotationsFirst() {
+        return components();
+    }
+
     /**
      * Gets the data range that this data range restricts.
      * 
