@@ -186,7 +186,7 @@
 						<Import-Package>
 							!sun.misc,
 							!com.google.inject.internal.*;resolution:=optional,
-							org.openrdf*;version="[2.7,2.8),
+							org.openrdf*;version="[2.7,2.8)",
 							*
 						</Import-Package>
 					</instructions>
