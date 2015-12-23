@@ -45,7 +45,7 @@ public interface OWLLiteral
 
     @Override
     default Stream<?> components() {
-        return Stream.of(this);
+        return Stream.of(getDatatype(), getLiteral(), getLang());
     }
 
     @Override

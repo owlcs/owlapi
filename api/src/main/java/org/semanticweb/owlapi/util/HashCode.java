@@ -354,7 +354,7 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
 
     @Override
     public void visit(OWLLiteral node) {
-        hashCode = hash(0, node.components());
+        hashCode = hash(277, node.components());
     }
 
     @Override

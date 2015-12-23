@@ -36,6 +36,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.search.Filters;
+import org.semanticweb.owlapi.util.AbstractCollector;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 /**
@@ -598,7 +599,7 @@ public class Internals implements Serializable {
         checkNotNull(axiom, "axiom cannot be null");
         if (getAxiomsByType().put(axiom.getAxiomType(), axiom)) {
             axiom.accept(addChangeVisitor);
-            axiom.accept(new AbstractEntityRegistrationManager() {
+            AbstractCollector referenceAdder = new AbstractCollector() {
 
                 @Override
                 public void visit(OWLClass ce) {
@@ -634,7 +635,8 @@ public class Internals implements Serializable {
                 public void visit(OWLAnonymousIndividual individual) {
                     owlAnonymousIndividualReferences.put(individual, axiom);
                 }
-            });
+            };
+            axiom.accept(referenceAdder);
             return true;
         }
         return false;
@@ -649,7 +651,7 @@ public class Internals implements Serializable {
         checkNotNull(axiom, "axiom cannot be null");
         if (getAxiomsByType().remove(axiom.getAxiomType(), axiom)) {
             axiom.accept(removeChangeVisitor);
-            AbstractEntityRegistrationManager referenceRemover = new AbstractEntityRegistrationManager() {
+            AbstractCollector referenceRemover = new AbstractCollector() {
 
                 @Override
                 public void visit(OWLClass ce) {

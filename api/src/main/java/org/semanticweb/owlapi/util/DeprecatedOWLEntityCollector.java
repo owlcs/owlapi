@@ -12,12 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.flatComponents;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
@@ -36,9 +33,8 @@ import org.semanticweb.owlapi.model.*;
  *             third party software. For new code, use OWLEntityCollector.
  */
 @Deprecated
-public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
+public class DeprecatedOWLEntityCollector extends AbstractCollectorEx<OWLEntity> {
 
-    private Collection<OWLEntity> objects;
     private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
     private boolean collectObjectProperties = true;
@@ -54,7 +50,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjec
      */
     public DeprecatedOWLEntityCollector(Set<OWLEntity> toReturn,
         @Nullable Collection<OWLAnonymousIndividual> anonsToReturn) {
-        objects = toReturn;
+        super(toReturn);
         anonymousIndividuals = anonsToReturn;
     }
 
@@ -130,19 +126,6 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjec
     }
 
     /**
-     * Gets the objects that are used by all axioms, class expressions etc. that
-     * this collector has visited since it was constructed or reset. Deprecated:
-     * if the non deprecated constructors are used, this method is useless and
-     * inefficient
-     * 
-     * @return A set of entities. This will be a copy.
-     */
-    @Deprecated
-    public Set<OWLEntity> getObjects() {
-        return new HashSet<>(objects);
-    }
-
-    /**
      * A convenience method. Although anonymous individuals are not entities
      * they are collected by this collector and stored in a separate set. This
      * method returns collected individuals. Deprecated: if the non deprecated
@@ -160,79 +143,64 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjec
     }
 
     @Override
-    public void doDefault(Object object) {
-        if (object instanceof HasComponents) {
-            processStream(flatComponents((HasComponents) object));
-        }
-    }
-
-    protected void processStream(Stream<?> s) {
-        s.filter(this::ofInterest).map(o -> (OWLObject) o).forEach(o -> o.accept(this));
-    }
-
-    protected boolean ofInterest(Object o) {
-        return o instanceof OWLEntity || o instanceof OWLAnonymousIndividual || o instanceof OWLLiteral;
-    }
-
-    @Override
-    public void visit(OWLClass desc) {
+    public Collection<OWLEntity> visit(OWLClass desc) {
         if (collectClasses) {
             objects.add(desc);
         }
+        return objects;
     }
 
     @Override
-    public void visit(OWLObjectProperty property) {
+    public Collection<OWLEntity> visit(OWLObjectProperty property) {
         if (collectObjectProperties) {
             objects.add(property);
         }
+        return objects;
     }
 
     @Override
-    public void visit(OWLDataProperty property) {
+    public Collection<OWLEntity> visit(OWLDataProperty property) {
         if (collectDataProperties) {
             objects.add(property);
         }
+        return objects;
     }
 
     @Override
-    public void visit(OWLNamedIndividual individual) {
+    public Collection<OWLEntity> visit(OWLNamedIndividual individual) {
         if (collectIndividuals) {
             objects.add(individual);
         }
+        return objects;
     }
 
     @Override
-    public void visit(OWLDatatype datatype) {
+    public Collection<OWLEntity> visit(OWLDatatype datatype) {
         if (collectDatatypes) {
             objects.add(datatype);
         }
+        return objects;
     }
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {
+    public Collection<OWLEntity> visit(OWLAnonymousIndividual individual) {
         // Anon individuals aren't entities
         // But store them in a set anyway for utility
         if (anonymousIndividuals != null) {
             anonymousIndividuals.add(individual);
         }
+        return objects;
     }
 
     @Override
-    public void visit(IRI iri) {}
-
-    @Override
-    public void visit(OWLOntology ontology) {
+    public Collection<OWLEntity> visit(OWLOntology ontology) {
         objects.addAll(ontology.getSignature());
+        return objects;
     }
 
     @Override
-    public void visit(OWLAnnotationProperty property) {
+    public Collection<OWLEntity> visit(OWLAnnotationProperty property) {
         objects.add(property);
-    }
-
-    @Override
-    public void visit(OWLLiteral l) {
-        l.getDatatype().accept(this);
+        return objects;
     }
 }

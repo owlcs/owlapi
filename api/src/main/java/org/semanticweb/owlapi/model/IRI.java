@@ -508,7 +508,7 @@ public class IRI
 
     @Override
     public Stream<?> components() {
-        return Stream.of(this);
+        return Stream.empty();
     }
 
     @Override

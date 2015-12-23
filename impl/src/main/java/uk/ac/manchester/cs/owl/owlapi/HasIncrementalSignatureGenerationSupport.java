@@ -5,6 +5,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 /**
  * Created by ses on 10/7/14.
@@ -17,7 +18,7 @@ public interface HasIncrementalSignatureGenerationSupport extends OWLObject {
      * @return the modified input entities
      */
     default Set<OWLEntity> addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        accept(new EntityCollector(entities));
+        accept(new OWLEntityCollector(entities));
         return entities;
     }
 

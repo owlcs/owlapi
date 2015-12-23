@@ -272,7 +272,7 @@ public class OWLAPIStreamUtils {
         } else if (o instanceof Collection) {
             ((Collection<?>) o).forEach(o1 -> flatIteration(streams, o1));
         } else if (o instanceof HasComponents) {
-            streams.add(flatComponents((HasComponents) o));
+            ((HasComponents) o).components().forEach(o1 -> flatIteration(streams, o1));
         } else {
             streams.add(Stream.of(o));
         }

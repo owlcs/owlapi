@@ -12,14 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Stream;
-
-import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -34,45 +29,20 @@ import org.semanticweb.owlapi.model.*;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLEntityCollector
-    implements OWLObjectVisitorEx<Collection<OWLEntity>>, SWRLObjectVisitorEx<Collection<OWLEntity>> {
-
-    @Nonnull private final Collection<OWLEntity> objects;
+public class OWLEntityCollector extends AbstractCollectorEx<OWLEntity> {
 
     /**
      * @param toReturn
      *        the set that will contain the results
      */
-    public OWLEntityCollector(Set<OWLEntity> toReturn) {
-        objects = checkNotNull(toReturn, "toReturn cannot be null");
-    }
-
-    @Override
-    public Collection<OWLEntity> doDefault(Object object) {
-        if (object instanceof HasComponents) {
-            processStream(flatComponents((HasComponents) object));
-        }
-        return objects;
-    }
-
-    protected void processStream(Stream<?> s) {
-        s.filter(this::ofInterest).map(o -> (OWLObject) o).forEach(o -> o.accept(this));
-    }
-
-    protected boolean ofInterest(Object o) {
-        return o instanceof OWLEntity || o instanceof OWLLiteral;
+    public OWLEntityCollector(Collection<OWLEntity> toReturn) {
+        super(toReturn);
     }
 
     // OWLClassExpressionVisitor
     @Override
     public Collection<OWLEntity> visit(OWLClass ce) {
         objects.add(ce);
-        return objects;
-    }
-
-    @Override
-    public Collection<OWLEntity> visit(OWLLiteral node) {
-        node.getDatatype().accept(this);
         return objects;
     }
 

@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.util.NNF;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom, CollectionContainer<OWLAnnotation> {
+public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
     @Nonnull protected final List<OWLAnnotation> annotations;
 
@@ -57,11 +57,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom, Co
     @Override
     public boolean isAnnotated() {
         return !annotations.isEmpty();
-    }
-
-    @Override
-    public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
-        annotations.forEach(t::visitItem);
     }
 
     /**

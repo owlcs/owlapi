@@ -10,24 +10,40 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package uk.ac.manchester.cs.owl.owlapi;
+package org.semanticweb.owlapi.util;
+
+import java.util.Collection;
+import java.util.stream.Stream;
+
+import org.semanticweb.owlapi.model.HasComponents;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
 
 /**
- * @author ignazio
- * @param <T>
- *        collection type
+ * A utility class that visits all components of classes and axioms; this base
+ * class allows subclasses to choose lements of interest and override handling
+ * of such elements.
+ * 
+ * @since 5.0.0
  */
-public interface CollectionContainerVisitor<T> {
+public abstract class AbstractCollector implements OWLObjectVisitor {
 
-    /**
-     * @param c
-     *        collection to visit
-     */
-    void visit(CollectionContainer<T> c);
+    @Override
+    public void doDefault(Object object) {
+        if (object instanceof HasComponents) {
+            processStream(((HasComponents) object).components());
+        }
+    }
 
-    /**
-     * @param c
-     *        item to visit
-     */
-    void visitItem(T c);
+    protected void processStream(Stream<?> s) {
+        s.forEach(o -> {
+            if (o instanceof OWLObject) {
+                ((OWLObject) o).accept(this);
+            } else if (o instanceof Stream) {
+                processStream((Stream<?>) o);
+            } else if (o instanceof Collection) {
+                processStream(((Collection<?>) o).stream());
+            }
+        });
+    }
 }

@@ -10,70 +10,60 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package uk.ac.manchester.cs.owl.owlapi;
+package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.add;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.HasComponents;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /**
- * A utility class that visits axioms, class expressions etc. and accumulates
- * the named objects that are referred to in those axioms, class expressions
- * etc. For example, if the collector visited the axiom (propP some C)
- * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
- * D.
+ * A utility class that visits all components of classes and axioms; this base
+ * class allows subclasses to choose lements of interest and override handling
+ * of such elements.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ * @param <E>
+ *        type returned
+ * @since 5.0.0
  */
-public class EntityCollector implements AbstractEntityRegistrationManager {
+public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Collection<E>> {
 
-    private final Collection<OWLEntity> objects;
+    protected Collection<E> objects;
 
     /**
-     * @param toReturn
-     *        the set that will contain the results
+     * @param c
+     *        collection to accumulate objects
      */
-    public EntityCollector(Set<OWLEntity> toReturn) {
-        objects = toReturn;
+    public AbstractCollectorEx(Collection<E> c) {
+        objects = checkNotNull(c, "c cannot be null");
     }
 
     @Override
-    public void visit(OWLClass ce) {
-        objects.add(ce);
+    public Collection<E> doDefault(Object object) {
+        if (object instanceof HasComponents) {
+            processStream(((HasComponents) object).components());
+        }
+        return objects;
     }
 
-    @Override
-    public void visit(OWLObjectProperty property) {
-        objects.add(property);
+    protected void processStream(Stream<?> s) {
+        s.forEach(o -> {
+            if (o instanceof OWLObject) {
+                ((OWLObject) o).accept(this);
+            } else if (o instanceof Stream) {
+                processStream((Stream<?>) o);
+            } else if (o instanceof Collection) {
+                processStream(((Collection<?>) o).stream());
+            }
+        });
     }
 
-    @Override
-    public void visit(OWLDataProperty property) {
-        objects.add(property);
-    }
-
-    @Override
-    public void visit(OWLNamedIndividual individual) {
-        objects.add(individual);
-    }
-
-    @Override
-    public void visit(OWLDatatype node) {
-        objects.add(node);
-    }
-
-    @Override
-    public void visit(OWLOntology ontology) {
-        add(objects, ontology.signature());
-    }
-
-    @Override
-    public void visit(OWLAnnotationProperty property) {
-        objects.add(property);
+    /** @return collected objects */
+    public Collection<E> getObjects() {
+        return objects;
     }
 }
