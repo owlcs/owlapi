@@ -13,19 +13,16 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.equalStreams;
 
 import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -46,11 +43,6 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLA
     public OWLAnnotationImplNotAnnotated(OWLAnnotationProperty property, OWLAnnotationValue value) {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
-    }
-
-    @Override
-    public int typeIndex() {
-        return ANNOTATION_TYPE_INDEX_BASE + 1;
     }
 
     @Override
@@ -80,32 +72,5 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLA
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral && ((OWLLiteral) value).isBoolean()
             && ((OWLLiteral) value).parseBoolean();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLAnnotation)) {
-            return false;
-        }
-        OWLAnnotation other = (OWLAnnotation) obj;
-        return other.getProperty().equals(property) && other.getValue().equals(value)
-            && equalStreams(other.annotations(), annotations());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLAnnotation other = (OWLAnnotation) object;
-        int diff = getProperty().compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        } else {
-            return getValue().compareTo(other.getValue());
-        }
     }
 }

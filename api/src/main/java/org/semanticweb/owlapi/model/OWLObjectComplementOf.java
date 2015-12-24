@@ -35,6 +35,21 @@ public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 197;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 3003;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_COMPLEMENT_OF;
+    }
+
     /**
      * @return the wrapped expression
      */

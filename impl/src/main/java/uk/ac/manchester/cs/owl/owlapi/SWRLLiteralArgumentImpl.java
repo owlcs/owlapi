@@ -15,10 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 
 /**
@@ -39,29 +37,7 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLitera
     }
 
     @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 8;
-    }
-
-    @Override
     public OWLLiteral getLiteral() {
         return literal;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof SWRLLiteralArgumentImpl)) {
-            return false;
-        }
-        SWRLLiteralArgument other = (SWRLLiteralArgument) obj;
-        return other.getLiteral().equals(getLiteral());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return literal.compareTo(((SWRLLiteralArgument) object).getLiteral());
     }
 }

@@ -17,9 +17,11 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -27,7 +29,7 @@ import org.semanticweb.owlapi.model.*;
  * @since 2.0.0
  */
 public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression>
-        implements OWLObjectPropertyDomainAxiom {
+    implements OWLObjectPropertyDomainAxiom {
 
     /**
      * @param property
@@ -38,7 +40,7 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
      *        annotations
      */
     public OWLObjectPropertyDomainAxiomImpl(OWLObjectPropertyExpression property, OWLClassExpression domain,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 
@@ -53,22 +55,6 @@ public class OWLObjectPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl
     @Override
     public OWLObjectPropertyDomainAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLObjectPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLObjectPropertyDomainAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.OBJECT_PROPERTY_DOMAIN;
     }
 
     @Override

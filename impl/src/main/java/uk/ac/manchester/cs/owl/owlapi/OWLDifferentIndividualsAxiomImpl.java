@@ -15,9 +15,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.*;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -85,17 +87,6 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLDifferentIndividualsAxiom;
-    }
-
-    @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
         individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(i)));
@@ -108,10 +99,5 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
             }
         }
         return result;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DIFFERENT_INDIVIDUALS;
     }
 }

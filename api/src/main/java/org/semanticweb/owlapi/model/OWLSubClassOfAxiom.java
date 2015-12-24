@@ -29,6 +29,11 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
         OWLSubClassOfAxiom getAxiomWithoutAnnotations();
 
     @Override
+    default int hashIndex() {
+        return 139;
+    }
+
+    @Override
     default Stream<?> components() {
         return Stream.of(getSubClass(), getSuperClass(), annotations());
     }
@@ -80,5 +85,10 @@ public interface OWLSubClassOfAxiom extends OWLClassAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.SUBCLASS_OF;
     }
 }

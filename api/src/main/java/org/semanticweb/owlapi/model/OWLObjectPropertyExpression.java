@@ -25,7 +25,7 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRL
      * @return The inverse of this property. Note that this property will not
      *         necessarily be in the simplest form.
      */
-        OWLObjectPropertyExpression getInverseProperty();
+    OWLObjectPropertyExpression getInverseProperty();
 
     /**
      * Returns this property in its simplified form.
@@ -34,12 +34,19 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRL
      *         The simplification, 'simp', is defined as follows: simp(p) = p
      *         simp(inv(p)) = inv(p) simp(inv(inv(PE)) = simp(PE)
      */
-        OWLObjectPropertyExpression getSimplified();
+    default OWLObjectPropertyExpression getSimplified() {
+        return this;
+    }
 
     /**
      * Get the named object property used in this property expression.
      * 
      * @return P if this expression is either inv(P) or P.
      */
-        OWLObjectProperty getNamedProperty();
+    OWLObjectProperty getNamedProperty();
+
+    @Override
+    default boolean isObjectPropertyExpression() {
+        return true;
+    }
 }

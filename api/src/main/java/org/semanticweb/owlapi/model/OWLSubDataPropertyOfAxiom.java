@@ -21,10 +21,15 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLSubDataPropertyOfAxiom
-        extends OWLSubPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
+    extends OWLSubPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
-    OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations();
+        OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 19;
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
@@ -44,5 +49,10 @@ public interface OWLSubDataPropertyOfAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.SUB_DATA_PROPERTY;
     }
 }

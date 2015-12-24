@@ -22,10 +22,15 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLNegativeObjectPropertyAssertionAxiom
-        extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
+    extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
 
     @Override
-    OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
+        OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 101;
+    }
 
     /**
      * Determines whether this axiom contains anonymous individuals. Anonymous
@@ -53,5 +58,10 @@ public interface OWLNegativeObjectPropertyAssertionAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION;
     }
 }

@@ -41,6 +41,11 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
         return Stream.of(annotations(), getOWLClass(), classExpressions());
     }
 
+    @Override
+    default int hashIndex() {
+        return 43;
+    }
+
     /**
      * Gets the class which is equivalent to the disjoint union.
      * 
@@ -112,5 +117,10 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.DISJOINT_UNION;
     }
 }

@@ -24,16 +24,21 @@ import java.util.Set;
  * @since 2.0.0
  */
 public interface OWLDisjointDataPropertiesAxiom
-        extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
+    extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
-    OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();
+        OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
+    default int hashIndex() {
+        return 37;
+    }
 
     @Override
-    Set<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs();
+        Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
+
+    @Override
+        Set<OWLDisjointDataPropertiesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
@@ -53,5 +58,10 @@ public interface OWLDisjointDataPropertiesAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.DISJOINT_DATA_PROPERTIES;
     }
 }

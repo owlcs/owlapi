@@ -22,10 +22,15 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLIrreflexiveObjectPropertyAxiom
-        extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
+    extends OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     @Override
-    OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations();
+        OWLIrreflexiveObjectPropertyAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 89;
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
@@ -45,5 +50,10 @@ public interface OWLIrreflexiveObjectPropertyAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.IRREFLEXIVE_OBJECT_PROPERTY;
     }
 }

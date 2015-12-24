@@ -21,7 +21,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
@@ -36,7 +35,6 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private final LinkedHashSet<SWRLAtom> head;
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;
-
     @Nonnull protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     /**
@@ -111,36 +109,6 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     @Override
     public SWRLRule getSimplified() {
         return (SWRLRule) accept(ATOM_SIMPLIFIER);
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof SWRLRule)) {
-            return false;
-        }
-        SWRLRule other = (SWRLRule) obj;
-        return equalStreams(body(), other.body()) && equalStreams(head(), other.head());
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.SWRL_RULE;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        SWRLRule other = (SWRLRule) object;
-        int diff = compareStreams(body(), other.body());
-        if (diff == 0) {
-            diff = compareStreams(head(), other.head());
-        }
-        return diff;
     }
 
     protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {

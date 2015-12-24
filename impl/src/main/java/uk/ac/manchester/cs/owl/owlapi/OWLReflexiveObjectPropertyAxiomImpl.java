@@ -17,9 +17,6 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
@@ -31,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @since 2.0.0
  */
 public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
-        implements OWLReflexiveObjectPropertyAxiom {
+    implements OWLReflexiveObjectPropertyAxiom {
 
     /**
      * @param property
@@ -40,7 +37,7 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
      *        annotations
      */
     public OWLReflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -60,21 +57,5 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     @Override
     public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLReflexiveObjectPropertyAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.REFLEXIVE_OBJECT_PROPERTY;
     }
 }

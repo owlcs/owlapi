@@ -24,6 +24,21 @@ package org.semanticweb.owlapi.model;
 public interface OWLDataAllValuesFrom extends OWLQuantifiedDataRestriction {
 
     @Override
+    default int hashIndex() {
+        return 163;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 3013;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.DATA_ALL_VALUES_FROM;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

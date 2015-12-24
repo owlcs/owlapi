@@ -18,12 +18,9 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
 /**
@@ -72,37 +69,5 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     @Override
     public OWLAnnotationProperty getSuperProperty() {
         return superProperty;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLSubAnnotationPropertyOfAxiom other = (OWLSubAnnotationPropertyOfAxiom) object;
-        int diff = subProperty.compareTo(other.getSubProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return superProperty.compareTo(other.getSuperProperty());
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        // superclass is responsible for null, identity, owlaxiom type and
-        // annotations
-        if (!(obj instanceof OWLSubAnnotationPropertyOfAxiom)) {
-            return false;
-        }
-        OWLSubAnnotationPropertyOfAxiom other = (OWLSubAnnotationPropertyOfAxiom) obj;
-        return subProperty.equals(other.getSubProperty()) && superProperty.equals(other.getSuperProperty());
     }
 }

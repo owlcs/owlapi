@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
 /**
  * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Data
  * Property</a> in the OWL 2 Specification.
@@ -21,6 +23,51 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLDataProperty extends OWLDataPropertyExpression, OWLProperty {
+
+    @Override
+    default int hashIndex() {
+        return 283;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 1004;
+    }
+
+    @Override
+    default EntityType<?> getEntityType() {
+        return EntityType.DATA_PROPERTY;
+    }
+
+    @Override
+    default boolean isTopEntity() {
+        return isOWLTopDataProperty();
+    }
+
+    @Override
+    default boolean isBottomEntity() {
+        return isOWLBottomDataProperty();
+    }
+
+    @Override
+    default boolean isOWLTopDataProperty() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
+    }
+
+    @Override
+    default boolean isOWLBottomDataProperty() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+    }
+
+    @Override
+    default boolean isDataPropertyExpression() {
+        return true;
+    }
+
+    @Override
+    default boolean isOWLDataProperty() {
+        return true;
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

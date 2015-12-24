@@ -38,6 +38,21 @@ public interface OWLDataOneOf extends OWLDataRange {
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 263;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 4003;
+    }
+
+    @Override
+    default DataRangeType getDataRangeType() {
+        return DataRangeType.DATA_ONE_OF;
+    }
+
     /**
      * Gets the values ({@link OWLLiteral}s) that this data range consists of.
      * 

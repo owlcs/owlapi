@@ -35,6 +35,16 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     }
 
     @Override
+    default int hashIndex() {
+        return 659;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 6005;
+    }
+
+    @Override
         IRI getPredicate();
 
     /**

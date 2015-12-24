@@ -17,10 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -49,24 +47,5 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLProper
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLObjectPropertyCharacteristicAxiom)) {
-            return false;
-        }
-        return ((OWLObjectPropertyCharacteristicAxiom) obj).getProperty().equals(property);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return property.compareTo(((OWLObjectPropertyCharacteristicAxiom) object).getProperty());
     }
 }

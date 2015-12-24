@@ -17,9 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
@@ -44,27 +41,6 @@ public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionIm
      */
     public OWLObjectIntersectionOfImpl(OWLClassExpression... operands) {
         super(Stream.of(operands));
-    }
-
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 1;
-    }
-
-    @Override
-    public ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_INTERSECTION_OF;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLObjectIntersectionOf;
     }
 
     @Override

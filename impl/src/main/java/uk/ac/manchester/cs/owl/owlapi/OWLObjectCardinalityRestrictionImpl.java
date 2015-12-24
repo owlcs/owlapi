@@ -15,10 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -41,38 +39,5 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends OWLCardinality
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
-    }
-
-    @Override
-    public boolean isQualified() {
-        return getFiller().isAnonymous() || !getFiller().isOWLThing();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLObjectCardinalityRestriction)) {
-            return false;
-        }
-        return getProperty().equals(((OWLObjectCardinalityRestriction) obj).getProperty());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLObjectCardinalityRestriction other = (OWLObjectCardinalityRestriction) object;
-        int diff = getProperty().compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        diff = getCardinality() - other.getCardinality();
-        if (diff != 0) {
-            return diff;
-        }
-        return getFiller().compareTo(other.getFiller());
     }
 }

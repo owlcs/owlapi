@@ -14,20 +14,16 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -52,16 +48,6 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     }
 
     @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 6;
-    }
-
-    @Override
-    public DataRangeType getDataRangeType() {
-        return DataRangeType.DATATYPE_RESTRICTION;
-    }
-
-    @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
@@ -69,34 +55,5 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements OWLData
     @Override
     public Stream<OWLFacetRestriction> facetRestrictions() {
         return facetRestrictions.stream();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLDatatypeRestriction)) {
-            return false;
-        }
-        if (obj instanceof OWLDatatypeRestrictionImpl) {
-            OWLDatatypeRestrictionImpl object = (OWLDatatypeRestrictionImpl) obj;
-            return datatype.equals(object.datatype) && facetRestrictions.equals(object.facetRestrictions);
-        }
-        OWLDatatypeRestriction other = (OWLDatatypeRestriction) obj;
-        return other.getDatatype().equals(datatype) && equalStreams(other.facetRestrictions(), facetRestrictions());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLDatatypeRestriction other = (OWLDatatypeRestriction) object;
-        int diff = datatype.compareTo(other.getDatatype());
-        if (diff != 0) {
-            return diff;
-        }
-        return compareStreams(facetRestrictions(), other.facetRestrictions());
     }
 }

@@ -27,6 +27,11 @@ public interface OWLDataPropertyRangeAxiom
         OWLDataPropertyRangeAxiom getAxiomWithoutAnnotations();
 
     @Override
+    default int hashIndex() {
+        return 17;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
@@ -44,5 +49,10 @@ public interface OWLDataPropertyRangeAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.DATA_PROPERTY_RANGE;
     }
 }

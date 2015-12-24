@@ -25,6 +25,26 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
 
+    @Override
+    default int hashIndex() {
+        return 269;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 4001;
+    }
+
+    @Override
+    default EntityType<?> getEntityType() {
+        return EntityType.DATATYPE;
+    }
+
+    @Override
+    default DataRangeType getDataRangeType() {
+        return DataRangeType.DATATYPE;
+    }
+
     /**
      * Gets the built in datatype information if this datatype is a built in
      * datatype. This method should only be called if the isBuiltIn() method

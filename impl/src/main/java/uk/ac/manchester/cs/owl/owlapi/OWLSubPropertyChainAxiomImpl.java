@@ -20,11 +20,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
@@ -83,41 +80,5 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         } else {
             return false;
         }
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLSubPropertyChainOfAxiom)) {
-            return false;
-        }
-        OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) obj;
-        return other.getPropertyChain().equals(getPropertyChain()) && other.getSuperProperty().equals(superProperty);
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.SUB_PROPERTY_CHAIN_OF;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) object;
-        for (int i = 0; i < propertyChain.size() && i < other.getPropertyChain().size(); i++) {
-            int diff = propertyChain.get(i).compareTo(other.getPropertyChain().get(i));
-            if (diff != 0) {
-                return diff;
-            }
-        }
-        int diff = propertyChain.size() - other.getPropertyChain().size();
-        if (diff != 0) {
-            return diff;
-        }
-        return superProperty.compareTo(other.getSuperProperty());
     }
 }

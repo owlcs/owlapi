@@ -24,7 +24,12 @@ package org.semanticweb.owlapi.model;
 public interface OWLFunctionalDataPropertyAxiom extends OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
     @Override
-    OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
+        OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 67;
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
@@ -44,5 +49,10 @@ public interface OWLFunctionalDataPropertyAxiom extends OWLDataPropertyCharacter
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.FUNCTIONAL_DATA_PROPERTY;
     }
 }

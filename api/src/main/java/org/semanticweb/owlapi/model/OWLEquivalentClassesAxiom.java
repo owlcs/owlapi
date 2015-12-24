@@ -31,6 +31,11 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     @Override
         OWLEquivalentClassesAxiom getAxiomWithoutAnnotations();
 
+    @Override
+    default int hashIndex() {
+        return 53;
+    }
+
     /**
      * Determines if this equivalent classes axiom contains at least one named
      * class (excluding owl:Thing or owl:Nothing).
@@ -108,5 +113,10 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.EQUIVALENT_CLASSES;
     }
 }

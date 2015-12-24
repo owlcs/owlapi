@@ -15,10 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -27,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements OWLObjectHasSelf {
+public class OWLObjectHasSelfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectHasSelf {
 
     @Nonnull private final OWLObjectPropertyExpression property;
 
@@ -40,33 +37,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements OWLObjec
     }
 
     @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 11;
-    }
-
-    @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
-    }
-
-    @Override
-    public ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_HAS_SELF;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLObjectHasSelf && getProperty().equals(((OWLObjectHasSelf) obj).getProperty());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return getProperty().compareTo(((OWLObjectHasSelf) object).getProperty());
     }
 }

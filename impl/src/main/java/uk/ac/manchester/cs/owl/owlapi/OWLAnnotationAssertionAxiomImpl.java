@@ -18,9 +18,12 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -95,42 +98,5 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     @Override
     public OWLAnnotation getAnnotation() {
         return new OWLAnnotationImplNotAnnotated(property, value);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) object;
-        int diff = subject.compareTo(other.getSubject());
-        if (diff != 0) {
-            return diff;
-        }
-        diff = property.compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return value.compareTo(other.getValue());
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.ANNOTATION_ASSERTION;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        // superclass is responsible for null, identity, owlaxiom type and
-        // annotations
-        if (!(obj instanceof OWLAnnotationAssertionAxiom)) {
-            return false;
-        }
-        OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
-        return subject.equals(other.getSubject()) && property.equals(other.getProperty())
-            && value.equals(other.getValue());
     }
 }

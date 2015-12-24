@@ -35,12 +35,27 @@ public interface OWLDataComplementOf extends OWLDataRange {
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 257;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 4002;
+    }
+
     /**
      * Gets the data range which this data range is a complement of.
      * 
      * @return The complemented data range.
      */
     OWLDataRange getDataRange();
+
+    @Override
+    default DataRangeType getDataRangeType() {
+        return DataRangeType.DATA_COMPLEMENT_OF;
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

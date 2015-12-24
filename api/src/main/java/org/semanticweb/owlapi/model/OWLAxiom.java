@@ -28,6 +28,11 @@ import java.util.stream.Stream;
  */
 public interface OWLAxiom extends OWLObject, HasAnnotations {
 
+    @Override
+    default int typeIndex() {
+        return 2000 + getAxiomType().getIndex();
+    }
+
     /**
      * @param visitor
      *        visitor to accept

@@ -28,6 +28,11 @@ public interface OWLDataPropertyAssertionAxiom
         OWLDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     @Override
+    default int hashIndex() {
+        return 11;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
@@ -45,5 +50,10 @@ public interface OWLDataPropertyAssertionAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.DATA_PROPERTY_ASSERTION;
     }
 }

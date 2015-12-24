@@ -36,6 +36,11 @@ public interface OWLAnnotationAssertionAxiom
         return Stream.of(annotations(), getSubject(), getProperty(), getValue());
     }
 
+    @Override
+    default int hashIndex() {
+        return 47;
+    }
+
     /**
      * Gets the annotation value. This is either an
      * {@link org.semanticweb.owlapi.model.IRI}, an
@@ -89,5 +94,10 @@ public interface OWLAnnotationAssertionAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.ANNOTATION_ASSERTION;
     }
 }

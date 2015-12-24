@@ -901,7 +901,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager, OWLOntologyFa
         }
     }
 
-    protected @Nullable OWLOntology load(OWLOntologyDocumentSource documentSource,
+    @Nullable
+    protected OWLOntology load(OWLOntologyDocumentSource documentSource,
         OWLOntologyLoaderConfiguration configuration) throws OWLOntologyCreationException {
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canAttemptLoading(documentSource)) {

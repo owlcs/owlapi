@@ -2254,7 +2254,7 @@ SWRLRule DLSafeRule() :
     Set<SWRLAtom> head;
 }
 {
-    <DLSAFERULE> <OPENPAR> annos = AxiomAnnotationSet() <BODY> {body=new HashSet<SWRLAtom>();} <OPENPAR> (atom=Atom(){body.add(atom);})* <CLOSEPAR> <HEAD> {head= new HashSet<SWRLAtom>();} <OPENPAR> (atom=Atom(){head.add(atom);})* <CLOSEPAR><CLOSEPAR> {
+    <DLSAFERULE> <OPENPAR> annos = AxiomAnnotationSet() <BODY> {body=new LinkedHashSet<SWRLAtom>();} <OPENPAR> (atom=Atom(){body.add(atom);})* <CLOSEPAR> <HEAD> {head= new LinkedHashSet<SWRLAtom>();} <OPENPAR> (atom=Atom(){head.add(atom);})* <CLOSEPAR><CLOSEPAR> {
         return dataFactory.getSWRLRule(body, head, annos);
     }
 }

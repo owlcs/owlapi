@@ -20,8 +20,11 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.HashCode;
+import org.semanticweb.owlapi.model.DataRangeType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -34,6 +37,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Nonnull private final OWL2Datatype owl2Datatype;
+    private final int hashCode;
 
     /**
      * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
@@ -46,11 +50,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      */
     public OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
-    }
-
-    @Override
-    public int typeIndex() {
-        return OWLObjectImpl.DATA_TYPE_INDEX_BASE + 1;
+        hashCode = OWLObjectImpl.hash(hashIndex(), components());
     }
 
     @Override
@@ -96,16 +96,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATATYPE;
-    }
-
-    @Override
-    public EntityType<?> getEntityType() {
-        return EntityType.DATATYPE;
-    }
-
-    @Override
-    public boolean isType(EntityType<?> entityType) {
-        return EntityType.DATATYPE.equals(entityType);
     }
 
     @Override
@@ -170,15 +160,18 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         if (o == null) {
             throw new NullPointerException("o cannot be null in a compareTo call.");
         }
-        if (o instanceof OWLDatatype) {
-            OWLDatatype other = (OWLDatatype) o;
-            return getIRI().compareTo(other.getIRI());
+        int diff = Integer.compare(typeIndex(), o.typeIndex());
+        if (diff != 0) {
+            return diff;
         }
-        return o.typeIndex();
+        if (o instanceof OWLDatatype) {
+            diff = getIRI().compareTo(((OWLDatatype) o).getIRI());
+        }
+        return diff;
     }
 
     @Override
     public int hashCode() {
-        return HashCode.hashCode(this);
+        return hashCode;
     }
 }

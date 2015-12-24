@@ -9,7 +9,7 @@ public interface HasIndex {
 
     /**
      * @return index for this type. This is not a hashcode for instances, rather
-     *         a hashcode for the types.
+     *         a sorting index for the types.
      */
     int typeIndex();
 }

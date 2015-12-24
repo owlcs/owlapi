@@ -17,8 +17,6 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -27,7 +25,7 @@ import org.semanticweb.owlapi.model.*;
  * @since 2.0.0
  */
 public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression>
-        implements OWLDataPropertyDomainAxiom {
+    implements OWLDataPropertyDomainAxiom {
 
     /**
      * @param property
@@ -38,7 +36,7 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
      *        annotations
      */
     public OWLDataPropertyDomainAxiomImpl(OWLDataPropertyExpression property, OWLClassExpression domain,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 
@@ -53,22 +51,6 @@ public class OWLDataPropertyDomainAxiomImpl extends OWLPropertyDomainAxiomImpl<O
     @Override
     public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLDataPropertyDomainAxiomImpl(getProperty(), getDomain(), mergeAnnos(anns));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLDataPropertyDomainAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DATA_PROPERTY_DOMAIN;
     }
 
     @Override

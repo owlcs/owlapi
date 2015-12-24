@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -25,7 +23,7 @@ import org.semanticweb.owlapi.model.*;
  * @since 2.0.0
  */
 public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange>
-        implements OWLDataPropertyRangeAxiom {
+    implements OWLDataPropertyRangeAxiom {
 
     /**
      * @param property
@@ -36,7 +34,7 @@ public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWL
      *        annotations
      */
     public OWLDataPropertyRangeAxiomImpl(OWLDataPropertyExpression property, OWLDataRange range,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 
@@ -51,22 +49,6 @@ public class OWLDataPropertyRangeAxiomImpl extends OWLPropertyRangeAxiomImpl<OWL
     @Override
     public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLDataPropertyRangeAxiomImpl(getProperty(), getRange(), mergeAnnos(anns));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLDataPropertyRangeAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DATA_PROPERTY_RANGE;
     }
 
     @Override

@@ -35,6 +35,11 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
         return Stream.of(annotations(), getDatatype(), getDataRange());
     }
 
+    @Override
+    default int hashIndex() {
+        return 897;
+    }
+
     /**
      * Gets the {@link OWLDatatype} that is assigned a definition.
      * 
@@ -67,5 +72,10 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.DATATYPE_DEFINITION;
     }
 }

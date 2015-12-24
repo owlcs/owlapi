@@ -35,6 +35,16 @@ public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValu
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 859;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 1007;
+    }
+
     /**
      * Gets the ID of this individual.
      * 

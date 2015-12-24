@@ -78,7 +78,7 @@ public class OWLObjectComponentCollectorTestCase {
     private static final String opavar2 = "ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>))";
     private static final String dpvar2 = "DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) \"false\"^^xsd:boolean)";
     private static final String classvar2 = "ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>))";
-    private static final String rule = "DLSafeRule(Annotation(<urn:test#ann> \"test\"^^xsd:string)  Body(ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>)) DataRangeAtom(<urn:test#datatype> Variable(<urn:swrl#var1>)) BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) ) BuiltInAtom(<urn:test#iri> Variable(<urn:swrl#var1>) ) SameAsAtom(Variable(<urn:swrl#var2>) <urn:test#iri>) DifferentFromAtom(Variable(<urn:swrl#var2>) <urn:test#i>)) Head(ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>)) DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) \"false\"^^xsd:boolean) BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )) )";
+    private static final String rule = "DLSafeRule(Annotation(<urn:test#ann> \"test\"^^xsd:string)  Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) ) ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>)) DataRangeAtom(<urn:test#datatype> Variable(<urn:swrl#var1>)) BuiltInAtom(<urn:test#iri> Variable(<urn:swrl#var1>) ) DifferentFromAtom(Variable(<urn:swrl#var2>) <urn:test#i>) SameAsAtom(Variable(<urn:swrl#var2>) <urn:test#iri>)) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) ) DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) \"false\"^^xsd:boolean) ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>))) )";
     private static final String T = "TransitiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)";
     private static final String HASKEY = "HasKey(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> (<urn:test#iri> <urn:test#op> ) (<urn:test#dp> ))";
     private static final String AANN = "AnnotationAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#ann> <urn:test#iri> \"false\"^^xsd:boolean)";
@@ -273,6 +273,11 @@ public class OWLObjectComponentCollectorTestCase {
         OWLObjectComponentCollector testsubject = new OWLObjectComponentCollector();
         Set<OWLObject> components = testsubject.getComponents(object);
         Set<String> strings = asSet(components.stream().map(Object::toString));
+        strings.forEach(s -> {
+            if (!expected.contains(s)) {
+                System.out.println("OWLObjectComponentCollectorTestCase.testAssertion() " + s);
+            }
+        });
         assertEquals(expected, strings);
     }
 }

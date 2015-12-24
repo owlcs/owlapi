@@ -13,9 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
-
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -40,22 +37,5 @@ public class SWRLSameIndividualAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument
     public SWRLSameIndividualAtomImpl(OWLObjectProperty property, SWRLIArgument arg0, SWRLIArgument arg1) {
         super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0, "arg0 cannot be null"),
             checkNotNull(arg1, "arg1 cannot be null"));
-    }
-
-    @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 9;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof SWRLSameIndividualAtom)) {
-            return false;
-        }
-        SWRLSameIndividualAtom other = (SWRLSameIndividualAtom) obj;
-        return compareStreams(other.allArguments(), allArguments()) == 0;
     }
 }

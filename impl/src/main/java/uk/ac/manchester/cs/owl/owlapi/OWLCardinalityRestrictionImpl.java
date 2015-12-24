@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
@@ -27,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  * @param <F>
  *        filler type
  */
-public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends OWLRestrictionImpl
+public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends OWLAnonymousClassExpressionImpl
     implements OWLCardinalityRestriction<F> {
 
     private final int cardinality;
@@ -46,21 +45,5 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> 
     @Override
     public F getFiller() {
         return filler;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLCardinalityRestriction)) {
-            return false;
-        }
-        OWLCardinalityRestriction<F> other = (OWLCardinalityRestriction<F>) obj;
-        return other.getCardinality() == cardinality && other.getFiller().equals(filler);
     }
 }

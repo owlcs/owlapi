@@ -18,9 +18,10 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -45,38 +46,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Se
     }
 
     @Override
-    public int typeIndex() {
-        return OWL_CLASS;
-    }
-
-    @Override
-    public boolean isTopEntity() {
-        return isOWLThing();
-    }
-
-    @Override
-    public boolean isBottomEntity() {
-        return isOWLNothing();
-    }
-
-    @Override
-    public ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OWL_CLASS;
-    }
-
-    @Override
     public OWLClassExpression getObjectComplementOf() {
         return new OWLObjectComplementOfImpl(this);
-    }
-
-    @Override
-    public EntityType<?> getEntityType() {
-        return EntityType.CLASS;
-    }
-
-    @Override
-    public boolean isType(EntityType<?> entityType) {
-        return getEntityType().equals(entityType);
     }
 
     @Override
@@ -92,11 +63,6 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Se
     @Override
     public boolean isBuiltIn() {
         return isOWLThing() || isOWLNothing();
-    }
-
-    @Override
-    public boolean isClassExpressionLiteral() {
-        return true;
     }
 
     @Override
@@ -132,30 +98,5 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Se
     @Override
     public OWLClassExpression getComplementNNF() {
         return new OWLObjectComplementOfImpl(this);
-    }
-
-    @Override
-    public boolean isOWLClass() {
-        return true;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLClass)) {
-            return false;
-        }
-        return ((OWLClass) obj).getIRI().equals(iri);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLClass other = (OWLClass) object;
-        return iri.compareTo(other.getIRI());
     }
 }

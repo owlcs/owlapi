@@ -15,9 +15,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -37,63 +37,12 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     }
 
     @Override
-    public int typeIndex() {
-        return INDIVIDUAL;
-    }
-
-    @Override
-    public EntityType<?> getEntityType() {
-        return EntityType.NAMED_INDIVIDUAL;
-    }
-
-    @Override
-    public boolean isType(EntityType<?> entityType) {
-        return getEntityType().equals(entityType);
-    }
-
-    @Override
     public String toStringID() {
         return iri.toString();
     }
 
     @Override
-    public boolean isOWLNamedIndividual() {
-        return true;
-    }
-
-    @Override
     public IRI getIRI() {
         return iri;
-    }
-
-    @Override
-    public OWLAnonymousIndividual asOWLAnonymousIndividual() {
-        throw new OWLRuntimeException("Not an anonymous individual");
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof OWLNamedIndividual)) {
-            return false;
-        }
-        IRI otherIRI = ((OWLNamedIndividual) obj).getIRI();
-        return otherIRI.equals(iri);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLNamedIndividual other = (OWLNamedIndividual) object;
-        return iri.compareTo(other.getIRI());
-    }
-
-    @Override
-    public boolean isBuiltIn() {
-        return false;
     }
 }

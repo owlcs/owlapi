@@ -26,13 +26,18 @@ import java.util.Set;
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
 
     @Override
-    OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
+        OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    Set<OWLDisjointClassesAxiom> asPairwiseAxioms();
+    default int hashIndex() {
+        return 31;
+    }
 
     @Override
-    Set<OWLDisjointClassesAxiom> splitToAnnotatedPairs();
+        Set<OWLDisjointClassesAxiom> asPairwiseAxioms();
+
+    @Override
+        Set<OWLDisjointClassesAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
@@ -52,5 +57,10 @@ public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.DISJOINT_CLASSES;
     }
 }

@@ -19,9 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -32,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
-        implements OWLDisjointObjectPropertiesAxiom {
+    implements OWLDisjointObjectPropertiesAxiom {
 
     /**
      * @param properties
@@ -41,7 +38,7 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
      *        annotations
      */
     public OWLDisjointObjectPropertiesAxiomImpl(Collection<? extends OWLObjectPropertyExpression> properties,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -64,7 +61,7 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
                 result.add(new OWLDisjointObjectPropertiesAxiomImpl(
-                        new HashSet<>(Arrays.asList(properties.get(i), properties.get(j))), NO_ANNOTATIONS));
+                    Arrays.asList(properties.get(i), properties.get(j)), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -82,21 +79,5 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
             result.add(new OWLDisjointObjectPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
         }
         return result;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLDisjointObjectPropertiesAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DISJOINT_OBJECT_PROPERTIES;
     }
 }

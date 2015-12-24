@@ -132,14 +132,12 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                         break;
                     }
                     default:
-                        jj_la1[1] = jj_gen;
-                        ;
+                        jj_la1[1] = jj_gen;;
                 }
                 break;
             }
             default:
-                jj_la1[2] = jj_gen;
-                ;
+                jj_la1[2] = jj_gen;;
         }
         OWLOntologyID id = new OWLOntologyID(ontologyIRI, versionIRI);
         applyChange(new SetOntologyID(ontology, id));
@@ -625,8 +623,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 break;
             }
             default:
-                jj_la1[10] = jj_gen;
-                ;
+                jj_la1[10] = jj_gen;;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -677,8 +674,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 break;
             }
             default:
-                jj_la1[11] = jj_gen;
-                ;
+                jj_la1[11] = jj_gen;;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -729,8 +725,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 break;
             }
             default:
-                jj_la1[12] = jj_gen;
-                ;
+                jj_la1[12] = jj_gen;;
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
@@ -817,8 +812,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 break;
             }
             default:
-                jj_la1[13] = jj_gen;
-                ;
+                jj_la1[13] = jj_gen;;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -857,8 +851,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 break;
             }
             default:
-                jj_la1[14] = jj_gen;
-                ;
+                jj_la1[14] = jj_gen;;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -897,8 +890,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 break;
             }
             default:
-                jj_la1[15] = jj_gen;
-                ;
+                jj_la1[15] = jj_gen;;
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
@@ -2727,8 +2719,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 break;
             }
             default:
-                jj_la1[42] = jj_gen;
-                ;
+                jj_la1[42] = jj_gen;;
         }
         if (plain) {
             {
@@ -2791,7 +2782,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_consume_token(OPENPAR);
         annos = AxiomAnnotationSet();
         jj_consume_token(BODY);
-        body = new HashSet<SWRLAtom>();
+        body = new LinkedHashSet<SWRLAtom>();
         jj_consume_token(OPENPAR);
         label_18: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
@@ -2814,7 +2805,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
         jj_consume_token(CLOSEPAR);
         jj_consume_token(HEAD);
-        head = new HashSet<SWRLAtom>();
+        head = new LinkedHashSet<SWRLAtom>();
         jj_consume_token(OPENPAR);
         label_19: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
@@ -2959,8 +2950,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
     final public SWRLBuiltInAtom BuiltInAtom() throws ParseException {
         IRI iri;
-        List<SWRLDArgument> args;
-        ;
+        List<SWRLDArgument> args;;
         SWRLDArgument arg;
         jj_consume_token(BUILTINATOM);
         jj_consume_token(OPENPAR);

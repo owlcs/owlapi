@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
@@ -50,19 +49,5 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     @Override
     public P getProperty() {
         return property;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLUnaryPropertyAxiom)) {
-            return false;
-        }
-        return ((OWLUnaryPropertyAxiom<?>) obj).getProperty().equals(property);
     }
 }

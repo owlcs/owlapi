@@ -19,10 +19,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -49,11 +47,6 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     }
 
     @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 5;
-    }
-
-    @Override
     public IRI getPredicate() {
         return (IRI) super.getPredicate();
     }
@@ -71,36 +64,5 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     @Override
     public Stream<SWRLArgument> allArguments() {
         return args.stream().map(x -> x);
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof SWRLBuiltInAtom)) {
-            return false;
-        }
-        SWRLBuiltInAtom other = (SWRLBuiltInAtom) obj;
-        return other.getPredicate().equals(getPredicate()) && other.getArguments().equals(getArguments());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        SWRLBuiltInAtom other = (SWRLBuiltInAtom) object;
-        int diff = getPredicate().compareTo(other.getPredicate());
-        if (diff != 0) {
-            return diff;
-        }
-        List<SWRLDArgument> otherArgs = other.getArguments();
-        int i = 0;
-        while (i < args.size() && i < otherArgs.size()) {
-            diff = args.get(i).compareTo(otherArgs.get(i));
-            if (diff != 0) {
-                return diff;
-            }
-            i++;
-        }
-        return args.size() - otherArgs.size();
     }
 }

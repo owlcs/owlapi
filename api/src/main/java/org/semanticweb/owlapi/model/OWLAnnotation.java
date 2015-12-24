@@ -37,6 +37,16 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OW
         return Stream.of(annotations(), getProperty(), getValue());
     }
 
+    @Override
+    default int hashIndex() {
+        return 877;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 5001;
+    }
+
     /**
      * Gets the property that this annotation acts along.
      * 

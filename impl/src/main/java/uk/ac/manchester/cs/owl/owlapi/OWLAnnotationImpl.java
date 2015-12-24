@@ -50,11 +50,6 @@ public class OWLAnnotationImpl extends OWLAnnotationImplNotAnnotated {
     }
 
     @Override
-    public int typeIndex() {
-        return ANNOTATION_TYPE_INDEX_BASE + 1;
-    }
-
-    @Override
     public Stream<OWLAnnotation> annotations() {
         return anns.stream();
     }

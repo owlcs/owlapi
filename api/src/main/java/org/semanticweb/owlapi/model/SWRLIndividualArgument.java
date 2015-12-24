@@ -31,6 +31,16 @@ public interface SWRLIndividualArgument extends SWRLIArgument {
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 677;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 6007;
+    }
+
     /**
      * @return the wrapped individual
      */

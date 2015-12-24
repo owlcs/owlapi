@@ -40,6 +40,21 @@ public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 307;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 1003;
+    }
+
+    @Override
+    default OWLObjectPropertyExpression getInverseProperty() {
+        return getInverse();
+    }
+
     /**
      * Gets the property expression that this is the inverse of.
      * 

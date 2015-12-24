@@ -37,6 +37,11 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
         return Stream.of(annotations(), body(), head());
     }
 
+    @Override
+    default int hashIndex() {
+        return 631;
+    }
+
     /**
      * Gets the atoms in the body of the rule.
      * 
@@ -165,5 +170,10 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.SWRL_RULE;
     }
 }

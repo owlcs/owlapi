@@ -14,15 +14,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -51,28 +48,6 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     @Override
     public Stream<OWLIndividual> individuals() {
         return individuals.stream();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLNaryIndividualAxiom)) {
-            return false;
-        }
-        if (obj instanceof OWLNaryIndividualAxiomImpl) {
-            return individuals.equals(((OWLNaryIndividualAxiomImpl) obj).individuals);
-        }
-        return compareObjectOfSameType((OWLNaryIndividualAxiom) obj) == 0;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(individuals(), ((OWLNaryIndividualAxiom) object).individuals());
     }
 
     @Override

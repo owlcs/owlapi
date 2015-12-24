@@ -12,17 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
-
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -45,33 +39,5 @@ public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements O
      */
     public OWLDataIntersectionOfImpl(Stream<? extends OWLDataRange> operands) {
         super(operands);
-    }
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 4;
-    }
-
-    @Override
-    public DataRangeType getDataRangeType() {
-        return DataRangeType.DATA_INTERSECTION_OF;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLDataIntersectionOf other = (OWLDataIntersectionOf) object;
-        return compareStreams(operands(), other.operands());
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLDataIntersectionOf)) {
-            return false;
-        }
-        OWLDataIntersectionOf other = (OWLDataIntersectionOf) obj;
-        return equalStreams(operands(), other.operands());
     }
 }

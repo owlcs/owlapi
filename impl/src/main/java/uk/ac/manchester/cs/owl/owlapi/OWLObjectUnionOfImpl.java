@@ -17,9 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
@@ -36,27 +33,6 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl impl
      */
     public OWLObjectUnionOfImpl(Stream<? extends OWLClassExpression> operands) {
         super(operands);
-    }
-
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 2;
-    }
-
-    @Override
-    public ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_UNION_OF;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLObjectUnionOf;
     }
 
     @Override

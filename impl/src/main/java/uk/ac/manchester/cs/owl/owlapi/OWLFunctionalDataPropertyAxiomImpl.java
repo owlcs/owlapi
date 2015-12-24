@@ -17,9 +17,10 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.*;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -27,7 +28,7 @@ import org.semanticweb.owlapi.model.*;
  * @since 2.0.0
  */
 public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacteristicAxiomImpl
-        implements OWLFunctionalDataPropertyAxiom {
+    implements OWLFunctionalDataPropertyAxiom {
 
     /**
      * @param property
@@ -36,7 +37,7 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
      *        annotations
      */
     public OWLFunctionalDataPropertyAxiomImpl(OWLDataPropertyExpression property,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -54,29 +55,8 @@ public class OWLFunctionalDataPropertyAxiomImpl extends OWLDataPropertyCharacter
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLFunctionalDataPropertyAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.FUNCTIONAL_DATA_PROPERTY;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return getProperty().compareTo(((OWLFunctionalDataPropertyAxiom) object).getProperty());
-    }
-
-    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLDataMaxCardinalityImpl(getProperty(), 1, RDFSLITERAL),
-                NO_ANNOTATIONS);
+            NO_ANNOTATIONS);
     }
 }

@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
@@ -24,7 +22,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLNaryDataRange;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -48,10 +45,5 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements OWLN
     @Override
     public Stream<? extends OWLDataRange> operands() {
         return operands.stream();
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(operands(), ((OWLNaryDataRange) object).operands());
     }
 }

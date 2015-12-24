@@ -18,9 +18,12 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -68,37 +71,5 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
     @Override
     public OWLDataRange getDataRange() {
         return dataRange;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DATATYPE_DEFINITION;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) object;
-        int diff = getDatatype().compareTo(other.getDatatype());
-        if (diff != 0) {
-            return diff;
-        }
-        return getDataRange().compareTo(other.getDataRange());
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        // superclass is responsible for null, identity, owlaxiom type and
-        // annotations
-        if (!(obj instanceof OWLDatatypeDefinitionAxiom)) {
-            return false;
-        }
-        OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) obj;
-        return datatype.equals(other.getDatatype()) && dataRange.equals(other.getDataRange());
     }
 }

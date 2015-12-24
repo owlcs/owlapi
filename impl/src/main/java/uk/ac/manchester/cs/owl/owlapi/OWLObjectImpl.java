@@ -15,7 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static java.util.Collections.emptyList;
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.IntBinaryOperator;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -30,7 +31,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -43,23 +43,6 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  */
 public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
 
-    //@formatter:off
-    /** ENTITY_TYPE_INDEX_BASE.           */ protected static final int ENTITY_TYPE_INDEX_BASE              = 1000;
-    /** IRI.                              */ protected static final int IRI                                 = 0;
-    /** ONTOLOGY.                         */ protected static final int ONTOLOGY                            = 1;
-    /** OWL_CLASS.                        */ protected static final int OWL_CLASS                           = 1001;
-    /** OBJECT_PROPERTY.                  */ protected static final int OBJECT_PROPERTY                     = 1002;
-    /** OBJECT_PROPERTY_INVERSE.          */ protected static final int OBJECT_PROPERTY_INVERSE             = 1003;
-    /** DATA_PROPERTY.                    */ protected static final int DATA_PROPERTY                       = 1004;
-    /** INDIVIDUAL.                       */ protected static final int INDIVIDUAL                          = 1005;
-    /** ANNOTATION_PROPERTY.              */ protected static final int ANNOTATION_PROPERTY                 = 1006;
-    /** ANON_INDIVIDUAL.                  */ protected static final int ANON_INDIVIDUAL                     = 1007;
-    /** AXIOM_TYPE_INDEX_BASE.            */ protected static final int AXIOM_TYPE_INDEX_BASE               = 2000;
-    /** DATA_TYPE_INDEX_BASE.             */ protected static final int DATA_TYPE_INDEX_BASE                = 4000;
-    /** ANNOTATION_TYPE_INDEX_BASE.       */ protected static final int ANNOTATION_TYPE_INDEX_BASE          = 5000;
-    /** RULE_OBJECT_TYPE_INDEX_BASE.      */ protected static final int RULE_OBJECT_TYPE_INDEX_BASE         = 6000;
-    /** CLASS_EXPRESSION_TYPE_INDEX_BASE. */ protected static final int CLASS_EXPRESSION_TYPE_INDEX_BASE    = 3000;
-    //@formatter:on
     /** a convenience reference for an empty annotation set, saves on typing. */
     @Nonnull protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections.emptySet();
     protected int hashCode = 0;
@@ -67,6 +50,40 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         .weakKeys().softValues().build(key -> key.addSignatureEntitiesToSet(new HashSet<>()));
     protected static LoadingCache<OWLObjectImpl, Set<OWLAnonymousIndividual>> anonCaches = Caffeine.newBuilder()
         .weakKeys().softValues().build(key -> key.addAnonymousIndividualsToSet(new HashSet<>()));
+    protected static final IntBinaryOperator hashIteration = (a, b) -> a * 37 + b;
+
+    /**
+     * Override point to change hashing strategy if needed - only used in
+     * OWLLiteral implementations at the moment.
+     * 
+     * @param object
+     *        the object to compute the hashcode for
+     * @return the hashcode
+     */
+    protected int hashCode(OWLObject object) {
+        return hash(object.hashIndex(), object.components());
+    }
+
+    /**
+     * Streams from components need a start point and the order of the
+     * components is important.
+     * 
+     * @param start
+     *        start index
+     * @param s
+     *        stream to hash
+     * @return hash for the stream
+     */
+    static int hash(int start, Stream<?> s) {
+        return s.sequential().mapToInt(OWLObjectImpl::hash).reduce(start, hashIteration);
+    }
+
+    private static int hash(Object o) {
+        if (o instanceof Stream) {
+            return ((Stream<?>) o).mapToInt(Object::hashCode).sum();
+        }
+        return o.hashCode();
+    }
 
     @Override
     public Stream<OWLAnonymousIndividual> anonymousIndividuals() {
@@ -129,14 +146,27 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        return obj == this || obj instanceof OWLObject;
+    public final boolean equals(@Nullable Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof OWLObject)) {
+            return false;
+        }
+        OWLObject other = (OWLObject) obj;
+        if (typeIndex() != other.typeIndex()) {
+            return false;
+        }
+        return equalStreams(components(), other.components());
     }
 
     @Override
     public int hashCode() {
         if (hashCode == 0) {
-            hashCode = HashCode.hashCode(this);
+            hashCode = hashCode(this);
         }
         return hashCode;
     }
@@ -145,19 +175,11 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
     public int compareTo(@Nullable OWLObject o) {
         checkNotNull(o);
         assert o != null;
-        int diff = typeIndex() - o.typeIndex();
+        int diff = Integer.compare(typeIndex(), o.typeIndex());
         if (diff != 0) {
             return diff;
         }
-        // Objects are the same type
-        diff = compareObjectOfSameType(o);
-        if (diff != 0) {
-            return diff;
-        }
-        if (this instanceof OWLAxiom) {
-            diff = compareStreams(((OWLAxiom) this).annotations(), ((OWLAxiom) o).annotations());
-        }
-        return diff;
+        return compareIterators(components().iterator(), o.components().iterator());
     }
 
     protected int compareAnnotations(List<OWLAnnotation> l1, List<OWLAnnotation> l2) {
@@ -179,8 +201,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable, HasIncre
         // lists are identical
         return 0;
     }
-
-    protected abstract int compareObjectOfSameType(OWLObject object);
 
     @Override
     public String toString() {

@@ -18,13 +18,10 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -62,31 +59,5 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     @Override
     public OWLEntity getEntity() {
         return entity;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        // superclass is responsible for null, identity, owlaxiom type and
-        // annotations
-        if (!(obj instanceof OWLDeclarationAxiom)) {
-            return false;
-        }
-        return ((OWLDeclarationAxiom) obj).getEntity().equals(entity);
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DECLARATION;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return entity.compareTo(((OWLDeclarationAxiom) object).getEntity());
     }
 }

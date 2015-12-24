@@ -19,9 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -33,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
  * @since 2.0.0
  */
 public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression>
-        implements OWLEquivalentObjectPropertiesAxiom {
+    implements OWLEquivalentObjectPropertiesAxiom {
 
     /**
      * @param properties
@@ -42,7 +39,7 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
      *        annotations
      */
     public OWLEquivalentObjectPropertiesAxiomImpl(Collection<? extends OWLObjectPropertyExpression> properties,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -65,7 +62,7 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
                 result.add(new OWLEquivalentObjectPropertiesAxiomImpl(
-                        Arrays.asList(properties.get(i), properties.get(j)), NO_ANNOTATIONS));
+                    Arrays.asList(properties.get(i), properties.get(j)), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -81,25 +78,9 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
             OWLObjectPropertyExpression indI = properties.get(i);
             OWLObjectPropertyExpression indJ = properties.get(i + 1);
             result.add(
-                    new OWLEquivalentObjectPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
+                new OWLEquivalentObjectPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
         }
         return result;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLEquivalentObjectPropertiesAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
     }
 
     @Override
@@ -109,7 +90,7 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiom
             for (int j = 0; j < properties.size(); j++) {
                 if (i != j) {
                     result.add(
-                            new OWLSubObjectPropertyOfAxiomImpl(properties.get(i), properties.get(j), NO_ANNOTATIONS));
+                        new OWLSubObjectPropertyOfAxiomImpl(properties.get(i), properties.get(j), NO_ANNOTATIONS));
                 }
             }
         }

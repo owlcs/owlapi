@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -45,7 +46,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Nonnull private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(OWL2Datatype.XSD_STRING);
     @Nonnull private final OWLDatatype datatype;
     @Nonnull private final String language;
-    private final int hashcode;
 
     /**
      * @param literal
@@ -76,12 +76,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             language = lang;
             this.datatype = RDF_LANG_STRING;
         }
-        hashcode = getHashCode();
-    }
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 8;
     }
 
     @Override
@@ -90,28 +84,38 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean isRDFPlainLiteral() {
-        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
-    }
-
-    @Override
     public boolean hasLang() {
         return !language.isEmpty();
     }
 
     @Override
+    public boolean isRDFPlainLiteral() {
+        return getDatatype().isRDFPlainLiteral();
+    }
+
+    @Override
     public boolean isInteger() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_INTEGER.getIRI());
+        return getDatatype().isInteger();
+    }
+
+    @Override
+    public boolean isBoolean() {
+        return getDatatype().isBoolean();
+    }
+
+    @Override
+    public boolean isDouble() {
+        return getDatatype().isDouble();
+    }
+
+    @Override
+    public boolean isFloat() {
+        return getDatatype().isFloat();
     }
 
     @Override
     public int parseInteger() {
         return Integer.parseInt(literal.get());
-    }
-
-    @Override
-    public boolean isBoolean() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
     }
 
     @Override
@@ -132,18 +136,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean isDouble() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_DOUBLE.getIRI());
-    }
-
-    @Override
     public double parseDouble() {
         return Double.parseDouble(literal.get());
-    }
-
-    @Override
-    public boolean isFloat() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_FLOAT.getIRI());
     }
 
     @Override
@@ -170,53 +164,15 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public int hashCode() {
-        return hashcode;
+    protected int hashCode(OWLObject object) {
+        return hash(object.hashIndex(), Stream.of(getDatatype(), specificHash(), getLang()));
     }
 
-    private final int getHashCode() {
-        int hash = 277;
-        hash = hash * 37 + getDatatype().hashCode();
-        hash *= 37;
+    private int specificHash() {
         if (literal.l != null) {
-            hash += literal.l.hashCode();
-        } else {
-            hash += Arrays.hashCode(literal.bytes);
+            return literal.l.hashCode();
         }
-        if (hasLang()) {
-            hash = hash * 37 + getLang().hashCode();
-        }
-        return hash;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLLiteral)) {
-            return false;
-        }
-        OWLLiteral other = (OWLLiteral) obj;
-        return literal.get().equals(other.getLiteral()) && datatype.equals(other.getDatatype())
-            && language.equals(other.getLang());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLLiteral other = (OWLLiteral) object;
-        int diff = literal.get().compareTo(other.getLiteral());
-        if (diff != 0) {
-            return diff;
-        }
-        diff = datatype.compareTo(other.getDatatype());
-        if (diff != 0) {
-            return diff;
-        }
-        return language.compareTo(other.getLang());
+        return Arrays.hashCode(literal.bytes);
     }
 
     // Literal Wrapper

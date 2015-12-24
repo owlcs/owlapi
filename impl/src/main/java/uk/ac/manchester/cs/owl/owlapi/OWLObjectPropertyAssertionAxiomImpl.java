@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -63,17 +61,6 @@ public class OWLObjectPropertyAssertionAxiomImpl
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLObjectPropertyAssertionAxiom;
-    }
-
-    @Override
     public OWLObjectPropertyAssertionAxiom getSimplified() {
         if (!getProperty().isAnonymous()) {
             return this;
@@ -87,10 +74,5 @@ public class OWLObjectPropertyAssertionAxiomImpl
     @Override
     public boolean isInSimplifiedForm() {
         return !getProperty().isAnonymous();
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.OBJECT_PROPERTY_ASSERTION;
     }
 }

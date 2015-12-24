@@ -17,11 +17,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -41,11 +39,6 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     }
 
     @Override
-    public int typeIndex() {
-        return ANON_INDIVIDUAL;
-    }
-
-    @Override
     public NodeID getID() {
         return nodeId;
     }
@@ -61,29 +54,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLAnonymousIndividual other = (OWLAnonymousIndividual) object;
-        return nodeId.compareTo(other.getID());
-    }
-
-    @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return optional(this);
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLAnonymousIndividual)) {
-            return false;
-        }
-        return nodeId.equals(((OWLAnonymousIndividual) obj).getID());
-    }
-
-    @Override
-    public int hashCode() {
-        return nodeId.hashCode();
     }
 }

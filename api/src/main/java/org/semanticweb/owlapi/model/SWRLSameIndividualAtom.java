@@ -20,6 +20,16 @@ package org.semanticweb.owlapi.model;
 public interface SWRLSameIndividualAtom extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {
 
     @Override
+    default int hashIndex() {
+        return 811;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 6009;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

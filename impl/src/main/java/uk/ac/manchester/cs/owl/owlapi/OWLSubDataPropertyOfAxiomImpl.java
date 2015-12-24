@@ -15,9 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
@@ -28,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
  * @since 2.0.0
  */
 public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDataPropertyExpression>
-        implements OWLSubDataPropertyOfAxiom {
+    implements OWLSubDataPropertyOfAxiom {
 
     /**
      * @param subProperty
@@ -39,7 +36,7 @@ public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDa
      *        annotations
      */
     public OWLSubDataPropertyOfAxiomImpl(OWLDataPropertyExpression subProperty, OWLDataPropertyExpression superProperty,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
 
@@ -54,21 +51,5 @@ public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDa
     @Override
     public OWLSubDataPropertyOfAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(), mergeAnnos(anns));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLSubDataPropertyOfAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.SUB_DATA_PROPERTY;
     }
 }

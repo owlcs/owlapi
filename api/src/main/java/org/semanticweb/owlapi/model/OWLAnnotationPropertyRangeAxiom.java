@@ -42,6 +42,11 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
     }
 
     @Override
+    default int hashIndex() {
+        return 827;
+    }
+
+    @Override
     default void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
@@ -59,5 +64,10 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
     @Override
     default <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.ANNOTATION_PROPERTY_RANGE;
     }
 }

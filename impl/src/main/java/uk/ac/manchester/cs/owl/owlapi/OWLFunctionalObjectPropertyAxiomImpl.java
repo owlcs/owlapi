@@ -17,9 +17,6 @@ import static uk.ac.manchester.cs.owl.owlapi.InternalizedEntities.OWL_THING;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -31,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @since 2.0.0
  */
 public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
-        implements OWLFunctionalObjectPropertyAxiom {
+    implements OWLFunctionalObjectPropertyAxiom {
 
     /**
      * @param property
@@ -40,7 +37,7 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
      *        annotations
      */
     public OWLFunctionalObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -53,29 +50,13 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLFunctionalObjectPropertyAxiom;
-    }
-
-    @Override
     public OWLFunctionalObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLFunctionalObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
     }
 
     @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.FUNCTIONAL_OBJECT_PROPERTY;
-    }
-
-    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectMaxCardinalityImpl(getProperty(), 1, OWL_THING),
-                NO_ANNOTATIONS);
+            NO_ANNOTATIONS);
     }
 }

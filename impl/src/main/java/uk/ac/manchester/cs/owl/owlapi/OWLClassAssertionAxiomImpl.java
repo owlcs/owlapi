@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -71,39 +70,8 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLClassAssertionAxiom)) {
-            return false;
-        }
-        OWLClassAssertionAxiom other = (OWLClassAssertionAxiom) obj;
-        return other.getIndividual().equals(individual) && other.getClassExpression().equals(classExpression);
-    }
-
-    @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(getIndividual()),
             getClassExpression(), NO_ANNOTATIONS);
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.CLASS_ASSERTION;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLClassAssertionAxiom otherAx = (OWLClassAssertionAxiom) object;
-        int diff = getIndividual().compareTo(otherAx.getIndividual());
-        if (diff != 0) {
-            return diff;
-        } else {
-            return getClassExpression().compareTo(otherAx.getClassExpression());
-        }
     }
 }

@@ -24,6 +24,21 @@ package org.semanticweb.owlapi.model;
 public interface OWLObjectHasValue extends OWLHasValueRestriction<OWLIndividual>, OWLObjectRestriction {
 
     @Override
+    default int hashIndex() {
+        return 251;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 3007;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_HAS_VALUE;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

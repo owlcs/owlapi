@@ -18,9 +18,12 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
@@ -81,22 +84,6 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     @Override
     public OWLObjectPropertyExpression getSecondProperty() {
         return second;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLInverseObjectPropertiesAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.INVERSE_OBJECT_PROPERTIES;
     }
 
     @Override

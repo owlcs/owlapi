@@ -12,10 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
@@ -37,34 +34,7 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument> implemen
     }
 
     @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 1;
-    }
-
-    @Override
     public OWLClassExpression getPredicate() {
         return (OWLClassExpression) super.getPredicate();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof SWRLClassAtom)) {
-            return false;
-        }
-        SWRLClassAtom other = (SWRLClassAtom) obj;
-        return other.getArgument().equals(getArgument()) && other.getPredicate().equals(getPredicate());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        SWRLClassAtom other = (SWRLClassAtom) object;
-        int diff = getPredicate().compareTo(other.getPredicate());
-        if (diff != 0) {
-            return diff;
-        }
-        return getArgument().compareTo(other.getArgument());
     }
 }

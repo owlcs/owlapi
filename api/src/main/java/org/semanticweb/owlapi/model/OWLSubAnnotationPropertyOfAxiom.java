@@ -38,6 +38,11 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
         return Stream.of(annotations(), getSubProperty(), getSuperProperty());
     }
 
+    @Override
+    default int hashIndex() {
+        return 829;
+    }
+
     /**
      * Gets the subproperty of this axiom.
      * 
@@ -72,5 +77,10 @@ public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
     }
 }

@@ -17,10 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
@@ -60,30 +58,5 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
     @Override
     public P getSuperProperty() {
         return superProperty;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLSubPropertyAxiom)) {
-            return false;
-        }
-        OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) obj;
-        return other.getSubProperty().equals(subProperty) && other.getSuperProperty().equals(superProperty);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) object;
-        int diff = subProperty.compareTo(other.getSubProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return superProperty.compareTo(other.getSuperProperty());
     }
 }

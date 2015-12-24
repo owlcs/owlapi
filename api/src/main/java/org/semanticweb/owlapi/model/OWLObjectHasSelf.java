@@ -36,6 +36,21 @@ public interface OWLObjectHasSelf extends OWLRestriction, OWLObjectRestriction {
     }
 
     @Override
+    default int hashIndex() {
+        return 233;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 3011;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_HAS_SELF;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

@@ -15,10 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 
 /**
@@ -39,29 +37,7 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements SWRLInd
     }
 
     @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 7;
-    }
-
-    @Override
     public OWLIndividual getIndividual() {
         return individual;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof SWRLIndividualArgument)) {
-            return false;
-        }
-        SWRLIndividualArgument other = (SWRLIndividualArgument) obj;
-        return other.getIndividual().equals(getIndividual());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return individual.compareTo(((SWRLIndividualArgument) object).getIndividual());
     }
 }

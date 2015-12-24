@@ -149,7 +149,7 @@ public class OWLAPIStreamUtils {
      * @return negative value if set1 comes before set2, positive value if set2
      *         comes before set1, 0 if the two sets are equal or incomparable.
      */
-    public static int compareStreams(Stream<? extends OWLObject> set1, Stream<? extends OWLObject> set2) {
+    public static int compareStreams(Stream<?> set1, Stream<?> set2) {
         return compareIterators(set1.sorted().iterator(), set2.sorted().iterator());
     }
 
@@ -163,11 +163,21 @@ public class OWLAPIStreamUtils {
      * @return negative value if set1 comes before set2, positive value if set2
      *         comes before set1, 0 if the two sets are equal or incomparable.
      */
-    public static int compareIterators(Iterator<? extends OWLObject> set1, Iterator<? extends OWLObject> set2) {
+    public static int compareIterators(Iterator<?> set1, Iterator<?> set2) {
         while (set1.hasNext() && set2.hasNext()) {
-            OWLObject o1 = set1.next();
-            OWLObject o2 = set2.next();
-            int diff = o1.compareTo(o2);
+            Object o1 = set1.next();
+            Object o2 = set2.next();
+            int diff;
+            if (o1 instanceof Stream && o2 instanceof Stream) {
+                diff = compareIterators(((Stream<?>) o1).iterator(), ((Stream<?>) o2).iterator());
+            } else if (o1 instanceof Collection && o2 instanceof Collection) {
+                diff = compareIterators(((Collection<?>) o1).iterator(), ((Collection<?>) o2).iterator());
+            } else if (o1 instanceof Comparable && o2 instanceof Comparable) {
+                diff = ((Comparable) o1).compareTo(o2);
+            } else {
+                throw new IllegalArgumentException("Incomparable types: '" + o1 + "' with class " + o1.getClass()
+                    + ", '" + o2 + "' with class " + o2.getClass() + " found while comparing iterators");
+            }
             if (diff != 0) {
                 return diff;
             }
@@ -184,10 +194,18 @@ public class OWLAPIStreamUtils {
      *        iterator to compare
      * @return true if the iterators have the same content, false otherwise.
      */
-    public static boolean equalIterators(Iterator<? extends OWLObject> set1, Iterator<? extends OWLObject> set2) {
+    public static boolean equalIterators(Iterator<?> set1, Iterator<?> set2) {
         while (set1.hasNext() && set2.hasNext()) {
-            if (!set1.next().equals(set2.next())) {
-                return false;
+            Object o1 = set1.next();
+            Object o2 = set2.next();
+            if (o1 instanceof Stream && o2 instanceof Stream) {
+                if (!equalStreams((Stream<?>) o1, (Stream<?>) o2)) {
+                    return false;
+                }
+            } else {
+                if (!o1.equals(o2)) {
+                    return false;
+                }
             }
         }
         return set1.hasNext() == set2.hasNext();
@@ -202,7 +220,7 @@ public class OWLAPIStreamUtils {
      *        stream to compare
      * @return true if the streams have the same content, false otherwise.
      */
-    public static boolean equalStreams(Stream<? extends OWLObject> set1, Stream<? extends OWLObject> set2) {
+    public static boolean equalStreams(Stream<?> set1, Stream<?> set2) {
         return equalIterators(set1.iterator(), set2.iterator());
     }
 

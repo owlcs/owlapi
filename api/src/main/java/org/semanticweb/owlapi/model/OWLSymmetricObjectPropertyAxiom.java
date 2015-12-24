@@ -26,7 +26,12 @@ import java.util.Set;
 public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     @Override
-    OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
+        OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 149;
+    }
 
     /**
      * @return the set of axioms equivalent to this axiom
@@ -51,5 +56,10 @@ public interface OWLSymmetricObjectPropertyAxiom extends OWLObjectPropertyCharac
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.SYMMETRIC_OBJECT_PROPERTY;
     }
 }

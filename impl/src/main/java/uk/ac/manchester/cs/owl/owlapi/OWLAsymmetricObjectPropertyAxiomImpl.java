@@ -15,9 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -28,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 2.0.0
  */
 public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
-        implements OWLAsymmetricObjectPropertyAxiom {
+    implements OWLAsymmetricObjectPropertyAxiom {
 
     /**
      * @param property
@@ -37,7 +34,7 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
      *        annotations
      */
     public OWLAsymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -52,21 +49,5 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     @Override
     public OWLAsymmetricObjectPropertyAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLAsymmetricObjectPropertyAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.ASYMMETRIC_OBJECT_PROPERTY;
     }
 }

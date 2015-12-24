@@ -32,6 +32,16 @@ public interface SWRLClassAtom extends SWRLUnaryAtom<SWRLIArgument> {
     }
 
     @Override
+    default int hashIndex() {
+        return 641;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 6001;
+    }
+
+    @Override
         OWLClassExpression getPredicate();
 
     @Override

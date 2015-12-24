@@ -15,10 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
@@ -35,29 +33,7 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     }
 
     @Override
-    public int typeIndex() {
-        return RULE_OBJECT_TYPE_INDEX_BASE + 6;
-    }
-
-    @Override
     public IRI getIRI() {
         return iri;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return iri.compareTo(((SWRLVariable) object).getIRI());
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof SWRLVariable)) {
-            return false;
-        }
-        SWRLVariable other = (SWRLVariable) obj;
-        return other.getIRI().equals(getIRI());
     }
 }

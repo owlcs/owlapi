@@ -40,6 +40,11 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
     }
 
     @Override
+    default int hashIndex() {
+        return 823;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
@@ -57,5 +62,10 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.ANNOTATION_PROPERTY_DOMAIN;
     }
 }

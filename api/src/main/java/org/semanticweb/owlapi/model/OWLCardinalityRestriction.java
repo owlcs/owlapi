@@ -44,5 +44,7 @@ public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
      * @return {@code true} if this restriction is qualified, or {@code false}
      *         if this restriction is unqualified.
      */
-    boolean isQualified();
+    default boolean isQualified() {
+        return !getFiller().isTopEntity();
+    }
 }

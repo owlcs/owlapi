@@ -15,9 +15,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -43,11 +44,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 1;
-    }
-
-    @Override
     public boolean isTopEntity() {
         return top;
     }
@@ -55,16 +51,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     @Override
     public boolean isRDFPlainLiteral() {
         return iri.isPlainLiteral();
-    }
-
-    @Override
-    public EntityType<?> getEntityType() {
-        return EntityType.DATATYPE;
-    }
-
-    @Override
-    public boolean isType(EntityType<?> entityType) {
-        return getEntityType().equals(entityType);
     }
 
     @Override
@@ -80,11 +66,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     @Override
     public boolean isBuiltIn() {
         return builtin;
-    }
-
-    @Override
-    public DataRangeType getDataRangeType() {
-        return DataRangeType.DATATYPE;
     }
 
     @Override
@@ -127,26 +108,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLDatatype)) {
-            return false;
-        }
-        return ((OWLDatatype) obj).getIRI().equals(getIRI());
-    }
-
-    @Override
     public boolean isOWLDatatype() {
         return true;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return iri.compareTo(((OWLDatatype) object).getIRI());
     }
 }

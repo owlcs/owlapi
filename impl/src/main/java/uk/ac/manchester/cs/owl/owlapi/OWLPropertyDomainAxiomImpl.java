@@ -17,11 +17,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
@@ -54,29 +52,5 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
     @Override
     public OWLClassExpression getDomain() {
         return domain;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLPropertyDomainAxiom)) {
-            return false;
-        }
-        return ((OWLPropertyDomainAxiom<?>) obj).getDomain().equals(domain);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLPropertyDomainAxiom<?> other = (OWLPropertyDomainAxiom<?>) object;
-        int diff = getProperty().compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return domain.compareTo(other.getDomain());
     }
 }

@@ -14,9 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -39,27 +36,6 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
      */
     public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
-    }
-
-    @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 16;
-    }
-
-    @Override
-    public ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.DATA_EXACT_CARDINALITY;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLDataExactCardinality;
     }
 
     @Override

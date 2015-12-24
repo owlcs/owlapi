@@ -40,6 +40,11 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
         return Stream.of(annotations(), getClassExpression(), propertyExpressions());
     }
 
+    @Override
+    default int hashIndex() {
+        return 821;
+    }
+
     /**
      * Gets the class expression, instances of which, this axiom acts as the key
      * for.
@@ -146,5 +151,10 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.HAS_KEY;
     }
 }

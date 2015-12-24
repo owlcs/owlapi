@@ -37,6 +37,16 @@ public interface OWLFacetRestriction extends OWLObject {
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 563;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 4007;
+    }
+
     /**
      * Gets the retricted facet.
      * 

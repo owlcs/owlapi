@@ -44,13 +44,13 @@ class OWLXMLParserHandler extends DefaultHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLXMLParserHandler.class);
     private final OWLOntologyManager owlOntologyManager;
-    private final @Nonnull OWLOntology ontology;
+    @Nonnull private final OWLOntology ontology;
     private final List<OWLElementHandler<?>> handlerStack = new ArrayList<>();
-    private final @Nonnull Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
-    private final @Nonnull Map<String, String> prefixName2PrefixMap = new HashMap<>();
+    @Nonnull private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
+    @Nonnull private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
     private Locator locator;
     private final Deque<URI> bases = new LinkedList<>();
-    private final @Nonnull OWLOntologyLoaderConfiguration configuration;
+    @Nonnull private final OWLOntologyLoaderConfiguration configuration;
 
     /**
      * @param ontology

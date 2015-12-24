@@ -62,11 +62,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     }
 
     @Override
-    public int typeIndex() {
-        return ONTOLOGY;
-    }
-
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(100);
         sb.append("Ontology(").append(ontologyID).append(") [Axioms: ").append(ints.getAxiomCount()).append(
@@ -95,15 +90,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     public boolean isAnonymous() {
         return ontologyID.isAnonymous();
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        if (object == this) {
-            return 0;
-        }
-        OWLOntology other = (OWLOntology) object;
-        return ontologyID.compareTo(other.getOntologyID());
     }
 
     @Override
@@ -388,24 +374,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
     @Override
     public Stream<OWLOntology> importsClosure() {
         return getOWLOntologyManager().importsClosure(this);
-    }
-
-    // Utility methods for getting/setting various values in maps and sets
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLOntology)) {
-            return false;
-        }
-        OWLOntology other = (OWLOntology) obj;
-        return ontologyID.equals(other.getOntologyID());
-    }
-
-    @Override
-    public int hashCode() {
-        return ontologyID.hashCode();
     }
 
     private class OWLEntityReferenceChecker implements OWLEntityVisitor, Serializable {

@@ -23,6 +23,46 @@ package org.semanticweb.owlapi.model;
 public interface OWLClass extends OWLClassExpression, OWLLogicalEntity, OWLNamedObject {
 
     @Override
+    default int hashIndex() {
+        return 157;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 1001;
+    }
+
+    @Override
+    default EntityType<?> getEntityType() {
+        return EntityType.CLASS;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OWL_CLASS;
+    }
+
+    @Override
+    default boolean isTopEntity() {
+        return isOWLThing();
+    }
+
+    @Override
+    default boolean isBottomEntity() {
+        return isOWLNothing();
+    }
+
+    @Override
+    default boolean isClassExpressionLiteral() {
+        return true;
+    }
+
+    @Override
+    default boolean isOWLClass() {
+        return true;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

@@ -20,7 +20,17 @@ package org.semanticweb.owlapi.model;
 public interface SWRLObjectPropertyAtom extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {
 
     @Override
-    OWLObjectPropertyExpression getPredicate();
+    default int hashIndex() {
+        return 647;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 6003;
+    }
+
+    @Override
+        OWLObjectPropertyExpression getPredicate();
 
     /**
      * Gets a simplified form of this atom. This basically creates and returns a

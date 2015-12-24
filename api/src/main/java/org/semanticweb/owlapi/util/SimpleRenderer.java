@@ -820,10 +820,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DLSafeRule(");
         writeAnnotations(rule);
         sb.append(" Body(");
-        render(rule.body().sorted());
+        render(rule.body());
         sb.append(')');
         sb.append(" Head(");
-        render(rule.head().sorted());
+        render(rule.head());
         sb.append(')');
         sb.append(" )");
     }

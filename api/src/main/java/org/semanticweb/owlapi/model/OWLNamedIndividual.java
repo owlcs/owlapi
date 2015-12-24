@@ -24,6 +24,36 @@ package org.semanticweb.owlapi.model;
 public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {
 
     @Override
+    default int hashIndex() {
+        return 311;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 1005;
+    }
+
+    @Override
+    default EntityType<?> getEntityType() {
+        return EntityType.NAMED_INDIVIDUAL;
+    }
+
+    @Override
+    default boolean isOWLNamedIndividual() {
+        return true;
+    }
+
+    @Override
+    default OWLAnonymousIndividual asOWLAnonymousIndividual() {
+        throw new OWLRuntimeException("Not an anonymous individual");
+    }
+
+    @Override
+    default boolean isBuiltIn() {
+        return false;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

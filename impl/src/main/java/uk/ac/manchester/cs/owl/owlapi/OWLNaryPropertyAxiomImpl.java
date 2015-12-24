@@ -13,8 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,7 +21,6 @@ import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -79,28 +76,6 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
         Set<P> props = new TreeSet<>(properties);
         props.remove(property);
         return props;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLNaryPropertyAxiom)) {
-            return false;
-        }
-        if (obj instanceof OWLNaryPropertyAxiomImpl) {
-            return properties.equals(((OWLNaryPropertyAxiomImpl<?>) obj).properties);
-        }
-        return compareObjectOfSameType((OWLNaryPropertyAxiom<?>) obj) == 0;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(properties(), ((OWLNaryPropertyAxiom<?>) object).properties());
     }
 
     @Override

@@ -17,10 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
@@ -56,28 +54,5 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
     @Override
     public R getRange() {
         return range;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLPropertyRangeAxiom)) {
-            return false;
-        }
-        return ((OWLPropertyRangeAxiom<?, ?>) obj).getRange().equals(range);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        int diff = getProperty().compareTo(((OWLPropertyRangeAxiom<?, ?>) object).getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return getRange().compareTo(((OWLPropertyRangeAxiom<?, ?>) object).getRange());
     }
 }

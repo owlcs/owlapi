@@ -24,7 +24,12 @@ package org.semanticweb.owlapi.model;
 public interface OWLTransitiveObjectPropertyAxiom extends OWLObjectPropertyCharacteristicAxiom {
 
     @Override
-    OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations();
+        OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 151;
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
@@ -44,5 +49,10 @@ public interface OWLTransitiveObjectPropertyAxiom extends OWLObjectPropertyChara
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.TRANSITIVE_OBJECT_PROPERTY;
     }
 }

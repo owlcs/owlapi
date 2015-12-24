@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
 /**
  * Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
@@ -22,7 +24,7 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty,
-        AsOWLDatatype, AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
+    AsOWLDatatype, AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
 
     /**
      * Gets the entity type for this entity.
@@ -39,7 +41,9 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOW
      * @return {@code true} if this entity is of the specified type, otherwise
      *         {@code false}.
      */
-    boolean isType(EntityType<?> entityType);
+    default boolean isType(EntityType<?> entityType) {
+        return getEntityType().equals(entityType);
+    }
 
     /**
      * Determines if this entity is a built in entity. The entity is a built in
@@ -70,7 +74,9 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive, AsOW
      * @return {@code true} if this entity is a built in entity, or
      *         {@code false} if this entity is not a builtin entity.
      */
-    boolean isBuiltIn();
+    default boolean isBuiltIn() {
+        return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(getIRI());
+    }
 
     /**
      * Returns a string representation that can be used as the ID of this

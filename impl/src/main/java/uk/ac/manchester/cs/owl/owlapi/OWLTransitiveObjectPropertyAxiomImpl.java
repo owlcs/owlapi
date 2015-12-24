@@ -15,9 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -29,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * @since 2.0.0
  */
 public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
-        implements OWLTransitiveObjectPropertyAxiom {
+    implements OWLTransitiveObjectPropertyAxiom {
 
     /**
      * @param property
@@ -38,7 +35,7 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
      *        annotations
      */
     public OWLTransitiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -53,21 +50,5 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends OWLObjectPropertyChara
     @Override
     public OWLAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), mergeAnnos(anns));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLTransitiveObjectPropertyAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.TRANSITIVE_OBJECT_PROPERTY;
     }
 }

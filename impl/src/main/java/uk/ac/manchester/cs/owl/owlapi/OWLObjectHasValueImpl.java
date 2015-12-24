@@ -15,9 +15,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -40,39 +42,8 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
     }
 
     @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 7;
-    }
-
-    @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
-    }
-
-    @Override
-    public ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_HAS_VALUE;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLObjectHasValue && getProperty().equals(((OWLObjectHasValue) obj).getProperty());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLObjectHasValue other = (OWLObjectHasValue) object;
-        int diff = getProperty().compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return value.compareTo(other.getFiller());
     }
 
     @Override

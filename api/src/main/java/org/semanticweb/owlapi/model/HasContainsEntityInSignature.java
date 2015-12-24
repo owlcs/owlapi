@@ -19,7 +19,6 @@ package org.semanticweb.owlapi.model;
  *         Research Group
  * @since 3.4.6
  */
-@FunctionalInterface
 public interface HasContainsEntityInSignature {
 
     /**
@@ -30,5 +29,7 @@ public interface HasContainsEntityInSignature {
      * @return {@code true} if the signature of this object contains
      *         {@code owlEntity}, otherwise {@code false}
      */
-    boolean containsEntityInSignature(OWLEntity owlEntity);
+    default boolean containsEntityInSignature(@SuppressWarnings("unused") OWLEntity owlEntity) {
+        return false;
+    }
 }

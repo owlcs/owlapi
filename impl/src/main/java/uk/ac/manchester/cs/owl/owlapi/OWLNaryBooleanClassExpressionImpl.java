@@ -20,11 +20,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -48,27 +46,5 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
     @Override
     public Stream<? extends OWLClassExpression> operands() {
         return operands.stream();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLNaryBooleanClassExpression)) {
-            return false;
-        }
-        if (obj instanceof OWLNaryBooleanClassExpressionImpl) {
-            return ((OWLNaryBooleanClassExpressionImpl) obj).operands.equals(operands);
-        }
-        return equalStreams(((OWLNaryBooleanClassExpression) obj).operands(), operands());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(operands(), ((OWLNaryBooleanClassExpression) object).operands());
     }
 }

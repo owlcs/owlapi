@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -46,12 +48,6 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
             this.lang = lang.trim();
             datatype = InternalizedEntities.LANGSTRING;
         }
-        hashCode = getHashCode();
-    }
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 8;
     }
 
     @Override
@@ -88,68 +84,29 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public int hashCode() {
-        return hashCode;
+    protected int hashCode(OWLObject object) {
+        return hash(object.hashIndex(), Stream.of(getDatatype(), specificHash() * 65536, getLang()));
     }
 
-    private final int getHashCode() {
-        int hash = 277;
-        hash = hash * 37 + getDatatype().hashCode();
-        hash = hash * 37;
+    private int specificHash() {
         try {
             if (isInteger()) {
-                hash += parseInteger() * 65536;
-            } else if (isDouble()) {
-                hash += (int) parseDouble() * 65536;
-            } else if (isFloat()) {
-                hash += (int) parseFloat() * 65536;
-            } else if (isBoolean()) {
-                hash += parseBoolean() ? 65536 : 0;
-            } else {
-                hash += getLiteral().hashCode() * 65536;
+                return parseInteger();
+            }
+            if (isDouble()) {
+                return (int) parseDouble();
+            }
+            if (isFloat()) {
+                return (int) parseFloat();
+            }
+            if (isBoolean()) {
+                return parseBoolean() ? 1 : 0;
             }
         } catch (@SuppressWarnings("unused") NumberFormatException e) {
             // it is possible that a literal does not have a value that's valid
             // for its datatype; not very useful for a consistent ontology but
             // some W3C reasoner tests use them
-            hash += getLiteral().hashCode() * 65536;
         }
-        if (hasLang()) {
-            hash = hash * 37 + getLang().hashCode();
-        }
-        return hash;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLLiteral)) {
-                return false;
-            }
-            OWLLiteral other = (OWLLiteral) obj;
-            if (other instanceof OWLLiteralImplPlain) {
-                return literal.equals(((OWLLiteralImplPlain) other).literal) && lang.equals(other.getLang());
-            }
-            return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
-                && lang.equals(other.getLang());
-        }
-        return false;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLLiteral other = (OWLLiteral) object;
-        int diff = getLiteral().compareTo(other.getLiteral());
-        if (diff != 0) {
-            return diff;
-        }
-        diff = lang.compareToIgnoreCase(other.getLang());
-        if (diff != 0) {
-            return diff;
-        }
-        return getDatatype().compareTo(other.getDatatype());
+        return getLiteral().hashCode();
     }
 }

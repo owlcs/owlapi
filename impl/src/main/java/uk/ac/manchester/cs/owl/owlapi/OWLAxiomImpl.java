@@ -13,14 +13,13 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asSet;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -45,11 +44,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     }
 
     @Override
-    public int typeIndex() {
-        return AXIOM_TYPE_INDEX_BASE + getAxiomType().getIndex();
-    }
-
-    @Override
     public Stream<OWLAnnotation> annotations() {
         return annotations.stream();
     }
@@ -69,28 +63,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
      */
     protected Collection<OWLAnnotation> mergeAnnos(Stream<OWLAnnotation> annos) {
         return asSet(Stream.concat(annos, annotations.stream()));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || hashCode() != obj.hashCode()) {
-            return false;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLAxiom)) {
-            return false;
-        }
-        OWLAxiom other = (OWLAxiom) obj;
-        // for OWLAxiomImpl comparisons, do not create wrapper objects
-        if (other instanceof OWLAxiomImpl) {
-            return annotations.equals(((OWLAxiomImpl) other).annotations);
-        }
-        return equalStreams(annotations(), annotations());
     }
 
     @Override

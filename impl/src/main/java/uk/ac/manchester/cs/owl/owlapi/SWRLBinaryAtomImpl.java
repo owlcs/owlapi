@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
@@ -57,19 +56,5 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     @Override
     public B getSecondArgument() {
         return arg1;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        SWRLBinaryAtom<?, ?> other = (SWRLBinaryAtom<?, ?>) object;
-        int diff = ((OWLObject) getPredicate()).compareTo((OWLObject) other.getPredicate());
-        if (diff != 0) {
-            return diff;
-        }
-        diff = arg0.compareTo(other.getFirstArgument());
-        if (diff != 0) {
-            return diff;
-        }
-        return arg1.compareTo(other.getSecondArgument());
     }
 }

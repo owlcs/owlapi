@@ -14,14 +14,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -78,32 +75,6 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        // superclass is responsible for null, identity, owlaxiom type and
-        // annotations
-        if (!(obj instanceof OWLDisjointUnionAxiom)) {
-            return false;
-        }
-        if (obj instanceof OWLDisjointUnionAxiomImpl) {
-            OWLDisjointUnionAxiomImpl object = (OWLDisjointUnionAxiomImpl) obj;
-            return owlClass.equals(object.owlClass) && classExpressions.equals(object.classExpressions);
-        }
-        OWLDisjointUnionAxiom object = (OWLDisjointUnionAxiom) obj;
-        return object.getOWLClass().equals(owlClass) && equalStreams(classExpressions(), object.classExpressions());
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DISJOINT_UNION;
-    }
-
-    @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
         return new OWLEquivalentClassesAxiomImpl(
             Sets.newHashSet(owlClass, new OWLObjectUnionOfImpl(classExpressions.stream())),
@@ -113,15 +84,5 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements OWLD
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
         return new OWLDisjointClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLDisjointUnionAxiom other = (OWLDisjointUnionAxiom) object;
-        int diff = owlClass.compareTo(other.getOWLClass());
-        if (diff != 0) {
-            return diff;
-        }
-        return compareStreams(classExpressions(), other.classExpressions());
     }
 }

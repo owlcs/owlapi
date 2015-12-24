@@ -17,15 +17,30 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * Represents an <a href=
- * "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"
- * >AnnotationProperty</a> in the OWL 2 specification.
+ * Represents an
+ * <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties" >
+ * AnnotationProperty</a> in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
 public interface OWLAnnotationProperty extends OWLProperty {
+
+    @Override
+    default int hashIndex() {
+        return 857;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 1006;
+    }
+
+    @Override
+    default EntityType<?> getEntityType() {
+        return EntityType.ANNOTATION_PROPERTY;
+    }
 
     /**
      * Determines if this annotation property has an IRI corresponding to
@@ -55,9 +70,9 @@ public interface OWLAnnotationProperty extends OWLProperty {
      * Determines if this annotation property has an IRI corresponding to
      * {@code owl:deprecated}. An annotation along the {@code owl:deprecated}
      * property which has a value of {@code "true"^^xsd:boolean} can be used to
-     * deprecate IRIs. (See <a href
-     * ="http://www.w3.org/TR/owl2-syntax/#Annotation_Properties">Section 5.5
-     * </a> of the OWL 2 specification.
+     * deprecate IRIs. (See
+     * <a href ="http://www.w3.org/TR/owl2-syntax/#Annotation_Properties">
+     * Section 5.5 </a> of the OWL 2 specification.
      * 
      * @return {@code true} if the IRI of this annotation property is
      *         {@code owl:deprecated}, where {@code owl:} expands to the usual
@@ -65,6 +80,11 @@ public interface OWLAnnotationProperty extends OWLProperty {
      */
     default boolean isDeprecated() {
         return getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
+    }
+
+    @Override
+    default boolean isOWLAnnotationProperty() {
+        return true;
     }
 
     @Override

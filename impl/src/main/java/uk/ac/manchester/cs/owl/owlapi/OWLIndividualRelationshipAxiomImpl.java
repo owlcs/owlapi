@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -69,35 +68,5 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     @Override
     public O getObject() {
         return o;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLPropertyAssertionAxiom)) {
-            return false;
-        }
-        OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) obj;
-        return other.getSubject().equals(subject) && other.getProperty().equals(property)
-            && other.getObject().equals(o);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) object;
-        int diff = subject.compareTo(other.getSubject());
-        if (diff != 0) {
-            return diff;
-        }
-        diff = property.compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return o.compareTo(other.getObject());
     }
 }

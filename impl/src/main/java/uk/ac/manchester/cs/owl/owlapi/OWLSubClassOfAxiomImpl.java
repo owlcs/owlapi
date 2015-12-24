@@ -18,12 +18,9 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
@@ -77,37 +74,5 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
     @Override
     public boolean isGCI() {
         return subClass.isAnonymous();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLSubClassOfAxiom)) {
-            return false;
-        }
-        // superclass is responsible for null, identity, owlaxiom type and
-        // annotations
-        OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) obj;
-        return other.getSubClass().equals(subClass) && other.getSuperClass().equals(superClass);
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.SUBCLASS_OF;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) object;
-        int diff = subClass.compareTo(other.getSubClass());
-        if (diff != 0) {
-            return diff;
-        }
-        return superClass.compareTo(other.getSuperClass());
     }
 }

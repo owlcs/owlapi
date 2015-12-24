@@ -14,18 +14,15 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
+import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asListNullsForbidden;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
 /**
@@ -63,16 +60,6 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     }
 
     @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 4;
-    }
-
-    @Override
-    public ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_ONE_OF;
-    }
-
-    @Override
     public Stream<? extends OWLIndividual> individuals() {
         return values.stream();
     }
@@ -84,27 +71,5 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
         } else {
             return new OWLObjectUnionOfImpl(individuals().map(i -> new OWLObjectOneOfImpl(i)));
         }
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLObjectOneOf)) {
-            return false;
-        }
-        if (obj instanceof OWLObjectOneOfImpl) {
-            return values.equals(((OWLObjectOneOfImpl) obj).values);
-        }
-        return equalStreams(((OWLObjectOneOf) obj).individuals(), individuals());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(individuals(), ((OWLObjectOneOf) object).individuals());
     }
 }

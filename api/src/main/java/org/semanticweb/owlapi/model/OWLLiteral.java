@@ -49,6 +49,16 @@ public interface OWLLiteral
     }
 
     @Override
+    default int hashIndex() {
+        return 277;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 4008;
+    }
+
+    @Override
     default Stream<?> componentsAnnotationsFirst() {
         return components();
     }

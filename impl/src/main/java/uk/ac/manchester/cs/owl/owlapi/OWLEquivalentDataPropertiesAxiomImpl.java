@@ -19,9 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
@@ -33,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
  * @since 2.0.0
  */
 public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression>
-        implements OWLEquivalentDataPropertiesAxiom {
+    implements OWLEquivalentDataPropertiesAxiom {
 
     /**
      * @param properties
@@ -42,7 +39,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
      *        annotations
      */
     public OWLEquivalentDataPropertiesAxiomImpl(Collection<? extends OWLDataPropertyExpression> properties,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
 
@@ -65,7 +62,7 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
                 result.add(new OWLEquivalentDataPropertiesAxiomImpl(
-                        new HashSet<>(Arrays.asList(properties.get(i), properties.get(j))), NO_ANNOTATIONS));
+                    new HashSet<>(Arrays.asList(properties.get(i), properties.get(j))), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -83,22 +80,6 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomIm
             result.add(new OWLEquivalentDataPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
         }
         return result;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLEquivalentDataPropertiesAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.EQUIVALENT_DATA_PROPERTIES;
     }
 
     @Override

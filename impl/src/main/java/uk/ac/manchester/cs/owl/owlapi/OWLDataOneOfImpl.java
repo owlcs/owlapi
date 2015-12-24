@@ -14,19 +14,14 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.*;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -64,39 +59,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     }
 
     @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 3;
-    }
-
-    @Override
-    public DataRangeType getDataRangeType() {
-        return DataRangeType.DATA_ONE_OF;
-    }
-
-    @Override
     public Stream<? extends OWLLiteral> values() {
         return values.stream();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLDataOneOf)) {
-            return false;
-        }
-        if (obj instanceof OWLDataOneOfImpl) {
-            return values.equals(((OWLDataOneOfImpl) obj).values);
-        }
-        return equalStreams(((OWLDataOneOf) obj).values(), values());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(values(), ((OWLDataOneOf) object).values());
     }
 }

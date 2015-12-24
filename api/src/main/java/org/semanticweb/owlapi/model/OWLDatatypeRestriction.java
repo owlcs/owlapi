@@ -38,6 +38,21 @@ public interface OWLDatatypeRestriction extends OWLDataRange {
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 271;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 4006;
+    }
+
+    @Override
+    default DataRangeType getDataRangeType() {
+        return DataRangeType.DATATYPE_RESTRICTION;
+    }
+
     /**
      * Gets the data range that this data range restricts.
      * 

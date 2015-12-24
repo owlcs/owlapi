@@ -15,13 +15,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -41,54 +37,12 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements OWLAnnot
     }
 
     @Override
-    public int typeIndex() {
-        return ANNOTATION_PROPERTY;
-    }
-
-    @Override
     public IRI getIRI() {
         return iri;
     }
 
     @Override
-    public EntityType<?> getEntityType() {
-        return EntityType.ANNOTATION_PROPERTY;
-    }
-
-    @Override
-    public boolean isType(EntityType<?> entityType) {
-        return getEntityType().equals(entityType);
-    }
-
-    @Override
     public String toStringID() {
         return iri.toString();
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return iri.compareTo(((OWLAnnotationProperty) object).getIRI());
-    }
-
-    @Override
-    public boolean isBuiltIn() {
-        return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(getIRI());
-    }
-
-    @Override
-    public boolean isOWLAnnotationProperty() {
-        return true;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLAnnotationProperty)) {
-            return false;
-        }
-        OWLAnnotationProperty other = (OWLAnnotationProperty) obj;
-        return iri.equals(other.getIRI());
     }
 }

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
 /**
  * Represents an
  * <a href="http://www.w3.org/TR/owl2-syntax/#Object_Properties">Object
@@ -22,6 +24,51 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLObjectProperty extends OWLObjectPropertyExpression, OWLProperty {
+
+    @Override
+    default int hashIndex() {
+        return 293;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 1002;
+    }
+
+    @Override
+    default EntityType<?> getEntityType() {
+        return EntityType.OBJECT_PROPERTY;
+    }
+
+    @Override
+    default OWLObjectProperty getNamedProperty() {
+        return this;
+    }
+
+    @Override
+    default boolean isOWLObjectProperty() {
+        return true;
+    }
+
+    @Override
+    default boolean isTopEntity() {
+        return isOWLTopObjectProperty();
+    }
+
+    @Override
+    default boolean isBottomEntity() {
+        return isOWLBottomObjectProperty();
+    }
+
+    @Override
+    default boolean isOWLTopObjectProperty() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
+    }
+
+    @Override
+    default boolean isOWLBottomObjectProperty() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {

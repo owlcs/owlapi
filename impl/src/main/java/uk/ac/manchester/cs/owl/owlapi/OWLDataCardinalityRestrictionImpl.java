@@ -15,12 +15,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -41,38 +39,5 @@ public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRe
     @Override
     public OWLDataPropertyExpression getProperty() {
         return property;
-    }
-
-    @Override
-    public boolean isQualified() {
-        return !getFiller().isTopDatatype();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLDataCardinalityRestriction)) {
-            return false;
-        }
-        return getProperty().equals(((OWLDataCardinalityRestriction) obj).getProperty());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLDataCardinalityRestriction other = (OWLDataCardinalityRestriction) object;
-        int diff = getProperty().compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        diff = getCardinality() - other.getCardinality();
-        if (diff != 0) {
-            return diff;
-        }
-        return getFiller().compareTo(other.getFiller());
     }
 }

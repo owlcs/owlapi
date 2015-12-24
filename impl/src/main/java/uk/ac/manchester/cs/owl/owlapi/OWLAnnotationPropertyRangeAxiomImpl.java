@@ -18,9 +18,11 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -68,37 +70,5 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     @Override
     public IRI getRange() {
         return range;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.ANNOTATION_PROPERTY_RANGE;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) object;
-        int diff = property.compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return range.compareTo(other.getRange());
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        // superclass is responsible for null, identity, owlaxiom type and
-        // annotations
-        if (!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
-            return false;
-        }
-        OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-        return property.equals(other.getProperty()) && range.equals(other.getRange());
     }
 }

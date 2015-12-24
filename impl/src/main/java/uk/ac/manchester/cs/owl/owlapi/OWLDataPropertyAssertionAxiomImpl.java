@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -60,21 +58,5 @@ public class OWLDataPropertyAssertionAxiomImpl
     @Override
     public OWLDataPropertyAssertionAxiom getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
         return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(), getObject(), mergeAnnos(anns));
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLDataPropertyAssertionAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DATA_PROPERTY_ASSERTION;
     }
 }

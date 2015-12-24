@@ -15,12 +15,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -28,7 +25,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements OWLDataProperty {
+public class OWLDataPropertyImpl extends OWLObjectImpl implements OWLDataProperty {
 
     @Nonnull private final IRI iri;
     private final boolean builtin;
@@ -44,38 +41,8 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements OW
     }
 
     @Override
-    public int typeIndex() {
-        return DATA_PROPERTY;
-    }
-
-    @Override
-    public boolean isTopEntity() {
-        return isOWLTopDataProperty();
-    }
-
-    @Override
-    public boolean isBottomEntity() {
-        return isOWLBottomDataProperty();
-    }
-
-    @Override
-    public EntityType<?> getEntityType() {
-        return EntityType.DATA_PROPERTY;
-    }
-
-    @Override
-    public boolean isType(EntityType<?> entityType) {
-        return getEntityType().equals(entityType);
-    }
-
-    @Override
     public String toStringID() {
         return iri.toString();
-    }
-
-    @Override
-    public boolean isDataPropertyExpression() {
-        return true;
     }
 
     @Override
@@ -86,39 +53,5 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements OW
     @Override
     public boolean isBuiltIn() {
         return builtin;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLDataProperty)) {
-            return false;
-        }
-        return ((OWLDataProperty) obj).getIRI().equals(iri);
-    }
-
-    @Override
-    public boolean isOWLDataProperty() {
-        return true;
-    }
-
-    @Override
-    public boolean isOWLTopDataProperty() {
-        return iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI());
-    }
-
-    @Override
-    public boolean isOWLBottomDataProperty() {
-        return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return iri.compareTo(((OWLDataProperty) object).getIRI());
     }
 }

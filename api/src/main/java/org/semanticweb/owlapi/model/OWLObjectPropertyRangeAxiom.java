@@ -21,10 +21,15 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLObjectPropertyRangeAxiom
-        extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>, OWLObjectPropertyAxiom {
+    extends OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>, OWLObjectPropertyAxiom {
 
     @Override
-    OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations();
+        OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 113;
+    }
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
@@ -44,5 +49,10 @@ public interface OWLObjectPropertyRangeAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.OBJECT_PROPERTY_RANGE;
     }
 }

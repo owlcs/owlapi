@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLHasValueRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -27,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends OWLRestrictionImpl
+public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends OWLAnonymousClassExpressionImpl
     implements OWLHasValueRestriction<V> {
 
     @Nonnull protected final V value;
@@ -39,19 +38,5 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends OWLRe
     @Override
     public V getFiller() {
         return value;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLHasValueRestriction<?>)) {
-            return false;
-        }
-        return ((OWLHasValueRestriction<?>) obj).getFiller().equals(value);
     }
 }

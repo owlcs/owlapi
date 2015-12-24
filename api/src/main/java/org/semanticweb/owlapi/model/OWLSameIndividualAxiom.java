@@ -26,7 +26,12 @@ import java.util.Set;
 public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
 
     @Override
-    OWLSameIndividualAxiom getAxiomWithoutAnnotations();
+        OWLSameIndividualAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 137;
+    }
 
     /**
      * Determines whether this axiom contains anonymous individuals. Anonymous
@@ -37,10 +42,10 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     boolean containsAnonymousIndividuals();
 
     @Override
-    Set<OWLSameIndividualAxiom> asPairwiseAxioms();
+        Set<OWLSameIndividualAxiom> asPairwiseAxioms();
 
     @Override
-    Set<OWLSameIndividualAxiom> splitToAnnotatedPairs();
+        Set<OWLSameIndividualAxiom> splitToAnnotatedPairs();
 
     @Override
     default void accept(OWLObjectVisitor visitor) {
@@ -60,5 +65,10 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.SAME_INDIVIDUAL;
     }
 }

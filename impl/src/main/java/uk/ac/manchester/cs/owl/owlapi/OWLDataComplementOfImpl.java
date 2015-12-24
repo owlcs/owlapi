@@ -15,12 +15,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -40,37 +37,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataCom
     }
 
     @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 2;
-    }
-
-    @Override
-    public DataRangeType getDataRangeType() {
-        return DataRangeType.DATA_COMPLEMENT_OF;
-    }
-
-    @Override
     public OWLDataRange getDataRange() {
         return dataRange;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLDataComplementOf)) {
-            return false;
-        }
-        return ((OWLDataComplementOf) obj).getDataRange().equals(dataRange);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLDataComplementOf other = (OWLDataComplementOf) object;
-        return getDataRange().compareTo(other.getDataRange());
     }
 }

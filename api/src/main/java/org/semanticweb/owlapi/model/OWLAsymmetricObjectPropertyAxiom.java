@@ -36,6 +36,11 @@ public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyChara
     }
 
     @Override
+    default int hashIndex() {
+        return 3;
+    }
+
+    @Override
         OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 
     @Override
@@ -56,5 +61,10 @@ public interface OWLAsymmetricObjectPropertyAxiom extends OWLObjectPropertyChara
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.ASYMMETRIC_OBJECT_PROPERTY;
     }
 }

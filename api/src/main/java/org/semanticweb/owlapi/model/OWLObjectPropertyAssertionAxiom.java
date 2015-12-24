@@ -22,10 +22,15 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLObjectPropertyAssertionAxiom
-        extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
+    extends OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>, OWLSubClassOfAxiomShortCut {
 
     @Override
-    OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
+        OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
+
+    @Override
+    default int hashIndex() {
+        return 103;
+    }
 
     /**
      * Gets a simplified version of this object property axiom. This is defined
@@ -69,5 +74,10 @@ public interface OWLObjectPropertyAssertionAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.OBJECT_PROPERTY_ASSERTION;
     }
 }

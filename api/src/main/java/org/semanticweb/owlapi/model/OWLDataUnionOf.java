@@ -24,6 +24,21 @@ package org.semanticweb.owlapi.model;
 public interface OWLDataUnionOf extends OWLNaryDataRange {
 
     @Override
+    default int hashIndex() {
+        return 853;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 4005;
+    }
+
+    @Override
+    default DataRangeType getDataRangeType() {
+        return DataRangeType.DATA_UNION_OF;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

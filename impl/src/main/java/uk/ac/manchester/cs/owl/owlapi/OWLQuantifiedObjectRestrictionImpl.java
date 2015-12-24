@@ -15,13 +15,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectRestriction;
-import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 
 /** Quantified object restriction. */
 public abstract class OWLQuantifiedObjectRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLClassExpression>
@@ -43,26 +40,5 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends OWLQuantifiedRe
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLQuantifiedObjectRestriction other = (OWLQuantifiedObjectRestriction) object;
-        int diff = getProperty().compareTo(other.getProperty());
-        if (diff != 0) {
-            return diff;
-        }
-        return getFiller().compareTo(other.getFiller());
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLObjectRestriction && getProperty().equals(((OWLObjectRestriction) obj).getProperty());
     }
 }

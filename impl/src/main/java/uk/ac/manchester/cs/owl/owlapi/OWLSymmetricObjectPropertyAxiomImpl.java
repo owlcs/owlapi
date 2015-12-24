@@ -17,9 +17,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
@@ -31,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
  * @since 2.0.0
  */
 public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl
-        implements OWLSymmetricObjectPropertyAxiom {
+    implements OWLSymmetricObjectPropertyAxiom {
 
     /**
      * @param property
@@ -40,7 +37,7 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
      *        annotations
      */
     public OWLSymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
-            Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -48,9 +45,9 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<>(5);
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(),
-                getProperty().getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+            getProperty().getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty().getSimplified(),
-                getProperty(), NO_ANNOTATIONS));
+            getProperty(), NO_ANNOTATIONS));
         return result;
     }
 
@@ -65,21 +62,5 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
             return this;
         }
         return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLSymmetricObjectPropertyAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.SYMMETRIC_OBJECT_PROPERTY;
     }
 }

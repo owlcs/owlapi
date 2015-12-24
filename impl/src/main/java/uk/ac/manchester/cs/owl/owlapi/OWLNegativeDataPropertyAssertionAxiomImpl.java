@@ -15,8 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.*;
 
 /**
@@ -66,21 +64,5 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
     @Override
     public boolean containsAnonymousIndividuals() {
         return getSubject().isAnonymous();
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLNegativeDataPropertyAssertionAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
     }
 }

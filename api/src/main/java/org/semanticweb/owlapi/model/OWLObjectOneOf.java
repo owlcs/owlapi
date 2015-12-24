@@ -38,6 +38,21 @@ public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
         return components();
     }
 
+    @Override
+    default int hashIndex() {
+        return 229;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 3004;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_ONE_OF;
+    }
+
     /**
      * Gets the individuals that are in the oneOf. These individuals represent
      * the exact instances (extension) of this class expression.

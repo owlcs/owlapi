@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import javax.annotation.Nullable;
+import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -33,24 +33,11 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
      */
     public OWLLiteralImplDouble(double literal) {
         this.literal = literal;
-        hashCode = getHashCode();
     }
 
     @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 8;
-    }
-
-    @Override
-    public int hashCode() {
-        return hashCode;
-    }
-
-    private int getHashCode() {
-        int hash = 277;
-        hash = hash * 37 + getDatatype().hashCode();
-        hash = hash * 37 + (int) (literal * 65536);
-        return hash;
+    protected int hashCode(OWLObject object) {
+        return hash(object.hashIndex(), Stream.of(getDatatype(), (int) literal * 65536, getLang()));
     }
 
     @Override
@@ -71,34 +58,5 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
     @Override
     public OWLDatatype getDatatype() {
         return InternalizedEntities.XSDDOUBLE;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (super.equals(obj)) {
-            if (obj instanceof OWLLiteralImplDouble) {
-                OWLLiteralImplDouble other = (OWLLiteralImplDouble) obj;
-                return Double.compare(literal, other.literal) == 0;
-            }
-            if (obj instanceof OWLLiteral) {
-                return getDatatype().equals(((OWLLiteral) obj).getDatatype())
-                    && getLiteral().equals(((OWLLiteral) obj).getLiteral());
-            }
-        }
-        return false;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLLiteral other = (OWLLiteral) object;
-        int diff = getLiteral().compareTo(other.getLiteral());
-        if (diff != 0) {
-            return diff;
-        }
-        int compareTo = getDatatype().compareTo(other.getDatatype());
-        if (compareTo != 0) {
-            return compareTo;
-        }
-        return Double.compare(literal, other.parseDouble());
     }
 }

@@ -55,6 +55,16 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
     }
 
     @Override
+    default int hashIndex() {
+        return 0;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 1;
+    }
+
+    @Override
     default Stream<?> componentsAnnotationsFirst() {
         return components();
     }

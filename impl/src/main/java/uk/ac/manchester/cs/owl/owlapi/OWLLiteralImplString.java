@@ -12,13 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
@@ -38,12 +36,6 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
      */
     public OWLLiteralImplString(String literal) {
         this.literal = literal;
-        hashCode = getHashCode();
-    }
-
-    @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 8;
     }
 
     @Override
@@ -57,65 +49,7 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public int hashCode() {
-        return hashCode;
-    }
-
-    private final int getHashCode() {
-        int hash = 277;
-        hash = hash * 37 + getDatatype().hashCode();
-        hash *= 37;
-        hash += getLiteral().hashCode() * 65536;
-        if (hasLang()) {
-            hash = hash * 37 + getLang().hashCode();
-        }
-        return hash;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof OWLLiteral)) {
-            return false;
-        }
-        OWLLiteral other = (OWLLiteral) obj;
-        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
-            && getLang().equals(other.getLang());
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLLiteral other = (OWLLiteral) object;
-        int diff = getLiteral().compareTo(other.getLiteral());
-        if (diff != 0) {
-            return diff;
-        }
-        diff = getDatatype().compareTo(other.getDatatype());
-        if (diff != 0) {
-            return diff;
-        }
-        return getLang().compareTo(other.getLang());
-    }
-
-    @Override
-    public int compareTo(@Nullable OWLObject o) {
-        checkNotNull(o);
-        assert o != null;
-        int diff = typeIndex() - o.typeIndex();
-        if (diff != 0) {
-            return diff;
-        }
-        // Objects are the same type
-        return compareObjectOfSameType(o);
-    }
-
-    @Override
-    public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        return false;
+    protected int hashCode(OWLObject object) {
+        return hash(object.hashIndex(), Stream.of(getDatatype(), getLiteral().hashCode() * 65536, getLang()));
     }
 }

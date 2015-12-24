@@ -36,6 +36,16 @@ public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI, Seri
     }
 
     @Override
+    default int hashIndex() {
+        return 661;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 6006;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

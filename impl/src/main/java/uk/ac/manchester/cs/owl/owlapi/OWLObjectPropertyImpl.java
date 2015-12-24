@@ -15,11 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -29,7 +26,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectProperty {
+public class OWLObjectPropertyImpl extends OWLObjectImpl implements OWLObjectProperty {
 
     @Nonnull private final IRI iri;
     private final boolean builtin;
@@ -42,31 +39,6 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI())
             || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
-    }
-
-    @Override
-    public int typeIndex() {
-        return OBJECT_PROPERTY;
-    }
-
-    @Override
-    public boolean isTopEntity() {
-        return isOWLTopObjectProperty();
-    }
-
-    @Override
-    public boolean isBottomEntity() {
-        return isOWLBottomObjectProperty();
-    }
-
-    @Override
-    public EntityType<?> getEntityType() {
-        return EntityType.OBJECT_PROPERTY;
-    }
-
-    @Override
-    public boolean isType(EntityType<?> entityType) {
-        return getEntityType().equals(entityType);
     }
 
     @Override
@@ -85,48 +57,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLObjectProperty)) {
-            return false;
-        }
-        return ((OWLObjectProperty) obj).getIRI().equals(iri);
-    }
-
-    @Override
-    public boolean isOWLObjectProperty() {
-        return true;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return iri.compareTo(((OWLObjectProperty) object).getIRI());
-    }
-
-    @Override
-    public boolean isOWLTopObjectProperty() {
-        return iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI());
-    }
-
-    @Override
-    public boolean isOWLBottomObjectProperty() {
-        return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
-    }
-
-    @Nonnull
-    @Override
     public OWLObjectInverseOf getInverseProperty() {
         return new OWLObjectInverseOfImpl(this);
-    }
-
-    @Nonnull
-    @Override
-    public OWLObjectProperty getNamedProperty() {
-        return this;
     }
 }

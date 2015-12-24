@@ -28,16 +28,21 @@ import java.util.Set;
  * @since 2.0.0
  */
 public interface OWLInverseObjectPropertiesAxiom
-        extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+    extends OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
 
     @Override
-    OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
+        OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
+    default int hashIndex() {
+        return 83;
+    }
 
     @Override
-    Set<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
+        Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
+
+    @Override
+        Set<OWLInverseObjectPropertiesAxiom> splitToAnnotatedPairs();
 
     /**
      * @return the first of the two object properties.
@@ -72,5 +77,10 @@ public interface OWLInverseObjectPropertiesAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.INVERSE_OBJECT_PROPERTIES;
     }
 }

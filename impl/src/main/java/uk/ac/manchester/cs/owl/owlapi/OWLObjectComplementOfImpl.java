@@ -15,11 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
 /**
@@ -40,16 +37,6 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
     }
 
     @Override
-    public int typeIndex() {
-        return CLASS_EXPRESSION_TYPE_INDEX_BASE + 3;
-    }
-
-    @Override
-    public ClassExpressionType getClassExpressionType() {
-        return ClassExpressionType.OBJECT_COMPLEMENT_OF;
-    }
-
-    @Override
     public boolean isClassExpressionLiteral() {
         return !operand.isAnonymous();
     }
@@ -57,25 +44,5 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
     @Override
     public OWLClassExpression getOperand() {
         return operand;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLObjectComplementOf)) {
-            return false;
-        }
-        return ((OWLObjectComplementOf) obj).getOperand().equals(operand);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLObjectComplementOf other = (OWLObjectComplementOf) object;
-        return operand.compareTo(other.getOperand());
     }
 }

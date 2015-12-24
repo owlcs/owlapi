@@ -31,6 +31,11 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
         OWLDeclarationAxiom getAxiomWithoutAnnotations();
 
     @Override
+    default int hashIndex() {
+        return 23;
+    }
+
+    @Override
     default Stream<?> components() {
         return Stream.of(getEntity(), annotations());
     }
@@ -63,5 +68,10 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.DECLARATION;
     }
 }

@@ -24,16 +24,21 @@ import java.util.Set;
  * @since 2.0.0
  */
 public interface OWLEquivalentDataPropertiesAxiom
-        extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
+    extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
     @Override
-    OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations();
+        OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations();
 
     @Override
-    Set<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms();
+    default int hashIndex() {
+        return 59;
+    }
 
     @Override
-    Set<OWLEquivalentDataPropertiesAxiom> splitToAnnotatedPairs();
+        Set<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms();
+
+    @Override
+        Set<OWLEquivalentDataPropertiesAxiom> splitToAnnotatedPairs();
 
     /**
      * @return the axioms equivalent to the equivalent data properties axiom
@@ -58,5 +63,10 @@ public interface OWLEquivalentDataPropertiesAxiom
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.EQUIVALENT_DATA_PROPERTIES;
     }
 }

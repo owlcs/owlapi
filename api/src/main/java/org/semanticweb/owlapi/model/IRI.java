@@ -426,11 +426,6 @@ public class IRI
     }
 
     @Override
-    public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        return false;
-    }
-
-    @Override
     public int compareTo(@Nullable OWLObject o) {
         checkNotNull(o);
         assert o != null;
@@ -514,5 +509,10 @@ public class IRI
     @Override
     public Stream<?> componentsAnnotationsFirst() {
         return components();
+    }
+
+    @Override
+    public int hashIndex() {
+        return 863;
     }
 }

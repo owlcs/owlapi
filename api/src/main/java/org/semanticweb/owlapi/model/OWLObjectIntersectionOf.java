@@ -24,6 +24,21 @@ package org.semanticweb.owlapi.model;
 public interface OWLObjectIntersectionOf extends OWLNaryBooleanClassExpression {
 
     @Override
+    default int hashIndex() {
+        return 211;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 3001;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_INTERSECTION_OF;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

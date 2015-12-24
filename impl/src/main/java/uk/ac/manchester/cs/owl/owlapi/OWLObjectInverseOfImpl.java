@@ -13,19 +13,16 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements OWLObjectInverseOf {
+public class OWLObjectInverseOfImpl extends OWLObjectImpl implements OWLObjectInverseOf {
 
     @Nonnull private final OWLObjectProperty inverseProperty;
 
@@ -38,41 +35,12 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
     }
 
     @Override
-    public int typeIndex() {
-        return OBJECT_PROPERTY_INVERSE;
-    }
-
-    @Override
     public OWLObjectProperty getInverse() {
         return inverseProperty;
     }
 
     @Override
-    public OWLObjectPropertyExpression getInverseProperty() {
-        return getInverse();
-    }
-
-    @Override
     public OWLObjectProperty getNamedProperty() {
         return inverseProperty;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLObjectInverseOf)) {
-            return false;
-        }
-        return ((OWLObjectInverseOf) obj).getInverse().equals(inverseProperty);
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return inverseProperty.compareTo(((OWLObjectInverseOf) object).getInverse());
     }
 }

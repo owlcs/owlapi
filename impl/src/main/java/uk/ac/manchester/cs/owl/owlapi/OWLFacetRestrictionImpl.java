@@ -15,11 +15,9 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
@@ -44,11 +42,6 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     }
 
     @Override
-    public int typeIndex() {
-        return DATA_TYPE_INDEX_BASE + 7;
-    }
-
-    @Override
     public OWLFacet getFacet() {
         return facet;
     }
@@ -56,30 +49,5 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRe
     @Override
     public OWLLiteral getFacetValue() {
         return facetValue;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (this == obj) {
-            return true;
-        }
-        if (obj instanceof OWLFacetRestriction) {
-            OWLFacetRestriction object = (OWLFacetRestriction) obj;
-            return facet.equals(object.getFacet()) && facetValue.equals(object.getFacetValue());
-        }
-        return false;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        OWLFacetRestriction other = (OWLFacetRestriction) object;
-        int diff = facet.compareTo(other.getFacet());
-        if (diff != 0) {
-            return diff;
-        }
-        return facetValue.compareTo(other.getFacetValue());
     }
 }

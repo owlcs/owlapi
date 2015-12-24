@@ -33,6 +33,11 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
         OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
 
     @Override
+    default int hashIndex() {
+        return 107;
+    }
+
+    @Override
     default Stream<?> components() {
         return Stream.of(getPropertyChain(), getSuperProperty(), annotations());
     }
@@ -86,5 +91,10 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     @Override
     default <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    default AxiomType<?> getAxiomType() {
+        return AxiomType.SUB_PROPERTY_CHAIN_OF;
     }
 }

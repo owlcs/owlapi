@@ -22,6 +22,21 @@ package org.semanticweb.owlapi.model;
  */
 public interface OWLObjectExactCardinality extends OWLObjectCardinalityRestriction {
 
+    @Override
+    default int hashIndex() {
+        return 199;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 3009;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.OBJECT_EXACT_CARDINALITY;
+    }
+
     /**
      * Obtains an equivalent form that is a conjunction of a min cardinality and
      * max cardinality restriction.

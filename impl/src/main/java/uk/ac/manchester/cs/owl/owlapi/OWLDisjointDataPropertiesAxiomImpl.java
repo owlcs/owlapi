@@ -19,9 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
@@ -82,21 +79,5 @@ public class OWLDisjointDataPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl
             result.add(new OWLDisjointDataPropertiesAxiomImpl(new HashSet<>(Arrays.asList(indI, indJ)), annotations));
         }
         return result;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        return obj instanceof OWLDisjointDataPropertiesAxiom;
-    }
-
-    @Override
-    public AxiomType<?> getAxiomType() {
-        return AxiomType.DISJOINT_DATA_PROPERTIES;
     }
 }

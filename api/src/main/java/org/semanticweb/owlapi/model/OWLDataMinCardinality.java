@@ -23,6 +23,21 @@ package org.semanticweb.owlapi.model;
 public interface OWLDataMinCardinality extends OWLDataCardinalityRestriction {
 
     @Override
+    default int hashIndex() {
+        return 179;
+    }
+
+    @Override
+    default int typeIndex() {
+        return 3015;
+    }
+
+    @Override
+    default ClassExpressionType getClassExpressionType() {
+        return ClassExpressionType.DATA_MIN_CARDINALITY;
+    }
+
+    @Override
     default void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }

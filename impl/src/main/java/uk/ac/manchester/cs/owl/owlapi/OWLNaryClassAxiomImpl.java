@@ -12,9 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.compareStreams;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +23,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
 
@@ -51,11 +49,6 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public Set<OWLClassExpression> getClassExpressions() {
-        return copy(classExpressions);
-    }
-
-    @Override
     public Stream<OWLClassExpression> classExpressions() {
         return classExpressions.stream();
     }
@@ -72,28 +65,6 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             result.remove(d);
         }
         return result;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLNaryClassAxiom)) {
-            return false;
-        }
-        if (obj instanceof OWLNaryClassAxiomImpl) {
-            return classExpressions.equals(((OWLNaryClassAxiomImpl) obj).classExpressions);
-        }
-        return compareObjectOfSameType((OWLNaryClassAxiom) obj) == 0;
-    }
-
-    @Override
-    protected int compareObjectOfSameType(OWLObject object) {
-        return compareStreams(classExpressions(), ((OWLNaryClassAxiom) object).classExpressions());
     }
 
     @Override
