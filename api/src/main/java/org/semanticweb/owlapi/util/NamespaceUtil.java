@@ -106,7 +106,16 @@ public class NamespaceUtil implements Serializable {
                 break;
             }
         }
-        String computedPrefix = null;
+        String computedPrefix = computePrefix(namespace, startIndex);
+        String candidatePrefix = computedPrefix;
+        while (namespace2PrefixMap.containsValue(candidatePrefix)
+            || standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
+            candidatePrefix = computedPrefix + candidateIndex.getAndIncrement();
+        }
+        return verifyNotNull(candidatePrefix);
+    }
+
+    protected String computePrefix(String namespace, int startIndex) {
         if (startIndex != -1) {
             int endIndex = startIndex + 1;
             for (int i = startIndex; endIndex < namespace.length() && i < namespace.length(); i++) {
@@ -120,16 +129,9 @@ public class NamespaceUtil implements Serializable {
                     break;
                 }
             }
-            computedPrefix = namespace.substring(startIndex, endIndex);
-        } else {
-            computedPrefix = "p";
+            return namespace.substring(startIndex, endIndex);
         }
-        String candidatePrefix = computedPrefix;
-        while (namespace2PrefixMap.containsValue(candidatePrefix)
-                || standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
-            candidatePrefix = computedPrefix + candidateIndex.getAndIncrement();
-        }
-        return verifyNotNull(candidatePrefix);
+        return "p";
     }
 
     /**

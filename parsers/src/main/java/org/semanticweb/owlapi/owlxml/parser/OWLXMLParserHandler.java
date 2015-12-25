@@ -51,6 +51,7 @@ class OWLXMLParserHandler extends DefaultHandler {
     private Locator locator;
     private final Deque<URI> bases = new LinkedList<>();
     @Nonnull private final OWLOntologyLoaderConfiguration configuration;
+    private final Map<String, IRI> iriMap = new HashMap<>();
 
     /**
      * @param ontology
@@ -68,20 +69,6 @@ class OWLXMLParserHandler extends DefaultHandler {
      */
     public OWLXMLParserHandler(OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         this(ontology, null, configuration);
-    }
-
-    @Override
-    public void setDocumentLocator(@Nullable Locator locator) {
-        super.setDocumentLocator(locator);
-        this.locator = checkNotNull(locator);
-        try {
-            String systemId = this.locator.getSystemId();
-            if (systemId != null) {
-                bases.push(new URI(systemId));
-            }
-        } catch (URISyntaxException e) {
-            LOGGER.warn("Invalid system id uri", e);
-        }
     }
 
     /**
@@ -212,6 +199,20 @@ class OWLXMLParserHandler extends DefaultHandler {
         addFactory(PARSER_SAME_INDIVIDUAL_ATOM);
     }
 
+    @Override
+    public void setDocumentLocator(@Nullable Locator locator) {
+        super.setDocumentLocator(locator);
+        this.locator = checkNotNull(locator);
+        try {
+            String systemId = this.locator.getSystemId();
+            if (systemId != null) {
+                bases.push(new URI(systemId));
+            }
+        } catch (URISyntaxException e) {
+            LOGGER.warn("Invalid system id uri", e);
+        }
+    }
+
     /**
      * @return config
      */
@@ -241,8 +242,6 @@ class OWLXMLParserHandler extends DefaultHandler {
         }
         return -1;
     }
-
-    private final Map<String, IRI> iriMap = new HashMap<>();
 
     /**
      * @param iriStr

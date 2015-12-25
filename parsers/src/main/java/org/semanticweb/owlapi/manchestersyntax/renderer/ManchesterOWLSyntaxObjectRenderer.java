@@ -464,9 +464,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     private void writeBinaryOrNaryList(
         ManchesterOWLSyntax binaryKeyword,
-        Stream<? extends OWLObject> _objects,
+        Stream<? extends OWLObject> stream,
         ManchesterOWLSyntax naryKeyword) {
-        List<? extends OWLObject> objects = asList(_objects);
+        List<? extends OWLObject> objects = asList(stream);
         if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
             it.next().accept(this);

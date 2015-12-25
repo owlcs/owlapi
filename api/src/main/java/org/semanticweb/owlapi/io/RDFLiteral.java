@@ -178,9 +178,8 @@ public class RDFLiteral extends RDFNode implements org.apache.commons.rdf.api.Li
         if (equals(o)) {
             return 0;
         }
-        int diff = 0;
         RDFLiteral lit2 = (RDFLiteral) o;
-        diff = lexicalValue.compareTo(lit2.lexicalValue);
+        int diff = lexicalValue.compareTo(lit2.lexicalValue);
         if (diff == 0) {
             diff = getDatatype().compareTo(lit2.getDatatype());
         }

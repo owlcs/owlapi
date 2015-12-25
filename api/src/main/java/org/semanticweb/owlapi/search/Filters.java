@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
  */
 public class Filters {
 
+    @FunctionalInterface
     private interface Filter<A extends OWLAxiom> {
 
         Object filter(A axiom);

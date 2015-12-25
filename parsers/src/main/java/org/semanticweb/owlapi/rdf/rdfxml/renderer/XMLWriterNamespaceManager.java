@@ -110,10 +110,10 @@ public class XMLWriterNamespaceManager {
         if (name.startsWith(defaultNamespace)) {
             return name.substring(defaultNamespace.length(), name.length());
         }
-        for (String ns : namespacePrefixMap.keySet()) {
-            if (name.startsWith(ns)) {
-                String localName = name.substring(ns.length(), name.length());
-                return namespacePrefixMap.get(ns) + ':' + localName;
+        for (Map.Entry<String, String> e : namespacePrefixMap.entrySet()) {
+            if (name.startsWith(e.getKey())) {
+                String localName = name.substring(e.getKey().length(), name.length());
+                return e.getValue() + ':' + localName;
             }
         }
         return name;
@@ -187,12 +187,11 @@ public class XMLWriterNamespaceManager {
      * @return the first prefix found for the default namespace that is not ""
      */
     public String getDefaultPrefix() {
-        for (String prefix : prefixNamespaceMap.keySet()) {
-            if (!prefix.isEmpty()) {
+        for (Map.Entry<String, String> e : prefixNamespaceMap.entrySet()) {
+            if (!e.getKey().isEmpty()) {
                 // if the default has a blank entry then skip it
-                String ns = prefixNamespaceMap.get(prefix);
-                if (ns.equals(defaultNamespace)) {
-                    return prefix;
+                if (e.getValue().equals(defaultNamespace)) {
+                    return e.getKey();
                 }
             }
         }

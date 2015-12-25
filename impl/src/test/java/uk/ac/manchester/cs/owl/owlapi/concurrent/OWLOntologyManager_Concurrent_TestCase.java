@@ -6,6 +6,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringBufferInputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -42,12 +43,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 public class OWLOntologyManager_Concurrent_TestCase {
 
     private OWLOntologyManager manager;
-    @Mock
-    private Lock readLock, writeLock;
-    @Mock
-    private OWLDataFactory dataFactory;
-    @Mock
-    private ReadWriteLock readWriteLock;
+    @Mock private Lock readLock, writeLock;
+    @Mock private OWLDataFactory dataFactory;
+    @Mock private ReadWriteLock readWriteLock;
     private OWLOntology ontology;
 
     @Before
@@ -276,7 +274,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
 
     @Test
     public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_3() throws OWLOntologyCreationException {
-        InputStream arg0 = mock(InputStream.class);
+        InputStream arg0 = new StringBufferInputStream("some string");
         manager.loadOntologyFromOntologyDocument(arg0);
         verifyWriteLock_LockUnlock();
     }

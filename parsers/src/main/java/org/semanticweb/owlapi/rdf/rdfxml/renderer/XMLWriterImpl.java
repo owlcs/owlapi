@@ -79,23 +79,25 @@ public class XMLWriterImpl implements XMLWriter {
         Collections.sort(namespaces, new StringLengthComparator());
         entities = new LinkedHashMap<>();
         for (String curNamespace : namespaces) {
-            String curPrefix = "";
-            if (xmlWriterNamespaceManager.getDefaultNamespace().equals(curNamespace)) {
-                curPrefix = xmlWriterNamespaceManager.getDefaultPrefix();
-            } else {
-                curPrefix = xmlWriterNamespaceManager.getPrefixForNamespace(curNamespace);
-            }
+            String curPrefix = getCurrentPrefix(curNamespace);
             if (curPrefix != null && !curPrefix.isEmpty()) {
                 entities.put(curNamespace, '&' + curPrefix + ';');
             }
         }
     }
 
+    @Nullable
+    protected String getCurrentPrefix(String curNamespace) {
+        if (xmlWriterNamespaceManager.getDefaultNamespace().equals(curNamespace)) {
+            return xmlWriterNamespaceManager.getDefaultPrefix();
+        }
+        return xmlWriterNamespaceManager.getPrefixForNamespace(curNamespace);
+    }
+
     protected String swapForEntity(String value) {
-        for (String curEntity : entities.keySet()) {
-            String entityVal = entities.get(curEntity);
-            if (value.length() > curEntity.length()) {
-                String repVal = value.replace(curEntity, entityVal);
+        for (Map.Entry<String, String> e : entities.entrySet()) {
+            if (value.length() > e.getKey().length()) {
+                String repVal = value.replace(e.getKey(), e.getValue());
                 if (repVal.length() < value.length()) {
                     return repVal;
                 }
@@ -206,15 +208,11 @@ public class XMLWriterImpl implements XMLWriter {
             throw new OWLRuntimeException("Cannot create valid XML: qname for " + rootName + " is null");
         }
         writer.write("\n\n<!DOCTYPE " + qName + " [\n");
-        for (String entityVal : entities.keySet()) {
-            String entity = entities.get(entityVal);
-            entity = entity.substring(1, entity.length() - 1);
+        for (Map.Entry<String, String> e : entities.entrySet()) {
             writer.write("    <!ENTITY ");
-            writer.write(entity);
+            writer.write(e.getValue().substring(1, e.getValue().length() - 1));
             writer.write(" \"");
-            entityVal = XMLUtils.escapeXML(entityVal);
-            entityVal = entityVal.replace("%", PERCENT_ENTITY);
-            writer.write(entityVal);
+            writer.write(XMLUtils.escapeXML(e.getKey()).replace("%", PERCENT_ENTITY));
             writer.write("\" >\n");
         }
         writer.write("]>\n\n\n");

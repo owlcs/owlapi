@@ -171,8 +171,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            add(axiom.classExpressions(), rhs);
-            add(axiom.classExpressions(), lhs);
+            add(rhs, axiom.classExpressions());
+            add(lhs, axiom.classExpressions());
         }
 
         @Override
@@ -189,8 +189,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            add(axiom.properties(), rhs);
-            add(axiom.properties(), lhs);
+            add(rhs, axiom.properties());
+            add(lhs, axiom.properties());
         }
 
         @Override
@@ -202,20 +202,20 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
-            add(axiom.individuals(), rhs);
-            add(axiom.individuals(), lhs);
+            add(rhs, axiom.individuals());
+            add(lhs, axiom.individuals());
         }
 
         @Override
         public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-            add(axiom.properties(), rhs);
-            add(axiom.properties(), lhs);
+            add(rhs, axiom.properties());
+            add(lhs, axiom.properties());
         }
 
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            add(axiom.properties(), rhs);
-            add(axiom.properties(), lhs);
+            add(rhs, axiom.properties());
+            add(lhs, axiom.properties());
         }
 
         @Override
@@ -244,10 +244,10 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
-            add(axiom.classExpressions(), rhs);
+            add(rhs, axiom.classExpressions());
             rhs.add(axiom.getOWLClass());
             lhs.add(axiom.getOWLClass());
-            add(axiom.classExpressions(), lhs);
+            add(lhs, axiom.classExpressions());
         }
 
         @Override
@@ -268,8 +268,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            add(axiom.properties(), rhs);
-            add(axiom.properties(), lhs);
+            add(rhs, axiom.properties());
+            add(lhs, axiom.properties());
         }
 
         @Override
@@ -280,8 +280,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            add(axiom.classExpressions(), rhs);
-            add(axiom.classExpressions(), lhs);
+            add(rhs, axiom.classExpressions());
+            add(lhs, axiom.classExpressions());
         }
 
         @Override
@@ -312,8 +312,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
-            add(axiom.individuals(), rhs);
-            add(axiom.individuals(), lhs);
+            add(rhs, axiom.individuals());
+            add(lhs, axiom.individuals());
         }
 
         @Override
@@ -324,8 +324,8 @@ public class JustificationMap {
 
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            add(axiom.properties(), rhs);
-            add(axiom.properties(), lhs);
+            add(rhs, axiom.properties());
+            add(lhs, axiom.properties());
         }
     }
 }

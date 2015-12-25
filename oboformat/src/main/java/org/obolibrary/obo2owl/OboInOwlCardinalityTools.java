@@ -21,10 +21,9 @@ import org.slf4j.LoggerFactory;
 public final class OboInOwlCardinalityTools {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(OboInOwlCardinalityTools.class);
-
     /** Default handler. */
     public static final AnnotationCardinalityConfictHandler DEFAULT_HANDLER = new AnnotationCardinalityConfictHandler() {
-    
+
         @Override
         public List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity, OWLAnnotationProperty property,
             Collection<OWLAnnotationAssertionAxiom> axioms) {
@@ -40,7 +39,7 @@ public final class OboInOwlCardinalityTools {
             }
             throw new AnnotationCardinalityException("Could not resolve conflict for property: " + property);
         }
-    
+
         @Override
         public List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
             Collection<OWLAnnotation> ontologyAnnotations) {
@@ -217,18 +216,17 @@ public final class OboInOwlCardinalityTools {
             }
         }
         // check cardinality constraint
-        for (OWLAnnotationProperty property : groupedAnnotations.keySet()) {
-            Set<OWLAnnotation> group = groupedAnnotations.get(property);
-            if (group.size() > 1) {
+        for (Map.Entry<OWLAnnotationProperty, Set<OWLAnnotation>> e : groupedAnnotations.entrySet()) {
+            if (e.getValue().size() > 1) {
                 if (reporter != null) {
                     // report conflict
-                    reporter.reportConflict(property, group);
+                    reporter.reportConflict(e.getKey(), e.getValue());
                 }
                 if (handler != null) {
                     // handle conflict
                     // if conflict is not resolvable, throws exception
-                    List<OWLAnnotation> changed = handler.handleConflict(property, group);
-                    group.forEach(a -> manager.applyChange(new RemoveOntologyAnnotation(ontology, a)));
+                    List<OWLAnnotation> changed = handler.handleConflict(e.getKey(), e.getValue());
+                    e.getValue().forEach(a -> manager.applyChange(new RemoveOntologyAnnotation(ontology, a)));
                     changed.forEach(a -> manager.applyChange(new AddOntologyAnnotation(ontology, a)));
                 }
             }
@@ -254,18 +252,18 @@ public final class OboInOwlCardinalityTools {
             }
         }
         // check cardinality constraint
-        for (OWLAnnotationProperty property : groupedAxioms.keySet()) {
-            Set<OWLAnnotationAssertionAxiom> group = groupedAxioms.get(property);
-            if (group.size() > 1) {
+        for (Map.Entry<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>> e : groupedAxioms.entrySet()) {
+            if (e.getValue().size() > 1) {
                 if (reporter != null) {
                     // report conflict
-                    reporter.reportConflict(owlClass, property, group);
+                    reporter.reportConflict(owlClass, e.getKey(), e.getValue());
                 }
                 if (handler != null) {
                     // handle conflict
                     // if conflict is not resolvable, throws exception
-                    List<OWLAnnotationAssertionAxiom> changed = handler.handleConflict(owlClass, property, group);
-                    ontology.remove(group);
+                    List<OWLAnnotationAssertionAxiom> changed = handler.handleConflict(owlClass, e.getKey(), e
+                        .getValue());
+                    ontology.remove(e.getValue());
                     ontology.add(changed);
                 }
             }

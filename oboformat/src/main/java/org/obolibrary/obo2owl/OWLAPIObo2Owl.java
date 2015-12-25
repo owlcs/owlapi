@@ -82,7 +82,7 @@ public class OWLAPIObo2Owl {
 
                 @Override
                 public IRI load(String key) {
-                    return oboIdToIRI_load(key);
+                    return loadOboToIRI(key);
                 }
             });
 
@@ -1565,7 +1565,7 @@ public class OWLAPIObo2Owl {
      *        the id
      * @return the iri
      */
-    public IRI oboIdToIRI_load(String id) {
+    public IRI loadOboToIRI(String id) {
         if (id.contains(" ")) {
             LOG.error("id contains space: \"{}\"", id);
             throw new OWLParserException("spaces not allowed: '" + id + '\'');

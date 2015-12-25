@@ -470,7 +470,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             String iriString = owlEntity.toString();
             // axioms referring entities with this IRI, data property assertions
             // with IRI as subject, annotations with IRI as subject or object.
-            entitiesInSignature((IRI) owlEntity).forEach(e -> OWLAPIStreamUtils.add(referencingAxioms(e), axioms));
+            entitiesInSignature((IRI) owlEntity).forEach(e -> OWLAPIStreamUtils.add(axioms, referencingAxioms(e)));
             axioms(AxiomType.DATA_PROPERTY_ASSERTION)
                 .filter(ax -> OWL2Datatype.XSD_ANY_URI.matches(ax.getObject().getDatatype()))
                 .filter(ax -> ax.getObject().getLiteral().equals(iriString))

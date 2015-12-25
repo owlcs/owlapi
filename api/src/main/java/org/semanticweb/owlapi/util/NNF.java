@@ -200,14 +200,11 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
                 }
                 negated = false;
                 OWLClassExpression filler = ce.getFiller().accept(this);
-                OWLClassExpression nnf = null;
-                if (neg) {
-                    nnf = df.getOWLObjectMaxCardinality(card, ce.getProperty(), filler);
-                } else {
-                    nnf = df.getOWLObjectMinCardinality(card, ce.getProperty(), filler);
-                }
                 negated = neg;
-                return nnf;
+                if (neg) {
+                    return df.getOWLObjectMaxCardinality(card, ce.getProperty(), filler);
+                }
+                return df.getOWLObjectMinCardinality(card, ce.getProperty(), filler);
             }
 
             @Override
@@ -224,14 +221,11 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
                 }
                 negated = false;
                 OWLClassExpression filler = ce.getFiller().accept(this);
-                OWLClassExpression nnf = null;
-                if (neg) {
-                    nnf = df.getOWLObjectMinCardinality(card, ce.getProperty(), filler);
-                } else {
-                    nnf = df.getOWLObjectMaxCardinality(card, ce.getProperty(), filler);
-                }
                 negated = neg;
-                return nnf;
+                if (neg) {
+                    return df.getOWLObjectMinCardinality(card, ce.getProperty(), filler);
+                }
+                return df.getOWLObjectMaxCardinality(card, ce.getProperty(), filler);
             }
 
             @Override
@@ -295,14 +289,11 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
                 }
                 negated = false;
                 OWLDataRange filler = ce.getFiller().accept(dataVisitor);
-                OWLClassExpression nnf = null;
-                if (neg) {
-                    nnf = df.getOWLDataMinCardinality(card, ce.getProperty(), filler);
-                } else {
-                    nnf = df.getOWLDataMaxCardinality(card, ce.getProperty(), filler);
-                }
                 negated = neg;
-                return nnf;
+                if (neg) {
+                    return df.getOWLDataMinCardinality(card, ce.getProperty(), filler);
+                }
+                return df.getOWLDataMaxCardinality(card, ce.getProperty(), filler);
             }
 
             @Override
@@ -317,14 +308,11 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
                 }
                 negated = false;
                 OWLDataRange filler = ce.getFiller().accept(dataVisitor);
-                OWLClassExpression nnf = null;
-                if (neg) {
-                    nnf = df.getOWLDataMaxCardinality(card, ce.getProperty(), filler);
-                } else {
-                    nnf = df.getOWLDataMinCardinality(card, ce.getProperty(), filler);
-                }
                 negated = neg;
-                return nnf;
+                if (neg) {
+                    return df.getOWLDataMaxCardinality(card, ce.getProperty(), filler);
+                }
+                return df.getOWLDataMinCardinality(card, ce.getProperty(), filler);
             }
         };
     }

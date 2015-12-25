@@ -177,6 +177,11 @@ abstract class OWLElementHandler<O> {
     String elementName;
     final OWLDataFactory df;
 
+    OWLElementHandler(OWLXMLParserHandler handler) {
+        this.handler = handler;
+        df = handler.getDataFactory();
+    }
+
     /**
      * @return object
      */
@@ -187,11 +192,6 @@ abstract class OWLElementHandler<O> {
      *         if an import cannot be resolved
      */
     abstract void endElement();
-
-    OWLElementHandler(OWLXMLParserHandler handler) {
-        this.handler = handler;
-        df = handler.getDataFactory();
-    }
 
     IRI getIRIFromAttribute(String localName, String value) {
         if (localName.equals(IRI_ATTRIBUTE.getShortForm())) {
@@ -1022,13 +1022,13 @@ class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElementHandle
 
 class OWLAnnotationAssertionElementHandler extends AbstractOWLAxiomElementHandler {
 
-    OWLAnnotationAssertionElementHandler(OWLXMLParserHandler handler) {
-        super(handler);
-    }
-
     OWLAnnotationSubject subject;
     OWLAnnotationValue object;
     OWLAnnotationProperty property;
+
+    OWLAnnotationAssertionElementHandler(OWLXMLParserHandler handler) {
+        super(handler);
+    }
 
     @Override
         void handleChild(AbstractIRIElementHandler h) {
@@ -2875,11 +2875,11 @@ class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler {
 
 class SWRLVariableElementHandler extends OWLElementHandler<SWRLVariable> {
 
+    IRI iri;
+
     SWRLVariableElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
-
-    IRI iri;
 
     @Override
         void endElement() {

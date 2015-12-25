@@ -21,7 +21,7 @@ public class OWLAPIStreamUtils {
      */
     public static <T> Set<T> asSet(Stream<T> s) {
         Set<T> set = new LinkedHashSet<>();
-        s.forEach(x -> set.add(x));
+        add(set, s);
         return set;
     }
 
@@ -37,7 +37,7 @@ public class OWLAPIStreamUtils {
     @SuppressWarnings("unchecked")
     public static <T> Set<T> asSet(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
         Set<T> set = new LinkedHashSet<>();
-        s.forEach(x -> set.add((T) x));
+        add(set, s.map(x -> (T) x));
         return set;
     }
 
@@ -48,7 +48,7 @@ public class OWLAPIStreamUtils {
      */
     public static <T> List<T> asList(Stream<T> s) {
         List<T> set = new ArrayList<>();
-        s.forEach(x -> set.add(x));
+        add(set, s);
         return set;
     }
 
@@ -58,9 +58,7 @@ public class OWLAPIStreamUtils {
      * @return list including all elements in the stream
      */
     public static <T> List<T> asListNullsForbidden(Stream<T> s) {
-        List<T> set = new ArrayList<>();
-        s.forEach(x -> set.add(checkNotNull(x)));
-        return set;
+        return asList(s.map(x -> checkNotNull(x)));
     }
 
     /**
@@ -74,9 +72,7 @@ public class OWLAPIStreamUtils {
      */
     @SuppressWarnings("unchecked")
     public static <T> List<T> asList(Stream<?> s, @SuppressWarnings("unused") Class<T> type) {
-        List<T> set = new ArrayList<>();
-        s.forEach(x -> set.add((T) x));
-        return set;
+        return asList(s.map(x -> (T) x));
     }
 
     /**
@@ -98,21 +94,10 @@ public class OWLAPIStreamUtils {
      *        collection to add to
      * @return true if any element in the stream is added to the collection
      */
-    public static <T> boolean add(Stream<T> s, Collection<? super T> c) {
+    public static <T> boolean add(Collection<? super T> c, Stream<T> s) {
         AtomicBoolean b = new AtomicBoolean(false);
         s.forEach(x -> b.compareAndSet(false, c.add(x)));
         return b.get();
-    }
-
-    /**
-     * @param s
-     *        stream of elements to add
-     * @param c
-     *        collection to add to
-     * @return true if any element in the stream is added to the collection
-     */
-    public static <T> boolean add(Collection<? super T> c, Stream<T> s) {
-        return add(s, c);
     }
 
     /**

@@ -1026,7 +1026,7 @@ public class OBOFormatParser {
     // Synonyms
     // ----------------------------------------
     private boolean parseDeprecatedSynonym(String tag, Clause cl) {
-        String scope = null;
+        String scope;
         if (tag.equals("exact_synonym")) {
             scope = OboFormatTag.TAG_EXACT.getTag();
         } else if (tag.equals("narrow_synonym")) {

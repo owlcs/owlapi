@@ -54,10 +54,9 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
             if (format instanceof PrefixDocumentFormat) {
                 PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) format;
                 Map<String, String> map = fromPrefixFormat.getPrefixName2PrefixMap();
-                for (String prefixName : map.keySet()) {
-                    String prefix = map.get(prefixName);
-                    if (prefix != null && !prefix.isEmpty()) {
-                        w.writePrefix(prefixName, prefix);
+                for (Map.Entry<String, String> e : map.entrySet()) {
+                    if (e.getValue() != null && !e.getValue().isEmpty()) {
+                        w.writePrefix(e.getKey(), e.getValue());
                     }
                 }
                 if (!map.containsKey("rdf:")) {

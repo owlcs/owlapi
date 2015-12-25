@@ -84,7 +84,6 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         }
         URI uri = iri.toURI();
         String path = uri.getPath();
-        String shortForm = null;
         if (path != null && !path.isEmpty()) {
             String candidatePathElement = "";
             for (String tok : Splitter.on('/').split(path)) {
@@ -92,13 +91,12 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
                     candidatePathElement = stripExtensionIfPresent(tok);
                 }
             }
-            shortForm = candidatePathElement;
-        } else if (uri.getHost() != null) {
-            shortForm = iri.toString();
-        } else {
-            shortForm = iri.toString();
+            return candidatePathElement;
         }
-        return shortForm;
+        if (uri.getHost() != null) {
+            return iri.toString();
+        }
+        return iri.toString();
     }
 
     @Nullable

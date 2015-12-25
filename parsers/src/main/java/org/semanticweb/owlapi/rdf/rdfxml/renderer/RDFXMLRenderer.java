@@ -140,7 +140,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         String iriString = entity.getIRI().toString();
         if (XMLWriterPreferences.getInstance().isLabelsAsBanner()) {
             String labelString = labelMaker.getShortForm(entity);
-            String commentString = null;
+            String commentString;
             if (!iriString.equals(labelString)) {
                 commentString = labelString;
             } else {

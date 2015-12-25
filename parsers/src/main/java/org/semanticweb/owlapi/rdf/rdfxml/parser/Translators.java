@@ -1711,13 +1711,15 @@ public class Translators {
             if (ruleBodyIRI != null) {
                 antecedent = listTranslator.translateToSet(ruleBodyIRI);
             }
-            SWRLRule rule = null;
+            consumer.addAxiom(getRule(remappedNode, annotations, consequent, antecedent));
+        }
+
+        protected SWRLRule getRule(IRI remappedNode, Set<OWLAnnotation> annotations, Set<SWRLAtom> consequent,
+            Set<SWRLAtom> antecedent) {
             if (!consumer.isAnonymousNode(remappedNode)) {
-                rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent, annotations);
-            } else {
-                rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent, annotations);
+                return consumer.getDataFactory().getSWRLRule(antecedent, consequent, annotations);
             }
-            consumer.addAxiom(rule);
+            return consumer.getDataFactory().getSWRLRule(antecedent, consequent, annotations);
         }
     }
 

@@ -265,7 +265,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                         mod[i] = true;
                         q2[i] = false;
                         int oldSize = signature.size();
-                        add(ontologyAxiomSet.getAxiom(i).signature(), signature);
+                        add(signature, ontologyAxiomSet.getAxiom(i).signature());
                         // only triggering a change when the signature has
                         // changed doesn't improve performance
                         if (signature.size() > oldSize) {
@@ -323,7 +323,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     mod.add(ax);
                     q2remove.add(ax);
                     int oldSize = signature.size();
-                    add(ax.signature(), signature);
+                    add(signature, ax.signature());
                     // only triggering a change when the signature has changed
                     // doesn't improve performance
                     if (signature.size() > oldSize) {

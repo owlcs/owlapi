@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -70,17 +71,7 @@ public class XZStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private void readIntoBuffer(InputStream reader) {
         try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            int length = 100000;
-            byte[] tempBuffer = new byte[length];
-            int read = 0;
-            do {
-                read = reader.read(tempBuffer, 0, length);
-                if (read > 0) {
-                    bos.write(tempBuffer, 0, read);
-                }
-            } while (read > 0);
-            buffer = bos.toByteArray();
+            buffer = IOUtils.toByteArray(reader);
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }

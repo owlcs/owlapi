@@ -23,6 +23,7 @@ import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.io.IOUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -148,15 +149,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             GZIPOutputStream out = new GZIPOutputStream(bos);
-            int length = 100000;
-            byte[] tempBuffer = new byte[length];
-            int read = 0;
-            do {
-                read = reader.read(tempBuffer, 0, length);
-                if (read > 0) {
-                    out.write(tempBuffer, 0, read);
-                }
-            } while (read > 0);
+            IOUtils.copy(reader, out);
             out.finish();
             out.flush();
             byteBuffer = bos.toByteArray();
@@ -170,15 +163,7 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             GZIPOutputStream out = new GZIPOutputStream(bos);
             OutputStreamWriter writer = new OutputStreamWriter(out);
-            int length = 100000;
-            char[] tempBuffer = new char[length];
-            int read = 0;
-            do {
-                read = reader.read(tempBuffer, 0, length);
-                if (read > 0) {
-                    writer.write(tempBuffer, 0, read);
-                }
-            } while (read > 0);
+            IOUtils.copy(reader, writer);
             writer.flush();
             out.finish();
             out.flush();

@@ -784,25 +784,12 @@ public class StructuralReasoner extends OWLReasonerBase {
             stack.push(entity);
             stackEntities.add(entity);
             // Get the raw parents - cache if necessary
-            Collection<T> rawParents = null;
+            Collection<T> rawParents;
             if (cache != null) {
                 // We are therefore caching raw parents of children.
-                rawParents = cache.get(entity);
-                if (rawParents == null) {
-                    // Not in cache!
-                    rawParents = rawParentChildProvider.getParents(entity);
-                    // Note down if our entity is a
-                    if (rawParents.isEmpty() || rawParents.contains(topEntity)) {
-                        childrenOfTop.add(entity);
-                    }
-                    cache.put(entity, rawParents);
-                }
+                rawParents = cache.computeIfAbsent(entity, e -> computeParents(e, childrenOfTop));
             } else {
-                rawParents = rawParentChildProvider.getParents(entity);
-                // Note down if our entity is a
-                if (rawParents.isEmpty() || rawParents.contains(topEntity)) {
-                    childrenOfTop.add(entity);
-                }
+                rawParents = computeParents(entity, childrenOfTop);
             }
             for (T superEntity : rawParents) {
                 if (!indexMap.containsKey(superEntity)) {
@@ -828,6 +815,16 @@ public class StructuralReasoner extends OWLReasonerBase {
                     result.add(scc);
                 }
             }
+        }
+
+        protected Collection<T> computeParents(T entity, Set<T> childrenOfTop) {
+            Collection<T> rawParents;
+            rawParents = rawParentChildProvider.getParents(entity);
+            // Note down if our entity is a
+            if (rawParents.isEmpty() || rawParents.contains(topEntity)) {
+                childrenOfTop.add(entity);
+            }
+            return rawParents;
         }
 
         public NodeSet<T> getNodeHierarchyChildren(T parent, boolean direct, DefaultNodeSet<T> ns) {
@@ -1203,15 +1200,8 @@ public class StructuralReasoner extends OWLReasonerBase {
             propertyManager = new OWLObjectPropertyManager(getRootOntology());
             sub2Super = propertyManager.getPropertyHierarchy();
             super2Sub = new HashMap<>();
-            for (OWLObjectPropertyExpression sub : sub2Super.keySet()) {
-                for (OWLObjectPropertyExpression superProp : sub2Super.get(sub)) {
-                    Set<OWLObjectPropertyExpression> subs = super2Sub.get(superProp);
-                    if (subs == null) {
-                        subs = new HashSet<>();
-                        super2Sub.put(superProp, subs);
-                    }
-                    subs.add(sub);
-                }
+            for (Map.Entry<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> e : sub2Super.entrySet()) {
+                e.getValue().forEach(a -> super2Sub.computeIfAbsent(a, x -> new HashSet<>()).add(e.getKey()));
             }
         }
 

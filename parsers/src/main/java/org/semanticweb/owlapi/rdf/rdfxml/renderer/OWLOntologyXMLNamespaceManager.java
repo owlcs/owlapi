@@ -67,10 +67,9 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         if (ontologyFormat instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat namespaceFormat = (PrefixDocumentFormat) ontologyFormat;
             Map<String, String> namespacesByPrefix = namespaceFormat.getPrefixName2PrefixMap();
-            for (String prefixName : namespacesByPrefix.keySet()) {
-                String xmlnsPrefixName = prefixName.substring(0, prefixName.length() - 1);
-                String xmlnsPrefix = namespacesByPrefix.get(prefixName);
-                namespaceUtil.setPrefix(verifyNotNull(xmlnsPrefix), verifyNotNull(xmlnsPrefixName));
+            for (Map.Entry<String, String> e : namespacesByPrefix.entrySet()) {
+                String xmlnsPrefixName = e.getKey().substring(0, e.getKey().length() - 1);
+                namespaceUtil.setPrefix(verifyNotNull(e.getValue()), verifyNotNull(xmlnsPrefixName));
             }
         }
         if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
@@ -89,11 +88,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
         Set<OWLEntity> result = new HashSet<>();
-        add(ontology.classesInSignature(), result);
-        add(ontology.objectPropertiesInSignature(), result);
-        add(ontology.dataPropertiesInSignature(), result);
-        add(ontology.individualsInSignature(), result);
-        add(ontology.annotationPropertiesInSignature(), result);
+        add(result, ontology.classesInSignature());
+        add(result, ontology.objectPropertiesInSignature());
+        add(result, ontology.dataPropertiesInSignature());
+        add(result, ontology.individualsInSignature());
+        add(result, ontology.annotationPropertiesInSignature());
         return result;
     }
 

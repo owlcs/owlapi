@@ -922,19 +922,17 @@ public class OBOFormatWriter {
      * @return toString representation
      */
     private static String toStringRepresentation(@Nullable Object obj) {
-        String s = "";
         if (obj == null) {
             return "";
         }
         if (obj instanceof Xref) {
             Xref xref = (Xref) obj;
-            s = xref.getIdref() + ' ' + xref.getAnnotation();
-        } else if (obj instanceof String) {
-            s = (String) obj;
-        } else {
-            s = obj.toString();
+            return xref.getIdref() + ' ' + xref.getAnnotation();
         }
-        return s;
+        if (obj instanceof String) {
+            return (String) obj;
+        }
+        return obj.toString();
     }
 
     /** The Class XrefComparator. */

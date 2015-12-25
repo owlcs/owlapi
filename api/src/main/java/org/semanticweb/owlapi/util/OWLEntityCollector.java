@@ -73,7 +73,7 @@ public class OWLEntityCollector extends AbstractCollectorEx<OWLEntity> {
 
     @Override
     public Collection<OWLEntity> visit(OWLOntology ontology) {
-        add(ontology.signature(), objects);
+        add(objects, ontology.signature());
         return objects;
     }
 

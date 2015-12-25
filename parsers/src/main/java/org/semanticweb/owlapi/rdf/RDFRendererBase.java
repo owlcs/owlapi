@@ -404,7 +404,7 @@ public abstract class RDFRendererBase {
         if (!punned.contains(entity.getIRI())) {
             add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(), EXCLUDED));
         }
-        add(ontology.declarationAxioms(entity), axioms);
+        add(axioms, ontology.declarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {
 
             @Override

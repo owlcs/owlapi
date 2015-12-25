@@ -1090,7 +1090,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     protected OWLAnnotation parseAnnotation() {
         OWLAnnotationProperty annoProp = parseAnnotationProperty();
         String obj = peekToken();
-        OWLAnnotation anno = null;
         if (isIndividualName(obj) || isClassName(obj) || isObjectPropertyName(obj) || isDataPropertyName(obj)) {
             consumeToken();
             OWLAnnotationValue value;
@@ -1099,15 +1098,14 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             } else {
                 value = getIRI(obj);
             }
-            anno = df.getOWLAnnotation(annoProp, value);
-        } else if (obj.startsWith("<")) {
-            IRI value = parseIRI();
-            anno = df.getOWLAnnotation(annoProp, value);
-        } else {
-            OWLLiteral con = parseLiteral(null);
-            anno = df.getOWLAnnotation(annoProp, con);
+            return df.getOWLAnnotation(annoProp, value);
         }
-        return anno;
+        if (obj.startsWith("<")) {
+            IRI value = parseIRI();
+            return df.getOWLAnnotation(annoProp, value);
+        }
+        OWLLiteral con = parseLiteral(null);
+        return df.getOWLAnnotation(annoProp, con);
     }
 
     @Override
@@ -1536,7 +1534,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         String predicate = consumeToken();
         consumeToken(OPEN.keyword());
         SWRLBuiltInsVocabulary v = null;
-        IRI iri = null;
+        IRI iri;
         if (!ruleBuiltIns.containsKey(predicate)) {
             iri = getIRI(predicate);
         } else {

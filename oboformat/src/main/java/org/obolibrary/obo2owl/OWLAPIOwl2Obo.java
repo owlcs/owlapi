@@ -1318,7 +1318,6 @@ public class OWLAPIOwl2Obo {
             for (OWLClassExpression oce : list2) {
                 String id = getIdentifier(oce);
                 if (id == null) {
-                    isUntranslateable = true;
                     error(ax, true);
                     return;
                 }
@@ -1766,13 +1765,7 @@ public class OWLAPIOwl2Obo {
         // String canonicalId = iri.replace("http://purl.obolibrary.org/obo/",
         // "");
         // }
-        int indexSlash = iri.lastIndexOf('/');
-        String id = null;
-        if (indexSlash > -1) {
-            id = iri.substring(indexSlash + 1);
-        } else {
-            id = iri;
-        }
+        String id = getId(iri);
         String[] s = id.split("#_");
         // table 5.9.2 row 2 - NonCanonical-Prefixed-ID
         if (s.length > 1) {
@@ -1824,6 +1817,14 @@ public class OWLAPIOwl2Obo {
                 sb.append(s[i]);
             }
             return sb.toString();
+        }
+        return iri;
+    }
+
+    protected static String getId(String iri) {
+        int indexSlash = iri.lastIndexOf('/');
+        if (indexSlash > -1) {
+            return iri.substring(indexSlash + 1);
         }
         return iri;
     }
@@ -2006,7 +2007,6 @@ public class OWLAPIOwl2Obo {
             // ObjectSomeValuesFrom(p filler))
             if (xs.size() == 2) {
                 OWLClass c = null;
-                OWLObjectSomeValuesFrom r = null;
                 OWLObjectProperty p = null;
                 OWLClass filler = null;
                 for (OWLClassExpression x : xs) {
@@ -2014,7 +2014,7 @@ public class OWLAPIOwl2Obo {
                         c = (OWLClass) x;
                     }
                     if (x instanceof OWLObjectSomeValuesFrom) {
-                        r = (OWLObjectSomeValuesFrom) x;
+                        OWLObjectSomeValuesFrom r = (OWLObjectSomeValuesFrom) x;
                         if (r.getProperty().isOWLObjectProperty() && r.getFiller() instanceof OWLClass) {
                             p = r.getProperty().asOWLObjectProperty();
                             filler = (OWLClass) r.getFiller();
@@ -2304,14 +2304,14 @@ public class OWLAPIOwl2Obo {
         if (!target.getValue().equals(newQV.getValue())) {
             if ("minCardinality".equals(target.getQualifier())) {
                 // try to merge, parse as integers
-                int currentValue = Integer.parseInt(target.getValue().toString());
-                int newValue = Integer.parseInt(newQV.getValue().toString());
+                int currentValue = Integer.parseInt(target.getValue());
+                int newValue = Integer.parseInt(newQV.getValue());
                 int mergedValue = Math.min(currentValue, newValue);
                 target.setValue(Integer.toString(mergedValue));
             } else if ("maxCardinality".equals(target.getQualifier())) {
                 // try to merge, parse as integers
-                int currentValue = Integer.parseInt(target.getValue().toString());
-                int newValue = Integer.parseInt(newQV.getValue().toString());
+                int currentValue = Integer.parseInt(target.getValue());
+                int newValue = Integer.parseInt(newQV.getValue());
                 int mergedValue = Math.max(currentValue, newValue);
                 target.setValue(Integer.toString(mergedValue));
             }

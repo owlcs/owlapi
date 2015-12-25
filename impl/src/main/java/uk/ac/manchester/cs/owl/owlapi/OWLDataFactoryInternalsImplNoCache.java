@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.*;
@@ -30,7 +31,7 @@ import org.semanticweb.owlapi.model.*;
  */
 public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInternals, Serializable {
 
-    @Nullable private OWLLiteral negativeFloatZero;
+    @Nonnull private final OWLLiteral negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
     private final boolean useCompression;
 
     /**
@@ -182,23 +183,17 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     }
 
     protected OWLLiteral parseFloat(String lexicalValue, OWLDatatype datatype) {
-        OWLLiteral literal;
         if (lexicalValue.trim().equals("-0.0")) {
             // according to some W3C test, this needs to be
             // different from 0.0; Java floats disagree
-            if (negativeFloatZero == null) {
-                negativeFloatZero = getBasicLiteral("-0.0", XSDFLOAT);
-            }
-            literal = negativeFloatZero;
-        } else {
-            try {
-                float f = Float.parseFloat(lexicalValue);
-                literal = getOWLLiteral(f);
-            } catch (@SuppressWarnings("unused") NumberFormatException e) {
-                literal = getBasicLiteral(lexicalValue, datatype);
-            }
+            return negativeFloatZero;
         }
-        return literal;
+        try {
+            float f = Float.parseFloat(lexicalValue);
+            return getOWLLiteral(f);
+        } catch (@SuppressWarnings("unused") NumberFormatException e) {
+            return getBasicLiteral(lexicalValue, datatype);
+        }
     }
 
     protected OWLLiteral getBasicLiteral(String lexicalValue, OWLDatatype datatype) {
@@ -206,17 +201,13 @@ public class OWLDataFactoryInternalsImplNoCache implements OWLDataFactoryInterna
     }
 
     protected OWLLiteral getBasicLiteral(String lexicalValue, String lang, @Nullable OWLDatatype datatype) {
-        OWLLiteral literal = null;
         if (useCompression) {
             if (datatype == null || datatype.isRDFPlainLiteral() || datatype.equals(LANGSTRING)) {
-                literal = new OWLLiteralImplPlain(lexicalValue, lang);
-            } else {
-                literal = new OWLLiteralImpl(lexicalValue, lang, datatype);
+                return new OWLLiteralImplPlain(lexicalValue, lang);
             }
-        } else {
-            literal = new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
+            return new OWLLiteralImpl(lexicalValue, lang, datatype);
         }
-        return literal;
+        return new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
     }
 
     private static boolean isBooleanTrueValue(String lexicalValue) {

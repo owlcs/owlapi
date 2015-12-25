@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  */
 public class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
 
+    @FunctionalInterface
     private static interface Builder<T> {
 
         T buildEntity(IRI i, EntityProvider p);

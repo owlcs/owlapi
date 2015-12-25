@@ -41,24 +41,20 @@ public abstract class RDFResource extends RDFNode implements org.apache.commons.
         if (equals(o)) {
             return 0;
         }
-        int diff = 0;
         boolean anonA = isAnonymous();
         boolean anonB = o.isAnonymous();
         if (anonA == anonB) {
             // if both are anonymous or both are not anonymous,
             // comparing the id() values corresponds to comparing IRIs or
             // comparing bnode ids
-            diff = getIRI().compareTo(o.getIRI());
-        } else {
-            // if one is anonymous and the other is not,
-            // named nodes come first
-            if (!anonA) {
-                diff = -1;
-            } else {
-                diff = 1;
-            }
+            return getIRI().compareTo(o.getIRI());
         }
-        return diff;
+        // if one is anonymous and the other is not,
+        // named nodes come first
+        if (!anonA) {
+            return -1;
+        }
+        return 1;
     }
 
     @Override
